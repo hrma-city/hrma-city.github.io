@@ -59,6 +59,34 @@ window.RMC_BENCHMARK = {
       pub: "2026-04-09",
       url: "https://www.ctnews.com.cn/paper/content/202604/09/content_112136.html",
       caliber: "上市公司披露"
+    },
+    shStats9: {
+      name: "上海市统计局《2025年9月份星级饭店》",
+      org: "上海市统计局（数据源：上海市文化和旅游局）",
+      pub: "2025-10-22",
+      url: "https://tjj.sh.gov.cn/ydsj57/20251019/e00a763935ff4d86a5dd641062c95c9f.html",
+      caliber: "上海市星级饭店（全量）"
+    },
+    shStats12: {
+      name: "上海市统计局《2025年12月份星级饭店》",
+      org: "上海市统计局（数据源：上海市文化和旅游局）",
+      pub: "2026-01-19",
+      url: "https://tjj.sh.gov.cn/ydsj57/20260119/4c9c938843f1466d8f14c4be7d0ac6d9.html",
+      caliber: "上海市星级饭店（全量）"
+    },
+    shMonthly: {
+      name: "上海市星级饭店 1–9 月月度经济指标",
+      org: "东方财富（数据源：上海市文化和旅游局）",
+      pub: "2025-11-23",
+      url: "https://finance.eastmoney.com/a/202511233572195170.html",
+      caliber: "上海市星级饭店（月度 ADR 序列）"
+    },
+    sh11: {
+      name: "上海前 11 月入境游与住宿市场数据",
+      org: "新民晚报（腾讯新闻转载）",
+      pub: "2025-12-30",
+      url: "https://new.qq.com/rain/a/20251230A03DXU00",
+      caliber: "上海市星级饭店（1–11 月累计）"
     }
   },
 
@@ -187,6 +215,63 @@ window.RMC_BENCHMARK = {
       body: "航空 2025 年客座率已达 85.1%（历史高位），继续提升空间有限，" +
             "因此行业重心从「提量」转向「提价」——这与住宿业当前「供给 +3.2%、需求 +0.4%、价格承压」" +
             "所处的阶段正好相反，是跨行业收益管理最好的对照案例。"
+    }
+  },
+
+  /* ---------------- 城市级月度基准 ---------------- */
+  city: {
+    shanghai: {
+      name: "上海",
+      period: "2025 年",
+      caliber: "上海市星级饭店（全量 · 上海市文化和旅游局口径）",
+      note: "上海是全国少数公开「城市级月度」饭店 ADR 与出租率的城市。空缺月份为未核实，不填推测值。"
+        + "已交叉校验：月度序列算术均值 742.2 与官方 1–9 月累计 741 吻合；五星级全年累计 979 与媒体披露 978.80 一致。",
+      monthly: {
+        caliber: "月度平均房价（元/间天）与同比；出租率仅列已核实月份",
+        rows: [
+          { m: "1 月",  adr: 713, adrYoy: "-0.1%", occ: null, occYoy: null,     src: "shMonthly" },
+          { m: "2 月",  adr: 701, adrYoy: "-6.7%", occ: null, occYoy: null,     src: "shMonthly" },
+          { m: "3 月",  adr: 748, adrYoy: "-1.4%", occ: null, occYoy: null,     src: "shMonthly" },
+          { m: "4 月",  adr: 805, adrYoy: "+0.9%", occ: null, occYoy: null,     src: "shMonthly" },
+          { m: "5 月",  adr: 756, adrYoy: "-1.0%", occ: null, occYoy: null,     src: "shMonthly" },
+          { m: "6 月",  adr: 749, adrYoy: "-1.0%", occ: null, occYoy: null,     src: "shMonthly" },
+          { m: "7 月",  adr: 711, adrYoy: "-1.9%", occ: null, occYoy: null,     src: "shMonthly" },
+          { m: "8 月",  adr: 726, adrYoy: "+0.2%", occ: null, occYoy: null,     src: "shMonthly" },
+          { m: "9 月",  adr: 771, adrYoy: "+3.8%", occ: 67.6, occYoy: "+6.0pp", src: "shStats9" },
+          { m: "10 月", adr: null, adrYoy: null,   occ: null, occYoy: null,     src: null, gap: true },
+          { m: "11 月", adr: null, adrYoy: null,   occ: null, occYoy: null,     src: null, gap: true },
+          { m: "12 月", adr: 824, adrYoy: "+8.8%", occ: 63.3, occYoy: null,     src: "shStats12" }
+        ]
+      },
+      fiveStar: {
+        caliber: "五星级分项（仅已核实月份）",
+        items: [
+          { k: "9 月 平均房价",     v: "993 元/间天",   yoy: "+6.8%",   src: "shStats9",  tier: "official" },
+          { k: "9 月 出租率",       v: "73.1%",        yoy: "—",       src: "shStats9",  tier: "official" },
+          { k: "12 月 平均房价",    v: "1,045 元/间天", yoy: "+9.3%",   src: "shStats12", tier: "official" },
+          { k: "12 月 出租率",      v: "70.7%",        yoy: "+4.45pp", src: "shStats12", tier: "official" },
+          { k: "全年累计 平均房价", v: "979 元/间天",   yoy: "+1.9%",   src: "shStats12", tier: "official" },
+          { k: "全年累计 出租率",   v: "71.3%",        yoy: "+2.81pp", src: "shStats12", tier: "official" }
+        ]
+      },
+      cumulative: {
+        caliber: "累计口径对照（用于校验月度序列）",
+        items: [
+          { k: "1–9 月 平均房价",  v: "741 元/间天",    yoy: "-1.0%",  src: "shStats9",  tier: "official" },
+          { k: "1–9 月 出租率",    v: "64.8%",         yoy: "+2.1pp", src: "shStats9",  tier: "official" },
+          { k: "1–11 月 平均房价", v: "756.54 元/间天", yoy: "—",      src: "sh11",      tier: "official" },
+          { k: "1–11 月 出租率",   v: "66.08%",        yoy: "—",      src: "sh11",      tier: "official" },
+          { k: "1–12 月 平均房价", v: "767 元/间天",    yoy: "+1.4%",  src: "shStats12", tier: "official" },
+          { k: "1–12 月 出租率",   v: "65.9%",         yoy: "+2.0pp", src: "shStats12", tier: "official" }
+        ]
+      }
+    },
+    others: {
+      title: "其它城市为什么是空的",
+      body: "除上海外，多数城市不公开「月度 ADR / 出租率」：北京公开的是营收与利润口径（2025 年 1–9 月 1,623 家酒店"
+        + "平均每家营收 2,003 万元、同比 -7.9%），不是房价与出租率；其它城市则基本没有公开月度口径。"
+        + "我们不把第三方抽样或节假日均价充作城市级月度基准——那会让你对标错对象。"
+        + "补齐方式只有两条：订阅商业数据库，或由社区会员共建样本池。"
     }
   },
 

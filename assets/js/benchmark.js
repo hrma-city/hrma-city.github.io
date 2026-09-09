@@ -50,6 +50,31 @@ window.RMCBench = (function () {
     return h;
   }
 
+  /* 月度序列（城市级）：带条形可视化；空缺月份标「待补充」，绝不填推测值 */
+  function renderMonthly(group) {
+    if (!group || !group.rows) return '<p class="bm-sub">暂无数据。</p>';
+    var max = 0;
+    group.rows.forEach(function (r) { if (r.adr && r.adr > max) max = r.adr; });
+    var h = "";
+    if (group.caliber) h += '<div class="bcal">口径：' + esc(group.caliber) + "</div>";
+    h += '<table class="btable"><thead><tr><th>月份</th><th>平均房价（元/间天）</th><th>同比</th><th>出租率</th><th>来源</th></tr></thead><tbody>';
+    group.rows.forEach(function (r) {
+      var cell = r.adr
+        ? '<div class="bbar-wrap"><div class="bbar" style="width:' + (r.adr / max * 100).toFixed(1) +
+          '%"></div><span class="bbar-v">' + esc(r.adr) + "</span></div>"
+        : '<span class="bgap">待补充</span>';
+      h += "<tr>" +
+        "<td>" + esc(r.m) + "</td>" +
+        "<td>" + cell + "</td>" +
+        '<td class="by">' + esc(r.adrYoy || "—") + "</td>" +
+        "<td>" + (r.occ ? esc(r.occ) + "%" : '<span class="bgap">待补充</span>') + "</td>" +
+        '<td class="bs">' + (r.src ? srcBlock(r.src) : "") + "</td>" +
+        "</tr>";
+    });
+    h += "</tbody></table>";
+    return h;
+  }
+
   function renderSources() {
     var S = (window.RMC_BENCHMARK && window.RMC_BENCHMARK.sources) || {};
     var h = '<div class="bsrcs"><ol>';
@@ -67,6 +92,10 @@ window.RMCBench = (function () {
     Array.prototype.forEach.call(nodes, function (el) {
       el.innerHTML = renderGroup(get(el.getAttribute("data-bench")));
     });
+    var mn = document.querySelectorAll("[data-bench-monthly]");
+    Array.prototype.forEach.call(mn, function (el) {
+      el.innerHTML = renderMonthly(get(el.getAttribute("data-bench-monthly")));
+    });
     var sn = document.querySelectorAll("[data-bench-sources]");
     Array.prototype.forEach.call(sn, function (el) { el.innerHTML = renderSources(); });
   }
@@ -75,5 +104,5 @@ window.RMCBench = (function () {
     document.addEventListener("DOMContentLoaded", init);
   } else { init(); }
 
-  return { get: get, renderGroup: renderGroup, init: init };
+  return { get: get, renderGroup: renderGroup, renderMonthly: renderMonthly, init: init };
 })();
