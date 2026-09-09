@@ -6,6 +6,73 @@
  * 顺序：第3层 UGC → 第4层 商业变现 → 共建样本池
  * ========================================================================== */
 
+/* ---------------------------------------------------------------------------
+ * 0. 自检 / 建表前置：确保 public.profiles 存在
+ *    本合并文件现已「可独立运行」——若你尚未执行 supabase-setup.md，
+ *    这里会自动建好 profiles（含本文件需要的所有扩展字段）并补注册触发器；
+ *    若 profiles 已存在（例如已跑过 setup），则全部自动跳过，不会报错。
+ * ------------------------------------------------------------------------- */
+create table if not exists public.profiles (
+  id            uuid primary key references auth.users(id) on delete cascade,
+  email         text,
+  full_name     text default '',
+  org           text default '',
+  role_text     text default '',
+  phone         text default '',
+  reason        text default '',
+  status        text not null default 'pending'
+                  check (status in ('pending','approved','rejected')),
+  note          text default '',
+  reviewed_at   timestamptz,
+  reviewed_by   text default '',
+  created_at    timestamptz not null default now(),
+  updated_at    timestamptz not null default now(),
+  exam_score    integer default 0,
+  exam_level    text    default '',
+  contributions integer default 0,
+  bio           text    default '',
+  avatar_url    text    default '',
+  plan          text    not null default 'free',
+  plan_expire   timestamptz
+);
+
+-- 若 profiles 已存在但缺扩展列，补齐（幂等，列已存在则跳过）
+alter table public.profiles add column if not exists exam_score    integer default 0;
+alter table public.profiles add column if not exists exam_level    text    default '';
+alter table public.profiles add column if not exists contributions integer default 0;
+alter table public.profiles add column if not exists bio           text    default '';
+alter table public.profiles add column if not exists avatar_url    text    default '';
+alter table public.profiles add column if not exists plan          text    not null default 'free';
+alter table public.profiles add column if not exists plan_expire   timestamptz;
+
+-- 新用户注册时自动建档案（若已存在则覆盖重建，幂等）
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+begin
+  insert into public.profiles (id, email, full_name, org, role_text, phone, reason, status)
+  values (
+    new.id, new.email,
+    coalesce(new.raw_user_meta_data->>'full_name',''),
+    coalesce(new.raw_user_meta_data->>'org',''),
+    coalesce(new.raw_user_meta_data->>'role_text',''),
+    coalesce(new.raw_user_meta_data->>'phone',''),
+    coalesce(new.raw_user_meta_data->>'reason',''),
+    'pending'
+  )
+  on conflict (id) do nothing;
+  return new;
+end;
+$$;
+
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function public.handle_new_user();
+
+
 
 
 /* ==========================================================================
@@ -546,8 +613,10 @@ create index if not exists idx_bp_city_month on public.benchmark_points (city, m
 -- ---------------- 2. 聚合视图（k-匿名） ----------------
 -- 只暴露「样本数 >= 3」的聚合结果，不暴露单条上报，也不暴露 user_id。
 drop view if exists public.benchmark_pool;
+-- 说明：普通视图默认即以「属主（postgres）权限」运行，会绕过基表 benchmark_points 的 RLS，
+--       因此匿名角色虽对基表无任何权限，却能通过本视图读取聚合结果（不暴露单条、不暴露 user_id）。
+--       不使用 security_invoker 显式子句，以保证 PG14/15+ 全兼容。
 create view public.benchmark_pool
-with (security_invoker = false)   -- 以属主权限运行：绕过基表 RLS，让匿名也能读到聚合结果
 as
 select
   city,
