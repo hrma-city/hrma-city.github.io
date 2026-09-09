@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>讨论与提问板 · RMC收益管理社区</title>
+<meta name="description" content="RMC收益管理社区讨论与提问板：按通用内核与六大行业分板块，真实业务讨论、棘手问题求助、专家作答。登录后即可发帖与回复。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"行业交流","item":"https://hrma-city.github.io/community.html"},{"@type":"ListItem","position":3,"name":"讨论与提问板","item":"https://hrma-city.github.io/community/board.html"}]}</script>
+<link rel="stylesheet" href="../assets/css/auth.css">
+</head>
+<body data-auth="public">
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html">
+      <span class="gem">收</span><span>RMC收益管理社区</span>
+    </a>
+    <nav class="sn-links" id="snLinks">
+      <a href="../index.html">首页</a>
+      <a href="../academy.html">学院</a>
+      <a href="../books.html">书籍</a>
+      <a href="../games/index.html">游戏</a>
+      <a href="../cert.html">认证</a>
+      <a href="../experts.html">专家</a>
+      <a href="../news.html">资讯</a>
+      <a href="../community.html" class="on">社区</a>
+      <a href="../theater.html">剧院</a>
+      <a href="../industries.html">行业矩阵</a>
+    </nav>
+    <a class="sn-cta" href="../community.html">加入社区</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:34px;padding-bottom:44px">
+  <div class="cm-eyebrow">行业交流 · Community</div>
+  <h1 class="cm-section-title" style="font-size:30px">讨论与提问板</h1>
+  <p class="cm-section-lead">一个人查表，一群人对答案。按行业分板块发帖、提问、回复，专家作答会被标记。浏览无需登录，<b>发帖与回复需登录</b>。</p>
+
+  <!-- 子导航 -->
+  <div class="ugc-subnav">
+    <a href="board.html" class="on">讨论 / 提问</a>
+    <a href="cases.html">案例投稿</a>
+    <a href="leaderboard.html">排行榜</a>
+  </div>
+
+  <!-- 工具栏 -->
+  <div class="ugc-toolbar">
+    <select id="fBoard">
+      <option value="all">全部板块</option>
+      <option value="core">内核（通用）</option>
+      <option value="lodging">住宿业</option>
+      <option value="fnb">餐饮业</option>
+      <option value="airline">航空业</option>
+      <option value="attraction">景区文旅</option>
+      <option value="entertainment">娱乐休闲</option>
+      <option value="theater">剧院</option>
+    </select>
+    <select id="fType">
+      <option value="all">全部类型</option>
+      <option value="discussion">讨论</option>
+      <option value="question">提问</option>
+    </select>
+    <input type="text" id="fQ" placeholder="搜索标题…">
+    <span class="spacer"></span>
+    <button class="ugc-btn gold" id="newBtn">＋ 发新帖</button>
+  </div>
+
+  <!-- 发帖编辑器 -->
+  <div class="uc-detail uc-hidden" id="composer" style="margin-bottom:22px">
+    <div class="uc-form" id="postForm">
+      <div class="row">
+        <label>类型</label>
+        <select id="pType">
+          <option value="discussion">讨论</option>
+          <option value="question">提问（求助）</option>
+        </select>
+      </div>
+      <div class="row">
+        <label>板块</label>
+        <select id="pBoard">
+          <option value="core">内核（通用）</option>
+          <option value="lodging">住宿业</option>
+          <option value="fnb">餐饮业</option>
+          <option value="airline">航空业</option>
+          <option value="attraction">景区文旅</option>
+          <option value="entertainment">娱乐休闲</option>
+          <option value="theater">剧院</option>
+        </select>
+      </div>
+      <div class="row">
+        <label>标题</label>
+        <input type="text" id="pTitle" placeholder="一句话说清你的问题或观点" maxlength="120">
+      </div>
+      <div class="row">
+        <label>正文</label>
+        <textarea id="pBody" placeholder="背景、你已查过什么、你的判断、需要怎样的帮助…" style="min-height:120px"></textarea>
+      </div>
+      <div class="row">
+        <label>标签（逗号分隔，可选）</label>
+        <input type="text" id="pTags" placeholder="如：超售, 渠道, 定价">
+      </div>
+      <div>
+        <button class="ugc-btn" id="pSubmit">发布</button>
+        <button class="ugc-btn ghost" id="pCancel">取消</button>
+        <span class="uc-hint" id="pHint"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 列表 -->
+  <div id="list" class="ugc-list"><div class="uc-loading">加载中…</div></div>
+
+  <!-- 帖子详情（点击后显示） -->
+  <div id="detail" class="uc-hidden"></div>
+</main>
+
+<footer class="site-footer">
+  <div class="sf-grid">
+    <div>
+      <div class="sf-t">RMC收益管理社区</div>
+      <p class="sf-desc">跨行业收益管理专业社区。一套通用内核，覆盖住宿、餐饮、航空、景区、娱乐、剧院六大行业。</p>
+    </div>
+    <div>
+      <div class="sf-t">行业</div>
+      <a href="../lodging.html">住宿业</a>
+      <a href="../fnb.html">餐饮业</a>
+      <a href="../airline.html">航空业</a>
+      <a href="../attraction.html">景区文旅</a>
+      <a href="../entertainment.html">娱乐休闲</a>
+    </div>
+    <div>
+      <div class="sf-t">学习</div>
+      <a href="../academy.html">学院首页</a>
+      <a href="../core/index.html">通用内核</a>
+      <a href="../codex.html">操作法典</a>
+      <a href="../books.html">书籍专栏</a>
+    </div>
+    <div>
+      <div class="sf-t">社区</div>
+      <a href="../experts.html">专家高手</a>
+      <a href="../news.html">收益管理资讯</a>
+      <a href="../community.html">行业交流</a>
+      <a href="../cert.html">资格认证</a>
+    </div>
+  </div>
+  <div class="sf-bot">
+    <span>RMC收益管理社区 · 通用内核 + 行业参数</span>
+    <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../auth-config.js"></script>
+<script src="../auth.js"></script>
+<script src="../assets/js/ugc.js"></script>
+<script src="../assets/js/app.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var U = window.RMCUGC, E = U.esc;
+  var listEl = document.getElementById("list");
+  var detailEl = document.getElementById("detail");
+  var composer = document.getElementById("composer");
+  var fBoard = document.getElementById("fBoard");
+  var fType = document.getElementById("fType");
+  var fQ = document.getElementById("fQ");
+
+  function fmtTime(t) {
+    try { return new Date(t).toLocaleDateString("zh-CN"); } catch (e) { return ""; }
+  }
+  function boardName(b) {
+    return ({core:"内核",lodging:"住宿",fnb:"餐饮",airline:"航空",attraction:"文旅",entertainment:"娱乐",theater:"剧院"})[b] || b;
+  }
+  function cardHTML(p) {
+    var tag = p.type === "question"
+      ? '<span class="ugc-tag q">提问</span>' + (p.solved ? '<span class="ugc-tag solved">已采纳</span>' : "")
+      : '<span class="ugc-tag">讨论</span>';
+    return '<div class="ugc-card" data-id="'+p.id+'">' +
+      '<div class="uc-top">'+tag+'<span class="ugc-tag">'+boardName(p.board)+'</span></div>' +
+      '<div class="uc-title">'+E(p.title)+'</div>' +
+      '<div class="uc-body">'+E(p.body)+'</div>' +
+      '<div class="uc-meta"><span>'+E(p.author_name||"匿名")+'</span><span>'+fmtTime(p.created_at)+
+      '</span><span>💬 '+ (p.reply_count||0) +'</span><span>👍 '+(p.votes||0)+'</span></div>' +
+      '</div>';
+  }
+  async function load() {
+    listEl.innerHTML = '<div class="uc-loading">加载中…</div>';
+    detailEl.className = "uc-hidden";
+    var rows = await U.listPosts({ board: fBoard.value, type: fType.value, q: fQ.value.trim(), limit: 50 });
+    if (!rows.length) { listEl.innerHTML = '<div class="uc-empty">还没有帖子。点击右上角「发新帖」开启第一个话题。</div>'; return; }
+    listEl.innerHTML = rows.map(cardHTML).join("");
+    Array.prototype.forEach.call(listEl.querySelectorAll(".ugc-card"), function (el) {
+      el.addEventListener("click", function () { openPost(el.getAttribute("data-id")); });
+    });
+  }
+  async function openPost(id) {
+    listEl.className = "uc-hidden";
+    composer.className = "uc-detail uc-hidden";
+    detailEl.className = "uc-detail";
+    detailEl.innerHTML = '<div class="uc-loading">加载中…</div>';
+    var d = await U.getPost(id);
+    if (!d.post) { detailEl.innerHTML = '<div class="uc-empty">帖子不存在或已隐藏。</div>'; return; }
+    var p = d.post;
+    var replies = d.replies.map(function (r) {
+      return '<div class="uc-reply"><div class="uc-body">'+E(r.body)+'</div>' +
+        '<div class="uc-meta"><span>'+ (r.is_expert?'<span class="ugc-tag expert">专家作答</span> ':'') + E(r.author_name||"匿名") +
+        '</span><span>'+fmtTime(r.created_at)+'</span>' +
+        '<a href="#" class="rvote" data-id="'+r.id+'">👍 '+(r.votes||0)+'</a></div></div>';
+    }).join("");
+    detailEl.innerHTML =
+      '<a href="#" id="back" class="uc-hint">← 返回列表</a>' +
+      '<div class="uc-top" style="margin-top:8px">' +
+        (p.type==="question"?'<span class="ugc-tag q">提问</span>'+(p.solved?'<span class="ugc-tag solved">已采纳</span>':''):'<span class="ugc-tag">讨论</span>') +
+        '<span class="ugc-tag">'+boardName(p.board)+'</span></div>' +
+      '<div class="uc-title" style="font-size:22px">'+E(p.title)+'</div>' +
+      '<div class="uc-body">'+E(p.body)+'</div>' +
+      '<div class="uc-meta"><span>'+E(p.author_name||"匿名")+'</span><span>'+fmtTime(p.created_at)+
+        '</span><a href="#" id="pvote" class="rvote" data-id="'+p.id+'">👍 '+(p.votes||0)+'</a></div>' +
+      '<div class="uc-replies" id="replies">'+ (replies || '<div class="uc-empty">还没有回复，来抢沙发。</div>') +'</div>' +
+      '<div class="uc-composer"><textarea id="rBody" placeholder="写下你的看法或答案…"></textarea>' +
+        '<div style="margin-top:8px"><button class="ugc-btn" id="rSubmit">回复</button>' +
+        '<span class="uc-hint" id="rHint"></span></div></div>';
+    document.getElementById("back").addEventListener("click", function (e) { e.preventDefault(); load(); });
+    document.getElementById("rSubmit").addEventListener("click", async function () {
+      var b = document.getElementById("rBody").value.trim();
+      if (!b) return;
+      var hint = document.getElementById("rHint");
+      try { await U.addReply(p.id, b); hint.textContent = "已回复，刷新中…"; location.reload(); }
+      catch (err) { hint.textContent = "发布失败：" + (err.message || err); }
+    });
+    Array.prototype.forEach.call(detailEl.querySelectorAll(".rvote"), function (a) {
+      a.addEventListener("click", async function (e) {
+        e.preventDefault();
+        await U.vote("reply", a.getAttribute("data-id"), 1);
+        location.reload();
+      });
+    });
+    var pv = document.getElementById("pvote");
+    pv.addEventListener("click", async function (e) {
+      e.preventDefault(); await U.vote("post", p.id, 1); location.reload();
+    });
+  }
+  function openComposer() {
+    detailEl.className = "uc-hidden";
+    composer.className = "uc-detail";
+    document.getElementById("pTitle").value = "";
+    document.getElementById("pBody").value = "";
+    document.getElementById("pTags").value = "";
+    document.getElementById("pHint").textContent = "";
+    document.getElementById("pSubmit").disabled = false;
+  }
+  document.getElementById("newBtn").addEventListener("click", openComposer);
+  document.getElementById("pCancel").addEventListener("click", function () { composer.className = "uc-detail uc-hidden"; });
+  document.getElementById("pSubmit").addEventListener("click", async function () {
+    var title = document.getElementById("pTitle").value.trim();
+    var body = document.getElementById("pBody").value.trim();
+    var tags = document.getElementById("pTags").value.split(",").map(function (s){return s.trim();}).filter(Boolean);
+    var hint = document.getElementById("pHint");
+    if (!title || !body) { hint.textContent = "标题和正文都要填。"; hint.style.color = "#c0392b"; return; }
+    this.disabled = true; hint.textContent = "发布中…"; hint.style.color = "";
+    try {
+      await U.createPost({ type: document.getElementById("pType").value, board: document.getElementById("pBoard").value, title: title, body: body, tags: tags });
+      hint.textContent = "发布成功！"; composer.className = "uc-detail uc-hidden"; load();
+    } catch (err) { hint.textContent = "发布失败：" + (err.message || err); this.disabled = false; }
+  });
+  [fBoard, fType].forEach(function (s) { s.addEventListener("change", load); });
+  var st; fQ.addEventListener("input", function () { clearTimeout(st); st = setTimeout(load, 300); });
+
+  var t = document.getElementById("snToggle"), l = document.getElementById("snLinks");
+  if (t && l) t.addEventListener("click", function () { l.classList.toggle("open"); });
+
+  load();
+});
+</script>
+</body>
+</html>

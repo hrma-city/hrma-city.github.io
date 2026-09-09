@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>案例投稿与展示廊 · RMC收益管理社区</title>
+<meta name="description" content="RMC收益管理社区案例库：提交你真实的收益管理案例（尤其是做错的），审核通过后公开展示。案例是社区最硬的资产。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"行业交流","item":"https://hrma-city.github.io/community.html"},{"@type":"ListItem","position":3,"name":"案例投稿","item":"https://hrma-city.github.io/community/cases.html"}]}</script>
+<link rel="stylesheet" href="../assets/css/auth.css">
+</head>
+<body data-auth="public">
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html">
+      <span class="gem">收</span><span>RMC收益管理社区</span>
+    </a>
+    <nav class="sn-links" id="snLinks">
+      <a href="../index.html">首页</a>
+      <a href="../academy.html">学院</a>
+      <a href="../books.html">书籍</a>
+      <a href="../games/index.html">游戏</a>
+      <a href="../cert.html">认证</a>
+      <a href="../experts.html">专家</a>
+      <a href="../news.html">资讯</a>
+      <a href="../community.html" class="on">社区</a>
+      <a href="../theater.html">剧院</a>
+      <a href="../industries.html">行业矩阵</a>
+    </nav>
+    <a class="sn-cta" href="../community.html">加入社区</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:34px;padding-bottom:44px">
+  <div class="cm-eyebrow">行业交流 · Community</div>
+  <h1 class="cm-section-title" style="font-size:30px">案例投稿与展示廊</h1>
+  <p class="cm-section-lead">真实案例是社区最硬的资产——<b>尤其是做错的案例</b>。提交后由管理员审核，通过即公开展示并署名。浏览无需登录，<b>投稿需登录</b>。</p>
+
+  <div class="ugc-subnav">
+    <a href="board.html">讨论 / 提问</a>
+    <a href="cases.html" class="on">案例投稿</a>
+    <a href="leaderboard.html">排行榜</a>
+  </div>
+
+  <div class="ugc-toolbar">
+    <span class="spacer"></span>
+    <button class="ugc-btn gold" id="newBtn">＋ 投稿案例</button>
+  </div>
+
+  <!-- 投稿表单 -->
+  <div class="uc-detail uc-hidden" id="composer" style="margin-bottom:26px">
+    <h2 class="cm-section-title" style="font-size:20px">提交一个真实案例</h2>
+    <p class="uc-hint" style="margin-bottom:14px">写清当时情况、你做了什么决定、结果如何、事后复盘。入选案例优先获得专家入驻邀请。</p>
+    <div class="uc-form" id="caseForm">
+      <div class="row"><label>标题</label><input type="text" id="cTitle" placeholder="如：春节满房却亏钱的逆向复盘" maxlength="120"></div>
+      <div class="row"><label>所属行业</label>
+        <select id="cIndustry">
+          <option value="core">通用内核</option>
+          <option value="lodging">住宿业</option>
+          <option value="fnb">餐饮业</option>
+          <option value="airline">航空业</option>
+          <option value="attraction">景区文旅</option>
+          <option value="entertainment">娱乐休闲</option>
+          <option value="theater">剧院</option>
+        </select>
+      </div>
+      <div class="row"><label>一句话摘要</label><input type="text" id="cSummary" placeholder="给读者一个打开的理由" maxlength="200"></div>
+      <div class="row"><label>当时情况</label><textarea id="cSituation" placeholder="背景、约束、你掌握的信息"></textarea></div>
+      <div class="row"><label>你的决定 / 动作</label><textarea id="cAction" placeholder="你查了什么、做了什么决定"></textarea></div>
+      <div class="row"><label>结果</label><textarea id="cOutcome" placeholder="实际发生了什么，数据如何"></textarea></div>
+      <div class="row"><label>复盘</label><textarea id="cLesson" placeholder="如果重来一次你会怎么做"></textarea></div>
+      <div class="row"><label>标签（逗号分隔，可选）</label><input type="text" id="cTags" placeholder="如：超售, 团队置换"></div>
+      <div>
+        <button class="ugc-btn" id="cSubmit">提交审核</button>
+        <button class="ugc-btn ghost" id="cCancel">取消</button>
+        <span class="uc-hint" id="cHint"></span>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="cm-section-title" style="font-size:20px;margin:6px 0 14px">已收录案例</h2>
+  <div id="gallery" class="case-grid"><div class="uc-loading">加载中…</div></div>
+  <div id="detail" class="uc-hidden"></div>
+</main>
+
+<footer class="site-footer">
+  <div class="sf-grid">
+    <div>
+      <div class="sf-t">RMC收益管理社区</div>
+      <p class="sf-desc">跨行业收益管理专业社区。一套通用内核，覆盖住宿、餐饮、航空、景区、娱乐、剧院六大行业。</p>
+    </div>
+    <div>
+      <div class="sf-t">行业</div>
+      <a href="../lodging.html">住宿业</a>
+      <a href="../fnb.html">餐饮业</a>
+      <a href="../airline.html">航空业</a>
+      <a href="../attraction.html">景区文旅</a>
+      <a href="../entertainment.html">娱乐休闲</a>
+    </div>
+    <div>
+      <div class="sf-t">学习</div>
+      <a href="../academy.html">学院首页</a>
+      <a href="../core/index.html">通用内核</a>
+      <a href="../codex.html">操作法典</a>
+      <a href="../books.html">书籍专栏</a>
+    </div>
+    <div>
+      <div class="sf-t">社区</div>
+      <a href="../experts.html">专家高手</a>
+      <a href="../news.html">收益管理资讯</a>
+      <a href="../community.html">行业交流</a>
+      <a href="../cert.html">资格认证</a>
+    </div>
+  </div>
+  <div class="sf-bot">
+    <span>RMC收益管理社区 · 通用内核 + 行业参数</span>
+    <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../auth-config.js"></script>
+<script src="../auth.js"></script>
+<script src="../assets/js/ugc.js"></script>
+<script src="../assets/js/app.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var U = window.RMCUGC, E = U.esc;
+  var gallery = document.getElementById("gallery");
+  var detail = document.getElementById("detail");
+  var composer = document.getElementById("composer");
+
+  function fmtTime(t) { try { return new Date(t).toLocaleDateString("zh-CN"); } catch (e) { return ""; } }
+  function indName(b) {
+    return ({core:"通用",lodging:"住宿",fnb:"餐饮",airline:"航空",attraction:"文旅",entertainment:"娱乐",theater:"剧院"})[b] || b;
+  }
+  function cardHTML(c) {
+    return '<div class="case-card copen" data-id="'+c.id+'"><h3>'+E(c.title)+'</h3>' +
+      '<div class="uc-meta" style="margin:0 0 8px"><span class="ugc-tag">'+indName(c.industry)+'</span></div>' +
+      '<div class="cc-sum">'+E(c.summary || (c.situation||"").slice(0,80))+'</div>' +
+      '<div class="uc-meta" style="margin-top:10px"><span>'+E(c.author_name||"匿名")+'</span><span>'+fmtTime(c.created_at)+'</span></div></div>';
+  }
+  async function load() {
+    gallery.innerHTML = '<div class="uc-loading">加载中…</div>';
+    detail.className = "uc-hidden";
+    var rows = await U.listCases();
+    if (!rows.length) { gallery.innerHTML = '<div class="uc-empty">还没有收录案例。点击「投稿案例」留下你的第一个。</div>'; return; }
+    gallery.innerHTML = rows.map(cardHTML).join("");
+    Array.prototype.forEach.call(gallery.querySelectorAll(".case-card"), function (el) {
+      el.addEventListener("click", function () { openCase(el.getAttribute("data-id")); });
+    });
+  }
+  async function openCase(id) {
+    composer.className = "uc-detail uc-hidden";
+    gallery.className = "case-grid uc-hidden";
+    detail.className = "uc-detail";
+    detail.innerHTML = '<div class="uc-loading">加载中…</div>';
+    var rows = await U.client().from("cases").select("*").eq("id", id).eq("status","approved").maybeSingle();
+    var c = rows && rows.data;
+    if (!c) { detail.innerHTML = '<div class="uc-empty">案例不存在或待审核。</div>'; return; }
+    function blk(label, txt) { return txt ? '<div style="margin:14px 0"><div class="ugc-tag">'+label+'</div><div class="uc-body" style="display:block;margin-top:6px">'+E(txt)+'</div></div>' : ""; }
+    detail.innerHTML = '<a href="#" id="back" class="uc-hint">← 返回展示廊</a>' +
+      '<div class="uc-top" style="margin-top:8px"><span class="ugc-tag">'+indName(c.industry)+'</span></div>' +
+      '<div class="uc-title" style="font-size:22px">'+E(c.title)+'</div>' +
+      blk("当时情况", c.situation) + blk("决定 / 动作", c.action) +
+      blk("结果", c.outcome) + blk("复盘", c.lesson) +
+      '<div class="uc-meta"><span>投稿人：'+E(c.author_name||"匿名")+'</span><span>'+fmtTime(c.created_at)+'</span></div>';
+    document.getElementById("back").addEventListener("click", function (e) { e.preventDefault(); gallery.className="case-grid"; load(); });
+  }
+  function openComposer() {
+    detail.className = "uc-hidden"; gallery.className = "case-grid";
+    composer.className = "uc-detail";
+    document.getElementById("cHint").textContent = "";
+    document.getElementById("cSubmit").disabled = false;
+  }
+  document.getElementById("newBtn").addEventListener("click", openComposer);
+  document.getElementById("cCancel").addEventListener("click", function () { composer.className = "uc-detail uc-hidden"; });
+  document.getElementById("cSubmit").addEventListener("click", async function () {
+    var d = {
+      title: document.getElementById("cTitle").value.trim(),
+      industry: document.getElementById("cIndustry").value,
+      summary: document.getElementById("cSummary").value.trim(),
+      situation: document.getElementById("cSituation").value.trim(),
+      action: document.getElementById("cAction").value.trim(),
+      outcome: document.getElementById("cOutcome").value.trim(),
+      lesson: document.getElementById("cLesson").value.trim(),
+      tags: document.getElementById("cTags").value.split(",").map(function(s){return s.trim();}).filter(Boolean)
+    };
+    var hint = document.getElementById("cHint");
+    if (!d.title || !d.situation || !d.outcome) { hint.textContent = "标题、当时情况、结果为必填。"; hint.style.color = "#c0392b"; return; }
+    this.disabled = true; hint.textContent = "提交中…"; hint.style.color = "";
+    try {
+      await U.submitCase(d);
+      hint.style.color = "var(--teal)";
+      hint.textContent = "已提交，审核通过后会出现在展示廊。感谢贡献！";
+      composer.className = "uc-detail uc-hidden"; load();
+    } catch (err) { hint.textContent = "提交失败：" + (err.message || err); this.disabled = false; }
+  });
+  var t = document.getElementById("snToggle"), l = document.getElementById("snLinks");
+  if (t && l) t.addEventListener("click", function () { l.classList.toggle("open"); });
+  load();
+});
+</script>
+</body>
+</html>

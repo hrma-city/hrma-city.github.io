@@ -47,6 +47,24 @@
     <b>你踩过的坑，不该让别人再踩一遍</b>。
   </p>
 
+  <!-- 社区子导航 -->
+  <div class="ugc-subnav">
+    <a href="community/board.html" class="on">讨论 / 提问</a>
+    <a href="community/cases.html">案例投稿</a>
+    <a href="community/leaderboard.html">排行榜</a>
+  </div>
+
+  <!-- 实时最新讨论 -->
+  <section class="cm-section">
+    <div class="cm-eyebrow">最新动态</div>
+    <h2 class="cm-section-title">社区里正在聊什么</h2>
+    <div id="latest" class="ugc-list" style="margin-top:18px"><div class="uc-loading">加载中…</div></div>
+    <div class="cm-btns" style="margin-top:18px">
+      <a class="cm-btn cm-btn-primary" href="community/board.html">进入讨论板</a>
+      <a class="cm-btn cm-btn-ghost" href="register.html">注册账号参与</a>
+    </div>
+  </section>
+
   <section class="cm-section">
     <div class="cm-eyebrow">讨论区</div>
     <h2 class="cm-section-title">按行业分板块</h2>
@@ -172,45 +190,16 @@
 
   <section class="cm-section" id="join">
     <div class="cm-eyebrow">加入</div>
-    <h2 class="cm-section-title">预约开放提醒</h2>
+    <h2 class="cm-section-title">注册即可参与</h2>
     <p class="cm-section-lead">
-      社区讨论区正在搭建中。留下信息，正式开放时我们会第一时间通知你，并给首批成员开放内测。
+      社区已开放：注册账号并通过审核后，就能在讨论板发帖提问、投稿真实案例、查看排行榜。
+      也可以直接邮件联系我们。
     </p>
-
-    <form class="cm-form" id="joinForm">
-      <div class="cm-field">
-        <label for="jName">称呼</label>
-        <input type="text" id="jName" name="name" placeholder="如：王经理" required>
-      </div>
-      <div class="cm-field">
-        <label for="jInd">主行业</label>
-        <select id="jInd" name="industry">
-          <option value="lodging">住宿业</option>
-          <option value="fnb">餐饮业</option>
-          <option value="airline">航空业</option>
-          <option value="attraction">景区文旅</option>
-          <option value="entertainment">娱乐休闲</option>
-          <option value="academic">院校 / 学术</option>
-          <option value="other">其他</option>
-        </select>
-      </div>
-      <div class="cm-field">
-        <label for="jEmail">邮箱</label>
-        <input type="email" id="jEmail" name="email" placeholder="用于接收开放通知" required>
-      </div>
-      <div class="cm-field">
-        <label for="jTopic">你最想讨论的话题</label>
-        <input type="text" id="jTopic" name="topic" placeholder="如：超售额度怎么定 / 民宿渠道结构">
-      </div>
-      <div class="cm-btns">
-        <button type="submit" class="cm-btn cm-btn-primary">预约提醒</button>
-        <span class="cm-hint" id="joinHint"></span>
-      </div>
-      <p class="cm-hint" style="margin-top:10px">
-        信息仅保存在你本机浏览器，不会上传服务器，也不会用于任何营销。
-        也可以直接邮件联系：<a href="mailto:rm-community@qq.com" style="color:var(--gold-2)">rm-community@qq.com</a>
-      </p>
-    </form>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="register.html">注册账号</a>
+      <a class="cm-btn cm-btn-ghost" href="community/board.html">先逛逛讨论板</a>
+      <a class="cm-btn cm-btn-ghost" href="mailto:rm-community@qq.com?subject=加入社区">邮件联系</a>
+    </div>
   </section>
 
 </main>
@@ -251,32 +240,32 @@
 </footer>
 
 <script src="assets/js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth-config.js"></script>
+<script src="auth.js"></script>
+<script src="assets/js/ugc.js"></script>
 <script>
 (function(){
   var t=document.getElementById('snToggle'), l=document.getElementById('snLinks');
   if(t&&l){ t.addEventListener('click',function(){ l.classList.toggle('open'); }); }
 
-  var f=document.getElementById('joinForm'), h=document.getElementById('joinHint');
-  if(f){
-    f.addEventListener('submit',function(e){
-      e.preventDefault();
-      var d={};
-      ['name','industry','email','topic'].forEach(function(k){
-        var el=f.elements[k]; if(el) d[k]=el.value;
-      });
-      try{
-        var all=JSON.parse(localStorage.getItem('crm_join')||'[]');
-        all.push(d);
-        localStorage.setItem('crm_join', JSON.stringify(all));
-      }catch(err){}
-      if(h){ h.textContent='已登记，开放时第一时间通知你。'; h.style.color='var(--teal)'; }
-      f.reset();
-    });
+  // 加载社区最新帖（公开读取，失败静默降级）
+  var box=document.getElementById('latest');
+  if(box && window.RMCUGC){
+    window.RMCUGC.latestPosts(5).then(function(rows){
+      if(!rows || !rows.length){ box.innerHTML='<div class="uc-empty">还没有讨论。注册后发出第一个话题吧。</div>'; return; }
+      var E=window.RMCUGC.esc;
+      function bn(b){return ({core:"内核",lodging:"住宿",fnb:"餐饮",airline:"航空",attraction:"文旅",entertainment:"娱乐",theater:"剧院"})[b]||b;}
+      box.innerHTML=rows.map(function(p){
+        return '<a class="ugc-card" href="community/board.html" style="text-decoration:none">' +
+          '<div class="uc-top"><span class="ugc-tag">'+(p.type==="question"?"提问":"讨论")+'</span><span class="ugc-tag">'+bn(p.board)+'</span></div>' +
+          '<div class="uc-title">'+E(p.title)+'</div>' +
+          '<div class="uc-body">'+E(p.body)+'</div>' +
+          '<div class="uc-meta"><span>'+E(p.author_name||"匿名")+'</span><span>💬 '+(p.reply_count||0)+'</span></div></a>';
+      }).join("");
+    }).catch(function(){ box.innerHTML='<div class="uc-empty">讨论加载失败，请稍后刷新。</div>'; });
   }
 })();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="auth-config.js"></script>
-<script src="auth.js"></script>
 </body>
 </html>
