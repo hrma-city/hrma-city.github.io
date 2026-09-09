@@ -51,13 +51,22 @@
 
   async function signUp(email, password, extra) {
     var c = sb(); if (!c) throw new Error("鉴权未配置");
+    extra = extra || {};
     var r = await c.auth.signUp({
       email: email,
       password: password,
-      options: { data: { full_name: extra.full_name || "" } }
+      // 把所有申请字段写进 auth metadata，触发器据此写入 profiles，
+      // 即使开启邮箱确认导致后续 upsert 被 RLS 拦截，资料也不会丢。
+      options: { data: {
+        full_name: extra.full_name || "",
+        org: extra.org || "",
+        role_text: extra.role_text || "",
+        phone: extra.phone || "",
+        reason: extra.reason || ""
+      } }
     });
     if (r.error) throw r.error;
-    // 写入 profiles（触发器若已建则忽略冲突）
+    // 写入 profiles（触发器若已建则忽略冲突）；邮箱确认未过时此步可能被 RLS 拦，靠触发器兜底
     if (r.data && r.data.user) {
       try {
         await c.from("profiles").upsert({
