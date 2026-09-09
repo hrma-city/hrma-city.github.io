@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>M14 收益管理系统与自动化 · RMC收益管理社区</title>
 <link rel="stylesheet" href="../assets/css/main.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","HRMA"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐、剧院六大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"courses","item":"https://hrma-city.github.io/courses/m14-rms.html"},{"@type":"ListItem","position":3,"name":"m14-rms","item":"https://hrma-city.github.io/courses/m14-rms.html"}]}</script>
 </head>
@@ -52,14 +52,34 @@
 <div class="toc">
   <div class="toc-title">本模块目录</div>
   <ol>
+    <li><a href="#s0">核心概念区</a></li>
     <li><a href="#s1">RMS 的四个核心模块</a></li>
     <li><a href="#s2">人机边界：白名单与黑名单</a></li>
     <li><a href="#s3">12 个必配参数</a></li>
     <li><a href="#s4">自动化渐进路径</a></li>
     <li><a href="#s5">系统选型十问</a></li>
     <li><a href="#s6">告警规则设计</a></li>
+    <li><a href="#s7">讲师示范：参数配置与干预</a></li>
+    <li><a href="#s8">学员跟练</a></li>
     <li><a href="#quiz">随堂测</a></li>
+    <li><a href="#memo">判定表默写清单</a></li>
   </ol>
+</div>
+
+<div class="card" id="s0" style="margin-top:4px">
+  <div class="card-title"><span class="ic">◈</span>核心概念区（本模块 5 个新概念）</div>
+  <div class="grid grid-2">
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">RMS 四模块</div><div class="kv-v">数据接入 → 需求预测 → 价格推荐 → 自动下发，系统无关</div></div>
+      <div class="kv-row"><div class="kv-k">人机边界</div><div class="kv-v">白名单（错得起、易回滚）交系统；黑名单（代价高、需人判）留人</div></div>
+      <div class="kv-row"><div class="kv-k">12 参数</div><div class="kv-v">按本店 No-show / 提前窗口 / 竞争组合标定，不可照抄</div></div>
+    </div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">渐进路径</div><div class="kv-v">L0 手工 → L1 半自动 → L2 推荐+确认 → L3 部分自动 → L4 全自动，不许跳级</div></div>
+      <div class="kv-row"><div class="kv-k">告警稀缺</div><div class="kv-v">告警太多等于没有；只留真正需要人介入的 8 条</div></div>
+    </div>
+  </div>
+  <p class="card-note">系统放大你，不是替代你。<b>你越懂规则，系统配得越好；你不懂，它只会很努力地犯错。</b></p>
 </div>
 
 <!-- ============ 一、四个模块 ============ -->
@@ -308,8 +328,74 @@
   </p>
 </div>
 
+<!-- ============ 七、讲师示范 ============ -->
+<h2 id="s7">七、讲师示范：给云璟配一套 RMS 参数并处置一次异常</h2>
+<p>场景：云璟酒店要上线 RMS，你作为收益经理做初始参数配置，并在一次 D1 日异常中拍板。</p>
+<div class="tbl-wrap">
+  <table class="tbl">
+    <caption>云璟 RMS 初始化 · 关键参数与一次干预</caption>
+    <thead><tr><th class="mid" style="width:40px">环节</th><th>动作</th><th>取值 / 决策</th><th>依据</th></tr></thead>
+    <tbody>
+      <tr><td class="mid"><b>1</b></td><td>竞争组合</td><td>5 家，加权均价 ¥680</td><td>房量相近、档次相同、3km 内</td></tr>
+      <tr><td class="mid"><b>2</b></td><td>价格地板 / 天花板</td><td>¥480 / ¥2,400</td><td>地板=变动成本线；天花板=品牌线 3.5×BAR</td></tr>
+      <tr><td class="mid"><b>3</b></td><td>细分权重</td><td>按净贡献，直销&gt;OTA</td><td>避免系统学成「降价冲量」</td></tr>
+      <tr><td class="mid"><b>4</b></td><td>审批流</td><td>D1 日调价、超售&gt;10% 需人批</td><td>黑名单硬要求</td></tr>
+      <tr><td class="mid"><b>5</b></td><td>D1 日（国庆）异常</td><td>系统 09:00 建议 +20%</td><td>表 A：OCC≥95% 列 +20%</td></tr>
+      <tr><td class="mid"><b>6</b></td><td>人拍板</td><td>批准，但<b>手动加锁 14:00 前不二次调</b></td><td>表 A 约束 2：24h 同方向≤2 次</td></tr>
+      <tr><td class="mid"><b>7</b></td><td>复盘</td><td>当日 OCC 97%、ADR ¥1,180，RevPAR ¥1,144</td><td>比平峰 RevPAR ¥445 高 157%，达标</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="callout callout-key">
+  <span class="co-t">示范要点</span>
+  <p>① 参数先按本店标定，尤其<b>细分权重按净贡献</b>；② D1 日系统只给建议，<b>人必须拍板并留痕</b>；
+  ③ 即便批准也要遵守表 A 的调价约束（同方向频率 / 幅度）；④ 事后用 RevPAR 复盘，数据回流调参。</p>
+</div>
+
+<h2 id="s8">八、学员跟练（4 题）</h2>
+<p>用云璟真实数据独立练，答案在折叠里。</p>
+
+<div class="ex-q">
+  <div class="q-t">跟练 1</div>
+  <div class="q-b">你接手一家新店，直接把云璟的 12 个参数复制过去，跳到 Level 3 全自动。三个月后 ADR 掉了 15%。最可能的原因是什么？怎么救？</div>
+  <details class="ex-a"><summary>参考思路</summary><div class="a-body">
+    原因：<b>参数没按新店标定 + 跳级</b>。新店 No-show 率、提前窗口、竞争组合都不同，复制云璟参数直接偏；
+    又跳到全自动，没人看建议，错误持续放大。<br><br>
+    救济：退回 <b>Level 2（系统推荐+人工确认）</b>跑三个月，期间用新店真实数据重新标定 12 参数
+    （尤其表 E 超售率、表 C 的 ARI 绝对值、表 F 价差），每季度复核。
+  </div></details>
+</div>
+
+<div class="ex-q">
+  <div class="q-t">跟练 2</div>
+  <div class="q-b">系统建议把 OTA 权重放到最高，说「OTA 产量最大、学习最快」。你为什么拒绝？正确权重怎么设？</div>
+  <details class="ex-a"><summary>参考思路</summary><div class="a-body">
+    拒绝原因：按<b>产量</b>设权重，系统会优化成「降价冲 OTA 量」，NRevPAR 越跑越低。<br><br>
+    正确做法：按<b>净贡献</b>设权重——扣掉渠道成本后，直销（3%）权重应高于 OTA（16%）。让系统学的是「利润」不是「间夜」。
+  </div></details>
+</div>
+
+<div class="ex-q">
+  <div class="q-t">跟练 3</div>
+  <div class="q-b">国庆前一天系统自动把价格提到 +25%（超过表 A 单日 20% 上限），且因全自动没人看。你发现时已是第二天。第一件事做什么？</div>
+  <details class="ex-a"><summary>参考思路</summary><div class="a-body">
+    第一件事：<b>切回人工确认（至少 Level 2），并核查当天价格一致性</b>（表 H 红线：直销≤OTA）。
+    然后复盘：25% 违反表 A 约束 1（单日同方向≤20%），说明白名单设错了——D1 日应入黑名单人工批。
+    损失计入《调价台账》备注，月度复盘。
+  </div></details>
+</div>
+
+<div class="ex-q">
+  <div class="q-t">跟练 4</div>
+  <div class="q-b">告警邮件每天 80+ 条，你把告警邮箱设了自动归档。这违反了哪条原则？正确做法是什么？</div>
+  <details class="ex-a"><summary>参考思路</summary><div class="a-body">
+    违反：<b>「告警的价值在于稀缺性」</b>——太多等于没有。正确做法：只留 8 条真正需要人介入的
+    （Pickup 异常、ARI 越界、价格一致性违规、接近满房、渠道断连、竞对大幅降价、超售逼近上限等），其余交给系统自动处理或日报汇总。
+  </div></details>
+</div>
+
 <!-- ============ 随堂测 ============ -->
-<h2 id="quiz">七、随堂测（5 题）</h2>
+<h2 id="quiz">九、随堂测（5 题）</h2>
 
 <div class="ex-q">
   <div class="q-t">第 1 题</div>
@@ -384,6 +470,16 @@
     <b>把这套东西教会你团队里的下一个人——那才是真正的掌握。</b>
   </p>
 </div>
+
+<h2 id="memo">十、判定表默写清单</h2>
+<p>本模块结业前，必须能不翻资料默写以下条目：</p>
+<ul class="checklist">
+  <li>RMS 四模块顺序：数据接入 → 需求预测 → 价格推荐 → 自动下发。</li>
+  <li>人机边界判断标准：白名单=错了代价可控且易回滚；黑名单=错了代价高或需人判（D1 日、超售&gt;10%、表 G/K、表 L、价格体系重构、年度预算）。</li>
+  <li>12 参数中最易错的是「细分权重」——必须按净贡献设，不能按产量。</li>
+  <li>渐进路径 L0→L4 不许跳级；从 L2 跑顺三个月再放白名单。</li>
+  <li>告警原则：稀缺性；只留真正需人介入的，宁少勿多。</li>
+</ul>
 
 <div class="callout callout-do">
   <span class="co-t">本模块产出物</span>
