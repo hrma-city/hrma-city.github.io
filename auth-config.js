@@ -26,3 +26,15 @@ window.HRMA_ADMIN_EMAILS = ["rm-community@qq.com", "3984557428@qq.com"];
 
 /* 联系邮箱（页面展示用） */
 window.HRMA_CONTACT_EMAIL = "rm-community@qq.com";
+
+/* 收款信息（结算页“支付指引”展示用）。
+   占位状态：二维码留空，先展示「转账/联系」占位文案；
+   接入真实网关（微信支付/支付宝/Stripe）后，把二维码图片地址与收款人/账号填这里即可。 */
+window.HRMA_PAY = {
+  payee: "RMC收益管理社区",
+  contact: "rm-community@qq.com",
+  wechatQR: "",   // 微信收款码图片地址（填后展示）
+  alipayQR: "",   // 支付宝收款码图片地址（填后展示）
+  bank: "",       // 对公/个人转账账号说明，如「支付宝：rm-community@qq.com」
+  note: "当前为演示收款占位：下单后请按页面指引完成转账/联系，后台确认后开通权益。真实支付网关接入后此处自动切换为扫码直付。"
+};

@@ -162,6 +162,14 @@
     </div>
   </section>
 
+  <section class="cm-section">
+    <div class="cm-eyebrow">专家目录</div>
+    <h2 class="cm-section-title">可预约的实战专家</h2>
+    <p class="cm-section-lead">下面是当前开放预约的专家。点「预约咨询」即生成订单，进入结算页按指引完成支付后，我们与你确认时间。企业内训可按项目定制。</p>
+    <div class="exp-grid" id="expList"><p class="cm-hint">加载中…</p></div>
+    <p class="cm-hint" id="expHint"></p>
+  </section>
+
   <section class="cm-section" id="apply">
     <div class="cm-eyebrow">申请</div>
     <h2 class="cm-section-title">申请入驻</h2>
@@ -282,5 +290,39 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="auth-config.js"></script>
 <script src="auth.js"></script>
+<script src="assets/js/commerce.js"></script>
+<script>
+(function(){
+  var list=document.getElementById('expList'), hint=document.getElementById('expHint');
+  if(!list) return;
+  if(!window.RMCCommerce){ list.innerHTML='<p class="cm-hint">组件加载中，请刷新</p>'; return; }
+  window.RMCCommerce.listExperts().then(function(rows){
+    if(!rows || !rows.length){ list.innerHTML='<p class="cm-hint">专家目录即将上线，欢迎先申请入驻。</p>'; return; }
+    list.innerHTML = rows.map(function(e){
+      var initial=(e.name||'?').trim().charAt(0);
+      var consult=Number(e.consult_price)||0, training=Number(e.training_price)||0;
+      return '<div class="exp-card">'
+        + '<div class="exp-head"><div class="exp-avatar">'+window.RMCCommerce.esc(initial)+'</div>'
+        + '<div><div class="exp-name">'+window.RMCCommerce.esc(e.name)+'</div>'
+        + '<div class="exp-title">'+window.RMCCommerce.esc((e.title||'')+(e.org?(' · '+e.org):''))+'</div></div></div>'
+        + '<div class="exp-bio">'+window.RMCCommerce.esc(e.bio||'')+'</div>'
+        + '<div class="exp-price">1v1 咨询 <b>¥'+consult+'</b> 起 · 企业内训 <b>¥'+training+'</b> 起</div>'
+        + '<div class="exp-actions">'
+        + '<button class="btn-line" data-eid="'+e.id+'" data-amt="'+consult+'" data-kind="consult">预约 1v1 咨询</button>'
+        + '<button class="btn-line" data-eid="'+e.id+'" data-amt="'+training+'" data-kind="training">企业内训咨询</button>'
+        + '</div></div>';
+    }).join('');
+    list.querySelectorAll('button[data-eid]').forEach(function(b){
+      b.addEventListener('click', async function(){
+        var eid=b.getAttribute('data-eid'), amt=Number(b.getAttribute('data-amt')), kind=b.getAttribute('data-kind');
+        b.disabled=true; b.textContent='处理中…';
+        var o=await window.RMCCommerce.createOrder({kind:'consult', ref_id:eid, amount:amt, note:kind});
+        if(o&&o.id){ location.href='checkout.html?order='+encodeURIComponent(o.id); }
+        else { b.disabled=false; b.textContent='重新尝试'; hint.textContent='下单未成功，请先登录或稍后重试。'; }
+      });
+    });
+  }).catch(function(){ list.innerHTML='<p class="cm-hint">加载失败，请刷新</p>'; });
+})();
+</script>
 </body>
 </html>

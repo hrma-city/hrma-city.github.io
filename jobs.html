@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>招聘与内推 · RMC收益管理社区</title>
+<meta name="description" content="RMC收益管理社区招聘与内推板块：收益管理经理、分析师、顾问等岗位，企业会员可免费发布职位。">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/commerce.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","url":"https://hrma-city.github.io/"}</script>
+</head>
+<body data-auth="public">
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="games/index.html">开始练</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:34px;padding-bottom:44px;max-width:980px;margin:0 auto">
+
+  <div class="cm-eyebrow">招聘与内推 · Jobs</div>
+  <h1 class="cm-section-title" style="font-size:30px">把对的人，放进对的收益岗</h1>
+  <p class="cm-section-lead">收益管理是细分岗位，招人难、被人也难。这里只收与「收益 / 定价 / 库存 / 渠道」相关的真实岗位。企业会员可免费发布职位。</p>
+
+  <div style="display:flex;justify-content:flex-end;margin:18px 0 6px">
+    <button class="btn-gold" id="postBtn">+ 发布职位</button>
+  </div>
+
+  <div class="job-list" id="jobList"><p class="cm-hint">加载中…</p></div>
+  <p class="cm-hint" id="jobHint"></p>
+
+  <!-- 发布职位表单（登录后可见） -->
+  <div class="co-box" id="postForm" style="display:none">
+    <div class="cm-eyebrow">发布职位</div>
+    <h3 style="margin:4px 0 12px">填写岗位信息</h3>
+    <form class="cm-form" id="jobForm">
+      <div class="cm-field"><label>公司 / 团队</label><input type="text" name="company" required placeholder="如：某高星酒店集团"></div>
+      <div class="cm-field"><label>职位名称</label><input type="text" name="title" required placeholder="如：收益管理经理"></div>
+      <div class="cm-field"><label>行业</label>
+        <select name="industry">
+          <option value="lodging">住宿业</option>
+          <option value="fnb">餐饮业</option>
+          <option value="airline">航空业</option>
+          <option value="attraction">景区文旅</option>
+          <option value="entertainment">娱乐休闲</option>
+          <option value="academic">学术 / 教育</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+      <div class="cm-field"><label>类型</label>
+        <select name="jtype">
+          <option value="fulltime">全职</option>
+          <option value="parttime">兼职</option>
+          <option value="contract">合同</option>
+          <option value="consult">外部顾问</option>
+        </select>
+      </div>
+      <div class="cm-field"><label>城市</label><input type="text" name="city" placeholder="如：上海"></div>
+      <div class="cm-field"><label>薪资</label><input type="text" name="salary" placeholder="如：25-40K·14薪"></div>
+      <div class="cm-field"><label>岗位描述</label><textarea name="description" placeholder="职责、要求、亮点"></textarea></div>
+      <div class="cm-field"><label>联系方式</label><input type="text" name="contact" placeholder="邮箱 / 微信"></div>
+      <div class="cm-btns">
+        <button type="submit" class="btn-gold">发布</button>
+        <button type="button" class="btn-line" id="postCancel">取消</button>
+        <span class="cm-hint" id="postHint"></span>
+      </div>
+    </form>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="sf-grid">
+    <div><div class="sf-t">RMC收益管理社区</div><p class="sf-desc">跨行业收益管理专业社区。</p></div>
+    <div><div class="sf-t">学习</div><a href="academy.html">学院首页</a><a href="codex.html">操作法典</a><a href="books.html">书籍专栏</a><a href="resources.html">模板与资料</a></div>
+    <div><div class="sf-t">社区</div><a href="experts.html">专家高手</a><a href="community.html">行业交流</a><a href="cert.html">资格认证</a><a href="pricing.html">会员方案</a></div>
+  </div>
+  <div class="sf-bot"><span>RMC收益管理社区 · 通用内核 + 行业参数</span><span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth-config.js"></script>
+<script src="auth.js"></script>
+<script src="assets/js/commerce.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+(function(){
+  var t=document.getElementById('snToggle'), l=document.getElementById('snLinks');
+  if(t&&l){ t.addEventListener('click',function(){ l.classList.toggle('open'); }); }
+
+  var list=document.getElementById('jobList'), hint=document.getElementById('jobHint');
+  function loadJobs(){
+    if(!window.RMCCommerce){ list.innerHTML='<p class="cm-hint">组件加载中，请刷新</p>'; return; }
+    window.RMCCommerce.listJobs().then(function(rows){
+      if(!rows||!rows.length){ list.innerHTML='<p class="cm-hint">暂无在招职位，欢迎发布。</p>'; return; }
+      list.innerHTML=rows.map(function(j){
+        var E=window.RMCCommerce.esc;
+        var jt={fulltime:'全职',parttime:'兼职',contract:'合同',consult:'外部顾问'}[j.jtype]||j.jtype;
+        return '<div class="job-card">'
+          +'<div class="job-top"><span class="job-title">'+E(j.title)+'</span><span class="job-co">'+E(j.company)+'</span></div>'
+          +'<div class="job-meta"><span class="jt">'+E(jt)+'</span>'+(j.city?E(j.city)+' · ':'')+(j.salary?E(j.salary):'薪资面议')+'</div>'
+          +'<div class="job-desc">'+E(j.description||'')+'</div>'
+          +(j.contact?'<div class="job-contact">联系：'+E(j.contact)+'</div>':'')
+          +'</div>';
+      }).join('');
+    }).catch(function(){ list.innerHTML='<p class="cm-hint">加载失败，请刷新</p>'; });
+  }
+  loadJobs();
+
+  var postBtn=document.getElementById('postBtn'),
+      postForm=document.getElementById('postForm'),
+      postCancel=document.getElementById('postCancel'),
+      postHint=document.getElementById('postHint'),
+      form=document.getElementById('jobForm');
+  postBtn.addEventListener('click', async function(){
+    if(!window.RMCCommerce){ return; }
+    var s=await window.RMCCommerce.requireLogin(location.pathname);
+    if(!s) return;
+    postForm.style.display='block'; postForm.scrollIntoView({behavior:'smooth'});
+  });
+  postCancel.addEventListener('click', function(){ postForm.style.display='none'; });
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var d={}; ['company','title','industry','jtype','city','salary','description','contact'].forEach(function(k){
+      var el=form.elements[k]; if(el) d[k]=el.value;
+    });
+    postHint.textContent='发布中…'; postHint.style.color='';
+    var r=await window.RMCCommerce.postJob(d);
+    if(r){ postHint.textContent='已发布！'; postHint.style.color='var(--teal)'; form.reset(); postForm.style.display='none'; loadJobs(); }
+    else { postHint.textContent='发布失败，请先登录或稍后重试。'; postHint.style.color='#c0392b'; }
+  });
+})();
+</script>
+</body>
+</html>

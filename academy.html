@@ -447,6 +447,62 @@
   </div>
 </section>
 
+<!-- ============ 课程包与解锁 ============ -->
+<section class="sec" style="margin-top:34px">
+  <div class="sec-eyebrow">课程包与解锁</div>
+  <h2 class="sec-h">按级别打包购买，省心上手</h2>
+  <p class="sec-sub">全部课程正文免费可读；课程包提供配套判定表默写清单、认定题库与讲师版课件下载权限，按级别打包更划算。</p>
+  <div class="price-grid">
+    <div class="price-card">
+      <h3>L1 执行包</h3>
+      <div class="pc-meta">M01–M04</div>
+      <div class="pc-price">¥199 <small>/ 永久</small></div>
+      <ul>
+        <li>配套判定表默写清单</li>
+        <li>认定题库（L1）</li>
+        <li>讲师版课件下载</li>
+      </ul>
+      <button class="btn-line" data-course="L1" data-amount="199">购买 L1 包</button>
+    </div>
+    <div class="price-card">
+      <h3>L2 决策包</h3>
+      <div class="pc-meta">M05–M09</div>
+      <div class="pc-price">¥399 <small>/ 永久</small></div>
+      <ul>
+        <li>L1 包全部内容</li>
+        <li>认定题库（L2）</li>
+        <li>价格体系设计模板</li>
+      </ul>
+      <button class="btn-line" data-course="L2" data-amount="399">购买 L2 包</button>
+    </div>
+    <div class="price-card">
+      <h3>L3 经理包</h3>
+      <div class="pc-meta">M10–M14</div>
+      <div class="pc-price">¥499 <small>/ 永久</small></div>
+      <ul>
+        <li>L2 包全部内容</li>
+        <li>认定题库（L3）</li>
+        <li>会议汇报话术库</li>
+      </ul>
+      <button class="btn-line" data-course="L3" data-amount="499">购买 L3 包</button>
+    </div>
+    <div class="price-card featured">
+      <div class="pc-tag">最划算</div>
+      <h3>全套解锁</h3>
+      <div class="pc-meta">M01–M14</div>
+      <div class="pc-price">¥999 <small>/ 永久</small></div>
+      <ul>
+        <li>三大级别包全部内容</li>
+        <li>全套讲师版课件</li>
+        <li>年度更新权益</li>
+      </ul>
+      <button class="btn-gold" data-course="ALL" data-amount="999">购买全套</button>
+    </div>
+  </div>
+  <p class="cm-hint" id="acHint" style="text-align:center"></p>
+  <p style="text-align:center;margin-top:6px"><a class="btn-line" href="pricing.html">查看会员方案（含专家答疑与企业内训）</a></p>
+</section>
+
 </main>
 
 <!-- ============ 页脚 ============ -->
@@ -501,5 +557,21 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="auth-config.js"></script>
 <script src="auth.js"></script>
+<script src="assets/js/commerce.js"></script>
+<script>
+(function(){
+  var hint=document.getElementById('acHint');
+  document.querySelectorAll('[data-course]').forEach(function(btn){
+    btn.addEventListener('click', async function(){
+      if(!window.RMCCommerce){ hint.textContent='组件未加载，请刷新页面'; return; }
+      var ref=btn.getAttribute('data-course'), amt=Number(btn.getAttribute('data-amount'));
+      btn.disabled=true; btn.textContent='处理中…';
+      var o=await window.RMCCommerce.createOrder({kind:'course', ref_id:ref, amount:amt});
+      if(o && o.id){ location.href='checkout.html?order='+encodeURIComponent(o.id); }
+      else { btn.disabled=false; btn.textContent='重新尝试'; hint.textContent='下单未成功，请先登录或稍后重试。'; }
+    });
+  });
+})();
+</script>
 </body>
 </html>

@@ -211,6 +211,8 @@
     { t: "游戏",     p: "games/index.html" },
     { t: "认证",     p: "cert.html" },
     { t: "专家",     p: "experts.html" },
+    { t: "会员",     p: "pricing.html" },
+    { t: "招聘",     p: "jobs.html" },
     { t: "社区",     p: "community.html" },
     { t: "资讯",     p: "news.html" },
     { t: "行业矩阵", p: "industries.html" }

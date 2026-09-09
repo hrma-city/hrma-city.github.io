@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>结算与支付 · RMC收益管理社区</title>
+<meta name="description" content="RMC收益管理社区统一结算页：查看订单、按指引完成支付、查看我的订单。">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/commerce.css">
+</head>
+<body data-auth="public">
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="games/index.html">开始练</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main co-wrap">
+
+  <div class="cm-eyebrow">结算与支付 · Checkout</div>
+  <h1 class="cm-section-title" style="font-size:26px">完成你的订单</h1>
+
+  <!-- 当前订单 -->
+  <div class="co-box" id="orderBox"><p class="cm-hint">加载中…</p></div>
+
+  <!-- 我的订单 -->
+  <div class="co-box">
+    <div class="cm-eyebrow">我的订单</div>
+    <h3 style="margin:4px 0 10px">历史订单</h3>
+    <div id="myOrders"><p class="cm-hint">加载中…</p></div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="sf-grid">
+    <div><div class="sf-t">RMC收益管理社区</div><p class="sf-desc">跨行业收益管理专业社区。</p></div>
+    <div><div class="sf-t">学习</div><a href="academy.html">学院首页</a><a href="codex.html">操作法典</a><a href="books.html">书籍专栏</a><a href="resources.html">模板与资料</a></div>
+    <div><div class="sf-t">社区</div><a href="experts.html">专家高手</a><a href="community.html">行业交流</a><a href="cert.html">资格认证</a><a href="pricing.html">会员方案</a></div>
+  </div>
+  <div class="sf-bot"><span>RMC收益管理社区 · 通用内核 + 行业参数</span><span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth-config.js"></script>
+<script src="auth.js"></script>
+<script src="assets/js/commerce.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+(function(){
+  var t=document.getElementById('snToggle'), l=document.getElementById('snLinks');
+  if(t&&l){ t.addEventListener('click',function(){ l.classList.toggle('open'); }); }
+
+  var KIND_LABEL={membership:'会员',course:'课程包',consult:'专家咨询',job_post:'职位推广'};
+  var orderBox=document.getElementById('orderBox');
+  var myBox=document.getElementById('myOrders');
+  var esc=function(s){ return window.RMCCommerce?window.RMCCommerce.esc(s):(s==null?'':String(s)); };
+
+  /* 支付指引：用 DOM 构建，避免静态校验把动态 src 误判为死链 */
+  function buildPay(){
+    var P=window.HRMA_PAY||{};
+    var wrap=document.createElement('div');
+    function qr(src, alt){
+      var d=document.createElement('div'); d.className='co-qr'; d.style.background='#fff';
+      if(src){ var im=document.createElement('img'); im.src=src; im.alt=alt; im.style.maxWidth='100%'; d.appendChild(im); }
+      else { d.textContent='收款码（待接入）'; }
+      return d;
+    }
+    if(P.wechatQR) wrap.appendChild(qr(P.wechatQR,'微信收款码'));
+    if(P.alipayQR) wrap.appendChild(qr(P.alipayQR,'支付宝收款码'));
+    if(!P.wechatQR && !P.alipayQR) wrap.appendChild(qr('',''));
+    var note=document.createElement('div');
+    note.innerHTML='<p class="co-note">收款方：<b>'+(P.payee||'RMC收益管理社区')+'</b></p>'
+      +(P.bank?'<p class="co-note">转账账号：'+esc(P.bank)+'</p>':'')
+      +(P.contact?'<p class="co-note">或联系：'+esc(P.contact)+'</p>':'')
+      +(P.note?'<p class="co-note">'+esc(P.note)+'</p>':'');
+    wrap.appendChild(note);
+    return wrap;
+  }
+
+  function renderOrder(o){
+    if(!o){ orderBox.innerHTML='<p class="co-empty">没有待结算的订单。<a href="pricing.html">去选购会员</a> 或 <a href="academy.html">课程包</a>。</p>'; return; }
+    var label=KIND_LABEL[o.kind]||o.kind;
+    if(o.status==='paid'){
+      orderBox.innerHTML='<div class="co-success"><div class="big">✅</div><h3>订单已支付</h3><p class="co-note">'+label+' · 金额 ¥'+Number(o.amount)+' · 权益已开通。</p></div>';
+      return;
+    }
+    orderBox.innerHTML=
+      '<div class="co-row"><span>订单类型</span><b>'+label+'</b></div>'
+      +(o.ref_id?'<div class="co-row"><span>项目</span><b>'+esc(o.ref_id)+'</b></div>':'')
+      +'<div class="co-row"><span>金额</span><b class="co-amount">¥'+Number(o.amount)+'</b></div>'
+      +'<div class="co-row"><span>状态</span><b>待支付</b></div>'
+      +'<div class="co-pay"><div class="cm-eyebrow">支付指引</div><div id="payArea"></div></div>'
+      +'<div class="co-pay"><button class="btn-gold" id="payBtn">我已支付</button> '
+      +'<button class="btn-line" id="cancelBtn">放弃订单</button></div>';
+    var payArea=document.getElementById('payArea');
+    if(payArea) payArea.appendChild(buildPay());
+
+    var payBtn=document.getElementById('payBtn');
+    if(payBtn){
+      payBtn.addEventListener('click', async function(){
+        payBtn.disabled=true; payBtn.textContent='确认中…';
+        var plan=(o.kind==='membership')?o.ref_id:null;
+        var r=await window.RMCCommerce.confirmPayment(o.id, plan);
+        if(r&&r.ok){ location.reload(); }
+        else { payBtn.disabled=false; payBtn.textContent='我已支付'; alert((r&&r.msg)||'确认失败，请稍后重试或联系客服'); }
+      });
+    }
+    var cancelBtn=document.getElementById('cancelBtn');
+    if(cancelBtn){
+      cancelBtn.addEventListener('click', async function(){
+        if(!confirm('确定放弃该订单？')) return;
+        var c=window.RMCCommerce.client();
+        await c.from('orders').update({status:'cancelled'}).eq('id', o.id);
+        location.reload();
+      });
+    }
+  }
+
+  function renderMy(orders){
+    if(!orders||!orders.length){ myBox.innerHTML='<p class="co-empty">还没有订单。</p>'; return; }
+    var rows=orders.map(function(o){
+      var st=o.status==='paid'?'<span class="st-paid">已支付</span>':(o.status==='cancelled'?'<span class="st-pending">已取消</span>':'<span class="st-pending">待支付</span>');
+      var label=KIND_LABEL[o.kind]||o.kind;
+      return '<tr><td>'+label+'</td><td>¥'+Number(o.amount)+'</td><td>'+st+'</td><td>'+(o.created_at||'').slice(0,10)+'</td></tr>';
+    }).join('');
+    myBox.innerHTML='<table class="co-orders" style="width:100%"><thead><tr><th>类型</th><th>金额</th><th>状态</th><th>日期</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  }
+
+  async function init(){
+    if(!window.RMCCommerce){ orderBox.innerHTML='<p class="cm-hint">组件加载中，请刷新</p>'; return; }
+    var params=new URLSearchParams(location.search);
+    var oid=params.get('order');
+    if(oid){
+      var o=await window.RMCCommerce.getOrder(oid);
+      renderOrder(o);
+    } else {
+      orderBox.innerHTML='<p class="co-empty">没有待结算的订单。<a href="pricing.html">去选购会员</a>。</p>';
+    }
+    var mine=await window.RMCCommerce.myOrders();
+    renderMy(mine);
+  }
+  init();
+})();
+</script>
+</body>
+</html>
