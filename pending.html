@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>账号状态 · RMC收益管理社区</title>
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body data-auth="public">
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+    <nav class="sn-links" id="snLinks">
+      <a href="index.html">首页</a>
+      <a href="about.html">关于学院</a>
+      <a href="login.html">登录</a>
+      <a href="register.html">申请账号</a>
+      <a href="contact.html">联系我们</a>
+    </nav>
+    <a class="sn-cta" href="login.html">去登录</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main>
+  <div class="pend-box" id="box">
+    <div class="pend-ic wait">…</div>
+    <h1 id="ptitle">正在读取账号状态</h1>
+    <p id="pbody">请稍候。</p>
+    <div class="pb-note" id="pnote" style="display:none"></div>
+    <div id="pactions">
+      <a class="btn-primary" href="index.html" style="display:inline-block;width:auto;padding:11px 26px;text-decoration:none">返回首页</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="sf-in">
+    <div class="sf-bot">
+      <span>RMC收益管理社区 · 阈值基准 SPEC v1.0</span>
+      <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth-config.js"></script>
+<script src="auth.js"></script>
+<script>
+(function () {
+  var A = window.HRMAAuth;
+  var box = document.getElementById("box");
+  var ic = box.querySelector(".pend-ic");
+  var title = document.getElementById("ptitle");
+  var body = document.getElementById("pbody");
+  var note = document.getElementById("pnote");
+  var actions = document.getElementById("pactions");
+
+  var q = new URLSearchParams(location.search);
+  var state = q.get("state") || "";
+  var email = q.get("email") || "";
+  var rejNote = q.get("note") || "";
+
+  function render(kind, t, b, n) {
+    var icMap = { wait: ["wait", "⏳"], ok: ["ok", "✓"], no: ["no", "✕"], info: ["wait", "ℹ"] };
+    var m = icMap[kind] || icMap.info;
+    ic.className = "pend-ic " + m[0];
+    ic.textContent = m[1];
+    title.textContent = t;
+    body.innerHTML = b;
+    if (n) { note.style.display = ""; note.textContent = n; } else { note.style.display = "none"; }
+  }
+
+  function link(href, text) {
+    var a = document.createElement("a");
+    a.className = "btn-primary";
+    a.href = href;
+    a.style.display = "inline-block";
+    a.style.width = "auto";
+    a.style.padding = "11px 26px";
+    a.style.textDecoration = "none";
+    a.style.margin = "4px";
+    a.textContent = text;
+    return a.outerHTML;
+  }
+
+  // 已登录且已通过 → 直接进课程
+  (async function () {
+    if (!A || !A.configured()) {
+      // 未配置：按 URL 状态展示说明
+      fallback();
+      return;
+    }
+    try {
+      var s = await A.session();
+      if (s) {
+        var p = await A.profile();
+        if (p && p.status === "approved") {
+          location.href = "curriculum.html";
+          return;
+        }
+        if (p && p.status === "rejected") { showState("rejected", p.note || ""); return; }
+        if (p && p.status === "pending") { showState("pending"); return; }
+        showState(p ? p.status : "noprofile");
+        return;
+      }
+    } catch (e) {}
+    fallback();
+  })();
+
+  function showState(st, n) {
+    if (st === "rejected") {
+      render("no", "申请未通过", "很抱歉，你的账号申请未通过审核。如有疑问可邮件联系社区。", n);
+      actions.innerHTML = link("contact.html", "联系社区") + link("register.html", "重新申请");
+    } else if (st === "pending") {
+      render("wait", "审核中", "你的申请已提交，正在等待管理员审核。审核结果会通过邮件通知，请留意收件箱。");
+      actions.innerHTML = link("index.html", "返回首页") + '<button class="btn-primary" id="out" style="display:inline-block;width:auto;padding:11px 26px;margin:4px">退出登录</button>';
+      bindOut();
+    } else if (st === "noprofile") {
+      render("info", "资料未初始化", "未找到你的账号资料，可能是注册未成功完成。请重新提交申请或联系社区。");
+      actions.innerHTML = link("register.html", "重新申请") + link("contact.html", "联系社区");
+    } else {
+      render("info", "状态未知", "你的账号状态异常，请联系社区协助处理。");
+      actions.innerHTML = link("contact.html", "联系社区") + link("index.html", "返回首页");
+    }
+  }
+
+  function fallback() {
+    if (state === "registered") {
+      render("ok", "注册成功",
+        "我们已收到 <b>" + (email || "你的邮箱") + "</b> 的申请。" +
+        "请先查收并点击验证邮件完成邮箱确认；随后进入管理员审核，结果将以邮件通知。" +
+        "审核通过后，使用本邮箱登录即可。",
+        "若未收到验证邮件，请检查垃圾邮件箱，或在登录页使用「重置密码」触发新邮件。");
+      actions.innerHTML = link("login.html", "去登录") + link("index.html", "返回首页");
+    } else {
+      showState(state);
+    }
+  }
+
+  function bindOut() {
+    var o = document.getElementById("out");
+    if (o) o.addEventListener("click", async function () {
+      try { await A.signOut(); } catch (e) {}
+      location.href = "login.html";
+    });
+  }
+})();
+</script>
+<script>
+(function(){var t=document.getElementById('snToggle'),l=document.getElementById('snLinks');
+if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();
+</script>
+</body>
+</html>

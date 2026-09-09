@@ -103,11 +103,11 @@ create policy "profiles_self_update" on public.profiles
   for update to authenticated
   using ( auth.uid() = id ) with check ( auth.uid() = id );
 
--- 管理员可读写全部（把下面邮箱换成你的管理员邮箱，与 auth-config.js 保持一致）
+-- 管理员可读写全部（邮箱与 auth-config.js 的 HRMA_ADMIN_EMAILS 保持一致，支持多个）
 create policy "profiles_admin_all" on public.profiles
   for all to authenticated
-  using ( (select auth.jwt() ->> 'email') = 'rm-community@qq.com' )
-  with check ( (select auth.jwt() ->> 'email') = 'rm-community@qq.com' );
+  using ( (select auth.jwt() ->> 'email') in ('rm-community@qq.com','3984557428@qq.com') )
+  with check ( (select auth.jwt() ->> 'email') in ('rm-community@qq.com','3984557428@qq.com') );
 ```
 
 > 提示：若之后要换管理员邮箱，改两处即可——`auth-config.js` 的 `HRMA_ADMIN_EMAILS`，以及上面 SQL 里的 `profiles_admin_all`（重新执行该 `create policy` 语句）。

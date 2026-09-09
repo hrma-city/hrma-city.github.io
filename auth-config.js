@@ -19,8 +19,10 @@ window.HRMA_SUPABASE = {
   anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2Y3lsa2Nib2RvYWNhanl2bnB5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTYzMzYsImV4cCI6MjEwNDI3MjMzNn0.oO7kU5OJ2TYY6U1ZD6Ol3Vuh6dMwaIvV2N6CzsqL4Xw"
 };
 
-/* 管理员邮箱（拥有审批权限）。多个用逗号分隔。 */
-window.HRMA_ADMIN_EMAILS = ["rm-community@qq.com"];
+/* 管理员邮箱（拥有审批权限）。多个用逗号分隔。
+   同时保留新旧两个邮箱，兼容数据库里可能仍是旧策略的情况。
+   数据库侧 profiles_admin_all 策略请见 supabase-setup.md（已支持这两个邮箱）。 */
+window.HRMA_ADMIN_EMAILS = ["rm-community@qq.com", "3984557428@qq.com"];
 
 /* 联系邮箱（页面展示用） */
 window.HRMA_CONTACT_EMAIL = "rm-community@qq.com";

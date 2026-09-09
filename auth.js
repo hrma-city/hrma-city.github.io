@@ -134,7 +134,9 @@
   }
 
   function go(url) {
-    var here = location.pathname.split("/").pop() || "index.html";
+    // 用完整 pathname（含前导 / 与子目录），登录后从根目录按绝对路径跳回，
+    // 避免子目录页只存文件名导致跳错位置。
+    var here = location.pathname || "/index.html";
     location.href = url + (url.indexOf("?") < 0 ? "?" : "&") +
       "redirect=" + encodeURIComponent(here);
   }
@@ -206,14 +208,28 @@
 
   function prefix() {
     // 受保护页面在子目录时，需要回到根目录
-    return /\/((courses|exam|games|templates|data|ppt))\//.test(location.pathname)
+    return /\/((courses|exam|games|core|airline|attraction|entertainment|fnb|templates|data|ppt|theater))\//.test(location.pathname)
       ? "../" : "";
   }
 
   /* ---------- 右上角账号条 ---------- */
+  function addLoginLink() {
+    // 未登录的公开页：在主导航追加「登录」入口，让账户区可被找到
+    var nav = document.getElementById("snLinks");
+    if (!nav) return;
+    if (nav.querySelector('a[href="login.html"]') ||
+        nav.querySelector('a[href="../login.html"]')) return; // 已有则跳过
+    var a = document.createElement("a");
+    a.href = prefix() + "login.html";
+    a.textContent = "登录";
+    a.className = "hrma-login-link";
+    nav.appendChild(a);
+  }
+
   async function injectAccountChip() {
     if (document.getElementById("hrmaChip")) return;
-    var s = await session(); if (!s) return;
+    var s = await session();
+    if (!s) { addLoginLink(); return; }
     var chip = document.createElement("div");
     chip.id = "hrmaChip";
     chip.innerHTML =

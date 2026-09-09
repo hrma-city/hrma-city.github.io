@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>登录 · RMC收益管理社区</title>
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body data-auth="public">
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+    <nav class="sn-links" id="snLinks">
+      <a href="index.html">首页</a>
+      <a href="about.html">关于学院</a>
+      <a href="login.html" class="on">登录</a>
+      <a href="register.html">申请账号</a>
+      <a href="contact.html">联系我们</a>
+    </nav>
+    <a class="sn-cta" href="register.html">申请账号</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="auth-page">
+<div class="auth-wrap">
+
+  <div class="auth-intro">
+    <h1>登录社区</h1>
+    <p class="ai-sub">
+      登录后可访问《操作法典》、全部 14 个课件、251 题演练题库、
+      12 个案例分析，以及 Excel 模板与讲师版 PPT 下载。
+    </p>
+    <ul>
+      <li><b>《操作法典》</b>15 张判定表，可搜索、可打印</li>
+      <li><b>三级认证课程</b>从指标计算到年度预算，共 80 课时</li>
+      <li><b>决策模拟器</b>12 个场景，提交后自动对照法典判分</li>
+      <li><b>配套资源</b>8 个 Excel 模板、3 套讲师版 PPT、4 个数据集</li>
+    </ul>
+    <div class="ai-note">
+      <b>还没有账号？</b>本站采用审核制。
+      <a href="register.html" style="font-weight:650">提交申请</a>后，
+      管理员会通过邮件审核，通过后即可登录。
+    </div>
+  </div>
+
+  <div class="auth-card">
+    <h2>账号登录</h2>
+    <p class="ac-sub">使用你申请时填写的邮箱登录</p>
+
+    <div class="msg" id="msg"></div>
+
+    <form id="form" autocomplete="on">
+      <div class="field">
+        <label>邮箱<span class="req">*</span></label>
+        <input type="email" id="email" placeholder="you@example.com" required
+               autocomplete="email">
+      </div>
+      <div class="field">
+        <label>密码<span class="req">*</span></label>
+        <input type="password" id="password" placeholder="请输入密码" required
+               autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn-primary" id="btn">登 录</button>
+    </form>
+
+    <div class="auth-alt">
+      还没有账号？<a href="register.html">提交申请</a><br>
+      忘记密码？<a href="#" id="forgot">重置密码</a>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="sf-in">
+    <div class="sf-bot">
+      <span>RMC收益管理社区 · 阈值基准 SPEC v1.0</span>
+      <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth-config.js"></script>
+<script src="auth.js"></script>
+<script>
+(function () {
+  var A = window.HRMAAuth;
+  var msg = document.getElementById("msg");
+  var btn = document.getElementById("btn");
+  var form = document.getElementById("form");
+
+  function show(text, kind) {
+    msg.className = "msg show " + (kind || "err");
+    msg.innerHTML = text;
+  }
+
+  // 已登录直接跳转
+  (async function () {
+    if (!A || !A.configured()) return;
+    try {
+      var s = await A.session();
+      if (s) {
+        var r = new URLSearchParams(location.search).get("redirect");
+        var p = await A.profile();
+        if (p && p.status === "approved") {
+          location.href = r ? decodeURIComponent(r) : "curriculum.html";
+        } else {
+          location.href = "pending.html?state=" + (p ? p.status : "noprofile");
+        }
+      }
+    } catch (e) { /* 未登录，正常 */ }
+  })();
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var email = document.getElementById("email").value.trim();
+    var pw = document.getElementById("password").value;
+
+    if (!A || !A.configured()) {
+      show("网站鉴权尚未配置。管理员请填写 <code>auth-config.js</code> 后重新部署。", "err");
+      return;
+    }
+    if (!email || !pw) { show("请填写邮箱和密码。", "err"); return; }
+
+    btn.disabled = true; btn.textContent = "登录中…";
+    try {
+      await A.signIn(email, pw);
+      var p = await A.profile();
+      var r = new URLSearchParams(location.search).get("redirect");
+      if (!p) { location.href = "pending.html?state=noprofile"; return; }
+      if (p.status === "pending") { location.href = "pending.html?state=pending"; return; }
+      if (p.status === "rejected") {
+        location.href = "pending.html?state=rejected&note=" +
+          encodeURIComponent(p.note || "");
+        return;
+      }
+      location.href = r ? decodeURIComponent(r) : "curriculum.html";
+    } catch (err) {
+      var m = (err && err.message) ? err.message : String(err);
+      if (/Invalid login/i.test(m) || /credentials/i.test(m)) {
+        m = "邮箱或密码不正确。";
+      } else if (/Email not confirmed/i.test(m)) {
+        m = "邮箱尚未验证，请查收验证邮件后重试。";
+      }
+      show(m, "err");
+      btn.disabled = false; btn.textContent = "登 录";
+    }
+  });
+
+  document.getElementById("forgot").addEventListener("click", async function (e) {
+    e.preventDefault();
+    var email = document.getElementById("email").value.trim();
+    if (!email) { show("请先填写邮箱，再点重置密码。", "info"); return; }
+    try {
+      var c = window.supabase.createClient(
+        window.HRMA_SUPABASE.url, window.HRMA_SUPABASE.anonKey);
+      var r = await c.auth.resetPasswordForEmail(email, {
+        redirectTo: location.origin + "/login.html"
+      });
+      if (r.error) throw r.error;
+      show("重置链接已发送到 " + email + "，请查收邮件。", "ok");
+    } catch (err) {
+      show((err && err.message) || "发送失败，请稍后重试。", "err");
+    }
+  });
+})();
+</script>
+<script>
+(function(){var t=document.getElementById('snToggle'),l=document.getElementById('snLinks');
+if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();
+</script>
+</body>
+</html>
