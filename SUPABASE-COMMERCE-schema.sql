@@ -212,6 +212,34 @@ $$;
 
 grant execute on function public.confirm_payment(uuid, text) to authenticated;
 
+/* 放弃订单：仅允许把「待支付」订单置为 cancelled，绝不改回 paid（安全） */
+create or replace function public.cancel_order(p_order uuid)
+returns jsonb
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_order public.orders;
+  v_uid   uuid := auth.uid();
+begin
+  if v_uid is null then
+    return jsonb_build_object('ok', false, 'msg', '未登录');
+  end if;
+  select * into v_order from public.orders where id = p_order and user_id = v_uid for update;
+  if v_order is null then
+    return jsonb_build_object('ok', false, 'msg', '订单不存在');
+  end if;
+  if v_order.status <> 'pending' then
+    return jsonb_build_object('ok', false, 'msg', '仅待支付订单可放弃');
+  end if;
+  update public.orders set status = 'cancelled' where id = p_order;
+  return jsonb_build_object('ok', true, 'msg', '已放弃');
+end;
+$$;
+
+grant execute on function public.cancel_order(uuid) to authenticated;
+
 /* ---------------- 授权 ---------------- */
 grant select on public.experts to anon, authenticated;
 grant select on public.jobs    to anon, authenticated;

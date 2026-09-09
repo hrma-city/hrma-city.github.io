@@ -96,6 +96,14 @@ window.RMCCommerce = (function () {
     return r.data || { ok: false };
   }
 
+  // 放弃订单：调用 security definer 函数（仅置 cancelled）
+  async function cancelOrder(orderId) {
+    var c = client(); if (!c) return { ok: false, msg: "no client" };
+    var r = await c.rpc("cancel_order", { p_order: orderId });
+    if (r.error) { console.error("cancelOrder:", r.error); return { ok: false, msg: r.error.message }; }
+    return r.data || { ok: false };
+  }
+
   /* ---------------- 专家目录 ---------------- */
 
   async function listExperts() {
@@ -139,7 +147,7 @@ window.RMCCommerce = (function () {
 
   return {
     client: client, esc: esc, prefix: prefix, requireLogin: requireLogin,
-    createOrder: createOrder, myOrders: myOrders, getOrder: getOrder, confirmPayment: confirmPayment,
+    createOrder: createOrder, myOrders: myOrders, getOrder: getOrder, confirmPayment: confirmPayment, cancelOrder: cancelOrder,
     listExperts: listExperts, listJobs: listJobs, postJob: postJob
   };
 })();

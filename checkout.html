@@ -115,9 +115,9 @@
     if(cancelBtn){
       cancelBtn.addEventListener('click', async function(){
         if(!confirm('确定放弃该订单？')) return;
-        var c=window.RMCCommerce.client();
-        await c.from('orders').update({status:'cancelled'}).eq('id', o.id);
-        location.reload();
+        var r=await window.RMCCommerce.cancelOrder(o.id);
+        if(r&&r.ok){ location.reload(); }
+        else { alert((r&&r.msg)||'操作失败，请稍后重试'); }
       });
     }
   }
