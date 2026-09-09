@@ -28,10 +28,10 @@ window.HRMA_SUPABASE = {
 };
 
 /* 管理员邮箱（拥有审批权限）。多个用逗号分隔。 */
-window.HRMA_ADMIN_EMAILS = ["3984557428@qq.com"];
+window.HRMA_ADMIN_EMAILS = ["rm-community@qq.com"];
 
 /* 联系邮箱（页面展示用） */
-window.HRMA_CONTACT_EMAIL = "3984557428@qq.com";
+window.HRMA_CONTACT_EMAIL = "rm-community@qq.com";
 ```
 
 > 管理员的邮箱也在这里配置：把它加入 `HRMA_ADMIN_EMAILS`，该邮箱登录后即可进入 `admin.html` 审批。
@@ -106,8 +106,8 @@ create policy "profiles_self_update" on public.profiles
 -- 管理员可读写全部（把下面邮箱换成你的管理员邮箱，与 auth-config.js 保持一致）
 create policy "profiles_admin_all" on public.profiles
   for all to authenticated
-  using ( (select auth.jwt() ->> 'email') = '3984557428@qq.com' )
-  with check ( (select auth.jwt() ->> 'email') = '3984557428@qq.com' );
+  using ( (select auth.jwt() ->> 'email') = 'rm-community@qq.com' )
+  with check ( (select auth.jwt() ->> 'email') = 'rm-community@qq.com' );
 ```
 
 > 提示：若之后要换管理员邮箱，改两处即可——`auth-config.js` 的 `HRMA_ADMIN_EMAILS`，以及上面 SQL 里的 `profiles_admin_all`（重新执行该 `create policy` 语句）。
@@ -145,7 +145,7 @@ create policy "profiles_admin_all" on public.profiles
 // Deno 运行时；部署：supabase functions deploy notify-admin
 import { serve } from "https://deno.land/std@0.208.0/http/server.ts";
 
-const ADMIN_EMAIL = "3984557428@qq.com";
+const ADMIN_EMAIL = "rm-community@qq.com";
 const RESEND_KEY  = Deno.env.get("RESEND_API_KEY") || "";
 
 serve(async (req) => {

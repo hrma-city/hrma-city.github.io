@@ -169,9 +169,9 @@
     var html =
       '<div class="brand">' +
         '<a class="brand-mark" href="' + href("index.html") + '">' +
-          '<span class="gem">收</span><span>中国收益管理社区</span>' +
+          '<span class="gem">收</span><span>RMC收益管理社区</span>' +
         "</a>" +
-        '<div class="brand-sub">China Revenue Management Community<br>学院 · 游戏 · 社区 · 认证 · 剧院</div>' +
+        '<div class="brand-sub">RMC Revenue Management Community<br>学院 · 游戏 · 社区 · 认证 · 剧院</div>' +
       "</div>";
 
     NAV.forEach(function (sec) {
@@ -227,7 +227,7 @@
     var logo = document.querySelector(".sn-logo");
     if (logo) {
       logo.setAttribute("href", href("index.html"));
-      logo.innerHTML = '<span class="gem">收</span><span>中国收益管理社区</span>';
+      logo.innerHTML = '<span class="gem">收</span><span>RMC收益管理社区</span>';
     }
     var cta = document.querySelector(".sn-cta");
     if (cta) { cta.setAttribute("href", href("games/index.html")); cta.textContent = "开始练"; }

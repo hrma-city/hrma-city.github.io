@@ -20,7 +20,7 @@ window.HRMA_SUPABASE = {
 };
 
 /* 管理员邮箱（拥有审批权限）。多个用逗号分隔。 */
-window.HRMA_ADMIN_EMAILS = ["3984557428@qq.com"];
+window.HRMA_ADMIN_EMAILS = ["rm-community@qq.com"];
 
 /* 联系邮箱（页面展示用） */
-window.HRMA_CONTACT_EMAIL = "3984557428@qq.com";
+window.HRMA_CONTACT_EMAIL = "rm-community@qq.com";
