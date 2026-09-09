@@ -206,10 +206,12 @@
   var TOPNAV = [
     { t: "首页",     p: "index.html" },
     { t: "学院",     p: "academy.html" },
+    { t: "资源",     p: "resources.html" },
     { t: "书籍",     p: "books.html" },
     { t: "游戏",     p: "games/index.html" },
     { t: "认证",     p: "cert.html" },
     { t: "专家",     p: "experts.html" },
+    { t: "社区",     p: "community.html" },
     { t: "资讯",     p: "news.html" },
     { t: "行业矩阵", p: "industries.html" }
   ];

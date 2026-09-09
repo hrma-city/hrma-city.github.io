@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-HRMA 酒店收益管理学院 · 讲师版 PPT 生成框架
+RMC收益管理社区 · 讲师版 PPT 生成框架
 ================================================
 版式与配色严格遵循 hrma/SPEC.md 第七章视觉规范。
 对外只暴露 Deck 类与若干内容辅助函数；所有页面元素均限制在 16:9 画布内。
@@ -247,7 +247,7 @@ class Deck:
         b = _Box(s, SW - MR - 6.2, FOOT_Y, 6.2, 0.32,
                  anchor=MSO_ANCHOR.MIDDLE, align=PP_ALIGN.RIGHT)
         b.rich([
-            ("HRMA · 酒店收益管理学院", {"color": GOLD if dark else INK2,
+            ("RMC收益管理社区", {"color": GOLD if dark else INK2,
                                   "bold": False}),
             ("    ", {}),
             ("P%02d" % self.page, {"color": GOLD, "bold": True}),
@@ -285,7 +285,7 @@ class Deck:
         self._oval(s, SW - 1.9, 4.6, 3.2, "20486B")
 
         b = _Box(s, ML + 0.10, 1.05, 9.6, 0.4)
-        b.para("酒店收益管理学院 · Hotel Revenue Management Academy", 13,
+        b.para("RMC收益管理社区 · RMC Revenue Management Community", 13,
                GOLD, bold=True, line=1.0)
 
         badge = self._rect(s, ML + 0.10, 1.66, 1.28, 0.52, GOLD,
@@ -834,7 +834,7 @@ class Deck:
         self._oval(s, SW - 2.8, -1.1, 3.8, "20486B")
 
         eb = _Box(s, ML + 0.10, 1.30, 10.0, 0.36)
-        eb.para("酒店收益管理学院 · HRMA", 13, GOLD, bold=True, line=1.0)
+        eb.para("RMC收益管理社区", 13, GOLD, bold=True, line=1.0)
         t = _Box(s, ML + 0.10, 1.86, 10.6, 1.20)
         t.para(headline, fit_pt(headline, 10.6, 1.14, 40, 24), WHITE,
                bold=True, line=1.12)

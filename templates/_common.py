@@ -319,7 +319,7 @@ def write_intro(ws, book_no, book_name, purpose, dict_rows, steps, codex,
                 r = para(ws, r, line, last_col, height=18)
 
     r += 1
-    r = para(ws, r, "杭州滨江云璟酒店 · 320 间房 · 中高端全服务 ｜ 酒店收益管理学院 HRMA ｜ 口径以 SPEC.md 为准",
+    r = para(ws, r, "杭州滨江云璟酒店 · 320 间房 · 中高端全服务 ｜ RMC收益管理社区 ｜ 口径以 SPEC.md 为准",
              last_col, height=18, kind="n")
     return ws
 
