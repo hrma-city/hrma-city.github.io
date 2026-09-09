@@ -217,7 +217,7 @@
 
   function prefix() {
     // 受保护页面在子目录时，需要回到根目录
-    return /\/((courses|exam|games|core|airline|attraction|entertainment|fnb|templates|data|ppt|theater))\//.test(location.pathname)
+    return /\/((courses|exam|games|core|airline|attraction|entertainment|fnb|templates|data|ppt|theater|benchmark|community))\//.test(location.pathname)
       ? "../" : "";
   }
 

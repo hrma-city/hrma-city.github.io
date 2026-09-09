@@ -33,7 +33,7 @@ window.RMCUGC = (function () {
 
   // 相对路径前缀（子目录页用 ../）
   function prefix() {
-    return /\/((community|courses|exam|games|core|airline|attraction|entertainment|fnb|theater))\/.*\.html$/.test(location.pathname)
+    return /\/((community|courses|exam|games|core|airline|attraction|entertainment|fnb|theater|benchmark))\/.*\.html$/.test(location.pathname)
       ? "../" : "";
   }
 

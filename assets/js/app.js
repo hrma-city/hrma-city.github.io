@@ -9,7 +9,7 @@
   "use strict";
 
   /* ---------- 路径基准：自动判断当前在根还是子目录 ---------- */
-  var SUB = /(^|\/)(courses|exam|games|templates|data|ppt|theater|core|airline|fnb|attraction|entertainment)\//.test(location.pathname);
+  var SUB = /(^|\/)(courses|exam|games|templates|data|ppt|theater|core|airline|fnb|attraction|entertainment|benchmark)\//.test(location.pathname);
   var BASE = SUB ? "../" : "";
   function href(p) { return BASE + p; }
 
@@ -213,6 +213,7 @@
     { t: "专家",     p: "experts.html" },
     { t: "会员",     p: "pricing.html" },
     { t: "招聘",     p: "jobs.html" },
+    { t: "基准",     p: "benchmark/index.html" },
     { t: "社区",     p: "community.html" },
     { t: "资讯",     p: "news.html" },
     { t: "行业矩阵", p: "industries.html" }
@@ -221,10 +222,16 @@
   function buildTopNav() {
     var links = document.getElementById("snLinks");
     if (links) {
-      var cur = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+      // 目录感知：避免子目录 index.html（如 benchmark/index.html、games/index.html）
+      // 同时点亮「首页」与自身入口，造成两个高亮
+      var seg = location.pathname.split("/").filter(Boolean);
+      var cur = (seg.pop() || "index.html").toLowerCase();
+      var curDir = (seg.pop() || "").toLowerCase();
       links.innerHTML = TOPNAV.map(function (it) {
-        var tp = it.p.split("/").pop().toLowerCase();
-        var on = (tp === cur) ? ' class="on"' : "";
+        var parts = it.p.split("/");
+        var tp = parts.pop().toLowerCase();
+        var td = (parts.length ? parts[0] : "").toLowerCase();
+        var on = (tp === cur && td === curDir) ? ' class="on"' : "";
         return '<a href="' + href(it.p) + '"' + on + ">" + it.t + "</a>";
       }).join("");
     }
