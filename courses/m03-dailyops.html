@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M03 每日操作流水线 · 酒店收益管理学院</title>
+<link rel="stylesheet" href="../assets/css/main.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"courses","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/courses/m03-dailyops.html"},{"@type":"ListItem","position":3,"name":"m03-dailyops","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/courses/m03-dailyops.html"}]}</script>
+</head>
+<body data-page="m03">
+<div class="layout">
+
+<aside class="sidebar" id="sidebar" data-page="m03"></aside>
+
+<main class="main">
+<div class="wrap">
+
+  <!-- ===== 页头 ===== -->
+  <div class="crumb">
+    <a href="../index.html">学院首页</a><span>/</span>
+    <a href="../curriculum.html">教案总纲</a><span>/</span>
+    L1 模块三
+  </div>
+
+  <div class="page-head">
+    <div class="badge-row">
+      <span class="badge badge-l1">L1 收益执行专员</span>
+      <span class="badge">模块 M03</span>
+      <span class="badge">6 课时 / 540 min</span>
+      <span class="badge">课时占比 6/12</span>
+      <span class="badge badge-core">★ 核心模块</span>
+    </div>
+    <h1 class="page-title">每日操作流水线</h1>
+    <p class="page-lede">一句话导语：收益专员一天里 90% 的工作是重复的、可判定的、有标准答案的——本模块把《法典》表 M 的 9 个时段拆成逐时段标准作业，配上表 A（价格）与表 B（库存）两张判定矩阵，让你在 09:55 之前把当天所有该做的动作做完、做完、记完。</p>
+  </div>
+
+  <!-- ===== 学习目标 ===== -->
+  <div class="card">
+    <div class="card-title"><span class="ic">◎</span>学习目标</div>
+    <ul>
+      <li>能<b>背出</b> 《法典》表 M 的 9 个时段、每个时段的动作、产出物与耗时上限，逐字不差</li>
+      <li>能<b>背出</b> 《法典》表 A（6 行 × 5 列价格调整判定矩阵）与表 B（5 行库存与限制条件配置表）的全部格值，10 分钟内默完</li>
+      <li>能<b>独立执行</b> 从「看数」到「记录」的完整四步闭环：给定目标日的预测 OCC 与 Pickup 偏差，查表读出唯一动作，算出新价格，并落位到 7 档房型</li>
+      <li>能<b>独立执行</b> 4 类动作的系统无关落位：调价、设 MinLOS、关渠道、开超售（含《法典》表 E 的三步计算）</li>
+      <li>能<b>独立执行</b> 价格一致性（Rate Parity）6 步核查，并在发现违规时按整改 SOP 完成处置与留痕</li>
+      <li>能<b>填写</b> 《今日动作清单》与《调价台账》，做到每条动作都能追溯到触发表编号</li>
+    </ul>
+    <p class="card-note">前置要求：M01 指标与计算、M02 系统与数据导航（必须能独立完成每日取数与 4 条恒等式自检）。<br>本模块内嵌《法典》：<b>表 A</b>（价格调整判定）、<b>表 B</b>（库存与限制条件）、<b>表 E</b>（超额预订）、<b>表 M</b>（每日流水线）、<b>表 O</b>（优先级仲裁）；引用 <b>表 C / 表 D / 表 H / 表 L</b>。全部阈值以《SPEC》第四章为唯一版本。</p>
+  </div>
+
+  <!-- ===== 目录 ===== -->
+  <div class="toc">
+    <div class="toc-title">本模块目录</div>
+    <ol>
+      <li><a href="#s1">流水线总览：《法典》表 M 与四步闭环的对应关系</a></li>
+      <li><a href="#s2">逐时段标准作业（9 个时段 · 做什么/看什么/查哪张表/产出/耗时/合格标准）</a></li>
+      <li><a href="#s3">《法典》表 A · 每日价格调整判定表（完整内嵌）</a></li>
+      <li><a href="#s4">表 A 的 5 条执行约束与查表 6 步法</a></li>
+      <li><a href="#s5">《法典》表 B · 库存与限制条件配置表（完整内嵌）</a></li>
+      <li><a href="#s6">《法典》表 E · 超额预订标准表（三步计算法）</a></li>
+      <li><a href="#s7">讲师示范 ①：D3 平峰日（表 A + 表 B + 表 H + 表 E）</a></li>
+      <li><a href="#s8">讲师示范 ②：D1 峰值日（触及全部上调约束）</a></li>
+      <li><a href="#s9">讲师示范 ③：D4 低谷日（表 A 与表 D 冲突，走表 O 仲裁）</a></li>
+      <li><a href="#s10">讲师示范 ④：D2 高涨日（90–95% 区间的库存动作）</a></li>
+      <li><a href="#s11">动作落位：4 类动作的系统无关标准步骤</a></li>
+      <li><a href="#s12">价格一致性（Rate Parity）核查 6 步法</a></li>
+      <li><a href="#s13">价格一致性违反时的整改 SOP</a></li>
+      <li><a href="#s14">实操场景练习（6 个场景）</a></li>
+      <li><a href="#s15">《今日动作清单》：空白模板 + 填好的示例</a></li>
+      <li><a href="#s16">判定表默写清单（当堂默写）</a></li>
+      <li><a href="#s17">随堂测（5 题）</a></li>
+      <li><a href="#s18">本模块产出物</a></li>
+    </ol>
+  </div>
+
+  <!-- ===== 一、总览 ===== -->
+  <h2 id="s1">一、流水线总览：《法典》表 M 与四步闭环的对应关系</h2>
+
+  <p>四步闭环「<strong>看数 → 查表 → 执行 → 记录</strong>」不是口号，它精确对应《法典》表 M 的 9 个时段：</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 3-1　四步闭环 ↔ 表 M 时段映射<span class="cap-note">记住这张表，你就知道「现在这个点，我在闭环的哪一步」</span></caption>
+      <thead><tr><th>闭环步骤</th><th>对应时段</th><th>时长合计</th><th>这一步做完的标志</th></tr></thead>
+      <tbody>
+        <tr><td><b>看数</b></td><td>07:30 / 07:50 / 08:10</td><td>60 min</td><td>《每日收益数据包》《Pickup 表》《比价表》三份文件齐备且 4 条恒等式通过</td></tr>
+        <tr><td><b>查表</b></td><td>08:30</td><td>40 min</td><td>《今日动作清单》生成，每条动作标注触发表编号</td></tr>
+        <tr><td><b>执行</b></td><td>09:10 / 09:40 / 17:00</td><td>60 min</td><td>清单上所有动作落位完毕，每条有截图存证；6 渠道一致性核查通过</td></tr>
+        <tr><td><b>记录</b></td><td>09:55</td><td>10 min</td><td>《调价台账》当日新增条目录入完毕，11 个必填字段齐全</td></tr>
+        <tr><td><b>协同</b></td><td>10:05</td><td>25 min</td><td>收益晨会纪要发出，含昨日结果 / 今日动作 / 需配合事项</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">为什么把「记录」放在「执行」之后 45 分钟，而不是下班前</span>
+    <p>《法典》表 M 把写台账排在 09:55，紧接 09:40 的一致性核查之后。原因是：<b>记忆衰减</b>。执行完 30 分钟后再回忆「当时为什么调这个价」，遗漏率会显著上升。台账的价值是让 30 天后的复盘能还原决策现场，所以必须趁热写。<br>
+    <b>硬性要求：09:55 之前，当日所有动作的台账条目必须录入完毕。任何「先做别的，晚点补台账」的做法，等于放弃了复盘的可能性。</b></p>
+  </div>
+
+  <h2 id="s2">二、逐时段标准作业（9 个时段）</h2>
+
+  <h3>2.1 《法典》表 M 原文（唯一权威版本）</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl tbl-codex">
+      <caption><span class="badge-codex">表 M</span>　每日收益操作流水线（时间表 · L1 核心）<span class="cap-note">《SPEC》第四章原文，不得改动</span></caption>
+      <thead><tr><th>时间</th><th>动作</th><th>产出物</th><th class="num">耗时上限</th></tr></thead>
+      <tbody>
+        <tr><td><b>07:30</b></td><td>抓取昨日经营数据</td><td>《每日收益数据包》</td><td class="num">20 min</td></tr>
+        <tr><td><b>07:50</b></td><td>抓取未来 30 天在手 + Pickup</td><td>Pickup 表更新</td><td class="num">20 min</td></tr>
+        <tr><td><b>08:10</b></td><td>采集竞争组合 5 家价格</td><td>比价表更新</td><td class="num">20 min</td></tr>
+        <tr><td><b>08:30</b></td><td>逐日查《法典》表 A/B/C/H，得出动作清单</td><td>《今日动作清单》</td><td class="num">40 min</td></tr>
+        <tr><td><b>09:10</b></td><td>执行调价与库存动作（系统落位）</td><td>系统截图/记录</td><td class="num">30 min</td></tr>
+        <tr><td><b>09:40</b></td><td>价格一致性核查（6 个渠道）</td><td>一致性检查表</td><td class="num">15 min</td></tr>
+        <tr><td><b>09:55</b></td><td>写入《调价台账》</td><td>台账更新</td><td class="num">10 min</td></tr>
+        <tr><td><b>10:05</b></td><td>参加收益晨会（汇报动作 + 听取销售/前厅信息）</td><td>会议纪要</td><td class="num">25 min</td></tr>
+        <tr><td><b>17:00</b></td><td>二次巡检（0–3 天窗口）</td><td>尾房动作</td><td class="num">15 min</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.2 逐时段展开</h3>
+
+  <!-- 07:30 -->
+  <div class="card">
+    <div class="card-title"><span class="ic">1</span>07:30　抓取昨日经营数据<span class="pill pill-navy">上限 20 min</span></div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">做什么</div><div class="kv-v">从 PMS 与财务系统导出昨日 14 个字段（详见 M02 表 2-8），录入《每日收益数据包》</div></div>
+      <div class="kv-row"><div class="kv-k">看哪些数</div><div class="kv-v">总房量、OOO 房晚、可售房晚、已售房晚、Comp/House Use 房晚、客房/餐饮/其他收入、GOP、分渠道房晚、分房型房晚、分细分房晚与收入</div></div>
+      <div class="kv-row"><div class="kv-k">查哪张表</div><div class="kv-v">不查判定表，跑 M02 的 <b>4 条数据一致性恒等式</b>；顺带对照 M01《指标体检表》8 症状</div></div>
+      <div class="kv-row"><div class="kv-k">产出什么</div><div class="kv-v">《每日收益数据包》（含 OCC / ADR / RevPAR / TrevPAR / GOPPAR / NRevPAR 六项自动计算）</div></div>
+      <div class="kv-row"><div class="kv-k">合格标准</div><div class="kv-v"><ul class="checklist" style="margin:0">
+        <li>14 个字段全部抓齐，无空值</li>
+        <li>4 条恒等式全部通过（任一不通过 → 按 M02 表 2-11 排查顺序处理，<b>禁止进入 08:30 查表</b>）</li>
+        <li>已算出 6 项指标，且 RevPAR 两法互验相等</li>
+        <li>07:50 前完成录入</li>
+      </ul></div></div>
+    </div>
+  </div>
+
+  <!-- 07:50 -->
+  <div class="card">
+    <div class="card-title"><span class="ic">2</span>07:50　抓取未来 30 天在手 + Pickup<span class="pill pill-navy">上限 20 min</span></div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">做什么</div><div class="kv-v">导出未来 30 天逐日在手房晚与去年同期同一提前窗口在手房晚，计算 Pickup 偏差与预测 OCC</div></div>
+      <div class="kv-row"><div class="kv-k">看哪些数</div><div class="kv-v">当日可售房晚、当前在手、去年同期同窗口在手、Pickup 绝对增量、预测增量、需求等级代号（D1–D4）、当前 10 个房型 BAR</div></div>
+      <div class="kv-row"><div class="kv-k">查哪张表</div><div class="kv-v"><b>《法典》表 I</b>（预订窗口分档监控表）：按 0–3 / 4–7 / 8–14 / 15–30 / 31–60 / &gt;60 天六个窗口，分别用「落后 10% / 10% / 15% / 20% / 25% / 30%」的阈值判定是否需要关注</div></div>
+      <div class="kv-row"><div class="kv-k">产出什么</div><div class="kv-v">Pickup 表更新（30 行，每行含：目标日 / 可售 / 在手 / 去年同期 / 偏差 / 预测增量 / 预测 OCC / 需求等级）</div></div>
+      <div class="kv-row"><div class="kv-k">合格标准</div><div class="kv-v"><ul class="checklist" style="margin:0">
+        <li>30 天逐日无缺行</li>
+        <li>每天标注「落后 X.X%」或「领先 X.X%」，<b>不写裸的负数</b></li>
+        <li>每天标注 D1/D2/D3/D4（这决定表 A 调价是否需要 L3 审批）</li>
+        <li>预测 OCC =（在手 + 预测增量）÷ 可售，逐日算出</li>
+        <li>08:10 前完成</li>
+      </ul></div></div>
+    </div>
+  </div>
+
+  <!-- 08:10 -->
+  <div class="card">
+    <div class="card-title"><span class="ic">3</span>08:10　采集竞争组合 5 家价格<span class="pill pill-navy">上限 20 min</span></div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">做什么</div><div class="kv-v">在同一时间窗内采集 A 江畔万枫（280 间）、B 滨江希尔顿花园（240 间）、C 钱塘智选假日（300 间）、D 星光开元名都（350 间）、E 云栖亚朵 S（200 间）共 5 家的对标房型挂牌价</div></div>
+      <div class="kv-row"><div class="kv-k">看哪些数</div><div class="kv-v">采集时间戳、竞对名称与房量、对标房型挂牌价（与 SUP-K 同档位）、含早状态、取消政策、是否售罄</div></div>
+      <div class="kv-row"><div class="kv-k">查哪张表</div><div class="kv-v">不查判定表，为 <b>表 C（ARI）</b> 与 <b>表 D（MPI）</b> 准备输入</div></div>
+      <div class="kv-row"><div class="kv-k">产出什么</div><div class="kv-v">比价表更新（含按房量加权的竞争组合 ADR，以及本店 ARI / MPI / RGI）</div></div>
+      <div class="kv-row"><div class="kv-k">合格标准</div><div class="kv-v"><ul class="checklist" style="margin:0">
+        <li>5 家在 08:10–08:30 同一时间窗内采集完毕</li>
+        <li>口径统一：同档位房型、同含早状态、同取消政策</li>
+        <li>售罄竞对已剔除后重算加权 ADR</li>
+        <li>RGI 与 MPI×ARI÷100 的差值 ≤ 0.2</li>
+        <li>08:30 前完成</li>
+      </ul></div></div>
+    </div>
+  </div>
+
+  <!-- 08:30 -->
+  <div class="card">
+    <div class="card-title"><span class="ic">4</span>08:30　逐日查表 A/B/C/H，得出动作清单<span class="pill pill-amber">上限 40 min · 本模块核心</span></div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">做什么</div><div class="kv-v">对需要动作的目标日，依次查表 A（价格）、表 B（库存）、表 C（ARI）、表 H（渠道），用《法典》表 O 仲裁冲突，生成《今日动作清单》</div></div>
+      <div class="kv-row"><div class="kv-k">看哪些数</div><div class="kv-v">预测 OCC、Pickup 偏差、当前 BAR、ARI、MPI、需求等级、当前 MinLOS / CTA / 渠道开关状态</div></div>
+      <div class="kv-row"><div class="kv-k">查哪张表</div><div class="kv-v"><b>表 A → 表 B → 表 C → 表 H</b>（按《法典》表 O 的优先级 2/3/4/5 顺序查），冲突时按表 O 仲裁；另行核查表 L（异常事件）是否触发</div></div>
+      <div class="kv-row"><div class="kv-k">产出什么</div><div class="kv-v">《今日动作清单》（每条含：目标日 / 动作类型 / 触发表编号 / 调整前 / 调整后 / 执行人 / 是否需 L3 审批）</div></div>
+      <div class="kv-row"><div class="kv-k">合格标准</div><div class="kv-v"><ul class="checklist" style="margin:0">
+        <li>未来 30 天中「表 A 结论 ≠ 维持」的日期<b>无遗漏</b>，逐日列出</li>
+        <li>每条动作都标注了<b>触发表编号</b>（如「表 A」「表 B」），无「其他/经验判断」类来源</li>
+        <li>多条表给出不同价格动作时，已按表 O 仲裁，并在备注写明被搁置的动作</li>
+        <li>D1 峰值日的调价已标记为「需 L3 审批」</li>
+        <li>09:10 前完成</li>
+      </ul></div></div>
+    </div>
+  </div>
+
+  <!-- 09:10 -->
+  <div class="card">
+    <div class="card-title"><span class="ic">5</span>09:10　执行调价与库存动作（系统落位）<span class="pill pill-navy">上限 30 min</span></div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">做什么</div><div class="kv-v">按《今日动作清单》逐条落位：调价、设 MinLOS、设 CTA、关渠道、开超售</div></div>
+      <div class="kv-row"><div class="kv-k">看哪些数</div><div class="kv-v">调整前 BAR、调整后 BAR、MinLOS 值、需关闭的渠道代码、超售间数</div></div>
+      <div class="kv-row"><div class="kv-k">查哪张表</div><div class="kv-v">执行阶段不再查表，但每条动作落位前必须复核 <b>表 A 的 5 条执行约束</b>（见第 4 节）</div></div>
+      <div class="kv-row"><div class="kv-k">产出什么</div><div class="kv-v">系统截图 / 记录（每条一张）</div></div>
+      <div class="kv-row"><div class="kv-k">合格标准</div><div class="kv-v"><ul class="checklist" style="margin:0">
+        <li>清单上所有动作<b>全部落位</b>，无「明天再改」</li>
+        <li>每条截图包含 4 项要素：<b>日期 / 房型代码 / 设置项 / 修改前后值</b></li>
+        <li>调价已按 7 档房型整表同步（不是只改 SUP-K）</li>
+        <li>触及表 A 第 4 条（D1 峰值日）的动作已取得 L3 审批签字或书面确认</li>
+        <li>09:40 前完成</li>
+      </ul></div></div>
+    </div>
+  </div>
+
+  <!-- 09:40 -->
+  <div class="card">
+    <div class="card-title"><span class="ic">6</span>09:40　价格一致性核查（6 个渠道）<span class="pill pill-navy">上限 15 min</span></div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">做什么</div><div class="kv-v">按 6 步法核查 6 个渠道的挂牌价与直销价是否一致（详见第 12 节）</div></div>
+      <div class="kv-row"><div class="kv-k">看哪些数</div><div class="kv-v">6 个渠道在同一目标日、同房型（SUP-K）、同价格代码（BAR）、同取消政策下的挂牌价</div></div>
+      <div class="kv-row"><div class="kv-k">查哪张表</div><div class="kv-v"><b>《法典》表 H</b> 价格一致性红线（4 条）</div></div>
+      <div class="kv-row"><div class="kv-k">产出什么</div><div class="kv-v">《价格一致性检查表》（6 行，含差值 Δ 与判定）</div></div>
+      <div class="kv-row"><div class="kv-k">合格标准</div><div class="kv-v"><ul class="checklist" style="margin:0">
+        <li>调价后 <b>30 分钟内</b>完成核查（表 A 执行约束第 3 条）</li>
+        <li>6 个渠道全部比对，无跳过</li>
+        <li>违规项已当场发起整改，并记入考核</li>
+        <li>09:55 前完成</li>
+      </ul></div></div>
+    </div>
+  </div>
+
+  <!-- 09:55 -->
+  <div class="card">
+    <div class="card-title"><span class="ic">7</span>09:55　写入《调价台账》<span class="pill pill-navy">上限 10 min</span></div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">做什么</div><div class="kv-v">把当日全部动作逐条写入《调价台账》，11 个必填字段齐全（字段设计详见 M04）</div></div>
+      <div class="kv-row"><div class="kv-k">看哪些数</div><div class="kv-v">日期 / 目标日 / 动作类型 / 调整前 / 调整后 / 触发表编号 / OCC 预测 / Pickup 偏差 / 执行人 / 复核人 / 结果回填</div></div>
+      <div class="kv-row"><div class="kv-k">查哪张表</div><div class="kv-v">不查表；若本日存在多表冲突，备注栏必须写明仲裁依据（表 O）与被搁置的动作</div></div>
+      <div class="kv-row"><div class="kv-k">产出什么</div><div class="kv-v">《调价台账》当日新增条目</div></div>
+      <div class="kv-row"><div class="kv-k">合格标准</div><div class="kv-v"><ul class="checklist" style="margin:0">
+        <li>当日每条动作对应一条台账记录，<b>动作数 = 台账条数</b></li>
+        <li>「本日无动作」也要写一条，注明「原因：表 A 判定维持」</li>
+        <li>11 个字段无空值（结果回填栏可留空，30 天后补）</li>
+        <li>10:05 前完成</li>
+      </ul></div></div>
+    </div>
+  </div>
+
+  <!-- 10:05 -->
+  <div class="card">
+    <div class="card-title"><span class="ic">8</span>10:05　参加收益晨会<span class="pill pill-navy">上限 25 min</span></div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">做什么</div><div class="kv-v">汇报今日动作清单，听取销售部与前厅部的现场信息，记录需协同事项</div></div>
+      <div class="kv-row"><div class="kv-k">看哪些数</div><div class="kv-v">昨日实际 OCC/ADR/RevPAR vs 预测、今日动作条数、未来 7 天重点日、当前团队询价在谈清单</div></div>
+      <div class="kv-row"><div class="kv-k">汇报三段式</div><div class="kv-v"><b>① 昨日结果</b>（实际 vs 预测，差多少）→ <b>② 今日动作</b>（几条，分别由哪张表触发）→ <b>③ 需配合事项</b>（销售/前厅要做什么）</div></div>
+      <div class="kv-row"><div class="kv-k">产出什么</div><div class="kv-v">会议纪要</div></div>
+      <div class="kv-row"><div class="kv-k">合格标准</div><div class="kv-v"><ul class="checklist" style="margin:0">
+        <li>纪要含「昨日结果 / 今日动作 / 需配合事项」三项，缺一不可</li>
+        <li>汇报用的是<b>数字</b>，不是「还不错」「有点弱」</li>
+        <li>销售/前厅提出的信息中，凡影响需求的（如临时展会、团队意向）已登记为后续跟踪项</li>
+        <li>10:30 前结束</li>
+      </ul></div></div>
+    </div>
+  </div>
+
+  <!-- 17:00 -->
+  <div class="card">
+    <div class="card-title"><span class="ic">9</span>17:00　二次巡检（0–3 天窗口）<span class="pill pill-navy">上限 15 min</span></div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">做什么</div><div class="kv-v">复查未来 0–3 天（含今日）的在手与临时取消，执行尾房动作</div></div>
+      <div class="kv-row"><div class="kv-k">看哪些数</div><div class="kv-v">当日与未来 3 天的实时 OCC、近 6 小时 Pickup、临时取消间数</div></div>
+      <div class="kv-row"><div class="kv-k">查哪张表</div><div class="kv-v"><b>《法典》表 I</b>「0–3 天」行：监控频率<b>每日 2 次（10:00 / 17:00）</b>；落后触发阈值 <b>OCC &lt; 70%</b>；触发动作 <b>上「今日特惠」尾房产品</b></div></div>
+      <div class="kv-row"><div class="kv-k">产出什么</div><div class="kv-v">尾房动作（今日特惠产品上架 / 渠道开关微调）</div></div>
+      <div class="kv-row"><div class="kv-k">合格标准</div><div class="kv-v"><ul class="checklist" style="margin:0">
+        <li>当日 + 未来 3 天共 4 天逐日复查</li>
+        <li>OCC &lt; 70% 的日期已上架「今日特惠」尾房产品</li>
+        <li>尾房动作同样写入《调价台账》（触发表编号填「表 I」）</li>
+        <li>17:15 前完成</li>
+      </ul></div></div>
+    </div>
+  </div>
+
+  <h2 id="s3">三、《法典》表 A · 每日价格调整判定表（完整内嵌）</h2>
+
+  <div class="callout callout-key">
+    <span class="co-t">两个输入（缺一不可）</span>
+    <p><b>输入 1 · 目标日当前预测 OCC</b> =（在手房晚 + 预测增量房晚）÷ 可售房晚 × 100%　→ 决定<b>行</b><br>
+    <b>输入 2 · Pickup 偏差</b> =（当前在手房晚 − 去年同期同一提前窗口在手房晚）÷ 去年同期在手房晚 × 100%　→ 决定<b>列</b></p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl tbl-matrix">
+      <caption><span class="badge-codex">表 A</span>　每日价格调整判定表（双因子矩阵）<span class="cap-note">行＝预测 OCC（6 档），列＝Pickup 偏差（5 档），共 30 格。格内为 BAR 调整幅度</span></caption>
+      <thead>
+        <tr>
+          <th>预测 OCC ＼ Pickup 偏差</th>
+          <th>落后 &gt;10%</th><th>落后 3–10%</th><th>持平 ±3%</th><th>领先 3–10%</th><th>领先 &gt;10%</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="rowh">≥95%</th>
+          <td class="keep">维持</td>
+          <td class="up-cell">↑5%</td>
+          <td class="up-cell">↑10%</td>
+          <td class="up-cell">↑15%</td>
+          <td class="up-cell">↑20%</td>
+        </tr>
+        <tr>
+          <th class="rowh">85–95%</th>
+          <td class="keep">维持</td>
+          <td class="up-cell">↑3%</td>
+          <td class="up-cell">↑5%</td>
+          <td class="up-cell">↑10%</td>
+          <td class="up-cell">↑15%</td>
+        </tr>
+        <tr>
+          <th class="rowh">70–85%</th>
+          <td class="down-cell">↓5%</td>
+          <td class="down-cell">↓3%</td>
+          <td class="keep">维持</td>
+          <td class="up-cell">↑5%</td>
+          <td class="up-cell">↑8%</td>
+        </tr>
+        <tr>
+          <th class="rowh">55–70%</th>
+          <td class="down-cell">↓10%</td>
+          <td class="down-cell">↓5%</td>
+          <td class="down-cell">↓3%</td>
+          <td class="keep">维持</td>
+          <td class="up-cell">↑3%</td>
+        </tr>
+        <tr>
+          <th class="rowh">40–55%</th>
+          <td class="down-cell">↓15%</td>
+          <td class="down-cell">↓10%</td>
+          <td class="down-cell">↓5%</td>
+          <td class="keep">维持</td>
+          <td class="keep">维持</td>
+        </tr>
+        <tr>
+          <th class="rowh">&lt;40%</th>
+          <td class="down-cell">↓20%</td>
+          <td class="down-cell">↓15%</td>
+          <td class="down-cell">↓10%</td>
+          <td class="down-cell">↓5%</td>
+          <td class="keep">维持</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">矩阵边界的读法（必须统一，否则同数不同人读出不同动作）</span>
+    <p>1. 行区间按<b>包含下界、不含上界</b>读：70–85% 表示 ≥70.0% 且 &lt;85.0%。所以 85.0% 属于「85–95%」行，不属于「70–85%」行。<br>
+    2. 列区间同理：落后 3–10% 表示 3.0% ≤ 偏差 &lt; 10.0%；「落后 &gt;10%」表示 ≥10.0%。<br>
+    3. 「持平 ±3%」表示 −3.0% ≤ 偏差 ≤ +3.0%。偏差恰为 ±3.0% 时归「持平」。<br>
+    4. 预测 OCC 保留一位小数后再定行；<b>不允许先四舍五入到整数再定行</b>（84.6% 与 85.4% 分属两行，动作不同）。</p>
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">矩阵的 3 个反直觉格（最容易记错，务必重点看）</span>
+    <p>· <b>「≥95% ＋ 落后 &gt;10%」= 维持，不是降价。</b>已经接近满房，再降就是白送。<br>
+    · <b>「40–55% ＋ 领先 &gt;10%」= 维持，不是提价。</b>低谷日即使领先，价格弹性依然很低，提价会立刻掉量。<br>
+    · <b>「&lt;40% ＋ 领先 &gt;10%」= 维持。</b>同上，这是矩阵最右下角的一格，很多新人会误记成 ↑3%。</p>
+  </div>
+
+  <h2 id="s4">四、表 A 的 5 条执行约束与查表 6 步法</h2>
+
+  <h3>4.1 五条执行约束（《SPEC》原文，必须同时遵守）</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 3-2　表 A 执行约束<span class="cap-note">查表读出动作 ≠ 可以执行。5 条约束全部满足，动作才成立</span></caption>
+      <thead><tr><th class="num">#</th><th>约束</th><th>校验方法</th><th>不满足时怎么办</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>单日同方向累计调价 <b>不超过 20%</b></td><td>累加该目标日当日全部同方向调整幅度</td><td>超出部分<b>不予执行</b>，改为次日再调；在台账备注栏写明「受约束 1 限制，本次仅执行 X%」</td></tr>
+        <tr><td class="num">2</td><td>24 小时内同方向调价 <b>不超过 2 次</b></td><td>查《调价台账》该目标日近 24h 的同方向条目数</td><td>第 3 次及以后<b>不予执行</b>，写入《观察清单》，次日 08:30 重新查表</td></tr>
+        <tr><td class="num">3</td><td>每次调价幅度 <b>不低于 3%</b></td><td>低于 3% 的调整<b>无市场感知，不算调价</b></td><td>直接放弃本次调整，台账记录「维持（幅度 &lt;3%，按约束 3 不执行）」</td></tr>
+        <tr><td class="num">4</td><td>调价后 <b>30 分钟内</b>必须检查 OTA 挂牌价是否同步</td><td>09:40 时段的一致性核查，或调价后计时 30 分钟</td><td>超时未核查，视为动作未完成，须补查并在台账说明</td></tr>
+        <tr><td class="num">5</td><td>触及 <b>D1 峰值日</b>的调价，<b>必须</b>由 L3 收益经理审批</td><td>查目标日需求等级代号是否为 PEAK（D1）</td><td>未取得 L3 审批不得落位；先挂起，审批通过后再执行并记录审批人</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">补充：第 6 条（来自《SPEC》表 A 原文第 5 点）</span>
+    <p><b>调价动作全部写入《调价台账》。</b>包括「维持」和「因约束未执行」的情况——因为 30 天后复盘时，你需要知道「当时为什么没动」，而不只是「当时动了什么」。</p>
+  </div>
+
+  <h3>4.2 查表 6 步法（每次调价都必须按这 6 步走）</h3>
+
+  <div class="step"><div class="step-num">1</div><div class="step-body">
+    <h4>取两个输入</h4>
+    <p>预测 OCC（保留一位小数）、Pickup 偏差（保留一位小数，写明「落后 / 领先」）。两个数都来自 07:50 的 Pickup 表。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">2</div><div class="step-body">
+    <h4>定行、定列、读格</h4>
+    <p>预测 OCC → 行；Pickup 偏差 → 列；交点即动作。<b>用手指或光标物理地沿着行列划过去</b>，不要凭印象跳读——这是新人最常犯的错。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">3</div><div class="step-body">
+    <h4>算新价格</h4>
+    <p>新 BAR = 当前 BAR ×（1 ± 幅度）。以 SUP-K / SUP-T 为基准算出后，再按 7 档房型阶梯同步落位（见 5.2 节）。结果四舍五入到整数元。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">4</div><div class="step-body">
+    <h4>过 5 条约束</h4>
+    <p>逐条核对表 3-2。任一条不满足，动作按「不满足时怎么办」列处理，不得硬执行。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">5</div><div class="step-body">
+    <h4>落位 + 截图存证</h4>
+    <p>按第 11 节「动作落位」标准步骤执行，截图必须含 日期 / 房型代码 / 价格代码 / 修改前后值 四项。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">6</div><div class="step-body">
+    <h4>写入台账</h4>
+    <p>09:55 前录入《调价台账》，11 个字段齐全，触发表编号填「表 A」。</p>
+  </div></div>
+
+  <h2 id="s5">五、《法典》表 B · 库存与限制条件配置表（完整内嵌）</h2>
+
+  <div class="tbl-wrap">
+    <table class="tbl tbl-matrix">
+      <caption><span class="badge-codex">表 B</span>　库存与限制条件配置表<span class="cap-note">输入：预测 OCC（与表 A 同一个数）。四列动作<b>同时配置</b>，不是四选一</span></caption>
+      <thead>
+        <tr><th>预测 OCC</th><th>MinLOS</th><th>CTA</th><th>低价渠道 Stop Sell</th><th>超额预订</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="rowh">≥95%</th>
+          <td>2 晚（<b>D1 峰值日 3 晚</b>）</td>
+          <td><b>启用</b></td>
+          <td>关闭尾房特惠 / 团购 / 批发商</td>
+          <td>不超售</td>
+        </tr>
+        <tr>
+          <th class="rowh">90–95%</th>
+          <td>2 晚</td>
+          <td>D1 日启用</td>
+          <td>关闭尾房特惠</td>
+          <td>≤2 间</td>
+        </tr>
+        <tr>
+          <th class="rowh">85–90%</th>
+          <td>1–2 晚（<b>周末 2 晚</b>）</td>
+          <td>否</td>
+          <td>保留</td>
+          <td>按表 E</td>
+        </tr>
+        <tr>
+          <th class="rowh">70–85%</th>
+          <td>1 晚</td>
+          <td>否</td>
+          <td>全开</td>
+          <td>按表 E</td>
+        </tr>
+        <tr>
+          <th class="rowh">&lt;70%</th>
+          <td>不设限</td>
+          <td>否</td>
+          <td>全开 + 上促销</td>
+          <td>不超售</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">表 B 的 4 个执行要点</span>
+    <p>1. <b>四列同时配置。</b>读到某一行，四列的动作全都要做，不是选一个做。<br>
+    2. <b>「MinLOS 1 晚」＝不设最少住期限制</b>（等同于取消 MinLOS），不是「设为 1」。落位时直接在限制条件中清空 MinLOS 值。<br>
+    3. <b>「85–90%」行的「周末 2 晚」</b>：周末指周五、周六入住（对应《SPEC》2.5 中旺季周五六为 D2 高涨日）。<br>
+    4. <b>「按表 E」只出现在 85–90% 与 70–85% 两行</b>；90–95% 行直接给「≤2 间」，≥95% 与 &lt;70% 行不超售。</p>
+  </div>
+
+  <h2 id="s6">六、《法典》表 E · 超额预订标准表（三步计算法）</h2>
+
+  <p>超售间数 = 可售房量 × 超售率（<strong>向下取整</strong>）。超售率由三步得出：</p>
+
+  <h3>第一步：查基准超售率</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 3-3　《法典》表 E 第一步 · 基准超售率<span class="cap-note">输入：历史「No-show 率 + 24h 内取消率」合计值</span></caption>
+      <thead><tr><th>No-show + 取消 合计</th><th>基准超售率</th></tr></thead>
+      <tbody>
+        <tr><td>&lt;5%</td><td><b>0%</b></td></tr>
+        <tr><td>5–10%</td><td><b>2%</b></td></tr>
+        <tr><td>10–15%</td><td><b>3%</b></td></tr>
+        <tr><td>15–20%</td><td><b>5%</b></td></tr>
+        <tr><td>20–30%</td><td><b>7%</b></td></tr>
+        <tr><td>&gt;30%</td><td><b>10%</b>（需 L3 经理审批）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>第二步：修正系数（连乘）</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 3-4　《法典》表 E 第二步 · 修正系数<span class="cap-note">命中几条就连乘几个系数；一条都不命中则 ×1</span></caption>
+      <thead><tr><th>条件</th><th>系数</th></tr></thead>
+      <tbody>
+        <tr><td>D1 峰值日 / D2 高涨日</td><td><b>× 0.5</b></td></tr>
+        <tr><td>担保预订（预付 / 信用卡担保）占比 &gt;60%</td><td><b>× 0.5</b></td></tr>
+        <tr><td>会议团队占当日 &gt;40%</td><td><b>× 0.5</b></td></tr>
+        <tr><td>协议客户集中度 &gt;50%</td><td><b>× 0.8</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>第三步：硬上限（三条同时生效，取最小值）</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 3-5　《法典》表 E 第三步 · 硬上限<span class="cap-note">最终超售间数 = min(计算值, 16, 15)，且无备用酒店时超售率再减半</span></caption>
+      <thead><tr><th>硬上限</th><th>云璟（可售 320 间）对应值</th></tr></thead>
+      <tbody>
+        <tr><td>超售间数不超过可售房量的 <b>5%</b></td><td>320 × 5% = <b>16 间</b></td></tr>
+        <tr><td>超售间数不超过 <b>15 间</b></td><td><b>15 间</b></td></tr>
+        <tr><td>步行距离 30 分钟内无同档次备用酒店时，<b>超售率减半</b></td><td>按实际备用酒店情况判定</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-do">
+    <span class="co-t">超售计算完整示例</span>
+    <div class="formula" style="margin-top:10px">
+      <span class="f-label">已知</span>
+      目标日：10 月 30 日（周四，D3 平峰日），可售房量 320 间<br>
+      历史 No-show 率 + 24h 内取消率合计 = 12%<br>
+      担保预订占比 = 65%　会议团队占比 = 15%　协议客户集中度 = 42%<br>
+      步行 30 分钟内有同档次备用酒店 = 是<br>
+      <br>
+      <span class="f-label">第一步</span>
+      12% 落在「10–15%」档 → 基准超售率 = <b>3%</b><br>
+      <br>
+      <span class="f-label">第二步</span>
+      D1/D2 日？否 → ×1<br>
+      担保占比 65% &gt; 60% → <b>× 0.5</b><br>
+      会议团队 15% &gt; 40%？否 → ×1<br>
+      协议集中度 42% &gt; 50%？否 → ×1<br>
+      修正后超售率 = 3% × 0.5 = <b>1.5%</b><br>
+      <br>
+      <span class="f-label">第三步</span>
+      超售间数 = 320 × 1.5% = 4.8 → 向下取整 = <b>4 间</b><br>
+      硬上限校核：4 ≤ 16 ✓　4 ≤ 15 ✓　有备用酒店（不减半）✓<br>
+      <br>
+      <span class="f-label">结论</span>
+      10 月 30 日超售上限 = <span class="f-out">4 间</span>
+    </div>
+  </div>
+
+  <!-- ===== 讲师示范 ① ===== -->
+  <h2 id="s7">七、讲师示范 ①：D3 平峰日</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">▶</span>示范 ①　10 月 30 日（周四 · D3 平峰日 · SHOULDER）</div>
+
+    <h4>已知条件（来自 07:30–08:10 三个取数时段）</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">目标日</div><div class="kv-v">10 月 30 日，周四，D3 平峰日（价格系数 95–110%）</div></div>
+      <div class="kv-row"><div class="kv-k">可售房晚</div><div class="kv-v">312 间（总房量 320 − OOO 8）</div></div>
+      <div class="kv-row"><div class="kv-k">当前在手</div><div class="kv-v">187 间</div></div>
+      <div class="kv-row"><div class="kv-k">去年同期同窗口在手</div><div class="kv-v">199 间</div></div>
+      <div class="kv-row"><div class="kv-k">预测增量</div><div class="kv-v">57 间</div></div>
+      <div class="kv-row"><div class="kv-k">当前 BAR（SUP-K / SUP-T）</div><div class="kv-v">¥680（平峰标准 BAR）</div></div>
+      <div class="kv-row"><div class="kv-k">历史 No-show + 24h 取消</div><div class="kv-v">12%；担保预订占比 65%；会议团队 15%；协议集中度 42%；有备用酒店</div></div>
+      <div class="kv-row"><div class="kv-k">竞争组合</div><div class="kv-v">加权 ADR ¥691.7，加权 OCC 68.0%</div></div>
+    </div>
+
+    <h4>第 1 步 · 算表 A 的两个输入</h4>
+    <div class="formula">
+      <span class="f-label">输入 1 · 预测 OCC</span>
+      预测 OCC =（在手 187 + 预测增量 57）÷ 可售 312 × 100% = 244 ÷ 312 × 100% → <span class="f-out">78.2%</span><br>
+      <br>
+      <span class="f-label">输入 2 · Pickup 偏差</span>
+      Pickup 偏差 =（187 − 199）÷ 199 × 100% = −12 ÷ 199 × 100% → <span class="f-out">落后 6.0%</span>
+    </div>
+
+    <h4>第 2 步 · 查表 A</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">定行</div><div class="kv-v">78.2% 落在「<b>70–85%</b>」行（≥70.0% 且 &lt;85.0%）</div></div>
+      <div class="kv-row"><div class="kv-k">定列</div><div class="kv-v">落后 6.0% 落在「<b>落后 3–10%</b>」列（3.0% ≤ 6.0% &lt; 10.0%）</div></div>
+      <div class="kv-row"><div class="kv-k">读格</div><div class="kv-v">行「70–85%」× 列「落后 3–10%」= <span class="down">↓3%</span></div></div>
+    </div>
+
+    <h4>第 3 步 · 算新价格（7 档房型整表落位）</h4>
+    <div class="formula">
+      <span class="f-label">基准房型</span>
+      新 BAR（SUP-K / SUP-T）= 680 × (1 − 3%) = 680 × 0.97 = 659.6 → <span class="f-out">¥660</span>
+    </div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <caption>表 3-6　7 档房型同步落位<span class="cap-note">平峰 BAR 取自《SPEC》2.1；调整幅度统一为 ↓3%；结果四舍五入到整数元</span></caption>
+        <thead><tr><th>房型代码</th><th>房型名称</th><th class="num">平峰 BAR</th><th class="num">调整后</th><th class="num">变动</th></tr></thead>
+        <tbody>
+          <tr><td><code>STD-K</code> / <code>STD-T</code></td><td>标准大床 / 双床房</td><td class="num">¥580</td><td class="num">¥563</td><td class="num"><span class="down">↓3%</span></td></tr>
+          <tr><td><code>SUP-K</code> / <code>SUP-T</code></td><td>高级大床 / 双床房</td><td class="num">¥680</td><td class="num">¥660</td><td class="num"><span class="down">↓3%</span></td></tr>
+          <tr><td><code>DLX-K</code></td><td>豪华大床房</td><td class="num">¥820</td><td class="num">¥795</td><td class="num"><span class="down">↓3%</span></td></tr>
+          <tr><td><code>DLX-V</code></td><td>豪华江景房</td><td class="num">¥960</td><td class="num">¥931</td><td class="num"><span class="down">↓3%</span></td></tr>
+          <tr><td><code>EXE-K</code> / <code>EXE-T</code></td><td>行政大床 / 双床房</td><td class="num">¥990</td><td class="num">¥960</td><td class="num"><span class="down">↓3%</span></td></tr>
+          <tr><td><code>STE-B</code></td><td>商务套房</td><td class="num">¥1,280</td><td class="num">¥1,242</td><td class="num"><span class="down">↓3%</span></td></tr>
+          <tr><td><code>STE-E</code></td><td>行政套房</td><td class="num">¥1,880</td><td class="num">¥1,824</td><td class="num"><span class="down">↓3%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-warn">
+      <span class="co-t">口径提示（全学院统一，避免两套数字）</span>
+      <p>《SPEC》2.1「标准 BAR（平峰）」列与《SPEC》表 F「系数」列在 DLX-V（系数 140 → ¥952 vs 标准 BAR ¥960）、STE-B（180 → ¥1,224 vs ¥1,280）、STE-E（265 → ¥1,802 vs ¥1,880）三档上存在小幅差异。<b>本学院统一以《SPEC》2.1 的「标准 BAR（平峰）」列作为房型落位价格</b>；《SPEC》表 F 的<b>系数列与价差校验规则（相邻价差 &lt;8% 拉开、&gt;35% 收敛、套房与最高房型价差 &lt;60% 提套房价）仍为唯一权威规则</b>，价差校验属每周一动作（《法典》表 N），不在每日流水线范围内。</p>
+    </div>
+
+    <h4>第 4 步 · 过 5 条约束</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <caption>表 3-7　表 A 执行约束校验（示范 ①）</caption>
+        <thead><tr><th class="num">#</th><th>约束</th><th>本例</th><th>结论</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>单日同方向累计 ≤20%</td><td>本日为首次调整，累计 ↓3%</td><td><span class="pill pill-teal">通过</span></td></tr>
+          <tr><td class="num">2</td><td>24h 内同方向 ≤2 次</td><td>查台账：近 24h 无同方向记录，本次为第 1 次</td><td><span class="pill pill-teal">通过</span></td></tr>
+          <tr><td class="num">3</td><td>单次幅度 ≥3%</td><td>3% = 3%，不低于下限</td><td><span class="pill pill-teal">通过</span></td></tr>
+          <tr><td class="num">4</td><td>调价后 30 min 内核查 OTA 同步</td><td>09:10 落位 → 09:40 一致性核查，间隔 30 min</td><td><span class="pill pill-teal">通过</span></td></tr>
+          <tr><td class="num">5</td><td>D1 峰值日须 L3 审批</td><td>本日为 D3 平峰日，非 D1</td><td><span class="pill pill-teal">不适用</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>第 5 步 · 查表 B（库存与限制条件）</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">定行</div><div class="kv-v">预测 OCC 78.2% →「<b>70–85%</b>」行</div></div>
+      <div class="kv-row"><div class="kv-k">MinLOS</div><div class="kv-v"><b>1 晚</b> → 落位动作：在限制条件中<b>清空</b> MinLOS（等同于不设最少住期）</div></div>
+      <div class="kv-row"><div class="kv-k">CTA</div><div class="kv-v"><b>否</b> → 不启用不可入住限制</div></div>
+      <div class="kv-row"><div class="kv-k">低价渠道 Stop Sell</div><div class="kv-v"><b>全开</b> → 尾房特惠、团购、批发商渠道保持开放</div></div>
+      <div class="kv-row"><div class="kv-k">超额预订</div><div class="kv-v"><b>按表 E</b> → 见下方表 E 计算</div></div>
+    </div>
+
+    <h4>第 6 步 · 算超售（表 E 三步法）</h4>
+    <div class="formula">
+      <span class="f-label">计算</span>
+      第一步：No-show + 24h 取消 = 12%，落「10–15%」档 → 基准超售率 <b>3%</b><br>
+      第二步：非 D1/D2（×1）　担保占比 65% &gt; 60%（×0.5）　会议团队 15% ≯ 40%（×1）　协议集中度 42% ≯ 50%（×1）<br>
+      　　　　修正后超售率 = 3% × 0.5 = <b>1.5%</b><br>
+      第三步：超售间数 = 320 × 1.5% = 4.8 → 向下取整 = <b>4 间</b>；硬上限 16 / 15 均未触及<br>
+      <span class="f-label">结论</span>
+      10 月 30 日超售上限 = <span class="f-out">4 间</span>
+    </div>
+
+    <h4>第 7 步 · 查表 C 与表 H，并按表 O 仲裁</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">表 C（ARI）</div><div class="kv-v">ARI = 680 ÷ 691.7 × 100 = <b>98.3</b> → 落「97–103 健康」→ 动作 <b>维持</b></div></div>
+      <div class="kv-row"><div class="kv-k">表 H（渠道）</div><div class="kv-v">预测 OCC 78.2% →「<b>70–85%</b>」行 → OTA 国内全开 / OTA 国际全开 / GDS 开 / 批发商<b>限价开（≤ BAR×75% = 660×0.75 = ¥495）</b> / 直销全开 + 早鸟</div></div>
+      <div class="kv-row"><div class="kv-k">表 D（MPI）</div><div class="kv-v">MPI = 78.2 ÷ 68.0 × 100 = <b>115.0</b> → 落「&gt;110 份额领先」→ 优先提价</div></div>
+      <div class="kv-row"><div class="kv-k">表 O 仲裁</div><div class="kv-v">优先级：表 B(2) &gt; 表 A(3) &gt; 表 C(4) &gt; 表 H(5) &gt; 表 D(6)。<br>价格类动作：表 A 给出 ↓3%（优先级 3），表 C 给出维持（4），表 D 给出提价（6）→ <b>只执行表 A 的 ↓3%</b>。<br>非价格类动作：表 B 的库存配置、表 H 的渠道开关<b>不与表 A 冲突，照常执行</b>。<br>表 C「维持」与表 D「优先提价」写入《观察清单》。</div></div>
+    </div>
+
+    <h4>第 8 步 · 记录（写入《调价台账》）</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <caption>表 3-8　示范 ① 台账记录示例</caption>
+        <thead><tr><th>字段</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td>日期</td><td>2026-10-16（操作日）</td></tr>
+          <tr><td>目标日</td><td>2026-10-30</td></tr>
+          <tr><td>动作类型</td><td>调价（下调）</td></tr>
+          <tr><td>调整前</td><td>SUP-K/SUP-T ¥680（7 档整表见截图 F1016-01）</td></tr>
+          <tr><td>调整后</td><td>SUP-K/SUP-T ¥660（7 档整表见截图 F1016-02）</td></tr>
+          <tr><td>触发表编号</td><td><b>表 A</b>（行 70–85% × 列 落后 3–10%）</td></tr>
+          <tr><td>OCC 预测</td><td>78.2%</td></tr>
+          <tr><td>Pickup 偏差</td><td>落后 6.0%</td></tr>
+          <tr><td>执行人</td><td>收益专员 XXX（L1）</td></tr>
+          <tr><td>复核人</td><td>收益主管 XXX（L2）— 非 D1 日，无需 L3 审批</td></tr>
+          <tr><td>结果回填</td><td>（30 天后回填：实际 OCC / 实际 ADR / 是否命中）</td></tr>
+          <tr><td>备注</td><td>表 C 判定「维持」（ARI 98.3）、表 D 判定「优先提价」（MPI 115.0），按表 O 均让位于表 A，已写入《观察清单》；同步执行表 B（MinLOS 清空 / CTA 否 / 低价渠道全开 / 超售 4 间）与表 H（70–85% 档渠道配置，批发商限价 ≤¥495）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== 讲师示范 ② ===== -->
+  <h2 id="s8">八、讲师示范 ②：D1 峰值日</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">▶</span>示范 ②　10 月 2 日（国庆 · D1 峰值日 · PEAK）</div>
+
+    <h4>已知条件</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">目标日</div><div class="kv-v">10 月 2 日，国庆假期第 2 天，D1 峰值日（价格系数 150–200%，目标 OCC ≥95%）</div></div>
+      <div class="kv-row"><div class="kv-k">可售房晚</div><div class="kv-v">320 间（OOO 0，峰值日前全部房量投放）</div></div>
+      <div class="kv-row"><div class="kv-k">当前在手</div><div class="kv-v">302 间</div></div>
+      <div class="kv-row"><div class="kv-k">去年同期同窗口在手</div><div class="kv-v">266 间</div></div>
+      <div class="kv-row"><div class="kv-k">预测增量</div><div class="kv-v">5 间</div></div>
+      <div class="kv-row"><div class="kv-k">当前 BAR（SUP-K / SUP-T）</div><div class="kv-v">¥1,020（= 平峰 ¥680 × D1 系数 150%）</div></div>
+      <div class="kv-row"><div class="kv-k">竞对</div><div class="kv-v">竞争组合加权 ADR ¥1,050（峰值日同步上涨），加权 OCC 92.0%</div></div>
+    </div>
+
+    <h4>第 1 步 · 算输入</h4>
+    <div class="formula">
+      <span class="f-label">输入 1 · 预测 OCC</span>
+      （302 + 5）÷ 320 × 100% = 307 ÷ 320 × 100% → <span class="f-out">95.9%</span><br>
+      <br>
+      <span class="f-label">输入 2 · Pickup 偏差</span>
+      （302 − 266）÷ 266 × 100% = 36 ÷ 266 × 100% → <span class="f-out">领先 13.5%</span>
+    </div>
+
+    <h4>第 2 步 · 查表 A</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">定行</div><div class="kv-v">95.9% ≥ 95% →「<b>≥95%</b>」行</div></div>
+      <div class="kv-row"><div class="kv-k">定列</div><div class="kv-v">领先 13.5% &gt; 10% →「<b>领先 &gt;10%</b>」列</div></div>
+      <div class="kv-row"><div class="kv-k">读格</div><div class="kv-v">「≥95%」×「领先 &gt;10%」= <span class="up">↑20%</span>（矩阵右上角，全表最大涨幅）</div></div>
+    </div>
+
+    <h4>第 3 步 · 算新价格</h4>
+    <div class="formula">
+      <span class="f-label">基准房型</span>
+      新 BAR（SUP-K / SUP-T）= 1,020 × (1 + 20%) = 1,020 × 1.20 → <span class="f-out">¥1,224</span><br>
+      <br>
+      <span class="f-label">7 档房型整表（按《SPEC》2.1 平峰 BAR × 150% 的当前价，统一 ↑20%）</span>
+      STD-K/T：580 × 1.5 = 870 → 870 × 1.2 = <span class="f-out">¥1,044</span><br>
+      SUP-K/T：680 × 1.5 = 1,020 → 1,020 × 1.2 = <span class="f-out">¥1,224</span><br>
+      DLX-K　　 ：820 × 1.5 = 1,230 → 1,230 × 1.2 = <span class="f-out">¥1,476</span><br>
+      DLX-V　　 ：960 × 1.5 = 1,440 → 1,440 × 1.2 = <span class="f-out">¥1,728</span><br>
+      EXE-K/T　：990 × 1.5 = 1,485 → 1,485 × 1.2 = <span class="f-out">¥1,782</span><br>
+      STE-B　　 ：1,280 × 1.5 = 1,920 → 1,920 × 1.2 = <span class="f-out">¥2,304</span><br>
+      STE-E　　 ：1,880 × 1.5 = 2,820 → 2,820 × 1.2 = <span class="f-out">¥3,384</span>
+    </div>
+
+    <h4>第 4 步 · 过 5 条约束（本例全部触及，重点看）</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <caption>表 3-9　表 A 执行约束校验（示范 ②）</caption>
+        <thead><tr><th class="num">#</th><th>约束</th><th>本例</th><th>结论</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>单日同方向累计 ≤20%</td><td>本次 ↑20%，累计 = 20%，<b>恰好等于上限</b>（≤20% 含等号）</td><td><span class="pill pill-amber">通过（已达上限，当日不得再上调）</span></td></tr>
+          <tr><td class="num">2</td><td>24h 内同方向 ≤2 次</td><td>本次为第 1 次</td><td><span class="pill pill-teal">通过（当日最多再上调 1 次，但受约束 1 限制已无空间）</span></td></tr>
+          <tr><td class="num">3</td><td>单次幅度 ≥3%</td><td>20% ≥ 3%</td><td><span class="pill pill-teal">通过</span></td></tr>
+          <tr><td class="num">4</td><td>调价后 30 min 内核查 OTA 同步</td><td>09:10 落位 → 09:40 核查</td><td><span class="pill pill-teal">通过</span></td></tr>
+          <tr><td class="num">5</td><td>D1 峰值日须 L3 审批</td><td><b>本日为 D1 峰值日 → 必须 L3 收益经理审批</b></td><td><span class="pill pill-red">需审批后方可落位</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-danger">
+      <span class="co-t">本例的关键：约束 5 是「前置条件」不是「事后补签」</span>
+      <p>D1 峰值日调价<b>必须先拿到 L3 审批，再落位</b>。若先落位后补签，一旦 L3 否决，价格已对客展示并被预订，会产生客诉与价格一致性风险。<br>
+      <b>执行顺序：08:30 查表得出动作 → 标记「需 L3 审批」→ 提交 L3 → 取得书面确认 → 09:10 落位 → 09:40 核查 → 09:55 台账（复核人栏填 L3 姓名）。</b></p>
+    </div>
+
+    <h4>第 5 步 · 查表 B（本行为「≥95%」行，四列全做）</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">MinLOS</div><div class="kv-v"><b>2 晚（D1 峰值日 3 晚）</b> → 本日为 D1 → 设 <b>MinLOS = 3 晚</b></div></div>
+      <div class="kv-row"><div class="kv-k">CTA</div><div class="kv-v"><b>启用</b> → 对该日启用「不可入住」限制（只允许延续入住，不接新到店）</div></div>
+      <div class="kv-row"><div class="kv-k">低价渠道 Stop Sell</div><div class="kv-v"><b>关闭尾房特惠 / 团购 / 批发商</b></div></div>
+      <div class="kv-row"><div class="kv-k">超额预订</div><div class="kv-v"><b>不超售</b> → 超售上限设 0（表 E 不需要计算）</div></div>
+    </div>
+
+    <h4>第 6 步 · 查表 H（≥95% 行）</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">OTA 国内</div><div class="kv-v"><b>仅留 1 家产量最高</b> → 查近 90 天产量，保留产量最高的一家，其余全部 Stop Sell</div></div>
+      <div class="kv-row"><div class="kv-k">OTA 国际</div><div class="kv-v">关（成本率 18%，峰值日无必要）</div></div>
+      <div class="kv-row"><div class="kv-k">GDS / TMC</div><div class="kv-v">关</div></div>
+      <div class="kv-row"><div class="kv-k">批发商 / 包房</div><div class="kv-v">关（成本率 26%）</div></div>
+      <div class="kv-row"><div class="kv-k">直销 / 会员</div><div class="kv-v">全开 + 会员专享价（MEMB 仅限登录会员可见）</div></div>
+    </div>
+
+    <h4>第 7 步 · 查表 C / 表 D 并仲裁</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">表 C（ARI）</div><div class="kv-v">ARI = 1,020 ÷ 1,050 × 100 = <b>97.1</b> → 落「90–97 略低」→ 判定「预测 OCC ≥80% → 提 3%」。本例预测 OCC 95.9% ≥ 80% → 表 C 结论为 <span class="up">↑3%</span></div></div>
+      <div class="kv-row"><div class="kv-k">冲突</div><div class="kv-v">表 A 给 <span class="up">↑20%</span>，表 C 给 <span class="up">↑3%</span>，同方向但幅度不同</div></div>
+      <div class="kv-row"><div class="kv-k">表 O 仲裁</div><div class="kv-v">表 A（优先级 3）&gt; 表 C（4）→ <b>只执行表 A 的 ↑20%</b>，表 C 的 ↑3% <b>不叠加</b>（《SPEC》表 C 执行约束原文：不得与表 A 结论叠加执行，同日只执行优先级更高的一条）。表 C 结论写入《观察清单》。<br>且受表 A 约束 1（单日同方向累计 ≤20%）限制，当日已无上调空间。</div></div>
+      <div class="kv-row"><div class="kv-k">表 D（MPI）</div><div class="kv-v">MPI = 95.9 ÷ 92.0 × 100 = <b>104.2</b> → 落「100–110 健康」→ 维持。最低优先级，不动作。</div></div>
+    </div>
+
+    <h4>第 8 步 · 台账记录要点</h4>
+    <div class="callout callout-do">
+      <span class="co-t">本条台账的 4 个必记项</span>
+      <p>① 触发表编号填「<b>表 A</b>（行 ≥95% × 列 领先 &gt;10%）」；② 复核人栏填 <b>L3 审批人姓名</b>（约束 5）；③ 备注栏写明「表 C ↑3% 未叠加，依表 O 让位于表 A；表 D 维持」；④ 备注栏写明「单日上调已达 20% 上限，当日不再上调」。</p>
+    </div>
+  </div>
+
+  <!-- ===== 讲师示范 ③ ===== -->
+  <h2 id="s9">九、讲师示范 ③：D4 低谷日（表 A 与表 D 冲突）</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">▶</span>示范 ③　7 月 8 日（周一 · D4 低谷日 · LOW）</div>
+
+    <h4>已知条件</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">目标日</div><div class="kv-v">7 月 8 日，周一，D4 低谷日（价格系数 70–85%，目标 OCC 45–65%）</div></div>
+      <div class="kv-row"><div class="kv-k">可售房晚</div><div class="kv-v">320 间（OOO 0）</div></div>
+      <div class="kv-row"><div class="kv-k">当前在手</div><div class="kv-v">118 间</div></div>
+      <div class="kv-row"><div class="kv-k">去年同期同窗口在手</div><div class="kv-v">141 间</div></div>
+      <div class="kv-row"><div class="kv-k">预测增量</div><div class="kv-v">17 间</div></div>
+      <div class="kv-row"><div class="kv-k">当前 BAR（SUP-K / SUP-T）</div><div class="kv-v">¥560（处于 D4 系数区间 70–85% 内：¥476–¥578）</div></div>
+      <div class="kv-row"><div class="kv-k">近 48h Pickup</div><div class="kv-v">落后 22.0%（未达表 L「需求暴跌」的 &gt;40% 阈值）</div></div>
+      <div class="kv-row"><div class="kv-k">竞对</div><div class="kv-v">竞争组合加权 ADR ¥600，加权 OCC 55.0%</div></div>
+    </div>
+
+    <h4>第 1 步 · 算输入</h4>
+    <div class="formula">
+      <span class="f-label">输入 1 · 预测 OCC</span>
+      （118 + 17）÷ 320 × 100% = 135 ÷ 320 × 100% → <span class="f-out">42.2%</span><br>
+      <br>
+      <span class="f-label">输入 2 · Pickup 偏差</span>
+      （118 − 141）÷ 141 × 100% = −23 ÷ 141 × 100% → <span class="f-out">落后 16.3%</span>
+    </div>
+
+    <h4>第 2 步 · 查表 A</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">定行</div><div class="kv-v">42.2% 落在「<b>40–55%</b>」行（≥40.0% 且 &lt;55.0%）</div></div>
+      <div class="kv-row"><div class="kv-k">定列</div><div class="kv-v">落后 16.3% &gt; 10% →「<b>落后 &gt;10%</b>」列</div></div>
+      <div class="kv-row"><div class="kv-k">读格</div><div class="kv-v">行「40–55%」× 列「落后 &gt;10%」= <span class="down">↓15%</span></div></div>
+    </div>
+
+    <h4>第 3 步 · 算新价格</h4>
+    <div class="formula">
+      <span class="f-label">基准房型</span>
+      新 BAR（SUP-K / SUP-T）= 560 × (1 − 15%) = 560 × 0.85 → <span class="f-out">¥476</span><br>
+      <br>
+      <span class="f-label">对照 D4 系数区间</span>
+      平峰 ¥680 × 70% = ¥476　／　¥680 × 85% = ¥578<br>
+      新价 ¥476 = D4 价格系数<b>下限</b>（70%）
+    </div>
+
+    <div class="callout callout-warn">
+      <span class="co-t">新价触及 D4 地板时的处理</span>
+      <p>新价 ¥476 已等于 D4 系数区间下限。若次日表 A 继续给出下调动作，说明需求已偏离常规低谷节律，此时<b>先查是否触发《法典》表 L「需求暴跌」</b>：判定信号为「48h Pickup 落后 &gt;40%」。<br>
+      本例 48h Pickup 落后 22.0%，<b>未达 40% 阈值，不触发表 L</b> → 继续按表 A 执行，不越级升级。</p>
+    </div>
+
+    <h4>第 4 步 · 过 5 条约束</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <caption>表 3-10　表 A 执行约束校验（示范 ③）</caption>
+        <thead><tr><th class="num">#</th><th>约束</th><th>本例</th><th>结论</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>单日同方向累计 ≤20%</td><td>本次 ↓15%，累计 = 15%</td><td><span class="pill pill-teal">通过（当日最多再下调 5%）</span></td></tr>
+          <tr><td class="num">2</td><td>24h 内同方向 ≤2 次</td><td>本次为第 1 次</td><td><span class="pill pill-teal">通过</span></td></tr>
+          <tr><td class="num">3</td><td>单次幅度 ≥3%</td><td>15% ≥ 3%</td><td><span class="pill pill-teal">通过</span></td></tr>
+          <tr><td class="num">4</td><td>调价后 30 min 内核查 OTA 同步</td><td>09:10 → 09:40</td><td><span class="pill pill-teal">通过</span></td></tr>
+          <tr><td class="num">5</td><td>D1 峰值日须 L3 审批</td><td>本日为 D4 低谷日，非 D1</td><td><span class="pill pill-teal">不适用</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>第 5 步 · 查表 B（&lt;70% 行）</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">MinLOS</div><div class="kv-v"><b>不设限</b> → 清空 MinLOS</div></div>
+      <div class="kv-row"><div class="kv-k">CTA</div><div class="kv-v"><b>否</b></div></div>
+      <div class="kv-row"><div class="kv-k">低价渠道 Stop Sell</div><div class="kv-v"><b>全开 + 上促销</b></div></div>
+      <div class="kv-row"><div class="kv-k">超额预订</div><div class="kv-v"><b>不超售</b>（低谷日不超售，超售上限设 0）</div></div>
+    </div>
+
+    <h4>第 6 步 · 查表 H（&lt;55% 行）</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">OTA 国内</div><div class="kv-v">全开 + 深折</div></div>
+      <div class="kv-row"><div class="kv-k">OTA 国际</div><div class="kv-v">全开</div></div>
+      <div class="kv-row"><div class="kv-k">GDS / TMC</div><div class="kv-v">开 + 商务套餐</div></div>
+      <div class="kv-row"><div class="kv-k">批发商 / 包房</div><div class="kv-v">开 + 打包产品（<b>净价，不得公开挂牌</b>）</div></div>
+      <div class="kv-row"><div class="kv-k">直销 / 会员</div><div class="kv-v">全开 + 长住 / 团购</div></div>
+    </div>
+
+    <h4>第 7 步 · 表 A 与表 D 的冲突（本示范的核心）</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">表 C（ARI）</div><div class="kv-v">ARI = 560 ÷ 600 × 100 = <b>93.3</b> → 落「90–97 略低」→ 判定「预测 OCC ≥80% → 提 3%；否则维持」。本例预测 OCC 42.2% &lt; 80% → <b>维持</b></div></div>
+      <div class="kv-row"><div class="kv-k">表 D（MPI）</div><div class="kv-v">MPI = 42.2 ÷ 55.0 × 100 = <b>76.7</b> → 落「<b>&lt;85 严重落后</b>」→ 动作「启动《应急方案 L2-E1》：<b>降价 10%</b> + 全员直销动员 + 48 小时复盘」</div></div>
+      <div class="kv-row"><div class="kv-k">冲突点</div><div class="kv-v">表 A 给 <span class="down">↓15%</span>，表 D 给 <span class="down">↓10%</span>——<b>同方向、不同幅度</b></div></div>
+      <div class="kv-row"><div class="kv-k">表 O 仲裁</div><div class="kv-v">优先级：表 A(3) &gt; 表 D(6) → <b>价格动作只执行表 A 的 ↓15%</b>，表 D 的「降价 10%」<b>不叠加</b>，写入《观察清单》。</div></div>
+    </div>
+
+    <div class="callout callout-key">
+      <span class="co-t">关键区分：价格动作要仲裁，非价格动作不仲裁</span>
+      <p>《法典》表 D「&lt;85 严重落后」的动作是一个<b>组合包</b>：降价 10% ＋ 全员直销动员 ＋ 48 小时复盘。其中只有「降价 10%」与表 A 的 ↓15% 属于<b>同类（价格）动作</b>，需要按表 O 仲裁。<br>
+      「全员直销动员」与「48 小时复盘」是<b>非价格动作</b>，不与表 A 冲突，<b>照常执行</b>并写入《今日动作清单》。<br>
+      <b>这是本学院对《法典》表 O 的执行解释：仲裁只在同一类动作之间进行，非同类动作并行执行，全部记入台账备注栏。</b></p>
+    </div>
+
+    <h4>第 8 步 · 台账记录要点</h4>
+    <div class="callout callout-do">
+      <span class="co-t">本条台账必须写清冲突全过程</span>
+      <p>触发表编号填「<b>表 A</b>（行 40–55% × 列 落后 &gt;10%）」。<br>
+      备注栏三段：① 表 C 判定维持（ARI 93.3，预测 OCC 42.2% &lt; 80%），让位于表 A；② 表 D 判定「严重落后」启动 L2-E1，其「降价 10%」与表 A 同类，按表 O 让位于表 A 的 ↓15%，不叠加；③ 表 D 的「全员直销动员 + 48 小时复盘」为非价格动作，已列入《今日动作清单》并行执行。<br>
+      另注：48h Pickup 落后 22.0%，未达表 L「需求暴跌」的 &gt;40% 阈值，不升级应急。</p>
+    </div>
+  </div>
+
+  <!-- ===== 讲师示范 ④ ===== -->
+  <h2 id="s10">十、讲师示范 ④：D2 高涨日（90–95% 区间）</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">▶</span>示范 ④　9 月 19 日（周五 · D2 高涨日 · HIGH）</div>
+
+    <h4>已知条件</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">目标日</div><div class="kv-v">9 月 19 日，周五，D2 高涨日（价格系数 120–150%，目标 OCC 88–95%）</div></div>
+      <div class="kv-row"><div class="kv-k">可售房晚</div><div class="kv-v">320 间（OOO 0）</div></div>
+      <div class="kv-row"><div class="kv-k">当前在手</div><div class="kv-v">285 间</div></div>
+      <div class="kv-row"><div class="kv-k">去年同期同窗口在手</div><div class="kv-v">282 间</div></div>
+      <div class="kv-row"><div class="kv-k">预测增量</div><div class="kv-v">10 间</div></div>
+      <div class="kv-row"><div class="kv-k">当前 BAR（SUP-K / SUP-T）</div><div class="kv-v">¥900（处于 D2 系数区间内：¥816–¥1,020）</div></div>
+      <div class="kv-row"><div class="kv-k">当前限制状态</div><div class="kv-v">MinLOS = 1 晚；CTA 未启用；全部渠道开放</div></div>
+      <div class="kv-row"><div class="kv-k">竞对</div><div class="kv-v">竞争组合加权 ADR ¥880，加权 OCC 89.0%</div></div>
+    </div>
+
+    <h4>第 1 步 · 算输入</h4>
+    <div class="formula">
+      <span class="f-label">输入 1 · 预测 OCC</span>
+      （285 + 10）÷ 320 × 100% = 295 ÷ 320 × 100% → <span class="f-out">92.2%</span><br>
+      <br>
+      <span class="f-label">输入 2 · Pickup 偏差</span>
+      （285 − 282）÷ 282 × 100% = 3 ÷ 282 × 100% → <span class="f-out">领先 1.1%</span>
+    </div>
+
+    <h4>第 2 步 · 查表 A</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">定行</div><div class="kv-v">92.2% 落在「<b>90–95%</b>」这一格所属的大行「<b>85–95%</b>」（≥85.0% 且 &lt;95.0%）</div></div>
+      <div class="kv-row"><div class="kv-k">定列</div><div class="kv-v">领先 1.1%，在 ±3% 内 →「<b>持平 ±3%</b>」列</div></div>
+      <div class="kv-row"><div class="kv-k">读格</div><div class="kv-v">行「85–95%」× 列「持平 ±3%」= <span class="up">↑5%</span></div></div>
+    </div>
+
+    <h4>第 3 步 · 算新价格</h4>
+    <div class="formula">
+      <span class="f-label">基准房型</span>
+      新 BAR（SUP-K / SUP-T）= 900 × (1 + 5%) = 900 × 1.05 → <span class="f-out">¥945</span>
+    </div>
+
+    <h4>第 4 步 · 查表 B（本行走「90–95%」的库存分支）</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">行判定</div><div class="kv-v">预测 OCC 92.2% →《法典》表 B 中「90–95%」行（该行是 85–90% 与 ≥95% 之间的独立档）</div></div>
+      <div class="kv-row"><div class="kv-k">MinLOS</div><div class="kv-v"><b>2 晚</b> → 落位动作：把 MinLOS 从「1 晚（不设限）」改为 <b>2 晚</b></div></div>
+      <div class="kv-row"><div class="kv-k">CTA</div><div class="kv-v"><b>D1 日启用</b> → 本日为 D2 高涨日，<b>非 D1 → 不启用 CTA</b></div></div>
+      <div class="kv-row"><div class="kv-k">低价渠道 Stop Sell</div><div class="kv-v"><b>关闭尾房特惠</b>（团购与批发商本档尚未要求关闭）</div></div>
+      <div class="kv-row"><div class="kv-k">超额预订</div><div class="kv-v"><b>≤2 间</b> → 直接取上限 2 间，<b>不需要查表 E</b>（表 B 仅在 85–90% 与 70–85% 两行标注「按表 E」）</div></div>
+    </div>
+
+    <div class="callout callout-warn">
+      <span class="co-t">注意「90–95%」与「85–90%」两行的差异（极易混）</span>
+      <p>《法典》表 B 有 <b>5 行</b>：≥95% / 90–95% / 85–90% / 70–85% / &lt;70%。<br>
+      90–95% 行：MinLOS <b>2 晚</b>、CTA「D1 日启用」、关闭<b>尾房特惠</b>、超售 <b>≤2 间</b>。<br>
+      85–90% 行：MinLOS <b>1–2 晚（周末 2 晚）</b>、CTA <b>否</b>、低价渠道<b>保留</b>、超售 <b>按表 E</b>。<br>
+      <b>两者只有 MinLOS 第二档相同，其余三列全不同。定行之前务必先看预测 OCC 落在哪 5 个百分点区间。</b></p>
+    </div>
+
+    <h4>第 5 步 · 查表 H（90–95% 行）</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">OTA 国内</div><div class="kv-v"><b>开 2 家</b> → 按近 90 天产量排序保留前 2 家，其余 Stop Sell</div></div>
+      <div class="kv-row"><div class="kv-k">OTA 国际</div><div class="kv-v">关</div></div>
+      <div class="kv-row"><div class="kv-k">GDS / TMC</div><div class="kv-v">开</div></div>
+      <div class="kv-row"><div class="kv-k">批发商 / 包房</div><div class="kv-v">关</div></div>
+      <div class="kv-row"><div class="kv-k">直销 / 会员</div><div class="kv-v">全开</div></div>
+    </div>
+
+    <h4>第 6 步 · 查表 C / 表 D 并仲裁</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">表 C（ARI）</div><div class="kv-v">ARI = 900 ÷ 880 × 100 = <b>102.3</b> → 落「97–103 健康」→ <b>维持</b></div></div>
+      <div class="kv-row"><div class="kv-k">表 D（MPI）</div><div class="kv-v">MPI = 92.2 ÷ 89.0 × 100 = <b>103.6</b> → 落「100–110 健康」→ <b>维持</b></div></div>
+      <div class="kv-row"><div class="kv-k">表 O 仲裁</div><div class="kv-v">表 C 与表 D 均为「维持」→ 按表 O「若最高优先级动作为『维持』，则顺延执行下一优先级」。价格类动作最高优先级为表 A 的 <span class="up">↑5%</span> → <b>执行 ↑5%</b>。<br>约束校验：本次为近 24h 第 1 次上调，累计 5% ≤ 20%，幅度 5% ≥ 3%，非 D1 日无需 L3 审批 → <b>全部通过</b>。</div></div>
+    </div>
+
+    <h4>第 7 步 · 本日的完整动作清单</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <caption>表 3-11　示范 ④ 动作清单</caption>
+        <thead><tr><th class="num">#</th><th>动作</th><th>触发表</th><th>调整前 → 调整后</th><th>审批</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>SUP-K/SUP-T BAR 上调 5%（7 档房型同步）</td><td>表 A</td><td>¥900 → ¥945</td><td>无需 L3（非 D1）</td></tr>
+          <tr><td class="num">2</td><td>MinLOS 设为 2 晚</td><td>表 B</td><td>1 晚（不设限）→ 2 晚</td><td>—</td></tr>
+          <tr><td class="num">3</td><td>CTA 保持不启用</td><td>表 B</td><td>否 → 否（本日为 D2 非 D1）</td><td>—</td></tr>
+          <tr><td class="num">4</td><td>关闭尾房特惠渠道</td><td>表 B</td><td>开 → 关</td><td>—</td></tr>
+          <tr><td class="num">5</td><td>超售上限设为 2 间</td><td>表 B</td><td>0 间 → 2 间</td><td>—</td></tr>
+          <tr><td class="num">6</td><td>OTA 国内保留产量前 2 家，其余 Stop Sell</td><td>表 H</td><td>全开 → 开 2 家</td><td>—</td></tr>
+          <tr><td class="num">7</td><td>关闭 OTA 国际、批发商/包房</td><td>表 H</td><td>开 → 关</td><td>—</td></tr>
+          <tr><td class="num">8</td><td>GDS/TMC、直销/会员保持开放</td><td>表 H</td><td>开 → 开</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== 动作落位 ===== -->
+  <h2 id="s11">十一、动作落位：4 类动作的系统无关标准步骤</h2>
+
+  <h3>11.1 调价落位（5 步）</h3>
+
+  <div class="step"><div class="step-num">1</div><div class="step-body">
+    <h4>备齐动作单</h4>
+    <p>动作单必须包含 5 项：目标日、动作类型（上调/下调）、幅度、房型范围、价格代码（默认 <code>BAR</code>）。缺任一项不开始操作。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">2</div><div class="step-body">
+    <h4>在价格日历中定位</h4>
+    <p>定位三要素：<b>目标日期 + 房型代码 + 价格代码</b>。先定位 SUP-K 与 SUP-T（基准房型，系数 100）。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">3</div><div class="step-body">
+    <h4>按 7 档房型整表落位</h4>
+    <p>以基准房型算出新价后，其余 6 档按<b>同一百分比</b>同步调整（STD / SUP / DLX / DLX-V / EXE / STE-B / STE-E）。<b>绝对不能只改 SUP-K</b>——只改一档会破坏房型价差阶梯，触发《法典》表 F 的价差校验问题。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">4</div><div class="step-body">
+    <h4>截图存证</h4>
+    <p>每档房型一张截图，或一张包含全部房型的整表截图。截图必须含 <b>日期 / 房型代码 / 价格代码 / 修改前后值</b> 四项，缺一不可归档。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">5</div><div class="step-body">
+    <h4>30 分钟内启动一致性核查</h4>
+    <p>落位后立即计时，30 分钟内完成 6 渠道价格一致性核查（第 12 节）。这是《法典》表 A 执行约束第 3 条。</p>
+  </div></div>
+
+  <h3>11.2 MinLOS 落位（4 步）</h3>
+
+  <div class="step"><div class="step-num">1</div><div class="step-body">
+    <h4>确认目标值</h4>
+    <p>由《法典》表 B 读出 MinLOS 值：≥95% → 2 晚（D1 峰值日 3 晚）；90–95% → 2 晚；85–90% → 1–2 晚（周末 2 晚）；70–85% → 1 晚；&lt;70% → 不设限。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">2</div><div class="step-body">
+    <h4>定位限制条件</h4>
+    <p>在限制条件（Restriction）功能中，定位：<b>目标日期 + 房型 + 价格代码</b>。MinLOS 通常按「日期 × 房型 × 价格代码」三维设置，不是只按日期设。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">3</div><div class="step-body">
+    <h4>落位</h4>
+    <p>写入新的最少住期值。<b>「1 晚」与「不设限」都执行「清空 MinLOS 值」这一动作</b>，不是填入数字 1。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">4</div><div class="step-body">
+    <h4>验证</h4>
+    <p>换到<b>预订界面视角</b>（或 OTA 前台视角）试订：若只选 1 晚，系统应拒绝或提示最少住期。能订成功说明没设上。截图存证并登记台账（触发表编号「表 B」）。</p>
+  </div></div>
+
+  <h3>11.3 关渠道（Stop Sell）落位（4 步）</h3>
+
+  <div class="step"><div class="step-num">1</div><div class="step-body">
+    <h4>列出待关渠道清单</h4>
+    <p>由《法典》表 H 读出该预测 OCC 档位的渠道配置。把「关」的渠道逐一列出并写明渠道代码（OTA / OTA-I / GDS / WHO）。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">2</div><div class="step-body">
+    <h4>区分两个层级的关闭</h4>
+    <p><b>本店侧（PMS / 渠道管理器）：</b>Stop Sell 或关房，切断库存投放。<br>
+    <b>渠道侧（OTA 后台）：</b>在对应后台把该日房态置为不可售。<br>
+    <b>两层都要做</b>。只做本店侧，渠道缓存可能仍显示可售；只做渠道侧，其他通路仍在卖。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">3</div><div class="step-body">
+    <h4>落位并留痕</h4>
+    <p>逐渠道执行关闭，每渠道一张截图（含日期 / 渠道代码 / 关闭前后状态）。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">4</div><div class="step-body">
+    <h4>复核</h4>
+    <p>关闭后<b>等待渠道缓存刷新</b>（不同渠道刷新周期不同），再从前台视角复查一次确实不可订。若仍可订，联系渠道经理处理。登记台账（触发表编号「表 H」）。</p>
+  </div></div>
+
+  <h3>11.4 超售落位（5 步）</h3>
+
+  <div class="step"><div class="step-num">1</div><div class="step-body">
+    <h4>确认是否需要查表 E</h4>
+    <p>查《法典》表 B：只有「85–90%」与「70–85%」两行标注「按表 E」；「90–95%」行直接取 ≤2 间；「≥95%」与「&lt;70%」行<b>不超售</b>。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">2</div><div class="step-body">
+    <h4>表 E 三步计算</h4>
+    <p>① 查 No-show + 24h 取消合计 → 基准超售率；② 逐条核对 4 个修正条件并连乘；③ 算超售间数（向下取整）并过 3 条硬上限。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">3</div><div class="step-body">
+    <h4>审批判定</h4>
+    <p>基准超售率落在 <b>&gt;30% → 10%</b> 档时，<b>需 L3 经理审批</b>。其余档位无需 L3 审批，但超售动作一律需 L2 复核。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">4</div><div class="step-body">
+    <h4>落位</h4>
+    <p>在超额预订功能中，按<b>房型</b>设置超售上限（不是只设总数）。按各房型间数比例分配到 7 档房型，合计等于算出的超售间数。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">5</div><div class="step-body">
+    <h4>关联动作</h4>
+    <p>开启超售即意味着可能触发《法典》表 J（免费升级规则）与表 L「超售过度」预案。落位当天须确认：① 30 分钟内同档次备用酒店名单可用；② 《步行客人预案》标准补偿包已备妥；③ 《升级台账》已准备。登记台账（触发表编号「表 E」）。</p>
+  </div></div>
+
+  <!-- ===== Rate Parity ===== -->
+  <h2 id="s12">十二、价格一致性（Rate Parity）核查 6 步法</h2>
+
+  <div class="callout callout-key">
+    <span class="co-t">先记住《法典》表 H 的 4 条红线</span>
+    <p>1. 直销价 <b>不得高于</b> 任一 OTA 挂牌价（直销价 ≤ OTA 价 × 100%）<br>
+    2. 会员价可低于 OTA 价，但 <b>仅限登录会员可见</b><br>
+    3. 批发商 / 包房价为 <b>净价，不得公开挂牌</b><br>
+    4. 违反一致性：<b>24 小时内整改并记入考核</b></p>
+  </div>
+
+  <div class="step"><div class="step-num">1</div><div class="step-body">
+    <h4>确定基准价 P</h4>
+    <p>基准价 = 本店<b>直销渠道</b>（官网 / 小程序）在同一目标日、同房型（<b>SUP-K</b>）、同价格代码（<b>BAR</b>）、同取消政策下的挂牌价。所有比对都以它为锚。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">2</div><div class="step-body">
+    <h4>列出比对的 6 个渠道</h4>
+    <p>按本店实际开通情况取 6 个产量最高的渠道。云璟酒店默认清单：<b>① 官网/小程序直销、② 携程、③ 美团、④ 飞猪、⑤ Booking（OTA-I）、⑥ GDS/TMC 展示价</b>。会员价（MEMB）与批发商净价（WHO）单列核查，不进这 6 行。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">3</div><div class="step-body">
+    <h4>统一 5 个比对条件</h4>
+    <p>逐渠道抓取时必须锁定：<b>同一入住日、同一房型代码、同一价格代码、同一取消政策、同一含早状态</b>。任一条件不同就不可比。含早价与不含早价混比，会让 Δ 差出 ¥68（云璟含早加价，与自助早餐门市价 ¥128/人的定价不同）。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">4</div><div class="step-body">
+    <h4>逐渠道计算差值 Δ</h4>
+    <p>Δ = 渠道挂牌价 − 直销基准价 P。逐行填入《价格一致性检查表》。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">5</div><div class="step-body">
+    <h4>逐行判定</h4>
+    <div class="tbl-wrap" style="margin-top:8px">
+      <table class="tbl">
+        <caption>表 3-12　Δ 判定规则</caption>
+        <thead><tr><th>Δ</th><th>判定</th><th>动作</th></tr></thead>
+        <tbody>
+          <tr><td><b>Δ &lt; 0</b>（渠道低于直销）</td><td><span class="pill pill-red">违反一致性</span></td><td>24 小时内整改，记入考核，启动整改 SOP</td></tr>
+          <tr><td><b>Δ = 0</b></td><td><span class="pill pill-teal">一致</span></td><td>记录通过</td></tr>
+          <tr><td><b>Δ &gt; 0</b>（渠道高于直销）</td><td><span class="pill pill-teal">允许</span></td><td>记录通过；但需核查是否渠道自行加价，若长期 Δ &gt; 0 会损害直销吸引力，列入观察</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div></div>
+
+  <div class="step"><div class="step-num">6</div><div class="step-body">
+    <h4>记录与留痕</h4>
+    <p>填写《价格一致性检查表》（6 行 + 会员价 1 行 + 批发商 1 行）。通过项打勾，违规项记入考核并转整改 SOP。<b>检查表随《调价台账》一同归档</b>。</p>
+  </div></div>
+
+  <h3>12.1 填好的核查示例</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 3-13　《价格一致性检查表》示例<span class="cap-note">目标日 10 月 30 日，房型 SUP-K，价格代码 BAR，不含早，免费取消。直销基准价 P = ¥660</span></caption>
+      <thead><tr><th class="num">#</th><th>渠道</th><th>渠道代码</th><th class="num">挂牌价</th><th class="num">Δ</th><th>判定</th><th>动作</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>官网 / 小程序直销</td><td>DIR</td><td class="num">¥660</td><td class="num">0</td><td><span class="pill pill-teal">基准</span></td><td>—</td></tr>
+        <tr><td class="num">2</td><td>携程</td><td>OTA</td><td class="num">¥660</td><td class="num">0</td><td><span class="pill pill-teal">一致</span></td><td>通过</td></tr>
+        <tr><td class="num">3</td><td>美团</td><td>OTA</td><td class="num">¥628</td><td class="num"><span class="down">−¥32</span></td><td><span class="pill pill-red">违反</span></td><td><b>24h 内整改 + 记入考核</b></td></tr>
+        <tr><td class="num">4</td><td>飞猪</td><td>OTA</td><td class="num">¥660</td><td class="num">0</td><td><span class="pill pill-teal">一致</span></td><td>通过</td></tr>
+        <tr><td class="num">5</td><td>Booking</td><td>OTA-I</td><td class="num">¥666</td><td class="num"><span class="up">+¥6</span></td><td><span class="pill pill-teal">允许</span></td><td>通过，列入观察</td></tr>
+        <tr><td class="num">6</td><td>GDS / TMC 展示价</td><td>GDS</td><td class="num">¥660</td><td class="num">0</td><td><span class="pill pill-teal">一致</span></td><td>通过</td></tr>
+        <tr><td class="num">7</td><td>会员专享价（单列）</td><td>LOY</td><td class="num">¥594</td><td class="num"><span class="down">−¥66</span></td><td><span class="pill pill-amber">需验证可见性</span></td><td>验证<b>仅限登录会员可见</b>，可见则合规</td></tr>
+        <tr><td class="num">8</td><td>批发商净价（单列）</td><td>WHO</td><td class="num">¥495</td><td class="num"><span class="down">−¥165</span></td><td><span class="pill pill-amber">需验证挂牌</span></td><td>验证<b>未公开挂牌</b>，未挂牌则合规</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">第 7、8 行的判定与前面 6 行不同，别搞混</span>
+    <p>会员价与批发商净价本来就应该低于直销价，<b>Δ &lt; 0 不算违反</b>，判定标准改为：<br>
+    · 会员价 → 是否<b>仅限登录会员可见</b>（能被未登录用户看到即违反）；<br>
+    · 批发商净价 → 是否<b>未公开挂牌</b>（出现在任何公开可搜索页面即违反）。</p>
+  </div>
+
+  <h2 id="s13">十三、价格一致性违反时的整改 SOP</h2>
+
+  <div class="callout callout-danger">
+    <span class="co-t">时限：《法典》表 H 规定 24 小时内整改并记入考核</span>
+    <p>从<b>发现时刻</b>起算 24 小时，不是从次日算起。在《价格一致性检查表》上写下发现时间戳，并倒推整改截止时间。</p>
+  </div>
+
+  <div class="step"><div class="step-num">1</div><div class="step-body">
+    <h4>定位（15 min 内）</h4>
+    <p>锁定违规的 4 个坐标：<b>渠道代码 + 目标日期 + 房型代码 + 价格代码</b>。逐日扩展核查——一次低价往往不是一天，把该渠道未来 30 天同款产品全部扫一遍，记录违规日期范围。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">2</div><div class="step-body">
+    <h4>判成因（4 选 1）</h4>
+    <div class="tbl-wrap" style="margin-top:8px">
+      <table class="tbl">
+        <caption>表 3-14　4 类成因与判定依据</caption>
+        <thead><tr><th>成因</th><th>判定依据</th><th>处置</th></tr></thead>
+        <tbody>
+          <tr><td><b>① 渠道私自促销</b>（渠道自补差价的促销/红包/会员日）</td><td>本店后台挂牌价正常，但前台展示价低于后台价</td><td>联系渠道经理要求下架该促销；保留沟通记录</td></tr>
+          <tr><td><b>② 包房商倒挂</b>（包房商以净价转手公开售卖）</td><td>在公开页面搜到低于直销的价格，来源非本店合作挂牌渠道</td><td>按合同追究；向渠道方发函要求下架</td></tr>
+          <tr><td><b>③ 系统未同步</b>（调价后渠道缓存未刷新）</td><td>违规日期与最近一次调价的日期高度重合，且违规渠道为多个</td><td>重新推送价格/库存；等待缓存刷新后复查</td></tr>
+          <tr><td><b>④ 人工改价漏改</b>（只改了部分房型/部分日期）</td><td>违规仅出现在个别房型或个别日期，不成规律</td><td>补齐漏改的房型与日期；当日 17:00 二次巡检复查</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div></div>
+
+  <div class="step"><div class="step-num">3</div><div class="step-body">
+    <h4>处置（按成因执行）</h4>
+    <p>① 与 ② → 通知渠道经理下架，发送书面函件，抄送收益主管；<br>
+    ③ → 在渠道管理器中重新推送价格与库存，等待缓存刷新后复查；<br>
+    ④ → 按 7 档房型整表重新落位，补齐漏项。<br>
+    <b>处置过程中的所有沟通（邮件/工单/聊天记录）截图归档</b>，作为考核凭证。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">4</div><div class="step-body">
+    <h4>复查与留痕</h4>
+    <p>整改完成后<b>立即复查一次</b>，并在 24 小时时限内<b>再复查一次</b>。两次复查结果写入《价格一致性检查表》的「整改结果」列，连同时间戳一并归档。<br>
+    同时：① 记入当事人考核；② 在《调价台账》当日备注栏写明「X 渠道 Δ=−¥XX，成因 X，整改于 XX:XX 完成，复查通过」；③ 若同一渠道 30 天内第 2 次违规，上报 L3 并启动渠道合作复核。</p>
+  </div></div>
+
+  <!-- ===== 实操场景 ===== -->
+  <h2 id="s14">十四、实操场景练习（6 个场景）</h2>
+
+  <p>要求：每题先独立写出动作清单，再展开答案核对。每题限时 12 分钟。答案中「动作」必须能追溯到触发表编号。</p>
+
+  <div class="ex-q">
+    <div class="q-t">场景 1 · 平峰日综合查表</div>
+    <div class="q-b">目标日：11 月 12 日（周三，D3 平峰日）。可售房晚 320（OOO 0）；当前在手 210；去年同期同窗口在手 224；预测增量 30；当前 SUP-K/SUP-T BAR ¥680；竞争组合加权 ADR ¥691.7、加权 OCC 70.0%。<br>请：① 算预测 OCC 与 Pickup 偏差；② 查表 A 得出动作与新价（7 档房型）；③ 查表 B 得出 4 项库存配置；④ 查表 C 与表 D，并按表 O 仲裁；⑤ 写出该日超售上限（表 E，已知 No-show+24h 取消 = 8%，担保占比 55%，会议团队 20%，协议集中度 45%，有备用酒店）。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>①</b> 预测 OCC =（210+30）÷320 = 240÷320 = <b>75.0%</b>；Pickup 偏差 =（210−224）÷224 = −14÷224 = <b>落后 6.3%</b><br>
+      <b>② 表 A：</b>行「70–85%」× 列「落后 3–10%」→ <span class="down">↓3%</span>。新价 SUP = 680×0.97 = 659.6 → <b>¥660</b>。7 档同步：STD ¥563 / SUP ¥660 / DLX ¥795 / DLX-V ¥931 / EXE ¥960 / STE-B ¥1,242 / STE-E ¥1,824。<br>
+      约束校验：累计 ↓3% ≤20% ✓；第 1 次 ✓；3% ≥3% ✓；30min 核查 ✓；非 D1 无需 L3 ✓ → <b>可执行</b>。<br>
+      <b>③ 表 B（70–85% 行）：</b>MinLOS <b>1 晚（清空）</b>；CTA <b>否</b>；低价渠道 <b>全开</b>；超售 <b>按表 E</b>。<br>
+      <b>④ 表 C：</b>ARI = 680÷691.7×100 = <b>98.3</b> →「97–103 健康」→ 维持。<b>表 D：</b>MPI = 75.0÷70.0×100 = <b>107.1</b> →「100–110 健康」→ 维持。<br>
+      <b>表 O 仲裁：</b>表 A(3) &gt; 表 C(4) &gt; 表 D(6)，表 C 与表 D 均为维持 → 顺延执行表 A 的 ↓3%。表 C、表 D 结论写入《观察清单》。<br>
+      <b>⑤ 表 E：</b>第一步 8% 落「5–10%」→ 基准 <b>2%</b>；第二步 非 D1/D2(×1)、担保 55%≯60%(×1)、会议 20%≯40%(×1)、协议 45%≯50%(×1) → 修正后 <b>2%</b>；第三步 320×2% = 6.4 → 向下取整 <b>6 间</b>；硬上限 16 / 15 未触及 → <b>超售上限 6 间</b>。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">场景 2 · 峰值日 + L3 审批</div>
+    <div class="q-b">目标日：5 月 2 日（五一假期第 2 天，D1 峰值日）。可售 320；在手 300；去年同期同窗口在手 268；预测增量 8；当前 SUP BAR ¥1,020；竞争组合加权 ADR ¥1,060、加权 OCC 93.0%。<br>请：① 查表 A 并算出新价；② 逐条过 5 条执行约束，指出哪一条是前置条件；③ 查表 B 与表 H（≥95% 行）写出全部动作；④ 若表 C 判定为「略低 → 预测 OCC≥80% → 提 3%」，请按表 O 说明是否执行。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>①</b> 预测 OCC =（300+8）÷320 = 308÷320 = <b>96.3%</b> →「≥95%」行；Pickup 偏差 =（300−268）÷268 = 32÷268 = <b>领先 11.9%</b> →「领先 &gt;10%」列。<br>
+      表 A 读格 → <span class="up">↑20%</span>。新价 = 1,020×1.20 = <b>¥1,224</b>。<br>
+      <b>② 五条约束：</b>1) 累计 ↑20% = 上限，<b>通过但当日不得再上调</b>；2) 第 1 次 ✓；3) 20%≥3% ✓；4) 30min 内核查 ✓；<b>5) 本日为 D1 峰值日 → 必须 L3 审批，且是「前置条件」——未取得审批不得落位</b>。<br>
+      <b>③ 表 B（≥95%）：</b>MinLOS = <b>3 晚</b>（D1 峰值日）；CTA <b>启用</b>；关闭<b>尾房特惠 / 团购 / 批发商</b>；<b>不超售</b>。<br>
+      <b>表 H（≥95%）：</b>OTA 国内<b>仅留 1 家产量最高</b>；OTA 国际<b>关</b>；GDS <b>关</b>；批发商 <b>关</b>；直销/会员<b>全开 + 会员专享价</b>（MEMB 仅限登录可见）。<br>
+      <b>④ 仲裁：</b>表 A(3) &gt; 表 C(4)，且《SPEC》表 C 执行约束原文明确「不得与表 A 结论叠加执行，同日只执行优先级更高的一条」→ <b>只执行表 A 的 ↑20%，表 C 的 ↑3% 不叠加</b>，写入《观察清单》。另受约束 1 限制，当日已无上调空间。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">场景 3 · 低谷日 + 表 A 与表 D 冲突</div>
+    <div class="q-b">目标日：1 月 14 日（周二，D4 低谷日）。可售 320；在手 96；去年同期同窗口在手 120；预测增量 24；当前 SUP BAR ¥520；竞争组合加权 ADR ¥600、加权 OCC 52.0%；48h Pickup 落后 18.0%。<br>请：① 查表 A 得出动作与新价；② 查表 B 与表 H；③ 查表 C 与表 D；④ 按表 O 仲裁，并说明表 D 组合包中哪些动作执行、哪些不执行。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>①</b> 预测 OCC =（96+24）÷320 = 120÷320 = <b>37.5%</b> →「<b>&lt;40%</b>」行；Pickup 偏差 =（96−120）÷120 = −24÷120 = <b>落后 20.0%</b> →「落后 &gt;10%」列。<br>
+      表 A 读格 → <span class="down">↓20%</span>。新价 = 520×0.80 = <b>¥416</b>。<br>
+      约束：累计 ↓20% = 上限 ✓；第 1 次 ✓；20%≥3% ✓；非 D1 无需 L3 ✓。<br>
+      <b>注意：</b>新价 ¥416 已低于 D4 系数下限（680×70% = ¥476），说明需求显著偏离常规低谷。<b>核查表 L：48h Pickup 落后 18.0%，未达「&gt;40%」阈值 → 不触发表 L 需求暴跌</b>，继续按表 A 执行。<br>
+      <b>② 表 B（&lt;70%）：</b>MinLOS <b>不设限</b>；CTA <b>否</b>；低价渠道 <b>全开 + 上促销</b>；<b>不超售</b>。<br>
+      <b>表 H（&lt;55%）：</b>OTA 国内<b>全开 + 深折</b>；OTA 国际<b>全开</b>；GDS <b>开 + 商务套餐</b>；批发商 <b>开 + 打包产品</b>（净价不得公开挂牌）；直销/会员 <b>全开 + 长住/团购</b>。<br>
+      <b>③ 表 C：</b>ARI = 520÷600×100 = <b>86.7</b> →「80–90 偏低」→ <b>提 5%</b>。<b>表 D：</b>MPI = 37.5÷52.0×100 = <b>72.1</b> →「&lt;85 严重落后」→ 启动 L2-E1：降价 10% + 全员直销动员 + 48 小时复盘。<br>
+      <b>④ 仲裁：</b>价格类动作三方冲突——表 A ↓20%（优先级 3）、表 C ↑5%（4）、表 D ↓10%（6）。<b>只执行表 A 的 ↓20%</b>；表 C 的 ↑5% 与表 D 的 ↓10% 均写入《观察清单》。<br>
+      <b>表 D 组合包拆分：</b>「降价 10%」是价格动作 → 与表 A 同类 → <b>不执行</b>；「全员直销动员」「48 小时复盘」是<b>非价格动作</b> → 不与表 A 冲突 → <b>照常执行</b>，列入《今日动作清单》并行推进，全部写入台账备注栏。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">场景 4 · 超售计算（表 E 三步法）</div>
+    <div class="q-b">目标日：9 月 26 日（周五，D2 高涨日），可售房量 320 间。历史 No-show 率 + 24h 内取消率合计 18%；担保预订占比 72%；会议团队占当日 45%；协议客户集中度 38%；步行 30 分钟内有同档次备用酒店。<br>请按表 E 三步算出超售上限；再算：若该日会议团队占比降到 30%，结果会变成多少。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>情形一（会议团队 45%）：</b><br>
+      第一步：18% 落「15–20%」档 → 基准超售率 <b>5%</b><br>
+      第二步：D2 高涨日 → <b>×0.5</b>；担保 72%&gt;60% → <b>×0.5</b>；会议团队 45%&gt;40% → <b>×0.5</b>；协议 38%≯50% → ×1<br>
+      　　　　修正后 = 5% × 0.5 × 0.5 × 0.5 = <b>0.625%</b><br>
+      第三步：320 × 0.625% = <b>2.0 间</b> → 向下取整 <b>2 间</b>；硬上限 16 / 15 未触及 → <b>超售上限 2 间</b><br>
+      <br>
+      <b>情形二（会议团队 30%）：</b><br>
+      第二步：D2 → ×0.5；担保 72%&gt;60% → ×0.5；会议 30%≯40% → ×1；协议 38%≯50% → ×1<br>
+      　　　　修正后 = 5% × 0.5 × 0.5 = <b>1.25%</b><br>
+      第三步：320 × 1.25% = <b>4.0 间</b> → <b>超售上限 4 间</b><br>
+      <br>
+      <b>解析：</b>三个 ×0.5 连乘的杀伤力极大——5% 一路降到 0.625%。这正是表 E 的设计意图：<b>越是「需求旺、客人靠谱（担保多）、有大团队」的日子，越不该超售</b>，因为一旦超售，步行客人的代价（补偿包 + 口碑损失）远高于多卖一间房的收益。<br>
+      <b>补充：</b>本日预测 OCC 若落在 90–95% 档，表 B 直接给「≤2 间」，<b>不需要查表 E</b>；只有当预测 OCC 落在 85–90% 或 70–85% 时才走表 E。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">场景 5 · 价格一致性核查与整改</div>
+    <div class="q-b">目标日 11 月 20 日，房型 SUP-K，价格代码 BAR，不含早，免费取消。直销基准价 P = ¥748（当日刚从 ¥680 上调 10%）。6 渠道挂牌价：携程 ¥748、美团 ¥712、飞猪 ¥748、Booking ¥760、GDS 展示价 ¥748、美团会员日专享 ¥690（未登录用户可见）。<br>请：① 逐渠道算 Δ 并判定；② 指出共几项违规、分别是哪几项；③ 按整改 SOP 写出后续 4 个动作。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>① Δ 与判定：</b><br>
+      携程 748 − 748 = 0 → <span class="pill pill-teal">一致</span><br>
+      美团 712 − 748 = <span class="down">−¥36</span> → <span class="pill pill-red">违反</span><br>
+      飞猪 748 − 748 = 0 → <span class="pill pill-teal">一致</span><br>
+      Booking 760 − 748 = <span class="up">+¥12</span> → <span class="pill pill-teal">允许</span>（列入观察）<br>
+      GDS 748 − 748 = 0 → <span class="pill pill-teal">一致</span><br>
+      美团会员日专享 690 − 748 = <span class="down">−¥58</span> → <span class="pill pill-red">违反</span>（未登录用户可见，不是「仅限登录会员可见」的 MEMB 价）<br>
+      <b>② 共 2 项违规：</b>美团常规挂牌价低 ¥36；美团会员日专享价低 ¥58 且未登录可见。<br>
+      <b>③ 整改 SOP 4 个动作：</b><br>
+      <b>1) 定位（15 min 内）：</b>锁定「美团 + 11-20 + SUP-K + BAR」；把美团渠道未来 30 天同款产品全部扫一遍，确认违规日期范围。<br>
+      <b>2) 判成因：</b>美团常规价低于后台 → 疑似<b>渠道私自促销</b>或<b>系统未同步</b>（本次刚上调 10%，高度怀疑缓存未刷新）；会员日专享 → <b>渠道私自促销</b>（渠道自补差价的平台活动）。<br>
+      <b>3) 处置：</b>联系美团渠道经理，要求下架会员日专享活动、恢复常规挂牌价；同时在渠道管理器重新推送价格与库存；保留邮件/工单截图。<br>
+      <b>4) 复查与留痕：</b>整改后立即复查一次，24 小时内再复查一次，写入《价格一致性检查表》「整改结果」列（含时间戳）；记入当事人考核；在《调价台账》备注栏写明「美团 Δ=−¥36、会员日 Δ=−¥58，成因渠道促销，整改于 XX:XX 完成，复查通过」；若 30 天内第 2 次违规，上报 L3 启动渠道合作复核。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">场景 6 · 综合：多日流水线 + 台账</div>
+    <div class="q-b">以下是某日 08:30 查表环节拿到的三个目标日数据。请写出完整的《今日动作清单》，并为每条标注触发表编号与是否需要 L3 审批。<br><br>
+    <b>A 日</b> 10 月 1 日（D1 峰值日）：预测 OCC 97.5%，Pickup 领先 18.0%，当前 SUP BAR ¥1,020，MinLOS 现状 2 晚，超售现状 0 间。<br>
+    <b>B 日</b> 10 月 22 日（D3 平峰日）：预测 OCC 81.4%，Pickup 持平 +2.0%，当前 SUP BAR ¥680，No-show+取消 9%，担保占比 50%，会议团队 15%，协议集中度 60%，有备用酒店。<br>
+    <b>C 日</b> 7 月 15 日（D4 低谷日）：预测 OCC 48.6%，Pickup 落后 7.0%，当前 SUP BAR ¥520。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>A 日（D1 峰值日，预测 OCC 97.5%）：</b><br>
+      表 A：行「≥95%」× 列「领先 &gt;10%」→ <span class="up">↑20%</span>。新 SUP BAR = 1,020×1.20 = <b>¥1,224</b>（7 档同步 ↑20%）。<br>
+      表 B（≥95%）：MinLOS → <b>3 晚</b>（D1 峰值日，现状 2 晚需改）；CTA <b>启用</b>；关闭<b>尾房特惠/团购/批发商</b>；<b>不超售</b>（现状 0 间，维持）。<br>
+      表 H（≥95%）：OTA 国内<b>仅留 1 家</b>；OTA 国际<b>关</b>；GDS <b>关</b>；批发商 <b>关</b>；直销/会员<b>全开+会员专享价</b>。<br>
+      <b>审批：需要 L3 审批（D1 峰值日，表 A 约束 5），且为前置条件。</b>另累计 ↑20% 已达上限，当日不得再上调。<br>
+      <br>
+      <b>B 日（D3 平峰日，预测 OCC 81.4%）：</b><br>
+      表 A：行「70–85%」× 列「持平 ±3%」→ <b>维持</b>。<br>
+      表 B（70–85%）：MinLOS <b>1 晚（清空）</b>；CTA <b>否</b>；低价渠道 <b>全开</b>；超售 <b>按表 E</b>。<br>
+      表 E：9% 落「5–10%」→ 基准 2%；非 D1/D2(×1)、担保 50%≯60%(×1)、会议 15%≯40%(×1)、<b>协议集中度 60%&gt;50% → ×0.8</b> → 修正后 1.6%；320×1.6% = 5.12 → <b>5 间</b>；硬上限未触及 → 超售上限 <b>5 间</b>。<br>
+      表 H（70–85%）：OTA 国内/国际/GDS 全开；批发商<b>限价开（≤ BAR×75% = 680×0.75 = ¥510）</b>；直销全开 + 早鸟。<br>
+      <b>审批：无需 L3。</b>表 A 维持，顺延执行表 B / 表 H 的非价格动作。<br>
+      <br>
+      <b>C 日（D4 低谷日，预测 OCC 48.6%）：</b><br>
+      表 A：行「40–55%」× 列「落后 3–10%」→ <span class="down">↓10%</span>。新 SUP BAR = 520×0.90 = <b>¥468</b>。<br>
+      表 B（&lt;70%）：MinLOS <b>不设限</b>；CTA <b>否</b>；低价渠道 <b>全开 + 上促销</b>；<b>不超售</b>。<br>
+      表 H（&lt;55%）：OTA 国内<b>全开+深折</b>；OTA 国际<b>全开</b>；GDS <b>开+商务套餐</b>；批发商 <b>开+打包产品</b>（净价不得公开挂牌）；直销/会员 <b>全开+长住/团购</b>。<br>
+      <b>审批：无需 L3。</b>新价 ¥468 低于 D4 系数下限 ¥476，需在备注注明「已低于 D4 系数下限，次日若继续下调须先核查表 L 需求暴跌信号（48h Pickup 落后 &gt;40%）」。<br>
+      <br>
+      <b>清单汇总（8 条）：</b>A 上调 20%（表 A，需 L3）／A 日 MinLOS 2→3 晚（表 B）／A 日启用 CTA + 关闭 3 类低价渠道（表 B）／A 日渠道按 ≥95% 档重配（表 H）／B 日维持价格但执行表 B 库存配置（表 B）／B 日超售上限 5 间（表 E）／B 日批发商限价 ≤ ¥510（表 H）。
+      <br>
+      <b>清单汇总（8 条主项 + 2 条配套项）：</b>
+      ① A 日 SUP BAR ↑20% 至 ¥1,224（表 A，<b>需 L3 审批</b>）／
+      ② A 日 MinLOS 2 晚 → 3 晚（表 B）／
+      ③ A 日启用 CTA + 关闭尾房特惠/团购/批发商（表 B）／
+      ④ A 日渠道按「≥95%」档重配（表 H）／
+      ⑤ B 日价格维持，但执行表 B 的库存配置（表 B）／
+      ⑥ B 日超售上限 5 间（表 E）／
+      ⑦ B 日批发商限价 ≤ ¥510（表 H）／
+      ⑧ C 日 SUP BAR ↓10% 至 ¥468（表 A）。<br>
+      <b>配套项：</b>C 日解除 MinLOS、低价渠道全开 + 上促销、不超售（表 B）；C 日渠道按「&lt;55%」档全开（表 H）。
+    </div></details>
+  </div>
+
+<!-- ===== 本模块产出物 ===== -->
+<div class="callout callout-do">
+  <span class="co-t">本模块产出物（结课时必须交齐）</span>
+  <ul style="margin:6px 0 0">
+    <li><b>《每日收益数据包》</b>——按《取数清单》抓全的当日数据，含昨日实绩、未来 30 天在手、竞争组合 5 家价格</li>
+    <li><b>《今日动作清单》</b>——逐日列出动作，每条标注「依据表 X」与是否需要 L3 审批</li>
+    <li><b>《调价台账》</b>——全部动作已落位并登记，字段无缺</li>
+    <li><b>《价格一致性检查表》</b>——6 个渠道核查完毕，违规项已整改并截图存档</li>
+  </ul>
+</div>
+
+<div class="callout callout-key">
+  <span class="co-t">合格标准（L1 认证核心）</span>
+  <p>整个上午流程在 <b>10:30 前全部完成</b>，且《今日动作清单》上<b>每一项都标明了「依据表 X」</b>。
+  做到这两条，就是一名合格的 L1 收益执行专员。<br>
+  速度要求：第 1 天约 120 分钟，练到第 5 天应能压缩到 <b>60 分钟以内</b>。</p>
+</div>
+
+<!-- ===== 底部导航 ===== -->
+<div class="pager">
+  <a href="m02-systems.html"><div class="p-dir">← 上一模块</div><div class="p-title">M02 系统与数据导航</div></a>
+  <a href="m04-reports.html" class="p-next"><div class="p-dir">下一模块 →</div><div class="p-title">M04 报表与台账</div></a>
+</div>
+
+</div>
+</main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

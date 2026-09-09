@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>一日流水线 · 收益管理游戏</title>
+<meta name="description" content="按《操作法典》表 M 的时间轴走完一天：07:30 取数 → 08:10 比价 → 08:30 查表 → 09:10 执行 → 17:00 巡检。系统推着你走。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"games","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/games/pipeline.html"},{"@type":"ListItem","position":3,"name":"pipeline","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/games/pipeline.html"}]}</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html">
+      <span class="gem">社</span><span>中国酒店收益管理社区</span>
+    </a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="duty.html">值班版</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <div class="game-wrap">
+
+    <div style="margin-bottom:14px">
+      <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 返回游戏中心</a>
+    </div>
+
+    <div class="cm-eyebrow">模式三 · 一日流水线</div>
+    <h1 style="font-size:26px;font-weight:800;color:var(--navy);margin:0 0 8px">
+      照着表 M，走完一整天
+    </h1>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.85;margin:0 0 4px">
+      这是最接近真实上班的一版：<b>时钟推着你走</b>。
+      07:30 取数、08:10 比价、08:30 查表、09:10 执行、17:00 巡检——
+      每个时间点该干什么，《法典》表 M 都写死了，你只负责在关键时刻做决定。
+    </p>
+
+    <div class="game-hud">
+      <div class="hud-item"><span>当前时间</span><b id="hudT">07:30</b></div>
+      <div class="hud-item"><span>进度</span><b id="hudP">1 / 9</b></div>
+      <div class="hud-item" style="margin-left:auto">
+        <button id="btnReset" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit">重开一天</button>
+      </div>
+    </div>
+
+    <div class="rg-panel" id="panel"></div>
+
+    <!-- 时间轴 -->
+    <div id="tl" style="display:flex;gap:6px;overflow-x:auto;padding:4px 0 12px"></div>
+
+    <div class="sc-card" id="card">
+      <div class="sc-time" id="scTime"></div>
+      <h2 class="sc-title" id="scTitle"></h2>
+      <p class="sc-text" id="scText"></p>
+      <div id="taskBox" style="margin-top:14px;padding:12px 14px;background:var(--bg-2);border-radius:8px;font-size:13.5px;color:var(--ink-2);line-height:1.8"></div>
+      <div class="sc-opts" id="opts"></div>
+      <div id="conBox"></div>
+    </div>
+
+    <div class="sc-card sc-end" id="endCard" style="display:none">
+      <div style="font-size:13px;color:var(--ink-3);letter-spacing:2px">17:00 下班</div>
+      <div class="grade" id="eGrade">A</div>
+      <div class="gtitle" id="eTitle"></div>
+      <div style="text-align:left;margin-top:18px">
+        <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px">复盘 · 《法典》会怎么说</div>
+        <div id="review"></div>
+      </div>
+      <div class="cm-btns" style="justify-content:center;margin-top:18px">
+        <button class="cm-btn cm-btn-primary" id="btnAgain">再走一天</button>
+        <a class="cm-btn cm-btn-ghost" href="duty.html">换值班版</a>
+        <a class="cm-btn cm-btn-ghost" href="reigns.html">换卡牌版</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-main">
+    <div class="sf-bot">
+      <span>中国酒店收益管理社区 · 一日流水线</span>
+      <span>联系：<a href="mailto:3984557428@qq.com" style="display:inline;color:var(--gold-2)">3984557428@qq.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/rm-sim.js"></script>
+<script>
+(function () {
+  "use strict";
+  var S = window.RMSIM;
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* 表 M · 每日收益操作流水线 */
+  var STEPS = [
+    { t: "07:30", act: "抓取昨日经营数据",          out: "《每日收益数据包》", sc: null },
+    { t: "07:50", act: "抓取未来 30 天在手 + Pickup", out: "Pickup 表更新",     sc: "s11" },
+    { t: "08:10", act: "采集竞争组合 5 家价格",      out: "比价表更新",         sc: "s12" },
+    { t: "08:30", act: "逐日查《法典》表 A/B/C/H",   out: "《今日动作清单》",   sc: "s06" },
+    { t: "09:10", act: "执行调价与库存动作",         out: "系统落位",           sc: "s02" },
+    { t: "09:40", act: "价格一致性核查（6 个渠道）", out: "一致性检查表",       sc: "s04" },
+    { t: "09:55", act: "写入《调价台账》",           out: "台账更新",           sc: null },
+    { t: "10:05", act: "参加收益晨会",               out: "会议纪要",           sc: "s10" },
+    { t: "17:00", act: "二次巡检（0–3 天窗口）",     out: "尾房动作",           sc: "s14" }
+  ];
+
+  var st, idx, log, locked;
+
+  function renderGauges(delta) {
+    var html = "";
+    S.GAUGES.forEach(function (g) {
+      var v = st[g.k];
+      var warn = (v <= 25 || v >= 85) ? " warn" : "";
+      var d = delta ? delta[g.k] : 0;
+      var dt = d ? '<div class="rg-delta' + (d < 0 ? " dn" : "") + '">' + (d > 0 ? "▲ +" : "▼ ") + d + "</div>"
+                  : '<div class="rg-delta"></div>';
+      html += '<div class="rg"><div class="rg-top">' +
+                '<span class="rg-name">' + g.full + '</span>' +
+                '<span class="rg-val">' + v + '</span>' +
+              '</div><div class="rg-bar"><i class="' + warn.trim() + '" style="width:' + v + '%"></i></div>' + dt + '</div>';
+    });
+    $("panel").innerHTML = html;
+  }
+
+  function renderTL() {
+    var html = "";
+    STEPS.forEach(function (s, i) {
+      var cls = i < idx ? "done" : (i === idx ? "now" : "");
+      var mark = i < idx ? "✓ " : "";
+      var st_ = 'padding:7px 12px;border-radius:20px;font-size:12px;white-space:nowrap;font-family:var(--mono);' +
+                (i < idx ? "background:var(--teal-soft);color:var(--teal);border:1px solid var(--teal);" :
+                 i === idx ? "background:var(--navy);color:#fff;border:1px solid var(--navy);font-weight:700;" :
+                 "background:var(--bg-2);color:var(--ink-3);border:1px solid var(--line);");
+      html += '<span style="' + st_ + '">' + mark + s.t + "</span>";
+    });
+    $("tl").innerHTML = html;
+  }
+
+  function reset() {
+    st = S.newState(); idx = 0; log = []; locked = false;
+    $("card").style.display = "";
+    $("endCard").style.display = "none";
+    renderGauges();
+    show();
+  }
+
+  function show() {
+    if (idx >= STEPS.length) { finish(); return; }
+    var step = STEPS[idx];
+    locked = false;
+    $("hudT").textContent = step.t;
+    $("hudP").textContent = (idx + 1) + " / " + STEPS.length;
+    renderTL();
+
+    $("scTime").textContent = step.t + " · 流水线环节";
+    $("scTitle").textContent = step.act;
+    $("scText").textContent = "产出物：" + step.out;
+    $("taskBox").innerHTML = "";
+    $("conBox").innerHTML = "";
+
+    var box = $("opts");
+    box.innerHTML = "";
+
+    var sc = step.sc ? S.byId(step.sc) : null;
+    if (!sc) {
+      $("taskBox").innerHTML = "这个环节没有需要决策的事，按流程做完就行。";
+      var b = document.createElement("button");
+      b.className = "sc-opt";
+      b.textContent = "完成，继续下一个环节 →";
+      b.addEventListener("click", function () { idx++; show(); });
+      box.appendChild(b);
+      return;
+    }
+
+    $("taskBox").innerHTML = "<b>突发状况：</b>" + sc.text;
+    sc.opts.forEach(function (o, i) {
+      var ob = document.createElement("button");
+      ob.className = "sc-opt";
+      ob.textContent = o.t;
+      ob.addEventListener("click", function () { pick(sc, i, ob); });
+      box.appendChild(ob);
+    });
+  }
+
+  function pick(sc, i, btn) {
+    if (locked) return;
+    locked = true;
+    var o = sc.opts[i];
+    var btns = $("opts").querySelectorAll(".sc-opt");
+    for (var k = 0; k < btns.length; k++) btns[k].disabled = true;
+    btn.classList.add("picked");
+
+    S.apply(st, o.fx);
+    renderGauges(o.fx);
+    log.push({ sc: sc, opt: o });
+
+    $("conBox").innerHTML =
+      '<div class="sc-con"><div class="cl">后果</div>' + o.con + "</div>" +
+      '<div class="sc-next"><button class="cm-btn cm-btn-primary" id="btnGo">' +
+      (idx === STEPS.length - 1 ? "下班，看复盘 →" : "继续下一个环节 →") + "</button></div>";
+    $("btnGo").addEventListener("click", function () { idx++; show(); });
+  }
+
+  function finish() {
+    $("card").style.display = "none";
+    $("endCard").style.display = "";
+    $("hudT").textContent = "17:00";
+    $("hudP").textContent = STEPS.length + " / " + STEPS.length;
+    renderTL();
+
+    var avg = (st.rev + st.guest + st.owner + st.team) / 4;
+    var mn = Math.min(st.rev, st.guest, st.owner, st.team);
+    var g, t;
+    if (mn <= 0) { g = "D"; t = "今天有环节彻底崩了"; }
+    else if (avg >= 70) { g = "S"; t = "完整、干净的一天"; }
+    else if (avg >= 60) { g = "A"; t = "流程走完了，没什么大错"; }
+    else if (avg >= 50) { g = "B"; t = "流程走完了，但代价不小"; }
+    else { g = "C"; t = "流程走完了，人也得罪完了"; }
+    $("eGrade").textContent = g;
+    $("eTitle").textContent = t;
+
+    var html = "";
+    if (log.length === 0) html = "<p>今天没有遇到突发状况。</p>";
+    log.forEach(function (r, i) {
+      html += '<div class="rv-item">' +
+        "<h5>" + (i + 1) + ". " + r.sc.title + "</h5>" +
+        "<p><b>你选了：</b>" + r.opt.t + "</p>" +
+        "<p>" + r.opt.con + "</p>" +
+        '<div class="rv-c">《法典》依据：' + r.sc.codex + "</div>" +
+        "</div>";
+    });
+    $("review").innerHTML = html;
+  }
+
+  $("btnReset").addEventListener("click", reset);
+  $("btnAgain").addEventListener("click", reset);
+  reset();
+})();
+</script>
+</body>
+</html>

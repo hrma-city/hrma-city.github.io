@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>经营模拟 30 天 · 收益管理游戏</title>
+<meta name="description" content="连续经营杭州滨江云璟酒店 30 天：每天定房价、定超售、开促销，实时看 OCC/ADR/RevPAR，超售爆了要赔钱，结束给经营评级。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"games","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/games/sim.html"},{"@type":"ListItem","position":3,"name":"sim","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/games/sim.html"}]}</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html">
+      <span class="gem">社</span><span>中国酒店收益管理社区</span>
+    </a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="level.html">决策闯关</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:40px">
+  <div class="game-wrap">
+
+    <div style="margin-bottom:16px">
+      <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 返回游戏中心</a>
+    </div>
+
+    <div class="cm-eyebrow">经营模拟</div>
+    <h1 style="font-size:26px;font-weight:800;color:var(--navy);margin:0 0 6px">
+      连续经营 30 天，练的是取舍
+    </h1>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.8;margin:0 0 4px">
+      你是杭州滨江云璟酒店（320 间房）的收益经理。每天决定三件事：<b>卖多少钱</b>、<b>超售几间</b>、<b>要不要开 OTA 促销</b>。
+      提价会掉量，超售冒赔付风险，促销能拉量但佣金更贵——真实决策从来不是只查一张表。
+    </p>
+
+    <div class="game-hud">
+      <div class="hud-item"><span>第</span><b id="hudDay">1</b><span> / 30 天</span></div>
+      <div class="hud-item"><span>累计 RevPAR</span><b id="hudRev">¥0</b></div>
+      <div class="hud-item"><span>对标基准</span><b id="hudVs">—</b></div>
+      <div class="hud-item" style="margin-left:auto">
+        <button id="btnReset" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit">重开一局</button>
+      </div>
+    </div>
+
+    <div class="progress-bar"><i id="barFill" style="width:0%"></i></div>
+
+    <!-- ============ 每日决策 ============ -->
+    <div class="game-card" id="playCard">
+      <div class="game-scene">
+        <div class="sc-title" id="dayTitle">第 1 天 · 周三</div>
+        <div class="sc-text" id="dayBrief"></div>
+      </div>
+
+      <div class="sim-controls">
+        <div class="sim-ctrl">
+          <label>房价系数 <span class="val" id="vPrice">1.00×</span></label>
+          <input type="range" id="rPrice" min="0.70" max="1.50" step="0.05" value="1.00">
+          <div class="note">实际 BAR：<b id="vBar">¥680</b>　（弹性：系数每 +10%，需求约 −11%）</div>
+        </div>
+        <div class="sim-ctrl">
+          <label>超售间数 <span class="val" id="vOb">0 间</span></label>
+          <input type="range" id="rOb" min="0" max="15" step="1" value="0">
+          <div class="note">硬上限 15 间且 ≤ 房量 5%。超售过猛会「步行」客人，赔付很贵。</div>
+        </div>
+        <div class="sim-ctrl">
+          <label>OTA 促销 <span class="val" id="vPromo">关闭</span></label>
+          <input type="checkbox" id="cPromo" style="width:22px;height:22px;margin-top:6px">
+          <div class="note">需求 +18%，但渠道成本从 9% 升到 16%。</div>
+        </div>
+      </div>
+
+      <button class="cm-btn cm-btn-primary" id="btnGo" style="width:100%;text-align:center">执行今天的决策 →</button>
+
+      <div id="dayResult" style="display:none;margin-top:18px">
+        <div class="sim-grid">
+          <div class="sim-kpi"><div class="k">OCC</div><div class="v" id="kOcc">—</div><div class="d" id="kOccD"></div></div>
+          <div class="sim-kpi"><div class="k">ADR</div><div class="v" id="kAdr">—</div><div class="d" id="kAdrD"></div></div>
+          <div class="sim-kpi"><div class="k">RevPAR</div><div class="v" id="kRev">—</div><div class="d" id="kRevD"></div></div>
+          <div class="sim-kpi"><div class="k">步行客人</div><div class="v" id="kWalk">0</div><div class="d" id="kWalkD"></div></div>
+        </div>
+        <div id="dayNote" style="font-size:13px;line-height:1.8;color:var(--ink-2);background:var(--bg-2);border-radius:8px;padding:12px 14px"></div>
+        <div class="chart-box" style="margin-top:14px">
+          <div style="font-size:12px;color:var(--ink-3);margin-bottom:6px">每日 RevPAR 走势（含对标基准）</div>
+          <div id="chart"></div>
+        </div>
+        <button class="cm-btn cm-btn-primary" id="btnNextDay" style="width:100%;text-align:center;margin-top:14px">进入下一天 →</button>
+      </div>
+    </div>
+
+    <!-- ============ 结算 ============ -->
+    <div class="game-card" id="endCard" style="display:none;text-align:center">
+      <div style="font-size:13px;color:var(--ink-3);letter-spacing:2px">30 天经营结束</div>
+      <div style="font-size:40px;font-weight:800;color:var(--navy);font-family:var(--mono);margin:6px 0" id="eGrade">A</div>
+      <p style="font-size:15px;color:var(--ink);font-weight:700;margin:0 0 10px" id="eTitle"></p>
+      <div class="sim-grid" style="margin:16px 0">
+        <div class="sim-kpi"><div class="k">平均 RevPAR</div><div class="v" id="eRev">—</div></div>
+        <div class="sim-kpi"><div class="k">平均 OCC</div><div class="v" id="eOcc">—</div></div>
+        <div class="sim-kpi"><div class="k">平均 ADR</div><div class="v" id="eAdr">—</div></div>
+        <div class="sim-kpi"><div class="k">步行客人</div><div class="v" id="eWalk">—</div></div>
+      </div>
+      <div style="text-align:left;font-size:14px;color:var(--ink-2);line-height:1.9" id="eAdvice"></div>
+      <div class="cm-btns" style="justify-content:center;margin-top:18px">
+        <button class="cm-btn cm-btn-primary" id="btnAgain2">再经营一次</button>
+        <a class="cm-btn cm-btn-ghost" href="level.html">去玩决策闯关</a>
+        <a class="cm-btn cm-btn-ghost" href="../codex.html">回看法典</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-main">
+    <div class="sf-bot">
+      <span>中国酒店收益管理社区 · 经营模拟 30 天</span>
+      <span>联系：<a href="mailto:3984557428@qq.com" style="display:inline;color:var(--gold-2)">3984557428@qq.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var ROOMS = 320, BASE_BAR = 680, DAYS = 30;
+
+  /* 需求类型：价格系数 / 目标 OCC / 名称 */
+  var T = {
+    D1: { pf: 1.60, occ: 0.96, n: "D1 峰值日" },
+    D2: { pf: 1.30, occ: 0.90, n: "D2 高涨日" },
+    D3: { pf: 1.00, occ: 0.78, n: "D3 平峰日" },
+    D4: { pf: 0.80, occ: 0.55, n: "D4 低谷日" }
+  };
+
+  /* 30 天日历（11–12 日为云栖大会） */
+  var CAL = ["D3","D3","D3","D3","D2","D2","D3",
+             "D3","D3","D3","D1","D1","D2","D3",
+             "D3","D3","D3","D3","D2","D2","D3",
+             "D3","D3","D3","D3","D2","D2","D3",
+             "D4","D4"];
+  var WEEK = ["周一","周二","周三","周四","周五","周六","周日"];
+
+  /* 确定性噪声：保证每局题目一致 */
+  var seed = 20260907, noise = [];
+  (function () {
+    for (var i = 0; i < DAYS; i++) {
+      seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+      noise.push((seed / 0x7fffffff - 0.5) * 0.12);
+    }
+  })();
+
+  /* 按表 E 由 No-show 率推标准超售间数 */
+  function stdOverbook(noShow) {
+    var total = noShow * 1.6;               // No-show + 24h 取消 合计
+    var rate = total < 0.05 ? 0 : total < 0.10 ? 0.02 : total < 0.15 ? 0.03 : total < 0.20 ? 0.05 : 0.07;
+    var n = Math.floor(ROOMS * rate);
+    return Math.min(n, 15, Math.floor(ROOMS * 0.05));
+  }
+
+  function buildDays() {
+    var arr = [];
+    for (var i = 0; i < DAYS; i++) {
+      var t = T[CAL[i]];
+      var noShow = (CAL[i] === "D1" || CAL[i] === "D2") ? 0.05 : (CAL[i] === "D4" ? 0.13 : 0.09);
+      noShow = Math.max(0.02, noShow * (1 + noise[i] * 0.5));
+      arr.push({
+        n: i + 1, type: CAL[i], tname: t.n, week: WEEK[i % 7],
+        pf: t.pf, occ: t.occ, noShow: noShow,
+        refPrice: BASE_BAR * t.pf,
+        baseDemand: ROOMS * t.occ,
+        obStd: stdOverbook(noShow)
+      });
+    }
+    return arr;
+  }
+
+  /* 核心模拟 */
+  function sim(d, p, ob, promo) {
+    var price = d.refPrice * p;
+    var demand = d.baseDemand * (1 - 1.1 * (p - 1));
+    if (promo) demand *= 1.18;
+    demand *= (1 + noise[d.n - 1]);
+    demand = Math.max(0, demand);
+
+    var bookings = Math.min(demand, ROOMS + ob);
+    var arrivals = Math.round(bookings * (1 - d.noShow));
+    var walked = Math.max(0, arrivals - ROOMS);
+    var sold = Math.min(arrivals, ROOMS);
+
+    var cc = promo ? 0.16 : 0.09;
+    var rev = sold * price * (1 - cc);
+    var walkCost = walked * (price * 1.5 + 300);
+    var net = rev - walkCost;
+
+    return {
+      price: price, sold: sold, arrivals: arrivals, walked: walked,
+      occ: sold / ROOMS, adr: price, revpar: net / ROOMS,
+      walkCost: walkCost, net: net
+    };
+  }
+
+  var days, cur, mine = [], bench = [], log = [];
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function reset() {
+    days = buildDays();
+    cur = 0; mine = []; bench = []; log = [];
+    for (var i = 0; i < DAYS; i++) bench.push(sim(days[i], 1.0, days[i].obStd, false).revpar);
+    $("playCard").style.display = "";
+    $("endCard").style.display = "none";
+    renderDay();
+  }
+
+  function renderDay() {
+    var d = days[cur];
+    $("hudDay").textContent = d.n;
+    $("barFill").style.width = (cur / DAYS * 100) + "%";
+    $("dayTitle").textContent = "第 " + d.n + " 天 · " + d.week + " · " + d.tname;
+    $("dayBrief").innerHTML =
+      "市场参考价 <b>¥" + Math.round(d.refPrice) + "</b>，该类型目标出租率 <b>" +
+      Math.round(d.occ * 100) + "%</b>，预计 No-show 率 <b>" + (d.noShow * 100).toFixed(1) + "%</b>。<br>" +
+      "按《法典》表 E，今天的标准超售建议为 <b>" + d.obStd + " 间</b>。";
+    $("rPrice").value = "1.00"; $("rOb").value = String(d.obStd); $("cPromo").checked = false;
+    syncLabels();
+    $("dayResult").style.display = "none";
+    updateHud();
+    drawChart();
+  }
+
+  function syncLabels() {
+    var d = days[cur];
+    var p = parseFloat($("rPrice").value);
+    var ob = parseInt($("rOb").value, 10);
+    $("vPrice").textContent = p.toFixed(2) + "×";
+    $("vBar").textContent = "¥" + Math.round(d.refPrice * p);
+    $("vOb").textContent = ob + " 间";
+    $("vPromo").textContent = $("cPromo").checked ? "开启" : "关闭";
+  }
+
+  function updateHud() {
+    var a = sum(mine), b = sum(bench.slice(0, mine.length));
+    $("hudRev").textContent = "¥" + Math.round(a);
+    $("hudVs").textContent = mine.length === 0 ? "—" : (a / b * 100).toFixed(0) + "%";
+  }
+
+  function sum(arr) { var s = 0; for (var i = 0; i < arr.length; i++) s += arr[i]; return s; }
+
+  function drawChart() {
+    if (mine.length === 0) { $("chart").innerHTML = '<div style="font-size:12px;color:var(--ink-3);padding:18px 0;text-align:center">执行第一天后显示走势</div>'; return; }
+    var W = 640, H = 160, pad = 26;
+    var n = Math.max(mine.length, 2);
+    var maxV = 0;
+    for (var i = 0; i < mine.length; i++) maxV = Math.max(maxV, mine[i], bench[i]);
+    maxV = maxV * 1.15 || 1;
+
+    function x(i) { return pad + (W - pad * 2) * (i / (DAYS - 1)); }
+    function y(v) { return H - pad - (H - pad * 2) * (v / maxV); }
+
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid meet">';
+    // 网格
+    for (var g = 0; g <= 4; g++) {
+      var yy = pad + (H - pad * 2) * (g / 4);
+      s += '<line x1="' + pad + '" y1="' + yy + '" x2="' + (W - pad) + '" y2="' + yy + '" stroke="#E1E5EA" stroke-width="1"/>';
+    }
+    // 基准线
+    var pb = "", pm = "";
+    for (var i = 0; i < mine.length; i++) {
+      pb += (i === 0 ? "M" : "L") + x(i) + " " + y(bench[i]) + " ";
+      pm += (i === 0 ? "M" : "L") + x(i) + " " + y(mine[i]) + " ";
+    }
+    s += '<path d="' + pb + '" fill="none" stroke="#B8894A" stroke-width="2" stroke-dasharray="5 4"/>';
+    s += '<path d="' + pm + '" fill="none" stroke="#1B3A5C" stroke-width="2.5"/>';
+    for (var i = 0; i < mine.length; i++) {
+      s += '<circle cx="' + x(i) + '" cy="' + y(mine[i]) + '" r="2.5" fill="#1B3A5C"/>';
+    }
+    s += '<text x="' + (W - pad) + '" y="' + (H - 6) + '" text-anchor="end" font-size="10" fill="#7B8794">第 ' + mine.length + ' 天</text>';
+    s += "</svg>";
+    s += '<div style="font-size:11.5px;color:var(--ink-3);margin-top:6px">' +
+         '<span style="color:#1B3A5C;font-weight:700">━ 你的 RevPAR</span>　' +
+         '<span style="color:#B8894A;font-weight:700">┅ 教科书打法基准</span></div>';
+    $("chart").innerHTML = s;
+  }
+
+  function go() {
+    var d = days[cur];
+    var p = parseFloat($("rPrice").value);
+    var ob = parseInt($("rOb").value, 10);
+    var promo = $("cPromo").checked;
+
+    var r = sim(d, p, ob, promo);
+    mine.push(r.revpar);
+    log.push(r);
+    var b = bench[cur];
+
+    $("kOcc").textContent = (r.occ * 100).toFixed(1) + "%";
+    $("kAdr").textContent = "¥" + Math.round(r.adr);
+    $("kRev").textContent = "¥" + Math.round(r.revpar);
+    $("kWalk").textContent = r.walked;
+
+    function dd(el, cur2, base2, pct) {
+      var diff = cur2 - base2;
+      var p = diff >= 0 ? "up" : "down";
+      $(el).className = "d " + p;
+      $(el).textContent = (diff >= 0 ? "▲ " : "▼ ") + (pct ? Math.abs(diff * 100).toFixed(1) + "pp" : "¥" + Math.abs(Math.round(diff)));
+    }
+    dd("kOccD", r.occ, d.occ, true);
+    dd("kAdrD", r.adr, d.refPrice, false);
+    dd("kRevD", r.revpar, b, false);
+    $("kWalkD").textContent = r.walked > 0 ? "赔付 ¥" + Math.round(r.walkCost) : "无赔付";
+    $("kWalkD").className = "d " + (r.walked > 0 ? "down" : "up");
+
+    var notes = [];
+    if (r.walked > 0) notes.push("⚠️ 超售过度：<b>" + r.walked + " 位</b>客人到店无房，赔付 ¥" + Math.round(r.walkCost) + "，直接吃掉今天 RevPAR 的 " + Math.round(r.walkCost / (r.net + r.walkCost) * 100) + "%。按表 E 复核 No-show 参数。");
+    if (r.occ < d.occ - 0.12) notes.push("量没做起来：OCC " + (r.occ * 100).toFixed(1) + "%，低于该类型目标 " + Math.round(d.occ * 100) + "%，价格可能定高了，或该开促销拉量。");
+    if (r.occ > 0.97 && r.revpar < b) notes.push("卖满了但没卖贵：OCC " + (r.occ * 100).toFixed(1) + "% 接近满房，RevPAR 却低于基准——该提价了（回看表 A）。");
+    if (promo && r.revpar < b) notes.push("促销没回本：需求 +18% 但渠道成本从 9% 涨到 16%，净收益反而更低。");
+    if (r.revpar >= b * 1.05) notes.push("✓ 高于基准 5% 以上，今天的定价与超售组合是有效的。");
+    if (notes.length === 0) notes.push("与教科书打法基本持平。想拉开差距，需要更主动地区分日型定价——峰值日敢提价，低谷日敢放量。");
+    $("dayNote").innerHTML = notes.join("<br>");
+
+    $("dayResult").style.display = "";
+    $("btnGo").style.display = "none";
+    $("btnNextDay").textContent = (cur === DAYS - 1) ? "查看 30 天成绩 →" : "进入第 " + (d.n + 1) + " 天 →";
+    updateHud();
+    drawChart();
+  }
+
+  function finish() {
+    $("playCard").style.display = "none";
+    $("endCard").style.display = "";
+    var myRev = sum(mine) / DAYS;
+    var bnRev = sum(bench) / DAYS;
+    var ratio = myRev / bnRev;
+
+    var occAvg = 0, adrAvg = 0, walkTotal = 0;
+    for (var i = 0; i < log.length; i++) {
+      occAvg += log[i].occ;
+      adrAvg += log[i].adr;
+      walkTotal += log[i].walked;
+    }
+    occAvg = log.length ? occAvg / log.length : 0;
+    adrAvg = log.length ? adrAvg / log.length : 0;
+
+    var g, title, advice;
+    if (ratio >= 1.05) { g = "S"; title = "经营出色 —— RevPAR 达到基准的 " + (ratio * 100).toFixed(0) + "%"; }
+    else if (ratio >= 0.98) { g = "A"; title = "经营合格 —— RevPAR 达到基准的 " + (ratio * 100).toFixed(0) + "%"; }
+    else if (ratio >= 0.90) { g = "B"; title = "略低于基准 —— RevPAR 为基准的 " + (ratio * 100).toFixed(0) + "%"; }
+    else { g = "C"; title = "明显低于基准 —— RevPAR 仅为基准的 " + (ratio * 100).toFixed(0) + "%"; }
+
+    advice = "<b>复盘要点：</b><br>";
+    advice += "· 你的平均 RevPAR <b>¥" + Math.round(myRev) + "</b>，教科书打法基准 <b>¥" + Math.round(bnRev) + "</b>。<br>";
+    advice += "· 平均 OCC <b>" + (occAvg * 100).toFixed(1) + "%</b>，平均 ADR <b>¥" + Math.round(adrAvg) + "</b>。<br>";
+    if (walkTotal > 0) advice += "· 30 天共产生 <b>" + walkTotal + " 位</b>步行客人，这是最伤利润也最伤口碑的部分，建议重看《法典》表 E 的超售修正系数。<br>";
+    else advice += "· 全程零步行客人，超售控制得当。<br>";
+    if (ratio < 1) advice += "· 想拉开差距，核心是<b>区分日型定价</b>：D1/D2 日大胆提价（表 A 上限 +20%），D4 低谷日敢放量（促销 + 全开渠道，见表 H）。<br>";
+    else advice += "· 你已经能把日型差异转化为收益，下一步可以练《法典》表 G 团队置换与表 K 会议综合贡献这类更复杂的取舍。<br>";
+
+    $("eGrade").textContent = g;
+    $("eTitle").textContent = title;
+    $("eRev").textContent = "¥" + Math.round(myRev);
+    $("eOcc").textContent = (occAvg * 100).toFixed(1) + "%";
+    $("eAdr").textContent = "¥" + Math.round(adrAvg);
+    $("eWalk").textContent = walkTotal;
+    $("eAdvice").innerHTML = advice;
+  }
+
+  /* 事件绑定 */
+  $("rPrice").addEventListener("input", syncLabels);
+  $("rOb").addEventListener("input", syncLabels);
+  $("cPromo").addEventListener("change", syncLabels);
+  $("btnGo").addEventListener("click", go);
+  $("btnNextDay").addEventListener("click", function () {
+    if (cur === DAYS - 1) { finish(); return; }
+    cur++;
+    $("btnGo").style.display = "";
+    renderDay();
+  });
+  $("btnReset").addEventListener("click", reset);
+  $("btnAgain2").addEventListener("click", reset);
+
+  reset();
+})();
+</script>
+</body>
+</html>

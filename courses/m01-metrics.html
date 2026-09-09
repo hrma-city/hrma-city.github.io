@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M01 收益管理的语言：指标与计算 · 酒店收益管理学院</title>
+<link rel="stylesheet" href="../assets/css/main.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"courses","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/courses/m01-metrics.html"},{"@type":"ListItem","position":3,"name":"m01-metrics","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/courses/m01-metrics.html"}]}</script>
+</head>
+<body data-page="m01">
+<div class="layout">
+
+<aside class="sidebar" id="sidebar" data-page="m01"></aside>
+
+<main class="main">
+<div class="wrap">
+
+  <!-- ===== 页头 ===== -->
+  <div class="crumb">
+    <a href="../index.html">学院首页</a><span>/</span>
+    <a href="../curriculum.html">教案总纲</a><span>/</span>
+    L1 模块一
+  </div>
+
+  <div class="page-head">
+    <div class="badge-row">
+      <span class="badge badge-l1">L1 收益执行专员</span>
+      <span class="badge">模块 M01</span>
+      <span class="badge">2 课时 / 180 min</span>
+      <span class="badge">课时占比 2/12</span>
+    </div>
+    <h1 class="page-title">收益管理的语言：指标与计算</h1>
+    <p class="page-lede">一句话导语：指标的口径错一个字，后面查表得出的动作就全错——本模块把 10 个核心指标的定义、公式和口径陷阱一次钉死，让你算出来的每一个数都能写进台账。</p>
+  </div>
+
+  <!-- ===== 学习目标 ===== -->
+  <div class="card">
+    <div class="card-title"><span class="ic">◎</span>学习目标</div>
+    <ul>
+      <li>能<b>说出</b> OCC、ADR、RevPAR、TrevPAR、GOPPAR、MPI、ARI、RGI、NRevPAR、Pickup 共 10 个指标的中文名、英文全称、公式与单位</li>
+      <li>能<b>背出</b> 4 条口径铁律：OCC 分母是「可售」房晚、ADR 分母是「付费」房晚、RevPAR 分母是「可售」房晚、MPI×ARI÷100 = RGI</li>
+      <li>能<b>算出</b> 给定房量、房晚、收入、竞对数据下的全部核心指标（手算或计算器，保留一位小数）</li>
+      <li>能<b>指出</b> 5 个最常见的指标算错场景并给出正确算法</li>
+      <li>能<b>独立执行</b> 一次「指标体检」：看到异常指标，列出 3–5 个成因并说出下一步查什么、查哪张表</li>
+    </ul>
+    <p class="card-note">前置要求：无。本模块为零基础起点。<br>本模块对应《收益管理操作法典》的内容：无独立判定表，但表 C（ARI）、表 D（MPI）、表 A（Pickup 偏差）全部以本模块公式为输入。</p>
+  </div>
+
+  <!-- ===== 目录 ===== -->
+  <div class="toc">
+    <div class="toc-title">本模块目录</div>
+    <ol>
+      <li><a href="#s1">为什么先学指标：看数这一步到底在看什么</a></li>
+      <li><a href="#s2">指标家族总览（10 个指标一张表）</a></li>
+      <li><a href="#s3">OCC 出租率：分母必须是「可售」房晚</a></li>
+      <li><a href="#s4">ADR 平均房价：分子含什么、分母含什么</a></li>
+      <li><a href="#s5">RevPAR 每间可售房收入：收益管理第一指标</a></li>
+      <li><a href="#s6">TrevPAR 与 GOPPAR：全服务酒店必须同时看</a></li>
+      <li><a href="#s7">MPI / ARI / RGI：三个竞争指数与恒等式</a></li>
+      <li><a href="#s8">NRevPAR 与 Pickup：净收益与增量</a></li>
+      <li><a href="#s9">口径陷阱总表（5 个高频算错场景）</a></li>
+      <li><a href="#s10">指标体检表：异常 → 成因 → 下一步</a></li>
+      <li><a href="#demo">讲师示范：某日全指标完整计算</a></li>
+      <li><a href="#drill">学员跟练：10 道计算练习</a></li>
+      <li><a href="#recite">口径速记清单（当堂默写）</a></li>
+      <li><a href="#quiz">随堂测（5 题）</a></li>
+      <li><a href="#out">本模块产出物</a></li>
+    </ol>
+  </div>
+
+  <!-- ===== 正文 ===== -->
+  <h2 id="s1">一、为什么先学指标：看数这一步到底在看什么</h2>
+
+  <p>本学院的核心动作是四步闭环：<strong>看数 → 查表 → 执行 → 记录</strong>。在这四步里，「看数」是第一步，也是唯一一步错了会导致后面三步全部白做的环节。</p>
+
+  <p>《收益管理操作法典》表 A（每日价格调整判定表）需要两个输入：目标日预测 OCC，以及 Pickup 偏差。这两个数字只要算错一个百分点，查表读出的动作就会从「维持」跳到「<span class="up">↑10%</span>」或者从「<span class="down">↓5%</span>」跳到「<span class="down">↓10%</span>」。所以本模块不是理论课，是<strong>防错课</strong>。</p>
+
+  <div class="flow">
+    <div class="flow-item"><div class="fi-t">看数</div><div class="fi-d">按取数清单抓固定字段（M02 详讲）</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item"><div class="fi-t">查表</div><div class="fi-d">数字代入《法典》判定表，读出唯一动作</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item"><div class="fi-t">执行</div><div class="fi-d">按系统操作路径落位（M03 详讲）</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item"><div class="fi-t">记录</div><div class="fi-d">写入《调价台账》，形成可追溯档案（M04 详讲）</div></div>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">本模块的统一计算约定（全学院适用）</span>
+    <p>1. 百分比一律保留一位小数（OCC 75.0%、MPI 107.1）。<br>
+    2. 金额单位为元，保留一位小数（¥663.4）。<br>
+    3. 房晚数一律<b>向下取整</b>取整数（超售间数 9.6 间 → 9 间）。<br>
+    4. 竞争指数（MPI/ARI/RGI）保留一位小数，不四舍五入到整数。<br>
+    5. 价格调整结果四舍五入到整数元（此为执行口径，非《法典》判定阈值）。</p>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">本页数据来源说明</span>
+    <p>本页所有示例数字均来自本学院统一原型 <strong>杭州滨江云璟酒店</strong>（320 间房，年度实绩：可售房晚 116,800、售出房晚 84,096、OCC 72.0%、ADR ¥618、RevPAR ¥445、客房收入 ¥51,977,328、餐饮收入 ¥28,600,000、其他收入 ¥4,100,000、总营收 ¥84,677,328、GOP ¥27,098,741、GOPPAR ¥232；平峰 BAR ¥680；竞争组合 5 家加权均价 ¥680）。任何举例不得另造酒店。</p>
+  </div>
+
+  <h2 id="s2">二、指标家族总览（10 个指标一张表）</h2>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 1-1　核心指标总览<span class="cap-note">「单位」列是本模块最容易记混的地方：率是 %，价是 元，PAR 是 元/间夜</span></caption>
+      <thead>
+        <tr><th>缩写</th><th>中文名</th><th>英文全称</th><th>公式</th><th>单位</th><th>谁看</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>OCC</b></td><td>出租率</td><td>Occupancy</td><td>已售房晚 ÷ 可售房晚 × 100%</td><td>%</td><td>全员</td></tr>
+        <tr><td><b>ADR</b></td><td>平均房价</td><td>Average Daily Rate</td><td>客房收入 ÷ 已售房晚</td><td>元</td><td>前厅/销售</td></tr>
+        <tr><td><b>RevPAR</b></td><td>每间可售房收入</td><td>Revenue Per Available Room</td><td>客房收入 ÷ 可售房晚 = OCC × ADR</td><td>元</td><td>收益经理</td></tr>
+        <tr><td><b>TrevPAR</b></td><td>每间可售房总营收</td><td>Total Revenue Per Available Room</td><td>总营收 ÷ 可售房晚</td><td>元</td><td>总经理</td></tr>
+        <tr><td><b>GOPPAR</b></td><td>每间可售房毛利润</td><td>Gross Operating Profit Per Available Room</td><td>GOP ÷ 可售房晚</td><td>元</td><td>业主/总经理</td></tr>
+        <tr><td><b>MPI</b></td><td>市场渗透指数</td><td>Market Penetration Index</td><td>本店 OCC ÷ 竞争组合 OCC × 100</td><td>指数</td><td>收益经理</td></tr>
+        <tr><td><b>ARI</b></td><td>平均房价指数</td><td>Average Rate Index</td><td>本店 ADR ÷ 竞争组合 ADR × 100</td><td>指数</td><td>收益经理</td></tr>
+        <tr><td><b>RGI</b></td><td>收入生成指数</td><td>Revenue Generation Index</td><td>本店 RevPAR ÷ 竞争组合 RevPAR × 100</td><td>指数</td><td>总经理/业主</td></tr>
+        <tr><td><b>NRevPAR</b></td><td>净 RevPAR</td><td>Net RevPAR</td><td>RevPAR ×（1 − 渠道综合成本率）</td><td>元</td><td>收益/财务</td></tr>
+        <tr><td><b>Pickup</b></td><td>预订增量</td><td>Pickup</td><td>某目标日在某时间段内新增的预订房晚数</td><td>间夜</td><td>收益专员</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">记忆锚点：三个「PAR」的层级</span>
+    <p>RevPAR 只看<strong>客房</strong>，TrevPAR 看<strong>全店营收</strong>，GOPPAR 看<strong>利润</strong>。三者分母完全相同（都是可售房晚），只有分子在变大。云璟酒店是全服务酒店（中餐厅 180 座、全日制餐厅 220 座、扒房 60 座、1,200㎡ 宴会厅），餐饮收入 ¥28,600,000 占到总营收的 33.8%，只看 RevPAR 会严重低估一次会议团队的真实价值——这就是为什么必须同时看 TrevPAR 和 GOPPAR。</p>
+  </div>
+
+  <h2 id="s3">三、OCC 出租率：分母必须是「可售」房晚</h2>
+
+  <h3>3.1 定义与公式</h3>
+
+  <div class="formula">
+    <span class="f-label">公式</span>
+    OCC = 已售房晚 ÷ 可售房晚 × 100%<br>
+    可售房晚 = 总房量 − OOO 房晚（维修 / 装修 / 不可用）
+  </div>
+
+  <p><strong>口径铁律 1：分母是「可售」房晚，不是总房晚。</strong>云璟酒店总房量 320 间，若某日有 8 间处于 OOO（Out of Order，维修房）状态，当日可售房晚就是 312，不是 320。</p>
+
+  <h3>3.2 用云璟真实数字手算</h3>
+
+  <div class="formula">
+    <span class="f-label">示例 · 平峰日（无 OOO）</span>
+    可售房晚 = 320（总房量 320，当日 OOO 0 间）<br>
+    已售房晚 = 240<br>
+    OCC = 240 ÷ 320 × 100% → <span class="f-out">75.0%</span>
+  </div>
+
+  <div class="formula">
+    <span class="f-label">示例 · 有 8 间 OOO 的同一天</span>
+    可售房晚 = 320 − 8 = 312<br>
+    已售房晚 = 234<br>
+    正确：OCC = 234 ÷ 312 × 100% → <span class="f-out">75.0%</span><br>
+    错误：OCC = 234 ÷ 320 × 100% → 73.1%（分母用错，低估 1.9 个百分点）
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">为什么 1.9 个百分点很致命</span>
+    <p>《法典》表 A 的行边界是 70%、85%、95%。若真实 OCC 是 85.0%（落在「85–95%」行），用错分母算成 83.1% 就会落到「70–85%」行。同样一个 Pickup 偏差「领先 3–10%」，前者读出 <span class="up">↑10%</span>，后者读出 <span class="up">↑5%</span>。<strong>一次分母错误，等于把该赚的钱少赚一半。</strong></p>
+  </div>
+
+  <h3>3.3 分子的三种边缘情况</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 1-2　OCC 分子处理规则<span class="cap-note">判断依据：这间房当晚有没有被占掉、还能不能再卖</span></caption>
+      <thead><tr><th>房晚类型</th><th>计入 OCC 分子（已售房晚）</th><th>理由</th></tr></thead>
+      <tbody>
+        <tr><td>正常付费售出</td><td><span class="pill pill-teal">计入</span></td><td>既占房又有收入</td></tr>
+        <tr><td>免费房 Comp</td><td><span class="pill pill-teal">计入</span></td><td>房间被占掉，不能再卖</td></tr>
+        <tr><td>自用房 House Use</td><td><span class="pill pill-teal">计入</span></td><td>房间被占掉，不能再卖</td></tr>
+        <tr><td>OOO 维修 / 装修房</td><td><span class="pill pill-red">不计入，且从分母剔除</span></td><td>物理上不可售</td></tr>
+        <tr><td>当日空置房</td><td><span class="pill">不计入，分母保留</span></td><td>这是 OCC 没做上去的部分</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="s4">四、ADR 平均房价：分子含什么、分母含什么</h2>
+
+  <div class="formula">
+    <span class="f-label">公式</span>
+    ADR = 客房收入 ÷ 已售房晚<br>
+    · 分子「客房收入」：<b>含服务费，不含增值税</b><br>
+    · 分母「已售房晚」：本学院统一采用<b>付费房晚</b>口径（详见下方口径说明）
+  </div>
+
+  <h3>4.1 关于免费房与自用房：必须选一个口径并全学院统一</h3>
+
+  <p>《SPEC》对 ADR 的表述是「不含免费房与自用房……仅当政策明确时」。这句话的意思是：<strong>两种口径都存在，必须由本店政策明确选定，且一旦选定就不能今天一个算法明天一个算法。</strong></p>
+
+  <div class="callout callout-gold">
+    <span class="co-t">本学院统一口径（政策已明确，全学院执行）</span>
+    <p>免费房（Comp）与自用房（House Use）：<b>计入已售房晚（进 OCC 分子），但不计入 ADR 分母</b>。<br>
+    即：ADR 只统计<strong>付费房晚</strong>。同时在日报中单列「Comp 房晚」「House Use 房晚」两行，并同时披露含 Comp 口径的对照 ADR，便于与集团口径对齐。</p>
+  </div>
+
+  <h3>4.2 用云璟真实数字手算两种口径</h3>
+
+  <div class="formula">
+    <span class="f-label">示例 · 免费房混入的影响</span>
+    可售房晚 = 320　已售房晚 = 240（其中免费房 8 间，收入 ¥0）→ 付费房晚 = 232<br>
+    客房收入 = ¥162,400（含服务费，不含增值税）<br>
+    <br>
+    口径 A（本学院采用 · 付费房晚）：ADR = 162,400 ÷ 232 → <span class="f-out">¥700.0</span><br>
+    口径 B（含免费房）：ADR = 162,400 ÷ 240 → <span class="f-out">¥676.7</span><br>
+    两种口径差额 = 700.0 − 676.7 → <span class="f-out">¥23.3（3.4%）</span>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">这里有一个必须想通的点</span>
+    <p>换 ADR 口径<b>完全不影响 RevPAR</b>。因为 RevPAR = 客房收入 ÷ 可售房晚，客房收入还是 ¥162,400，可售房晚还是 320，RevPAR = ¥507.5，与用哪种 ADR 口径无关。<br>
+    换句话说：<b>ADR 口径之争只影响 ADR 和 ARI，不影响 RevPAR 和 RGI。</b>凡是涉及收入与份额的结论，都可以放心用 RevPAR/RGI；凡是涉及价格定位的结论（走《法典》表 C），必须先确认 ADR 口径与竞对采集口径一致。</p>
+  </div>
+
+  <h3>4.3 ADR 的第二个陷阱：不能对各房型价格做简单平均</h3>
+
+  <div class="formula">
+    <span class="f-label">错误算法 vs 正确算法</span>
+    当日 STD-K（标准大床房）售出 70 间 @ ¥580　→ 收入 ¥40,600<br>
+    当日 SUP-K（高级大床房）售出 60 间 @ ¥680　→ 收入 ¥40,800<br>
+    <br>
+    正确（加权）：ADR = (40,600 + 40,800) ÷ (70 + 60) = 81,400 ÷ 130 → <span class="f-out">¥626.2</span><br>
+    错误（简单平均）：ADR = (580 + 680) ÷ 2 → <span class="f-out">¥630.0</span>（虚高 ¥3.8）
+  </div>
+
+  <p>原因很简单：STD-K 卖得多（70 间 &gt; 60 间），低价房权重更大，加权结果必然低于简单平均。<strong>只要各房型销量不同，简单平均就一定是错的。</strong></p>
+
+  <h2 id="s5">五、RevPAR 每间可售房收入：收益管理第一指标</h2>
+
+  <div class="formula">
+    <span class="f-label">公式（两种算法等价，必须都会）</span>
+    算法一（收入法）：RevPAR = 客房收入 ÷ 可售房晚<br>
+    算法二（乘法式）：RevPAR = OCC × ADR<br>
+    <br>
+    云璟平峰日示例：客房收入 ¥163,200，可售房晚 320，已售 240<br>
+    算法一：163,200 ÷ 320 → <span class="f-out">¥510.0</span><br>
+    算法二：75.0% × ¥680 → <span class="f-out">¥510.0</span>　✓ 两式相等
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">为什么 RevPAR 是第一指标</span>
+    <p>因为它同时惩罚两种错误：<br>
+    · <b>只追 OCC 不追价</b>：OCC 100%、ADR ¥400 → RevPAR ¥400。<br>
+    · <b>只追 ADR 不追量</b>：OCC 40%、ADR ¥1,000 → RevPAR ¥400。<br>
+    · <b>两个都做好</b>：OCC 75%、ADR ¥680 → RevPAR ¥510。<br>
+    云璟酒店年度实绩 OCC 72.0%、ADR ¥618，RevPAR = 72.0% × ¥618 = ¥445.0（与《SPEC》年 RevPAR ¥445 一致）。这就是本店要超越的基线。</p>
+  </div>
+
+  <h3>5.1 用 RevPAR 反推需要的 ADR（查表前最常用的反向计算）</h3>
+
+  <div class="formula">
+    <span class="f-label">反推公式</span>
+    所需 ADR = 目标 RevPAR ÷ 预测 OCC<br>
+    <br>
+    示例：10 月目标 OCC 85%（《SPEC》月度基准表 10 月 OCC 85%），目标 RevPAR ¥560<br>
+    所需 ADR = 560 ÷ 85.0% → <span class="f-out">¥658.8</span><br>
+    对照 10 月 ADR 基准 ¥700 → 当前 ¥658.8 <span class="down">↓5.9%</span>，说明价格还没拉到位
+  </div>
+
+  <h2 id="s6">六、TrevPAR 与 GOPPAR：全服务酒店必须同时看</h2>
+
+  <h3>6.1 TrevPAR（每间可售房总营收）</h3>
+
+  <div class="formula">
+    <span class="f-label">公式</span>
+    TrevPAR = 总营收 ÷ 可售房晚<br>
+    总营收 = 客房收入 + 餐饮收入 + 其他收入
+  </div>
+
+  <div class="formula">
+    <span class="f-label">示例 · 云璟某日（含一场中型会议）</span>
+    客房收入 ¥163,200　餐饮收入 ¥78,000　其他收入 ¥8,400<br>
+    总营收 = 163,200 + 78,000 + 8,400 = ¥249,600<br>
+    可售房晚 = 320<br>
+    TrevPAR = 249,600 ÷ 320 → <span class="f-out">¥780.0</span><br>
+    <br>
+    对照：当日 RevPAR = 163,200 ÷ 320 = ¥510.0<br>
+    非客房收入对每间房的贡献 = 780.0 − 510.0 → <span class="f-out">¥270.0</span>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 1-3　云璟年度 TrevPAR 分解<span class="cap-note">数据来源：《SPEC》2.3 经营基线，可售房晚 116,800</span></caption>
+      <thead><tr><th>项目</th><th class="num">年度金额（元）</th><th class="num">每间可售房（元）</th><th class="num">占总营收</th></tr></thead>
+      <tbody>
+        <tr><td>客房收入</td><td class="num">51,977,328</td><td class="num">445.0</td><td class="num">61.4%</td></tr>
+        <tr><td>餐饮收入</td><td class="num">28,600,000</td><td class="num">244.9</td><td class="num">33.8%</td></tr>
+        <tr><td>其他收入</td><td class="num">4,100,000</td><td class="num">35.1</td><td class="num">4.8%</td></tr>
+        <tr><td><b>总营收</b></td><td class="num"><b>84,677,328</b></td><td class="num"><b>725.0</b></td><td class="num">100.0%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>结论：<strong>云璟酒店的 TrevPAR（¥725.0）比 RevPAR（¥445.0）高出 63%</strong>。这意味着在计算团队是否该接时（《法典》表 G、表 K），只看客房价格一定会误杀高价值会议团队——这正是表 K「会议／宴会综合收益联动表」要求先算综合贡献的原因。</p>
+
+  <h3>6.2 GOPPAR（每间可售房毛利润）</h3>
+
+  <div class="formula">
+    <span class="f-label">公式</span>
+    GOPPAR = GOP ÷ 可售房晚<br>
+    GOP 率 = GOP ÷ 总营收 × 100%
+  </div>
+
+  <div class="formula">
+    <span class="f-label">示例 · 云璟某日</span>
+    GOP = ¥87,360　总营收 = ¥249,600　可售房晚 = 320<br>
+    GOPPAR = 87,360 ÷ 320 → <span class="f-out">¥273.0</span><br>
+    GOP 率 = 87,360 ÷ 249,600 × 100% → <span class="f-out">35.0%</span><br>
+    <br>
+    对照年度基线：GOPPAR ¥232、GOP 率 32.0% → 当日 <span class="up">↑17.7%</span> / <span class="up">↑3.0pp</span>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">GOPPAR 才是最终考核指标</span>
+    <p>一个典型反例：为了把 OCC 从 60% 拉到 80%，把 ADR 从 ¥620 降到 ¥450。<br>
+    RevPAR = 80% × ¥450 = ¥360，比原来的 60% × ¥620 = ¥372 还低 <span class="down">↓3.2%</span>。<br>
+    更糟的是：多卖 20% 的房间会带来额外的布草洗涤、易耗品、早餐、人力成本，GOPPAR 的降幅会远大于 RevPAR 的降幅。<br>
+    <b>所以：任何以降价换量的动作，必须先看 RevPAR 是否上升，再看 GOPPAR 是否上升。两个都上升，动作才算成立。</b></p>
+  </div>
+
+  <h2 id="s7">七、MPI / ARI / RGI：三个竞争指数与恒等式</h2>
+
+  <h3>7.1 三个公式</h3>
+
+  <div class="formula">
+    <span class="f-label">公式</span>
+    MPI = 本店 OCC ÷ 竞争组合 OCC × 100　　（&gt;100 表示份额领先）<br>
+    ARI = 本店 ADR ÷ 竞争组合 ADR × 100　　（&gt;100 表示卖得比竞对贵）<br>
+    RGI = 本店 RevPAR ÷ 竞争组合 RevPAR × 100　（综合竞争力）<br>
+    <b>恒等式：RGI = MPI × ARI ÷ 100</b>
+  </div>
+
+  <h3>7.2 恒等式成立的原因（必须理解，不能死记）</h3>
+
+  <div class="formula">
+    <span class="f-label">推导</span>
+    MPI × ARI ÷ 100<br>
+    = (本店OCC ÷ 竞对OCC × 100) × (本店ADR ÷ 竞对ADR × 100) ÷ 100<br>
+    = (本店OCC × 本店ADR) ÷ (竞对OCC × 竞对ADR) × 100<br>
+    = 本店RevPAR ÷ 竞对RevPAR × 100<br>
+    = RGI　■
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">这个恒等式在实战中的两个用法</span>
+    <p><b>用法一（验算）：</b>算出 MPI 和 ARI 后，用乘法求出 RGI，再和直接算出的 RGI 对比。两者不等说明至少有一个原始数据错了——这是最快的自查手段。<br>
+    <b>用法二（拆解）：</b>RGI 低于 100 时，看是 MPI 拖后腿还是 ARI 拖后腿。MPI 低 → 走《法典》表 D（份额问题，查 OTA 曝光/挂牌）；ARI 低 → 走《法典》表 C（价格问题，调价）。两条路完全不同。</p>
+  </div>
+
+  <h3>7.3 用云璟真实数字手算</h3>
+
+  <div class="formula">
+    <span class="f-label">示例 · 竞对数据来自《SPEC》2.4</span>
+    本店：OCC 75.0%　ADR ¥680　→ RevPAR = 75.0% × 680 = ¥510.0<br>
+    竞争组合（5 家加权）：OCC 68.0%　ADR ¥700　→ RevPAR = 68.0% × 700 = ¥476.0<br>
+    <br>
+    MPI = 75.0 ÷ 68.0 × 100 → <span class="f-out">110.3</span>（份额领先，走表 D「&gt;110 份额领先」）<br>
+    ARI = 680 ÷ 700 × 100 → <span class="f-out">97.1</span>（略低，走表 C「90–97 略低」）<br>
+    RGI 直接算 = 510.0 ÷ 476.0 × 100 → <span class="f-out">107.1</span><br>
+    RGI 乘法验算 = 110.3 × 97.1 ÷ 100 → <span class="f-out">107.1</span>　✓ 恒等式成立
+  </div>
+
+  <div class="callout callout-do">
+    <span class="co-t">读出来的结论（这就是「查表」的输入）</span>
+    <p>MPI 110.3 → 查《法典》表 D：落在「&gt;110 份额领先」→ 动作「优先提价（走表 C 提价分支）」。<br>
+    ARI 97.1 → 查《法典》表 C：落在「90–97 略低」→ 判定「预测 OCC≥80% → 提 3%；否则维持」。本例预测 OCC 75.0% &lt; 80% → <b>维持</b>。<br>
+    两个结论合并：份额已经领先，但价格还没跟上；当前不动价，等预测 OCC 跨过 80% 再按表 C 提 3%。<br>
+    <b>注意：表 A 优先级高于表 C（《法典》表 O），同日若表 A 也给出动作，只执行表 A 的结论，表 C 结论写入《观察清单》。</b></p>
+  </div>
+
+  <h2 id="s8">八、NRevPAR 与 Pickup：净收益与增量</h2>
+
+  <h3>8.1 NRevPAR（净 RevPAR）</h3>
+
+  <div class="formula">
+    <span class="f-label">公式</span>
+    NRevPAR = RevPAR ×（1 − 渠道综合成本率）<br>
+    渠道综合成本率 = Σ(某渠道房晚 × 该渠道成本率) ÷ 总房晚
+  </div>
+
+  <div class="formula">
+    <span class="f-label">示例 · 云璟某日 240 间已售房晚的渠道结构</span>
+    DIR 直销 72 间 × 3% = 216<br>
+    LOY 会员 24 间 × 4% = 96<br>
+    CORP 协议 48 间 × 8% = 384<br>
+    OTA 国内 72 间 × 16% = 1,152<br>
+    GDS/TMC 24 间 × 13% = 312<br>
+    合计 240 间 → 加权成本点数和 = 2,160<br>
+    <br>
+    渠道综合成本率 = 2,160 ÷ 240 → <span class="f-out">9.0%</span><br>
+    NRevPAR = 510.0 × (1 − 9.0%) = 510.0 × 0.91 → <span class="f-out">¥464.1</span>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 1-4　云璟渠道成本率速查<span class="cap-note">数据来源：《SPEC》2.3 渠道成本表。算 NRevPAR 时直接取用，不要另设数值</span></caption>
+      <thead><tr><th>渠道</th><th>代码</th><th class="num">综合成本率</th><th>典型来源</th></tr></thead>
+      <tbody>
+        <tr><td>直销（官网/小程序/前台）</td><td>DIR</td><td class="num">3%</td><td>支付手续费 + 系统费</td></tr>
+        <tr><td>协议公司（含返佣/账期）</td><td>CORP</td><td class="num">8%</td><td>返佣 + 账期成本</td></tr>
+        <tr><td>会员直订</td><td>LOY</td><td class="num">4%</td><td>积分成本</td></tr>
+        <tr><td>OTA 国内（携程/美团/飞猪）</td><td>OTA</td><td class="num">16%</td><td>佣金</td></tr>
+        <tr><td>OTA 国际（Booking/Agoda）</td><td>OTA-I</td><td class="num">18%</td><td>佣金</td></tr>
+        <tr><td>GDS / 商旅 TMC</td><td>GDS</td><td class="num">13%</td><td>结算费率</td></tr>
+        <tr><td>批发商 / 包房商</td><td>WHO</td><td class="num">26%</td><td>净价差</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">NRevPAR 的唯一实战用途：比较两个「RevPAR 相同」的方案</span>
+    <p>方案甲：RevPAR ¥510，全部来自直销（成本率 3%）→ NRevPAR = ¥494.7。<br>
+    方案乙：RevPAR ¥510，全部来自 OTA 国内（成本率 16%）→ NRevPAR = ¥428.4。<br>
+    两者 RevPAR 完全相同，NRevPAR 相差 <span class="down">¥66.3</span>。<br>
+    <b>触发规则：当两个方案 RevPAR 差值 ≤ 3% 时，一律选 NRevPAR 更高的那个。</b>《法典》表 H 在高 OCC 时关闭 OTA、只留直销与会员，本质就是这条规则。</p>
+  </div>
+
+  <h3>8.2 Pickup（预订增量）与 Pickup 偏差</h3>
+
+  <p>Pickup 是《法典》表 A 的第二个输入，也是本模块唯一一个「不是比率」的指标。必须区分两个概念：</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 1-5　Pickup 与 Pickup 偏差的区别<span class="cap-note">表 A 用的是「偏差」，不是绝对增量——这是新手第一大错</span></caption>
+      <thead><tr><th>概念</th><th>定义</th><th>单位</th><th>示例</th><th>用途</th></tr></thead>
+      <tbody>
+        <tr><td><b>Pickup（绝对增量）</b></td><td>某目标日在某时间段内新增的预订房晚数（负值＝取消净额）</td><td>间夜</td><td>昨日新增 38 间夜</td><td>画预订曲线（M05）</td></tr>
+        <tr><td><b>Pickup 偏差</b></td><td>（当前在手房晚 − 去年同期同一提前窗口在手房晚）÷ 去年同期在手房晚 × 100%</td><td>%</td><td>落后 6.0%</td><td><b>查《法典》表 A</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="formula">
+    <span class="f-label">Pickup 偏差公式（《SPEC》表 A 原文定义）</span>
+    Pickup 偏差 =（当前在手房晚 − 去年同期同一提前窗口在手房晚）÷ 去年同期在手房晚 × 100%
+  </div>
+
+  <div class="formula">
+    <span class="f-label">示例 · 目标日 10 月 15 日，提前窗口 14 天</span>
+    当前在手房晚（10 月 15 日）= 187 间<br>
+    去年同期同一提前窗口在手房晚 = 199 间<br>
+    Pickup 偏差 = (187 − 199) ÷ 199 × 100% = −12 ÷ 199 × 100% → <span class="f-out">落后 6.0%</span>
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">三个必须写对的细节</span>
+    <p>1. <b>分母是「去年同期在手」，不是「当前在手」。</b>写反了符号会变，落后会算成领先。<br>
+    2. <b>必须是「同一提前窗口」。</b>拿今天（提前 14 天）的在手，去比去年今天（提前 14 天）的在手，不能比去年全年的在手。<br>
+    3. <b>结果为负＝落后，为正＝领先。</b>写台账时必须写「落后 6.0%」或「领先 6.0%」，不能只写「−6.0%」，避免查表时看错列。</p>
+  </div>
+
+  <h2 id="s9">九、口径陷阱总表（5 个高频算错场景）</h2>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 1-6　口径陷阱与正确算法<span class="cap-note">每一行都配了一个会「跨过判定表边界」的真实后果</span></caption>
+      <thead><tr><th>#</th><th>陷阱</th><th>错误算法</th><th>正确算法</th><th>后果</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><b>分母用总房晚而非可售房晚</b></td>
+          <td>OCC = 234 ÷ 320 = 73.1%</td>
+          <td>OCC = 234 ÷ 312 = <b>75.0%</b>（8 间 OOO）</td>
+          <td>落错表 A 的行，动作从 <span class="up">↑10%</span> 变成 <span class="up">↑5%</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><b>ADR 分母混入免费房</b></td>
+          <td>ADR = 162,400 ÷ 240 = ¥676.7</td>
+          <td>ADR = 162,400 ÷ 232 = <b>¥700.0</b>（8 间 Comp）</td>
+          <td>ARI 从 96.7 变 100.0，表 C 判定从「略低」变「健康」，该提的价没提</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><b>房型价格简单平均</b></td>
+          <td>ADR = (580 + 680) ÷ 2 = ¥630.0</td>
+          <td>ADR = 81,400 ÷ 130 = <b>¥626.2</b></td>
+          <td>月度 ADR 虚高，与财务对不上账</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><b>Pickup 偏差分母写反</b></td>
+          <td>(187 − 199) ÷ <b>187</b> = 落后 6.4%</td>
+          <td>(187 − 199) ÷ <b>199</b> = <b>落后 6.0%</b></td>
+          <td>本例未跨列，但若真实值 −9.5%/−10.5%，会跨过「3–10%」与「&gt;10%」的分界</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><b>竞争指数用绝对差代替比值</b></td>
+          <td>ARI = 700 − 680 = 20</td>
+          <td>ARI = 680 ÷ 700 × 100 = <b>97.1</b></td>
+          <td>指数无量纲，绝对差无法横向对比不同城市/不同月份</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="s10">十、指标体检表：异常 → 成因 → 下一步</h2>
+
+  <p>体检表的使用方式：在每日 07:30 抓完数后，先看下面 8 个「症状」，命中哪一条就按「下一步查什么」执行，并按「查哪张表」落地动作。这是把「看数」和「查表」两步连起来的唯一桥梁。</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 1-7　指标体检表（8 症状）<span class="cap-note">「成因」列按出现概率从高到低排列，逐条排查，不要跳着查</span></caption>
+      <thead><tr><th>症状（看到什么）</th><th>可能成因（3–5 个）</th><th>下一步查什么</th><th>查哪张表</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>OCC 达标但 RevPAR 未达标</b></td>
+          <td>① 低价渠道占比过高；② 团队/协议压价过多；③ 免费房与升级超发；④ 促销未按期下架；⑤ 房型结构下沉（高级房没卖出，全卖标准房）</td>
+          <td>拆渠道收入结构 → 算各渠道 NRevPAR → 查房型销售结构</td>
+          <td>表 H（渠道开关）、表 F（房型价差）</td>
+        </tr>
+        <tr>
+          <td><b>ADR 达标但 OCC 落后</b></td>
+          <td>① ARI 偏高（卖贵了）；② OTA 曝光/点评分下滑；③ 竞对降价未跟进；④ 协议客户集中度高但产出不足；⑤ 关房过早</td>
+          <td>算 ARI 与 MPI → 抓竞对 5 家挂牌价 → 查 OTA 后台曝光量与点评分</td>
+          <td>表 C（ARI）、表 D（MPI）</td>
+        </tr>
+        <tr>
+          <td><b>OCC 与 ADR 双高但 GOPPAR 下滑</b></td>
+          <td>① 渠道成本率上升（OTA 占比超 31% 基线）；② 布草/易耗/能耗超支；③ 加班人力成本；④ 含早赠送超量；⑤ 免费升级超发挤占高价房</td>
+          <td>算渠道综合成本率 → 取财务 GOP 明细 → 查《升级台账》</td>
+          <td>表 H（渠道）、表 J（升级规则）</td>
+        </tr>
+        <tr>
+          <td><b>Pickup 落后 &gt;10% 连续 3 天</b></td>
+          <td>① 竞对降价抢量；② 本店价格已偏高；③ OTA 排名/点评分下滑；④ 区域需求整体走弱（展会取消等）；⑤ 销售渠道未铺开</td>
+          <td>确认是否踩表 L「需求暴跌」信号（48h Pickup 落后 &gt;40%）→ 抓竞对比价</td>
+          <td>表 A（调价）、表 L（应急）</td>
+        </tr>
+        <tr>
+          <td><b>MPI &lt; 95</b></td>
+          <td>① OTA 挂牌缺失或被下架；② 渠道关得太早；③ MinLOS 设太长挡单；④ 竞对新开业分流；⑤ 点评分低于竞对</td>
+          <td>逐渠道查挂牌是否在线 → 查当前限制条件设置 → 查 3km 内新增竞对</td>
+          <td>表 D（MPI）、表 B（库存限制）、表 H（渠道）</td>
+        </tr>
+        <tr>
+          <td><b>ARI &gt; 110</b></td>
+          <td>① 竞对已降价本店未跟；② 本店含早/套餐抬高了名义 ADR；③ 采集口径不一致（本店含早、竞对不含早）；④ 房型结构偏向高档房</td>
+          <td>核对采集口径是否一致（同一房型、同一含早状态、同一取消政策）→ 复采竞对价</td>
+          <td>表 C（ARI）</td>
+        </tr>
+        <tr>
+          <td><b>RGI 与 MPI×ARI÷100 不相等</b></td>
+          <td>① 三个指数用了不同天数口径；② 竞对 OCC 用的是估算非实测；③ 本店 RevPAR 分母用了已售房晚；④ 四舍五入误差累积</td>
+          <td>统一全部取「可售房晚」口径重算 → 逐项核对原始数据</td>
+          <td>—（数据校验，不查判定表）</td>
+        </tr>
+        <tr>
+          <td><b>TrevPAR 上升但 GOPPAR 持平</b></td>
+          <td>① 餐饮毛利率下滑（低于 55% 红线）；② 会议团队客房压价、餐饮没起来；③ 宴会厅租金减免过多；④ 其他收入多为低毛利代收</td>
+          <td>取餐饮毛利明细 → 查会议团队《团队决策档案》</td>
+          <td>表 K（会议联动）、表 G（置换分析）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== 讲师示范 ===== -->
+  <h2 id="demo">十一、讲师示范：某日全指标完整计算</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">▶</span>示范一 · 从原始数据到查表输入（完整走一遍）</div>
+
+    <h4>第 0 步：原始数据（来自《每日收益数据包》）</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">日期</div><div class="kv-v">10 月 15 日（周三，D3 平峰日，《SPEC》2.5 需求等级）</div></div>
+      <div class="kv-row"><div class="kv-k">总房量</div><div class="kv-v">320 间（含 12 间无障碍连通房）</div></div>
+      <div class="kv-row"><div class="kv-k">当日 OOO</div><div class="kv-v">8 间（12 层行政楼层局部检修）</div></div>
+      <div class="kv-row"><div class="kv-k">已售房晚</div><div class="kv-v">234 间（其中免费房 Comp 6 间、自用房 House Use 2 间）</div></div>
+      <div class="kv-row"><div class="kv-k">客房收入</div><div class="kv-v">¥163,800（含服务费，不含增值税；Comp 与 House Use 收入为 ¥0）</div></div>
+      <div class="kv-row"><div class="kv-k">餐饮收入</div><div class="kv-v">¥78,000</div></div>
+      <div class="kv-row"><div class="kv-k">其他收入</div><div class="kv-v">¥8,400</div></div>
+      <div class="kv-row"><div class="kv-k">GOP</div><div class="kv-v">¥87,360</div></div>
+      <div class="kv-row"><div class="kv-k">渠道结构</div><div class="kv-v">DIR 70 间 / LOY 24 间 / CORP 46 间 / OTA 国内 70 间 / GDS 24 间（合计 234 间，其中 Comp 6 间与 House Use 2 间归入 DIR 直销）</div></div>
+      <div class="kv-row"><div class="kv-k">竞争组合</div><div class="kv-v">5 家加权 OCC 68.0%、加权 ADR ¥700（《SPEC》2.4 平峰加权均价 ¥680 为本店目标锚点，本例为当日实测加权值）</div></div>
+    </div>
+
+    <h4>第 1 步：算 OCC（先定分母）</h4>
+    <div class="formula">
+      <span class="f-label">计算</span>
+      可售房晚 = 320 − 8 = 312<br>
+      已售房晚 = 234（含 Comp 6、House Use 2）<br>
+      OCC = 234 ÷ 312 × 100% → <span class="f-out">75.0%</span>
+    </div>
+    <div class="callout callout-warn">
+      <span class="co-t">停一下：如果这里用 320 会怎样</span>
+      <p>234 ÷ 320 = 73.1%。《法典》表 A 的行边界是 70% / 85%。本例 75.0% 与 73.1% 都落在「70–85%」行，<b>本例恰好没跨行</b>。但如果当日 OOO 是 20 间（可售 300），真实 OCC = 234 ÷ 300 = 78.0%，误算成 73.1% 仍然同行；再极端一点，可售 280（40 间 OOO，大修期常见），真实 OCC = 83.6%（仍属 70–85% 行），误算 73.1% 也同行——<b>但这不代表可以偷懒</b>：一旦可售房量降到 275 以下，真实 OCC 就跨进「85–95%」行，动作完全不同。OOO 数字必须从系统取当日实际值，不允许沿用昨天。</p>
+    </div>
+
+    <h4>第 2 步：算 ADR（先定口径）</h4>
+    <div class="formula">
+      <span class="f-label">计算</span>
+      付费房晚 = 234 − 6（Comp）− 2（House Use）= 226<br>
+      ADR（本学院口径 · 付费房晚）= 163,800 ÷ 226 → <span class="f-out">¥724.8</span><br>
+      ADR（含 Comp/House Use 对照值）= 163,800 ÷ 234 → <span class="f-out">¥700.0</span>
+    </div>
+    <p>日报中两行都要列，与集团/业主汇报时说明本店采用付费房晚口径。</p>
+
+    <h4>第 3 步：算 RevPAR</h4>
+    <div class="formula">
+      <span class="f-label">计算（两法互验）</span>
+      收入法：RevPAR = 163,800 ÷ 312 → <span class="f-out">¥525.0</span><br>
+      乘法式：RevPAR = 75.0% × 700.0（用同口径 ADR）→ <span class="f-out">¥525.0</span>　✓
+    </div>
+    <div class="callout callout-key">
+      <span class="co-t">互验规则</span>
+      <p>用乘法式验算时，ADR 必须与 OCC 同一口径：若 OCC 分子含 Comp，ADR 就要用含 Comp 口径（¥700.0），两式才相等。若混用（75.0% × 724.8 = ¥543.6）会与收入法 ¥525.0 差 ¥18.6。<b>两式不等 = 口径串了，必须重算，不许取平均值。</b></p>
+    </div>
+
+    <h4>第 4 步：算 TrevPAR 与 GOPPAR</h4>
+    <div class="formula">
+      <span class="f-label">计算</span>
+      总营收 = 163,800 + 78,000 + 8,400 = ¥250,200<br>
+      TrevPAR = 250,200 ÷ 312 → <span class="f-out">¥801.9</span><br>
+      GOPPAR = 87,360 ÷ 312 → <span class="f-out">¥280.0</span><br>
+      GOP 率 = 87,360 ÷ 250,200 × 100% → <span class="f-out">34.9%</span>
+    </div>
+
+    <h4>第 5 步：算 NRevPAR</h4>
+    <div class="formula">
+      <span class="f-label">计算</span>
+      加权成本点数和 = 70×3 + 24×4 + 46×8 + 70×16 + 24×13 = 210 + 96 + 368 + 1,120 + 312 = 2,106<br>
+      渠道综合成本率 = 2,106 ÷ 234 → <span class="f-out">9.0%</span><br>
+      NRevPAR = 525.0 × (1 − 9.0%) = 525.0 × 0.91 → <span class="f-out">¥477.8</span>
+    </div>
+
+    <h4>第 6 步：算三个竞争指数</h4>
+    <div class="formula">
+      <span class="f-label">计算</span>
+      MPI = 75.0 ÷ 68.0 × 100 → <span class="f-out">110.3</span><br>
+      ARI = 700.0 ÷ 700 × 100 → <span class="f-out">100.0</span>（用含 Comp 口径 ADR，与竞对采集口径一致）<br>
+      RGI 直接算 = 525.0 ÷ 476.0 × 100 → <span class="f-out">110.3</span><br>
+      恒等式验算 = 110.3 × 100.0 ÷ 100 → <span class="f-out">110.3</span>　✓
+    </div>
+
+    <h4>第 7 步：把这些数变成查表输入</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">表 A 输入 1</div><div class="kv-v">预测 OCC =（在手房晚 + 预测增量房晚）÷ 可售房晚 =（187 + 57）÷ 312 = 244 ÷ 312 = <b>78.2%</b></div></div>
+      <div class="kv-row"><div class="kv-k">表 A 输入 2</div><div class="kv-v">Pickup 偏差 =（187 − 199）÷ 199 × 100% = <b>落后 6.0%</b></div></div>
+      <div class="kv-row"><div class="kv-k">查表结果</div><div class="kv-v">表 A：行「70–85%」× 列「落后 3–10%」→ <span class="down">↓3%</span>（M03 详讲完整查表动作）</div></div>
+      <div class="kv-row"><div class="kv-k">表 C 输入</div><div class="kv-v">ARI = 100.0 → 落「97–103 健康」→ 维持</div></div>
+      <div class="kv-row"><div class="kv-k">表 D 输入</div><div class="kv-v">MPI = 110.3 → 落「&gt;110 份额领先」→ 优先提价</div></div>
+      <div class="kv-row"><div class="kv-k">冲突仲裁</div><div class="kv-v">按《法典》表 O：表 A（优先级 3）&gt; 表 C（4）&gt; 表 D（6）→ <b>只执行表 A 的 ↓3%</b>，表 C「维持」与表 D「优先提价」写入《观察清单》，并在《调价台账》备注栏记录冲突过程</div></div>
+    </div>
+    <p class="card-note">本示范覆盖 10 个指标中的 9 个（Pickup 已单独演示）。学员需在 20 分钟内独立复算全部数值，任一数值与示范相差超过 0.1 即判不通过。</p>
+  </div>
+
+  <!-- ===== 学员跟练 ===== -->
+  <h2 id="drill">十二、学员跟练：10 道计算练习</h2>
+
+  <p>要求：先独立算完再展开答案。每题限时 4 分钟。所有题目均使用杭州滨江云璟酒店的参数（320 间房、平峰 BAR ¥680、竞争组合平峰加权均价 ¥680）。</p>
+
+  <div class="ex-q">
+    <div class="q-t">第 1 题（基础 · OCC/ADR/RevPAR 三件套）</div>
+    <div class="q-b">某日：可售房晚 320，已售房晚 192，客房收入 ¥119,040。求 OCC、ADR、RevPAR。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      OCC = 192 ÷ 320 × 100% = <b>60.0%</b><br>
+      ADR = 119,040 ÷ 192 = <b>¥620.0</b><br>
+      RevPAR = 119,040 ÷ 320 = <b>¥372.0</b><br>
+      验算：60.0% × 620.0 = ¥372.0 ✓<br>
+      解析：这一题检验「三件套」的基本功。注意 RevPAR 的分母是 320（可售），不是 192（已售）。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 2 题（基础 · 已知 OCC 与 ADR 反推收入）</div>
+    <div class="q-b">某日 OCC 75.0%、ADR ¥680（平峰 BAR）、可售房晚 320。求已售房晚、客房收入、RevPAR。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      已售房晚 = 320 × 75.0% = <b>240 间</b><br>
+      客房收入 = 240 × 680 = <b>¥163,200</b><br>
+      RevPAR = 163,200 ÷ 320 = <b>¥510.0</b>（或 75.0% × 680 = ¥510.0）<br>
+      解析：这是平峰日的基准盘，后面很多题都会以 ¥510.0 为对照。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 3 题（进阶 · OOO 房的处理）</div>
+    <div class="q-b">某日总房量 320，其中 OOO 8 间；已售房晚 234，客房收入 ¥163,800。求可售房晚、OCC、ADR、RevPAR；并算出若误用 320 作分母，OCC 与 RevPAR 各偏差多少。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      可售房晚 = 320 − 8 = <b>312</b><br>
+      OCC = 234 ÷ 312 × 100% = <b>75.0%</b><br>
+      ADR = 163,800 ÷ 234 = <b>¥700.0</b><br>
+      RevPAR = 163,800 ÷ 312 = <b>¥525.0</b><br>
+      误算：OCC = 234 ÷ 320 = <b>73.1%</b>（低估 <b>1.9 个百分点</b>）；RevPAR = 163,800 ÷ 320 = <b>¥511.9</b>（低估 <b>¥13.1</b>）<br>
+      解析：ADR 不受分母口径影响（分母是已售房晚），受影响的只有 OCC 与 RevPAR。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 4 题（进阶 · 免费房与自用房口径）</div>
+    <div class="q-b">某日可售房晚 320，已售房晚 240（含免费房 Comp 8 间、自用房 House Use 0 间），客房收入 ¥162,400。求：（1）本学院口径 ADR（付费房晚）；（2）含 Comp 口径 ADR；（3）两种口径下的 RevPAR；（4）说明 RevPAR 是否受口径影响。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      付费房晚 = 240 − 8 = <b>232</b><br>
+      （1）本学院口径 ADR = 162,400 ÷ 232 = <b>¥700.0</b><br>
+      （2）含 Comp 口径 ADR = 162,400 ÷ 240 = <b>¥676.7</b><br>
+      （3）两种口径的 RevPAR 都是 162,400 ÷ 320 = <b>¥507.5</b><br>
+      （4）<b>RevPAR 不受 ADR 口径影响</b>，因为 RevPAR 的分子（客房收入）和分母（可售房晚）都与 Comp 是否计入 ADR 分母无关。<br>
+      解析：口径差额 = 700.0 − 676.7 = <b>¥23.3</b>。若竞对采集的是含 Comp 口径而本店用付费口径，ARI 会被虚高 3.4%，可能误判为「健康」而错失提价机会。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 5 题（进阶 · 加权 vs 简单平均）</div>
+    <div class="q-b">某日 STD-K 售出 70 间 @ ¥580，SUP-K 售出 60 间 @ ¥680，DLX-K 售出 45 间 @ ¥820。求加权 ADR；并求三档房型价格的简单平均值，指出差额。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      房晚合计 = 70 + 60 + 45 = <b>175 间</b><br>
+      收入合计 = 70×580 + 60×680 + 45×820 = 40,600 + 40,800 + 36,900 = <b>¥118,300</b><br>
+      加权 ADR = 118,300 ÷ 175 = <b>¥676.0</b><br>
+      简单平均 = (580 + 680 + 820) ÷ 3 = <b>¥693.3</b><br>
+      差额 = 693.3 − 676.0 = <b>¥17.3（虚高 2.6%）</b><br>
+      解析：低价房 STD-K 卖得最多（70 间），权重最大，所以加权值低于简单平均。房型销量越不均衡，两种算法的差距越大。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 6 题（进阶 · TrevPAR 与 GOPPAR）</div>
+    <div class="q-b">某日可售房晚 320，客房收入 ¥163,200，餐饮收入 ¥78,000，其他收入 ¥8,400，GOP ¥87,360。求总营收、TrevPAR、GOPPAR、GOP 率；并与年度基线（TrevPAR ¥725.0、GOPPAR ¥232、GOP 率 32.0%）对比，说明涨跌。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      总营收 = 163,200 + 78,000 + 8,400 = <b>¥249,600</b><br>
+      TrevPAR = 249,600 ÷ 320 = <b>¥780.0</b><br>
+      GOPPAR = 87,360 ÷ 320 = <b>¥273.0</b><br>
+      GOP 率 = 87,360 ÷ 249,600 × 100% = <b>35.0%</b><br>
+      对比基线：TrevPAR 780.0 vs 725.0 → <span class="up">↑7.6%</span>；GOPPAR 273.0 vs 232 → <span class="up">↑17.7%</span>；GOP 率 35.0% vs 32.0% → <span class="up">↑3.0pp</span><br>
+      解析：GOPPAR 涨幅（17.7%）大于 TrevPAR 涨幅（7.6%），说明当日不仅收入好，成本控制也到位，是一个「高质量」的经营日。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 7 题（进阶 · 三个竞争指数 + 恒等式验算）</div>
+    <div class="q-b">本店：OCC 75.0%、ADR ¥680。竞争组合 5 家加权：OCC 68.0%、ADR ¥700。求 MPI、ARI、RGI（直接算），并用恒等式验算 RGI。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      本店 RevPAR = 75.0% × 680 = <b>¥510.0</b>；竞对 RevPAR = 68.0% × 700 = <b>¥476.0</b><br>
+      MPI = 75.0 ÷ 68.0 × 100 = <b>110.3</b>　→ 查《法典》表 D：落「&gt;110 份额领先」<br>
+      ARI = 680 ÷ 700 × 100 = <b>97.1</b>　→ 查《法典》表 C：落「90–97 略低」<br>
+      RGI 直接算 = 510.0 ÷ 476.0 × 100 = <b>107.1</b><br>
+      恒等式验算 = 110.3 × 97.1 ÷ 100 = <b>107.1</b> ✓<br>
+      解析：RGI 107.1 &gt; 100，说明综合竞争力领先。拆解看：份额（MPI 110.3）是主要贡献，价格（ARI 97.1）是拖累项——这正是《SPEC》为云璟设定的「MPI ≥ 105、ARI ≈ 100」画像。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 8 题（进阶 · NRevPAR）</div>
+    <div class="q-b">某日 RevPAR ¥510.0，已售 240 间，渠道结构：DIR 72 间（3%）、LOY 24 间（4%）、CORP 48 间（8%）、OTA 国内 72 间（16%）、GDS 24 间（13%）。求渠道综合成本率与 NRevPAR。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      加权点数和 = 72×3 + 24×4 + 48×8 + 72×16 + 24×13 = 216 + 96 + 384 + 1,152 + 312 = <b>2,160</b><br>
+      渠道综合成本率 = 2,160 ÷ 240 = <b>9.0%</b><br>
+      NRevPAR = 510.0 × (1 − 9.0%) = 510.0 × 0.91 = <b>¥464.1</b><br>
+      解析：注意渠道成本率必须按<b>房晚加权</b>，不能用渠道数量平均（(3+4+8+16+13)÷5 = 8.8% 是错的）。若 OTA 占比从 30% 升到 50%，成本率会明显上升，NRevPAR 随之下降。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 9 题（综合 · Pickup 偏差与查表前置）</div>
+    <div class="q-b">目标日 10 月 15 日：当前在手房晚 187 间，去年同期同一提前窗口在手房晚 199 间。求 Pickup 偏差。若该日预测 OCC 为 78.0%，请写出查《法典》表 A 时的「行」和「列」分别落在哪一档（不要求给出动作）。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      Pickup 偏差 = (187 − 199) ÷ 199 × 100% = −12 ÷ 199 × 100% = <b>落后 6.0%</b>（保留一位小数为 6.0%）<br>
+      查表定位：预测 OCC 78.0% → 落在「<b>70–85%</b>」行；Pickup 偏差 落后 6.0% → 落在「<b>落后 3–10%</b>」列。<br>
+      解析：写答案时必须写「落后 6.0%」而不是「−6.0%」。若分母误用当前在手 187，会算成落后 6.4%，本例未跨列，但真实业务中 −9.8% 与 −10.2% 会分属两列，动作从 <span class="down">↓3%</span> 变成 <span class="down">↓5%</span>。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 10 题（综合 · 反推所需 ADR + 判断价格是否到位）</div>
+    <div class="q-b">11 月目标 OCC 78%（《SPEC》月度基准表），11 月 ADR 基准 ¥640。若收益经理设定目标 RevPAR 为 ¥520，求所需 ADR；并判断当前基准 ADR 是偏高还是偏低，差值多少（用百分比表示，带箭头）。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      所需 ADR = 520 ÷ 78.0% = <b>¥666.7</b><br>
+      当前基准 ADR = ¥640.0<br>
+      差值 = (640.0 − 666.7) ÷ 666.7 × 100% = −4.0% → <span class="down">↓4.0%</span>（基准偏低，还差 ¥26.7）<br>
+      解析：这一题训练「目标倒推」——先有目标 RevPAR，再倒推需要什么样的价格组合。倒推出的所需 ADR 是判断「价格是否到位」的唯一标尺，不能用「感觉贵了/便宜了」代替。<br>
+      落地提示：若倒推出的所需 ADR 高于当前 BAR，优先走《法典》表 C 提价分支（受「每次不超过 8%、每周不超过 2 次」约束），不要一次性拉到位。
+    </div></details>
+  </div>
+
+  <!-- ===== 默写清单 ===== -->
+  <h2 id="recite">十三、口径速记清单（当堂默写）</h2>
+
+  <div class="callout callout-do">
+    <span class="co-t">当堂默写 12 条（10 分钟内写完，错 1 条即需重默）</span>
+    <ol style="margin:6px 0 0">
+      <li>OCC = 已售房晚 ÷ <b>可售</b>房晚 × 100%</li>
+      <li>可售房晚 = 总房量 − <b>OOO</b> 房晚</li>
+      <li>ADR = 客房收入 ÷ <b>付费</b>房晚（本学院口径）</li>
+      <li>客房收入：<b>含服务费、不含增值税</b></li>
+      <li>RevPAR = 客房收入 ÷ 可售房晚 = <b>OCC × ADR</b></li>
+      <li>TrevPAR = <b>总营收</b> ÷ 可售房晚</li>
+      <li>GOPPAR = <b>GOP</b> ÷ 可售房晚</li>
+      <li>MPI = 本店 OCC ÷ 竞对 OCC × 100</li>
+      <li>ARI = 本店 ADR ÷ 竞对 ADR × 100</li>
+      <li>RGI = 本店 RevPAR ÷ 竞对 RevPAR × 100 = <b>MPI × ARI ÷ 100</b></li>
+      <li>NRevPAR = RevPAR ×（1 − <b>渠道综合成本率</b>）</li>
+      <li>Pickup 偏差 =（当前在手 − <b>去年同期同一提前窗口在手</b>）÷ 去年同期在手 × 100%</li>
+    </ol>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">默写判定标准</span>
+    <p>公式中的<b>分母</b>写错即判错，不扣分制、直接重默。因为分母错 = 数字错 = 查表错 = 动作错，这是本学院「不猜、不算、不纠结」的第一道防线。</p>
+  </div>
+
+  <!-- ===== 随堂测 ===== -->
+  <h2 id="quiz">十四、随堂测（5 题）</h2>
+
+  <p>全对（5/5）方可进入下一课。限时 15 分钟。</p>
+
+  <div class="ex-q">
+    <div class="q-t">第 1 题</div>
+    <div class="q-b">云璟酒店某日总房量 320 间，其中 10 间 OOO，已售房晚 217 间。OCC 是多少？（保留一位小数）</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      可售房晚 = 320 − 10 = 310；OCC = 217 ÷ 310 × 100% = <b>70.0%</b><br>
+      解析：70.0% 恰好落在《法典》表 A「70–85%」行的下边界上。边界值按<b>包含下界</b>处理（表 A 行区间写作「70–85%」，即 ≥70% 且 &lt;85%）。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 2 题</div>
+    <div class="q-b">某日客房收入 ¥163,800，已售房晚 234（含免费房 6 间、自用房 2 间）。按本学院口径，ADR 是多少？</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      付费房晚 = 234 − 6 − 2 = 226；ADR = 163,800 ÷ 226 = <b>¥724.8</b><br>
+      解析：免费房进 OCC 分子（房间被占掉），但不进 ADR 分母（没有收入，进入分母会拉低 ADR 并扭曲与竞对的对比）。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 3 题</div>
+    <div class="q-b">本店 OCC 80.0%、ADR ¥700；竞争组合 OCC 72.0%、ADR ¥720。求 MPI、ARI、RGI。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      本店 RevPAR = 80.0% × 700 = ¥560.0；竞对 RevPAR = 72.0% × 720 = ¥518.4<br>
+      MPI = 80.0 ÷ 72.0 × 100 = <b>111.1</b><br>
+      ARI = 700 ÷ 720 × 100 = <b>97.2</b><br>
+      RGI = 560.0 ÷ 518.4 × 100 = <b>108.0</b><br>
+      验算：111.1 × 97.2 ÷ 100 = 108.0 ✓
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 4 题</div>
+    <div class="q-b">某日 RevPAR ¥510.0，渠道综合成本率 12.0%。求 NRevPAR。若把 OTA 国内的 72 间改为直销（成本率从 16% 降到 3%，其余不变，总房晚 240），新的渠道综合成本率与 NRevPAR 分别是多少？</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      原 NRevPAR = 510.0 × (1 − 12.0%) = 510.0 × 0.88 = <b>¥448.8</b><br>
+      调整后加权点数和 = 2,160 − 72×16 + 72×3 = 2,160 − 1,152 + 216 = 1,224<br>
+      新成本率 = 1,224 ÷ 240 = <b>5.1%</b><br>
+      新 NRevPAR = 510.0 × (1 − 5.1%) = 510.0 × 0.949 = <b>¥484.0</b><br>
+      解析：RevPAR 完全没变（¥510.0），NRevPAR 从 ¥448.8 提升到 ¥484.0，<span class="up">↑7.8%</span>。这就是《法典》表 H 在高 OCC 时优先保直销的原因——<b>同样的 RevPAR，渠道结构不同，落到口袋里的钱差 7.8%</b>。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 5 题</div>
+    <div class="q-b">判断改错：某收益专员在日报中写道「昨日 OCC 73.1%，比目标 75.0% 落后 1.9 个百分点，因此判定需求偏弱，计划下调价格」。已知昨日有 8 间 OOO。请指出这段话的计算错误、逻辑错误，并给出正确结论。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>计算错误：</b>未剔除 OOO。若已售房晚为 234，正确 OCC = 234 ÷ 312 = 75.0%，已达目标，不存在落后。<br>
+      <b>逻辑错误（两条）：</b>① 判断需求强弱不能只看 OCC，必须同时看 Pickup 偏差与 ARI；② 「计划下调价格」没有触发条件——按《法典》表 A，调价必须由「预测 OCC」+「Pickup 偏差」两个输入共同决定，且优先级低于表 B（库存）与表 L（应急）。<br>
+      <b>正确结论：</b>先用可售房晚 312 重算 OCC = 75.0%，判定达成目标；再取该目标日的 Pickup 偏差，代入《法典》表 A 查表；表 A 若给出「维持」，则不调价，把结论写入《调价台账》并注明「本日无动作，原因：表 A 判定维持」。<br>
+      解析：这是本模块最重要的一题——<b>算错一个数，就会凭空造出一个本来不存在的降价动作</b>。
+    </div></details>
+  </div>
+
+  <!-- ===== 产出物 ===== -->
+  <div id="out" class="callout callout-do">
+    <span class="co-t">本模块产出物</span>
+    <ul style="margin:6px 0 0">
+      <li><b>《指标卡》</b>：10 个指标一页纸，含公式、单位、口径铁律、云璟基线值（打印版贴工位）</li>
+      <li><b>《指标计算练习表》</b>：10 道练习题的空白计算区 + 自动校验公式（Excel 模板，填数即出对错）</li>
+      <li><b>《口径速记清单》</b>：当堂默写 12 条，讲师批改签字</li>
+      <li><b>《指标体检表》</b>：8 症状版，打印版随《每日收益数据包》一同摆放</li>
+      <li><b>随堂测成绩</b>：5 题全对方可进入 M02</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">下一模块预告</span>
+    <p>M02《系统与数据导航》将回答本模块留下的唯一悬念：这些数字<b>从哪里抓</b>。你会拿到一份《每日取数清单》（字段 / 来源系统 / 格式 / 截止时间）、一张主流系统操作路径映射表，以及 5 类脏数据的排查方法。</p>
+  </div>
+
+  <!-- ===== 底部导航 ===== -->
+  <div class="pager">
+    <a href="../codex.html"><div class="p-dir">← 前置工具</div><div class="p-title">收益管理操作法典（15 表）</div></a>
+    <a href="m02-systems.html" class="p-next"><div class="p-dir">下一模块 →</div><div class="p-title">M02 系统与数据导航</div></a>
+  </div>
+
+</div>
+</main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

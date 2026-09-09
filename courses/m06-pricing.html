@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M06 价格体系设计 · 酒店收益管理学院</title>
+<link rel="stylesheet" href="../assets/css/main.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"courses","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/courses/m06-pricing.html"},{"@type":"ListItem","position":3,"name":"m06-pricing","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/courses/m06-pricing.html"}]}</script>
+</head>
+<body data-page="m06">
+<div class="layout">
+
+<aside class="sidebar" id="sidebar" data-page="m06"></aside>
+
+<main class="main">
+<div class="wrap">
+
+  <!-- ===== 页头 ===== -->
+  <div class="crumb">
+    <a href="../index.html">学院首页</a><span>/</span>
+    <a href="../curriculum.html">教案总纲</a><span>/</span>
+    L2 模块六
+  </div>
+
+  <div class="page-head">
+    <div class="badge-row">
+      <span class="badge badge-l2">L2 收益管理主管</span>
+      <span class="badge">模块 M06</span>
+      <span class="badge">6 课时 / 540 min</span>
+      <span class="badge">占 L2 认证 18.75%</span>
+      <span class="badge">前置 M05</span>
+    </div>
+    <h1 class="page-title">价格体系设计：BAR 与价差阶梯</h1>
+    <p class="page-lede">一句话导语：价格不是一个个拍脑袋报出来的数字，而是一套"一个锚点 + 一张阶梯 + 一本日历 + 一组公式"的结构。本模块把这套结构拆开，让你做到：任何一天、任何房型、任何客源，价格都能算出来、都能被审批、都能被追溯。</p>
+  </div>
+
+  <!-- ===== 学习目标 ===== -->
+  <div class="card">
+    <div class="card-title"><span class="ic">◎</span>学习目标</div>
+    <ul>
+      <li>能<b>说出</b> BAR（最优可用房价 Best Available Rate）的定义、它在价格体系中的锚点作用，以及它与挂牌价的关系</li>
+      <li>能<b>完整默写并套用</b>《法典》表 F（房型价差阶梯表），并按每周一价差校验规则（&lt;8% 拉开、&gt;35% 收敛、套房 &lt;60% 提价）独立跑完一轮校验并给出调整后价格</li>
+      <li>能<b>独立搭建</b>全年 365 天的 D1/D2/D3/D4 四档价格日历，并按《SPEC》2.5 的价格系数区间给每一档定出具体系数取值</li>
+      <li>能<b>算出</b>会员价、协议价、早鸟价、最后一刻价、套餐价、长住价六类衍生价格，并说出各自的定价公式</li>
+      <li>能<b>判断</b>任意折扣应由哪一级审批（L1 / L2 / L3），并说出 D1 峰值日的特殊审批规则</li>
+    </ul>
+    <p class="card-note">前置要求：M01 指标语言（ADR／RevPAR 口径）、M05 需求预测（预测 OCC 与 Pickup 偏差是本模块定档系数的输入）。</p>
+  </div>
+
+  <!-- ===== 目录 ===== -->
+  <div class="toc">
+    <div class="toc-title">本模块目录</div>
+    <ol>
+      <li><a href="#s1">BAR 体系：一个锚点撑起全部价格</a></li>
+      <li><a href="#s2">《法典》表 F：房型价差阶梯表（完整内嵌）</a></li>
+      <li><a href="#s3">每周一价差校验：跑一遍云璟酒店</a></li>
+      <li><a href="#s4">价格日历：365 天的 D1/D2/D3/D4 打标</a></li>
+      <li><a href="#s5">四档需求等级的价格系数取值判定</a></li>
+      <li><a href="#s6">六类衍生价格：公式与定价</a></li>
+      <li><a href="#s7">审批权限矩阵：谁有权批几折</a></li>
+      <li><a href="#s8">讲师示范：一整天的价格体系落地</a></li>
+      <li><a href="#s9">学员跟练（5 题）</a></li>
+      <li><a href="#s10">判定表默写清单</a></li>
+      <li><a href="#s11">随堂测（5 题）</a></li>
+      <li><a href="#s12">本模块产出物</a></li>
+    </ol>
+  </div>
+
+  <!-- ================= 一 ================= -->
+  <h2 id="s1">一、BAR 体系：一个锚点撑起全部价格</h2>
+
+  <h3>1.1 BAR 是什么</h3>
+
+  <div class="formula">
+    <span class="f-label">定义（《SPEC》3.1 逐字引用）</span>
+    BAR｜最优可用房价｜Best Available Rate｜公开可订的基准弹性价｜<span class="f-out">所有折扣的锚点</span>
+  </div>
+
+  <p>拆开这句话，BAR 有四个特征，缺一不可：</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 6-1　BAR 的四个特征与判据</caption>
+      <thead><tr><th>特征</th><th>含义</th><th>判据（怎么验证一个价是不是 BAR）</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">公开可订</th><td>任何客人通过任何公开渠道都能订到，无需资质、无需代码、无需登录</td><td>用无痕浏览器、不登录、不输协议码，能查到并下单 → 是 BAR</td></tr>
+        <tr><th class="rowh">基准</th><td>它是所有其他价格的参照原点，其他价格都表示为"BAR 的百分之多少"</td><td>能否写成「某价 = BAR × N%」？能 → 是 BAR</td></tr>
+        <tr><th class="rowh">弹性</th><td>它随需求变化而变动，不是固定价</td><td>该价格是否被《法典》表 A 调价动作覆盖？是 → 是 BAR</td></tr>
+        <tr><th class="rowh">唯一</th><td>同一房型、同一入住日，BAR 只有一个</td><td>同日同房型出现两个"公开可订基准价" → 体系已崩，须立即整改</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>杭州滨江云璟酒店的 BAR 基准：以<b>高级房 SUP（高级大床房 / 高级双床房）平峰日 BAR ¥680</b> 为整个价格体系的零点。《SPEC》2.1 中 10 个房型的平峰 BAR 与《法典》表 F 的价差系数，全部以这个 ¥680 为基准推导。</p>
+
+  <div class="callout callout-key">
+    <span class="co-t">为什么选高级房做锚点</span>
+    <p>因为高级房 SUP-K（60 间）+ SUP-T（40 间）合计 <b>100 间</b>，占 320 间总房量的 <b>31.25%</b>，是房量最大的一档，也是成交最活跃的一档。用最大众的房型做锚点，价格变动对全店 ADR 的传导最直接、最容易观察。若用行政套房 STE-E（仅 2 间）做锚点，锚点本身就会被单笔订单扰动。</p>
+  </div>
+
+  <h3>1.2 为什么所有折扣都必须锚定 BAR</h3>
+
+  <p>三个原因，每一个都能量化：</p>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>不锚定，就无法做置换分析</h4>
+      <p>《法典》表 G（团队／协议询价接受判定表）的输入 1 是「团队报价 ÷ 该日预期散客 ADR」的比率 R。分母"预期散客 ADR"的来源就是 BAR 体系。若团队价是"拍出来的"、散客价也是"拍出来的"，R 就无从计算，表 G 直接失效。</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>不锚定，就无法追责</h4>
+      <p>《调价台账》要求记录"原 BAR / 新 BAR / 依据"。若折扣是绝对数（如"这张协议卡给 ¥520"），需求等级一变，折扣力度就悄悄变了——D1 峰值日 BAR ¥1,360 时卖 ¥520 等于打 38 折，D4 低谷日 BAR ¥476 时卖 ¥520 等于加价 9%。写成"BAR × 78%"则任何一天力度恒定、可追溯。</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4>不锚定，价格一致性（Rate Parity）必然失守</h4>
+      <p>《法典》表 H 的定价一致性红线要求"直销价不得高于任一 OTA 挂牌价"。要让 6 个渠道的价同时可比，唯一可行的办法是所有渠道都以同一个 BAR 为分子、各自套自己的折扣公式。各渠道自行报价 = 一致性必然失守。</p>
+    </div>
+  </div>
+
+  <h3>1.3 BAR 一天改几次</h3>
+
+  <p>这个问题必须有数字答案，不能是"视情况而定"。《法典》表 M 与表 A 合起来给出了确切结论：</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 6-2　BAR 调整时点与次数上限</caption>
+      <thead><tr><th>时点</th><th>动作</th><th>依据</th><th>次数上限</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">08:30 – 09:10</th><td>逐日查《法典》表 A/B/C/H，得出动作清单并落位</td><td>《法典》表 M（08:30 生成动作清单、09:10 执行）</td><td>每日第 1 个调价时点</td></tr>
+        <tr><th class="rowh">17:00</th><td>0–3 天窗口二次巡检后的尾房调价</td><td>《法典》表 M（17:00 二次巡检）、表 I（0–3 天档每日 2 次）</td><td>每日第 2 个调价时点</td></tr>
+        <tr><th class="rowh">任意时点</th><td>异常事件触发的紧急调价</td><td>《法典》表 L（2 小时内动作）</td><td>不受时点限制，但须 L3 审批</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">三条次数硬约束（《法典》表 A 执行约束）</span>
+    <ol style="margin:6px 0 0">
+      <li>单日同方向累计调价 <b>不超过 20%</b>。</li>
+      <li>24 小时内同方向调价 <b>不超过 2 次</b>。</li>
+      <li>每次调价幅度 <b>不低于 3%</b>；低于 3% 不计为一次调价。</li>
+    </ol>
+    <p style="margin:8px 0 0"><b>结论（可直接执行）</b>：常规作业下，BAR 每天在 <b>09:10</b> 与 <b>17:00</b> 两个时点调整；每个方向上 24 小时内最多调 2 次；单日同方向累计不超过 20%；单次幅度不低于 3%。异常事件（表 L）可在任意时点追加，但必须 L3 审批，且追加后仍受 20% 单日累计上限约束。</p>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">"改了几次"以《调价台账》为准</span>
+    <p>判断 24 小时内是否已调 2 次，唯一的依据是《调价台账》的记录条数，不是记忆。台账中同一目标日、同一调价方向的记录达 2 条时，第 3 次调价一律拒绝执行，改记入《观察清单》。</p>
+  </div>
+
+  <h3>1.4 BAR 与挂牌价的关系</h3>
+
+  <div class="formula">
+    <span class="f-label">关系公式</span>
+    挂牌价（Rack Rate）= 该房型平峰 BAR × 挂牌价政策系数<br>
+    BAR ≤ 挂牌价（<span class="f-out">BAR 只能在挂牌价以下浮动，永远不得高于挂牌价</span>）
+  </div>
+
+  <p>挂牌价是价格体系的<b>天花板</b>，一年固定不变；BAR 是<b>浮标</b>，在天花板以下随需求上下浮动。两者的分工是：挂牌价负责"这个产品值多少钱"的品牌表达，BAR 负责"今天这个产品卖多少钱"的收益表达。</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 6-3　云璟酒店挂牌价与平峰 BAR 对照<span class="cap-note">挂牌价政策系数 = 115%（本店价格政策：在平峰 BAR 基础上上浮 15%，取整到 ¥10）；若本店另有规定，以其为准</span></caption>
+      <thead><tr><th>房型</th><th>房型代码</th><th class="num">间数</th><th class="num">平峰 BAR</th><th class="num">挂牌价</th><th class="num">BAR / 挂牌价</th></tr></thead>
+      <tbody>
+        <tr><td>标准大床房</td><td>STD-K</td><td class="num">70</td><td class="num">¥580</td><td class="num">¥670</td><td class="num">86.6%</td></tr>
+        <tr><td>标准双床房</td><td>STD-T</td><td class="num">50</td><td class="num">¥580</td><td class="num">¥670</td><td class="num">86.6%</td></tr>
+        <tr><td>高级大床房</td><td>SUP-K</td><td class="num">60</td><td class="num">¥680</td><td class="num">¥780</td><td class="num">87.2%</td></tr>
+        <tr><td>高级双床房</td><td>SUP-T</td><td class="num">40</td><td class="num">¥680</td><td class="num">¥780</td><td class="num">87.2%</td></tr>
+        <tr><td>豪华大床房</td><td>DLX-K</td><td class="num">45</td><td class="num">¥820</td><td class="num">¥940</td><td class="num">87.2%</td></tr>
+        <tr><td>豪华江景房</td><td>DLX-V</td><td class="num">15</td><td class="num">¥960</td><td class="num">¥1,100</td><td class="num">87.3%</td></tr>
+        <tr><td>行政大床房</td><td>EXE-K</td><td class="num">25</td><td class="num">¥990</td><td class="num">¥1,140</td><td class="num">86.8%</td></tr>
+        <tr><td>行政双床房</td><td>EXE-T</td><td class="num">5</td><td class="num">¥990</td><td class="num">¥1,140</td><td class="num">86.8%</td></tr>
+        <tr><td>商务套房</td><td>STE-B</td><td class="num">8</td><td class="num">¥1,280</td><td class="num">¥1,470</td><td class="num">87.1%</td></tr>
+        <tr><td>行政套房</td><td>STE-E</td><td class="num">2</td><td class="num">¥1,880</td><td class="num">¥2,160</td><td class="num">87.0%</td></tr>
+        <tr><th class="rowh">合计</th><th class="rowh">—</th><th class="rowh">320</th><th class="rowh">—</th><th class="rowh">—</th><th class="rowh">—</th></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">D1 峰值日的 BAR 会不会超过挂牌价？</span>
+    <p>会，而且必然。D1 峰值日价格系数为 150–200%（《SPEC》2.5），高级房 BAR 可达 ¥680 × 200% = <b>¥1,360</b>，远超挂牌价 ¥780。<b>这不是违规</b>——挂牌价约束的是"常规销售价的天花板"，而 D1 峰值日属《SPEC》2.5 明确规定的价格系数区间，是体系的合法延伸。处理规则：D1 峰值日 BAR 超过挂牌价时，挂牌价<b>不上调</b>（保持品牌表达稳定），但在价格日历中须为该日打上「D1 峰值日」标签，且按《法典》表 A 约束 4，调价必须由 L3 收益经理审批。</p>
+  </div>
+
+  <!-- ================= 二 ================= -->
+  <h2 id="s2">二、《法典》表 F：房型价差阶梯表（完整内嵌）</h2>
+
+  <div class="codex-block" data-codex-block data-cat="pricing">
+    <div class="codex-head">
+      <span class="badge-codex">表 F</span>
+      <h3>房型价差阶梯表</h3>
+      <span class="pill pill-navy">以高级房 BAR 为 100</span>
+    </div>
+    <p class="codex-desc">基准：高级房 SUP 平峰 BAR = ¥680，系数 = 100。其余房型按系数换算。</p>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>房型</th><th class="num">系数</th><th class="num">相对高级房差价（平峰 BAR ¥680 时）</th></tr></thead>
+        <tbody>
+          <tr><th class="rowh">标准房 STD</th><td class="num">85</td><td class="num">−¥100</td></tr>
+          <tr><th class="rowh">高级房 SUP</th><td class="num" data-hit>100</td><td class="num">基准</td></tr>
+          <tr><th class="rowh">豪华房 DLX</th><td class="num">120</td><td class="num">+¥140</td></tr>
+          <tr><th class="rowh">豪华江景 DLX-V</th><td class="num">140</td><td class="num">+¥260</td></tr>
+          <tr><th class="rowh">行政房 EXE</th><td class="num">145</td><td class="num">+¥310</td></tr>
+          <tr><th class="rowh">商务套房 STE-B</th><td class="num">180</td><td class="num">+¥600</td></tr>
+          <tr><th class="rowh">行政套房 STE-E</th><td class="num">265</td><td class="num">+¥1,200</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codex-meta">
+      <b>附加项</b>：高楼层 +5%；江景/特色景观 +10%；含早 +¥68/人；连通房 +¥50；加床 +¥180。<br>
+      <b>价差校验规则（每周一执行）</b>：<br>
+      · 相邻房型价差 &lt;8% → 拉开价差（降下一档或提上一档）<br>
+      · 相邻房型价差 &gt;35% → 收敛价差（提下一档）<br>
+      · 套房与最高房型价差 &lt;60% → 提套房价
+    </div>
+  </div>
+
+  <h3>2.1 系数怎么换算成钱</h3>
+
+  <div class="formula">
+    <span class="f-label">换算公式</span>
+    某房型平峰 BAR = 高级房平峰 BAR ¥680 ×（该房型系数 ÷ 100）<br>
+    例：豪华房 DLX 系数 120 → ¥680 × 1.20 = <span class="f-out">¥816 ≈ ¥820</span>（《SPEC》2.1 表列 ¥820，取整到 ¥10）
+  </div>
+
+  <p>《SPEC》2.1 给出的平峰 BAR 与《法典》表 F 系数换算结果存在小额取整差异（如 DLX 系数换算 ¥816，表列 ¥820；STE-E 换算 ¥1,802，表列 ¥1,880）。<b>处理规则：以《SPEC》2.1 的平峰 BAR 数字为准做定价，以《法典》表 F 的系数为准做价差校验。</b>两者冲突时，定价用 SPEC 数字，校验用系数比例。</p>
+
+  <h3>2.2 附加项：五个加价的叠加规则</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 6-4　附加项加价规则与叠加顺序</caption>
+      <thead><tr><th>附加项</th><th class="num">加价</th><th>叠加方式</th><th>示例（高级房平峰 BAR ¥680）</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">高楼层</th><td class="num">+5%</td><td>乘（在房型 BAR 之上）</td><td>¥680 × 1.05 = ¥714</td></tr>
+        <tr><th class="rowh">江景 / 特色景观</th><td class="num">+10%</td><td>乘（在房型 BAR 之上）</td><td>¥680 × 1.10 = ¥748</td></tr>
+        <tr><th class="rowh">含早</th><td class="num">+¥68/人</td><td>加（按实际入住人数）</td><td>¥680 + ¥68 = ¥748（1 人）</td></tr>
+        <tr><th class="rowh">连通房</th><td class="num">+¥50</td><td>加（按间）</td><td>¥680 + ¥50 = ¥730</td></tr>
+        <tr><th class="rowh">加床</th><td class="num">+¥180</td><td>加（按床，含早）</td><td>¥680 + ¥180 = ¥860</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="formula">
+    <span class="f-label">叠加顺序（先乘后加，不得颠倒）</span>
+    最终房价 = 房型 BAR ×（1 + 高楼层 5%）×（1 + 江景 10%）+ 含早 ¥68 × 人数 + 连通房 ¥50 + 加床 ¥180<br>
+    例：豪华江景房（高楼层）+ 双人含早 + 连通房<br>
+    = ¥960 × 1.05 × 1.10 + ¥68 × 2 + ¥50 = ¥1,108.8 + ¥136 + ¥50 → <span class="f-out">¥1,295</span>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">为什么必须先乘后加</span>
+    <p>百分比附加项（高楼层、江景）是<b>对房型价值的比例加价</b>，应随房型 BAR 一起被需求等级系数放大；固定金额附加项（含早、连通房、加床）是<b>成本驱动的固定加价</b>，不随需求等级放大。若先加后乘，D1 峰值日（系数 200%）时早餐会被算成 ¥136/人，而早餐实际成本不变——这是错的。先乘后加，早餐永远是 ¥68/人。</p>
+  </div>
+
+  <p>另需注意：《SPEC》2.1 规定自助早餐门市价 ¥128/人，含早附加仅 ¥68/人，即<b>早餐实际按 53 折卖给客房客人</b>（68 ÷ 128 = 53.1%）。这是全服务酒店的通行做法，用早餐差价换取客房竞争力；餐饮部已按此口径计入《SPEC》2.3 的餐饮收入 ¥28,600,000。</p>
+
+  <!-- ================= 三 ================= -->
+  <h2 id="s3">三、每周一价差校验：跑一遍云璟酒店</h2>
+
+  <p>《法典》表 N 规定：每周一执行「房型价差校验（表 F）」，产出《周度收益报告》。这一节把云璟酒店平峰日（D3，价格系数 100%）的价格序列完整跑一遍校验。</p>
+
+  <h3>3.1 校验对象与数据</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 6-5　云璟酒店平峰日（D3）各房型实际 BAR 序列 · 校验前</caption>
+      <thead><tr><th>房型</th><th>房型代码</th><th class="num">间数</th><th class="num">平峰 BAR</th><th class="num">相对上一档价差</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td>标准房</td><td>STD</td><td class="num">120</td><td class="num">¥580</td><td class="num">—</td><td>基准起点</td></tr>
+        <tr><td>高级房</td><td>SUP</td><td class="num">100</td><td class="num">¥680</td><td class="num">+17.2%</td><td><span class="pill pill-teal">合格</span>（8%–35%）</td></tr>
+        <tr><td>豪华房</td><td>DLX</td><td class="num">45</td><td class="num">¥820</td><td class="num">+20.6%</td><td><span class="pill pill-teal">合格</span>（8%–35%）</td></tr>
+        <tr><td>豪华江景房</td><td>DLX-V</td><td class="num">15</td><td class="num">¥960</td><td class="num">+17.1%</td><td><span class="pill pill-teal">合格</span>（8%–35%）</td></tr>
+        <tr><td>行政房</td><td>EXE</td><td class="num">30</td><td class="num">¥990</td><td class="num" data-hit>+3.1%</td><td><span class="pill pill-red">不合格</span>（&lt;8%）</td></tr>
+        <tr><td>商务套房</td><td>STE-B</td><td class="num">8</td><td class="num">¥1,280</td><td class="num">+29.3%</td><td><span class="pill pill-teal">合格</span>（8%–35%）</td></tr>
+        <tr><td>行政套房</td><td>STE-E</td><td class="num">2</td><td class="num">¥1,880</td><td class="num" data-hit>+46.9%</td><td><span class="pill pill-red">不合格</span>（&gt;35%）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size:13px;color:var(--ink-3)">STD 间数 = STD-K 70 + STD-T 50 = 120；SUP = 60 + 40 = 100；EXE = 25 + 5 = 30；合计 320。</p>
+
+  <div class="formula">
+    <span class="f-label">价差公式</span>
+    相邻房型价差 =（较高档价格 − 较低档价格）÷ <span class="f-out">较低档价格</span> × 100%<br>
+    例：DLX-V → EXE =（990 − 960）÷ 960 × 100% = <span class="f-out">3.1%</span>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">分母是哪一档</span>
+    <p>分母固定为<b>较低档</b>价格，不是较高档，也不是两者平均。三条校验规则（&lt;8% / &gt;35% / &lt;60%）全部用这个口径，全学院统一。用错分母，8% 与 35% 两条线会同时错位。</p>
+  </div>
+
+  <h3>3.2 逐条执行校验规则</h3>
+
+  <h4>不合格项 1：DLX-V → EXE 价差 3.1% &lt; 8% → 拉开价差</h4>
+
+  <div class="callout callout-key">
+    <span class="co-t">二选一的判定规则（不许"看情况"）</span>
+    <p>《法典》表 F 写的是「降下一档或提上一档」，二选一必须有判据。判据是<b>近 7 日售罄速度</b>：</p>
+    <div class="formula" style="margin:10px 0 0">
+      若 EXE 近 7 日平均 OCC &gt; DLX-V 近 7 日平均 OCC → <b>提上一档（EXE）</b><br>
+      若 EXE 近 7 日平均 OCC ≤ DLX-V 近 7 日平均 OCC → <b>降下一档（DLX-V）</b>
+    </div>
+    <p style="margin:10px 0 0">逻辑：哪一档卖得更快，说明哪一档还有提价空间，就动那一档；反过来则说明该档价格已经偏高，应降价。绝不动卖得慢的那一档的价格去"凑数"。</p>
+  </div>
+
+  <div class="kv">
+    <div class="kv-row"><div class="kv-k">实测数据</div><div class="kv-v">近 7 日 EXE 平均 OCC <b>88%</b>（30 间 × 7 天 = 210 间夜，售出 185 间夜）；DLX-V 平均 OCC <b>71%</b>（15 间 × 7 天 = 105 间夜，售出 75 间夜）</div></div>
+    <div class="kv-row"><div class="kv-k">判定</div><div class="kv-v">88% &gt; 71% → <b>提上一档（EXE）</b></div></div>
+    <div class="kv-row"><div class="kv-k">计算</div><div class="kv-v">EXE 新价 = DLX-V ¥960 ×（1 + 8%）= ¥1,036.8 → 取整到 ¥10 → <b>¥1,040</b></div></div>
+    <div class="kv-row"><div class="kv-k">复校</div><div class="kv-v">（1,040 − 960）÷ 960 = <b>8.3%</b> → ≥8%，<span class="pill pill-teal">达标</span></div></div>
+    <div class="kv-row"><div class="kv-k">新系数</div><div class="kv-v">¥1,040 ÷ ¥680 × 100 = <b>153</b>（原 145）</div></div>
+  </div>
+
+  <h4>不合格项 2：STE-B → STE-E 价差 46.9% &gt; 35% → 收敛价差（提下一档）</h4>
+
+  <div class="kv">
+    <div class="kv-row"><div class="kv-k">规则</div><div class="kv-v">&gt;35% 时的动作唯一，即「提下一档」——提高较低档（STE-B），把价差压到 ≤35%。没有第二种选择。</div></div>
+    <div class="kv-row"><div class="kv-k">计算</div><div class="kv-v">STE-B 新价 ≥ STE-E ¥1,880 ÷（1 + 35%）= ¥1,392.6 → 取整到 ¥10，且必须 ≥1,392.6 → <b>¥1,400</b>（取 ¥1,390 会使价差为 35.3%，仍超标）</div></div>
+    <div class="kv-row"><div class="kv-k">复校</div><div class="kv-v">（1,880 − 1,400）÷ 1,400 = <b>34.3%</b> → ≤35%，<span class="pill pill-teal">达标</span></div></div>
+    <div class="kv-row"><div class="kv-k">新系数</div><div class="kv-v">¥1,400 ÷ ¥680 × 100 = <b>206</b>（原 180）</div></div>
+  </div>
+
+  <h4>规则 3：套房与最高房型价差 &lt;60% → 提套房价</h4>
+
+  <div class="kv">
+    <div class="kv-row"><div class="kv-k">口径</div><div class="kv-v">「套房」取套房序列最高档 <b>STE-E 行政套房</b>；「最高房型」取<b>最高非套房房型 EXE 行政房</b>。这两档之间的差距代表"升级到套房的溢价感"，必须 ≥60%，否则客人不愿为套房付费，免费升级（表 J）也没有价值感。</div></div>
+    <div class="kv-row"><div class="kv-k">实测</div><div class="kv-v">（¥1,880 − ¥1,040）÷ ¥1,040 = <b>80.8%</b></div></div>
+    <div class="kv-row"><div class="kv-k">判定</div><div class="kv-v">80.8% ≥ 60% → <span class="pill pill-teal">达标</span>，本条<b>无需动作</b></div></div>
+  </div>
+
+  <h3>3.3 校验后价格序列与全表复校</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 6-6　云璟酒店平峰日（D3）各房型 BAR 序列 · 校验后</caption>
+      <thead><tr><th>房型</th><th class="num">间数</th><th class="num">校验前</th><th class="num">校验后</th><th>调整</th><th class="num">新价差</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">标准房 STD</th><td class="num">120</td><td class="num">¥580</td><td class="num">¥580</td><td class="flat">－不变</td><td class="num">—</td><td>起点</td></tr>
+        <tr><th class="rowh">高级房 SUP</th><td class="num">100</td><td class="num">¥680</td><td class="num">¥680</td><td class="flat">－不变</td><td class="num">+17.2%</td><td><span class="pill pill-teal">合格</span></td></tr>
+        <tr><th class="rowh">豪华房 DLX</th><td class="num">45</td><td class="num">¥820</td><td class="num">¥820</td><td class="flat">－不变</td><td class="num">+20.6%</td><td><span class="pill pill-teal">合格</span></td></tr>
+        <tr><th class="rowh">豪华江景 DLX-V</th><td class="num">15</td><td class="num">¥960</td><td class="num">¥960</td><td class="flat">－不变</td><td class="num">+17.1%</td><td><span class="pill pill-teal">合格</span></td></tr>
+        <tr><th class="rowh">行政房 EXE</th><td class="num">30</td><td class="num">¥990</td><td class="num">¥1,040</td><td class="up">↑¥50（+5.1%）</td><td class="num">+8.3%</td><td><span class="pill pill-teal">合格</span></td></tr>
+        <tr><th class="rowh">商务套房 STE-B</th><td class="num">8</td><td class="num">¥1,280</td><td class="num">¥1,400</td><td class="up">↑¥120（+9.4%）</td><td class="num">+34.6%</td><td><span class="pill pill-teal">合格</span></td></tr>
+        <tr><th class="rowh">行政套房 STE-E</th><td class="num">2</td><td class="num">¥1,880</td><td class="num">¥1,880</td><td class="flat">－不变</td><td class="num">+34.3%</td><td><span class="pill pill-teal">合格</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-do">
+    <span class="co-t">校验闭环三步（缺一步不算做完）</span>
+    <ol style="margin:6px 0 0">
+      <li><b>落位</b>：在价格日历中把 EXE、STE-B 的新 BAR 落位，落位后 30 分钟内检查 6 个渠道的挂牌价是否同步（《法典》表 M 09:40 一致性核查）。</li>
+      <li><b>记档</b>：写入《调价台账》，依据栏写「《法典》表 F 每周一价差校验」，备注栏写清三项：DLX-V→EXE 3.1%&lt;8%（按近 7 日 OCC 88% vs 71% 选提上一档）、STE-B→STE-E 46.9%&gt;35%（提下一档）、套房 vs 最高房型 80.8%≥60%（免动作）。</li>
+      <li><b>回填</b>：把新系数（EXE 153、STE-B 206）回填到《房型价差阶梯表》的"本周执行系数"列，作为下周校验的比较基线。</li>
+    </ol>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">一条常见的错误做法</span>
+    <p>不要在校验后把 <b>STD 也一起上调</b>。表 F 的三条规则都是<b>相邻档</b>规则，触发哪个档就动哪个档，其他档不动。全档一起平移等于没做价差校验——价差是比例关系，全档同比例平移后价差百分比完全不变，问题原封不动地留下。</p>
+  </div>
+
+  <!-- ================= 四 ================= -->
+  <h2 id="s4">四、价格日历：365 天的 D1/D2/D3/D4 打标</h2>
+
+  <p>价格日历就是把一年 365 天逐日打上需求等级标签，再给每个标签配上价格系数。打标不是凭感觉，是四步固定流程。</p>
+
+  <h3>4.1 打标四步法</h3>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>套用《SPEC》2.5 年度需求日历的固定日期</h4>
+      <p>先把《SPEC》2.5 明确列举的日期一次性打上标签，这部分不需要判断：</p>
+      <div class="tbl-wrap" style="margin-top:8px">
+        <table class="tbl">
+          <thead><tr><th>等级</th><th>《SPEC》2.5 明确列举的日期</th></tr></thead>
+          <tbody>
+            <tr><th class="rowh">D1 峰值日</th><td>国庆 1–5、五一 1–3、春节初三–初六、滨江动漫节／云栖大会／国际马拉松等 8–12 天</td></tr>
+            <tr><th class="rowh">D2 高涨日</th><td>旺季（4–5 月、9–10 月）周五六、展会周边日、暑期周末</td></tr>
+            <tr><th class="rowh">D3 平峰日</th><td>平季周五六、旺季周日–周四</td></tr>
+            <tr><th class="rowh">D4 低谷日</th><td>1–2 月淡季（除春节）、7 月上中旬、节后 3–5 天、极端天气日</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>用去年同日实际 OCC 校验</h4>
+      <p>把去年同日的实际 OCC 与该等级的目标 OCC 区间对照。落在区间内 → 标签确认；落在区间外 → 升高或降低一档，并在《年度需求日历》备注栏写明原因（如"去年同日 88%，高于 D3 上限 85%，升为 D2"）。</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4>叠加已确认事件</h4>
+      <p>只叠加<b>有书面证据</b>的事件：官方会期公告（展会／赛事）、气象部门预警（极端天气）、工程部通知（本店停业项目）、客户书面取消（需求流失）。无书面证据的事件不进日历。</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h4>与月度 OCC / ADR 目标对齐</h4>
+      <p>把打标结果按天加权，算出月度预测 OCC 与预测 ADR，与《SPEC》2.5 月度需求基准对照。偏差超过 3 个百分点时，回到第 2 步重新校验该月各日标签。</p>
+    </div>
+  </div>
+
+  <h3>4.2 实例：云璟酒店 2026 年 10 月需求日历打标</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 6-7　2026 年 10 月需求日历打标（片段）<span class="cap-note">10 月月度目标：OCC 85%、ADR ¥700（《SPEC》2.5）</span></caption>
+      <thead><tr><th>日期</th><th>星期</th><th>打标依据</th><th>等级</th><th class="num">目标 OCC</th><th class="num">价格系数</th></tr></thead>
+      <tbody>
+        <tr><td>10-01 – 10-05</td><td>周四–周一</td><td>《SPEC》2.5「国庆 1–5」</td><td><span class="pill pill-red">D1</span></td><td class="num">≥95%</td><td class="num">150–200%</td></tr>
+        <tr><td>10-06 – 10-08</td><td>周二–周四</td><td>《SPEC》2.5「节后 3–5 天」</td><td><span class="pill">D4</span></td><td class="num">45–65%</td><td class="num">70–85%</td></tr>
+        <tr><td>10-09</td><td>周五</td><td>旺季（9–10 月）周五</td><td><span class="pill pill-amber">D2</span></td><td class="num">88–95%</td><td class="num">120–150%</td></tr>
+        <tr><td>10-10</td><td>周六</td><td>旺季（9–10 月）周六</td><td><span class="pill pill-amber">D2</span></td><td class="num">88–95%</td><td class="num">120–150%</td></tr>
+        <tr><td>10-11</td><td>周日</td><td>旺季周日</td><td><span class="pill pill-navy">D3</span></td><td class="num">72–85%</td><td class="num">95–110%</td></tr>
+        <tr><td>10-12 – 10-15</td><td>周一–周四</td><td>旺季周日–周四</td><td><span class="pill pill-navy">D3</span></td><td class="num">72–85%</td><td class="num">95–110%</td></tr>
+        <tr><td>10-16</td><td>周五</td><td>旺季周五</td><td><span class="pill pill-amber">D2</span></td><td class="num">88–95%</td><td class="num">120–150%</td></tr>
+        <tr><td>10-17</td><td>周六</td><td>旺季周六</td><td><span class="pill pill-amber">D2</span></td><td class="num">88–95%</td><td class="num">120–150%</td></tr>
+        <tr><td>10-18</td><td>周日</td><td>旺季周日</td><td><span class="pill pill-navy">D3</span></td><td class="num">72–85%</td><td class="num">95–110%</td></tr>
+        <tr><td>10-19 – 10-22</td><td>周一–周四</td><td>旺季周日–周四</td><td><span class="pill pill-navy">D3</span></td><td class="num">72–85%</td><td class="num">95–110%</td></tr>
+        <tr><td>10-23</td><td>周五</td><td>展会周边日（10-24 滨江国际马拉松）</td><td><span class="pill pill-amber">D2</span></td><td class="num">88–95%</td><td class="num">120–150%</td></tr>
+        <tr><td>10-24</td><td>周六</td><td>《SPEC》2.5「国际马拉松」列为 D1</td><td><span class="pill pill-red">D1</span></td><td class="num">≥95%</td><td class="num">150–200%</td></tr>
+        <tr><td>10-25</td><td>周日</td><td>旺季周日</td><td><span class="pill pill-navy">D3</span></td><td class="num">72–85%</td><td class="num">95–110%</td></tr>
+        <tr><td>10-26 – 10-29</td><td>周一–周四</td><td>旺季周日–周四</td><td><span class="pill pill-navy">D3</span></td><td class="num">72–85%</td><td class="num">95–110%</td></tr>
+        <tr><td>10-30</td><td>周五</td><td>旺季周五</td><td><span class="pill pill-amber">D2</span></td><td class="num">88–95%</td><td class="num">120–150%</td></tr>
+        <tr><td>10-31</td><td>周六</td><td>旺季周六</td><td><span class="pill pill-amber">D2</span></td><td class="num">88–95%</td><td class="num">120–150%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">打标的一个易错点：节后效应</span>
+    <p>国庆 1–5 日是 D1，但 10-06 至 10-08 立刻跌到 <b>D4</b>——落差达三档。这是《SPEC》2.5「节后 3–5 天」的明确规定。很多新人会把节后几天顺手打成 D3，导致节后目标 OCC 虚高到 72–85%，实际只能做到 50% 上下，随之而来的是连续误判"落后"、连续误降价。节后 3–5 天必须单独打 D4。</p>
+  </div>
+
+  <!-- ================= 五 ================= -->
+  <h2 id="s5">五、四档需求等级的价格系数取值判定</h2>
+
+  <p>打完标还不算完——每个等级给的是一个<b>区间</b>（如 D3 是 95–110%），具体取哪个值必须有判据。判据统一用 M05 算出的 <b>Pickup 偏差</b>，与《法典》表 A 的列的划分完全一致，做到"两个数、两张表，一套口径"。</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl tbl-matrix">
+      <caption>表 6-8　四档需求等级的价格系数取值判定表<span class="cap-note">行＝需求等级，列＝Pickup 偏差（与《法典》表 A 的列划分一致）</span></caption>
+      <thead><tr><th>需求等级 ＼ Pickup 偏差</th><th>落后 &gt;10%</th><th>落后 3–10%</th><th>持平 ±3%</th><th>领先 3–10%</th><th>领先 &gt;10%</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">D1 峰值日（150–200%）</th><td class="mid">150%</td><td class="mid">160%</td><td class="mid">175%</td><td class="mid" data-hit>190%</td><td class="mid">200%</td></tr>
+        <tr><th class="rowh">D2 高涨日（120–150%）</th><td class="mid">120%</td><td class="mid">128%</td><td class="mid">135%</td><td class="mid">142%</td><td class="mid">150%</td></tr>
+        <tr><th class="rowh">D3 平峰日（95–110%）</th><td class="mid">95%</td><td class="mid">98%</td><td class="mid" data-hit>100%</td><td class="mid">105%</td><td class="mid">110%</td></tr>
+        <tr><th class="rowh">D4 低谷日（70–85%）</th><td class="mid">70%</td><td class="mid">75%</td><td class="mid">80%</td><td class="mid">83%</td><td class="mid">85%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">取值不得超出《SPEC》2.5 的区间</span>
+    <p>上表全部取值都落在《SPEC》2.5 给出的区间内：D1 全部在 150–200% 之间、D2 在 120–150%、D3 在 95–110%、D4 在 70–85%。<b>无论 Pickup 多强，D1 不得超过 200%；无论 Pickup 多弱，D4 不得低于 70%。</b>需要更极端的调整时，走限制条件（MinLOS／Stop Sell）或渠道开关（《法典》表 B／表 H），而不是突破价格系数区间。</p>
+  </div>
+
+  <h3>5.1 全房型价格表怎么出</h3>
+
+  <div class="formula">
+    <span class="f-label">全房型价格表生成公式</span>
+    某房型某日 BAR = 该房型平峰 BAR × 该日需求等级系数 × 该日表 A 调价系数<br>
+    例：2026-10-24（D1，Pickup 领先 &gt;10% → 系数 200%），豪华房 DLX 平峰 BAR ¥820<br>
+    → ¥820 × 200% = <span class="f-out">¥1,640</span>（表 A 无额外调价时）
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 6-9　云璟酒店全房型价格表（按需求等级 × Pickup 偏差）<span class="cap-note">基准：校验后平峰 BAR 序列（表 6-6）；表 A 调价系数取 1.00</span></caption>
+      <thead>
+        <tr><th>房型</th><th class="num">平峰 BAR</th><th class="num">D4<br>落后&gt;10%<br>70%</th><th class="num">D4<br>持平<br>80%</th><th class="num">D3<br>持平<br>100%</th><th class="num">D3<br>领先&gt;10%<br>110%</th><th class="num">D2<br>持平<br>135%</th><th class="num">D2<br>领先&gt;10%<br>150%</th><th class="num">D1<br>持平<br>175%</th><th class="num">D1<br>领先&gt;10%<br>200%</th></tr>
+      </thead>
+      <tbody>
+        <tr><th class="rowh">标准房 STD</th><td class="num">¥580</td><td class="num">¥406</td><td class="num">¥464</td><td class="num" data-hit>¥580</td><td class="num">¥638</td><td class="num">¥783</td><td class="num">¥870</td><td class="num">¥1,015</td><td class="num">¥1,160</td></tr>
+        <tr><th class="rowh">高级房 SUP</th><td class="num">¥680</td><td class="num">¥476</td><td class="num">¥544</td><td class="num" data-hit>¥680</td><td class="num">¥748</td><td class="num">¥918</td><td class="num">¥1,020</td><td class="num">¥1,190</td><td class="num">¥1,360</td></tr>
+        <tr><th class="rowh">豪华房 DLX</th><td class="num">¥820</td><td class="num">¥574</td><td class="num">¥656</td><td class="num" data-hit>¥820</td><td class="num">¥902</td><td class="num">¥1,107</td><td class="num">¥1,230</td><td class="num">¥1,435</td><td class="num">¥1,640</td></tr>
+        <tr><th class="rowh">豪华江景 DLX-V</th><td class="num">¥960</td><td class="num">¥672</td><td class="num">¥768</td><td class="num" data-hit>¥960</td><td class="num">¥1,056</td><td class="num">¥1,296</td><td class="num">¥1,440</td><td class="num">¥1,680</td><td class="num">¥1,920</td></tr>
+        <tr><th class="rowh">行政房 EXE</th><td class="num">¥1,040</td><td class="num">¥728</td><td class="num">¥832</td><td class="num" data-hit>¥1,040</td><td class="num">¥1,144</td><td class="num">¥1,404</td><td class="num">¥1,560</td><td class="num">¥1,820</td><td class="num">¥1,040×2<br>=¥2,080</td></tr>
+        <tr><th class="rowh">商务套房 STE-B</th><td class="num">¥1,400</td><td class="num">¥980</td><td class="num">¥1,120</td><td class="num" data-hit>¥1,400</td><td class="num">¥1,540</td><td class="num">¥1,890</td><td class="num">¥2,100</td><td class="num">¥2,450</td><td class="num">¥2,800</td></tr>
+        <tr><th class="rowh">行政套房 STE-E</th><td class="num">¥1,880</td><td class="num">¥1,316</td><td class="num">¥1,504</td><td class="num" data-hit>¥1,880</td><td class="num">¥2,068</td><td class="num">¥2,538</td><td class="num">¥2,820</td><td class="num">¥3,290</td><td class="num">¥3,760</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size:13px;color:var(--ink-3)">上表所有数字均为"平峰 BAR × 系数"的精确乘积，实际落位时按本店挂牌习惯取整到 ¥10。取整后须回算：若取整导致相邻房型价差跌破 8% 或超过 35%，以价差规则优先，反推调整取整值。</p>
+
+  <!-- ================= 六 ================= -->
+  <h2 id="s6">六、六类衍生价格：公式与定价</h2>
+
+  <p>BAR 定完之后，六类衍生价格全部从 BAR 派生。每一类都有固定的折扣公式、固定的启用条件、固定的关闭条件。</p>
+
+  <h3>6.1 会员价</h3>
+
+  <div class="formula">
+    <span class="f-label">定价公式</span>
+    会员专享价 = BAR × 90%（取整到 ¥2）<br>
+    让利下限 = BAR × 88%（<span class="f-out">低于此值，会员渠道净收益低于 OTA 渠道，禁止</span>）
+  </div>
+
+  <p><b>88% 下限的来源</b>：会员渠道（LOY）综合成本率 4%，OTA 国内综合成本率 16%。令两者净收益相等：<br>
+  BAR × 88% ×（1 − 4%）= 88% × 96% = 84.48%<br>
+  BAR × 100% ×（1 − 16%）= 84.00%<br>
+  两者基本持平。即：<b>会员价打到 88% 时，其净收益与"按 BAR 全价通过 OTA 卖出"相同。</b>再低就不如让 OTA 卖了。</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 6-10　会员价算例（平峰日，SUP BAR ¥680）</caption>
+      <thead><tr><th>项目</th><th class="num">价格</th><th class="num">渠道成本率</th><th class="num">净收入</th><th>对比</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">BAR 通过 OTA 卖出</th><td class="num">¥680</td><td class="num">16%</td><td class="num">¥571.2</td><td>基准</td></tr>
+        <tr><th class="rowh">会员价（BAR×90%）</th><td class="num">¥612</td><td class="num">4%</td><td class="num">¥587.5</td><td><span class="up">↑¥16.3</span></td></tr>
+        <tr><th class="rowh">会员价下限（BAR×88%）</th><td class="num">¥598</td><td class="num">4%</td><td class="num">¥574.1</td><td><span class="up">↑¥2.9</span></td></tr>
+        <tr><th class="rowh">历史 LOY 平均 ADR</th><td class="num">¥580</td><td class="num">4%</td><td class="num">¥556.8</td><td><span class="down">↓¥14.4</span> <span class="pill pill-red">低于下限</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">必须整改的历史问题</span>
+    <p>《SPEC》2.3 客源结构表显示会员（LOY）平均 ADR 仅 <b>¥580</b>，相当于平峰 BAR ¥680 的 <b>85.3%</b>，<b>低于 88% 的让利下限</b>。说明本店过去的会员价让利过度。整改动作：本季度内将会员价统一上调至 BAR × 90%（平峰日 ¥612），<span class="up">↑5.5%</span>；若会员占比因此下滑，用非价格权益（延迟退房、积分加倍）补偿，不得回到降价。</p>
+  </div>
+
+  <h3>6.2 协议价</h3>
+
+  <div class="formula">
+    <span class="f-label">定价公式（按协议客户分级）</span>
+    A 类（年度房晚 ≥500）　协议价 = BAR × 75%<br>
+    B 类（年度房晚 200–499）协议价 = BAR × 80%<br>
+    C 类（年度房晚 &lt;200）　协议价 = BAR × 85%<br>
+    <span class="f-out">协议价全年固定折扣率，不随需求等级变动；但 D1 峰值日不执行协议价</span>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 6-11　协议价算例（平峰日，SUP BAR ¥680）</caption>
+      <thead><tr><th>客户分级</th><th class="num">折扣率</th><th class="num">平峰协议价</th><th class="num">渠道成本率</th><th class="num">净收入</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">A 类</th><td class="num">75%</td><td class="num">¥510</td><td class="num">8%</td><td class="num">¥469.2</td></tr>
+        <tr><th class="rowh">B 类</th><td class="num">80%</td><td class="num">¥544</td><td class="num">8%</td><td class="num">¥500.5</td></tr>
+        <tr><th class="rowh">C 类</th><td class="num">85%</td><td class="num">¥578</td><td class="num">8%</td><td class="num">¥531.8</td></tr>
+        <tr><th class="rowh">历史 CORP 平均 ADR</th><td class="num">76.5%</td><td class="num">¥520</td><td class="num">8%</td><td class="num">¥478.4</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>历史 CORP 平均 ADR ¥520 ≈ BAR × 76.5%，落在 A 类与 B 类之间，说明本店协议客户以 A/B 类为主，结构合理。C 类（85%）是获新客的价格，不得给存量客户。</p>
+
+  <div class="callout callout-warn">
+    <span class="co-t">D1 峰值日的协议价例外</span>
+    <p>D1 峰值日（国庆 1–5、五一 1–3、春节初三–初六、大型展会赛事日）<b>一律不执行协议价</b>，协议客户当日按 BAR 全额预订。依据：《法典》表 H 在预测 OCC ≥95% 档关闭批发商／包房渠道；协议价虽不在表 H 直接管辖，但按同一逻辑，D1 日的可售房晚应全部留给散客与高价值客源。此例外条款必须写进协议合同正文，避免客诉。</p>
+  </div>
+
+  <h3>6.3 早鸟价</h3>
+
+  <div class="formula">
+    <span class="f-label">定价公式（按提前天数分档，不可取消）</span>
+    提前 ≥30 天预订　早鸟价 = BAR × <span class="f-out">90%</span><br>
+    提前 21–29 天预订　早鸟价 = BAR × 92%<br>
+    提前 14–20 天预订　早鸟价 = BAR × 95%<br>
+    提前 &lt;14 天　<span class="f-out">不适用</span>（走 BAR）
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 6-12　早鸟价净收益校验（平峰日，SUP BAR ¥680，直销渠道成本率 3%）</caption>
+      <thead><tr><th>提前天数</th><th class="num">折扣率</th><th class="num">早鸟价</th><th class="num">净收入</th><th class="num">对比 OTA 卖 BAR（¥571.2）</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">≥30 天</th><td class="num">90%</td><td class="num">¥612</td><td class="num">¥593.6</td><td class="num"><span class="up">↑¥22.4</span></td><td><span class="pill pill-teal">可执行</span></td></tr>
+        <tr><th class="rowh">21–29 天</th><td class="num">92%</td><td class="num">¥626</td><td class="num">¥607.2</td><td class="num"><span class="up">↑¥36.0</span></td><td><span class="pill pill-teal">可执行</span></td></tr>
+        <tr><th class="rowh">14–20 天</th><td class="num">95%</td><td class="num">¥646</td><td class="num">¥626.6</td><td class="num"><span class="up">↑¥55.4</span></td><td><span class="pill pill-teal">可执行</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>三档早鸟价的净收入全部高于"按 BAR 通过 OTA 卖出"的 ¥571.2，因此全部可执行。校验方法固定：早鸟价 × 0.97 ≥ BAR × 0.84。</p>
+
+  <h3>6.4 最后一刻价</h3>
+
+  <div class="formula">
+    <span class="f-label">定价公式与启用条件</span>
+    启用条件（三条同时满足）：① 目标日在 0–3 天窗口；② 预测 OCC &lt;70%；③ 取数时点为当日 18:00 之后<br>
+    最后一刻价 = BAR × <span class="f-out">80%</span><br>
+    销售渠道：仅限直销（官网／小程序／前台）+ OTA 尾房产品；<span class="f-out">不得在协议价、批发商价基础上再折</span><br>
+    关闭条件：预测 OCC 回升至 ≥70%，或当日 23:00 到点自动关闭
+  </div>
+
+  <p>依据：《法典》表 I 0–3 天档，落后触发阈值 OCC&lt;70%，触发动作为「上『今日特惠』尾房产品」。</p>
+
+  <h3>6.5 套餐价</h3>
+
+  <div class="formula">
+    <span class="f-label">定价公式</span>
+    套餐价 = 房型 BAR +（附加项标准价 × 50%）× 份数<br>
+    双人含早套餐（平峰 SUP）= ¥680 + ¥68 × 2 × 50% = ¥680 + ¥68 → <span class="f-out">¥748</span><br>
+    单早 + 加床套餐（平峰 SUP）= ¥680 +（¥68 × 1 + ¥180）× 50% = ¥680 + ¥124 → <span class="f-out">¥804</span>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">为什么附加项打五折</span>
+    <p>含早附加 ¥68/人已经是门市价 ¥128/人的 53 折。套餐再打五折，早餐实际只收 ¥34/人（门市价的 26.6%）。<b>这不是亏损，是用餐饮边际收益换客房竞争力</b>：自助早餐的边际成本远低于 ¥128，且套餐客人会产生其他餐饮消费（《SPEC》2.3 餐饮收入 ¥28,600,000 已含此类联动）。红线：套餐价中附加项的折让部分，须由餐饮部在《月度收益复盘报告》中确认毛利率不低于 55%（《法典》表 K 红线口径）。</p>
+  </div>
+
+  <h3>6.6 长住价</h3>
+
+  <div class="formula">
+    <span class="f-label">定价公式（按连住天数分档）</span>
+    连住 7–13 天　长住价 = BAR × <span class="f-out">70%</span><br>
+    连住 14–29 天　长住价 = BAR × 62%<br>
+    连住 ≥30 天　长住价 = BAR × 55%<br>
+    附加规则：长住客不参与免费升级（表 J）；不加收早餐（长住含早按 ¥68/人 × 实际天数计价）
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 6-13　长住价算例（平峰日，SUP BAR ¥680）</caption>
+      <thead><tr><th>连住天数</th><th class="num">折扣率</th><th class="num">长住价</th><th>适用房型</th><th>审批权限</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">7–13 天</th><td class="num">70%</td><td class="num">¥476</td><td>STD / SUP / DLX</td><td>L2 收益管理主管</td></tr>
+        <tr><th class="rowh">14–29 天</th><td class="num">62%</td><td class="num">¥422</td><td>STD / SUP / DLX</td><td>L2 批 + L3 事后 24h 复核</td></tr>
+        <tr><th class="rowh">≥30 天</th><td class="num">55%</td><td class="num">¥374</td><td>STD / SUP</td><td>L3 收益管理经理</td></tr>
+        <tr><th class="rowh">历史 LNG 平均 ADR</th><td class="num">55.9%</td><td class="num">¥380</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>历史长住客（LNG）平均 ADR ¥380 ≈ BAR × 55.9%，与"≥30 天档 ¥374"最接近，说明本店长住客以月租为主，结构符合预期。</p>
+
+  <div class="callout callout-warn">
+    <span class="co-t">长住客的房型限制</span>
+    <p>长住价只适用于 STD 与 SUP（共 220 间，占 68.75%），14–29 天档可上探到 DLX（45 间）。<b>EXE（30 间）、DLX-V（15 间）、STE-B（8 间）、STE-E（2 间）一律不放长住价</b>——这 55 间是散客高端需求的主要承接池，放出长住价会在旺季形成置换损失。需要长住套房时，走 L3 特批并做置换分析（《法典》表 G）。</p>
+  </div>
+
+  <h3>6.7 六类衍生价格速查表</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 6-14　六类衍生价格速查（以平峰日 SUP BAR ¥680 为例）</caption>
+      <thead><tr><th>价格类型</th><th class="num">折扣率</th><th class="num">价格</th><th>启用条件</th><th>渠道</th><th>审批权限</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">会员价</th><td class="num">90%（下限 88%）</td><td class="num">¥612</td><td>会员登录可见</td><td>直销 / 会员</td><td>L1</td></tr>
+        <tr><th class="rowh">协议价 C 类</th><td class="num">85%</td><td class="num">¥578</td><td>年度房晚 &lt;200</td><td>协议</td><td>L2</td></tr>
+        <tr><th class="rowh">协议价 B 类</th><td class="num">80%</td><td class="num">¥544</td><td>年度房晚 200–499</td><td>协议</td><td>L2</td></tr>
+        <tr><th class="rowh">协议价 A 类</th><td class="num">75%</td><td class="num">¥510</td><td>年度房晚 ≥500</td><td>协议</td><td>L2 批 + L3 事后 24h 复核</td></tr>
+        <tr><th class="rowh">早鸟价</th><td class="num">90% / 92% / 95%</td><td class="num">¥612 / 626 / 646</td><td>提前 ≥30 / 21–29 / 14–20 天，不可取消</td><td>直销</td><td>L2</td></tr>
+        <tr><th class="rowh">最后一刻价</th><td class="num">80%</td><td class="num">¥544</td><td>0–3 天窗口 + OCC&lt;70% + 18:00 后</td><td>直销 + OTA 尾房</td><td>L1（须事前在价格日历预置）</td></tr>
+        <tr><th class="rowh">双人含早套餐</th><td class="num">BAR + ¥68</td><td class="num">¥748</td><td>全年</td><td>直销 / OTA</td><td>L1</td></tr>
+        <tr><th class="rowh">长住价 7–13 天</th><td class="num">70%</td><td class="num">¥476</td><td>连住 7–13 天</td><td>直销 / 协议</td><td>L2</td></tr>
+        <tr><th class="rowh">长住价 14–29 天</th><td class="num">62%</td><td class="num">¥422</td><td>连住 14–29 天</td><td>直销</td><td>L2 批 + L3 事后 24h 复核</td></tr>
+        <tr><th class="rowh">长住价 ≥30 天</th><td class="num">55%</td><td class="num">¥374</td><td>连住 ≥30 天</td><td>直销</td><td>L3</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ================= 七 ================= -->
+  <h2 id="s7">七、审批权限矩阵：谁有权批几折</h2>
+
+  <p>三级认证的能力终点（《SPEC》五）决定了权限边界：L1 收益执行专员「独立完成每日取数、查表、执行、记录全流程（需 L2 复核）」；L2 收益管理主管「独立完成预测、定价决策、周度策略、渠道管理」；L3 收益管理经理「预算、年度策略、跨部门领导、业主汇报、团队管理」。</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 6-15　价格审批权限矩阵<span class="cap-note">折扣率 = 成交价 ÷ 该房型该日 BAR × 100%</span></caption>
+      <thead><tr><th>折扣率区间</th><th>覆盖的价格类型</th><th>审批权限</th><th>复核要求</th><th>留痕要求</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">95% – 100%</th><td>会员价、早鸟价 14–20 天档、双人含早套餐、最后一刻价（预置）</td><td><b>L1</b> 收益执行专员</td><td>L2 每周抽查 ≥3 笔</td><td>《调价台账》</td></tr>
+        <tr><th class="rowh">85% – 95%</th><td>协议价 C 类 / B 类、早鸟价 21–29 天与 ≥30 天档、长住价 7–13 天</td><td><b>L2</b> 收益管理主管</td><td>L3 每月抽查 ≥5 笔</td><td>《调价台账》+ 合同编号</td></tr>
+        <tr><th class="rowh">70% – 85%</th><td>协议价 A 类、长住价 14–29 天、团队价（R 在 65%–85% 区间且表 G 判"接受"）</td><td><b>L2</b> 批 + <b>L3</b> 事后 24h 内复核</td><td>L3 逐笔复核</td><td>《调价台账》+ 置换分析表</td></tr>
+        <tr><th class="rowh">55% – 70%</th><td>长住价 ≥30 天、团队价（R 在 55%–65% 区间且表 G 判"上报 L3"）</td><td><b>L3</b> 收益管理经理</td><td>业主方月度备案</td><td>《团队决策档案》</td></tr>
+        <tr><th class="rowh">&lt;55%</th><td>批发商净价、包房价、会议团队（走《法典》表 K 综合贡献条款）</td><td><b>L3</b> 批 + <b>业主</b>备案</td><td>逐笔</td><td>《团队决策档案》+ 综合贡献测算表</td></tr>
+        <tr><th class="rowh"><span class="pill pill-red">任何折扣</span></th><td>凡触及 <b>D1 峰值日</b>的价格与折扣</td><td><b>一律 L3</b> 收益经理审批</td><td>调价当日</td><td>《调价台账》+ L3 签字</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">三条不可越权的红线</span>
+    <ol style="margin:6px 0 0">
+      <li><b>D1 峰值日无例外</b>：《法典》表 A 执行约束 4 规定「触及 D1 峰值日的调价，必须由 L3 收益经理审批」。无论折扣高低、无论谁经手，只要目标日打了 D1 标签，审批权就归 L3，L1 / L2 只能提出建议。</li>
+      <li><b>不得拆分规避</b>：把一个 70% 的折扣拆成"85% 房价 + 赠券 15%"来规避 L3 复核，属违规。判定方法：把所有形式的让利（房价、赠券、返现、免房费、免早餐费）折算成房价百分比后合并计算，合并值落在哪一档就走哪一档权限。</li>
+      <li><b>口头批准无效</b>：任何折扣必须以《调价台账》或《团队决策档案》中的书面记录为准。无书面记录的折扣成交，前台不予办理，责任由提出人承担。</li>
+    </ol>
+  </div>
+
+  <h3>7.1 审批流程的四个卡点</h3>
+
+  <div class="flow">
+    <div class="flow-item"><div class="fi-t">① 算折扣率</div><div class="fi-d">成交价 ÷ 该房型该日 BAR × 100%，落在表 6-15 哪一档</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item"><div class="fi-t">② 查 D1 标签</div><div class="fi-d">目标日是否打 D1？是 → 一律 L3，不看折扣率</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item"><div class="fi-t">③ 送审留痕</div><div class="fi-d">按权限送审，写入《调价台账》或《团队决策档案》</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item"><div class="fi-t">④ 落位核查</div><div class="fi-d">落位后 30 分钟内核查 6 个渠道挂牌价同步</div></div>
+  </div>
+
+  <!-- ================= 八 ================= -->
+  <h2 id="s8">八、讲师示范：一整天的价格体系落地</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">▶</span>示范：2026-10-16（周五，D2 高涨日）全房型价格表生成</div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">场景设定</div><div class="kv-v">目标日 2026-10-16（周五），《SPEC》2.5「旺季（9–10 月）周五」→ <b>D2 高涨日</b>。M05 预测得：预测 OCC 91.0%，Pickup 偏差 +6.0%（领先 3–10%）。无突发事件。基准使用表 6-6 校验后平峰 BAR 序列。</div></div>
+    </div>
+
+    <h4>① 看数</h4>
+    <div class="formula">预测 OCC = 91.0%；Pickup 偏差 = +6.0%；需求等级 = D2；可用房晚 = 320</div>
+
+    <h4>② 查表定价</h4>
+    <p><b>定需求等级系数</b>：D2 行 × 领先 3–10% 列 → 查表 6-8 得 <b>142%</b>。<br>
+    <b>查《法典》表 A</b>：预测 OCC 91.0% → 85–95% 行；Pickup 偏差 +6.0% → 领先 3–10% 列 → 结论 <b>+10%</b>。</p>
+
+    <div class="callout callout-warn">
+      <span class="co-t">这里最容易犯的错：把两个系数相乘</span>
+      <p>需求等级系数（142%）与表 A 调价系数（+10%）<b>不是并列的两个乘法因子</b>。需求等级系数是"这个日子相对平峰的基准倍率"，表 A 是"在基准之上再调一次价"。正确算法是：先按等级系数定出基准 BAR，再把表 A 的 +10% 作用在<b>前一次落位价</b>上，而不是作用在平峰 BAR 上。即：</p>
+      <div class="formula" style="margin:10px 0 0">
+        基准 BAR = 平峰 BAR × 142%<br>
+        执行 BAR = 基准 BAR ×（1 + 10%）　<span class="f-out">（表 A 作用在基准 BAR 上）</span>
+      </div>
+    </div>
+
+    <p><b>生成全房型价格表</b>：</p>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>房型</th><th class="num">平峰 BAR</th><th class="num">×142%<br>基准 BAR</th><th class="num">+10%<br>执行 BAR</th><th class="num">取整</th><th class="num">实际总系数</th></tr></thead>
+        <tbody>
+          <tr><th class="rowh">标准房 STD</th><td class="num">¥580</td><td class="num">¥823.6</td><td class="num">¥906.0</td><td class="num"><b>¥910</b></td><td class="num">156.9%</td></tr>
+          <tr><th class="rowh">高级房 SUP</th><td class="num">¥680</td><td class="num">¥965.6</td><td class="num">¥1,062.2</td><td class="num"><b>¥1,060</b></td><td class="num">155.9%</td></tr>
+          <tr><th class="rowh">豪华房 DLX</th><td class="num">¥820</td><td class="num">¥1,164.4</td><td class="num">¥1,280.8</td><td class="num"><b>¥1,280</b></td><td class="num">156.1%</td></tr>
+          <tr><th class="rowh">豪华江景 DLX-V</th><td class="num">¥960</td><td class="num">¥1,363.2</td><td class="num">¥1,499.5</td><td class="num"><b>¥1,500</b></td><td class="num">156.3%</td></tr>
+          <tr><th class="rowh">行政房 EXE</th><td class="num">¥1,040</td><td class="num">¥1,476.8</td><td class="num">¥1,624.5</td><td class="num"><b>¥1,620</b></td><td class="num">155.8%</td></tr>
+          <tr><th class="rowh">商务套房 STE-B</th><td class="num">¥1,400</td><td class="num">¥1,988.0</td><td class="num">¥2,186.8</td><td class="num"><b>¥2,190</b></td><td class="num">156.4%</td></tr>
+          <tr><th class="rowh">行政套房 STE-E</th><td class="num">¥1,880</td><td class="num">¥2,669.6</td><td class="num">¥2,936.6</td><td class="num"><b>¥2,940</b></td><td class="num">156.4%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>③ 上限校验（必做）</h4>
+    <div class="formula">
+      D2 高涨日价格系数上限 = 150%（《SPEC》2.5）<br>
+      STD 实际总系数 156.9% <span class="f-out up">&gt; 150% → 超限，须回调</span>
+    </div>
+    <div class="callout callout-danger">
+      <span class="co-t">超限处理规则</span>
+      <p>表 A 的调价结果<b>不得把总系数推出该需求等级的区间上限</b>。超限时的处理顺序固定为三步：</p>
+      <ol style="margin:6px 0 0">
+        <li><b>先回调到上限</b>：把 STD 回调至 ¥580 × 150% = <b>¥870</b>（其余房型同法：SUP ¥1,020、DLX ¥1,230、DLX-V ¥1,440、EXE ¥1,560、STE-B ¥2,100、STE-E ¥2,820）。</li>
+        <li><b>记录差额</b>：在《调价台账》备注栏写明「表 A +10% 因触及 D2 上限 150%，实际执行 +5.6%（142% → 150%），未执行部分 ¥40（STD）记入《观察清单》」。</li>
+        <li><b>改用非价格手段承接剩余需求</b>：预测 OCC 91.0% 落 90–95% 档，查《法典》表 B 得「MinLOS 2 晚 / 关闭尾房特惠 / 超售 ≤2 间」，查《法典》表 H 得「OTA 国内开 2 家 / OTA 国际关 / GDS 开 / 批发商关 / 直销全开」。这些动作不受价格系数上限约束。</li>
+      </ol>
+    </div>
+
+    <h4>④ 附加项落位</h4>
+    <div class="formula">
+      例：豪华江景房（高楼层）+ 双人含早，2026-10-16<br>
+      = ¥1,440 ×（1 + 5%）+ ¥68 × 2 = ¥1,512 + ¥136 → <span class="f-out">¥1,648</span>
+    </div>
+
+    <h4>⑤ 记录</h4>
+    <p>写入《调价台账》：目标日 2026-10-16 / 需求等级 D2 / 预测 OCC 91.0% / Pickup 偏差 +6.0% / 等级系数 142% / 表 A 结论 +10% / 实际执行系数 150%（触顶）/ 原 BAR 序列 → 新 BAR 序列 / 依据《法典》表 A + 《SPEC》2.5 / 备注「触顶回调，未执行部分记入《观察清单》；同日执行表 B 90–95% 档与表 H 90–95% 档」。</p>
+
+    <h4>⑥ 审批判定</h4>
+    <p>该日为 D2 而非 D1，按《法典》表 A 约束 4 <b>无需</b> L3 事前审批，但因触及 D2 区间上限，按本模块表 6-15 的复核要求，由 <b>L3 事后 24 小时内复核签字</b>。</p>
+  </div>
+
+  <!-- ================= 九 ================= -->
+  <h2 id="s9">九、学员跟练（5 题）</h2>
+
+  <div class="ex-q">
+    <div class="q-t">第 1 题　全房型价格表（D3 平峰日 · 领先）</div>
+    <div class="q-b">目标日 2026-10-20（周二），D3 平峰日。M05 预测得：预测 OCC 78.1%，Pickup 偏差 +23.1%（领先 &gt;10%）。基准使用表 6-6 校验后平峰 BAR 序列。请给出该日全部 7 个房型的执行 BAR（取整到 ¥10），并说明表 A 的 +8% 作用在哪里。</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>STD ¥630 / SUP ¥730 / DLX ¥880 / DLX-V ¥1,040 / EXE ¥1,120 / STE-B ¥1,510 / STE-E ¥2,030</b>（取整前分别为 625.7、734.4、885.6、1036.8、1123.2、1512、2030.4）。<br>解析：D3 行 × 领先&gt;10% 列 → 查表 6-8 得等级系数 <b>110%</b>。表 A：预测 OCC 78.1% → 70–85% 行；Pickup 偏差 +23.1% → 领先&gt;10% 列 → <b>+8%</b>。表 A 作用在前一次落位价（= 平峰 BAR × 110%）上，不是作用在平峰 BAR 上：<br>STD：580 × 1.10 = 638 → × 1.08 = 689.0 → <b>¥690</b>？<br><b>更正</b>：正确顺序是先定基准 BAR（平峰 BAR × 110%），再把表 A 的 +8% 作用在基准 BAR 上。<br>STD：638 × 1.08 = 689.0 → <b>¥690</b>；SUP：748 × 1.08 = 807.8 → <b>¥810</b>；DLX：902 × 1.08 = 974.2 → <b>¥970</b>；DLX-V：1056 × 1.08 = 1140.5 → <b>¥1,140</b>；EXE：1144 × 1.08 = 1235.5 → <b>¥1,240</b>；STE-B：1540 × 1.08 = 1663.2 → <b>¥1,660</b>；STE-E：2068 × 1.08 = 2233.4 → <b>¥2,230</b>。<br><b>上限校验</b>：D3 区间 95–110%，实际总系数 = 110% × 108% = <b>118.8% &gt; 110%，超限</b>。须回调至平峰 BAR × 110%：STD ¥640（取整 ¥640）／SUP ¥750／DLX ¥900／DLX-V ¥1,060／EXE ¥1,140／STE-B ¥1,540／STE-E ¥2,070。<br><b>结论</b>：本日表 A 的 +8% <b>不得执行</b>，因需求等级系数已取到 D3 区间上限 110%。未执行部分记入《观察清单》，改用非价格手段（表 H 70–85% 档：批发商限价开 ≤BAR×75%、直销上早鸟）承接超额需求。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 2 题　全房型价格表（D4 低谷日 · 落后）</div>
+    <div class="q-b">目标日 2027-01-15（周五），D4 低谷日（1 月淡季）。预测 OCC 59.3%，Pickup 偏差 −7.9%（落后 3–10%）。基准使用表 6-6 校验后平峰 BAR 序列。请给出全部 7 个房型的执行 BAR（取整到 ¥10）。</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>STD ¥400 / SUP ¥470 / DLX ¥570 / DLX-V ¥660 / EXE ¥720 / STE-B ¥970 / STE-E ¥1,300</b>。<br>解析：D4 行 × 落后 3–10% 列 → 查表 6-8 得等级系数 <b>75%</b>。表 A：预测 OCC 59.3% → 55–70% 行；Pickup 偏差 −7.9% → 落后 3–10% 列 → <b>−5%</b>。<br>基准 BAR：STD 580×0.75 = 435；SUP 510；DLX 615；DLX-V 720；EXE 780；STE-B 1,050；STE-E 1,410。<br>执行 BAR（×0.95）：STD 413.3 → <b>¥410</b>；SUP 484.5 → <b>¥480</b>；DLX 584.3 → <b>¥580</b>；DLX-V 684 → <b>¥680</b>；EXE 741 → <b>¥740</b>；STE-B 997.5 → <b>¥1,000</b>；STE-E 1339.5 → <b>¥1,340</b>。<br><b>上限／下限校验</b>：实际总系数 = 75% × 95% = <b>71.25%</b>，在 D4 区间 70–85% 内 → <span class="pill pill-teal">未触底，可执行</span>。<br><b>取整复校</b>：取整后相邻房型价差分别为 SUP/STD = 17.1%、DLX/SUP = 20.8%、DLX-V/DLX = 17.2%、EXE/DLX-V = 8.8%、STE-B/EXE = 35.1%（略超 35%）→ STE-B 取整须下调至 <b>¥990</b>（（990−740）÷740 = 33.8% ✓）。最终 STE-B = <b>¥990</b>。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 3 题　每周一价差校验</div>
+    <div class="q-b">某日平峰序列为：STD ¥580 / SUP ¥680 / DLX ¥820 / DLX-V ¥900 / EXE ¥920 / STE-B ¥1,280 / STE-E ¥1,880。近 7 日平均 OCC：DLX-V 82%、EXE 74%。请跑完一轮《法典》表 F 价差校验，给出每项判定与调整后价格。</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>EXE 不动，改降 DLX-V 至 ¥850；STE-B 提至 ¥1,400；最终序列 ¥580 / ¥680 / ¥820 / ¥850 / ¥920 / ¥1,400 / ¥1,880</b>。<br>解析：<br>① STD→SUP：（680−580）÷580 = <b>17.2%</b> ✓ 合格。<br>② SUP→DLX：（820−680）÷680 = <b>20.6%</b> ✓ 合格。<br>③ DLX→DLX-V：（900−820）÷820 = <b>9.8%</b> ✓ 合格（≥8%）。<br>④ DLX-V→EXE：（920−900）÷900 = <b>2.2% &lt; 8%</b> ✗ <b>拉开价差</b>。二选一判据：EXE 近 7 日 OCC 74% ≤ DLX-V 82% → <b>降下一档（DLX-V）</b>。DLX-V 新价 = 920 ÷ 1.08 = 851.9 → 取整到 ¥10 且必须 ≤851.9 → <b>¥850</b>。复校：（920−850）÷850 = 8.2% ✓。<br>⑤ EXE→STE-B：（1280−920）÷920 = <b>39.1% &gt; 35%</b> ✗ <b>收敛价差（提下一档 STE-B）</b>。STE-B 新价 ≥ 1,880 ÷ 1.35 = 1,392.6 → <b>¥1,400</b>。复校：（1,880−1,400）÷1,400 = 34.3% ✓。<br>⑥ STE-B→STE-E：34.3% ✓ 合格。<br>⑦ 套房 vs 最高非套房房型（EXE ¥920）：（1,880−920）÷920 = <b>104.3% ≥ 60%</b> ✓ 免动作。<br><b>回校第 ③ 项</b>：DLX-V 降为 ¥850 后，DLX→DLX-V =（850−820）÷820 = 3.7% &lt; 8% ✗ <b>新产生不合格</b>。处理：降 DLX 至 850 ÷ 1.08 = 787.0 → <b>¥780</b>。再校：SUP→DLX =（780−680）÷680 = 14.7% ✓；DLX→DLX-V =（850−780）÷780 = 9.0% ✓。<br><b>最终序列</b>：¥580 / ¥680 / ¥780 / ¥850 / ¥920 / ¥1,400 / ¥1,880。<br><b>教学要点</b>：价差校验必须<b>迭代到全表合格为止</b>，一次调整可能触发上游或下游的新不合格。校验顺序固定为「从上到下逐档走一遍 → 若本轮有调整，再从下到上复走一遍 → 直到全表无不合格项」。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 4 题　衍生价格与净收益校验</div>
+    <div class="q-b">目标日 D3 平峰日，高级房 SUP BAR ¥680。请算出：① 会员价（BAR×90%）；② 早鸟价（提前 25 天）；③ 最后一刻价（假设当日在 0–3 天窗口且 OCC 65%、已过 18:00）；④ 双人含早套餐价；⑤ 长住价（连住 20 天）。并判断哪些价格低于"OTA 按 BAR 全价卖出"的净收益（OTA 成本率 16%，直销 3%，会员 4%）。</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>① ¥612　② ¥626　③ ¥544（适用 STD/SUP/DLX，SUP 为 ¥544）　④ ¥748　⑤ ¥422；其中 ③ 与 ⑤ 低于 OTA 基准净收益</b>。<br>解析：OTA 按 BAR 全价卖出的净收益 = 680 × 0.84 = <b>¥571.2</b>。<br>① 会员价 680 × 0.90 = ¥612；净收益 = 612 × 0.96 = <b>¥587.5</b> &gt; 571.2 → <span class="up">↑¥16.3</span>，可执行。<br>② 早鸟价（21–29 天档 92%）680 × 0.92 = ¥625.6 → 取整 <b>¥626</b>；净收益 = 626 × 0.97 = <b>¥607.2</b> &gt; 571.2 → <span class="up">↑¥36.0</span>，可执行。<br>③ 最后一刻价 680 × 0.80 = <b>¥544</b>；净收益 = 544 × 0.97 = <b>¥527.7</b> &lt; 571.2 → <span class="down">↓¥43.5</span>，<b>净收益低于 OTA 基准</b>。<b>但这不意味着不该卖</b>：最后一刻价的启用条件是「0–3 天窗口 + OCC&lt;70% + 18:00 后」，此时房间若不出售，收入为 ¥0。判据是比较"卖 ¥544 的净收益 ¥527.7"与"不卖的 ¥0"，而不是与 OTA 基准比。<br>④ 双人含早套餐 = 680 + 68 × 2 × 50% = 680 + 68 = <b>¥748</b>；净收益 = 748 × 0.97 = <b>¥725.6</b> &gt; 571.2 → <span class="up">↑¥154.4</span>，可执行。<br>⑤ 长住价（14–29 天档 62%）680 × 0.62 = ¥421.6 → 取整 <b>¥422</b>；净收益 = 422 × 0.97 = <b>¥409.3</b> &lt; 571.2 → <span class="down">↓¥161.9</span>。<b>长住价的合理性不靠单晚净收益</b>：连住 20 天一次性锁定 20 个房晚，节省 20 次销售成本、20 次清洁布草周转成本，且长住客（LNG）占比仅 2%（《SPEC》2.3），不挤占散客库存。判定长住价是否可接，走《法典》表 G 的置换分析，而非单晚净收益对比。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 5 题　审批权限判定</div>
+    <div class="q-b">以下五笔折扣，分别应由谁审批？① D3 日会员价 BAR×90%；② D3 日协议价 B 类（BAR×80%）；③ D3 日长住 20 天（BAR×62%）；④ <b>D1 国庆日</b>会员价 BAR×90%；⑤ 销售部提出给某客户"BAR×88% 房价 + 免双人早餐（价值 ¥136）"。请逐项判定并说明理由。</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>① L1；② L2；③ L2 批 + L3 事后 24h 复核；④ L3（D1 无例外）；⑤ 合并后 68%，L2 批 + L3 事后 24h 复核</b>。<br>解析：<br>① 90% 落 85–95%？不，90% 落 <b>85–95% 档</b>… 需按表 6-15 的区间边界判定：表 6-15 第一档为「95%–100%」，第二档为「85%–95%」。90% 落在第二档 → 应为 <b>L2</b>。<b>更正</b>：表 6-14 速查表中会员价列为 L1，但表 6-15 权限矩阵按折扣率分档，90% 属 85–95% 档 → <b>L2 收益管理主管</b>。两表冲突时以<b>权限矩阵（表 6-15）</b>为准，速查表的权限列仅作提示。<br>② 80% 落 70–85% 档 → <b>L2 批 + L3 事后 24h 内复核</b>。<b>更正</b>：表 6-14 中协议价 B 类列 L2，表 6-15 中 80% 落「70–85%」档 → <b>L2 批 + L3 事后 24h 复核</b>。以表 6-15 为准。<br>③ 62% 落 55–70% 档 → <b>L3 收益管理经理</b>（业主方月度备案）。<br>④ 会员价 90% 本应 L2，但该日打 <b>D1 标签</b> → 按表 6-15 最后一行「触及 D1 峰值日的价格与折扣，一律 L3 审批」，<b>权限上收至 L3</b>，不看折扣率。<br>⑤ 免双人早餐价值 ¥136，折算成房价百分比 = 136 ÷ 680 = 20%。合并折扣率 = 100% − 88% + 20% = <b>32% 的让利</b>，即成交净折扣率 = （680 × 0.88 − 136）÷ 680 = <b>68%</b> → 落 55–70% 档 → <b>L3 收益管理经理</b>。理由：按"不得拆分规避"红线，所有形式的让利（房价、赠券、返现、免房费、免早餐费）必须折算成房价百分比后合并计算。</div>
+    </details>
+  </div>
+
+  <!-- ================= 十 ================= -->
+  <h2 id="s10">十、判定表默写清单</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">✎</span>当堂默写（限时 15 分钟）</div>
+    <ul class="checklist">
+      <li>《法典》表 F 七个房型系数：STD 85 / SUP 100 / DLX 120 / DLX-V 140 / EXE 145 / STE-B 180 / STE-E 265</li>
+      <li>《法典》表 F 五个附加项：高楼层 +5%、江景/特色景观 +10%、含早 +¥68/人、连通房 +¥50、加床 +¥180</li>
+      <li>《法典》表 F 三条价差校验规则：&lt;8% 拉开（降下一档或提上一档）、&gt;35% 收敛（提下一档）、套房与最高房型 &lt;60% 提套房价</li>
+      <li>《SPEC》2.5 四档价格系数区间：D1 150–200% / D2 120–150% / D3 95–110% / D4 70–85%</li>
+      <li>《SPEC》2.5 四档目标 OCC：D1 ≥95% / D2 88–95% / D3 72–85% / D4 45–65%</li>
+      <li>《法典》表 A 五条执行约束（单日 ≤20%、24h ≤2 次、单次 ≥3%、30 分钟内核 OTA、D1 须 L3、全部入台账）</li>
+      <li>六类衍生价格公式：会员 90%（下限 88%）、协议 A/B/C 75%/80%/85%、早鸟 90%/92%/95%、最后一刻 80%、套餐 BAR + 附加项×50%×份数、长住 70%/62%/55%</li>
+      <li>审批权限五档：95–100% L1 / 85–95% L2 / 70–85% L2 批 + L3 事后复核 / 55–70% L3 / &lt;55% L3 + 业主备案 / D1 一律 L3</li>
+      <li>附加项叠加顺序：先乘（百分比项）后加（固定金额项）</li>
+      <li>云璟酒店 10 个房型的平峰 BAR 与间数（STD-K 70 / STD-T 50 / SUP-K 60 / SUP-T 40 / DLX-K 45 / DLX-V 15 / EXE-K 25 / EXE-T 5 / STE-B 8 / STE-E 2）</li>
+    </ul>
+  </div>
+
+  <!-- ================= 十一 ================= -->
+  <h2 id="s11">十一、随堂测（5 题）</h2>
+
+  <div class="ex-q">
+    <div class="q-t">第 1 题</div>
+    <div class="q-b">《法典》表 F 的价差校验规则中，相邻房型价差 &gt;35% 时的动作是什么？只有一种选择还是有第二种？</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>动作是「收敛价差（提下一档）」，只有这一种选择，没有第二种</b>。<br>解析：对比 &lt;8% 的规则——原文写的是「拉开价差（<b>降下一档或提上一档</b>）」，给了两种选择；而 &gt;35% 的规则原文是「收敛价差（提下一档）」，只给了一种。这是因为价差过大时的修复方向唯一：把低的那一档提上去。若去降高的那一档，会破坏上一档与更上一档的价差，引发连锁反应。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 2 题</div>
+    <div class="q-b">D2 高涨日，Pickup 领先 &gt;10%，等级系数取 150%。此时《法典》表 A 又给出 +10%。最终总系数应该是多少？为什么？</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>最终总系数 150%，表 A 的 +10% 不得执行</b>。<br>解析：150% × 110% = 165%，超出《SPEC》2.5 规定的 D2 价格系数区间上限 150%。规则是：表 A 的调价结果不得把总系数推出该需求等级的区间上限。超限时的三步处理：① 回调至平峰 BAR × 150%；② 在《调价台账》备注栏写明未执行部分（本例为 15 个百分点）并记入《观察清单》；③ 改用非价格手段承接需求——预测 OCC 若 ≥95%，走《法典》表 B（MinLOS、CTA、关低价渠道、不超售）与表 H（关渠道）。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 3 题</div>
+    <div class="q-b">豪华江景房（高楼层）+ 三人含早 + 加床，D1 峰值日系数 175%。平峰 BAR ¥960。请算出最终房价（写出叠加顺序）。</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>¥2,144</b>。<br>解析：先乘后加，百分比项先作用于房型 BAR，固定金额项后加，且固定金额项<b>不随需求等级系数放大</b>：<br>① 房型 BAR × 需求等级系数 = 960 × 1.75 = ¥1,680<br>② × 高楼层 5% = 1,680 × 1.05 = ¥1,764<br>③ × 江景 10% = 1,764 × 1.10 = ¥1,940.4<br>④ + 含早 ¥68 × 3 人 = +¥204 → ¥2,144.4<br>⑤ + 加床 ¥180 → ¥2,324.4<br><b>更正</b>：注意"高楼层 +5%"与"江景 +10%"是否适用需看房型本身——豪华江景房 DLX-V 的名称已含"江景"，其平峰 BAR ¥960 已包含江景溢价（系数 140 vs DLX 的 120，差 20 点即 +16.7%，与江景 +10% 及面积差叠加的结果一致）。因此<b>江景附加项不再重复加</b>，只加高楼层：<br>① 960 × 1.75 = ¥1,680　② × 1.05 = ¥1,764　③ + 68 × 3 = ¥204 → ¥1,968　④ + 180 = <b>¥2,148</b>。<br>核心考点：<b>房型名称中已体现的属性（江景、套房、行政楼层权益）不得重复计收附加项</b>。重复收费属违规，一经查实按《调价台账》追溯整改。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 4 题</div>
+    <div class="q-b">会员价的让利下限是 BAR×88%，这个 88% 是怎么来的？</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>由会员渠道与 OTA 渠道的净收益相等点反推得出</b>。<br>解析：《SPEC》2.3 给出会员直订（LOY）综合成本率 4%、OTA 国内综合成本率 16%。令「会员价 ×（1 − 4%）」＝「BAR ×（1 − 16%）」：<br>会员价 = BAR × 84% ÷ 96% = BAR × <b>87.5%</b> ≈ BAR × 88%。<br>含义：会员价打到 88% 时，其净收益与"按 BAR 全价通过 OTA 卖出"完全相同。再低就不如直接让 OTA 卖——因为会员渠道还要额外付出积分成本与直销获客成本。所以 88% 是让利的<b>经济下限</b>，不是管理上的保守估计。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 5 题</div>
+    <div class="q-b">《法典》表 A 约束 2 规定每次调价幅度不低于 3%。某次调价算得 −4%，原价 ¥680 → ¥652.8，取整到 ¥650 后实际降幅 4.4%。这次调价能不能执行？调价后还要做什么？</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>能执行。调价后 30 分钟内必须检查 OTA 挂牌价是否同步（价格一致性），并写入《调价台账》。</b><br>解析：取整后要回算实际幅度——（680 − 650）÷ 680 = <b>4.4%</b> ≥ 3%，满足约束 2。关键是取整方向：本例 −4% 的精确值是 ¥652.8，向下取整到 ¥650 使幅度变大，安全；若向上取整到 ¥660，实际幅度仅 2.9%，就违反约束 2 了。<b>规则：降价时向下取整，提价时向上取整，取整后必须回算幅度。</b><br>后续动作：《法典》表 A 约束 3 规定调价后 30 分钟内必须检查 OTA 挂牌价是否同步，约束 5 规定调价动作全部写入《调价台账》。若该日为 D1 峰值日，还须按约束 4 由 L3 审批。</div>
+    </details>
+  </div>
+
+  <!-- ================= 十二 ================= -->
+  <h2 id="s12">十二、本模块产出物</h2>
+
+  <div class="callout callout-do">
+    <span class="co-t">结课交付清单</span>
+    <ul style="margin:6px 0 0">
+      <li><b>《价格体系表》</b>——10 个房型的平峰 BAR / 挂牌价 / 价差系数 / 附加项规则，含本周执行系数列</li>
+      <li><b>《价差校验记录表》</b>——连续 4 周（每周一）的价差校验结果，含每档价差百分比、判定、调整前后价格、复校结果</li>
+      <li><b>《年度价格日历》</b>——365 天逐日 D1/D2/D3/D4 打标 + 价格系数取值 + 目标 OCC，含打标依据备注栏</li>
+      <li><b>《衍生价格对照表》</b>——六类衍生价格 × 四档需求等级的全矩阵，含净收益校验列</li>
+      <li><b>《价格审批权限卡》</b>——表 6-15 的一页纸版，前台与销售部人手一份</li>
+      <li><b>表 F 默写卷</b>——当堂完成，错一格重默</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">→</span>下一模块预告</div>
+    <p>价格定好了，接下来要管"卖多少间、怎么限量"。M07 库存与限制条件战术将讲透 MinLOS / MaxLOS / CTA / CTD / Stop Sell 五种限制条件，以及《法典》表 B、表 E、表 J 三张表——尤其是超售的完整决策流程和到店无房时的《步行客人预案》。</p>
+  </div>
+
+  <!-- ===== 底部导航 ===== -->
+  <div class="pager">
+    <a href="m05-forecast.html"><div class="p-dir">← 上一模块</div><div class="p-title">M05 需求预测</div></a>
+    <a href="m07-inventory.html" class="p-next"><div class="p-dir">下一模块 →</div><div class="p-title">M07 库存与限制条件战术</div></a>
+  </div>
+
+</div>
+</main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

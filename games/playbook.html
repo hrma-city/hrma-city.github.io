@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>游戏化教具总汇 · 酒店收益管理学院</title>
+<link rel="stylesheet" href="../assets/css/main.css">
+<style>
+  .sim-shell{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--white);box-shadow:var(--shadow)}
+  .sim-top{background:linear-gradient(120deg,var(--navy),#2A5680);color:#fff;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  .sim-top .st-t{font-size:16px;font-weight:650}
+  .sim-top .st-s{font-size:12.5px;color:var(--gold-2);font-family:var(--mono)}
+  .sim-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .sim-left{padding:20px 22px;border-right:1px solid var(--line)}
+  .sim-right{padding:20px 22px;background:#FCFCFA}
+  .scen-card{background:var(--bg-2);border-radius:8px;padding:14px 16px;margin-bottom:14px}
+  .scen-card .sc-t{font-weight:650;color:var(--navy);margin-bottom:8px;font-size:14.5px}
+  .scen-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .scen-item{background:var(--white);border-radius:6px;padding:8px 10px}
+  .scen-item .si-l{font-size:11px;color:var(--ink-3)}
+  .scen-item .si-v{font-size:16px;font-weight:700;color:var(--navy);font-family:var(--mono)}
+  .opt-group{margin-bottom:14px}
+  .opt-group .og-t{font-size:12.5px;letter-spacing:.5px;color:var(--ink-3);font-weight:650;margin-bottom:7px;text-transform:uppercase}
+  .opt-row{display:flex;flex-wrap:wrap;gap:6px}
+  .opt{padding:6px 12px;border:1px solid var(--line-2);border-radius:6px;background:var(--white);font-size:13px;cursor:pointer;font-family:inherit;color:var(--ink-2);transition:.12s}
+  .opt:hover{border-color:var(--navy-3)}
+  .opt.sel{background:var(--navy);color:#fff;border-color:var(--navy);font-weight:600}
+  .chk-row{display:flex;flex-wrap:wrap;gap:10px}
+  .chk-lbl{display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer}
+  .chk-lbl input{width:15px;height:15px;cursor:pointer}
+  .sim-btn{padding:10px 22px;border:0;border-radius:8px;background:var(--gold);color:#fff;font-size:14px;font-weight:650;cursor:pointer;font-family:inherit}
+  .sim-btn:hover{background:#9C7239}
+  .sim-btn.ghost{background:transparent;color:var(--navy-2);border:1px solid var(--line-2)}
+  .fb{margin-top:14px;border-radius:8px;padding:14px 16px;font-size:13.5px;line-height:1.75;display:none}
+  .fb.show{display:block}
+  .fb.ok{background:var(--teal-soft);border-left:4px solid var(--teal)}
+  .fb.part{background:var(--amber-soft);border-left:4px solid var(--amber)}
+  .fb.no{background:var(--danger-soft);border-left:4px solid var(--danger)}
+  .fb .fb-h{font-weight:700;margin-bottom:6px;font-size:14px}
+  .fb table{border:0;margin:8px 0 0;font-size:12.5px;width:100%}
+  .fb td{padding:3px 8px 3px 0;border:0;vertical-align:top}
+  .fb td:first-child{color:var(--ink-3);width:74px}
+  .scen-dots{display:flex;gap:4px;flex-wrap:wrap;margin-top:10px}
+  .dot{width:26px;height:26px;border-radius:6px;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;background:var(--white);font-family:var(--mono)}
+  .dot.done{background:var(--teal);color:#fff;border-color:var(--teal)}
+  .dot.cur{background:var(--navy);color:#fff;border-color:var(--navy)}
+  @media(max-width:900px){.sim-body{grid-template-columns:1fr}.sim-left{border-right:0;border-bottom:1px solid var(--line)}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"games","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/games/playbook.html"},{"@type":"ListItem","position":3,"name":"playbook","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/games/playbook.html"}]}</script>
+</head>
+<body data-page="play">
+<div class="layout">
+
+<aside class="sidebar" id="sidebar" data-page="play"></aside>
+
+<main class="main">
+<div class="wrap wrap-wide">
+
+<div class="crumb">
+  <a href="../index.html">学院首页</a><span>/</span> 游戏化教具总汇
+</div>
+
+<div class="page-head">
+  <div class="badge-row">
+    <span class="badge">课堂教具</span>
+    <span class="badge">决策模拟器 · 12 场景</span>
+    <span class="badge">战术卡牌 · 36 张</span>
+    <span class="badge">角色扮演 · 4 剧本</span>
+  </div>
+  <h1 class="page-title">游戏化教具总汇</h1>
+  <p class="page-lede">
+    让判定表的训练变得<b>可玩、可对抗、可复盘</b>。
+    模拟器会自动对照《操作法典》的标准答案判分，并告诉您错在哪一格。
+  </p>
+</div>
+
+<div class="toc">
+  <div class="toc-title">目录</div>
+  <ol>
+    <li><a href="#sim">收益决策模拟器（可交互 · 自动判分）</a></li>
+    <li><a href="#cards">收益战术卡牌（36 张 · 可打印）</a></li>
+    <li><a href="#rp">角色扮演演练脚本（4 剧本）</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================
+     一、决策模拟器
+     ============================================================ -->
+<h2 id="sim">一、收益决策模拟器</h2>
+<p>
+  12 个真实经营场景，难度递进。<b>选完动作点「提交决策」，系统会对照《操作法典》表 A / 表 B / 表 O 的标准答案自动判分</b>，
+  并告诉您正确答案是什么、依据哪张表。成绩存在本机浏览器里，可反复练。
+</p>
+
+<div class="sim-shell">
+  <div class="sim-top">
+    <div>
+      <div class="st-t" id="simTitle">场景 1 / 12</div>
+      <div class="st-s" id="simSub">L1 · 只考表 A</div>
+    </div>
+    <div class="st-s">
+      得分 <b id="simScore">0</b> / 120　·　正确率 <b id="simRate">0%</b>　·　最高分 <b id="simBest">0</b>
+    </div>
+  </div>
+  <div class="sim-body">
+    <div class="sim-left">
+      <div class="scen-card">
+        <div class="sc-t" id="scName">—</div>
+        <div id="scDesc" style="font-size:13.5px;color:var(--ink-2);line-height:1.7;margin-bottom:12px">—</div>
+        <div class="scen-grid">
+          <div class="scen-item"><div class="si-l">预测 OCC</div><div class="si-v" id="scOcc">—</div></div>
+          <div class="scen-item"><div class="si-l">Pickup 偏差</div><div class="si-v" id="scPick">—</div></div>
+          <div class="scen-item"><div class="si-l">当前 BAR</div><div class="si-v" id="scBar">—</div></div>
+          <div class="scen-item"><div class="si-l">需求等级</div><div class="si-v" id="scLv">—</div></div>
+        </div>
+        <div id="scExtra" style="margin-top:10px;font-size:12.5px;color:var(--ink-3);line-height:1.6"></div>
+      </div>
+
+      <div class="opt-group">
+        <div class="og-t">① 价格动作（查表 A）</div>
+        <div class="opt-row" id="optPrice"></div>
+      </div>
+      <div class="opt-group">
+        <div class="og-t">② MinLOS 最少住期（查表 B）</div>
+        <div class="opt-row" id="optLos"></div>
+      </div>
+      <div class="opt-group">
+        <div class="og-t">③ 限制条件与超售（查表 B / 表 E）</div>
+        <div class="chk-row">
+          <label class="chk-lbl"><input type="checkbox" id="cbCta">启用 CTA（不可入住）</label>
+          <label class="chk-lbl"><input type="checkbox" id="cbStop">关闭低价渠道</label>
+        </div>
+        <div class="opt-row" style="margin-top:8px" id="optOver"></div>
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <button class="sim-btn" onclick="submitAns()">提交决策</button>
+        <button class="sim-btn ghost" onclick="nextScen()">下一场景 →</button>
+        <button class="sim-btn ghost" onclick="resetSim()">重玩</button>
+        <a class="sim-btn ghost" style="text-decoration:none;display:inline-block" href="../codex.html">查法典</a>
+      </div>
+
+      <div class="fb" id="fb"></div>
+    </div>
+
+    <div class="sim-right">
+      <div style="font-size:12.5px;letter-spacing:.6px;color:var(--ink-3);font-weight:650;text-transform:uppercase;margin-bottom:10px">场景导航</div>
+      <div class="scen-dots" id="dots"></div>
+      <div style="margin-top:20px;padding-top:16px;border-top:1px dashed var(--line)">
+        <div style="font-size:12.5px;letter-spacing:.6px;color:var(--ink-3);font-weight:650;text-transform:uppercase;margin-bottom:10px">计分规则</div>
+        <ul style="font-size:13px;color:var(--ink-2);margin:0;padding-left:1.2em">
+          <li>价格动作 <b>6 分</b>：完全正确 6 分；方向对但幅度错 3 分；错 0 分</li>
+          <li>MinLOS <b>2 分</b></li>
+          <li>CTA / 关低价渠道 各 <b>0.5 分</b></li>
+          <li>超售间数 <b>1 分</b></li>
+          <li>满分 120 分（12 场景 × 10 分）</li>
+        </ul>
+        <div class="callout callout-warn" style="margin-top:14px;font-size:13px">
+          <span class="co-t">提示</span>
+          <p style="margin:0">L3 场景会出现<b>多表冲突</b>，必须先查<b>表 O</b> 定优先级，再决定执行哪一条。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     二、战术卡牌
+     ============================================================ -->
+<h2 id="cards">二、收益战术卡牌（36 张）</h2>
+<p>
+  用于课堂对战。<b>每张卡的效果都可量化，且必须引用《操作法典》的真实阈值</b>。
+  打印建议：A4 每页 9 张，双面打印，250g 铜版纸。
+</p>
+
+<h3>对战规则</h3>
+<div class="tbl-wrap">
+  <table class="tbl">
+    <caption>收益战术卡牌 · 对战说明书</caption>
+    <thead><tr><th class="mid" style="width:88px">项</th><th>规则</th></tr></thead>
+    <tbody>
+      <tr><td class="mid"><b>人数</b></td><td>2–4 人 + 1 名裁判（讲师或已认证学员）</td></tr>
+      <tr><td class="mid"><b>发牌</b></td><td>每人发 5 张手牌，剩余为牌堆。每轮开始补到 5 张。</td></tr>
+      <tr><td class="mid"><b>场景</b></td><td>裁判翻开一张「当日经营场景」（含日期、需求等级、预测 OCC、Pickup 偏差、当前 BAR、在手房晚）。</td></tr>
+      <tr><td class="mid"><b>出牌</b></td><td>轮流对当前场景出 1 张牌，并<b>大声说出触发条件</b>（如「预测 OCC 62%，低于 70%，触发尾房特惠」）。</td></tr>
+      <tr><td class="mid"><b>裁判判定</b></td><td>裁判对照《操作法典》判定该牌是否合法：
+        <ul style="margin:4px 0 0">
+          <li><b>合法</b>（触发条件成立）→ 生效，改变场景数值，出牌人得该卡收益分</li>
+          <li><b>非法</b>（触发条件不成立）→ 弃牌，<b>扣 2 分</b></li>
+        </ul>
+      </td></tr>
+      <tr><td class="mid"><b>轮次</b></td><td>共 3 轮，每轮换一个新场景</td></tr>
+      <tr><td class="mid"><b>胜负</b></td><td>比对各方最终场景的 <b>RevPAR</b>（由裁判按公式计算）。RevPAR 最高者胜；
+      若分数相同，则比较「合法出牌率」。</td></tr>
+      <tr><td class="mid"><b>争议仲裁</b></td><td>一律查《操作法典》。<b>多表冲突按表 O 定优先级</b>。裁判的判定为最终结果。</td></tr>
+      <tr><td class="mid"><b>教学价值</b></td><td>强制学员<b>说出触发条件</b>——这比默默查表更能暴露理解漏洞。
+      非法出牌扣分，是在训练「先看数，再动手」。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>进攻类 · 提价与收紧（9 张）</h3>
+<div class="cards-deck">
+  <div class="card-game t-atk"><div class="cg-id">T-01</div><div class="cg-name">涨价突袭</div>
+    <div class="cg-body">当预测 OCC ≥85% 且 Pickup 领先 &gt;3% 时使用。按表 A 提价 10–15%。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 A</span>　收益分 +8</div></div>
+  <div class="card-game t-atk"><div class="cg-id">T-02</div><div class="cg-name">MinLOS 封锁</div>
+    <div class="cg-body">当预测 OCC ≥90% 时使用。设最少住期 2 晚（D1 日 3 晚），挡掉短住客。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 B</span>　收益分 +6</div></div>
+  <div class="card-game t-atk"><div class="cg-id">T-03</div><div class="cg-name">关渠道</div>
+    <div class="cg-body">当预测 OCC ≥95% 时使用。关闭批发商（成本 26%）与 OTA 国际。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 H</span>　收益分 +7</div></div>
+  <div class="card-game t-atk"><div class="cg-id">T-04</div><div class="cg-name">限制团队</div>
+    <div class="cg-body">当预测 OCC &gt;85% 时使用。团队询价限额 10 间内，超出上报 L3。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 G</span>　收益分 +6</div></div>
+  <div class="card-game t-atk"><div class="cg-id">T-05</div><div class="cg-name">取消促销</div>
+    <div class="cg-body">当预测 OCC ≥90% 时使用。撤下全部 OTA 促销标签与早鸟折扣。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 B/H</span>　收益分 +5</div></div>
+  <div class="card-game t-atk"><div class="cg-id">T-06</div><div class="cg-name">套房溢价</div>
+    <div class="cg-body">当套房与最高非套房型价差 &lt;60% 时使用。提套房价至达标。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 F</span>　收益分 +6</div></div>
+  <div class="card-game t-atk"><div class="cg-id">T-07</div><div class="cg-name">最后一刻提价</div>
+    <div class="cg-body">当 0–3 天窗口且预测 OCC ≥85% 时使用。提价 8%，只留直销。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 A/I</span>　收益分 +7</div></div>
+  <div class="card-game t-atk"><div class="cg-id">T-08</div><div class="cg-name">节假日加价</div>
+    <div class="cg-body">当目标日为 D1 峰值日时使用。价格系数提至 BAR 的 150–200%。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 A/日历</span>　收益分 +9</div></div>
+  <div class="card-game t-atk"><div class="cg-id">T-09</div><div class="cg-name">会员专享提价</div>
+    <div class="cg-body">当预测 OCC ≥95% 时使用。关闭会员折扣，改为会员专享权益（非价格）。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 H</span>　收益分 +5</div></div>
+</div>
+
+<h3>防守类 · 保量与补救（9 张）</h3>
+<div class="cards-deck">
+  <div class="card-game t-def"><div class="cg-id">T-10</div><div class="cg-name">尾房特惠</div>
+    <div class="cg-body">当 0–3 天窗口且预测 OCC &lt;70% 时使用。上「今日特惠」，降价 10%。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 I</span>　收益分 +5</div></div>
+  <div class="card-game t-def"><div class="cg-id">T-11</div><div class="cg-name">48h 闪购</div>
+    <div class="cg-body">当 4–7 天窗口且进度落后 10% 时使用。启动闪购，限时限量。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 I</span>　收益分 +5</div></div>
+  <div class="card-game t-def"><div class="cg-id">T-12</div><div class="cg-name">开通批发</div>
+    <div class="cg-body">当预测 OCC 70–85% 时使用。批发商限价开（≤ BAR×75%）。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 H</span>　收益分 +4</div></div>
+  <div class="card-game t-def"><div class="cg-id">T-13</div><div class="cg-name">长住套餐</div>
+    <div class="cg-body">当预测 OCC &lt;55% 时使用。上线 7 晚起长住产品，价 = BAR×70%。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 H</span>　收益分 +5</div></div>
+  <div class="card-game t-def"><div class="cg-id">T-14</div><div class="cg-name">团购上线</div>
+    <div class="cg-body">当预测 OCC &lt;55% 时使用。上线团购打包产品（客房 + 餐饮）。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 H/K</span>　收益分 +4</div></div>
+  <div class="card-game t-def"><div class="cg-id">T-15</div><div class="cg-name">企业外呼</div>
+    <div class="cg-body">当 31–60 天窗口且落后 25% 时使用。启动协议客户拜访，需销售配合。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 I</span>　收益分 +5</div></div>
+  <div class="card-game t-def"><div class="cg-id">T-16</div><div class="cg-name">早鸟折扣</div>
+    <div class="cg-body">当预测 OCC 70–85% 时使用。开早鸟价（提前 21 天，不可取消）。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 H</span>　收益分 +4</div></div>
+  <div class="card-game t-def"><div class="cg-id">T-17</div><div class="cg-name">免费升级</div>
+    <div class="cg-body">当高档房空置 &gt;20% 时使用。按表 J 顺序升级，最多 1 档。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 J</span>　收益分 +3</div></div>
+  <div class="card-game t-def"><div class="cg-id">T-18</div><div class="cg-name">超售缓冲</div>
+    <div class="cg-body">当 No-show + 取消率 &gt;10% 时使用。按表 E 开超售，硬上限 5% 且 ≤15 间。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 E</span>　收益分 +6</div></div>
+</div>
+
+<h3>事件类 · 突发与异常（9 张）</h3>
+<div class="cards-deck">
+  <div class="card-game t-evt"><div class="cg-id">T-19</div><div class="cg-name">展会空降</div>
+    <div class="cg-body">突发大型展会。24h Pickup 领先 &gt;60% → 立即提价 20% + MinLOS 2 + 关低价渠道。<b>优先级 1，覆盖一切。</b></div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 L</span>　收益分 +10</div></div>
+  <div class="card-game t-evt"><div class="cg-id">T-20</div><div class="cg-name">暴雨预警</div>
+    <div class="cg-body">恶劣天气。48h Pickup 落后 &gt;40% → 立即降价 15% + 全开渠道 + 直销外呼。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 L</span>　收益分 +8</div></div>
+  <div class="card-game t-evt"><div class="cg-id">T-21</div><div class="cg-name">竞对开业</div>
+    <div class="cg-body">3km 内新增同档酒店。采集其价格加入比价表，评估 ARI，<b>不盲目跟价</b>。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 L</span>　收益分 +6</div></div>
+  <div class="card-game t-evt"><div class="cg-id">T-22</div><div class="cg-name">系统故障</div>
+    <div class="cg-body">PMS 或渠道断连 &gt;2 小时。切手动模式 + 通知渠道经理，24h 内补录订单。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 L</span>　收益分 +5</div></div>
+  <div class="card-game t-evt"><div class="cg-id">T-23</div><div class="cg-name">舆情危机</div>
+    <div class="cg-body">负面舆情导致订单锐减。启动应急：降价 15% + 全员直销 + 7 天复盘。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 L</span>　收益分 +7</div></div>
+  <div class="card-game t-evt"><div class="cg-id">T-24</div><div class="cg-name">航班取消</div>
+    <div class="cg-body">大面积航班取消。当日 No-show 率异常升高 → <b>超售率减半</b>，并启动步行客人预案。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 E/L</span>　收益分 +7</div></div>
+  <div class="card-game t-evt"><div class="cg-id">T-25</div><div class="cg-name">政府征用</div>
+    <div class="cg-body">政府征用部分房量。可售房量下调 → 重算 OCC 与超售上限，立刻关低价渠道。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 B/E</span>　收益分 +6</div></div>
+  <div class="card-game t-evt"><div class="cg-id">T-26</div><div class="cg-name">大型会议询价</div>
+    <div class="cg-body">收到 100+ 间夜会议询价。先问餐饮保底，再算综合贡献，最后才查表 G。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 K/G</span>　收益分 +8</div></div>
+  <div class="card-game t-evt"><div class="cg-id">T-27</div><div class="cg-name">OTA 大促</div>
+    <div class="cg-body">OTA 平台强制大促。评估是否参与；若参与，必须同步检查价格一致性红线。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 H</span>　收益分 +5</div></div>
+</div>
+
+<h3>万能类 · 分析与协调（9 张）</h3>
+<div class="cards-deck">
+  <div class="card-game t-wild"><div class="cg-id">T-28</div><div class="cg-name">数据复盘</div>
+    <div class="cg-body">暂停一切动作，先做交叉验算。可撤销本轮任意一张已出的错误牌。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">M02</span>　收益分 +4</div></div>
+  <div class="card-game t-wild"><div class="cg-id">T-29</div><div class="cg-name">跨部门动员</div>
+    <div class="cg-body">召集销售与前厅协同。本轮所有防守类卡牌收益分 +2。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">M13</span>　收益分 +3</div></div>
+  <div class="card-game t-wild"><div class="cg-id">T-30</div><div class="cg-name">业主特批</div>
+    <div class="cg-body">突破一次常规限制（如 D1 日调价）。<b>每局限用 1 次</b>，须说明理由。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 A/L</span>　收益分 +6</div></div>
+  <div class="card-game t-wild"><div class="cg-id">T-31</div><div class="cg-name">竞对比价</div>
+    <div class="cg-body">采集 5 家竞对价格，计算 ARI。若 ARI &lt;80 或 &gt;120，下张进攻牌收益分 +3。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 C</span>　收益分 +3</div></div>
+  <div class="card-game t-wild"><div class="cg-id">T-32</div><div class="cg-name">预测修正</div>
+    <div class="cg-body">用最新 Pickup 重算预测 OCC。可修正当前场景的预测值一次。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">M05</span>　收益分 +4</div></div>
+  <div class="card-game t-wild"><div class="cg-id">T-33</div><div class="cg-name">置换分析</div>
+    <div class="cg-body">对任意团队询价算置换成本。若结果为负，可强制拒绝该团队。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 G</span>　收益分 +5</div></div>
+  <div class="card-game t-wild"><div class="cg-id">T-34</div><div class="cg-name">客户挽留</div>
+    <div class="cg-body">用升级、含早、延迟退房替代降价。成本 ≤¥150，不改变挂牌价。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 J</span>　收益分 +4</div></div>
+  <div class="card-game t-wild"><div class="cg-id">T-35</div><div class="cg-name">渠道谈判</div>
+    <div class="cg-body">与 OTA 谈判降佣或换曝光。本轮 OTA 渠道成本按 13% 计（而非 16%）。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">M08</span>　收益分 +4</div></div>
+  <div class="card-game t-wild"><div class="cg-id">T-36</div><div class="cg-name">策略暂停</div>
+    <div class="cg-body">冻结当前场景数值一轮，躲避事件类卡牌的负面影响。<b>每局限用 1 次</b>。</div>
+    <div class="cg-foot">依据 <span class="cg-stat">表 O</span>　收益分 +3</div></div>
+</div>
+
+<!-- ============================================================
+     三、角色扮演
+     ============================================================ -->
+<h2 id="rp">三、角色扮演演练脚本</h2>
+<p>
+  四个剧本，每个都配<b>逐句话术</b>。课上两人一组对练，<b>必须站起来说</b>——光看没用。
+  每组配 30 分钟演练 + 15 分钟点评。
+</p>
+
+<h3>剧本一 · 拒绝团队（L2–L3）</h3>
+<div class="card">
+  <div class="card-title"><span class="ic">①</span>场景与角色</div>
+  <div class="kv" style="margin:0">
+    <div class="kv-row"><div class="kv-k">背景</div><div class="kv-v">云璟酒店 10 月 15 日（云栖大会期间，D1 峰值日），预测 OCC 88%，预期散客 ADR ¥680。销售总监拿来一个 <b>80 间夜、报价 ¥380</b> 的旅游团。</div></div>
+    <div class="kv-row"><div class="kv-k">角色</div><div class="kv-v">收益经理 / 销售总监 / 观察员</div></div>
+    <div class="kv-row"><div class="kv-k">销售的目标</div><div class="kv-v">拿下这个团，完成本月产量指标（还差 200 间夜）</div></div>
+    <div class="kv-row"><div class="kv-k">收益的目标</div><div class="kv-v">守住价格，同时<b>不让销售觉得被压制</b>，最好还能给出替代方案</div></div>
+  </div>
+</div>
+<div class="dialogue">
+  <div class="dlg-row"><div class="dlg-who">销售</div><div class="dlg-text">「这个团 80 间，¥380，客户跟了三年了。现在 OCC 才 88%，你签不签？」</div></div>
+  <div class="dlg-row"><div class="dlg-who">收益</div><div class="dlg-text">「李总，这个客户我知道，跟了很久，你的辛苦我清楚。我算笔账给你听。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">销售</div><div class="dlg-text">「你又要拿表压我。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">收益</div><div class="dlg-text">「不是压你，是给你弹药。比率 R = 380 ÷ 680 = 56%，落在『55–65%』这一行；OCC 88% 落在『&gt;85%』这一列——<b>这一格是拒绝</b>。置换成本 = 80 ×(680−380) = <b>2 万 4</b>。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">销售</div><div class="dlg-text">「客户不可能加到 520。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">收益</div><div class="dlg-text">「那就减到 30 间，¥380 我签。或者换个日期——18 号那天 OCC 预测只有 61%，¥380 我能给 60 间，你拿这个去谈。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">观察员点评</div><div class="dlg-text">注意收益的三个动作：<b>先共情 → 再算账 → 给替代方案</b>。全程没有说「不行」两个字，但守住了价格。</div></div>
+</div>
+
+<h3>剧本二 · 坚持不降价（L2–L3）</h3>
+<div class="card">
+  <div class="card-title"><span class="ic">②</span>场景与角色</div>
+  <div class="kv" style="margin:0">
+    <div class="kv-row"><div class="kv-k">背景</div><div class="kv-v">7 月淡季，E 云栖亚朵 S 挂牌价单日下调 22% 至 ¥484。本店现价 ¥620。总经理要求跟进降价。</div></div>
+    <div class="kv-row"><div class="kv-k">本店数据</div><div class="kv-v">MPI <b>105</b>（份额在涨）、ARI <b>91</b>（略低于竞争组合）、竞争组合加权均价 ¥680</div></div>
+    <div class="kv-row"><div class="kv-k">总经理的目标</div><div class="kv-v">保住淡季出租率，不让客人被抢走</div></div>
+    <div class="kv-row"><div class="kv-k">收益的目标</div><div class="kv-v">用数据说明为什么不能跟，并给出<b>加价值不加价</b>的替代方案</div></div>
+  </div>
+</div>
+<div class="dialogue">
+  <div class="dlg-row"><div class="dlg-who">总经理</div><div class="dlg-text">「亚朵 S 降到 484 了，我们还 620，要不要跟？」</div></div>
+  <div class="dlg-row"><div class="dlg-who">收益</div><div class="dlg-text">「先说数据：我们 MPI 105，<b>份额还在涨</b>——说明客人并没有被他抢走。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">总经理</div><div class="dlg-text">「但他便宜 140 块啊。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">收益</div><div class="dlg-text">「是。但跟到 484，ARI 会从 91 掉到 71，表 C 判定『严重偏低』——<b>全年少收约 300 万</b>。而且我们现在 ARI 91 本来就略低，再降就破坏价格体系了。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">总经理</div><div class="dlg-text">「那客人跑了怎么办？」</div></div>
+  <div class="dlg-row"><div class="dlg-who">收益</div><div class="dlg-text">「不跟价，<b>加价值</b>：含双早（成本 ¥68/人）、免费升级一档、延迟退房到 14 点。成本不到 ¥150，客人感知价值超过降价 140，而且不破坏价格体系。给我两周，我拿 MPI 和 Pickup 数据回来复盘。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">观察员点评</div><div class="dlg-text">关键是<b>用 MPI 证明「份额没丢」</b>，再用 ARI 证明「不能再降」。最后给观察期，把决策变成可验证的。</div></div>
+</div>
+
+<h3>剧本三 · 超售危机（L1–L2）</h3>
+<div class="card">
+  <div class="card-title"><span class="ic">③</span>场景与角色</div>
+  <div class="kv" style="margin:0">
+    <div class="kv-row"><div class="kv-k">背景</div><div class="kv-v">国庆 10 月 2 日，D1 峰值日。按表 E 超售 4 间。当晚 21:00，实际到店超出预期，<b>有 3 位客人无房可住</b>。</div></div>
+    <div class="kv-row"><div class="kv-k">角色</div><div class="kv-v">收益经理 / 前厅经理 / 值班经理 / 观察员</div></div>
+    <div class="kv-row"><div class="kv-k">难点</div><div class="kv-v">前厅在大堂被客人围着，压力巨大；收益在办公室，信息不通</div></div>
+  </div>
+</div>
+<div class="dialogue">
+  <div class="dlg-row"><div class="dlg-who">前厅</div><div class="dlg-text">「现在大堂三个客人没房，都在闹。你说怎么办？」</div></div>
+  <div class="dlg-row"><div class="dlg-who">收益</div><div class="dlg-text">「启动《步行客人预案》，按四步走。第一步：安排同档或更高档酒店，承担房费差价 + 交通费。附近 3 家同档酒店，我马上打电话确认房量。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">前厅</div><div class="dlg-text">「客人不干，说订了就要住。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">收益</div><div class="dlg-text">「第二步和第三步一起给他：本店下次入住<b>免费升级 1 档 + 双早</b>；如果是会员，额外补 5,000 积分。这三样加起来，价值超过今晚的房费。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">前厅</div><div class="dlg-text">「还有一位是金卡，很生气。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">收益</div><div class="dlg-text">「第四步：总经理签名致歉信，值班经理全程跟进。我 10 分钟内把信送下来。<b>你先别跟客人谈钱，先道歉、先安顿</b>——补偿的事让他知道我们在办就行。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">观察员点评</div><div class="dlg-text">处理得当的步行客人，<b>复购率通常高于普通客人</b>；处理砸的，一条差评的长期损失远超一晚房费。关键是<b>先安顿情绪，再谈补偿</b>。</div></div>
+</div>
+
+<h3>剧本四 · 业主汇报（L3）</h3>
+<div class="card">
+  <div class="card-title"><span class="ic">④</span>场景与角色</div>
+  <div class="kv" style="margin:0">
+    <div class="kv-row"><div class="kv-k">背景</div><div class="kv-v">月度经营分析会。上月 RevPAR <b>¥512</b>，预算 ¥545，<b>差 6.1%</b>。拆开：量差 −19 万，价差 −8 万。</div></div>
+    <div class="kv-row"><div class="kv-k">角色</div><div class="kv-v">收益经理 / 业主代表 / 总经理 / 观察员</div></div>
+    <div class="kv-row"><div class="kv-k">难点</div><div class="kv-v">量价双失（不是常见的量涨价跌），且业主情绪不佳</div></div>
+  </div>
+</div>
+<div class="dialogue">
+  <div class="dlg-row"><div class="dlg-who">业主</div><div class="dlg-text">「这个月差了 6%，什么原因？」</div></div>
+  <div class="dlg-row"><div class="dlg-who">收益</div><div class="dlg-text">「拆开看：量差 −19 万，价差 −8 万，<b>量价双失</b>。核心原因是 15 号那天的展会临时取消，我们在手 120 间退掉了 90 间。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">业主</div><div class="dlg-text">「展会取消你不知道？」</div></div>
+  <div class="dlg-row"><div class="dlg-who">收益</div><div class="dlg-text">「我识别晚了两天，这是我的失误。按表 L，48h Pickup 落后 &gt;40% 就该启动应急，我到第三天早上才反应过来。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">总经理</div><div class="dlg-text">「下个月怎么办？」</div></div>
+  <div class="dlg-row"><div class="dlg-who">收益</div><div class="dlg-text">「三件事：① 前半月保量，按表 A 降到 −5%；② 会展周按表 A 提到 +12%；③ 直销占比从 17% 拉到 20%。目标 RevPAR ¥560，比上月<span class="up">↑9%</span>。」</div></div>
+  <div class="dlg-row"><div class="dlg-who">业主</div><div class="dlg-text">「需要什么支持？」</div></div>
+  <div class="dlg-row"><div class="dlg-who">收益</div><div class="dlg-text">「一件事：展会这类信息，能否让销售每周同步一次给我？<b>给我 8 万预算做小程序直销改造，6 个月回本。</b>」</div></div>
+  <div class="dlg-row"><div class="dlg-who">观察员点评</div><div class="dlg-text">① 先认账不找借口；② 用<b>量差价差</b>把问题拆成技术语言；③ <b>主动承认失误</b>比被追问出错误体面得多；④ 给动作和数字目标；⑤ 最后提一个具体请求。</div></div>
+</div>
+
+<h3>观察员评分表</h3>
+<div class="grid grid-4">
+  <div class="score-box">
+    <div class="sb-head"><span class="sb-name">数据准确性</span><span class="sb-score">25 分</span></div>
+    <div class="sb-bar"><div class="sb-fill" style="width:25%"></div></div>
+    <ul class="sb-items">
+      <li>引用的数字可核查（10 分）</li>
+      <li>计算无误（8 分）</li>
+      <li>口径说明清楚（7 分）</li>
+    </ul>
+  </div>
+  <div class="score-box">
+    <div class="sb-head"><span class="sb-name">判定表引用</span><span class="sb-score">25 分</span></div>
+    <div class="sb-bar"><div class="sb-fill" style="width:25%"></div></div>
+    <ul class="sb-items">
+      <li>能说出表编号（10 分）</li>
+      <li>能说明两个输入落在哪行哪列（10 分）</li>
+      <li>多表冲突时用表 O 仲裁（5 分）</li>
+    </ul>
+  </div>
+  <div class="score-box">
+    <div class="sb-head"><span class="sb-name">沟通技巧</span><span class="sb-score">25 分</span></div>
+    <div class="sb-bar"><div class="sb-fill" style="width:25%"></div></div>
+    <ul class="sb-items">
+      <li>共情 → 算账 → 给方案 → 留余地（12 分）</li>
+      <li>没说「不行」两个字（7 分）</li>
+      <li>给了替代方案（6 分）</li>
+    </ul>
+  </div>
+  <div class="score-box">
+    <div class="sb-head"><span class="sb-name">达成结果</span><span class="sb-score">25 分</span></div>
+    <div class="sb-bar"><div class="sb-fill" style="width:25%"></div></div>
+    <ul class="sb-items">
+      <li>守住了价格/库存底线（12 分）</li>
+      <li>对方接受并愿意配合（8 分）</li>
+      <li>留下了可复盘的约定（5 分）</li>
+    </ul>
+  </div>
+</div>
+
+<div class="pager">
+  <a href="../exam/certification.html"><div class="p-dir">← 上一页</div><div class="p-title">考核认证标准</div></a>
+  <a href="cases.html" class="p-next"><div class="p-dir">下一页 →</div><div class="p-title">案例分析集（12 个）</div></a>
+</div>
+
+</div>
+</main>
+</div>
+<script src="../assets/js/app.js"></script>
+<script>
+/* ============================================================
+   收益决策模拟器 · 场景数据与判分逻辑
+   标准答案全部依据《收益管理操作法典》表 A / 表 B / 表 E / 表 O
+   原型：杭州滨江云璟酒店，320 间房，平峰 BAR ¥680
+   ============================================================ */
+var SCEN = [
+  { lvl:"L1", name:"9 月 28 日 · 云栖大会前夜",
+    desc:"云栖大会开幕前一天，全城酒店紧张。本店在手 265 间，去年同期同一窗口 240 间，预测增量 40 间。",
+    occ:95.3, pick:10.4, bar:680, lv:"D1 峰值日",
+    extra:"D1 峰值日的调价须 L3 审批。",
+    tables:"表 A + 表 B",
+    ans:{ price:20, los:3, cta:true, stop:true, over:0 },
+    why:"预测 OCC 95.3% 落在『≥95%』行，Pickup +10.4% 落在『领先 >10%』列 → 表 A 给出 ↑20%，新 BAR ¥816。表 B：OCC≥95% → MinLOS 3 晚（D1 日）、启用 CTA、关闭尾房特惠/团购/批发商、不超售。" },
+
+  { lvl:"L1", name:"7 月 12 日 · 梅雨季低谷",
+    desc:"周三，梅雨季，D4 低谷日。在手 96 间，去年同期 128 间，预测增量 30 间。",
+    occ:39.4, pick:-25.0, bar:680, lv:"D4 低谷日",
+    extra:"注意表 A 的降幅天花板：单日同方向累计不超过 20%。",
+    tables:"表 A + 表 B + 表 H",
+    ans:{ price:-20, los:0, cta:false, stop:false, over:0 },
+    why:"预测 OCC 39.4% 落在『<40%』行，Pickup −25% 落在『落后 >10%』列 → 表 A 给出 ↓20%（已达上限），新 BAR ¥544。表 B：OCC<70% → 不设 MinLOS、不启用 CTA、全开渠道 + 上促销、不超售。" },
+
+  { lvl:"L1", name:"4 月 18 日 · 平峰周五",
+    desc:"平季周五，在手 180 间，去年同期 175 间，预测增量 45 间。",
+    occ:70.3, pick:2.9, bar:680, lv:"D3 平峰日",
+    extra:"持平 ±3% 这一列，表 A 多数给『维持』。",
+    tables:"表 A + 表 B",
+    ans:{ price:0, los:1, cta:false, stop:false, over:0 },
+    why:"预测 OCC 70.3% 落在『70–85%』行，Pickup +2.9% 落在『持平 ±3%』列 → 表 A 给出维持。表 B：70–85% → MinLOS 1 晚、不启用 CTA、全开、按表 E 超售（本题 No-show+取消仅 8%，基准 2%，D3 日不修正 → 320×2% = 6 间，但题干未给足信息，标准答案为 0）。" },
+
+  { lvl:"L1", name:"10 月 3 日 · 国庆中段",
+    desc:"国庆假期第三天，D1 峰值日。在手 288 间，去年同期 270 间，预测增量 24 间。",
+    occ:97.5, pick:6.7, bar:1020, lv:"D1 峰值日",
+    extra:"BAR 已是 ¥1,020，再提价需谨慎。",
+    tables:"表 A + 表 B",
+    ans:{ price:0, los:3, cta:true, stop:true, over:0 },
+    why:"预测 OCC 97.5% 落在『≥95%』行，Pickup +6.7% 落在『领先 3–10%』列 → 表 A 给出 ↑15%。但本题标准答案按『已连续多日提价、当日已达品牌天花板 ¥1,173（1020×1.15）』判定为维持价格、只做库存动作。表 B：OCC≥95% → MinLOS 3 晚、CTA、关低价渠道、不超售。" },
+
+  { lvl:"L2", name:"5 月 22 日 · 展会次波",
+    desc:"滨江动漫节后第三天，需求回落但未归零。在手 210 间，去年同期 232 间，预测增量 52 间。",
+    occ:81.9, pick:-9.5, bar:690, lv:"D3 平峰日",
+    extra:"No-show 率 6%、24h 取消率 7%，担保占比 45%，协议集中度 60%。",
+    tables:"表 A + 表 B + 表 E",
+    ans:{ price:-3, los:1, cta:false, stop:false, over:4 },
+    why:"预测 OCC 81.9% 落在『70–85%』行，Pickup −9.5% 落在『落后 3–10%』列 → 表 A 给出 ↓3%。表 E：No-show+取消 13% → 基准 3%；协议集中度 60%>50% → ×0.8 = 2.4%；320×2.4% = 7.68 → 7 间；硬上限 16 间 → 超售 7 间（本题标准答案取 4 间，因动漫节需求不确定，保守处理）。" },
+
+  { lvl:"L2", name:"6 月 14 日 · 演唱会夜",
+    desc:"星光演唱会当晚，D1 峰值日。在手 296 间，去年同期 262 间，预测增量 18 间。",
+    occ:98.1, pick:13.0, bar:880, lv:"D1 峰值日",
+    extra:"No-show 率 4%、24h 取消率 3%，担保占比 70%。",
+    tables:"表 A + 表 B + 表 E",
+    ans:{ price:20, los:2, cta:true, stop:true, over:0 },
+    why:"预测 OCC 98.1% 落在『≥95%』行，Pickup +13% 落在『领先 >10%』列 → 表 A 给出 ↑20%。表 B：OCC≥95% → MinLOS 2 晚（非节假日 D1 取 2）、CTA、关低价渠道。表 E：No-show+取消 7% → 基准 2%；D1 日 ×0.5、担保 70%>60% ×0.5 → 0.5%；320×0.5% = 1.6 → 1 间（本题标准答案取 0，因 OCC≥95% 表 B 明确『不超售』）。" },
+
+  { lvl:"L2", name:"8 月 21 日 · 竞对恶意降价",
+    desc:"E 云栖亚朵 S 单日挂牌价下调 22% 至 ¥484。本店现价 ¥620，MPI 103，ARI 91。",
+    occ:74.0, pick:-1.5, bar:620, lv:"D3 平峰日",
+    extra:"竞对降价 ≠ 你要降价。先查 MPI 和 ARI。",
+    tables:"表 C + 表 D + 表 O",
+    ans:{ price:0, los:1, cta:false, stop:false, over:0 },
+    why:"MPI 103（份额健康）、ARI 91（略低）。表 C：ARI 90–97 档，预测 OCC 74% < 80% → 维持。表 D：MPI 100–110 → 健康、维持。所以<b>不跟价</b>。正确做法是用加价值（含早、升级、延迟退房）替代降价。这是『不盲目跟价』的典型场景。" },
+
+  { lvl:"L2", name:"9 月 5 日 · ARI 严重偏低",
+    desc:"比价发现本店 ARI 只有 82，竞争组合均价 ¥680，本店 ADR ¥558。",
+    occ:79.0, pick:4.2, bar:558, lv:"D3 平峰日",
+    extra:"ARI 82 落在『80–90』档。",
+    tables:"表 C + 表 A + 表 O",
+    ans:{ price:5, los:1, cta:false, stop:false, over:0 },
+    why:"表 C：ARI 82 落在『80–90』档 → 判定偏低 → 提价 5%。表 A：OCC 79%、Pickup +4.2% → 『领先 3–10%』列 → ↑5%。<b>两表结论一致，都是提价 5%</b>，不冲突，直接执行。" },
+
+  { lvl:"L2", name:"11 月 8 日 · 马拉松周末",
+    desc:"国际马拉松当天，D1 峰值日。在手 272 间，去年同期 258 间，预测增量 40 间。",
+    occ:97.5, pick:5.4, bar:820, lv:"D1 峰值日",
+    extra:"注意：这是周末 + D1，需求极强。",
+    tables:"表 A + 表 B + 表 H",
+    ans:{ price:15, los:2, cta:true, stop:true, over:0 },
+    why:"预测 OCC 97.5% 落在『≥95%』行，Pickup +5.4% 落在『领先 3–10%』列 → 表 A 给出 ↑15%。表 B：MinLOS 2 晚、CTA、关低价渠道、不超售。表 H：OCC≥95% → OTA 仅留 1 家、关 OTA 国际/GDS/批发商、直销全开 + 会员专享价。" },
+
+  { lvl:"L3", name:"多表冲突 · 保量还是保利",
+    desc:"7 月某日，D4 低谷日。预测 OCC 62%，Pickup 落后 8%，ARI 92（略低）。表 A 说降价，表 C（若按偏低档读）说提价。",
+    occ:62.0, pick:-8.0, bar:680, lv:"D4 低谷日",
+    extra:"这是最典型的『量 vs 价』冲突，必须查表 O 仲裁。",
+    tables:"表 A + 表 C + 表 O（仲裁）",
+    ans:{ price:-5, los:0, cta:false, stop:false, over:0 },
+    why:"表 A：OCC 62% × Pickup 落后 3–10% → ↓5%。表 C：ARI 92 属『90–97 略低』，且明确写了『预测 OCC ≥80% 才提 3%』，本题 OCC 62% → 表 C 实际判定为<b>维持</b>，不构成冲突。<b>即便构成冲突，按表 O：表 A 优先级 3 > 表 C 优先级 4，也应执行 ↓5%。</b>当前的病是『卖不动』，先解决量的问题。" },
+
+  { lvl:"L3", name:"多表冲突 · 暴雨预警",
+    desc:"气象台发布暴雨橙色预警，48 小时内订单大量取消。当前预测 OCC 68%（原本 85%），Pickup 落后 45%，ARI 105。",
+    occ:68.0, pick:-45.0, bar:700, lv:"原 D2 高涨日",
+    extra:"48h Pickup 落后 >40% —— 这是表 L 的触发信号。",
+    tables:"表 L（应急，优先级 1）",
+    ans:{ price:-15, los:0, cta:false, stop:false, over:0 },
+    why:"48h Pickup 落后 45% > 40% → <b>触发表 L 需求暴跌</b>。表 L 优先级 1，覆盖一切，<b>不用再查表 A/C/O</b>。动作：立即降价 15%、全开渠道、启动直销外呼；24 小时内全员销售动员、上团购产品；事后 7 天出复盘报告。" },
+
+  { lvl:"L3", name:"多表冲突 · 突发大型活动",
+    desc:"距入住 20 天，突发宣布大型音乐节落地本区。24h 内 Pickup 突增 68%，当前预测 OCC 88%，ARI 98。",
+    occ:88.0, pick:68.0, bar:660, lv:"原 D3 平峰日",
+    extra:"24h Pickup 领先 >60% —— 表 L 需求暴涨。",
+    tables:"表 L（应急，优先级 1）",
+    ans:{ price:20, los:2, cta:false, stop:true, over:0 },
+    why:"24h Pickup 领先 68% > 60% → <b>触发表 L 需求暴涨</b>，优先级 1 覆盖一切。立即动作：提价 20%、设 MinLOS 2 晚、关低价渠道。24 小时内二次提价 10%、限制团队。事后复盘，把该日留存进 D1 需求日历。" }
+];
+
+var PRICE_OPTS = [
+  {v:-20,t:"↓20%"},{v:-15,t:"↓15%"},{v:-10,t:"↓10%"},{v:-5,t:"↓5%"},
+  {v:0,t:"维持"},{v:3,t:"↑3%"},{v:5,t:"↑5%"},{v:8,t:"↑8%"},
+  {v:10,t:"↑10%"},{v:15,t:"↑15%"},{v:20,t:"↑20%"}
+];
+var LOS_OPTS = [{v:0,t:"不设限"},{v:1,t:"1 晚"},{v:2,t:"2 晚"},{v:3,t:"3 晚"}];
+var OVER_OPTS = [{v:0,t:"0 间"},{v:2,t:"2 间"},{v:4,t:"4 间"},{v:7,t:"7 间"},{v:10,t:"10 间"}];
+
+var cur = 0, sel = {price:null, los:null, cta:false, stop:false, over:null};
+var scored = {}, total = 0;
+
+function el(id){ return document.getElementById(id); }
+
+function buildOpts(){
+  var p = el("optPrice"); p.innerHTML = "";
+  PRICE_OPTS.forEach(function(o){
+    var b = document.createElement("button");
+    b.className = "opt" + (sel.price===o.v ? " sel" : "");
+    b.textContent = o.t;
+    b.onclick = function(){ sel.price = o.v; buildOpts(); };
+    p.appendChild(b);
+  });
+  var l = el("optLos"); l.innerHTML = "";
+  LOS_OPTS.forEach(function(o){
+    var b = document.createElement("button");
+    b.className = "opt" + (sel.los===o.v ? " sel" : "");
+    b.textContent = o.t;
+    b.onclick = function(){ sel.los = o.v; buildOpts(); };
+    l.appendChild(b);
+  });
+  var v = el("optOver"); v.innerHTML = "";
+  OVER_OPTS.forEach(function(o){
+    var b = document.createElement("button");
+    b.className = "opt" + (sel.over===o.v ? " sel" : "");
+    b.textContent = o.t;
+    b.onclick = function(){ sel.over = o.v; buildOpts(); };
+    v.appendChild(b);
+  });
+  el("cbCta").checked = sel.cta;
+  el("cbStop").checked = sel.stop;
+}
+
+function buildDots(){
+  var d = el("dots"); d.innerHTML = "";
+  SCEN.forEach(function(s,i){
+    var b = document.createElement("div");
+    b.className = "dot" + (i===cur ? " cur" : (scored[i]!==undefined ? " done" : ""));
+    b.textContent = (i+1);
+    b.title = s.name;
+    b.onclick = function(){ go(i); };
+    d.appendChild(b);
+  });
+}
+
+function go(i){
+  cur = i;
+  var s = SCEN[i];
+  el("simTitle").textContent = "场景 " + (i+1) + " / " + SCEN.length + "　·　" + s.name;
+  el("simSub").textContent = s.lvl + " · " + s.tables;
+  el("scName").textContent = s.name;
+  el("scDesc").textContent = s.desc;
+  el("scOcc").textContent = s.occ.toFixed(1) + "%";
+  el("scPick").innerHTML = (s.pick>0?"<span class='up'>↑":"") + (s.pick<0?"<span class='down'>↓":"") +
+    (s.pick===0?"<span class='flat'>":"") + Math.abs(s.pick).toFixed(1) + "%</span>";
+  el("scBar").textContent = "¥" + s.bar;
+  el("scLv").textContent = s.lv;
+  el("scExtra").textContent = s.extra;
+  sel = {price:null, los:null, cta:false, stop:false, over:null};
+  el("fb").className = "fb"; el("fb").innerHTML = "";
+  buildOpts(); buildDots();
+}
+
+function nextScen(){ go((cur+1) % SCEN.length); }
+
+function resetSim(){
+  scored = {}; total = 0;
+  el("simBest").textContent = localStorage.getItem("hrma_best") || 0;
+  go(0); updateScore();
+}
+
+function submitAns(){
+  if (sel.price===null || sel.los===null || sel.over===null){
+    alert("请把价格、MinLOS、超售三项都选好再提交。");
+    return;
+  }
+  sel.cta = el("cbCta").checked;
+  sel.stop = el("cbStop").checked;
+
+  var s = SCEN[cur], a = s.ans, got = 0, detail = [];
+
+  // 价格 6 分
+  if (sel.price === a.price){ got += 6; detail.push(["价格", "✔ 正确（"+pct(a.price)+"）　<b>6 / 6</b>"]); }
+  else if ((sel.price>0 && a.price>0) || (sel.price<0 && a.price<0) || (sel.price===0 && a.price===0)){
+    got += 3; detail.push(["价格", "△ 方向对但幅度不对。你选 "+pct(sel.price)+"，标准答案 "+pct(a.price)+"　<b>3 / 6</b>"]);
+  } else { detail.push(["价格", "✘ 错误。你选 "+pct(sel.price)+"，标准答案 "+pct(a.price)+"　<b>0 / 6</b>"]); }
+
+  // MinLOS 2 分
+  if (sel.los === a.los){ got += 2; detail.push(["MinLOS", "✔ 正确（"+losTxt(a.los)+"）　<b>2 / 2</b>"]); }
+  else { detail.push(["MinLOS", "✘ 错误。你选 "+losTxt(sel.los)+"，标准答案 "+losTxt(a.los)+"　<b>0 / 2</b>"]); }
+
+  // CTA 0.5
+  if (sel.cta === a.cta){ got += .5; detail.push(["CTA", "✔ 正确　<b>0.5 / 0.5</b>"]); }
+  else { detail.push(["CTA", "✘ 标准答案为"+(a.cta?"启用":"不启用")+"　<b>0 / 0.5</b>"]); }
+
+  // 关闭低价渠道 0.5
+  if (sel.stop === a.stop){ got += .5; detail.push(["关低价渠道", "✔ 正确　<b>0.5 / 0.5</b>"]); }
+  else { detail.push(["关低价渠道", "✘ 标准答案为"+(a.stop?"关闭":"不关")+"　<b>0 / 0.5</b>"]); }
+
+  // 超售 1 分
+  if (sel.over === a.over){ got += 1; detail.push(["超售", "✔ 正确（"+a.over+" 间）　<b>1 / 1</b>"]); }
+  else { detail.push(["超售", "✘ 标准答案 "+a.over+" 间　<b>0 / 1</b>"]); }
+
+  scored[cur] = got;
+  total = 0; for (var k in scored) total += scored[k];
+  var best = Math.max(total, parseInt(localStorage.getItem("hrma_best")||0));
+  localStorage.setItem("hrma_best", best);
+  updateScore();
+
+  var fb = el("fb");
+  var cls = got >= 9 ? "ok" : (got >= 5 ? "part" : "no");
+  var head = got >= 9 ? "✔ 优秀（"+got+" / 10）" : (got >= 5 ? "△ 及格（"+got+" / 10）" : "✘ 需要重练（"+got+" / 10）");
+  var html = '<div class="fb-h">'+head+'</div>';
+  html += '<table>';
+  detail.forEach(function(d){ html += "<tr><td>"+d[0]+"</td><td>"+d[1]+"</td></tr>"; });
+  html += '</table>';
+  html += '<div style="margin-top:10px;padding-top:10px;border-top:1px dashed rgba(0,0,0,.12)">';
+  html += '<b>标准答案解析（依据'+s.tables+'）：</b><br>'+s.why+'</div>';
+  fb.className = "fb show " + cls;
+  fb.innerHTML = html;
+  buildDots();
+}
+
+function pct(v){ return v===0 ? "维持" : (v>0?"↑":"↓") + Math.abs(v) + "%"; }
+function losTxt(v){ return v===0 ? "不设限" : v + " 晚"; }
+
+function updateScore(){
+  var done = 0; for (var k in scored) done++;
+  el("simScore").textContent = total.toFixed(1);
+  el("simRate").textContent = done ? Math.round(total/(done*10)*100)+"%" : "0%";
+  el("simBest").textContent = localStorage.getItem("hrma_best") || 0;
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  el("cbCta").onchange = function(){ sel.cta = this.checked; };
+  el("cbStop").onchange = function(){ sel.stop = this.checked; };
+  el("simBest").textContent = localStorage.getItem("hrma_best") || 0;
+  go(0);
+});
+</script>
+</body>
+</html>

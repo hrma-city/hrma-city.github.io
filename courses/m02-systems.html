@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M02 系统与数据导航 · 酒店收益管理学院</title>
+<link rel="stylesheet" href="../assets/css/main.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"courses","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/courses/m02-systems.html"},{"@type":"ListItem","position":3,"name":"m02-systems","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/courses/m02-systems.html"}]}</script>
+</head>
+<body data-page="m02">
+<div class="layout">
+
+<aside class="sidebar" id="sidebar" data-page="m02"></aside>
+
+<main class="main">
+<div class="wrap">
+
+  <!-- ===== 页头 ===== -->
+  <div class="crumb">
+    <a href="../index.html">学院首页</a><span>/</span>
+    <a href="../curriculum.html">教案总纲</a><span>/</span>
+    L1 模块二
+  </div>
+
+  <div class="page-head">
+    <div class="badge-row">
+      <span class="badge badge-l1">L1 收益执行专员</span>
+      <span class="badge">模块 M02</span>
+      <span class="badge">2 课时 / 180 min</span>
+      <span class="badge">课时占比 2/12</span>
+    </div>
+    <h1 class="page-title">系统与数据导航</h1>
+    <p class="page-lede">一句话导语：不管你店上跑的是哪套 PMS，收益专员要抓的字段是固定的——本模块把「要找什么数据、它一般叫什么、几点前必须抓完」钉死，并给你一套脏数据排查方法，保证喂给判定表的每一个数都是干净的。</p>
+  </div>
+
+  <!-- ===== 学习目标 ===== -->
+  <div class="card">
+    <div class="card-title"><span class="ic">◎</span>学习目标</div>
+    <ul>
+      <li>能<b>说出</b> 房型代码、价格代码（Rate Code）、市场细分代码、渠道代码四套编码体系各自的作用与区别，并写出云璟酒店 10 个房型代码、7 个细分代码、7 个渠道代码</li>
+      <li>能<b>独立执行</b> 《每日取数清单》全部 28 个字段的抓取，在规定时间节点前完成，格式符合约定（CSV/截图/系统导出，不手工转录数字）</li>
+      <li>能<b>识别</b> 重复订单、负房晚、渠道错配、免费房混入、团队拆分共 5 类脏数据，并说出各自的排查字段与处置动作</li>
+      <li>能<b>使用</b> 《主流系统操作路径映射表》，在任意一套 PMS/RMS/OTA 后台中定位「价格日历 / 房晚报表 / MinLOS / Stop Sell / 超售」5 个通用功能</li>
+      <li>能<b>完成</b> 4 条数据一致性恒等式自检，且在发现不等时说出排查顺序</li>
+    </ul>
+    <p class="card-note">前置要求：M01 指标与计算（必须能独立算出 OCC/ADR/RevPAR/Pickup 偏差）。<br>本模块对应《法典》：表 M（每日收益操作流水线 07:30 / 07:50 / 08:10 三个取数时段）、表 I（预订窗口分档监控表）。</p>
+  </div>
+
+  <!-- ===== 目录 ===== -->
+  <div class="toc">
+    <div class="toc-title">本模块目录</div>
+    <ol>
+      <li><a href="#s1">为什么讲「系统无关」：字段是固定的，菜单是会变的</a></li>
+      <li><a href="#s2">四套编码体系：一条订单的完整身份证</a></li>
+      <li><a href="#s3">编码体系一：房型代码（云璟 10 个房型）</a></li>
+      <li><a href="#s4">编码体系二：价格代码 Rate Code</a></li>
+      <li><a href="#s5">编码体系三：市场细分代码</a></li>
+      <li><a href="#s6">编码体系四：渠道代码</a></li>
+      <li><a href="#s7">主流系统操作路径映射表（10 个通用动作 × 8 类系统）</a></li>
+      <li><a href="#s8">《每日取数清单》：28 个字段 / 来源 / 格式 / 截止时间</a></li>
+      <li><a href="#s9">数据一致性自检：4 条恒等式</a></li>
+      <li><a href="#s10">5 类脏数据：症状 / 排查 / 处置 / 留痕</a></li>
+      <li><a href="#demo">讲师示范：一次完整的每日取数（含脏数据修正）</a></li>
+      <li><a href="#drill">学员跟练</a></li>
+      <li><a href="#recite">取数速记清单（当堂默写）</a></li>
+      <li><a href="#quiz">随堂测（5 题）</a></li>
+      <li><a href="#out">本模块产出物</a></li>
+    </ol>
+  </div>
+
+  <!-- ===== 正文 ===== -->
+  <h2 id="s1">一、为什么讲「系统无关」：字段是固定的，菜单是会变的</h2>
+
+  <p>本学院不教某一个品牌系统的按钮在哪，原因有三：</p>
+
+  <div class="grid grid-3">
+    <div class="card">
+      <div class="card-title"><span class="ic">1</span>原因一</div>
+      <p style="margin:0">你不知道学员店上跑的是哪套系统。云璟酒店集团 38 家在营门店就可能同时存在多套 PMS。教按钮，等于教了一条上任第一天就失效的知识。</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">2</span>原因二</div>
+      <p style="margin:0">同一套系统不同版本，菜单位置会变；同一版本不同门店的权限配置，可见菜单也会变。路径不可靠，<b>功能名与字段名</b>可靠。</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">3</span>原因三</div>
+      <p style="margin:0">《法典》判定表的输入是<b>字段值</b>（预测 OCC、Pickup 偏差、在手房晚），不是菜单。学会抓字段，换系统当天就能上岗。</p>
+    </div>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">系统无关的唯一写法</span>
+    <p><b>正确写法：</b>「在价格日历中，把目标日 SUP-K 房型的 BAR 从 ¥680 调整为 ¥748。」<br>
+    <b>错误写法：</b>「点击 Opera 的 Rate Grid 按钮，在第三列输入 748。」<br>
+    <b>判断标准：</b>把这句话拿给一个用西软的同事看，他能照做，就是系统无关；他问「按钮在哪」，就是系统有关。</p>
+  </div>
+
+  <h3>1.1 三层系统分工（先搞清楚去哪台系统找什么）</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 2-1　三层系统与职责边界<span class="cap-note">取数时先判断「这个字段属于哪一层」，再去对应系统，不要在所有系统里乱翻</span></caption>
+      <thead><tr><th>层级</th><th>通用名称</th><th>典型产品</th><th>它负责什么</th><th>它<b>不</b>负责什么</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>第一层</b></td>
+          <td>酒店管理系统 PMS<br>（Property Management System）</td>
+          <td>Opera、西软、绿云、盟广</td>
+          <td>订单、房态、房价码、客账、市场细分、渠道来源的<b>唯一权威记录</b></td>
+          <td>不做预测，不给调价建议</td>
+        </tr>
+        <tr>
+          <td><b>第二层</b></td>
+          <td>收益管理系统 RMS<br>（Revenue Management System）</td>
+          <td>IDeaS、Duetto</td>
+          <td>需求预测、价格建议、限制条件建议、Pickup 曲线</td>
+          <td>不是成交数据的权威源，最终以 PMS 为准</td>
+        </tr>
+        <tr>
+          <td><b>第三层</b></td>
+          <td>渠道后台<br>（OTA / 直销 / GDS）</td>
+          <td>携程 EBK、美团商家后台、飞猪、Booking、官网后台</td>
+          <td>挂牌价、库存配额、曝光/转化数据、点评分</td>
+          <td>不含本店真实成本与细分，不能替代 PMS 出报表</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">铁律：数字对不上时，以 PMS 为准</span>
+    <p>当 RMS 的预测在手房晚、OTA 后台的已售间夜、PMS 的报表三者不一致时，<b>一律以 PMS 导出的数据为准</b>，其余两者仅作参考。原因：只有 PMS 记录了取消、No-show、换房、冲销的完整流水。这条规则写入《调价台账》的数据来源栏。</p>
+  </div>
+
+  <h2 id="s2">二、四套编码体系：一条订单的完整身份证</h2>
+
+  <p>任何一笔订单，在 PMS 里都由四个编码共同描述。缺任何一个，这笔业务就无法被正确归因，后面所有的 OCC/ADR/渠道分析都会偏。</p>
+
+  <div class="flow">
+    <div class="flow-item"><div class="fi-t">房型代码</div><div class="fi-d">卖的是什么房间<br>例：SUP-K 高级大床房</div></div>
+    <div class="flow-arrow">＋</div>
+    <div class="flow-item"><div class="fi-t">价格代码</div><div class="fi-d">按什么价格规则卖<br>例：BAR 最优可用房价</div></div>
+    <div class="flow-arrow">＋</div>
+    <div class="flow-item"><div class="fi-t">市场细分</div><div class="fi-d">客人是谁<br>例：FIT-OTA OTA 散客</div></div>
+    <div class="flow-arrow">＋</div>
+    <div class="flow-item"><div class="fi-t">渠道代码</div><div class="fi-d">从哪条通路进来<br>例：OTA 国内（16% 成本）</div></div>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">四个编码常犯的一个错</span>
+    <p>把「市场细分」和「渠道」当成一回事。举例：一位协议公司员工通过携程预订——<b>市场细分是 CORP（人是谁），渠道是 OTA（从哪来，成本 16%）</b>。如果只记成 CORP，NRevPAR 会按 8% 成本算，实际是 16%，一进一出偏差 8 个百分点。<br>
+    <b>判定口诀：细分看「人」，渠道看「钱从哪条路进来」。</b></p>
+  </div>
+
+  <h2 id="s3">三、编码体系一：房型代码（云璟 10 个房型）</h2>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 2-2　杭州滨江云璟酒店房型代码表<span class="cap-note">数据来源：《SPEC》2.1。价差系数以高级房 SUP = 100 为基准，对应平峰 BAR ¥680</span></caption>
+      <thead>
+        <tr><th>房型代码</th><th>房型名称</th><th class="num">间数</th><th class="num">面积</th><th>床型</th><th class="num">标准 BAR（平峰）</th><th class="num">价差系数</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>STD-K</code></td><td>标准大床房</td><td class="num">70</td><td class="num">32㎡</td><td>1.8m 大床</td><td class="num">¥580</td><td class="num">85</td></tr>
+        <tr><td><code>STD-T</code></td><td>标准双床房</td><td class="num">50</td><td class="num">32㎡</td><td>1.2m×2</td><td class="num">¥580</td><td class="num">85</td></tr>
+        <tr><td><code>SUP-K</code></td><td>高级大床房</td><td class="num">60</td><td class="num">38㎡</td><td>1.8m 大床</td><td class="num">¥680</td><td class="num">100</td></tr>
+        <tr><td><code>SUP-T</code></td><td>高级双床房</td><td class="num">40</td><td class="num">38㎡</td><td>1.2m×2</td><td class="num">¥680</td><td class="num">100</td></tr>
+        <tr><td><code>DLX-K</code></td><td>豪华大床房</td><td class="num">45</td><td class="num">45㎡</td><td>2.0m 大床</td><td class="num">¥820</td><td class="num">120</td></tr>
+        <tr><td><code>DLX-V</code></td><td>豪华江景房</td><td class="num">15</td><td class="num">48㎡</td><td>2.0m 大床</td><td class="num">¥960</td><td class="num">140</td></tr>
+        <tr><td><code>EXE-K</code></td><td>行政大床房</td><td class="num">25</td><td class="num">45㎡</td><td>2.0m 大床</td><td class="num">¥990</td><td class="num">145</td></tr>
+        <tr><td><code>EXE-T</code></td><td>行政双床房</td><td class="num">5</td><td class="num">45㎡</td><td>1.2m×2</td><td class="num">¥990</td><td class="num">145</td></tr>
+        <tr><td><code>STE-B</code></td><td>商务套房</td><td class="num">8</td><td class="num">65㎡</td><td>2.0m 大床</td><td class="num">¥1,280</td><td class="num">180</td></tr>
+        <tr><td><code>STE-E</code></td><td>行政套房</td><td class="num">2</td><td class="num">88㎡</td><td>2.0m 大床</td><td class="num">¥1,880</td><td class="num">265</td></tr>
+        <tr><td colspan="2"><b>合计</b></td><td class="num"><b>320</b></td><td class="num">—</td><td>—</td><td class="num">—</td><td class="num">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">房型代码的 3 个取数纪律</span>
+    <p>1. <b>房型代码必须写全，不许简写。</b>「高级房」是 SUP-K + SUP-T 两个代码共 100 间，写「高级房」会让房晚统计差 40 间。<br>
+    2. <b>间数合计必须等于 320。</b>导出报表后先做合计校验，不等于 320 说明有房型被漏选或重复。<br>
+    3. <b>12 间无障碍连通房不单列房型代码。</b>它们分布在 STD 与 SUP 房型内，通过「房态属性/房间特征」字段标记，取数时用该属性过滤，不要自建房型代码。</p>
+  </div>
+
+  <h3>3.1 附加价格规则（影响价格代码落位，必须一并记录）</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 2-3　附加价格规则<span class="cap-note">数据来源：《SPEC》2.1 附加价格规则 + 表 F 附加项。调价落位时必须同步核对</span></caption>
+      <thead><tr><th>附加项</th><th>加价规则</th><th>记录字段</th></tr></thead>
+      <tbody>
+        <tr><td>高低层差价</td><td>同楼层、同朝向，高楼层 <span class="up">+5%</span></td><td>房间特征：高/低层</td></tr>
+        <tr><td>江景 vs 城景</td><td>江景 <span class="up">+10%</span></td><td>房间特征：江景/城景</td></tr>
+        <tr><td>含早</td><td><span class="up">+¥68/人</span>（自助早餐门市价 ¥128/人）</td><td>价格代码 BARB / 早餐份数字段</td></tr>
+        <tr><td>加床</td><td><span class="up">+¥180/晚</span>（含早）</td><td>加床标记字段</td></tr>
+        <tr><td>连通房</td><td><span class="up">+¥50</span></td><td>房间特征：连通</td></tr>
+        <tr><td>儿童政策</td><td>1.2m 以下不占床免费；1.2–1.4m 早餐半价</td><td>儿童数 / 早餐份数</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="s4">四、编码体系二：价格代码 Rate Code</h2>
+
+  <div class="callout callout-gold">
+    <span class="co-t">口径声明（务必阅读）</span>
+    <p>《SPEC》未逐条列举价格代码表。下表是按《SPEC》2.1 附加价格规则、2.3 客源结构与渠道成本、表 H 价格一致性红线<b>推导出的编码口径</b>，属于「编码命名规范」，<b>不是判定阈值</b>；与本店现有价格代码冲突时，以本店 PMS 现有代码为准，但<b>四套编码必须一一对应、不得多套并存</b>。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 2-4　价格代码表（Rate Code）<span class="cap-note">「挂牌范围」列直接对应《法典》表 H 价格一致性红线</span></caption>
+      <thead><tr><th>价格代码</th><th>名称</th><th>定价规则</th><th>挂牌范围</th><th>关联细分</th></tr></thead>
+      <tbody>
+        <tr><td><code>BAR</code></td><td>最优可用房价<br>Best Available Rate</td><td>公开可订的基准弹性价，所有折扣的锚点。平峰日 SUP-K/SUP-T = <b>¥680</b></td><td>全渠道公开</td><td>FIT-WI / FIT-DIR / FIT-OTA</td></tr>
+        <tr><td><code>BARB</code></td><td>含早价</td><td>BAR <span class="up">+¥68/人</span>（自助早餐门市价 ¥128/人）</td><td>全渠道公开</td><td>FIT-WI / FIT-DIR / FIT-OTA</td></tr>
+        <tr><td><code>MEMB</code></td><td>会员专享价</td><td>可低于 OTA 挂牌价</td><td><b>仅限登录会员可见</b>（表 H 红线）</td><td>LOY</td></tr>
+        <tr><td><code>CORP</code></td><td>协议公司价</td><td>按协议约定，需协议号</td><td>不公开，需协议号或公司邮箱验证</td><td>CORP</td></tr>
+        <tr><td><code>ADV</code></td><td>早鸟预付价</td><td>提前 N 天预订、预付、不可取消</td><td>直销为主（表 H「全开 + 早鸟」）</td><td>FIT-DIR / LOY</td></tr>
+        <tr><td><code>PKG</code></td><td>套餐价</td><td>房 + 餐 / 房 + 会 综合定价</td><td>直销 + OTA</td><td>FIT-DIR / FIT-OTA / GRP</td></tr>
+        <tr><td><code>GRP</code></td><td>团队价</td><td>须先走《法典》表 G 置换分析</td><td>不公开</td><td>GRP</td></tr>
+        <tr><td><code>LNG</code></td><td>长住价</td><td>长住客专属（表 H「&lt;55% → 长住/团购」）</td><td>不公开，需审批</td><td>LNG</td></tr>
+        <tr><td><code>COMP</code></td><td>免费房</td><td>收入 ¥0，计房晚不计 ADR 分母（M01 口径）</td><td>内部审批，不对外</td><td>内部</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">价格代码最容易出的三个事故</span>
+    <p>1. <b>BAR 只改了一个房型。</b>调 <span class="up">↑10%</span> 时只改了 SUP-K，忘了 SUP-T / DLX-K / EXE-K。后果：房型价差阶梯被破坏，触发《法典》表 F「相邻房型价差 &lt;8% → 拉开价差」。<b>处置：调价必须按《房型价差阶梯表》整表落位，逐个房型核对。</b><br>
+    2. <b>COMP 挂了 BAR 代码。</b>免费房用了 BAR 价格代码、收入填 ¥0。后果：ADR 分母虚增，ARI 被低估。<b>处置：凡是收入为 ¥0 的订单，价格代码必须是 COMP。</b><br>
+    3. <b>MEMB 未设登录可见。</b>会员价被未登录用户抓到并比价。后果：违反《法典》表 H 价格一致性红线，24 小时内必须整改并记入考核。<b>处置：每周一渠道开关复核时逐渠道验证一次会员价可见性。</b></p>
+  </div>
+
+  <h2 id="s5">五、编码体系三：市场细分代码</h2>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 2-5　市场细分代码与基线<span class="cap-note">数据来源：《SPEC》2.3 客源结构（按房晚）。「基线房晚占比」是判断结构是否失衡的对照值</span></caption>
+      <thead><tr><th>细分代码</th><th>市场细分</th><th class="num">基线房晚占比</th><th class="num">基线平均 ADR</th><th>结构失衡信号</th></tr></thead>
+      <tbody>
+        <tr><td><code>FIT-WI</code></td><td>上门散客（Walk-in）</td><td class="num">8%</td><td class="num">¥720</td><td>占比 &gt;12% 说明直销与 OTA 承接不足，客人在门口才订</td></tr>
+        <tr><td><code>FIT-DIR</code></td><td>官网 / 小程序直销</td><td class="num">17%</td><td class="num">¥650</td><td>占比 &lt;13% 说明直销被 OTA 侵蚀，NRevPAR 受损</td></tr>
+        <tr><td><code>FIT-OTA</code></td><td>OTA 散客</td><td class="num">31%</td><td class="num">¥598</td><td>占比 &gt;38% 说明渠道成本失控，走表 H 收缩</td></tr>
+        <tr><td><code>CORP</code></td><td>协议公司客户</td><td class="num">22%</td><td class="num">¥520</td><td>占比 &gt;30% 触发表 E「协议客户集中度 &gt;50%」前的预警，需核对集中度</td></tr>
+        <tr><td><code>LOY</code></td><td>会员（忠诚计划）</td><td class="num">12%</td><td class="num">¥580</td><td>占比 &lt;8% 说明会员转化不足</td></tr>
+        <tr><td><code>GRP</code></td><td>团队（旅游 / 会议）</td><td class="num">8%</td><td class="num">¥450</td><td>占比 &gt;15% 且未走表 G 置换分析，属于重大风险</td></tr>
+        <tr><td><code>LNG</code></td><td>长住客</td><td class="num">2%</td><td class="num">¥380</td><td>占比 &gt;5% 会挤占弹性需求，需 L3 复核</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">细分代码不是「随便选一个」</span>
+    <p>细分代码决定三件事：① 该笔房晚计入哪个细分占比；② 该笔业务是否触发置换分析（GRP 必查表 G）；③ 该笔业务走哪条渠道成本（影响 NRevPAR）。<br>
+    <b>冲突判定：当一笔订单同时符合两个细分时，按「更严格」的一个归类。</b>例：一位协议公司客人以团队形式预订 12 间 → 归 <code>GRP</code>（因为 GRP 需要走表 G 置换分析，更严格），不归 <code>CORP</code>。</p>
+  </div>
+
+  <h2 id="s6">六、编码体系四：渠道代码</h2>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 2-6　渠道代码与综合成本率<span class="cap-note">数据来源：《SPEC》2.3 渠道成本表。算 NRevPAR 与做表 H 渠道开关时直接取用</span></caption>
+      <thead><tr><th>渠道代码</th><th>渠道</th><th class="num">综合成本率</th><th>典型系统</th><th>《法典》表 H 中的角色</th></tr></thead>
+      <tbody>
+        <tr><td><code>DIR</code></td><td>直销（官网 / 小程序 / 前台）</td><td class="num">3%</td><td>官网后台 / PMS 前台</td><td>任何档位均「全开」</td></tr>
+        <tr><td><code>LOY</code></td><td>会员直订</td><td class="num">4%</td><td>小程序会员中心</td><td>高 OCC 时「全开 + 会员专享价」</td></tr>
+        <tr><td><code>CORP</code></td><td>协议公司（含返佣 / 账期）</td><td class="num">8%</td><td>PMS 协议档案</td><td>不属表 H 管理，由销售部管</td></tr>
+        <tr><td><code>OTA</code></td><td>OTA 国内（携程 / 美团 / 飞猪）</td><td class="num">16%</td><td>携程 EBK / 美团商家后台 / 飞猪</td><td>随 OCC 从「全开 + 深折」收缩到「仅留 1 家」</td></tr>
+        <tr><td><code>OTA-I</code></td><td>OTA 国际（Booking / Agoda）</td><td class="num">18%</td><td>Booking Extranet / Agoda YCS</td><td>OCC ≥95% 时关闭</td></tr>
+        <tr><td><code>GDS</code></td><td>GDS / 商旅 TMC</td><td class="num">13%</td><td>GDS 终端 / TMC 平台</td><td>OCC ≥95% 时关闭</td></tr>
+        <tr><td><code>WHO</code></td><td>批发商 / 包房商</td><td class="num">26%</td><td>批发商后台 / 包房合同</td><td>成本最高，OCC ≥90% 即关闭；<b>净价不得公开挂牌</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">渠道代码的红线（来自《法典》表 H）</span>
+    <p>1. <b>直销价不得高于任一 OTA 挂牌价</b>（直销价 ≤ OTA 价 × 100%）。<br>
+    2. <b>会员价可低于 OTA 价，但仅限登录会员可见。</b><br>
+    3. <b>批发商 / 包房价为净价，不得公开挂牌。</b><br>
+    4. 违反一致性：<b>24 小时内整改并记入考核</b>。（完整 6 步核查见 M03）</p>
+  </div>
+
+  <h2 id="s7">七、主流系统操作路径映射表（10 个通用动作 × 8 类系统）</h2>
+
+  <div class="callout callout-warn">
+    <span class="co-t">使用说明（必须读完再用表）</span>
+    <p>1. 下表路径为各系统<b>典型版本</b>的菜单位置，不同版本、不同门店权限会有差异。<b>路径只是「第一次定位用」，定位到之后请记住功能名与字段名，而不是记住路径。</b><br>
+    2. 若按路径找不到：<b>先在系统内搜索功能名关键词</b>（如搜「房价」「Restrictions」「Stop Sell」）→ 再问门店系统管理员 → 找到后<b>把本店实际路径补写进本表空白处</b>，形成本店版本。<br>
+    3. 本表不构成任何系统厂商的操作承诺，一切以厂商官方文档为准。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 2-7　主流系统操作路径映射表<span class="cap-note">行＝通用动作（系统无关），列＝具体系统（仅供首次定位）</span></caption>
+      <thead>
+        <tr>
+          <th>通用动作</th><th>Opera</th><th>西软</th><th>绿云</th><th>盟广</th><th>IDeaS</th><th>Duetto</th><th>携程 EBK</th><th>美团商家后台</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>① 打开价格日历</b><br><span class="cap-note">查/改某日某房型 BAR</span></td>
+          <td>Rate Management → Rate Calendar / Rate Grid</td>
+          <td>房价管理 → 房价计划 → 房价日历</td>
+          <td>收益管理 → 房价日历</td>
+          <td>价格中心 → 价格日历</td>
+          <td>Rate &amp; Demand → Rate Recommendation</td>
+          <td>GameChanger → Rates</td>
+          <td>房价房态 → 房价维护</td>
+          <td>房价房态 → 价格日历</td>
+        </tr>
+        <tr>
+          <td><b>② 导出房晚报表</b><br><span class="cap-note">昨日经营数据</span></td>
+          <td>Reports → Report Explorer → Daily Revenue / Occupancy Statistics</td>
+          <td>报表中心 → 经营报表 → 营业日报</td>
+          <td>数据中心 → 报表 → 经营日报表</td>
+          <td>数据中心 → 经营日报</td>
+          <td>Reports → Report Library → Performance</td>
+          <td>Analytics → Reports</td>
+          <td>数据中心 → 经营数据 → 间夜/成交额</td>
+          <td>经营数据 → 数据报表 → 营业概况</td>
+        </tr>
+        <tr>
+          <td><b>③ 设置 MinLOS</b><br><span class="cap-note">最少住期</span></td>
+          <td>Rate Management → Restrictions → Min Length of Stay</td>
+          <td>房态控制 → 限制条件 → 最少入住天数</td>
+          <td>房态 → 销售控制 → 最少连住</td>
+          <td>库存 → 限制条件 → MinLOS</td>
+          <td>Strategy → Restrictions（输出至 PMS）</td>
+          <td>Strategy → Restrictions（输出至 PMS）</td>
+          <td>房价房态 → 预订规则 → 最少入住晚数</td>
+          <td>房价房态 → 预订规则 → 连住设置</td>
+        </tr>
+        <tr>
+          <td><b>④ 关闭渠道（Stop Sell）</b></td>
+          <td>Availability / Rate Management → Stop Sell（按渠道设置）</td>
+          <td>渠道管理 → 停售设置</td>
+          <td>渠道 → 房态控制 → 停售</td>
+          <td>渠道管理 → 停售</td>
+          <td>不直接控制，输出建议至 PMS / 渠道管理器</td>
+          <td>不直接控制，输出建议至 PMS / 渠道管理器</td>
+          <td>房价房态 → 房态维护 → 关房</td>
+          <td>房价房态 → 房态维护 → 停售</td>
+        </tr>
+        <tr>
+          <td><b>⑤ 设置 CTA</b><br><span class="cap-note">Closed to Arrival 不可入住</span></td>
+          <td>Restrictions → Closed to Arrival</td>
+          <td>房态控制 → 限制条件 → 不可入住</td>
+          <td>房态 → 销售控制 → CTA</td>
+          <td>库存 → 限制条件 → CTA</td>
+          <td>Strategy → Restrictions</td>
+          <td>Strategy → Restrictions</td>
+          <td>房价房态 → 预订规则 → 不可入住</td>
+          <td>房价房态 → 预订规则 → 不可入住</td>
+        </tr>
+        <tr>
+          <td><b>⑥ 查看在手预订与 Pickup</b></td>
+          <td>Reports → Business on Hand / Pickup Report</td>
+          <td>报表中心 → 预订报表 → 在手预订</td>
+          <td>数据中心 → 预订分析 → 在手</td>
+          <td>数据中心 → 预订在手</td>
+          <td>Forecast → Business on Hand / Pickup</td>
+          <td>Analytics → Booking Curve</td>
+          <td>数据中心 → 预订数据</td>
+          <td>经营数据 → 预订数据</td>
+        </tr>
+        <tr>
+          <td><b>⑦ 设置超额预订</b></td>
+          <td>Availability → Overbooking（按房型设上限）</td>
+          <td>房态控制 → 超额预订设置</td>
+          <td>房态 → 超售设置</td>
+          <td>库存 → 超额预订</td>
+          <td>输出建议至 PMS</td>
+          <td>输出建议至 PMS</td>
+          <td>不支持（渠道侧无超售概念）</td>
+          <td>不支持（渠道侧无超售概念）</td>
+        </tr>
+        <tr>
+          <td><b>⑧ 查订单的细分与渠道代码</b></td>
+          <td>Reservation → 打开订单 → Market Segment / Source</td>
+          <td>预订 → 订单详情 → 客源类别 / 来源</td>
+          <td>预订 → 订单详情 → 市场细分 / 渠道</td>
+          <td>订单 → 详情 → 细分 / 渠道</td>
+          <td>不存订单</td>
+          <td>不存订单</td>
+          <td>订单管理 → 订单详情</td>
+          <td>订单管理 → 订单详情</td>
+        </tr>
+        <tr>
+          <td><b>⑨ 导出渠道产量 / 客源结构</b></td>
+          <td>Reports → Statistics → Source / Market Segment Statistics</td>
+          <td>报表中心 → 客源分析</td>
+          <td>数据中心 → 客源结构</td>
+          <td>数据中心 → 渠道产量</td>
+          <td>Reports → Channel / Segment</td>
+          <td>Analytics → Segment</td>
+          <td>数据中心 → 渠道分析</td>
+          <td>经营数据 → 渠道分析</td>
+        </tr>
+        <tr>
+          <td><b>⑩ 团队/协议置换审批留痕</b></td>
+          <td>Business Block → 备注 + 审批附件</td>
+          <td>团队管理 → 审批流</td>
+          <td>团队 → 审批记录</td>
+          <td>团队 → 审批记录</td>
+          <td>不支持（走线下《团队决策档案》）</td>
+          <td>不支持（走线下《团队决策档案》）</td>
+          <td>不适用</td>
+          <td>不适用</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-do">
+    <span class="co-t">本表的使用方式：先查行，再查列</span>
+    <p>拿到一个任务，比如「把 10 月 15 日 SUP-K 的 BAR 从 ¥680 调到 ¥748」：<br>
+    ① 判断属于哪个<b>通用动作</b> → ① 打开价格日历；<br>
+    ② 在本店所用的系统列（假设是绿云）查到路径 →「收益管理 → 房价日历」；<br>
+    ③ 进去后按<b>字段名</b>定位：目标日期、房型代码 SUP-K、价格代码 BAR、金额；<br>
+    ④ 落位完成后截图存证，截图需包含<b>日期、房型、价格代码、修改前后金额</b>四项。</p>
+  </div>
+
+  <h2 id="s8">八、《每日取数清单》：28 个字段 / 来源 / 格式 / 截止时间</h2>
+
+  <p>《每日取数清单》是四步闭环里「看数」这一步的唯一作业指导。原则：<strong>不多抓一个字段，不少抓一个字段</strong>。多抓浪费时间（表 M 每个时段都有耗时上限），少抓会导致查表输入缺失。</p>
+
+  <h3>8.1 三个取数时段（来自《法典》表 M）</h3>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-time">07:30　耗时上限 20 min</div>
+      <div class="tl-body"><b>抓取昨日经营数据</b> → 产出《每日收益数据包》。字段共 14 项（见 8.2）。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">07:50　耗时上限 20 min</div>
+      <div class="tl-body"><b>抓取未来 30 天在手 + Pickup</b> → 产出 Pickup 表更新。字段共 8 项（见 8.3）。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">08:10　耗时上限 20 min</div>
+      <div class="tl-body"><b>采集竞争组合 5 家价格</b> → 产出比价表更新。字段共 6 项（见 8.4）。</div>
+    </div>
+  </div>
+
+  <h3>8.2 时段一：昨日经营数据（14 个字段）</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 2-8　昨日经营数据字段清单<span class="cap-note">来源层级：P = PMS，R = RMS，F = 财务，O = OTA 后台</span></caption>
+      <thead><tr><th class="num">#</th><th>字段</th><th>来源</th><th>格式</th><th>为什么必须抓（不抓会怎样）</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>统计日期</td><td>P</td><td>YYYY-MM-DD</td><td>缺了无法与去年同期对齐，Pickup 偏差算不出来</td></tr>
+        <tr><td class="num">2</td><td>总房量</td><td>P</td><td>整数</td><td>云璟固定 320，但装修期会变，必须每日取实际值</td></tr>
+        <tr><td class="num">3</td><td>OOO 房晚</td><td>P</td><td>整数</td><td>不抓则 OCC 分母错（M01 陷阱 1）</td></tr>
+        <tr><td class="num">4</td><td>可售房晚</td><td>P</td><td>整数</td><td>= 字段 2 − 字段 3，OCC / RevPAR / TrevPAR / GOPPAR 的共同分母</td></tr>
+        <tr><td class="num">5</td><td>已售房晚</td><td>P</td><td>整数</td><td>OCC 分子、ADR 分母的基数</td></tr>
+        <tr><td class="num">6</td><td>免费房房晚（Comp）</td><td>P</td><td>整数</td><td>不抓则 ADR 分母错（M01 陷阱 2）</td></tr>
+        <tr><td class="num">7</td><td>自用房房晚（House Use）</td><td>P</td><td>整数</td><td>同上</td></tr>
+        <tr><td class="num">8</td><td>客房收入</td><td>F / P</td><td>元，一位小数</td><td>RevPAR / ADR 分子；口径：含服务费、不含增值税</td></tr>
+        <tr><td class="num">9</td><td>餐饮收入</td><td>F</td><td>元，一位小数</td><td>TrevPAR 分子；全服务酒店必看（云璟餐饮占总营收 33.8%）</td></tr>
+        <tr><td class="num">10</td><td>其他收入</td><td>F</td><td>元，一位小数</td><td>TrevPAR 分子</td></tr>
+        <tr><td class="num">11</td><td>GOP</td><td>F</td><td>元，一位小数</td><td>GOPPAR 分子；最终考核指标</td></tr>
+        <tr><td class="num">12</td><td>分渠道房晚（7 个渠道代码）</td><td>P</td><td>整数 × 7</td><td>NRevPAR 唯一输入；不抓则无法判断渠道成本是否失控</td></tr>
+        <tr><td class="num">13</td><td>分房型房晚（10 个房型代码）</td><td>P</td><td>整数 × 10</td><td>房型结构诊断（表 F 价差校验）、升级与置换分析基础</td></tr>
+        <tr><td class="num">14</td><td>分市场细分房晚 + 收入（7 个细分代码）</td><td>P</td><td>整数 + 元 × 7</td><td>客源结构诊断；结构失衡信号对照（表 2-5）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>8.3 时段二：未来 30 天在手 + Pickup（8 个字段）</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 2-9　在手与 Pickup 字段清单<span class="cap-note">这是《法典》表 A 两个输入的唯一来源，缺一不可</span></caption>
+      <thead><tr><th class="num">#</th><th>字段</th><th>来源</th><th>格式</th><th>为什么必须抓</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>目标日期（未来 30 天逐日）</td><td>P / R</td><td>YYYY-MM-DD × 30</td><td>逐日查表的基础，30 天一行不能少</td></tr>
+        <tr><td class="num">2</td><td>当日可售房晚</td><td>P</td><td>整数</td><td>预测 OCC 的分母</td></tr>
+        <tr><td class="num">3</td><td>当前在手房晚（On the Books）</td><td>P / R</td><td>整数</td><td><b>表 A 输入 1 的分子、输入 2 的被减数</b></td></tr>
+        <tr><td class="num">4</td><td>去年同期同一提前窗口在手房晚</td><td>P / R</td><td>整数</td><td><b>表 A 输入 2 的分母</b>，写反了符号就反了</td></tr>
+        <tr><td class="num">5</td><td>Pickup 绝对增量（近 24h 新增房晚）</td><td>P / R</td><td>整数（可为负）</td><td>画预订曲线；触发表 I 各窗口落后阈值</td></tr>
+        <tr><td class="num">6</td><td>预测增量房晚（Remaining Demand 预测值）</td><td>R</td><td>整数</td><td>预测 OCC =（在手 + 预测增量）÷ 可售</td></tr>
+        <tr><td class="num">7</td><td>需求等级代号（D1/D2/D3/D4）</td><td>日历</td><td>PEAK / HIGH / SHOULDER / LOW</td><td>表 A「触及 D1 峰值日的调价必须 L3 审批」的判定依据</td></tr>
+        <tr><td class="num">8</td><td>当前 BAR（分房型）</td><td>P</td><td>元 × 10</td><td>调价动作的起点值；不抓则算不出新价格</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>8.4 时段三：竞争组合 5 家价格（6 个字段 × 5 家）</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 2-10　竞争组合比价字段清单<span class="cap-note">5 家竞对：A 江畔万枫、B 滨江希尔顿花园、C 钱塘智选假日、D 星光开元名都、E 云栖亚朵 S</span></caption>
+      <thead><tr><th class="num">#</th><th>字段</th><th>来源</th><th>格式</th><th>为什么必须抓</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>采集时间戳</td><td>人工</td><td>YYYY-MM-DD HH:mm</td><td>同日多次调价的先后依据；也是整改留痕证据</td></tr>
+        <tr><td class="num">2</td><td>竞对名称 + 房量</td><td>固定表</td><td>文本 + 整数</td><td>加权平均的权重来源（A 280 / B 240 / C 300 / D 350 / E 200）</td></tr>
+        <tr><td class="num">3</td><td>对标房型挂牌价</td><td>OTA / 官网</td><td>元，一位小数</td><td><b>必须与本店 SUP-K 同档位</b>（标准/高级/豪华不可混采）</td></tr>
+        <tr><td class="num">4</td><td>含早状态</td><td>OTA / 官网</td><td>含早 / 不含早</td><td>口径不一致会让 ARI 偏离 10 个点以上</td></tr>
+        <tr><td class="num">5</td><td>取消政策</td><td>OTA / 官网</td><td>免费取消 / 不可取消</td><td>不可取消价天然更低，不标注会误判 ARI 偏低</td></tr>
+        <tr><td class="num">6</td><td>是否可售（Sold Out 标记）</td><td>OTA / 官网</td><td>是 / 否</td><td>竞对满房时其挂牌价无参考意义，须剔除后重算加权均价</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">比价采集的两条硬约束</span>
+    <p>1. <b>五家必须同一时间窗采集</b>（08:10–08:30 内完成）。跨天采集的价格不能放同一张比价表。<br>
+    2. <b>竞争组合加权均价按房量加权</b>，不是简单平均。平峰基准加权均价为 <b>¥680</b>（《SPEC》2.4），本店目标 ARI ≈ 100、MPI ≥ 105。若某次算出的加权均价与 ¥680 偏离超过 8%，先怀疑采集口径，再怀疑市场。</p>
+  </div>
+
+  <h3>8.5 每日取数清单（可勾选执行版）</h3>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">☑</span>《每日取数清单》· 执行版</div>
+
+    <h4>时段一 · 07:30 前完成（耗时上限 20 min）</h4>
+    <ul class="checklist">
+      <li>PMS 导出昨日房晚统计，确认总房量 − OOO = 可售房晚，且房型间数合计 = 320</li>
+      <li>PMS 导出昨日 Comp / House Use 房晚，与已售房晚核对（Comp + House Use ≤ 已售）</li>
+      <li>财务系统取昨日客房收入 / 餐饮收入 / 其他收入 / GOP，口径确认：含服务费、不含增值税</li>
+      <li>PMS 导出分渠道房晚（DIR / LOY / CORP / OTA / OTA-I / GDS / WHO），7 项合计 = 已售房晚</li>
+      <li>PMS 导出分房型房晚（10 个代码），合计 = 已售房晚</li>
+      <li>PMS 导出分市场细分房晚 + 收入（7 个代码），房晚合计 = 已售房晚，收入合计 = 客房收入</li>
+      <li>数据在 07:50 前录入《每日收益数据包》，<b>不得手工转录数字</b>（一律系统导出 CSV 或截图）</li>
+    </ul>
+
+    <h4>时段二 · 07:50 前完成（耗时上限 20 min）</h4>
+    <ul class="checklist">
+      <li>PMS / RMS 导出未来 30 天逐日在手房晚（On the Books）</li>
+      <li>导出去年同期同一提前窗口在手房晚（30 天，逐日对齐）</li>
+      <li>计算 30 天逐日 Pickup 偏差，标记落后 / 领先及幅度（保留一位小数）</li>
+      <li>导出近 24h Pickup 绝对增量（可为负）</li>
+      <li>RMS 导出各目标日预测增量房晚，算出预测 OCC =（在手 + 预测增量）÷ 可售</li>
+      <li>标注 30 天中每一天的 D1/D2/D3/D4 需求等级（对照《SPEC》2.5 需求日历与年度月度基准）</li>
+      <li>导出当前 10 个房型的 BAR，作为调价起点值</li>
+    </ul>
+
+    <h4>时段三 · 08:10 前完成（耗时上限 20 min）</h4>
+    <ul class="checklist">
+      <li>同一时间窗内采集 5 家竞对对标房型挂牌价（与 SUP-K 同档位）</li>
+      <li>逐家记录含早状态、取消政策、是否售罄</li>
+      <li>剔除售罄竞对后，按房量加权算出竞争组合加权 ADR</li>
+      <li>算出本店 ARI / MPI / RGI，用恒等式 RGI = MPI × ARI ÷ 100 验算</li>
+      <li>比价表更新完成，进入 08:30 查表环节</li>
+    </ul>
+
+    <p class="card-note">交付纪律：三个时段全部完成后，《每日收益数据包》《Pickup 表》《比价表》三份文件在 08:30 前必须处于可查阅状态，否则表 M 中 08:30 的查表动作无法按时启动。任一时段超时，必须在《调价台账》备注栏写明超时原因与时长。</p>
+  </div>
+
+  <h2 id="s9">九、数据一致性自检：4 条恒等式</h2>
+
+  <p>取完数、查表之前，必须先跑这 4 条自检。<strong>任何一条不成立，禁止进入查表环节</strong>——因为带着脏数据查表得出的动作，比不查表更危险。</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 2-11　数据一致性 4 条恒等式<span class="cap-note">「不等时的排查顺序」列是执行动作，按顺序走，不要跳</span></caption>
+      <thead><tr><th class="num">#</th><th>恒等式</th><th>不等时的排查顺序</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td>
+          <td>已售房晚 = Σ10 个房型房晚 = Σ7 个渠道房晚 = Σ7 个细分房晚</td>
+          <td>① 检查导出时是否漏选房型/渠道；② 检查是否有订单缺失渠道或细分字段（空值）；③ 检查 Comp / House Use 是否被同时计入两个渠道</td>
+        </tr>
+        <tr>
+          <td class="num">2</td>
+          <td>客房收入 = Σ7 个细分收入</td>
+          <td>① 检查是否有收入未分摊到细分（挂「其他/未分类」）；② 检查包名拆分（PKG 套餐的客房部分是否单独拆出）；③ 与财务科目余额核对</td>
+        </tr>
+        <tr>
+          <td class="num">3</td>
+          <td>可售房晚 = 总房量 − OOO 房晚；且 已售房晚 ≤ 可售房晚（未超售时）</td>
+          <td>① 检查 OOO 是否取当日实际值（不是沿用昨天）；② 若已售 &gt; 可售，检查是否开启了超售，超售间数是否符合《法典》表 E</td>
+        </tr>
+        <tr>
+          <td class="num">4</td>
+          <td>RGI = MPI × ARI ÷ 100（误差 ≤ 0.2）</td>
+          <td>① 检查三个指数是否用了同一天、同一口径；② 检查竞对 OCC 是否为实测值而非估算；③ 检查 RevPAR 分母是否误用已售房晚</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="s10">十、5 类脏数据：症状 / 排查 / 处置 / 留痕</h2>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 2-12　5 类脏数据排查手册<span class="cap-note">「留痕」列是硬要求：任何数据修正如果不留痕，30 天后复盘就无法解释数字为什么变了</span></caption>
+      <thead><tr><th>类型</th><th>症状（看到什么）</th><th>排查方法（查哪些字段）</th><th>处置动作</th><th>留痕</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>① 重复订单</b></td>
+          <td>同一目标日在手房晚虚高；同一客人出现两笔订单；Pickup 某日突然正增长后次日等量回落</td>
+          <td>按「客人姓名 + 入住日 + 房型代码 + 离店日」四字段分组，计数 &gt; 1 即为疑似重复；再核对创建时间与订单号</td>
+          <td><b>不物理删除。</b>保留最早创建的一笔为有效订单，其余标记「重复 Dup」，从在手统计中剔除；通知预订部核实是否会实际到店</td>
+          <td>《数据修正记录》：订单号、重复原因、处置时间、操作人；写入当日《每日收益数据包》备注</td>
+        </tr>
+        <tr>
+          <td><b>② 负房晚</b></td>
+          <td>某日房晚为负；某房型房晚为负；月度合计与日报累加不一致</td>
+          <td>筛「房晚 &lt; 0」的记录；再筛「离店日 &lt; 入住日」；再查是否跨月冲销（上月预订本月取消 / 上月入住本月退房）</td>
+          <td>① 跨月冲销属正常，标记为「跨期调整」不计入脏数据；② 数据录入错误导致的负值，由预订部更正订单日期后重导；③ 当日修正后重算 OCC/ADR</td>
+          <td>《数据修正记录》：负值订单号、判定为「跨期」或「错误」、修正后数值</td>
+        </tr>
+        <tr>
+          <td><b>③ 渠道错配</b></td>
+          <td>某渠道房晚占比与上月基线偏离 &gt;5 个百分点；NRevPAR 与财务佣金支出对不上</td>
+          <td>做「细分 × 渠道」交叉表，找出逻辑不成立的组合：<br>· <code>FIT-OTA</code> 挂 <code>DIR</code> 渠道 ✗<br>· <code>CORP</code> 挂 <code>OTA</code> 渠道 ✗（成本率被高估）<br>· <code>LOY</code> 挂 <code>OTA</code> 渠道 ✗</td>
+          <td>批量核对后由预订部更正渠道字段；更正后重算渠道综合成本率与 NRevPAR；若 NRevPAR 变动 &gt;2%，当日《调价台账》需补记说明</td>
+          <td>《数据修正记录》：错配订单数、涉及房晚、成本率修正前后值</td>
+        </tr>
+        <tr>
+          <td><b>④ 免费房混入</b></td>
+          <td>ADR 单日莫名下滑；收入为 ¥0 但价格代码是 BAR；或价格代码是 COMP 但收入 &gt; 0</td>
+          <td>筛「收入 = 0 且价格代码 ≠ COMP」→ 漏标；筛「价格代码 = COMP 且收入 &gt; 0」→ 错标。两种情况都要修</td>
+          <td>漏标的补改为 <code>COMP</code> 代码；错标的核实后改为对应付费代码。修正后按 M01 口径重算 ADR（付费房晚）与含 Comp 对照值</td>
+          <td>《数据修正记录》：订单号、修正前后价格代码、对 ADR 的影响金额</td>
+        </tr>
+        <tr>
+          <td><b>⑤ 团队拆分</b></td>
+          <td>某日 FIT 散客占比突然飙升；多个订单同一公司名/同一团号；同一入住日多笔 5 间以下的「散客」订单集中出现</td>
+          <td>按「公司名称 + 团号 + 入住日」分组，若合计 ≥ 10 间且预订人相同 → 判定为拆分团队；再核对是否走了《法典》表 G 置换分析</td>
+          <td>合并为 <code>GRP</code> 细分并补做置换分析；<b>若已在手且未做置换分析，立即上报 L3</b>（因为表 G 的接受/拒绝结论可能被绕过）；重算该日散客真实可售量与预测 OCC</td>
+          <td>《团队决策档案》补录 + 《数据修正记录》；涉及表 G 结论的一并写入《调价台账》备注栏</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">脏数据的共同危害：它们全都会污染《法典》表 A 的输入</span>
+    <p>· 重复订单 → 在手房晚虚高 → Pickup 偏差虚高 → 本该降价却读成「维持」或「提价」。<br>
+    · 团队拆分 → 散客可售量虚低 → 预测 OCC 虚高 → 落错表 A 的行。<br>
+    · 渠道错配 → NRevPAR 错 → 表 H 渠道开关判错。<br>
+    · 免费房混入 → ADR 与 ARI 错 → 表 C 判错。<br>
+    <b>结论：取数环节省下的 10 分钟，会在执行环节用 10 倍的价格错误偿还。</b></p>
+  </div>
+
+  <!-- ===== 讲师示范 ===== -->
+  <h2 id="demo">十一、讲师示范：一次完整的每日取数（含脏数据修正）</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">▶</span>示范 · 10 月 16 日（周四）上午的完整取数过程</div>
+
+    <h4>07:30 · 抓取昨日（10 月 15 日）经营数据</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">PMS 导出</div><div class="kv-v">总房量 320、OOO 8、可售房晚 312、已售房晚 234、Comp 6、House Use 2</div></div>
+      <div class="kv-row"><div class="kv-k">财务系统</div><div class="kv-v">客房收入 ¥163,800、餐饮收入 ¥78,000、其他收入 ¥8,400、GOP ¥87,360</div></div>
+      <div class="kv-row"><div class="kv-k">渠道导出</div><div class="kv-v">DIR 70 / LOY 24 / CORP 46 / OTA 70 / OTA-I 0 / GDS 24 / WHO 0 = <b>234</b> ✓ 与已售房晚一致</div></div>
+      <div class="kv-row"><div class="kv-k">房型导出</div><div class="kv-v">STD-K 58 / STD-T 40 / SUP-K 46 / SUP-T 30 / DLX-K 28 / DLX-V 9 / EXE-K 16 / EXE-T 2 / STE-B 4 / STE-E 1 = <b>234</b> ✓</div></div>
+      <div class="kv-row"><div class="kv-k">细分导出</div><div class="kv-v">FIT-WI 16 / FIT-DIR 42 / FIT-OTA 78 / CORP 52 / LOY 28 / GRP 14 / LNG 4 = <b>234</b> ✓</div></div>
+    </div>
+
+    <h4>发现问题一：细分收入合计对不上</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">症状</div><div class="kv-v">7 个细分收入合计 = ¥161,200，但财务客房收入 = ¥163,800，差 <b>¥2,600</b></div></div>
+      <div class="kv-row"><div class="kv-k">排查</div><div class="kv-v">按恒等式 2 的排查顺序：① 查是否有收入挂「未分类」→ 找到 4 间房晚 ¥2,600 挂「其他/未分类」细分；② 查订单明细 → 这 4 间为 LONG STAY 长住客，预订部漏选细分代码</div></div>
+      <div class="kv-row"><div class="kv-k">处置</div><div class="kv-v">更正为 <code>LNG</code> 细分（4 间房晚）。重算后 LNG = 8 间，细分收入合计 = ¥163,800 ✓</div></div>
+      <div class="kv-row"><div class="kv-k">留痕</div><div class="kv-v">《数据修正记录》第 2026-1016-01 条：未分类收入 ¥2,600 / 4 间房晚，更正为 LNG，操作人：收益专员 XXX，07:41</div></div>
+    </div>
+
+    <h4>发现问题二：免费房漏标</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">症状</div><div class="kv-v">筛「收入 = ¥0」的订单共 8 间，但价格代码为 COMP 的只有 6 间</div></div>
+      <div class="kv-row"><div class="kv-k">排查</div><div class="kv-v">逐单核对，发现 2 间自用房（工程部驻场用房）价格代码挂了 <code>BAR</code>，收入 ¥0</div></div>
+      <div class="kv-row"><div class="kv-k">处置</div><div class="kv-v">更正为 <code>COMP</code> 代码。按 M01 口径重算：付费房晚 = 234 − 6 − 2 = 226，ADR = 163,800 ÷ 226 = <b>¥724.8</b>（修正前若按 228 算为 ¥718.4，虚低 <b>¥6.4</b>）</div></div>
+      <div class="kv-row"><div class="kv-k">留痕</div><div class="kv-v">《数据修正记录》第 2026-1016-02 条：2 间自用房价格代码 BAR → COMP，ADR 由 ¥718.4 修正为 ¥724.8</div></div>
+    </div>
+
+    <h4>07:50 · 抓取未来 30 天在手 + Pickup</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">目标日</div><div class="kv-v">10 月 30 日（周四，D3 平峰日）</div></div>
+      <div class="kv-row"><div class="kv-k">当前在手</div><div class="kv-v">187 间</div></div>
+      <div class="kv-row"><div class="kv-k">去年同期同窗口在手</div><div class="kv-v">199 间</div></div>
+      <div class="kv-row"><div class="kv-k">Pickup 偏差</div><div class="kv-v">(187 − 199) ÷ 199 × 100% = <b>落后 6.0%</b></div></div>
+      <div class="kv-row"><div class="kv-k">预测增量</div><div class="kv-v">57 间</div></div>
+      <div class="kv-row"><div class="kv-k">预测 OCC</div><div class="kv-v">（187 + 57）÷ 312 = 244 ÷ 312 = <b>78.2%</b></div></div>
+    </div>
+
+    <h4>发现问题三：疑似团队拆分</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">症状</div><div class="kv-v">10 月 30 日在手中，<code>FIT-DIR</code> 细分突然出现 5 笔 4 间的订单，预订人均为「杭州某某科技」，合计 20 间</div></div>
+      <div class="kv-row"><div class="kv-k">排查</div><div class="kv-v">按「公司名称 + 入住日」分组，合计 20 间 ≥ 10 间且预订人相同 → 判定为拆分团队</div></div>
+      <div class="kv-row"><div class="kv-k">处置</div><div class="kv-v">① 合并为 <code>GRP</code> 细分上报 L3；② 该 20 间此前<b>未走《法典》表 G 置换分析</b>，属流程绕过，立即补做：团队报价 ÷ 预期散客 ADR，若 R 落在「65% ≤ R &lt; 75%」且预测 OCC 78.2%（属 70–85% 列）→ 表 G 结论为「上报 L3」；③ 重算该日散客可售量：312 − 20 = 292 间，散客预测 OCC =（167 + 57）÷ 292 = <b>76.7%</b>（原 78.2% 高估 1.5 个百分点）</div></div>
+      <div class="kv-row"><div class="kv-k">留痕</div><div class="kv-v">《团队决策档案》补录 + 《数据修正记录》第 2026-1016-03 条 + 《调价台账》备注栏注明「10-30 预测 OCC 由 78.2% 修正为 76.7%，原因：拆分团队 20 间并入 GRP」</div></div>
+    </div>
+
+    <h4>08:10 · 采集竞争组合 5 家价格</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">采集</div><div class="kv-v">08:12–08:28 同一时间窗内完成 5 家采集，均取对标 SUP-K 的「高级大床房 · 不含早 · 免费取消」价</div></div>
+      <div class="kv-row"><div class="kv-k">原始价</div><div class="kv-v">A ¥650（280 间）／B ¥690（240 间）／C ¥560（300 间）／D ¥880（350 间）／E ¥620（200 间）</div></div>
+      <div class="kv-row"><div class="kv-k">加权计算</div><div class="kv-v">（650×280 + 690×240 + 560×300 + 880×350 + 620×200）÷（280+240+300+350+200）<br>=（182,000 + 165,600 + 168,000 + 308,000 + 124,000）÷ 1,370 = 947,600 ÷ 1,370 = <b>¥691.7</b></div></div>
+      <div class="kv-row"><div class="kv-k">口径校验</div><div class="kv-v">¥691.7 与《SPEC》平峰加权均价 ¥680 偏离 (691.7−680)÷680 = <span class="up">↑1.7%</span>，未超 8% 阈值 → 采集口径可信</div></div>
+      <div class="kv-row"><div class="kv-k">算指数</div><div class="kv-v">本店 ADR ¥724.8（付费口径）→ 但竞对采集的是「不含早 · 免费取消」口径，本店须用同口径 BAR ¥680 对比<br>ARI = 680 ÷ 691.7 × 100 = <b>98.3</b> → 落《法典》表 C「97–103 健康」→ 维持</div></div>
+    </div>
+
+    <div class="callout callout-key">
+      <span class="co-t">本示范的三个关键动作</span>
+      <p>1. <b>先自检再查表：</b>4 条恒等式全部跑通才进入 08:30 查表环节。<br>
+      2. <b>修正必留痕：</b>3 条《数据修正记录》全部编号归档，30 天后复盘可追溯。<br>
+      3. <b>口径对齐后再比价：</b>ARI 计算前先把本店 ADR 换成与竞对同口径（不含早、免费取消、SUP-K 同档位），否则 98.3 会算成 104.8，表 C 判定从「健康」跳到「略高」，结论完全不同。</p>
+    </div>
+  </div>
+
+  <!-- ===== 学员跟练 ===== -->
+  <h2 id="drill">十二、学员跟练</h2>
+
+  <p>要求：用本模块给出的字段清单与排查手册独立完成，每题限时 8 分钟。</p>
+
+  <div class="ex-q">
+    <div class="q-t">跟练 1 · 恒等式自检</div>
+    <div class="q-b">某日导出数据：已售房晚 240；分房型合计 238；分渠道合计 240；分细分合计 244；客房收入 ¥163,200；细分收入合计 ¥159,800。请指出哪几条恒等式不成立，并写出各自的排查顺序（按表 2-11）。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>恒等式 1 不成立：</b>已售 240 ≠ 房型 238 ≠ 细分 244（渠道 240 成立）。<br>
+      排查顺序：① 检查导出时是否漏选房型（房型 238 少 2 间，疑似某房型被漏选）；② 检查是否有订单缺失细分字段或重复计入（细分 244 多 4 间，疑似 4 间被两个细分重复统计）；③ 检查 Comp / House Use 是否被同时计入两个细分。<br>
+      <b>恒等式 2 不成立：</b>客房收入 163,200 ≠ 细分收入 159,800，差 ¥3,400。<br>
+      排查顺序：① 查是否有收入挂「其他/未分类」；② 查 PKG 套餐的客房部分是否未拆分；③ 与财务科目余额核对。<br>
+      <b>恒等式 3、4：</b>本组数据未给 OOO 与竞对数据，无法判定，需补充字段后重跑。<br>
+      <b>结论：禁止进入 08:30 查表环节。</b>修正完成后重跑全部 4 条，全通过才可查表。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">跟练 2 · 房型代码与价差</div>
+    <div class="q-b">导出某日房型房晚：STD-K 68、STD-T 48、SUP-K 55、SUP-T 38、DLX-K 42、DLX-V 14、EXE-K 24、EXE-T 5、STE-B 8、STE-E 2。请做两件事：（1）校验合计是否为 320；（2）指出这份数据其实不是「房晚」而是「可售间数」，说明理由。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      （1）合计 = 68+48+55+38+42+14+24+5+8+2 = <b>304</b>，<b>不等于 320</b> → 数据不完整，有 16 间缺失。<br>
+      （2）理由：每个房型的数字都≤该房型的总间数（STD-K 68 ≤ 70、SUP-K 55 ≤ 60…），且没有出现 0，这更像是「可售间数」而非「已售房晚」。已售房晚通常会明显低于总间数且可能出现 0（如 STE-E 只有 2 间，淡季完全可能售 0）。<br>
+      <b>处置：回到 PMS 重新选择报表的「统计口径」字段——选「Sold Room Nights 已售房晚」，不要选「Available Rooms 可售间数」。这是最常见的取数事故之一。</b>
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">跟练 3 · 脏数据归类</div>
+    <div class="q-b">以下 4 个发现，分别属于 5 类脏数据中的哪一类？各写出处置动作要点一句。<br>① 同一客人同日同 SUP-K 出现两笔订单，创建时间相差 3 分钟。<br>② 一笔订单收入 ¥0，价格代码为 BAR。<br>③ 一笔 CORP 细分订单挂在 OTA 渠道。<br>④ 某日渠道房晚为 −3 间。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      ① <b>重复订单</b>：保留创建时间最早的一笔为有效，其余标记「重复 Dup」并从在手统计剔除，不物理删除；通知预订部核实是否实际到店。<br>
+      ② <b>免费房混入（漏标）</b>：价格代码更正为 <code>COMP</code>；按 M01 口径重算付费房晚与 ADR。<br>
+      ③ <b>渠道错配</b>：CORP 细分却挂 OTA 渠道（该笔实际成本 16% 而非 8%），由预订部更正渠道字段，重算渠道综合成本率与 NRevPAR；若 NRevPAR 变动 &gt;2% 需在《调价台账》补记。<br>
+      ④ <b>负房晚</b>：先判定是跨月冲销（正常，标记「跨期调整」）还是录入错误（更正订单日期后重导）。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">跟练 4 · 团队拆分识别</div>
+    <div class="q-b">11 月 8 日在手报表中出现：FIT-DIR 细分下 6 笔订单，均为 5 间、入住日 11-08、离店日 11-10，公司名称均为「杭州滨江会展服务」，预订联系人同一人。请判定是否属于团队拆分，并写出后续 3 个动作。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>判定：属于团队拆分。</b>依据：同一公司名称 + 同一入住日，合计 30 间 ≥ 10 间，且预订联系人相同。<br>
+      <b>后续 3 个动作：</b><br>
+      ① 合并为 <code>GRP</code> 细分，上报 L3（该 30 间此前未走《法典》表 G 置换分析，属流程绕过）。<br>
+      ② 补做置换分析：算 R = 团队报价 ÷ 该日预期散客 ADR，代入表 G，结合 11-08 预测 OCC 读出接受/上报/拒绝结论。<br>
+      ③ 重算散客可售量与预测 OCC：散客可售 = 可售房晚 − 30，用新的散客在手 ÷ 散客可售重算预测 OCC，并核对是否跨过表 A 的行边界（85% / 70%）。<br>
+      <b>留痕：</b>《团队决策档案》补录 + 《数据修正记录》+ 《调价台账》备注栏注明预测 OCC 修正前后值。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">跟练 5 · 系统路径映射</div>
+    <div class="q-b">门店用的是「绿云」PMS。任务：把 10 月 30 日 SUP-K 房型的 MinLOS 设为 2 晚，并关闭批发商/包房商渠道。请写出系统无关的通用动作编号、绿云侧的路径，以及截图存证必须包含的要素。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>通用动作：</b>③ 设置 MinLOS ＋ ④ 关闭渠道（Stop Sell）。<br>
+      <b>绿云路径：</b>③ 房态 → 销售控制 → 最少连住；④ 渠道 → 房态控制 → 停售。<br>
+      <b>系统无关表述（写在台账里的口径）：</b>「在销售控制中，将 10 月 30 日 SUP-K 房型的最少住期设为 2 晚」；「在渠道房态控制中，对 10 月 30 日关闭批发商/包房商（WHO）渠道」。<br>
+      <b>截图必须包含 4 项要素：</b>日期（10-30）、房型代码（SUP-K）、设置项（MinLOS=2 / WHO Stop Sell）、修改前后状态。<br>
+      <b>补写要求：</b>若绿云实际路径与上表不同，找到后把本店实际路径补写进表 2-7，形成本店版本。
+    </div></details>
+  </div>
+
+  <!-- ===== 默写清单 ===== -->
+  <h2 id="recite">十三、取数速记清单（当堂默写）</h2>
+
+  <div class="callout callout-do">
+    <span class="co-t">当堂默写 10 条（10 分钟内写完）</span>
+    <ol style="margin:6px 0 0">
+      <li>三层系统：<b>PMS 是成交数据唯一权威源</b>，RMS 做预测，渠道后台看挂牌与转化</li>
+      <li>数字对不上时，一律以 <b>PMS</b> 为准</li>
+      <li>四套编码：<b>房型代码 + 价格代码 + 市场细分 + 渠道代码</b></li>
+      <li>细分看「<b>人</b>」，渠道看「<b>钱从哪条路进来</b>」</li>
+      <li>云璟房型合计 <b>320 间</b>；平峰 BAR <b>¥680</b>（SUP-K / SUP-T，系数 100）</li>
+      <li>7 个细分代码：FIT-WI / FIT-DIR / FIT-OTA / CORP / LOY / GRP / LNG</li>
+      <li>7 个渠道代码与成本：DIR 3% / LOY 4% / CORP 8% / OTA 16% / OTA-I 18% / GDS 13% / WHO 26%</li>
+      <li>三个取数时段：<b>07:30 / 07:50 / 08:10</b>，各限时 <b>20 min</b></li>
+      <li>4 条恒等式：房晚三口径相等、收入细分合计相等、可售 = 总房量 − OOO、RGI = MPI×ARI÷100</li>
+      <li>5 类脏数据：重复订单 / 负房晚 / 渠道错配 / 免费房混入 / 团队拆分</li>
+    </ol>
+  </div>
+
+  <!-- ===== 随堂测 ===== -->
+  <h2 id="quiz">十四、随堂测（5 题）</h2>
+
+  <p>全对（5/5）方可进入 M03。限时 15 分钟。</p>
+
+  <div class="ex-q">
+    <div class="q-t">第 1 题</div>
+    <div class="q-b">写出四套编码体系各自回答的问题，并各举一个云璟酒店的真实代码。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      房型代码 → 卖的是什么房间，例 <code>SUP-K</code> 高级大床房（60 间，38㎡，平峰 BAR ¥680，系数 100）。<br>
+      价格代码 → 按什么价格规则卖，例 <code>BAR</code> 最优可用房价（公开可订的基准弹性价，所有折扣的锚点）。<br>
+      市场细分代码 → 客人是谁，例 <code>FIT-OTA</code> OTA 散客（基线房晚占比 31%，基线 ADR ¥598）。<br>
+      渠道代码 → 从哪条通路进来（成本多少），例 <code>OTA</code> OTA 国内（综合成本率 16%）。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 2 题</div>
+    <div class="q-b">《法典》表 M 中每日三个取数时段分别是几点、各做什么、耗时上限多少？三个时段全部完成的时间节点是几点？</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      07:30 抓取昨日经营数据 → 产出《每日收益数据包》，耗时上限 20 min。<br>
+      07:50 抓取未来 30 天在手 + Pickup → 产出 Pickup 表更新，耗时上限 20 min。<br>
+      08:10 采集竞争组合 5 家价格 → 产出比价表更新，耗时上限 20 min。<br>
+      <b>三个时段全部完成：08:30</b>，此时《每日收益数据包》《Pickup 表》《比价表》必须处于可查阅状态，08:30 准时启动「逐日查表 A/B/C/H，得出动作清单」（耗时上限 40 min）。<br>
+      任一时段超时，须在《调价台账》备注栏写明超时原因与时长。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 3 题</div>
+    <div class="q-b">下表是某日导出数据，请先做恒等式自检，再回答：能否进入 08:30 查表环节？<br>总房量 320、OOO 8、可售房晚 312、已售房晚 240、房型合计 240、渠道合计 240、细分合计 240、客房收入 ¥163,200、细分收入合计 ¥163,200。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      恒等式 1：已售 240 = 房型 240 = 渠道 240 = 细分 240 ✓<br>
+      恒等式 2：客房收入 163,200 = 细分收入 163,200 ✓<br>
+      恒等式 3：可售 312 = 320 − 8 ✓；已售 240 ≤ 可售 312 ✓<br>
+      恒等式 4：本题未给竞对数据，需补充后跑（MPI/ARI/RGI 三项）。<br>
+      <b>结论：在补充竞对数据、跑完恒等式 4 之前，不能进入查表环节。</b>因为《法典》表 C（ARI）需要竞争组合加权 ADR 作为输入，缺了它表 C 无法查，而表 C 与表 A 的冲突仲裁（《法典》表 O）也就无从进行。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 4 题</div>
+    <div class="q-b">采集到 5 家竞对价：A ¥650（280 间）、B ¥690（240 间）、C ¥560（300 间）、D ¥880（350 间）、E ¥620（200 间）。求按房量加权的竞争组合加权 ADR；若本店同口径 BAR 为 ¥680，求 ARI 并说明落在《法典》表 C 的哪一档、动作是什么。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      加权分子 = 650×280 + 690×240 + 560×300 + 880×350 + 620×200 = 182,000 + 165,600 + 168,000 + 308,000 + 124,000 = <b>947,600</b><br>
+      加权分母（房量合计）= 280 + 240 + 300 + 350 + 200 = <b>1,370</b><br>
+      竞争组合加权 ADR = 947,600 ÷ 1,370 = <b>¥691.7</b><br>
+      ARI = 680 ÷ 691.7 × 100 = <b>98.3</b><br>
+      《法典》表 C：98.3 落在「<b>97–103 健康</b>」档 → 动作 <b>维持</b>。<br>
+      解析：注意 ARI 必须用同口径对比——本店用不含早、免费取消、SUP-K 同档位的 BAR ¥680，竞对也必须按同样条件采集。若本店误用含早口径（BAR + ¥68 = ¥748），ARI 会算成 108.1，落到「103–110 略高」，结论变成「维持，观察 Pickup」，看似相近实则掩盖了真实的价格位置。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 5 题</div>
+    <div class="q-b">判断改错：某收益专员说「我们店用的是西软，所以 M03 教的调价步骤我有一部分做不了，因为路径不一样」。请指出这句话的错误，并给出正确做法（3 个动作）。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>错误：把「路径不同」当成了「动作不同」。</b>M03 教的是系统无关的<b>动作</b>（把目标日 SUP-K 的 BAR 从 ¥680 调整为 ¥748、设 MinLOS 2 晚、关闭 WHO 渠道），不是某个系统的按钮位置。任何一套 PMS 都具备这三项功能，只是菜单位置不同。<br>
+      <b>正确做法（3 个动作）：</b><br>
+      ① 在表 2-7《主流系统操作路径映射表》中定位通用动作（如「① 打开价格日历」），查西软列 →「房价管理 → 房价计划 → 房价日历」。<br>
+      ② 若按路径找不到：先在西软内搜索功能名关键词（「房价」「限制条件」「停售」）→ 再问门店系统管理员。<br>
+      ③ 找到后把<b>本店实际路径补写进表 2-7</b>，形成本店版本，并在《调价台账》中按<b>系统无关表述</b>记录动作，不写按钮名。<br>
+      <b>判定标准：把这句话拿给一个用 Opera 的同事看，他能照做，就是合格的动作描述。</b>
+    </div></details>
+  </div>
+
+  <!-- ===== 产出物 ===== -->
+  <div id="out" class="callout callout-do">
+    <span class="co-t">本模块产出物</span>
+    <ul style="margin:6px 0 0">
+      <li><b>《每日取数清单》</b>（本店版）：28 个字段 + 本店系统导出路径 + 格式约定 + 三个时间节点，打印版贴工位</li>
+      <li><b>《主流系统操作路径映射表》</b>（本店版）：10 个通用动作 × 本店实际系统的路径，找到后补写完整</li>
+      <li><b>《四套编码对照卡》</b>：房型 10 码 + 价格代码 9 码 + 细分 7 码 + 渠道 7 码（含成本率），一页纸</li>
+      <li><b>《数据修正记录》</b>：编号模板 + 5 类脏数据的排查与处置记录（每修正一次必填一条）</li>
+      <li><b>《数据一致性自检表》</b>：4 条恒等式每日勾选，全通过才能进入查表环节</li>
+      <li><b>随堂测成绩</b>：5 题全对方可进入 M03</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">下一模块预告</span>
+    <p>M03《每日操作流水线》是本阶段的核心模块（6 课时，占 L1 课时的一半）。你将把表 M 的 9 个时段展开成逐时段标准作业，完整掌握《法典》表 A（6×5 价格调整判定矩阵）与表 B（库存与限制条件）的查表动作，并完成 6 个实操场景练习。</p>
+  </div>
+
+  <!-- ===== 底部导航 ===== -->
+  <div class="pager">
+    <a href="m01-metrics.html"><div class="p-dir">← 上一模块</div><div class="p-title">M01 收益管理的语言</div></a>
+    <a href="m03-dailyops.html" class="p-next"><div class="p-dir">下一模块 →</div><div class="p-title">M03 每日操作流水线 ★</div></a>
+  </div>
+
+</div>
+</main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

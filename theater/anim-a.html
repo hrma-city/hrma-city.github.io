@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>动态演示 · 表 A 每日价格调整 · 收益管理剧院</title>
+<meta name="description" content="用动态图形演示《操作法典》表 A：输入预测 OCC 与 Pickup 偏差，行列扫过定位交叉点，读出唯一调价动作。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<style>
+  .an-wrap { max-width: 1000px; margin: 0 auto; }
+
+  /* ---------- 输入面板 ---------- */
+  .an-inputs { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-bottom: 18px; }
+  .an-in {
+    background: var(--white); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px 20px; box-shadow: var(--shadow); opacity: .45; transition: opacity .5s, box-shadow .5s, border-color .5s;
+  }
+  .an-in.on { opacity: 1; border-color: var(--gold-2); box-shadow: var(--shadow-md); }
+  .an-in .lab { font-size: 12px; font-weight: 700; color: var(--ink-3); letter-spacing: 1px; }
+  .an-in .big {
+    font-family: var(--mono); font-size: 38px; font-weight: 800; color: var(--navy);
+    line-height: 1.2; margin: 6px 0 4px;
+  }
+  .an-in .sub { font-size: 12.5px; color: var(--ink-2); min-height: 18px; }
+
+  .track { position: relative; height: 10px; background: var(--bg-2); border-radius: 20px; margin-top: 14px; }
+  .track i {
+    position: absolute; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px;
+    background: var(--gold); border: 3px solid #fff; border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,.22); left: 0;
+    transition: left 1.1s cubic-bezier(.25,.9,.3,1);
+  }
+  .track .scale { position: absolute; top: 16px; font-size: 10.5px; color: var(--ink-3); }
+  .track-wrap { padding-bottom: 22px; }
+
+  /* ---------- 判定矩阵 ---------- */
+  .an-mx-card { background: var(--white); border: 1px solid var(--line); border-radius: 12px; padding: 18px; box-shadow: var(--shadow); overflow-x: auto; }
+  table.mx { width: 100%; border-collapse: separate; border-spacing: 3px; font-size: 12.5px; min-width: 620px; }
+  table.mx th, table.mx td {
+    padding: 9px 6px; text-align: center; border-radius: 6px; transition: background .35s, color .35s, transform .35s, box-shadow .35s;
+  }
+  table.mx thead th { background: var(--navy); color: #fff; font-weight: 700; font-size: 11.5px; }
+  table.mx tbody th { background: var(--bg-2); color: var(--navy); font-weight: 700; font-size: 11.5px; white-space: nowrap; }
+  table.mx td { background: var(--bg-2); color: var(--ink-2); font-family: var(--mono); }
+  table.mx td.rowhl { background: rgba(184,137,74,.30); color: var(--ink); }
+  table.mx td.colhl { background: rgba(27,58,92,.20); color: var(--ink); }
+  table.mx td.hit {
+    background: var(--gold); color: #fff; font-weight: 800; font-size: 15px;
+    transform: scale(1.14); box-shadow: 0 0 0 3px rgba(184,137,74,.30), 0 8px 22px rgba(184,137,74,.45);
+    animation: pop .7s cubic-bezier(.2,1.3,.4,1);
+  }
+  @keyframes pop { 0% { transform: scale(1); } 45% { transform: scale(1.32); } 100% { transform: scale(1.14); } }
+  table.mx tbody th.rowhl { background: var(--gold-2); color: #fff; }
+  table.mx thead th.colhl { background: var(--navy-2); }
+  .mx-cap { font-size: 12px; color: var(--ink-3); margin-top: 10px; text-align: center; }
+
+  /* ---------- 结果面板 ---------- */
+  .an-out {
+    margin-top: 18px; background: var(--navy); border-radius: 12px; padding: 22px 24px; color: #fff;
+    display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  .an-out .k { font-size: 11.5px; opacity: .7; letter-spacing: 1px; }
+  .an-out .v { font-family: var(--mono); font-size: 34px; font-weight: 800; margin-top: 4px; }
+  .an-out .v.gold { color: var(--gold-2); }
+  .an-out .pbar { height: 8px; background: rgba(255,255,255,.18); border-radius: 20px; margin-top: 10px; overflow: hidden; }
+  .an-out .pbar i { display: block; height: 100%; background: var(--gold-2); width: 100%; transition: width 1.2s cubic-bezier(.25,.9,.3,1); }
+
+  /* ---------- 约束清单 ---------- */
+  .an-rules { margin-top: 16px; display: grid; gap: 8px; }
+  .an-rule {
+    display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; color: var(--ink-2);
+    background: var(--white); border: 1px solid var(--line); border-radius: 9px; padding: 11px 14px;
+    opacity: 0; transform: translateX(-12px);
+  }
+  .an-rule.on { animation: slideIn .5s ease forwards; }
+  @keyframes slideIn { to { opacity: 1; transform: none; } }
+  .an-rule .tick { color: var(--down); font-weight: 800; flex-shrink: 0; }
+
+  /* ---------- 结果柱 ---------- */
+  .an-bars { display: flex; align-items: flex-end; gap: 26px; justify-content: center; margin-top: 18px; height: 150px; }
+  .an-bar { width: 74px; text-align: center; }
+  .an-bar .col {
+    background: linear-gradient(180deg, var(--navy-3), var(--navy)); border-radius: 6px 6px 0 0;
+    height: 0; transition: height 1.1s cubic-bezier(.25,.9,.3,1); margin: 0 auto;
+  }
+  .an-bar.b2 .col { background: linear-gradient(180deg, var(--gold-2), var(--gold)); }
+  .an-bar .t { font-size: 11.5px; color: var(--ink-3); margin-top: 8px; }
+  .an-bar .n { font-family: var(--mono); font-size: 15px; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+
+  /* ---------- 字幕与控制 ---------- */
+  .an-cap {
+    margin-top: 18px; background: var(--gold-soft); border-left: 4px solid var(--gold);
+    border-radius: 8px; padding: 14px 18px; font-size: 15px; line-height: 1.85; color: var(--ink);
+    min-height: 74px;
+  }
+  .an-cap .st { font-family: var(--mono); font-size: 11.5px; color: var(--gold); letter-spacing: 1px; margin-bottom: 4px; }
+  .an-bar-ctl { display: flex; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+  .an-dots { display: flex; gap: 6px; margin-left: auto; }
+  .an-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--line-2); cursor: pointer; transition: .2s; }
+  .an-dot.on { background: var(--gold); transform: scale(1.35); }
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"theater","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/theater/anim-a.html"},{"@type":"ListItem","position":3,"name":"anim-a","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/theater/anim-a.html"}]}</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html">
+      <span class="gem">社</span><span>中国酒店收益管理社区</span>
+    </a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="../games/index.html">开始练</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:28px;padding-bottom:44px">
+  <div class="an-wrap">
+
+    <div style="margin-bottom:14px">
+      <a href="../theater.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 返回剧院</a>
+    </div>
+
+    <div class="cm-eyebrow">动态演示 · 零积分动画</div>
+    <h1 style="font-size:27px;font-weight:800;color:var(--navy);margin:0 0 8px">
+      表 A · 每日价格调整（双因子矩阵）
+    </h1>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.85;margin:0 0 20px">
+      杭州滨江云璟酒店，平峰周三。输入两个数 → 行列交叉 → 读出一个不用争论的动作。
+      全程自动演示，也可以手动一步步点。
+    </p>
+
+    <!-- 两个输入 -->
+    <div class="an-inputs">
+      <div class="an-in" id="inOcc">
+        <div class="lab">输入 1 · 预测 OCC</div>
+        <div class="big"><span id="occNum">—</span>%</div>
+        <div class="sub" id="occSub">在手预订 + 预测增量</div>
+        <div class="track-wrap">
+          <div class="track"><i id="occMark"></i>
+            <span class="scale" style="left:0">0%</span>
+            <span class="scale" style="left:50%;transform:translateX(-50%)">50%</span>
+            <span class="scale" style="right:0">100%</span>
+          </div>
+        </div>
+      </div>
+      <div class="an-in" id="inPick">
+        <div class="lab">输入 2 · Pickup 偏差</div>
+        <div class="big"><span id="pickNum">—</span>%</div>
+        <div class="sub" id="pickSub">对比去年同期同一提前窗口</div>
+        <div class="track-wrap">
+          <div class="track"><i id="pickMark"></i>
+            <span class="scale" style="left:0">落后 20%</span>
+            <span class="scale" style="left:50%;transform:translateX(-50%)">持平</span>
+            <span class="scale" style="right:0">领先 20%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 判定矩阵 -->
+    <div class="an-mx-card">
+      <table class="mx" id="mx">
+        <thead>
+          <tr>
+            <th>预测 OCC ＼ Pickup</th>
+            <th data-c="0">落后 &gt;10%</th>
+            <th data-c="1">落后 3–10%</th>
+            <th data-c="2">持平 ±3%</th>
+            <th data-c="3">领先 3–10%</th>
+            <th data-c="4">领先 &gt;10%</th>
+          </tr>
+        </thead>
+        <tbody id="mxBody"></tbody>
+      </table>
+      <div class="mx-cap">《操作法典》表 A · 双因子矩阵（唯一权威版本）</div>
+    </div>
+
+    <!-- 结果 -->
+    <div class="an-out">
+      <div>
+        <div class="k">读出的动作</div>
+        <div class="v gold" id="outAct">—</div>
+      </div>
+      <div>
+        <div class="k">平峰 BAR 调整</div>
+        <div class="v" id="outBar">¥680</div>
+        <div class="pbar"><i id="barFill"></i></div>
+      </div>
+      <div>
+        <div class="k">次日实际 OCC</div>
+        <div class="v" id="outOcc">—</div>
+      </div>
+    </div>
+
+    <div class="an-rules" id="rules">
+      <div class="an-rule"><span class="tick">✓</span><span>单次调价幅度不低于 3%（低于 3% 无市场感知，不算调价）</span></div>
+      <div class="an-rule"><span class="tick">✓</span><span>24 小时内同方向调价不超过 2 次</span></div>
+      <div class="an-rule"><span class="tick">✓</span><span>调价后 30 分钟内核查 OTA 挂牌价是否同步（价格一致性）</span></div>
+      <div class="an-rule"><span class="tick">✓</span><span>本次调价已写入《调价台账》</span></div>
+    </div>
+
+    <div class="an-bars">
+      <div class="an-bar b1"><div class="n" id="b1n">—</div><div class="col" id="b1"></div><div class="t">调价前</div></div>
+      <div class="an-bar b2"><div class="n" id="b2n">—</div><div class="col" id="b2"></div><div class="t">调价后</div></div>
+    </div>
+
+    <!-- 字幕 + 控制 -->
+    <div class="an-cap">
+      <div class="st" id="capStep">准备</div>
+      <div id="capText">点「播放」开始演示。</div>
+    </div>
+    <div class="an-bar-ctl">
+      <button class="pb-btn primary" id="btnPlay" style="border:1px solid var(--line-2);background:var(--navy);color:#fff;border-radius:8px;padding:9px 15px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit">▶ 播放</button>
+      <button class="pb-btn" id="btnPrev" style="border:1px solid var(--line-2);background:#fff;color:var(--navy);border-radius:8px;padding:9px 15px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit">← 上一步</button>
+      <button class="pb-btn" id="btnNext" style="border:1px solid var(--line-2);background:#fff;color:var(--navy);border-radius:8px;padding:9px 15px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit">下一步 →</button>
+      <div class="an-dots" id="dots"></div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-main">
+    <div class="sf-bot">
+      <span>中国酒店收益管理社区 · 动态演示</span>
+      <span>联系：<a href="mailto:3984557428@qq.com" style="display:inline;color:var(--gold-2)">3984557428@qq.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- 表 A 数据（SPEC 唯一权威版本） ---------- */
+  var ROWS = [
+    { lab: "≥95%",   v: ["维持", "+5%", "+10%", "+15%", "+20%"] },
+    { lab: "85–95%", v: ["维持", "+3%", "+5%", "+10%", "+15%"] },
+    { lab: "70–85%", v: ["−5%", "−3%", "维持", "+5%", "+8%"] },
+    { lab: "55–70%", v: ["−10%", "−5%", "−3%", "维持", "+3%"] },
+    { lab: "40–55%", v: ["−15%", "−10%", "−5%", "维持", "维持"] },
+    { lab: "<40%",   v: ["−20%", "−15%", "−10%", "−5%", "维持"] }
+  ];
+  var R = 3, C = 0;   // OCC 62% → 55–70% 行；Pickup −12% → 落后>10% 列
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ---------- 渲染矩阵 ---------- */
+  var body = $("mxBody");
+  ROWS.forEach(function (row, r) {
+    var tr = document.createElement("tr");
+    var th = document.createElement("th");
+    th.textContent = row.lab;
+    th.setAttribute("data-r", r);
+    tr.appendChild(th);
+    row.v.forEach(function (val, c) {
+      var td = document.createElement("td");
+      td.textContent = val;
+      td.setAttribute("data-r", r);
+      td.setAttribute("data-c", c);
+      tr.appendChild(td);
+    });
+    body.appendChild(tr);
+  });
+
+  function cell(r, c) { return body.querySelector('td[data-r="' + r + '"][data-c="' + c + '"]'); }
+  function rowTh(r) { return body.querySelector('th[data-r="' + r + '"]'); }
+  function colTh(c) { return document.querySelector('#mx thead th[data-c="' + c + '"]'); }
+
+  function resetMatrix() {
+    body.querySelectorAll("td").forEach(function (td) { td.className = ""; });
+    body.querySelectorAll("th").forEach(function (th) { th.className = ""; });
+    document.querySelectorAll("#mx thead th").forEach(function (th) { th.className = ""; });
+  }
+
+  /* ---------- 数字滚动 ---------- */
+  function countTo(el, to, dur, prefix) {
+    var from = 0, t0 = null;
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur);
+      var eased = 1 - Math.pow(1 - p, 3);
+      var v = Math.round(from + (to - from) * eased);
+      el.textContent = (prefix || "") + v;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ---------- 步骤定义 ---------- */
+  var timers = [];
+  function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+  var STEPS = [
+    {
+      t: "场景", d: "周三下午两点。杭州滨江云璟酒店，320 间房，平峰日。今天没有展会也没有节假日——要不要调价？",
+      run: function () {
+        resetMatrix();
+        $("inOcc").classList.remove("on"); $("inPick").classList.remove("on");
+        $("occNum").textContent = "—"; $("pickNum").textContent = "—";
+        $("occMark").style.left = "0%"; $("pickMark").style.left = "0%";
+        $("outAct").textContent = "—"; $("outBar").textContent = "¥680";
+        $("barFill").style.width = "100%"; $("outOcc").textContent = "—";
+        $("rules").querySelectorAll(".an-rule").forEach(function (r) { r.classList.remove("on"); });
+        $("b1").style.height = "0"; $("b2").style.height = "0";
+        $("b1n").textContent = "—"; $("b2n").textContent = "—";
+      }
+    },
+    {
+      t: "第 1 步 · 取第一个数", d: "预测 OCC = 62%。这是「在手预订 + 预测增量」算出来的，不是拍脑袋。",
+      run: function () {
+        $("inOcc").classList.add("on");
+        countTo($("occNum"), 62, 1000);
+        $("occMark").style.left = "62%";
+        $("occSub").textContent = "落在「55–70%」区间";
+      }
+    },
+    {
+      t: "第 2 步 · 定位行", d: "把 62% 代入表 A 的第一因子，锁定「55–70%」这一行。这一行的所有可能，就是我们的候选答案。",
+      run: function () {
+        var th = rowTh(R); if (th) th.classList.add("rowhl");
+        for (var c = 0; c < 5; c++) {
+          (function (cc) { later(function () { var td = cell(R, cc); if (td) td.classList.add("rowhl"); }, cc * 90); })(c);
+        }
+      }
+    },
+    {
+      t: "第 3 步 · 取第二个数", d: "Pickup 偏差 = −12%。去年同期同一个提前窗口，我们手上的房比今年多 12%——进度落后了。",
+      run: function () {
+        $("inPick").classList.add("on");
+        countTo($("pickNum"), -12, 1000);
+        $("pickMark").style.left = "20%";   // -20%..+20% 轴上，-12% 约在 20%
+        $("pickSub").textContent = "落在「落后 >10%」区间";
+      }
+    },
+    {
+      t: "第 4 步 · 定位列", d: "把 −12% 代入第二因子，锁定「落后 >10%」这一列。现在只剩这一列的五个格子。",
+      run: function () {
+        var th = colTh(C); if (th) th.classList.add("colhl");
+        for (var r = 0; r < ROWS.length; r++) {
+          (function (rr) { later(function () { var td = cell(rr, C); if (td) td.classList.add("colhl"); }, rr * 90); })(r);
+        }
+      }
+    },
+    {
+      t: "第 5 步 · 交叉", d: "行与列交叉，只剩一个格子：−10%。不需要争论，也不需要「我觉得」——表已经替你决定了。",
+      run: function () {
+        later(function () {
+          var td = cell(R, C);
+          if (td) { td.classList.add("hit"); }
+        }, 260);
+        $("outAct").textContent = "−10%";
+      }
+    },
+    {
+      t: "第 6 步 · 落位执行", d: "把平峰 BAR 从 ¥680 下调 10% 到 ¥612，并在价格日历里落位。",
+      run: function () {
+        $("outBar").textContent = "¥612";
+        $("barFill").style.width = "90%";
+      }
+    },
+    {
+      t: "第 7 步 · 执行约束", d: "但还没完。四条约束必须同时满足——漏掉任何一条，这次调价都不算合格。",
+      run: function () {
+        var rs = $("rules").querySelectorAll(".an-rule");
+        for (var i = 0; i < rs.length; i++) {
+          (function (k) { later(function () { rs[k].classList.add("on"); }, k * 320); })(i);
+        }
+      }
+    },
+    {
+      t: "第 8 步 · 结果", d: "第二天：Pickup 回升，当日 OCC 从 62% 走到 71%。这就是表 A 的意义——输入两个数，输出一个动作。",
+      run: function () {
+        $("outOcc").textContent = "71%";
+        $("b1n").textContent = "62%"; $("b2n").textContent = "71%";
+        later(function () {
+          $("b1").style.height = "88px";   // 62/71 * 101
+          $("b2").style.height = "101px";
+        }, 120);
+      }
+    }
+  ];
+
+  var cur = 0, playing = false, timer = null;
+
+  /* ---------- 步骤点 ---------- */
+  var dots = $("dots");
+  STEPS.forEach(function (s, i) {
+    var d = document.createElement("div");
+    d.className = "an-dot";
+    d.title = s.t;
+    d.addEventListener("click", function () { pause(); go(i); });
+    dots.appendChild(d);
+  });
+
+  function go(i) {
+    clearTimers();
+    cur = (i + STEPS.length) % STEPS.length;
+    if (cur === 0) STEPS[0].run();
+    STEPS[cur].run();
+    $("capStep").textContent = "第 " + cur + " 步 / 共 " + (STEPS.length - 1) + " 步 · " + STEPS[cur].t;
+    $("capText").textContent = STEPS[cur].d;
+    var ds = dots.children;
+    for (var k = 0; k < ds.length; k++) ds[k].className = "an-dot" + (k === cur ? " on" : "");
+  }
+
+  function play() {
+    playing = true; $("btnPlay").textContent = "⏸ 暂停";
+    clearInterval(timer);
+    timer = setInterval(function () {
+      if (cur === STEPS.length - 1) { pause(); return; }
+      go(cur + 1);
+    }, 4200);
+    if (cur === STEPS.length - 1) go(0);
+    go(cur + 1 === STEPS.length ? 0 : cur + 1);
+  }
+  function pause() {
+    playing = false; $("btnPlay").textContent = "▶ 播放";
+    clearInterval(timer);
+  }
+
+  $("btnPlay").addEventListener("click", function () { playing ? pause() : play(); });
+  $("btnPrev").addEventListener("click", function () { pause(); go(cur - 1); });
+  $("btnNext").addEventListener("click", function () { pause(); go(cur + 1); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight") { pause(); go(cur + 1); }
+    else if (e.key === "ArrowLeft") { pause(); go(cur - 1); }
+    else if (e.key === " ") { e.preventDefault(); playing ? pause() : play(); }
+  });
+
+  go(0);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>K03 库存控制 · 通用内核 · 中国收益管理社区</title>
+<meta name="description" content="库存控制：把产能留给值钱的客人。跨行业通用的收益管理内核模块，覆盖住宿、餐饮、航空、景区、娱乐五大行业的做法对照。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<style>
+.qz {{ border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }}
+.qz-q {{ font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }}
+.qz-o {{ display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }}
+.qz-o:hover {{ border-color:var(--navy-3); background:#F6F9FC; }}
+.qz-o.ok {{ border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }}
+.qz-o.no {{ border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }}
+.qz-why {{ display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }}
+.qz-why.on {{ display:block; }}
+.lst {{ padding-left:20px; }}
+.lst li {{ font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"core","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/core/k03-inventory.html"},{"@type":"ListItem","position":3,"name":"k03-inventory","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/core/k03-inventory.html"}]}</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html">
+      <span class="gem">收</span><span>中国收益管理社区</span>
+    </a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="../academy.html">学院</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 通用内核总览</a>
+
+  <div class="cm-eyebrow" style="margin-top:14px">通用内核 · K03</div>
+  <h1 class="cm-section-title" style="font-size:28px">库存控制</h1>
+  <p class="cm-section-lead">定价决定「卖多少钱」，库存控制决定「卖给谁」。同样的价格和同样的客人数量，因为卖给的人不同，收益可以差 30% 以上。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心原理</div>
+    <h2 class="cm-section-title">四条必须记住的</h2>
+    <ol class="lst">
+      <li><b>不是所有客人都值同样的钱。</b>一个连住 5 天的商务客，和一个只住 1 晚的低价团客，占用的是同一间房——但贡献差好几倍。</li>
+      <li><b>用限制条件保护产能。</b>最短住期（MLOS）、关闭到达日（CTA）、关闭离店日（CTD）都是用来挡掉低价值需求的工具。</li>
+      <li><b>保护水平要动态调整。</b>需求强时多保护高价值客群，需求弱时放开限制先把量做起来。</li>
+      <li><b>库存控制是定价的孪生兄弟。</b>只调价不控库存，低价客群会把产能吃光，你的高价根本没有成交机会。</li>
+    </ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">跨行业对照</div>
+    <h2 class="cm-section-title">同一套逻辑，五个行业怎么做</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>行业</th><th>具体做法</th></tr></thead>
+      <tbody>
+        <tr><td><b>住宿业</b></td><td>房型开关、最短住期 MLOS、房型升级置换</td></tr>
+        <tr><td><b>餐饮业</b></td><td>时段可预订量控制、桌型分配、用餐时长管理</td></tr>
+        <tr><td><b>航空业</b></td><td>舱位嵌套控制、订座限额（booking limit）、保护水平——最成熟的体系</td></tr>
+        <tr><td><b>景区文旅</b></td><td>分时预约额度分配、瞬时承载上限控制</td></tr>
+        <tr><td><b>娱乐休闲</b></td><td>场次座位分区、等级座位保留、团体票额度</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关键指标</div>
+    <h2 class="cm-section-title">要算的数</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>公式 / 定义</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td><b>保护水平</b></td><td>为高价值客群保留的库存量</td><td>太高会剩房，太低会流失高价客</td></tr>
+        <tr><td><b>最短住期 MLOS</b></td><td>要求入住的最少天数</td><td>挡掉只住一晚的低价值需求</td></tr>
+        <tr><td><b>置换收益</b></td><td>高价值客群收益 − 低价值客群收益</td><td>判断该不该把产能换给前者</td></tr>
+        <tr><td><b>库存利用率</b></td><td>实际售出 ÷ 可售总量</td><td>衡量限制条件是否设置过严</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">别人踩过的坑</h2>
+    <ul class="lst">
+      <li>只调价不控库存——低价房型一直开着，高价房永远卖不掉。</li>
+      <li>限制条件设了就不管——旺季结束还留着 MLOS，白白挡掉客人。</li>
+      <li>给团队客无底线放量——一个大团吃掉半个酒店的产能，散客来了没房。</li>
+      <li>库存决策不看客群贡献——只看能不能填满，不看填满的是谁。</li>
+    </ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题，检验一下</h2>
+    <div class="qz">
+      <div class="qz-q">第 1 题　一个 100 间房的团队询价，价格是你 ADR 的 60%，入住日预计散客需求很强。接不接？</div>
+        <button class="qz-o" data-i="0" data-k="1">A. 接，100 间是大单</button>
+        <button class="qz-o" data-i="1" data-k="1">B. 不接，价格太低</button>
+        <button class="qz-o" data-i="2" data-k="1">C. 算置换分析：团队收益 vs 被挤掉的散客收益，再决定</button>
+        <button class="qz-o" data-i="3" data-k="1">D. 还价到 80% 再接</button>
+      <div class="qz-why" id="why1"><b>解析 ·</b> 这正是表 G 团队置换判定表的用途。不能只看团队本身赚不赚，要看「接了团队会挤掉多少散客」。100 间 × 60% 价格的收益，可能远低于被挤掉的散客收益——那就该拒绝或缩减。</div>
+    </div>
+    <div class="qz">
+      <div class="qz-q">第 2 题　最短住期（MLOS）的作用是什么？</div>
+        <button class="qz-o" data-i="0" data-k="2">A. 让客人住得更久，增加收入</button>
+        <button class="qz-o" data-i="1" data-k="2">B. 挡掉只住一晚的低价值需求，保护高峰日的产能</button>
+        <button class="qz-o" data-i="2" data-k="2">C. 减少前台工作量</button>
+        <button class="qz-o" data-i="3" data-k="2">D. 提高平均房价的统计口径</button>
+      <div class="qz-why" id="why2"><b>解析 ·</b> MLOS 是库存控制的工具，不是促销工具。在需求高峰日设置 MLOS，可以挡掉那些「只住一晚却占住高峰日房间」的低价值需求，把产能留给连住的高价值客人。</div>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>关联判定表：</b>表 B 库存与限制条件配置表 · 表 G 团队询价置换判定表 · 表 J 免费升级规则<br>
+      <b>关联行业：</b><a href="../lodging.html">住宿业</a> ·
+      <a href="../industries.html">餐饮业</a> ·
+      <a href="../industries.html">航空业</a> ·
+      <a href="../industries.html">景区文旅</a> ·
+      <a href="../industries.html">娱乐休闲</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="../academy.html">返回学院</a>
+      <a class="cm-btn cm-btn-ghost" href="../codex.html">查看操作法典</a>
+      <a class="cm-btn cm-btn-ghost" href="../games/index.html">去游戏里练</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="sf-grid">
+    <div>
+      <div class="sf-t">中国收益管理社区</div>
+      <p class="sf-desc">跨行业收益管理专业社区。一套通用内核，覆盖住宿、餐饮、航空、景区、娱乐五大行业。</p>
+    </div>
+    <div>
+      <div class="sf-t">通用内核</div>
+      <a href="index.html">内核总览</a>
+      <a href="k01-forecast.html">K01 需求预测</a>
+      <a href="k02-pricing.html">K02 动态定价</a>
+      <a href="k03-inventory.html">K03 库存控制</a>
+    </div>
+    <div>
+      <div class="sf-t">内核（续）</div>
+      <a href="k04-channel.html">K04 渠道管理</a>
+      <a href="k05-competition.html">K05 竞争响应</a>
+      <a href="k06-noshow.html">K06 超售与 No-show</a>
+      <a href="../academy.html">返回学院</a>
+    </div>
+    <div>
+      <div class="sf-t">行业</div>
+      <a href="../lodging.html">住宿业</a>
+      <a href="../industries.html">餐饮业</a>
+      <a href="../industries.html">航空业</a>
+      <a href="../industries.html">景区文旅</a>
+      <a href="../industries.html">娱乐休闲</a>
+    </div>
+  </div>
+  <div class="sf-bot">
+    <span>中国收益管理社区 · 通用内核 + 行业参数</span>
+    <span>联系：<a href="mailto:3984557428@qq.com" style="display:inline;color:var(--gold-2)">3984557428@qq.com</a></span>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js"></script>
+<script>
+(function(){
+  var t=document.getElementById('snToggle'), l=document.getElementById('snLinks');
+  if(t&&l){ t.addEventListener('click',function(){ l.classList.toggle('open'); }); }
+})();
+</script>
+
+<script>
+(function(){
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = btn.getAttribute('data-k');
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      var right = ([2,1])[parseInt(k,10)-1];
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === right) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M14 收益管理系统与自动化 · 酒店收益管理学院</title>
+<link rel="stylesheet" href="../assets/css/main.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"courses","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/courses/m14-rms.html"},{"@type":"ListItem","position":3,"name":"m14-rms","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/courses/m14-rms.html"}]}</script>
+</head>
+<body data-page="m14">
+<div class="layout">
+
+<aside class="sidebar" id="sidebar" data-page="m14"></aside>
+
+<main class="main">
+<div class="wrap">
+
+<div class="crumb">
+  <a href="../index.html">学院首页</a><span>/</span>
+  <a href="../curriculum.html">教案总纲</a><span>/</span>
+  L3 模块十四（最后一课）
+</div>
+
+<div class="page-head">
+  <div class="badge-row">
+    <span class="badge badge-l3">L3 收益管理经理</span>
+    <span class="badge">模块 M14</span>
+    <span class="badge">6 课时 / 270 min</span>
+    <span class="badge">认证权重 15%</span>
+  </div>
+  <h1 class="page-title">收益管理系统与自动化</h1>
+  <p class="page-lede">
+    系统能替你做 80% 的重复劳动，但<b>剩下 20% 必须由人把关</b>。
+    这一模块教你怎么画出那条人机边界。
+  </p>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="ic">◎</span>学习目标</div>
+  <ul>
+    <li>能<b>说出</b> RMS 四个核心模块，以及数据是怎么在里面流动的</li>
+    <li>能<b>画出</b>自己酒店的人机边界：哪些交给系统自动执行、哪些必须人工干预</li>
+    <li>能<b>配置</b> 12 个必配参数，并说得出每个值的推荐理由</li>
+    <li>能<b>制定</b>自动化渐进路径，知道为什么不许跳级</li>
+    <li>能<b>设计</b>至少 8 条告警规则</li>
+  </ul>
+  <p class="card-note">前置要求：M06 价格体系、M07 库存战术。<b>本模块是 L3 最后一课。</b></p>
+</div>
+
+<div class="toc">
+  <div class="toc-title">本模块目录</div>
+  <ol>
+    <li><a href="#s1">RMS 的四个核心模块</a></li>
+    <li><a href="#s2">人机边界：白名单与黑名单</a></li>
+    <li><a href="#s3">12 个必配参数</a></li>
+    <li><a href="#s4">自动化渐进路径</a></li>
+    <li><a href="#s5">系统选型十问</a></li>
+    <li><a href="#s6">告警规则设计</a></li>
+    <li><a href="#quiz">随堂测</a></li>
+  </ol>
+</div>
+
+<!-- ============ 一、四个模块 ============ -->
+<h2 id="s1">一、RMS 的四个核心模块</h2>
+<p>
+  不管哪个品牌的收益管理系统（RMS），拆开都是这四个模块。
+  <b>本节系统无关</b>——讲通用的原理，不针对任何具体产品。
+</p>
+
+<div class="flow">
+  <div class="flow-item">
+    <div class="fi-t">① 数据接入</div>
+    <div class="fi-d">PMS 的历史与在手<br>渠道数据<br>竞争价格<br>事件日历</div>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-item">
+    <div class="fi-t">② 需求预测</div>
+    <div class="fi-d">历史 + 在手<br>+ 提前窗口<br>→ 未来每一天<br>的预测需求</div>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-item">
+    <div class="fi-t">③ 价格推荐</div>
+    <div class="fi-d">基于预测与竞争<br>给出每一天<br>的建议价格</div>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-item">
+    <div class="fi-t">④ 自动下发</div>
+    <div class="fi-d">把价格直接推到<br>PMS 与各渠道</div>
+  </div>
+</div>
+
+<div class="grid grid-2">
+  <div class="card">
+    <div class="card-title"><span class="ic">✓</span>系统比人强的地方</div>
+    <ul style="font-size:13.5px;margin:0">
+      <li>能同时处理<b>几百个变量</b>（历史、在手、竞对、事件、星期几、天气……）</li>
+      <li><b>从不疲倦、从不漏</b>。365 天 × 10 个房型 × 6 个渠道，人做不到每天全查一遍</li>
+      <li><b>执行一致</b>。不会今天心情好少降点、明天心情差多降点</li>
+      <li>能<b> 24 小时响应</b>。凌晨 3 点竞对降价，它立刻知道</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="ic">✕</span>系统不如人的地方</div>
+    <ul style="font-size:13.5px;margin:0">
+      <li>遇到<b>没见过的情况</b>会失灵（新竞对开业、突发舆情、政府征用）</li>
+      <li><b>不懂组织</b>。它不知道这个客户是销售跟了三年的战略客户</li>
+      <li><b>不承担责任</b>。超售过度导致客人无房，挨骂的是你不是它</li>
+      <li><b>只会优化既定目标</b>。目标设错了，它会很努力地往错的方向跑</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout callout-key">
+  <span class="co-t">正确的人机关系</span>
+  <p>
+    <b>系统负责 80% 的常规决策，人负责 20% 的关键判断。</b><br>
+    上了 RMS 收益经理不会失业，但<b>不用 RMS 的收益经理会</b>——
+    因为他一个人查不了 365 天 × 10 房型 × 6 渠道的组合。<br><br>
+    <b>关键认知：系统放大你，不是替代你。</b>你越懂规则，系统配得越好，产出越大；
+    你不懂规则，配出来的系统只会很努力地犯错。
+  </p>
+</div>
+
+<!-- ============ 二、人机边界 ============ -->
+<h2 id="s2">二、人机边界：白名单与黑名单</h2>
+<p>
+  这是本模块<b>最核心的内容</b>。把这张表画清楚，RMS 就出不了大事。
+</p>
+
+<div class="grid grid-2">
+  <div class="card" style="border-left:4px solid var(--teal)">
+    <div class="card-title">✓ 白名单：可交给系统自动执行</div>
+    <ul style="font-size:13.5px;margin-bottom:10px">
+      <li>平峰日的小幅调价（±3–5%）</li>
+      <li>常规渠道开关</li>
+      <li>限制条件的批量设置与撤除</li>
+      <li>价格一致性巡检与告警</li>
+      <li>常规报表生成与推送</li>
+    </ul>
+    <p style="margin:0;font-size:13px;color:var(--ink-2)">
+      <b>判断标准：错了代价可控，且容易回滚。</b><br>
+      平峰日调错 5%，损失可能几千块，第二天改回来就行。
+    </p>
+  </div>
+  <div class="card" style="border-left:4px solid var(--danger)">
+    <div class="card-title">✕ 黑名单：必须人工干预</div>
+    <ul style="font-size:13.5px;margin-bottom:10px">
+      <li><b>D1 峰值日</b>的任何调价</li>
+      <li>超售率 <b>&gt;10%</b></li>
+      <li>团队与会议询价决策（表 G / 表 K）</li>
+      <li>异常事件（表 L 的五种情况）</li>
+      <li>价格体系重构（表 F 的价差调整）</li>
+      <li>年度预算与滚动预测</li>
+    </ul>
+    <p style="margin:0;font-size:13px;color:var(--ink-2)">
+      <b>判断标准：错了代价高，或涉及人的判断。</b><br>
+      D1 日调错一次，可能损失几十万，且无法回滚。
+    </p>
+  </div>
+</div>
+
+<div class="callout callout-warn">
+  <span class="co-t">为什么 D1 峰值日不能自动</span>
+  <p>
+    云璟酒店全年 D1 日约 20 天（国庆、五一、春节、展会等），
+    但这 20 天的客房收入通常占全年 <b>12–18%</b>。<br>
+    系统在这类日期的预测误差也最大——因为它见过的一手数据最少（一年才几次）。<br>
+    <b>所以：D1 日系统只给建议，人来拍板。这是《法典》表 A 约束 4 的硬性要求。</b>
+  </p>
+</div>
+
+<!-- ============ 三、参数 ============ -->
+<h2 id="s3">三、12 个必配参数</h2>
+<p>
+  这些参数<b>不能照抄</b>——下面给的是云璟酒店的值，以及<b>为什么是这个值</b>。
+  你要按自己酒店的情况算一遍。
+</p>
+
+<div class="tbl-wrap">
+  <table class="tbl">
+    <caption>12 个必配参数（云璟酒店推荐值）</caption>
+    <thead><tr><th class="mid" style="width:36px">#</th><th>参数</th><th>推荐值</th><th>为什么是这个值</th></tr></thead>
+    <tbody>
+      <tr><td class="mid">1</td><td><b>竞争组合</b></td><td>5 家，加权均价 ¥680</td><td>选房量相近、档次相同、3km 内的竞对。太少没代表性，太多采集不过来。</td></tr>
+      <tr><td class="mid">2</td><td><b>价格地板</b></td><td>¥480</td><td>低于此价连变动成本都收不回（布草洗涤 + 能耗 + 早餐 + 佣金约 ¥470）。</td></tr>
+      <tr><td class="mid">3</td><td><b>价格天花板</b></td><td>¥2,400</td><td>品牌线。超过会伤害口碑，且会被OTA降权。平峰 BAR ¥680 的 3.5 倍。</td></tr>
+      <tr><td class="mid">4</td><td><b>调价步长</b></td><td>最小 3%，最大 20%</td><td>与《法典》表 A 一致。低于 3% 市场无感知，高于 20% 会吓跑客人。</td></tr>
+      <tr><td class="mid">5</td><td><b>调价频率</b></td><td>每日最多 2 次</td><td>《法典》表 A 约束 1。改太频繁，渠道同步跟不上，还会触发价格一致性告警。</td></tr>
+      <tr><td class="mid">6</td><td><b>房型价差</b></td><td>85/100/120/140/145/180/265</td><td>《法典》表 F。设定一次，全房型价格自动生成，每周一校验。</td></tr>
+      <tr><td class="mid">7</td><td><b>渠道优先级</b></td><td>直销 &gt; 会员 &gt; 协议 &gt; GDS &gt; OTA &gt; 批发</td><td>按渠道成本排序（3%/4%/8%/13%/16%/26%）。房好卖时从右往左关。</td></tr>
+      <tr><td class="mid">8</td><td><b>超售上限</b></td><td>5% 且 ≤15 间</td><td>《法典》表 E 硬上限。两条都要满足，取小值。</td></tr>
+      <tr><td class="mid">9</td><td><b>细分权重</b></td><td>OTA 权重不宜过高</td><td>权重太高，系统会学成「只会降价冲量」。按净贡献设权重，别按产量。</td></tr>
+      <tr><td class="mid">10</td><td><b>预测模型</b></td><td>历史 + Pickup + 事件 复合模型</td><td>只用历史跟不上变化；只用 Pickup 在远期不稳定；加事件才能处理展会这类脉冲。</td></tr>
+      <tr><td class="mid">11</td><td><b>审批流</b></td><td>D1 日调价、超售&gt;10% 必须人工审批</td><td>与黑名单一致。系统给建议，人来拍板并留痕。</td></tr>
+      <tr><td class="mid">12</td><td><b>告警阈值</b></td><td>Pickup 偏差 &gt;±30%；ARI &gt;120 或 &lt;80</td><td>超出常规波动范围，说明有异常，需要人介入看一眼。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="callout callout-danger">
+  <span class="co-t">最容易配错的是第 9 条（细分权重）</span>
+  <p>
+    很多人按<b>产量</b>设权重，结果 OTA 产量最大、权重最高，系统就学成了「降价冲 OTA 量」。<br>
+    正确做法是<b>按净贡献设权重</b>——把渠道成本扣掉之后再算，直销的权重应该高于 OTA。<br><br>
+    <b>每季度必须复核一次全部 12 个参数。</b>市场在变，竞对在变，参数不跟着变，系统就会越跑越偏。
+  </p>
+</div>
+
+<!-- ============ 四、渐进路径 ============ -->
+<h2 id="s4">四、自动化渐进路径（不许跳级）</h2>
+
+<div class="timeline">
+  <div class="tl-item">
+    <div class="tl-time">Level 0</div>
+    <div class="tl-body"><b>纯手工</b>。Excel + 人工落位。<br>
+    <b>适用</b>：80 间以下、无专职收益。<b>验收</b>：能稳定完成每日流水线。</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">Level 1</div>
+    <div class="tl-body"><b>Excel 半自动</b>。用本学院的模板包，公式自动出结论，人工落位。<br>
+    <b>适用</b>：任何规模，<b>建议所有人从这里开始</b>。<b>验收</b>：调价命中率可统计。</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">Level 2</div>
+    <div class="tl-body"><b>系统推荐 + 人工确认</b>。RMS 给建议，人逐条确认后下发。<br>
+    <b>适用</b>：150 间以上、有专职收益。<b>验收</b>：连续 3 个月，系统建议的采纳率 &gt;70%。</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">Level 3</div>
+    <div class="tl-body"><b>部分自动</b>。白名单放开自动执行，黑名单仍人工。<br>
+    <b>适用</b>：Level 2 跑顺 3 个月以上。<b>验收</b>：白名单动作的出错率 &lt;2%。</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">Level 4</div>
+    <div class="tl-body"><b>全自动 + 人工监管</b>。系统全权执行，人只看告警和复盘。<br>
+    <b>适用</b>：多店集团、有成熟中台。<b>验收</b>：RGI 稳定跑赢竞争组合，且季度复盘无重大事故。</div>
+  </div>
+</div>
+
+<div class="callout callout-danger">
+  <span class="co-t">为什么不许跳级</span>
+  <p>
+    最常见的失败是：<b>直接上系统、直接开全自动</b>（从 Level 0 跳到 Level 3/4）。<br><br>
+    后果通常是：系统参数没配好 → 建议价格离谱 → 但因为全自动，没人看 →
+    连续跑了一个月才发现 ADR 掉了 15%。<br><br>
+    <b>正确做法：从 Level 2 开始，跑顺三个月再放白名单。</b>
+    这三个月的价值不只是验证系统，更是<b>让人学会看懂系统的建议</b>——
+    你看得懂它为什么这么建议，才敢放手让它自己干。
+  </p>
+</div>
+
+<!-- ============ 五、选型十问 ============ -->
+<h2 id="s5">五、系统选型十问</h2>
+<p>给要买系统的学员用。问销售这十个问题，答不上来的直接淘汰。</p>
+
+<div class="tbl-wrap">
+  <table class="tbl">
+    <caption>选型十问清单</caption>
+    <thead><tr><th class="mid" style="width:36px">#</th><th>要问的问题</th><th>什么样的答案算合格</th></tr></thead>
+    <tbody>
+      <tr><td class="mid">1</td><td>能对接我们现在的 PMS 吗？是直连还是定时同步？</td><td>直连。定时同步（如 4 小时一次）在旺季会出事</td></tr>
+      <tr><td class="mid">2</td><td>竞争价格数据从哪来？多久更新一次？</td><td>每日至少 1 次，且能自定义竞争组合</td></tr>
+      <tr><td class="mid">3</td><td>能设置价格地板/天花板吗？能不能按房型分别设？</td><td>能，且必须能按房型分别设</td></tr>
+      <tr><td class="mid">4</td><td>能不能配置审批流？哪些动作需要人工确认？</td><td>能自定义规则，至少支持按日期类型和幅度配置</td></tr>
+      <tr><td class="mid">5</td><td>预测模型是什么？能不能看预测准确率？</td><td>能输出历史准确率，且能按天查看</td></tr>
+      <tr><td class="mid">6</td><td>能不能处理团队和会议的置换分析？</td><td>能，或者至少能手动录入团队占用后再预测</td></tr>
+      <tr><td class="mid">7</td><td>告警规则能不能自定义？支持哪些通知方式？</td><td>能自定义阈值，支持邮件 + 短信/微信</td></tr>
+      <tr><td class="mid">8</td><td>能不能导出全部决策日志？</td><td>能，且包含「当时看到什么数、给出什么建议」</td></tr>
+      <tr><td class="mid">9</td><td>实施周期多久？包含几次参数调优？</td><td>不超过 3 个月，至少包含 2 次调优</td></tr>
+      <tr><td class="mid">10</td><td>能不能先试运行 3 个月，只看建议不自动执行？</td><td><b>必须能。</b>不给试运行的，直接淘汰</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ 六、告警 ============ -->
+<h2 id="s6">六、告警规则设计</h2>
+<p>
+  系统应该在你<b>需要知道</b>的时候打扰你，而不是天天发消息。
+  告警太多等于没有告警——人会自动忽略。
+</p>
+
+<div class="tbl-wrap">
+  <table class="tbl">
+    <caption>8 条告警规则</caption>
+    <thead><tr><th class="mid" style="width:36px">#</th><th>告警</th><th>阈值</th><th>收到后做什么</th></tr></thead>
+    <tbody>
+      <tr><td class="mid">1</td><td>Pickup 异常落后</td><td>48h 内落后 &gt;30%</td><td>查表 L 是否触发需求暴跌，是则启动应急</td></tr>
+      <tr><td class="mid">2</td><td>Pickup 异常领先</td><td>24h 内领先 &gt;60%</td><td>查表 L 需求暴涨，考虑提价与 MinLOS</td></tr>
+      <tr><td class="mid">3</td><td>ARI 越界</td><td>&gt;120 或 &lt;80</td><td>查表 C，判断是提价还是降价</td></tr>
+      <tr><td class="mid">4</td><td>竞对大幅降价</td><td>单日降幅 &gt;15%</td><td>先怀疑数据，再查表 D，<b>不盲目跟价</b></td></tr>
+      <tr><td class="mid">5</td><td>价格一致性违规</td><td>直销价 &gt; 任一 OTA 价</td><td>24 小时内整改（表 H 红线）</td></tr>
+      <tr><td class="mid">6</td><td>接近满房</td><td>某日预测 OCC ≥95%</td><td>查表 B，配 MinLOS/CTA、关低价渠道</td></tr>
+      <tr><td class="mid">7</td><td>渠道断连</td><td>某渠道 2 小时无订单</td><td>切手动模式，通知渠道经理（表 L）</td></tr>
+      <tr><td class="mid">8</td><td>超售率逼近上限</td><td>某日超售 &gt;可售房量 4%</td><td>复核表 E 的修正系数，确认备用酒店</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="callout callout-key">
+  <span class="co-t">讲师示范：告警太多会怎样</span>
+  <p>
+    某酒店配了 30 条告警，每天收 80+ 条消息。两周后，收益经理把告警邮箱设成了自动归档。<br>
+    第三周，国庆前一天渠道断连 6 小时，告警发了 12 封，一封没看到。<br>
+    等发现时，那天的 OTA 库存已经被竞对抢光，OCC 只有 71%（预测 96%）。<br><br>
+    <b>教训：告警的价值在于稀缺性。</b>宁可只留 8 条真正重要的，也不要 30 条全都要看。
+  </p>
+</div>
+
+<!-- ============ 随堂测 ============ -->
+<h2 id="quiz">七、随堂测（5 题）</h2>
+
+<div class="ex-q">
+  <div class="q-t">第 1 题</div>
+  <div class="q-b">RMS 的四个核心模块是什么？系统比人强在哪、不如人在哪？</div>
+  <details class="ex-a"><summary>查看答案</summary><div class="a-body">
+    四模块：<b>数据接入 → 需求预测 → 价格推荐 → 自动下发</b>。<br><br>
+    <b>系统强在</b>：能同时处理几百个变量；从不疲倦不漏；执行一致；24 小时响应。<br>
+    <b>系统弱在</b>：遇到没见过的情况会失灵；不懂组织（不知道哪个是战略客户）；
+    不承担责任；只会优化既定目标（目标错了就往错的方向跑）。
+  </div></details>
+</div>
+
+<div class="ex-q">
+  <div class="q-t">第 2 题</div>
+  <div class="q-b">人机边界的判断标准是什么？举两个白名单动作、两个黑名单动作。</div>
+  <details class="ex-a"><summary>查看答案</summary><div class="a-body">
+    <b>白名单判断标准：错了代价可控，且容易回滚。</b><br>
+    例：平峰日小幅调价（±3–5%）、常规渠道开关、限制条件批量设置与撤除。<br><br>
+    <b>黑名单判断标准：错了代价高，或涉及人的判断。</b><br>
+    例：D1 峰值日的任何调价、超售率 &gt;10%、团队与会议询价决策（表 G/表 K）、
+    异常事件（表 L）。
+  </div></details>
+</div>
+
+<div class="ex-q">
+  <div class="q-t">第 3 题</div>
+  <div class="q-b">为什么 D1 峰值日的调价必须人工审批？</div>
+  <details class="ex-a"><summary>查看答案</summary><div class="a-body">
+    两个原因：<br>
+    ① <b>占比太高</b>——云璟酒店全年 D1 日约 20 天，但这 20 天的客房收入占全年 12–18%。
+    调错一次损失几十万，且无法回滚。<br>
+    ② <b>系统在这类日期预测误差最大</b>——因为它见过的一手数据最少（一年才几次）。<br><br>
+    这也是《法典》表 A 约束 4 的硬性要求。
+  </div></details>
+</div>
+
+<div class="ex-q">
+  <div class="q-t">第 4 题</div>
+  <div class="q-b">12 个必配参数中，哪一个最容易配错？正确的做法是什么？</div>
+  <details class="ex-a"><summary>查看答案</summary><div class="a-body">
+    <b>第 9 条：细分权重。</b><br><br>
+    常见错误是<b>按产量</b>设权重——结果 OTA 产量最大、权重最高，
+    系统就学成了「降价冲 OTA 量」，NRevPAR 越跑越低。<br><br>
+    <b>正确做法：按净贡献设权重</b>——把渠道成本扣掉之后再算，
+    直销（成本 3%）的权重应该高于 OTA（成本 16%）。<br><br>
+    另外，<b>12 个参数每季度必须复核一次</b>。
+  </div></details>
+</div>
+
+<div class="ex-q">
+  <div class="q-t">第 5 题</div>
+  <div class="q-b">某酒店直接上系统并开启全自动（从 Level 0 跳到 Level 4），通常会出什么问题？
+  正确做法是什么？</div>
+  <details class="ex-a"><summary>查看答案</summary><div class="a-body">
+    <b>典型后果</b>：系统参数没配好 → 建议价格离谱 → 但因为全自动没人看 →
+    连续跑了一个月才发现 ADR 掉了 15%。<br><br>
+    <b>正确做法：从 Level 2（系统推荐 + 人工确认）开始，跑顺三个月再放白名单。</b><br><br>
+    这三个月的价值不只是验证系统，更是<b>让人学会看懂系统的建议</b>——
+    你看得懂它为什么这么建议，才敢放手让它自己干。<br>
+    另外，选型第 10 问就是「能不能先试运行 3 个月，只看建议不自动执行」，
+    不给试运行的供应商直接淘汰。
+  </div></details>
+</div>
+
+<div class="callout callout-gold" style="margin-top:26px">
+  <span class="co-t">🎓 你已经学完全部 14 个模块</span>
+  <p>
+    从 M01 的「OCC 怎么算」，到现在的「系统怎么配」，你走完了 L1 → L2 → L3 的完整路径。<br><br>
+    <b>最后一句提醒：阈值是通用起点，不是圣经。</b>
+    回到岗位后用三个月，拿自己酒店的真实数据把这 15 张表重新标定一遍——
+    尤其是表 E（超售率）、表 C（ARI 绝对值）、表 F（价差）。<br><br>
+    <b>把这套东西教会你团队里的下一个人——那才是真正的掌握。</b>
+  </p>
+</div>
+
+<div class="callout callout-do">
+  <span class="co-t">本模块产出物</span>
+  <ul style="margin:6px 0 0">
+    <li>《人机边界表》——用你自己酒店的情况填一份（白名单 / 黑名单）</li>
+    <li>《12 个必配参数表》——每个参数写出你酒店的值和理由</li>
+    <li>《告警规则清单》——至少 8 条，含阈值和收到后做什么</li>
+  </ul>
+</div>
+
+<div class="pager">
+  <a href="m13-team.html"><div class="p-dir">← 上一模块</div><div class="p-title">M13 跨部门协同与变革推动</div></a>
+  <a href="../exam/workbook.html" class="p-next"><div class="p-dir">全部课程学完 →</div><div class="p-title">演练题库（251 题）</div></a>
+</div>
+
+</div>
+</main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

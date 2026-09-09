@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M05 需求预测：Pickup 与预订曲线 · 酒店收益管理学院</title>
+<link rel="stylesheet" href="../assets/css/main.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"courses","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/courses/m05-forecast.html"},{"@type":"ListItem","position":3,"name":"m05-forecast","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/courses/m05-forecast.html"}]}</script>
+</head>
+<body data-page="m05">
+<div class="layout">
+
+<aside class="sidebar" id="sidebar" data-page="m05"></aside>
+
+<main class="main">
+<div class="wrap">
+
+  <!-- ===== 页头 ===== -->
+  <div class="crumb">
+    <a href="../index.html">学院首页</a><span>/</span>
+    <a href="../curriculum.html">教案总纲</a><span>/</span>
+    L2 模块五
+  </div>
+
+  <div class="page-head">
+    <div class="badge-row">
+      <span class="badge badge-l2">L2 收益管理主管</span>
+      <span class="badge">模块 M05</span>
+      <span class="badge">8 课时 / 720 min</span>
+      <span class="badge">占 L2 认证 25%</span>
+      <span class="badge badge-core">L2 核心模块</span>
+    </div>
+    <h1 class="page-title">需求预测：Pickup 与预订曲线</h1>
+    <p class="page-lede">一句话导语：预测不是算命，是把「去年这个日子发生了什么」＋「今年到今天为止多收了多少」＋「今年这个日子有什么不同」三笔账加在一起。本模块把这套加法做成固定三步，学员只需填数、读结果、查表执行。</p>
+  </div>
+
+  <!-- ===== 学习目标 ===== -->
+  <div class="card">
+    <div class="card-title"><span class="ic">◎</span>学习目标</div>
+    <ul>
+      <li>能<b>说出</b> Pickup（预订增量）、Booking Window（预订窗口）、On-the-books（在手预订）、Remaining Demand / RW（剩余需求）四个概念的定义与计算口径</li>
+      <li>能<b>独立搭建</b>《Pickup 追踪表》（行＝提前天数 60/45/30/21/14/7/3/1/0，列＝目标日期，单元格＝累计在手房晚），并用对角读法、竖读法、横读法三种方式读出结论</li>
+      <li>能<b>背诵并套用</b>《法典》表 I（预订窗口分档监控表，6 档）的监控频率、落后触发阈值与触发动作</li>
+      <li>能<b>独立执行</b>预测三步法（① 去年同期实际 ② 加 Pickup 增量 ③ 用需求日历／事件／星期几做修正），算出未来 30 天任一目标日的预测房晚与预测 OCC（出租率）</li>
+      <li>能<b>算出</b>预测准确率并判断是否达标，能按偏差分类给出改进动作</li>
+    </ul>
+    <p class="card-note">前置要求：M01 指标语言（OCC／ADR／RevPAR 口径）、M03 每日流水线（表 M）、M04 报表与台账（《调价台账》写法）。本模块是 L2 阶段的第一个模块，也是全部 L2 决策的输入源头。</p>
+  </div>
+
+  <!-- ===== 目录 ===== -->
+  <div class="toc">
+    <div class="toc-title">本模块目录</div>
+    <ol>
+      <li><a href="#s1">预测的四块基石：Pickup / Booking Window / 在手预订 / 剩余需求</a></li>
+      <li><a href="#s2">《Pickup 追踪表》的搭建</a></li>
+      <li><a href="#s3">《Pickup 追踪表》的三种读法</a></li>
+      <li><a href="#s4">《法典》表 I：预订窗口分档监控表（完整内嵌）</a></li>
+      <li><a href="#s5">《法典》表 A：每日价格调整判定表（本模块配套内嵌）</a></li>
+      <li><a href="#s6">预测三步法与修正系数表</a></li>
+      <li><a href="#s7">三个完整预测演算案例</a></li>
+      <li><a href="#s8">预测偏差复盘：准确率、合格线与改进</a></li>
+      <li><a href="#s9">讲师示范：完整走一遍四步闭环</a></li>
+      <li><a href="#s10">学员跟练（7 题）</a></li>
+      <li><a href="#s11">判定表默写清单</a></li>
+      <li><a href="#s12">随堂测（5 题）</a></li>
+      <li><a href="#s13">本模块产出物</a></li>
+    </ol>
+  </div>
+
+  <!-- ================= 一 ================= -->
+  <h2 id="s1">一、预测的四块基石：Pickup / Booking Window / 在手预订 / 剩余需求</h2>
+
+  <p>收益管理所有决策的第一句是「这个日子会卖多少」。这句话必须由数字回答，不能由感觉回答。要回答它，只需要四个概念。四个概念全部来自《SPEC》3.1 术语表，全学院唯一口径，不得另创。</p>
+
+  <h3>1.1 Pickup（预订增量）</h3>
+
+  <div class="formula">
+    <span class="f-label">定义</span>
+    Pickup = 某目标日在某一时间段内新增的预订房晚数<br>
+    区间 Pickup（本表口径） = 期末在手房晚 − 期初在手房晚<br>
+    <span class="f-out">正值 = 净新增；负值 = 取消多于新增</span>
+  </div>
+
+  <p>举例：10 月 20 日这天，昨天 08:00 在手 92 房晚，今天 08:00 在手 96 房晚，则今日区间 Pickup = 96 − 92 = <b>+4 房晚</b>。若今天在手 88 房晚，则 Pickup = 88 − 92 = <span class="down">−4 房晚</span>，说明今天净取消 4 间。</p>
+
+  <div class="callout callout-warn">
+    <span class="co-t">口径红线</span>
+    <p>Pickup 必须用<b>同一取数时点</b>对比。今天 17:00 的手数不能减昨天 08:00 的手数——下午本来就会多收订单，减出来的"Pickup"是假的。《法典》表 M 规定取数时点为 07:50（未来 30 天在手 + Pickup）与 17:00（0–3 天窗口二次巡检），同口径对比才能用。</p>
+  </div>
+
+  <h3>1.2 Booking Window（预订窗口）</h3>
+
+  <div class="formula">
+    <span class="f-label">定义</span>
+    Booking Window = 入住日 − 预订日（天数）<br>
+    例：今天 2026-09-20，目标入住日 2026-10-20 → 预订窗口 = <span class="f-out">30 天</span>
+  </div>
+
+  <p>预订窗口不是"一个数"，而是一条<b>分档的监控节奏</b>。窗口越近，监控越密；窗口越远，监控越松。《法典》表 I 把 0 天到 60 天以上切成 6 档，每档规定了监控频率、关注指标、落后触发阈值和触发动作。这是本模块最重要的一张表，第四节完整内嵌。</p>
+
+  <h3>1.3 On-the-books（在手预订，OTB）</h3>
+
+  <p>在手预订 = 截至取数时点，某目标日已经确认、未取消的累计预订房晚数。它是<b>已经落袋的事实</b>，不是预测。预测要算的，是"从今天到那天，还会再来多少"。</p>
+
+  <h3>1.4 Remaining Demand（剩余需求，RW）</h3>
+
+  <div class="formula">
+    <span class="f-label">定义</span>
+    RW（剩余需求） = 预测总需求 − 在手预订<br>
+    例：预测 10/20 总需求 250 房晚，当前在手 96 房晚 → <span class="f-out">RW = 154 房晚</span>
+  </div>
+
+  <p>RW 是给销售部和渠道部的<b>任务量</b>。没有 RW，销售部不知道该打多少电话；有了 RW，还可以把它摊到剩余天数上，算出每天必须完成的日均进度。</p>
+
+  <div class="formula">
+    <span class="f-label">派生公式</span>
+    日均必需进度 = RW ÷ 剩余天数<br>
+    例：RW 154 房晚 ÷ 30 天 → <span class="f-out">日均 5.1 房晚／天</span>
+  </div>
+
+  <h3>1.5 四者的关系（一张图记牢）</h3>
+
+  <div class="flow">
+    <div class="flow-item"><div class="fi-t">在手预订 OTB</div><div class="fi-d">已发生的事实<br>例：96 房晚</div></div>
+    <div class="flow-arrow">＋</div>
+    <div class="flow-item"><div class="fi-t">剩余需求 RW</div><div class="fi-d">还没来的部分<br>例：154 房晚</div></div>
+    <div class="flow-arrow">＝</div>
+    <div class="flow-item"><div class="fi-t">预测总需求</div><div class="fi-d">本模块的输出<br>例：250 房晚</div></div>
+    <div class="flow-arrow">÷</div>
+    <div class="flow-item"><div class="fi-t">可售房晚</div><div class="fi-d">云璟 320 间<br>（剔除 OOO 房）</div></div>
+    <div class="flow-arrow">＝</div>
+    <div class="flow-item"><div class="fi-t">预测 OCC</div><div class="fi-d">查表 A 的行<br>例：78.1%</div></div>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">要点</span>
+    <p>预测 OCC = 预测总需求 ÷ 可售房晚。杭州滨江云璟酒店总房量 <b>320 间</b>，平峰日无装修房时可售房晚 = 320。只要有 OOO（维修房），分母必须同步下调——分母错了，后面全错。</p>
+  </div>
+
+  <!-- ================= 二 ================= -->
+  <h2 id="s2">二、《Pickup 追踪表》的搭建</h2>
+
+  <p>《Pickup 追踪表》是 L2 收益管理主管的第一件武器。它把"未来每一天"和"距离那一天还有多久"交叉成一张网格，网格里填的是累计在手房晚。建表只需四步。</p>
+
+  <h3>2.1 建表四步</h3>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>定行：9 个提前天数档</h4>
+      <p>行＝提前天数，固定 9 行，自上而下为 <code>60 / 45 / 30 / 21 / 14 / 7 / 3 / 1 / 0</code>。这 9 档不是随意选的：0–3 天是最后一刻战场，7 天是闪购启动线，14 天是调价线，30 天是月度策略线，60 天是长线团队线。</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>定列：目标日期</h4>
+      <p>列＝目标入住日期，自左向右按日期升序排列。日常作业覆盖"今天 + 未来 60 天"，即 61 列。教学与周度汇报用精简版，只保留与 9 个提前天数档对应的 9 个代表日。</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4>填数：累计在手房晚</h4>
+      <p>单元格＝<b>该目标日在该提前天数时点上的累计在手房晚</b>。不是当日新增，是累计。每天 07:50 取数后，在今天所处的那一条对角线上填一次（见第三节）。</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h4>建第二张表：去年同期同结构表</h4>
+      <p>用完全相同的数据结构，把<b>去年同一目标日、同一提前天数</b>的在手房晚填一遍。没有这张表，就算不出《法典》表 A 要的 Pickup 偏差，后面全部决策停摆。</p>
+    </div>
+  </div>
+
+  <h3>2.2 表样：云璟酒店 2026-09-20 取数快照</h3>
+
+  <p>下表为杭州滨江云璟酒店《Pickup 追踪表》精简版。取数日 2026-09-20（周日），酒店可售房晚 320。单元格数字＝累计在手房晚；<b>加粗金底单元格＝今天的取数对角线</b>；<code>—</code> 表示该快照尚未发生（未来的取数时点，格子留空）。</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 5-1　《Pickup 追踪表》（精简版 · 累计在手房晚）<span class="cap-note">行＝提前天数，列＝目标入住日期；取数日 2026-09-20；加粗金底＝当日取数对角线；— ＝尚未发生的快照</span></caption>
+      <thead>
+        <tr>
+          <th>提前天数 ＼ 目标日</th>
+          <th class="num">09-20<br>周日</th>
+          <th class="num">09-21<br>周一</th>
+          <th class="num">09-23<br>周三</th>
+          <th class="num">09-27<br>周日</th>
+          <th class="num">10-04<br>周日</th>
+          <th class="num">10-11<br>周日</th>
+          <th class="num">10-20<br>周二</th>
+          <th class="num">11-04<br>周三</th>
+          <th class="num">11-19<br>周四</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th class="rowh">提前 60 天</th><td class="num">29</td><td class="num">28</td><td class="num">27</td><td class="num">28</td><td class="num">29</td><td class="num">29</td><td class="num">28</td><td class="num">25</td><td class="num" data-hit>24</td></tr>
+        <tr><th class="rowh">提前 45 天</th><td class="num">48</td><td class="num">47</td><td class="num">46</td><td class="num">47</td><td class="num">49</td><td class="num">48</td><td class="num">46</td><td class="num" data-hit>42</td><td class="num">—</td></tr>
+        <tr><th class="rowh">提前 30 天</th><td class="num">82</td><td class="num">80</td><td class="num">78</td><td class="num">80</td><td class="num">83</td><td class="num">82</td><td class="num" data-hit>96</td><td class="num">—</td><td class="num">—</td></tr>
+        <tr><th class="rowh">提前 21 天</th><td class="num">110</td><td class="num">108</td><td class="num">105</td><td class="num">109</td><td class="num">112</td><td class="num" data-hit>110</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+        <tr><th class="rowh">提前 14 天</th><td class="num">139</td><td class="num">136</td><td class="num">132</td><td class="num">137</td><td class="num" data-hit>142</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+        <tr><th class="rowh">提前 7 天</th><td class="num">175</td><td class="num">172</td><td class="num">166</td><td class="num" data-hit>172</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+        <tr><th class="rowh">提前 3 天</th><td class="num">206</td><td class="num">202</td><td class="num" data-hit>196</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+        <tr><th class="rowh">提前 1 天</th><td class="num">226</td><td class="num" data-hit>221</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+        <tr><th class="rowh">当天（0 天）</th><td class="num" data-hit>240</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">为什么是"阶梯对角线"而不是直线</span>
+    <p>因为行距是不等距的（60→45 差 15 天，7→3 差 4 天，3→1 差 2 天）。今天的取数对角线满足唯一条件：<b>目标日期 − 今天 = 该行的提前天数</b>。顺着这个条件找格子，就得到上面 9 个金底单元格。不要凭"看起来像对角线"去数格子。</p>
+  </div>
+
+  <h3>2.3 同期对比表与差值表</h3>
+
+  <p>把去年同期同结构表叠上来，做同位置相减，得到《Pickup 差值表》。这张表直接产出《法典》表 A 要的 Pickup 偏差。</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 5-2　《Pickup 差值表》（今年在手 − 去年同期在手）<span class="cap-note">取数日 2026-09-20；仅列今天所处的对角线，即"当前各目标日的领先／落后幅度"</span></caption>
+      <thead>
+        <tr><th>目标日</th><th class="num">提前天数</th><th class="num">今年在手</th><th class="num">去年同期在手</th><th class="num">差值</th><th class="num">Pickup 偏差</th><th>表 A 列定位</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>2026-09-20</td><td class="num">0</td><td class="num">240</td><td class="num">235</td><td class="num">+5</td><td class="num">+2.1%</td><td>持平 ±3%</td></tr>
+        <tr><td>2026-09-21</td><td class="num">1</td><td class="num">221</td><td class="num">218</td><td class="num">+3</td><td class="num">+1.4%</td><td>持平 ±3%</td></tr>
+        <tr><td>2026-09-23</td><td class="num">3</td><td class="num">196</td><td class="num">190</td><td class="num">+6</td><td class="num">+3.2%</td><td>领先 3–10%</td></tr>
+        <tr><td>2026-09-27</td><td class="num">7</td><td class="num">172</td><td class="num">168</td><td class="num">+4</td><td class="num">+2.4%</td><td>持平 ±3%</td></tr>
+        <tr><td>2026-10-04</td><td class="num">14</td><td class="num">142</td><td class="num">140</td><td class="num">+2</td><td class="num">+1.4%</td><td>持平 ±3%</td></tr>
+        <tr><td>2026-10-11</td><td class="num">21</td><td class="num">110</td><td class="num">113</td><td class="num">−3</td><td class="num"><span class="down">−2.7%</span></td><td>持平 ±3%</td></tr>
+        <tr><td>2026-10-20</td><td class="num">30</td><td class="num">96</td><td class="num">78</td><td class="num">+18</td><td class="num"><span class="up">+23.1%</span></td><td>领先 &gt;10%</td></tr>
+        <tr><td>2026-11-04</td><td class="num">45</td><td class="num">42</td><td class="num">41</td><td class="num">+1</td><td class="num">+2.4%</td><td>持平 ±3%</td></tr>
+        <tr><td>2026-11-19</td><td class="num">60</td><td class="num">24</td><td class="num">23</td><td class="num">+1</td><td class="num">+4.3%</td><td>领先 3–10%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="formula">
+    <span class="f-label">公式（《法典》表 A 输入 2 · 逐字引用）</span>
+    Pickup 偏差 =（当前在手房晚 − 去年同期同一提前窗口在手房晚）÷ 去年同期在手房晚 × 100%<br>
+    例（10-20）：(96 − 78) ÷ 78 × 100% → <span class="f-out">+23.1%</span>
+  </div>
+
+  <!-- ================= 三 ================= -->
+  <h2 id="s3">三、《Pickup 追踪表》的三种读法</h2>
+
+  <p>同一张表，三种读法，回答三个不同的问题。学员必须三种都会，且能说出每种读法回答什么问题。</p>
+
+  <h3>3.1 对角读（左下 → 右上）：今天的整体快照</h3>
+
+  <p><b>回答的问题</b>：此刻，未来每一天各自收了多少？哪一天落后？</p>
+
+  <p>沿"目标日期 − 今天 = 提前天数"这条阶梯对角线，从右下角（0 天 × 09-20）向左上角（60 天 × 11-19）读一遍，得到今天的完整快照：240 / 221 / 196 / 172 / 142 / 110 / 96 / 42 / 24。</p>
+
+  <div class="callout callout-do">
+    <span class="co-t">对角读的动作规则</span>
+    <p>读完后只做一件事：把每个格子换算成<b>在手健康度</b>，凡健康度 &lt; 100% 的日子，按落后幅度查《法典》表 I 对应窗口档，触发相应动作。</p>
+    <div class="formula" style="margin:10px 0 0">
+      在手健康度 = 当前在手 ÷（去年同期实际房晚 × 该提前窗口基准累计占比）× 100%
+    </div>
+  </div>
+
+  <h3>3.2 竖读（同一列从上到下）：单日的预订曲线</h3>
+
+  <p><b>回答的问题</b>：这一天收得<b>快不快</b>？剩下的日子还能不能补上？</p>
+
+  <p>以 09-20 这一列为例，从上到下读：29 → 48 → 82 → 110 → 139 → 175 → 206 → 226 → 240。这就是 09-20 这一天的<b>预订曲线（Booking Curve）</b>。曲线的斜率就是 Pickup 速度：</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 5-3　目标日 2026-09-20 的预订曲线与区间 Pickup 速度</caption>
+      <thead><tr><th>提前天数</th><th class="num">累计在手</th><th class="num">区间 Pickup</th><th class="num">区间天数</th><th class="num">日均 Pickup</th><th>曲线判读</th></tr></thead>
+      <tbody>
+        <tr><td>提前 60 天</td><td class="num">29</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td>起点</td></tr>
+        <tr><td>提前 45 天</td><td class="num">48</td><td class="num">+19</td><td class="num">15</td><td class="num">1.27</td><td>长线慢速爬升</td></tr>
+        <tr><td>提前 30 天</td><td class="num">82</td><td class="num">+34</td><td class="num">15</td><td class="num">2.27</td><td>进入月度放量</td></tr>
+        <tr><td>提前 21 天</td><td class="num">110</td><td class="num">+28</td><td class="num">9</td><td class="num">3.11</td><td>加速</td></tr>
+        <tr><td>提前 14 天</td><td class="num">139</td><td class="num">+29</td><td class="num">7</td><td class="num">4.14</td><td>加速</td></tr>
+        <tr><td>提前 7 天</td><td class="num">175</td><td class="num">+36</td><td class="num">7</td><td class="num">5.14</td><td>进入高速区</td></tr>
+        <tr><td>提前 3 天</td><td class="num">206</td><td class="num">+31</td><td class="num">4</td><td class="num">7.75</td><td>最后一刻冲刺</td></tr>
+        <tr><td>提前 1 天</td><td class="num">226</td><td class="num">+20</td><td class="num">2</td><td class="num">10.00</td><td>最后一刻冲刺</td></tr>
+        <tr><td>当天 0 天</td><td class="num">240</td><td class="num">+14</td><td class="num">1</td><td class="num">14.00</td><td>上门散客补齐</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">竖读的三条判读规则</span>
+    <ul style="margin:6px 0 0">
+      <li><b>斜率判读</b>：把当天所处区间的日均 Pickup，与去年同期同一区间的日均 Pickup 相除，商 &lt; 0.9 判"收得慢"，商 &gt; 1.1 判"收得快"，0.9–1.1 判"正常"。</li>
+      <li><b>后段空转判读</b>：提前 3 天 → 1 天的区间日均 Pickup 若 &lt; 提前 7 天 → 3 天的区间日均 Pickup，说明最后一刻需求枯竭，立即查《法典》表 I 0–3 天档（OCC&lt;70% 触发「今日特惠」）。</li>
+      <li><b>前置透支判读</b>：提前 30 天在手已超过"去年同期实际 × 34%"，说明长线需求前移，其后段大概率减速，不得按早期增速线性外推。</li>
+    </ul>
+  </div>
+
+  <h3>3.3 横读（同一行从左到右）：同窗口的未来横截面</h3>
+
+  <p><b>回答的问题</b>：在<b>同样的提前期</b>下，未来连续各日哪天是"凹陷日"（收得明显比邻日差）？</p>
+
+  <p>以"提前 30 天"这一行为例，从左到右读：82 / 80 / 78 / 80 / 83 / 82 / 96 / — / —。09-23 的 78 是这一段的最低点，10-20 的 96 是最高点。凹陷日要单独标出来，因为它往往不是"需求真的差"，而是三类可修问题：</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 5-4　横读发现"凹陷日"后的四类归因与对应动作</caption>
+      <thead><tr><th>归因</th><th>验证方法（一步到位）</th><th>动作</th></tr></thead>
+      <tbody>
+        <tr><td>该日有大型团队／会议占用未释放</td><td>查宴会预订本：当日宴会厅是否已被占满</td><td>走《法典》表 K 会议／宴会综合收益联动表，重新评估是否释放客房</td></tr>
+        <tr><td>该日被误设了限制条件（MinLOS／CTA）</td><td>查价格日历中该日的限制条件设置</td><td>按《法典》表 B 该 OCC 档重新核对，撤销不合规限制</td></tr>
+        <tr><td>该日渠道被误关（Stop Sell）</td><td>查 6 个渠道的开关状态</td><td>按《法典》表 H 该 OCC 档恢复</td></tr>
+        <tr><td>该日确实需求弱（无以上三类）</td><td>查需求日历：是否为节后 3–5 天、极端天气日</td><td>按本模块第六节预测三步法重算，走《法典》表 A 调价</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.4 三种读法的作业顺序（固定，不得颠倒）</h3>
+
+  <div class="flow">
+    <div class="flow-item"><div class="fi-t">① 对角读</div><div class="fi-d">07:50 取数后先读对角线，圈出所有健康度 &lt;100% 的日子</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item"><div class="fi-t">② 竖读</div><div class="fi-d">只针对①圈出的日子竖读，判断是"收得慢"还是"最后一刻枯竭"</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item"><div class="fi-t">③ 横读</div><div class="fi-d">只针对②判为异常的日子横读邻日，做四类归因</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item"><div class="fi-t">④ 查表</div><div class="fi-d">按表 I 定监控动作，按表 A 定价格动作，写入《调价台账》</div></div>
+  </div>
+
+  <!-- ================= 四 ================= -->
+  <h2 id="s4">四、《法典》表 I：预订窗口分档监控表（完整内嵌）</h2>
+
+  <div class="callout callout-gold">
+    <span class="co-t">本模块的背诵表</span>
+    <p>《法典》表 I 是本模块的<b>唯一必背判定表</b>。当堂默写，错一格不得进入下一课。引用时写「《法典》表 I」。完整版同时在 <a href="../codex.html">《收益管理操作法典》</a> 中可检索、可打印。</p>
+  </div>
+
+  <div class="codex-block" data-codex-block data-cat="forecast">
+    <div class="codex-head">
+      <span class="badge-codex">表 I</span>
+      <h3>预订窗口分档监控表</h3>
+      <span class="pill pill-navy">监控节奏</span>
+    </div>
+    <p class="codex-desc">输入：目标日的预订窗口（入住日 − 今天）。输出：监控频率、关注指标、落后触发阈值、触发动作。六档覆盖 0 天到 60 天以上。</p>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead>
+          <tr><th>窗口</th><th>监控频率</th><th>关注指标</th><th>落后触发阈值</th><th>触发动作</th></tr>
+        </thead>
+        <tbody>
+          <tr><th class="rowh">0–3 天</th><td>每日 2 次（10:00 / 17:00）</td><td>当日 Pickup、临时取消</td><td>OCC&lt;70%</td><td>上「今日特惠」尾房产品</td></tr>
+          <tr><th class="rowh">4–7 天</th><td>每日 1 次</td><td>周内进度</td><td>落后 10%</td><td>启动 48h 闪购</td></tr>
+          <tr><th class="rowh">8–14 天</th><td>每日 1 次</td><td>双周在手</td><td>落后 15%</td><td>执行表 A 调价</td></tr>
+          <tr><th class="rowh">15–30 天</th><td>每周 2 次</td><td>月度在手</td><td>落后 20%</td><td>策略复盘 + 销售动员</td></tr>
+          <tr><th class="rowh">31–60 天</th><td>每周 1 次</td><td>长线在手</td><td>落后 25%</td><td>启动协议客户拜访计划</td></tr>
+          <tr><th class="rowh">&gt;60 天</th><td>每月 1 次</td><td>大型团队/会议在手</td><td>落后 30%</td><td>上报 L3，调整年度策略</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codex-meta">配套：《法典》表 M（每日收益操作流水线）规定 07:50 抓取未来 30 天在手 + Pickup、17:00 做 0–3 天窗口二次巡检——这两个时点即表 I 第一档「每日 2 次」的落地时点。跨模块引用：落在 8–14 天档且触发时，动作直接转《法典》表 A。</div>
+  </div>
+
+  <h3>4.1 表 I 的三条执行细则</h3>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>"落后 X%" 的分母是什么</h4>
+      <p>表 I 的"落后 X%"与《法典》表 A 的 Pickup 偏差<b>不是同一个数</b>，两者不可混用：</p>
+      <ul>
+        <li><b>表 A 的 Pickup 偏差</b>＝（当前在手 − 去年同期同一提前窗口在手）÷ 去年同期在手 × 100%。用于表 A 调价。</li>
+        <li><b>表 I 的落后幅度</b>＝（当前在手 − 去年同期同一提前窗口在手）÷ 去年同期在手 × 100%，取<b>绝对值方向与幅度</b>，与表 A 同源同口径。区别只在用法：表 I 是<b>监控触发器</b>（只判"是否越线"），表 A 是<b>决策矩阵</b>（判"越到哪一格"）。</li>
+      </ul>
+      <p>即：表 I 的落后 10% / 15% / 20% / 25% / 30% 五个阈值，与表 A 的"落后 3–10%"、"落后 &gt;10%"两档并列读，<b>两个数同时算，分别查两张表</b>。表 I 触发的是动作类型，表 A 触发的是价格幅度；两者同时命中时，按《法典》表 O 仲裁——表 A（优先级 3）高于表 I 的监控动作（表 I 不在表 O 的 6 级序列内，属常规监控，仅在表 A 结论为「维持」时才执行表 I 动作）。</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>0–3 天档的阈值是绝对 OCC，不是相对落后</h4>
+      <p>表 I 六档中，只有 0–3 天档用<b>绝对 OCC&lt;70%</b>，其余五档用<b>相对落后百分比</b>。原因：距离入住只剩 3 天时，"比去年差多少"已经不重要，重要的是"今晚还剩多少房"。所以这一档直接看 OCC，触发即上「今日特惠」尾房产品。学员在默写时最容易把这一格写成"落后 X%"，属重大错误。</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4>监控频率是下限，不是上限</h4>
+      <p>表 I 写的"每日 2 次""每周 1 次"是<b>最低频率</b>。触发《法典》表 L 异常事件（需求暴跌 48h Pickup 落后 &gt;40%、需求暴涨 24h Pickup 领先 &gt;60%）时，监控升级为每小时 1 次，直到事件解除。表 L 优先级为 1（最高），覆盖表 I。</p>
+    </div>
+  </div>
+
+  <h3>4.2 表 I 在云璟酒店的落地排期表</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 5-5　云璟酒店表 I 落地排期（与《法典》表 M 流水线对齐）</caption>
+      <thead><tr><th>时间</th><th>覆盖窗口档</th><th>动作</th><th>产出物</th><th>耗时上限</th></tr></thead>
+      <tbody>
+        <tr><td>07:50</td><td>31–60 天 / 15–30 天 / 8–14 天</td><td>抓未来 30 天在手 + Pickup，更新《Pickup 追踪表》对角线</td><td>Pickup 表更新</td><td>20 min</td></tr>
+        <tr><td>08:30</td><td>全部 6 档</td><td>逐日查《法典》表 A / B / C / H，得出动作清单</td><td>《今日动作清单》</td><td>40 min</td></tr>
+        <tr><td>10:00</td><td>0–3 天（第 1 次）</td><td>查当日 OCC，&lt;70% 则上「今日特惠」</td><td>尾房产品上架记录</td><td>10 min</td></tr>
+        <tr><td>17:00</td><td>0–3 天（第 2 次）</td><td>二次巡检，查临时取消与当日 Pickup</td><td>尾房动作</td><td>15 min</td></tr>
+        <tr><td>每周一</td><td>31–60 天</td><td>长线在手检查，落后 25% 启动协议客户拜访计划</td><td>《周度收益报告》</td><td>—</td></tr>
+        <tr><td>每月 1 日</td><td>&gt;60 天</td><td>大型团队／会议在手检查，落后 30% 上报 L3</td><td>《月度收益复盘报告》</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ================= 五 ================= -->
+  <h2 id="s5">五、《法典》表 A：每日价格调整判定表（本模块配套内嵌）</h2>
+
+  <p>预测算出来的两个数字——<b>预测 OCC</b> 和 <b>Pickup 偏差</b>——正是《法典》表 A 的两个输入。所以预测做完，调价动作是"读"出来的，不是"想"出来的。这是"不猜、不算、不纠结"三不原则的直接体现。</p>
+
+  <div class="codex-block" data-codex-block data-cat="pricing forecast">
+    <div class="codex-head">
+      <span class="badge-codex">表 A</span>
+      <h3>每日价格调整判定表（双因子矩阵）</h3>
+      <span class="pill pill-red">L2 核心</span>
+    </div>
+    <p class="codex-desc">
+      <b>输入 1</b>：目标日当前预测 OCC（在手 + 预测增量）<br>
+      <b>输入 2</b>：Pickup 偏差 =（当前在手房晚 − 去年同期同一提前窗口在手房晚）÷ 去年同期在手房晚 × 100%
+    </p>
+    <div class="tbl-wrap">
+      <table class="tbl tbl-matrix">
+        <thead>
+          <tr><th>预测 OCC ＼ Pickup 偏差</th><th>落后 &gt;10%</th><th>落后 3–10%</th><th>持平 ±3%</th><th>领先 3–10%</th><th>领先 &gt;10%</th></tr>
+        </thead>
+        <tbody>
+          <tr><th class="rowh">≥95%</th><td class="keep">维持</td><td class="up-cell">+5%</td><td class="up-cell">+10%</td><td class="up-cell">+15%</td><td class="up-cell">+20%</td></tr>
+          <tr><th class="rowh">85–95%</th><td class="keep">维持</td><td class="up-cell">+3%</td><td class="up-cell">+5%</td><td class="up-cell">+10%</td><td class="up-cell">+15%</td></tr>
+          <tr><th class="rowh">70–85%</th><td class="down-cell">−5%</td><td class="down-cell">−3%</td><td class="keep">维持</td><td class="up-cell">+5%</td><td class="up-cell">+8%</td></tr>
+          <tr><th class="rowh">55–70%</th><td class="down-cell">−10%</td><td class="down-cell">−5%</td><td class="down-cell">−3%</td><td class="keep">维持</td><td class="up-cell">+3%</td></tr>
+          <tr><th class="rowh">40–55%</th><td class="down-cell">−15%</td><td class="down-cell">−10%</td><td class="down-cell">−5%</td><td class="keep">维持</td><td class="keep">维持</td></tr>
+          <tr><th class="rowh">&lt;40%</th><td class="down-cell">−20%</td><td class="down-cell">−15%</td><td class="down-cell">−10%</td><td class="down-cell">−5%</td><td class="keep">维持</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codex-meta">
+      <b>执行约束（必须同时遵守）</b>
+      <ol style="margin:6px 0 0">
+        <li>单日同方向累计调价 <b>不超过 20%</b>；24 小时内同方向调价 <b>不超过 2 次</b>。</li>
+        <li>每次调价幅度 <b>不低于 3%</b>（低于 3% 无市场感知，不算调价）。</li>
+        <li>调价后 <b>30 分钟内</b>必须检查 OTA 挂牌价是否同步（价格一致性）。</li>
+        <li>触及 D1 峰值日的调价，<b>必须</b>由 L3 收益经理审批。</li>
+        <li>调价动作全部写入《调价台账》。</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">表 A 三条易错点</span>
+    <ul style="margin:6px 0 0">
+      <li><b>区间边界</b>：70–85% 与 85–95% 在 85% 重叠。判定规则：OCC 恰好等于 85% 时归入<b>上一档</b>（85–95%），恰好等于 95% 时归入 <b>≥95%</b> 档。即"取高档不取低档"。</li>
+      <li><b>输入 1 是"预测 OCC"不是"当前在手 OCC"</b>：预测 OCC =（在手 + 预测增量）÷ 可售房晚。用当前在手算，会系统性低估，导致该涨不涨。</li>
+      <li><b>预测增量用什么</b>：用本模块第六节预测三步法算出的 RW（剩余需求）填。不准填"去年 Pickup"，那是循环论证。</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">表 A 调价结果的取整规则（全学院统一，与约束 2 配套）</span>
+    <ul style="margin:6px 0 0">
+      <li><b>提价：向上取整到 ¥10</b>（例：¥734.4 → ¥740）</li>
+      <li><b>降价：向下取整到 ¥10</b>（例：¥646 → ¥640）</li>
+      <li><b>取整后必须回算实际幅度</b>：实际幅度 = |新价 − 原价| ÷ 原价。若 &lt; 3%，本次调价<b>不成立</b>，改记入《观察清单》。</li>
+    </ul>
+    <p style="margin:8px 0 0">取整方向的原则是"只放大不缩小"——提价往上取、降价往下取，保证取整不会把幅度吃掉。若按反方向取整导致幅度低于 3%，属操作失误，须在《调价台账》备注栏写明并重新落位。</p>
+  </div>
+
+  <!-- ================= 六 ================= -->
+  <h2 id="s6">六、预测三步法与修正系数表</h2>
+
+  <p>这是本模块的核心算法。三步有严格的先后顺序，不得颠倒、不得跳步。三步做完，得到一个数字：预测总需求。</p>
+
+  <div class="flow">
+    <div class="flow-item"><div class="fi-t">第 ① 步：去年同期实际</div><div class="fi-d">取出去年同一目标日的实际售出房晚，作为基准盘</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item"><div class="fi-t">第 ② 步：加 Pickup 增量</div><div class="fi-d">今年在手 − 去年同窗口在手，把今年的"早收／晚收"补进基准盘</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item"><div class="fi-t">第 ③ 步：做三项修正</div><div class="fi-d">星期几修正 × 需求等级变动修正 × 事件修正，得到最终预测</div></div>
+  </div>
+
+  <div class="formula">
+    <span class="f-label">预测三步法 · 总公式</span>
+    预测总需求 = [ 去年同期实际房晚 +（今年在手房晚 − 去年同期同一提前窗口在手房晚）]<br>
+    　　　　　　 × 星期几修正系数 × 需求等级变动系数 × 事件修正系数 + 已确认事件增量<br>
+    预测 OCC = 预测总需求 ÷ 可售房晚（云璟平峰日 320）<br>
+    RW（剩余需求） = 预测总需求 − 今年在手房晚
+  </div>
+
+  <h3>6.1 第 ① 步：去年同期实际——取数与清洗</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 5-6　第 ① 步取数清单（不多抓一个，不少抓一个）</caption>
+      <thead><tr><th>字段</th><th>说明</th><th>清洗规则</th></tr></thead>
+      <tbody>
+        <tr><td>去年同一目标日实际售出房晚</td><td>取 PMS 中同月同日的售出房晚</td><td>剔除免费房与自用房（Comp / House Use）</td></tr>
+        <tr><td>去年同一目标日可售房晚</td><td>分母</td><td>若去年当日有装修／OOO 房，须按今年可售房晚同比放大</td></tr>
+        <tr><td>去年同一目标日实际 OCC</td><td>交叉校验用</td><td>与售出房晚 ÷ 可售房晚 一致性检查</td></tr>
+        <tr><td>去年同一目标日在 T-30 / T-14 / T-7 / T-1 的在手房晚</td><td>第 ② 步与表 I 用</td><td>同取数时点（建议统一 08:00 快照）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">跨年对齐：春节与闰年</span>
+    <p>农历节日（春节、端午、中秋）不能按公历同月同日对齐，必须按<b>农历同日</b>对齐。闰年 2 月 29 日缺失时，用 2 月 28 日与 3 月 1 日的平均值代替。这两个规则不执行，第 ① 步的基准盘就是错的，后两步再准也没用。</p>
+  </div>
+
+  <h3>6.2 第 ② 步：加 Pickup 增量</h3>
+
+  <p>这一步的逻辑是"加法模型（Additive Pickup）"：假设今年与去年在<b>剩余窗口内</b>的增量速度相同，那么今年最终 = 去年最终 + 今年已经多收（或少收）的部分。</p>
+
+  <div class="formula">
+    <span class="f-label">第 ② 步</span>
+    Pickup 增量 = 今年在手房晚 − 去年同期同一提前窗口在手房晚<br>
+    未修正预测 = 去年同期实际房晚 + Pickup 增量
+  </div>
+
+  <p>例：去年 10-20 实际 232 房晚，去年 T-30 在手 78 房晚，今年 T-30 在手 96 房晚 → Pickup 增量 = +18 → 未修正预测 = 232 + 18 = <span class="f-out">250 房晚</span>。</p>
+
+  <h4>用预订基准曲线做交叉校验</h4>
+
+  <p>第 ② 步算完后，用云璟酒店的<b>预订基准曲线</b>反查一遍，防止异常值。下表为该曲线的历史基准形态：</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 5-7　云璟酒店预订基准曲线（累计在手占最终售出房晚的历史比例）<span class="cap-note">用途：反推预测、交叉校验。须以本店近 12 个月实际数据每季度重算一次</span></caption>
+      <thead><tr><th>提前天数</th><th class="num">60</th><th class="num">45</th><th class="num">30</th><th class="num">21</th><th class="num">14</th><th class="num">7</th><th class="num">3</th><th class="num">1</th><th class="num">0</th></tr></thead>
+      <tbody><tr><th class="rowh">累计占比</th><td class="num">12%</td><td class="num">20%</td><td class="num" data-hit>34%</td><td class="num">46%</td><td class="num">58%</td><td class="num">73%</td><td class="num">86%</td><td class="num">94%</td><td class="num">100%</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="formula">
+    <span class="f-label">交叉校验公式</span>
+    曲线外推预测 = 今年在手房晚 ÷ 该提前天数的基准累计占比<br>
+    偏差容忍带 = | 第 ② 步结果 − 曲线外推结果 | ÷ 曲线外推结果 ≤ 15%<br>
+    例：96 ÷ 34% → <span class="f-out">282 房晚</span>；第 ② 步结果 250；(282 − 250) ÷ 282 = 11.3% → 在容忍带内，通过
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">超出容忍带时的处理</span>
+    <p>偏差 &gt;15% 时，<b>不得取平均值糊弄过去</b>，必须按以下顺序排查，找到原因后取单一结果：</p>
+    <ol style="margin:6px 0 0">
+      <li>查是否有大型团队／会议在手（团队预订不按散客曲线分布，会抬高早期在手）→ 若有，改用第 ② 步结果。</li>
+      <li>查是否去年同日有异常（去年当日有 OOO 房、有大型团队、有极端的天气事件）→ 若有，改用曲线外推结果。</li>
+      <li>两项都无 → 上报 L2 主管复核，取第 ② 步结果，并在《预测偏差台账》备注栏注明"曲线校验 &gt;15%，原因待查"。</li>
+    </ol>
+  </div>
+
+  <h3>6.3 第 ③ 步：三项修正（星期几 / 需求等级 / 事件）</h3>
+
+  <h4>修正一：星期几修正系数</h4>
+
+  <p>去年同日与今年目标日的星期几不同时，需求结构不同。修正系数按下表查：</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 5-8　星期几修正系数表<span class="cap-note">查法：行＝去年同日的星期类型，列＝今年目标日的星期类型</span></caption>
+      <thead><tr><th>去年 ＼ 今年</th><th>周一–周四<br>（工作日）</th><th>周五–周六<br>（周末）</th><th>周日<br>（周末尾）</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">周一–周四（工作日）</th><td class="mid" data-hit>1.00</td><td class="mid"><span class="up">1.06</span></td><td class="mid"><span class="down">0.94</span></td></tr>
+        <tr><th class="rowh">周五–周六（周末）</th><td class="mid"><span class="down">0.92</span></td><td class="mid">1.00</td><td class="mid"><span class="down">0.96</span></td></tr>
+        <tr><th class="rowh">周日（周末尾）</th><td class="mid"><span class="down">0.96</span></td><td class="mid"><span class="up">1.04</span></td><td class="mid">1.00</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">为什么这样分三类</span>
+    <p>云璟酒店是中高端全服务酒店，商务客（CORP 协议客户占比 22%）集中在周一至周四，休闲客集中在周五、周六，周日是返程日、需求最低。把一周切成"工作日 / 周末 / 周末尾"三类，比做七个独立的星期系数更稳，且不会出现小样本失真。</p>
+  </div>
+
+  <h4>修正二：需求等级变动系数</h4>
+
+  <p>当去年同日与今年目标日的需求等级（D1 峰值日 / D2 高涨日 / D3 平峰日 / D4 低谷日）不同时，用下表修正。系数来源：《SPEC》2.5 年度需求日历各等级的<b>目标 OCC 中值之比</b>。</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 5-9　各需求等级的目标 OCC 中值（《SPEC》2.5）<span class="cap-note">D1「≥95%」取 96%；D2「88–95%」取 91.5%；D3「72–85%」取 78.5%；D4「45–65%」取 55%</span></caption>
+      <thead><tr><th>需求等级</th><th>代号</th><th class="num">目标 OCC</th><th class="num">中值</th><th class="num">价格系数（相对平峰 BAR）</th></tr></thead>
+      <tbody>
+        <tr><td>D1 峰值日</td><td>PEAK</td><td class="num">≥95%</td><td class="num">96.0%</td><td class="num">150–200%</td></tr>
+        <tr><td>D2 高涨日</td><td>HIGH</td><td class="num">88–95%</td><td class="num">91.5%</td><td class="num">120–150%</td></tr>
+        <tr><td>D3 平峰日</td><td>SHOULDER</td><td class="num">72–85%</td><td class="num">78.5%</td><td class="num">95–110%</td></tr>
+        <tr><td>D4 低谷日</td><td>LOW</td><td class="num">45–65%</td><td class="num">55.0%</td><td class="num">70–85%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl tbl-matrix">
+      <caption>表 5-10　需求等级变动修正系数 = 今年等级中值 ÷ 去年等级中值<span class="cap-note">行＝去年同日等级，列＝今年目标日等级</span></caption>
+      <thead><tr><th>去年 ＼ 今年</th><th>D1</th><th>D2</th><th>D3</th><th>D4</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">D1</th><td class="mid">1.00</td><td class="mid"><span class="down">0.95</span></td><td class="mid"><span class="down">0.82</span></td><td class="mid"><span class="down">0.57</span></td></tr>
+        <tr><th class="rowh">D2</th><td class="mid"><span class="up">1.05</span></td><td class="mid">1.00</td><td class="mid"><span class="down">0.86</span></td><td class="mid"><span class="down">0.60</span></td></tr>
+        <tr><th class="rowh">D3</th><td class="mid"><span class="up">1.22</span></td><td class="mid"><span class="up">1.17</span></td><td class="mid" data-hit>1.00</td><td class="mid"><span class="down">0.70</span></td></tr>
+        <tr><th class="rowh">D4</th><td class="mid"><span class="up">1.75</span></td><td class="mid"><span class="up">1.66</span></td><td class="mid"><span class="up">1.43</span></td><td class="mid">1.00</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size:13px;color:var(--ink-3)">核算示例：D3 → D2 = 91.5% ÷ 78.5% = 1.166 → 取 1.17；D3 → D1 = 96.0% ÷ 78.5% = 1.223 → 取 1.22。</p>
+
+  <h4>修正三：事件修正系数与已确认事件增量</h4>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 5-11　事件修正系数表<span class="cap-note">事件修正以"乘"计入；已确认的具体房晚数以"加"计入，二者不重复</span></caption>
+      <thead><tr><th>事件类型</th><th>判定信号（必须在系统中可核实）</th><th class="num">系数</th><th>计入方式</th><th>依据</th></tr></thead>
+      <tbody>
+        <tr><td>目标日升级为 D1 峰值日（新增大型展会／赛事／节庆）</td><td>官方会期公告 + 已在《年度需求日历》打标</td><td class="num">—</td><td>走表 5-10 等级变动系数</td><td>《SPEC》2.5</td></tr>
+        <tr><td>3km 内新增同档竞争酒店开业（开业 1–3 个月）</td><td>《法典》表 L「竞对新开业」判定信号</td><td class="num"><span class="down">0.95</span></td><td>乘</td><td>《法典》表 L</td></tr>
+        <tr><td>3km 内新增同档竞争酒店开业（开业 4–6 个月）</td><td>同上，且已进入《竞争组合比价表》</td><td class="num"><span class="down">0.97</span></td><td>乘</td><td>《法典》表 L</td></tr>
+        <tr><td>本店可售房量下降（装修／OOO 房）</td><td>工程部书面通知的 OOO 房数与工期</td><td class="num">1.00</td><td>不改需求，改分母（可售房晚下调）</td><td>《SPEC》3.1 OCC 口径</td></tr>
+        <tr><td>已确认的会议／团队锁房</td><td>已签合同或已付定金的团队房晚数</td><td class="num">—</td><td>加（若该房晚已计入在手，<b>不得重复加</b>）</td><td>《法典》表 G / 表 K</td></tr>
+        <tr><td>已确认的需求流失（协议客户闭厂、团队取消）</td><td>客户书面取消通知</td><td class="num">—</td><td>减</td><td>《调价台账》备注栏记录</td></tr>
+        <tr><td>极端天气预警（台风／暴雪橙色及以上）</td><td>气象部门官方预警</td><td class="num"><span class="down">0.80</span></td><td>乘</td><td>《SPEC》2.5 D4 定义</td></tr>
+        <tr><td>本店大型设备／餐厅停业（泳池、全日制餐厅停业）</td><td>工程 / 餐饮部书面通知</td><td class="num"><span class="down">0.93</span></td><td>乘</td><td>《SPEC》2.2 配套</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">事件修正的三条铁律</span>
+    <ol style="margin:6px 0 0">
+      <li><b>无证据不修正</b>：任何系数必须有可核实的外部证据（公告、合同、预警、书面通知）。"听说下个月有展会"不算证据，不进模型。</li>
+      <li><b>不重复计入</b>：已确认的团队房晚如果已经进入在手（OTB），只能算一次，不得在"加 Pickup 增量"之外再加一遍。判据：查该团队的预订日期，若早于本次取数日，则已在手内。</li>
+      <li><b>等级变动与事件不叠加</b>：如果事件的影响已经体现为需求等级变动（例如新增展会使该日从 D3 升为 D1），只走表 5-10 的等级变动系数，<b>不再额外乘事件系数</b>。</li>
+    </ol>
+  </div>
+
+  <h4>修正系数连乘的封顶规则</h4>
+
+  <div class="formula">
+    <span class="f-label">封顶规则</span>
+    总修正系数 = 星期几系数 × 等级变动系数 × 事件系数（连乘）<br>
+    下限 <span class="f-out">0.60</span>　上限 <span class="f-out">1.60</span><br>
+    超出区间时取端点值，并在《预测偏差台账》备注栏注明"触顶，人工复核"
+  </div>
+
+  <!-- ================= 七 ================= -->
+  <h2 id="s7">七、三个完整预测演算案例</h2>
+
+  <p>以下三例均为<b>提前 30 天</b>（T-30）的预测演练，取数日统一为 2026-09-20，酒店为杭州滨江云璟酒店，可售房晚 320。三例分别代表三种典型场景：<b>平推场景</b>、<b>事件升级场景</b>、<b>双向利空场景</b>。每一例都从原始数据一步步算到最终动作。</p>
+
+  <h3>案例一：平推场景 —— 目标日 2026-10-20（周二）</h3>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">1</span>已知条件</div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">目标日 / 星期</div><div class="kv-v">2026-10-20（周二），需求等级 <b>D3 平峰日</b></div></div>
+      <div class="kv-row"><div class="kv-k">去年同日</div><div class="kv-v">2025-10-20（周一），需求等级 D3 平峰日</div></div>
+      <div class="kv-row"><div class="kv-k">去年同日实际</div><div class="kv-v">售出 <b>232 房晚</b>，实际 OCC = 232 ÷ 320 = <b>72.5%</b></div></div>
+      <div class="kv-row"><div class="kv-k">去年 T-30 在手</div><div class="kv-v"><b>78 房晚</b></div></div>
+      <div class="kv-row"><div class="kv-k">今年 T-30 在手</div><div class="kv-v"><b>96 房晚</b></div></div>
+      <div class="kv-row"><div class="kv-k">事件因素</div><div class="kv-v">无。无展会、无新增竞对、无 OOO 房、无团队锁房</div></div>
+      <div class="kv-row"><div class="kv-k">当前 BAR</div><div class="kv-v">高级房平峰 BAR <b>¥680</b>（《SPEC》2.1）</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">▶</span>演算过程（一步步）</div>
+
+    <p><b>第 ① 步　去年同期实际</b></p>
+    <div class="formula">基准盘 = <span class="f-out">232 房晚</span></div>
+
+    <p><b>第 ② 步　加 Pickup 增量</b></p>
+    <div class="formula">
+      Pickup 增量 = 96 − 78 = <span class="f-out">+18 房晚</span><br>
+      未修正预测 = 232 + 18 = <span class="f-out">250 房晚</span>
+    </div>
+
+    <p><b>交叉校验（表 5-7 曲线）</b></p>
+    <div class="formula">
+      曲线外推 = 96 ÷ 34% = 282 房晚<br>
+      偏差 = |250 − 282| ÷ 282 = <span class="f-out">11.3%</span> → ≤15%，通过，取第 ② 步结果 250 房晚
+    </div>
+
+    <p><b>第 ③ 步　三项修正</b></p>
+    <div class="formula">
+      星期几修正：去年周一（工作日）→ 今年周二（工作日） → 查表 5-8 → <span class="f-out">×1.00</span><br>
+      需求等级变动：去年 D3 → 今年 D3 → 查表 5-10 → <span class="f-out">×1.00</span><br>
+      事件修正：无 → <span class="f-out">×1.00</span><br>
+      总修正系数 = 1.00 × 1.00 × 1.00 = 1.00（在 0.60–1.60 区间内）<br>
+      预测总需求 = 250 × 1.00 = <span class="f-out">250 房晚</span>
+    </div>
+
+    <p><b>换算成预测 OCC 与 RW</b></p>
+    <div class="formula">
+      预测 OCC = 250 ÷ 320 = <span class="f-out">78.1%</span><br>
+      RW（剩余需求） = 250 − 96 = <span class="f-out">154 房晚</span><br>
+      日均必需进度 = 154 ÷ 30 天 = <span class="f-out">5.1 房晚／天</span>
+    </div>
+
+    <p><b>算 Pickup 偏差（表 A 输入 2）</b></p>
+    <div class="formula">
+      Pickup 偏差 =（96 − 78）÷ 78 × 100% = <span class="f-out up">+23.1%</span> → 定位「领先 &gt;10%」列
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">✓</span>查表与动作</div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>查表</th><th>输入</th><th>表结论</th><th>是否执行</th></tr></thead>
+        <tbody>
+          <tr><td>《法典》表 A</td><td>预测 OCC 78.1%（70–85% 行）× Pickup 偏差 +23.1%（领先 &gt;10% 列）</td><td><span class="up">+8%</span></td><td><span class="pill pill-teal">执行</span></td></tr>
+          <tr><td>《法典》表 I（15–30 天档）</td><td>落后触发阈值 20%；当前为<span class="up">领先 23.1%</span></td><td>未触发</td><td><span class="pill">不执行</span></td></tr>
+          <tr><td>《法典》表 B</td><td>预测 OCC 78.1% → 70–85% 档</td><td>MinLOS 1 晚 / CTA 否 / 低价渠道全开 / 超额预订按表 E</td><td><span class="pill pill-teal">执行</span></td></tr>
+          <tr><td>《法典》表 H</td><td>预测 OCC 78.1% → 70–85% 档</td><td>OTA 全开 / OTA 国际全开 / GDS 开 / 批发商限价开（≤BAR×75%）/ 直销全开 + 早鸟</td><td><span class="pill pill-teal">执行</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><b>价格动作</b>：平峰 BAR ¥680 <span class="up">↑8%</span> → ¥734.4 → 提价向上取整至 <b>¥740</b>（实际涨幅 +8.8%，高于表 A 约束 2 的 3% 门槛，低于约束 1 的 20% 单日上限）。该日非 D1 峰值日，<b>无需</b> L3 审批。<br>
+    <b>记录动作</b>：写入《调价台账》——目标日 2026-10-20、预测 OCC 78.1%、Pickup 偏差 +23.1%、原 BAR ¥680、新 BAR ¥740、依据《法典》表 A（70–85% × 领先&gt;10%）。</p>
+    <p class="card-note">与预算对比：10 月 OCC 目标 85%（《SPEC》2.5 月度需求基准）＝ 272 房晚，预测 250 房晚 → 缺口 <b>22 房晚</b>。缺口记入《周度收益报告》，由销售部按日均 0.7 房晚／天的追加任务承接。</p>
+  </div>
+
+  <h3>案例二：事件升级场景 —— 目标日 2026-10-23（周五）</h3>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">2</span>已知条件</div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">目标日 / 星期</div><div class="kv-v">2026-10-23（周五）。因 2026 滨江国际马拉松于 10-24 举行，本日为该赛事<b>周边日</b>，需求等级由 D3 升级为 <b>D2 高涨日</b>（《SPEC》2.5：展会周边日属 D2）</div></div>
+      <div class="kv-row"><div class="kv-k">去年同日</div><div class="kv-v">2025-10-23（周四），需求等级 D3 平峰日，当年无赛事</div></div>
+      <div class="kv-row"><div class="kv-k">去年同日实际</div><div class="kv-v">售出 <b>210 房晚</b>，实际 OCC = 210 ÷ 320 = <b>65.6%</b></div></div>
+      <div class="kv-row"><div class="kv-k">去年 T-30 在手</div><div class="kv-v"><b>72 房晚</b></div></div>
+      <div class="kv-row"><div class="kv-k">今年 T-30 在手</div><div class="kv-v"><b>100 房晚</b>，其中<b>含</b>马拉松组委会已确认锁房 <b>40 间夜</b>（8 月已签约并计入在手）</div></div>
+      <div class="kv-row"><div class="kv-k">当前 BAR</div><div class="kv-v">已按 D2 高涨日价格系数 130% 设置：<b>¥884</b>（¥680 × 130%）</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">▶</span>演算过程（一步步）</div>
+
+    <p><b>第 ① 步　去年同期实际</b></p>
+    <div class="formula">基准盘 = <span class="f-out">210 房晚</span></div>
+
+    <p><b>第 ② 步　加 Pickup 增量</b></p>
+    <div class="formula">
+      Pickup 增量 = 100 − 72 = <span class="f-out">+28 房晚</span><br>
+      未修正预测 = 210 + 28 = <span class="f-out">238 房晚</span>
+    </div>
+
+    <p><b>交叉校验（表 5-7 曲线）</b></p>
+    <div class="formula">
+      曲线外推 = 100 ÷ 34% = 294 房晚；偏差 = |238 − 294| ÷ 294 = <b>19.0%</b> → &gt;15%，<b>未通过</b>
+    </div>
+    <div class="callout callout-warn" style="margin:10px 0">
+      <span class="co-t">排查结论</span>
+      <p>按表 5-7 的排查顺序第一条：查是否有大型团队／会议在手 → 有，马拉松组委会锁房 40 间夜，约占今年在手 100 的 40%。团队预订不按散客曲线分布，属正常畸高。<b>采用第 ② 步结果 238 房晚</b>，并在《预测偏差台账》备注栏写明"曲线校验 19.0%，因团队锁房 40 间夜畸高，采用加法模型结果"。</p>
+    </div>
+
+    <p><b>第 ③ 步　三项修正</b></p>
+    <div class="formula">
+      星期几修正：去年周四（工作日）→ 今年周五（周末） → 查表 5-8 → <span class="f-out up">×1.06</span><br>
+      需求等级变动：去年 D3 → 今年 D2 → 查表 5-10 → <span class="f-out up">×1.17</span><br>
+      事件修正：马拉松已体现为等级从 D3 升为 D2，按"等级变动与事件不叠加"铁律 → <span class="f-out">×1.00</span><br>
+      　　　　　组委会锁房 40 间夜<b>已含在手</b>，按"不重复计入"铁律 → 不加<br>
+      总修正系数 = 1.06 × 1.17 × 1.00 = 1.24（在 0.60–1.60 区间内）<br>
+      预测总需求 = 238 × 1.24 = <span class="f-out">295 房晚</span>
+    </div>
+
+    <p><b>换算成预测 OCC 与 RW</b></p>
+    <div class="formula">
+      预测 OCC = 295 ÷ 320 = <span class="f-out">92.2%</span><br>
+      RW（剩余需求） = 295 − 100 = <span class="f-out">195 房晚</span><br>
+      日均必需进度 = 195 ÷ 30 天 = <span class="f-out">6.5 房晚／天</span>
+    </div>
+
+    <p><b>算 Pickup 偏差（表 A 输入 2）</b></p>
+    <div class="formula">
+      Pickup 偏差 =（100 − 72）÷ 72 × 100% = <span class="f-out up">+38.9%</span> → 定位「领先 &gt;10%」列
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">✓</span>查表、仲裁与动作（本例含《法典》表 O 冲突仲裁）</div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>查表</th><th>输入</th><th>表结论</th><th>表 O 优先级</th><th>裁决</th></tr></thead>
+        <tbody>
+          <tr><td>《法典》表 B</td><td>预测 OCC 92.2% → 90–95% 档</td><td>MinLOS 2 晚 / <b>D1 日启用 CTA</b>（10-23 为 D2，非 D1 → 不启用 CTA）/ 关闭尾房特惠 / 超售 ≤2 间</td><td><b>2</b></td><td><span class="pill pill-teal">当日执行</span></td></tr>
+          <tr><td>《法典》表 A</td><td>预测 OCC 92.2%（90–95% 行）× Pickup 偏差 +38.9%（领先 &gt;10% 列）</td><td><span class="up">+15%</span></td><td>3</td><td><span class="pill pill-amber">次日执行</span></td></tr>
+          <tr><td>《法典》表 H</td><td>预测 OCC 92.2% → 90–95% 档</td><td>OTA 国内开 2 家 / OTA 国际关 / GDS 开 / 批发商关 / 直销全开</td><td>5</td><td><span class="pill pill-amber">次日执行</span></td></tr>
+          <tr><td>《法典》表 I（15–30 天档）</td><td>落后触发阈值 20%；当前为<span class="up">领先 38.9%</span></td><td>未触发</td><td>—</td><td><span class="pill">不执行</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-key">
+      <span class="co-t">表 O 仲裁过程</span>
+      <p>四张表中，表 B（优先级 2）最高。按表 O 冲突处理铁律「同日只执行优先级最高的那一条动作，其余记录在《观察清单》」：<b>当日只执行表 B 的库存动作</b>（设 MinLOS 2 晚、关闭尾房特惠、超售 ≤2 间）；表 A 的 <span class="up">+15%</span> 与表 H 的渠道开关写入《观察清单》，<b>次日</b>若表 B 无新增动作，则顺延执行。</p>
+    </div>
+    <p><b>次日价格动作</b>：D2 当前 BAR ¥884 <span class="up">↑15%</span> → ¥1,016.6 → 取整 <b>¥1,020</b>。<br>
+    <b>上限校验</b>：¥1,020 = 平峰 BAR ¥680 × 150%，<b>恰好等于 D2 高涨日价格系数上限 150%</b>（《SPEC》2.5）。结论：可执行，但不得再涨；若次日 Pickup 仍领先 &gt;10%，只能走 MinLOS 与关渠道（表 B、表 H），不能再提价。<br>
+    <b>审批</b>：该日为 D2 而非 D1 峰值日，按表 A 约束 4 无需 L3 审批；但因触及 D2 价格系数上限，按学院规定须由 L3 收益经理<b>事后 24 小时内复核</b>并签字。<br>
+    <b>记录动作</b>：写入《调价台账》，备注栏注明「表 O 仲裁：当日执行表 B（优先级 2），表 A +15% 与表 H 渠道开关顺延至次日」。</p>
+  </div>
+
+  <h3>案例三：双向利空场景 —— 目标日 2026-10-18（周日）</h3>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">3</span>已知条件</div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">目标日 / 星期</div><div class="kv-v">2026-10-18（<b>周日</b>，周末尾），需求等级 D3 平峰日</div></div>
+      <div class="kv-row"><div class="kv-k">去年同日</div><div class="kv-v">2025-10-18（<b>周六</b>，周末），需求等级 D3 平峰日</div></div>
+      <div class="kv-row"><div class="kv-k">去年同日实际</div><div class="kv-v">售出 <b>288 房晚</b>，实际 OCC = 288 ÷ 320 = <b>90.0%</b></div></div>
+      <div class="kv-row"><div class="kv-k">去年 T-30 在手</div><div class="kv-v"><b>98 房晚</b></div></div>
+      <div class="kv-row"><div class="kv-k">今年 T-30 在手</div><div class="kv-v"><b>88 房晚</b></div></div>
+      <div class="kv-row"><div class="kv-k">事件因素</div><div class="kv-v">2026 年 8 月，距本店 2.8km 处新增一家同档次酒店开业，触发《法典》表 L「竞对新开业」判定；至 10-18 该酒店开业满 <b>2 个月</b>（处于 1–3 个月区间）</div></div>
+      <div class="kv-row"><div class="kv-k">当前 BAR</div><div class="kv-v">高级房平峰 BAR <b>¥680</b></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">▶</span>演算过程（一步步）</div>
+
+    <p><b>第 ① 步　去年同期实际</b></p>
+    <div class="formula">基准盘 = <span class="f-out">288 房晚</span></div>
+
+    <p><b>第 ② 步　加 Pickup 增量</b></p>
+    <div class="formula">
+      Pickup 增量 = 88 − 98 = <span class="f-out down">−10 房晚</span><br>
+      未修正预测 = 288 +（−10） = <span class="f-out">278 房晚</span>
+    </div>
+
+    <p><b>交叉校验（表 5-7 曲线）</b></p>
+    <div class="formula">
+      曲线外推 = 88 ÷ 34% = 259 房晚<br>
+      偏差 = |278 − 259| ÷ 259 = <span class="f-out">7.3%</span> → ≤15%，通过，取第 ② 步结果 278 房晚
+    </div>
+
+    <p><b>第 ③ 步　三项修正（本例三项全部生效）</b></p>
+    <div class="formula">
+      星期几修正：去年<b>周六（周末）</b> → 今年<b>周日（周末尾）</b> → 查表 5-8 → <span class="f-out down">×0.96</span><br>
+      需求等级变动：去年 D3 → 今年 D3 → 查表 5-10 → <span class="f-out">×1.00</span><br>
+      事件修正：3km 内新增同档竞对，开业 2 个月（1–3 个月区间）→ 查表 5-11 → <span class="f-out down">×0.95</span><br>
+      总修正系数 = 0.96 × 1.00 × 0.95 = 0.912（在 0.60–1.60 区间内）<br>
+      预测总需求 = 278 × 0.912 = 253.5 → <span class="f-out">254 房晚</span>
+    </div>
+
+    <p><b>换算成预测 OCC 与 RW</b></p>
+    <div class="formula">
+      预测 OCC = 254 ÷ 320 = <span class="f-out">79.2%</span><br>
+      RW（剩余需求） = 254 − 88 = <span class="f-out">166 房晚</span><br>
+      日均必需进度 = 166 ÷ 30 天 = <span class="f-out">5.5 房晚／天</span>
+    </div>
+
+    <p><b>算 Pickup 偏差（表 A 输入 2）</b></p>
+    <div class="formula">
+      Pickup 偏差 =（88 − 98）÷ 98 × 100% = <span class="f-out down">−10.2%</span> → 定位「落后 &gt;10%」列
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">✓</span>查表与动作</div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>查表</th><th>输入</th><th>表结论</th><th>是否执行</th></tr></thead>
+        <tbody>
+          <tr><td>《法典》表 A</td><td>预测 OCC 79.2%（70–85% 行）× Pickup 偏差 −10.2%（落后 &gt;10% 列）</td><td><span class="down">−5%</span></td><td><span class="pill pill-teal">执行</span></td></tr>
+          <tr><td>《法典》表 I（15–30 天档）</td><td>落后触发阈值 20%；当前落后 10.2%</td><td>未触发（继续按每周 2 次监控）</td><td><span class="pill">不执行</span></td></tr>
+          <tr><td>《法典》表 L（竞对新开业）</td><td>3km 内新增同档酒店</td><td>采集其价格加入比价表、评估 ARI（2 小时内）；制定差异化策略（24 小时内）；月度跟踪 MPI 变化</td><td><span class="pill pill-teal">执行</span></td></tr>
+          <tr><td>《法典》表 H</td><td>预测 OCC 79.2% → 70–85% 档</td><td>全开 / 全开 / GDS 开 / 批发商限价开（≤BAR×75%）/ 直销全开 + 早鸟</td><td><span class="pill pill-teal">执行</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><b>价格动作</b>：平峰 BAR ¥680 <span class="down">↓5%</span> → ¥646 → 降价向下取整至 <b>¥640</b>（实际降幅 −5.9%，高于表 A 约束 2 的 3% 门槛）。<br>
+    <b>表 L 动作</b>：2 小时内采集新竞对价格加入《竞争组合比价表》并评估 ARI；24 小时内制定差异化策略——按表 L 明确要求「<b>不盲目跟价</b>」，故本日降价 5% 的依据是表 A（自身 Pickup 落后），而不是跟着竞对降价。两者依据必须分别写在《调价台账》备注栏。<br>
+    <b>记录动作</b>：写入《调价台账》，备注栏注明「落后 10.2%，未达表 I 15–30 天档 20% 阈值，按每周 2 次继续监控；若 T-14 仍落后 &gt;10% 则转表 A 二次调价」。</p>
+    <p class="card-note">复盘要点：本例的 −5% 来自表 A，而非来自"竞对开业所以要降价"。很多新人会把两者混为一谈，导致跟价。表 L 对竞对新开业的规定是「制定差异化策略（不盲目跟价）」，请学员牢记。</p>
+  </div>
+
+  <h3>三例横向对比</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 5-12　三个预测案例的横向对比</caption>
+      <thead><tr><th>项目</th><th>案例一 10-20</th><th>案例二 10-23</th><th>案例三 10-18</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">去年同日实际房晚</th><td class="num">232</td><td class="num">210</td><td class="num">288</td></tr>
+        <tr><th class="rowh">去年 T-30 在手</th><td class="num">78</td><td class="num">72</td><td class="num">98</td></tr>
+        <tr><th class="rowh">今年 T-30 在手</th><td class="num">96</td><td class="num">100</td><td class="num">88</td></tr>
+        <tr><th class="rowh">Pickup 增量</th><td class="num"><span class="up">+18</span></td><td class="num"><span class="up">+28</span></td><td class="num"><span class="down">−10</span></td></tr>
+        <tr><th class="rowh">未修正预测</th><td class="num">250</td><td class="num">238</td><td class="num">278</td></tr>
+        <tr><th class="rowh">星期几系数</th><td class="num">1.00</td><td class="num"><span class="up">1.06</span></td><td class="num"><span class="down">0.96</span></td></tr>
+        <tr><th class="rowh">等级变动系数</th><td class="num">1.00</td><td class="num"><span class="up">1.17</span></td><td class="num">1.00</td></tr>
+        <tr><th class="rowh">事件系数</th><td class="num">1.00</td><td class="num">1.00</td><td class="num"><span class="down">0.95</span></td></tr>
+        <tr><th class="rowh">预测总需求</th><td class="num">250</td><td class="num">295</td><td class="num">254</td></tr>
+        <tr><th class="rowh">预测 OCC</th><td class="num">78.1%</td><td class="num">92.2%</td><td class="num">79.2%</td></tr>
+        <tr><th class="rowh">RW 剩余需求</th><td class="num">154</td><td class="num">195</td><td class="num">166</td></tr>
+        <tr><th class="rowh">Pickup 偏差</th><td class="num"><span class="up">+23.1%</span></td><td class="num"><span class="up">+38.9%</span></td><td class="num"><span class="down">−10.2%</span></td></tr>
+        <tr><th class="rowh">表 A 结论</th><td class="num"><span class="up">+8%</span></td><td class="num"><span class="up">+15%</span></td><td class="num"><span class="down">−5%</span></td></tr>
+        <tr><th class="rowh">表 B 结论</th><td>MinLOS 1 晚<br>全开</td><td>MinLOS 2 晚<br>关尾房特惠<br>超售 ≤2 间</td><td>MinLOS 1 晚<br>全开</td></tr>
+        <tr><th class="rowh">执行 BAR</th><td class="num">¥680 → <span class="up">¥740</span></td><td class="num">¥884 → <span class="up">¥1,020</span></td><td class="num">¥680 → <span class="down">¥640</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ================= 八 ================= -->
+  <h2 id="s8">八、预测偏差复盘：准确率、合格线与改进</h2>
+
+  <p>预测做完不是结束。每次预测都要在目标日过后被"判卷"，判卷结果决定是否要修正模型参数。这是 L2 与 L1 的分水岭：L1 只看今天要不要调价，L2 要对预测的准确性负责。</p>
+
+  <h3>8.1 预测准确率的定义</h3>
+
+  <div class="formula">
+    <span class="f-label">公式（本模块唯一口径）</span>
+    预测准确率 = 1 − |预测 OCC − 实际 OCC| ÷ 实际 OCC<br>
+    例：预测 OCC 78.1%，实际 OCC 74.0%<br>
+    准确率 = 1 − |78.1% − 74.0%| ÷ 74.0% = 1 − 5.54% = <span class="f-out">94.5%</span>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">分母必须用实际 OCC</span>
+    <p>分母是实际 OCC，不是预测 OCC，也不是可售房晚。用实际 OCC 做分母，高估与低估的惩罚才对称，且不同 OCC 水平的日子之间可以横向比较。</p>
+  </div>
+
+  <h3>8.2 合格线（分提前期设定）</h3>
+
+  <p>预测提前期越长，越难准，所以合格线分档设定。下表为<b>本学院 L2 考核标准</b>：</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 5-13　预测准确率合格线（分提前期）<span class="cap-note">口径：单个目标日的预测准确率；月度考核取该提前期下全部目标日的算术平均</span></caption>
+      <thead><tr><th>预测提前期</th><th class="num">准确率合格线</th><th>对应《法典》表 I 窗口档</th><th>未达标处理</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">T-30（提前 30 天）</th><td class="num" data-hit>≥85%</td><td>15–30 天档</td><td>记入《预测偏差台账》，月度复盘</td></tr>
+        <tr><th class="rowh">T-14（提前 14 天）</th><td class="num">≥90%</td><td>8–14 天档</td><td>记入《预测偏差台账》，周度复盘</td></tr>
+        <tr><th class="rowh">T-7（提前 7 天）</th><td class="num">≥93%</td><td>4–7 天档</td><td>当周书面说明</td></tr>
+        <tr><th class="rowh">T-3（提前 3 天）</th><td class="num">≥95%</td><td>0–3 天档</td><td>当日书面说明</td></tr>
+        <tr><th class="rowh">T-1（提前 1 天）</th><td class="num">≥97%</td><td>0–3 天档</td><td>当日书面说明 + L2 主管复核</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>8.3 偏差分级与追责</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 5-14　预测偏差分级与处理动作</caption>
+      <thead><tr><th>偏差级别</th><th>判定条件</th><th>处理动作</th><th>责任层级</th></tr></thead>
+      <tbody>
+        <tr><th class="rowh">一级 · 正常</th><td>单日准确率 ≥ 该提前期合格线</td><td>无需动作，正常归档</td><td>L1 执行</td></tr>
+        <tr><th class="rowh">二级 · 超标</th><td>单日准确率低于合格线，但 |预测 OCC − 实际 OCC| ≤ 10 个百分点</td><td>在《预测偏差台账》记录偏差值与归因分类</td><td>L1 记录，L2 复核</td></tr>
+        <tr><th class="rowh">三级 · 重大</th><td>|预测 OCC − 实际 OCC| &gt; 10 个百分点</td><td>当日提交《偏差说明》（一页纸：现象 / 归因 / 改进 / 责任）</td><td>L2 提交，L3 批复</td></tr>
+        <tr><th class="rowh">四级 · 系统性</th><td>连续 3 日<b>同向</b>偏差（连续高估或连续低估），且每日偏差 &gt; 5 个百分点</td><td>48 小时内重估修正系数（表 5-8 / 5-10 / 5-11），出具《预测模型修正说明》</td><td>L2 重估，L3 审批</td></tr>
+        <tr><th class="rowh">五级 · 月度失格</th><td>单月 T-7 平均准确率 &lt; 90%</td><td>触发《预测模型月度复盘》，重算全部基准曲线与修正系数，纳入下月 L2 绩效考核</td><td>L3 主持</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">追责不是罚钱，是量化损失</span>
+    <p>偏差的代价要用 RevPAR（每间可售房收入）算清楚，写进《偏差说明》，这样追责才有说服力：</p>
+    <div class="formula" style="margin:10px 0 0">
+      <b>高估损失</b>（预测过高 → 提了价 → 实际空房）=（预测房晚 − 实际房晚）× 实际 ADR ÷ 可售房晚<br>
+      <b>低估损失</b>（预测过低 → 降了价 → 实际满房）=（实际房晚 − 预测房晚）×（实际 ADR − 成交 ADR）÷ 可售房晚
+    </div>
+    <p style="margin:10px 0 0">举例：10-20 预测 250 房晚、实际 237 房晚，当日实际 ADR ¥700，可售房晚 320 → 高估损失 =（250 − 237）× 700 ÷ 320 = <b>¥28.4</b>（当日 RevPAR 口径的虚高决策损失）。这个数字必须写进《偏差说明》，而不是写一句"预测偏高"。</p>
+  </div>
+
+  <h3>8.4 改进四步法（固定动作，不纠结）</h3>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>记录：把偏差写进《预测偏差台账》</h4>
+      <p>字段固定 8 项：目标日 / 预测提前期 / 预测 OCC / 实际 OCC / 准确率 / 偏差方向（高估／低估）/ 归因分类 / 改进动作。缺一项视为未记录。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>分类：把偏差归入五类归因之一</h4>
+      <p>五类归因为：<b>星期系数失准</b> / <b>需求等级判定失准</b> / <b>事件因素未识别或系数失准</b> / <b>竞争组合变化</b> / <b>团队与会议在手突变</b>。一个类只能归一次，不得写"综合因素"。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4>重估：只改出错的那一个系数</h4>
+      <p>归到哪一类，就只重估对应表格的那一个系数，其余不动。重估样本量为<b>近 12 周同类型目标日</b>，样本量 &lt; 8 个时不重估，只记录。重估幅度单次不超过原系数的 ±5%。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h4>回写：更新系数表并留痕</h4>
+      <p>新系数写入表 5-8 / 5-10 / 5-11 的对应格，同时保留旧值与生效日期。每季度末（表 N 季度节奏）统一做一次全表复核。</p>
+    </div>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">一条容易忽略的规则</span>
+    <p>归因分类为「竞争组合变化」时，<b>不得</b>立刻改系数。因为竞对变化要用 ARI（平均房价指数）／MPI（市场渗透指数）先验证，验证动作走 M09 模块与《法典》表 C / 表 D。竞对影响至少观察满 4 周，才能回写系数。</p>
+  </div>
+
+  <!-- ================= 九 ================= -->
+  <h2 id="s9">九、讲师示范：完整走一遍四步闭环</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">▶</span>示范：目标日 2026-11-04（周三），提前 45 天，四步闭环全程</div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">场景设定</div><div class="kv-v">取数日 2026-09-20。目标日 2026-11-04（周三），去年同日 2025-11-04（周二），两年均为 D3 平峰日。去年同日实际售出 210 房晚；去年 T-45 在手 41 房晚；今年 T-45 在手 42 房晚。无事件。当前平峰 BAR ¥680。</div></div>
+    </div>
+
+    <h4>① 看数</h4>
+    <div class="formula">
+      去年同日实际 = 210 房晚；去年 T-45 在手 = 41；今年 T-45 在手 = 42<br>
+      可售房晚 = <span class="f-out">320</span>
+    </div>
+
+    <h4>② 查表（本模块的两张表）</h4>
+    <div class="formula">
+      第 ① 步：基准盘 = 210<br>
+      第 ② 步：Pickup 增量 = 42 − 41 = +1 → 未修正预测 = 211 房晚<br>
+      　曲线校验：42 ÷ 20% = 210 房晚；偏差 = |211 − 210| ÷ 210 = 0.5% → 通过<br>
+      第 ③ 步：星期几（周二工作日 → 周三工作日）×1.00；等级（D3 → D3）×1.00；事件 ×1.00 → 总系数 1.00<br>
+      预测总需求 = <span class="f-out">211 房晚</span><br>
+      预测 OCC = 211 ÷ 320 = <span class="f-out">65.9%</span><br>
+      RW = 211 − 42 = <span class="f-out">169 房晚</span>；日均必需进度 = 169 ÷ 45 = 3.8 房晚／天<br>
+      Pickup 偏差 =（42 − 41）÷ 41 = <span class="f-out">+2.4%</span> → 持平 ±3%
+    </div>
+    <div class="tbl-wrap">
+      <table class="tbl tbl-matrix">
+        <caption>查《法典》表 A：预测 OCC 65.9% → 55–70% 行；Pickup 偏差 +2.4% → 持平 ±3% 列</caption>
+        <thead><tr><th>预测 OCC ＼ Pickup 偏差</th><th>落后 &gt;10%</th><th>落后 3–10%</th><th>持平 ±3%</th><th>领先 3–10%</th><th>领先 &gt;10%</th></tr></thead>
+        <tbody>
+          <tr><th class="rowh">≥95%</th><td class="keep">维持</td><td class="up-cell">+5%</td><td class="up-cell">+10%</td><td class="up-cell">+15%</td><td class="up-cell">+20%</td></tr>
+          <tr><th class="rowh">85–95%</th><td class="keep">维持</td><td class="up-cell">+3%</td><td class="up-cell">+5%</td><td class="up-cell">+10%</td><td class="up-cell">+15%</td></tr>
+          <tr><th class="rowh">70–85%</th><td class="down-cell">−5%</td><td class="down-cell">−3%</td><td class="keep">维持</td><td class="up-cell">+5%</td><td class="up-cell">+8%</td></tr>
+          <tr><th class="rowh">55–70%</th><td class="down-cell">−10%</td><td class="down-cell">−5%</td><td class="down-cell" data-hit>−3%</td><td class="keep">维持</td><td class="up-cell">+3%</td></tr>
+          <tr><th class="rowh">40–55%</th><td class="down-cell">−15%</td><td class="down-cell">−10%</td><td class="down-cell">−5%</td><td class="keep">维持</td><td class="keep">维持</td></tr>
+          <tr><th class="rowh">&lt;40%</th><td class="down-cell">−20%</td><td class="down-cell">−15%</td><td class="down-cell">−10%</td><td class="down-cell">−5%</td><td class="keep">维持</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>表 A 结论：<span class="down">−3%</span>。<br>
+    表 I 结论：45 天落在 <b>31–60 天档</b>，落后触发阈值 25%，当前为<span class="up">领先 2.4%</span> → 未触发。<br>
+    表 B 结论：预测 OCC 65.9% → <b>&lt;70% 档</b> → 不设限 / CTA 否 / 全开 + 上促销 / 不超售。</p>
+
+    <h4>③ 执行</h4>
+    <p>平峰 BAR ¥680 <span class="down">↓3%</span> → ¥659.6 → 若按<b>向上</b>取整为 <b>¥660</b>（实际降幅仅 −2.9%）。<br>
+    <b>触发否决条件检查</b>：表 A 约束 2 规定每次调价幅度不低于 3%。取整后实际降幅 2.9% &lt; 3%，<b>违反约束 2，该取整结果不成立</b>。</p>
+    <div class="callout callout-danger">
+      <span class="co-t">示范的关键：取整方向错了，调价就不成立</span>
+      <p>取整后必须回算实际幅度。¥660 的实际幅度是 −2.9%，不足 3%，按表 A 约束 2「低于 3% 无市场感知，不算调价」，<b>不得落位</b>。正确做法是按本学院取整规则——<b>降价向下取整到 ¥10</b>——取 <b>¥650</b>（降幅 −4.4%，满足 ≥3%），执行 <b>¥680 → ¥650</b>。<br>
+      若出于挂牌美观考虑不愿用 ¥650，另一种合规做法是不调价、保持 ¥680，将该日写入《观察清单》，待 T-30（进入 15–30 天档）再查。</p>
+    </div>
+    <p>同时执行表 B「&lt;70% 档」动作：撤销该日全部限制条件、6 个渠道全开、上架促销产品。</p>
+
+    <h4>④ 记录</h4>
+    <p>写入《调价台账》：目标日 2026-11-04 / 预测提前期 T-45 / 预测 OCC 65.9% / Pickup 偏差 +2.4% / 原 BAR ¥680 / 新 BAR ¥650 / 依据《法典》表 A（55–70% × 持平±3%）/ 备注「降价向下取整至 ¥650，实际降幅 4.4%；同日执行表 B&lt;70% 档全开 + 上促销；表 I 31–60 天档未触发」。</p>
+
+    <h4>⑤ 事后判卷（目标日过后补填）</h4>
+    <div class="formula">
+      假设 2026-11-04 实际售出 218 房晚，实际 OCC = 218 ÷ 320 = 68.1%<br>
+      准确率 = 1 − |65.9% − 68.1%| ÷ 68.1% = 1 − 3.23% = <span class="f-out">96.8%</span><br>
+      T-30 合格线 85% → <span class="pill pill-teal">达标</span>（T-45 早于 T-30，按更宽松的 T-30 线判）
+    </div>
+    <p>归因分类：本例偏差 2.2 个百分点、方向为低估，幅度 ≤10 个百分点 → <b>二级 · 超标</b>（低于 T-30 档 96.8%？不，96.8% ≥ 85% 达标）。重新判定：<b>一级 · 正常</b>，正常归档，无需说明。</p>
+  </div>
+
+  <!-- ================= 十 ================= -->
+  <h2 id="s10">十、学员跟练（7 题）</h2>
+
+  <div class="callout callout-key">
+    <span class="co-t">跟练规则</span>
+    <p>独立完成，不讨论。每题限时 8 分钟。全部完成后对照折叠答案自评，错题须在《预测偏差台账》练习区重做一遍。数据源：<code>data/m05-pickup-dataset.xlsx</code>（模拟数据集）。</p>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 1 题　Pickup 与区间 Pickup</div>
+    <div class="q-b">目标日 2026-10-25，10-18 08:00 在手 120 房晚，10-19 08:00 在手 127 房晚，10-20 08:00 在手 124 房晚。求：10-18→10-19、10-19→10-20 两段的区间 Pickup，以及 10-18→10-20 的合计 Pickup。并说明 10-20 当天发生了什么。</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>10-18→10-19 = +7 房晚；10-19→10-20 = −3 房晚；合计 = +4 房晚</b>。<br>解析：区间 Pickup = 期末在手 − 期初在手。第一段 127 − 120 = +7；第二段 124 − 127 = −3。合计可直接用首尾相减：124 − 120 = +4，与分段相加（+7 − 3 = +4）一致。<b>10-20 当天净取消 3 间</b>（新增少于取消）。按表 4-4 的横读归因顺序，应首先排查是否有团队释放房量（退房），其次查当日是否有误设限制条件导致无法下单。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 2 题　《Pickup 追踪表》的对角线与填表</div>
+    <div class="q-b">取数日 2026-09-20。表 5-1 中，目标日 2026-10-04 今天应填在哪一行？该行该列当前值是多少？到了 2026-09-27（7 天后），同一个目标日 2026-10-04 应填在哪一行？</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>09-20 时填在「提前 14 天」行，值 142 房晚；09-27 时填在「提前 7 天」行</b>。<br>解析：对角线条件为「目标日期 − 今天 = 该行的提前天数」。2026-10-04 − 2026-09-20 = 14 天 → 提前 14 天行，表 5-1 中该格为 142。7 天后是 09-27，2026-10-04 − 2026-09-27 = 7 天 → 提前 7 天行。这就是"每天在同一条对角线上往下移一格"的含义。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 3 题　《法典》表 I 的档位定位</div>
+    <div class="q-b">以下四个目标日（取数日均为 2026-09-20），分别落在表 I 的哪一档？各自的监控频率是什么？① 2026-09-22　② 2026-09-25　③ 2026-10-01　④ 2026-12-15</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>① 0–3 天档，每日 2 次（10:00 / 17:00）；② 4–7 天档，每日 1 次；③ 8–14 天档，每日 1 次；④ &gt;60 天档，每月 1 次</b>。<br>解析：先算提前天数。09-22 − 09-20 = 2 天 → 0–3 天；09-25 − 09-20 = 5 天 → 4–7 天；10-01 − 09-20 = 11 天 → 8–14 天；12-15 − 09-20 = 86 天 → &gt;60 天。注意 09-20 当天为 0 天，落在 0–3 天档。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 4 题　预测三步法 · 平推 + 星期修正</div>
+    <div class="q-b">目标日 2026-11-14（周六）。去年同日 2025-11-14（周五）实际售出 268 房晚，去年 T-30 在手 90 房晚；今年 T-30 在手 99 房晚。两年均为 D3 平峰日，无事件。可售房晚 320。求：预测总需求、预测 OCC、RW、Pickup 偏差，并查《法典》表 A 给出动作。</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>预测总需求 277 房晚；预测 OCC 86.6%；RW 178 房晚；Pickup 偏差 +10.0%；表 A 结论 +10%（85–95% 行 × 领先 3–10% 列）</b>。<br>解析：第①步 268。第②步增量 = 99 − 90 = +9 → 277。曲线校验：99 ÷ 34% = 291；偏差 = |277 − 291| ÷ 291 = 4.8% ≤15%，通过。第③步：去年周五（周末）→ 今年周六（周末）→ 表 5-8 得 ×1.00；D3→D3 ×1.00；无事件 ×1.00 → 预测 277。预测 OCC = 277 ÷ 320 = 86.6%。RW = 277 − 99 = 178。Pickup 偏差 = 9 ÷ 90 = +10.0%，按表 A 列边界规则落在「领先 3–10%」（含端点）。OCC 86.6% 落 85–95% 行 → 交叉得 <b>+10%</b>。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 5 题　预测三步法 · 需求等级变动</div>
+    <div class="q-b">目标日 2026-12-31（周四）。去年同日 2025-12-31（周三）为 D3 平峰日，实际售出 240 房晚，去年 T-30 在手 82 房晚。今年该日因跨年活动被判定为 <b>D1 峰值日</b>，今年 T-30 在手 96 房晚。无其他事件。可售房晚 320。求：预测总需求、预测 OCC、表 A 动作，并检查是否触及《SPEC》2.5 的 D1 价格系数区间。</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>预测总需求 310 房晚；预测 OCC 96.9%；表 A 结论 +20%（≥95% 行 × 领先&gt;10% 列）；触及 D1 价格系数区间 150–200%，且必须由 L3 审批</b>。<br>解析：第①步 240。第②步增量 = 96 − 82 = +14 → 254。曲线校验：96 ÷ 34% = 282；偏差 = |254 − 282| ÷ 282 = 9.9% ≤15%，通过。第③步：去年周三（工作日）→ 今年周四（工作日）×1.00；D3 → D1 → 表 5-10 得 ×1.22；无事件 ×1.00。总系数 1.22。预测 = 254 × 1.22 = 309.9 → <b>310</b>。预测 OCC = 310 ÷ 320 = 96.9% → ≥95% 行。Pickup 偏差 = 14 ÷ 82 = +17.1% → 领先 &gt;10% 列。交叉得 <b>+20%</b>，恰好等于表 A 约束 1 的单日累计上限 20%，<b>当日不得再有第二次同向调价</b>。价格校验：平峰 BAR ¥680 × 150% = ¥1,020 起；+20% 后若原 BAR 已设为 ¥1,020，则新价 ¥1,224，仍在 D1 上限 ¥680 × 200% = ¥1,360 以内，可执行。按表 A 约束 4，D1 峰值日调价<b>必须</b>由 L3 收益经理审批。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 6 题　预测三步法 · 双向利空 + 已确认增量</div>
+    <div class="q-b">目标日 2027-01-15（周五）。去年同日 2026-01-15（周四）为 D3 平峰日，实际售出 228 房晚，去年 T-30 在手 76 房晚。今年该日：① 落入 1 月淡季，判定为 <b>D4 低谷日</b>；② 3km 内新竞对开业满 5 个月；③ 工程部书面通知当日有 20 间 OOO 房（装修）；④ 某协议客户已书面确认锁房 30 间夜，<b>其中 12 间夜已在当前在手中</b>。今年 T-30 在手 70 房晚。求：预测总需求、可售房晚、预测 OCC。</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>可售房晚 300；预测总需求 178 房晚；预测 OCC 59.3%；表 A 结论 −5%</b>。<br>解析：<br><b>第①步</b>：基准盘 = 去年同日实际 <b>228 房晚</b>。<br><b>第②步</b>：Pickup 增量 = 70 − 76 = <b>−6</b> → 未修正预测 = 228 − 6 = <b>222 房晚</b>。曲线校验：70 ÷ 34% = 206；偏差 = |222 − 206| ÷ 206 = 7.8% ≤15%，通过，取 222。<br><b>第③步（三项修正）</b>：星期几——去年周四（工作日）→ 今年周五（周末），查表 5-8 得 ×<b>1.06</b>；需求等级——D3 → D4，查表 5-10 得 ×<b>0.70</b>；事件——新竞对开业满 5 个月（4–6 个月区间），查表 5-11 得 ×<b>0.97</b>。总修正系数 = 1.06 × 0.70 × 0.97 = <b>0.72</b>。<br><b>已确认增量</b>：协议客户锁房 30 间夜，其中 12 间夜已计入当前在手（按"不重复计入"铁律不加），剩余 <b>18 间夜</b>尚未进在手，属必然发生的需求，<b>加回</b>。<br><b>预测总需求</b> = 222 × 0.72 + 18 = 159.8 + 18 = <b>178 房晚</b>。<br><b>可售房晚</b>：OOO 房 20 间改分母不改需求（表 5-11 第 4 行明确规定系数为 1.00）→ 320 − 20 = <b>300 房晚</b>。<br><b>预测 OCC</b> = 178 ÷ 300 = <b>59.3%</b>。<br>易错点：若误把 OOO 房当成需求系数处理，会算成 178 ÷ 320 = 55.6%，这是错的——OOO 房不卖，分母必须降，分子不能动。<br><b>表 A</b>：预测 OCC 59.3% → 55–70% 行；Pickup 偏差 =（70 − 76）÷ 76 = <b>−7.9%</b> → 落后 3–10% 列 → 交叉得 <b>−5%</b>。平峰 BAR ¥680 × 95% = ¥646 → 取整 <b>¥650</b>（实际降幅 −4.4%，满足 ≥3% 门槛）。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 7 题　预测准确率与偏差分级</div>
+    <div class="q-b">目标日 2026-10-20 的四次预测与实际如下（实际 OCC 74.0%，实际 ADR ¥700，可售房晚 320）：<br>T-30 预测 OCC 78.1%　T-14 预测 OCC 76.5%　T-7 预测 OCC 75.2%　T-1 预测 OCC 74.8%<br>求：四次的预测准确率；判断各次是否达标；判断是否存在系统性偏差；算出 T-30 的高估损失。</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>T-30 = 94.5% 达标；T-14 = 96.6% 达标；T-7 = 98.4% 达标；T-1 = 98.9% 达标；四次全部高估但不构成系统性偏差；T-30 高估损失 ¥28.4</b>。<br>解析：准确率 = 1 − |预测 − 74.0%| ÷ 74.0%。<br>T-30：1 − 4.1 ÷ 74.0 = 1 − 5.54% = <b>94.5%</b>（合格线 85%，达标）<br>T-14：1 − 2.5 ÷ 74.0 = <b>96.6%</b>（合格线 90%，达标）<br>T-7：1 − 1.2 ÷ 74.0 = <b>98.4%</b>（合格线 93%，达标）<br>T-1：1 − 0.8 ÷ 74.0 = <b>98.9%</b>（合格线 97%，达标）<br>系统性偏差判定：四级要求「连续 3 日<b>同向</b>偏差且每日偏差 &gt; 5 个百分点」。本题四次偏差分别为 +4.1、+2.5、+1.2、+0.8 个百分点，虽同向但<b>均 ≤5 个百分点</b>，<b>不构成四级系统性偏差</b>。<br>高估损失 =（预测房晚 − 实际房晚）× 实际 ADR ÷ 可售房晚。实际房晚 = 74.0% × 320 = 236.8 → 237。T-30 预测房晚 = 78.1% × 320 = 249.9 → 250。损失 =（250 − 237）× 700 ÷ 320 = <b>¥28.4</b>。</div>
+    </details>
+  </div>
+
+  <!-- ================= 十一 ================= -->
+  <h2 id="s11">十一、判定表默写清单</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">✎</span>当堂默写（限时 20 分钟，错一格不得进入下一课）</div>
+    <ul class="checklist">
+      <li>《法典》表 I 六档窗口：0–3 天 / 4–7 天 / 8–14 天 / 15–30 天 / 31–60 天 / &gt;60 天</li>
+      <li>表 I 六档的监控频率：每日 2 次（10:00 / 17:00）/ 每日 1 次 / 每日 1 次 / 每周 2 次 / 每周 1 次 / 每月 1 次</li>
+      <li>表 I 六档的落后触发阈值：OCC&lt;70% / 落后 10% / 落后 15% / 落后 20% / 落后 25% / 落后 30%</li>
+      <li>表 I 六档的触发动作：上「今日特惠」尾房产品 / 启动 48h 闪购 / 执行表 A 调价 / 策略复盘 + 销售动员 / 启动协议客户拜访计划 / 上报 L3 调整年度策略</li>
+      <li>《法典》表 A 六行（预测 OCC 分档）：≥95% / 85–95% / 70–85% / 55–70% / 40–55% / &lt;40%</li>
+      <li>《法典》表 A 五列（Pickup 偏差分档）：落后 &gt;10% / 落后 3–10% / 持平 ±3% / 领先 3–10% / 领先 &gt;10%</li>
+      <li>《法典》表 A 五条执行约束：单日 ≤20%、24h ≤2 次 / 单次 ≥3% / 30 分钟内核 OTA 挂牌 / D1 调价须 L3 审批 / 全部写入《调价台账》</li>
+      <li>预测三步法总公式（含三项修正系数与已确认事件增量的位置）</li>
+      <li>预测准确率公式（分母为实际 OCC）</li>
+      <li>五档准确率合格线：T-30 ≥85% / T-14 ≥90% / T-7 ≥93% / T-3 ≥95% / T-1 ≥97%</li>
+      <li>云璟酒店预订基准曲线 9 个提前天数的累计占比：12 / 20 / 34 / 46 / 58 / 73 / 86 / 94 / 100（%）</li>
+      <li>《Pickup 追踪表》9 个提前天数行：60 / 45 / 30 / 21 / 14 / 7 / 3 / 1 / 0</li>
+    </ul>
+  </div>
+
+  <!-- ================= 十二 ================= -->
+  <h2 id="s12">十二、随堂测（5 题）</h2>
+
+  <div class="callout callout-warn">
+    <span class="co-t">及格线</span>
+    <p>5 题全对方可进入下一课（M06 价格体系设计）。错 1 题须重做本模块第 10 节学员跟练全部 7 题。</p>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 1 题</div>
+    <div class="q-b">《法典》表 I 中，唯一一个用绝对 OCC 而不是相对落后幅度作为触发阈值的窗口档是哪一档？阈值是多少？触发动作是什么？</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>0–3 天档；阈值 OCC&lt;70%；触发动作是上「今日特惠」尾房产品</b>。<br>解析：其余五档（4–7 / 8–14 / 15–30 / 31–60 / &gt;60 天）用的都是相对落后百分比（10% / 15% / 20% / 25% / 30%）。只有 0–3 天档直接看绝对 OCC，因为距入住只剩 3 天时，"比去年差多少"已不重要，重要的是今晚还剩多少房。该档监控频率为每日 2 次（10:00 / 17:00）。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 2 题</div>
+    <div class="q-b">预测三步法中，第 ② 步「加 Pickup 增量」的公式是什么？如果一个已确认的团队锁房 40 间夜中，有 40 间夜已经在当前在手（OTB）里，预测时该怎么处理？</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>Pickup 增量 = 今年在手房晚 − 去年同期同一提前窗口在手房晚；未修正预测 = 去年同期实际房晚 + Pickup 增量。40 间夜已全部在手时，不再额外加，即加 0</b>。<br>解析：依据表 5-11 下方"事件修正三铁律"第 2 条「不重复计入」：已确认的团队房晚如果已经进入 OTB，只能算一次。判据是查该团队的预订日期是否早于本次取数日。若早于，则已在手内，不得在"加 Pickup 增量"之外再加一遍。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 3 题</div>
+    <div class="q-b">目标日预测 OCC 计算出来是 85.0%。查《法典》表 A 时，应归入哪一行？依据是什么？</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>归入 85–95% 行。依据：表 A 行区间在边界值重叠时，「取高档不取低档」</b>。<br>解析：表 A 的 70–85% 与 85–95% 在 85% 处重叠。规则规定 OCC 恰好等于 85% 时归入上一档（85–95%），恰好等于 95% 时归入 ≥95% 档。这条规则避免同一数值有两种读法，是"不纠结"的具体体现。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 4 题</div>
+    <div class="q-b">某次调价：原 BAR ¥680，表 A 给出 −3%，算得 ¥659.6，取整为 ¥660。这个执行对不对？为什么？正确处理是什么？</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>不对。取整后实际降幅 =（680 − 660）÷ 680 = 2.9%，低于表 A 约束 2 规定的 3% 门槛，「低于 3% 无市场感知，不算调价」，本次调价不成立</b>。<br>解析：正确处理二选一并在《调价台账》注明：① 取整到 <b>¥655</b>（降幅 3.7%，满足 ≥3%）；② 不调价，保持 ¥680，将该日写入《观察清单》，待进入下一窗口档再查。核心教训：取整动作完成后必须回算实际幅度，取整不能吃掉调价下限。</div>
+    </details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 5 题</div>
+    <div class="q-b">目标日预测 OCC 65.9%，Pickup 偏差 +2.4%，表 A 给出 −3%；同时《法典》表 B 在 &lt;70% 档给出「不设限 / 全开 + 上促销」，表 I 在 31–60 天档未触发。按《法典》表 O，当日应执行哪些动作？</div>
+    <details class="ex-a">
+      <summary>查看答案与解析</summary>
+      <div class="a-body">答案：<b>当日执行表 B 的库存动作（撤销全部限制条件、6 个渠道全开、上架促销产品）与表 A 的价格动作（−3%），两者不冲突；表 I 未触发，不执行</b>。<br>解析：表 O 的冲突处理铁律是「同日只执行优先级最高的那一条动作」，但这条只在<b>多张表给出不同（互斥）动作</b>时才生效。本题中表 B 给的是<b>库存动作</b>，表 A 给的是<b>价格动作</b>，两者作用于不同对象，不冲突，可以同日并行执行。真正会被"搁置"的是当两表对<b>同一对象</b>（例如都对价格、或都对渠道）给出不同结论时。另需注意：表 A 的 −3% 取整后若实际幅度 &lt;3%，则按约束 2 不执行，只执行表 B。</div>
+    </details>
+  </div>
+
+  <!-- ================= 十三 ================= -->
+  <h2 id="s13">十三、本模块产出物</h2>
+
+  <div class="callout callout-do">
+    <span class="co-t">结课交付清单（缺一项不予结课）</span>
+    <ul style="margin:6px 0 0">
+      <li><b>《Pickup 追踪表》</b>——行＝提前天数 60/45/30/21/14/7/3/1/0，列＝未来 60 天目标日期，连续填写 14 个取数日（含今日对角线 9 格）</li>
+      <li><b>《去年同期 Pickup 追踪表》</b>——同结构，填去年同窗口在手</li>
+      <li><b>《Pickup 差值表》</b>——今年 − 去年，含 Pickup 偏差列与表 A 列定位</li>
+      <li><b>《预测修正模型表》</b>——内嵌表 5-8 星期几系数、表 5-9 等级中值、表 5-10 等级变动系数、表 5-11 事件系数、预订基准曲线（表 5-7）</li>
+      <li><b>《未来 30 天逐日预测表》</b>——每列一天，含预测总需求、预测 OCC、RW、日均必需进度、Pickup 偏差、表 A 结论、执行 BAR</li>
+      <li><b>《预测偏差台账》</b>——8 个固定字段，至少完成 30 个目标日的判卷记录</li>
+      <li><b>表 I 默写卷</b>——当堂完成，错一格重默</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">→</span>下一模块预告</div>
+    <p>本模块解决了"这个日子会卖多少"。下一步要回答"这个日子卖多少钱"——M06 价格体系设计将把 BAR（最优可用房价 Best Available Rate）体系、《法典》表 F 房型价差阶梯、D1/D2/D3/D4 价格日历打标与衍生价格讲清楚。届时你会发现，M05 算出的预测 OCC 正是 M06 每一档价格系数的取值依据。</p>
+  </div>
+
+  <!-- ===== 底部导航 ===== -->
+  <div class="pager">
+    <a href="m04-reports.html"><div class="p-dir">← 上一模块</div><div class="p-title">M04 报表与台账</div></a>
+    <a href="m06-pricing.html" class="p-next"><div class="p-dir">下一模块 →</div><div class="p-title">M06 价格体系设计</div></a>
+  </div>
+
+</div>
+</main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

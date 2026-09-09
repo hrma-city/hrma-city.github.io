@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第 2 集 · 星期三的下午（表 A 调价）· 收益管理剧院</title>
+<meta name="description" content="收益管理剧院第 2 集：平峰周三，OCC 62%、Pickup 落后 12%，看收益经理怎么查《操作法典》表 A 得出唯一动作。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<style>
+  /* ---------- 动态绘本播放器 ---------- */
+  .pb-wrap { max-width: 960px; margin: 0 auto; }
+  .pb-stage {
+    position: relative; width: 100%; aspect-ratio: 16 / 9;
+    background: #101720; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 8px 30px rgba(27,58,92,.18);
+  }
+  .pb-stage img.frame {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0; transition: opacity .9s ease;
+  }
+  .pb-stage img.frame.on { opacity: 1; animation: kb 9s ease-out both; }
+  @keyframes kb {
+    from { transform: scale(1.02) translate(0, 0); }
+    to   { transform: scale(1.09) translate(-1.2%, -1%); }
+  }
+  .pb-vignette {
+    position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to top, rgba(8,14,22,.88) 0%, rgba(8,14,22,.45) 32%, rgba(8,14,22,0) 62%);
+  }
+  .pb-cap {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 30px 30px;
+    color: #fff; font-size: 16px; line-height: 1.85; z-index: 3;
+    opacity: 0; transform: translateY(10px); transition: .5s ease;
+  }
+  .pb-cap.on { opacity: 1; transform: none; }
+  .pb-cap .no {
+    display: inline-block; font-family: var(--mono); font-size: 11.5px;
+    color: var(--gold-2); letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .pb-data {
+    position: absolute; left: 0; right: 0; top: 38%; text-align: center;
+    z-index: 3; pointer-events: none;
+  }
+  .pb-data span {
+    display: inline-block; font-family: var(--mono); font-weight: 800;
+    font-size: 46px; color: #fff; letter-spacing: 2px;
+    text-shadow: 0 4px 24px rgba(0,0,0,.6);
+    opacity: 0; transform: scale(.92); transition: .55s cubic-bezier(.2,.8,.3,1);
+  }
+  .pb-data span.on { opacity: 1; transform: none; }
+
+  /* 控制条 */
+  .pb-bar { display: flex; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+  .pb-btn {
+    border: 1px solid var(--line-2); background: var(--white); color: var(--navy);
+    border-radius: 8px; padding: 9px 15px; font-size: 13.5px; font-weight: 700;
+    cursor: pointer; font-family: inherit; transition: .15s;
+  }
+  .pb-btn:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .pb-btn.primary { background: var(--navy); color: #fff; border-color: var(--navy); min-width: 92px; }
+  .pb-btn.primary:hover { background: var(--navy-2); }
+  .pb-prog { flex: 1; min-width: 180px; height: 6px; background: var(--bg-2); border-radius: 20px; overflow: hidden; }
+  .pb-prog i { display: block; height: 100%; background: var(--gold); width: 0; transition: .35s linear; }
+  .pb-count { font-family: var(--mono); font-size: 13px; color: var(--ink-2); }
+
+  /* 分镜列表 */
+  .pb-list { display: grid; gap: 8px; margin-top: 20px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .pb-item {
+    display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px;
+    border: 1px solid var(--line); border-radius: 9px; background: var(--white);
+    cursor: pointer; font-size: 12.5px; color: var(--ink-2); line-height: 1.6; transition: .15s;
+  }
+  .pb-item:hover { border-color: var(--navy-3); background: #f6f9fc; }
+  .pb-item.now { border-color: var(--gold); background: var(--gold-soft); color: var(--ink); }
+  .pb-item b { font-family: var(--mono); color: var(--gold); flex-shrink: 0; }
+
+  .pb-loading { text-align: center; padding: 60px 0; color: var(--ink-3); font-size: 14px; }
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"theater","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/theater/ep02.html"},{"@type":"ListItem","position":3,"name":"ep02","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/theater/ep02.html"}]}</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html">
+      <span class="gem">社</span><span>中国酒店收益管理社区</span>
+    </a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="../games/index.html">开始练</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:28px;padding-bottom:40px">
+  <div class="pb-wrap">
+
+    <div style="margin-bottom:14px">
+      <a href="../theater.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 返回剧院</a>
+    </div>
+
+    <div class="cm-eyebrow">收益管理剧院 · 原创动画 第一季</div>
+    <h1 style="font-size:27px;font-weight:800;color:var(--navy);margin:0 0 8px">
+      第 2 集 · 星期三的下午
+    </h1>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.85;margin:0 0 18px">
+      平峰周三，OCC 62%、Pickup 落后 12%——涨还是降？
+      看收益经理怎么把两个数代入《操作法典》表 A，读出一个不用争论的答案。<br>
+      <b>关联：表 A 每日价格调整（双因子矩阵）</b> · 对应模块 M06 价格体系设计
+    </p>
+
+    <div class="pb-stage" id="stage">
+      <div class="pb-vignette"></div>
+      <div class="pb-data" id="dataBox"><span id="dataTxt"></span></div>
+      <div class="pb-cap" id="capBox">
+        <div class="no" id="capNo"></div>
+        <div id="capTxt"></div>
+      </div>
+      <div class="pb-loading" id="loading">正在载入分镜…</div>
+    </div>
+
+    <div class="pb-bar">
+      <button class="pb-btn primary" id="btnPlay">▶ 播放</button>
+      <button class="pb-btn" id="btnPrev">← 上一幕</button>
+      <button class="pb-btn" id="btnNext">下一幕 →</button>
+      <div class="pb-prog"><i id="prog"></i></div>
+      <span class="pb-count" id="count">1 / 14</span>
+    </div>
+
+    <div class="pb-list" id="list"></div>
+
+    <div class="cm-card" style="margin-top:26px">
+      <h3>这一集讲的那张表</h3>
+      <p>
+        <b>表 A · 每日价格调整判定表</b>：输入「预测 OCC」和「Pickup 偏差」两个数，
+        在双因子矩阵里找到唯一交叉点，直接读出调价幅度。
+        本集的情形是 OCC 62%（55–70% 行）× Pickup 落后 12%（落后 &gt;10% 列）→ <b>−10%</b>。
+      </p>
+      <p style="margin-bottom:6px">
+        <b>执行约束（必须同时遵守）</b>：单次调价不低于 3%；24 小时内同方向调价不超过 2 次；
+        调价后 30 分钟内必须核查 OTA 挂牌价是否同步；触及 D1 峰值日的调价须 L3 审批；
+        所有调价写入《调价台账》。
+      </p>
+      <div class="cm-btns">
+        <a class="cm-btn cm-btn-primary" href="../games/level.html">去闯关练这一关</a>
+        <a class="cm-btn cm-btn-ghost" href="../codex.html">看完整的 15 张判定表</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-main">
+    <div class="sf-bot">
+      <span>中国酒店收益管理社区 · 收益管理剧院</span>
+      <span>联系：<a href="mailto:3984557428@qq.com" style="display:inline;color:var(--gold-2)">3984557428@qq.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var B = "../assets/img/theater/ep02/";
+
+  var SCENES = [
+    { i: B + "ep02-01.jpg", c: "周三下午两点。杭州滨江云璟酒店，收益经理小璟的办公室。今天没有展会、没有节假日——一个再普通不过的平峰日。", d: "" },
+    { i: B + "ep02-02.jpg", c: "屏幕上第一个数：这一天当前预测出租率 62%。这是「在手预订 + 预测增量」算出来的，不是拍脑袋。", d: "预测 OCC 62%" },
+    { i: B + "ep02-03.jpg", c: "第二个数：Pickup 偏差 −12%。也就是说，去年同期同一个提前窗口，我们手上的房间比今年多 12%。", d: "Pickup −12%" },
+    { i: B + "ep02-04.jpg", c: "同事凑过来：「降点价冲量吧。」另一个说：「再等等，周末说不定会涨。」两种说法听起来都有道理。", d: "" },
+    { i: B + "ep02-05.jpg", c: "小璟没有加入争论。她翻开《操作法典》，找到表 A——每日价格调整判定表。", d: "" },
+    { i: B + "ep02-06.jpg", c: "第一因子：预测 OCC 62%，落在「55–70%」这一行。", d: "行：55–70%" },
+    { i: B + "ep02-07.jpg", c: "第二因子：Pickup 落后 12%，落在「落后 >10%」这一列。", d: "列：落后 >10%" },
+    { i: B + "ep02-08.jpg", c: "两线交叉，只有一个格子：−10%。不需要争论，也不需要「我觉得」。", d: "−10%" },
+    { i: B + "ep02-09.jpg", c: "她在价格日历里把平峰 BAR 从 ¥680 调到 ¥612，降幅正好 10%。", d: "¥680 → ¥612" },
+    { i: B + "ep02-10.jpg", c: "但还没完。三条执行约束必须同时满足：单次调价不低于 3%、24 小时内同方向不超过 2 次、调完 30 分钟内核查 OTA 同步。", d: "" },
+    { i: B + "ep02-11.jpg", c: "三十分钟后：六个渠道的挂牌价逐一比对，价格一致性确认无误——直销价没有高于任何一家 OTA。", d: "" },
+    { i: B + "ep02-12.jpg", c: "最后一件事：把这次调价写进《调价台账》。没有记录的调价，等于没有发生。", d: "" },
+    { i: B + "ep02-13.jpg", c: "第二天早上：Pickup 回升，这一天的 OCC 最终走到 71%。", d: "OCC 71%" },
+    { i: B + "ep02-14.jpg", c: "表 A 的意义从来不是预测涨跌，而是——输入两个数，输出一个动作。不猜、不算、不纠结。", d: "" }
+  ];
+
+  var DUR = 6000;
+  var cur = 0, playing = false, timer = null;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var stage = $("stage"), capBox = $("capBox"), dataTxt = $("dataTxt");
+
+  /* 预载所有分镜 */
+  var loaded = 0;
+  SCENES.forEach(function (s) {
+    var im = new Image();
+    im.onload = im.onerror = function () {
+      loaded++;
+      if (loaded === SCENES.length) { $("loading").style.display = "none"; show(0); }
+    };
+    im.src = s.i;
+  });
+
+  /* 分镜列表 */
+  var list = $("list");
+  SCENES.forEach(function (s, i) {
+    var d = document.createElement("div");
+    d.className = "pb-item";
+    d.innerHTML = "<b>" + (i + 1) + "</b><span>" + s.c + "</span>";
+    d.addEventListener("click", function () { pause(); show(i); });
+    list.appendChild(d);
+  });
+
+  function show(i) {
+    cur = (i + SCENES.length) % SCENES.length;
+    var s = SCENES[cur];
+
+    var img = new Image();
+    img.className = "frame";
+    img.src = s.i;
+    img.alt = "第 " + (cur + 1) + " 幕";
+    img.onload = function () {
+      stage.insertBefore(img, stage.firstChild);
+      requestAnimationFrame(function () { img.classList.add("on"); });
+      var frames = stage.querySelectorAll("img.frame");
+      for (var k = 2; k < frames.length; k++) frames[k].remove();
+    };
+    if (img.complete) img.onload();
+
+    capBox.classList.remove("on");
+    setTimeout(function () {
+      $("capNo").textContent = "第 " + (cur + 1) + " 幕 / 共 " + SCENES.length + " 幕";
+      $("capTxt").textContent = s.c;
+      capBox.classList.add("on");
+    }, 220);
+
+    if (s.d) {
+      dataTxt.textContent = s.d;
+      dataTxt.classList.add("on");
+    } else {
+      dataTxt.classList.remove("on");
+    }
+
+    $("prog").style.width = ((cur + 1) / SCENES.length * 100) + "%";
+    $("count").textContent = (cur + 1) + " / " + SCENES.length;
+    var items = list.children;
+    for (var k = 0; k < items.length; k++) items[k].className = "pb-item" + (k === cur ? " now" : "");
+  }
+
+  function play() {
+    playing = true;
+    $("btnPlay").textContent = "⏸ 暂停";
+    clearInterval(timer);
+    timer = setInterval(function () {
+      if (cur === SCENES.length - 1) { pause(); return; }
+      show(cur + 1);
+    }, DUR);
+  }
+  function pause() {
+    playing = false;
+    $("btnPlay").textContent = "▶ 播放";
+    clearInterval(timer);
+  }
+
+  $("btnPlay").addEventListener("click", function () { playing ? pause() : play(); });
+  $("btnPrev").addEventListener("click", function () { pause(); show(cur - 1); });
+  $("btnNext").addEventListener("click", function () { pause(); show(cur + 1); });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight") { pause(); show(cur + 1); }
+    else if (e.key === "ArrowLeft") { pause(); show(cur - 1); }
+    else if (e.key === " ") { e.preventDefault(); playing ? pause() : play(); }
+  });
+})();
+</script>
+</body>
+</html>

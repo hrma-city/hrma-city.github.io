@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>决策闯关 · 收益管理游戏</title>
+<meta name="description" content="14 个真实场景的决策闯关，覆盖《操作法典》表 A–O，即时判分并给出依据。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"games","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/games/level.html"},{"@type":"ListItem","position":3,"name":"level","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/games/level.html"}]}</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html">
+      <span class="gem">社</span><span>中国酒店收益管理社区</span>
+    </a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="sim.html">经营模拟</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:40px">
+  <div class="game-wrap">
+
+    <div style="margin-bottom:16px">
+      <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 返回游戏中心</a>
+    </div>
+
+    <div class="cm-eyebrow">决策闯关</div>
+    <h1 style="font-size:26px;font-weight:800;color:var(--navy);margin:0 0 6px">
+      看两个数 → 查一张表 → 出一个动作
+    </h1>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.8;margin:0 0 4px">
+      14 个真实场景，全部基于杭州滨江云璟酒店（320 间房，平峰 BAR ¥680）。
+      选完立刻告诉你对在哪、错在哪、依据哪张表。
+    </p>
+
+    <div class="game-hud">
+      <div class="hud-item"><span>关卡</span><b id="hudLevel">1 / 14</b></div>
+      <div class="hud-item"><span>得分</span><b id="hudScore">0</b></div>
+      <div class="hud-item"><span>正确率</span><b id="hudRate">—</b></div>
+      <div class="hud-item" style="margin-left:auto">
+        <button id="btnRestart" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit">重新开始</button>
+      </div>
+    </div>
+
+    <div class="progress-bar"><i id="barFill" style="width:0%"></i></div>
+
+    <div class="game-card" id="card">
+      <div class="game-scene">
+        <div class="sc-title" id="scTable">场景</div>
+        <div class="sc-text" id="scText"></div>
+      </div>
+      <div style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px" id="qText"></div>
+      <div class="game-opts" id="opts"></div>
+      <div id="fb"></div>
+      <div style="margin-top:16px;display:none" id="nextWrap">
+        <button class="cm-btn cm-btn-primary" id="btnNext">下一关 →</button>
+      </div>
+    </div>
+
+    <div class="game-card" id="result" style="display:none;text-align:center">
+      <div style="font-size:13px;color:var(--ink-3);letter-spacing:2px">闯关完成</div>
+      <div style="font-size:44px;font-weight:800;color:var(--navy);font-family:var(--mono);margin:8px 0" id="rScore">0</div>
+      <div style="font-size:15px;color:var(--ink-2);margin-bottom:6px" id="rGrade"></div>
+      <p style="font-size:14px;color:var(--ink-2);line-height:1.85;margin:14px 0 4px" id="rAdvice"></p>
+      <div class="cm-btns" style="justify-content:center">
+        <button class="cm-btn cm-btn-primary" id="btnAgain">再来一次</button>
+        <a class="cm-btn cm-btn-ghost" href="sim.html">去玩经营模拟 →</a>
+        <a class="cm-btn cm-btn-ghost" href="../codex.html">回看法典</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-main">
+    <div class="sf-bot">
+      <span>中国酒店收益管理社区 · 决策闯关</span>
+      <span>联系：<a href="mailto:3984557428@qq.com" style="display:inline;color:var(--gold-2)">3984557428@qq.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  /* ======================================================================
+     题目数据：全部依据 SPEC《操作法典》表 A–O，数值已逐条核对
+     ====================================================================== */
+  var LEVELS = [
+    {
+      t: "表 A · 每日价格调整",
+      s: "目标日：平峰周三（非展会、非节假日）。当前预测 OCC 62%，Pickup 偏差：落后 12%。",
+      q: "按《法典》表 A，这一天 BAR 应该怎么调？",
+      o: ["维持不动，继续观察", "下调 5%", "下调 10%", "上调 5%"],
+      a: 2,
+      w: "表 A 双因子矩阵：预测 OCC 62% 落在「55–70%」行，Pickup 落后 12% 落在「落后 >10%」列，交叉点 = −10%。执行约束：单次调价不低于 3%、同方向 24 小时内不超过 2 次、调完 30 分钟内核查 OTA 挂牌是否同步，并写入《调价台账》。"
+    },
+    {
+      t: "表 A · 调价执行约束",
+      s: "目标日：国庆第 2 天（D1 峰值日）。预测 OCC 97%，Pickup 领先 12%。",
+      q: "按表 A 与执行约束，正确动作是？",
+      o: ["上调 20%，直接执行", "上调 20%，但必须由 L3 收益经理审批后执行", "上调 15%，无需审批", "维持不动，峰值日不调价"],
+      a: 1,
+      w: "表 A：OCC ≥95% 行 × Pickup 领先 >10% 列 = +20%。但执行约束第 4 条明确：触及 D1 峰值日的调价必须由 L3 收益经理审批。另注意单日同方向累计调价不超过 20%，+20% 已是上限，不能再叠加其他提价动作。"
+    },
+    {
+      t: "表 B · 库存与限制条件",
+      s: "目标日预测 OCC 92%，该日不是 D1 峰值日。",
+      q: "按表 B，库存与限制条件应该怎么配？",
+      o: ["MinLOS 2 晚；CTA 启用；关闭尾房特惠；超售 ≤2 间",
+          "MinLOS 2 晚；CTA 不启用（非 D1 日）；关闭尾房特惠；超售 ≤2 间",
+          "MinLOS 1 晚；全渠道开放；不超售",
+          "MinLOS 3 晚；CTA 启用；关闭所有低价渠道；不超售"],
+      a: 1,
+      w: "表 B「90–95%」行：MinLOS 2 晚、CTA 仅 D1 日启用（本日非 D1 故不启用）、关闭尾房特惠、超售 ≤2 间。常见错误是把「90–95%」和「≥95%」搞混——≥95% 才需要关团购/批发商并设 MinLOS 2 晚（D1 为 3 晚）。"
+    },
+    {
+      t: "表 E · 超额预订计算",
+      s: "可售房 320 间。历史「No-show 率 + 24h 内取消率」合计 12%。该日为普通平峰日（非 D1/D2），担保预订占比 40%，会议团队占比 10%，协议客户集中度 30%。",
+      q: "按表 E，今天最多可超售几间？",
+      o: ["0 间", "6 间", "9 间", "16 间"],
+      a: 2,
+      w: "第一步：合计 12% 落在「10–15%」→ 基准超售率 3%。第二步修正：非 D1/D2（不 ×0.5）、担保占比 40% 未达 60%（不 ×0.5）、会议团队 10% 未超 40%（不 ×0.5）、协议集中度 30% 未超 50%（不 ×0.8）→ 修正后仍为 3%。320 × 3% = 9.6 → 向下取整 9 间。第三步硬上限：≤ 可售房量 5%（16 间）且 ≤15 间，9 间均满足。"
+    },
+    {
+      t: "表 C · 价格指数 ARI",
+      s: "本店 ADR ¥620，竞争组合加权 ADR ¥680。该日预测 OCC 为 85%。",
+      q: "按表 C，价格该怎么动？",
+      o: ["上调 3%", "上调 5%", "维持", "下调 5%"],
+      a: 0,
+      w: "ARI = 620 ÷ 680 × 100 ≈ 91.2，落在「90–97 略低」。该区间规则：预测 OCC ≥80% → 提 3%；否则维持。本日预测 OCC 85% ≥80%，故提 3%。另注意：ARI 调整每次不超 8%、每周不超 2 次，且不得与表 A 结论叠加执行（同日只执行优先级更高者，表 A 优先于表 C）。"
+    },
+    {
+      t: "表 D · 市场渗透指数 MPI",
+      s: "本店昨日 OCC 68%，竞争组合 OCC 74%。",
+      q: "MPI 是多少？按表 D 该做什么？",
+      o: ["MPI ≈ 92，「落后」，降价 5% 或增加 OTA 广告投放",
+          "MPI ≈ 108，「健康」，维持",
+          "MPI ≈ 122，「份额领先」，优先提价",
+          "MPI ≈ 92，「略弱」，只需补 OTA 挂牌"],
+      a: 0,
+      w: "MPI = 68 ÷ 74 × 100 ≈ 91.9，落在「85–95 落后」→ 动作：降价 5% 或增加 OTA 广告投放。别和「95–100 略弱（只检查 OTA 曝光/挂牌/点评分并补挂牌）」混淆。另外表 D 优先级最低（表 O 第 6 位），若同日表 A/B 已有动作，只执行优先级更高的那条。"
+    },
+    {
+      t: "表 F · 房型价差阶梯",
+      s: "平峰日，高级房（SUP）BAR = ¥680（系数 100）。",
+      q: "按表 F，行政大床房（EXE-K，系数 145）的 BAR 应该是多少？",
+      o: ["¥820", "¥990", "¥1,020", "¥1,280"],
+      a: 1,
+      w: "表 F：以高级房为 100，行政房系数 145 → 相对高级房差价 +¥310，故 680 + 310 = ¥990。速记：标准 −100、豪华 +140、豪华江景 +260、行政 +310、商务套房 +600、行政套房 +1200。附加项另计：高楼层 +5%、江景 +10%、含早 +68/人、连通房 +50、加床 +180。"
+    },
+    {
+      t: "表 G · 团队询价置换分析",
+      s: "某旅行社询价 25 间夜，报价 ¥480/间夜。该日预期散客 ADR ¥680，预测 OCC 78%。",
+      q: "按表 G，怎么处理这笔团队询价？",
+      o: ["直接接受", "接受，但控制在 20 间以内", "上报 L3 审批", "直接拒绝"],
+      a: 2,
+      w: "比率 R = 480 ÷ 680 ≈ 70.6%，落在「65% ≤ R < 75%」行；预测 OCC 78% 落在「70–85%」列 → 交叉点 = 上报 L3。不要凭「价格还行」直接接，也不要一刀切拒绝——表 G 是置换分析简化版，边界情形一律上报。若这是会议团队，还需按表 K 计算综合贡献。"
+    },
+    {
+      t: "表 H · 渠道开关",
+      s: "目标日预测 OCC 97%（≥95%）。",
+      q: "按表 H，渠道怎么开关？",
+      o: ["全渠道开放，加大 OTA 投放冲量",
+          "OTA 国内仅留 1 家产量最高的；OTA 国际、GDS、批发商全关；直销与会员全开并上会员专享价",
+          "OTA 国内开 3 家、国际开 1 家、GDS 开、批发商关",
+          "只保留直销，其余全关"],
+      a: 1,
+      w: "表 H「≥95%」行：OTA 国内仅留产量最高的 1 家，OTA 国际关、GDS/TMC 关、批发商/包房关，直销与会员全开并上会员专享价。同时遵守价格一致性红线：直销价不得高于任一 OTA 挂牌价；会员价可低于 OTA 价但仅限登录会员可见；批发商为净价不得公开挂牌。"
+    },
+    {
+      t: "表 I · 预订窗口分档",
+      s: "目标日距离今天 10 天，当前在手进度落后 18%。",
+      q: "按表 I，该触发什么动作？",
+      o: ["上「今日特惠」尾房产品", "启动 48 小时闪购", "执行表 A 调价", "策略复盘 + 销售动员"],
+      a: 2,
+      w: "表 I：10 天落在「8–14 天」档，落后触发阈值 15%，当前落后 18% 已触发 → 动作：执行表 A 调价。对照其他档位：0–3 天（阈值 OCC<70%）上今日特惠；4–7 天落后 10% 启动 48h 闪购；15–30 天落后 20% 才做策略复盘 + 销售动员。"
+    },
+    {
+      t: "表 J · 免费升级顺序",
+      s: "因超售需要腾出 3 间房。待升级客人：金卡会员（预订价 ¥680）、钻石会员（¥580）、银卡会员（¥820）、铂金会员（¥680）。每次只升 1 档。",
+      q: "按表 J，优先升级谁？",
+      o: ["银卡，因为预订价最高",
+          "钻石 → 铂金 → 金卡 → 银卡",
+          "按预订价从高到低：银卡 → 金卡/铂金 → 钻石",
+          "先到先得，按入住顺序"],
+      a: 1,
+      w: "表 J 执行顺序严格为：① 会员等级 钻石 > 铂金 > 金卡 > 银卡；② 同档内预订价高者优先；③ 同价看入住天数；④ 再看复购次数。预订价只在同等级内部参与排序，不能跨等级比价。另外每次最多升 1 档，禁止连跳 2 档；套房升级每日不超 3 间且须 L3 审批；每次升级写入《升级台账》。"
+    },
+    {
+      t: "表 L · 异常事件应急",
+      s: "原定下周的大型展会突然取消，过去 48 小时该周 Pickup 落后 45%。",
+      q: "按表 L，2 小时内应立即做什么？",
+      o: ["降价 15%、全开渠道、启动直销外呼",
+          "提价 20%、设 MinLOS 2、关低价渠道",
+          "维持价格，等市场回暖",
+          "降价 5%，先观察 24 小时"],
+      a: 0,
+      w: "表 L「需求暴跌」：判定信号为 48h Pickup 落后 >40%（本例 45% 已触发），立即动作 = 降价 15% + 全开渠道 + 启动直销外呼；24 小时内做全员销售动员、上团购产品；事后 7 天出复盘报告。表 L 优先级最高（表 O 第 1 位），覆盖其他所有表的结论。"
+    },
+    {
+      t: "表 O · 冲突仲裁",
+      s: "同一目标日：表 A 给出「上调 10%」，同时表 B 要求「关闭低价渠道并控制超售 ≤2 间」。",
+      q: "按表 O，先执行哪个？",
+      o: ["先执行表 A 的提价，价格优先",
+          "先执行表 B 的库存动作，库存安全优先于价格",
+          "两个一起执行",
+          "都不执行，上报 L3"],
+      a: 1,
+      w: "表 O 优先级：1 表 L 应急 → 2 表 B 库存 → 3 表 A 价格 → 4 表 C ARI → 5 表 H 渠道 → 6 表 D MPI。库存安全优先于价格，故先做表 B。铁律：同日只执行优先级最高的那一条，其余写入《观察清单》；若最高优先级动作是「维持」，才顺延下一级；所有取舍必须写进《调价台账》备注栏。"
+    },
+    {
+      t: "表 K · 会议综合贡献",
+      s: "一个 80 人的公司会议询价：需客房 40 间夜，餐饮保底 ¥35,000，会场租金 ¥20,000。经测算客房置换成本 ¥48,000，预计综合贡献 ¥52,000。",
+      q: "按表 K，这笔会议能接吗？",
+      o: ["不能，餐饮保底没达到要求",
+          "可以，中型会议餐饮保底达标且综合贡献 ≥ 置换成本 ×1.0",
+          "不能，必须先算表 G 的比率 R",
+          "可以，但必须 L3 审批，因为餐饮毛利率未知"],
+      a: 1,
+      w: "表 K：80 人属「中型（31–120 人）」，餐饮保底要求 ≥¥30,000（本例 ¥35,000 ✓），接受底线为综合贡献 ≥ 客房置换成本 ×1.0 = ¥48,000（本例 ¥52,000 ✓）→ 可接。决策顺序固定：先问餐饮/宴会承接能力 → 再算综合贡献 → 最后查表 G 客房比率。红线：餐饮毛利率 <55% 的会议须 L3 审批。"
+    }
+  ];
+
+  var idx = 0, score = 0, answered = 0, locked = false;
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function render() {
+    var L = LEVELS[idx];
+    locked = false;
+    $("card").style.display = "";
+    $("result").style.display = "none";
+    $("scTable").textContent = "场景 " + (idx + 1) + " · " + L.t;
+    $("scText").textContent = L.s;
+    $("qText").textContent = L.q;
+    $("fb").innerHTML = "";
+    $("nextWrap").style.display = "none";
+
+    var box = $("opts");
+    box.innerHTML = "";
+    L.o.forEach(function (opt, i) {
+      var b = document.createElement("button");
+      b.className = "game-opt";
+      b.textContent = String.fromCharCode(65 + i) + ". " + opt;
+      b.addEventListener("click", function () { pick(i, b); });
+      box.appendChild(b);
+    });
+
+    $("hudLevel").textContent = (idx + 1) + " / " + LEVELS.length;
+    $("barFill").style.width = (idx / LEVELS.length * 100) + "%";
+    updateHud();
+  }
+
+  function updateHud() {
+    $("hudScore").textContent = score;
+    $("hudRate").textContent = answered === 0 ? "—" : Math.round(score / (answered * 10) * 100) + "%";
+  }
+
+  function pick(i, btn) {
+    if (locked) return;
+    locked = true;
+    answered++;
+    var L = LEVELS[idx];
+    var btns = $("opts").querySelectorAll(".game-opt");
+    for (var k = 0; k < btns.length; k++) btns[k].disabled = true;
+
+    var ok = (i === L.a);
+    if (ok) { score += 10; btn.className = "game-opt correct"; }
+    else {
+      btn.className = "game-opt wrong";
+      btns[L.a].className = "game-opt correct";
+    }
+
+    $("fb").innerHTML =
+      '<div class="game-fb ' + (ok ? "ok" : "no") + '">' +
+        "<b>" + (ok ? "✓ 正确" : "✗ 不对") + "</b>" +
+        (ok ? "" : "　正确答案：" + String.fromCharCode(65 + L.a)) +
+        '<div class="fb-why">' + L.w + "</div>" +
+        '<div class="fb-src">依据：《操作法典》' + L.t + "</div>" +
+      "</div>";
+
+    $("nextWrap").style.display = "";
+    $("btnNext").textContent = (idx === LEVELS.length - 1) ? "查看成绩 →" : "下一关 →";
+    updateHud();
+  }
+
+  function finish() {
+    $("card").style.display = "none";
+    $("result").style.display = "";
+    $("barFill").style.width = "100%";
+    var pct = Math.round(score / (LEVELS.length * 10) * 100);
+    $("rScore").textContent = score + " / " + (LEVELS.length * 10);
+    var g, adv;
+    if (pct >= 90) { g = "S 级 · 可以独立盯店"; adv = "15 张表你已经吃透了。下一步去玩「经营模拟 30 天」，练的是多目标权衡——真实决策从来不是只查一张表。"; }
+    else if (pct >= 75) { g = "A 级 · 具备上岗基础"; adv = "主体规则掌握不错，错的那几关建议回到《法典》把对应表格再过一遍，重点记触发阈值。"; }
+    else if (pct >= 60) { g = "B 级 · 还需巩固"; adv = "建议按「表 A 价格 → 表 B 库存 → 表 E 超售 → 表 G 团队」的顺序回看《法典》，再回来重刷一遍。"; }
+    else { g = "C 级 · 建议先学后练"; adv = "先去学院过一遍 14 个模块和《操作法典》15 张表，把阈值记熟再回来闯关，效率会高很多。"; }
+    $("rGrade").textContent = g + "（正确率 " + pct + "%）";
+    $("rAdvice").textContent = adv;
+  }
+
+  $("btnNext").addEventListener("click", function () {
+    if (idx === LEVELS.length - 1) { finish(); return; }
+    idx++; render();
+  });
+
+  function restart() { idx = 0; score = 0; answered = 0; render(); }
+  $("btnRestart").addEventListener("click", restart);
+  $("btnAgain").addEventListener("click", restart);
+
+  render();
+})();
+</script>
+</body>
+</html>

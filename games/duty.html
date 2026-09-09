@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>值班叙事 · 收益管理游戏</title>
+<meta name="description" content="你是当班收益经理。一个个情境自己找上门，选完立刻看到后果，四个仪表全程延续。不判对错，只演后果。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"games","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/games/duty.html"},{"@type":"ListItem","position":3,"name":"duty","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/games/duty.html"}]}</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html">
+      <span class="gem">社</span><span>中国酒店收益管理社区</span>
+    </a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="reigns.html">卡牌版</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <div class="game-wrap">
+
+    <div style="margin-bottom:14px">
+      <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 返回游戏中心</a>
+    </div>
+
+    <div class="cm-eyebrow">模式一 · 值班叙事</div>
+    <h1 style="font-size:26px;font-weight:800;color:var(--navy);margin:0 0 8px">
+      你是今天当班的收益经理
+    </h1>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.85;margin:0 0 4px">
+      不用想「下一题是什么」——事情会自己找上门来。你只管选，选完立刻看到后果。<br>
+      <b>全程不判对错</b>，《法典》建议留到最后复盘才揭晓。
+    </p>
+
+    <div class="game-hud">
+      <div class="hud-item"><span>情境</span><b id="hudN">1 / 6</b></div>
+      <div class="hud-item"><span>已处理</span><b id="hudDone">0</b></div>
+      <div class="hud-item" style="margin-left:auto">
+        <button id="btnReset" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit">重开一天</button>
+      </div>
+    </div>
+
+    <div class="rg-panel" id="panel"></div>
+
+    <div class="sc-card" id="card">
+      <div class="sc-time" id="scTime"></div>
+      <h2 class="sc-title" id="scTitle"></h2>
+      <p class="sc-text" id="scText"></p>
+      <div class="sc-opts" id="opts"></div>
+      <div id="conBox"></div>
+    </div>
+
+    <div class="sc-card sc-end" id="endCard" style="display:none">
+      <div style="font-size:13px;color:var(--ink-3);letter-spacing:2px">今天下班了</div>
+      <div class="grade" id="eGrade">A</div>
+      <div class="gtitle" id="eTitle"></div>
+      <div style="text-align:left;margin-top:18px">
+        <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px">复盘 · 《法典》会怎么说</div>
+        <div id="review"></div>
+      </div>
+      <div class="cm-btns" style="justify-content:center;margin-top:18px">
+        <button class="cm-btn cm-btn-primary" id="btnAgain">再值一天班</button>
+        <a class="cm-btn cm-btn-ghost" href="reigns.html">换卡牌版</a>
+        <a class="cm-btn cm-btn-ghost" href="pipeline.html">换流水线版</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-main">
+    <div class="sf-bot">
+      <span>中国酒店收益管理社区 · 值班叙事</span>
+      <span>联系：<a href="mailto:3984557428@qq.com" style="display:inline;color:var(--gold-2)">3984557428@qq.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/rm-sim.js"></script>
+<script>
+(function () {
+  "use strict";
+  var S = window.RMSIM;
+  var TOTAL = 6;
+
+  var st, list, idx, log, locked;
+  var $ = function (id) { return document.getElementById(id); };
+
+  function renderGauges(delta) {
+    var html = "";
+    S.GAUGES.forEach(function (g) {
+      var v = st[g.k];
+      var warn = (v <= 25 || v >= 85) ? " warn" : "";
+      var d = delta ? delta[g.k] : 0;
+      var dt = "";
+      if (d) dt = '<div class="rg-delta' + (d < 0 ? " dn" : "") + '">' + (d > 0 ? "▲ +" : "▼ ") + d + "</div>";
+      else dt = '<div class="rg-delta"></div>';
+      html += '<div class="rg"><div class="rg-top">' +
+                '<span class="rg-name">' + g.full + '</span>' +
+                '<span class="rg-val">' + v + '</span>' +
+              '</div><div class="rg-bar"><i class="' + warn.trim() + '" style="width:' + v + '%"></i></div>' + dt + '</div>';
+    });
+    $("panel").innerHTML = html;
+  }
+
+  function reset() {
+    st = S.newState();
+    list = S.shuffled(S.SCENARIOS).slice(0, TOTAL);
+    idx = 0; log = []; locked = false;
+    $("card").style.display = "";
+    $("endCard").style.display = "none";
+    renderGauges();
+    show();
+  }
+
+  function show() {
+    var sc = list[idx];
+    locked = false;
+    $("hudN").textContent = (idx + 1) + " / " + TOTAL;
+    $("hudDone").textContent = idx;
+    $("scTime").textContent = sc.time + " · " + sc.title;
+    $("scTitle").textContent = sc.title;
+    $("scText").textContent = sc.text;
+    $("conBox").innerHTML = "";
+
+    var box = $("opts");
+    box.innerHTML = "";
+    sc.opts.forEach(function (o, i) {
+      var b = document.createElement("button");
+      b.className = "sc-opt";
+      b.textContent = o.t;
+      b.addEventListener("click", function () { pick(i, b); });
+      box.appendChild(b);
+    });
+  }
+
+  function pick(i, btn) {
+    if (locked) return;
+    locked = true;
+    var sc = list[idx];
+    var o = sc.opts[i];
+
+    var btns = $("opts").querySelectorAll(".sc-opt");
+    for (var k = 0; k < btns.length; k++) btns[k].disabled = true;
+    btn.classList.add("picked");
+
+    S.apply(st, o.fx);
+    renderGauges(o.fx);
+    log.push({ sc: sc, opt: o });
+
+    $("conBox").innerHTML =
+      '<div class="sc-con"><div class="cl">后果</div>' + o.con + "</div>" +
+      '<div class="sc-next"><button class="cm-btn cm-btn-primary" id="btnGo">' +
+      (idx === TOTAL - 1 ? "下班，看复盘 →" : "继续 →") + "</button></div>";
+    $("btnGo").addEventListener("click", function () {
+      if (idx === TOTAL - 1) { finish(); return; }
+      idx++; show();
+    });
+
+    var ov = S.over(st);
+    if (ov.done) {
+      $("btnGo").textContent = "看看发生了什么 →";
+    }
+  }
+
+  function finish() {
+    $("card").style.display = "none";
+    $("endCard").style.display = "";
+    $("hudDone").textContent = TOTAL;
+
+    var avg = (st.rev + st.guest + st.owner + st.team) / 4;
+    var mn = Math.min(st.rev, st.guest, st.owner, st.team);
+    var g, t;
+    if (mn <= 0) { g = "D"; t = "出事了 —— " + worstName() + "彻底崩了"; }
+    else if (avg >= 70) { g = "S"; t = "漂亮的一天 —— 四项都稳住了"; }
+    else if (avg >= 60) { g = "A"; t = "合格的一天 —— 没什么大错"; }
+    else if (avg >= 50) { g = "B"; t = "勉强过关 —— 有几个决策代价不小"; }
+    else { g = "C"; t = "有点惨 —— 今天得罪了不少人"; }
+    $("eGrade").textContent = g;
+    $("eTitle").textContent = t;
+
+    var html = "";
+    log.forEach(function (r, i) {
+      html += '<div class="rv-item">' +
+        "<h5>" + (i + 1) + ". " + r.sc.title + "</h5>" +
+        "<p><b>你选了：</b>" + r.opt.t + "</p>" +
+        "<p>" + r.opt.con + "</p>" +
+        '<div class="rv-c">《法典》依据：' + r.sc.codex + "</div>" +
+        "</div>";
+    });
+    $("review").innerHTML = html;
+  }
+
+  function worstName() {
+    var worst = S.GAUGES[0];
+    S.GAUGES.forEach(function (g) { if (st[g.k] < st[worst.k]) worst = g; });
+    return worst.full;
+  }
+
+  $("btnReset").addEventListener("click", reset);
+  $("btnAgain").addEventListener("click", reset);
+  reset();
+})();
+</script>
+</body>
+</html>

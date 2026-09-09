@@ -1,0 +1,320 @@
+/* ==========================================================================
+   中国酒店收益管理社区 · 板块级样式
+   依赖 assets/css/main.css 的 CSS 变量（--navy / --gold / --ink ...）
+   ========================================================================== */
+
+/* ---------- 通用区块 ---------- */
+.cm-section { padding: 56px 0 8px; }
+.cm-section-title {
+  font-size: 26px; font-weight: 800; color: var(--navy);
+  margin: 0 0 10px; letter-spacing: .3px;
+}
+.cm-section-lead {
+  font-size: 15px; color: var(--ink-2); line-height: 1.85;
+  margin: 0 0 26px; max-width: 760px;
+}
+.cm-eyebrow {
+  display: inline-block; font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; color: var(--gold); text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* ---------- 四大板块卡片 ---------- */
+.cm-pillars {
+  display: grid; gap: 20px; margin: 34px 0 10px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.cm-pillar {
+  position: relative; display: block; text-decoration: none;
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 14px; padding: 26px 24px 24px;
+  box-shadow: var(--shadow); transition: .18s ease;
+  overflow: hidden;
+}
+.cm-pillar::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--gold); opacity: .85;
+}
+.cm-pillar:hover {
+  transform: translateY(-4px); box-shadow: var(--shadow-md);
+  border-color: var(--line-2); text-decoration: none;
+}
+.cm-pillar .p-icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 16px;
+  font-family: var(--mono);
+}
+.cm-pillar .p-name {
+  font-size: 19px; font-weight: 800; color: var(--navy); margin: 0 0 8px;
+}
+.cm-pillar .p-desc {
+  font-size: 13.5px; color: var(--ink-2); line-height: 1.8; margin: 0 0 14px;
+}
+.cm-pillar .p-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.cm-pillar .p-tag {
+  font-size: 11.5px; padding: 3px 9px; border-radius: 20px;
+  background: var(--bg-2); color: var(--ink-2); border: 1px solid var(--line);
+}
+.cm-pillar .p-go {
+  margin-top: 16px; font-size: 13px; font-weight: 700; color: var(--navy-2);
+}
+
+/* 板块主题色 */
+.p-academy .p-icon { background: var(--navy); }
+.p-game    .p-icon { background: var(--teal); }
+.p-community .p-icon { background: var(--gold); }
+.p-theater .p-icon { background: #8E44AD; }
+
+/* ---------- 理念说明 ---------- */
+.cm-why { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.cm-why-item {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: 12px; padding: 20px;
+}
+.cm-why-item h4 { margin: 0 0 8px; font-size: 15px; color: var(--navy); }
+.cm-why-item p { margin: 0; font-size: 13px; color: var(--ink-2); line-height: 1.8; }
+
+/* ---------- 数据条 ---------- */
+.cm-stats { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); margin: 26px 0; }
+.cm-stat { background: var(--white); border: 1px solid var(--line); border-radius: 12px; padding: 18px; text-align: center; }
+.cm-stat .v { font-size: 26px; font-weight: 800; color: var(--navy); font-family: var(--mono); }
+.cm-stat .l { font-size: 12px; color: var(--ink-3); margin-top: 6px; }
+
+/* ---------- 通用内容卡 ---------- */
+.cm-card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 14px; padding: 24px; box-shadow: var(--shadow); margin-bottom: 18px;
+}
+.cm-card h3 { margin: 0 0 10px; font-size: 17px; color: var(--navy); }
+.cm-card p { margin: 0 0 10px; font-size: 14px; color: var(--ink-2); line-height: 1.85; }
+
+/* ---------- 「即将开放」徽标 ---------- */
+.cm-soon {
+  display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  background: var(--gold-soft); color: var(--gold); border: 1px solid var(--gold-2);
+  padding: 3px 10px; border-radius: 20px; vertical-align: middle;
+}
+
+/* ---------- 按钮 ---------- */
+.cm-btn {
+  display: inline-block; padding: 11px 22px; border-radius: 8px;
+  font-size: 14px; font-weight: 700; text-decoration: none; transition: .15s;
+}
+.cm-btn-primary { background: var(--navy); color: #fff; }
+.cm-btn-primary:hover { background: var(--navy-2); color: #fff; }
+.cm-btn-ghost { background: transparent; color: var(--navy); border: 1px solid var(--line-2); }
+.cm-btn-ghost:hover { background: var(--bg-2); color: var(--navy); }
+.cm-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+
+/* ---------- 表单 ---------- */
+.cm-form { display: grid; gap: 14px; max-width: 520px; }
+.cm-field { display: flex; flex-direction: column; gap: 6px; }
+.cm-field label { font-size: 13px; font-weight: 700; color: var(--ink); }
+.cm-field input, .cm-field select, .cm-field textarea {
+  padding: 10px 12px; border: 1px solid var(--line-2); border-radius: 8px;
+  font-size: 14px; font-family: inherit; background: var(--white); color: var(--ink);
+}
+.cm-field input:focus, .cm-field textarea:focus, .cm-field select:focus {
+  outline: none; border-color: var(--navy-3);
+}
+.cm-hint { font-size: 12px; color: var(--ink-3); }
+
+/* ---------- 剧院片卡 ---------- */
+.cm-films { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.cm-film {
+  background: var(--white); border: 1px solid var(--line); border-radius: 12px;
+  overflow: hidden; box-shadow: var(--shadow);
+}
+.cm-film .thumb {
+  height: 132px; display: flex; align-items: center; justify-content: center;
+  font-size: 34px; color: #fff; background: linear-gradient(135deg, var(--navy), var(--navy-3));
+}
+.cm-film .body { padding: 16px; }
+.cm-film h4 { margin: 0 0 8px; font-size: 15px; color: var(--navy); }
+.cm-film p { margin: 0; font-size: 13px; color: var(--ink-2); line-height: 1.75; }
+.cm-film .meta { margin-top: 10px; font-size: 11.5px; color: var(--ink-3); }
+
+/* ---------- 游戏区 ---------- */
+.game-wrap { max-width: 900px; margin: 0 auto; }
+.game-hud {
+  display: flex; gap: 18px; flex-wrap: wrap; align-items: center;
+  background: var(--navy); color: #fff; border-radius: 12px;
+  padding: 14px 20px; margin-bottom: 20px;
+}
+.game-hud .hud-item { font-size: 13px; }
+.game-hud .hud-item b { font-family: var(--mono); font-size: 16px; margin-left: 6px; }
+.game-hud .hud-item span { opacity: .75; }
+
+.game-card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 14px; padding: 26px; box-shadow: var(--shadow);
+}
+.game-scene {
+  background: var(--bg-2); border-left: 4px solid var(--gold);
+  border-radius: 8px; padding: 16px 18px; margin-bottom: 18px;
+}
+.game-scene .sc-title { font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 1px; margin-bottom: 6px; }
+.game-scene .sc-text { font-size: 15px; line-height: 1.9; color: var(--ink); }
+
+.game-opts { display: grid; gap: 10px; margin: 18px 0; }
+.game-opt {
+  text-align: left; padding: 14px 16px; border: 1px solid var(--line-2);
+  border-radius: 10px; background: var(--white); cursor: pointer;
+  font-size: 14px; line-height: 1.7; color: var(--ink); font-family: inherit;
+  transition: .15s;
+}
+.game-opt:hover { border-color: var(--navy-3); background: #f6f9fc; }
+.game-opt.correct { border-color: var(--down); background: #EDF7EF; }
+.game-opt.wrong { border-color: var(--danger); background: var(--danger-soft); }
+.game-opt:disabled { cursor: default; opacity: .9; }
+
+.game-fb { border-radius: 10px; padding: 16px 18px; margin-top: 14px; font-size: 14px; line-height: 1.85; }
+.game-fb.ok { background: #EDF7EF; border: 1px solid #B7DFC0; color: #1E5631; }
+.game-fb.no { background: var(--danger-soft); border: 1px solid #E8B4B0; color: #8C2B21; }
+.game-fb .fb-why { margin-top: 8px; font-size: 13px; }
+.game-fb .fb-src { margin-top: 8px; font-size: 12px; opacity: .8; font-family: var(--mono); }
+
+.progress-bar { height: 8px; background: var(--bg-2); border-radius: 20px; overflow: hidden; margin: 10px 0 4px; }
+.progress-bar i { display: block; height: 100%; background: var(--gold); transition: .3s; }
+
+/* ---------- 经营模拟 ---------- */
+.sim-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom: 18px; }
+.sim-kpi { background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; padding: 14px; text-align: center; }
+.sim-kpi .k { font-size: 11.5px; color: var(--ink-3); }
+.sim-kpi .v { font-size: 21px; font-weight: 800; color: var(--navy); font-family: var(--mono); margin-top: 4px; }
+.sim-kpi .d { font-size: 11.5px; margin-top: 3px; }
+.sim-kpi .d.up { color: var(--up); }
+.sim-kpi .d.down { color: var(--down); }
+
+.sim-controls { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin: 16px 0; }
+.sim-ctrl { background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+.sim-ctrl label { display: block; font-size: 12.5px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.sim-ctrl .val { float: right; font-family: var(--mono); color: var(--navy-2); font-weight: 700; }
+.sim-ctrl input[type=range] { width: 100%; }
+.sim-ctrl .note { font-size: 11.5px; color: var(--ink-3); margin-top: 6px; line-height: 1.6; }
+
+.chart-box { background: var(--white); border: 1px solid var(--line); border-radius: 10px; padding: 14px; margin-top: 14px; }
+.chart-box svg { width: 100%; height: auto; display: block; }
+
+table.cm-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; }
+table.cm-table th, table.cm-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+table.cm-table th { background: var(--bg-2); color: var(--navy); font-weight: 700; }
+table.cm-table td.num { font-family: var(--mono); text-align: right; }
+
+/* ==========================================================================
+   情境游戏 · 共用（值班叙事 / Reigns 卡牌 / 一日流水线）
+   ========================================================================== */
+
+/* ---------- 四个仪表 ---------- */
+.rg-panel {
+  display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  background: var(--navy); border-radius: 12px; padding: 16px 18px; margin-bottom: 18px;
+}
+.rg { }
+.rg-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.rg-name { font-size: 11.5px; color: rgba(255,255,255,.72); letter-spacing: 1px; }
+.rg-val { font-family: var(--mono); font-size: 15px; font-weight: 800; color: #fff; }
+.rg-bar { height: 7px; background: rgba(255,255,255,.16); border-radius: 20px; overflow: hidden; }
+.rg-bar i {
+  display: block; height: 100%; width: 60%; border-radius: 20px;
+  background: linear-gradient(90deg, var(--gold-2), var(--gold));
+  transition: width .7s cubic-bezier(.25,.9,.3,1), background .5s;
+}
+.rg-bar i.warn { background: linear-gradient(90deg, #E8A33D, var(--danger)); }
+.rg-delta { font-size: 11px; margin-top: 4px; height: 14px; color: var(--gold-2); }
+.rg-delta.dn { color: #F0A8A0; }
+
+/* ---------- 情境卡 ---------- */
+.sc-card {
+  background: var(--white); border: 1px solid var(--line); border-radius: 14px;
+  padding: 24px 26px; box-shadow: var(--shadow);
+}
+.sc-time { font-family: var(--mono); font-size: 12px; color: var(--gold); letter-spacing: 1px; }
+.sc-title { font-size: 19px; font-weight: 800; color: var(--navy); margin: 6px 0 10px; }
+.sc-text { font-size: 15px; line-height: 1.9; color: var(--ink); }
+
+.sc-opts { display: grid; gap: 10px; margin-top: 20px; }
+.sc-opt {
+  text-align: left; padding: 15px 17px; border: 1px solid var(--line-2); border-radius: 10px;
+  background: var(--white); cursor: pointer; font-size: 14.5px; line-height: 1.75;
+  color: var(--ink); font-family: inherit; transition: .16s;
+}
+.sc-opt:hover { border-color: var(--navy-3); background: #F6F9FC; transform: translateX(3px); }
+.sc-opt:disabled { cursor: default; opacity: .5; }
+.sc-opt:disabled:hover { transform: none; background: var(--white); }
+.sc-opt.picked { border-color: var(--navy); background: var(--navy); color: #fff; }
+
+.sc-con {
+  margin-top: 18px; border-radius: 10px; padding: 16px 18px;
+  background: var(--bg-2); border-left: 4px solid var(--teal);
+  font-size: 14.5px; line-height: 1.9; color: var(--ink);
+}
+.sc-con .cl { font-size: 12px; font-weight: 700; color: var(--teal); letter-spacing: 1px; margin-bottom: 6px; }
+.sc-next { margin-top: 16px; }
+
+/* ---------- 结束 / 复盘 ---------- */
+.sc-end { text-align: center; }
+.sc-end .grade {
+  font-size: 46px; font-weight: 800; font-family: var(--mono); color: var(--navy); margin: 4px 0;
+}
+.sc-end .gtitle { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 14px; }
+.rv-item {
+  text-align: left; border: 1px solid var(--line); border-radius: 10px;
+  padding: 14px 16px; margin-bottom: 10px; background: var(--white);
+}
+.rv-item h5 { margin: 0 0 6px; font-size: 14px; color: var(--navy); }
+.rv-item p { margin: 0 0 6px; font-size: 13px; color: var(--ink-2); line-height: 1.8; }
+.rv-item .rv-c { font-size: 12px; color: var(--gold); font-family: var(--mono); }
+
+/* ---------- Reigns 卡牌 ---------- */
+.rg-card {
+  background: var(--white); border: 1px solid var(--line); border-radius: 16px;
+  padding: 28px 26px; box-shadow: var(--shadow-md); min-height: 260px;
+  display: flex; flex-direction: column; justify-content: center; text-align: center;
+  transition: transform .35s cubic-bezier(.2,.9,.3,1), opacity .35s;
+}
+.rg-card.out-l { transform: translateX(-130%) rotate(-14deg); opacity: 0; }
+.rg-card.out-r { transform: translateX(130%) rotate(14deg); opacity: 0; }
+.rg-card .who { font-size: 12px; color: var(--gold); letter-spacing: 2px; margin-bottom: 12px; }
+.rg-card .say { font-size: 17px; line-height: 1.9; color: var(--ink); }
+.rg-swipe { display: flex; gap: 12px; margin-top: 18px; }
+.rg-swipe button {
+  flex: 1; padding: 15px; border-radius: 10px; font-size: 14.5px; line-height: 1.7;
+  border: 1px solid var(--line-2); background: var(--white); cursor: pointer;
+  font-family: inherit; color: var(--ink); transition: .15s; text-align: left;
+}
+.rg-swipe button:hover { border-color: var(--navy-3); background: #F6F9FC; }
+.rg-flash {
+  position: fixed; left: 0; right: 0; bottom: 0; padding: 14px 20px; z-index: 50;
+  font-size: 14px; line-height: 1.7; transform: translateY(100%); transition: .4s;
+}
+.rg-flash.on { transform: none; }
+.rg-flash.ok { background: #EDF7EF; color: #1E5631; border-top: 2px solid var(--down); }
+.rg-flash.no { background: var(--danger-soft); color: #8C2B21; border-top: 2px solid var(--danger); }
+
+
+/* ============ 通用内核 / 行业网格 ============ */
+.kr-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+  gap: 16px; margin-top: 22px;
+}
+.kr-item {
+  padding: 20px 20px 18px; border: 1px solid var(--line-2); border-radius: 10px;
+  background: var(--white); transition: .15s;
+}
+a.kr-item { display: block; text-decoration: none; }
+a.kr-item:hover { border-color: var(--navy-3); background: #F6F9FC; }
+.kr-n {
+  font-size: 12px; font-family: var(--mono); color: var(--gold);
+  letter-spacing: .08em; margin-bottom: 8px;
+}
+.kr-t { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+.kr-d { font-size: 13.5px; line-height: 1.75; color: var(--ink-2); }
+
+/* 状态标签：已开放 / 筹备中 */
+.cm-live {
+  display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 999px;
+  font-size: 11px; font-weight: 400; vertical-align: middle;
+  background: var(--teal-soft); color: var(--teal);
+}

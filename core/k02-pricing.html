@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>K02 动态定价 · 通用内核 · 中国收益管理社区</title>
+<meta name="description" content="动态定价：需求越强，价格越高。跨行业通用的收益管理内核模块，覆盖住宿、餐饮、航空、景区、娱乐五大行业的做法对照。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<style>
+.qz {{ border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }}
+.qz-q {{ font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }}
+.qz-o {{ display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }}
+.qz-o:hover {{ border-color:var(--navy-3); background:#F6F9FC; }}
+.qz-o.ok {{ border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }}
+.qz-o.no {{ border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }}
+.qz-why {{ display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }}
+.qz-why.on {{ display:block; }}
+.lst {{ padding-left:20px; }}
+.lst li {{ font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"core","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/core/k02-pricing.html"},{"@type":"ListItem","position":3,"name":"k02-pricing","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/core/k02-pricing.html"}]}</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html">
+      <span class="gem">收</span><span>中国收益管理社区</span>
+    </a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="../academy.html">学院</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 通用内核总览</a>
+
+  <div class="cm-eyebrow" style="margin-top:14px">通用内核 · K02</div>
+  <h1 class="cm-section-title" style="font-size:28px">动态定价</h1>
+  <p class="cm-section-lead">收益管理最核心、也最容易做错的动作。定价的难点不在「涨多少」，而在「什么时候不能降」——降价是收益管理里最贵的决策。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心原理</div>
+    <h2 class="cm-section-title">四条必须记住的</h2>
+    <ol class="lst">
+      <li><b>价格由供需决定，不由成本决定。</b>成本加成定价在收益管理里基本失效——一间房的成本不会因为今天是旺季就变高，但价格可以。</li>
+      <li><b>降价有不可逆的隐性成本。</b>它会重塑客人对你价格的认知，也会让竞品记住你的价格带。涨回去的代价远高于当初少赚的差价。</li>
+      <li><b>用双因子决策，不用单因子。</b>只看出租率会误判——出租率低但 Pickup 强，说明还能涨；出租率低且 Pickup 弱，才该降。</li>
+      <li><b>调价必须有幅度上限和频次上限。</b>没有约束的调价会变成追涨杀跌，最终把价格体系搞乱。</li>
+    </ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">跨行业对照</div>
+    <h2 class="cm-section-title">同一套逻辑，五个行业怎么做</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>行业</th><th>具体做法</th></tr></thead>
+      <tbody>
+        <tr><td><b>住宿业</b></td><td>OCC × Pickup 双因子矩阵（表 A），决定每日涨/降及幅度</td></tr>
+        <tr><td><b>餐饮业</b></td><td>按时段定价（午市/晚市/周末），套餐组合替代直接降价</td></tr>
+        <tr><td><b>航空业</b></td><td>按订座率 × 剩余天数调整舱位开放，舱位层级即价格层级</td></tr>
+        <tr><td><b>景区文旅</b></td><td>淡旺季价 + 分时预约价，节假日与周末单独定价</td></tr>
+        <tr><td><b>娱乐休闲</b></td><td>按场次热度定价，黄金场次溢价，冷门场次捆绑套餐</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关键指标</div>
+    <h2 class="cm-section-title">要算的数</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>公式 / 定义</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td><b>价格弹性</b></td><td>需求量变动% ÷ 价格变动%</td><td>弹性 &amp;gt; 1 说明降价能换来更多量</td></tr>
+        <tr><td><b>最优价格点</b></td><td>边际收益 = 边际损失时的价格</td><td>再涨就亏量，再降就亏价</td></tr>
+        <tr><td><b>调价幅度上限</b></td><td>单次不超过基准价 ±15%</td><td>防止价格体系失控</td></tr>
+        <tr><td><b>降价挽回率</b></td><td>降价后增量 ÷ 预期增量</td><td>衡量降价是否真的有效</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">别人踩过的坑</h2>
+    <ul class="lst">
+      <li>一看到出租率低就降价——可能 Pickup 很强，降价等于白送。</li>
+      <li>竞品降价就跟——没看自己的 ARI 和 MPI 是否真的需要跟。</li>
+      <li>降价幅度没有上限——一次降 30%，价格带直接崩掉。</li>
+      <li>只降不涨——需求恢复时忘记调回来，白白损失收入。</li>
+    </ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题，检验一下</h2>
+    <div class="qz">
+      <div class="qz-q">第 1 题　出租率 62%，Pickup 落后 12%。按双因子矩阵应该怎么动？</div>
+        <button class="qz-o" data-i="0" data-k="1">A. 大幅降价 20%，因为出租率太低</button>
+        <button class="qz-o" data-i="1" data-k="1">B. 小幅降价约 10%，因为出租率偏低且 Pickup 落后</button>
+        <button class="qz-o" data-i="2" data-k="1">C. 提价，因为还有 10 天</button>
+        <button class="qz-o" data-i="3" data-k="1">D. 维持不动，再观察两天</button>
+      <div class="qz-why" id="why1"><b>解析 ·</b> 出租率落在 55–70% 区间、Pickup 落后超过 10%，对应表 A 矩阵的交叉点是约 −10%。注意是「小幅」不是「大幅」——降价幅度必须受限，否则价格体系会崩。</div>
+    </div>
+    <div class="qz">
+      <div class="qz-q">第 2 题　为什么降价被称为「收益管理里最贵的决策」？</div>
+        <button class="qz-o" data-i="0" data-k="2">A. 因为降价直接减少收入</button>
+        <button class="qz-o" data-i="1" data-k="2">B. 因为它会重塑客人的价格认知，且让竞品记住你的价格带，涨回去代价更高</button>
+        <button class="qz-o" data-i="2" data-k="2">C. 因为降价会引发价格战</button>
+        <button class="qz-o" data-i="3" data-k="2">D. 因为降价需要审批流程</button>
+      <div class="qz-why" id="why2"><b>解析 ·</b> 直接少赚钱只是一部分。真正的成本是「不可逆」：一旦客人认为你值 500，再卖 680 需要付出远高于差价的营销成本。这就是为什么《操作法典》把降价设计成查表动作，而不是临场判断。</div>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>关联判定表：</b>表 A 每日价格调整判定表（双因子矩阵） · 表 F 价差阶梯表<br>
+      <b>关联行业：</b><a href="../lodging.html">住宿业</a> ·
+      <a href="../industries.html">餐饮业</a> ·
+      <a href="../industries.html">航空业</a> ·
+      <a href="../industries.html">景区文旅</a> ·
+      <a href="../industries.html">娱乐休闲</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="../academy.html">返回学院</a>
+      <a class="cm-btn cm-btn-ghost" href="../codex.html">查看操作法典</a>
+      <a class="cm-btn cm-btn-ghost" href="../games/index.html">去游戏里练</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="sf-grid">
+    <div>
+      <div class="sf-t">中国收益管理社区</div>
+      <p class="sf-desc">跨行业收益管理专业社区。一套通用内核，覆盖住宿、餐饮、航空、景区、娱乐五大行业。</p>
+    </div>
+    <div>
+      <div class="sf-t">通用内核</div>
+      <a href="index.html">内核总览</a>
+      <a href="k01-forecast.html">K01 需求预测</a>
+      <a href="k02-pricing.html">K02 动态定价</a>
+      <a href="k03-inventory.html">K03 库存控制</a>
+    </div>
+    <div>
+      <div class="sf-t">内核（续）</div>
+      <a href="k04-channel.html">K04 渠道管理</a>
+      <a href="k05-competition.html">K05 竞争响应</a>
+      <a href="k06-noshow.html">K06 超售与 No-show</a>
+      <a href="../academy.html">返回学院</a>
+    </div>
+    <div>
+      <div class="sf-t">行业</div>
+      <a href="../lodging.html">住宿业</a>
+      <a href="../industries.html">餐饮业</a>
+      <a href="../industries.html">航空业</a>
+      <a href="../industries.html">景区文旅</a>
+      <a href="../industries.html">娱乐休闲</a>
+    </div>
+  </div>
+  <div class="sf-bot">
+    <span>中国收益管理社区 · 通用内核 + 行业参数</span>
+    <span>联系：<a href="mailto:3984557428@qq.com" style="display:inline;color:var(--gold-2)">3984557428@qq.com</a></span>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js"></script>
+<script>
+(function(){
+  var t=document.getElementById('snToggle'), l=document.getElementById('snLinks');
+  if(t&&l){ t.addEventListener('click',function(){ l.classList.toggle('open'); }); }
+})();
+</script>
+
+<script>
+(function(){
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = btn.getAttribute('data-k');
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      var right = ([1,1])[parseInt(k,10)-1];
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === right) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>K01 需求预测 · 通用内核 · 中国收益管理社区</title>
+<meta name="description" content="需求预测：把「感觉」变成数字。跨行业通用的收益管理内核模块，覆盖住宿、餐饮、航空、景区、娱乐五大行业的做法对照。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<style>
+.qz {{ border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }}
+.qz-q {{ font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }}
+.qz-o {{ display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }}
+.qz-o:hover {{ border-color:var(--navy-3); background:#F6F9FC; }}
+.qz-o.ok {{ border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }}
+.qz-o.no {{ border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }}
+.qz-why {{ display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }}
+.qz-why.on {{ display:block; }}
+.lst {{ padding-left:20px; }}
+.lst li {{ font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"core","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/core/k01-forecast.html"},{"@type":"ListItem","position":3,"name":"k01-forecast","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/core/k01-forecast.html"}]}</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html">
+      <span class="gem">收</span><span>中国收益管理社区</span>
+    </a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="../academy.html">学院</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 通用内核总览</a>
+
+  <div class="cm-eyebrow" style="margin-top:14px">通用内核 · K01</div>
+  <h1 class="cm-section-title" style="font-size:28px">需求预测</h1>
+  <p class="cm-section-lead">收益管理所有决策的地基。预测错了，后面定价、库存、渠道全跟着错——而且错得更贵，因为你会在错误的基础上做「正确」的动作。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心原理</div>
+    <h2 class="cm-section-title">四条必须记住的</h2>
+    <ol class="lst">
+      <li><b>预测的是需求强度，不是出租率。</b>出租率是结果，需求强度才是原因。同样的 60% 出租率，可能是需求刚好，也可能是你已经把价格定错了。</li>
+      <li><b>用 Pickup 看增量，而不是看存量。</b>存量大说明过去卖得好，Pickup 大说明未来会卖得好。决策看的是未来。</li>
+      <li><b>历史同比是基准，不是答案。</b>去年同期给你一个起跑线，但你得根据今年的特殊事件（展会、节假日错位、竞对新开业）做修正。</li>
+      <li><b>预测必须分客群做。</b>整体需求平稳，可能掩盖了团队在涨、散客在跌。分开看才看得清该应对什么。</li>
+    </ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">跨行业对照</div>
+    <h2 class="cm-section-title">同一套逻辑，五个行业怎么做</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>行业</th><th>具体做法</th></tr></thead>
+      <tbody>
+        <tr><td><b>住宿业</b></td><td>看未来 30 天每日的预订曲线（Pickup），对比去年同期与竞争集</td></tr>
+        <tr><td><b>餐饮业</b></td><td>看各时段（午市/晚市）的预订桌数增速，结合天气与星期几</td></tr>
+        <tr><td><b>航空业</b></td><td>看航班起飞前 90/60/30/14/7 天的订座进度，行业最成熟</td></tr>
+        <tr><td><b>景区文旅</b></td><td>看分时预约放票后的消耗速度，叠加天气预报做修正</td></tr>
+        <tr><td><b>娱乐休闲</b></td><td>看场次开售后各场次的上座进度，热门场次往往几小时内售罄</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关键指标</div>
+    <h2 class="cm-section-title">要算的数</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>公式 / 定义</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td><b>Pickup（增量）</b></td><td>本期预订量 − 上期预订量</td><td>衡量未来需求在加速还是放缓</td></tr>
+        <tr><td><b>预订曲线</b></td><td>距使用日 N 天的累计预订量</td><td>与历史曲线对比判断快慢</td></tr>
+        <tr><td><b>同比偏差</b></td><td>(今年 − 去年) ÷ 去年 × 100%</td><td>判断今年整体强于还是弱于去年</td></tr>
+        <tr><td><b>需求等级</b></td><td>D1 低 / D2 中 / D3 高 / D4 极高</td><td>把预测结果转成可执行的分档</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">别人踩过的坑</h2>
+    <ul class="lst">
+      <li>只看出租率不看 Pickup——等你发现不对，已经来不及调价了。</li>
+      <li>拿去年同期直接当今年预测——忽略了节假日错位、竞对新开业、大型展会。</li>
+      <li>整体平稳就放松警惕——可能团队在涨散客在跌，结构已经恶化。</li>
+      <li>预测完不记录——下次遇到同样的情况还得重新拍脑袋。</li>
+    </ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题，检验一下</h2>
+    <div class="qz">
+      <div class="qz-q">第 1 题　距离入住还有 7 天，你的 Pickup 明显低于去年同期，但当前出租率高于去年。这时应该？</div>
+        <button class="qz-o" data-i="0" data-k="1">A. 维持现价，因为出租率已经领先</button>
+        <button class="qz-o" data-i="1" data-k="1">B. 降价促销，因为 Pickup 落后说明后续需求乏力</button>
+        <button class="qz-o" data-i="2" data-k="1">C. 提价，因为出租率领先说明需求好</button>
+        <button class="qz-o" data-i="3" data-k="1">D. 什么都不做，等到前 3 天再看</button>
+      <div class="qz-why" id="why1"><b>解析 ·</b> 出租率是「已经发生」的结果，Pickup 是「将要发生」的趋势。Pickup 落后意味着剩下的 7 天卖不动，最终出租率会被追平甚至反超。决策永远看未来，不看过去。</div>
+    </div>
+    <div class="qz">
+      <div class="qz-q">第 2 题　为什么预测要分客群做，而不是只预测总量？</div>
+        <button class="qz-o" data-i="0" data-k="2">A. 因为分客群更精确</button>
+        <button class="qz-o" data-i="1" data-k="2">B. 因为总量平稳可能掩盖结构恶化（如团队涨、散客跌）</button>
+        <button class="qz-o" data-i="2" data-k="2">C. 因为系统要求</button>
+        <button class="qz-o" data-i="3" data-k="2">D. 因为老板要看细分数据</button>
+      <div class="qz-why" id="why2"><b>解析 ·</b> 总量是多个客群的加总，一个涨一个跌可能刚好抵消。但团队客和散客的应对策略完全不同——不分开看，你会做出错误动作。</div>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>关联判定表：</b>表 I 预订窗口分档监控表 · 需求等级日历（D1–D4）<br>
+      <b>关联行业：</b><a href="../lodging.html">住宿业</a> ·
+      <a href="../industries.html">餐饮业</a> ·
+      <a href="../industries.html">航空业</a> ·
+      <a href="../industries.html">景区文旅</a> ·
+      <a href="../industries.html">娱乐休闲</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="../academy.html">返回学院</a>
+      <a class="cm-btn cm-btn-ghost" href="../codex.html">查看操作法典</a>
+      <a class="cm-btn cm-btn-ghost" href="../games/index.html">去游戏里练</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="sf-grid">
+    <div>
+      <div class="sf-t">中国收益管理社区</div>
+      <p class="sf-desc">跨行业收益管理专业社区。一套通用内核，覆盖住宿、餐饮、航空、景区、娱乐五大行业。</p>
+    </div>
+    <div>
+      <div class="sf-t">通用内核</div>
+      <a href="index.html">内核总览</a>
+      <a href="k01-forecast.html">K01 需求预测</a>
+      <a href="k02-pricing.html">K02 动态定价</a>
+      <a href="k03-inventory.html">K03 库存控制</a>
+    </div>
+    <div>
+      <div class="sf-t">内核（续）</div>
+      <a href="k04-channel.html">K04 渠道管理</a>
+      <a href="k05-competition.html">K05 竞争响应</a>
+      <a href="k06-noshow.html">K06 超售与 No-show</a>
+      <a href="../academy.html">返回学院</a>
+    </div>
+    <div>
+      <div class="sf-t">行业</div>
+      <a href="../lodging.html">住宿业</a>
+      <a href="../industries.html">餐饮业</a>
+      <a href="../industries.html">航空业</a>
+      <a href="../industries.html">景区文旅</a>
+      <a href="../industries.html">娱乐休闲</a>
+    </div>
+  </div>
+  <div class="sf-bot">
+    <span>中国收益管理社区 · 通用内核 + 行业参数</span>
+    <span>联系：<a href="mailto:3984557428@qq.com" style="display:inline;color:var(--gold-2)">3984557428@qq.com</a></span>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js"></script>
+<script>
+(function(){
+  var t=document.getElementById('snToggle'), l=document.getElementById('snLinks');
+  if(t&&l){ t.addEventListener('click',function(){ l.classList.toggle('open'); }); }
+})();
+</script>
+
+<script>
+(function(){
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = btn.getAttribute('data-k');
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      var right = ([1,1])[parseInt(k,10)-1];
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === right) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>
+

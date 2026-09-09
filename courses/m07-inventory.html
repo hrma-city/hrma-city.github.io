@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M07 库存与限制条件战术 · 酒店收益管理学院</title>
+<link rel="stylesheet" href="../assets/css/main.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"courses","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/courses/m07-inventory.html"},{"@type":"ListItem","position":3,"name":"m07-inventory","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/courses/m07-inventory.html"}]}</script>
+</head>
+<body data-page="m07">
+<div class="layout">
+
+<aside class="sidebar" id="sidebar" data-page="m07"></aside>
+
+<main class="main">
+<div class="wrap">
+
+  <!-- ===== 页头 ===== -->
+  <div class="crumb">
+    <a href="../index.html">学院首页</a><span>/</span>
+    <a href="../curriculum.html">教案总纲</a><span>/</span>
+    L2 模块七
+  </div>
+
+  <div class="page-head">
+    <div class="badge-row">
+      <span class="badge badge-l2">L2 收益管理主管</span>
+      <span class="badge">模块 M07</span>
+      <span class="badge">6 课时 / 540 min</span>
+      <span class="badge">占 L2 认证 18.75%</span>
+      <span class="badge">前置 M06</span>
+      <span class="badge badge-core">★ 核心模块</span>
+    </div>
+    <h1 class="page-title">库存与限制条件战术</h1>
+    <p class="page-lede">一句话导语：价格决定「一个房间能卖多少钱」，库存决定「你到底还剩几个房间能卖」——后者一旦出错，前者做得再漂亮也没有意义。本模块把《法典》表 B（库存与限制条件配置）、表 E（超额预订）、表 J（免费升级）、表 L 超售过度分支（步行客人预案）四张表讲透，并用一个专章讲「撤除机制」——真实工作中最高频、也最致命的事故，不是设错限制条件，而是<b>设对了却忘了撤</b>。</p>
+  </div>
+
+  <!-- ===== 学习目标 ===== -->
+  <div class="card">
+    <div class="card-title"><span class="ic">◎</span>学习目标</div>
+    <ul>
+      <li>能<b>完整默写并套用</b>《法典》表 B（5 行 × 4 列）与表 E（6 档基准超售率 + 4 个修正系数 + 3 条硬上限），并按三步法独立算出任意目标日的超售上限</li>
+      <li>能<b>说出</b> MinLOS / MaxLOS / CTA / CTD / Stop Sell 五种限制条件各自的定义、启用时机、副作用、设置方法与<b>撤除方法</b>，并逐字背出「限制条件撤除五步法」</li>
+      <li>能<b>独立执行</b> 超售的房型级分配（套房不参与超售、最大余数法补齐），以及在超售开启日的三项配套准备（备用酒店名单、补偿包、升级台账）</li>
+      <li>能<b>完整执行</b>《法典》表 J 的免费升级四级排序（钻石&gt;铂金&gt;金卡&gt;银卡 → 同档价高者先 → 同价住得久者先 → 同者复购多者先），并正确适用「最多升 1 档、套房每日 ≤3 间且须 L3 审批」两条硬约束</li>
+      <li>能<b>逐字背出</b>《步行客人预案》标准补偿包四步，并在到店无房场景下按序独立执行完毕</li>
+      <li>能<b>判断</b> 多张表同时给出库存类动作时的优先级（表 L &gt; 表 B &gt; 其余），并按表 O 完成仲裁与台账记录</li>
+    </ul>
+    <p class="card-note">前置要求：M01 指标与计算、M03 每日操作流水线（表 B / 表 E 已在 L1 用过）、M05 需求预测（预测 OCC 是表 B 的唯一输入）、M06 价格体系设计（房型代码与 10 个房型的平峰 BAR）。<br>
+    本模块完整内嵌《法典》：<b>表 B</b>（库存与限制条件配置）、<b>表 E</b>（超额预订标准）、<b>表 J</b>（免费升级规则）、<b>表 L</b>（异常事件应急 · 超售过度分支与步行客人预案）；引用 <b>表 A</b>、<b>表 C</b>、<b>表 D</b>、<b>表 F</b>、<b>表 H</b>、<b>表 I</b>、<b>表 M</b>、<b>表 O</b>。全部阈值以《SPEC》第四章为唯一版本。</p>
+  </div>
+
+  <!-- ===== 目录 ===== -->
+  <div class="toc">
+    <div class="toc-title">本模块目录</div>
+    <ol>
+      <li><a href="#s1">库存战术的坐标：为什么库存优先于价格</a></li>
+      <li><a href="#s2">《法典》表 B · 库存与限制条件配置表（完整内嵌）</a></li>
+      <li><a href="#s3">五种限制条件逐个讲：MinLOS / MaxLOS / CTA / CTD / Stop Sell</a></li>
+      <li><a href="#s4">★ 撤除机制：真实工作中最高频的事故</a></li>
+      <li><a href="#s5">《法典》表 E · 超额预订标准表（完整内嵌 · 三步法）</a></li>
+      <li><a href="#s6">四个完整超售计算案例（一步步走完三步法）</a></li>
+      <li><a href="#s7">超售的落地：房型级分配与三项配套准备</a></li>
+      <li><a href="#s8">《法典》表 J · 免费升级规则表（完整内嵌）</a></li>
+      <li><a href="#s9">《升级台账》与套房升级的 L3 审批</a></li>
+      <li><a href="#s10">《法典》表 L · 超售过度与《步行客人预案》四步补偿包</a></li>
+      <li><a href="#s11">主流系统操作路径映射表</a></li>
+      <li><a href="#s12">讲师示范 ①：D2 高涨日（表 B 全四列 + 撤除计划）</a></li>
+      <li><a href="#s13">讲师示范 ②：超售日 → 到店无房 → 启动步行客人预案</a></li>
+      <li><a href="#s14">学员跟练（6 题）</a></li>
+      <li><a href="#s15">判定表默写清单（当堂默写）</a></li>
+      <li><a href="#s16">随堂测（5 题）</a></li>
+      <li><a href="#s17">本模块产出物</a></li>
+    </ol>
+  </div>
+
+  <!-- ================= 一 ================= -->
+  <h2 id="s1">一、库存战术的坐标：为什么库存优先于价格</h2>
+
+  <p>《法典》表 O 把「表 B 库存」排在第 <strong>2 优先级</strong>，仅次于表 L 应急，<strong>高于表 A 价格</strong>。原因只有一条：</p>
+
+  <div class="callout callout-key">
+    <span class="co-t">价格错了可以改，库存错了改不回来</span>
+    <p>价格定高了，明天降回来，损失的只是中间这段时间的成交量。<br>
+    <b>库存放错了，房间被低价预订锁定，你就再也拿不回来了</b>——除非付违约成本。<br>
+    同理，超售少了只是少卖几间，超售多了就是<b>客人到店无房</b>，代价是《步行客人预案》的全套补偿 + 差评 + 忠诚会员流失，这个代价是单房收益的十几倍。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 7-1　《法典》表 O 优先级（本模块涉及部分）<span class="cap-note">完整六档见 M09 第 7 节</span></caption>
+      <thead><tr><th class="num">优先级</th><th>表</th><th>场景</th><th>与库存的关系</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td><b>表 L 应急</b></td><td>异常事件，覆盖一切</td><td>「需求暴涨」分支含「设 MinLOS 2、关低价渠道」；「超售过度」分支启动步行客人预案</td></tr>
+        <tr><td class="num">2</td><td><b>表 B 库存</b></td><td>库存安全（超售 / 关房）</td><td><b>本模块主体</b></td></tr>
+        <tr><td class="num">3</td><td>表 A 价格</td><td>常规价格调整</td><td>价格动作让位于库存动作</td></tr>
+        <tr><td class="num">4</td><td>表 C ARI</td><td>竞争定位微调</td><td>—</td></tr>
+        <tr><td class="num">5</td><td>表 H 渠道</td><td>渠道开关</td><td>渠道开关本质是「库存投放」，与表 B 的「低价渠道 Stop Sell」重叠时以表 B 为准</td></tr>
+        <tr><td class="num">6</td><td>表 D MPI</td><td>份额诊断</td><td>多为分析而非动作</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">表 B 与表 H 的「低价渠道 Stop Sell」列重叠时的处理</span>
+    <p>表 B 有一列叫「低价渠道 Stop Sell」，表 H 也有渠道开关的动作，两者都管渠道。<b>冲突时以表 B 为准（优先级 2 &gt; 5）。</b><br>
+    具体规则：<b>先按表 H 定出该档位的全渠道配置，再按表 B 的「低价渠道 Stop Sell」列做叠加关闭</b>。表 B 要求关闭的渠道，无论表 H 说什么都关；表 B 未要求关闭的，按表 H 执行。<br>
+    例：预测 OCC 92%（表 B 走 90–95% 行，要求「关闭尾房特惠」；表 H 走 90–95% 行，要求「OTA 国内开 2 家，批发商关」）→ 最终：OTA 国内开 2 家、尾房特惠关、批发商关（表 H 已关）、GDS 开、直销全开。</p>
+  </div>
+
+  <h2 id="s2">二、《法典》表 B · 库存与限制条件配置表（完整内嵌）</h2>
+
+  <div class="tbl-wrap">
+    <table class="tbl tbl-matrix">
+      <caption><span class="badge-codex">表 B</span>　库存与限制条件配置表<span class="cap-note">输入：预测 OCC（与表 A 同一个数，保留一位小数）。<b>四列动作同时配置，不是四选一</b></span></caption>
+      <thead>
+        <tr><th>预测 OCC</th><th>MinLOS</th><th>CTA</th><th>低价渠道 Stop Sell</th><th>超额预订</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="rowh">≥95%</th>
+          <td>2 晚（<b>D1 峰值日 3 晚</b>）</td>
+          <td><b>启用</b></td>
+          <td>关闭尾房特惠 / 团购 / 批发商</td>
+          <td>不超售</td>
+        </tr>
+        <tr>
+          <th class="rowh">90–95%</th>
+          <td>2 晚</td>
+          <td>D1 日启用</td>
+          <td>关闭尾房特惠</td>
+          <td>≤2 间</td>
+        </tr>
+        <tr>
+          <th class="rowh">85–90%</th>
+          <td>1–2 晚（<b>周末 2 晚</b>）</td>
+          <td>否</td>
+          <td>保留</td>
+          <td>按表 E</td>
+        </tr>
+        <tr>
+          <th class="rowh">70–85%</th>
+          <td>1 晚</td>
+          <td>否</td>
+          <td>全开</td>
+          <td>按表 E</td>
+        </tr>
+        <tr>
+          <th class="rowh">&lt;70%</th>
+          <td>不设限</td>
+          <td>否</td>
+          <td>全开 + 上促销</td>
+          <td>不超售</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.1 定行规则（与表 A 完全一致，不许另创）</h3>
+
+  <div class="callout callout-danger">
+    <span class="co-t">表 B 有 5 行，不是 4 行。「90–95%」是独立的一行</span>
+    <p>新人最常犯的错是把表 B 读成 4 行（≥95% / 85–95% / 70–85% / &lt;70%），把「90–95%」吃掉。<b>这会直接导致两处错误：</b><br>
+    ① 本该「≤2 间」的超售，被误读成「按表 E」算出一个更大的数；<br>
+    ② 本该「关闭尾房特惠」，被误读成「保留」。<br>
+    <br>
+    <b>五行的边界（含下界不含上界）：</b><br>
+    ≥95.0% →「≥95%」行<br>
+    90.0% ≤ X &lt; 95.0% →「90–95%」行<br>
+    85.0% ≤ X &lt; 90.0% →「85–90%」行<br>
+    70.0% ≤ X &lt; 85.0% →「70–85%」行<br>
+    X &lt; 70.0% →「&lt;70%」行</p>
+  </div>
+
+  <h3>2.2 逐行逐列展开</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 7-2　表 B 四列的执行要点<span class="cap-note">「怎么落位」列写的是系统无关动作，不是某个按钮</span></caption>
+      <thead><tr><th>列</th><th>取值</th><th>含义</th><th>怎么落位（系统无关）</th><th>易错点</th></tr></thead>
+      <tbody>
+        <tr>
+          <td rowspan="3"><b>MinLOS</b><br>最少住期</td>
+          <td>3 晚</td>
+          <td>只接受连住 ≥3 晚的预订</td>
+          <td>在限制条件（Restriction）中，按「日期 × 房型 × 价格代码」三维写入最少住期 = 3</td>
+          <td rowspan="3"><b>「1 晚」与「不设限」是同一个动作：清空 MinLOS 值</b>，不是填入数字 1。填入 1 在某些系统里会被识别为「最少住 1 晚」，与清空效果相同；但在另一些系统里会与价格代码绑定产生意外限制，<b>统一执行「清空」最安全</b></td>
+        </tr>
+        <tr><td>2 晚</td><td>只接受连住 ≥2 晚的预订</td><td>同上，写入 2</td></tr>
+        <tr><td>1 晚 / 不设限</td><td>不限制住期</td><td><b>清空</b> MinLOS 值</td></tr>
+        <tr>
+          <td rowspan="2"><b>CTA</b><br>不可入住</td>
+          <td>启用</td>
+          <td>该日不接受新到店，但允许延续入住（已在住的客人可以跨过这一天）</td>
+          <td>在限制条件中对该日启用 Closed to Arrival</td>
+          <td rowspan="2"><b>CTA ≠ 关房。</b>CTA 只挡「新到店」，不挡「延续」；关房（Stop Sell / Close-out）是彻底不可售。混用会导致续住客人被系统自动拒绝</td>
+        </tr>
+        <tr><td>否 / D1 日启用</td><td>不限制新到店；「D1 日启用」意为<b>该日若为 D1 峰值日则启用，否则不启用</b></td><td>查目标日需求等级代号，为 PEAK（D1）才启用</td></tr>
+        <tr>
+          <td rowspan="3"><b>低价渠道<br>Stop Sell</b></td>
+          <td>关闭尾房特惠 / 团购 / 批发商</td>
+          <td>三类低价通路全部停售</td>
+          <td>本店侧（PMS / 渠道管理器）+ 渠道侧（OTA 后台）<b>两层都要关</b></td>
+          <td rowspan="3">只做本店侧，渠道缓存可能仍显示可售；只做渠道侧，其他通路仍在卖。<b>两层都做并各留一张截图</b></td>
+        </tr>
+        <tr><td>关闭尾房特惠 / 保留</td><td>「保留」= 维持现状，不动</td><td>不动作（但要在台账备注写明「保留，未动作」）</td></tr>
+        <tr><td>全开 / 全开 + 上促销</td><td>低价通路全部开放；「+ 上促销」指上架促销产品</td><td>确认三类通路均为开放态；上促销指上架「今日特惠」类尾房产品</td></tr>
+        <tr>
+          <td rowspan="3"><b>超额预订</b></td>
+          <td>不超售</td>
+          <td>超售上限设 <b>0</b></td>
+          <td>在超额预订功能中把上限设为 0（不是「不设置」）</td>
+          <td rowspan="3"><b>只有「85–90%」与「70–85%」两行走表 E。</b>「90–95%」行直接取 ≤2 间；「≥95%」与「&lt;70%」行不超售，<b>不需要查表 E</b></td>
+        </tr>
+        <tr><td>≤2 间</td><td>超售上限取 2 间</td><td>直接设 2 间</td></tr>
+        <tr><td>按表 E</td><td>走表 E 三步法计算</td><td>见第 5、6 节</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="s3">三、五种限制条件逐个讲：MinLOS / MaxLOS / CTA / CTD / Stop Sell</h2>
+
+  <div class="callout callout-key">
+    <span class="co-t">先建立一个统一的认识：限制条件不是「开关」，是「漏斗」</span>
+    <p>每加一道限制条件，就等于在预订漏斗上加一层筛子，<b>必然漏掉一部分真实需求</b>。所以设置限制条件的判断标准永远是：<br>
+    <b>筛掉的低价值需求 &gt; 误筛掉的高价值需求</b>。<br>
+    想不清楚这个不等式，就不要设。</p>
+  </div>
+
+  <h3>3.1 MinLOS（最少住期 · Minimum Length of Stay）</h3>
+
+  <div class="kv">
+    <div class="kv-row"><div class="kv-k">定义</div><div class="kv-v">对某一入住日，只接受连住 ≥ N 晚的预订。选 1 晚的客人在前台/OTA 上<b>看不到可售</b></div></div>
+    <div class="kv-row"><div class="kv-k">什么时候用</div><div class="kv-v">① 需求旺盛日，用住期门槛把「只住一晚的过路客」筛掉，把房间留给高价值的连住客；② 峰值日中间的某天（如国庆 10 月 3 日），避免出现「10/2–10/3 住一晚后走人、10/4 空一天」的碎片化库存</div></div>
+    <div class="kv-row"><div class="kv-k">副作用</div><div class="kv-v"><b>会同时挡住高价值的单晚商务客。</b>云璟的 CORP 协议客（占房晚 22%，ADR ¥520）与 GDS/TMC 商旅客多是单晚，MinLOS = 2 会把这部分需求整块切掉</div></div>
+    <div class="kv-row"><div class="kv-k">怎么设</div><div class="kv-v">按「<b>日期 × 房型 × 价格代码</b>」三维设置。云璟的标准做法：<b>对全 10 个房型统一设，但价格代码只对 BAR 及衍生价设，对 CORP 协议价与 GDS 价不设</b>——这样既筛了散客，又保住了商旅客</div></div>
+    <div class="kv-row"><div class="kv-k">怎么撤</div><div class="kv-v"><b>清空 MinLOS 值</b>，然后<b>换到预订界面视角试订 1 晚验证</b>：能订成功才说明撤干净了。详见第 4 节撤除五步法</div></div>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">MinLOS 的三个边界情况（必须知道）</span>
+    <p>① <b>「周末 2 晚」的周末指周五、周六入住</b>（对应《SPEC》2.5 中旺季周五六为 D2 高涨日），不是周六周日。<br>
+    ② <b>MinLOS 只影响「以该日为入住日」的预订</b>，不影响以该日为中间日的连住订单。所以要挡碎片化，必须对峰值日的<b>每一天</b>都设，不能只设中间那天。<br>
+    ③ <b>D1 峰值日的 MinLOS = 3 晚只在「≥95%」行出现</b>；「90–95%」行是 2 晚，即使该日是 D1 也不变——因为 90–95% 行专门写了「2 晚」，而「≥95%」行写的是「2 晚（D1 峰值日 3 晚）」。</p>
+  </div>
+
+  <h3>3.2 MaxLOS（最多住期 · Maximum Length of Stay）</h3>
+
+  <div class="kv">
+    <div class="kv-row"><div class="kv-k">定义</div><div class="kv-v">对某一入住日，只接受连住 ≤ N 晚的预订。超过 N 晚的预订被拒绝</div></div>
+    <div class="kv-row"><div class="kv-k">什么时候用</div><div class="kv-v">① <b>长住客挤占</b>：当长住需求（LNG）或不定期的长包房把旺季日期锁死时；② <b>峰值日前夕</b>：防止客人在峰值日前一天入住并一路连住跨过整个峰值期，把该段高价库存按低价锁死</div></div>
+    <div class="kv-row"><div class="kv-k">副作用</div><div class="kv-v"><b>直接砍掉长住客与团队连住。</b>云璟 LNG 长住客占房晚 2%（ADR ¥380），GRP 团队占 8%（ADR ¥450）。MaxLOS 设太短会同时伤到这两块，且长住客的清洁与服务成本远低于散客，砍掉并不划算</div></div>
+    <div class="kv-row"><div class="kv-k">怎么设</div><div class="kv-v">《法典》表 B <b>未规定 MaxLOS 的档位值</b>——它不在表 B 的四列中。本学院给出云璟的执行口径：<b>仅在 D1 峰值日（PEAK）当预测 OCC ≥95% 时启用，取值 = 该峰值假期连续天数（如国庆 1–5 日则 MaxLOS = 5 晚）</b>；其余日期一律不设</div></div>
+    <div class="kv-row"><div class="kv-k">怎么撤</div><div class="kv-v">峰值假期结束<b>次日 08:30 查表时</b>一并撤除（写进《限制条件存量清单》的到期日列）。撤除后必须试订一次超长住期验证</div></div>
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">MaxLOS 是五种限制条件里唯一《法典》表 B 没有给档位的</span>
+    <p>因此它<b>不是每日流水线的标准动作</b>，只在特定场景启用。启用必须满足两个条件：<b>① 目标日为 D1 峰值日；② 预测 OCC ≥ 95%</b>。两个条件缺一不启用。<br>
+    启用与撤除都必须写进《调价台账》，触发表编号填「<b>表 B</b>」，并在备注第二段写明启用依据。<b>不得凭口头要求设置。</b></p>
+  </div>
+
+  <h3>3.3 CTA（不可入住 · Closed to Arrival）</h3>
+
+  <div class="kv">
+    <div class="kv-row"><div class="kv-k">定义</div><div class="kv-v">该日不接受<b>新到店</b>的预订，但已在住的客人可以延续入住跨过这一天</div></div>
+    <div class="kv-row"><div class="kv-k">什么时候用</div><div class="kv-v">① 酒店已满或接近满，且当天有大量续住需求；② <b>D1 峰值日</b>——峰值日当天的房间应优先服务于「跨峰值期的连住客」，而不是新来的单日客</div></div>
+    <div class="kv-row"><div class="kv-k">副作用</div><div class="kv-v"><b>最危险的一个。</b>CTA 会把「客人想在这天入住」的需求整块挡掉，包括愿意付高价的客人。且 CTA 一旦忘了撤，<b>第二天开始所有新到店预订全部消失，而系统不会报错</b>——这是本模块第 4 节重点讲的头号事故</div></div>
+    <div class="kv-row"><div class="kv-k">怎么设</div><div class="kv-v">在限制条件中对该日启用 Closed to Arrival。<b>只对散客类价格代码（BAR / 会员价 / OTA 价）设，对 CORP 协议价不设</b>——协议客是合约客户，单方面停止接新到店可能构成违约</div></div>
+    <div class="kv-row"><div class="kv-k">怎么撤</div><div class="kv-v">关闭 CTA 开关 → <b>换到预订界面视角试订：选该日为入住日、住 1 晚，必须能订成功</b> → 截图存证 → 台账登记（动作类型「撤 CTA」）</div></div>
+  </div>
+
+  <h3>3.4 CTD（不可离店 · Closed to Departure）</h3>
+
+  <div class="kv">
+    <div class="kv-row"><div class="kv-k">定义</div><div class="kv-v">不允许客人在该日离店（退房）</div></div>
+    <div class="kv-row"><div class="kv-k">什么时候用</div><div class="kv-v">① <b>防止库存碎片化</b>：峰值日之后那天设 CTD，逼迫客人连住到更晚，把低谷日的库存一起消化；② 与 MinLOS 配合形成「住期锁」：MinLOS 管入口、CTD 管出口</div></div>
+    <div class="kv-row"><div class="kv-k">副作用</div><div class="kv-v"><b>对客人极不友好，容易被投诉。</b>客人会发现「我能订 10/2 入住，但系统不让我 10/3 退房，必须住到 10/4」。若未在预订页面显著提示，会引发大量客诉与 OTA 差评</div></div>
+    <div class="kv-row"><div class="kv-k">怎么设</div><div class="kv-v">《法典》表 B <b>同样未列 CTD</b>。云璟执行口径：<b>仅在表 L「需求暴涨」分支（24h Pickup 领先 &gt;60%）下，由 L3 审批后启用</b>，取值范围为该峰值假期的最末日</div></div>
+    <div class="kv-row"><div class="kv-k">怎么撤</div><div class="kv-v">同 CTA：关闭开关 → 试订（选该日为离店日，必须能订成功）→ 截图 → 台账登记。<b>CTD 的撤除时限比 CTA 更严：必须在目标日当日夜审前确认已撤</b>，否则会影响次日的正常退房流程</div></div>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">CTA 与 CTD 常常成对出现，但方向相反，别搞混</span>
+    <p><b>CTA（Closed to Arrival）= 不让你来。</b>作用点是<b>入住日</b>，防止新客人在这天开始住。<br>
+    <b>CTD（Closed to Departure）= 不让你走。</b>作用点是<b>离店日</b>，防止客人在这天结束住。<br>
+    口诀：<b>A 是 Arrival（来），D 是 Departure（走）。</b><br>
+    典型组合（国庆 10 月 1–5 日）：10/1 设 CTA（防止单日客）＋ MinLOS 3 晚；10/5 设 CTD（防止客人在峰值最后一天退房造成 10/6 空档）。<b>两个都要在假期结束后第一时间撤除。</b></p>
+  </div>
+
+  <h3>3.5 Stop Sell（停售 / 关房 · Close-out）</h3>
+
+  <div class="kv">
+    <div class="kv-row"><div class="kv-k">定义</div><div class="kv-v">某房型 / 某价格代码 / 某渠道在某日<b>完全不可售</b>，与库存余量无关</div></div>
+    <div class="kv-row"><div class="kv-k">什么时候用</div><div class="kv-v">① <b>渠道级</b>：表 B「低价渠道 Stop Sell」列与表 H 渠道开关（成本高的渠道在旺日关掉）；② <b>房型级</b>：高档房在超售日关闭，为升级腾房（配合表 J）；③ <b>价格代码级</b>：某个促销价卖够了量，停售该产品</div></div>
+    <div class="kv-row"><div class="kv-k">副作用</div><div class="kv-v"><b>渠道级 Stop Sell 会得罪渠道。</b>频繁对同一渠道关房，会影响该渠道对酒店的排名权重（详见 M08）。<b>房型级 Stop Sell 则几乎没有副作用</b>——把 STD 关掉只卖 SUP 以上，是标准的升档销售（upsell）手段</div></div>
+    <div class="kv-row"><div class="kv-k">怎么设</div><div class="kv-v"><b>两个层级都要做：</b>本店侧（PMS / 渠道管理器的 Stop Sell 或关房）＋ 渠道侧（在对应 OTA 后台把该日房态置为不可售）。<b>只做一层等于没做</b></div></div>
+    <div class="kv-row"><div class="kv-k">怎么撤</div><div class="kv-v">本店侧 + 渠道侧<b>两层都撤</b> → <b>等待渠道缓存刷新</b>（不同渠道刷新周期不同）→ 从前台视角复查确实可订 → 若仍不可订，联系渠道经理处理 → 台账登记（动作类型「Stop Sell 关」）</div></div>
+  </div>
+
+  <h3>3.6 五种限制条件速查卡</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 7-3　五种限制条件速查卡<span class="cap-note">建议打印贴在工位</span></caption>
+      <thead><tr><th>限制条件</th><th>挡什么</th><th>作用点</th><th>《法典》表 B 有无档位</th><th>云璟启用条件</th><th>撤除验证方式</th></tr></thead>
+      <tbody>
+        <tr><td><b>MinLOS</b></td><td>住期太短的预订</td><td>入住日</td><td><span class="pill pill-teal">有（5 行档位）</span></td><td>按表 B 逐日配置</td><td>试订 1 晚，应被拒绝</td></tr>
+        <tr><td><b>MaxLOS</b></td><td>住期太长的预订</td><td>入住日</td><td><span class="pill pill-amber">无</span></td><td>D1 峰值日 且 预测 OCC ≥95%</td><td>试订超长住期，应能订成功</td></tr>
+        <tr><td><b>CTA</b></td><td>该日新到店</td><td>入住日</td><td><span class="pill pill-teal">有（3 行档位）</span></td><td>按表 B 逐日配置</td><td>试订「该日入住 1 晚」，应能订成功</td></tr>
+        <tr><td><b>CTD</b></td><td>该日离店</td><td>离店日</td><td><span class="pill pill-amber">无</span></td><td>表 L 需求暴涨 + L3 审批</td><td>试订「该日离店」，应能订成功</td></tr>
+        <tr><td><b>Stop Sell</b></td><td>全部预订（房型/价格码/渠道）</td><td>视层级</td><td><span class="pill pill-teal">有（低价渠道列）</span></td><td>按表 B + 表 H</td><td>两层都撤 + 缓存刷新后前台视角复查</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="s4">四、★ 撤除机制：真实工作中最高频的事故</h2>
+
+  <div class="callout callout-danger">
+    <span class="co-t">先看三个真实场景（都是本学院收集的行业事故，不是编的）</span>
+    <p><b>事故 A：</b>国庆 10 月 2 日设了 MinLOS = 3 晚，10 月 8 日没撤。10 月 9 日起所有 1–2 晚的预订被系统静默拒绝，OTA 上酒店显示「不可订」，销售部连续 4 天没收到 OTA 订单，第 5 天才被发现。<b>损失约 260 个房晚。</b><br>
+    <b>事故 B：</b>展会日对 STD-K 设了 Stop Sell（为升级腾房），展会结束后忘了撤。STD-K 共 70 间，占房量 21.9%，连续 11 天零预订，前台以为是市场不好。<b>损失约 480 个房晚。</b><br>
+    <b>事故 C：</b>峰值日启用了 CTA，撤除时只关了本店侧，渠道侧（携程后台）的房态没同步改回。携程上该房型持续显示不可订 2 周，且 OTA 排名因此下滑。<b>损失订单 + 排名权重下降。</b></p>
+  </div>
+
+  <p>三起事故的共同点：<b>设置动作做得很规范，撤除动作完全没有流程。</b>本节就是来解决这个问题的。</p>
+
+  <h3>4.1 根本原因：限制条件有「生效日」但没有「到期日」</h3>
+
+  <p>在系统里设置限制条件时，你填的是「从哪天开始」。系统不会问你「到哪天结束」——因为它的设计假设是「你会记得来撤」。<b>而人一定会忘。</b></p>
+
+  <p>所以撤除机制的核心不是「提醒自己」，而是<b>把到期日变成一个系统里的字段</b>。</p>
+
+  <h3>4.2 三重保险机制（云璟标准做法）</h3>
+
+  <div class="step"><div class="step-num">1</div><div class="step-body">
+    <h4>保险一 · 设置即登记：每一条限制条件都必须进《限制条件存量清单》</h4>
+    <p>设置限制条件的<b>同一个动作里</b>，必须同步在《限制条件存量清单》里新增一行。这张表的字段固定 8 个：</p>
+    <div class="tbl-wrap" style="margin-top:8px">
+      <table class="tbl">
+        <caption>表 7-4　《限制条件存量清单》字段设计</caption>
+        <thead><tr><th class="num">#</th><th>字段</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>限制条件类型</td><td>MinLOS / MaxLOS / CTA / CTD / Stop Sell</td></tr>
+          <tr><td class="num">2</td><td>对象</td><td>日期 + 房型代码 + 价格代码 + 渠道代码（四元组，缺一不可）</td></tr>
+          <tr><td class="num">3</td><td>设置值</td><td>如「MinLOS = 3」「CTA 开」「Stop Sell 关（携程·STD-K）」</td></tr>
+          <tr><td class="num">4</td><td>设置日期</td><td>操作当天的日期</td></tr>
+          <tr><td class="num">5</td><td><b>生效区间</b></td><td>起始日 – 结束日。<b>必须填结束日，不允许留空</b></td></tr>
+          <tr><td class="num">6</td><td><b>到期日</b><span class="pill pill-red">最关键</span></td><td>= 生效结束日的<b>次日</b>。<b>撤除动作在这一天执行</b></td></tr>
+          <tr><td class="num">7</td><td>触发表编号</td><td>表 B / 表 H / 表 L / 表 J</td></tr>
+          <tr><td class="num">8</td><td>撤除状态</td><td>生效中 / 已撤除（含撤除日期与撤除人）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:8px"><b>第 6 列「到期日」是整个机制的支点。</b>有了它，撤除就不再是「记得去撤」，而是「清单上写着今天该撤」。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">2</div><div class="step-body">
+    <h4>保险二 · 每日扫描：08:30 查表环节的固定第 0 步</h4>
+    <p>《法典》表 M 的 08:30 时段是「逐日查《法典》表 A/B/C/H，得出动作清单」。<b>在这个动作之前增加一步固定扫描，耗时上限 3 分钟：</b></p>
+    <div class="checklist" style="margin-top:8px">
+      <li>打开《限制条件存量清单》，筛「到期日 = 今天」的行 → 今天必须撤除</li>
+      <li>筛「到期日 &lt; 今天」且「撤除状态 = 生效中」的行 → <b>已过期仍生效，立即撤除并登记为事故</b></li>
+      <li>筛「到期日 ≤ 今天 + 3」的行 → 提前 3 天口头提醒复核人</li>
+    </div>
+    <p style="margin-top:8px"><b>这 3 分钟是全部保险里性价比最高的。</b>三起事故里有两起（A、B）都能被这一步直接拦住。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">3</div><div class="step-body">
+    <h4>保险三 · 周一全量对账：表 N 的每周一动作</h4>
+    <p>《法典》表 N 规定每周一做三件事（房型价差校验、未来 8 周预测更新、渠道开关复核）。<b>云璟在此基础上增加第四件：限制条件全量对账。</b></p>
+    <p>做法：从系统中<b>导出生效中的限制条件全量清单</b>（这是真实数据，不是人工维护的表），与《限制条件存量清单》逐行比对，找出三类差异：</p>
+    <div class="tbl-wrap" style="margin-top:8px">
+      <table class="tbl">
+        <caption>表 7-5　周一全量对账的三类差异</caption>
+        <thead><tr><th>差异类型</th><th>表现</th><th>处置</th></tr></thead>
+        <tbody>
+          <tr><td><b>① 系统有、清单无</b></td><td>系统里有一条生效中的限制条件，但存量清单里没有记录</td><td><span class="pill pill-red">最危险</span>。说明有人设了没登记。立即补登记，追溯设置人与设置日期，登记为流程违规</td></tr>
+          <tr><td><b>② 清单有、系统无</b></td><td>清单显示生效中，但系统里已无此限制</td><td>说明已被撤除但未登记。核实撤除人与撤除依据，补登记撤除状态</td></tr>
+          <tr><td><b>③ 两边都有但值不同</b></td><td>记录的是 MinLOS = 3，系统里是 MinLOS = 2</td><td>核实哪次修改未留痕，以系统实际值为准回改清单，并追溯修改人</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div></div>
+
+  <h3>4.3 限制条件撤除五步法（背下来，每次撤除都按这五步走）</h3>
+
+  <div class="step"><div class="step-num">1</div><div class="step-body">
+    <h4>查到期日</h4>
+    <p>在《限制条件存量清单》中筛出「到期日 = 今天」的全部行。<b>不看系统的库存显示，只看清单</b>——系统的显示不能告诉你是「本来就满房」还是「被限制挡住了」。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">2</div><div class="step-body">
+    <h4>两层都撤</h4>
+    <p><b>本店侧</b>（PMS / 渠道管理器）：清空 MinLOS / 关闭 CTA / 关闭 CTD / 打开 Stop Sell。<br>
+    <b>渠道侧</b>（OTA 后台）：把对应日期的房态恢复为可售。<br>
+    <b>限制条件是按「日期 × 房型 × 价格代码 × 渠道」四元组设的，撤除必须四元组对齐。</b>只撤了「日期」这一维，会留下「某房型仍被限制」的残片。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">3</div><div class="step-body">
+    <h4>试订验证（这一步不许跳）</h4>
+    <div class="tbl-wrap" style="margin-top:8px">
+      <table class="tbl">
+        <caption>表 7-6　撤除验证的试订矩阵</caption>
+        <thead><tr><th>撤的是什么</th><th>试订动作</th><th>成功 = 撤干净了</th><th>失败 = 怎么办</th></tr></thead>
+        <tbody>
+          <tr><td>MinLOS</td><td>选该日入住、住 <b>1 晚</b></td><td>能订成功</td><td>检查是否按房型/价格代码分开设了多份，逐一清空</td></tr>
+          <tr><td>MaxLOS</td><td>选该日入住、住 <b>超出原上限的晚数</b></td><td>能订成功</td><td>同上</td></tr>
+          <tr><td>CTA</td><td>选<b>该日为入住日</b>、住 1 晚</td><td>能订成功</td><td>检查本店侧开关是否真的关了</td></tr>
+          <tr><td>CTD</td><td>选<b>该日为离店日</b>的订单</td><td>能订成功</td><td>同上，且注意当日夜审前必须完成</td></tr>
+          <tr><td>Stop Sell（渠道）</td><td>在<b>该渠道前台视角</b>搜索该日该房型</td><td>能搜到且可订</td><td>等缓存刷新后复查；仍不可订则联系渠道经理</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div></div>
+
+  <div class="step"><div class="step-num">4</div><div class="step-body">
+    <h4>截图存证</h4>
+    <p>每张截图含 4 项：<b>日期 / 四元组对象 / 设置项 / 撤除前后状态</b>。试订成功的页面也要截图（这是「撤干净了」的证据）。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">5</div><div class="step-body">
+    <h4>台账登记 + 清单更新</h4>
+    <p>① 《调价台账》新增一条，动作类型填「撤 MinLOS / 撤 CTA / 撤 CTD / Stop Sell 关」，触发表编号填「<b>表 B</b>」（若由表 L 触发则填「表 L」）。<br>
+    ② 《限制条件存量清单》该行的「撤除状态」改为「已撤除（日期 + 撤除人）」。<br>
+    ③ 若发现「已过期仍生效」，<b>额外登记为事故</b>，在台账备注第二段写明「过期 X 天，期间损失房晚约 X 间」，并上报 L2。</p>
+  </div></div>
+
+  <div class="callout callout-gold">
+    <span class="co-t">撤除机制的三句话口诀</span>
+    <p><b>设的时候就想好哪天撤 · 撤的时候必须试订验证 · 每周一全量对账一次。</b><br>
+    这三句话能挡住 95% 的限制条件事故。剩下 5% 靠第 6 节之后的超售配套准备来兜底。</p>
+  </div>
+
+  <h2 id="s5">五、《法典》表 E · 超额预订标准表（完整内嵌 · 三步法）</h2>
+
+  <div class="formula">
+    <span class="f-label">总公式</span>
+    超售间数 = 可售房量 × 超售率（<b>向下取整</b>）
+  </div>
+
+  <h3>第一步：查基准超售率</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl tbl-codex">
+      <caption><span class="badge-codex">表 E</span>　第一步 · 基准超售率<span class="cap-note">输入：历史「No-show 率 + 24h 内取消率」合计值</span></caption>
+      <thead><tr><th>No-show + 取消 合计</th><th>基准超售率</th><th>审批要求</th></tr></thead>
+      <tbody>
+        <tr><td>&lt;5%</td><td><b>0%</b></td><td>—</td></tr>
+        <tr><td>5–10%</td><td><b>2%</b></td><td>—</td></tr>
+        <tr><td>10–15%</td><td><b>3%</b></td><td>—</td></tr>
+        <tr><td>15–20%</td><td><b>5%</b></td><td>—</td></tr>
+        <tr><td>20–30%</td><td><b>7%</b></td><td>—</td></tr>
+        <tr><td>&gt;30%</td><td><b>10%</b></td><td><span class="pill pill-red">需 L3 经理审批</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">区间边界（含下界不含上界，与表 A / 表 B 一致）</span>
+    <p>&lt;5.0% → 0%　｜　5.0% ≤ X &lt; 10.0% → 2%　｜　10.0% ≤ X &lt; 15.0% → 3%<br>
+    15.0% ≤ X &lt; 20.0% → 5%　｜　20.0% ≤ X &lt; 30.0% → 7%　｜　X ≥ 30.0% → 10%（需 L3 审批）<br>
+    <b>注意最后两档的跨度不同：</b>20–30% 是 10 个百分点的跨度，&gt;30% 是无上限的。<b>一旦合计值 ≥30%，无论多高都取 10%，且必须 L3 审批</b>——这正是「无上限档必须有人把关」的设计意图。</p>
+  </div>
+
+  <h3>第二步：修正系数（连乘）</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl tbl-codex">
+      <caption><span class="badge-codex">表 E</span>　第二步 · 修正系数<span class="cap-note">命中几条就连乘几个系数；一条都不命中则 ×1</span></caption>
+      <thead><tr><th class="num">#</th><th>条件</th><th>系数</th><th>为什么这么设计</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>D1 峰值日 / D2 高涨日</td><td><b>× 0.5</b></td><td>需求旺的日子，房间本来就能卖掉；一旦超售失败，你要把客人送走，而<b>附近的同档酒店在旺日也几乎没房</b>，补偿成本与口碑损失成倍上升</td></tr>
+        <tr><td class="num">2</td><td>担保预订（预付 / 信用卡担保）占比 &gt;60%</td><td><b>× 0.5</b></td><td>担保预订的 No-show 率极低。担保多 = 兑现率高 = 不需要超售</td></tr>
+        <tr><td class="num">3</td><td>会议团队占当日 &gt;40%</td><td><b>× 0.5</b></td><td>团队是<b>整块到店、整块离店</b>，要么全来要么全不来，方差极大。团队日超售的失败代价是「一次送走几十个人」</td></tr>
+        <tr><td class="num">4</td><td>协议客户集中度 &gt;50%</td><td><b>× 0.8</b></td><td>协议客户是长期合约关系，<b>把协议客送走的代价远高于把散客送走</b>（可能丢掉整个公司客户），所以温和下修</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">三个 ×0.5 连乘的杀伤力：5% → 0.625%</span>
+    <p>这是表 E 最容易被低估的地方。假设基准超售率 5%，四个条件全中：<br>
+    5% × 0.5 × 0.5 × 0.5 × 0.8 = <b>0.5%</b>。按 320 间算 = 1.6 → <b>1 间</b>。<br>
+    <b>设计意图非常明确：越是「需求旺 + 客人靠谱 + 有大团队 + 协议客多」的日子，越不该超售。</b><br>
+    因为这类日子一旦超售失败，你要送走的是<b>一个高价值客人或一个团队</b>，代价远高于多卖一间房的收益。</p>
+  </div>
+
+  <h3>第三步：硬上限（三条同时生效，取最小值）</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl tbl-codex">
+      <caption><span class="badge-codex">表 E</span>　第三步 · 硬上限<span class="cap-note">云璟可售 320 间时的对应值</span></caption>
+      <thead><tr><th class="num">#</th><th>硬上限</th><th>云璟（可售 320 间）对应值</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>超售间数不超过可售房量的 <b>5%</b></td><td>320 × 5% = <b>16 间</b></td><td>随可售房量变动。若当日 OOO 8 间（可售 312），则为 312 × 5% = 15.6 → 比较时取 15.6</td></tr>
+        <tr><td class="num">2</td><td>超售间数不超过 <b>15 间</b></td><td><b>15 间</b></td><td>绝对值上限，与房量无关。这一条在云璟（320 间）比第 1 条更紧，<b>实际起作用的通常是这一条</b></td></tr>
+        <tr><td class="num">3</td><td>步行距离 30 分钟内无同档次备用酒店时，<b>超售率减半</b></td><td>按实际备用酒店情况判定</td><td><b>注意是「超售率减半」，不是「超售间数减半」</b>。减半发生在<b>修正后的超售率</b>上，然后重新计算间数并向下取整</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">第三步的三条顺序：先减半，再比大小，最后向下取整</span>
+    <p>完整的计算顺序是：<br>
+    <b>①</b> 若 30 分钟内无同档备用酒店 → 修正后超售率 × 0.5，得到最终超售率；<br>
+    <b>②</b> 超售间数（未取整）= 可售房量 × 最终超售率；<br>
+    <b>③</b> 取硬上限：min(未取整值, 可售房量 × 5%, 15)；<br>
+    <b>④</b> <b>最后一步才向下取整</b>。<br>
+    <b>顺序错了结果就错。</b>若先取整再比大小，会得到偏大的结果。</p>
+  </div>
+
+  <h3>5.1 什么时候需要查表 E</h3>
+
+  <div class="callout callout-warn">
+    <span class="co-t">表 E 只在表 B 的两行里被调用</span>
+    <p>回到表 B 的「超额预订」列：<br>
+    ≥95% → <b>不超售</b>（超售上限 0，不查表 E）<br>
+    90–95% → <b>≤2 间</b>（直接取 2，不查表 E）<br>
+    <b>85–90% → 按表 E</b><br>
+    <b>70–85% → 按表 E</b><br>
+    &lt;70% → <b>不超售</b>（超售上限 0，不查表 E）<br>
+    <b>判断顺序：先看表 B 的那一行怎么写的，只有写着「按表 E」才去算。</b>很多新人一上来就套表 E，在 ≥95% 的峰值日算出 8 间超售，这是严重错误。</p>
+  </div>
+
+  <h2 id="s6">六、四个完整超售计算案例（一步步走完三步法）</h2>
+
+  <!-- 案例 1 -->
+  <div class="card">
+    <div class="card-title"><span class="ic">①</span>案例 ① · 平峰周三：常规商务客，无修正系数命中</div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">目标日</div><div class="kv-v">11 月 12 日（周三，D3 平峰日），可售房量 312 间（总房量 320 − OOO 8）</div></div>
+      <div class="kv-row"><div class="kv-k">预测 OCC</div><div class="kv-v">75.0% → 表 B 落「<b>70–85%</b>」行 → 超额预订列写「<b>按表 E</b>」→ 需要计算</div></div>
+      <div class="kv-row"><div class="kv-k">历史参数</div><div class="kv-v">No-show 率 + 24h 内取消率合计 = <b>14%</b>；担保预订占比 45%；会议团队占当日 18%；协议客户集中度 38%</div></div>
+      <div class="kv-row"><div class="kv-k">备用酒店</div><div class="kv-v">步行 30 分钟内有同档次备用酒店 = <b>是</b></div></div>
+    </div>
+    <div class="formula">
+      <span class="f-label">第一步 · 基准超售率</span>
+      14% 落在「10–15%」档（10.0% ≤ 14% &lt; 15.0%）→ 基准超售率 = <b>3%</b><br><br>
+      <span class="f-label">第二步 · 修正系数（逐条核对）</span>
+      D1 峰值日 / D2 高涨日？<b>否</b>（D3 平峰日）→ × 1<br>
+      担保预订占比 45% &gt; 60%？<b>否</b> → × 1<br>
+      会议团队占当日 18% &gt; 40%？<b>否</b> → × 1<br>
+      协议客户集中度 38% &gt; 50%？<b>否</b> → × 1<br>
+      修正后超售率 = 3% × 1 = <b>3%</b><br><br>
+      <span class="f-label">第三步 · 硬上限</span>
+      有备用酒店 → 超售率不减半，最终超售率 = <b>3%</b><br>
+      超售间数（未取整）= 312 × 3% = <b>9.36</b><br>
+      硬上限①：312 × 5% = <b>15.6</b>　硬上限②：<b>15</b><br>
+      取 min(9.36, 15.6, 15) = <b>9.36</b><br>
+      向下取整 → <span class="f-out">9 间</span><br>
+      <span class="f-label">结论</span>
+      11 月 12 日超售上限 = <span class="f-out">9 间</span>（无需 L3 审批，需 L2 复核）
+    </div>
+  </div>
+
+  <!-- 案例 2 -->
+  <div class="card">
+    <div class="card-title"><span class="ic">②</span>案例 ② · 展会周边 D2 日：三个 ×0.5 全命中</div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">目标日</div><div class="kv-v">9 月 25 日（周四，<b>D2 高涨日</b>，云栖大会周边日），可售房量 320 间（OOO 0）</div></div>
+      <div class="kv-row"><div class="kv-k">预测 OCC</div><div class="kv-v">87.3% → 表 B 落「<b>85–90%</b>」行 → 超额预订列写「<b>按表 E</b>」→ 需要计算</div></div>
+      <div class="kv-row"><div class="kv-k">历史参数</div><div class="kv-v">No-show 率 + 24h 内取消率合计 = <b>22%</b>；担保预订占比 68%；会议团队占当日 42%；协议客户集中度 35%</div></div>
+      <div class="kv-row"><div class="kv-k">备用酒店</div><div class="kv-v">步行 30 分钟内有同档次备用酒店 = <b>是</b>（但展会期间备用酒店自身余量极少，需在备注注明）</div></div>
+    </div>
+    <div class="formula">
+      <span class="f-label">第一步 · 基准超售率</span>
+      22% 落在「20–30%」档（20.0% ≤ 22% &lt; 30.0%）→ 基准超售率 = <b>7%</b><br><br>
+      <span class="f-label">第二步 · 修正系数（逐条核对）</span>
+      D1 峰值日 / D2 高涨日？<b>是（D2）</b> → <b>× 0.5</b><br>
+      担保预订占比 68% &gt; 60%？<b>是</b> → <b>× 0.5</b><br>
+      会议团队占当日 42% &gt; 40%？<b>是</b> → <b>× 0.5</b><br>
+      协议客户集中度 35% &gt; 50%？<b>否</b> → × 1<br>
+      修正后超售率 = 7% × 0.5 × 0.5 × 0.5 = 7% × 0.125 = <b>0.875%</b><br><br>
+      <span class="f-label">第三步 · 硬上限</span>
+      有备用酒店 → 不减半，最终超售率 = <b>0.875%</b><br>
+      超售间数（未取整）= 320 × 0.875% = <b>2.80</b><br>
+      硬上限①：320 × 5% = <b>16</b>　硬上限②：<b>15</b><br>
+      取 min(2.80, 16, 15) = <b>2.80</b><br>
+      向下取整 → <span class="f-out">2 间</span><br>
+      <span class="f-label">结论</span>
+      9 月 25 日超售上限 = <span class="f-out">2 间</span>
+    </div>
+    <div class="callout callout-warn">
+      <span class="co-t">本例的教学重点：7% 的基准超售率，最后只剩 2 间</span>
+      <p>基准 7% 按 320 间算本来是 22.4 间，被三个 ×0.5 一路砍到 0.875%，只剩 2 间。<br>
+      <b>这正是表 E 想要的结果：</b>展会日 + 担保客多 + 有大团队 = 「需求旺盛、客人靠谱、但一旦出事就是整块出事」。<br>
+      此时超售的期望收益（多卖 20 间 × 均价 ¥900 = ¥18,000）远低于期望损失（若送走 5 个客人：房费差价 + 交通 + 升级补偿 + 积分 + 差评 ≈ ¥15,000，外加团队客户流失风险）。<br>
+      <b>所以宁可少卖，不可超卖。</b></p>
+    </div>
+  </div>
+
+  <!-- 案例 3 -->
+  <div class="card">
+    <div class="card-title"><span class="ic">③</span>案例 ③ · 国庆 D1 峰值日：三重约束叠加，结果为 0</div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">目标日</div><div class="kv-v">10 月 3 日（<b>D1 峰值日</b>，国庆假期第 3 天），可售房量 320 间（OOO 0）</div></div>
+      <div class="kv-row"><div class="kv-k">预测 OCC</div><div class="kv-v">96.6% → 表 B 落「<b>≥95%</b>」行 → 超额预订列写「<b>不超售</b>」</div></div>
+      <div class="kv-row"><div class="kv-k">历史参数</div><div class="kv-v">No-show 率 + 24h 内取消率合计 = <b>6%</b>；担保预订占比 75%；会议团队占当日 10%；协议客户集中度 55%</div></div>
+      <div class="kv-row"><div class="kv-k">备用酒店</div><div class="kv-v">步行 30 分钟内有同档次备用酒店 = <b>否</b>（国庆期间周边同档酒店全部满房）</div></div>
+    </div>
+    <div class="formula">
+      <span class="f-label">先查表 B</span>
+      预测 OCC 96.6% ≥ 95% → 表 B「≥95%」行 → 超额预订列 = <b>不超售</b><br>
+      <b>严格来说，此时已不需要查表 E。</b>下面仍走一遍，用于演示「无备用酒店时超售率减半」这条规则的用法：<br><br>
+      <span class="f-label">第一步 · 基准超售率</span>
+      6% 落在「5–10%」档 → 基准超售率 = <b>2%</b><br><br>
+      <span class="f-label">第二步 · 修正系数</span>
+      D1 峰值日？<b>是</b> → <b>× 0.5</b><br>
+      担保预订占比 75% &gt; 60%？<b>是</b> → <b>× 0.5</b><br>
+      会议团队 10% &gt; 40%？<b>否</b> → × 1<br>
+      协议客户集中度 55% &gt; 50%？<b>是</b> → <b>× 0.8</b><br>
+      修正后超售率 = 2% × 0.5 × 0.5 × 0.8 = <b>0.4%</b><br><br>
+      <span class="f-label">第三步 · 硬上限</span>
+      <b>步行 30 分钟内无同档次备用酒店 → 超售率减半</b>：0.4% × 0.5 = <b>0.2%</b><br>
+      超售间数（未取整）= 320 × 0.2% = <b>0.64</b><br>
+      硬上限①：16　硬上限②：15<br>
+      取 min(0.64, 16, 15) = 0.64<br>
+      向下取整 → <b>0 间</b><br>
+      <span class="f-label">结论</span>
+      10 月 3 日超售上限 = <span class="f-out">0 间</span>
+    </div>
+    <div class="callout callout-danger">
+      <span class="co-t">本例有三重独立的约束，任何一条单独就能把结果压到 0</span>
+      <p>① <b>表 B「≥95%」行直接规定「不超售」</b>——这是最硬的一条，根本不需要算；<br>
+      ② <b>无备用酒店 → 超售率减半</b>；<br>
+      ③ <b>向下取整</b>把 0.64 变 0。<br>
+      三条叠加，结果必然是 0。<b>教学要点：查表顺序永远是「先查表 B 定要不要超售，再查表 E 定超多少」。顺序反了就会算出荒谬的结果。</b></p>
+    </div>
+  </div>
+
+  <!-- 案例 4 -->
+  <div class="card">
+    <div class="card-title"><span class="ic">④</span>案例 ④ · No-show 高企的平峰日：触发 10% 档与 L3 审批</div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">目标日</div><div class="kv-v">6 月 18 日（周三，D3 平峰日），可售房量 312 间（总房量 320 − OOO 8）</div></div>
+      <div class="kv-row"><div class="kv-k">预测 OCC</div><div class="kv-v">72.4% → 表 B 落「<b>70–85%</b>」行 → 超额预订列写「<b>按表 E</b>」→ 需要计算</div></div>
+      <div class="kv-row"><div class="kv-k">历史参数</div><div class="kv-v">No-show 率 + 24h 内取消率合计 = <b>33%</b>；担保预订占比 30%；会议团队占当日 12%；协议客户集中度 28%</div></div>
+      <div class="kv-row"><div class="kv-k">备用酒店</div><div class="kv-v">步行 30 分钟内有同档次备用酒店 = <b>是</b></div></div>
+    </div>
+    <div class="formula">
+      <span class="f-label">第一步 · 基准超售率</span>
+      33% ≥ 30% → 落「&gt;30%」档 → 基准超售率 = <b>10%</b>　<span class="pill pill-red">需 L3 经理审批</span><br><br>
+      <span class="f-label">第二步 · 修正系数</span>
+      D1 / D2 日？<b>否</b> → × 1<br>
+      担保预订占比 30% &gt; 60%？<b>否</b> → × 1<br>
+      会议团队 12% &gt; 40%？<b>否</b> → × 1<br>
+      协议客户集中度 28% &gt; 50%？<b>否</b> → × 1<br>
+      修正后超售率 = <b>10%</b>（无任何修正）<br><br>
+      <span class="f-label">第三步 · 硬上限</span>
+      有备用酒店 → 不减半，最终超售率 = <b>10%</b><br>
+      超售间数（未取整）= 312 × 10% = <b>31.2</b><br>
+      硬上限①：312 × 5% = <b>15.6</b>　硬上限②：<b>15</b><br>
+      取 min(31.2, 15.6, 15) = <b>15</b>　← <b>硬上限②（15 间）起作用</b><br>
+      向下取整 → <span class="f-out">15 间</span><br>
+      <span class="f-label">结论</span>
+      6 月 18 日超售上限 = <span class="f-out">15 间</span>（受硬上限封顶；需 L3 审批）
+    </div>
+    <div class="callout callout-warn">
+      <span class="co-t">本例的两个教学点</span>
+      <p><b>① 硬上限是「天花板」，不是「目标值」。</b>算出的 31.2 间被 15 间的绝对上限压到 15 间。此时必须清醒：<b>还有 16.2 间的 No-show 风险没有被覆盖</b>。这不是计算错误，而是《法典》的<b>风险容忍上限</b>——超过 15 间，一旦失败就是一次送走十几个人，代价不可接受。<br>
+      <b>此时应改用非超售手段承接风险：</b>提高担保预订占比（预售/预付产品）、收紧取消政策、对非担保订单做 24h 前外呼确认。<br>
+      <b>② No-show + 取消合计 33% 本身就是一个警报。</b>正常情况下这个数应在 10–20%。33% 说明取消政策过松或存在大量无效占位订单，应专项排查（是否渠道超售？是否有恶意占位？），而不是靠超售去对冲。</p>
+    </div>
+  </div>
+
+  <h3>6.1 四案例汇总对照</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 7-7　四个超售案例汇总对照<span class="cap-note">注意「最后起作用的是哪条约束」这一列</span></caption>
+      <thead><tr><th>案例</th><th>目标日</th><th>表 B 行</th><th>基准率</th><th>修正系数</th><th>修正后</th><th class="num">未取整</th><th>起作用的上限</th><th class="num">结果</th></tr></thead>
+      <tbody>
+        <tr><td>①</td><td>11/12 D3</td><td>70–85%</td><td>3%</td><td>无（×1）</td><td>3%</td><td class="num">9.36</td><td>无（未触及）</td><td class="num"><b>9 间</b></td></tr>
+        <tr><td>②</td><td>9/25 D2</td><td>85–90%</td><td>7%</td><td>×0.5 ×0.5 ×0.5</td><td>0.875%</td><td class="num">2.80</td><td>无（未触及）</td><td class="num"><b>2 间</b></td></tr>
+        <tr><td>③</td><td>10/3 D1</td><td>≥95%</td><td>2%</td><td>×0.5 ×0.5 ×0.8</td><td>0.4% → 减半 0.2%</td><td class="num">0.64</td><td>表 B「不超售」+ 无备用酒店减半</td><td class="num"><b>0 间</b></td></tr>
+        <tr><td>④</td><td>6/18 D3</td><td>70–85%</td><td>10%</td><td>无（×1）</td><td>10%</td><td class="num">31.2</td><td><b>硬上限② 15 间</b></td><td class="num"><b>15 间</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="s7">七、超售的落地：房型级分配与三项配套准备</h2>
+
+  <h3>7.1 房型级分配（不能只设总数）</h3>
+
+  <p>超售上限是一个总数，但系统里必须<b>按房型设置</b>。两条分配规则：</p>
+
+  <div class="callout callout-key">
+    <span class="co-t">规则 1 · 套房不参与超售</span>
+    <p>云璟的 STE-B（商务套房，8 间）与 STE-E（行政套房，2 间）<b>不参与超售分配</b>。<br>
+    理由：① 套房间数极少（合计 10 间，占 3.1%），超售的统计意义不大；② 超售失败时，<b>套房客人是最难送走的</b>——你把付 ¥1,280 的套房客送到别的酒店，补偿成本与客诉烈度都远高于标准房客。<br>
+    <b>分配基数 = 总房量 − 套房间数 = 320 − 10 = 310 间。</b></p>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">规则 2 · 按比例分配 + 最大余数法补齐</span>
+    <p>① 各房型配额（未取整）= 该房型间数 ÷ 分配基数 × 超售总数<br>
+    ② 先<b>向下取整</b>分配给每个房型<br>
+    ③ 把剩余名额按<b>小数部分从大到小</b>依次 +1，直到分完（最大余数法）</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 7-8　案例 ①（超售 9 间）的房型级分配<span class="cap-note">分配基数 310 间（320 − 套房 10）</span></caption>
+      <thead><tr><th>房型代码</th><th>房型名称</th><th class="num">间数</th><th class="num">配额（未取整）</th><th class="num">取整</th><th class="num">余数</th><th class="num">最终配额</th></tr></thead>
+      <tbody>
+        <tr><td><code>STD-K</code></td><td>标准大床房</td><td class="num">70</td><td class="num">2.032</td><td class="num">2</td><td class="num">.032</td><td class="num"><b>2</b></td></tr>
+        <tr><td><code>STD-T</code></td><td>标准双床房</td><td class="num">50</td><td class="num">1.452</td><td class="num">1</td><td class="num">.452</td><td class="num"><b>2</b> ← 余数第 3</td></tr>
+        <tr><td><code>SUP-K</code></td><td>高级大床房</td><td class="num">60</td><td class="num">1.742</td><td class="num">1</td><td class="num">.742</td><td class="num"><b>2</b> ← 余数第 1</td></tr>
+        <tr><td><code>SUP-T</code></td><td>高级双床房</td><td class="num">40</td><td class="num">1.161</td><td class="num">1</td><td class="num">.161</td><td class="num"><b>1</b></td></tr>
+        <tr><td><code>DLX-K</code></td><td>豪华大床房</td><td class="num">45</td><td class="num">1.306</td><td class="num">1</td><td class="num">.306</td><td class="num"><b>1</b></td></tr>
+        <tr><td><code>DLX-V</code></td><td>豪华江景房</td><td class="num">15</td><td class="num">0.435</td><td class="num">0</td><td class="num">.435</td><td class="num"><b>0</b> ← 余数第 4，名额已分完</td></tr>
+        <tr><td><code>EXE-K</code></td><td>行政大床房</td><td class="num">25</td><td class="num">0.726</td><td class="num">0</td><td class="num">.726</td><td class="num"><b>1</b> ← 余数第 2</td></tr>
+        <tr><td><code>EXE-T</code></td><td>行政双床房</td><td class="num">5</td><td class="num">0.145</td><td class="num">0</td><td class="num">.145</td><td class="num"><b>0</b></td></tr>
+        <tr><td><code>STE-B</code></td><td>商务套房</td><td class="num">8</td><td colspan="4" class="num"><b>不参与超售</b></td></tr>
+        <tr><td><code>STE-E</code></td><td>行政套房</td><td class="num">2</td><td colspan="4" class="num"><b>不参与超售</b></td></tr>
+        <tr><td colspan="3"><b>合计</b></td><td class="num"><b>9.000</b></td><td class="num"><b>6</b></td><td class="num">—</td><td class="num"><b>9</b> ✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 7-9　案例 ④（超售 15 间，受硬上限封顶）的房型级分配</caption>
+      <thead><tr><th>房型代码</th><th class="num">间数</th><th class="num">配额（未取整）</th><th class="num">取整</th><th class="num">余数</th><th class="num">最终配额</th></tr></thead>
+      <tbody>
+        <tr><td><code>STD-K</code></td><td class="num">70</td><td class="num">3.387</td><td class="num">3</td><td class="num">.387</td><td class="num"><b>3</b></td></tr>
+        <tr><td><code>STD-T</code></td><td class="num">50</td><td class="num">2.419</td><td class="num">2</td><td class="num">.419</td><td class="num"><b>3</b> ← 余数第 4</td></tr>
+        <tr><td><code>SUP-K</code></td><td class="num">60</td><td class="num">2.903</td><td class="num">2</td><td class="num">.903</td><td class="num"><b>3</b> ← 余数第 2</td></tr>
+        <tr><td><code>SUP-T</code></td><td class="num">40</td><td class="num">1.935</td><td class="num">1</td><td class="num">.935</td><td class="num"><b>2</b> ← 余数第 1</td></tr>
+        <tr><td><code>DLX-K</code></td><td class="num">45</td><td class="num">2.177</td><td class="num">2</td><td class="num">.177</td><td class="num"><b>2</b></td></tr>
+        <tr><td><code>DLX-V</code></td><td class="num">15</td><td class="num">0.726</td><td class="num">0</td><td class="num">.726</td><td class="num"><b>1</b> ← 余数第 3</td></tr>
+        <tr><td><code>EXE-K</code></td><td class="num">25</td><td class="num">1.210</td><td class="num">1</td><td class="num">.210</td><td class="num"><b>1</b></td></tr>
+        <tr><td><code>EXE-T</code></td><td class="num">5</td><td class="num">0.242</td><td class="num">0</td><td class="num">.242</td><td class="num"><b>0</b></td></tr>
+        <tr><td><code>STE-B</code> / <code>STE-E</code></td><td class="num">10</td><td colspan="4" class="num"><b>不参与超售</b></td></tr>
+        <tr><td colspan="2"><b>合计</b></td><td class="num"><b>15.000</b></td><td class="num"><b>11</b></td><td class="num">—</td><td class="num"><b>15</b> ✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>7.2 开启超售日的三项配套准备（缺一不可）</h3>
+
+  <div class="callout callout-danger">
+    <span class="co-t">开超售 = 承诺「万一失败我负责」。下面三件必须在落位当天备妥</span>
+    <p><b>准备 1 · 30 分钟内同档次备用酒店名单可用。</b>名单必须含：酒店名称、档次、距离（步行/车程分钟数）、<b>当日实时可售状态</b>、协议价或前台价、24 小时联系电话。<b>名单每周更新一次，且超售日当天 17:00 二次巡检时必须重新确认一次房态</b>——上周能订不代表今天还能订。<br><br>
+    <b>准备 2 · 《步行客人预案》标准补偿包已备妥。</b>含：备用酒店协议（承担差价与交通的财务授权）、本店下次升级券模板、忠诚会员积分补偿的授权额度（5,000 积分/人次）、<b>已预签的总经理致歉信</b>（留出填空的客人姓名与日期，总经理签名须为原件预签，不得事后补签）。<br><br>
+    <b>准备 3 · 《升级台账》已准备。</b>超售日大概率触发《法典》表 J 的免费升级（超售需要腾房）。台账表单、L3 审批通道、前厅执行话术必须提前就位，不能等客人站在前台了才临时找人批。</p>
+  </div>
+
+  <h3>7.3 《超售日监控表》（超售日 17:00 二次巡检固定动作）</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 7-10　《超售日监控表》字段设计</caption>
+      <thead><tr><th class="num">#</th><th>字段</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>目标日 / 可售房量 / 超售上限</td><td>来自表 E 计算结果</td></tr>
+        <tr><td class="num">2</td><td>当前在手（含超售部分）</td><td>实时值，17:00 抓取</td></tr>
+        <tr><td class="num">3</td><td><b>超售余额</b> = 超售上限 −（在手 − 可售）</td><td>为正 = 还能再收；为 0 = <b>立即关闭超售</b>；为负 = 已超限，立即上报 L2</td></tr>
+        <tr><td class="num">4</td><td>今日实际 No-show 间数</td><td>夜审后回填，用于校验表 E 的 No-show 参数是否还成立</td></tr>
+        <tr><td class="num">5</td><td>今日实际 24h 内取消间数</td><td>同上</td></tr>
+        <tr><td class="num">6</td><td>备用酒店当日房态</td><td>17:00 实时确认，记录确认时间与确认人</td></tr>
+        <tr><td class="num">7</td><td>是否启动步行客人预案</td><td>是 / 否；若为「是」关联到《步行客人处置记录单》编号</td></tr>
+        <tr><td class="num">8</td><td>免费升级间数</td><td>关联《升级台账》，不得超过表 J 的套房 ≤3 间上限</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="s8">八、《法典》表 J · 免费升级规则表（完整内嵌）</h2>
+
+  <div class="tbl-wrap">
+    <table class="tbl tbl-codex">
+      <caption><span class="badge-codex">表 J</span>　免费升级规则表（超售或高档房空置时）<span class="cap-note">《SPEC》第四章原文，不得改动</span></caption>
+      <thead><tr><th>项目</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr>
+          <th class="rowh">升级触发</th>
+          <td>① 超售需要腾房；② 目标日高档房预测空置 &gt;20%；③ 会员权益兑现</td>
+        </tr>
+        <tr>
+          <th class="rowh">执行顺序<br>（严格按序）</th>
+          <td>
+            <b>1. 忠诚会员：钻石 &gt; 铂金 &gt; 金卡 &gt; 银卡</b><br>
+            <b>2. 同档内：预订价高者优先</b><br>
+            <b>3. 同价：入住天数长者先</b><br>
+            <b>4. 相同：复购次数多者先</b>
+          </td>
+        </tr>
+        <tr>
+          <th class="rowh">升幅限制</th>
+          <td>每次<b>最多升 1 档</b>（标准 → 高级 → 豪华 → 行政 → 套房），<b>禁止连跳 2 档</b>（除 L3 特批）</td>
+        </tr>
+        <tr>
+          <th class="rowh">套房升级</th>
+          <td>每日不超过 <b>3 间</b>，且须 <b>L3 审批</b></td>
+        </tr>
+        <tr>
+          <th class="rowh">记录</th>
+          <td>每次升级写入《升级台账》，注明<b>原因、房号、会员等级</b></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>8.1 三个触发条件的逐个解释</h3>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title"><span class="ic">①</span>超售需要腾房</div>
+      <p><b>被动升级。</b>到店客人多于可用房间，必须把一部分客人升级到更高房型，腾出低档房给后到的人。<br>
+      <b>判定：</b>当日「在手 − 可售房量 &gt; 0」且已无法再安排步行客人时触发。<br>
+      <b>优先级最高</b>——这是救火，不是福利。</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">②</span>高档房空置 &gt;20%</div>
+      <p><b>主动升级。</b>目标日高档房（DLX 及以上）预测空置率 &gt;20% 时，把低档房客人升级上去，腾出低档房继续卖。<br>
+      <b>算式：</b>高档房空置率 = 高档房剩余间数 ÷ 高档房总间数 × 100%。云璟高档房 = DLX-K 45 + DLX-V 15 + EXE-K 25 + EXE-T 5 + STE-B 8 + STE-E 2 = <b>100 间</b>，&gt;20% 即剩余 &gt;20 间。<br>
+      <b>注意：这是「空置」不是「已售」，别把分母搞反。</b></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">③</span>会员权益兑现</div>
+      <p><b>合约升级。</b>会员条款中写明「钻石会员到店可免费升 1 档」，属于必须履行。<br>
+      <b>判定：</b>客人出示有效会员等级且在住期间。<br>
+      <b>注意：</b>会员权益升级<b>同样受「最多升 1 档」限制</b>，不能因为「他是钻石」就连跳两档；套房升级同样计入每日 ≤3 间。</p>
+    </div>
+  </div>
+
+  <h3>8.2 四级排序的逐条解释（最容易出错的是第 2 级）</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 7-11　表 J 四级排序规则与常见误读</caption>
+      <thead><tr><th class="num">级别</th><th>规则原文</th><th>含义</th><th>常见误读</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td>
+          <td>忠诚会员：钻石 &gt; 铂金 &gt; 金卡 &gt; 银卡</td>
+          <td>先按会员等级排序。<b>非会员排在所有会员之后</b></td>
+          <td>误以为「会员等级相同才比下一级」——不对，<b>等级不同时第 1 级就分出胜负了，不再往下比</b></td>
+        </tr>
+        <tr>
+          <td class="num">2</td>
+          <td>同档内：预订价高者优先</td>
+          <td><b>同等级会员之间</b>，谁的原预订价高谁先升</td>
+          <td><span class="pill pill-red">最常错</span>误读成「全店比价」。<b>是同一会员等级内部比</b>，一个银卡付 ¥900 的人不会优先于一个钻石付 ¥600 的人</td>
+        </tr>
+        <tr>
+          <td class="num">3</td>
+          <td>同价：入住天数长者先</td>
+          <td>预订价也相同，则住得久的先升</td>
+          <td>误读成「先到店者先升」。表 J 没有「先到先得」这条规则，<b>不要自己加</b></td>
+        </tr>
+        <tr>
+          <td class="num">4</td>
+          <td>相同：复购次数多者先</td>
+          <td>都相同，则历史累计入住次数多者先升</td>
+          <td>把「复购次数」误读成「累计消费金额」。表 J 写的是<b>复购次数</b>，按次数不按金额</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">两条硬约束：最多升 1 档、套房每日 ≤3 间</span>
+    <p><b>硬约束 1 · 每次最多升 1 档。</b>云璟的房型阶梯是：<b>标准（STD）→ 高级（SUP）→ 豪华（DLX）→ 行政（EXE）→ 套房（STE）</b>。<br>
+    所以 STD 只能升到 SUP，<b>不能升到 DLX</b>；DLX 只能升到 EXE，不能直接升到 STE。<br>
+    <b>唯一例外：L3 特批</b>。特批必须在《升级台账》注明特批人姓名与理由。<br><br>
+    <b>硬约束 2 · 套房升级每日不超过 3 间，且须 L3 审批。</b>云璟的套房共 10 间（STE-B 8 + STE-E 2），每日最多放出 3 间用于升级。<br>
+    <b>计数口径：</b>按<b>办理升级的日期</b>计数，不是按入住日计数。也就是说，10 月 2 日办理的升级，无论客人住几天，都计在 10 月 2 日这一天的 3 间额度内。<br>
+    <b>三个触发条件共享这 3 间额度</b>——超售腾房、高档房空置、会员权益，加起来一天最多 3 间套房升级。</p>
+  </div>
+
+  <h3>8.3 升级排序实操（一个完整的排序练习）</h3>
+
+  <div class="callout callout-do">
+    <span class="co-t">场景：某日需腾出 2 间 STD 房，以下 6 位客人竞争升级到 SUP</span>
+    <div class="tbl-wrap" style="margin-top:10px">
+      <table class="tbl">
+        <caption>表 7-12　升级排序练习</caption>
+        <thead><tr><th>客人</th><th>会员等级</th><th class="num">原预订价</th><th class="num">入住天数</th><th class="num">复购次数</th><th class="num">排序</th></tr></thead>
+        <tbody>
+          <tr><td>客人甲</td><td>金卡</td><td class="num">¥680</td><td class="num">2</td><td class="num">5</td><td class="num">?</td></tr>
+          <tr><td>客人乙</td><td>钻石</td><td class="num">¥580</td><td class="num">1</td><td class="num">2</td><td class="num">?</td></tr>
+          <tr><td>客人丙</td><td>银卡</td><td class="num">¥820</td><td class="num">3</td><td class="num">12</td><td class="num">?</td></tr>
+          <tr><td>客人丁</td><td>钻石</td><td class="num">¥680</td><td class="num">1</td><td class="num">7</td><td class="num">?</td></tr>
+          <tr><td>客人戊</td><td>钻石</td><td class="num">¥680</td><td class="num">3</td><td class="num">4</td><td class="num">?</td></tr>
+          <tr><td>客人己</td><td>无会员</td><td class="num">¥960</td><td class="num">5</td><td class="num">0</td><td class="num">?</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:10px"><b>排序过程：</b><br>
+    <b>第 1 级（会员等级）：</b>钻石 = 乙、丁、戊（3 人）→ 进入下一级；金卡 = 甲；银卡 = 丙；无会员 = 己（排最后）。<br>
+    所以前 3 名必在 {乙、丁、戊} 中产生，2 个升级名额<b>全部给钻石会员</b>，甲、丙、己本轮无份。<br><br>
+    <b>第 2 级（同档内比预订价）：</b>乙 ¥580 < 丁 ¥680 = 戊 ¥680 → <b>乙出局</b>，丁与戊进入第 3 级。<br>
+    <b>（关键：丙的 ¥820 比丁戊都高，但丙是银卡，第 1 级就已经被淘汰了，不参与比价。）</b><br><br>
+    <b>第 3 级（同价比入住天数）：</b>丁 1 天 < 戊 3 天 → <b>戊第 1，丁第 2</b>。<br><br>
+    <b>最终排序：</b>① 戊（升级）② 丁（升级）③ 乙 ④ 甲 ⑤ 丙 ⑥ 己<br>
+    <b>升档：</b>戊与丁均从 STD 升到 <b>SUP</b>（升 1 档），不得升到 DLX。</p>
+  </div>
+
+  <h2 id="s9">九、《升级台账》与套房升级的 L3 审批</h2>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 7-13　《升级台账》字段设计<span class="cap-note">表 J 原文要求注明「原因、房号、会员等级」；本表扩展至 11 字段</span></caption>
+      <thead><tr><th class="num">#</th><th>字段</th><th>填写规范</th><th>为什么要有</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td><b>日期</b></td><td>办理升级的日期（<b>不是入住日</b>）</td><td>套房每日 ≤3 间按此日期计数</td></tr>
+        <tr><td class="num">2</td><td><b>客人姓名 / 会员号</b></td><td>必填</td><td>复购次数与积分补偿都靠它关联</td></tr>
+        <tr><td class="num">3</td><td><b>会员等级</b><span class="pill pill-red">表 J 要求</span></td><td>钻石 / 铂金 / 金卡 / 银卡 / 非会员</td><td>第 1 级排序依据；也是后续积分补偿的判定依据</td></tr>
+        <tr><td class="num">4</td><td><b>升级原因</b><span class="pill pill-red">表 J 要求</span></td><td>下拉：① 超售腾房 ② 高档房空置 &gt;20% ③ 会员权益兑现</td><td>三个原因的性质完全不同（被动/主动/合约），混在一起统计会让高档房空置率分析失真</td></tr>
+        <tr><td class="num">5</td><td><b>原房型代码</b></td><td>如 <code>STD-K</code></td><td>校验是否只升 1 档</td></tr>
+        <tr><td class="num">6</td><td><b>升级后房型代码</b><span class="pill pill-red">表 J 要求（房号）</span></td><td>房型代码 + <b>实际房号</b></td><td>房号是前厅排房与客史追溯的唯一凭据</td></tr>
+        <tr><td class="num">7</td><td><b>升档数</b></td><td>填 1（正常）或 2 及以上（须 L3 特批）</td><td>自动标红 =&nbsp;1 的记录，触发 L3 特批核查</td></tr>
+        <tr><td class="num">8</td><td><b>原预订价 / 升级后房价</b></td><td>两个都要填</td><td>升级的<b>机会成本</b> = 升级后房价 − 原预订价，是月度升级成本分析的输入</td></tr>
+        <tr><td class="num">9</td><td><b>是否套房升级</b></td><td>是 / 否</td><td>触发 L3 审批与每日 3 间额度核查</td></tr>
+        <tr><td class="num">10</td><td><b>审批人</b></td><td>常规升 1 档：L2；<b>套房升级或连跳 2 档：L3</b></td><td>表 J 硬约束的取证</td></tr>
+        <tr><td class="num">11</td><td><b>执行人 / 备注</b></td><td>前厅执行人姓名 + 客人反应</td><td>客诉追溯</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">套房升级 L3 审批的操作流程（当日额度管理）</span>
+    <p>① 前厅确认当日已有套房升级间数（查《升级台账》当日「是否套房升级 = 是」的条数）；<br>
+    ② <b>若已 3 间，直接拒绝，不得再升</b>——改用「升级到 EXE 行政房 + 赠送双早」替代；<br>
+    ③ 若 &lt;3 间，发起 L3 审批（书面或系统审批流），注明客人姓名、会员等级、升级原因、原房型与目标房型；<br>
+    ④ 取得 L3 书面确认后办理，并把审批人姓名填入《升级台账》第 10 列；<br>
+    ⑤ 夜审时由 L2 复核当日套房升级总间数 ≤3。<br>
+    <b>红线：先办后批视为违规</b>，与表 A 约束 5（D1 峰值日调价须 L3 前置审批）同理——审批是<b>前置条件</b>，不是事后补签。</p>
+  </div>
+
+  <h2 id="s10">十、《法典》表 L · 超售过度与《步行客人预案》四步补偿包</h2>
+
+  <h3>10.1 表 L「超售过度」分支原文</h3>
+
+  <div class="tbl-wrap">
+    <table class="tbl tbl-codex">
+      <caption><span class="badge-codex">表 L</span>　异常事件应急判定表 · 超售过度分支<span class="cap-note">《SPEC》第四章原文</span></caption>
+      <thead><tr><th>事件类型</th><th>判定信号</th><th>立即动作（2 小时内）</th><th>24 小时内</th><th>复盘</th></tr></thead>
+      <tbody>
+        <tr>
+          <th class="rowh"><b>超售过度</b><br>（到店无证可住）</th>
+          <td><b>到店无房</b></td>
+          <td>启动《步行客人预案》：<b>就近同档酒店、承担差价、升级补偿、次日优先回本店</b></td>
+          <td>赔偿结算、客人回访</td>
+          <td><b>重算表 E 参数</b></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="co-t">「到店无房」的判定信号：不是「在手超了可售」</span>
+    <p>在手超过可售房量是<b>常态</b>（这就是超售的目的），不是异常。<br>
+    <b>真正的判定信号是：夜审/排房时点，实际到店（或已确认必到）的客人数量 &gt; 实际可用房间数量。</b><br>
+    具体触发时点：当日 18:00 后，把「在手 − 已取消 − No-show」与「可售 − OOO 新增 − 维修房」做一次实时比对，若前者 &gt; 后者，即判定「到店无房」，<b>立即启动预案，不等客人站到前台</b>。<br>
+    <b>提前两小时知道，和让客人站在大堂才知道，是两个完全不同的事故等级。</b></p>
+  </div>
+
+  <h3>10.2 《步行客人预案》标准补偿包（四步，按序执行，不许跳步）</h3>
+
+  <div class="step"><div class="step-num">1</div><div class="step-body">
+    <h4>安排同档或更高档酒店，承担房费差价 + 交通费</h4>
+    <p><b>执行标准：</b><br>
+    · <b>档次要求：同档或更高档</b>。云璟是中高端全服务（准五星/四星+），备用酒店必须 ≥ 此档次，不得降级安排。<br>
+    · <b>承担范围：房费差价 + 往返交通费</b>。差价 = 备用酒店房费 − 客人在本店的成交房价（<b>按客人的实际成交价算，不是按 BAR 算</b>）。<br>
+    · <b>承担天数：</b>本店无法提供的全部夜次。若次日仍无房，继续承担至客人可回本店为止。<br>
+    · <b>执行人：</b>值班经理（须有预先授权的财务额度，不得现批现报）。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">2</div><div class="step-body">
+    <h4>本店下次入住免费升级 1 档 + 双早</h4>
+    <p><b>执行标准：</b><br>
+    · <b>升级 1 档</b>（严格按表 J 的房型阶梯：STD→SUP→DLX→EXE→STE），<b>不因本次事故而连跳 2 档</b>——若客人要求连跳，须走 L3 特批。<br>
+    · <b>双早</b>指两份自助早餐（云璟早餐门市价 ¥128/人，含早加价 ¥68/人）。按<b>门市价 ¥128 × 2 = ¥256</b> 计入补偿成本，不是按 ¥68 的加价计。<br>
+    · <b>有效期：</b>自发放之日起 <b>12 个月</b>。过期作废且不延期——这条必须写在券面上，否则会形成无限期的成本敞口。<br>
+    · <b>发放形式：</b>实体券或系统内权益，<b>必须记录券号</b>并写入《升级台账》备注。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">3</div><div class="step-body">
+    <h4>忠诚会员额外补偿 5,000 积分</h4>
+    <p><b>执行标准：</b><br>
+    · <b>仅对忠诚会员发放</b>（钻石 / 铂金 / 金卡 / 银卡）。非会员不发放——非会员拿不到积分也没有意义。<br>
+    · <b>金额固定 5,000 积分</b>，<b>不按会员等级差异化</b>。表 L 原文写的是「忠诚会员额外补偿 5,000 积分」，没有分级。<br>
+    · <b>发放时点：</b>当场发放并短信通知，<b>不等客人投诉后再补</b>——主动补偿与被动赔偿在客诉转化率上差一个数量级。<br>
+    · <b>成本归属：</b>按会员渠道（LOY）综合成本率 4% 折算积分成本，计入本次事故成本。</p>
+  </div></div>
+
+  <div class="step"><div class="step-num">4</div><div class="step-body">
+    <h4>总经理签名致歉信 + 当日值班经理全程跟进</h4>
+    <p><b>执行标准：</b><br>
+    · <b>致歉信必须由总经理亲笔签名</b>（预签原件，留出客人姓名与日期的填空位）。<b>打印签名或事后补签视为未执行</b>。<br>
+    · <b>致歉信内容四项要素：</b>① 明确承认是本店超售失误（不许写「因不可抗力」）；② 说明已安排的同档酒店与承担范围；③ 写明后续补偿（升级券 + 积分）；④ 留下总经理与值班经理的直接联系方式。<br>
+    · <b>全程跟进：</b>当日值班经理负责：送客人上车 → 到备用酒店确认入住 → <b>次日致电确认回本店安排</b> → 客人离店后 72 小时内回访。<br>
+    · <b>交接：</b>值班经理交接班时，未闭环的步行客人必须逐位书面交接，<b>不允许口头交接</b>。</p>
+  </div></div>
+
+  <div class="callout callout-danger">
+    <span class="co-t">四步补偿包的成本量级（云璟实算，供 L3 决策参考）</span>
+    <p>假设某日送走 3 位客人（2 位非会员 + 1 位钻石会员），备用酒店同档房价 ¥720，客人本店成交价 ¥680，住 1 晚：<br>
+    <b>第 1 步：</b>房费差价（720 − 680）× 3 = ¥120；交通费（往返打车约 ¥80）× 3 = ¥240 → <b>¥360</b><br>
+    <b>第 2 步：</b>下次升级 1 档的差价（SUP ¥680 − STD ¥580）× 3 = ¥300；双早 ¥256 × 3 = ¥768 → <b>¥1,068</b><br>
+    <b>第 3 步：</b>5,000 积分 × 1 人 × 4% 折算（按云璟积分价值约 ¥0.01/分估算）→ 约 <b>¥50</b><br>
+    <b>第 4 步：</b>致歉信与值班经理人力成本 → 约 <b>¥300</b><br>
+    <b>合计直接成本 ≈ ¥1,778，约 ¥593/人次。</b><br>
+    <b>对照：多卖 1 间房的收益 = 1 × ¥680 = ¥680。</b><br>
+    <b>结论：送走 1 个人的代价（¥593）几乎等于多卖 1 间房的收益（¥680），还没算差评与忠诚会员流失的长期损失。</b>这就是为什么表 E 的三个 ×0.5 与三条硬上限设计得如此保守。</p>
+  </div>
+
+  <h3>10.3 事后复盘：重算表 E 参数</h3>
+
+  <div class="callout callout-do">
+    <span class="co-t">表 L 规定「超售过度」的复盘动作是「重算表 E 参数」，具体做四件事</span>
+    <p>① <b>重算 No-show 率与 24h 内取消率</b>：取事发当月全月数据重算，看是否显著高于表 E 计算时所采用的历史值。若高出 5 个百分点以上，说明表 E 的输入已经过时。<br>
+    ② <b>核查修正系数的判定是否漏项</b>：事发当日是否属于 D1/D2？担保占比多少？会议团队占比多少？协议集中度多少？<b>逐条回看，看有没有漏乘的 ×0.5 / ×0.8。</b><br>
+    ③ <b>核查备用酒店假设</b>：事发当日 30 分钟内的同档备用酒店是否真的有房？若没有，第三步的「无备用酒店 → 超售率减半」是否被正确应用？<br>
+    ④ <b>重设未来 30 天的超售上限</b>：按修正后的参数重算，并在《调价台账》备注写明「依表 L 复盘重算，原上限 X 间调整为 Y 间」。<br>
+    <b>产出物：《超售过度复盘报告》，7 天内完成（表 L 的「复盘」列对需求暴跌分支写明「事后 7 天复盘报告」，超售过度分支沿用同一时限）。</b></p>
+  </div>
+
+  <h2 id="s11">十一、主流系统操作路径映射表</h2>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 7-14　库存与限制条件的系统无关操作路径<span class="cap-note">本学院统一使用通用术语；下表为常见系统的对应入口，不同版本字段名可能略有差异，<b>以通用术语为准</b></span></caption>
+      <thead><tr><th>通用动作</th><th>通用术语</th><th>国际连锁常见 PMS<br>（Opera 类）</th><th>国产常见 PMS<br>（西软 / 绿云类）</th><th>渠道管理器<br>（Channel Manager）</th></tr></thead>
+      <tbody>
+        <tr><td>设最少住期</td><td>MinLOS / 最少连住</td><td>Restriction → Min Length of Stay</td><td>房价控制 / 限制条件 → 最少入住天数</td><td>通常不设，由 PMS 推送</td></tr>
+        <tr><td>设最多住期</td><td>MaxLOS / 最多连住</td><td>Restriction → Max Length of Stay</td><td>房价控制 → 最多入住天数</td><td>通常不设</td></tr>
+        <tr><td>设不可入住</td><td>CTA / Closed to Arrival</td><td>Restriction → Closed to Arrival</td><td>限制条件 → 不可入住</td><td>不设</td></tr>
+        <tr><td>设不可离店</td><td>CTD / Closed to Departure</td><td>Restriction → Closed to Departure</td><td>限制条件 → 不可离店</td><td>不设</td></tr>
+        <tr><td>停售某房型</td><td>Stop Sell / Close-out</td><td>Room Type → Close-out / Stop Sell</td><td>房态管理 → 关房 / 停售</td><td>房型级停售（同步至各 OTA）</td></tr>
+        <tr><td>停售某渠道</td><td>Channel Stop Sell</td><td>Channel / Source → Stop Sell</td><td>渠道管理 → 渠道停售</td><td><b>主战场</b>：渠道 → 停止投放</td></tr>
+        <tr><td>设超售上限</td><td>Overbooking Limit</td><td>Room Type → Overbooking Limit</td><td>房态管理 → 超售设置</td><td>部分支持，通常不设</td></tr>
+        <tr><td>办理免费升级</td><td>Room Upgrade</td><td>Reservation → Room Move / Upgrade</td><td>在住客人 → 换房 / 升级</td><td>不涉及</td></tr>
+        <tr><td>导出限制条件清单</td><td>Restriction Report</td><td>Reports → Restriction Report</td><td>报表 → 房价控制明细</td><td>渠道投放明细导出</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="co-t">系统无关的真正含义</span>
+    <p>本学院要求写「<b>在限制条件中，按日期 × 房型 × 价格代码设置 MinLOS = 2</b>」，而不是「点击 XX 按钮第 3 个 Tab」。<br>
+    原因有二：① 学员毕业后会去不同的酒店用不同的系统，记住按钮没有迁移价值；② 系统升级后按钮位置会变，但「日期 × 房型 × 价格代码」这个三维模型不会变。<br>
+    <b>上面这张表是给「需要落地到具体系统」时的索引，不是教学内容本身。</b></p>
+  </div>
+
+  <!-- ================= 十二 ================= -->
+  <h2 id="s12">十二、讲师示范 ①：D2 高涨日（表 B 全四列 + 撤除计划）</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">▶</span>示范 ①　9 月 19 日（周五 · D2 高涨日 · HIGH）的完整库存动作</div>
+
+    <h4>已知条件</h4>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">目标日</div><div class="kv-v">9 月 19 日，周五，D2 高涨日（价格系数 120–150%，目标 OCC 88–95%）</div></div>
+      <div class="kv-row"><div class="kv-k">可售房晚</div><div class="kv-v">320 间（OOO 0）</div></div>
+      <div class="kv-row"><div class="kv-k">当前在手 / 去年同窗口</div><div class="kv-v">285 间 / 282 间</div></div>
+      <div class="kv-row"><div class="kv-k">预测增量</div><div class="kv-v">10 间</div></div>
+      <div class="kv-row"><div class="kv-k">当前 SUP-K/SUP-T BAR</div><div class="kv-v">¥900</div></div>
+      <div class="kv-row"><div class="kv-k">当前限制状态</div><div class="kv-v">MinLOS = 1 晚（不设限）；CTA 未启用；全部渠道开放；超售上限 0 间</div></div>
+      <div class="kv-row"><div class="kv-k">历史参数</div><div class="kv-v">No-show + 24h 取消 = 16%；担保占比 52%；会议团队 28%；协议集中度 44%；有备用酒店</div></div>
+    </div>
+
+    <h4>第 1 步 · 定行</h4>
+    <div class="formula">
+      <span class="f-label">预测 OCC</span>
+      （285 + 10）÷ 320 × 100% = 295 ÷ 320 × 100% → <span class="f-out">92.2%</span><br>
+      <span class="f-label">定行</span>
+      90.0% ≤ 92.2% &lt; 95.0% → 表 B「<b>90–95%</b>」行（不是「85–90%」行）
+    </div>
+
+    <h4>第 2 步 · 读四列并落位</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <caption>表 7-15　示范 ① 的表 B 四列动作与落位</caption>
+        <thead><tr><th>列</th><th>表 B 值</th><th>落位动作</th><th>四元组</th><th>截图</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>MinLOS</b></td><td>2 晚</td>
+            <td>在限制条件中把 MinLOS 从「1 晚（不设限）」改为 <b>2 晚</b></td>
+            <td>9/19 × 全 10 房型 × BAR 及衍生价（<b>不含 CORP 与 GDS 价</b>）</td>
+            <td>F0912-01</td>
+          </tr>
+          <tr>
+            <td><b>CTA</b></td><td>D1 日启用</td>
+            <td>本日为 <b>D2 高涨日，非 D1</b> → <b>不启用</b>（动作：确认 CTA 为关闭态，写台账「CTA 否」）</td>
+            <td>—</td>
+            <td>F0912-02</td>
+          </tr>
+          <tr>
+            <td><b>低价渠道 Stop Sell</b></td><td>关闭尾房特惠</td>
+            <td>本店侧 + 渠道侧<b>两层都关</b>「尾房特惠」渠道；团购与批发商本档<b>不要求关闭</b>（那两条只在 ≥95% 行出现），但需按表 H 复核</td>
+            <td>9/19 × 尾房特惠渠道 × 全房型</td>
+            <td>F0912-03</td>
+          </tr>
+          <tr>
+            <td><b>超额预订</b></td><td>≤2 间</td>
+            <td>直接设超售上限 <b>2 间</b>，<b>不查表 E</b>（表 B 本行已直接给值）</td>
+            <td>按房型分配，见下</td>
+            <td>F0912-04</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>第 3 步 · 超售 2 间的房型分配</h4>
+    <div class="formula">
+      <span class="f-label">分配基数</span>
+      320 − 套房 10 = <b>310 间</b>（套房不参与）<br>
+      <span class="f-label">配额</span>
+      STD-K：70 ÷ 310 × 2 = 0.452 → 0（余 .452）<br>
+      STD-T：50 ÷ 310 × 2 = 0.323 → 0（余 .323）<br>
+      SUP-K：60 ÷ 310 × 2 = 0.387 → 0（余 .387）<br>
+      SUP-T：40 ÷ 310 × 2 = 0.258 → 0（余 .258）<br>
+      DLX-K：45 ÷ 310 × 2 = 0.290 → 0（余 .290）<br>
+      DLX-V：15 ÷ 310 × 2 = 0.097 → 0（余 .097）<br>
+      EXE-K：25 ÷ 310 × 2 = 0.161 → 0（余 .161）<br>
+      EXE-T：5 ÷ 310 × 2 = 0.032 → 0（余 .032）<br>
+      取整合计 0，需补 2 个名额 → 余数最大的两档：STD-K（.452）、SUP-K（.387）<br>
+      <span class="f-label">结论</span>
+      超售 2 间 = <span class="f-out">STD-K 1 间 + SUP-K 1 间</span>
+    </div>
+
+    <h4>第 4 步 · 配套准备（超售 2 间也要做，不能因为少就省）</h4>
+    <ul class="checklist">
+      <li>备用酒店名单：确认步行 30 分钟内同档酒店当日有房（记录确认时间 08:52、确认人）</li>
+      <li>《步行客人预案》补偿包：升级券、积分授权、预签致歉信已在前台保险柜</li>
+      <li>《升级台账》表单已打印放前台；L3 审批电话通道已确认（本日若需套房升级需 L3 批）</li>
+      <li>《超售日监控表》已建行，17:00 二次巡检时更新</li>
+    </ul>
+
+    <h4>第 5 步 · ★ 撤除计划（设置的同时就写好）</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <caption>表 7-16　示范 ① 的《限制条件存量清单》登记</caption>
+        <thead><tr><th>类型</th><th>对象（四元组）</th><th>设置值</th><th>设置日期</th><th>生效区间</th><th><b>到期日</b></th><th>触发表</th><th>撤除状态</th></tr></thead>
+        <tbody>
+          <tr><td>MinLOS</td><td>9/19 × 全房型 × BAR 及衍生价</td><td>2 晚</td><td>09-12</td><td>09-19 ~ 09-19</td><td><b>09-20</b></td><td>表 B</td><td>生效中</td></tr>
+          <tr><td>Stop Sell</td><td>9/19 × 尾房特惠 × 全房型</td><td>关</td><td>09-12</td><td>09-19 ~ 09-19</td><td><b>09-20</b></td><td>表 B</td><td>生效中</td></tr>
+          <tr><td>超售</td><td>9/19 × STD-K 1 / SUP-K 1</td><td>2 间</td><td>09-12</td><td>09-19 ~ 09-19</td><td><b>09-20</b>（自动失效）</td><td>表 B</td><td>生效中</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-do">
+      <span class="co-t">到期日的执行</span>
+      <p>9 月 20 日 08:30 的扫描环节会筛出这三行（到期日 = 09-20）。届时按<b>撤除五步法</b>执行：<br>
+      ① 查到期日 → ② 两层都撤（MinLOS 清空、尾房特惠本店侧+渠道侧都开）→ ③ <b>试订验证</b>（选 9/20 入住 1 晚，必须能订成功；在携程搜 9/20 该房型，必须可订）→ ④ 截图 → ⑤ 台账登记（动作类型「撤 MinLOS」「Stop Sell 关」）+ 清单更新撤除状态。<br>
+      <b>超售那一行的到期日写「自动失效」，但 9 月 20 日仍需确认超售上限已归零</b>——部分系统的超售设置按日期区间生效，区间结束后会自动归零；另一些系统需要手动清零。必须实查，不能假设。</p>
+    </div>
+  </div>
+
+  <!-- ================= 十三 ================= -->
+  <h2 id="s13">十三、讲师示范 ②：超售日 → 到店无房 → 启动步行客人预案</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">▶</span>示范 ②　11 月 12 日（案例 ① 的超售日）走到最坏的一步</div>
+
+    <h4>时间线</h4>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">10-28<br>08:30</div>
+        <div class="tl-body">
+          <b>设超售 9 间</b>（案例 ① 的计算结果）。按房型分配：STD-K 2 / STD-T 2 / SUP-K 2 / SUP-T 1 / DLX-K 1 / EXE-K 1。三项配套准备完成。《限制条件存量清单》登记，到期日 11-13。
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">11-12<br>17:00</div>
+        <div class="tl-body">
+          <b>二次巡检。</b>在手 321 间，可售 312 间，超售余额 = 9 −（321 − 312）= 9 − 9 = <b>0</b> → <b>立即关闭超售，不再接受新预订</b>。<br>
+          备用酒店 A 江畔万枫（1.2km，280 间）确认当日有房 12 间，房价 ¥700；备用酒店 E 云栖亚朵 S（2.0km，200 间）确认有房 8 间，房价 ¥660。
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">11-12<br>20:30</div>
+        <div class="tl-body">
+          <b>判定「到店无房」。</b>实时比对：已到店 296 间 + 已确认必到（担保/预付）28 间 = <b>324 间</b>；可用房间 = 312 − 新增维修 2 间 = <b>310 间</b>。<br>
+          324 &gt; 310 → <b>缺口 14 间</b>。<span class="pill pill-red">判定信号成立</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">20:30<br>+10 min</div>
+        <div class="tl-body">
+          <b>第一道防线：免费升级腾房（表 J 触发条件①）。</b>高档房（DLX 及以上共 100 间）当前空置 23 间 → 空置率 23% &gt; 20%，双重符合。<br>
+          把 14 位最低优先级的 STD/SUP 客人升级到 DLX（升 1 档，符合表 J），腾出 14 间 STD/SUP。<br>
+          <b>按表 J 四级排序挑人：</b>优先升级<b>非会员且预订价低</b>的客人（因为他们排在升级队列最末，但本场景是「必须腾房」，所以逻辑反过来——<b>优先动排在队尾的人</b>，把好房间留给高等级会员）。<br>
+          <b>套房升级额度核查：</b>本次不涉及套房（只升到 DLX），无需 L3 审批；若需升到 STE，则当日上限 3 间且须 L3 批。
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">21:00</div>
+        <div class="tl-body">
+          <b>第二道防线：仍缺 3 间。</b>升级已用完高档房全部空置（23 − 14 = 9 间，其中 4 间为 DLX-V/EXE 需保留给已在途的高价客）。<br>
+          实际缺口 3 间 → <b>启动《步行客人预案》</b>，表 L 优先级 1，覆盖一切。
+        </div>
+      </div>
+    </div>
+
+    <h4>步行客人预案执行（3 位客人）</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <caption>表 7-17　《步行客人处置记录单》示例</caption>
+        <thead><tr><th>客人</th><th>会员等级</th><th class="num">本店成交价</th><th>去向</th><th class="num">第 1 步</th><th>第 2 步</th><th>第 3 步</th><th>第 4 步</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>客人 A</td><td>钻石</td><td class="num">¥580<br>（STD-K 协议价）</td>
+            <td>A 江畔万枫<br>（1.2km，¥700）</td>
+            <td class="num">差价 ¥220 + 交通 ¥80<br>= <b>¥300</b></td>
+            <td>升级券 1 张（升 1 档 + 双早，值 ¥100 + ¥256 = ¥356）</td>
+            <td><b>5,000 积分</b></td>
+            <td>总经理预签致歉信 + 值班经理全程跟进</td>
+          </tr>
+          <tr>
+            <td>客人 B</td><td>非会员</td><td class="num">¥660<br>（SUP-K BAR）</td>
+            <td>A 江畔万枫<br>（¥700）</td>
+            <td class="num">差价 ¥40 + 交通 ¥80<br>= <b>¥120</b></td>
+            <td>升级券 1 张（¥356）</td>
+            <td><b>不适用</b>（非会员）</td>
+            <td>致歉信 + 跟进</td>
+          </tr>
+          <tr>
+            <td>客人 C</td><td>金卡</td><td class="num">¥660<br>（SUP-K 会员价）</td>
+            <td>E 云栖亚朵 S<br>（2.0km，¥660）</td>
+            <td class="num">差价 ¥0 + 交通 ¥120<br>= <b>¥120</b></td>
+            <td>升级券 1 张（¥356）</td>
+            <td><b>5,000 积分</b></td>
+            <td>致歉信 + 跟进</td>
+          </tr>
+          <tr>
+            <td colspan="4"><b>直接成本合计</b></td>
+            <td class="num"><b>¥540</b></td>
+            <td class="num"><b>¥1,068</b></td>
+            <td class="num">2 人 × 5,000 分<br>≈ ¥100</td>
+            <td>人力 + 信函 ≈ ¥300</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="formula">
+      <span class="f-label">本次事故总直接成本</span>
+      540 + 1,068 + 100 + 300 = <span class="f-out">¥2,008</span>（约 ¥669/人次）<br>
+      <span class="f-label">对照：本日超售 9 间带来的增量收益</span>
+      9 间 × 平均 ¥640 ×（1 − 渠道综合成本率 10%）= <span class="f-out">¥5,184</span><br>
+      <span class="f-label">净结果</span>
+      5,184 − 2,008 = <span class="f-out">+¥3,176</span>（仍为正，超售策略本身成立）
+    </div>
+
+    <div class="callout callout-key">
+      <span class="co-t">本示范最重要的一个结论：出了事故不等于策略失败</span>
+      <p>本日超售 9 间，最终送走 3 人，直接成本 ¥2,008，但超售带来的增量净收益 ¥5,184，<b>净赚 ¥3,176</b>。<br>
+      <b>策略是成功的。</b>需要改进的只是执行细节：20:30 才判定缺口，如果能在 18:00 就开始升级腾房，客人的等待时间会短很多，补偿成本中的「客人情绪成本」也会下降。<br>
+      <b>复盘的正确方向不是「不该超售」，而是「判定缺口的时间点要提前」。</b>这就是表 L「复盘」列写「重算表 E 参数」而不是「禁止超售」的原因。</p>
+    </div>
+
+    <h4>事后复盘（7 天内完成）</h4>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <caption>表 7-18　《超售过度复盘报告》要点</caption>
+        <thead><tr><th class="num">#</th><th>复盘项</th><th>结论</th><th>动作</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>重算 No-show + 取消率</td><td>本月实际 17%，表 E 计算时采用 14%，<b>高出 3 个百分点</b></td><td>仍在「15–20%」档内（基准 5%），但已接近下档边界。下月改用 17% 重算</td></tr>
+          <tr><td class="num">2</td><td>修正系数是否漏项</td><td>D3 平峰（×1）、担保 45%（×1）、会议 18%（×1）、协议 38%（×1）→ <b>无漏项</b></td><td>无</td></tr>
+          <tr><td class="num">3</td><td>备用酒店假设</td><td>两家备用酒店当日均有房，<b>假设成立</b></td><td>无</td></tr>
+          <tr><td class="num">4</td><td>重设未来 30 天超售上限</td><td>按 17% 重算：17% 落「15–20%」→ 基准 5%，无修正 → 312 × 5% = 15.6，硬上限 15 → <b>15 间</b></td><td><b>上限从 9 间提高到 15 间</b>，但在《调价台账》备注写明「No-show 参数已升至 17%，连续 2 个月观察后再定是否稳定」</td></tr>
+          <tr><td class="num">5</td><td><b>流程改进（本条最重要）</b></td><td>缺口判定时间 20:30 太晚</td><td>增加 <b>18:00 缺口预检</b>：18:00 做一次实时比对，若缺口 &gt;0 立即启动升级腾房，不必等到实际到店</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ================= 十四 ================= -->
+  <h2 id="s14">十四、学员跟练（6 题）</h2>
+
+  <p>要求：每题限时 12 分钟，先独立作答再展开答案。<b>凡涉及超售计算的题，必须写出完整的三步法过程。</b></p>
+
+  <div class="ex-q">
+    <div class="q-t">跟练 1 · 表 B 定行与四列落位</div>
+    <div class="q-b">目标日 10 月 24 日（周五，D2 高涨日）。可售 320（OOO 0）；在手 271；去年同期同窗口在手 268；预测增量 21。当前 MinLOS = 1 晚、CTA 未启用、全部渠道开放、超售上限 0 间。<br>请：① 算预测 OCC 并定表 B 的行；② 写出四列动作与落位方式；③ 说明 CTA 这一列在本例怎么判断。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>① 定行：</b>预测 OCC =（271+21）÷320 = 292÷320 = <b>91.3%</b> → 90.0% ≤ 91.3% &lt; 95.0% → 表 B「<b>90–95%</b>」行。<br>
+      <b>② 四列动作：</b><br>
+      <b>MinLOS = 2 晚</b> → 落位：在限制条件中，按「10/24 × 全 10 房型 × BAR 及衍生价」写入最少住期 2（<b>不含 CORP 与 GDS 价</b>，避免误伤商旅客）。现状 1 晚（不设限）→ 改为 2 晚。<br>
+      <b>CTA = D1 日启用</b> → 本日为 <b>D2 高涨日，非 D1</b> → <b>不启用</b>。<br>
+      <b>低价渠道 Stop Sell = 关闭尾房特惠</b> → 本店侧 + 渠道侧两层都关；团购与批发商本档<b>不要求关闭</b>（只在 ≥95% 行才要求）。<br>
+      <b>超额预订 = ≤2 间</b> → 直接设 2 间，<b>不查表 E</b>。<br>
+      <b>③ CTA 的判断方式：</b>CTA 列在「90–95%」行写的是「<b>D1 日启用</b>」，这是一个<b>条件式取值</b>——必须先查目标日的需求等级代号。本日为 D2（HIGH），不是 D1（PEAK），所以条件不成立，不启用。<br>
+      <b>易错点：</b>把「D1 日启用」读成「启用」，或读成「待定」。正确读法是「<b>仅当该日为 D1 峰值日时启用，否则不启用</b>」。<br>
+      <b>补充：</b>若本日预测 OCC 是 96.0%（≥95% 行），CTA 列直接写「启用」，此时不看需求等级，一律启用。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">跟练 2 · 超售计算（三步法 + 房型分配）</div>
+    <div class="q-b">目标日 4 月 18 日（周四，D3 平峰日），可售 312 间（OOO 8）。预测 OCC 79.5%。历史 No-show + 24h 取消 = 11%；担保预订占比 58%；会议团队占当日 22%；协议客户集中度 62%；步行 30 分钟内有同档备用酒店。<br>请：① 判断是否需查表 E；② 完整走三步法算出超售上限；③ 按房型分配（写出每档配额与余数补齐过程）。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>① 是否查表 E：</b>预测 OCC 79.5% → 表 B「<b>70–85%</b>」行 → 超额预订列写「<b>按表 E</b>」→ <b>需要计算</b>。<br>
+      <b>② 三步法：</b><br>
+      <b>第一步：</b>11% 落「10–15%」档 → 基准超售率 = <b>3%</b><br>
+      <b>第二步：</b>D1/D2？否（D3）→ ×1；担保 58% &gt; 60%？<b>否</b>（58 &lt; 60）→ ×1；会议团队 22% &gt; 40%？否 → ×1；<b>协议集中度 62% &gt; 50%？是 → × 0.8</b><br>
+      修正后超售率 = 3% × 0.8 = <b>2.4%</b><br>
+      <b>第三步：</b>有备用酒店 → 不减半，最终 2.4%<br>
+      超售间数（未取整）= 312 × 2.4% = <b>7.488</b><br>
+      硬上限①：312 × 5% = 15.6　硬上限②：15<br>
+      min(7.488, 15.6, 15) = 7.488 → 向下取整 = <b>7 间</b><br>
+      <b>超售上限 = 7 间</b><br>
+      <b>③ 房型分配：</b>分配基数 = 312 − 套房 10 = <b>302 间</b>（注意：本例可售 312 而非 320，OOO 8 间分布未知，本学院统一按「套房间数 10 间不参与」扣减，得 302）<br>
+      STD-K：70 ÷ 302 × 7 = 1.623 → 1（余 .623）<br>
+      STD-T：50 ÷ 302 × 7 = 1.159 → 1（余 .159）<br>
+      SUP-K：60 ÷ 302 × 7 = 1.390 → 1（余 .390）<br>
+      SUP-T：40 ÷ 302 × 7 = 0.927 → 0（余 .927）<br>
+      DLX-K：45 ÷ 302 × 7 = 1.043 → 1（余 .043）<br>
+      DLX-V：15 ÷ 302 × 7 = 0.348 → 0（余 .348）<br>
+      EXE-K：25 ÷ 302 × 7 = 0.579 → 0（余 .579）<br>
+      EXE-T：5 ÷ 302 × 7 = 0.116 → 0（余 .116）<br>
+      取整合计 = 1+1+1+0+1+0+0+0 = <b>4</b>，需补 3 个名额<br>
+      余数排序：SUP-T .927（第 1）、STD-K .623（第 2）、EXE-K .579（第 3）、SUP-K .390（第 4）…<br>
+      <b>最终分配：STD-K 2 / STD-T 1 / SUP-K 1 / SUP-T 1 / DLX-K 1 / EXE-K 1 / DLX-V 0 / EXE-T 0 = 7 间</b> ✓<br>
+      <b>易错点提醒：</b>担保占比 58% 是精心设计的数字——<b>刚好差 2 个百分点不触发 ×0.5</b>。这类「差一点」的数字在考试和实务中都会出现，必须严格比大小，不许四舍五入。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">跟练 3 · 峰值日超售（三重约束）</div>
+    <div class="q-b">目标日 5 月 2 日（D1 峰值日，五一假期第 2 天）。可售 320；在手 300；去年同期同窗口在手 268；预测增量 8。历史 No-show + 24h 取消 = 9%；担保占比 82%；会议团队 5%；协议集中度 30%；<b>步行 30 分钟内无同档次备用酒店</b>（假期周边满房）。<br>请：① 先查表 B 判断要不要超售；② 即便如此，仍走一遍表 E 三步法验证；③ 说明三重约束分别是哪三条。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>① 表 B：</b>预测 OCC =（300+8）÷320 = 308÷320 = <b>96.3%</b> → ≥95% → 表 B「<b>≥95%</b>」行 → 超额预订列 = <b>不超售</b> → <b>超售上限 0 间，不需要查表 E</b>。<br>
+      <b>② 表 E 验证（仅作演示）：</b><br>
+      第一步：9% 落「5–10%」档 → 基准 = <b>2%</b><br>
+      第二步：D1 峰值日 → <b>×0.5</b>；担保 82% &gt; 60% → <b>×0.5</b>；会议 5% ≯ 40% → ×1；协议 30% ≯ 50% → ×1<br>
+      修正后 = 2% × 0.5 × 0.5 = <b>0.5%</b><br>
+      第三步：<b>无备用酒店 → 超售率减半</b>：0.5% × 0.5 = <b>0.25%</b><br>
+      超售间数 = 320 × 0.25% = <b>0.8</b>；硬上限 16 / 15 未触及<br>
+      向下取整 → <b>0 间</b><br>
+      <b>③ 三重约束：</b><br>
+      <b>约束 1（最硬）：表 B「≥95%」行直接规定「不超售」</b>。这是优先级 2 的表 B 给出的结论，根本不需要进入表 E。<br>
+      <b>约束 2：无备用酒店 → 超售率减半</b>（表 E 第三步第 3 条）。<br>
+      <b>约束 3：向下取整</b>把 0.8 变成 0。<br>
+      三条叠加，结果必然为 0。<br>
+      <b>教学要点：查表顺序永远是「先表 B 定要不要超售，再表 E 定超多少」。</b>若顺序反了，直接套表 E 会算出 2% × 0.5 × 0.5 = 0.5% → 320 × 0.5% = 1.6 → 1 间，在峰值日多超售 1 间，而这一天你几乎不可能找到地方送走客人。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">跟练 4 · 撤除事故复盘</div>
+    <div class="q-b">9 月 25 日（D2 展会日）对 STD-K 设了 Stop Sell（为升级腾房），到期日应为 9 月 26 日，但撤除流程没走。9 月 30 日周一全量对账时才发现 STD-K 仍为停售状态。<br>请：① 估算损失房晚（STD-K 共 70 间，同期其余房型平均 OCC 78%，STD-K 历史占比 22%）；② 说明三重保险中哪几重失效了；③ 写出补救动作与后续防复发措施。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>① 损失估算：</b><br>
+      过期天数 = 9/26 至 9/30（含）= <b>5 天</b><br>
+      全店日均已售房晚 = 320 × 78% = <b>249.6 间</b><br>
+      STD-K 历史占比 22% → 日均应售 STD-K = 249.6 × 22% = <b>54.9 间</b><br>
+      <b>5 天损失房晚 ≈ 274 间</b>；按 STD-K 平峰 BAR ¥580 ×（1 − 渠道综合成本率 10%）= 净 ¥522/间<br>
+      <b>直接经济损失 ≈ 274 × 522 = ¥143,028</b><br>
+      <b>注：</b>这是保守估算——实际还有一部分需求会转移到 SUP 等更高房型（升档销售），真实损失会低于此数；但也会有对价格敏感的客人直接流失，真实损失也可能更高。<b>报告时应写明估算口径与不确定性。</b><br><br>
+      <b>② 三重保险的失效情况：</b><br>
+      <b>保险一（设置即登记）：失效。</b>若已登记进《限制条件存量清单》并填了到期日 9-26，则下面两重至少有一重能拦住。5 天未被发现，高度怀疑<b>根本没登记</b>。<br>
+      <b>保险二（每日扫描）：失效。</b>9/26–9/30 连续 5 天的 08:30 扫描都没有筛出这一行。要么扫描动作根本没执行，要么清单里没有这一行。<br>
+      <b>保险三（周一全量对账）：部分生效。</b>9 月 30 日（周一）的对账发现了问题——<b>这是唯一起作用的一重，但晚了 5 天</b>。<br>
+      <b>根因：保险一没做。</b>后面两重都依赖于第一重产生的清单。<br><br>
+      <b>③ 补救与防复发：</b><br>
+      <b>补救：</b>① 立即撤除（本店侧 + 渠道侧两层），按撤除五步法执行并试订验证；② 在《调价台账》登记为事故，备注写明「过期 5 天，损失房晚约 274 间，直接损失约 ¥143,028」；③ 上报 L2 与驻店经理；④ 立即筛查 9/26–9/30 期间被 OTA 拒单的客人，能召回的做定向挽回（直销专享价 + 会员积分）。<br>
+      <b>防复发：</b>① 把「设置即登记」写入 L1 的岗位操作卡，<b>未登记的限制条件视为未设置，不得执行</b>；② 在《限制条件存量清单》加一列「登记人」，与设置人交叉复核；③ 把周一全量对账改为<b>每日晨会（10:05）口头确认一次到期项</b>，把周期从 7 天压到 1 天；④ 用系统的限制条件报表做自动导出（见 M04 第 12 节自动化改造第 5 条），<b>不依赖人工维护的清单</b>。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">跟练 5 · 免费升级排序（表 J）</div>
+    <div class="q-b">某日高档房空置 24%（共 100 间高档房，空 24 间），需挑 3 位客人从 SUP 升到 DLX。候选人如下：<br>
+    甲：钻石，预订价 ¥680，住 2 晚，复购 5 次<br>
+    乙：铂金，预订价 ¥820，住 1 晚，复购 20 次<br>
+    丙：钻石，预订价 ¥660，住 4 晚，复购 3 次<br>
+    丁：钻石，预订价 ¥680，住 2 晚，复购 9 次<br>
+    戊：银卡，预订价 ¥880，住 7 晚，复购 31 次<br>
+    己：金卡，预订价 ¥750，住 3 晚，复购 1 次<br>
+    请：① 给出完整排序与理由；② 指出哪两位入选；③ 若第 3 位客人坚持要升到 STE 套房，该怎么处理？</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>① 排序过程：</b><br>
+      <b>第 1 级 · 会员等级：</b>钻石 {甲、丙、丁} &gt; 铂金 {乙} &gt; 金卡 {己} &gt; 银卡 {戊}。<br>
+      3 个名额全部在钻石组内产生，<b>乙、己、戊本轮无份</b>。<br>
+      <b>（关键：戊的 ¥880 最高、住 7 晚最久、复购 31 次最多，但他是银卡，第 1 级就被淘汰了，后面三项都不再比。）</b><br>
+      <b>第 2 级 · 同档内比预订价：</b>丙 ¥660 &lt; 甲 ¥680 = 丁 ¥680 → <b>丙出局</b>。<br>
+      <b>第 3 级 · 同价比入住天数：</b>甲 2 晚 = 丁 2 晚 → 平手，进入第 4 级。<br>
+      <b>第 4 级 · 复购次数：</b>丁 9 次 &gt; 甲 5 次 → <b>丁第 1，甲第 2</b>。<br>
+      <b>第 3 名回到钻石组剩余者：丙</b>（第 2 级被淘汰，但钻石组只有 3 人，第 3 个名额仍给丙）。<br>
+      <b>完整排序：① 丁 ② 甲 ③ 丙 ④ 乙 ⑤ 己 ⑥ 戊</b><br><br>
+      <b>② 入选：丁、甲、丙，均从 SUP 升到 DLX（升 1 档，符合表 J「最多升 1 档」）。</b><br><br>
+      <b>③ 若第 3 位客人坚持升到 STE 套房：</b><br>
+      SUP → STE 是<b>连跳 2 档</b>（SUP → DLX → STE），<b>表 J 明令禁止，除 L3 特批</b>。<br>
+      处理步骤：① 明确告知客人：按规则最多升 1 档（到 DLX）；② 若客人不接受，<b>不得擅自办理</b>，立即发起 L3 特批，说明客人等级、原因、原房型与目标房型；③ 取得 L3 书面确认后办理，并在《升级台账》第 7 列「升档数」填 2、第 10 列「审批人」填 L3 姓名、备注写明特批理由；④ 若涉及套房，<b>还要核查当日套房升级是否已满 3 间</b>，满 3 间则即使 L3 特批也不得办理（两条硬约束独立生效）。<br>
+      <b>替代方案（不占用套房额度）：</b>升级到 DLX + 赠送双早（¥256）+ 行政酒廊权益，成本远低于套房，且不受 3 间额度限制。这是前厅应优先提出的方案。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">跟练 6 · 步行客人预案完整执行</div>
+    <div class="q-b">11 月 12 日超售日，21:00 判定缺口 2 间，需送走 2 位客人：客人 X（铂金会员，本店成交价 ¥680，SUP-K）；客人 Y（非会员，本店成交价 ¥563，STD-K）。备用酒店 B 滨江希尔顿花园（2.5km，同档，房价 ¥720）当日有房。<br>请：① 按四步补偿包逐项写出对两位客人的处置；② 估算直接成本；③ 写出事后复盘必须做的四件事。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      <b>① 四步补偿包：</b><br>
+      <b>第 1 步 · 安排同档酒店 + 承担差价与交通：</b><br>
+      客人 X：B 滨江希尔顿花园（中高端，与本店同档 ✓），房费 ¥720，本店成交价 ¥680 → 差价 <b>¥40</b>；交通 2.5km 往返打车约 <b>¥120</b> → 小计 <b>¥160</b><br>
+      客人 Y：同酒店，房费 ¥720，本店成交价 ¥563 → 差价 <b>¥157</b>；交通 <b>¥120</b> → 小计 <b>¥277</b><br>
+      <b>注意差价按「客人实际成交价」算，不是按 BAR ¥680 算。</b>客人 Y 买的是 STD-K 促销价 ¥563，差价就是 ¥720 − ¥563 = ¥157。<br>
+      <b>第 2 步 · 下次入住免费升级 1 档 + 双早：</b><br>
+      两位各发 1 张券：升级 1 档（X：SUP→DLX，差价 ¥140；Y：STD→SUP，差价 ¥100）+ 双早（¥128 × 2 = ¥256）<br>
+      X：140 + 256 = <b>¥396</b>　Y：100 + 256 = <b>¥356</b>　小计 <b>¥752</b><br>
+      券面必须写明<b>有效期 12 个月</b>，并记录券号。<br>
+      <b>第 3 步 · 忠诚会员额外补偿 5,000 积分：</b><br>
+      <b>仅客人 X（铂金）发放 5,000 积分；客人 Y 非会员，不适用。</b>不按等级差异化——若 X 是钻石，同样是 5,000 积分。<br>
+      成本 ≈ 5,000 × 约 ¥0.01/分 ≈ <b>¥50</b>（按 LOY 渠道 4% 综合成本率折算口径记账）<br>
+      <b>第 4 步 · 总经理签名致歉信 + 值班经理全程跟进：</b><br>
+      两位各一封<b>总经理亲笔预签</b>的致歉信（含四项要素：承认超售失误 / 说明已安排的同档酒店与承担范围 / 写明后续补偿 / 留总经理与值班经理直联方式）。<br>
+      值班经理：送客人上车 → 到店确认入住 → <b>次日致电确认回本店安排</b> → 离店后 72 小时内回访。<br>
+      成本（信函 + 人力）≈ <b>¥200</b><br><br>
+      <b>② 直接成本合计：</b>160 + 277 + 752 + 50 + 200 = <b>¥1,439</b>（约 ¥720/人次）<br><br>
+      <b>③ 事后复盘四件事（表 L：重算表 E 参数）：</b><br>
+      <b>a. 重算 No-show 率与 24h 内取消率</b>：取 11 月全月数据重算，与表 E 计算时采用的历史值对比。若高出 5 个百分点以上，说明输入已过时。<br>
+      <b>b. 核查修正系数是否漏项</b>：11/12 为 D3 平峰（×1）、担保占比多少？会议团队占比多少？协议集中度多少？逐条回看，看有没有漏乘的 ×0.5 / ×0.8。<br>
+      <b>c. 核查备用酒店假设</b>：11/12 当日 30 分钟内的同档备用酒店是否真有房？本次 B 酒店有房，假设成立；若无房，第三步的减半是否被正确应用？<br>
+      <b>d. 重设未来 30 天的超售上限</b>：按修正后的参数重算，并在《调价台账》备注写明「依表 L 复盘重算，原上限 9 间调整为 X 间」。<br>
+      <b>产出物：《超售过度复盘报告》，7 天内完成。</b>
+    </div></details>
+  </div>
+
+  <!-- ================= 十五 ================= -->
+  <h2 id="s15">十五、判定表默写清单</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">✎</span>当堂默写（限时 15 分钟）</div>
+    <ul class="checklist">
+      <li>《法典》表 B 的 5 行边界：≥95% / 90.0–95.0% / 85.0–90.0% / 70.0–85.0% / &lt;70.0%（<b>含下界不含上界</b>）</li>
+      <li>《法典》表 B 的四列：MinLOS / CTA / 低价渠道 Stop Sell / 超额预订（<b>四列同时配置，不是四选一</b>）</li>
+      <li>表 B 各行的 MinLOS：≥95% → 2 晚（D1 峰值日 3 晚）；90–95% → 2 晚；85–90% → 1–2 晚（周末 2 晚）；70–85% → 1 晚；&lt;70% → 不设限</li>
+      <li>表 B 各行的 CTA：≥95% → 启用；90–95% → <b>D1 日启用</b>；其余三行 → 否</li>
+      <li>表 B 各行的超额预订：≥95% → 不超售；90–95% → <b>≤2 间</b>；85–90% → 按表 E；70–85% → 按表 E；&lt;70% → 不超售</li>
+      <li>《法典》表 E 第一步六档：&lt;5%→0%、5–10%→2%、10–15%→3%、15–20%→5%、20–30%→7%、&gt;30%→10%（需 L3 审批）</li>
+      <li>《法典》表 E 第二步四个修正系数：D1/D2 → ×0.5；担保 &gt;60% → ×0.5；会议团队 &gt;40% → ×0.5；协议集中度 &gt;50% → ×0.8</li>
+      <li>《法典》表 E 第三步三条硬上限：≤可售房量 5%（云璟 320 间 → 16 间）；≤15 间；30 分钟内无同档备用酒店 → <b>超售率减半</b></li>
+      <li>表 E 计算顺序：先减半 → 再比大小（取 min）→ 最后向下取整</li>
+      <li>超售房型分配两条规则：套房（STE-B 8 + STE-E 2 = 10 间）不参与；按比例 + 最大余数法补齐</li>
+      <li>《法典》表 J 三个触发条件：① 超售需要腾房 ② 高档房预测空置 &gt;20% ③ 会员权益兑现</li>
+      <li>《法典》表 J 四级排序：钻石&gt;铂金&gt;金卡&gt;银卡 → 同档内预订价高者先 → 同价入住天数长者先 → 相同复购次数多者先</li>
+      <li>《法典》表 J 两条硬约束：最多升 1 档（禁连跳 2 档，除 L3 特批）；套房升级每日 ≤3 间且须 L3 审批</li>
+      <li>《升级台账》表 J 要求的三个必记项：原因、房号、会员等级</li>
+      <li>《步行客人预案》四步：① 同档或更高档酒店 + 承担房费差价与交通费 ② 本店下次升级 1 档 + 双早 ③ 忠诚会员 5,000 积分 ④ 总经理签名致歉信 + 值班经理全程跟进</li>
+      <li>限制条件撤除五步法：查到期日 → 两层都撤 → 试订验证 → 截图存证 → 台账登记 + 清单更新</li>
+      <li>《限制条件存量清单》8 个字段，其中第 6 列「到期日」= 生效结束日的<b>次日</b></li>
+      <li>三重保险：设置即登记 / 每日 08:30 扫描（3 分钟）/ 每周一全量对账</li>
+    </ul>
+  </div>
+
+  <!-- ================= 十六 ================= -->
+  <h2 id="s16">十六、随堂测（5 题）</h2>
+
+  <div class="ex-q">
+    <div class="q-t">第 1 题</div>
+    <div class="q-b">CTA 与 Stop Sell 有什么本质区别？如果误把 CTA 当 Stop Sell 用，会发生什么？</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      答案：<b>CTA 只挡「新到店」，不挡「延续入住」；Stop Sell 是完全不可售，什么都不让订。</b><br>
+      解析：CTA（Closed to Arrival，不可入住）的作用点是<b>入住日</b>——它拒绝「以该日为入住日的新订单」，但已经在住的客人可以正常延续跨过这一天。<br>
+      Stop Sell（停售/关房）是把该房型/价格代码/渠道在某日<b>整体置为不可售</b>，与库存余量无关，任何人都订不到。<br>
+      <b>误用后果：</b>若本想做 CTA（挡新客、保留续住）却设成了 Stop Sell，会把已经在住客人的续住请求一起挡掉——系统会把续住视为「该日的新预订」而拒绝。结果是：<b>满房日的续住客人在前台被告知「系统订不了」，引发严重客诉，且前厅需要用手工单绕开系统，造成房态与账务不同步。</b><br>
+      反之，若本想 Stop Sell 却设成 CTA，房间仍会被延续入住占用，达不到腾房目的。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 2 题</div>
+    <div class="q-b">表 E 第三步的「无备用酒店 → 超售率减半」，减半作用在哪个量上？如果先向下取整再减半会怎样？</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      答案：<b>减半作用在「修正后的超售率」上，不是作用在「超售间数」上；且减半必须在向下取整之前完成。</b><br>
+      解析：正确顺序是——① 修正后超售率 × 0.5 → 最终超售率；② 超售间数（未取整）= 可售房量 × 最终超售率；③ 取硬上限 min(未取整值, 可售×5%, 15)；④ 最后向下取整。<br>
+      <b>错误示范：</b>假设修正后超售率 3%，可售 320 间。<br>
+      正确：3% × 0.5 = 1.5% → 320 × 1.5% = 4.8 → <b>4 间</b><br>
+      错误（先取整再减半）：320 × 3% = 9.6 → 取整 9 间 → 9 ÷ 2 = 4.5 → <b>4 间</b>（本例巧合相同）<br>
+      <b>换个数字就能看出差异：</b>修正后超售率 1%，可售 320 间。<br>
+      正确：1% × 0.5 = 0.5% → 320 × 0.5% = 1.6 → <b>1 间</b><br>
+      错误：320 × 1% = 3.2 → 取整 3 → 3 ÷ 2 = 1.5 → 若再取整得 <b>1 间</b>，若不取整得 <b>1.5 间</b>（非法，房间不能是小数）<br>
+      <b>更关键的是「超售率减半」而非「间数减半」在大幅超售时的差异：</b>若修正后 10%、可售 312：<br>
+      正确：10% × 0.5 = 5% → 312 × 5% = 15.6 → 硬上限 15 → <b>15 间</b><br>
+      错误：312 × 10% = 31.2 → 硬上限 15 → 15 → 15 ÷ 2 = 7.5 → <b>7 间</b><br>
+      <b>两者相差 8 间。</b>所以顺序必须对。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 3 题</div>
+    <div class="q-b">《法典》表 J 第 2 级排序「同档内：预订价高者优先」的「同档内」指的是什么？一个付 ¥900 的银卡会员和一个付 ¥600 的钻石会员，谁先升？</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      答案：<b>「同档内」指「同一会员等级内部」。钻石会员先升，与预订价无关。</b><br>
+      解析：表 J 的四级排序是<b>严格按序的层级判定</b>，不是加权打分。第 1 级（会员等级）就能分出胜负时，后面三级<b>根本不再比较</b>。<br>
+      钻石 &gt; 银卡 → 第 1 级已定胜负 → 钻石会员先升。<br>
+      「预订价高者优先」是第 2 级规则，只在<b>第 1 级打平时</b>才启动——即两个都是钻石、或两个都是铂金时，才去比谁的原预订价高。<br>
+      <b>这个规则的设计意图：</b>会员等级代表客人的长期价值，预订价只代表本次交易的金额。一个钻石会员即使是本次订了低价房（比如用了积分或协议价），他的<b>生命周期价值</b>仍高于一个偶尔订高价的银卡会员。<br>
+      <b>常见错误：</b>把四级规则当成「综合评分」加权计算，这是彻底误读。表 J 写的是「执行顺序（严格按序）」。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 4 题</div>
+    <div class="q-b">为什么超售的房型分配要排除套房？如果一定要给套房设超售，需要满足什么条件？</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      答案：<b>因为套房间数极少而超售失败代价极高；若一定要设，须 L3 特批并单独评估，且不得占用常规分配额度。</b><br>
+      解析：<b>排除套房的两个理由：</b><br>
+      ① <b>统计意义不足。</b>云璟套房共 10 间（STE-B 8 + STE-E 2），占房量 3.1%。按 3% 的比例分配，10 间 × 超售率只能分到零点几间，对整体超售目标贡献微乎其微。<br>
+      ② <b>失败代价不对称。</b>超售失败时，把付 ¥1,280 的套房客送走，补偿成本（需安排同档或更高档的套房，本区域同档套房极少且极贵）+ 客诉烈度（套房客通常是高价值或纪念日客人）+ 忠诚会员流失风险，<b>远高于多卖一间标准房的收益</b>。<br>
+      <b>若一定要给套房设超售：</b>① 必须 L3 特批，写明理由；② 单独计算，<b>不纳入表 E 的常规分配基数</b>（即 310 间的分配不受影响）；③ 必须有确定的同档或更高档套房作为备用（普通房不算「同档」）；④ 在《超售日监控表》与《升级台账》中单独标记。<br>
+      <b>本学院立场：默认不给套房设超售。</b>上表的四个条件只是「万一要做时的最低要求」，不是鼓励去做。
+    </div></details>
+  </div>
+
+  <div class="ex-q">
+    <div class="q-t">第 5 题</div>
+    <div class="q-b">限制条件撤除五步法里，第 3 步「试订验证」为什么不能省？请举一个「看起来撤了、实际没撤干净」的具体例子。</div>
+    <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
+      答案：<b>因为限制条件是按「日期 × 房型 × 价格代码 × 渠道」四元组设置的，撤除时很容易只撤了其中一个维度，留下残片。系统的库存显示不会告诉你这是「本来就满房」还是「被限制挡住了」。</b><br>
+      解析：<b>具体例子：</b>9 月 19 日设 MinLOS = 2 晚时，操作人按房型逐个设置，设了 STD-K / STD-T / SUP-K / SUP-T / DLX-K 五档（当时只想着挡散客主力房型）。撤除时，操作人在「限制条件」页面按<b>日期</b>批量清空——但系统里 MinLOS 是按「日期 × 房型 × 价格代码」存的，批量清空只清了<b>当前筛选条件下显示的那几档</b>，DLX-V / EXE-K / EXE-T 三档的 MinLOS = 2 仍在生效。<br>
+      <b>表现：</b>9 月 20 日起，STD 与 SUP 能订 1 晚，但 DLX-V / EXE-K / EXE-T 只能订 2 晚以上。OTA 上这三个房型显示「不可订（1 晚）」，客人以为售罄。而收益专员看「全店可售房量」是正常的，完全看不出问题。<br>
+      <b>后果：</b>这三个房型共 45 间（DLX-V 15 + EXE-K 25 + EXE-T 5），占房量 14%，在平峰日连续多天接不到单晚商务客。<br>
+      <b>试订验证能拦住它：</b>按表 7-6 的试订矩阵，撤 MinLOS 后要试订「该日入住 1 晚」——但<b>必须逐房型试订</b>，不能只试一个房型。若只试 STD-K 成功就认为撤干净了，仍会漏掉 DLX-V / EXE / EXE-T。<br>
+      <b>所以试订验证的操作标准是：逐房型、逐价格代码试订，并把试订成功的页面截图存证。</b>
+    </div></details>
+  </div>
+
+  <!-- ================= 十七 ================= -->
+  <h2 id="s17">十七、本模块产出物</h2>
+
+  <div class="callout callout-do">
+    <span class="co-t">结课交付清单</span>
+    <ul style="margin:6px 0 0">
+      <li><b>《库存与限制条件配置卡》</b>——表 B 的 5 行 × 4 列一页纸版，含四列的执行要点与易错点，前台与收益人手一份</li>
+      <li><b>《限制条件存量清单》</b>——8 字段，含「到期日」列；设置为生效中时必登记，撤除后更新状态</li>
+      <li><b>《撤除五步法检查卡》</b>——含表 7-6 试订矩阵（逐房型、逐价格代码），贴在工位</li>
+      <li><b>《超售计算表》</b>——表 E 三步法的 Excel 自动计算模板，输入 5 个参数自动输出超售上限与房型分配（含套房排除与最大余数法）</li>
+      <li><b>《超售日监控表》</b>——8 字段，含超售余额自动告警（余额 ≤0 时标红并提示关闭超售）</li>
+      <li><b>《升级台账》</b>——11 字段，含升档数自动标红（&gt;1 即触发 L3 特批核查）与套房每日 3 间额度自动计数</li>
+      <li><b>《步行客人预案包》</b>——备用酒店名单模板（含实时房态确认栏）+ 四步补偿包执行单 + 总经理预签致歉信模板 + 补偿成本速算表</li>
+      <li><b>《超售过度复盘报告》模板</b>——四项复盘动作（重算 No-show、核查修正系数、核查备用酒店、重设 30 天上限）</li>
+      <li><b>表 B / 表 E / 表 J 默写卷</b>——当堂完成，错一格重默</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">→</span>下一模块预告</div>
+    <p>库存管好了，接下来要管「这些房间通过谁卖出去」。M08 渠道与分销管理会把《法典》表 H（渠道开关判定表，6 档 OCC × 5 类渠道）讲透，并回答一个本模块埋下的伏笔：<b>表 B 的「低价渠道 Stop Sell」列到底在关哪些渠道、关了之后少赚多少</b>。<br>
+    你会学到 7 个渠道的真实成本（直销 3%、会员 4%、协议 8%、GDS 13%、OTA 国内 16%、OTA 国际 18%、批发商 26%），以及一个反直觉的结论：<b>OTA 卖 ¥600（净 ¥504）不如直销卖 ¥530（净 ¥514）——便宜 70 元反而多赚 10 元。</b>理解了这一点，你才会明白为什么表 B 要在旺日去关那些看起来「卖得很好」的渠道。</p>
+  </div>
+
+  <!-- ===== 底部导航 ===== -->
+  <div class="pager">
+    <a href="m06-pricing.html"><div class="p-dir">← 上一模块</div><div class="p-title">M06 价格体系设计</div></a>
+    <a href="m08-channel.html" class="p-next"><div class="p-dir">下一模块 →</div><div class="p-title">M08 渠道与分销管理</div></a>
+  </div>
+
+</div>
+</main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>K06 超售与 No-show · 通用内核 · 中国收益管理社区</title>
+<meta name="description" content="超售与 No-show：超售不是赌博，是概率题。跨行业通用的收益管理内核模块，覆盖住宿、餐饮、航空、景区、娱乐五大行业的做法对照。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<style>
+.qz {{ border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }}
+.qz-q {{ font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }}
+.qz-o {{ display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }}
+.qz-o:hover {{ border-color:var(--navy-3); background:#F6F9FC; }}
+.qz-o.ok {{ border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }}
+.qz-o.no {{ border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }}
+.qz-why {{ display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }}
+.qz-why.on {{ display:block; }}
+.lst {{ padding-left:20px; }}
+.lst li {{ font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"core","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/core/k06-noshow.html"},{"@type":"ListItem","position":3,"name":"k06-noshow","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/core/k06-noshow.html"}]}</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html">
+      <span class="gem">收</span><span>中国收益管理社区</span>
+    </a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="../academy.html">学院</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 通用内核总览</a>
+
+  <div class="cm-eyebrow" style="margin-top:14px">通用内核 · K06</div>
+  <h1 class="cm-section-title" style="font-size:28px">超售与 No-show</h1>
+  <p class="cm-section-lead">外行看超售是在赌客人不来，内行看超售是在算期望值：多卖一间多赚的钱 × 概率，对比超卖爆掉要赔的钱 × 概率。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心原理</div>
+    <h2 class="cm-section-title">四条必须记住的</h2>
+    <ol class="lst">
+      <li><b>核心是期望值，不是胆量。</b>超售额度由 No-show 分布和赔付成本共同决定，算出来的最优解和你的直觉通常不一样。</li>
+      <li><b>赔付成本决定上限。</b>walk 一个客人的成本不只是房费，还包括交通、声誉损失和客人终身价值的折损。</li>
+      <li><b>超售额度要动态调整。</b>旺季 No-show 率低、赔付成本高，超售要收；淡季相反，可以适当放宽。</li>
+      <li><b>必须有应急预案。</b>超售爆了怎么处理、谁来拍板、送哪家酒店、补偿标准是什么——这些必须在事发前就定好。</li>
+    </ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">跨行业对照</div>
+    <h2 class="cm-section-title">同一套逻辑，五个行业怎么做</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>行业</th><th>具体做法</th></tr></thead>
+      <tbody>
+        <tr><td><b>住宿业</b></td><td>walk 客人：送隔壁酒店 + 承担房费 + 补偿，超售额度约 No-show 率 × 可售房</td></tr>
+        <tr><td><b>餐饮业</b></td><td>等位超时：预订不放座 vs 空桌损失，通常留 10–15 分钟缓冲</td></tr>
+        <tr><td><b>航空业</b></td><td>DB 拒载：法定赔偿 + 改签 + 食宿，自愿放弃优先于强制拒载</td></tr>
+        <tr><td><b>景区文旅</b></td><td>分时预约超额：极少使用，更多靠承载上限硬约束</td></tr>
+        <tr><td><b>娱乐休闲</b></td><td>电影/演出一般不做超售，靠站票或加场消化</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关键指标</div>
+    <h2 class="cm-section-title">要算的数</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>公式 / 定义</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td><b>No-show 率</b></td><td>未到店订单 ÷ 总订单 × 100%</td><td>超售额度的计算基础</td></tr>
+        <tr><td><b>超售额度</b></td><td>由 No-show 分布 + 赔付成本倒推</td><td>期望收益最大化的点</td></tr>
+        <tr><td><b>walk 成本</b></td><td>房费 + 交通 + 补偿 + 声誉损失</td><td>决定超售上限</td></tr>
+        <tr><td><b>期望净收益</b></td><td>增量收益 − 期望赔付成本</td><td>衡量超售策略是否有效</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">别人踩过的坑</h2>
+    <ul class="lst">
+      <li>拍脑袋定超售额度——不 based on 历史 No-show 数据。</li>
+      <li>只算房费不算隐性成本——客人终身价值和差评的影响远大于一晚房费。</li>
+      <li>全年用同一个额度——淡旺季的 No-show 率和赔付成本完全不同。</li>
+      <li>没有应急预案——真 walk 了才临时找酒店，成本翻倍且体验极差。</li>
+    </ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题，检验一下</h2>
+    <div class="qz">
+      <div class="qz-q">第 1 题　320 间房，历史 No-show 率 3%，walk 成本约为房价的 2.5 倍。合理的超售额度大约是？</div>
+        <button class="qz-o" data-i="0" data-k="1">A. 3 间</button>
+        <button class="qz-o" data-i="1" data-k="1">B. 9 间（约 No-show 期望值）</button>
+        <button class="qz-o" data-i="2" data-k="1">C. 20 间</button>
+        <button class="qz-o" data-i="3" data-k="1">D. 不超售</button>
+      <div class="qz-why" id="why1"><b>解析 ·</b> No-show 期望值 = 320 × 3% ≈ 9.6，即约 9 间。但由于 walk 成本是房价的 2.5 倍（远高于多卖一间的收益），实际最优超售量会略低于期望值——表 E 就是用来做这个修正的。直接按期望值超售会略微过度，因为赔付成本不对称。</div>
+    </div>
+    <div class="qz">
+      <div class="qz-q">第 2 题　为什么超售额度不能全年固定？</div>
+        <button class="qz-o" data-i="0" data-k="2">A. 因为客人会投诉</button>
+        <button class="qz-o" data-i="1" data-k="2">B. 因为淡旺季的 No-show 率不同，且旺季 walk 成本更高</button>
+        <button class="qz-o" data-i="2" data-k="2">C. 因为系统不支持</button>
+        <button class="qz-o" data-i="3" data-k="2">D. 因为法律要求</button>
+      <div class="qz-why" id="why2"><b>解析 ·</b> 旺季客人履约意愿强（No-show 率低），且一旦 walk 很难找到同档次酒店（成本高）；淡季则相反。用同一个额度，旺季会超卖过度，淡季会浪费产能。</div>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>关联判定表：</b>表 E 超额预订标准表 · 表 L 异常事件应急判定表<br>
+      <b>关联行业：</b><a href="../lodging.html">住宿业</a> ·
+      <a href="../industries.html">餐饮业</a> ·
+      <a href="../industries.html">航空业</a> ·
+      <a href="../industries.html">景区文旅</a> ·
+      <a href="../industries.html">娱乐休闲</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="../academy.html">返回学院</a>
+      <a class="cm-btn cm-btn-ghost" href="../codex.html">查看操作法典</a>
+      <a class="cm-btn cm-btn-ghost" href="../games/index.html">去游戏里练</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="sf-grid">
+    <div>
+      <div class="sf-t">中国收益管理社区</div>
+      <p class="sf-desc">跨行业收益管理专业社区。一套通用内核，覆盖住宿、餐饮、航空、景区、娱乐五大行业。</p>
+    </div>
+    <div>
+      <div class="sf-t">通用内核</div>
+      <a href="index.html">内核总览</a>
+      <a href="k01-forecast.html">K01 需求预测</a>
+      <a href="k02-pricing.html">K02 动态定价</a>
+      <a href="k03-inventory.html">K03 库存控制</a>
+    </div>
+    <div>
+      <div class="sf-t">内核（续）</div>
+      <a href="k04-channel.html">K04 渠道管理</a>
+      <a href="k05-competition.html">K05 竞争响应</a>
+      <a href="k06-noshow.html">K06 超售与 No-show</a>
+      <a href="../academy.html">返回学院</a>
+    </div>
+    <div>
+      <div class="sf-t">行业</div>
+      <a href="../lodging.html">住宿业</a>
+      <a href="../industries.html">餐饮业</a>
+      <a href="../industries.html">航空业</a>
+      <a href="../industries.html">景区文旅</a>
+      <a href="../industries.html">娱乐休闲</a>
+    </div>
+  </div>
+  <div class="sf-bot">
+    <span>中国收益管理社区 · 通用内核 + 行业参数</span>
+    <span>联系：<a href="mailto:3984557428@qq.com" style="display:inline;color:var(--gold-2)">3984557428@qq.com</a></span>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js"></script>
+<script>
+(function(){
+  var t=document.getElementById('snToggle'), l=document.getElementById('snLinks');
+  if(t&&l){ t.addEventListener('click',function(){ l.classList.toggle('open'); }); }
+})();
+</script>
+
+<script>
+(function(){
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = btn.getAttribute('data-k');
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      var right = ([1,1])[parseInt(k,10)-1];
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === right) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>
+

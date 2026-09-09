@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>K04 渠道管理 · 通用内核 · 中国收益管理社区</title>
+<meta name="description" content="渠道管理：不是渠道越多越好。跨行业通用的收益管理内核模块，覆盖住宿、餐饮、航空、景区、娱乐五大行业的做法对照。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<style>
+.qz {{ border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }}
+.qz-q {{ font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }}
+.qz-o {{ display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }}
+.qz-o:hover {{ border-color:var(--navy-3); background:#F6F9FC; }}
+.qz-o.ok {{ border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }}
+.qz-o.no {{ border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }}
+.qz-why {{ display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }}
+.qz-why.on {{ display:block; }}
+.lst {{ padding-left:20px; }}
+.lst li {{ font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"core","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/core/k04-channel.html"},{"@type":"ListItem","position":3,"name":"k04-channel","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/core/k04-channel.html"}]}</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html">
+      <span class="gem">收</span><span>中国收益管理社区</span>
+    </a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="../academy.html">学院</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 通用内核总览</a>
+
+  <div class="cm-eyebrow" style="margin-top:14px">通用内核 · K04</div>
+  <h1 class="cm-section-title" style="font-size:28px">渠道管理</h1>
+  <p class="cm-section-lead">每多一个渠道，就多一份佣金，也多一份价格失控的风险。渠道管理的核心是在「触达」和「掌控」之间找平衡。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心原理</div>
+    <h2 class="cm-section-title">四条必须记住的</h2>
+    <ol class="lst">
+      <li><b>先算渠道的完全成本，再看它带来的量。</b>OTA 佣金 15%，加上可能的会员折扣和促销补贴，实际成本可能超过 20%。</li>
+      <li><b>价格一致性是生命线。</b>同一个产品在 A 渠道卖 600、B 渠道卖 500，客人一旦发现，你的直销信任就崩了。</li>
+      <li><b>渠道结构比渠道数量重要。</b>直销占比 30% 和 60% 的酒店，是完全不同的两门生意——后者有定价权，前者没有。</li>
+      <li><b>不同渠道卖不同产品，是化解冲突的好办法。</b>用套餐、附加权益做区隔，避免裸价直接对比。</li>
+    </ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">跨行业对照</div>
+    <h2 class="cm-section-title">同一套逻辑，五个行业怎么做</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>行业</th><th>具体做法</th></tr></thead>
+      <tbody>
+        <tr><td><b>住宿业</b></td><td>OTA / 直销 / 协议 / 批发，佣金 8%–22% 不等</td></tr>
+        <tr><td><b>餐饮业</b></td><td>美团 / 大众点评 / 抖音团购 / 到店，团购折扣实为渠道成本</td></tr>
+        <tr><td><b>航空业</b></td><td>官网直销 / OTA / GDS 分销 / 差旅管理公司（TMC）</td></tr>
+        <tr><td><b>景区文旅</b></td><td>官方小程序 / OTA / 旅行社团队 / 现场窗口</td></tr>
+        <tr><td><b>娱乐休闲</b></td><td>票务平台 / 影院自有 APP / 现场 / 会员体系</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关键指标</div>
+    <h2 class="cm-section-title">要算的数</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>公式 / 定义</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td><b>渠道完全成本</b></td><td>佣金 + 折扣 + 促销补贴 + 结算成本</td><td>真实获客成本，远高于名义佣金</td></tr>
+        <tr><td><b>直销占比</b></td><td>直销间夜 ÷ 总间夜 × 100%</td><td>越高定价权越强</td></tr>
+        <tr><td><b>价格一致性</b></td><td>各渠道同产品价差</td><td>价差越大，客人信任流失越快</td></tr>
+        <tr><td><b>渠道贡献度</b></td><td>渠道净收益 ÷ 渠道销量</td><td>衡量渠道是否真的划算</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">别人踩过的坑</h2>
+    <ul class="lst">
+      <li>只谈佣金率不谈完全成本——促销补贴和会员折扣没算进去。</li>
+      <li>为了冲量无底线给渠道独家低价——短期量上去了，长期价格体系崩了。</li>
+      <li>渠道价格不同步——官网 600、OTA 500，客人直接弃官网。</li>
+      <li>从来不主动引导客人转直销——入住一次的客人下次还是从 OTA 来。</li>
+    </ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题，检验一下</h2>
+    <div class="qz">
+      <div class="qz-q">第 1 题　某 OTA 佣金 15%，你为了拿量又给了 10% 的促销补贴。这个渠道的真实成本是？</div>
+        <button class="qz-o" data-i="0" data-k="1">A. 15%</button>
+        <button class="qz-o" data-i="1" data-k="1">B. 10%</button>
+        <button class="qz-o" data-i="2" data-k="1">C. 约 23.5%（1 − 0.85 × 0.90）</button>
+        <button class="qz-o" data-i="3" data-k="1">D. 25%</button>
+      <div class="qz-why" id="why1"><b>解析 ·</b> 佣金和补贴是叠加计算的，不是相加。100 元房价，扣 15% 佣金剩 85，再扣 10% 补贴（85 × 0.9 = 76.5），实际到手 76.5，成本 23.5%。很多人直接把 15%+10% 算成 25%，高估了成本但方向是对的——这类叠加成本必须算清楚。</div>
+    </div>
+    <div class="qz">
+      <div class="qz-q">第 2 题　为什么价格一致性如此重要？</div>
+        <button class="qz-o" data-i="0" data-k="2">A. 因为平台会罚款</button>
+        <button class="qz-o" data-i="1" data-k="2">B. 因为客人一旦发现价差，会放弃直销渠道，导致佣金成本永久上升</button>
+        <button class="qz-o" data-i="2" data-k="2">C. 因为法律要求</button>
+        <button class="qz-o" data-i="3" data-k="2">D. 因为系统不好维护</button>
+      <div class="qz-why" id="why2"><b>解析 ·</b> 价格不一致最致命的后果不是被平台罚，而是失去客人的信任。客人发现 OTA 更便宜后，会永久转向 OTA，你的直销占比再也提不上来——这是不可逆的损失。</div>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>关联判定表：</b>表 H 渠道开关判定表<br>
+      <b>关联行业：</b><a href="../lodging.html">住宿业</a> ·
+      <a href="../industries.html">餐饮业</a> ·
+      <a href="../industries.html">航空业</a> ·
+      <a href="../industries.html">景区文旅</a> ·
+      <a href="../industries.html">娱乐休闲</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="../academy.html">返回学院</a>
+      <a class="cm-btn cm-btn-ghost" href="../codex.html">查看操作法典</a>
+      <a class="cm-btn cm-btn-ghost" href="../games/index.html">去游戏里练</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="sf-grid">
+    <div>
+      <div class="sf-t">中国收益管理社区</div>
+      <p class="sf-desc">跨行业收益管理专业社区。一套通用内核，覆盖住宿、餐饮、航空、景区、娱乐五大行业。</p>
+    </div>
+    <div>
+      <div class="sf-t">通用内核</div>
+      <a href="index.html">内核总览</a>
+      <a href="k01-forecast.html">K01 需求预测</a>
+      <a href="k02-pricing.html">K02 动态定价</a>
+      <a href="k03-inventory.html">K03 库存控制</a>
+    </div>
+    <div>
+      <div class="sf-t">内核（续）</div>
+      <a href="k04-channel.html">K04 渠道管理</a>
+      <a href="k05-competition.html">K05 竞争响应</a>
+      <a href="k06-noshow.html">K06 超售与 No-show</a>
+      <a href="../academy.html">返回学院</a>
+    </div>
+    <div>
+      <div class="sf-t">行业</div>
+      <a href="../lodging.html">住宿业</a>
+      <a href="../industries.html">餐饮业</a>
+      <a href="../industries.html">航空业</a>
+      <a href="../industries.html">景区文旅</a>
+      <a href="../industries.html">娱乐休闲</a>
+    </div>
+  </div>
+  <div class="sf-bot">
+    <span>中国收益管理社区 · 通用内核 + 行业参数</span>
+    <span>联系：<a href="mailto:3984557428@qq.com" style="display:inline;color:var(--gold-2)">3984557428@qq.com</a></span>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js"></script>
+<script>
+(function(){
+  var t=document.getElementById('snToggle'), l=document.getElementById('snLinks');
+  if(t&&l){ t.addEventListener('click',function(){ l.classList.toggle('open'); }); }
+})();
+</script>
+
+<script>
+(function(){
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = btn.getAttribute('data-k');
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      var right = ([2,1])[parseInt(k,10)-1];
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === right) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>
+

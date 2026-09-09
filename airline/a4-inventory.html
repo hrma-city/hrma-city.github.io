@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A4 库存与网络控制 · 航空业专业课 · 中国收益管理社区</title>
+<meta name="description" content="航空业收益管理专业课 A4 库存与网络控制：{sub}。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<style>
+.lst { padding-left:20px; }
+.lst li { font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }
+.qz { border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }
+.qz-q { font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }
+.qz-o { display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }
+.qz-o:hover { border-color:var(--navy-3); background:#F6F9FC; }
+.qz-o.ok { border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }
+.qz-o.no { border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }
+.qz-why { display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }
+.qz-why.on { display:block; }
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"中国收益管理社区","alternateName":["China Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"3984557428@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"中国收益管理社区","url":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/"},{"@type":"ListItem","position":2,"name":"airline","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/airline/a4-inventory.html"},{"@type":"ListItem","position":3,"name":"a4-inventory","item":"https://3000-6cfa9713881c4c7d9598887ca17f6af9.e2b.bj10.sandbox.cloudstudio.club/airline/a4-inventory.html"}]}</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html">
+      <span class="gem">收</span><span>中国收益管理社区</span>
+    </a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="../academy.html">学院</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 航空业专业课</a>
+
+  <div class="cm-eyebrow" style="margin-top:14px">航空业专业课 · A4</div>
+  <h1 class="cm-section-title" style="font-size:28px">库存与网络控制</h1>
+  <p class="cm-section-lead">这是航空收益管理技术含量最高的部分，也是它对其他行业最有借鉴价值的地方。核心问题是：一个座位可能被多个行程占用，该留给谁？</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心要点</div>
+    <h2 class="cm-section-title">四条要记住的</h2>
+    <ol class="lst">
+      <li><b>嵌套订座限制（nested booking limit）。</b>高价舱位可以卖低价舱位的座位，反之不行。当低价舱位卖到限额就关闭，座位自动留给高价需求。</li>
+      <li><b>保护水平决定给高价客留多少座。</b>留太多会剩座，留太少会流失高价客——由需求分布决定最优值。</li>
+      <li><b>O&D（起点—终点）网络收益管理。</b>一张北京—上海—广州的联程票，同时占用京沪和沪广两段座位。必须按整条行程的价值判断，而不是按单段。</li>
+      <li><b>超售用概率换满产。</b>基于 No-show 分布计算最优超售量，真超售时先征集自愿放弃者，避免强制拒载。</li>
+    </ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">要点对照</div>
+    <h2 class="cm-section-title">单段 vs 网络收益管理</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>维度</th><th>单段控制</th><th>O&amp;D 网络控制</th></tr></thead>
+      <tbody>
+        <tr><td>决策单位</td><td>单个航班的一段</td><td>起点到终点的完整行程</td></tr>
+        <tr><td>复杂度</td><td>低，易实现</td><td>高，需要优化算法</td></tr>
+        <tr><td>典型问题</td><td>可能把座位卖给低价值的短途客</td><td>能识别高价值的联程客</td></tr>
+        <tr><td>适用场景</td><td>点对点航线、低成本航司</td><td>有中转枢纽的全服务航司</td></tr>
+        <tr><td>收益提升</td><td>基准</td><td>通常可再提升 2%–5%</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">这个行业容易踩的坑</h2>
+    <ul class="lst">
+      <li>有中转枢纽却只做单段控制——联程高价值客被短途低价客挤掉。</li>
+      <li>保护水平设了不调整——需求变化后保护量不再最优。</li>
+      <li>超售额度拍脑袋定——不 based on No-show 历史分布。</li>
+      <li>没有自愿放弃征集流程——直接强制拒载，赔偿和声誉成本都更高。</li>
+    </ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题</h2>
+    <div class="qz">
+      <div class="qz-q">第 1 题　一张 A→B→C 的联程票，和两张单独的 A→B、B→C 票相比，航司更愿意卖哪个？</div>
+        <button class="qz-o" data-i="0" data-k="1">A. 两张单独的票，因为总价更高</button>
+        <button class="qz-o" data-i="1" data-k="1">B. 取决于整条行程的价值——联程可能更值钱，也可能不如两个短途高价客</button>
+        <button class="qz-o" data-i="2" data-k="1">C. 一定卖联程，因为方便</button>
+        <button class="qz-o" data-i="3" data-k="1">D. 一定卖单段，因为灵活</button>
+      <div class="qz-why" id="why1"><b>解析 ·</b> 这正是 O&amp;D 网络收益管理要解决的问题。如果 A→B 和 B→C 本身需求都很旺、可以各卖一个全价客，那卖联程（通常价格更低）反而不划算；反之如果某段需求弱，联程客能填补空座就更值钱。必须按整条行程的机会成本判断。</div>
+    </div>
+    <div class="qz">
+      <div class="qz-q">第 2 题　嵌套订座限制的核心逻辑是？</div>
+        <button class="qz-o" data-i="0" data-k="2">A. 低价舱位永远不能卖</button>
+        <button class="qz-o" data-i="1" data-k="2">B. 高价舱位可以占用低价舱位的座位，低价不能占用高价的</button>
+        <button class="qz-o" data-i="2" data-k="2">C. 每个舱位有固定座位数，互不干扰</button>
+        <button class="qz-o" data-i="3" data-k="2">D. 先到先得，卖完为止</button>
+      <div class="qz-why" id="why2"><b>解析 ·</b> 嵌套的意思是：高价需求可以使用为低价分配的库存，但低价需求不能使用为高价保留的库存。这样当高价需求出现时永远有座位可卖。配合「低价舱位卖到限额即关闭」，就实现了自动的收益保护。</div>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>对应通用内核：</b>K03 库存控制 · K06 超售与 No-show　|　<b>行业：</b><a href="../airline.html">航空业总览</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="index.html">航空业全部课程</a>
+      <a class="cm-btn cm-btn-ghost" href="../core/index.html">学通用内核</a>
+      <a class="cm-btn cm-btn-ghost" href="../academy.html">返回学院</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="sf-grid">
+    <div>
+      <div class="sf-t">中国收益管理社区</div>
+      <p class="sf-desc">跨行业收益管理专业社区。一套通用内核，覆盖住宿、餐饮、航空、景区、娱乐五大行业。</p>
+    </div>
+    <div>
+      <div class="sf-t">专业课</div>
+      <a href="../airline/index.html">航空业专业课</a>
+      <a href="../fnb/index.html">餐饮业专业课</a>
+      <a href="../lodging.html">住宿业</a>
+      <a href="../core/index.html">通用内核</a>
+    </div>
+    <div>
+      <div class="sf-t">学习</div>
+      <a href="../academy.html">学院首页</a>
+      <a href="../codex.html">操作法典</a>
+      <a href="../books.html">书籍专栏</a>
+      <a href="../cert.html">资格认证</a>
+    </div>
+    <div>
+      <div class="sf-t">社区</div>
+      <a href="../experts.html">专家高手</a>
+      <a href="../news.html">收益管理资讯</a>
+      <a href="../community.html">行业交流</a>
+      <a href="../industries.html">行业矩阵</a>
+    </div>
+  </div>
+  <div class="sf-bot">
+    <span>中国收益管理社区 · 通用内核 + 行业参数</span>
+    <span>联系：<a href="mailto:3984557428@qq.com" style="display:inline;color:var(--gold-2)">3984557428@qq.com</a></span>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js"></script>
+<script>
+(function(){{
+  var t=document.getElementById('snToggle'), l=document.getElementById('snLinks');
+  if(t&&l){{ t.addEventListener('click',function(){{ l.classList.toggle('open'); }}); }}
+}})();
+</script>
+
+<script>
+(function(){
+  var ANS = [1,1];
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = parseInt(btn.getAttribute('data-k'), 10);
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === ANS[k-1]) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>
+
