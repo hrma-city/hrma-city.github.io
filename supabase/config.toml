@@ -1,0 +1,9 @@
+# Supabase Functions 配置（放在 supabase/ 根目录）
+# 部署：在仓库根目录执行  supabase functions deploy --project-ref ivcylkcbodoacajyvnpy
+# 密钥通过  supabase secrets set KEY=VALUE --project-ref ivcylkcbodoacajyvnpy  注入，不要写进本文件
+
+[functions.payment-create]
+verify_jwt = false   # 函数内部自行用 anon key 校验用户会话
+
+[functions.payment-webhook]
+verify_jwt = false   # 网关回调不带用户 JWT，必须关闭自动校验

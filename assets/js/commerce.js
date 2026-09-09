@@ -104,6 +104,35 @@ window.RMCCommerce = (function () {
     return r.data || { ok: false };
   }
 
+  // 调用支付下单 Edge Function（gateway: stripe | wechat | alipay）
+  // 返回 { ok, type:'redirect'|'qr', url, code_url }
+  async function createPayment(orderId, gateway) {
+    if (!await requireLogin()) return { ok: false, msg: "no login" };
+    var c = client(); if (!c) return { ok: false, msg: "no client" };
+    try {
+      var r = await c.functions.invoke("payment-create", {
+        body: { order_id: orderId, gateway: gateway }
+      });
+      if (r.error) return { ok: false, msg: r.error.message };
+      var d = r.data || {};
+      return Object.assign({ ok: true }, d);
+    } catch (e) {
+      return { ok: false, msg: String(e && e.message || e) };
+    }
+  }
+
+  // 轮询订单状态（支付后确认是否已到账）
+  async function pollOrder(orderId, onPaid, tries) {
+    tries = tries || 20;
+    var n = 0;
+    var timer = setInterval(async function () {
+      n++;
+      var o = await getOrder(orderId);
+      if (o && o.status === "paid") { clearInterval(timer); onPaid(o); return; }
+      if (n >= tries) clearInterval(timer);
+    }, 2500);
+  }
+
   /* ---------------- 专家目录 ---------------- */
 
   async function listExperts() {
@@ -148,6 +177,7 @@ window.RMCCommerce = (function () {
   return {
     client: client, esc: esc, prefix: prefix, requireLogin: requireLogin,
     createOrder: createOrder, myOrders: myOrders, getOrder: getOrder, confirmPayment: confirmPayment, cancelOrder: cancelOrder,
+    createPayment: createPayment, pollOrder: pollOrder,
     listExperts: listExperts, listJobs: listJobs, postJob: postJob
   };
 })();
