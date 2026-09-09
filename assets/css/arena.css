@@ -1,0 +1,140 @@
+/* ============================================================
+ * 联机收益管理游戏 · arena.css
+ * 复用 main.css 的设计变量（浅色主题）：
+ *   --gold/--gold-1/--gold-2  --navy  --bg/--bg-2  --ink-2/--ink-3  --line/--line-2
+ * ============================================================ */
+
+.arena-wrap { max-width: 920px; margin: 0 auto; padding: 28px 0 40px; }
+
+.arena-card {
+  background: var(--bg, #fff);
+  border: 1px solid var(--line, #e6e2d8);
+  border-radius: 14px;
+  padding: 26px 28px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.02);
+}
+.arena-card + .arena-card { margin-top: 22px; }
+
+.arena-h1 {
+  font-size: 26px; line-height: 1.25; margin: 0 0 8px;
+  color: var(--navy, #16324f);
+}
+.arena-sub { color: var(--ink-3, #7B8794); margin: 0 0 20px; font-size: 14.5px; }
+
+/* 模式介绍 */
+.arena-modes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 22px; }
+.arena-mode {
+  background: var(--bg-2, #F2F0EB);
+  border: 1px solid var(--line, #e6e2d8);
+  border-radius: 12px; padding: 16px 18px;
+}
+.arena-mode h3 { margin: 0 0 8px; color: var(--navy, #16324f); font-size: 16px; }
+.arena-mode p { margin: 0; font-size: 13.5px; color: var(--ink-2, #445); line-height: 1.55; }
+.arena-mode code {
+  font-family: var(--mono, monospace); font-size: .88em;
+  background: var(--bg, #fff); color: var(--navy, #16324f);
+  padding: .1em .4em; border-radius: 4px;
+}
+
+/* 创建/加入区 */
+.arena-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.arena-box {
+  background: var(--bg-2, #F2F0EB);
+  border: 1px solid var(--line, #e6e2d8);
+  border-radius: 12px; padding: 18px;
+}
+.arena-box h4 { margin: 0 0 12px; color: var(--navy, #16324f); font-size: 15px; }
+
+.arena-field { display: flex; flex-direction: column; gap: 5px; font-size: 13px; color: var(--ink-2, #445); margin-bottom: 12px; }
+.arena-field select,
+.arena-field input {
+  font: inherit; padding: 9px 10px; border-radius: 8px;
+  border: 1px solid var(--line-2, #d8d2c4); background: #fff; color: var(--navy, #16324f);
+}
+.arena-field input:focus, .arena-field select:focus { outline: 2px solid var(--gold-2, #D4A96A); outline-offset: 1px; }
+
+.arena-hint { font-size: 12px; color: var(--ink-3, #7B8794); margin: 10px 0 0; line-height: 1.5; }
+
+/* 按钮 */
+.arena-btn {
+  font: inherit; font-weight: 600; cursor: pointer;
+  padding: 9px 16px; border-radius: 9px; border: 1px solid var(--line-2, #d8d2c4);
+  background: #fff; color: var(--navy, #16324f); transition: .15s;
+}
+.arena-btn:hover { border-color: var(--gold-2, #D4A96A); }
+.arena-btn-primary { background: linear-gradient(135deg, var(--gold-2, #D4A96A), var(--gold, #b9914a)); color: #fff; border-color: transparent; }
+.arena-btn-primary:hover { filter: brightness(1.04); }
+.arena-btn-ghost { background: transparent; }
+.arena-btn-sm { padding: 5px 12px; font-size: 13px; border-radius: 7px; }
+.arena-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* 房间列表 */
+.arena-roomlist { display: flex; flex-direction: column; gap: 8px; }
+.arena-roomrow {
+  display: grid; grid-template-columns: 90px 110px 1fr auto; align-items: center; gap: 10px;
+  background: var(--bg, #fff); border: 1px solid var(--line, #e6e2d8);
+  border-radius: 9px; padding: 9px 12px;
+}
+.arena-rc { font-weight: 700; letter-spacing: .06em; color: var(--navy, #16324f); font-family: var(--mono, monospace); }
+.arena-rm { font-size: 13px; color: var(--ink-2, #445); }
+.arena-rn { font-size: 12.5px; color: var(--ink-3, #7B8794); }
+
+.arena-muted { color: var(--ink-3, #7B8794); font-size: 13px; }
+.arena-err { color: #c0392b; font-size: 13px; }
+
+/* ===== 房间视图 ===== */
+.arena-roomhead { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+.arena-roomcode { font-size: 15px; color: var(--ink-2, #445); }
+.arena-roomcode b { font-family: var(--mono, monospace); letter-spacing: .08em; color: var(--navy, #16324f); font-size: 16px; }
+.arena-mode-tag {
+  font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 20px;
+  background: var(--bg-2, #F2F0EB); color: var(--gold, #b9914a); border: 1px solid var(--line, #e6e2d8);
+}
+
+.arena-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+.arena-col h4 { margin: 0 0 10px; color: var(--navy, #16324f); font-size: 14.5px; }
+
+.arena-presence { list-style: none; margin: 0; padding: 10px; display: flex; flex-direction: column; gap: 6px;
+  background: var(--bg-2, #F2F0EB); border: 1px solid var(--line, #e6e2d8); border-radius: 10px; min-height: 80px; }
+.arena-presence li { padding: 7px 10px; background: #fff; border: 1px solid var(--line, #e6e2d8); border-radius: 7px; font-size: 13.5px; color: var(--navy, #16324f); }
+.arena-presence li.bid-ok { border-color: var(--gold-2, #D4A96A); background: #fbf4e8; }
+
+.arena-bidarea {
+  background: var(--bg-2, #F2F0EB); border: 1px solid var(--line, #e6e2d8);
+  border-radius: 10px; padding: 14px; min-height: 80px;
+}
+.arena-done { color: var(--gold, #b9914a); font-size: 13px; font-weight: 600; margin-left: 8px; }
+
+/* 房主控制 */
+.arena-hostctl { margin: 4px 0 18px; padding: 12px 14px; background: #fbf4e8; border: 1px solid var(--gold-2, #D4A96A); border-radius: 10px; }
+.arena-hostctl .arena-btn-primary { width: 100%; }
+
+/* 实时战报 */
+.arena-resultboard { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+.arena-rd { font-size: 12.5px; color: var(--ink-3, #7B8794); padding: 6px 0; border-bottom: 1px dashed var(--line, #e6e2d8); }
+.arena-tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 0 0 1px var(--line, #e6e2d8); }
+.arena-tbl th { background: var(--bg-2, #F2F0EB); color: var(--navy, #16324f); font-weight: 650; text-align: left; padding: 9px 12px; }
+.arena-tbl td { padding: 8px 12px; border-top: 1px solid var(--line, #e6e2d8); color: var(--ink-2, #445); }
+.arena-tbl td.arena-acc { font-weight: 700; color: var(--gold, #b9914a); }
+
+/* 累计得分 */
+.arena-scoreboard { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.arena-scorepill {
+  font-size: 13px; padding: 5px 12px; border-radius: 20px;
+  background: var(--bg-2, #F2F0EB); color: var(--navy, #16324f); border: 1px solid var(--line, #e6e2d8);
+}
+
+/* 最终榜 */
+.arena-final { margin-top: 10px; padding: 18px; background: #fbf4e8; border: 1px solid var(--gold-2, #D4A96A); border-radius: 12px; }
+.arena-final h3 { margin: 0 0 12px; color: var(--navy, #16324f); }
+.arena-finalrow { padding: 7px 10px; font-size: 14.5px; color: var(--ink-2, #445); border-bottom: 1px dashed var(--line, #e6e2d8); }
+.arena-finalrow:last-child { border-bottom: 0; }
+.arena-finalrow b { color: var(--gold, #b9914a); }
+
+/* 响应式 */
+@media (max-width: 720px) {
+  .arena-modes, .arena-actions, .arena-grid { grid-template-columns: 1fr; }
+  .arena-roomrow { grid-template-columns: 70px 90px 1fr; }
+  .arena-roomrow .arena-btn-sm { grid-column: 1 / -1; }
+  .arena-card { padding: 20px 16px; }
+}

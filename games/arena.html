@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>联机对战 · 收益管理游戏</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <link rel="stylesheet" href="../assets/css/community.css">
+  <link rel="stylesheet" href="../assets/css/auth.css">
+  <link rel="stylesheet" href="../assets/css/arena.css">
+</head>
+<body data-auth="protected">
+  <div id="snMount"></div>
+
+  <main class="site-main">
+    <div class="arena-wrap">
+
+      <!-- ================= 大厅 ================= -->
+      <section id="view-lobby" class="arena-card">
+        <h1 class="arena-h1">联机收益管理 · 以练代战</h1>
+        <p class="arena-sub">和社区成员实时同场竞技：每回合给同一虚拟市场定价，看谁 RevPAR 更高。两种玩法都已开放。</p>
+
+        <div class="arena-modes">
+          <div class="arena-mode">
+            <h3>对抗沙盘 Showdown</h3>
+            <p>每人独立经营一家虚拟酒店，面对同一需求曲线 <code>出租率 = a − b·ADR</code>。找最优定价，比累计 RevPAR。</p>
+          </div>
+          <div class="arena-mode">
+            <h3>协作沙盘 Co-op</h3>
+            <p>全员共同经营一家酒店，各报建议价，系统取中位数作统一售价。合力把 RevPAR 推过目标线。</p>
+          </div>
+        </div>
+
+        <div class="arena-actions">
+          <div class="arena-box">
+            <h4>创建房间</h4>
+            <label class="arena-field">模式
+              <select id="createMode">
+                <option value="showdown">对抗沙盘</option>
+                <option value="coop">协作沙盘</option>
+              </select>
+            </label>
+            <label class="arena-field">回合数
+              <input id="createRounds" type="number" min="3" max="12" value="6">
+            </label>
+            <button class="arena-btn arena-btn-primary" id="btnCreate">创建并进入</button>
+            <p class="arena-hint">你将作为房主，负责「开始游戏」并结算每一回合。</p>
+          </div>
+          <div class="arena-box">
+            <h4>加入房间</h4>
+            <label class="arena-field">房间号
+              <input id="joinCode" type="text" maxlength="6" placeholder="如 K7P2QX" style="text-transform:uppercase">
+            </label>
+            <button class="arena-btn" id="btnJoin">加入</button>
+          </div>
+        </div>
+
+        <div class="arena-box">
+          <h4>进行中的房间</h4>
+          <div id="roomList" class="arena-roomlist"><span class="arena-muted">加载中…</span></div>
+        </div>
+      </section>
+
+      <!-- ================= 房间 ================= -->
+      <section id="view-room" class="arena-card" hidden>
+        <div class="arena-roomhead">
+          <div>
+            <span class="arena-roomcode">房间 <b id="roomCode">—</b></span>
+            <span class="arena-mode-tag" id="roomMode">—</span>
+          </div>
+          <button class="arena-btn arena-btn-ghost" id="btnLeave">离开</button>
+        </div>
+
+        <div class="arena-grid">
+          <div class="arena-col">
+            <h4>在线玩家 <span id="presenceCount" class="arena-muted">(0)</span></h4>
+            <ul id="presenceList" class="arena-presence"></ul>
+          </div>
+          <div class="arena-col">
+            <h4>本回合 <span id="roundInfo" class="arena-muted">等待开始</span></h4>
+            <div id="bidArea" class="arena-bidarea">
+              <p class="arena-muted" id="bidStatus">房主点击「开始游戏」后开放出价。</p>
+              <div id="bidForm" hidden>
+                <label class="arena-field">你的 ADR（元）
+                  <input id="bidInput" type="number" min="200" max="1200" value="540">
+                </label>
+                <button class="arena-btn arena-btn-primary" id="btnBid">提交出价</button>
+                <span id="bidDone" class="arena-done" hidden>✓ 已提交，等待结算</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="hostControls" class="arena-hostctl" hidden>
+          <button class="arena-btn arena-btn-primary" id="btnStart">开始游戏</button>
+        </div>
+
+        <h4>实时战报</h4>
+        <div id="resultBoard" class="arena-resultboard"><span class="arena-muted">尚未开始</span></div>
+
+        <h4>累计得分</h4>
+        <div id="scoreBoard" class="arena-scoreboard"><span class="arena-muted">—</span></div>
+
+        <div id="finalBoard" class="arena-final" hidden></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-main">
+      <div class="sf-bot">
+        <span>RMC收益管理社区 · 联机游戏</span>
+        <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../auth-config.js"></script>
+  <script src="../auth.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/rm-arena.js"></script>
+  <script>
+  (function () {
+    var A = window.RMCArena;
+    var me = null, curRoom = null, curRound = 0, isHost = false, nameMap = {};
+
+    function $(id) { return document.getElementById(id); }
+    function show(id, v) { $(id).hidden = !v; }
+    function setText(id, t) { var e = $(id); if (e) e.textContent = t; }
+
+    function modeName(m) { return m === "coop" ? "协作沙盘" : "对抗沙盘"; }
+
+    async function boot() {
+      var s = await A.ensureSession();
+      if (!s.ok) { alert("请先登录：" + s.error); location.href = "../login.html"; return; }
+      me = s.user;
+      loadRooms();
+    }
+
+    async function loadRooms() {
+      var r = await A.getRooms();
+      var box = $("roomList");
+      if (!r.ok) { box.innerHTML = '<span class="arena-err">' + A.esc(r.error) + "</span>"; return; }
+      if (!r.rooms.length) { box.innerHTML = '<span class="arena-muted">暂无进行中的房间，创建一个吧。</span>'; return; }
+      box.innerHTML = r.rooms.map(function (rm) {
+        var cnt = (rm.players && rm.players[0] && rm.players[0].count) || 0;
+        return '<div class="arena-roomrow">' +
+          '<span class="arena-rc">' + A.esc(rm.code) + '</span>' +
+          '<span class="arena-rm">' + modeName(rm.mode) + '</span>' +
+          '<span class="arena-rn">' + cnt + ' 人在线</span>' +
+          '<button class="arena-btn arena-btn-sm" data-code="' + A.esc(rm.code) + '">加入</button>' +
+          '</div>';
+      }).join("");
+      Array.prototype.forEach.call(box.querySelectorAll("button[data-code]"), function (b) {
+        b.onclick = function () { doJoin(b.getAttribute("data-code")); };
+      });
+    }
+
+    async function doCreate() {
+      var mode = $("createMode").value;
+      var rounds = parseInt($("createRounds").value, 10) || 6;
+      $("btnCreate").disabled = true;
+      var r = await A.createRoom({ mode: mode, totalRounds: rounds, name: me.email });
+      $("btnCreate").disabled = false;
+      if (!r.ok) { alert("创建失败：" + r.error); return; }
+      enterRoom(r.room);
+    }
+
+    async function doJoin(code) {
+      code = (code || $("joinCode").value || "").trim().toUpperCase();
+      if (!code) { alert("请输入房间号"); return; }
+      var r = await A.joinRoom(code, me.email);
+      if (!r.ok) { alert("加入失败：" + r.error); return; }
+      enterRoom(r.room);
+    }
+
+    async function enterRoom(room) {
+      curRoom = room; isHost = (room.host === me.id);
+      show("view-lobby", false); show("view-room", true);
+      setText("roomCode", room.code);
+      setText("roomMode", modeName(room.mode));
+      if (room.status !== "lobby") { /* 进行中也可观战/加入 */ }
+      show("hostControls", isHost && room.status === "lobby");
+      setText("roundInfo", room.status === "finished" ? "已结束" : "等待开始");
+      $("resultBoard").innerHTML = '<span class="arena-muted">尚未开始</span>';
+      $("scoreBoard").innerHTML = '<span class="arena-muted">—</span>';
+
+      var c = await A.connect(room.id, me, me.email, {
+        onReady: function () { /* 已连接 */ },
+        onPresence: renderPresence,
+        onRoundStart: function (p) {
+          curRound = p.round;
+          setText("roundInfo", "第 " + p.round + " / " + p.round + (p.total ? "/" + p.total : ""));
+          setText("roundInfo", "第 " + p.round + " / " + (curRoom.total_rounds || p.total) + " 回合");
+          $("bidStatus").hidden = true; show("bidForm", true);
+          $("btnBid").disabled = false; show("bidDone", false);
+          $("resultBoard").insertAdjacentHTML("afterbegin",
+            '<div class="arena-rd">— 第 ' + p.round + ' 回合出价中 —</div>');
+        },
+        onBid: function (p) {
+          nameMap[p.userId] = p.name;
+          var li = document.querySelector('#presenceList [data-uid="' + p.userId + '"]');
+          if (li) li.classList.add("bid-ok");
+        },
+        onResult: function (p) { renderResult(p); },
+        onFinal: function (p) { renderFinal(p); }
+      });
+      if (!c.ok) alert("连接失败：" + (c.error || c.status));
+    }
+
+    function renderPresence(state) {
+      var list = $("presenceList");
+      var rows = [];
+      Object.keys(state).forEach(function (k) {
+        var arr = state[k];
+        (arr || []).forEach(function (m) {
+          nameMap[m.user_id] = m.name;
+          rows.push('<li data-uid="' + A.esc(m.user_id) + '">' +
+            A.esc(m.name || "玩家") + (m.user_id === curRoom.host ? " 👑" : "") + '</li>');
+        });
+      });
+      list.innerHTML = rows.join("") || '<li class="arena-muted">无</li>';
+      setText("presenceCount", "(" + rows.length + ")");
+    }
+
+    function renderResult(p) {
+      var res = p.results, scores = p.scores || {};
+      var rows = Object.keys(res).map(function (id) {
+        var r = res[id];
+        return '<tr>' +
+          '<td>' + A.esc(nameMap[id] || "玩家") + '</td>' +
+          '<td>' + r.adr + '</td>' +
+          '<td>' + r.occ + '%</td>' +
+          '<td>' + r.revpar + '</td>' +
+          '<td class="arena-acc">' + (scores[id] || 0) + '</td>' +
+          '</tr>';
+      }).join("");
+      $("resultBoard").innerHTML =
+        '<table class="arena-tbl"><thead><tr><th>玩家</th><th>ADR</th><th>出租率</th><th>RevPAR</th><th>累计</th></tr></thead><tbody>' +
+        rows + '</tbody></table>';
+      // 累计榜
+      var ranked = Object.keys(scores).map(function (id) { return { id: id, s: scores[id] }; })
+        .sort(function (x, y) { return y.s - x.s; });
+      $("scoreBoard").innerHTML = ranked.map(function (x, i) {
+        return '<span class="arena-scorepill">#' + (i + 1) + " " + A.esc(nameMap[x.id] || "玩家") + " · " + x.s + "</span>";
+      }).join("");
+    }
+
+    function renderFinal(p) {
+      show("bidForm", false); $("bidStatus").hidden = false; setText("bidStatus", "游戏结束");
+      var rk = p.ranking || [];
+      $("finalBoard").hidden = false;
+      $("finalBoard").innerHTML = '<h3>🏆 最终排名</h3>' + rk.map(function (x, i) {
+        return '<div class="arena-finalrow">#' + (i + 1) + "　" + A.esc(nameMap[x.user_id] || "玩家") + "　<b>" + x.score + "</b> 分</div>";
+      }).join("");
+    }
+
+    async function doBid() {
+      var adr = parseInt($("bidInput").value, 10);
+      if (!adr || adr < 200 || adr > 1200) { alert("ADR 需在 200–1200 之间"); return; }
+      await A.submitBid(curRound, adr);
+      $("btnBid").disabled = true; show("bidDone", true);
+    }
+
+    async function doStart() {
+      $("btnStart").disabled = true;
+      await A.runHost(curRoom, me);
+    }
+
+    async function doLeave() {
+      await A.leave();
+      if (curRoom && me) await A.leaveRoom(curRoom.id, me);
+      show("view-room", false); show("view-lobby", true);
+      loadRooms();
+    }
+
+    $("btnCreate").onclick = doCreate;
+    $("btnJoin").onclick = function () { doJoin(); };
+    $("btnBid").onclick = doBid;
+    $("btnStart").onclick = doStart;
+    $("btnLeave").onclick = doLeave;
+
+    boot();
+  })();
+  </script>
+  <script>
+  (function () {
+    var t = document.getElementById('snToggle'), l = document.getElementById('snLinks');
+    if (t && l) { t.addEventListener('click', function () { l.classList.toggle('open'); }); }
+  })();
+  </script>
+</body>
+</html>
