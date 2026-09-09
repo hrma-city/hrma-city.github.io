@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>共建样本池 · 行业基准数据中心 · RMC收益管理社区</title>
+<meta name="description" content="RMC收益管理社区共建样本池：会员按月上报城市 ADR 与出租率，脱敏聚合后回看城市级月度基准，样本数≥3 才公开。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/benchmark.css">
+</head>
+<body data-auth="public">
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="../games/index.html">开始练</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:34px;padding-bottom:44px;max-width:860px;margin:0 auto">
+
+  <div class="bm-eyebrow">共建样本池 · Crowdsourced Pool</div>
+  <h1 class="cm-section-title" style="font-size:28px">上报一个月度数据点</h1>
+  <p class="bm-intro">
+    除上海外，绝大多数城市不公开月度 ADR / 出租率。要补齐城市级月度基准，只能靠大家一起报。
+    你报一条，就能换回一整个城市的基准线。
+  </p>
+
+  <div class="bcal">
+    <b>隐私保护（建表即用约束固化）：</b>
+    ① <b>k-匿名</b>——同一城市同一月份<b>样本数 ≥ 3</b> 才显示聚合值，不足 3 条不公开；
+    ② 只公开<b>聚合后的城市均值</b>，不暴露任何单店数据，也不显示提交人；
+    ③ 无需填写酒店名称、公司、联系方式。
+  </div>
+
+  <!-- 上报表单 -->
+  <div class="co-box" style="margin-top:20px">
+    <div class="cm-eyebrow">上报</div>
+    <h3 style="margin:4px 0 12px">填写上个月的经营数据</h3>
+    <form class="cm-form" id="ptForm">
+      <div class="cm-field">
+        <label>城市</label>
+        <input type="text" name="city" required placeholder="如：杭州、成都、西安" list="cityList">
+        <datalist id="cityList">
+          <option value="北京"></option><option value="上海"></option><option value="广州"></option>
+          <option value="深圳"></option><option value="成都"></option><option value="杭州"></option>
+          <option value="西安"></option><option value="重庆"></option><option value="南京"></option>
+          <option value="武汉"></option><option value="长沙"></option><option value="厦门"></option>
+          <option value="三亚"></option><option value="青岛"></option><option value="苏州"></option>
+        </datalist>
+      </div>
+      <div class="cm-field">
+        <label>月份</label>
+        <input type="month" name="month" required>
+      </div>
+      <div class="cm-field">
+        <label>平均房价 ADR（元/间天）</label>
+        <input type="number" name="adr" required min="20" max="50000" step="0.01" placeholder="如：486">
+      </div>
+      <div class="cm-field">
+        <label>平均出租率（%，填数字即可）</label>
+        <input type="number" name="occ" required min="1" max="100" step="0.1" placeholder="如：72.5">
+      </div>
+      <div class="cm-field">
+        <label>可售房数（选填，用于加权）</label>
+        <input type="number" name="rooms" min="1" step="1" placeholder="如：180">
+      </div>
+      <div class="cm-field">
+        <label>业态</label>
+        <select name="property_type">
+          <option value="luxury">奢华 / 五星</option>
+          <option value="upscale">高端 / 四星</option>
+          <option value="midscale">中端 / 三星</option>
+          <option value="economy">经济型</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+      <div class="cm-btns">
+        <button type="submit" class="btn-gold">提交</button>
+        <span class="cm-hint" id="ptHint"></span>
+      </div>
+      <p class="cm-hint" style="margin-top:10px">
+        同一城市同一月份<b>重复提交会自动覆盖</b>上一次（每人每城每月仅一条）。
+      </p>
+    </form>
+  </div>
+
+  <!-- 我的上报 -->
+  <div class="co-box">
+    <div class="cm-eyebrow">我的上报</div>
+    <h3 style="margin:4px 0 10px">我提交过的数据</h3>
+    <div id="myBox"><p class="cm-hint">加载中…</p></div>
+    <p style="margin-top:12px"><a class="btn-line" href="city.html">查看聚合结果 →</a></p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="sf-grid">
+    <div><div class="sf-t">RMC收益管理社区</div><p class="sf-desc">跨行业收益管理专业社区。</p></div>
+    <div><div class="sf-t">基准</div><a href="index.html">基准中心</a><a href="lodging.html">住宿业</a><a href="airline.html">航空业</a><a href="city.html">城市月度</a></div>
+  </div>
+  <div class="sf-bot"><span>RMC收益管理社区 · 通用内核 + 行业参数</span><span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../auth-config.js"></script>
+<script src="../auth.js"></script>
+<script src="../assets/js/benchmark-data.js"></script>
+<script src="../assets/js/benchmark.js"></script>
+<script src="../assets/js/app.js"></script>
+<script>
+(function(){
+  var t=document.getElementById('snToggle'), l=document.getElementById('snLinks');
+  if(t&&l){ t.addEventListener('click',function(){ l.classList.toggle('open'); }); }
+
+  var B=window.RMCBench, form=document.getElementById('ptForm'),
+      hint=document.getElementById('ptHint'), myBox=document.getElementById('myBox');
+
+  function renderMy(rows){
+    if(!rows || !rows.length){ myBox.innerHTML='<p class="co-empty">还没有上报记录。</p>'; return; }
+    var E=window.RMCBench?function(s){return String(s==null?'':s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}:function(s){return s;};
+    var h='<table class="btable"><thead><tr><th>城市</th><th>月份</th><th>ADR</th><th>出租率</th><th>状态</th></tr></thead><tbody>';
+    rows.forEach(function(r){
+      h+='<tr><td>'+E(r.city)+'</td><td>'+E(r.month)+'</td><td class="bv">'+E(r.adr)+'</td>'
+        +'<td>'+E(r.occ)+'%</td><td>'+(r.status==='approved'?'<span class="btier t-official">已纳入</span>':'<span class="btier t-derived">已驳回</span>')+'</td></tr>';
+    });
+    h+='</tbody></table>';
+    myBox.innerHTML=h;
+  }
+
+  async function loadMy(){
+    if(!B){ myBox.innerHTML='<p class="cm-hint">组件加载中，请刷新</p>'; return; }
+    var rows=await B.myPoints();
+    renderMy(rows);
+  }
+  loadMy();
+
+  if(form){
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      if(!B){ hint.textContent='组件未加载，请刷新'; return; }
+      var d={};
+      ['city','month','adr','occ','rooms','property_type'].forEach(function(k){
+        var el=form.elements[k]; if(el) d[k]=el.value;
+      });
+      if(!d.city||!d.month||!d.adr||!d.occ){ hint.textContent='请填写城市、月份、ADR 与出租率。'; return; }
+      hint.textContent='提交中…'; hint.style.color='';
+      var r=await B.submitPoint(d);
+      if(r&&r.ok){
+        hint.textContent='已提交！感谢共建。'; hint.style.color='var(--teal)';
+        form.reset(); loadMy();
+      } else {
+        hint.textContent=(r&&r.msg)||'提交失败，请稍后重试。';
+        hint.style.color='#c0392b';
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

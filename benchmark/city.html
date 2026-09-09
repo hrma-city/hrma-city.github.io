@@ -72,11 +72,19 @@
     </p>
   </section>
 
+  <!-- 社区共建样本池 -->
+  <section class="bm-sec">
+    <h3>社区共建样本池</h3>
+    <p class="bm-sub">会员按月上报、脱敏聚合；<b>样本数 ≥ 3 才显示</b>，不暴露任何单店数据</p>
+    <div id="poolBox"><p class="bm-sub">加载中…</p></div>
+    <p style="margin-top:12px"><a class="btn-line" href="contribute.html">我也上报一条 →</a></p>
+  </section>
+
   <div class="bm-cta">
     <h3>想看你的城市？</h3>
-    <p>企业版会员可获取城市级月度基准、自定义竞品样本池，并参与社区共建样本池（数据脱敏聚合后回看全量）。</p>
-    <a class="btn-gold" href="../pricing.html">查看会员方案</a>
-    <a class="btn-line" href="../contact.html">共建样本池咨询</a>
+    <p>上报一个月度数据点，就能换回一整个城市的基准线。企业版会员另可获取自定义竞品样本池与月度导出。</p>
+    <a class="btn-gold" href="contribute.html">上报数据</a>
+    <a class="btn-line" href="../pricing.html">查看会员方案</a>
   </div>
 
   <section class="bm-sec">
@@ -105,6 +113,29 @@
 (function(){
   var t=document.getElementById('snToggle'), l=document.getElementById('snLinks');
   if(t&&l){ t.addEventListener('click',function(){ l.classList.toggle('open'); }); }
+
+  // 社区共建样本池（聚合视图已保证 n>=3 才出现）
+  var B=window.RMCBench, box=document.getElementById('poolBox');
+  async function loadPool(){
+    if(!box) return;
+    if(!B){ box.innerHTML='<p class="bm-sub">组件加载中，请刷新</p>'; return; }
+    var rows=await B.listPool();
+    if(!rows || !rows.length){
+      box.innerHTML='<p class="co-empty">样本池还是空的——需要同一城市同一月份至少 <b>3 条</b>上报才会显示聚合值。'
+        +'<br><a href="contribute.html">成为首批贡献者 →</a></p>';
+      return;
+    }
+    var E=B.esc;
+    var h='<table class="btable"><thead><tr><th>城市</th><th>月份</th><th>样本数</th><th>平均 ADR（元/间天）</th><th>平均出租率</th></tr></thead><tbody>';
+    rows.forEach(function(r){
+      h+='<tr><td>'+E(r.city)+'</td><td>'+E(r.month)+'</td>'
+        +'<td><span class="btier t-third">n='+E(r.n)+'</span></td>'
+        +'<td class="bv">'+E(r.adr)+'</td><td>'+E(r.occ)+'%</td></tr>';
+    });
+    h+='</tbody></table><p class="bnote-blk">社区共建数据为会员自愿上报、未经审计，请结合样本数 n 判断参考价值。</p>';
+    box.innerHTML=h;
+  }
+  loadPool();
 })();
 </script>
 </body>

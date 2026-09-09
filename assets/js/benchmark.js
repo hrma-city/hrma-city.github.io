@@ -104,5 +104,80 @@ window.RMCBench = (function () {
     document.addEventListener("DOMContentLoaded", init);
   } else { init(); }
 
-  return { get: get, renderGroup: renderGroup, renderMonthly: renderMonthly, init: init };
+  /* ================= 社区共建样本池（Supabase） ================= */
+  var _c = null;
+  function client() {
+    if (_c) return _c;
+    if (!window.supabase || !window.HRMA_SUPABASE) return null;
+    try {
+      _c = window.supabase.createClient(window.HRMA_SUPABASE.url, window.HRMA_SUPABASE.anonKey);
+    } catch (e) { _c = null; }
+    return _c;
+  }
+
+  function prefix() {
+    return /\/((community|courses|exam|games|core|airline|attraction|entertainment|fnb|theater|benchmark))\/.*\.html$/.test(location.pathname)
+      ? "../" : "";
+  }
+
+  async function requireLogin() {
+    if (!window.HRMAAuth) return null;
+    var s = await window.HRMAAuth.session();
+    if (s && s.user) return s;
+    location.href = prefix() + "login.html?redirect=" +
+      encodeURIComponent(location.pathname + location.search);
+    return null;
+  }
+
+  async function uid() {
+    var c = client(); if (!c) return null;
+    var u = await c.auth.getUser();
+    return (u.data && u.data.user) ? u.data.user.id : null;
+  }
+
+  // 上报一个月度数据点；同人同城同月自动覆盖（唯一索引防灌水）
+  async function submitPoint(d) {
+    if (!await requireLogin()) return { ok: false, msg: "请先登录" };
+    var c = client(); if (!c) return { ok: false, msg: "组件未加载" };
+    var id = await uid(); if (!id) return { ok: false, msg: "请先登录" };
+    var row = {
+      user_id: id,
+      city: d.city,
+      month: d.month,
+      adr: Number(d.adr),
+      occ: Number(d.occ),
+      rooms: d.rooms ? Number(d.rooms) : null,
+      property_type: d.property_type || "other",
+      status: "approved"
+    };
+    var r = await c.from("benchmark_points")
+      .upsert(row, { onConflict: "user_id,city,month" })
+      .select().single();
+    if (r.error) return { ok: false, msg: r.error.message };
+    return { ok: true, data: r.data };
+  }
+
+  // 聚合池（视图已保证 n>=3 才出现）
+  async function listPool(city) {
+    var c = client(); if (!c) return [];
+    var q = c.from("benchmark_pool").select("*");
+    if (city) q = q.eq("city", city);
+    var r = await q.order("city").order("month", { ascending: false });
+    return r.data || [];
+  }
+
+  // 我自己的上报（用于修改/核对）
+  async function myPoints() {
+    var c = client(); if (!c) return [];
+    var id = await uid(); if (!id) return [];
+    var r = await c.from("benchmark_points").select("*")
+      .eq("user_id", id).order("month", { ascending: false });
+    return r.data || [];
+  }
+
+  return {
+    get: get, renderGroup: renderGroup, renderMonthly: renderMonthly, init: init,
+    esc: esc, client: client, prefix: prefix, requireLogin: requireLogin,
+    submitPoint: submitPoint, listPool: listPool, myPoints: myPoints
+  };
 })();
