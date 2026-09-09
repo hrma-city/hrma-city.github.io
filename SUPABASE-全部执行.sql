@@ -188,8 +188,8 @@ begin
   drop policy if exists posts_admin on public.posts;
   create policy posts_admin on public.posts
     for all to authenticated
-    using ( (select auth.jwt() ->> 'email') = any(admin_emails) )
-    with check ( (select auth.jwt() ->> 'email') = any(admin_emails) );
+    using ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) )
+    with check ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) );
 
   -- replies：任何人可读
   drop policy if exists replies_select on public.replies;
@@ -213,8 +213,8 @@ begin
   drop policy if exists replies_admin on public.replies;
   create policy replies_admin on public.replies
     for all to authenticated
-    using ( (select auth.jwt() ->> 'email') = any(admin_emails) )
-    with check ( (select auth.jwt() ->> 'email') = any(admin_emails) );
+    using ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) )
+    with check ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) );
 
   -- cases：所有人可读已审核通过的
   drop policy if exists cases_select on public.cases;
@@ -237,8 +237,8 @@ begin
   drop policy if exists cases_admin on public.cases;
   create policy cases_admin on public.cases
     for all to authenticated
-    using ( (select auth.jwt() ->> 'email') = any(admin_emails) )
-    with check ( (select auth.jwt() ->> 'email') = any(admin_emails) );
+    using ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) )
+    with check ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) );
 end $$;
 
 
@@ -374,8 +374,8 @@ begin
   create policy experts_admin on public.experts
     for all
     to authenticated
-    using (auth.jwt() ->> 'email' = any(admin_emails))
-    with check (auth.jwt() ->> 'email' = any(admin_emails));
+    using (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']))
+    with check (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']));
 
   -- jobs：匿名/登录可读在招职位（open）；登录用户仅能写自己发布的
   drop policy if exists jobs_read on public.jobs;
@@ -393,8 +393,8 @@ begin
   create policy jobs_admin on public.jobs
     for all
     to authenticated
-    using (auth.jwt() ->> 'email' = any(admin_emails))
-    with check (auth.jwt() ->> 'email' = any(admin_emails));
+    using (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']))
+    with check (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']));
 
   -- orders：仅本人可读写自己的；无直接 update 策略（状态由 confirm_payment 改变）
   drop policy if exists orders_read on public.orders;
@@ -413,8 +413,8 @@ begin
   create policy orders_admin on public.orders
     for all
     to authenticated
-    using (auth.jwt() ->> 'email' = any(admin_emails))
-    with check (auth.jwt() ->> 'email' = any(admin_emails));
+    using (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']))
+    with check (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']));
 end $$;
 
 /* ---------------- 占位支付确认函数 ----------------
@@ -592,8 +592,8 @@ begin
   drop policy if exists bp_admin on public.benchmark_points;
   create policy bp_admin on public.benchmark_points
     for all to authenticated
-    using (auth.jwt() ->> 'email' = any(admin_emails))
-    with check (auth.jwt() ->> 'email' = any(admin_emails));
+    using (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']))
+    with check (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']));
 end $$;
 
 -- ---------------- 4. 授权 ----------------
