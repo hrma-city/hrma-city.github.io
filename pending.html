@@ -120,7 +120,7 @@
       render("no", "申请未通过", "很抱歉，你的账号申请未通过审核。如有疑问可邮件联系社区。", n);
       actions.innerHTML = link("contact.html", "联系社区") + link("register.html", "重新申请");
     } else if (st === "pending") {
-      render("wait", "审核中", "你的申请已提交，正在等待管理员审核。审核结果会通过邮件通知，请留意收件箱。");
+      render("wait", "待验证邮箱", "你的账号已注册，等待你点击验证邮件完成邮箱确认。确认后即可直接登录，无需管理员审核。");
       actions.innerHTML = link("index.html", "返回首页") + '<button class="btn-primary" id="out" style="display:inline-block;width:auto;padding:11px 26px;margin:4px">退出登录</button>';
       bindOut();
     } else if (st === "noprofile") {
@@ -136,8 +136,8 @@
     if (state === "registered") {
       render("ok", "注册成功",
         "我们已收到 <b>" + (email || "你的邮箱") + "</b> 的申请。" +
-        "请先查收并点击验证邮件完成邮箱确认；随后进入管理员审核，结果将以邮件通知。" +
-        "审核通过后，使用本邮箱登录即可。",
+        "请查收并点击验证邮件完成邮箱确认，随后使用本邮箱即可直接登录。" +
+        "无需等待管理员审核。",
         "若未收到验证邮件，请检查垃圾邮件箱，或在登录页使用「重置密码」触发新邮件。");
       actions.innerHTML = link("login.html", "去登录") + link("index.html", "返回首页");
     } else {

@@ -45,9 +45,9 @@
       <li><b>配套资源</b>8 个 Excel 模板、3 套讲师版 PPT、4 个数据集</li>
     </ul>
     <div class="ai-note">
-      <b>还没有账号？</b>本站采用审核制。
+      <b>还没有账号？</b>注册即开通。
       <a href="register.html" style="font-weight:650">提交申请</a>后，
-      管理员会通过邮件审核，通过后即可登录。
+      验证邮箱即可直接登录，无需管理员审核。
     </div>
   </div>
 
@@ -112,7 +112,7 @@
       if (s) {
         var r = new URLSearchParams(location.search).get("redirect");
         var p = await A.profile();
-        if (p && p.status === "approved") {
+        if (p && (p.status === "approved" || p.status === "pending")) {
           location.href = r ? decodeURIComponent(r) : "curriculum.html";
         } else {
           location.href = "pending.html?state=" + (p ? p.status : "noprofile");
@@ -138,7 +138,6 @@
       var p = await A.profile();
       var r = new URLSearchParams(location.search).get("redirect");
       if (!p) { location.href = "pending.html?state=noprofile"; return; }
-      if (p.status === "pending") { location.href = "pending.html?state=pending"; return; }
       if (p.status === "rejected") {
         location.href = "pending.html?state=rejected&note=" +
           encodeURIComponent(p.note || "");

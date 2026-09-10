@@ -20,7 +20,7 @@ create table if not exists public.profiles (
   role_text     text default '',
   phone         text default '',
   reason        text default '',
-  status        text not null default 'pending'
+  status        text not null default 'approved'
                   check (status in ('pending','approved','rejected')),
   note          text default '',
   reviewed_at   timestamptz,
@@ -60,7 +60,7 @@ begin
     coalesce(new.raw_user_meta_data->>'role_text',''),
     coalesce(new.raw_user_meta_data->>'phone',''),
     coalesce(new.raw_user_meta_data->>'reason',''),
-    'pending'
+    'approved'
   )
   on conflict (id) do nothing;
   return new;
