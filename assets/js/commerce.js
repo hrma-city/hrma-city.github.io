@@ -104,6 +104,24 @@ window.RMCCommerce = (function () {
     return r.data || { ok: false };
   }
 
+  // 待人工确认订单列表（管理员可见，依赖 orders 表的 admin RLS 策略）
+  async function listPendingReview() {
+    var c = client(); if (!c) return [];
+    var r = await c.from("orders").select("*")
+      .eq("status", "pending_review")
+      .order("created_at", { ascending: true });
+    if (r.error) { console.error("listPendingReview:", r.error); return []; }
+    return r.data || [];
+  }
+
+  // 管理员核销：调用 security definer 函数（校验管理员邮箱）
+  async function approvePayment(orderId, plan) {
+    var c = client(); if (!c) return { ok: false, msg: "no client" };
+    var r = await c.rpc("approve_payment", { p_order: orderId, p_plan: plan || null });
+    if (r.error) { console.error("approvePayment:", r.error); return { ok: false, msg: r.error.message }; }
+    return r.data || { ok: false };
+  }
+
   // 调用支付下单 Edge Function（gateway: stripe | wechat | alipay）
   // 返回 { ok, type:'redirect'|'qr', url, code_url }
   async function createPayment(orderId, gateway) {
@@ -178,6 +196,7 @@ window.RMCCommerce = (function () {
     client: client, esc: esc, prefix: prefix, requireLogin: requireLogin,
     createOrder: createOrder, myOrders: myOrders, getOrder: getOrder, confirmPayment: confirmPayment, cancelOrder: cancelOrder,
     createPayment: createPayment, pollOrder: pollOrder,
+    listPendingReview: listPendingReview, approvePayment: approvePayment,
     listExperts: listExperts, listJobs: listJobs, postJob: postJob
   };
 })();

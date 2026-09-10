@@ -167,6 +167,10 @@
       orderBox.innerHTML='<div class="co-success"><div class="big">✅</div><h3>订单已支付</h3><p class="co-note">'+esc(KIND_LABEL[o.kind]||o.kind)+' · 金额 ¥'+Number(o.amount)+' · 权益已开通。</p></div>';
       return;
     }
+    if(o.status==='pending_review'){
+      orderBox.innerHTML='<div class="co-pending"><div class="big">⏳</div><h3>待人工确认</h3><p class="co-note">大额订单已提交，我们核对到账后将开通权益（通常 1 个工作日内）。<br>如需加急，可邮件联系：'+esc((payCfg().contact||'rm-community@qq.com'))+'</p></div>';
+      return;
+    }
     if(o.status==='cancelled'){
       orderBox.innerHTML='<p class="co-empty">该订单已取消。<a href="pricing.html">重新选购</a></p>';
       return;
@@ -177,7 +181,7 @@
   function renderMy(orders){
     if(!orders||!orders.length){ myBox.innerHTML='<p class="co-empty">还没有订单。</p>'; return; }
     var rows=orders.map(function(o){
-      var st=o.status==='paid'?'<span class="st-paid">已支付</span>':(o.status==='cancelled'?'<span class="st-pending">已取消</span>':'<span class="st-pending">待支付</span>');
+      var st=o.status==='paid'?'<span class="st-paid">已支付</span>':(o.status==='cancelled'?'<span class="st-pending">已取消</span>':(o.status==='pending_review'?'<span class="st-review">待确认</span>':'<span class="st-pending">待支付</span>'));
       var label=KIND_LABEL[o.kind]||o.kind;
       var gw=o.gateway?(' · '+esc(o.gateway)):'';
       return '<tr><td>'+label+gw+'</td><td>¥'+Number(o.amount)+'</td><td>'+st+'</td><td>'+(o.created_at||'').slice(0,10)+'</td></tr>';

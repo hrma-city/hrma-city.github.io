@@ -516,6 +516,12 @@ begin
     return jsonb_build_object('ok', true, 'msg', '已支付');
   end if;
 
+  -- 大额：进入人工确认，不立即开通权益（防转账撤回白嫖）
+  if v_order.amount > 500 then
+    update public.orders set status = 'pending_review', paid_at = null where id = p_order;
+    return jsonb_build_object('ok', true, 'status', 'pending_review', 'msg', '已提交，等待人工确认');
+  end if;
+
   update public.orders set status = 'paid', paid_at = now() where id = p_order;
 
   if v_order.kind = 'membership' and p_plan is not null then
@@ -528,6 +534,47 @@ end;
 $$;
 
 grant execute on function public.confirm_payment(uuid, text) to authenticated;
+
+/* 管理员人工核销：将 pending_review 订单置为 paid 并开通权益（仅管理员可调用） */
+create or replace function public.approve_payment(p_order uuid, p_plan text default null)
+returns jsonb
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_order public.orders;
+  admin_emails text[] := array['rm-community@qq.com','3984557428@qq.com'];
+  v_email text := auth.jwt() ->> 'email';
+begin
+  if v_email is null or not (v_email = any(admin_emails)) then
+    return jsonb_build_object('ok', false, 'msg', '无权限');
+  end if;
+
+  select * into v_order from public.orders where id = p_order for update;
+
+  if v_order is null then
+    return jsonb_build_object('ok', false, 'msg', '订单不存在');
+  end if;
+  if v_order.status = 'paid' then
+    return jsonb_build_object('ok', true, 'msg', '已是已支付');
+  end if;
+  if v_order.status <> 'pending_review' then
+    return jsonb_build_object('ok', false, 'msg', '仅待确认订单可核销');
+  end if;
+
+  update public.orders set status = 'paid', paid_at = now() where id = p_order;
+
+  if v_order.kind = 'membership' then
+    update public.profiles set plan = coalesce(p_plan, v_order.ref_id), plan_expire = now() + interval '1 year'
+    where id = v_order.user_id;
+  end if;
+
+  return jsonb_build_object('ok', true, 'msg', '已核销并开通');
+end;
+$$;
+
+grant execute on function public.approve_payment(uuid, text) to authenticated;
 
 /* 放弃订单：仅允许把「待支付」订单置为 cancelled，绝不改回 paid（安全） */
 create or replace function public.cancel_order(p_order uuid)
