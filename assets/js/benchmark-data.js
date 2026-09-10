@@ -60,6 +60,62 @@ window.RMC_BENCHMARK = {
       url: "https://www.ctnews.com.cn/paper/content/202604/09/content_112136.html",
       caliber: "上市公司披露"
     },
+    shStats1: {
+      name: "上海市统计局《2025年1月份星级饭店》",
+      org: "上海市统计局（数据源：上海市文化和旅游局）",
+      pub: "2025-02-19",
+      url: "https://tjj.sh.gov.cn/ydsj57/20250219/33c9fc85483b4dd9ac8c243bc2bb3d5c.html",
+      caliber: "上海市星级饭店（全量）"
+    },
+    shStats2: {
+      name: "上海市统计局《2025年2月份星级饭店》",
+      org: "上海市统计局（数据源：上海市文化和旅游局）",
+      pub: "2025-03-20",
+      url: "https://tjj.sh.gov.cn/ydsj57/20250318/5f88698327084b36b414ea033b94289a.html",
+      caliber: "上海市星级饭店（全量）"
+    },
+    shStats3: {
+      name: "上海市统计局《2025年3月份星级饭店》",
+      org: "上海市统计局（数据源：上海市文化和旅游局）",
+      pub: "2025-04-23",
+      url: "https://tjj.sh.gov.cn/ydsj57/20250417/de49409c267448afba9701b688900ca9.html",
+      caliber: "上海市星级饭店（全量）"
+    },
+    shStats4: {
+      name: "上海市统计局《2025年4月份星级饭店》",
+      org: "上海市统计局（数据源：上海市文化和旅游局）",
+      pub: "2025-05-22",
+      url: "https://tjj.sh.gov.cn/ydsj57/20250520/a76eb53c5df94ef182593a30584c9ed1.html",
+      caliber: "上海市星级饭店（全量）"
+    },
+    shStats5: {
+      name: "上海市统计局《2025年5月份星级饭店》",
+      org: "上海市统计局（数据源：上海市文化和旅游局）",
+      pub: "2025-06-23",
+      url: "https://tjj.sh.gov.cn/ydsj57/20250618/fd5b018bbd6942479bb23d56343d4683.html",
+      caliber: "上海市星级饭店（全量）"
+    },
+    shStats6: {
+      name: "上海市统计局《2025年6月份星级饭店》",
+      org: "上海市统计局（数据源：上海市文化和旅游局）",
+      pub: "2025-07-25",
+      url: "https://tjj.sh.gov.cn/ydsj57/20250717/03f7178a0bbb420dbd573ab7a35be8c2.html",
+      caliber: "上海市星级饭店（全量）"
+    },
+    shStats7: {
+      name: "上海市统计局《2025年7月份星级饭店》",
+      org: "上海市统计局（数据源：上海市文化和旅游局）",
+      pub: "2025-08-22",
+      url: "https://tjj.sh.gov.cn/ydsj57/20250818/89f2ed6911f44817ae01542397ca20d9.html",
+      caliber: "上海市星级饭店（全量）"
+    },
+    shStats8: {
+      name: "上海市统计局《2025年8月份星级饭店》",
+      org: "上海市统计局（数据源：上海市文化和旅游局）",
+      pub: "2025-09-22",
+      url: "https://tjj.sh.gov.cn/ydsj57/20250919/3c1694b663974a3cbd5c034589433428.html",
+      caliber: "上海市星级饭店（全量）"
+    },
     shStats9: {
       name: "上海市统计局《2025年9月份星级饭店》",
       org: "上海市统计局（数据源：上海市文化和旅游局）",
@@ -260,21 +316,22 @@ window.RMC_BENCHMARK = {
       period: "2025 年",
       caliber: "上海市星级饭店（全量 · 上海市文化和旅游局口径）",
       note: "上海是全国少数公开「城市级月度」饭店 ADR 与出租率的城市。"
-        + "10、11 月已补齐（官方《10 月份 / 11 月份星级饭店》原报告），"
-        + "由此 1–12 月月度 ADR 序列全部为官方口径，无推测值。"
+        + "10、11 月与 1–8 月出租率均已补齐，全部取自上海市统计局当月《星级饭店》原报告，"
+        + "由此 1–12 月的房价与出租率均为官方口径，无推测值。"
         + "交叉校验：12 个月算术均值 762.1 与官方全年累计 767 差 0.6%（累计按出租间天加权，故略高于算术均值）；"
-        + "官方 1–11 月累计 757 与此前新民晚报披露的 756.54 相互印证。",
+        + "官方 1–11 月累计 757 与此前新民晚报披露的 756.54 相互印证。"
+        + "注：官方月度报告只公布房价同比，未公布出租率同比，故 occYoy 一律留空。",
       monthly: {
-        caliber: "月度平均房价（元/间天）与同比；出租率仅列已核实月份（1–8 月官方报告未取到，留空不推测）",
+        caliber: "月度平均房价（元/间天）与同比、出租率；1–12 月逐月取自上海市统计局当月原报告",
         rows: [
-          { m: "1 月",  adr: 713, adrYoy: "-0.1%", occ: null, occYoy: null,     src: "shMonthly" },
-          { m: "2 月",  adr: 701, adrYoy: "-6.7%", occ: null, occYoy: null,     src: "shMonthly" },
-          { m: "3 月",  adr: 748, adrYoy: "-1.4%", occ: null, occYoy: null,     src: "shMonthly" },
-          { m: "4 月",  adr: 805, adrYoy: "+0.9%", occ: null, occYoy: null,     src: "shMonthly" },
-          { m: "5 月",  adr: 756, adrYoy: "-1.0%", occ: null, occYoy: null,     src: "shMonthly" },
-          { m: "6 月",  adr: 749, adrYoy: "-1.0%", occ: null, occYoy: null,     src: "shMonthly" },
-          { m: "7 月",  adr: 711, adrYoy: "-1.9%", occ: null, occYoy: null,     src: "shMonthly" },
-          { m: "8 月",  adr: 726, adrYoy: "+0.2%", occ: null, occYoy: null,     src: "shMonthly" },
+          { m: "1 月",  adr: 713, adrYoy: "-0.1%", occ: 51.1, occYoy: null,     src: "shStats1" },
+          { m: "2 月",  adr: 701, adrYoy: "-6.7%", occ: 50.5, occYoy: null,     src: "shStats2" },
+          { m: "3 月",  adr: 748, adrYoy: "-1.4%", occ: 66.7, occYoy: null,     src: "shStats3" },
+          { m: "4 月",  adr: 805, adrYoy: "+0.9%", occ: 69.6, occYoy: null,     src: "shStats4" },
+          { m: "5 月",  adr: 756, adrYoy: "-1.0%", occ: 68.4, occYoy: null,     src: "shStats5" },
+          { m: "6 月",  adr: 749, adrYoy: "-1.0%", occ: 65.5, occYoy: null,     src: "shStats6" },
+          { m: "7 月",  adr: 711, adrYoy: "-1.9%", occ: 71.3, occYoy: null,     src: "shStats7" },
+          { m: "8 月",  adr: 726, adrYoy: "+0.2%", occ: 71.9, occYoy: null,     src: "shStats8" },
           { m: "9 月",  adr: 771, adrYoy: "+3.8%", occ: 67.6, occYoy: "+6.0pp", src: "shStats9" },
           { m: "10 月", adr: 806, adrYoy: "+5.8%", occ: 70.8, occYoy: null,     src: "shStats10" },
           { m: "11 月", adr: 835, adrYoy: "+3.1%", occ: 72.9, occYoy: null,     src: "shStats11" },
