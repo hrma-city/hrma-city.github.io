@@ -13,11 +13,18 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"games","item":"https://hrma-city.github.io/games/arena.html"},{"@type":"ListItem","position":3,"name":"arena","item":"https://hrma-city.github.io/games/arena.html"}]}</script>
 </head>
-<body data-auth="protected">
+<body data-auth="public">
   <div id="snMount"></div>
 
   <main class="site-main">
     <div class="arena-wrap">
+
+      <div class="arena-nickbar">
+        <label class="arena-field">昵称
+          <input id="nickInput" type="text" maxlength="12" placeholder="输入昵称即可开玩（免登录）">
+        </label>
+        <span class="arena-muted" id="guestTip"></span>
+      </div>
 
       <!-- ================= 大厅 ================= -->
       <section id="view-lobby" class="arena-card">
@@ -84,9 +91,24 @@
             <h4>本回合 <span id="roundInfo" class="arena-muted">等待开始</span></h4>
             <div id="bidArea" class="arena-bidarea">
               <p class="arena-muted" id="bidStatus">房主点击「开始游戏」后开放出价。</p>
+              <div id="marketCard" class="arena-market" hidden>
+                <div class="am-cell"><span class="am-k">竞品均价</span><b id="mComp">—</b></div>
+                <div class="am-cell"><span class="am-k">需求热度</span><b id="mHeat">—</b></div>
+                <div class="am-cell"><span class="am-k">可用房量</span><b id="mCap">—</b></div>
+                <div class="am-cell"><span class="am-k">单房变动成本</span><b id="mCost">—</b></div>
+                <div class="am-cell am-target"><span class="am-k">本回合目标利润</span><b id="mTarget">—</b></div>
+              </div>
               <div id="bidForm" hidden>
                 <label class="arena-field">你的 ADR（元）
                   <input id="bidInput" type="number" min="200" max="1200" value="540">
+                </label>
+                <label class="arena-field">超售档位（多卖几间对冲 No-show 风险）
+                  <select id="obInput">
+                    <option value="0">0 间（不超售）</option>
+                    <option value="3">+3 间</option>
+                    <option value="6">+6 间</option>
+                    <option value="9">+9 间（激进）</option>
+                  </select>
                 </label>
                 <button class="arena-btn arena-btn-primary" id="btnBid">提交出价</button>
                 <span id="bidDone" class="arena-done" hidden>✓ 已提交，等待结算</span>
@@ -128,7 +150,7 @@
   <script>
   (function () {
     var A = window.RMCArena;
-    var me = null, curRoom = null, curRound = 0, isHost = false, nameMap = {};
+    var me = null, curRoom = null, curRound = 0, isHost = false, isGuest = false, nameMap = {}, curMarket = null;
 
     function $(id) { return document.getElementById(id); }
     function show(id, v) { $(id).hidden = !v; }
@@ -136,10 +158,87 @@
 
     function modeName(m) { return m === "coop" ? "协作沙盘" : "对抗沙盘"; }
 
+    function renderMarket(m) {
+      if (!m) return;
+      show("marketCard", true);
+      setText("mComp", "¥" + m.compAdr);
+      setText("mHeat", (m.demandHeat >= 1 ? "偏旺 ×" : "偏冷 ×") + m.demandHeat);
+      setText("mCap", m.capacity + " 间");
+      setText("mCost", "¥" + m.varCost + "/间");
+      setText("mTarget", "¥" + m.target);
+    }
+
+    // ---- 演示降级：匿名登录/后台不可用时，本地 AI 对战（免登录、免联网） ----
+    var DEMO = false;
+    var demo = {
+      room: null, total: 6, round: 0, scores: {}, myId: "me",
+      ai: { id: "ai", name: "AI 经理" }, market: null,
+      makeRoom: function () {
+        return { id: "demo", code: "DEMO", mode: $("createMode").value || "showdown",
+          host: "me", status: "lobby", round: 0, total_rounds: parseInt($("createRounds").value, 10) || 6,
+          config: A.defaultConfig() };
+      },
+      rooms: function () {
+        $("roomList").innerHTML = '<div class="arena-roomrow">' +
+          '<span class="arena-rc">DEMO</span><span class="arena-rm">对抗/协作</span>' +
+          '<span class="arena-rn">AI 在线</span>' +
+          '<button class="arena-btn arena-btn-sm" id="demoJoin">进入演示</button></div>';
+        $("demoJoin").onclick = function () { enterRoom(demo.makeRoom()); };
+      },
+      start: function (room) { this.room = room; this.total = room.total_rounds; this.round = 0; this.scores = {}; },
+      nextRound: function () {
+        this.round++;
+        if (this.round > this.total) { this.final(); return; }
+        this.market = A.genMarket(this.room, this.round);
+        setText("roundInfo", "第 " + this.round + " / " + this.total + " 回合");
+        renderMarket(this.market);
+        $("bidStatus").hidden = true; show("bidForm", true); $("btnBid").disabled = false; show("bidDone", false);
+        nameMap[this.myId] = nick(); nameMap[this.ai.id] = this.ai.name;
+        renderPresence({ me: [{ user_id: this.myId, name: nick() }], ai: [{ user_id: this.ai.id, name: this.ai.name }] });
+        $("resultBoard").insertAdjacentHTML("afterbegin", '<div class="arena-rd">— 第 ' + this.round + ' 回合出价中 —</div>');
+      },
+      submit: function (adr, overbook) {
+        var m = this.market, ob = overbook || 0;
+        // AI：网格搜索期望利润最优价，叠加 ±40 扰动（不完全理性，给玩家可乘之机）
+        var aiBest = A.aiAdr(m, 4);
+        var aiAdr2 = Math.max(200, Math.min(1200, aiBest + Math.round((Math.random() * 2 - 1) * 40)));
+        var mine = A.settle(m, adr, ob, Math.floor(Math.random() * 1e6));
+        var ai = A.settle(m, aiAdr2, 4, Math.floor(Math.random() * 1e6));
+        var res = {}; res[this.myId] = mine; res[this.ai.id] = ai;
+        this.scores[this.myId] = (this.scores[this.myId] || 0) + mine.profit;
+        this.scores[this.ai.id] = (this.scores[this.ai.id] || 0) + ai.profit;
+        renderResult({ results: res, scores: this.scores });
+        if (this.round >= this.total) this.final(); else setTimeout(function () { demo.nextRound(); }, 1500);
+      },
+      final: function () {
+        show("bidForm", false); $("bidStatus").hidden = false; setText("bidStatus", "游戏结束");
+        var rk = Object.keys(this.scores).map(function (id) { return { user_id: id, score: demo.scores[id] }; })
+          .sort(function (a, b) { return b.score - a.score; });
+        $("finalBoard").hidden = false;
+        $("finalBoard").innerHTML = '<h3>🏆 最终排名（按累计利润）</h3>' + rk.map(function (x, i) {
+          return '<div class="arena-finalrow">#' + (i + 1) + "　" + A.esc(nameMap[x.user_id] || "玩家") + "　<b>¥" + x.score + "</b></div>";
+        }).join("");
+      }
+    };
+
+    function nick() {
+      var el = $("nickInput");
+      var v = (el && el.value || "").trim() || (localStorage.getItem("rm_arena_nick") || "").trim();
+      if (!v) v = "访客" + Math.floor(100 + Math.random() * 900);
+      try { localStorage.setItem("rm_arena_nick", v); } catch (e) {}
+      if (el && !el.value) el.value = v;
+      return v;
+    }
+
     async function boot() {
       var s = await A.ensureSession();
-      if (!s.ok) { alert("请先登录：" + s.error); location.href = "../login.html"; return; }
-      me = s.user;
+      if (!s.ok) {
+        DEMO = true; me = { id: "me" }; isGuest = true;
+        $("guestTip").textContent = "演示模式（AI 对手 · 无需登录/联网，点「进入演示」即可游玩）";
+        demo.rooms(); return;
+      }
+      me = s.user; isGuest = s.guest;
+      $("guestTip").textContent = s.guest ? "游客模式（无需登录）· 用昵称即可加入" : ("已登录：" + (me.email || me.id));
       loadRooms();
     }
 
@@ -165,17 +264,19 @@
     async function doCreate() {
       var mode = $("createMode").value;
       var rounds = parseInt($("createRounds").value, 10) || 6;
+      if (DEMO) { enterRoom(demo.makeRoom()); return; }
       $("btnCreate").disabled = true;
-      var r = await A.createRoom({ mode: mode, totalRounds: rounds, name: me.email });
+      var r = await A.createRoom({ mode: mode, totalRounds: rounds, name: nick() });
       $("btnCreate").disabled = false;
       if (!r.ok) { alert("创建失败：" + r.error); return; }
       enterRoom(r.room);
     }
 
     async function doJoin(code) {
+      if (DEMO) { enterRoom(demo.makeRoom()); return; }
       code = (code || $("joinCode").value || "").trim().toUpperCase();
       if (!code) { alert("请输入房间号"); return; }
-      var r = await A.joinRoom(code, me.email);
+      var r = await A.joinRoom(code, nick());
       if (!r.ok) { alert("加入失败：" + r.error); return; }
       enterRoom(r.room);
     }
@@ -191,13 +292,14 @@
       $("resultBoard").innerHTML = '<span class="arena-muted">尚未开始</span>';
       $("scoreBoard").innerHTML = '<span class="arena-muted">—</span>';
 
-      var c = await A.connect(room.id, me, me.email, {
+      if (DEMO) { demo.start(room); return; }
+      var c = await A.connect(room.id, me, nick(), {
         onReady: function () { /* 已连接 */ },
         onPresence: renderPresence,
         onRoundStart: function (p) {
           curRound = p.round;
-          setText("roundInfo", "第 " + p.round + " / " + p.round + (p.total ? "/" + p.total : ""));
           setText("roundInfo", "第 " + p.round + " / " + (curRoom.total_rounds || p.total) + " 回合");
+          curMarket = p.market; renderMarket(p.market);
           $("bidStatus").hidden = true; show("bidForm", true);
           $("btnBid").disabled = false; show("bidDone", false);
           $("resultBoard").insertAdjacentHTML("afterbegin",
@@ -233,22 +335,26 @@
       var res = p.results, scores = p.scores || {};
       var rows = Object.keys(res).map(function (id) {
         var r = res[id];
+        var star = r.star ? "⭐" : "—";
         return '<tr>' +
-          '<td>' + A.esc(nameMap[id] || "玩家") + '</td>' +
-          '<td>' + r.adr + '</td>' +
+          '<td>' + A.esc(nameMap[id] || "玩家") + (id === curRoom.host ? " 👑" : "") + '</td>' +
+          '<td>¥' + r.adr + (r.overbook ? ' <small>+' + r.overbook + '</small>' : '') + '</td>' +
+          '<td>' + r.demand + '</td>' +
+          '<td>' + r.sold + (r.walk ? ' <span class="arena-walk">走' + r.walk + '</span>' : '') + '</td>' +
           '<td>' + r.occ + '%</td>' +
-          '<td>' + r.revpar + '</td>' +
-          '<td class="arena-acc">' + (scores[id] || 0) + '</td>' +
+          '<td class="' + (r.profit >= 0 ? "arena-pos" : "arena-neg") + '">¥' + r.profit + '</td>' +
+          '<td>' + star + '</td>' +
+          '<td class="arena-acc">¥' + (scores[id] || 0) + '</td>' +
           '</tr>';
       }).join("");
       $("resultBoard").innerHTML =
-        '<table class="arena-tbl"><thead><tr><th>玩家</th><th>ADR</th><th>出租率</th><th>RevPAR</th><th>累计</th></tr></thead><tbody>' +
+        '<table class="arena-tbl"><thead><tr><th>玩家</th><th>ADR(超售)</th><th>需求</th><th>售出</th><th>出租率</th><th>利润</th><th>达标</th><th>累计利润</th></tr></thead><tbody>' +
         rows + '</tbody></table>';
       // 累计榜
       var ranked = Object.keys(scores).map(function (id) { return { id: id, s: scores[id] }; })
         .sort(function (x, y) { return y.s - x.s; });
       $("scoreBoard").innerHTML = ranked.map(function (x, i) {
-        return '<span class="arena-scorepill">#' + (i + 1) + " " + A.esc(nameMap[x.id] || "玩家") + " · " + x.s + "</span>";
+        return '<span class="arena-scorepill">#' + (i + 1) + " " + A.esc(nameMap[x.id] || "玩家") + " · ¥" + x.s + "</span>";
       }).join("");
     }
 
@@ -256,24 +362,28 @@
       show("bidForm", false); $("bidStatus").hidden = false; setText("bidStatus", "游戏结束");
       var rk = p.ranking || [];
       $("finalBoard").hidden = false;
-      $("finalBoard").innerHTML = '<h3>🏆 最终排名</h3>' + rk.map(function (x, i) {
-        return '<div class="arena-finalrow">#' + (i + 1) + "　" + A.esc(nameMap[x.user_id] || "玩家") + "　<b>" + x.score + "</b> 分</div>";
+      $("finalBoard").innerHTML = '<h3>🏆 最终排名（按累计利润）</h3>' + rk.map(function (x, i) {
+        return '<div class="arena-finalrow">#' + (i + 1) + "　" + A.esc(nameMap[x.user_id] || "玩家") + "　<b>¥" + x.score + "</b></div>";
       }).join("");
     }
 
     async function doBid() {
       var adr = parseInt($("bidInput").value, 10);
       if (!adr || adr < 200 || adr > 1200) { alert("ADR 需在 200–1200 之间"); return; }
-      await A.submitBid(curRound, adr);
+      var ob = parseInt($("obInput").value, 10) || 0;
+      if (DEMO) { demo.submit(adr, ob); $("btnBid").disabled = true; show("bidDone", true); return; }
+      await A.submitBid(curRound, adr, ob);
       $("btnBid").disabled = true; show("bidDone", true);
     }
 
     async function doStart() {
       $("btnStart").disabled = true;
+      if (DEMO) { demo.nextRound(); return; }
       await A.runHost(curRoom, me);
     }
 
     async function doLeave() {
+      if (DEMO) { show("view-room", false); show("view-lobby", true); demo.rooms(); return; }
       await A.leave();
       if (curRoom && me) await A.leaveRoom(curRoom.id, me);
       show("view-room", false); show("view-lobby", true);
