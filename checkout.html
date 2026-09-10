@@ -53,7 +53,6 @@
 <script src="auth-config.js"></script>
 <script src="auth.js"></script>
 <script src="assets/js/commerce.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script>
 (function(){
@@ -65,100 +64,123 @@
   var myBox=document.getElementById('myOrders');
   var esc=function(s){ return window.RMCCommerce?window.RMCCommerce.esc(s):(s==null?'':String(s)); };
 
-  /* 手动转账指引：用 DOM 构建，避免静态校验把动态 src 误判为死链 */
+  /* 静态收款码：微信个人收款码 / 支付宝个人收钱码，无需商户资质、无需回调 */
+  var PAY_TABS=[
+    {id:'wechat', label:'微信支付', key:'wechatQR', tip:'打开微信「扫一扫」，扫描上方二维码后手动输入金额付款'},
+    {id:'alipay', label:'支付宝',   key:'alipayQR', tip:'打开支付宝「扫一扫」，扫描上方二维码后手动输入金额付款'}
+  ];
+
+  function payCfg(){ return window.HRMA_PAY||{}; }
+
+  // 收款码地址：配置留空时回退到同名占位图，避免出现死链
+  function qrSrc(tab){
+    var v=payCfg()[tab.key];
+    v=(v&&String(v).trim())?String(v).trim():'';
+    return v || ('assets/img/pay/'+tab.id+'-qr.svg');
+  }
+
+  function copyAmount(val, btn){
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(String(val)); }
+      else{
+        var ta=document.createElement('textarea'); ta.value=String(val);
+        ta.style.position='absolute'; ta.style.left='-9999px';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+      }
+    }catch(e){}
+    if(btn){ var old=btn.getAttribute('data-label')||'复制金额'; btn.setAttribute('data-label',old); btn.textContent='已复制'; setTimeout(function(){ btn.textContent=old; },1500); }
+  }
+
+  async function doConfirm(o, btn){
+    if(btn){ btn.disabled=true; btn.textContent='提交中…'; }
+    var plan=(o.kind==='membership')?o.ref_id:null;
+    var r=await window.RMCCommerce.confirmPayment(o.id, plan);
+    if(r&&r.ok){ location.reload(); return; }
+    if(btn){ btn.disabled=false; btn.textContent='我已支付'; }
+    alert((r&&r.msg)||'提交失败，请稍后重试或联系客服');
+  }
+
+  async function doCancel(o){
+    if(!confirm('确定放弃该订单？')) return;
+    var r=await window.RMCCommerce.cancelOrder(o.id);
+    if(r&&r.ok){ location.reload(); } else { alert((r&&r.msg)||'操作失败，请稍后重试'); }
+  }
+
+  function headRows(o, amount){
+    return '<div class="co-row"><span>订单类型</span><b>'+esc(KIND_LABEL[o.kind]||o.kind)+'</b></div>'
+      +(o.ref_id?'<div class="co-row"><span>项目</span><b>'+esc(o.ref_id)+'</b></div>':'')
+      +'<div class="co-row"><span>应付金额</span><b class="co-amount">¥'+amount+'</b></div>'
+      +'<div class="co-row"><span>状态</span><b>待支付</b></div>';
+  }
+
+  /* ---- 主流程：扫码支付 ---- */
+  function showQRPay(o, active){
+    var tab=PAY_TABS.filter(function(x){ return x.id===active; })[0]||PAY_TABS[0];
+    var amount=Number(o.amount)||0;
+    var P=payCfg();
+    orderBox.innerHTML=headRows(o, amount)
+      +'<div class="co-pay">'
+        +'<div class="cm-eyebrow">扫码支付</div>'
+        +'<div id="qrTabs" style="margin-bottom:12px"></div>'
+        +'<div id="qrImg" class="co-qr-lg" style="background:#fff"></div>'
+        +'<p class="co-note" id="qrTip"></p>'
+        +'<p class="co-note">请付款 <b>¥'+amount+'</b>'
+          +'<button class="btn-line" id="copyAmt" style="padding:2px 10px;font-size:12px;margin-left:6px">复制金额</button></p>'
+        +(P.note?'<p class="co-note">'+esc(P.note)+'</p>':'')
+      +'</div>'
+      +'<div class="co-pay">'
+        +'<button class="btn-gold" id="payBtn">我已支付</button> '
+        +'<button class="btn-line" id="manualBtn">其他方式</button> '
+        +'<button class="btn-line" id="cancelBtn">放弃订单</button>'
+      +'</div>';
+
+    var tabsBox=document.getElementById('qrTabs');
+    PAY_TABS.forEach(function(x){
+      var b=document.createElement('button');
+      b.className='btn-line'; b.textContent=x.label; b.style.marginRight='8px';
+      if(x.id===tab.id){ b.style.borderColor='var(--gold-2)'; b.style.color='var(--gold-2)'; }
+      b.addEventListener('click', function(){ showQRPay(o, x.id); });
+      tabsBox.appendChild(b);
+    });
+
+    var wrap=document.getElementById('qrImg');
+    var im=document.createElement('img');
+    im.src=qrSrc(tab); im.alt=tab.label+'收款码';
+    im.style.maxWidth='240px'; im.style.width='100%';
+    wrap.appendChild(im);
+    document.getElementById('qrTip').textContent=tab.tip;
+
+    document.getElementById('copyAmt').addEventListener('click', function(){ copyAmount(amount, this); });
+    document.getElementById('payBtn').addEventListener('click', function(){ doConfirm(o, this); });
+    document.getElementById('manualBtn').addEventListener('click', function(){ showManual(o); });
+    document.getElementById('cancelBtn').addEventListener('click', function(){ doCancel(o); });
+  }
+
+  /* ---- 兜底：转账 / 人工确认 ---- */
   function buildManualPay(){
-    var P=window.HRMA_PAY||{};
+    var P=payCfg();
     var wrap=document.createElement('div');
-    function qr(src, alt){
-      var d=document.createElement('div'); d.className='co-qr'; d.style.background='#fff';
-      if(src){ var im=document.createElement('img'); im.src=src; im.alt=alt; im.style.maxWidth='100%'; d.appendChild(im); }
-      else { d.textContent='收款码（待接入）'; }
-      return d;
-    }
-    if(P.wechatQR) wrap.appendChild(qr(P.wechatQR,'微信收款码'));
-    if(P.alipayQR) wrap.appendChild(qr(P.alipayQR,'支付宝收款码'));
-    if(!P.wechatQR && !P.alipayQR) wrap.appendChild(qr('',''));
-    var note=document.createElement('div');
-    note.innerHTML='<p class="co-note">收款方：<b>'+(P.payee||'RMC收益管理社区')+'</b></p>'
-      +(P.bank?'<p class="co-note">转账账号：'+esc(P.bank)+'</p>':'')
-      +(P.contact?'<p class="co-note">或联系：'+esc(P.contact)+'</p>':'')
-      +(P.note?'<p class="co-note">'+esc(P.note)+'</p>':'');
-    wrap.appendChild(note);
+    function line(html){ var d=document.createElement('p'); d.className='co-note'; d.innerHTML=html; return d; }
+    wrap.appendChild(line('收款方：<b>'+esc(P.payee||'RMC收益管理社区')+'</b>'));
+    if(P.bank) wrap.appendChild(line('转账账号：'+esc(P.bank)));
+    if(P.contact) wrap.appendChild(line('联系：'+esc(P.contact)));
     return wrap;
   }
 
-  // 网关选择按钮
-  var GATEWAYS=[
-    {id:'wechat', label:'微信支付', cls:'gw-wx'},
-    {id:'alipay', label:'支付宝', cls:'gw-ali'},
-    {id:'stripe', label:'Stripe / 国际卡', cls:'gw-st'}
-  ];
-
-  function renderGateways(o){
-    var box=document.createElement('div'); box.className='co-gateways';
-    GATEWAYS.forEach(function(g){
-      var b=document.createElement('button'); b.className='btn-gold '+g.cls; b.textContent=g.label;
-      b.addEventListener('click', function(){ startPay(o, g.id); });
-      box.appendChild(b);
-    });
-    var more=document.createElement('button'); more.className='btn-line'; more.textContent='其他方式（转账 / 人工确认）';
-    more.addEventListener('click', function(){ showManual(o); });
-    box.appendChild(more);
-    return box;
-  }
-
   function showManual(o){
-    orderBox.innerHTML=
-      '<div class="co-row"><span>订单类型</span><b>'+esc(KIND_LABEL[o.kind]||o.kind)+'</b></div>'
-      +(o.ref_id?'<div class="co-row"><span>项目</span><b>'+esc(o.ref_id)+'</b></div>':'')
-      +'<div class="co-row"><span>金额</span><b class="co-amount">¥'+Number(o.amount)+'</b></div>'
-      +'<div class="co-row"><span>状态</span><b>待支付</b></div>'
-      +'<div class="co-pay"><div class="cm-eyebrow">支付指引（转账后点“我已支付”）</div><div id="payArea"></div></div>'
-      +'<div class="co-pay"><button class="btn-gold" id="payBtn">我已支付</button> '
-      +'<button class="btn-line" id="cancelBtn">放弃订单</button></div>';
-    var payArea=document.getElementById('payArea'); if(payArea) payArea.appendChild(buildManualPay());
-    bindManual(o);
-  }
-
-  function bindManual(o){
-    var payBtn=document.getElementById('payBtn');
-    if(payBtn){ payBtn.addEventListener('click', async function(){
-      payBtn.disabled=true; payBtn.textContent='确认中…';
-      var plan=(o.kind==='membership')?o.ref_id:null;
-      var r=await window.RMCCommerce.confirmPayment(o.id, plan);
-      if(r&&r.ok){ location.reload(); } else { payBtn.disabled=false; payBtn.textContent='我已支付'; alert((r&&r.msg)||'确认失败，请稍后重试或联系客服'); }
-    }); }
-    var cancelBtn=document.getElementById('cancelBtn');
-    if(cancelBtn){ cancelBtn.addEventListener('click', async function(){
-      if(!confirm('确定放弃该订单？')) return;
-      var r=await window.RMCCommerce.cancelOrder(o.id);
-      if(r&&r.ok){ location.reload(); } else { alert((r&&r.msg)||'操作失败，请稍后重试'); }
-    }); }
-  }
-
-  async function startPay(o, gateway){
-    var btn=event&&event.target; if(btn){ btn.disabled=true; btn.textContent='发起中…'; }
-    var r=await window.RMCCommerce.createPayment(o.id, gateway);
-    if(!r||!r.ok){ alert((r&&r.msg)||'发起支付失败'); if(btn){ btn.disabled=false; btn.textContent=GATEWAYS.find(function(g){return g.id===gateway;}).label; } return; }
-    if(r.type==='redirect' && r.url){ window.location.href=r.url; return; }
-    if(r.type==='qr' && r.code_url){ showQR(o, r.code_url); return; }
-    alert('未知返回，请刷新重试');
-  }
-
-  function showQR(o, codeUrl){
-    orderBox.innerHTML=
-      '<div class="co-row"><span>订单类型</span><b>'+esc(KIND_LABEL[o.kind]||o.kind)+'</b></div>'
-      +'<div class="co-row"><span>金额</span><b class="co-amount">¥'+Number(o.amount)+'</b></div>'
-      +'<div class="co-row"><span>状态</span><b>待支付</b></div>'
-      +'<div class="co-pay"><div class="cm-eyebrow">请使用微信扫码支付</div><div id="qrBox" class="co-qr-lg"></div>'
-      +'<p class="co-note" id="qrHint">二维码生成中…支付成功后本页自动刷新</p></div>'
-      +'<div class="co-pay"><button class="btn-line" id="backBtn">更换支付方式</button></div>';
-    var qrBox=document.getElementById('qrBox');
-    if(window.QRCode && qrBox){ window.QRCode.toCanvas(qrBox, codeUrl, {width:220,margin:1}, function(err){
-      document.getElementById('qrHint').textContent = err? '二维码生成失败，请刷新' : '请使用微信扫码支付，成功后本页自动刷新';
-    }); }
-    document.getElementById('backBtn').addEventListener('click', function(){ renderOrder(o); });
-    window.RMCCommerce.pollOrder(o.id, function(){ location.reload(); });
+    var amount=Number(o.amount)||0;
+    orderBox.innerHTML=headRows(o, amount)
+      +'<div class="co-pay"><div class="cm-eyebrow">转账 / 人工确认（转账后再点“我已支付”）</div><div id="payArea"></div></div>'
+      +'<div class="co-pay">'
+        +'<button class="btn-gold" id="payBtn">我已支付</button> '
+        +'<button class="btn-line" id="qrBtn">返回扫码支付</button> '
+        +'<button class="btn-line" id="cancelBtn">放弃订单</button>'
+      +'</div>';
+    var payArea=document.getElementById('payArea');
+    if(payArea) payArea.appendChild(buildManualPay());
+    document.getElementById('payBtn').addEventListener('click', function(){ doConfirm(o, this); });
+    document.getElementById('qrBtn').addEventListener('click', function(){ showQRPay(o); });
+    document.getElementById('cancelBtn').addEventListener('click', function(){ doCancel(o); });
   }
 
   function renderOrder(o){
@@ -167,18 +189,11 @@
       orderBox.innerHTML='<div class="co-success"><div class="big">✅</div><h3>订单已支付</h3><p class="co-note">'+esc(KIND_LABEL[o.kind]||o.kind)+' · 金额 ¥'+Number(o.amount)+' · 权益已开通。</p></div>';
       return;
     }
-    orderBox.innerHTML=
-      '<div class="co-row"><span>订单类型</span><b>'+esc(KIND_LABEL[o.kind]||o.kind)+'</b></div>'
-      +(o.ref_id?'<div class="co-row"><span>项目</span><b>'+esc(o.ref_id)+'</b></div>':'')
-      +'<div class="co-row"><span>金额</span><b class="co-amount">¥'+Number(o.amount)+'</b></div>'
-      +'<div class="co-row"><span>状态</span><b>待支付</b></div>'
-      +'<div class="co-pay"><div class="cm-eyebrow">选择支付方式</div><div id="gwBox"></div></div>';
-    var gwBox=document.getElementById('gwBox'); if(gwBox) gwBox.appendChild(renderGateways(o));
-
-    // 从网关回跳（?paid=1）后自动轮询确认
-    if(new URLSearchParams(location.search).get('paid')==='1'){
-      window.RMCCommerce.pollOrder(o.id, function(){ location.href='checkout.html?order='+o.id; });
+    if(o.status==='cancelled'){
+      orderBox.innerHTML='<p class="co-empty">该订单已取消。<a href="pricing.html">重新选购</a></p>';
+      return;
     }
+    showQRPay(o);
   }
 
   function renderMy(orders){
