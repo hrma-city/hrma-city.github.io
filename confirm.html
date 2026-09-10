@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>邮箱验证 · RMC收益管理社区</title>
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/auth.css">
+<style>
+  .cv-wrap{max-width:640px;margin:54px auto;padding:0 18px;text-align:center}
+  .cv-card{background:var(--bg,#fff);border:1px solid var(--line,#e6e2d8);border-radius:16px;padding:34px}
+  .cv-ico{font-size:46px;line-height:1}
+  .cv-h{font-size:22px;color:var(--navy,#16324f);margin:12px 0 8px}
+  .cv-p{color:var(--ink-3,#7B8794);font-size:14px;line-height:1.75}
+  .cv-btn{display:inline-block;margin-top:18px;padding:11px 24px;border-radius:9px;background:linear-gradient(135deg,var(--gold-2,#D4A96A),var(--gold,#b9914a));color:#fff;font-weight:600;text-decoration:none}
+  .cv-err{color:#c0392b}.cv-ok{color:#1e7e44}
+  .cv-spin{margin:22px auto;width:34px;height:34px;border:4px solid var(--line,#e6e2d8);border-top-color:var(--gold,#b9914a);border-radius:50%;animation:sp 1s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body data-auth="public">
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+    <nav class="sn-links" id="snLinks">
+      <a href="index.html">首页</a>
+      <a href="academy.html">学院</a>
+      <a href="books.html">书籍</a>
+      <a href="games/index.html">游戏</a>
+      <a href="community.html">社区</a>
+      <a href="login.html">登录</a>
+    </nav>
+    <a class="sn-cta" href="register.html">申请账号</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main">
+  <div class="cv-wrap">
+    <div class="cv-card">
+      <div class="cv-spin" id="spin"></div>
+      <div id="cvBody" style="display:none">
+        <div class="cv-ico" id="cvIco">✉️</div>
+        <h1 class="cv-h" id="cvH">正在验证…</h1>
+        <p class="cv-p" id="cvP"></p>
+        <a class="cv-btn" id="cvBtn" href="login.html" style="display:none">去登录</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth-config.js"></script>
+<script src="auth.js"></script>
+<script>window.HRMA_PREFIX="";</script>
+<script>
+(async function () {
+  "use strict";
+  var body = document.getElementById("cvBody"), spin = document.getElementById("spin");
+  var ico = document.getElementById("cvIco"), h = document.getElementById("cvH");
+  var p = document.getElementById("cvP"), btn = document.getElementById("cvBtn");
+  function done(kind, icon, title, text, blinkHref, blinkText) {
+    spin.style.display = "none"; body.style.display = "block";
+    ico.textContent = icon; h.textContent = title;
+    h.className = "cv-h " + (kind === "ok" ? "cv-ok" : kind === "err" ? "cv-err" : "");
+    p.innerHTML = text;
+    if (blinkHref) { btn.href = blinkHref; btn.textContent = blinkText || "去登录"; btn.style.display = "inline-block"; }
+  }
+  try {
+    if (!window.HRMA_SUPABASE || !window.HRMA_SUPABASE.url) {
+      done("err", "⚠️", "系统未配置", "请联系管理员填写 auth-config.js 后重新部署。");
+      return;
+    }
+    var sb = window.supabase.createClient(window.HRMA_SUPABASE.url, window.HRMA_SUPABASE.anonKey);
+
+    // 情况1：邮件模板直链到本页，URL 带 token_hash & type（旧/自定义模板）
+    var q = new URLSearchParams(location.search);
+    var th = q.get("token_hash"), ty = q.get("type");
+    if (th && ty) {
+      var v = await sb.auth.verifyOtp({ token_hash: th, type: ty });
+      if (v.error) throw v.error;
+    }
+
+    // 情况2：Supabase 验证后带会话跳回本页（默认模板 + emailRedirectTo）
+    var s = await sb.auth.getSession();
+    if (s && s.data && s.data.session) {
+      done("ok", "✅", "邮箱验证成功",
+        "你的邮箱已确认，现在可以用该邮箱登录社区了。",
+        "curriculum.html", "进入课程");
+    } else if (th && ty) {
+      done("ok", "✅", "邮箱已确认", "验证完成，请返回登录页使用该邮箱登录。", "login.html");
+    } else {
+      done("", "📨", "请通过邮件链接访问本页",
+        "本页用于完成邮箱验证。请打开注册邮件中的「确认邮箱」按钮，系统会自动跳转到这里。" +
+        "若链接打不开，请到 <a href=\"login.html\">登录页</a> 用该邮箱登录，并按提示重新发送验证邮件。", null);
+    }
+  } catch (e) {
+    done("err", "⚠️", "验证失败",
+      ((e && e.message) ? e.message : e) +
+      "<br>如链接已过期，请到登录页重新发送验证邮件。", null);
+  }
+})();
+</script>
+</body>
+</html>

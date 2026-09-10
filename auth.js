@@ -55,15 +55,19 @@
     var r = await c.auth.signUp({
       email: email,
       password: password,
-      // 把所有申请字段写进 auth metadata，触发器据此写入 profiles，
-      // 即使开启邮箱确认导致后续 upsert 被 RLS 拦截，资料也不会丢。
-      options: { data: {
-        full_name: extra.full_name || "",
-        org: extra.org || "",
-        role_text: extra.role_text || "",
-        phone: extra.phone || "",
-        reason: extra.reason || ""
-      } }
+      // 验证邮件点开后跳回本站 confirm.html 完成确认（已把域名加入 Supabase 重定向白名单）
+      options: {
+        emailRedirectTo: "https://hrma-city.github.io/confirm.html",
+        // 把所有申请字段写进 auth metadata，触发器据此写入 profiles，
+        // 即使开启邮箱确认导致后续 upsert 被 RLS 拦截，资料也不会丢。
+        data: {
+          full_name: extra.full_name || "",
+          org: extra.org || "",
+          role_text: extra.role_text || "",
+          phone: extra.phone || "",
+          reason: extra.reason || ""
+        }
+      }
     });
     if (r.error) throw r.error;
     // 写入 profiles（触发器若已建则忽略冲突）；邮箱确认未过时此步可能被 RLS 拦，靠触发器兜底
