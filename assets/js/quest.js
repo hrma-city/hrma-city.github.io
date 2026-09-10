@@ -9,7 +9,8 @@
   "use strict";
 
   /* ---------- 关卡数据：三级认证，每级一条 SOP ---------- */
-  var QUEST = {
+  // 关卡数据外置到 quest-data.js（便于持续扩充）；未加载时回退到内置版本
+  var QUEST = (window.RMCQuestData && window.RMCQuestData.QUEST) || {
     L1: {
       title: "L1 基础运营官",
       badge: "入门",
@@ -391,15 +392,16 @@
       '<p class="q-pass-sub">你已顺着真实运营流程做完决策，掌握了本级<b>原理</b>与<b>操作流程</b>——无需背诵任何知识点。</p>' +
       '<div class="q-pass-card"><h4>本級掌握的流程（SOP）</h4><ul>' +
       d.flow.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") +
-      "</ul></div>";
+      "</ul></div>" +
+      '<p class="q-pass-tip">💡 未登录时通关记录只保存在本机；登录后通关会自动同步到账号，届时认证页即可申领证书。</p>';
     if (nextLv) {
       html +=
         '<div class="q-next"><button class="qz-btn" id="btnNextLv">解锁并进入 ' + esc(QUEST[nextLv].title) + " →</button>" +
-        '<a class="qz-btn qz-btn-ghost" href="cert.html">前往资格认证页申领 ' + esc(lv) + " 证书</a></div>";
+        '<a class="qz-btn qz-btn-ghost" href="../cert.html?lv=' + esc(lv) + '">前往资格认证页申领 ' + esc(lv) + " 证书</a></div>";
     } else {
       html +=
         '<div class="q-next"><div class="q-allclear">🏆 三级全通关，你已具备综合收益决策能力！</div>' +
-        '<a class="qz-btn" href="cert.html">前往资格认证页申领 L3 证书</a></div>';
+        '<a class="qz-btn" href="../cert.html?lv=L3">前往资格认证页申领 L3 证书</a></div>';
     }
     $("qResult").innerHTML = html;
     if (nextLv) {
@@ -407,14 +409,25 @@
     }
   }
 
+  // 通关即视为通过该级考核：写入 exam_results，使 cert.html 的申领按钮可用
   function recordExam(lv) {
     try {
-      if (window.SB && window.__rmcSession) {
-        window.SB.from("exam_results").upsert({
-          level: lv, passed: true, score: 100,
-          finished_at: new Date().toISOString()
-        }, { onConflict: "user_id,level" }).then(function () {}, function () {});
-      }
+      if (!window.supabase || !window.HRMA_SUPABASE || !window.HRMA_SUPABASE.url) return;
+      var sb = window.supabase.createClient(
+        window.HRMA_SUPABASE.url, window.HRMA_SUPABASE.anonKey
+      );
+      sb.auth.getSession().then(function (r) {
+        var s = r && r.data && r.data.session;
+        if (!s || !s.user) return; // 未登录：仅本地记录，不影响游戏
+        return sb.from("exam_results").insert({
+          user_id: s.user.id,
+          level: lv,
+          passed: true,
+          score: 100,
+          total: 100,
+          taken_at: new Date().toISOString()
+        });
+      }).catch(function () {});
     } catch (e) {}
   }
 

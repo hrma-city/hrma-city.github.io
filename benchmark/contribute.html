@@ -40,8 +40,106 @@
     ③ 无需填写酒店名称、公司、联系方式。
   </div>
 
-  <!-- 上报表单 -->
-  <div class="co-box" style="margin-top:20px">
+  <!-- 模式切换 -->
+  <div class="co-tabs" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+    <button type="button" class="btn-line" id="tabStr" style="background:var(--gold-2,#D4A96A);color:#fff;border-color:var(--gold-2,#D4A96A)">STR 标准模板（推荐）</button>
+    <button type="button" class="btn-line" id="tabQuick">快速上报（仅填 ADR / 出租率）</button>
+  </div>
+
+  <!-- STR 标准模板 -->
+  <div class="co-box" id="strSection" style="margin-top:18px">
+    <div class="cm-eyebrow">STR 标准口径</div>
+    <h3 style="margin:4px 0 12px">按 STR 报告模板上报：Supply / Demand / Revenue</h3>
+    <p class="cm-hint" style="margin:0 0 16px;line-height:1.75">
+      STR 报告只收三要素——<b>可用房晚 Supply</b>、<b>已售房晚 Demand</b>、<b>客房收入 Revenue</b>；
+      出租率、ADR、RevPAR 由系统自动派生，杜绝口径不自洽。提交后与同城同档市场均值比对，
+      直接得出你的 <b>MPI（份额）/ ARI（溢价）/ RGI（综合收益）</b> 三大指数。
+    </p>
+
+    <form class="cm-form" id="strForm">
+      <div class="cm-field">
+        <label>城市 <span style="color:#c0392b">*</span></label>
+        <input type="text" name="city" required placeholder="如：杭州、成都、西安" list="cityList2">
+        <datalist id="cityList2">
+          <option value="北京"></option><option value="上海"></option><option value="广州"></option>
+          <option value="深圳"></option><option value="成都"></option><option value="杭州"></option>
+          <option value="西安"></option><option value="重庆"></option><option value="南京"></option>
+          <option value="武汉"></option><option value="长沙"></option><option value="厦门"></option>
+          <option value="三亚"></option><option value="青岛"></option><option value="苏州"></option>
+        </datalist>
+      </div>
+      <div class="cm-field">
+        <label>商圈 / 细分市场（选填）</label>
+        <input type="text" name="market" placeholder="如：钱江新城、天府新区">
+      </div>
+      <div class="cm-field">
+        <label>档次定位（STR 分类）<span style="color:#c0392b">*</span></label>
+        <select name="segment" required>
+          <option value="奢华">奢华 Luxury</option>
+          <option value="超高端">超高端 Upper Upscale</option>
+          <option value="高端" selected>高端 Upscale</option>
+          <option value="中高端">中高端 Upper Midscale</option>
+          <option value="中端">中端 Midscale</option>
+          <option value="经济">经济 Economy</option>
+        </select>
+      </div>
+      <div class="cm-field">
+        <label>统计月份 <span style="color:#c0392b">*</span></label>
+        <input type="month" name="month" required>
+      </div>
+      <div class="cm-field">
+        <label>房量（间，选填）</label>
+        <input type="number" name="rooms" min="1" step="1" placeholder="如：180">
+      </div>
+      <div class="cm-field">
+        <label>可用房晚 Supply <span style="color:#c0392b">*</span></label>
+        <input type="number" name="supply" required min="1" step="1" placeholder="如：5580（180间×31天）">
+      </div>
+      <div class="cm-field">
+        <label>已售房晚 Demand <span style="color:#c0392b">*</span></label>
+        <input type="number" name="demand" required min="0" step="1" placeholder="如：4050">
+      </div>
+      <div class="cm-field">
+        <label>客房收入 Revenue（元）<span style="color:#c0392b">*</span></label>
+        <input type="number" name="revenue" required min="0" step="0.01" placeholder="如：1970000">
+      </div>
+
+      <div class="cm-eyebrow" style="margin-top:6px">结构数据（选填，用于更细的基准分析）</div>
+      <div class="cm-field">
+        <label>OTA 渠道占比 %</label>
+        <input type="number" name="ota_share" min="0" max="100" step="0.1" placeholder="如：45">
+      </div>
+      <div class="cm-field">
+        <label>直订占比 %</label>
+        <input type="number" name="direct_share" min="0" max="100" step="0.1" placeholder="如：25">
+      </div>
+      <div class="cm-field">
+        <label>协议 / 企业占比 %</label>
+        <input type="number" name="corp_share" min="0" max="100" step="0.1" placeholder="如：20">
+      </div>
+      <div class="cm-field">
+        <label>会员占比 %</label>
+        <input type="number" name="member_share" min="0" max="100" step="0.1" placeholder="如：10">
+      </div>
+      <div class="cm-field">
+        <label>单房变动成本（元，选填）</label>
+        <input type="number" name="var_cost" min="0" step="0.01" placeholder="如：95">
+      </div>
+
+      <div class="cm-btns">
+        <button type="submit" class="btn-gold">提交到 STR 共建池</button>
+        <span class="cm-hint" id="strHint"></span>
+      </div>
+    </form>
+
+    <!-- 实时派生指标 -->
+    <div id="strDerived" style="margin-top:16px"></div>
+    <!-- 指数对比结果 -->
+    <div id="strIndex" style="margin-top:14px"></div>
+  </div>
+
+  <!-- 上报表单（快速通道） -->
+  <div class="co-box" id="quickSection" style="margin-top:20px" hidden>
     <div class="cm-eyebrow">上报</div>
     <h3 style="margin:4px 0 12px">填写上个月的经营数据</h3>
     <form class="cm-form" id="ptForm">
@@ -164,6 +262,129 @@
       }
     });
   }
+})();
+</script>
+<script>
+/* ============================================================
+ * STR 标准共建池：三要素派生指标 + MPI/ARI/RGI 指数对比
+ * 隐私：聚合值仅在同城同档同月样本 ≥3 时公开（k-匿名）
+ * ============================================================ */
+(function(){
+  var tabStr=document.getElementById('tabStr'), tabQuick=document.getElementById('tabQuick'),
+      secStr=document.getElementById('strSection'), secQuick=document.getElementById('quickSection');
+  function show(isStr){
+    if(secStr) secStr.hidden=!isStr;
+    if(secQuick) secQuick.hidden=isStr;
+    if(tabStr){ tabStr.style.background=isStr?'var(--gold-2,#D4A96A)':''; tabStr.style.color=isStr?'#fff':''; }
+    if(tabQuick){ tabQuick.style.background=isStr?'':'var(--gold-2,#D4A96A)'; tabQuick.style.color=isStr?'':'#fff'; }
+  }
+  if(tabStr) tabStr.onclick=function(){ show(true); };
+  if(tabQuick) tabQuick.onclick=function(){ show(false); };
+
+  var form=document.getElementById('strForm'),
+      hint=document.getElementById('strHint'),
+      dBox=document.getElementById('strDerived'),
+      iBox=document.getElementById('strIndex');
+
+  function sbClient(){
+    if(!window.supabase||!window.HRMA_SUPABASE||!window.HRMA_SUPABASE.url) return null;
+    return window.supabase.createClient(window.HRMA_SUPABASE.url, window.HRMA_SUPABASE.anonKey);
+  }
+  function num(v){ var n=parseFloat(v); return isFinite(n)?n:null; }
+  function f1(n){ return (Math.round(n*10)/10).toFixed(1); }
+  function f2(n){ return (Math.round(n*100)/100).toFixed(2); }
+
+  /* 三要素 → 派生指标（实时预览） */
+  function recalc(){
+    if(!form||!dBox) return;
+    var s=num(form.elements['supply'].value),
+        d=num(form.elements['demand'].value),
+        r=num(form.elements['revenue'].value);
+    if(s===null||d===null||r===null||s<=0){ dBox.innerHTML=''; return; }
+    var occ=d/s*100, adr=d>0?r/d:0, revpar=r/s;
+    dBox.innerHTML='<div class="bcal" style="margin-top:4px"><b>系统自动派生：</b>'
+      +'出租率 <b>'+f1(occ)+'%</b>　·　ADR <b>¥'+f2(adr)+'</b>　·　RevPAR <b>¥'+f2(revpar)+'</b>'
+      +'<br><span class="cm-hint">口径自校验：RevPAR = ADR × 出租率 = ¥'+f2(adr*occ/100)+'（三者必然自洽）</span></div>';
+  }
+
+  if(form){
+    form.addEventListener('input', recalc);
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      var sb=sbClient();
+      if(!sb){ hint.textContent='数据组件未加载，请刷新页面。'; return; }
+      var f=form.elements;
+      var city=(f['city'].value||'').trim(), seg=f['segment'].value, month=f['month'].value;
+      var supply=num(f['supply'].value), demand=num(f['demand'].value), revenue=num(f['revenue'].value);
+      if(!city||!month||supply===null||demand===null||revenue===null||supply<=0){
+        hint.textContent='请完整填写城市、月份与三项核心数据。'; hint.style.color='#c0392b'; return;
+      }
+      if(demand>supply){ hint.textContent='已售房晚不能大于可用房晚，请核对。'; hint.style.color='#c0392b'; return; }
+
+      var sess=await sb.auth.getSession();
+      var user=(sess&&sess.data&&sess.data.session)?sess.data.session.user:null;
+      if(!user){
+        hint.textContent='请先登录再提交（数据需可追溯，且仅本人可见）。';
+        hint.style.color='#c0392b'; return;
+      }
+
+      var occ=demand/supply*100, adr=demand>0?revenue/demand:0, revpar=revenue/supply;
+      hint.textContent='提交中…'; hint.style.color='';
+      var payload={
+        user_id:user.id, city:city, market:(f['market'].value||'').trim()||null, segment:seg,
+        month:month+'-01', rooms:num(f['rooms'].value),
+        supply:supply, demand:demand, revenue:revenue,
+        occ:Math.round(occ*10)/10, adr:Math.round(adr*100)/100, revpar:Math.round(revpar*100)/100,
+        ota_share:num(f['ota_share'].value), direct_share:num(f['direct_share'].value),
+        corp_share:num(f['corp_share'].value), member_share:num(f['member_share'].value),
+        var_cost:num(f['var_cost'].value)
+      };
+      var ins=await sb.from('str_samples').insert(payload);
+      if(ins.error){ hint.textContent='提交失败：'+ins.error.message; hint.style.color='#c0392b'; return; }
+      hint.textContent='已提交！感谢共建。'; hint.style.color='var(--teal)';
+      loadIndex(sb, city, seg, month+'-01', occ, adr, revpar);
+    });
+  }
+
+  /* 与市场均值对比，得出 MPI / ARI / RGI */
+  async function loadIndex(sb, city, seg, month, myOcc, myAdr, myRevpar){
+    if(!iBox) return;
+    iBox.innerHTML='<p class="cm-hint">正在计算你的市场指数…</p>';
+    var res=await sb.rpc('str_benchmark',{p_city:city,p_segment:seg,p_month:month});
+    var row=(res.data&&res.data[0])||{sample_count:0,occ:0,adr:0,revpar:0};
+    var n=row.sample_count||0;
+    if(n<3){
+      iBox.innerHTML='<div class="bcal"><b>你的数据已入库。</b>当前「'+city+' · '+seg+' · '+month.slice(0,7)+'」样本 '+n+' 条；'
+        +'按 <b>k-匿名</b> 约定，需满 3 条才公开聚合值，暂不能给出你的指数。邀请同城同行一起报，样本够了即可看到完整对比。</div>';
+      return;
+    }
+    var mOcc=Number(row.occ)||0, mAdr=Number(row.adr)||0, mRev=Number(row.revpar)||0;
+    var mpi=mOcc?myOcc/mOcc*100:0, ari=mAdr?myAdr/mAdr*100:0, rgi=mRev?myRevpar/mRev*100:0;
+    function pill(k, desc, v){
+      var good=v>=100;
+      return '<div style="flex:1;min-width:150px;border:1px solid var(--line,#e6e2d8);border-radius:10px;padding:12px 14px;background:var(--bg-2,#F2F0EB)">'
+        +'<div style="font-size:12px;color:var(--ink-3,#7B8794)"><b>'+k+'</b> '+desc+'</div>'
+        +'<div style="font-size:26px;font-weight:700;color:'+(good?'#1e7e44':'#c0392b')+'">'+f1(v)+'</div>'
+        +'<div style="font-size:12px;color:var(--ink-3,#7B8794)">'+(good?'跑赢市场':'跑输市场')+'（100 = 持平）</div></div>';
+    }
+    function delta(a,b){ var d=a-b; return (d>=0?'+':'')+f2(d); }
+    iBox.innerHTML='<div class="cm-eyebrow" style="margin-top:10px">你的 STR 指数 · 对比 '+city+' / '+seg+' / '+month.slice(0,7)+'</div>'
+      +'<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">'
+      +pill('MPI','份额（出租率）',mpi)+pill('ARI','溢价（ADR）',ari)+pill('RGI','综合（RevPAR）',rgi)
+      +'</div>'
+      +'<table class="btable" style="margin-top:12px"><thead><tr><th>指标</th><th>你的数值</th><th>市场均值（'+n+' 家）</th><th>差距</th></tr></thead><tbody>'
+      +'<tr><td>出租率</td><td class="bv">'+f1(myOcc)+'%</td><td>'+f1(mOcc)+'%</td><td>'+(delta(myOcc,mOcc))+' pt</td></tr>'
+      +'<tr><td>ADR</td><td class="bv">¥'+f2(myAdr)+'</td><td>¥'+f2(mAdr)+'</td><td>¥'+delta(myAdr,mAdr)+'</td></tr>'
+      +'<tr><td>RevPAR</td><td class="bv">¥'+f2(myRevpar)+'</td><td>¥'+f2(mRev)+'</td><td>¥'+delta(myRevpar,mRev)+'</td></tr>'
+      +'</tbody></table>'
+      +'<p class="cm-hint" style="margin-top:8px"><b>诊断：</b>RGI = MPI × ARI。'
+      +(rgi>=100?'你整体跑赢市场，可继续巩固优势。'
+        :(ari>=100?'你的价格并不低，但份额不足（MPI 偏低）——优先补量：曝光、转化、口碑与渠道覆盖。'
+                  :'你的份额不错，但价格偏低（ARI 偏低）——优先提价与客源结构优化。'))
+      +'</p>';
+  }
+
+  recalc();
 })();
 </script>
 <script>window.HRMA_PREFIX="../";</script>
