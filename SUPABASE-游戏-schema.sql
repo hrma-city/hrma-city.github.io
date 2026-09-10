@@ -123,3 +123,19 @@ grant all                                   on public.game_rooms   to authentica
  *
  * 计算逻辑全部在客户端（房主汇总），结果写 game_rounds 并广播，简单可复现。
  * ========================================================================== */
+
+/* ---------------- 6. Realtime 授权（关键！少了这段联机不通）----------------
+ * 2024 年之后新建的 Supabase 项目默认开启 Realtime Authorization：
+ * realtime.messages 表启用了 RLS，且默认**没有任何策略**。
+ * 后果：客户端的 broadcast / presence 被静默拦截 —— 房间能进、人数能看，
+ *       但出价、开回合、结算结果全都不同步，且控制台不一定报错，极难排查。
+ * 下面两条策略放行「已登录用户收发广播」，是本游戏能真正联机的前提。
+ * 幂等，可重复执行。
+ * ------------------------------------------------------------------------ */
+drop policy if exists "rt_recv_broadcast" on realtime.messages;
+create policy "rt_recv_broadcast" on realtime.messages
+  for select to authenticated using (true);
+
+drop policy if exists "rt_send_broadcast" on realtime.messages;
+create policy "rt_send_broadcast" on realtime.messages
+  for insert to authenticated with check (true);

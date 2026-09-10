@@ -67,6 +67,20 @@ window.RMC_BENCHMARK = {
       url: "https://tjj.sh.gov.cn/ydsj57/20251019/e00a763935ff4d86a5dd641062c95c9f.html",
       caliber: "上海市星级饭店（全量）"
     },
+    shStats10: {
+      name: "上海市统计局《2025年10月份星级饭店》",
+      org: "上海市统计局（数据源：上海市文化和旅游局）",
+      pub: "2025-11-22",
+      url: "https://tjj.sh.gov.cn/ydsj57/20251117/d099690070a24cbc9312190de1a0bf39.html",
+      caliber: "上海市星级饭店（全量）"
+    },
+    shStats11: {
+      name: "上海市统计局《2025年11月份星级饭店》",
+      org: "上海市统计局（数据源：上海市文化和旅游局）",
+      pub: "2025-12-24",
+      url: "https://tjj.sh.gov.cn/ydsj57/20251220/cd006607ce474800a4de788122c55e07.html",
+      caliber: "上海市星级饭店（全量）"
+    },
     shStats12: {
       name: "上海市统计局《2025年12月份星级饭店》",
       org: "上海市统计局（数据源：上海市文化和旅游局）",
@@ -224,10 +238,13 @@ window.RMC_BENCHMARK = {
       name: "上海",
       period: "2025 年",
       caliber: "上海市星级饭店（全量 · 上海市文化和旅游局口径）",
-      note: "上海是全国少数公开「城市级月度」饭店 ADR 与出租率的城市。空缺月份为未核实，不填推测值。"
-        + "已交叉校验：月度序列算术均值 742.2 与官方 1–9 月累计 741 吻合；五星级全年累计 979 与媒体披露 978.80 一致。",
+      note: "上海是全国少数公开「城市级月度」饭店 ADR 与出租率的城市。"
+        + "10、11 月已补齐（官方《10 月份 / 11 月份星级饭店》原报告），"
+        + "由此 1–12 月月度 ADR 序列全部为官方口径，无推测值。"
+        + "交叉校验：12 个月算术均值 762.1 与官方全年累计 767 差 0.6%（累计按出租间天加权，故略高于算术均值）；"
+        + "官方 1–11 月累计 757 与此前新民晚报披露的 756.54 相互印证。",
       monthly: {
-        caliber: "月度平均房价（元/间天）与同比；出租率仅列已核实月份",
+        caliber: "月度平均房价（元/间天）与同比；出租率仅列已核实月份（1–8 月官方报告未取到，留空不推测）",
         rows: [
           { m: "1 月",  adr: 713, adrYoy: "-0.1%", occ: null, occYoy: null,     src: "shMonthly" },
           { m: "2 月",  adr: 701, adrYoy: "-6.7%", occ: null, occYoy: null,     src: "shMonthly" },
@@ -238,8 +255,8 @@ window.RMC_BENCHMARK = {
           { m: "7 月",  adr: 711, adrYoy: "-1.9%", occ: null, occYoy: null,     src: "shMonthly" },
           { m: "8 月",  adr: 726, adrYoy: "+0.2%", occ: null, occYoy: null,     src: "shMonthly" },
           { m: "9 月",  adr: 771, adrYoy: "+3.8%", occ: 67.6, occYoy: "+6.0pp", src: "shStats9" },
-          { m: "10 月", adr: null, adrYoy: null,   occ: null, occYoy: null,     src: null, gap: true },
-          { m: "11 月", adr: null, adrYoy: null,   occ: null, occYoy: null,     src: null, gap: true },
+          { m: "10 月", adr: 806, adrYoy: "+5.8%", occ: 70.8, occYoy: null,     src: "shStats10" },
+          { m: "11 月", adr: 835, adrYoy: "+3.1%", occ: 72.9, occYoy: null,     src: "shStats11" },
           { m: "12 月", adr: 824, adrYoy: "+8.8%", occ: 63.3, occYoy: null,     src: "shStats12" }
         ]
       },
@@ -248,6 +265,10 @@ window.RMC_BENCHMARK = {
         items: [
           { k: "9 月 平均房价",     v: "993 元/间天",   yoy: "+6.8%",   src: "shStats9",  tier: "official" },
           { k: "9 月 出租率",       v: "73.1%",        yoy: "—",       src: "shStats9",  tier: "official" },
+          { k: "10 月 平均房价",    v: "1,056 元/间天", yoy: "+9.1%",   src: "shStats10", tier: "official" },
+          { k: "10 月 出租率",      v: "76.9%",        yoy: "—",       src: "shStats10", tier: "official" },
+          { k: "11 月 平均房价",    v: "1,100 元/间天", yoy: "+5.6%",   src: "shStats11", tier: "official" },
+          { k: "11 月 出租率",      v: "77.4%",        yoy: "—",       src: "shStats11", tier: "official" },
           { k: "12 月 平均房价",    v: "1,045 元/间天", yoy: "+9.3%",   src: "shStats12", tier: "official" },
           { k: "12 月 出租率",      v: "70.7%",        yoy: "+4.45pp", src: "shStats12", tier: "official" },
           { k: "全年累计 平均房价", v: "979 元/间天",   yoy: "+1.9%",   src: "shStats12", tier: "official" },
@@ -259,8 +280,11 @@ window.RMC_BENCHMARK = {
         items: [
           { k: "1–9 月 平均房价",  v: "741 元/间天",    yoy: "-1.0%",  src: "shStats9",  tier: "official" },
           { k: "1–9 月 出租率",    v: "64.8%",         yoy: "+2.1pp", src: "shStats9",  tier: "official" },
-          { k: "1–11 月 平均房价", v: "756.54 元/间天", yoy: "—",      src: "sh11",      tier: "official" },
-          { k: "1–11 月 出租率",   v: "66.08%",        yoy: "—",      src: "sh11",      tier: "official" },
+          { k: "1–10 月 平均房价", v: "748 元/间天",    yoy: "-0.3%",  src: "shStats10", tier: "official" },
+          { k: "1–10 月 出租率",   v: "65.4%",         yoy: "—",      src: "shStats10", tier: "official" },
+          { k: "1–11 月 平均房价", v: "757 元/间天",    yoy: "-0.1%",  src: "shStats11", tier: "official",
+            note: "新民晚报此前披露的 1–11 月 756.54 元与此一致，互为印证" },
+          { k: "1–11 月 出租率",   v: "66.1%",         yoy: "—",      src: "shStats11", tier: "official" },
           { k: "1–12 月 平均房价", v: "767 元/间天",    yoy: "+1.4%",  src: "shStats12", tier: "official" },
           { k: "1–12 月 出租率",   v: "65.9%",         yoy: "+2.0pp", src: "shStats12", tier: "official" }
         ]
