@@ -1,0 +1,80 @@
+/* ============================================================
+ * 全站通知中心 · notify.css
+ * ============================================================ */
+
+.nb-wrap { position: relative; display: inline-flex; margin-left: 10px; vertical-align: middle; }
+
+.nb-bell {
+  position: relative; width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--line-2, #d8d2c4); background: var(--bg, #fff);
+  cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+  transition: .15s; padding: 0;
+}
+.nb-bell:hover { border-color: var(--gold-2, #D4A96A); background: #fbf4e8; }
+
+.nb-glyph {
+  width: 15px; height: 15px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  border: 2px solid var(--navy, #16324f); border-bottom-color: transparent;
+  display: inline-block; position: relative; top: -1px;
+}
+.nb-glyph::after {
+  content: ""; position: absolute; left: 50%; bottom: -5px; transform: translateX(-50%);
+  width: 4px; height: 4px; border-radius: 50%; background: var(--navy, #16324f);
+}
+
+.nb-dot {
+  position: absolute; top: 5px; right: 6px; width: 7px; height: 7px;
+  border-radius: 50%; background: #e24b4a;
+}
+.nb-count {
+  position: absolute; top: -4px; right: -4px; min-width: 17px; height: 17px;
+  padding: 0 4px; border-radius: 9px; background: #e24b4a; color: #fff;
+  font-size: 11px; line-height: 17px; text-align: center; font-weight: 600;
+}
+
+.nb-panel {
+  position: absolute; top: calc(100% + 8px); right: 0; width: 340px; max-width: 88vw;
+  background: var(--bg, #fff); border: 1px solid var(--line, #e6e2d8);
+  border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.10); z-index: 9999; overflow: hidden;
+}
+.nb-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 14px; border-bottom: 1px solid var(--line, #e6e2d8);
+  background: var(--bg-2, #F2F0EB);
+}
+.nb-head b { font-size: 14px; color: var(--navy, #16324f); }
+.nb-readall {
+  font: inherit; font-size: 12px; cursor: pointer; border: 0; background: none;
+  color: var(--gold, #b9914a); padding: 2px 4px;
+}
+.nb-readall:hover { text-decoration: underline; }
+
+.nb-list { max-height: 380px; overflow-y: auto; }
+.nb-loading, .nb-empty { padding: 26px 14px; text-align: center; font-size: 13px; color: var(--ink-3, #7B8794); }
+
+.nb-item {
+  padding: 11px 14px; border-bottom: 1px solid var(--line, #e6e2d8); cursor: pointer; transition: .12s;
+}
+.nb-item:last-child { border-bottom: 0; }
+.nb-item:hover { background: #fbf4e8; }
+.nb-item.nb-unread { background: #fdf8f0; border-left: 3px solid var(--gold-2, #D4A96A); }
+
+.nb-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
+.nb-tag { font-size: 11px; padding: 1px 7px; border-radius: 20px; font-weight: 600; }
+.nb-time { font-size: 11px; color: var(--ink-3, #7B8794); }
+
+.nb-title { font-size: 13.5px; font-weight: 600; color: var(--navy, #16324f); line-height: 1.45; }
+.nb-body { font-size: 12.5px; color: var(--ink-2, #445); margin-top: 3px; line-height: 1.55; }
+
+.nb-k-reply       { background: #E6F1FB; color: #185FA5; }
+.nb-k-approval    { background: #EAF3DE; color: #3B6D11; }
+.nb-k-payment     { background: #FAEEDA; color: #854F0B; }
+.nb-k-exam        { background: #EEEDFE; color: #534AB7; }
+.nb-k-cert        { background: #FBEAF0; color: #993556; }
+.nb-k-mem         { background: #E1F5EE; color: #0F6E56; }
+.nb-k-sys         { background: #F1EFE8; color: #5F5E5A; }
+
+@media (max-width: 720px) {
+  .nb-panel { width: min(340px, 88vw); right: -4px; }
+  .nb-wrap { margin-left: 6px; }
+}

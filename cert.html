@@ -12,6 +12,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"资格认证","item":"https://hrma-city.github.io/cert.html"}]}</script>
 <link rel="stylesheet" href="assets/css/auth.css">
+<link rel="stylesheet" href="assets/css/notify.css">
 </head>
 <body data-auth="public">
 
@@ -238,6 +239,11 @@
       </p>
     </form>
   </section>
+  <section class="cm-section" id="myCert">
+    <div class="cm-eyebrow">我的认证</div>
+    <h2 class="cm-section-title">学习进度与我的证书</h2>
+    <div id="certBox"><p style="color:var(--ink-3,#7B8794);font-size:14px">加载中…</p></div>
+  </section>
 
 </main>
 
@@ -303,5 +309,154 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="auth-config.js"></script>
 <script src="auth.js"></script>
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/notify.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var COURSES = [
+    "m01-metrics","m02-systems","m03-dailyops","m04-reports","m05-forecast",
+    "m06-pricing","m07-inventory","m08-channel","m09-compset","m10-segment",
+    "m11-budget","m12-meetings","m13-team","m14-rms",
+    "k01-forecast","k02-pricing","k03-inventory","k04-channel",
+    "k05-competition","k06-noshow"
+  ];
+  var LEVELS = [
+    { lv: "L1", name: "L1 基础" },
+    { lv: "L2", name: "L2 进阶" },
+    { lv: "L3", name: "L3 实战" }
+  ];
+
+  var box = document.getElementById("certBox");
+  if (!box) return;
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function fmt(iso) {
+    var d = new Date(iso);
+    return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+  }
+  function style() {
+    if (document.getElementById("certBoxStyle")) return;
+    var s = document.createElement("style");
+    s.id = "certBoxStyle";
+    s.textContent =
+      ".ct-bar{height:8px;border-radius:5px;background:#fff;border:1px solid var(--line,#e6e2d8);overflow:hidden}" +
+      ".ct-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-2,#D4A96A),var(--gold,#b9914a))}" +
+      ".ct-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}" +
+      ".ct-card{border:1px solid var(--line,#e6e2d8);border-radius:12px;padding:16px;background:var(--bg-2,#F2F0EB)}" +
+      ".ct-card b{display:block;color:var(--navy,#16324f);font-size:15px;margin-bottom:8px}" +
+      ".ct-st{font-size:13px;color:var(--ink-2,#445);line-height:1.6}" +
+      ".ct-pass{color:#1e7e44;font-weight:600}.ct-fail{color:#c0392b;font-weight:600}" +
+      ".ct-btn{margin-top:10px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:7px 14px;border-radius:8px;" +
+      "border:1px solid transparent;background:linear-gradient(135deg,var(--gold-2,#D4A96A),var(--gold,#b9914a));color:#fff}" +
+      ".ct-btn:hover{filter:brightness(1.04)}.ct-btn:disabled{opacity:.5;cursor:default}" +
+      ".ct-cert{margin-top:10px;padding:9px 11px;border-radius:8px;background:#fbf4e8;border:1px solid var(--gold-2,#D4A96A);font-size:12.5px;line-height:1.6}" +
+      ".ct-cert code{font-family:var(--mono,monospace);font-weight:700;color:var(--gold,#b9914a)}" +
+      "@media(max-width:720px){.ct-grid{grid-template-columns:1fr}}";
+    document.head.appendChild(s);
+  }
+
+  var sb = null, uid = null;
+
+  async function render() {
+    var p = await sb.from("course_progress").select("course_id").eq("user_id", uid);
+    var ids = ((p && p.data) || []).map(function (x) { return x.course_id; });
+    var done = ids.filter(function (x) { return COURSES.indexOf(x) >= 0; }).length;
+    var pct = Math.round((done / COURSES.length) * 100);
+
+    var e = await sb.from("exam_results").select("level,passed,score,total,taken_at")
+      .eq("user_id", uid).order("taken_at", { ascending: false });
+    var best = {};
+    ((e && e.data) || []).forEach(function (r) {
+      if (!best[r.level] || (Date.parse(r.taken_at) > Date.parse(best[r.level].taken_at))) best[r.level] = r;
+    });
+
+    var c = await sb.from("certificates").select("cert_no,level,issued_at,expires_at")
+      .eq("user_id", uid).order("issued_at", { ascending: false });
+    var certs = (c && c.data) || [];
+    var byLv = {};
+    certs.forEach(function (x) { if (!byLv[x.level]) byLv[x.level] = x; });
+
+    var cards = LEVELS.map(function (L) {
+      var ex = best[L.lv];
+      var ct = byLv[L.lv];
+      var stHtml, btnHtml = "";
+
+      if (ct) {
+        stHtml = '<span class="ct-pass">已获证书</span>';
+        btnHtml = '<div class="ct-cert">证书编号 <code>' + esc(ct.cert_no) + '</code><br>' +
+          '颁发于 ' + fmt(ct.issued_at) + '　·　<a href="verify.html?no=' + encodeURIComponent(ct.cert_no) +
+          '" style="color:var(--gold,#b9914a)">公开查验</a></div>';
+      } else if (ex && ex.passed) {
+        stHtml = '<span class="ct-pass">考核通过</span>：' + ex.score + '/' + ex.total + '（' + fmt(ex.taken_at) + '）';
+        btnHtml = '<div><button class="ct-btn" data-claim="' + L.lv + '">申领证书</button></div>';
+      } else if (ex) {
+        stHtml = '<span class="ct-fail">未通过</span>：' + ex.score + '/' + ex.total + '（' + fmt(ex.taken_at) + '）';
+        btnHtml = '<div><button class="ct-btn" onclick="location.href=\'exam/quiz.html\'">重新考核</button></div>';
+      } else {
+        stHtml = '<span style="color:var(--ink-3,#7B8794)">尚未参加考核</span>';
+        btnHtml = '<div><button class="ct-btn" onclick="location.href=\'exam/quiz.html\'">去考核</button></div>';
+      }
+
+      return '<div class="ct-card"><b>' + L.name + '</b><div class="ct-st">' + stHtml + '</div>' + btnHtml + '</div>';
+    }).join("");
+
+    box.innerHTML =
+      '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">' +
+        '<div style="flex:1;min-width:200px"><div class="ct-bar"><i style="width:' + pct + '%"></i></div></div>' +
+        '<div style="font-size:14px;color:var(--ink-2,#445)">已完成 <b>' + done + ' / ' + COURSES.length +
+        '</b> 门课程（' + pct + '%）</div>' +
+      '</div>' +
+      '<div class="ct-grid">' + cards + '</div>' +
+      '<p style="font-size:12.5px;color:var(--ink-3,#7B8794);margin-top:14px;line-height:1.6">' +
+        '在课程页底部可打卡记录进度；通过对应级别考核后方可申领证书。' +
+        '证书带唯一编号，任何人可在「证书查验」页输入编号核验真伪（不显示你的邮箱等隐私信息）。</p>';
+
+    Array.prototype.forEach.call(box.querySelectorAll("[data-claim]"), function (b) {
+      b.onclick = function () { claim(b.getAttribute("data-claim"), b); };
+    });
+  }
+
+  async function claim(lv, btn) {
+    btn.disabled = true;
+    try {
+      await sb.rpc("claim_certificate", { p_level: lv });
+      await render();
+    } catch (e) {
+      alert("申领失败：" + (e.message || e));
+      btn.disabled = false;
+    }
+  }
+
+  (async function boot() {
+    style();
+    try {
+      if (!window.supabase || !window.HRMA_SUPABASE || !window.HRMA_SUPABASE.url) {
+        box.innerHTML = '<p style="color:var(--ink-3,#7B8794)">系统未配置，无法显示。</p>';
+        return;
+      }
+      sb = window.supabase.createClient(window.HRMA_SUPABASE.url, window.HRMA_SUPABASE.anonKey);
+      var s = await sb.auth.getSession();
+      var sess = s && s.data && s.data.session;
+      if (!sess || !sess.user) {
+        box.innerHTML = '<p style="color:var(--ink-2,#445);font-size:14px;line-height:1.7">' +
+          '请<a href="login.html?redirect=cert.html" style="color:var(--gold,#b9914a)">登录</a>' +
+          '后查看你的学习进度与证书。<br>证书编号支持公开查验：' +
+          '<a href="verify.html" style="color:var(--gold,#b9914a)">打开证书查验页</a>。</p>';
+        return;
+      }
+      uid = sess.user.id;
+      await render();
+    } catch (e) {
+      box.innerHTML = '<p style="color:var(--ink-3,#7B8794)">加载失败：' + esc(e.message || e) + '</p>';
+    }
+  })();
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>证书查验 · RMC收益管理社区</title>
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/notify.css">
+<style>
+  .vf-wrap{max-width:720px;margin:0 auto;padding:30px 0 50px}
+  .vf-card{background:var(--bg,#fff);border:1px solid var(--line,#e6e2d8);border-radius:14px;padding:26px}
+  .vf-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  .vf-in{flex:1;min-width:220px;font:inherit;padding:11px 12px;border-radius:9px;border:1px solid var(--line-2,#d8d2c4);background:#fff;color:var(--navy,#16324f)}
+  .vf-in:focus{outline:2px solid var(--gold-2,#D4A96A);outline-offset:1px}
+  .vf-btn{font:inherit;font-weight:600;cursor:pointer;padding:11px 22px;border-radius:9px;border:1px solid transparent;background:linear-gradient(135deg,var(--gold-2,#D4A96A),var(--gold,#b9914a));color:#fff}
+  .vf-btn:hover{filter:brightness(1.04)}
+  .vf-res{margin-top:20px;padding:20px;border-radius:12px;background:var(--bg-2,#F2F0EB);border:1px solid var(--line,#e6e2d8)}
+  .vf-ok{background:#eaf3ec;border-color:#1e7e44}
+  .vf-bad{background:#fbeaea;border-color:#c0392b}
+  .vf-name{font-size:22px;color:var(--navy,#16324f);font-weight:600}
+  .vf-kv{display:grid;grid-template-columns:110px 1fr;gap:8px 14px;margin-top:14px;font-size:14px}
+  .vf-kv span:nth-child(odd){color:var(--ink-3,#7B8794)}
+  .vf-kv span:nth-child(even){color:var(--ink-2,#445)}
+  .vf-flag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:13px;font-weight:600}
+  .vf-flag.y{background:#eaf3ec;color:#1e7e44}
+  .vf-flag.n{background:#fbeaea;color:#c0392b}
+  .vf-tip{font-size:12.5px;color:var(--ink-3,#7B8794);margin-top:16px;line-height:1.7}
+</style>
+</head>
+<body data-auth="public">
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+    <nav class="sn-links" id="snLinks">
+      <a href="index.html">首页</a>
+      <a href="academy.html">学院</a>
+      <a href="games/index.html">游戏</a>
+      <a href="community.html">社区</a>
+      <a href="cert.html">认证</a>
+      <a href="theater.html">剧院</a>
+      <a href="industries.html">行业矩阵</a>
+    </nav>
+    <a class="sn-cta" href="cert.html">资格认证</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main">
+  <div class="vf-wrap">
+    <div class="vf-card">
+      <h1 style="font-size:24px;margin:0 0 6px;color:var(--navy,#16324f)">证书公开查验</h1>
+      <p style="color:var(--ink-3,#7B8794);font-size:14px;margin:0 0 14px;line-height:1.6">
+        输入 RMC 证书编号，核验持证级别与有效期真伪。出于隐私保护，查询结果不显示持证人的邮箱与联系方式。
+      </p>
+      <form class="vf-row" id="vfForm">
+        <input class="vf-in" id="vfNo" placeholder="如 L1-20260910-A1B2C3" autocomplete="off">
+        <button class="vf-btn" type="submit">查验</button>
+      </form>
+      <div id="vfRes"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-main"><div class="sf-bot">
+    <span>RMC收益管理社区 · 证书查验</span>
+    <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+  </div></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth-config.js"></script>
+<script src="auth.js"></script>
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/notify.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function fmt(iso) {
+    var d = new Date(iso);
+    return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+  }
+  function mask(name) {
+    name = String(name || "");
+    if (!name) return "—";
+    if (name.indexOf("@") > 0) {
+      var parts = name.split("@");
+      var u = parts[0];
+      return u.charAt(0) + "***@" + parts[1];
+    }
+    if (name.length <= 1) return name;
+    return name.charAt(0) + new Array(name.length).join("*");
+  }
+
+  var res = document.getElementById("vfRes");
+  var input = document.getElementById("vfNo");
+
+  async function verify(no) {
+    no = String(no || "").trim();
+    if (!no) { res.innerHTML = '<div class="vf-res">请输入证书编号。</div>'; return; }
+    res.innerHTML = '<div class="vf-res">查验中…</div>';
+
+    try {
+      if (!window.supabase || !window.HRMA_SUPABASE || !window.HRMA_SUPABASE.url) {
+        res.innerHTML = '<div class="vf-res">系统未配置。</div>';
+        return;
+      }
+      var sb = window.supabase.createClient(window.HRMA_SUPABASE.url, window.HRMA_SUPABASE.anonKey);
+      var r = await sb.rpc("verify_certificate", { p_cert_no: no });
+      var rows = (r && r.data) || [];
+
+      if (!rows.length) {
+        res.innerHTML = '<div class="vf-res vf-bad">' +
+          '<b style="color:#c0392b">未找到该编号的证书</b>' +
+          '<p class="vf-tip">请核对编号是否完整（形如 L1-20260910-A1B2C3）。若有疑问请联系 rm-community@qq.com。</p></div>';
+        return;
+      }
+
+      var c = rows[0];
+      var valid = !!c.is_valid;
+      res.innerHTML =
+        '<div class="vf-res ' + (valid ? "vf-ok" : "vf-bad") + '">' +
+          '<div class="vf-name">' + esc(mask(c.holder_name)) + '</div>' +
+          '<div style="margin-top:8px">' +
+            '<span class="vf-flag ' + (valid ? "y" : "n") + '">' +
+            (valid ? "证书有效" : "证书已失效") + '</span></div>' +
+          '<div class="vf-kv">' +
+            '<span>证书级别</span><span>' + esc(c.level) + '</span>' +
+            '<span>证书编号</span><span style="font-family:var(--mono,monospace)">' + esc(no.toUpperCase()) + '</span>' +
+            '<span>颁发日期</span><span>' + fmt(c.issued_at) + '</span>' +
+            '<span>有效期至</span><span>' + (c.expires_at ? fmt(c.expires_at) : "长期有效") + '</span>' +
+          '</div>' +
+          '<p class="vf-tip">以上信息与 RMC 社区证书数据库一致。持证人的邮箱、电话等隐私信息已被技术屏蔽（数据库函数不返回这些字段）。</p>' +
+        '</div>';
+    } catch (e) {
+      res.innerHTML = '<div class="vf-res">查验失败：' + esc(e.message || e) + '</div>';
+    }
+  }
+
+  document.getElementById("vfForm").onsubmit = function (e) {
+    e.preventDefault();
+    verify(input.value);
+  };
+
+  var q = location.search.match(/[?&]no=([^&]+)/);
+  if (q) {
+    input.value = decodeURIComponent(q[1]);
+    verify(input.value);
+  }
+})();
+</script>
+</body>
+</html>

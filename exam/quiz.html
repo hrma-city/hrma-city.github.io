@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>在线考核 · RMC收益管理社区</title>
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/notify.css">
+<style>
+  .qz-wrap{max-width:860px;margin:0 auto;padding:28px 0 48px}
+  .qz-card{background:var(--bg,#fff);border:1px solid var(--line,#e6e2d8);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+  .qz-h1{font-size:26px;margin:0 0 8px;color:var(--navy,#16324f)}
+  .qz-sub{color:var(--ink-3,#7B8794);font-size:14px;margin:0 0 20px;line-height:1.6}
+  .qz-levels{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:6px}
+  .qz-lv{border:1px solid var(--line,#e6e2d8);border-radius:12px;padding:16px;cursor:pointer;background:var(--bg-2,#F2F0EB);transition:.15s}
+  .qz-lv:hover,.qz-lv.on{border-color:var(--gold-2,#D4A96A);background:#fbf4e8}
+  .qz-lv b{display:block;color:var(--navy,#16324f);font-size:15px;margin-bottom:6px}
+  .qz-lv span{font-size:12.5px;color:var(--ink-2,#445);line-height:1.5}
+  .qz-q{padding:16px 0;border-bottom:1px dashed var(--line,#e6e2d8)}
+  .qz-q:last-child{border-bottom:0}
+  .qz-qt{font-size:14.5px;font-weight:600;color:var(--navy,#16324f);line-height:1.6;margin-bottom:10px}
+  .qz-opt{display:block;padding:9px 12px;margin:6px 0;border:1px solid var(--line,#e6e2d8);border-radius:8px;cursor:pointer;font-size:13.5px;color:var(--ink-2,#445);background:var(--bg-2,#F2F0EB)}
+  .qz-opt:hover{border-color:var(--gold-2,#D4A96A)}
+  .qz-opt input{margin-right:8px}
+  .qz-opt.on{background:#fbf4e8;border-color:var(--gold-2,#D4A96A)}
+  .qz-why{font-size:12.5px;color:var(--ink-3,#7B8794);margin-top:8px;line-height:1.6;border-left:3px solid var(--gold-2,#D4A96A);padding-left:10px}
+  .qz-ok{color:#1e7e44;font-weight:600;font-size:13px}
+  .qz-no{color:#c0392b;font-weight:600;font-size:13px}
+  .qz-btn{font:inherit;font-weight:600;cursor:pointer;padding:10px 20px;border-radius:9px;border:1px solid transparent;background:linear-gradient(135deg,var(--gold-2,#D4A96A),var(--gold,#b9914a));color:#fff}
+  .qz-btn:hover{filter:brightness(1.04)}
+  .qz-btn.ghost{background:#fff;color:var(--gold,#b9914a);border-color:var(--gold-2,#D4A96A)}
+  .qz-score{font-size:34px;color:var(--gold,#b9914a);font-weight:700}
+  .qz-pass{color:#1e7e44;font-weight:600}
+  .qz-fail{color:#c0392b;font-weight:600}
+  .qz-tipmsg{font-size:13px;color:var(--ink-2,#445);margin-top:10px;line-height:1.6}
+  .qz-tipmsg a{color:var(--gold,#b9914a)}
+  @media(max-width:720px){.qz-levels{grid-template-columns:1fr}.qz-card{padding:18px 16px}}
+</style>
+</head>
+<body data-auth="public">
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+    <nav class="sn-links" id="snLinks">
+      <a href="../index.html">首页</a>
+      <a href="../academy.html">学院</a>
+      <a href="../games/index.html">游戏</a>
+      <a href="../community.html">社区</a>
+      <a href="../cert.html" class="on">认证</a>
+      <a href="../theater.html">剧院</a>
+      <a href="../industries.html">行业矩阵</a>
+    </nav>
+    <a class="sn-cta" href="../cert.html">资格认证</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main">
+  <div class="qz-wrap">
+    <h1 class="qz-h1">在线考核</h1>
+    <p class="qz-sub">每个级别随机抽取 6 题，答对 60% 及以上即为通过。通过后可在「资格认证」页申领带编号、可公开验证的证书。</p>
+
+    <section class="qz-card" id="stageIntro">
+      <h3 style="margin:0 0 14px;color:var(--navy,#16324f);font-size:16px">选择考核级别</h3>
+      <div class="qz-levels">
+        <div class="qz-lv" data-lv="L1"><b>L1 基础</b><span>指标口径、术语、收益管理三前提</span></div>
+        <div class="qz-lv" data-lv="L2"><b>L2 进阶</b><span>定价弹性、竞争集、库存与置换分析</span></div>
+        <div class="qz-lv" data-lv="L3"><b>L3 实战</b><span>跨行业场景判断与应对策略</span></div>
+      </div>
+      <p class="qz-tipmsg">
+        <b>注意：</b>需<a href="../login.html?redirect=exam/quiz.html">登录</a>才会记录成绩并计入认证；未登录可作为练习（不记录）。
+      </p>
+      <div style="margin-top:14px">
+        <button class="qz-btn" id="btnStart" disabled>开始考核</button>
+      </div>
+    </section>
+
+    <section class="qz-card" id="stageExam" hidden>
+      <div id="qzBody"></div>
+      <div style="margin-top:18px">
+        <button class="qz-btn" id="btnSubmit">提交答卷</button>
+      </div>
+    </section>
+
+    <section class="qz-card" id="stageResult" hidden>
+      <div id="qzResult"></div>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-main"><div class="sf-bot">
+    <span>RMC收益管理社区 · 在线考核</span>
+    <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+  </div></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../auth-config.js"></script>
+<script src="../auth.js"></script>
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../assets/js/notify.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var BANK = [
+    { lv:'L1', q:'某酒店当晚 ADR 480 元、出租率 72%，其 RevPAR 约为多少？', o:['约 346 元','480 元','72 元','约 300 元'], a:0, why:'RevPAR = ADR × 出租率 = 480 × 0.72 ≈ 345.6 元。' },
+    { lv:'L1', q:'RevPAR 的正确计算口径是？', o:['已售房晚收入 ÷ 可售房晚','房费收入 ÷ 已售房晚','客房总数 × 出租率','ADR ÷ 出租率'], a:0, why:'也可用 ADR × 出租率；两者等价。ADR 才是“房费收入 ÷ 已售房晚”。' },
+    { lv:'L1', q:'酒店可售 200 间、当晚售出 130 间，出租率是？', o:['65%','70%','60%','75%'], a:0, why:'出租率 = 已售房晚 ÷ 可售房晚 = 130 ÷ 200 = 65%。' },
+    { lv:'L1', q:'收益管理能够成立，不需要以下哪个前提？', o:['产能可以随时大幅扩张','库存易逝，过期归零','需求随时间波动','市场可细分为不同价格敏感度客群'], a:0, why:'前提取自“产能相对固定、库存易逝、需求波动且可细分”。产能若能随时扩张就不存在稀缺性与库存控制问题。' },
+    { lv:'L1', q:'No-show 指的是？', o:['已预订但既未到店也未提前取消','已取消的订单','临时到店未预订的客人','提前退房的客人'], a:0, why:'广义还包括临近取消（late cancellation），二者共同构成超售需要覆盖的损失。' },
+    { lv:'L1', q:'酒店实行超售（overbooking）的主要目的是？', o:['弥补 No-show 造成的损失、提升满房率','降低清洁成本','提高挂牌价','减少 OTA 依赖'], a:0, why:'超售用概率模型对冲 No-show 空置损失，但必须与拒载成本（walk）权衡。' },
+    { lv:'L1', q:'ADR 的计算方式是？', o:['房费收入 ÷ 已售房晚','房费收入 ÷ 可售房晚','客房收入 ÷ 总房数','RevPAR × 出租率'], a:0, why:'注意分母是“已售”而非“可售”，分母用可售房晚得到的是 RevPAR。' },
+    { lv:'L1', q:'同样成交额下，以下哪个渠道带来的净收益通常最低？', o:['OTA 平台（含佣金）','酒店官网直订','会员直销','协议客户自签'], a:0, why:'OTA 需支付 12%–20% 佣金，净收益口径（NetRevPAR）显著低于直销。' },
+
+    { lv:'L2', q:'某产品提价 8%，该需求的价格弹性为 1.5，预期需求量如何变化？', o:['下降约 12%','下降约 8%','上升约 12%','基本不变'], a:0, why:'需求量变动 ≈ 价格变动 × 弹性 = 8% × 1.5 = 12%（反向）。' },
+    { lv:'L2', q:'经济学意义上，利润最大化的产量/定价点出现在？', o:['边际收入等于边际成本时','出租率达到 100% 时','价格最高时','竞争对手定价之下时'], a:0, why:'MR = MC 是最优条件；追求 100% 出租率往往意味着定价过低。' },
+    { lv:'L2', q:'定义竞争集（Compset）最合理的依据是？', o:['位置、档次与目标客群相近的一组同业（通常 3–5 家）','同城全部酒店','价格比自己低的所有酒店','OTA 同页展示的全部酒店'], a:0, why:'竞争集过宽会稀释信号，过窄则失真；一般取 3–5 家直接竞争物业。' },
+    { lv:'L2', q:'评估一笔团队业务是否该接，最专业的做法是？', o:['做置换分析，比较它与将被替换的散客业务谁能带来更高净收益','只要出租率低于 60% 就接','报价高于成本就接','优先接大单提升知名度'], a:0, why:'置换分析（displacement analysis）比较团队房晚收入与被挤出散客房晚的净损失。' },
+    { lv:'L2', q:'BAR（Best Available Rate，最优可售房价）的作用是？', o:['作为面向市场的公开基准价，所有折扣在其基础上派生','等于酒店最低可能成交价','用于内部成本核算','仅用于团队报价'], a:0, why:'BAR 是定价的锚，含税/不含税、单早与否需保持口径一致。' },
+    { lv:'L2', q:'当预测显示未来某日需求旺盛时，库存控制的常见动作是？', o:['关闭低价房型与折扣渠道，设置最短停留','全面放开所有折扣','临时降价冲量','取消团队订单'], a:0, why:'高需求日应保护库存给高价值客群，可用关闭低价房型、MLOS（最少连住）等手段。' },
+    { lv:'L2', q:'餐饮业的 RevPASH 指的是？', o:['每可用座位每小时产生的收入','每位客人的平均消费','每平方米面积的收入','翻台率乘以客单价'], a:0, why:'RevPASH = 收入 ÷（可用座位数 × 营业小时），餐饮业核心效率指标。' },
+
+    { lv:'L3', q:'航空业衡量单位运力收益的核心指标 RASK 指？', o:['客运收入 ÷ 可用座公里','票价 ÷ 载客率','每架飞机收入','客公里 × 票价'], a:0, why:'RASK（Revenue per Available Seat Kilometer）是航空业对应 RevPAR 的指标。' },
+    { lv:'L3', q:'某景区节假日出现严重的时段性超载与非峰值空置，优先考虑？', o:['分时预约 + 峰谷差异化票价削峰填谷','全面提价限制客流','扩建所有设施','取消线上售票'], a:0, why:'景区产能（承载量）刚性且易逝，用时间与价格双杠杆把需求从峰值转移到平谷。' },
+    { lv:'L3', q:'剧院实行“不同座位区不同票价”，其定价逻辑本质是？', o:['基于感知价值的差别定价（价格歧视）','随机定价','成本加成','会员专属'], a:0, why:'同一场演出边际成本几乎相同，分区定价是按客户感知价值与支付意愿细分。' },
+    { lv:'L3', q:'预测显示未来 30 天需求明显弱于去年同期，第一步最应做的是？', o:['核查预测口径与竞争集是否新增供给/服务能力变化','立刻全面降价 20%','削减服务人员','停止投放广告'], a:0, why:'先验证信号真伪（新供给、事件缺失、渠道结构变化），再做价格动作，避免把异常当需求下滑。' },
+    { lv:'L3', q:'餐厅 18:00—20:00 爆满、17:00 段空置率高，最有效的收益手段是？', o:['早鸟限时套餐把部分需求前移','整体涨价','减少餐位','延长营业到最后一位客人离开'], a:0, why:'峰值已满无法再增收，应借助价格激励把需求转移到闲置时段。' },
+    { lv:'L3', q:'某酒店 OTA 渠道占比超过 40%，长期看收益优化的重点是？', o:['提升直销占比（会员权益、官网最优价保证）','要求 OTA 降低佣金','停止与 OTA 合作','提高挂牌价转嫁佣金'], a:0, why:'高佣金渠道占比过高会长期侵蚀净收益，应通过直销结构优化而非硬碰 OTA。' },
+    { lv:'L3', q:'预订 100 间，历史 No-show 12%、临近取消 10%，合理的超售区间约为？', o:['6–8 间','0 间（不超售）','20–25 间','越多越好'], a:0, why:'损失合计约 22%，但需扣除拒载（walk）成本与声誉风险，实务通常保守覆盖，多在 6–8 间区间试探并结合实际调整。' },
+    { lv:'L3', q:'主要竞争对手全面降价 15%，通常最优应对是？', o:['先评估自身需求弹性与定位，必要时以价值维护替代全面跟价','立即同步降价 15%','降价 20% 压过对方','完全不理会'], a:0, why:'盲目跟价会引发价格战并损伤品牌定位；应先判断客流流向与自身弹性再决定。' }
+  ];
+
+  function pick(lv) {
+    var pool = BANK.filter(function (x) { return x.lv === lv; });
+    pool.sort(function () { return Math.random() - 0.5; });
+    return pool.slice(0, 6);
+  }
+
+  var level = null, qs = [], ans = {};
+
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll(".qz-lv"), function (el) {
+    el.onclick = function () {
+      document.querySelectorAll(".qz-lv").forEach(function (x) { x.classList.remove("on"); });
+      el.classList.add("on");
+      level = el.getAttribute("data-lv");
+      $("btnStart").disabled = false;
+    };
+  });
+
+  $("btnStart").onclick = function () {
+    qs = pick(level); ans = {};
+    $("stageIntro").hidden = true;
+    $("stageExam").hidden = false;
+    $("qzBody").innerHTML = qs.map(function (q, i) {
+      return '<div class="qz-q"><div class="qz-qt">' + (i + 1) + '. ' + esc(q.q) + '</div>' +
+        q.o.map(function (opt, j) {
+          return '<label class="qz-opt"><input type="radio" name="q' + i + '" value="' + j + '">' + esc(opt) + '</label>';
+        }).join("") + '</div>';
+    }).join("");
+    Array.prototype.forEach.call(document.querySelectorAll(".qz-opt input"), function (inp) {
+      inp.onchange = function () {
+        ans[inp.name] = parseInt(inp.value, 10);
+        Array.prototype.forEach.call(inp.closest(".qz-q").querySelectorAll(".qz-opt"), function (o) {
+          o.classList.remove("on");
+        });
+        inp.closest(".qz-opt").classList.add("on");
+      };
+    });
+    window.scrollTo(0, 0);
+  };
+
+  $("btnSubmit").onclick = submit;
+
+  async function submit() {
+    var un = qs.map(function (q, i) { return ans["q" + i] == null; }).filter(Boolean).length;
+    if (un) {
+      if (!confirm("还有 " + un + " 题未作答，确定提交吗？")) return;
+    }
+
+    var right = 0;
+    qs.forEach(function (q, i) { if (ans["q" + i] === q.a) right++; });
+    var total = qs.length;
+    var pct = Math.round((right / total) * 100);
+    var passed = pct >= 60;
+
+    $("stageExam").hidden = true;
+    $("stageResult").hidden = false;
+
+    var review = qs.map(function (q, i) {
+      var ok = ans["q" + i] === q.a;
+      return '<div class="qz-q"><div class="qz-qt">' + (i + 1) + '. ' + esc(q.q) + '</div>' +
+        '<div class="' + (ok ? "qz-ok" : "qz-no") + '">' + (ok ? "✓ 回答正确" : "✗ 正确答案：" + esc(q.o[q.a])) + '</div>' +
+        '<div class="qz-why">' + esc(q.why) + '</div></div>';
+    }).join("");
+
+    var sb = null, uid = null;
+    try {
+      if (window.supabase && window.HRMA_SUPABASE && window.HRMA_SUPABASE.url) {
+        sb = window.supabase.createClient(window.HRMA_SUPABASE.url, window.HRMA_SUPABASE.anonKey);
+        var s = await sb.auth.getSession();
+        uid = (s && s.data && s.data.session && s.data.session.user) ? s.data.session.user.id : null;
+      }
+    } catch (e) { uid = null; }
+
+    var saved = "";
+    if (sb && uid) {
+      try {
+        await sb.rpc("record_exam", { p_score: right, p_total: total, p_level: level, p_pass_score: 60 });
+        saved = '<p class="qz-tipmsg">成绩已记录。' +
+          (passed ? '前往「<a href="../cert.html">资格认证</a>」领取你的证书。' : '') + '</p>';
+      } catch (e) {
+        saved = '<p class="qz-tipmsg">成绩记录失败：' + esc(e.message || e) + '</p>';
+      }
+    } else {
+      saved = '<p class="qz-tipmsg">本次为练习模式（未登录，成绩不计入认证）。' +
+        '<a href="../login.html?redirect=exam/quiz.html">登录后再考一次</a>即可记录。</p>';
+    }
+
+    $("qzResult").innerHTML =
+      '<div style="text-align:center;padding:10px 0 18px">' +
+        '<div class="qz-score">' + right + ' / ' + total + '</div>' +
+        '<div style="font-size:14px;margin-top:6px" class="' + (passed ? "qz-pass" : "qz-fail") + '">' +
+          (passed ? "通过（" + pct + "%）" : "未通过（" + pct + "%，需 60%）") +
+        '</div>' + saved + '</div>' + review +
+      '<div style="margin-top:18px"><button class="qz-btn ghost" onclick="location.reload()">再考一次</button></div>';
+
+    window.scrollTo(0, 0);
+  }
+})();
+</script>
+</body>
+</html>
