@@ -40,6 +40,18 @@
     ③ 无需填写酒店名称、公司、联系方式。
   </div>
 
+  <!-- 池子总览 -->
+  <div class="co-box" style="margin-top:18px">
+    <div class="cm-eyebrow">共建进度</div>
+    <div id="poolStats" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px">
+      <p class="cm-hint">加载中…</p>
+    </div>
+    <p class="cm-hint" style="margin-top:10px;line-height:1.7">
+      样本越多，基准越准。同一「城市 + 档次 + 月份」满 <b>3 条</b> 即可生成匿名聚合基准；
+      不足时系统会自动降级到「同城同档近 12 个月」或「同城全档次」作参照，并在结果里标明口径。
+    </p>
+  </div>
+
   <!-- 模式切换 -->
   <div class="co-tabs" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
     <button type="button" class="btn-line" id="tabStr" style="background:var(--gold-2,#D4A96A);color:#fff;border-color:var(--gold-2,#D4A96A)">STR 标准模板（推荐）</button>
@@ -190,10 +202,42 @@
     </form>
   </div>
 
-  <!-- 我的上报 -->
+  <!-- 我的 STR 样本 -->
+  <div class="co-box">
+    <div class="cm-eyebrow">我的 STR 样本</div>
+    <h3 style="margin:4px 0 10px">我提交的 STR 标准数据</h3>
+    <div id="myStrBox"><p class="cm-hint">加载中…</p></div>
+    <p class="cm-hint" style="margin-top:10px">仅你本人可见；删除后不会再计入同城同档的市场均值。</p>
+  </div>
+
+  <!-- 池子覆盖 -->
+  <div class="co-box">
+    <div class="cm-eyebrow">池子覆盖</div>
+    <h3 style="margin:4px 0 10px">哪些城市与档次已经有数据</h3>
+    <div id="coverBox"><p class="cm-hint">加载中…</p></div>
+    <p class="cm-hint" style="margin-top:10px">
+      「可出指数」= 该组合样本已满 3 条；其余为待补充。欢迎你来补上所在城市与档次的第一个数据点。
+    </p>
+  </div>
+
+  <!-- 邀请共建 -->
+  <div class="co-box">
+    <div class="cm-eyebrow">邀请共建</div>
+    <h3 style="margin:4px 0 10px">拉同行一起报，基准才有用</h3>
+    <p class="cm-hint" style="line-height:1.75">
+      共建池的价值取决于样本密度。把下面这段文案发到你的行业群，一人一条，很快就能凑齐你所在城市与档次的基准线。
+    </p>
+    <div class="bcal" id="inviteText" style="margin-top:10px;white-space:pre-wrap"></div>
+    <div style="margin-top:10px">
+      <button type="button" class="btn-line" id="btnCopyInvite">复制邀请文案</button>
+      <span class="cm-hint" id="inviteHint"></span>
+    </div>
+  </div>
+
+  <!-- 我的上报（快速通道记录） -->
   <div class="co-box">
     <div class="cm-eyebrow">我的上报</div>
-    <h3 style="margin:4px 0 10px">我提交过的数据</h3>
+    <h3 style="margin:4px 0 10px">我提交过的数据（快速通道）</h3>
     <div id="myBox"><p class="cm-hint">加载中…</p></div>
     <p style="margin-top:12px"><a class="btn-line" href="city.html">查看聚合结果 →</a></p>
   </div>
@@ -350,14 +394,19 @@
   async function loadIndex(sb, city, seg, month, myOcc, myAdr, myRevpar){
     if(!iBox) return;
     iBox.innerHTML='<p class="cm-hint">正在计算你的市场指数…</p>';
-    var res=await sb.rpc('str_benchmark',{p_city:city,p_segment:seg,p_month:month});
-    var row=(res.data&&res.data[0])||{sample_count:0,occ:0,adr:0,revpar:0};
-    var n=row.sample_count||0;
-    if(n<3){
-      iBox.innerHTML='<div class="bcal"><b>你的数据已入库。</b>当前「'+city+' · '+seg+' · '+month.slice(0,7)+'」样本 '+n+' 条；'
-        +'按 <b>k-匿名</b> 约定，需满 3 条才公开聚合值，暂不能给出你的指数。邀请同城同行一起报，样本够了即可看到完整对比。</div>';
+    var res=await sb.rpc('str_benchmark_flex',{p_city:city,p_segment:seg,p_month:month});
+    var row=(res.data&&res.data[0])||{match_level:'insufficient',sample_count:0};
+    var n=row.sample_count||0, lvl=row.match_level||'insufficient';
+    var LVLNAME={exact:'同城 · 同档次 · 同月（精确）',city_segment_12m:'同城 · 同档次 · 近 12 个月',city_all_12m:'同城 · 全档次 · 近 12 个月'};
+    if(lvl==='insufficient'||!row.occ){
+      iBox.innerHTML='<div class="bcal"><b>你的数据已入库。</b>当前「'+city+' · '+seg+'」可参考样本 '+n+' 条；'
+        +'按 <b>k-匿名</b> 约定需满 3 条才公开聚合值，暂不能给出指数。'
+        +'用下方「邀请共建」把同城同行拉进来，样本够了即可看到完整的 MPI / ARI / RGI 对比。</div>';
       return;
     }
+    var prefixHtml=(lvl==='exact')?''
+      :'<div class="bcal"><b>样本提示：</b>「'+city+' · '+seg+' · '+month.slice(0,7)+'」精确组合样本还不足 3 条，'
+       +'以下指数改用 <b>'+(LVLNAME[lvl]||lvl)+'</b> 口径参照（'+n+' 条样本）——方向可参考，精确对比待样本补齐。</div>';
     var mOcc=Number(row.occ)||0, mAdr=Number(row.adr)||0, mRev=Number(row.revpar)||0;
     var mpi=mOcc?myOcc/mOcc*100:0, ari=mAdr?myAdr/mAdr*100:0, rgi=mRev?myRevpar/mRev*100:0;
     function pill(k, desc, v){
@@ -385,6 +434,127 @@
   }
 
   recalc();
+})();
+</script>
+<script>
+/* ============================================================
+ * 共建池增强：池子总览 / 我的STR样本(可删) / 覆盖表 / 邀请文案
+ * poolStats / coverBox 用 str_pool_stats()/str_coverage()（anon 可查）
+ * myStrBox 用本人行级权限（RLS select/delete own）
+ * ============================================================ */
+(function(){
+  function sbClient(){
+    if(!window.supabase||!window.HRMA_SUPABASE||!window.HRMA_SUPABASE.url) return null;
+    return window.supabase.createClient(window.HRMA_SUPABASE.url, window.HRMA_SUPABASE.anonKey);
+  }
+  function E(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function mY(d){ return d? String(d).slice(0,7) : '—'; }
+
+  /* —— 池子总览 —— */
+  var poolStats=document.getElementById('poolStats');
+  async function loadPoolStats(){
+    if(!poolStats) return;
+    var sb=sbClient();
+    if(!sb){ poolStats.innerHTML='<p class="cm-hint">组件加载中，请刷新</p>'; return; }
+    try{
+      var r=await sb.rpc('str_pool_stats');
+      var row=(r.data&&r.data[0])||{sample_count:0,hotel_count:0,city_count:0};
+      var stat=function(label,val,unit){
+        return '<div style="flex:1;min-width:120px;border:1px solid var(--line,#e6e2d8);border-radius:10px;padding:12px 14px;background:var(--bg-2,#F2F0EB)">'
+          +'<div style="font-size:26px;font-weight:700;color:var(--ink,#2b2b2b)">'+val+(unit||'')+'</div>'
+          +'<div style="font-size:12px;color:var(--ink-3,#7B8794)">'+label+'</div></div>';
+      };
+      poolStats.innerHTML=stat('已上报样本（条）',row.sample_count,'')
+        +stat('参与酒店（家）',row.hotel_count,'')
+        +stat('覆盖城市（个）',row.city_count,'');
+    }catch(e){
+      poolStats.innerHTML='<p class="cm-hint">加载失败，请刷新重试。</p>';
+    }
+  }
+  loadPoolStats();
+
+  /* —— 我的 STR 样本（可删） —— */
+  var myStrBox=document.getElementById('myStrBox');
+  async function loadMyStr(){
+    if(!myStrBox) return;
+    var sb=sbClient();
+    if(!sb){ myStrBox.innerHTML='<p class="cm-hint">组件加载中，请刷新</p>'; return; }
+    var sess=await sb.auth.getSession();
+    var user=(sess&&sess.data&&sess.data.session)?sess.data.session.user:null;
+    if(!user){ myStrBox.innerHTML='<p class="cm-hint">请先 <a href="../login.html">登录</a> 查看你上报的样本。</p>'; return; }
+    var r=await sb.from('str_samples').select('*').eq('user_id',user.id).order('month',{ascending:false});
+    if(r.error){ myStrBox.innerHTML='<p class="cm-hint">加载失败：'+E(r.error.message)+'</p>'; return; }
+    var rows=r.data||[];
+    if(!rows.length){ myStrBox.innerHTML='<p class="co-empty">你还没有上报 STR 样本，填上面的模板即可。</p>'; return; }
+    var h='<table class="btable"><thead><tr><th>城市</th><th>档次</th><th>月份</th><th>出租率</th><th>ADR</th><th>RevPAR</th><th>操作</th></tr></thead><tbody>';
+    rows.forEach(function(s){
+      h+='<tr><td>'+E(s.city)+'</td><td>'+E(s.segment)+'</td><td>'+mY(s.month)+'</td>'
+        +'<td>'+(s.occ!=null?E(s.occ)+'%':'—')+'</td>'
+        +'<td>'+(s.adr!=null?'¥'+E(s.adr):'—')+'</td>'
+        +'<td>'+(s.revpar!=null?'¥'+E(s.revpar):'—')+'</td>'
+        +'<td><button type="button" class="btn-line btn-del" data-id="'+E(s.id)+'" style="padding:3px 10px">删除</button></td></tr>';
+    });
+    h+='</tbody></table>';
+    myStrBox.innerHTML=h;
+    Array.prototype.forEach.call(myStrBox.querySelectorAll('.btn-del'),function(btn){
+      btn.addEventListener('click', async function(){
+        if(!confirm('确认删除这条 STR 样本？删除后不再计入同城同档均值。')) return;
+        var id=btn.getAttribute('data-id');
+        btn.disabled=true; btn.textContent='删除中…';
+        var d=await sb.from('str_samples').delete().eq('id',id);
+        if(d.error){ alert('删除失败：'+d.error.message); btn.disabled=false; btn.textContent='删除'; return; }
+        loadMyStr(); loadPoolStats(); loadCover();
+      });
+    });
+  }
+  loadMyStr();
+
+  /* —— 池子覆盖 —— */
+  var coverBox=document.getElementById('coverBox');
+  async function loadCover(){
+    if(!coverBox) return;
+    var sb=sbClient();
+    if(!sb){ coverBox.innerHTML='<p class="cm-hint">组件加载中，请刷新</p>'; return; }
+    var r=await sb.rpc('str_coverage');
+    if(r.error){ coverBox.innerHTML='<p class="cm-hint">加载失败：'+E(r.error.message)+'</p>'; return; }
+    var rows=r.data||[];
+    if(!rows.length){ coverBox.innerHTML='<p class="co-empty">池子还是空的，快来报第一个数据点！</p>'; return; }
+    var h='<table class="btable"><thead><tr><th>城市</th><th>档次</th><th>样本</th><th>酒店</th><th>最近月份</th><th>状态</th></tr></thead><tbody>';
+    rows.forEach(function(s){
+      var ok=(s.sample_count||0)>=3;
+      h+='<tr><td>'+E(s.city)+'</td><td>'+E(s.segment)+'</td><td class="bv">'+E(s.sample_count)+'</td>'
+        +'<td>'+E(s.hotel_count)+'</td><td>'+mY(s.latest_month)+'</td>'
+        +'<td>'+(ok?'<span class="btier t-official">可出指数</span>':'<span class="btier t-derived">待补充</span>')+'</td></tr>';
+    });
+    h+='</tbody></table>';
+    coverBox.innerHTML=h;
+  }
+  loadCover();
+
+  /* —— 邀请共建 —— */
+  var inviteText=document.getElementById('inviteText'),
+      btnCopy=document.getElementById('btnCopyInvite'),
+      inviteHint=document.getElementById('inviteHint');
+  var INVITE='【共建酒店收益基准池 · RMC收益管理社区】\n'
+    +'我们正搭建全国城市月度收益基准池：你每月报一条（城市 + 档次 + 可用房晚/已售房晚/客房收入），'
+    +'就能换回同城的匿名基准线和你的 MPI / ARI / RGI 指数对比。\n'
+    +'全程脱敏、不暴露任何单店数据，样本满 3 条才出聚合值。\n'
+    +'来补上你所在城市与档次的第一个数据点 👉 https://hrma-city.github.io/benchmark/contribute.html';
+  if(inviteText) inviteText.textContent=INVITE;
+  if(btnCopy){
+    btnCopy.addEventListener('click', async function(){
+      try{
+        await navigator.clipboard.writeText(INVITE);
+        if(inviteHint){ inviteHint.textContent='已复制，去行业群粘贴吧！'; inviteHint.style.color='var(--teal)'; }
+      }catch(e){
+        var ta=document.createElement('textarea'); ta.value=INVITE; document.body.appendChild(ta);
+        ta.select();
+        try{ document.execCommand('copy'); if(inviteHint){inviteHint.textContent='已复制';inviteHint.style.color='var(--teal)';} }
+        catch(_){ if(inviteHint){inviteHint.textContent='复制失败，请手动选择';inviteHint.style.color='#c0392b';} }
+        document.body.removeChild(ta);
+      }
+    });
+  }
 })();
 </script>
 <script>window.HRMA_PREFIX="../";</script>
