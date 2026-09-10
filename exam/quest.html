@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>考级认证 · 决策闯关 · RMC收益管理社区</title>
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/notify.css">
+<style>
+  .qz-wrap{max-width:880px;margin:0 auto;padding:28px 0 48px}
+  .qz-card{background:var(--bg,#fff);border:1px solid var(--line,#e6e2d8);border-radius:14px;padding:24px 26px;margin-bottom:18px}
+  .qz-h1{font-size:26px;margin:0 0 6px;color:var(--navy,#16324f)}
+  .qz-sub{color:var(--ink-3,#7B8794);font-size:14px;margin:0 0 18px;line-height:1.65}
+  .qz-sub b{color:var(--gold,#b9914a)}
+
+  /* 等级卡 */
+  .qz-levels{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .qz-lv{border:1px solid var(--line,#e6e2d8);border-radius:12px;padding:18px;cursor:pointer;background:var(--bg-2,#F2F0EB);transition:.15s;display:flex;flex-direction:column;gap:8px}
+  .qz-lv:hover{border-color:var(--gold-2,#D4A96A);background:#fbf4e8}
+  .qz-lv b{color:var(--navy,#16324f);font-size:16px}
+  .qz-lv span{font-size:12.8px;color:var(--ink-2,#445);line-height:1.55;flex:1}
+  .qz-lv.locked{opacity:.55;cursor:not-allowed;filter:grayscale(.3)}
+  .qz-lv.done{border-color:var(--gold-2,#D4A96A);background:#fbf4e8}
+  .qz-doneflag{font-size:12.5px;color:#1e7e44;font-weight:600}
+  .qz-lock{font-size:12px;color:var(--ink-3,#7B8794)}
+
+  /* 流程条 */
+  .q-flow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+  .qf-step{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-3,#7B8794);background:var(--bg-2,#F2F0EB);border:1px solid var(--line,#e6e2d8);border-radius:20px;padding:5px 12px}
+  .qf-dot{width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;background:#fff;border:1px solid var(--line,#e6e2d8);color:var(--ink-3,#7B8794)}
+  .qf-step.done{color:#1e7e44;border-color:#bfe3cb;background:#effaf2}
+  .qf-step.done .qf-dot{background:#1e7e44;color:#fff;border-color:#1e7e44}
+  .qf-step.on{color:var(--navy,#16324f);border-color:var(--gold-2,#D4A96A);background:#fbf4e8;font-weight:600}
+  .qf-step.on .qf-dot{background:var(--gold,#b9914a);color:#fff;border-color:var(--gold,#b9914a)}
+
+  /* 关卡 */
+  .q-stage-head{font-size:13px;color:var(--gold,#b9914a);font-weight:600;margin-bottom:12px;letter-spacing:.03em}
+  .q-role{font-size:13.5px;color:var(--ink-2,#445);background:var(--bg-2,#F2F0EB);border-radius:9px;padding:11px 14px;line-height:1.6;margin:0 0 12px}
+  .q-ask{font-size:16px;font-weight:600;color:var(--navy,#16324f);margin:0 0 16px;line-height:1.55}
+  .q-choice{display:block;width:100%;text-align:left;font:inherit;font-size:14px;color:var(--ink-2,#445);background:var(--bg,#fff);border:1px solid var(--line,#e6e2d8);border-radius:10px;padding:13px 16px;margin:9px 0;cursor:pointer;transition:.13s;line-height:1.5}
+  .q-choice:hover:not(:disabled){border-color:var(--gold-2,#D4A96A);background:#fbf4e8}
+  .q-choice:disabled{cursor:default;opacity:.85}
+  .q-choice.correct{border-color:#1e7e44;background:#effaf2;color:var(--navy,#16324f);font-weight:600}
+  .q-choice.wrong{border-color:#c0392b;background:#fdecea;color:var(--navy,#16324f)}
+
+  /* 反馈 */
+  .q-feedback{margin-top:16px;border-radius:12px;padding:16px 18px;border:1px solid var(--line,#e6e2d8)}
+  .q-feedback.ok{background:#effaf2;border-color:#bfe3cb}
+  .q-feedback.no{background:#fdf3ef;border-color:#f0c9bd}
+  .qf-badge{font-weight:700;font-size:14.5px;margin-bottom:10px}
+  .q-feedback.ok .qf-badge{color:#1e7e44}
+  .q-feedback.no .qf-badge{color:#c0392b}
+  .qf-why{font-size:13px;color:var(--ink-2,#445);line-height:1.65;margin-bottom:8px}
+  .qf-why b{color:var(--navy,#16324f)}
+  .qf-flow{font-size:13px;color:var(--ink-3,#7B8794);margin-bottom:12px}
+  .q-feedback .qz-btn{margin-top:6px}
+
+  /* 通关 */
+  .q-pass-hero{font-size:24px;font-weight:700;color:var(--navy,#16324f);margin-bottom:8px}
+  .q-pass-sub{font-size:14px;color:var(--ink-2,#445);line-height:1.65;margin:0 0 16px}
+  .q-pass-card{background:var(--bg-2,#F2F0EB);border:1px solid var(--line,#e6e2d8);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+  .q-pass-card h4{margin:0 0 10px;color:var(--navy,#16324f);font-size:15px}
+  .q-pass-card ul{margin:0;padding-left:20px;color:var(--ink-2,#445);font-size:13.5px;line-height:1.9}
+  .q-next{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .q-allclear{font-size:15px;color:var(--gold,#b9914a);font-weight:600;margin-right:6px}
+
+  .qz-btn{font:inherit;font-weight:600;cursor:pointer;padding:10px 20px;border-radius:9px;border:1px solid transparent;background:linear-gradient(135deg,var(--gold-2,#D4A96A),var(--gold,#b9914a));color:#fff}
+  .qz-btn:hover{filter:brightness(1.04)}
+  .qz-btn.ghost{background:#fff;color:var(--gold,#b9914a);border-color:var(--gold-2,#D4A96A);text-decoration:none;display:inline-flex;align-items:center}
+  .qz-back{background:none;border:none;color:var(--ink-3,#7B8794);font:inherit;cursor:pointer;font-size:13px;margin-bottom:10px}
+  .qz-back:hover{color:var(--navy,#16324f)}
+
+  @media(max-width:720px){.qz-levels{grid-template-columns:1fr}.qz-card{padding:18px 16px}}
+</style>
+</head>
+<body data-auth="public">
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+    <nav class="sn-links" id="snLinks">
+      <a href="../index.html">首页</a>
+      <a href="../academy.html">学院</a>
+      <a href="../games/index.html">游戏</a>
+      <a href="../community.html">社区</a>
+      <a href="../cert.html" class="on">认证</a>
+      <a href="../theater.html">剧院</a>
+      <a href="../industries.html">行业矩阵</a>
+    </nav>
+    <a class="sn-cta" href="../cert.html">资格认证</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main">
+  <div class="qz-wrap">
+    <h1 class="qz-h1">考级认证 · 决策闯关</h1>
+    <p class="qz-sub">
+      把三级认证做成<b>逐级升级的实战游戏</b>：不用背任何知识点，只要在每个真实经营场景里<b>做选择</b>，
+      顺着标准操作流程走完，就自然掌握了该级的<b>原理</b>与<b>操作流程</b>。<br>
+      选对推进流程，选错看后果 + 原理，理解后即可重试。通关上一级自动解锁下一级。
+    </p>
+
+    <section class="qz-card" id="qLevels">
+      <h3 style="margin:0 0 14px;color:var(--navy,#16324f);font-size:16px">选择要挑战的认证级别</h3>
+      <div class="qz-levels" id="qLevelCards"></div>
+    </section>
+
+    <section class="qz-card" id="qStage" hidden>
+      <button class="qz-back" id="btnBack">← 返回级别选择</button>
+      <div class="q-flow" id="qFlow"></div>
+      <div id="qStageBody"></div>
+      <div class="q-feedback" id="qFeedback" hidden></div>
+    </section>
+
+    <section class="qz-card" id="qResult" hidden></section>
+  </div>
+</main>
+
+<script src="../assets/js/auth-config.js"></script>
+<script src="https://hrma-city.github.io/assets/js/supabase.js"></script>
+<script src="../assets/js/notify.js"></script>
+<script src="../assets/js/quest.js"></script>
+</body>
+</html>
