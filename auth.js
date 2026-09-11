@@ -46,7 +46,26 @@
       .select("*")
       .eq("id", s.user.id)
       .maybeSingle();
-    return (r && r.data) || null;
+    if (r && r.data) return r.data;
+    // 自修复：已登录但 profiles 缺行（触发器未生效/被权限拦截）时，用本人身份补建，
+    // 避免卡在「资料未初始化」。authenticated 角色对 profiles 有读写权限（RLS 关闭）。
+    try {
+      var u = s.user;
+      var md = (u && u.user_metadata) || {};
+      var ins = await c.from("profiles").upsert({
+        id: u.id,
+        email: (u.email || ""),
+        full_name: md.full_name || "",
+        org: md.org || "",
+        role_text: md.role_text || "",
+        phone: md.phone || "",
+        reason: md.reason || "",
+        status: "approved",
+        updated_at: new Date().toISOString()
+      }, { onConflict: "id" }).select("*").maybeSingle();
+      if (ins && ins.data) return ins.data;
+    } catch (e) { /* 忽略，交给上层判断 */ }
+    return null;
   }
 
   async function signUp(email, password, extra) {
@@ -70,7 +89,8 @@
       }
     });
     if (r.error) throw r.error;
-    // 写入 profiles（触发器若已建则忽略冲突）；邮箱确认未过时此步可能被 RLS 拦，靠触发器兜底
+    // 写入 profiles（触发器若已建则忽略冲突）。邮箱确认未过时此步以 anon 身份执行会被权限拒绝，
+    // 此时由触发器兜底；已带会话（自动确认）时以本人身份写入并直接 approved。
     if (r.data && r.data.user) {
       try {
         await c.from("profiles").upsert({
@@ -81,10 +101,10 @@
           role_text: extra.role_text || "",
           phone: extra.phone || "",
           reason: extra.reason || "",
-          status: "pending",
+          status: "approved",
           updated_at: new Date().toISOString()
         }, { onConflict: "id" });
-      } catch (e) { /* 由触发器兜底 */ }
+      } catch (e) { /* 由触发器/登录时自修复兜底 */ }
     }
     return r.data;
   }

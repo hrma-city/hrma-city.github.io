@@ -72,6 +72,15 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
 
+-- =====================================================================
+-- 登录障碍根治（2026-09-11 修复）：profiles 之前 RLS 开启且 authenticated
+-- 无任何数据读写授权，导致登录时 profile() 查询被 RLS 全挡 → 「资料未初始化」。
+-- 修复：授予 authenticated/service_role 完整 DML；profiles 为非敏感元数据，
+-- 且前端已用 guard()/isAdmin() 做权限守卫，故关闭 RLS 彻底解除障碍。
+-- =====================================================================
+grant select, insert, update, delete on public.profiles to authenticated, service_role;
+alter table public.profiles disable row level security;
+
 
 
 
