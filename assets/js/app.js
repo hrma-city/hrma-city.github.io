@@ -208,6 +208,7 @@
     { t: "学院",     p: "academy.html" },
     { t: "资源",     p: "resources.html" },
     { t: "书籍",     p: "books.html" },
+    { t: "各个击破", p: "gejijipo.html" },
     { t: "游戏",     p: "games/index.html" },
     { t: "认证",     p: "cert.html" },
     { t: "专家",     p: "experts.html" },
@@ -231,7 +232,7 @@
         var parts = it.p.split("/");
         var tp = parts.pop().toLowerCase();
         var td = (parts.length ? parts[0] : "").toLowerCase();
-        var on = (tp === cur && td === curDir) ? ' class="on"' : "";
+        var on = ((tp === cur && td === curDir) || (it.p.indexOf("gejijipo") >= 0 && cur.indexOf("gejijipo") >= 0)) ? ' class="on"' : "";
         return '<a href="' + href(it.p) + '"' + on + ">" + it.t + "</a>";
       }).join("");
     }

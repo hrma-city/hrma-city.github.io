@@ -81,6 +81,20 @@ create trigger on_auth_user_created
 grant select, insert, update, delete on public.profiles to authenticated, service_role;
 alter table public.profiles disable row level security;
 
+-- =====================================================================
+-- 同类根治（2026-09-11）：以下表 RLS 策略本身正确（auth.uid() 本人 + 管理员白名单），
+-- 但 authenticated 角色缺 DML 授权，导致登录后读写被拒。补授权即可（RLS 保留）。
+-- =====================================================================
+grant select, insert, update, delete on public.cases to authenticated, service_role;
+grant select, insert, update, delete on public.certificates to authenticated, service_role;
+grant select, insert, update, delete on public.course_progress to authenticated, service_role;
+grant select, insert, update, delete on public.exam_results to authenticated, service_role;
+grant select, insert, update, delete on public.notifications to authenticated, service_role;
+grant select, insert, update, delete on public.posts to authenticated, service_role;
+grant select, insert, update, delete on public.replies to authenticated, service_role;
+grant select, insert, update, delete on public.str_samples to authenticated, service_role;
+grant select, insert, update, delete on public.payments to authenticated, service_role;
+
 
 
 
