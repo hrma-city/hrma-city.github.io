@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>收益管理计算模板 · 各个击破</title>
+<meta name="description" content="收益管理核心指标与操作的计算模板：含 MPI/ARI/RGI、超额预订、置换分析、手工预测、TrevPAR/GOPPAR/NRevPAR 的公式、步骤、示例与可下载表格。">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/notify.css">
+<style>
+  .ct-wrap{max-width:1000px;margin:0 auto;padding:24px 18px 60px}
+  .ct-hero{background:linear-gradient(135deg,#1B3A5C,#2C5282);color:#fff;border-radius:16px;padding:28px 26px;margin-bottom:22px}
+  .ct-hero h1{margin:0 0 6px;font-size:26px}
+  .ct-hero p{margin:0;opacity:.9;font-size:14px}
+  .ct-card{background:#fff;border:1px solid #E1E5EA;border-radius:14px;padding:20px 22px;margin-bottom:18px;scroll-margin-top:90px}
+  .ct-card h2{margin:0 0 4px;font-size:20px;color:#1B3A5C}
+  .ct-card .badge{display:inline-block;background:#F7F0E4;color:#B8894A;border-radius:20px;padding:2px 12px;font-size:12px;margin-bottom:10px}
+  .ct-card h3{font-size:15px;color:#2C5282;margin:16px 0 6px}
+  .ct-card ol,.ct-card ul{margin:6px 0 6px 20px;padding:0;color:#1F2933;font-size:14px;line-height:1.7}
+  .ct-card code{background:#F2F4F7;padding:1px 6px;border-radius:5px;font-size:13px;color:#B8894A}
+  .ct-ex{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+  .ct-ex th,.ct-ex td{border:1px solid #E1E5EA;padding:7px 10px;text-align:left}
+  .ct-ex th{background:#F7F0E4;color:#1B3A5C}
+  .ct-dl{display:inline-block;margin-top:8px;background:#B8894A;color:#fff;text-decoration:none;padding:8px 16px;border-radius:9px;font-size:14px}
+  .ct-dl:hover{background:#a87a3e}
+  .ct-toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .ct-toc a{background:#fff;border:1px solid #E1E5EA;color:#2C5282;text-decoration:none;padding:6px 14px;border-radius:20px;font-size:13px}
+  .ct-toc a:hover{border-color:#B8894A;color:#B8894A}
+</style>
+</head>
+<body data-auth="public">
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="gejijipo.html">各个击破</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main ct-wrap">
+  <div class="ct-hero">
+    <h1>收益管理计算模板</h1>
+    <p>每个模板含：说明 · 计算公式 · 操作步骤 · 示例数据。点击“下载表格”可获取 CSV 并在线预览，照着填自己的数据即可实操。</p>
+  </div>
+
+  <div class="ct-toc">
+    <a href="#mpi">MPI</a><a href="#ari">ARI</a><a href="#rgi">RGI</a>
+    <a href="#trevpar">TrevPAR</a><a href="#goppar">GOPPAR</a><a href="#nrevpar">NRevPAR</a>
+    <a href="#displacement">置换分析</a><a href="#overbooking">超额预订</a><a href="#forecast">手工预测</a>
+  </div>
+
+  <!-- MPI / ARI / RGI -->
+  <div class="ct-card" id="mpi">
+    <span class="badge">对标指数</span>
+    <h2>MPI 市场渗透指数</h2>
+    <h3>公式</h3>
+    <p><code>MPI = 本店入住率 ÷ 竞组平均入住率 × 100</code></p>
+    <h3>步骤</h3>
+    <ol><li>取本店当期入住率；</li><li>取 CompSet（3–5 家竞品）平均入住率；</li><li>两者相除×100。&gt;100 领先，&lt;100 落后。</li></ol>
+    <h3>示例</h3>
+    <table class="ct-ex"><thead><tr><th>本店 OCC</th><th>竞组均值</th><th>MPI</th></tr></thead><tbody><tr><td>82%</td><td>76%</td><td>108</td></tr></tbody></table>
+    <a class="ct-dl" href="data/calc/calc-mpi-ari-rgi.csv" download>下载 MPI/ARI/RGI 模板</a>
+  </div>
+
+  <div class="ct-card" id="ari">
+    <span class="badge">对标指数</span>
+    <h2>ARI 价格指数</h2>
+    <p><code>ARI = 本店 ADR ÷ 竞组平均 ADR × 100</code></p>
+    <ol><li>取本店平均房价；</li><li>取竞组平均 ADR；</li><li>相除×100。&gt;100 更贵，但需结合 MPI：贵而份额掉=危险。</li></ol>
+    <table class="ct-ex"><thead><tr><th>本店 ADR</th><th>竞组均值</th><th>ARI</th></tr></thead><tbody><tr><td>560</td><td>500</td><td>112</td></tr></tbody></table>
+    <a class="ct-dl" href="data/calc/calc-mpi-ari-rgi.csv" download>下载 MPI/ARI/RGI 模板</a>
+  </div>
+
+  <div class="ct-card" id="rgi">
+    <span class="badge">对标指数</span>
+    <h2>RGI 综合收益指数</h2>
+    <p><code>RGI = 本店 RevPAR ÷ 竞组平均 RevPAR × 100</code></p>
+    <ol><li>取本店 RevPAR；</li><li>取竞组平均 RevPAR；</li><li>相除×100。量价合一的终极标尺，&gt;100 全面领先。</li></ol>
+    <table class="ct-ex"><thead><tr><th>本店 RevPAR</th><th>竞组均值</th><th>RGI</th></tr></thead><tbody><tr><td>416</td><td>372</td><td>112</td></tr></tbody></table>
+    <a class="ct-dl" href="data/calc/calc-mpi-ari-rgi.csv" download>下载 MPI/ARI/RGI 模板</a>
+  </div>
+
+  <!-- TrevPAR / GOPPAR / NRevPAR -->
+  <div class="ct-card" id="trevpar">
+    <span class="badge">产出/盈利指标</span>
+    <h2>TrevPAR 每可售房总收入</h2>
+    <p><code>TrevPAR =（房费 + 餐饮 + 会议 + 其他收入）÷ 可售房</code></p>
+    <ol><li>汇总期内全部收入（不止房费）；</li><li>÷ 可售房总数。</li></ol>
+    <table class="ct-ex"><thead><tr><th>房费</th><th>餐饮会议</th><th>可售房</th><th>TrevPAR</th></tr></thead><tbody><tr><td>416</td><td>204</td><td>1</td><td>620</td></tr></tbody></table>
+    <a class="ct-dl" href="data/calc/calc-trevpar.csv" download>下载 TrevPAR/GOPPAR/NRevPAR 模板</a>
+  </div>
+
+  <div class="ct-card" id="goppar">
+    <span class="badge">产出/盈利指标</span>
+    <h2>GOPPAR 每可售房经营毛利</h2>
+    <p><code>GOPPAR =（总收入 − 运营成本）÷ 可售房</code></p>
+    <ol><li>算期内总收入；</li><li>扣人工、能耗、物料等运营成本得经营毛利；</li><li>÷ 可售房。</li></ol>
+    <table class="ct-ex"><thead><tr><th>收入</th><th>成本</th><th>可售房</th><th>GOPPAR</th></tr></thead><tbody><tr><td>620</td><td>310</td><td>1</td><td>310</td></tr></tbody></table>
+    <a class="ct-dl" href="data/calc/calc-trevpar.csv" download>下载 TrevPAR/GOPPAR/NRevPAR 模板</a>
+  </div>
+
+  <div class="ct-card" id="nrevpar">
+    <span class="badge">产出/盈利指标</span>
+    <h2>NRevPAR 净可售房收入</h2>
+    <p><code>NRevPAR =（房收入 − 佣金/渠道费）÷ 可售房</code></p>
+    <ol><li>取房费收入；</li><li>扣 OTA 等渠道佣金；</li><li>÷ 可售房。直订渠道净贡献高于 OTA。</li></ol>
+    <table class="ct-ex"><thead><tr><th>房收入</th><th>佣金(15%)</th><th>可售房</th><th>NRevPAR</th></tr></thead><tbody><tr><td>460</td><td>70</td><td>1</td><td>390</td></tr></tbody></table>
+    <a class="ct-dl" href="data/calc/calc-trevpar.csv" download>下载 TrevPAR/GOPPAR/NRevPAR 模板</a>
+  </div>
+
+  <!-- 置换分析 -->
+  <div class="ct-card" id="displacement">
+    <span class="badge">决策方法</span>
+    <h2>置换分析 Displacement</h2>
+    <p><code>净贡献 = 收入 − 成本；比较不同客源占用同一房量的净贡献</code></p>
+    <ol><li>算低价团队带来的净贡献；</li><li>算高价散客的期望净贡献；</li><li>把房量留给净贡献更高的客源。</li></ol>
+    <table class="ct-ex"><thead><tr><th>客源</th><th>房量</th><th>单价</th><th>净贡献</th></tr></thead><tbody><tr><td>低价团队</td><td>20</td><td>400</td><td>6000</td></tr><tr><td>高价散客</td><td>20</td><td>560</td><td>8700</td></tr></tbody></table>
+    <a class="ct-dl" href="data/calc/calc-displacement.csv" download>下载置换分析模板</a>
+  </div>
+
+  <!-- 超额预订 -->
+  <div class="ct-card" id="overbooking">
+    <span class="badge">房量决策</span>
+    <h2>超额预订上限</h2>
+    <p><code>建议超售上限 ≈ 历史 No-show 率（取安全值）</code></p>
+    <ol><li>统计历史 No-show 率与取消率；</li><li>超售上限取 No-show 率（或更小）；</li><li>备好翻房预案（周边互助酒店）。</li></ol>
+    <table class="ct-ex"><thead><tr><th>可售房</th><th>No-show率</th><th>取消率</th><th>建议超售</th></tr></thead><tbody><tr><td>100</td><td>8%</td><td>12%</td><td>8 间</td></tr></tbody></table>
+    <a class="ct-dl" href="data/calc/calc-overbooking.csv" download>下载超额预订模板</a>
+  </div>
+
+  <!-- 手工预测 -->
+  <div class="ct-card" id="forecast">
+    <span class="badge">预测</span>
+    <h2>入住率手工预测（Excel 法）</h2>
+    <p><code>预测入住率 = 历史同期入住率 × 事件系数</code></p>
+    <ol><li>取历史同期每日入住率作基数；</li><li>对节假日/展会等日期乘事件系数（&gt;1 拉升，&lt;1 压低）；</li><li>每周用实际结果滚动修正基数与系数。</li></ol>
+    <table class="ct-ex"><thead><tr><th>日期</th><th>历史同期</th><th>事件系数</th><th>预测</th></tr></thead><tbody><tr><td>10-01</td><td>70%</td><td>1.0</td><td>70%</td></tr><tr><td>10-03</td><td>65%</td><td>1.3</td><td>85%</td></tr></tbody></table>
+    <a class="ct-dl" href="data/calc/calc-forecast.csv" download>下载手工预测模板</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="sf-grid">
+    <div><div class="sf-t">RMC收益管理社区</div><p class="sf-desc">跨行业收益管理专业社区。</p></div>
+    <div><div class="sf-t">学习</div><a href="academy.html">学院首页</a><a href="codex.html">操作法典</a><a href="gejijipo.html">各个击破</a><a href="resources.html">模板与资料</a></div>
+    <div><div class="sf-t">社区</div><a href="experts.html">专家高手</a><a href="community.html">行业交流</a><a href="cert.html">资格认证</a><a href="jobs.html">招聘内推</a></div>
+  </div>
+  <div class="sf-bot"><span>RMC收益管理社区 · 通用内核 + 行业参数</span></div>
+</footer>
+
+<script src="auth-config.js"></script>
+<script src="assets/js/demo-backend.js"></script>
+<script src="assets/js/app.js"></script>
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/notify.js"></script>
+</body>
+</html>

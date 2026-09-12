@@ -203,39 +203,96 @@
     }
   }
 
-  /* ---------- 顶部导航：统一改为社区四大板块 ---------- */
-  var TOPNAV = [
-    { t: "首页",     p: "index.html" },
-    { t: "学院",     p: "academy.html" },
-    { t: "资源",     p: "resources.html" },
-    { t: "书籍",     p: "books.html" },
-    { t: "各个击破", p: "gejijipo.html" },
-    { t: "游戏",     p: "games/index.html" },
-    { t: "认证",     p: "cert.html" },
-    { t: "专家",     p: "experts.html" },
-    { t: "会员",     p: "pricing.html" },
-    { t: "招聘",     p: "jobs.html" },
-    { t: "基准",     p: "benchmark/index.html" },
-    { t: "社区",     p: "community.html" },
-    { t: "资讯",     p: "news.html" },
-    { t: "行业矩阵", p: "industries.html" }
+  /* ---------- 顶部导航：5 大板块 + hover 多级菜单 + 全站搜索 ---------- */
+  var BOARDS = [
+    { t: "知识分享", p: "knowledge.html", items: [
+      { t: "概念篇", p: "gejijipo.html?part=concept" },
+      { t: "操作篇", p: "gejijipo.html?part=op" },
+      { t: "案例篇", p: "gejijipo.html?part=case" },
+      { t: "通用内核六模块", p: "core/index.html" },
+      { t: "收益管理学院", p: "academy.html" },
+      { t: "操作法典（15表）", p: "codex.html" },
+      { t: "书籍专栏", p: "books.html" },
+      { t: "行业矩阵", p: "industries.html" }
+    ]},
+    { t: "教学咨询", p: "teach.html", items: [
+      { t: "教学资源包", p: "teach.html#pack" },
+      { t: "教案 / 课件 / PPT", p: "teach.html#ppt" },
+      { t: "角色扮演经营游戏", p: "teach.html#role" },
+      { t: "分组经营竞赛游戏", p: "teach.html#compete" },
+      { t: "教学指导咨询", p: "teach.html#consult" },
+      { t: "营销定价方案", p: "teach.html#pricing" }
+    ]},
+    { t: "行业实操", p: "practice.html", items: [
+      { t: "行业操作指南", p: "practice.html#guide" },
+      { t: "实操训练营", p: "practice.html#camp" },
+      { t: "实操游戏", p: "practice.html#game" },
+      { t: "住宿业", p: "lodging.html" },
+      { t: "餐饮业", p: "fnb.html" },
+      { t: "航空业", p: "airline/index.html" },
+      { t: "景区文旅", p: "attraction/index.html" },
+      { t: "娱乐休闲", p: "entertainment/index.html" }
+    ]},
+    { t: "社区互动", p: "community.html", items: [
+      { t: "经验与案例分享", p: "community.html" },
+      { t: "案例讨论", p: "community.html#discuss" },
+      { t: "招聘内推", p: "jobs.html" },
+      { t: "专家高手", p: "experts.html" },
+      { t: "收益管理剧院", p: "theater.html" }
+    ]},
+    { t: "资讯", p: "news.html", items: [
+      { t: "行业资讯", p: "news.html" },
+      { t: "资讯总览", p: "news.html#all" }
+    ]}
   ];
 
+  function injectNavCss() {
+    if (document.getElementById("snStyle")) return;
+    var s = document.createElement("style");
+    s.id = "snStyle";
+    s.textContent =
+      ".sn-links{display:flex;gap:2px;align-items:center;flex-wrap:wrap}" +
+      ".sn-board{position:relative}" +
+      ".sn-board>a{display:inline-block;padding:8px 12px;color:#33415c;border-radius:8px;white-space:nowrap}" +
+      ".sn-board>a:hover,.sn-board>a.on{background:#eef3f8;color:#1B3A5C}" +
+      ".sn-dd{display:none;position:absolute;top:100%;left:0;min-width:200px;background:#fff;border:1px solid #E1E5EA;" +
+      "border-radius:10px;box-shadow:0 10px 30px rgba(27,58,92,.14);padding:8px;z-index:60}" +
+      ".sn-board:hover .sn-dd{display:block}" +
+      ".sn-dd a{display:block;padding:8px 12px;border-radius:8px;color:#33415c;font-size:14px}" +
+      ".sn-dd a:hover{background:#F7F0E4;color:#B8894A}" +
+      ".sn-search-btn{cursor:pointer;padding:8px 12px;border-radius:8px;color:#33415c}" +
+      ".sn-search-btn:hover{background:#eef3f8}" +
+      ".sn-overlay{position:fixed;inset:0;background:rgba(15,23,42,.42);display:none;z-index:200;align-items:flex-start;justify-content:center;padding-top:12vh}" +
+      ".sn-overlay.show{display:flex}" +
+      ".sn-search-box{width:min(680px,92vw);background:#fff;border-radius:14px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,.25)}" +
+      ".sn-search-box input{width:100%;padding:12px 14px;font-size:16px;border:1px solid #CBD2D9;border-radius:10px;outline:none}" +
+      ".sn-search-box input:focus{border-color:#B8894A}" +
+      ".sn-res{max-height:56vh;overflow:auto;margin-top:10px}" +
+      ".sn-res a{display:block;padding:10px 12px;border-radius:8px;color:#1F2933;text-decoration:none}" +
+      ".sn-res a:hover{background:#F7F0E4}" +
+      ".sn-res .k{color:#B8894A;font-size:12px;margin-right:8px}" +
+      ".sn-res .e{padding:18px;text-align:center;color:#7B8794}";
+    document.head.appendChild(s);
+  }
+
   function buildTopNav() {
+    injectNavCss();
     var links = document.getElementById("snLinks");
     if (links) {
-      // 目录感知：避免子目录 index.html（如 benchmark/index.html、games/index.html）
-      // 同时点亮「首页」与自身入口，造成两个高亮
-      var seg = location.pathname.split("/").filter(Boolean);
-      var cur = (seg.pop() || "index.html").toLowerCase();
-      var curDir = (seg.pop() || "").toLowerCase();
-      links.innerHTML = TOPNAV.map(function (it) {
-        var parts = it.p.split("/");
-        var tp = parts.pop().toLowerCase();
-        var td = (parts.length ? parts[0] : "").toLowerCase();
-        var on = ((tp === cur && td === curDir) || (it.p.indexOf("gejijipo") >= 0 && cur.indexOf("gejijipo") >= 0)) ? ' class="on"' : "";
-        return '<a href="' + href(it.p) + '"' + on + ">" + it.t + "</a>";
-      }).join("");
+      var cur = location.pathname.replace(/^\//, "").toLowerCase();
+      var html = "";
+      BOARDS.forEach(function (b) {
+        var on = (href(b.p).replace(/^\//, "").toLowerCase().indexOf(cur) === 0 || cur.indexOf(b.p.replace(/^\//, "").toLowerCase()) === 0) ? " on" : "";
+        html += '<span class="sn-board"><a class="' + (on ? "on" : "") + '" href="' + href(b.p) + '">' + b.t + " ▾</a><span class=\"sn-dd\">";
+        b.items.forEach(function (it) {
+          html += '<a href="' + href(it.p) + '">' + it.t + "</a>";
+        });
+        html += "</span></span>";
+      });
+      html += '<span class="sn-search-btn" id="snSearch">🔍 搜索</span>';
+      links.innerHTML = html;
+      var sb = document.getElementById("snSearch");
+      if (sb) sb.addEventListener("click", openSearch);
     }
     var logo = document.querySelector(".sn-logo");
     if (logo) {
@@ -244,6 +301,44 @@
     }
     var cta = document.querySelector(".sn-cta");
     if (cta) { cta.setAttribute("href", href("games/index.html")); cta.textContent = "开始练"; }
+  }
+
+  /* ---------- 全站搜索 ---------- */
+  function buildSearchIndex() {
+    var idx = [];
+    BOARDS.forEach(function (b) {
+      idx.push({ k: b.t, t: b.t, p: b.p });
+      b.items.forEach(function (it) { idx.push({ k: it.t, t: it.t, p: it.p }); });
+    });
+    (window.GJP_EPISODES || []).forEach(function (e) {
+      idx.push({ k: e.title + " " + (e.en || ""), t: "▶ " + e.title, p: "gejijipo-player.html?id=" + e.id });
+    });
+    (window.GJP_GLOSSARY || []).forEach(function (g) {
+      idx.push({ k: g.k + " " + (g.def || ""), t: "名词：" + g.k, p: g.video ? "gejijipo-player.html?id=" + g.video : (g.anchor || "codex.html") });
+    });
+    return idx;
+  }
+  function openSearch() {
+    var ov = document.getElementById("snOverlay");
+    if (!ov) {
+      ov = document.createElement("div");
+      ov.className = "sn-overlay"; ov.id = "snOverlay";
+      ov.innerHTML = '<div class="sn-search-box"><input type="text" placeholder="搜索概念 / 视频 / 板块 / 名词…" id="snQ"><div class="sn-res" id="snRes"></div></div>';
+      document.body.appendChild(ov);
+      ov.addEventListener("click", function (e) { if (e.target === ov) ov.classList.remove("show"); });
+      var q = ov.querySelector("#snQ");
+      q.addEventListener("input", function () {
+        var kw = q.value.trim().toLowerCase(), res = ov.querySelector("#snRes");
+        if (!kw) { res.innerHTML = ""; return; }
+        var list = buildSearchIndex().filter(function (x) { return x.k.toLowerCase().indexOf(kw) >= 0; }).slice(0, 30);
+        if (!list.length) { res.innerHTML = '<div class="e">没有匹配结果</div>'; return; }
+        res.innerHTML = list.map(function (x) {
+          return '<a href="' + href(x.p) + '"><span class="k">跳转</span>' + x.t + "</a>";
+        }).join("");
+      });
+    }
+    ov.classList.add("show");
+    setTimeout(function () { var i = ov.querySelector("#snQ"); if (i) i.focus(); }, 30);
   }
 
   /* ---------- 法典搜索 / 筛选 ---------- */

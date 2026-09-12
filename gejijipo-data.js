@@ -316,6 +316,154 @@ var GJP_EPISODES = [
     ]
   },
 
+  /* ---------- 概念篇补充：重要指标与易漏概念 ---------- */
+  {
+    id:'c9', part:'concept', no:9, title:'预订进度 Pick-up', en:'On-the-books',
+    tag:'过程指标', dur:7000,
+    takeaway:'预订进度＝距入住日还有 N 天时，已经锁定的房量及收入，与历史同期比领先还是落后。它是每天判断“该放量还是收紧”的仪表盘。',
+    slides:[
+      {illu:ILLU.title('预订进度 Pick-up','距入住 N 天，已锁定的房量'),cap:'是什么',say:'预订进度，就是距离客人入住还有 N 天时，系统里已经锁定的房量和收入。'},
+      {illu:ILLU.metric('62%','当前进度','提前 30 天已订出',C.gold),cap:'算给你看',say:'比如提前 30 天已经订出 62%，这就是当前进度。'},
+      {illu:ILLU.bars([['历史同期',58,C.navy2],['今年',72,C.gold]],'进度领先还是落后'),cap:'对比同期',say:'和历史同期一比：今年 72%、去年 58%，说明进度领先，可以收紧低价了。'},
+      {illu:ILLU.flow(['历史基线','+在手预订','=进度'],'进度怎么来'),cap:'三步得出',say:'历史同期是基线，加上现在的在手预订，就得出进度，用来判断趋势。'},
+      {illu:ILLU.note('★','进度领先→收紧低价/关房；进度落后→加快促销/放开低价。','每天看一眼'),cap:'怎么用',say:'进度领先就收紧低价，落后就加快促销——它是每天放量和收紧的仪表盘。'},
+      {illu:ILLU.note('✓','预订进度＝距入住 N 天已锁定房量 ÷ 可售房，对比历史同期。','操作篇 o2/o3 会用到它'),cap:'一句话记住',say:'一句话：预订进度是和历史的赛跑，领先就收、落后就放。'}
+    ]
+  },
+  {
+    id:'c10', part:'concept', no:10, title:'市场渗透指数 MPI', en:'MPI',
+    tag:'对标指标', dur:7000,
+    takeaway:'MPI＝本店入住率 ÷ 竞组平均入住率。>100 表示你抢到了比对手更多的份额；<100 表示份额在流失，要靠量抢回来。',
+    slides:[
+      {illu:ILLU.title('市场渗透指数 MPI','本店入住率 ÷ 竞组平均入住率'),cap:'定义',say:'MPI 是市场渗透指数，看你在本区域抢到了多少份额。'},
+      {illu:ILLU.metric('108','MPI','>100 抢到更多份额',C.gold),cap:'公式',say:'它等于本店入住率除以竞组平均入住率，大于 100 就说明你领先。'},
+      {illu:ILLU.compare({t:'我院',v:'OCC 82%',s:'竞组均值 76%',note:'自己'},{t:'竞组均值',v:'OCC 76%',s:'对标基准',note:'基准',c:C.gold}),cap:'算一算',say:'我院入住率 82%、竞组均值 76%，82÷76≈108，份额领先 8%。'},
+      {illu:ILLU.bars([['我院',108,C.gold],['竞A',100,C.navy2],['竞B',96,C.navy2],['竞C',92,C.navy2]],'STR 指数（100＝持平）'),cap:'看指数',say:'用指数更直观：我院 108，跑赢了整个对标组。'},
+      {illu:ILLU.note('!','MPI<100 说明份额在掉，要靠促销/放量把量抢回来。','落后要抢量'),cap:'怎么读',say:'MPI 小于 100 说明份额在流失，得靠量抢回来，别只盯着价格。'},
+      {illu:ILLU.note('✓','MPI＝本店入住率 ÷ 竞组平均入住率，看市场份额。','和 ARI/RGI 一起看'),cap:'一句话记住',say:'一句话：MPI 看份额，大于 100 你就跑赢了对手的客源。'}
+    ]
+  },
+  {
+    id:'c11', part:'concept', no:11, title:'价格指数 ARI', en:'ARI',
+    tag:'对标指标', dur:7000,
+    takeaway:'ARI＝本店 ADR ÷ 竞组平均 ADR。>100 表示卖得比对手贵；但 ARI 高而 MPI 低，说明贵到把客人吓跑了，要警惕。',
+    slides:[
+      {illu:ILLU.title('价格指数 ARI','本店 ADR ÷ 竞组平均 ADR'),cap:'定义',say:'ARI 是价格指数，看你的房价在市场中处于什么位置。'},
+      {illu:ILLU.metric('112','ARI','>100 卖得比对手贵',C.gold),cap:'公式',say:'它等于本店平均房价除以竞组平均房价，大于 100 就说明更贵。'},
+      {illu:ILLU.compare({t:'我院',v:'ADR ¥560',s:'竞组均值 ¥500',note:'自己'},{t:'竞组均值',v:'ADR ¥500',s:'对标基准',note:'基准',c:C.gold}),cap:'算一算',say:'我院 ADR 560、竞组 500，560÷500≈112，价格领先 12%。'},
+      {illu:ILLU.balance({l:'ARI高+MPI高',v:'量价双优'},{l:'ARI高+MPI低',v:'吓跑客人'},'两个一起看才准'),cap:'关键组合',say:'ARI 高但 MPI 低，说明贵到把客人赶跑了——这是危险信号。'},
+      {illu:ILLU.note('!','ARI 要和 MPI 配对看：贵且份额稳才健康，贵却掉量要降价。','别单看 ARI'),cap:'常见误区',say:'ARI 不能单看：贵但份额掉，反而该降价抢量。'},
+      {illu:ILLU.note('✓','ARI＝本店 ADR ÷ 竞组平均 ADR，看价格位置。','配合 MPI 才有意义'),cap:'一句话记住',say:'一句话：ARI 看价格高低，必须和 MPI 一起看才不误判。'}
+    ]
+  },
+  {
+    id:'c12', part:'concept', no:12, title:'综合收益指数 RGI', en:'RGI',
+    tag:'终极标尺', dur:7000,
+    takeaway:'RGI＝本店 RevPAR ÷ 竞组平均 RevPAR。它把量和价合在一起，是比 MPI、ARI 更终极的竞争力标尺。>100 全面领先。',
+    slides:[
+      {illu:ILLU.title('综合收益指数 RGI','本店 RevPAR ÷ 竞组平均 RevPAR'),cap:'定义',say:'RGI 是综合收益指数，把量和价合成一个最终标尺。'},
+      {illu:ILLU.metric('115','RGI','量价合一的终局',C.gold),cap:'公式',say:'它等于本店 RevPAR 除以竞组平均 RevPAR，大于 100 就是全面领先。'},
+      {illu:ILLU.bars([['我院',115,C.gold],['竞组',100,C.navy2]],'RGI（100＝持平）'),cap:'看指数',say:'我院 RGI 115，说明在量价综合上跑赢了整个对标组。'},
+      {illu:ILLU.note('★','RGI＝MPI × ARI 的实质：它已经包含了份额和价格两层信息。','最该盯的数'),cap:'为什么最牛',say:'RGI 本质是 MPI 和 ARI 的综合，所以最该每天盯。'},
+      {illu:ILLU.note('✓','RGI＝本店 RevPAR ÷ 竞组平均 RevPAR，量价合一的最终标尺。','>100 全面领先'),cap:'一句话记住',say:'一句话：RGI 是终极标尺，大于 100 说明你既抢到量又卖好价。'}
+    ]
+  },
+  {
+    id:'c13', part:'concept', no:13, title:'TrevPAR 每可售房总收入', en:'TrevPAR',
+    tag:'产出指标', dur:7000,
+    takeaway:'TrevPAR＝全部收入（房费+餐饮+会议+其他）÷可售房。比 RevPAR 多出非客房收入，衡量单间房的综合产出。',
+    slides:[
+      {illu:ILLU.title('TrevPAR','每可售房总收入（含全部收入）'),cap:'定义',say:'TrevPAR 是每可售房总收入，把房费以外的收入也算进来。'},
+      {illu:ILLU.compare({t:'RevPAR',v:'¥416',s:'只算房费',note:'单一'},{t:'TrevPAR',v:'¥620',s:'房费+餐饮+会议',note:'更全面',c:C.gold}),cap:'差在哪',say:'RevPAR 只算房费 416，TrevPAR 加上餐饮会议后到 620，单房产出更高。'},
+      {illu:ILLU.metric('¥620','TrevPAR','比 RevPAR 多出 204',C.gold),cap:'算给你看',say:'多出的 204 来自餐饮和会议——这些才是综合产出。'},
+      {illu:ILLU.note('★','餐饮/会议强的酒店，TrevPAR 会明显拉开和 RevPAR 的差距。','看综合产出用它'),cap:'为什么重要',say:'餐饮会议强的店，TrevPAR 才能体现真实单房产出，光看 RevPAR 会低估。'},
+      {illu:ILLU.note('✓','TrevPAR＝总收入 ÷ 可售房，衡量单间房的综合产出。','酒店业的“单产”'),cap:'一句话记住',say:'一句话：TrevPAR 看单房总产出，不止房费，餐饮会议都算。'}
+    ]
+  },
+  {
+    id:'c14', part:'concept', no:14, title:'GOPPAR 每可售房经营毛利', en:'GOPPAR',
+    tag:'盈利指标', dur:7000,
+    takeaway:'GOPPAR＝经营毛利（收入−运营成本）÷可售房。它扣掉人工、能耗、物料，才是酒店真正赚到的钱。房价高但成本高，GOPPAR 可能反低。',
+    slides:[
+      {illu:ILLU.title('GOPPAR','每可售房经营毛利（扣成本）'),cap:'定义',say:'GOPPAR 是每可售房经营毛利，把成本扣掉后看真赚多少。'},
+      {illu:ILLU.compare({t:'RevPAR',v:'¥416',s:'毛收入',note:'未扣成本'},{t:'GOPPAR',v:'¥310',s:'扣完成本',note:'真赚',c:C.gold}),cap:'差在哪',say:'RevPAR 416 是毛收入，扣掉人工能耗物料后 GOPPAR 只剩 310，这才是利润。'},
+      {illu:ILLU.metric('¥310','GOPPAR','扣完成本后的真赚',C.gold),cap:'算给你看',say:'房价高但食材和人工也高，GOPPAR 反而可能比低价店低。'},
+      {illu:ILLU.note('!','别只看 RevPAR：成本高会把利润吃掉，GOPPAR 才反映经营效率。','控成本也重要'),cap:'常见误区',say:'只看 RevPAR 会忽略成本，GOPPAR 才反映真实盈利效率。'},
+      {illu:ILLU.note('✓','GOPPAR＝经营毛利 ÷ 可售房，看真正盈利。','收益管理也要管成本'),cap:'一句话记住',say:'一句话：GOPPAR 扣完成本才是真赚，收益管理不只管收入也管效率。'}
+    ]
+  },
+  {
+    id:'c15', part:'concept', no:15, title:'NRevPAR 净可售房收入', en:'NRevPAR',
+    tag:'净贡献指标', dur:7000,
+    takeaway:'NRevPAR＝净房收入（扣掉佣金、渠道费）÷可售房。它揭示不同渠道的真实贡献：OTA 抽成高，净收入就少。',
+    slides:[
+      {illu:ILLU.title('NRevPAR','每可售房净收入（扣渠道费）'),cap:'定义',say:'NRevPAR 是净可售房收入，把佣金和渠道费扣掉后看净贡献。'},
+      {illu:ILLU.compare({t:'RevPAR',v:'¥460',s:'含 OTA 佣金',note:'毛'},{t:'NRevPAR',v:'¥390',s:'扣 15% 佣金',note:'净',c:C.gold}),cap:'差在哪',say:'RevPAR 460 里含 OTA 15% 佣金，扣掉后净收入只剩 390。'},
+      {illu:ILLU.metric('¥390','NRevPAR','扣完佣金后的净',C.gold),cap:'算给你看',say:'渠道越贵，净收入越少——NRevPAR 帮你看清哪个渠道真划算。'},
+      {illu:ILLU.note('!','直订渠道 NRevPAR 远高于 OTA：少抽成=多净收。','引导直订'),cap:'怎么用',say:'直订不抽成，NRevPAR 更高，所以收益管理都鼓励客人官网直订。'},
+      {illu:ILLU.note('✓','NRevPAR＝净收入 ÷ 可售房，扣掉佣金看渠道真实贡献。','算净账用它'),cap:'一句话记住',say:'一句话：NRevPAR 扣掉佣金看净账，帮你判断哪个渠道真值得做。'}
+    ]
+  },
+  {
+    id:'c16', part:'concept', no:16, title:'四大指标怎么选', en:'Which Metric',
+    tag:'指标对比', dur:8000,
+    takeaway:'RevPAR 看房的量价；TrevPAR 看单房总产出；GOPPAR 看扣成本后的盈利；NRevPAR 看扣渠道费后的净贡献。四个层层递进，不是越高越好，看你要管哪一层。',
+    slides:[
+      {illu:ILLU.title('四大指标怎么选','RevPAR / TrevPAR / GOPPAR / NRevPAR'),cap:'总览',say:'四个指标常混：其实它们管的是不同的层，别只盯一个。'},
+      {illu:ILLU.compare({t:'RevPAR',v:'看房量价',s:'最基础',note:'房费层'},{t:'TrevPAR',v:'看全收入',s:'+餐饮会议',note:'单产层',c:C.gold}),cap:'第一对',say:'RevPAR 只看房费，TrevPAR 把餐饮会议也算进单房产出。'},
+      {illu:ILLU.compare({t:'GOPPAR',v:'看盈利',s:'扣成本',note:'效率层'},{t:'NRevPAR',v:'看净贡献',s:'扣渠道费',note:'净账层',c:C.gold}),cap:'第二对',say:'GOPPAR 扣成本看盈利，NRevPAR 扣渠道费看净贡献。'},
+      {illu:ILLU.flow(['房费→RevPAR','总产出→TrevPAR','盈利→GOPPAR','净贡献→NRevPAR'],'层层递进'),cap:'怎么选',say:'要看哪层就选哪个：管房效用 RevPAR，管综合用 TrevPAR，管效率用 GOPPAR，管净账用 NRevPAR。'},
+      {illu:ILLU.note('✓','四指标层层递进：房费→全收入→毛利→净贡献，按管理目标选。','不是越高越好'),cap:'一句话记住',say:'一句话：四个指标层层递进，看你要管哪一层就选哪个，不是越高越好。'}
+    ]
+  },
+  {
+    id:'c17', part:'concept', no:17, title:'置换分析 Displacement', en:'Displacement',
+    tag:'决策方法', dur:7000,
+    takeaway:'置换分析＝比较“同一间房量给不同客源，谁的净收益更高”。把房留给低价长住团队，还是高价散客？要算清再决定，避免凭感觉。',
+    slides:[
+      {illu:ILLU.title('置换分析','这间房给低价团队，还是高价散客？'),cap:'是什么',say:'置换分析，是比较同一批房量给不同客源，谁更赚的决策方法。'},
+      {illu:ILLU.balance({l:'低价团队',v:'满但薄'},{l:'高价散客',v:'少但厚'},'哪边净收益高？'),cap:'两难',say:'低价团队能把房填满但利润薄，高价散客房少却更厚——到底给谁？'},
+      {illu:ILLU.flow(['算团队贡献','算散客期望','比净收益'],'三步决策'),cap:'怎么做',say:'做法：算团队带来的净贡献，再算散客的期望净收益，谁高给谁。'},
+      {illu:ILLU.note('!','凭感觉留房常错：用置换分析把“机会成本”算出来。','别拍脑袋'),cap:'为什么重要',say:'凭感觉常把房留给低价，置换分析把机会成本算清，决策才稳。'},
+      {illu:ILLU.note('✓','置换分析＝比较同一房量给不同客源的净收益，择优分配。','操作篇 o3/o5 会用到'),cap:'一句话记住',say:'一句话：置换分析算清机会成本，把房留给净收益最高的客源。'}
+    ]
+  },
+  {
+    id:'c18', part:'concept', no:18, title:'No-show 与取消率', en:'No-show / Cancellation',
+    tag:'风险指标', dur:7000,
+    takeaway:'No-show 率＝订了不来；取消率＝订了又取消。两者是超额预订和房量决策的地基：历史 No-show 率直接决定能超售几间。',
+    slides:[
+      {illu:ILLU.title('No-show 与取消率','订了不来 / 订了又取消'),cap:'两个率',say:'No-show 是订了不来入住，取消率是订了又取消，两个都要盯。'},
+      {illu:ILLU.metric('8%','No-show 率','超售的依据',C.gold),cap:'算给你看',say:'比如历史 No-show 率 8%，这就是你能超售的安全上限参考。'},
+      {illu:ILLU.bars([['No-show',8,C.bad],['取消',12,C.navy2]],'两类流失比例'),cap:'一起看',say:'No-show 8%、取消 12%，合起来是房量决策的底座。'},
+      {illu:ILLU.note('★','历史 No-show+取消率＝超额预订上限（操作篇 o3 会算）。','地基指标'),cap:'怎么用',say:'这两个率直接决定能超售几间、该留多少弹性房，是地基。'},
+      {illu:ILLU.note('✓','No-show率+取消率＝超售与房量决策的地基。','先算这两个率'),cap:'一句话记住',say:'一句话：No-show 和取消率是超售的地基，先算清它们再动房量。'}
+    ]
+  },
+  {
+    id:'c19', part:'concept', no:19, title:'价格一致性 Rate Parity', en:'Rate Parity',
+    tag:'渠道纪律', dur:7000,
+    takeaway:'价格一致性＝同一房型在各渠道挂牌价（含含税总价）必须一致。不一致会让客人比价后流失、还伤品牌，是渠道管理的红线。',
+    slides:[
+      {illu:ILLU.title('价格一致性','各渠道同房型，价格必须一致'),cap:'是什么',say:'价格一致性，就是同一房型在各渠道的挂牌价必须一致。'},
+      {illu:ILLU.compare({t:'一致',v:'信任稳',s:'客人不比价',note:'健康'},{t:'不一致',v:'流失',s:'比价后跑',note:'危险',c:C.gold}),cap:'两后果',say:'价格一致客人信任稳；不一致客人比价后跑掉，还觉得你乱定价。'},
+      {illu:ILLU.note('!','不一致→客人比价流失、品牌受损、还触发渠道罚则。','渠道红线'),cap:'红线',say:'价格不一致后果很严重：流失、伤品牌，还可能被渠道处罚。'},
+      {illu:ILLU.note('★','含含税总价都要一致；直订价可低但不能破坏对外挂牌价。','含税后比价'),cap:'细节',say:'注意是含税总价一致；官网直订可以有会员权益，但对外挂牌价不能乱。'},
+      {illu:ILLU.note('✓','各渠道同房型挂牌价（含税）一致，是渠道管理的红线。','见法典表 H'),cap:'一句话记住',say:'一句话：价格一致性是红线，各渠道同房型含税价必须一致。'}
+    ]
+  },
+  {
+    id:'c20', part:'concept', no:20, title:'平均停留时长 LOS', en:'Length of Stay',
+    tag:'需求结构', dur:7000,
+    takeaway:'LOS＝平均住几晚。长住少翻房成本、收益稳；短住易把高峰拆成碎片低价。它和 MinLOS（操作篇 o6）配合，保护高峰收益。',
+    slides:[
+      {illu:ILLU.title('平均停留时长 LOS','客人平均住几晚'),cap:'是什么',say:'LOS 是平均停留时长，看客人平均住几晚。'},
+      {illu:ILLU.metric('2.3 晚','平均 LOS','长短影响收益节奏',C.gold),cap:'算给你看',say:'比如平均住 2.3 晚，长短混搭决定了翻房成本和收益节奏。'},
+      {illu:ILLU.note('★','长住→少翻房、稳收益；短住→易把高峰拆成碎片低价。','结构影响收益'),cap:'为什么重要',say:'长住省翻房成本、收益稳；短住太多会把周末高峰拆碎，贱卖房量。'},
+      {illu:ILLU.note('✓','LOS＝总住间夜 ÷ 总订单。配 MinLOS 保护高峰收益（操作篇 o6）。','和连住配合'),cap:'一句话记住',say:'一句话：LOS 看住几晚，配最小连住天数，才能护住高峰收益。'}
+    ]
+  },
+
   /* ====================== 操作篇 ====================== */
   {
     id:'o1', part:'op', no:1, title:'搭建价格体系', en:'Rate Structure',

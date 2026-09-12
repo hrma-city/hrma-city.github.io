@@ -241,10 +241,16 @@
     ]);
   }
 
-  /* ---------- 安装：仅当真实 Supabase 不存在 ---------- */
-  if (!window.supabase) {
-    window.supabase = { createClient: function () { return makeClient(); } };
-    window.RMC_DEMO_MODE = true;
-    try { seedDemoJobs(); } catch (e) {}
-  }
+  /* ---------- 安装：默认接管（演示模式） ----------
+   * 本静态站未部署可用的真实 Supabase 后端，且 supabase.co 在国内常被墙。
+   * 因此演示后端默认接管：window.supabase 永远指向本地 mock，
+   * 保证登录 / 注册 / 开通会员 / 发布职位 / 下单 在任意网络下都有反应。
+   * 仅当站点已配好真实后端、且显式设置 window.RMC_FORCE_DEMO = false 时，
+   * 才跳过 mock、改走真实 Supabase（在 auth-config.js 之前设置该变量即可）。 */
+  if (window.RMC_FORCE_DEMO === false) return; // 显式关闭演示模式：真实后端可用时
+  if (window.RMC_DEMO_MODE) return;             // 已安装过则跳过
+
+  window.supabase = { createClient: function () { return makeClient(); } };
+  window.RMC_DEMO_MODE = true;
+  try { seedDemoJobs(); } catch (e) {}
 })();

@@ -274,10 +274,19 @@
     }
     if (en.anchor) {
       var b = document.createElement("a");
-      b.href = en.anchor;
+      // 跨页锚点（含 .html，如 codex.html#table-d）经 HREF() 解析，
+      // 子目录页也能正确跳到法典页并滚动显示对应表，避免“点击无内容”。
+      b.href = en.anchor.indexOf(".html") >= 0 ? HREF(en.anchor) : en.anchor;
       b.innerHTML = "打开相关表 / 内容 →";
       b.addEventListener("click", hidePop);
       links.appendChild(b);
+    }
+    if (en.more) {
+      var m = document.createElement("a");
+      m.href = HREF(en.more);
+      m.innerHTML = "打开计算模板 →";
+      m.addEventListener("click", hidePop);
+      links.appendChild(m);
     }
     p.classList.add("show");
     positionPop(termEl);
