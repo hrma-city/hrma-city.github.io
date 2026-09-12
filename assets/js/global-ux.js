@@ -425,16 +425,8 @@
     }).replace(/\n/g, "<br>");
   }
 
-  function loadSheetJS(cb) {
-    if (window.XLSX) return cb(null);
-    var s = document.createElement("script");
-    s.src = "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js";
-    s.onload = function () { cb(null); };
-    s.onerror = function () { cb(new Error("load")); };
-    document.head.appendChild(s);
-  }
-
   function initTablePreview() {
+    var MAP = window.GJP_PREVIEWS || {};
     document.addEventListener("click", function (e) {
       var a = e.target.closest && e.target.closest('a[download]');
       if (!a || e.target.closest(".tbl-modal")) return;
@@ -446,33 +438,37 @@
       e.preventDefault();
       var url = a.href;
       var name = (href.split("/").pop().split("?")[0]) || "表格";
+      // 优先用构建期生成的本地静态预览（离线、无 CDN、国内秒开）
+      var pv = MAP[href] || MAP[href.replace(/^\.\//, "")];
+      if (pv) {
+        openPreview(name + "（在线预览）", HREF(pv), url);
+        return;
+      }
+      // 兜底：无预览文件时，CSV 仍可原生解析预览；XLSX 回退下载
       if (isCSV) {
         openTableModal(name + "（预览）", '<div class="tbl-msg">加载中…</div>', url);
         fetch(url).then(function (r) { return r.text(); }).then(function (t) {
           ensureModal().querySelector(".tbl-body").innerHTML = csvToHTML(parseCSV(t));
         }).catch(function () {
           ensureModal().querySelector(".tbl-body").innerHTML =
-            '<div class="tbl-msg">无法在线预览（可能为跨域/网络限制）。请使用右上角“下载”按钮查看。</div>';
+            '<div class="tbl-msg">无法在线预览。请使用右上角“下载”按钮查看。</div>';
         });
       } else {
-        openTableModal(name + "（预览）", '<div class="tbl-msg">正在加载表格组件…</div>', url);
-        loadSheetJS(function (err) {
-          if (err) {
-            ensureModal().querySelector(".tbl-body").innerHTML =
-              '<div class="tbl-msg">当前网络暂无法加载表格预览组件（需访问公共 CDN）。请使用右上角“下载”按钮，用 Excel 打开。</div>';
-            return;
-          }
-          fetch(url).then(function (r) { return r.arrayBuffer(); }).then(function (buf) {
-            var wb = XLSX.read(new Uint8Array(buf), { type: "array" });
-            var ws = wb.Sheets[wb.SheetNames[0]];
-            ensureModal().querySelector(".tbl-body").innerHTML = XLSX.utils.sheet_to_html(ws);
-          }).catch(function () {
-            ensureModal().querySelector(".tbl-body").innerHTML =
-              '<div class="tbl-msg">预览失败，请使用“下载”按钮。</div>';
-          });
-        });
+        openTableModal(name + "（预览）",
+          '<div class="tbl-msg">该文件暂未生成在线预览，请使用右上角“下载”按钮用 Excel 打开。</div>', url);
       }
     });
+  }
+
+  // 打开本地静态预览（iframe，离线可用）
+  function openPreview(title, pvUrl, dlHref) {
+    var m = ensureModal();
+    m.querySelector("h3").textContent = title;
+    m.querySelector(".tbl-body").innerHTML =
+      '<iframe class="tbl-iframe" src="' + pvUrl + '" title="' + title + '"></iframe>';
+    var dl = m.querySelector("#tblDl");
+    dl.href = dlHref; dl.setAttribute("download", "");
+    m.classList.add("show");
   }
 
   /* ============ 初始化 ============ */
