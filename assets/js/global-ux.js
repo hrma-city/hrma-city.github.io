@@ -245,6 +245,10 @@
       unwrapTerms();
       document.querySelectorAll("#uxGlossSw").forEach(function (b) { b.classList.remove("on"); });
     });
+    // 关键修复：鼠标在浮窗内时保持显示，移出浮窗才隐藏。
+    // 否则从名词移到浮窗经过间隙时浮窗已消失，按钮/链接无法点击。
+    pop.addEventListener("mouseenter", function () { clearTimeout(hideTimer); clearTimeout(showTimer); });
+    pop.addEventListener("mouseleave", function () { scheduleHide(); });
     return pop;
   }
 
@@ -285,8 +289,8 @@
     var pw = p.offsetWidth, ph = p.offsetHeight;
     var left = r.left + r.width / 2 - pw / 2;
     left = Math.max(10, Math.min(left, window.innerWidth - pw - 10));
-    var top = r.bottom + 8;
-    if (top + ph > window.innerHeight - 8) top = r.top - ph - 8;
+    var top = r.bottom + 6;
+    if (top + ph > window.innerHeight - 8) top = r.top - ph - 6;
     if (top < 8) top = 8;
     p.style.left = left + "px";
     p.style.top = top + "px";
@@ -295,7 +299,7 @@
   function hidePop() { if (pop) pop.classList.remove("show"); pinned = false; }
 
   function scheduleShow(t) { clearTimeout(hideTimer); showTimer = setTimeout(function () { showPop(t); }, 120); }
-  function scheduleHide() { clearTimeout(showTimer); hideTimer = setTimeout(function () { if (!pinned) hidePop(); }, 220); }
+  function scheduleHide() { clearTimeout(showTimer); hideTimer = setTimeout(function () { if (!pinned) hidePop(); }, 300); }
 
   function wireGlossEvents() {
     document.addEventListener("mouseover", function (e) {
