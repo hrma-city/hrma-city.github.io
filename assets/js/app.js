@@ -12,6 +12,7 @@
   var SUB = /(^|\/)(courses|exam|games|templates|data|ppt|theater|core|airline|fnb|attraction|entertainment|benchmark)\//.test(location.pathname);
   var BASE = SUB ? "../" : "";
   function href(p) { return BASE + p; }
+  window.HRMA_href = href;
 
   /* ---------- 导航数据 ---------- */
   var NAV = [
@@ -299,5 +300,22 @@
     buildTopNav();
     buildNav();
     initCodex();
+    injectGlobalUX();
   });
+
+  /* ---------- 全站 UX 增强：左侧目录 / 名词解释 / 表格预览 ---------- */
+  function injectGlobalUX() {
+    var css = document.createElement("link");
+    css.rel = "stylesheet"; css.href = href("assets/css/global-ux.css");
+    document.head.appendChild(css);
+    var seq = [href("glossary-data.js"), href("gejijipo-data.js"), href("assets/js/global-ux.js")];
+    var i = 0;
+    (function next() {
+      if (i >= seq.length) return;
+      var s = document.createElement("script");
+      s.src = seq[i++];
+      s.onload = next; s.onerror = next;
+      document.head.appendChild(s);
+    })();
+  }
 })();

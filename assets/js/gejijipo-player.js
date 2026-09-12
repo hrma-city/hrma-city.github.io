@@ -48,6 +48,8 @@
       ep.slides.map(function(s,i){ return '<div class="illu-box" data-i="'+i+'">'+(s.illu||'')+'</div>'; }).join('')+
       '<div class="ply-cap"><p class="ct" id="capT"></p><p class="cs" id="capS"></p></div>'+
     '</div>'+
+    '<a class="ply-navbtn ply-prev" id="ovPrev" href="#" title="上一集">‹</a>'+
+    '<a class="ply-navbtn ply-next" id="ovNext" href="#" title="下一集">›</a>'+
     '<div class="ply-bar">'+
       '<div class="ply-ctrl">'+
         '<button id="btnPrev" title="上一集">⏮</button>'+
@@ -170,6 +172,10 @@
   document.getElementById('btnRestart').addEventListener('click', function(){ show(0); play(); });
   document.getElementById('btnPrev').addEventListener('click', function(){ if(idx>0){ show(idx-1); } });
   document.getElementById('btnNext').addEventListener('click', function(){ if(idx<ep.slides.length-1){ show(idx+1); } });
+  // 视频上的上一集/下一集悬浮按钮
+  var ovPrev = document.getElementById('ovPrev'), ovNext = document.getElementById('ovNext');
+  if (prev) { ovPrev.href = 'gejijipo-player.html?id=' + prev.id; } else { ovPrev.style.display = 'none'; }
+  if (next) { ovNext.href = 'gejijipo-player.html?id=' + next.id; } else { ovNext.style.display = 'none'; }
   dots.forEach(function(d){ d.addEventListener('click', function(){ show(parseInt(d.getAttribute('data-i'),10)); play(); }); });
   document.getElementById('prog').addEventListener('click', function(e){
     var r=this.getBoundingClientRect(); var f=(e.clientX-r.left)/r.width;
