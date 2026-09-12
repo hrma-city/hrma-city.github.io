@@ -27,6 +27,22 @@
   .ct-toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
   .ct-toc a{background:#fff;border:1px solid #E1E5EA;color:#2C5282;text-decoration:none;padding:6px 14px;border-radius:20px;font-size:13px}
   .ct-toc a:hover{border-color:#B8894A;color:#B8894A}
+  .ct-pv{display:inline-block;margin:10px 8px 0 0;background:#2C5282;color:#fff;border:none;cursor:pointer;padding:8px 16px;border-radius:9px;font-size:14px}
+  .ct-pv:hover{background:#1B3A5C}
+  .pv-modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:flex;align-items:flex-start;justify-content:center;z-index:9999;padding:40px 16px;overflow:auto}
+  .pv-modal[hidden]{display:none}
+  .pv-box{background:#fff;border-radius:14px;max-width:980px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  .pv-head{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #E1E5EA;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}
+  .pv-head b{font-size:16px;color:#1B3A5C}
+  .pv-head button{border:none;background:#F2F4F7;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;color:#475569}
+  .pv-body{padding:18px 20px 30px;max-height:75vh;overflow:auto}
+  .pv-tbl{border-collapse:collapse;width:100%;margin:8px 0 18px;font-size:13px}
+  .pv-tbl td{border:1px solid #D9DCE1;padding:6px 9px;vertical-align:top;color:#1F2933}
+  .pv-tbl .pv-b{font-weight:700}
+  .pv-sheet-t{font-size:14px;font-weight:700;color:#2C5282;margin:18px 0 2px}
+  .pv-note p{margin:4px 0;font-size:13px;line-height:1.7;color:#1F2933}
+  .pv-note .pv-b{font-weight:700;color:#1B3A5C;margin-top:10px}
+  .pv-hint{font-size:12px;color:#7B8794;margin:0 0 6px}
 </style>
 </head>
 <body data-auth="public">
@@ -165,5 +181,61 @@
 <script src="assets/js/app.js"></script>
 <script>window.HRMA_PREFIX="";</script>
 <script src="assets/js/notify.js"></script>
+<div id="pvModal" class="pv-modal" hidden>
+  <div class="pv-box">
+    <div class="pv-head"><b id="pvTitle"></b><button id="pvClose" aria-label="关闭">✕</button></div>
+    <div class="pv-body" id="pvBody"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var URL="data/calc/preview.json", cache=null;
+  function load(){ return cache || (cache=fetch(URL).then(function(r){return r.json();})); }
+  function esc(s){ return (s||"").replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];}); }
+  function renderSheet(sh){
+    if(sh.isNote){
+      var h='<div class="pv-note">';
+      sh.rows.forEach(function(row){
+        for(var i=0;i<row.length;i++){ if(row[i].t){ h+='<p class="'+(row[i].b?'pv-b':'')+'">'+esc(row[i].t)+'</p>'; break; } }
+      });
+      return h+'</div>';
+    }
+    var h='<table class="pv-tbl"><tbody>';
+    sh.rows.forEach(function(row){
+      h+='<tr>';
+      row.forEach(function(c){
+        var bg=c.fill?('#'+c.fill):'transparent';
+        h+='<td style="background:'+bg+'"'+(c.b?' class="pv-b"':'')+'>'+esc(c.t)+'</td>';
+      });
+      h+='</tr>';
+    });
+    return h+'</tbody></table>';
+  }
+  function open(key){
+    load().then(function(data){
+      var d=data[key]; if(!d){ return; }
+      var body='<p class="pv-hint">示例数据预览（黄=输入，绿=自动结果，蓝=分区）。下载 Excel 后改黄格即实时重算。</p>';
+      d.sheets.forEach(function(sh){
+        if(!sh.isNote) body+='<div class="pv-sheet-t">'+esc(sh.name)+'</div>';
+        body+=renderSheet(sh);
+      });
+      document.getElementById('pvTitle').textContent=d.title+' · 预览';
+      document.getElementById('pvBody').innerHTML=body;
+      document.getElementById('pvModal').hidden=false;
+    });
+  }
+  var dls=document.querySelectorAll('.ct-dl');
+  Array.prototype.forEach.call(dls,function(a){
+    var m=a.getAttribute('href').match(/calc-([a-z]+)\.xlsx/);
+    if(!m) return;
+    var btn=document.createElement('button');
+    btn.className='ct-pv'; btn.textContent='预览报表'; btn.dataset.key='calc-'+m[1];
+    btn.addEventListener('click',function(e){ e.preventDefault(); open('calc-'+m[1]); });
+    a.parentNode.insertBefore(btn,a);
+  });
+  document.getElementById('pvClose').addEventListener('click',function(){ document.getElementById('pvModal').hidden=true; });
+  document.getElementById('pvModal').addEventListener('click',function(e){ if(e.target===this) this.hidden=true; });
+})();
+</script>
 </body>
 </html>
