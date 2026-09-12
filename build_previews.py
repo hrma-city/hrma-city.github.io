@@ -14,6 +14,7 @@ import os
 import re
 import sys
 import json
+import hashlib
 import html as _html
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -65,8 +66,11 @@ td.emp{color:#9AA5B1;font-style:italic}
 """
 
 def slugify(rel):
-    s = re.sub(r"[^A-Za-z0-9\u4e00-\u9fff._-]", "_", rel)
-    return s[:120]
+    # 纯 ASCII 文件名（GitHub Pages / URL 对中文文件名支持不稳），用短哈希保证唯一
+    h = hashlib.md5(rel.encode("utf-8")).hexdigest()[:12]
+    base = re.sub(r"[^A-Za-z0-9._-]", "", os.path.basename(rel))
+    base = base[:40] or "file"
+    return h + "_" + base
 
 def fmt_num(v, nf):
     try:
