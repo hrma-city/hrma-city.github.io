@@ -111,8 +111,9 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
 <script src="auth-config.js"></script>
+<script src="assets/js/demo-backend.js"></script>
 <script src="auth.js"></script>
 <script>
 (function () {
@@ -162,7 +163,9 @@
     btn.disabled = true; btn.textContent = "提交中…";
     try {
       await A.signUp(email, pw, { full_name: full_name, org: org, role_text: role_text, phone: phone, reason: reason });
-      location.href = "pending.html?state=registered&email=" + encodeURIComponent(email);
+      // 演示模式注册即自动通过审核：若带 redirect（如从「开通会员」跳来），直接回原页
+      var rb = new URLSearchParams(location.search).get("redirect");
+      location.href = rb ? decodeURIComponent(rb) : ("pending.html?state=registered&email=" + encodeURIComponent(email));
     } catch (err) {
       var m = (err && err.message) ? err.message : String(err);
       if (/User already registered/i.test(m)) {
@@ -181,6 +184,17 @@
 <script>
 (function(){var t=document.getElementById('snToggle'),l=document.getElementById('snLinks');
 if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();
+</script>
+<script>
+/* 把当前 redirect 透传给「去登录」入口，注册/登录往返不丢来源页 */
+(function(){
+  var r = new URLSearchParams(location.search).get("redirect");
+  if (r) {
+    document.querySelectorAll('a[href="login.html"]').forEach(function (a) {
+      a.href = "login.html?redirect=" + encodeURIComponent(r);
+    });
+  }
+})();
 </script>
 <script>window.HRMA_PREFIX="";</script>
 <script src="assets/js/notify.js"></script>

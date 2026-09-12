@@ -89,8 +89,9 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
 <script src="auth-config.js"></script>
+<script src="assets/js/demo-backend.js"></script>
 <script src="auth.js"></script>
 <script>
 (function () {
@@ -177,6 +178,17 @@
 <script>
 (function(){var t=document.getElementById('snToggle'),l=document.getElementById('snLinks');
 if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();
+</script>
+<script>
+/* 把当前 redirect 透传给「申请账号」入口，避免注册后丢失来源页 */
+(function(){
+  var r = new URLSearchParams(location.search).get("redirect");
+  if (r) {
+    document.querySelectorAll('a[href="register.html"]').forEach(function (a) {
+      a.href = "register.html?redirect=" + encodeURIComponent(r);
+    });
+  }
+})();
 </script>
 <script>window.HRMA_PREFIX="";</script>
 <script src="assets/js/notify.js"></script>
