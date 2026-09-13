@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>收益健康自检 · 收益管理诊断工具</title>
+<meta name="description" content="把自家酒店的 OCC/ADR/竞对指数/No-show/渠道结构填进来，自动算出 MPI/ARI/RGI、健康分、异常清单与量化机会金额，并给出对应《操作法典》的调价与控房动作。">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/community.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"RMC收益管理社区。覆盖住宿、餐饮、航空、景区、娱乐、剧院六大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","RevPAR","MPI","ARI","RGI","超售管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<link rel="stylesheet" href="assets/css/auth.css">
+<link rel="stylesheet" href="assets/css/notify.css">
+<style>
+  .dg-wrap{max-width:1060px;margin:0 auto}
+  .dg-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px 20px;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px 24px;box-shadow:var(--shadow)}
+  .dg-fs{grid-column:1/-1;font-size:13px;font-weight:700;color:var(--navy);letter-spacing:1px;border-left:3px solid var(--gold);padding-left:10px;margin:6px 0 0}
+  .dg-f{display:flex;flex-direction:column;gap:6px}
+  .dg-f label{font-size:13px;color:var(--ink-2);font-weight:600}
+  .dg-f input{font-family:inherit;font-size:15px;padding:9px 12px;border:1px solid var(--line-2);border-radius:8px;background:var(--white);color:var(--ink)}
+  .dg-f .hint{font-size:11.5px;color:var(--ink-3);line-height:1.5}
+  .dg-score{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0}
+  .dg-sc{background:linear-gradient(120deg,var(--navy),#2A5680);color:#fff;border-radius:14px;padding:22px 24px;text-align:center}
+  .dg-sc .n{font-size:52px;font-weight:800;font-family:var(--mono);line-height:1}
+  .dg-sc .t{font-size:15px;color:var(--gold-2);font-weight:700;margin-top:6px}
+  .dg-sc .d{font-size:12.5px;color:rgba(255,255,255,.75);margin-top:6px;line-height:1.6}
+  .dg-idx{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:20px 24px;display:grid;gap:12px;align-content:center}
+  .dg-idx-row{display:grid;grid-template-columns:74px 1fr auto;align-items:center;gap:12px}
+  .dg-idx-row .k{font-size:12.5px;color:var(--ink-2);font-weight:650}
+  .dg-idx-row .bar{height:9px;border-radius:6px;background:var(--bg-2);overflow:hidden}
+  .dg-idx-row .bar i{display:block;height:100%;background:var(--navy)}
+  .dg-idx-row .v{font-size:17px;font-weight:800;font-family:var(--mono);color:var(--navy);min-width:62px;text-align:right}
+  .dg-idx-row.warn .v{color:var(--danger)}.dg-idx-row.warn .bar i{background:var(--danger)}
+  .dg-idx-row.mid .v{color:var(--amber)}.dg-idx-row.mid .bar i{background:var(--amber)}
+  .dg-idx-row.good .v{color:var(--teal)}.dg-idx-row.good .bar i{background:var(--teal)}
+  .dg-find{display:grid;gap:12px;margin-top:8px}
+  .dg-card{border:1px solid var(--line);border-left:5px solid var(--ink-3);border-radius:10px;padding:14px 16px;background:var(--white)}
+  .dg-card.red{border-left-color:var(--danger)}
+  .dg-card.amber{border-left-color:var(--amber)}
+  .dg-card.green{border-left-color:var(--teal)}
+  .dg-card .h{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+  .dg-card .h .ttl{font-size:15px;font-weight:700;color:var(--navy)}
+  .dg-card .sev{font-size:11px;padding:2px 9px;border-radius:20px;background:var(--bg-2);color:var(--ink-2);font-weight:700}
+  .dg-card.red .sev{background:var(--danger-soft);color:var(--danger)}
+  .dg-card.amber .sev{background:var(--amber-soft);color:var(--amber)}
+  .dg-card.green .sev{background:var(--teal-soft);color:var(--teal)}
+  .dg-card .money{font-family:var(--mono);font-weight:800;color:var(--navy);font-size:15px}
+  .dg-card .body{font-size:13.5px;color:var(--ink-2);line-height:1.75}
+  .dg-card .act{margin-top:8px;font-size:13px;color:var(--ink);background:var(--bg-2);border-radius:7px;padding:9px 12px;line-height:1.7}
+  .dg-card .tab{display:inline-block;margin-top:8px;font-size:11.5px;background:var(--navy);color:#fff;padding:3px 10px;border-radius:20px}
+  .dg-total{background:linear-gradient(120deg,#FFF8E6,#fff);border:1px solid var(--gold);border-radius:12px;padding:16px 20px;margin:18px 0;font-size:14px;line-height:1.8;color:var(--ink)}
+  .dg-total b{font-size:22px;font-family:var(--mono);color:var(--gold-2)}
+  @media print{.dg-form,.cm-btns,.sn-cta,.sn-toggle{display:none!important}}
+  @media(max-width:720px){.dg-score{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-auth="public">
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="tools.html">在线工具</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <div class="dg-wrap">
+    <div class="cm-eyebrow">诊断 · Diagnostics</div>
+    <h1 style="font-size:27px;font-weight:800;color:var(--navy);margin:0 0 6px">收益健康自检</h1>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.8;margin:0 0 4px">
+      把你家酒店<b>上个月的真实数字</b>填进来（PMS 日报表上都有），系统会算出三个市场指数、给一个健康分，
+      并列出<b>按严重程度排序的异常项</b>——每项都带「少赚多少钱」的粗略估算、该做什么动作、依据《操作法典》哪张表。
+    </p>
+    <p class="cm-hint" style="margin:6px 0 16px">
+      说明：本工具是<b>规则引擎自检</b>，不是 AI 识图，也不会上传你的数据（全部在你浏览器本地计算）。
+      把报表数字手工填进来即可；机会金额是保守粗估，用于排优先级，不作为财务承诺。
+    </p>
+
+    <div class="dg-form">
+      <div class="dg-fs">① 规模与期间</div>
+      <div class="dg-f"><label>可售房量（间）</label><input id="f_rooms" type="number" value="320"><span class="hint">酒店总客房数</span></div>
+      <div class="dg-f"><label>统计天数</label><input id="f_days" type="number" value="30"><span class="hint">通常填 30（一个月）</span></div>
+      <div class="dg-f"><label>单房变动成本（元）</label><input id="f_vc" type="number" value="180"><span class="hint">清洁+布草+易耗+早餐，用于算净收益</span></div>
+
+      <div class="dg-fs">② 你的经营结果</div>
+      <div class="dg-f"><label>平均出租率 OCC（%）</label><input id="f_occ" type="number" value="72"><span class="hint">已售房夜 ÷ 可售房夜</span></div>
+      <div class="dg-f"><label>平均房价 ADR（元）</label><input id="f_adr" type="number" value="520"><span class="hint">房费收入 ÷ 已售房夜</span></div>
+
+      <div class="dg-fs">③ 市场对比（竞对组合 / STR 报告）</div>
+      <div class="dg-f"><label>竞对组合平均出租率（%）</label><input id="f_mocc" type="number" value="76"><span class="hint">没有就填行业基准，见下方说明</span></div>
+      <div class="dg-f"><label>竞对组合平均房价（元）</label><input id="f_madr" type="number" value="560"><span class="hint">同一档次、同一商圈</span></div>
+
+      <div class="dg-fs">④ 库存与风险</div>
+      <div class="dg-f"><label>No-show 率（%）</label><input id="f_noshow" type="number" value="9"><span class="hint">预订未到店 ÷ 预订量</span></div>
+      <div class="dg-f"><label>实际超售比例（%）</label><input id="f_ob" type="number" value="0"><span class="hint">超售间数 ÷ 房量；不超售填 0</span></div>
+      <div class="dg-f"><label>本期步行客人数</label><input id="f_walk" type="number" value="0"><span class="hint">到店无房被安排去别家的客人</span></div>
+
+      <div class="dg-fs">⑤ 渠道与需求结构</div>
+      <div class="dg-f"><label>直销占比（%）</label><input id="f_direct" type="number" value="32"><span class="hint">官网/小程序/会员/门店散客</span></div>
+      <div class="dg-f"><label>OTA 占比（%）</label><input id="f_ota" type="number" value="45"><span class="hint">携程/美团/飞猪等</span></div>
+      <div class="dg-f"><label>平均提前预订天数</label><input id="f_win" type="number" value="6"><span class="hint">入住日 − 预订日的平均值</span></div>
+      <div class="dg-f"><label>团队/会议占比（%）</label><input id="f_group" type="number" value="18"><span class="hint">团队房夜 ÷ 总房夜</span></div>
+      <div class="dg-f"><label>取消率（%）</label><input id="f_cancel" type="number" value="11"><span class="hint">取消量 ÷ 预订量</span></div>
+    </div>
+
+    <div class="cm-btns" style="margin:18px 0 0">
+      <button class="cm-btn cm-btn-primary" id="btnRun">开始诊断 →</button>
+      <button class="cm-btn cm-btn-ghost" id="btnDemo">填入示例数据</button>
+      <button class="cm-btn cm-btn-ghost" id="btnPrint">打印 / 存 PDF</button>
+      <button class="cm-btn cm-btn-ghost" id="btnClear">清空本机数据</button>
+      <span class="cm-hint" id="saveTip"></span>
+    </div>
+
+    <div id="out" style="display:none;margin-top:24px">
+      <div class="dg-score">
+        <div class="dg-sc">
+          <div class="n" id="sScore">—</div>
+          <div class="t" id="sLevel">—</div>
+          <div class="d" id="sDesc"></div>
+        </div>
+        <div class="dg-idx">
+          <div class="dg-idx-row" id="rRGI"><span class="k">RGI 收入</span><span class="bar"><i id="bRGI"></i></span><span class="v" id="vRGI">—</span></div>
+          <div class="dg-idx-row" id="rMPI"><span class="k">MPI 份额</span><span class="bar"><i id="bMPI"></i></span><span class="v" id="vMPI">—</span></div>
+          <div class="dg-idx-row" id="rARI"><span class="k">ARI 价格</span><span class="bar"><i id="bARI"></i></span><span class="v" id="vARI">—</span></div>
+          <div style="font-size:11.5px;color:var(--ink-3);line-height:1.6;margin-top:2px">
+            RGI=RevPAR指数（最核心）· MPI=出租率指数（份额）· ARI=房价指数（价格站位）。<br>
+            三个指数 1.00 = 与市场持平；&gt;1 领先，&lt;1 落后。
+          </div>
+        </div>
+      </div>
+
+      <div class="dg-total" id="totalBox"></div>
+
+      <h2 class="cm-section-title" style="font-size:20px;margin-top:10px">异常项与建议动作（按严重程度）</h2>
+      <div class="dg-find" id="findings"></div>
+
+      <div class="cm-card" style="margin-top:20px">
+        <h3>下一步</h3>
+        <div class="cm-btns" style="margin-top:10px">
+          <a class="cm-btn cm-btn-primary" href="codex.html">去查对应判定表</a>
+          <a class="cm-btn cm-btn-ghost" href="tools.html">用在线工具细算</a>
+          <a class="cm-btn cm-btn-ghost" href="benchmark/index.html">看行业基准数据</a>
+          <a class="cm-btn cm-btn-ghost" href="community/board.html">把问题发到社区问</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="site-main"><div class="sf-bot">
+  <span>RMC收益管理社区 · 收益健康自检</span>
+  <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+</div></div></footer>
+
+<script src="assets/js/app.js"></script>
+<script>
+(function(){
+  "use strict";
+  var KEY="hrma_diagnose_v1";
+  var FIELDS=["rooms","days","vc","occ","adr","mocc","madr","noshow","ob","walk","direct","ota","win","group","cancel"];
+  var $=function(id){return document.getElementById(id);};
+  function num(id){var v=parseFloat($(id).value);return isFinite(v)?v:0;}
+
+  function save(){
+    var o={}; FIELDS.forEach(function(f){o[f]=$("f_"+f).value;});
+    try{localStorage.setItem(KEY,JSON.stringify(o));$("saveTip").textContent="已保存到本机";}catch(e){}
+  }
+  function load(){
+    try{var s=localStorage.getItem(KEY); if(!s)return;
+      var o=JSON.parse(s); FIELDS.forEach(function(f){if(o[f]!==undefined)$("f_"+f).value=o[f];});
+      $("saveTip").textContent="已恢复上次填写";}catch(e){}
+  }
+  FIELDS.forEach(function(f){$("f_"+f).addEventListener("input",save);});
+
+  function idxRow(rowId,barId,valId,val){
+    var row=$(rowId);
+    row.classList.remove("warn","mid","good");
+    if(val<0.90)row.classList.add("warn"); else if(val<0.98)row.classList.add("mid"); else row.classList.add("good");
+    $(barId).style.width=Math.min(100,val*100/1.3)+"%";
+    $(valId).textContent=val.toFixed(2);
+  }
+
+  function run(){
+    var rooms=num("f_rooms"), days=num("f_days"), vc=num("f_vc");
+    var occ=num("f_occ")/100, adr=num("f_adr");
+    var mocc=num("f_mocc")/100, madr=num("f_madr");
+    var noshow=num("f_noshow")/100, ob=num("f_ob")/100, walk=num("f_walk");
+    var direct=num("f_direct")/100, ota=num("f_ota")/100, win=num("f_win"), group=num("f_group")/100, cancel=num("f_cancel")/100;
+
+    if(rooms<=0||days<=0||adr<=0){alert("请填写房量、天数与 ADR");return;}
+    if(mocc<=0||madr<=0){alert("请填写竞对组合的出租率与房价（没有可用行业基准估算）");return;}
+
+    // 核心指标
+    var revpar=occ*adr;
+    var mrevpar=mocc*madr;
+    var MPI=occ/mocc, ARI=adr/madr, RGI=revpar/mrevpar;
+    var roomNights=rooms*days;
+    var sold=roomNights*occ;
+    var revenue=sold*adr;
+    var netProfit=sold*(adr-vc);
+
+    idxRow("rRGI","bRGI","vRGI",RGI);
+    idxRow("rMPI","bMPI","vMPI",MPI);
+    idxRow("rARI","bARI","vARI",ARI);
+
+    var F=[]; // findings
+    // add(sev, 标题, 金额, 说明, 动作, 依据表, additive)
+    // additive=true 表示该项是「独立杠杆」，可计入总额；false 表示它是 RGI 差距的成因分解，不应相加
+    function add(sev,title,money,body,act,tab,additive){F.push({sev:sev,title:title,money:money,body:body,act:act,tab:tab,additive:!!additive});}
+    var headlineGap=Math.max(0,(mrevpar-revpar)*roomNights); // RGI 差距 = 主机会（已是合成结果）
+
+    // ---- 1. 收入指数 RGI（核心）----
+    if(RGI<0.90){
+      var gap=(mrevpar-revpar)*roomNights;
+      add("red","收入生成指数 RGI 落后市场 "+(100-RGI*100).toFixed(0)+"%",gap,
+        "你的 RevPAR ¥"+revpar.toFixed(0)+"，市场 ¥"+mrevpar.toFixed(0)+"。这是最该先看的一个数——它同时包含了「卖得贵不贵」和「卖得满不满」。",
+        "先拆开看是 MPI 低（量不够）还是 ARI 低（价不够），两者动作完全相反，别混着改。",
+        "表A · 表J", false);
+    } else if(RGI<0.98){
+      add("amber","RGI 略低于市场（"+(RGI*100).toFixed(0)+"%）",(mrevpar-revpar)*roomNights,
+        "差距不大，通常一两个动作就能追上。",
+        "优先补价格站位（ARI），比抢量更容易见效。","表A", false);
+    } else {
+      add("green","RGI 达到或超过市场（"+(RGI*100).toFixed(0)+"%）",0,
+        "收入生成达到市场水平，说明价格与出租率的组合是有效的。",
+        "保持。下一步练更难的：团队置换、会议综合贡献、低谷日放量。","表G · 表K", false);
+    }
+
+    // ---- 2. 价格站位 ARI ----
+    if(ARI<0.92){
+      // 保守：提价 5% 且假设量不变（高 OCC 时更成立）
+      var lift=occ>=0.80?0.05:0.03;
+      add("red","房价明显低于市场（ARI "+(ARI*100).toFixed(0)+"%）",sold*adr*lift,
+        "市场均价 ¥"+madr+"，你 ¥"+adr+"，低了 ¥"+(madr-adr)+"。长期低价会形成价格锚定，后期很难提回去。",
+        "分日型提价：先在高涨日/峰值日提（表 A 允许 +20%），低谷日暂时不动。每次提 3%~5%，观察 3 天。",
+        "表A", false);
+    } else if(ARI<0.98){
+      add("amber","房价略低于市场（ARI "+(ARI*100).toFixed(0)+"%）",sold*adr*0.03,
+        "小幅落后，通常是促销或团队价拉低的。",
+        "检查是不是 OTA 促销或团队价拖低了整体 ADR；用表 H 隔离折扣渠道，别污染 BAR。","表H", false);
+    }
+
+    // ---- 3. 满房但没卖贵 ----
+    if(occ>=0.85&&ARI<0.95){
+      add("red","卖满了，但没卖贵",sold*adr*0.06,
+        "OCC "+(occ*100).toFixed(0)+"% 已经接近满房，ARI 却只有 "+(ARI*100).toFixed(0)+"%——这是最典型的「把房间卖便宜了」。满房日还在按平日价卖，等于把利润白送。",
+        "满房日前 3 天起按表 A 逐日提价；同时收紧低价房型与促销库存。","表A", false);
+    }
+
+    // ---- 4. 价高量低 ----
+    if(occ<0.62&&ARI>1.03){
+      add("amber","价高量低：出租率 "+(occ*100).toFixed(0)+"%，价格却高于市场",sold*adr*0.04,
+        "你把价格定在市场之上，但没拿到相应的量。可能是渠道没开全、流量没起来，或竞对在做活动。",
+        "别急着降价。先开渠道、做直订权益（表 H）；确认是流量问题再动价。","表H", false);
+    }
+
+    // ---- 5. 超售与 No-show ----
+    if(ob<noshow-0.01){
+      var missed=(noshow-ob)*roomNights;
+      add("red","超售不足：白白损失空置房夜",missed*adr*0.9,
+        "No-show 率 "+(noshow*100).toFixed(1)+"%，你只超售了 "+(ob*100).toFixed(1)+"%。每 100 间里就有约 "+((noshow-ob)*100).toFixed(0)+" 间是「预订了没来、又没补卖出去」的纯损失。",
+        "按《法典》表 E 由 No-show 率反推标准超售间数；No-show 越高，可超售越多。",
+        "表E", false);
+    } else if(ob>noshow+0.03){
+      add("red","超售过度：步行风险高",0,
+        "超售 "+(ob*100).toFixed(1)+"% 明显高于 No-show 率 "+(noshow*100).toFixed(1)+"%，到店无房概率大。",
+        "立即按表 E 回调到标准值。步行成本 = 房费 1.5 倍 + ¥300 安置费，还要赔上口碑。","表E", false);
+    } else {
+      add("green","超售与 No-show 基本匹配",0,
+        "超售 "+(ob*100).toFixed(1)+"% 与 No-show "+(noshow*100).toFixed(1)+"% 大致吻合，库存控制是合理的。",
+        "保持，每月按实际 No-show 复核一次。","表E", false);
+    }
+
+    // ---- 6. 步行客人 ----
+    if(walk>0){
+      var wc=walk*(adr*1.5+300);
+      add("red","本期有 "+walk+" 位客人被「步行」",-wc,
+        "按行业惯例，赔付约为房费的 1.5 倍 + ¥300 安置费，本期直接损失约 ¥"+wc.toFixed(0)+"，还不含差评与流失。",
+        "查表 E 重算超售参数；对保证订房（担保卡）优先保留房间。","表E", true);
+    }
+
+    // ---- 7. 直销占比 ----
+    if(direct<0.30){
+      // OTA 佣金 15% vs 直销成本 3%，把 8pp 的量从 OTA 转到直销
+      var shift=Math.min(0.08, ota);
+      add("amber","直销占比偏低（"+(direct*100).toFixed(0)+"%），佣金在吃掉利润",revenue*shift*0.12,
+        "直销 "+(direct*100).toFixed(0)+"% / OTA "+(ota*100).toFixed(0)+"%。OTA 佣金通常 15% 左右，直销获客成本约 3%，中间 12 个点就是可以让出来的利润。",
+        "按表 H 做直订权益（会员价/免费取消/积分），把 OTA 客人往官网和小程序导。","表H", true);
+    }
+
+    // ---- 8. 提前期 ----
+    if(win<4){
+      add("amber","平均提前预订天数仅 "+win+" 天，预测几乎失效",0,
+        "预订窗口太短意味着你只能在最后几天被动接单，既没法提前提价，也没法提前放量。",
+        "提前开售 + 早鸟价锁量（表 C/表 H）；同时把团队和协议客的预订周期拉长。","表C · 表H", false);
+    }
+
+    // ---- 9. 团队占比 ----
+    if(group>0.35){
+      add("amber","团队/会议占比 "+(group*100).toFixed(0)+"%，可能挤占高价散客",0,
+        "团队占比超过 35%，要警惕：团队价通常低于散客，且会占用旺季房量。",
+        "用表 G 做置换分析——算清「接这单会挤掉多少高价散客」，再决定接不接。","表G", false);
+    }
+
+    // ---- 10. 取消率 ----
+    if(cancel>0.15){
+      add("amber","取消率 "+(cancel*100).toFixed(0)+"% 偏高",0,
+        "取消率高于 15%，会让你的在手预订失真，预测和超售都跟着错。",
+        "收紧取消政策、提高预付/担保比例；把取消率纳入超售参数（表 E）。","表E", false);
+    }
+
+    // ---- 11. 接近满房提示 ----
+    if(occ>=0.95){
+      add("green","出租率 "+(occ*100).toFixed(0)+"%，接近满房",0,
+        "能卖到这个水平说明需求承接没问题。",
+        "检查满房日是否还有提价空间（表 A）；若 ARI<1 说明仍有空间。","表A", false);
+    }
+
+    // ---- 计分 ----
+    var score=100;
+    F.forEach(function(f){ if(f.sev==="red")score-=15; else if(f.sev==="amber")score-=6; });
+    score=Math.max(0,Math.min(100,score));
+    var level,desc;
+    if(score>=88){level="健康";desc="主要指标站得住，继续保持并练高阶动作。";}
+    else if(score>=70){level="基本合格";desc="有 1–2 处需要修正，按下面红色项优先处理。";}
+    else if(score>=50){level="预警";desc="存在明显漏损，建议按优先级逐项整改，先动最上面那条。";}
+    else {level="危险";desc="漏损严重。建议先做一次完整的定价与超售复盘，必要时找专家做单次诊断。";}
+    $("sScore").textContent=score;
+    $("sLevel").textContent=level;
+    $("sDesc").textContent=desc;
+
+    // ---- 机会金额（避免重复计算）----
+    // 主机会 = RGI 差距（已含价格与出租率的合成影响）；仅「独立杠杆」才可与之相加
+    var extraUp=0, loss=0;
+    F.forEach(function(f){
+      if(!f.additive) return;
+      if(f.money>0) extraUp+=f.money;
+      if(f.money<0) loss+=-f.money;
+    });
+    var total=headlineGap+extraUp;
+    var redN=F.filter(function(f){return f.sev==="red";}).length;
+    var ambN=F.filter(function(f){return f.sev==="amber";}).length;
+    var t="<b>¥"+Math.round(headlineGap).toLocaleString()+"</b> 主机会（RGI 差距：把 RevPAR 追到市场水平）";
+    if(extraUp>0) t+="　＋　<b>¥"+Math.round(extraUp).toLocaleString()+"</b> 独立可叠加项（渠道佣金节省等）";
+    t+="<br>合计约 <b>¥"+Math.round(total).toLocaleString()+"</b> / 本期 "+days+" 天，年化约 <b>¥"+Math.round(total*365/days).toLocaleString()+"</b>。";
+    if(loss>0) t+="<br><span style='color:var(--danger)'>另有已发生的直接损失 ¥"+Math.round(loss).toLocaleString()+"（步行赔付），属止损项，不计入机会。</span>";
+    t+="<br><span style='font-size:12.5px;color:var(--ink-3)'>"+
+       "共 "+redN+" 项严重（红）、"+ambN+" 项提醒（黄）。"+
+       "<b>提价、补超售等分项是 RGI 差距的成因分解，金额已包含在主机会内，请勿再与合计相加</b>；"+
+       "估算未完全计入提价后的需求弹性衰减，仅用于排优先级，不作为财务承诺。</span>";
+    $("totalBox").innerHTML=t;
+
+    // ---- 渲染 ----
+    var order={red:0,amber:1,green:2};
+    F.sort(function(a,b){return order[a.sev]-order[b.sev]||b.money-a.money;});
+    var sevTxt={red:"严重",amber:"提醒",green:"正常"};
+    $("findings").innerHTML=F.map(function(f){
+      return '<div class="dg-card '+f.sev+'"><div class="h">'+
+        '<span class="ttl">'+f.title+'</span>'+
+        '<span class="sev">'+sevTxt[f.sev]+'</span>'+
+        (f.money>0?'<span class="money">+¥'+Math.round(f.money).toLocaleString()+
+          (f.additive?' <small style="font-size:11px;font-weight:600;color:var(--teal)">独立杠杆</small>'
+                     :' <small style="font-size:11px;font-weight:500;color:var(--ink-3)">含于主机会</small>')+'</span>':'')+
+        (f.money<0?'<span class="money" style="color:var(--danger)">−¥'+Math.round(-f.money).toLocaleString()+'</span>':'')+
+        '</div><div class="body">'+f.body+'</div>'+
+        '<div class="act"><b>该做什么：</b>'+f.act+'</div>'+
+        '<span class="tab">依据 '+f.tab+'</span></div>';
+    }).join("");
+
+    $("out").style.display="";
+  }
+
+  function demo(){
+    var d={rooms:"320",days:"30",vc:"180",occ:"72",adr:"520",mocc:"76",madr:"560",
+           noshow:"9",ob:"0",walk:"4",direct:"28",ota:"48",win:"3",group:"22",cancel:"14"};
+    FIELDS.forEach(function(f){$("f_"+f).value=d[f];});
+    save(); run();
+  }
+
+  $("btnRun").onclick=run;
+  $("btnDemo").onclick=demo;
+  $("btnPrint").onclick=function(){window.print();};
+  $("btnClear").onclick=function(){try{localStorage.removeItem(KEY);}catch(e){}
+    FIELDS.forEach(function(f){$("f_"+f).value="";});$("saveTip").textContent="已清空";};
+  load();
+})();
+</script>
+<script>
+(function(){var t=document.getElementById('snToggle'),l=document.getElementById('snLinks');if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();
+</script>
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/notify.js"></script>
+</body>
+</html>

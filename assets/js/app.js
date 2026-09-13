@@ -238,9 +238,11 @@
     ]},
     { t: "社区互动", p: "community.html", items: [
       { t: "经验与案例分享", p: "community.html" },
+      { t: "活动与直播", p: "events.html" },
       { t: "案例讨论", p: "community.html#discuss" },
       { t: "招聘内推", p: "jobs.html" },
       { t: "专家高手", p: "experts.html" },
+      { t: "服务商对接", p: "partners.html" },
       { t: "收益管理剧院", p: "theater.html" }
     ]},
     { t: "资讯", p: "news.html", items: [
@@ -249,6 +251,8 @@
     ]},
     { t: "在线工具", p: "tools.html", items: [
       { t: "工具总览", p: "tools.html" },
+      { t: "★ 收益健康自检", p: "diagnose.html" },
+      { t: "★ 7 天入门训练营", p: "camp7.html" },
       { t: "超额预订测算", p: "tools.html#overbooking" },
       { t: "置换分析", p: "tools.html#displacement" },
       { t: "入住率手工预测", p: "tools.html#forecast" },
