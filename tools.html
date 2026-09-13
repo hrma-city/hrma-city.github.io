@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>在线收益工具 · 输入即算，数据自动保存</title>
+<meta name="description" content="收益管理在线计算工具：超额预订、置换分析、手工预测、邮轮RevPAC、长租公寓RevPAU、研学营地RevPAS、租车RevPAT、医疗号源RevPAA。填上自己的关键数据，系统自动算出结果，并自动保存你填过的基础数据，下次打开不用重填。">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/notify.css">
+<style>
+  .tw-wrap{max-width:1040px;margin:0 auto;padding:24px 18px 60px}
+  .tw-hero{background:linear-gradient(135deg,#1B3A5C,#2C5282);color:#fff;border-radius:16px;padding:26px 26px;margin-bottom:20px}
+  .tw-hero h1{margin:0 0 6px;font-size:25px}
+  .tw-hero p{margin:6px 0 0;opacity:.92;font-size:14px;line-height:1.7}
+  .tw-hero .note{margin-top:10px;font-size:12.5px;background:rgba(255,255,255,.12);padding:8px 12px;border-radius:9px}
+  .tw-hero .acts{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+  .tw-hero .acts button{background:#fff;color:#1B3A5C;border:none;padding:8px 16px;border-radius:9px;font-size:13px;cursor:pointer;font-weight:600}
+  .tw-hero .acts button.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5)}
+  .tw-layout{display:flex;gap:22px;align-items:flex-start}
+  .tw-toc{position:sticky;top:88px;flex:0 0 168px;display:flex;flex-direction:column;gap:4px}
+  .tw-toc a{font-size:13px;color:#33415c;text-decoration:none;padding:7px 11px;border-radius:8px;border:1px solid transparent}
+  .tw-toc a:hover,.tw-toc a.on{background:#eef3f8;color:#1B3A5C;border-color:#D6E0EC}
+  .tw-main{flex:1;min-width:0}
+  .tw-card{background:#fff;border:1px solid #E1E5EA;border-radius:14px;padding:20px 22px;margin-bottom:18px;scroll-margin-top:90px}
+  .tw-card h2{margin:0 0 4px;font-size:20px;color:#1B3A5C}
+  .tw-card .badge{display:inline-block;background:#F7F0E4;color:#B8894A;border-radius:20px;padding:2px 12px;font-size:12px;margin-bottom:8px}
+  .tw-card .desc{font-size:13.5px;color:#475569;margin:6px 0 2px}
+  .tw-card .formula{background:#F2F4F7;padding:7px 10px;border-radius:8px;font-size:13px;color:#1B3A5C;margin:8px 0 4px}
+  .tw-grp{margin-top:14px;border-top:1px dashed #E1E5EA;padding-top:12px}
+  .tw-grp:first-of-type{border-top:none;padding-top:0}
+  .tw-grp h3{font-size:14px;color:#2C5282;margin:0 0 8px}
+  .tw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px 14px}
+  .tw-fld label{display:block;font-size:12.5px;color:#475569;margin-bottom:3px}
+  .tw-fld label b{color:#B8894A}
+  .tw-fld .hint{font-size:11px;color:#94A3B8;display:block;margin-top:2px}
+  .tw-fld input{width:100%;padding:8px 10px;border:1px solid #CBD2D9;border-radius:8px;font-size:14px;background:#FFFBEF}
+  .tw-fld input:focus{border-color:#B8894A;outline:none}
+  .tw-tbl{width:100%;border-collapse:collapse;margin:4px 0}
+  .tw-tbl th,.tw-tbl td{border:1px solid #E1E5EA;padding:6px 8px;font-size:12.5px;text-align:left}
+  .tw-tbl th{background:#F7F0E4;color:#1B3A5C}
+  .tw-tbl input{width:100%;padding:5px 7px;border:1px solid #CBD2D9;border-radius:6px;font-size:13px;background:#FFFBEF;box-sizing:border-box}
+  .tw-out{margin-top:14px;background:#F4F8F4;border:1px solid #D7E6D7;border-radius:10px;padding:12px 14px}
+  .tw-out h3{font-size:13.5px;color:#2F6B3A;margin:0 0 8px}
+  .tw-res{display:grid;grid-template-columns:1fr;gap:6px}
+  .tw-row{display:flex;justify-content:space-between;gap:12px;align-items:baseline;border-bottom:1px dotted #D7E6D7;padding-bottom:5px}
+  .tw-row:last-child{border-bottom:none}
+  .tw-row .k{font-size:13.5px;color:#1F2933}
+  .tw-row .k small{color:#7B8794;font-weight:400;margin-left:6px}
+  .tw-row .v{font-size:15px;font-weight:700;color:#1B3A5C;white-space:nowrap}
+  .tw-row .v.hl{color:#B8894A}
+  .tw-diag{margin-top:10px;padding:9px 12px;border-radius:9px;font-size:13.5px;font-weight:600}
+  .tw-diag.ok{background:#E3F2E7;color:#2F6B3A}
+  .tw-diag.bad{background:#FBE9E7;color:#B23A2E}
+  .tw-diag.info{background:#EAF1F8;color:#2C5282}
+  .tw-card .foot{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .tw-card .foot button{border:none;cursor:pointer;padding:7px 14px;border-radius:9px;font-size:13px}
+  .tw-card .foot .save{background:#2C5282;color:#fff}
+  .tw-card .foot .reset{background:#F2F4F7;color:#475569}
+  .tw-card .foot .copy{background:#F7F0E4;color:#B8894A}
+  .tw-card .saved{font-size:12px;color:#2F6B3A;opacity:0;transition:opacity .3s}
+  .tw-card .saved.show{opacity:1}
+  @media(max-width:760px){.tw-layout{flex-direction:column}.tw-toc{position:static;flex-direction:row;flex-wrap:wrap;flex-basis:auto}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区 · 在线工具","url":"https://hrma-city.github.io/tools.html","description":"收益管理在线计算工具，输入即算并自动保存基础数据","inLanguage":"zh-CN"}</script>
+</head>
+<body data-auth="public">
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="gejijipo.html">各个击破</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main tw-wrap">
+  <div class="tw-hero">
+    <h1>在线收益工具</h1>
+    <p>把「自己做表、套公式」的活儿交给系统：填上你自己的关键数据，<b>结果立刻算出来</b>。每个工具会自动保存你填过的基础数据，下次打开不用重填。</p>
+    <div class="note">🔒 数据只保存在你当前浏览器（localStorage），不会上传服务器；换设备/清缓存会丢失，重要数据可点「复制结果」备份。所有公式与 Excel 计算模板一致。</div>
+    <div class="acts">
+      <button id="twClearAll" class="ghost">清空本机全部工具数据</button>
+      <a class="acts-a" href="calc-templates.html" style="align-self:center;color:#fff;text-decoration:underline;font-size:13px">还需 Excel 版？去计算模板页 →</a>
+    </div>
+  </div>
+
+  <div class="tw-layout">
+    <nav class="tw-toc" id="twToc"></nav>
+    <div class="tw-main" id="twMain"></div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="sf-grid">
+    <div><div class="sf-t">RMC收益管理社区</div><p class="sf-desc">跨行业收益管理专业社区。</p></div>
+    <div><div class="sf-t">学习</div><a href="academy.html">学院首页</a><a href="codex.html">操作法典</a><a href="gejijipo.html">各个击破</a><a href="resources.html">模板与资料</a></div>
+    <div><div class="sf-t">社区</div><a href="experts.html">专家高手</a><a href="community.html">行业交流</a><a href="cert.html">资格认证</a><a href="jobs.html">招聘内推</a></div>
+  </div>
+  <div class="sf-bot"><span>RMC收益管理社区 · 通用内核 + 行业参数</span></div>
+</footer>
+
+<script src="auth-config.js"></script>
+<script src="assets/js/demo-backend.js"></script>
+<script src="assets/js/app.js"></script>
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/notify.js"></script>
+<script>
+/* ============ 工具配置（公式 1:1 复用 build_templates.py 的 Excel 模板） ============ */
+var fmtInt=function(n){return Math.round(n).toLocaleString('zh-CN');};
+var fmtYuan=function(n){return '¥'+fmtInt(Math.round(n));};
+var fmtYuan2=function(n){return '¥'+n.toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2});};
+var fmtPct=function(r,d){return (r*100).toFixed(d==null?1:d)+'%';};
+var r0=function(n){return isFinite(n)?n:0;};
+
+var TOOLS=[
+ {
+   key:'overbooking', name:'超额预订测算', badge:'房量决策',
+   desc:'满房日决定还能多接多少预订：用历史未到店+取消的余量填补空房，同时控制被 walk 的风险与成本。',
+   formula:'建议超售 ≈ MIN( (No-show+取消)×预订量 ×风险偏好 , 房量×硬上限 )',
+   groups:[
+     {title:'参数输入', inputs:[
+       {id:'R',label:'可售房数（间）',def:200,unit:'间',hint:'当天可售客房总数'},
+       {id:'S',label:'当前已售房晚（间夜）',def:200,unit:'间夜',hint:'已确认预订（满房日 S=R）'},
+       {id:'ns',label:'历史 No-show 率（%）',def:8,unit:'%',hint:'未到店占比，填数字'},
+       {id:'cx',label:'历史取消率（%）',def:12,unit:'%',hint:'取消占比，填数字'},
+       {id:'walk',label:'每间 Walk 成本（元）',def:400,unit:'元',hint:'升房+补偿+差旅'},
+       {id:'adr',label:'平均房价 ADR（元）',def:1000,unit:'元',hint:'估算空房损失用'},
+       {id:'pref',label:'风险偏好（保守0.7/标准1/激进1.3）',def:1,unit:'',hint:'直接抄 0.7/1/1.3'},
+       {id:'cap',label:'超售硬上限（占房量%）',def:20,unit:'%',hint:'最多超售比例'}
+     ]}
+   ],
+   compute:function(v){
+     var nsB=v.S*v.ns/100, cxB=v.S*v.cx/100, refill=nsB+cxB;
+     var capN=v.R*v.cap/100;
+     var sug=Math.min(refill*v.pref, capN);
+     var walk=Math.max(0, sug-refill);
+     var walkCost=walk*v.walk, emptyLoss=Math.max(0,(v.R-v.S-sug))*v.adr;
+     var three='保守 '+fmtInt(Math.min(refill*0.7,capN))+' / 标准 '+fmtInt(sug)+' / 激进 '+fmtInt(Math.min(refill*1.3,capN));
+     var advice, cls;
+     if(walk===0){advice='建议按标准档超售 ✓ 无 walk 风险';cls='ok';}
+     else if(walkCost<emptyLoss){advice='建议超售 ✓ 收益更大（walk 成本 < 空房损失）';cls='ok';}
+     else {advice='谨慎：可降低超售档 ✗ walk 成本偏高';cls='bad';}
+     return {sections:[
+       {rows:[
+         {k:'预期可回填房晚',v:fmtInt(refill)+' 间',note:'No-show+取消'},
+         {k:'建议超售（标准档）',v:fmtInt(sug)+' 间',note:'当天可多接',hl:true},
+         {k:'三档建议',v:three,hl:true},
+         {k:'预期 Walk 数',v:fmtInt(walk)+' 人',note:'需升房/补偿'},
+         {k:'期望 Walk 成本',v:fmtYuan(walkCost),note:'超售代价'},
+         {k:'拒绝超售的空房损失',v:fmtYuan(emptyLoss),note:'不超售会少赚'}
+       ]}
+     ], diag:{text:advice, cls:cls}};
+   }
+ },
+ {
+   key:'displacement', name:'置换分析', badge:'决策方法',
+   desc:'判断一笔低价/团队业务会不会挤掉更高价散客，导致整体收益下降。比净贡献，不比单价。',
+   formula:'净贡献 = 团队总贡献 − 被挤掉散客贡献；>0 接受，<0 拒绝',
+   groups:[
+     {title:'参数输入', inputs:[
+       {id:'R',label:'总房数（间）',def:200,unit:'间',hint:'可售客房总数'},
+       {id:'Dt',label:'散客需求（间夜）',def:180,unit:'间夜',hint:'按散客价能卖出的量'},
+       {id:'Dg',label:'团队申请（间夜）',def:50,unit:'间夜',hint:'低价业务申请量'},
+       {id:'ADRt',label:'散客均价（元）',def:1000,unit:'元',hint:'散客 ADR'},
+       {id:'ADRg',label:'团队价（元）',def:650,unit:'元',hint:'团队报价'},
+       {id:'VC',label:'每间变动成本（元）',def:120,unit:'元',hint:'仅随出租变动的成本'},
+       {id:'FBt',label:'散客餐饮贡献（元/间夜）',def:200,unit:'元',hint:'净利润贡献'},
+       {id:'FBg',label:'团队餐饮贡献（元/间夜）',def:180,unit:'元',hint:'净利润贡献'}
+     ]}
+   ],
+   compute:function(v){
+     var disp=Math.max(0, v.Dt-(v.R-v.Dg));
+     var Ct=(v.ADRt-v.VC)+v.FBt, Cg=(v.ADRg-v.VC)+v.FBg;
+     var grpTot=v.Dg*Cg, transLoss=disp*Ct, net=grpTot-transLoss;
+     var minG=v.VC-v.FBg+(disp/v.Dg)*Ct;
+     var decision, cls; if(net>0){decision='接受团队 ✓';cls='ok';}else{decision='拒绝团队 ✗';cls='bad';}
+     return {sections:[
+       {rows:[
+         {k:'被挤掉散客房晚',v:fmtInt(disp)+' 间夜',note:'团队占房后留给散客不足的部分'},
+         {k:'散客边际贡献/间夜',v:fmtYuan(Ct)},
+         {k:'团队边际贡献/间夜',v:fmtYuan(Cg)},
+         {k:'团队总贡献',v:fmtYuan(grpTot),hl:true},
+         {k:'散客损失贡献',v:fmtYuan(transLoss),hl:true},
+         {k:'净贡献',v:fmtYuan(net),hl:true},
+         {k:'团队盈亏平衡最低价',v:fmtYuan(minG),note:'≥此值即划算，可据此还价'}
+       ]}
+     ], diag:{text:decision+'（净贡献 '+(net>=0?'+':'')+fmtYuan(net)+'）', cls:cls}};
+   }
+ },
+ {
+   key:'forecast', name:'入住率手工预测', badge:'预测',
+   desc:'不用系统也能做靠谱预测：按细分市场，用「在手预订 + 历史同周期还会新增多少」推算未来销量。',
+   formula:'预测需求量 = 在手预订 × (1 + 历史同周期新增率%)',
+   groups:[
+     {title:'① 统计期总可售房晚', inputs:[
+       {id:'R',label:'总可售房晚 R（间夜）',def:6000,unit:'间夜',hint:'如未来30天×200间'}
+     ]},
+     {type:'matrix', groupId:'seg', title:'② 细分市场预测表', cols:[
+       {id:'ob',label:'当前在手(房晚)',def:0},{id:'rate',label:'历史新增率(%)',def:0}
+     ], rows:[
+       {id:'fit',label:'散客(FIT)',ob:1800,rate:35},
+       {id:'grp',label:'团队(Group)',ob:1200,rate:15},
+       {id:'mem',label:'会员',ob:600,rate:25},
+       {id:'ota',label:'OTA',ob:900,rate:30},
+       {id:'corp',label:'协议公司',ob:700,rate:20},
+       {id:'oth',label:'其他',ob:300,rate:10}
+     ]}
+   ],
+   compute:function(v){
+     var segs=['fit','grp','mem','ota','corp','oth'];
+     var labels={fit:'散客',grp:'团队',mem:'会员',ota:'OTA',corp:'协议',oth:'其他'};
+     var total=0, rows=[];
+     segs.forEach(function(s){
+       var ob=v['seg_'+s+'_ob'], rate=v['seg_'+s+'_rate'];
+       var pred=ob*(1+rate/100); total+=pred;
+       rows.push([labels[s], fmtInt(ob), rate+'%', fmtInt(pred), fmtPct(pred/v.R)]);
+     });
+     var totalOcc=total/v.R, gap=v.R-total;
+     var concl, cls; if(totalOcc>=0.9){concl='进度健康 ✓ 可转守为攻';cls='ok';}else{concl='进度偏低 ✗ 需促销/放开低价渠道';cls='bad';}
+     return {sections:[
+       {table:{head:['细分市场','在手','新增率','预测需求','预测出租率'], rows:rows}},
+       {rows:[
+         {k:'预测总房晚',v:fmtInt(total)+' 间夜',hl:true},
+         {k:'预测总出租率',v:fmtPct(totalOcc),hl:true},
+         {k:'预测总房晚缺口',v:fmtInt(gap)+' 间夜',note:'正数=还差多少要促'}
+       ]}
+     ], diag:{text:concl, cls:cls}};
+   }
+ },
+ {
+   key:'cruise', name:'邮轮收益测算（RevPAC）', badge:'候补行业',
+   desc:'舱位=房、航次=连住、套舱=房型。看单舱产出 RevPAC 与舱位利用率，并模拟早鸟/甩舱定价。',
+   formula:'RevPAC = (船票+岸上餐饮)×已售 ÷ 可用舱位夜；可用舱位夜 = 舱位数 × 航次天数',
+   groups:[
+     {title:'① 核心参数', inputs:[
+       {id:'cab',label:'可用舱位数（间）',def:1000,unit:'间',hint:'全船可售舱位总数'},
+       {id:'days',label:'航次天数（晚）',def:8,unit:'晚',hint:'单航次跨夜数'},
+       {id:'sold',label:'已售舱位夜',def:7200,unit:'cabin-night',hint:'已卖舱位×夜'},
+       {id:'fare',label:'平均船票（元/舱位夜）',def:1800,unit:'元',hint:'基础票价均值'},
+       {id:'anc',label:'岸上+餐饮摊入（元/舱位夜）',def:540,unit:'元',hint:'二次消费净贡献'}
+     ]},
+     {title:'④ 早鸟 + 临期甩舱 定价模拟', inputs:[
+       {id:'eb',label:'早鸟占比（%）',def:40,unit:'%'},
+       {id:'ebd',label:'早鸟折扣（%）',def:15,unit:'%'},
+       {id:'lb',label:'临期甩舱占比（%）',def:20,unit:'%'},
+       {id:'lbd',label:'临期甩舱折扣（%）',def:35,unit:'%'}
+     ]}
+   ],
+   compute:function(v){
+     var avail=v.cab*v.days, occ=v.sold/avail, unit=v.fare+v.anc;
+     var rev=unit*v.sold, revpac=rev/avail;
+     var coreDiag, coreCls; if(occ>=0.9){coreDiag='舱位利用健康 ✓ OCC≥90%';coreCls='ok';}else{coreDiag='利用率偏低 ✗ 需促销/放开低价渠道';coreCls='bad';}
+     var rest=Math.max(0,100-v.eb-v.lb);
+     var coef=v.eb/100*(1-v.ebd/100)+v.lb/100*(1-v.lbd/100)+rest/100*1;
+     var simP=v.fare*coef, simRev=(simP+v.anc)*v.sold, fullRev=(v.fare+v.anc)*v.sold, diff=simRev-fullRev;
+     var ebConcl, ebCls; if(diff>=0){ebConcl='分层定价已补回折扣 ✓';ebCls='ok';}else{ebConcl='售出量不变时折扣=纯让利 ✗ 须靠早鸟/甩舱带来额外销量';ebCls='bad';}
+     return {sections:[
+       {rows:[
+         {k:'可用舱位夜',v:fmtInt(avail),note:'舱位数×天数'},
+         {k:'舱位利用率 OCC',v:fmtPct(occ),hl:true},
+         {k:'综合单价',v:fmtYuan(unit)},
+         {k:'航次总营收',v:fmtYuan(rev),hl:true},
+         {k:'单舱产出 RevPAC',v:fmtYuan(revpac),hl:true}
+       ], diag:{text:coreDiag, cls:coreCls}},
+       {rows:[
+         {k:'实现价格系数',v:coef.toFixed(3)},
+         {k:'模拟实现均价',v:fmtYuan(simP)},
+         {k:'模拟总收入',v:fmtYuan(simRev),hl:true},
+         {k:'全价对照收入',v:fmtYuan(fullRev)},
+         {k:'收入差',v:(diff>=0?'+':'')+fmtYuan(diff),hl:true}
+       ], diag:{text:ebConcl, cls:ebCls}}
+     ]};
+   }
+ },
+ {
+   key:'rental-apartment', name:'长租公寓收益测算（RevPAU）', badge:'候补行业',
+   desc:'房源=房、租期=超长连住、续约=复购。看 RevPAU 与出租率，并量化「续约率」这个最大杠杆。',
+   formula:'RevPAU = 总营收 ÷ 可出租间夜；有效日租金 = (月租÷30)×(1−免租期÷365)',
+   groups:[
+     {title:'① 核心参数', inputs:[
+       {id:'units',label:'可出租房源数（间）',def:500,unit:'间',hint:'可售房源总数'},
+       {id:'days',label:'统计天数（天）',def:30,unit:'天',hint:'通常按 30 天'},
+       {id:'sold',label:'已出租间夜（间·夜）',def:13800,unit:'间夜',hint:'实际产生租金的间夜'},
+       {id:'rent',label:'平均合同月租（元/间·月）',def:3200,unit:'元',hint:'合同租金均值'},
+       {id:'oth',label:'其他收入（元/间·月）',def:300,unit:'元',hint:'服务费/车位/网络'},
+       {id:'free',label:'免租期（天/年）',def:30,unit:'天',hint:'首年常送 1 个月'},
+       {id:'vc',label:'每间分摊运营变动成本（元/间·月）',def:220,unit:'元',hint:'公区水电/保洁'}
+     ]},
+     {title:'③ 续约率杠杆（长租最大收益杠杆）', inputs:[
+       {id:'exp',label:'月到期间数（间）',def:60,unit:'间',hint:'本月合同到期房源数'},
+       {id:'rrt',label:'当前续约率（%）',def:65,unit:'%',hint:'到期中续约比例'},
+       {id:'vd',label:'平均空置周转天数（天）',def:12,unit:'天',hint:'退租到新签空置'},
+       {id:'acq',label:'新签获客成本（元/间）',def:800,unit:'元',hint:'中介+推广'},
+       {id:'reno',label:'单间翻新保洁成本（元/间）',def:500,unit:'元',hint:'退租复原'},
+       {id:'lift',label:'计划提升续约率（百分点）',def:10,unit:'pp',hint:'目标提升'},
+       {id:'inc',label:'单间续约激励（元/间）',def:300,unit:'元',hint:'保洁/抵扣等'}
+     ]}
+   ],
+   compute:function(v){
+     var avail=v.units*v.days, occ=v.sold/avail;
+     var dayRent=v.rent/30, freeR=v.free/365, eff=dayRent*(1-freeR);
+     var rentRev=eff*v.sold, othRev=v.oth/30*v.sold, total=rentRev+othRev;
+     var revpau=total/avail, varTot=v.vc/30*v.sold, net=total-varTot;
+     var vacLoss=(avail-v.sold)*eff;
+     var coreDiag, coreCls; if(occ>=0.92){coreDiag='出租率健康 ✓ OCC≥92%';coreCls='ok';}else{coreDiag='空置偏高 ✗ 先补空置再谈涨价';coreCls='bad';}
+     var loss=v.vd*eff+v.acq+v.reno;
+     var lostRooms=v.exp*(1-v.rrt/100), lostCost=lostRooms*loss;
+     var saveYr=v.exp*0.01*loss*12, kept=v.exp*v.lift/100, save=kept*loss, invest=kept*v.inc, ben=save-invest;
+     var roi=v.inc>0?save/v.inc:0;
+     var renConcl, renCls; if(v.inc<loss){renConcl='值得投 ✓ 激励低于单间流失成本（定向给摇摆客户）';renCls='ok';}else{renConcl='不划算 ✗ 激励超过单间流失成本，不如让它流失重租';renCls='bad';}
+     return {sections:[
+       {rows:[
+         {k:'可出租间夜',v:fmtInt(avail),note:'房源数×天数'},
+         {k:'出租率 OCC',v:fmtPct(occ),hl:true},
+         {k:'有效日租金',v:fmtYuan2(eff),note:'扣免租后真实到手'},
+         {k:'总营收',v:fmtYuan(total),hl:true},
+         {k:'单间产出 RevPAU',v:fmtYuan2(revpau),hl:true},
+         {k:'净贡献（近似GOP）',v:fmtYuan(net)},
+         {k:'空置损失',v:fmtYuan(vacLoss),note:'空一天亏一天'}
+       ], diag:{text:coreDiag, cls:coreCls}},
+       {rows:[
+         {k:'单间流失成本',v:fmtYuan(loss),note:'空置+获客+翻新=激励盈亏平衡线',hl:true},
+         {k:'当前月流失间数',v:fmtInt(lostRooms)+' 间'},
+         {k:'当前月流失总成本',v:fmtYuan(lostCost)},
+         {k:'续约率每+1pp 年省',v:fmtYuan(saveYr),hl:true},
+         {k:'净收益（提升后续约）',v:(ben>=0?'+':'')+fmtYuan(ben),hl:true},
+         {k:'投入产出比 ROI',v:roi.toFixed(2)+'倍',hl:true}
+       ], diag:{text:renConcl, cls:renCls}}
+     ]};
+   }
+ },
+ {
+   key:'research-camp', name:'研学营地收益测算（RevPAS）', badge:'候补行业',
+   desc:'营位=房、营期=连住、批次=档期、营种=房型。看单营位产出 RevPAS 与满营率，并模拟早鸟/甩舱。',
+   formula:'RevPAS = (营费+餐饮摊入)×已售 ÷ 可用营位夜；可用营位夜 = 营位数 × 营期 × 批次',
+   groups:[
+     {title:'① 核心参数', inputs:[
+       {id:'slots',label:'可容纳营位数（个）',def:200,unit:'个',hint:'单期可售营位总数'},
+       {id:'days',label:'营期天数（天）',def:7,unit:'天',hint:'单营期跨天数'},
+       {id:'bt',label:'本期批次（期）',def:5,unit:'期',hint:'统计期内开营期数'},
+       {id:'sold',label:'已售营位夜',def:6300,unit:'slot-night',hint:'已卖营位×夜'},
+       {id:'fee',label:'平均营费（元/营位夜）',def:680,unit:'元',hint:'基础营费均值'},
+       {id:'anc',label:'餐饮+活动摊入（元/营位夜）',def:220,unit:'元',hint:'净贡献摊入'}
+     ]},
+     {title:'④ 早鸟 + 临期甩舱 定价模拟', inputs:[
+       {id:'eb',label:'早鸟占比（%）',def:40,unit:'%'},
+       {id:'ebd',label:'早鸟折扣（%）',def:12,unit:'%'},
+       {id:'lb',label:'临期甩舱占比（%）',def:10,unit:'%'},
+       {id:'lbd',label:'临期甩舱折扣（%）',def:25,unit:'%'}
+     ]}
+   ],
+   compute:function(v){
+     var avail=v.slots*v.days*v.bt, occ=v.sold/avail, unit=v.fee+v.anc;
+     var rev=unit*v.sold, revpas=rev/avail;
+     var coreDiag, coreCls; if(occ>=0.9){coreDiag='满营健康 ✓ OCC≥90%';coreCls='ok';}else{coreDiag='满营率偏低 ✗ 需促销/加开肩季批次';coreCls='bad';}
+     var rest=Math.max(0,100-v.eb-v.lb);
+     var coef=v.eb/100*(1-v.ebd/100)+v.lb/100*(1-v.lbd/100)+rest/100*1;
+     var simP=v.fee*coef, simRev=(simP+v.anc)*v.sold, fullRev=(v.fee+v.anc)*v.sold, diff=simRev-fullRev;
+     var ebConcl, ebCls; if(diff>=0){ebConcl='分层定价已补回折扣 ✓';ebCls='ok';}else{ebConcl='售出量不变时折扣=纯让利 ✗ 须靠早鸟拉动提前锁量';ebCls='bad';}
+     return {sections:[
+       {rows:[
+         {k:'可用营位夜',v:fmtInt(avail),note:'营位数×天数×批次'},
+         {k:'满营率 OCC',v:fmtPct(occ),hl:true},
+         {k:'综合单价',v:fmtYuan(unit)},
+         {k:'本期总营收',v:fmtYuan(rev),hl:true},
+         {k:'单营位产出 RevPAS',v:fmtYuan(revpas),hl:true}
+       ], diag:{text:coreDiag, cls:coreCls}},
+       {rows:[
+         {k:'实现价格系数',v:coef.toFixed(3)},
+         {k:'模拟实现均价',v:fmtYuan(simP)},
+         {k:'模拟总收入',v:fmtYuan(simRev),hl:true},
+         {k:'全价对照收入',v:fmtYuan(fullRev)},
+         {k:'收入差',v:(diff>=0?'+':'')+fmtYuan(diff),hl:true}
+       ], diag:{text:ebConcl, cls:ebCls}}
+     ]};
+   }
+ },
+ {
+   key:'car-rental', name:'租车收益测算（RevPAT）', badge:'候补行业',
+   desc:'车辆=房、租期=连住、车型=房型。看单车产出 RevPAT 与利用率，并模拟超售吸收 No-show。',
+   formula:'RevPAT = 总营收 ÷ 可用车辆·天；可用车辆·天 = 车队规模 × 统计天数',
+   groups:[
+     {title:'① 核心参数', inputs:[
+       {id:'fleet',label:'车队可租规模（辆）',def:100,unit:'辆',hint:'在营可出租总数'},
+       {id:'days',label:'统计天数（天）',def:30,unit:'天',hint:'通常按 30 天'},
+       {id:'rented',label:'实际出租车辆·天',def:2400,unit:'辆·天',hint:'已扣 No-show 净效果'},
+       {id:'daily',label:'平均日租金（元/辆·天）',def:260,unit:'元',hint:'基础租车费'},
+       {id:'add',label:'附加收入（元/辆·天）',def:80,unit:'元',hint:'保险/增值净贡献'}
+     ]},
+     {title:'④ 超售与 No-show 控制模拟', inputs:[
+       {id:'ns',label:'No-show 率（%）',def:12,unit:'%',hint:'预订不到店比例'},
+       {id:'ob',label:'超售比例（占可用产能%）',def:5,unit:'%',hint:'应 ≤ No-show 率'}
+     ]}
+   ],
+   compute:function(v){
+     var avail=v.fleet*v.days, util=v.rented/avail, unit=v.daily+v.add;
+     var rev=unit*v.rented, revpat=rev/avail;
+     var coreDiag, coreCls; if(util>=0.8){coreDiag='利用率健康 ✓ Util≥80%';coreCls='ok';}else{coreDiag='利用率偏低 ✗ 先补出租量';coreCls='bad';}
+     var base=v.rented/(1-v.ns/100), total=base+avail*v.ob/100;
+     var arr=total*(1-v.ns/100), can=Math.min(arr,avail);
+     var noRev=unit*v.rented, overRev=unit*can, diff=overRev-noRev;
+     var risk, riskCls; if(v.ob<=v.ns){risk='安全 ✓ 超售≤No-show，零拒载';riskCls='ok';}else{risk='风险 ✗ 超售>No-show，需车型升级/跨店调度';riskCls='bad';}
+     var obConcl, obCls; if(diff>0){obConcl='超售策略多赚 ✓ 收回 No-show 流失的空位';obCls='ok';}else{obConcl='超售未带来增量';obCls='info';}
+     return {sections:[
+       {rows:[
+         {k:'可用车辆·天',v:fmtInt(avail),note:'车队×天数'},
+         {k:'利用率 Util',v:fmtPct(util),hl:true},
+         {k:'综合日租金',v:fmtYuan(unit)},
+         {k:'本期总营收',v:fmtYuan(rev),hl:true},
+         {k:'单车产出 RevPAT',v:fmtYuan(revpat),hl:true}
+       ], diag:{text:coreDiag, cls:coreCls}},
+       {rows:[
+         {k:'超售可出租',v:fmtInt(can)+' 辆·天',hl:true},
+         {k:'不超售收入',v:fmtYuan(noRev)},
+         {k:'超售收入',v:fmtYuan(overRev),hl:true},
+         {k:'收入差',v:(diff>=0?'+':'')+fmtYuan(diff),hl:true}
+       ], diag:{text:obConcl+'；'+risk, cls:riskCls}}
+     ]};
+   }
+ },
+ {
+   key:'medical-appointment', name:'医疗号源收益测算（RevPAA）', badge:'候补行业',
+   desc:'号源=库存、医生时段=房、号别=房型、No-show=爽约。看单号产出 RevPAA 与号源利用率，并模拟超约吸收 No-show。',
+   formula:'RevPAA = 总营收 ÷ 可用号源；可用号源 = 医生数 × 天数 × 每医生日号',
+   groups:[
+     {title:'① 核心参数', inputs:[
+       {id:'docs',label:'出诊医生数（人）',def:20,unit:'人',hint:'统计期出诊总数'},
+       {id:'days',label:'统计天数（天）',def:22,unit:'天',hint:'通常 22 工作日'},
+       {id:'per',label:'每医生日号（个）',def:30,unit:'个',hint:'单医生每天放号'},
+       {id:'seen',label:'实际看诊号（个）',def:11880,unit:'个',hint:'已扣 No-show 净效果'},
+       {id:'val',label:'平均挂号+摊入（元/号）',def:120,unit:'元',hint:'挂号+检查净贡献'}
+     ]},
+     {title:'④ 超约与 No-show 控制模拟', inputs:[
+       {id:'ns',label:'No-show 率（%）',def:10,unit:'%',hint:'爽约不到诊比例'},
+       {id:'ob',label:'超约比例（占可用号源%）',def:8,unit:'%',hint:'应 ≤ No-show 率'}
+     ]}
+   ],
+   compute:function(v){
+     var avail=v.docs*v.days*v.per, util=v.seen/avail, unit=v.val;
+     var rev=unit*v.seen, revpaa=rev/avail;
+     var coreDiag, coreCls; if(util>=0.9){coreDiag='号源健康 ✓ 利用率≥90%';coreCls='ok';}else{coreDiag='号源闲置 ✗ 先补看诊量';coreCls='bad';}
+     var base=v.seen/(1-v.ns/100), total=base+avail*v.ob/100;
+     var arr=total*(1-v.ns/100), can=Math.min(arr,avail);
+     var noRev=unit*v.seen, overRev=unit*can, diff=overRev-noRev;
+     var risk, riskCls; if(v.ob<=v.ns){risk='安全 ✓ 超约≤No-show，零拒载';riskCls='ok';}else{risk='风险 ✗ 超约>No-show，需转诊/加号/安抚';riskCls='bad';}
+     var obConcl, obCls; if(diff>0){obConcl='超约策略多赚 ✓ 收回 No-show 流失的空号';obCls='ok';}else{obConcl='超约未带来增量';obCls='info';}
+     return {sections:[
+       {rows:[
+         {k:'可用号源',v:fmtInt(avail),note:'医生×天数×日号'},
+         {k:'号源利用率',v:fmtPct(util),hl:true},
+         {k:'单号价值',v:fmtYuan(unit)},
+         {k:'本期总营收',v:fmtYuan(rev),hl:true},
+         {k:'单号产出 RevPAA',v:fmtYuan(revpaa),hl:true}
+       ], diag:{text:coreDiag, cls:coreCls}},
+       {rows:[
+         {k:'超约可看诊',v:fmtInt(can)+' 个',hl:true},
+         {k:'不超约收入',v:fmtYuan(noRev)},
+         {k:'超约收入',v:fmtYuan(overRev),hl:true},
+         {k:'收入差',v:(diff>=0?'+':'')+fmtYuan(diff),hl:true}
+       ], diag:{text:obConcl+'；'+risk, cls:riskCls}}
+     ]};
+   }
+ }
+];
+
+/* ============ 渲染与持久化 ============ */
+(function(){
+  var PREFIX='hrma_tool_';
+  function loadSaved(key){ try{return JSON.parse(localStorage.getItem(PREFIX+key)||'null');}catch(e){return null;} }
+  function save(key,obj){ try{localStorage.setItem(PREFIX+key, JSON.stringify(obj));}catch(e){} }
+  function clear(key){ try{localStorage.removeItem(PREFIX+key);}catch(e){} }
+
+  function inputId(key,g,id){ return 'f_'+key+'_'+(g&&g.groupId?g.groupId+'_':'')+id; }
+
+  function buildInputs(tool){
+    var html='';
+    tool.groups.forEach(function(g){
+      if(g.type==='matrix'){
+        html+='<div class="tw-grp"><h3>'+g.title+'</h3><table class="tw-tbl"><thead><tr><th>'+g.rows[0].label.replace(/\(.*\)/,'')+'</th>';
+        g.cols.forEach(function(c){ html+='<th>'+c.label+'</th>'; });
+        html+='</tr></thead><tbody>';
+        g.rows.forEach(function(r){
+          html+='<tr><td>'+r.label+'</td>';
+          g.cols.forEach(function(c){
+            var iid=inputId(tool.key,g,r.id+'_'+c.id);
+            html+='<td><input type="number" id="'+iid+'" data-def="'+r[c.id]+'" data-key="'+r.id+'_'+c.id+'"></td>';
+          });
+          html+='</tr>';
+        });
+        html+='</tbody></table></div>';
+      } else {
+        html+='<div class="tw-grp"><h3>'+g.title+'</h3><div class="tw-grid">';
+        g.inputs.forEach(function(it){
+          var iid=inputId(tool.key,null,it.id);
+          html+='<div class="tw-fld"><label>'+it.label+(it.unit?' <b>'+it.unit+'</b>':'')+'</label>'+
+            '<input type="number" id="'+iid+'" data-def="'+it.def+'">'+
+            (it.hint?'<span class="hint">'+it.hint+'</span>':'')+'</div>';
+        });
+        html+='</div></div>';
+      }
+    });
+    return html;
+  }
+
+  function readVals(tool){
+    var v={};
+    tool.groups.forEach(function(g){
+      if(g.type==='matrix'){
+        g.rows.forEach(function(r){
+          g.cols.forEach(function(c){
+            var el=document.getElementById(inputId(tool.key,g,r.id+'_'+c.id));
+            v[r.id+'_'+c.id]=parseFloat(el&&el.value!==''?el.value:el.dataset.def)||0;
+          });
+        });
+      } else {
+        g.inputs.forEach(function(it){
+          var el=document.getElementById(inputId(tool.key,null,it.id));
+          v[it.id]=parseFloat(el&&el.value!==''?el.value:el.dataset.def)||0;
+        });
+      }
+    });
+    return v;
+  }
+
+  function renderOut(tool, res){
+    var html='';
+    res.sections.forEach(function(sec){
+      html+='<div class="tw-out">';
+      if(sec.title) html+='<h3>'+sec.title+'</h3>';
+      if(sec.table){
+        html+='<table class="tw-tbl"><thead><tr>';
+        sec.table.head.forEach(function(h){html+='<th>'+h+'</th>';});
+        html+='</tr></thead><tbody>';
+        sec.table.rows.forEach(function(row){
+          html+='<tr>'; row.forEach(function(c){html+='<td>'+c+'</td>';}); html+='</tr>';
+        });
+        html+='</tbody></table>';
+      }
+      if(sec.rows){
+        html+='<div class="tw-res">';
+        sec.rows.forEach(function(r){
+          html+='<div class="tw-row"><span class="k">'+r.k+(r.note?' <small>'+r.note+'</small>':'')+'</span><span class="v'+(r.hl?' hl':'')+'">'+r.v+'</span></div>';
+        });
+        html+='</div>';
+      }
+      if(sec.diag) html+='<div class="tw-diag '+sec.diag.cls+'">'+sec.diag.text+'</div>';
+      html+='</div>';
+    });
+    return html;
+  }
+
+  function recompute(tool){
+    var v=readVals(tool);
+    var res=tool.compute(v);
+    document.getElementById('out_'+tool.key).innerHTML=renderOut(tool,res);
+    save(tool.key, v);
+  }
+
+  function copyRes(tool){
+    var txt=tool.name+'\n';
+    var v=readVals(tool); var res=tool.compute(v);
+    res.sections.forEach(function(sec){
+      if(sec.title) txt+='\n['+sec.title+']\n';
+      if(sec.table){ sec.table.head.forEach(function(h,i){ if(i)txt+='\t'; txt+=h;}); txt+='\n';
+        sec.table.rows.forEach(function(row){ row.forEach(function(c,i){ if(i)txt+='\t'; txt+=c;}); txt+='\n'; }); }
+      if(sec.rows){ sec.rows.forEach(function(r){ txt+=r.k+'：'+r.v+(r.note?'（'+r.note+'）':'')+'\n'; }); }
+      if(sec.diag) txt+='→ '+sec.diag.text+'\n';
+    });
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt); }
+      else { var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }
+      if(window.Notify) Notify.toast('已复制「'+tool.name+'」结果'); else alert('已复制结果');
+    }catch(e){ alert(txt); }
+  }
+
+  // TOC + main
+  var toc='', main='';
+  TOOLS.forEach(function(t){
+    toc+='<a href="#'+t.key+'" data-key="'+t.key+'">'+t.name+'</a>';
+    main+='<section class="tw-card" id="'+t.key+'">'+
+      '<span class="badge">'+t.badge+'</span><h2>'+t.name+'</h2>'+
+      '<p class="desc">'+t.desc+'</p>'+
+      '<div class="formula">'+t.formula+'</div>'+
+      buildInputs(t)+
+      '<div id="out_'+t.key+'"></div>'+
+      '<div class="foot"><button class="save" data-key="'+t.key+'">重新计算</button>'+
+      '<button class="reset" data-key="'+t.key+'">重置本工具</button>'+
+      '<button class="copy" data-key="'+t.key+'">复制结果</button>'+
+      '<span class="saved" id="saved_'+t.key+'">已自动保存 ✓</span></div>'+
+      '</section>';
+  });
+  document.getElementById('twToc').innerHTML=toc;
+  document.getElementById('twMain').innerHTML=main;
+
+  // 初始化：填值（先存后默认值）+ 绑定
+  TOOLS.forEach(function(t){
+    var saved=loadSaved(t.key)||{};
+    t.groups.forEach(function(g){
+      if(g.type==='matrix'){
+        g.rows.forEach(function(r){ g.cols.forEach(function(c){
+          var el=document.getElementById(inputId(t.key,g,r.id+'_'+c.id));
+          var val=saved[r.id+'_'+c.id];
+          el.value=(val===undefined||val===null)?r[c.id]:val;
+        });});
+      } else {
+        g.inputs.forEach(function(it){
+          var el=document.getElementById(inputId(t.key,null,it.id));
+          var val=saved[it.id];
+          el.value=(val===undefined||val===null)?it.def:val;
+          el.addEventListener('input', function(){ flashSaved(t.key); recompute(t); });
+        });
+      }
+    });
+    recompute(t);
+    var card=document.getElementById(t.key);
+    card.querySelector('.save').addEventListener('click', function(){ recompute(t); flashSaved(t.key); });
+    card.querySelector('.reset').addEventListener('click', function(){ clear(t.key);
+      t.groups.forEach(function(g){
+        if(g.type==='matrix'){ g.rows.forEach(function(r){ g.cols.forEach(function(c){ document.getElementById(inputId(t.key,g,r.id+'_'+c.id)).value=r[c.id]; });}); }
+        else { g.inputs.forEach(function(it){ document.getElementById(inputId(t.key,null,it.id)).value=it.def; }); }
+      });
+      recompute(t);
+    });
+    card.querySelector('.copy').addEventListener('click', function(){ copyRes(t); });
+  });
+
+  function flashSaved(key){ var s=document.getElementById('saved_'+key); if(!s)return; s.classList.add('show'); setTimeout(function(){s.classList.remove('show');},1200); }
+
+  // 清空全部
+  var ca=document.getElementById('twClearAll');
+  if(ca) ca.addEventListener('click', function(){
+    if(!confirm('确定清空本机所有工具已保存的数据？此操作不可恢复。')) return;
+    TOOLS.forEach(function(t){ clear(t.key); });
+    location.reload();
+  });
+
+  // TOC 高亮
+  var links=document.querySelectorAll('#twToc a');
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(l){ l.classList.toggle('on', l.dataset.key===e.target.id); });
+      }});
+    }, {rootMargin:'-20% 0px -70% 0px'});
+    TOOLS.forEach(function(t){ obs.observe(document.getElementById(t.key)); });
+  }
+})();
+</script>
+</body>
+</html>

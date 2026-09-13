@@ -243,6 +243,17 @@
     { t: "资讯", p: "news.html", items: [
       { t: "行业资讯", p: "news.html" },
       { t: "资讯总览", p: "news.html#all" }
+    ]},
+    { t: "在线工具", p: "tools.html", items: [
+      { t: "工具总览", p: "tools.html" },
+      { t: "超额预订测算", p: "tools.html#overbooking" },
+      { t: "置换分析", p: "tools.html#displacement" },
+      { t: "入住率手工预测", p: "tools.html#forecast" },
+      { t: "邮轮 RevPAC", p: "tools.html#cruise" },
+      { t: "长租公寓 RevPAU", p: "tools.html#rental-apartment" },
+      { t: "研学营地 RevPAS", p: "tools.html#research-camp" },
+      { t: "租车 RevPAT", p: "tools.html#car-rental" },
+      { t: "医疗号源 RevPAA", p: "tools.html#medical-appointment" }
     ]}
   ];
 
