@@ -610,6 +610,313 @@ var GJP_EPISODES = [
       {illu:ILLU.note('!','预案比赔偿更重要：平时就和周边酒店谈好互助。','功夫在事前'),cap:'关键',say:'关键：预案比赔偿重要。平时就和周边酒店谈好互助，出事不抓瞎。'},
       {illu:ILLU.note('✓','翻房：识别→升级/赔礼→安置周边，预案在平时备好。','兜得住才敢超'),cap:'一句话记住',say:'一句话：翻房不可怕，有预案才敢超；平时备好互助，出事能兜住。'}
     ]
+  },
+  {
+    id:"c21", part:"concept", no:21, title:"易逝库存", en:"Perishable Inventory",
+    tag:"核心约束", dur:7000,
+    takeaway:"易逝库存：时间一到价值归零，所以要在最有效的时间点卖出最高的价。",
+    slides:[
+      {illu:ILLU.title("易逝库存", "Perishable Inventory"), cap:"概念", say:"房晚、舱位、号源、车位，今天卖不掉，明天价值就归零——这是收益管理存在的根本原因。"},
+      {illu:ILLU.note("✦", "房晚、舱位、号源、车位，今天卖不掉明天归零——这是收益管理存在的根本原因。", "为什么要有收益管理"), cap:"核心约束", say:"库存会过期：酒店的房晚、邮轮的舱位、医生的号，过时不候。"},
+      {illu:ILLU.bars([["今天卖", 100, "#2C5282"], ["明天剩", 0, "#7B8794"]], "过期即作废"), cap:"图形化", say:"横轴是时间，库存随时间流逝而作废，无法像普通商品一样囤到明天再卖。"},
+      {illu:ILLU.note("✓", "易逝库存：时间一到归零，所以要在最有效的时间点卖出最高的价。", "记住这条"), cap:"一句话记住", say:"一句话：易逝库存过期归零，逼着我们在对的时间卖给对的人。"},
+    ]
+  },
+  {
+    id:"c22", part:"concept", no:22, title:"固定产能", en:"Fixed Capacity",
+    tag:"核心约束", dur:7000,
+    takeaway:"固定产能 + 易逝库存 = 只能靠卖给对的人、对的价格来提升收益。",
+    slides:[
+      {illu:ILLU.title("固定产能", "Fixed Capacity"), cap:"概念", say:"酒店的房、邮轮的舱、医生的号，短期几乎无法增加——产能是锁死的。"},
+      {illu:ILLU.metric("100", "间房", "扩建要几年，今天还是这么多", "#2C5282"), cap:"产能锁死", say:"短期里，可售产能基本固定，今天多卖不出一间，明天也不会凭空多一间。"},
+      {illu:ILLU.note("✦", "酒店的房、邮轮的舱、医生的号，短期几乎无法增加——只能把现有产能卖得更值。", "产能锁死"), cap:"关键", say:"既然加不了产能，提升收益的唯一杠杆就是：卖给更值钱的人、定更值钱的价格。"},
+      {illu:ILLU.note("✓", "固定产能 + 易逝库存 = 只能靠「卖给对的人、对的价格」提升收益。", "核心约束"), cap:"一句话记住", say:"一句话：产能固定又易逝，只能靠定价和细分把现有产能卖到最值。"},
+    ]
+  },
+  {
+    id:"c24", part:"concept", no:24, title:"提前期", en:"Booking Lead Time",
+    tag:"细分维度", dur:7000,
+    takeaway:"提前期是细分定价的关键维度：早鸟价锁远期，尾单价清临近。",
+    slides:[
+      {illu:ILLU.title("提前期", "Booking Lead Time"), cap:"概念", say:"从下订到实际使用（入住/起飞/出诊）的间隔天数，就是提前期。"},
+      {illu:ILLU.flow(["提前30天订", "提前7天订", "当天订"], "提前期分群"), cap:"怎么用", say:"按提前期把客人分群：越早订越有计划性，越临近越急。"},
+      {illu:ILLU.note("✦", "提前期越长，客人计划性越强、价格越不敏感；越临近，越急、越肯出价或越挑。", "用提前期分群"), cap:"关键判断", say:"长提前期客群适合用早鸟价提前锁量；短提前期客群可收更高价或最后甩卖。"},
+      {illu:ILLU.note("✓", "提前期是细分定价的关键维度：早鸟价锁远期，尾单价清临近。", "记住这条"), cap:"一句话记住", say:"一句话：提前期长短决定敏感度，是早鸟与尾单的划分依据。"},
+    ]
+  },
+  {
+    id:"c25", part:"concept", no:25, title:"需求曲线", en:"Demand Curve",
+    tag:"定价图形", dur:7000,
+    takeaway:"需求曲线把定价画成图：最高点不在最贵也不最便宜，而在总收入最大的那个价。",
+    slides:[
+      {illu:ILLU.title("需求曲线", "Demand Curve"), cap:"概念", say:"价格越高、需求越少——这条反向关系就是需求曲线。"},
+      {illu:ILLU.bars([["高价", 30, "#C0392B"], ["中价", 80, "#2C5282"], ["低价", 100, "#7B8794"]], "价格↑ 需求↓"), cap:"图形化", say:"横轴是价格，纵轴是能卖出去的量；价越高，能卖掉的量越少。"},
+      {illu:ILLU.note("✦", "需求曲线：价格越高需求越少。收益管理的目标不是最高价，而是总收入最大的那个价。", "定价与弹性"), cap:"关键判断", say:"总收入 = 价格 × 销量。最高价时销量低，最低价时单价低，中间某点总收入最大。"},
+      {illu:ILLU.note("✓", "需求曲线把定价画成图：最高点不在最贵也不最便宜，而在总收入最大的价。", "一句话记住"), cap:"一句话记住", say:"一句话：需求曲线告诉我们，追求的是总收入最大，不是单价最高。"},
+    ]
+  },
+  {
+    id:"c26", part:"concept", no:26, title:"早鸟价", en:"Early Bird",
+    tag:"定价动作", dur:7000,
+    takeaway:"早鸟价＝用折扣买确定性：锁量、回款、保临近高价房。",
+    slides:[
+      {illu:ILLU.title("早鸟价", "Early Bird"), cap:"概念", say:"越早订越便宜——用折扣换“提前锁定”的定价动作。"},
+      {illu:ILLU.flow(["提前锁量", "回笼现金流", "临近好房留高价客"], "早鸟三得"), cap:"为什么做", say:"早鸟价一举三得：先把远期库存卖出去、提前回笼资金、把临近高档房留给临时客。"},
+      {illu:ILLU.note("✦", "早鸟价用折扣换「提前锁定」：先把远期房卖出去、回笼资金，把临近的高价房留给临时客。", "早鸟逻辑"), cap:"关键", say:"用一点折扣，买来确定性和现金流，比临近空着强。"},
+      {illu:ILLU.note("✓", "早鸟价＝用折扣买确定性：锁量、回款、保临近高价房。", "记住这条"), cap:"一句话记住", say:"一句话：早鸟价是拿折扣换确定性和临近高价房。"},
+    ]
+  },
+  {
+    id:"c27", part:"concept", no:27, title:"尾单甩卖", en:"Last-minute Sale",
+    tag:"定价动作", dur:7000,
+    takeaway:"尾单甩卖：临近空房能收一点是一点，优先覆盖变动成本、别让它归零。",
+    slides:[
+      {illu:ILLU.title("尾单甩卖", "Last-minute Sale"), cap:"概念", say:"临近使用还有空房，用低价清掉——哪怕便宜也要尽量收回变动成本。"},
+      {illu:ILLU.note("✦", "临近入住还有空房，空着也是归零——尾单甩卖哪怕低价也要尽量收回变动成本。", "别让房空着"), cap:"核心", say:"空房的成本已经沉没，多卖一元都是净赚，所以临近该降价清库存。"},
+      {illu:ILLU.compare({"t": "甩尾单", "v": "收回变动成本", "s": "好过空置", "note": "总比空强", "c": "#2E8B7A"}, {"t": "不甩", "v": "空置归零", "s": "纯损失", "note": "可惜", "c": "#C0392B"}, "两选一"), cap:"两选一", say:"甩尾单能收回变动成本，不甩则归零；除非会影响品牌，否则该甩。"},
+      {illu:ILLU.note("✓", "尾单甩卖：临近空房能收一点是一点，优先覆盖变动成本、别让它归零。", "记住这条"), cap:"一句话记住", say:"一句话：尾单甩卖是给易逝库存最后一次变现的机会。"},
+    ]
+  },
+  {
+    id:"c28", part:"concept", no:28, title:"差别定价", en:"Differential Pricing",
+    tag:"定价方法", dur:7000,
+    takeaway:"差别定价＝同库存、不同客、不同价；前提是不引起客诉与渠道冲突。",
+    slides:[
+      {illu:ILLU.title("差别定价", "Differential Pricing"), cap:"概念", say:"同一种库存，对不同细分卖不同价，把每间房卖到它肯出的价。"},
+      {illu:ILLU.segments([{"l": "散客", "v": 35, "c": "#2C5282"}, {"l": "会员", "v": 25, "c": "#B8894A"}, {"l": "团队", "v": 20, "c": "#2E8B7A"}, {"l": "OTA", "v": 20, "c": "#7B8794"}], "同一房不同价"), cap:"图形化", say:"同一间房，散客、会员、团队、OTA 拿到不同价，整体收入更高。"},
+      {illu:ILLU.note("✦", "差别定价：同一种库存，对不同细分（渠道/提前期/弹性）卖不同价，把每间房卖到它肯出的价。", "同物不同价"), cap:"关键", say:"前提是不让客人觉得被宰、不触发渠道冲突（价格一致性仍是底线）。"},
+      {illu:ILLU.note("✓", "差别定价＝同库存、不同客、不同价；前提是不引起客诉与渠道冲突。", "记住这条"), cap:"一句话记住", say:"一句话：差别定价让同一间房在不同客人身上卖出不同价值。"},
+    ]
+  },
+  {
+    id:"c29", part:"concept", no:29, title:"Walk 拒载", en:"Walk-in / Denied Stay",
+    tag:"超售代价", dur:7000,
+    takeaway:"Walk 拒载：超售失控的代价，预案（周边互助）比赔偿更重要。",
+    slides:[
+      {illu:ILLU.title("Walk 拒载", "Walk-in"), cap:"概念", say:"到店却无房可住，就是 Walk——超售过头或 No-show 没发生时的尴尬局面。"},
+      {illu:ILLU.rooms(11, 10, {"over": 1}), cap:"多 1 间", say:"10 间卖了 11 间，No-show 没发生，就多出 1 位需要安置的客人。"},
+      {illu:ILLU.note("✦", "超售过头或 No-show 没发生，就会出现 Walk：到店无房。要升级/赔礼/安置周边，成本最高。", "超售的代价"), cap:"关键", say:"Walk 的补偿成本远高于空置损失，所以超售必须有度、有预案。"},
+      {illu:ILLU.note("✓", "Walk 拒载：超售失控的代价，预案（周边互助）比赔偿更重要。", "记住这条"), cap:"一句话记住", say:"一句话：Walk 是超售的代价，平时备好互助预案才敢超。"},
+    ]
+  },
+  {
+    id:"c30", part:"concept", no:30, title:"嵌套式库存控制", en:"Nested Inventory Control",
+    tag:"库存方法", dur:7000,
+    takeaway:"嵌套库存：先开高价类、满才开低价，避免高价房被低价客抢走。",
+    slides:[
+      {illu:ILLU.title("嵌套式库存控制", "Nested Inventory Control"), cap:"概念", say:"库存按价格从高到低嵌套开放，先卖高价房类。"},
+      {illu:ILLU.flow(["开最高价房类", "未满才开次高", "最低价兜底"], "由高到低开"), cap:"怎么开", say:"先放最贵的房类，卖不动再依次放开下一档，最低价只做兜底。"},
+      {illu:ILLU.note("✦", "库存按价格从高到低嵌套开放：先卖高价房类，卖不动再放低一档，确保不把高价房低价卖掉。", "保护高价"), cap:"关键", say:"嵌套让系统自动把房留给肯出高价的客人，不会提前把高价房贱卖。"},
+      {illu:ILLU.note("✓", "嵌套库存：先开高价类、满才开低价，避免高价房被低价客抢走。", "记住这条"), cap:"一句话记住", say:"一句话：嵌套库存保护高价，低价房只兜底。"},
+    ]
+  },
+  {
+    id:"c31", part:"concept", no:31, title:"渠道管理", en:"Channel Management",
+    tag:"渠道", dur:7000,
+    takeaway:"渠道管理＝按净贡献分配房量与价，别只看挂牌价。",
+    slides:[
+      {illu:ILLU.title("渠道管理", "Channel Management"), cap:"概念", say:"不同渠道成本不同，要分配各渠道的房量与价。"},
+      {illu:ILLU.segments([{"l": "直订", "v": 40, "c": "#2E8B7A"}, {"l": "OTA", "v": 45, "c": "#2C5282"}, {"l": "协议", "v": 15, "c": "#B8894A"}], "渠道结构"), cap:"结构", say:"直订零佣金、OTA 有佣金、协议价有合同——三者成本和价值不同。"},
+      {illu:ILLU.note("✦", "不同渠道成本不同（直订最便宜、OTA 有佣金）。渠道管理就是分配各渠道房量与价，让净收益最大。", "净收益视角"), cap:"关键", say:"看净贡献而非挂牌价：同一间房在直订净赚更多，应多给直订。"},
+      {illu:ILLU.note("✓", "渠道管理＝按净贡献分配房量与价，别只看挂牌价。", "记住这条"), cap:"一句话记住", say:"一句话：渠道管理看的是净贡献，不是表面房价。"},
+    ]
+  },
+  {
+    id:"c32", part:"concept", no:32, title:"OTA 与直订", en:"OTA vs Direct",
+    tag:"渠道", dur:7000,
+    takeaway:"OTA 补量、直订提净；价格一致性是底线，别让 OTA 比直订便宜。",
+    slides:[
+      {illu:ILLU.title("OTA 与直订", "OTA vs Direct"), cap:"概念", say:"OTA 带来客源但有佣金，直订零佣金却要自己引流。"},
+      {illu:ILLU.compare({"t": "直订", "v": "无佣金", "s": "净贡献高", "note": "要引流", "c": "#2E8B7A"}, {"t": "OTA", "v": "约15%佣金", "s": "带来流量", "note": "有成本", "c": "#C0392B"}, "两渠道"), cap:"对比", say:"直订净赚更多但需引流，OTA 有流量但要分佣金。"},
+      {illu:ILLU.note("✦", "OTA 带来客源但有佣金，直订零佣金却要自己引流。两端搭配，用直订提净收益、用 OTA 补量。", "搭配使用"), cap:"关键", say:"两端搭配：OTA 补量、直订提净，但价格一致性不能破。"},
+      {illu:ILLU.note("✓", "OTA 补量、直订提净；价格一致性是底线，别让 OTA 比直订便宜。", "记住这条"), cap:"一句话记住", say:"一句话：OTA 与直订互补，价格一致是红线。"},
+    ]
+  },
+  {
+    id:"c33", part:"concept", no:33, title:"竞争响应", en:"Competitive Response",
+    tag:"竞争", dur:7000,
+    takeaway:"竞争响应：看定位、守差异，局部微调，别被带进价格战。",
+    slides:[
+      {illu:ILLU.title("竞争响应", "Competitive Response"), cap:"概念", say:"对手突然降价，你该怎么应对？"},
+      {illu:ILLU.flow(["看定位", "看客群", "局部调"], "应对三步"), cap:"怎么应对", say:"先看自己定位，再看核心客群敏感度，必要时只调部分细分。"},
+      {illu:ILLU.note("✦", "对手降价别慌：先看自己定位与客群敏感度，差异化守住，只对有价格敏感的部分局部跟。", "不盲跟"), cap:"关键判断", say:"盲目跟降只会陷入价格战、两败俱伤；守住定位更稳。"},
+      {illu:ILLU.note("✓", "竞争响应：看定位、守差异，局部微调，别被带进价格战。", "记住这条"), cap:"一句话记住", say:"一句话：竞品降价别被带节奏，看定位、守差异、局部微调。"},
+    ]
+  },
+  {
+    id:"c34", part:"concept", no:34, title:"RevPAC（邮轮）", en:"RevPAC · Cruise",
+    tag:"跨行业指标", dur:7000,
+    takeaway:"RevPAC＝（船票+岸上餐饮）×已售 ÷ 可用舱位夜。舱位=房、航次=连住。",
+    slides:[
+      {illu:ILLU.title("RevPAC 邮轮", "RevPAC · Cruise"), cap:"概念", say:"邮轮版 RevPAR：看单舱产出。"},
+      {illu:ILLU.metric("RevPAC", "单舱产出", "舱位夜=房×航次天", "#B8894A"), cap:"指标", say:"把舱位当房、航次当连住，RevPAC 衡量每可用舱位夜的收入。"},
+      {illu:ILLU.note("✦", "RevPAC＝（船票+岸上餐饮）×已售 ÷ 可用舱位夜。可用舱位夜=舱位数×航次天数。", "怎么算"), cap:"公式", say:"分子是（船票+岸上餐饮）已售收入，分母是舱位数×航次天数。"},
+      {illu:ILLU.note("✓", "RevPAC＝（船票+岸上餐饮）×已售 ÷ 可用舱位夜。舱位=房、航次=连住。", "记住这条"), cap:"一句话记住", say:"一句话：邮轮把舱位当晚、航次当连住，看单舱产出 RevPAC。"},
+    ]
+  },
+  {
+    id:"c35", part:"concept", no:35, title:"RevPASH（餐饮）", en:"RevPASH · F&B",
+    tag:"跨行业指标", dur:7000,
+    takeaway:"RevPASH＝营收 ÷ 餐位 ÷ 营业小时。翻台率×客单价，是餐饮收益核心。",
+    slides:[
+      {illu:ILLU.title("RevPASH 餐饮", "RevPASH · F&B"), cap:"概念", say:"餐饮版 RevPAR：看每餐位每小时产出。"},
+      {illu:ILLU.metric("RevPASH", "每餐位每小时", "餐饮版 RevPAR", "#B8894A"), cap:"指标", say:"餐位会随时间“过期”，所以除以营业小时，衡量单位时间的产出。"},
+      {illu:ILLU.note("✦", "RevPASH＝营收 ÷ 餐位 ÷ 营业小时。翻台率×客单价，是餐饮收益核心。", "怎么算"), cap:"公式", say:"提高翻台率、提高客单价、或把闲时变高峰，都能拉升 RevPASH。"},
+      {illu:ILLU.note("✓", "RevPASH＝营收 ÷ 餐位 ÷ 营业小时。翻台率×客单价，是餐饮收益核心。", "记住这条"), cap:"一句话记住", say:"一句话：餐饮靠翻台率和客单价，看每餐位每小时 RevPASH。"},
+    ]
+  },
+  {
+    id:"c36", part:"concept", no:36, title:"RASK（航空）", en:"RASK · Airline",
+    tag:"跨行业指标", dur:7000,
+    takeaway:"RASK＝总收入 ÷ 可用座位公里（ASK）。座公里=座位×飞行公里，衡量单位运力产出。",
+    slides:[
+      {illu:ILLU.title("RASK 航空", "RASK · Airline"), cap:"概念", say:"航空版 RevPAR：看每座位公里产出。"},
+      {illu:ILLU.metric("RASK", "每座位公里", "航空版 RevPAR", "#B8894A"), cap:"指标", say:"座位是固定产能，飞行公里是“时间维度”，座公里把两者合起来。"},
+      {illu:ILLU.note("✦", "RASK＝总收入 ÷ 可用座位公里（ASK）。座公里=座位×飞行公里，衡量单位运力产出。", "怎么算"), cap:"公式", say:"ASK = 座位数 × 飞行公里；RASK 高说明单位运力赚得多。"},
+      {illu:ILLU.note("✓", "RASK＝总收入 ÷ 可用座位公里（ASK）。座公里=座位×飞行公里，衡量单位运力产出。", "记住这条"), cap:"一句话记住", say:"一句话：航空把座位×公里当产能，看每座公里 RASK。"},
+    ]
+  },
+  {
+    id:"c37", part:"concept", no:37, title:"RevPAS（研学营地）", en:"RevPAS · Camp",
+    tag:"跨行业指标", dur:7000,
+    takeaway:"RevPAS＝（营费+餐饮）×已售 ÷ 可用营位夜。营位=房、营期=连住、批次=档期。",
+    slides:[
+      {illu:ILLU.title("RevPAS 研学营地", "RevPAS · Camp"), cap:"概念", say:"营地版 RevPAR：看单营位产出。"},
+      {illu:ILLU.metric("RevPAS", "单营位产出", "营位夜=位×营期×批次", "#B8894A"), cap:"指标", say:"营位当房、营期当连住、批次当档期，三数相乘得可用营位夜。"},
+      {illu:ILLU.note("✦", "RevPAS＝（营费+餐饮）×已售 ÷ 可用营位夜。可用营位夜=营位数×营期×批次。", "怎么算"), cap:"公式", say:"早鸟锁远期、临期甩舱清库存，逻辑和酒店完全一致。"},
+      {illu:ILLU.note("✓", "RevPAS＝（营费+餐饮）×已售 ÷ 可用营位夜。营位=房、营期=连住、批次=档期。", "记住这条"), cap:"一句话记住", say:"一句话：研学把营位当晚、营期当连住，看单营位 RevPAS。"},
+    ]
+  },
+  {
+    id:"c38", part:"concept", no:38, title:"RevPAT（租车）", en:"RevPAT · Car Rental",
+    tag:"跨行业指标", dur:7000,
+    takeaway:"RevPAT＝总营收 ÷ 可用车辆·天。车=房、租期=连住、车型=房型。",
+    slides:[
+      {illu:ILLU.title("RevPAT 租车", "RevPAT · Car Rental"), cap:"概念", say:"租车版 RevPAR：看单车产出。"},
+      {illu:ILLU.metric("RevPAT", "单车产出", "车辆·天=车队×天数", "#B8894A"), cap:"指标", say:"车当房、租期当连住、车型当房型，可用车辆·天=车队×天数。"},
+      {illu:ILLU.note("✦", "RevPAT＝总营收 ÷ 可用车辆·天。可用车辆·天=车队规模×统计天数。", "怎么算"), cap:"公式", say:"用超售吸收 No-show，逻辑和酒店超订一致。"},
+      {illu:ILLU.note("✓", "RevPAT＝总营收 ÷ 可用车辆·天。车=房、租期=连住、车型=房型。", "记住这条"), cap:"一句话记住", say:"一句话：租车把车当晚、租期当连住，看单车 RevPAT。"},
+    ]
+  },
+  {
+    id:"c39", part:"concept", no:39, title:"RevPAA（医疗号源）", en:"RevPAA · Appointment",
+    tag:"跨行业指标", dur:7000,
+    takeaway:"RevPAA＝总营收 ÷ 可用号源。号源=库存、医生时段=房、号别=房型、No-show=爽约。",
+    slides:[
+      {illu:ILLU.title("RevPAA 医疗号源", "RevPAA · Appointment"), cap:"概念", say:"医疗版 RevPAR：看单号产出。"},
+      {illu:ILLU.metric("RevPAA", "单号产出", "号源=医生×天×日号", "#B8894A"), cap:"指标", say:"号源当库存、医生时段当房、号别当房型，可用号源=医生×天数×日号。"},
+      {illu:ILLU.note("✦", "RevPAA＝总营收 ÷ 可用号源。可用号源=医生数×天数×每医生日号。", "怎么算"), cap:"公式", say:"爽约（No-show）和超约吸收，与酒店超订同一套逻辑。"},
+      {illu:ILLU.note("✓", "RevPAA＝总营收 ÷ 可用号源。号源=库存、医生时段=房、号别=房型、No-show=爽约。", "记住这条"), cap:"一句话记住", say:"一句话：医疗把号源当晚、医生时段当房，看单号 RevPAA。"},
+    ]
+  },
+  {
+    id:"c40", part:"concept", no:40, title:"调价台账", en:"Pricing Log",
+    tag:"操作纪律", dur:7000,
+    takeaway:"调价台账＝调价的黑匣子：可复盘、可追责、可迭代。",
+    slides:[
+      {illu:ILLU.title("调价台账", "Pricing Log"), cap:"概念", say:"每次调价都留下记录，形成可追溯的台账。"},
+      {illu:ILLU.flow(["记依据", "记改了什么", "记实际vs预期"], "台账三步"), cap:"记什么", say:"记清依据哪张表、改了什么价、实际与预期差多少。"},
+      {illu:ILLU.note("✦", "每次调价都要登记：依据哪张表、改了什么价、实际与预期差多少，事后复盘命中率、沉淀经验。", "可追溯"), cap:"关键", say:"没有台账，调价就成了拍脑袋；有台账才能复盘、追责、迭代。"},
+      {illu:ILLU.note("✓", "调价台账＝调价的黑匣子：可复盘、可追责、可迭代。", "记住这条"), cap:"一句话记住", say:"一句话：调价台账让每一次调价都可追溯、可改进。"},
+    ]
+  },
+  {
+    id:"ca", part:"codex", no:null, title:"表A·每日调价", en:"Table A",
+    tag:"法典判定表", dur:7000,
+    takeaway:"表A：需求旺+库存紧→涨；需求弱+库存松→降或促；中间→持平。",
+    slides:[
+      {illu:ILLU.title("表A·每日调价", "Table A"), cap:"概念", say:"表A 是每日价格调整判定表。"},
+      {illu:ILLU.note("✦", "表A 是每日价格调整判定表：看当天需求与库存，读出该涨价、降价还是持平。", "每天用"), cap:"用途", say:"每天开盘前，按表A 读一眼需求与库存，决定今天动作。"},
+      {illu:ILLU.flow(["看需求", "看库存", "读出动作"], "表A用法"), cap:"怎么用", say:"需求旺+库存紧就涨，需求弱+库存松就降或促，中间持平。"},
+      {illu:ILLU.note("✓", "表A：需求旺+库存紧→涨；需求弱+库存松→降或促；中间→持平。", "记住这条"), cap:"一句话记住", say:"一句话：表A 每天告诉你今天该涨、该降还是持平。"},
+    ]
+  },
+  {
+    id:"cb", part:"codex", no:null, title:"表B·库存限制", en:"Table B",
+    tag:"法典判定表", dur:7000,
+    takeaway:"表B：价格定完配限制，别让低价客占走高价房。",
+    slides:[
+      {illu:ILLU.title("表B·库存限制", "Table B"), cap:"概念", say:"表B 在价格定完后配库存动作。"},
+      {illu:ILLU.note("✦", "表B 在价格定完后配库存动作：关房、最小连住、超售，把房留给对的客。", "价格之后"), cap:"用途", say:"价格只是第一步，库存限制决定房最终卖给谁。"},
+      {illu:ILLU.flow(["关低价房", "设MinLOS", "定超售"], "表B动作"), cap:"怎么用", say:"关掉低价渠道、设最小连住、按表E 定超售上限。"},
+      {illu:ILLU.note("✓", "表B：价格定完配限制，别让低价客占走高价房。", "记住这条"), cap:"一句话记住", say:"一句话：表B 给房配上限制，护住价格体系的成果。"},
+    ]
+  },
+  {
+    id:"cc", part:"codex", no:null, title:"表C·价格指数 ARI", en:"Table C (ARI)",
+    tag:"法典判定表", dur:7000,
+    takeaway:"表C：ARI>100 比对手贵，结合 MPI 决定提或降；<100 偏便宜可涨。",
+    slides:[
+      {illu:ILLU.title("表C·价格指数", "Table C (ARI)"), cap:"概念", say:"表C 用 ARI 判断相对竞对贵贱。"},
+      {illu:ILLU.metric("ARI", "本店ADR÷竞组ADR", "=100 同价", "#2C5282"), cap:"指标", say:"ARI = 本店 ADR ÷ 竞组平均 ADR。"},
+      {illu:ILLU.note("✦", "表C：ARI>100 比对手贵，结合 MPI 决定提或降；<100 偏便宜可涨。", "怎么判"), cap:"判断", say:"ARI 要和 MPI 一起看：贵但份额掉，就要小心。"},
+      {illu:ILLU.note("✓", "表C：ARI>100 比对手贵，结合 MPI 决定提或降；<100 偏便宜可涨。", "记住这条"), cap:"一句话记住", say:"一句话：表C 看 ARI，相对竞对贵贱决定调价方向。"},
+    ]
+  },
+  {
+    id:"cd", part:"codex", no:null, title:"表D·渗透指数 MPI", en:"Table D (MPI)",
+    tag:"法典判定表", dur:7000,
+    takeaway:"表D：MPI>100 抢到更多份额；落后则促销抢量，领先则可提价。",
+    slides:[
+      {illu:ILLU.title("表D·渗透指数", "Table D (MPI)"), cap:"概念", say:"表D 用 MPI 判断相对份额。"},
+      {illu:ILLU.metric("MPI", "本店OCC÷竞组OCC", "=100 同份额", "#2C5282"), cap:"指标", say:"MPI = 本店入住率 ÷ 竞组平均入住率。"},
+      {illu:ILLU.note("✦", "表D：MPI>100 抢到更多份额；落后则促销抢量，领先则可提价。", "怎么判"), cap:"判断", say:"份额落后先抢量，份额领先再提价，顺序不能反。"},
+      {illu:ILLU.note("✓", "表D：MPI>100 抢到更多份额；落后则促销抢量，领先则可提价。", "记住这条"), cap:"一句话记住", say:"一句话：表D 看 MPI，份额决定先抢量还是先提价。"},
+    ]
+  },
+  {
+    id:"ce", part:"codex", no:null, title:"表E·超售标准", en:"Table E",
+    tag:"法典判定表", dur:7000,
+    takeaway:"表E：超售上限≈(No-show+取消)×预订量，且≤硬上限，控 Walk 风险。",
+    slides:[
+      {illu:ILLU.title("表E·超售标准", "Table E"), cap:"概念", say:"表E 给出当天可超售几间。"},
+      {illu:ILLU.note("✦", "表E 按历史 No-show+取消率算出当天可超售几间，给出安全上限。", "超售有据"), cap:"用途", say:"超售不是拍脑袋，按历史数据算上限。"},
+      {illu:ILLU.flow(["看No-show", "看取消", "定上限"], "表E用法"), cap:"怎么用", say:"超售上限≈(No-show+取消)×预订量，且不超过硬上限。"},
+      {illu:ILLU.note("✓", "表E：超售上限≈(No-show+取消)×预订量，且≤硬上限，控 Walk 风险。", "记住这条"), cap:"一句话记住", say:"一句话：表E 让超售有数据依据、有安全上限。"},
+    ]
+  },
+  {
+    id:"cf", part:"codex", no:null, title:"表F·房型价差", en:"Table F",
+    tag:"法典判定表", dur:7000,
+    takeaway:"表F：以 BAR 为锚展开房型/渠道价差，保证体系不乱。",
+    slides:[
+      {illu:ILLU.title("表F·房型价差", "Table F"), cap:"概念", say:"表F 规定价格体系怎么展开。"},
+      {illu:ILLU.note("✦", "表F 规定基准 BAR 如何展开全房型价格：价差合理、不互相打架。", "价格体系"), cap:"用途", say:"所有房型价都从 BAR 派生，避免价格混乱。"},
+      {illu:ILLU.flow(["定BAR", "按房型加价", "按渠道调"], "表F展开"), cap:"怎么用", say:"先定 BAR，再按房型加价、按渠道微调。"},
+      {illu:ILLU.note("✓", "表F：以 BAR 为锚展开房型/渠道价差，保证体系不乱。", "记住这条"), cap:"一句话记住", say:"一句话：表F 以 BAR 为锚，把价格体系铺开不打架。"},
+    ]
+  },
+  {
+    id:"cg", part:"codex", no:null, title:"表G·团队询价", en:"Table G",
+    tag:"法典判定表", dur:7000,
+    takeaway:"表G：团队打折先看置换分析，净贡献>0 才接。",
+    slides:[
+      {illu:ILLU.title("表G·团队询价", "Table G"), cap:"概念", say:"表G 判断大客户/团队打折是否划算。"},
+      {illu:ILLU.compare({"t": "接受", "v": "净贡献>0", "s": "划算", "note": "用置换分析", "c": "#2E8B7A"}, {"t": "拒绝", "v": "净贡献<0", "s": "伤散客", "note": "会挤掉高价", "c": "#C0392B"}, "表G判定"), cap:"判定", say:"用置换分析比净贡献：>0 接，<0 拒。"},
+      {illu:ILLU.note("✦", "表G 判断大客户/团队打折是否划算：用置换分析比净贡献，再决定给几折。", "团队决策"), cap:"关键", say:"团队价低，但可能挤掉更高价散客，必须看净贡献。"},
+      {illu:ILLU.note("✓", "表G：团队打折先看置换分析，净贡献>0 才接。", "记住这条"), cap:"一句话记住", say:"一句话：表G 用置换分析决定团队折扣接不接。"},
+    ]
+  },
+  {
+    id:"ch", part:"codex", no:null, title:"表H·价格一致", en:"Table H",
+    tag:"法典判定表", dur:7000,
+    takeaway:"表H：各渠道含税费总价一致，否则比价流失、伤品牌。",
+    slides:[
+      {illu:ILLU.title("表H·价格一致", "Table H"), cap:"概念", say:"表H 管渠道与价格一致性。"},
+      {illu:ILLU.note("✦", "表H 规定各渠道该不该卖、挂牌价怎么对齐：含含税总价必须一致，是红线。", "渠道红线"), cap:"用途", say:"价格一致性是渠道管理的红线，破了就比价流失。"},
+      {illu:ILLU.note("✓", "表H：各渠道含税费总价一致，否则比价流失、伤品牌。", "记住这条"), cap:"一句话记住", say:"一句话：表H 守住价格一致性，各渠道含税总价对齐。"},
+    ]
+  },
+  {
+    id:"co", part:"codex", no:null, title:"表O·冲突仲裁", en:"Table O",
+    tag:"法典判定表", dur:7000,
+    takeaway:"表O：冲突时认优先级，不多头指挥、不犹豫。",
+    slides:[
+      {illu:ILLU.title("表O·冲突仲裁", "Table O"), cap:"概念", say:"表O 是几张表打架时的终极裁决。"},
+      {illu:ILLU.note("✦", "表O 是仲裁表：几张表结论打架时，只执行最高优先级那一条。", "终极裁决"), cap:"用途", say:"当表A 叫涨、表C 叫降时，按表O 的优先级只执行一条。"},
+      {illu:ILLU.flow(["看优先级", "只执行最高", "记台账"], "表O用法"), cap:"怎么用", say:"认准优先级，只执行最高那条，并记进调价台账。"},
+      {illu:ILLU.note("✓", "表O：冲突时认优先级，不多头指挥、不犹豫。", "记住这条"), cap:"一句话记住", say:"一句话：表O 多表冲突时，只听最高优先级那一条。"},
+    ]
   }
 ];
 
@@ -618,5 +925,6 @@ window.GJP_EPISODES = GJP_EPISODES;
 window.GJP_PARTS = [
   {key:'concept', name:'概念篇', desc:'一个视频讲清一个收益管理核心概念', icon:'◆'},
   {key:'op', name:'操作篇', desc:'一个视频演示一个可上手的操作步骤', icon:'✦'},
-  {key:'case', name:'案例篇', desc:'一个视频拆解一个真实经营场景', icon:'★'}
+  {key:'case', name:'案例篇', desc:'一个视频拆解一个真实经营场景', icon:'★'},
+  {key:'codex', name:'法典判定表', desc:'一张表讲清一个法典判定逻辑', icon:'▣'}
 ];

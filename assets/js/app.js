@@ -206,7 +206,7 @@
   /* ---------- 顶部导航：5 大板块 + hover 多级菜单 + 全站搜索 ---------- */
   var BOARDS = [
     { t: "知识分享", p: "knowledge.html", items: [
-      { t: "概念篇", p: "gejijipo.html?part=concept" },
+      { t: "概念篇", p: "concepts.html" },
       { t: "操作篇", p: "gejijipo.html?part=op" },
       { t: "案例篇", p: "gejijipo.html?part=case" },
       { t: "通用内核六模块", p: "core/index.html" },
