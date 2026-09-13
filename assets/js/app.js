@@ -212,6 +212,7 @@
       { t: "板块总览", p: "sector-hotel.html" },
       { t: "概念总表（48 条）", p: "concepts.html" },
       { t: "白皮书（概念·流程·案例）", p: "whitepaper.html" },
+      { t: "★ 流程图（10 环节）", p: "process.html" },
       { t: "操作法典（15 表）", p: "codex.html" },
       { t: "流程：表 M 每日流水线", p: "games/pipeline.html" },
       { t: "案例集", p: "games/cases.html" },
