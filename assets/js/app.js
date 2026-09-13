@@ -206,35 +206,54 @@
     }
   }
 
-  /* ---------- 顶部导航：5 大板块 + hover 多级菜单 + 全站搜索 ---------- */
+  /* ---------- 顶部导航：四大板块 + 社区 + 工具 ---------- */
   var BOARDS = [
-    { t: "知识分享", p: "knowledge.html", items: [
-      { t: "概念篇", p: "concepts.html" },
-      { t: "操作篇", p: "gejijipo.html?part=op" },
-      { t: "案例篇", p: "gejijipo.html?part=case" },
-      { t: "通用内核六模块", p: "core/index.html" },
-      { t: "收益管理学院", p: "academy.html" },
-      { t: "操作法典（15表）", p: "codex.html" },
-      { t: "书籍专栏", p: "books.html" },
-      { t: "行业矩阵", p: "industries.html" }
+    { t: "酒店", p: "sector-hotel.html", items: [
+      { t: "板块总览", p: "sector-hotel.html" },
+      { t: "概念总表（48 条）", p: "concepts.html" },
+      { t: "白皮书（概念·流程·案例）", p: "whitepaper.html" },
+      { t: "操作法典（15 表）", p: "codex.html" },
+      { t: "流程：表 M 每日流水线", p: "games/pipeline.html" },
+      { t: "案例集", p: "games/cases.html" },
+      { t: "课程 M01–M14", p: "curriculum.html" },
+      { t: "教学资源包（院校）", p: "teach.html" },
+      { t: "7 天入门训练营", p: "camp7.html" },
+      { t: "游戏中心", p: "games/index.html" },
+      { t: "概念解说视频", p: "gejijipo.html?part=concept" },
+      { t: "三级认证", p: "cert.html" }
     ]},
-    { t: "教学咨询", p: "teach.html", items: [
-      { t: "教学资源包", p: "teach.html#pack" },
-      { t: "教案 / 课件 / PPT", p: "teach.html#ppt" },
-      { t: "角色扮演经营游戏", p: "teach.html#role" },
-      { t: "分组经营竞赛游戏", p: "teach.html#compete" },
-      { t: "教学指导咨询", p: "teach.html#consult" },
-      { t: "营销定价方案", p: "teach.html#pricing" }
+    { t: "住宿业", p: "sector-lodging.html", items: [
+      { t: "板块总览", p: "sector-lodging.html" },
+      { t: "住宿业总览", p: "lodging.html" },
+      { t: "长租公寓专业课", p: "industries/rental-apartment/index.html" },
+      { t: "长租 RevPAU 计算器", p: "tools.html#rental-apartment" }
     ]},
-    { t: "行业实操", p: "practice.html", items: [
-      { t: "行业操作指南", p: "practice.html#guide" },
-      { t: "实操训练营", p: "practice.html#camp" },
-      { t: "实操游戏", p: "practice.html#game" },
-      { t: "住宿业", p: "lodging.html" },
-      { t: "餐饮业", p: "fnb.html" },
+    { t: "旅游业", p: "sector-tourism.html", items: [
+      { t: "板块总览", p: "sector-tourism.html" },
       { t: "航空业", p: "airline/index.html" },
       { t: "景区文旅", p: "attraction/index.html" },
-      { t: "娱乐休闲", p: "entertainment/index.html" }
+      { t: "邮轮", p: "industries/cruise/index.html" },
+      { t: "研学营地", p: "industries/research-camp/index.html" },
+      { t: "邮轮 RevPAC 计算器", p: "tools.html#cruise" },
+      { t: "营地 RevPAS 计算器", p: "tools.html#research-camp" }
+    ]},
+    { t: "其他行业", p: "sector-others.html", items: [
+      { t: "板块总览", p: "sector-others.html" },
+      { t: "餐饮业", p: "fnb/index.html" },
+      { t: "娱乐休闲", p: "entertainment/index.html" },
+      { t: "医疗号源", p: "industries/medical-appointment/index.html" },
+      { t: "租车", p: "industries/car-rental/index.html" },
+      { t: "新兴行业速览", p: "industries/index.html" },
+      { t: "租车 RevPAT 计算器", p: "tools.html#car-rental" },
+      { t: "医疗 RevPAA 计算器", p: "tools.html#medical-appointment" }
+    ]},
+    { t: "知识分享", p: "knowledge.html", items: [
+      { t: "通用内核六模块", p: "core/index.html" },
+      { t: "收益管理学院", p: "academy.html" },
+      { t: "操作篇视频", p: "gejijipo.html?part=op" },
+      { t: "案例篇视频", p: "gejijipo.html?part=case" },
+      { t: "书籍专栏", p: "books.html" },
+      { t: "行业矩阵", p: "industries.html" }
     ]},
     { t: "社区互动", p: "community.html", items: [
       { t: "经验与案例分享", p: "community.html" },
