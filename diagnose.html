@@ -136,7 +136,43 @@
       <h2 class="cm-section-title" style="font-size:20px;margin-top:10px">异常项与建议动作（按严重程度）</h2>
       <div class="dg-find" id="findings"></div>
 
-      <div class="cm-card" style="margin-top:20px">
+      <div class="cm-card" style="margin-top:18px">
+        <h3>把这份结果带走</h3>
+        <p style="font-size:13px;color:var(--ink-2);line-height:1.8;margin:6px 0 0">
+          导出的是一份<b>自包含的 HTML 报告</b>——双击即可打开，可打印或另存为 PDF，不依赖本站；
+          文字摘要适合直接粘到微信 / 邮件里发给同事或业主。
+        </p>
+        <div class="cm-btns" style="margin-top:10px">
+          <button class="cm-btn cm-btn-primary" id="btnExport">⬇ 导出诊断报告</button>
+          <button class="cm-btn cm-btn-ghost" id="btnCopy">📋 复制文字摘要</button>
+          <button class="cm-btn cm-btn-ghost" id="btnPrint2">打印 / 存 PDF</button>
+        </div>
+        <p class="cm-hint" id="expTip" style="margin-top:8px"></p>
+      </div>
+
+      <div class="cm-card" style="margin-top:18px;border-color:var(--gold)">
+        <h3>想让人对着你的真实报表再看一遍？</h3>
+        <p style="font-size:13px;color:var(--ink-2);line-height:1.8;margin:6px 0 0">
+          这份自检的价值是<b>快速定位问题</b>，但它有三个边界：
+          只基于你手工填的数、没看到你的真实 PMS 报表与细分结构、也没法判断竞对组合选得对不对。
+          如果你要拿它去说服业主或做预算，建议再让人对着真实数据核一遍。
+        </p>
+        <ul style="font-size:13px;color:var(--ink-2);line-height:1.9;margin:10px 0 0;padding-left:20px">
+          <li><b>竞品数据分析</b>：核对你的竞对组合是否合理，重算 RGI</li>
+          <li><b>调价与控房方案书</b>：按日型给出可执行的价格与库存动作</li>
+          <li><b>一次线上讲解</b>（约 60 分钟）：带着你的团队过一遍</li>
+        </ul>
+        <p style="font-size:13px;margin:10px 0 0">
+          <b>单店收益诊断报告 ¥1,988 / 次</b>　<span style="color:var(--ink-3)">点下面的按钮会自动把本次自检结果带进邮件，专家不用你重新描述。</span>
+        </p>
+        <div class="cm-btns" style="margin-top:10px">
+          <button class="cm-btn cm-btn-primary" id="btnBook">预约专家诊断（¥1,988）</button>
+          <a class="cm-btn cm-btn-ghost" href="experts.html">先看看有哪些专家</a>
+          <a class="cm-btn cm-btn-ghost" href="pricing.html">看全部服务与价格</a>
+        </div>
+      </div>
+
+      <div class="cm-card" style="margin-top:18px">
         <h3>下一步</h3>
         <div class="cm-btns" style="margin-top:10px">
           <a class="cm-btn cm-btn-primary" href="codex.html">去查对应判定表</a>
@@ -162,6 +198,11 @@
   var FIELDS=["rooms","days","vc","occ","adr","mocc","madr","noshow","ob","walk","direct","ota","win","group","cancel"];
   var $=function(id){return document.getElementById(id);};
   function num(id){var v=parseFloat($(id).value);return isFinite(v)?v:0;}
+  var LAST=null; // 最近一次诊断结果，供「导出报告 / 复制摘要 / 预约专家」使用
+  function esc(s){return String(s).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+  function pad(n){return n<10?"0"+n:""+n;}
+  function fmt(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+" "+pad(d.getHours())+":"+pad(d.getMinutes());}
+  function tip(msg){var e=$("expTip"); if(e)e.textContent=msg;}
 
   function save(){
     var o={}; FIELDS.forEach(function(f){o[f]=$("f_"+f).value;});
@@ -369,6 +410,18 @@
         '<span class="tab">依据 '+f.tab+'</span></div>';
     }).join("");
 
+    // ---- 记录本次结果，供导出报告 / 复制摘要 / 预约专家使用 ----
+    LAST={
+      when:new Date(),
+      inputs:{rooms:rooms,days:days,vc:vc,occ:occ,adr:adr,mocc:mocc,madr:madr,
+              noshow:noshow,ob:ob,walk:walk,direct:direct,ota:ota,win:win,group:group,cancel:cancel},
+      revpar:revpar, mrevpar:mrevpar, RGI:RGI, MPI:MPI, ARI:ARI,
+      score:score, level:level, desc:desc,
+      headlineGap:headlineGap, extraUp:extraUp, loss:loss, total:total,
+      redN:redN, ambN:ambN, findings:F
+    };
+    tip("");
+
     $("out").style.display="";
   }
 
@@ -379,8 +432,143 @@
     save(); run();
   }
 
+  /* ---------- 文字摘要（可粘贴到微信 / 邮件） ---------- */
+  function summaryText(){
+    var L=LAST, i=L.inputs, out=[];
+    out.push("RMC收益管理社区 · 收益健康自检");
+    out.push("生成时间："+fmt(L.when));
+    out.push("");
+    out.push("【规模与期间】房量 "+i.rooms+" 间 / "+i.days+" 天");
+    out.push("【经营结果】OCC "+(i.occ*100).toFixed(1)+"%　ADR ¥"+i.adr+"　RevPAR ¥"+L.revpar.toFixed(0));
+    out.push("【市场对比】市场 OCC "+(i.mocc*100).toFixed(1)+"%　市场 ADR ¥"+i.madr+"　市场 RevPAR ¥"+L.mrevpar.toFixed(0));
+    out.push("【三大指数】RGI "+L.RGI.toFixed(2)+"　MPI "+L.MPI.toFixed(2)+"　ARI "+L.ARI.toFixed(2));
+    out.push("【健康分】"+L.score+" / 100（"+L.level+"）—— "+L.desc);
+    out.push("【机会】主机会 ¥"+Math.round(L.headlineGap).toLocaleString()+
+             (L.extraUp>0?" ＋ 独立可叠加 ¥"+Math.round(L.extraUp).toLocaleString():"")+
+             "　合计 ¥"+Math.round(L.total).toLocaleString()+"（本期 "+i.days+" 天）");
+    if(L.loss>0) out.push("【已发生损失】步行赔付 ¥"+Math.round(L.loss).toLocaleString());
+    out.push("");
+    out.push("【异常项】共 "+L.redN+" 项严重、"+L.ambN+" 项提醒");
+    L.findings.forEach(function(f,idx){
+      var tag=f.sev==="red"?"[严重]":(f.sev==="amber"?"[提醒]":"[正常]");
+      var m=f.money>0?"（+¥"+Math.round(f.money).toLocaleString()+"）"
+           :(f.money<0?"（−¥"+Math.round(-f.money).toLocaleString()+"）":"");
+      out.push((idx+1)+". "+tag+" "+f.title+m);
+      out.push("   动作："+f.act+"（依据 "+f.tab+"）");
+    });
+    out.push("");
+    out.push("说明：规则引擎自检，基于手工填写的数据；机会金额为保守粗估，仅用于排优先级，不作为财务承诺。");
+    return out.join("\n");
+  }
+
+  /* ---------- 自包含 HTML 报告 ---------- */
+  function reportHTML(){
+    var L=LAST, i=L.inputs;
+    var rows=L.findings.map(function(f){
+      var color=f.sev==="red"?"#C0392B":(f.sev==="amber"?"#B8860B":"#2E8B7A");
+      var m=f.money>0?' <b>+¥'+Math.round(f.money).toLocaleString()+'</b>'
+           :(f.money<0?' <b style="color:#C0392B">−¥'+Math.round(-f.money).toLocaleString()+'</b>':'');
+      return '<tr><td style="padding:10px;border-bottom:1px solid #eee">'+
+        '<b style="color:'+color+'">'+esc(f.title)+'</b>'+m+
+        '<div style="font-size:12.5px;color:#555;margin-top:5px">'+esc(f.body)+'</div>'+
+        '<div style="font-size:12.5px;background:#F6F7F9;padding:7px 9px;border-radius:5px;margin-top:6px">'+
+          '<b>该做什么：</b>'+esc(f.act)+'</div>'+
+        '<div style="font-size:11.5px;color:#888;margin-top:5px">依据 '+esc(f.tab)+'</div></td></tr>';
+    }).join("");
+    return '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">'+
+      '<meta name="viewport" content="width=device-width,initial-scale=1">'+
+      '<title>收益健康自检报告 · '+esc(fmt(L.when))+'</title><style>'+
+      'body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;max-width:840px;margin:0 auto;padding:32px 28px;color:#222;line-height:1.75}'+
+      'h1{color:#1B3A5C;margin:0 0 4px;font-size:24px}h2{color:#1B3A5C;font-size:17px;border-left:4px solid #B8894A;padding-left:10px;margin:28px 0 10px}'+
+      '.meta{color:#888;font-size:12.5px;margin-bottom:18px}'+
+      'table{width:100%;border-collapse:collapse;font-size:13.5px}'+
+      '.kv td{padding:7px 10px;border-bottom:1px solid #eee}.kv td:first-child{color:#666;width:190px}'+
+      '.score{background:#1B3A5C;color:#fff;border-radius:10px;padding:16px 20px;text-align:center;margin:18px 0}'+
+      '.score .n{font-size:46px;font-weight:800;line-height:1}.score .t{color:#E8C87E;font-weight:700;margin-top:4px}'+
+      '.note{font-size:12px;color:#888;margin-top:24px;border-top:1px solid #eee;padding-top:12px}'+
+      '.noprint{margin-bottom:16px}.noprint button{font-family:inherit;font-size:13px;padding:8px 16px;border:1px solid #1B3A5C;background:#1B3A5C;color:#fff;border-radius:7px;cursor:pointer}'+
+      '@media print{.noprint{display:none}body{padding:0}}'+
+      '</style></head><body>'+
+      '<div class="noprint"><button onclick="window.print()">打印 / 另存为 PDF</button></div>'+
+      '<h1>收益健康自检报告</h1>'+
+      '<div class="meta">RMC收益管理社区 · 生成时间 '+esc(fmt(L.when))+'</div>'+
+      '<div class="score"><div class="n">'+L.score+'</div><div class="t">'+esc(L.level)+' / 100</div>'+
+        '<div style="font-size:13.5px;margin-top:8px">'+esc(L.desc)+'</div></div>'+
+      '<h2>基础数据</h2><table class="kv">'+
+        '<tr><td>规模与期间</td><td>'+i.rooms+' 间 / '+i.days+' 天</td></tr>'+
+        '<tr><td>你的 OCC / ADR / RevPAR</td><td>'+(i.occ*100).toFixed(1)+'% / ¥'+i.adr+' / ¥'+L.revpar.toFixed(0)+'</td></tr>'+
+        '<tr><td>市场 OCC / ADR / RevPAR</td><td>'+(i.mocc*100).toFixed(1)+'% / ¥'+i.madr+' / ¥'+L.mrevpar.toFixed(0)+'</td></tr>'+
+        '<tr><td>三大指数</td><td><b>RGI '+L.RGI.toFixed(2)+'</b>　MPI '+L.MPI.toFixed(2)+'　ARI '+L.ARI.toFixed(2)+'</td></tr>'+
+        '<tr><td>No-show / 超售 / 步行</td><td>'+(i.noshow*100).toFixed(1)+'% / '+(i.ob*100).toFixed(1)+'% / '+i.walk+' 人</td></tr>'+
+        '<tr><td>直销 / OTA / 团队占比</td><td>'+(i.direct*100).toFixed(0)+'% / '+(i.ota*100).toFixed(0)+'% / '+(i.group*100).toFixed(0)+'%</td></tr>'+
+        '<tr><td>平均提前期 / 取消率</td><td>'+i.win+' 天 / '+(i.cancel*100).toFixed(0)+'%</td></tr>'+
+      '</table>'+
+      '<h2>机会与损失</h2><table class="kv">'+
+        '<tr><td>主机会（RGI 差距）</td><td><b>¥'+Math.round(L.headlineGap).toLocaleString()+'</b></td></tr>'+
+        (L.extraUp>0?'<tr><td>独立可叠加项（佣金节省等）</td><td>¥'+Math.round(L.extraUp).toLocaleString()+'</td></tr>':'')+
+        '<tr><td>合计（本期 '+i.days+' 天）</td><td><b>¥'+Math.round(L.total).toLocaleString()+'</b>　年化约 ¥'+Math.round(L.total*365/i.days).toLocaleString()+'</td></tr>'+
+        (L.loss>0?'<tr><td>已发生损失（步行赔付）</td><td style="color:#C0392B">¥'+Math.round(L.loss).toLocaleString()+'</td></tr>':'')+
+      '</table>'+
+      '<h2>异常项与建议动作（'+L.redN+' 严重 / '+L.ambN+' 提醒）</h2><table>'+rows+'</table>'+
+      '<div class="note">本报告由 RMC收益管理社区「收益健康自检」生成，属规则引擎自检（基于手工填写的数据），非 AI 识图；'+
+      '机会金额为保守粗估，未完全计入提价后的需求弹性衰减，仅用于排优先级，不作为财务承诺。<br>'+
+      'RMC收益管理社区 · https://hrma-city.github.io/</div>'+
+      '</body></html>';
+  }
+
+  function download(filename, text){
+    try{
+      var blob=new Blob(["\ufeff"+text],{type:"text/html;charset=utf-8"});
+      var url=URL.createObjectURL(blob);
+      var a=document.createElement("a");
+      a.href=url; a.download=filename;
+      document.body.appendChild(a); a.click();
+      setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); },300);
+      return true;
+    }catch(e){ return false; }
+  }
+
+  function doExport(){
+    if(!LAST){ tip("请先点「开始诊断」再导出"); return; }
+    var name="收益健康自检报告_"+fmt(LAST.when).replace(/[-: ]/g,"")+".html";
+    if(download(name, reportHTML())) tip("✓ 已导出："+name+"（下载后双击打开，可打印或另存为 PDF）");
+    else tip("导出失败，可改用「打印 / 存 PDF」");
+  }
+
+  function fallbackCopy(txt){
+    var ta=document.createElement("textarea");
+    ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    var ok=false;
+    try{ ok=document.execCommand("copy"); }catch(e){}
+    document.body.removeChild(ta);
+    tip(ok?"✓ 已复制文字摘要，可直接粘贴":"复制失败，请手动选择文本复制");
+  }
+  function doCopy(){
+    if(!LAST){ tip("请先点「开始诊断」再复制"); return; }
+    var txt=summaryText();
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){ tip("✓ 已复制文字摘要，可直接粘贴到微信 / 邮件"); },
+                                              function(){ fallbackCopy(txt); });
+    } else fallbackCopy(txt);
+  }
+
+  function doBook(){
+    if(!LAST){ tip("请先点「开始诊断」，结果会自动带进邮件"); return; }
+    var subj="预约单店收益诊断 · 自检健康分 "+LAST.score+" 分（RGI "+LAST.RGI.toFixed(2)+"）";
+    var body="我想预约「单店收益诊断报告」（¥1,988 / 次）。\n\n"+
+             "以下是我在贵站做的收益健康自检结果，供专家提前了解：\n\n"+
+             summaryText()+"\n\n———\n我的信息：\n姓名：\n酒店 / 公司：\n城市：\n岗位：\n希望重点诊断的问题：\n";
+    location.href="mailto:rm-community@qq.com?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(body);
+    tip("已唤起邮件客户端，自检结果已自动填入正文");
+  }
+
   $("btnRun").onclick=run;
   $("btnDemo").onclick=demo;
+  $("btnExport").onclick=doExport;
+  $("btnCopy").onclick=doCopy;
+  $("btnPrint2").onclick=function(){ if(!LAST){tip("请先点「开始诊断」");return;} window.print(); };
+  $("btnBook").onclick=doBook;
   $("btnPrint").onclick=function(){window.print();};
   $("btnClear").onclick=function(){try{localStorage.removeItem(KEY);}catch(e){}
     FIELDS.forEach(function(f){$("f_"+f).value="";});$("saveTip").textContent="已清空";};
