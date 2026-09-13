@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>课堂分组经营竞赛 · 收益管理游戏</title>
+<meta name="description" content="教师单屏投影、免登录的分组经营竞赛：多组学生各管一家虚拟酒店，每回合面对同一市场情境出价，系统按累计净利实时排名，课堂即时见高下。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC"],"url":"https://hrma-city.github.io/","description":"RMC收益管理社区。覆盖住宿、餐饮、航空、景区、娱乐、剧院六大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","酒店收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<link rel="stylesheet" href="../assets/css/auth.css">
+<link rel="stylesheet" href="../assets/css/notify.css">
+<style>
+  .cls-wrap{max-width:1100px;margin:0 auto}
+  .cls-setup{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:26px 28px;box-shadow:var(--shadow)}
+  .cls-setup h3{margin:0 0 4px;color:var(--navy);font-size:18px}
+  .cls-set-row{display:flex;flex-wrap:wrap;gap:22px;margin:18px 0}
+  .cls-field{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--ink-2)}
+  .cls-field input,.cls-field select{font-family:inherit;font-size:15px;padding:9px 12px;border:1px solid var(--line-2);border-radius:8px;background:var(--white);color:var(--ink);min-width:120px}
+  .cls-hint{font-size:12.5px;color:var(--ink-3);line-height:1.7}
+  .cls-market{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;background:linear-gradient(120deg,var(--navy),#2A5680);color:#fff;border-radius:12px;padding:16px 18px;margin:18px 0}
+  .cls-mcell .mk{font-size:12px;color:var(--gold-2);letter-spacing:.5px}
+  .cls-mcell .mv{font-size:20px;font-weight:800;font-family:var(--mono);margin-top:2px}
+  .cls-bidtbl{width:100%;border-collapse:collapse;margin:8px 0 4px;font-size:14px}
+  .cls-bidtbl th{background:var(--bg-2);color:var(--ink-2);font-weight:650;font-size:12.5px;padding:9px 10px;text-align:left;border-bottom:1px solid var(--line)}
+  .cls-bidtbl td{padding:8px 10px;border-bottom:1px solid var(--line)}
+  .cls-bidtbl input,.cls-bidtbl select{font-family:inherit;font-size:14px;padding:7px 9px;border:1px solid var(--line-2);border-radius:7px;background:var(--white);color:var(--ink)}
+  .cls-bidtbl input{width:92px}
+  .cls-dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:8px;vertical-align:middle}
+  .cls-rank{display:grid;gap:10px;margin-top:14px}
+  .cls-rrow{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:14px;background:var(--white);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+  .cls-rrow .rk{font-size:22px;font-weight:800;font-family:var(--mono);color:var(--ink-3);text-align:center}
+  .cls-rrow.g1 .rk{color:#C9A227}.cls-rrow.g2 .rk{color:#8A8F98}.cls-rrow.g3 .rk{color:#B07B43}
+  .cls-rrow .rn{font-size:16px;font-weight:700;color:var(--navy);display:flex;align-items:center}
+  .cls-rrow .rs{font-size:20px;font-weight:800;font-family:var(--mono);color:var(--navy)}
+  .cls-rrow .rs small{font-size:12px;color:var(--ink-3);font-weight:500;font-family:inherit}
+  .cls-move{font-size:12px;margin-left:8px}
+  .cls-move.up{color:var(--teal)}.cls-move.down{color:var(--danger)}.cls-move.same{color:var(--ink-3)}
+  .cls-bar{height:8px;border-radius:6px;background:var(--bg-2);overflow:hidden;margin-top:7px}
+  .cls-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--navy),var(--gold))}
+  .cls-result{font-size:13px;color:var(--ink-2);margin-top:4px;font-family:var(--mono)}
+  .cls-podium{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0;text-align:center}
+  .cls-pc{border-radius:14px;padding:22px 14px;border:1px solid var(--line);background:var(--white)}
+  .cls-pc .medal{font-size:40px}
+  .cls-pc .pn{font-size:18px;font-weight:800;color:var(--navy);margin:6px 0 2px}
+  .cls-pc .ps{font-size:22px;font-weight:800;font-family:var(--mono);color:var(--gold-2)}
+  .cls-pc.first{background:linear-gradient(160deg,#FFF8E6,#fff);border-color:var(--gold)}
+  .cls-pc.second{margin-top:26px}.cls-pc.third{margin-top:46px}
+  .cls-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0}
+  body.proj{font-size:19px}
+  body.proj .cls-mcell .mv{font-size:26px}
+  body.proj .cls-rrow .rs{font-size:26px}
+  body.proj .cls-bidtbl{font-size:17px}
+  body.proj .cls-bidtbl input,body.proj .cls-bidtbl select{font-size:16px;padding:9px 11px}
+  @media print{.cls-toolbar,.sn-cta,.sn-toggle{display:none!important}}
+</style>
+</head>
+<body data-auth="public">
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html"><span class="gem">社</span><span>RMC收益管理社区</span></a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="index.html">游戏中心</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:40px">
+  <div class="cls-wrap">
+    <div style="margin-bottom:14px"><a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 返回游戏中心</a></div>
+    <div class="cm-eyebrow">课堂 · 分组竞赛</div>
+    <h1 style="font-size:26px;font-weight:800;color:var(--navy);margin:0 0 6px">投影上就能跑的分组经营竞赛</h1>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.8;margin:0 0 4px">
+      老师一台电脑接投影，全班分成若干组，每组管一家虚拟酒店。每回合面对<b>同一市场情境</b>，各组报出房价与超售档位，
+      系统当场算 RevPAR / 净利并<b>实时排名</b>。无需登录、无需联网、断网也能玩。
+    </p>
+
+    <div class="cls-toolbar">
+      <button class="cm-btn cm-btn-ghost" id="btnProj">🔆 投屏模式</button>
+      <button class="cm-btn cm-btn-ghost" id="btnReset">↺ 重新设置</button>
+      <span class="cls-hint" id="saveTip"></span>
+    </div>
+
+    <!-- ============ 设置 ============ -->
+    <section class="cls-setup" id="viewSetup">
+      <h3>① 设置竞赛</h3>
+      <p class="cls-hint">建议 4–6 组、6–8 回合，一节课刚好跑完。</p>
+      <div class="cls-set-row">
+        <label class="cls-field">分组数量
+          <input id="setGroups" type="number" min="2" max="8" value="4">
+        </label>
+        <label class="cls-field">回合数
+          <input id="setRounds" type="number" min="3" max="12" value="6">
+        </label>
+        <label class="cls-field">虚拟酒店
+          <select id="setHotel">
+            <option value="680">杭州滨江云璟（320 间 · BAR ¥680）</option>
+            <option value="480">城市快捷酒店（260 间 · BAR ¥480）</option>
+            <option value="1100">度假全服务酒店（200 间 · BAR ¥1100）</option>
+          </select>
+        </label>
+      </div>
+      <div class="cls-set-row" id="grpNames"></div>
+      <div class="cm-btns" style="margin-top:8px">
+        <button class="cm-btn cm-btn-primary" id="btnStart">开始竞赛 →</button>
+      </div>
+    </section>
+
+    <!-- ============ 竞赛 ============ -->
+    <section id="viewGame" style="display:none;margin-top:22px">
+      <div class="game-hud">
+        <div class="hud-item"><span>第</span><b id="hudRound">1</b><span id="hudTotal"> / 6 回合</span></div>
+        <div class="hud-item"><span>领先</span><b id="hudLead">—</b></div>
+        <div class="hud-item" style="margin-left:auto"><span class="cls-hint" id="hudDayType"></span></div>
+      </div>
+
+      <div class="cls-market" id="marketCard"></div>
+
+      <div class="game-card">
+        <h3 style="margin:2px 0 10px;color:var(--navy);font-size:16px">② 录入各组出价（老师代填，或点「AI 填充」演示）</h3>
+        <table class="cls-bidtbl" id="bidTbl"></table>
+        <div class="cm-btns" style="margin-top:14px">
+          <button class="cm-btn cm-btn-primary" id="btnSettle">结算本回合 →</button>
+          <button class="cm-btn cm-btn-ghost" id="btnAIfill">AI 填充演示</button>
+        </div>
+      </div>
+
+      <div class="game-card" id="boardCard" style="display:none;margin-top:18px">
+        <h3 style="margin:2px 0 10px;color:var(--navy);font-size:16px">③ 本回合结果 + 实时排行榜（按累计净利）</h3>
+        <div class="cls-result" id="roundKpi" style="margin-bottom:10px"></div>
+        <div class="cls-rank" id="rankBoard"></div>
+        <div class="cm-btns" style="margin-top:16px">
+          <button class="cm-btn cm-btn-primary" id="btnNext">下一回合 →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 终局 ============ -->
+    <section class="game-card" id="viewFinal" style="display:none;margin-top:22px;text-align:center">
+      <div style="font-size:13px;color:var(--ink-3);letter-spacing:2px">竞赛结束</div>
+      <h2 style="color:var(--navy);margin:6px 0 4px" id="finTitle"></h2>
+      <div class="cls-podium" id="podium"></div>
+      <div class="cls-rank" id="finalBoard"></div>
+      <div class="cm-btns" style="justify-content:center;margin-top:18px">
+        <button class="cm-btn cm-btn-primary" id="btnAgain">再来一局</button>
+        <a class="cm-btn cm-btn-ghost" href="sim.html">单人练 30 天</a>
+        <a class="cm-btn cm-btn-ghost" href="arena.html">联机对战</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="site-main"><div class="sf-bot">
+  <span>RMC收益管理社区 · 课堂分组竞赛</span>
+  <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+</div></div></footer>
+
+<script src="../assets/js/app.js"></script>
+<script>
+(function(){
+  "use strict";
+  var ROOMS=320, CC=0.10;
+  var DT={ D1:{pf:1.60,occ:0.96,n:"峰值日"}, D2:{pf:1.30,occ:0.90,n:"高涨日"}, D3:{pf:1.00,occ:0.78,n:"平峰日"}, D4:{pf:0.80,occ:0.55,n:"低谷日"} };
+  // 12 回合日历（含云栖大会峰值）
+  var CAL=["D3","D3","D3","D2","D2","D3","D3","D1","D1","D2","D3","D4"];
+  var WEEK=["周一","周二","周三","周四","周五","周六","周日"];
+  var COLORS=["#1B3A5C","#B8894A","#2E8B7A","#C0392B","#5B4B8A","#2D6A4F","#B0772B","#1F6F8B"];
+  var $=function(id){return document.getElementById(id);};
+  function show(id,v){$(id).style.display=v?"":"none";}
+
+  var S={groups:0,rounds:0,baseBar:680,cur:0,state:[],prevRank:null,roundRes:null};
+
+  function renderGroupInputs(){
+    var n=parseInt($("setGroups").value,10)||4; n=Math.max(2,Math.min(8,n));
+    var box=$("grpNames"); box.innerHTML="";
+    for(var i=0;i<n;i++){
+      var f=document.createElement("label"); f.className="cls-field";
+      f.innerHTML='第 '+(i+1)+' 组名称<input data-gi="'+i+'" class="gi" type="text" value="第'+(i+1)+'组" maxlength="10">';
+      box.appendChild(f);
+    }
+  }
+  $("setGroups").addEventListener("input",renderGroupInputs);
+
+  function dayInfo(round){
+    var t=DT[CAL[round]];
+    var noShow=(CAL[round]==="D1"||CAL[round]==="D2")?0.05:(CAL[round]==="D4"?0.13:0.09);
+    var heat=(CAL[round]==="D1")?1.12:(CAL[round]==="D2")?1.05:(CAL[round]==="D4")?0.88:1.0;
+    return {type:CAL[round],tname:t.n,week:WEEK[round%7],refPrice:S.baseBar*t.pf,occ:t.occ,noShow:noShow,heat:heat,
+            compAdr:Math.round(S.baseBar*t.pf*(0.96+ (round%3)*0.02)), varCost:Math.round(S.baseBar*0.32)};
+  }
+
+  function settle(adr,ob,d){
+    var price=adr;
+    var demand=ROOMS*d.occ*(1-1.1*(adr/d.refPrice-1));
+    demand*=d.heat;
+    demand=Math.max(0,demand);
+    var arrivals=Math.round(demand*(1-d.noShow));
+    var walk=Math.max(0,arrivals-ROOMS);
+    var sold=Math.min(arrivals,ROOMS);
+    var rev=sold*price*(1-CC);
+    var walkCost=walk*(price*1.5+300);
+    var profit=Math.round(rev-walkCost);
+    var revpar=Math.round(profit/ROOMS);
+    return {price:price,sold:sold,arrivals:arrivals,walk:walk,occ:sold/ROOMS,revpar:revpar,profit:profit,walkCost:walkCost};
+  }
+
+  function start(){
+    S.groups=Math.max(2,Math.min(8,parseInt($("setGroups").value,10)||4));
+    S.rounds=Math.max(3,Math.min(12,parseInt($("setRounds").value,10)||6));
+    S.baseBar=parseInt($("setHotel").value,10)||680;
+    ROOMS = (S.baseBar===480)?260:(S.baseBar===1100?200:320);
+    S.cur=0; S.prevRank=null; S.roundRes=null;
+    S.state=[];
+    var inputs=document.querySelectorAll("#grpNames .gi");
+    for(var i=0;i<S.groups;i++){
+      var nm=inputs[i]?inputs[i].value.trim():("第"+(i+1)+"组");
+      S.state.push({name:nm||("第"+(i+1)+"组"),color:COLORS[i%COLORS.length],cum:0,last:null,hist:[]});
+    }
+    show("viewSetup",false); show("viewGame",true); show("viewFinal",false);
+    $("hudTotal").textContent=" / "+S.rounds+" 回合";
+    renderRound();
+  }
+
+  function renderRound(){
+    var d=dayInfo(S.cur);
+    $("hudRound").textContent=S.cur+1;
+    $("hudDayType").textContent=d.week+" · "+d.tname;
+    var mc=$("marketCard");
+    mc.innerHTML=
+      cell("竞品均价","¥"+d.compAdr)+
+      cell("需求热度",(d.heat>=1?"偏旺 ×":"偏冷 ×")+d.heat.toFixed(2))+
+      cell("可用房量",ROOMS+" 间")+
+      cell("单房变动成本","¥"+d.varCost)+
+      cell("目标出租率",Math.round(d.occ*100)+"%")+
+      cell("No-show 率",(d.noShow*100).toFixed(1)+"%");
+    var tbl=$("bidTbl");
+    var rows='<thead><tr><th>组别</th><th>ADR（元）</th><th>超售档位</th><th>状态</th></tr></thead><tbody>';
+    for(var i=0;i<S.groups;i++){
+      rows+='<tr><td><span class="cls-dot" style="background:'+S.state[i].color+'"></span>'+esc(S.state[i].name)+'</td>'+
+        '<td><input type="number" min="200" max="1600" value="'+Math.round(d.refPrice)+'" data-ad="'+i+'"></td>'+
+        '<td><select data-ob="'+i+'"><option value="0">0 间</option><option value="3">+3</option><option value="6">+6</option><option value="9">+9（激进）</option><option value="12">+12</option></select></td>'+
+        '<td data-st="'+i+'"><span class="cls-hint">待录入</span></td></tr>';
+    }
+    tbl.innerHTML=rows+'</tbody>';
+    show("boardCard",false);
+    $("btnNext").textContent=(S.cur===S.rounds-1)?"查看最终排名 →":"下一回合 →";
+    // 提前显示领先组
+    updateLead();
+  }
+  function cell(k,v){return '<div class="cls-mcell"><div class="mk">'+k+'</div><div class="mv">'+v+'</div></div>';}
+
+  function doSettle(){
+    var d=dayInfo(S.cur);
+    var res=[];
+    for(var i=0;i<S.groups;i++){
+      var ad=parseInt(document.querySelector('[data-ad="'+i+'"]').value,10);
+      var ob=parseInt(document.querySelector('[data-ob="'+i+'"]').value,10)||0;
+      if(!ad||ad<200){alert((S.state[i].name)+" 的 ADR 需在 200 以上");return;}
+      var r=settle(ad,ob,d);
+      r.name=S.state[i].name; r.color=S.state[i].color; r.ob=ob; r.adr=ad;
+      S.state[i].cum+=r.profit; S.state[i].last=r; S.state[i].hist.push(r);
+      res.push(r);
+      document.querySelector('[data-st="'+i+'"]').innerHTML='<span style="color:var(--teal)">✓ 已结算</span>';
+    }
+    S.roundRes=res;
+    // 本回合 KPI 摘要
+    var best=res.slice().sort(function(a,b){return b.profit-a.profit;})[0];
+    var worst=res.slice().sort(function(a,b){return a.profit-b.profit;})[0];
+    var maxOcc=Math.max.apply(null,res.map(function(x){return x.occ;}));
+    $("roundKpi").innerHTML="本回合净利最高：<b style='color:var(--navy)'>"+esc(best.name)+" ¥"+best.profit+"</b>（RevPAR ¥"+best.revpar+
+      (best.walk>0?" · 步行 "+best.walk+" 人":"")+"）　|　最低："+esc(worst.name)+" ¥"+worst.profit+
+      "　|　满房组："+res.filter(function(x){return x.occ>=0.97;}).length+" 组";
+    renderRank();
+    show("boardCard",true);
+    updateLead();
+  }
+
+  function renderRank(){
+    var ranked=S.state.slice().sort(function(a,b){return b.cum-a.cum;});
+    var maxC=ranked[0].cum||1;
+    var html="";
+    ranked.forEach(function(g,idx){
+      var rk=idx+1, cls=rk<=3?(" g"+rk):"";
+      var medal=rk===1?"🥇":rk===2?"🥈":rk===3?"🥉":rk;
+      var mv="";
+      if(S.prevRank){
+        var pr=S.prevRank[g.name];
+        if(pr===undefined) mv='<span class="cls-move same">—</span>';
+        else if(rk<pr) mv='<span class="cls-move up">▲'+(pr-rk)+'</span>';
+        else if(rk>pr) mv='<span class="cls-move down">▼'+(rk-pr)+'</span>';
+        else mv='<span class="cls-move same">＝</span>';
+      }
+      html+='<div class="cls-rrow'+cls+'"><div class="rk">'+medal+'</div>'+
+        '<div><div class="rn"><span class="cls-dot" style="background:'+g.color+'"></span>'+esc(g.name)+mv+'</div>'+
+        '<div class="cls-bar"><i style="width:'+Math.max(4,Math.round(g.cum/maxC*100))+'%"></i></div>'+
+        '<div class="cls-result">本回合 RevPAR ¥'+(g.last?g.last.revpar:"—")+(g.last&&g.last.walk>0?" · 步行 "+g.last.walk+" 人":"")+'</div></div>'+
+        '<div class="rs">¥'+g.cum+'<small> 累计净利</small></div></div>';
+    });
+    $("rankBoard").innerHTML=html;
+    S.prevRank={}; ranked.forEach(function(g,i){S.prevRank[g.name]=i+1;});
+  }
+
+  function updateLead(){
+    if(!S.state.length)return;
+    var top=S.state.slice().sort(function(a,b){return b.cum-a.cum;})[0];
+    $("hudLead").textContent=top.cum>0?esc(top.name):"—";
+  }
+
+  function doNext(){
+    if(S.cur>=S.rounds-1){ finish(); return; }
+    S.cur++; renderRound();
+  }
+
+  function finish(){
+    show("viewGame",false); show("viewFinal",true);
+    var ranked=S.state.slice().sort(function(a,b){return b.cum-a.cum;});
+    var champ=ranked[0];
+    $("finTitle").textContent=champ.name+" 夺冠！累计净利 ¥"+champ.cum;
+    // 领奖台（倒序放：亚军/冠军/季军 视觉）
+    var pod=$("podium");
+    function pc(cls,medal,g){
+      return '<div class="cls-pc '+cls+'"><div class="medal">'+medal+'</div><div class="pn">'+esc(g.name)+
+        '</div><div class="ps">¥'+g.cum+'</div><div class="cls-hint">累计净利 · 平均 RevPAR ¥'+
+        Math.round(g.hist.reduce(function(s,x){return s+x.revpar;},0)/g.hist.length)+'</div></div>';
+    }
+    pod.innerHTML= ranked.length>=2?pc("second","🥈",ranked[1]):"";
+    pod.innerHTML+= pc("first","🥇",ranked[0]);
+    pod.innerHTML+= ranked.length>=3?pc("third","🥉",ranked[2]):"";
+    // 完整榜
+    var html="";
+    ranked.forEach(function(g,idx){
+      var cls=idx<3?(" g"+(idx+1)):"";
+      html+='<div class="cls-rrow'+cls+'"><div class="rk">'+(idx+1)+'</div>'+
+        '<div class="rn"><span class="cls-dot" style="background:'+g.color+'"></span>'+esc(g.name)+'</div>'+
+        '<div class="rs">¥'+g.cum+'<small> 累计净利</small></div></div>';
+    });
+    $("finalBoard").innerHTML=html;
+  }
+
+  function aifill(){
+    var d=dayInfo(S.cur);
+    for(var i=0;i<S.groups;i++){
+      // 各组策略略有差异：基准价附近 ±扰动，超售随机
+      var jitter=((i*37)%9-4)*0.03;
+      var adr=Math.round(d.refPrice*(1+jitter));
+      var obs=[0,3,6,0,9,3,6,0];
+      var ad=document.querySelector('[data-ad="'+i+'"]'); if(ad)ad.value=adr;
+      var ob=document.querySelector('[data-ob="'+i+'"]'); if(ob)ob.value=String(obs[i%obs.length]);
+    }
+  }
+
+  function esc(s){return String(s).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+
+  $("btnStart").onclick=start;
+  $("btnSettle").onclick=doSettle;
+  $("btnNext").onclick=doNext;
+  $("btnAIfill").onclick=aifill;
+  $("btnAgain").onclick=function(){show("viewFinal",false);show("viewSetup",true);renderGroupInputs();};
+  $("btnReset").onclick=function(){show("viewGame",false);show("viewFinal",false);show("viewSetup",true);renderGroupInputs();};
+  $("btnProj").onclick=function(){document.body.classList.toggle("proj");$(("btnProj")).textContent=document.body.classList.contains("proj")?"🔅 退出投屏":"🔆 投屏模式";};
+  renderGroupInputs();
+})();
+</script>
+<script>
+(function(){var t=document.getElementById('snToggle'),l=document.getElementById('snLinks');if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();
+</script>
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../assets/js/notify.js"></script>
+</body>
+</html>

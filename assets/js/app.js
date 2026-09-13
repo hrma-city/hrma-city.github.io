@@ -147,6 +147,9 @@
         { id: "gpipe",   n: "流", t: "一日流水线",        p: "games/pipeline.html" },
         { id: "glevel",  n: "闯", t: "决策闯关（经典）",  p: "games/level.html" },
         { id: "gsim",   n: "营", t: "经营模拟 30 天",  p: "games/sim.html" },
+        { id: "grole",  n: "演", t: "角色扮演模拟",    p: "games/roleplay.html" },
+        { id: "gcls",   n: "赛", t: "课堂分组竞赛",    p: "games/classroom.html" },
+        { id: "garena", n: "联", t: "联机对战沙盘",    p: "games/arena.html" },
         { id: "cases",  n: "案", t: "案例分析集",      p: "games/cases.html" },
         { id: "play",   n: "具", t: "游戏化教具",      p: "games/playbook.html" }
       ]

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>角色扮演 · 收益经理的一天 · 收益管理游戏</title>
+<meta name="description" content="可玩的角色扮演经营情景模拟：你扮演收益经理，在超售、团队询价、竞对降价、客人投诉、尾单甩卖等真实情境里做决策，四个仪表此消彼长，每步都标注依据法典哪张表。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"RMC收益管理社区。覆盖住宿、餐饮、航空、景区、娱乐、剧院六大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","超售管理","RevPAR","酒店收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<link rel="stylesheet" href="../assets/css/auth.css">
+<link rel="stylesheet" href="../assets/css/notify.css">
+<style>
+  .rp-wrap{max-width:860px;margin:0 auto}
+  .rp-rolebar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0}
+  .rp-role{font-size:13px;padding:7px 14px;border-radius:20px;border:1px solid var(--line-2);background:var(--white);cursor:pointer;font-family:inherit;color:var(--ink-2)}
+  .rp-role.on{background:var(--navy);color:#fff;border-color:var(--navy);font-weight:600}
+  .rp-gauges{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .rp-g{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center}
+  .rp-g .gl{font-size:12px;color:var(--ink-2);font-weight:600}
+  .rp-g .gv{font-size:24px;font-weight:800;font-family:var(--mono);color:var(--navy);margin:4px 0}
+  .rp-g .gbar{height:7px;border-radius:5px;background:var(--bg-2);overflow:hidden}
+  .rp-g .gbar i{display:block;height:100%;background:var(--navy);transition:.3s}
+  .rp-g.warn{border-color:var(--danger)}.rp-g.warn .gv{color:var(--danger)}.rp-g.warn .gbar i{background:var(--danger)}
+  .rp-glow{border-color:var(--teal)}.rp-glow .gv{color:var(--teal)}.rp-glow .gbar i{background:var(--teal)}
+  .rp-scene{background:linear-gradient(120deg,var(--navy),#2A5680);color:#fff;border-radius:12px;padding:18px 20px;margin:14px 0}
+  .rp-scene .rs-who{font-size:12px;color:var(--gold-2);letter-spacing:.5px;margin-bottom:6px}
+  .rp-scene .rs-txt{font-size:15px;line-height:1.85}
+  .rp-opts{display:grid;gap:10px;margin:14px 0}
+  .rp-opt{text-align:left;background:var(--white);border:1px solid var(--line-2);border-radius:10px;padding:13px 16px;font-size:14px;cursor:pointer;font-family:inherit;color:var(--ink);transition:.12s;line-height:1.5}
+  .rp-opt:hover{border-color:var(--navy);background:var(--bg-2)}
+  .rp-opt b{color:var(--navy)}
+  .rp-fb{display:none;border-radius:10px;padding:14px 16px;font-size:13.5px;line-height:1.8;margin-top:6px}
+  .rp-fb.show{display:block}
+  .rp-fb.ok{background:var(--teal-soft);border-left:4px solid var(--teal)}
+  .rp-fb.part{background:var(--amber-soft);border-left:4px solid var(--amber)}
+  .rp-fb.no{background:var(--danger-soft);border-left:4px solid var(--danger)}
+  .rp-fb .fb-t{font-weight:700;margin-bottom:5px}
+  .rp-fb .fb-tab{display:inline-block;margin-top:8px;font-size:12px;background:var(--navy);color:#fff;padding:3px 10px;border-radius:20px}
+  .rp-deltas{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .rp-d{font-size:12px;font-family:var(--mono);padding:3px 9px;border-radius:6px;background:var(--bg-2)}
+  .rp-d.up{color:var(--teal)}.rp-d.down{color:var(--danger)}
+  .rp-end{text-align:center;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:26px}
+  .rp-end .em{font-size:46px}
+  .rp-end h2{color:var(--navy);margin:10px 0 6px}
+  .rp-end .ed{font-size:14px;color:var(--ink-2);line-height:1.8;margin:10px auto;max-width:560px}
+  .rp-step{font-size:12px;color:var(--ink-3);margin-bottom:6px}
+  @media(max-width:620px){.rp-gauges{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body data-auth="public">
+
+<header class="site-nav">
+  <div class="sn-inner">
+    <a class="sn-logo" href="../index.html"><span class="gem">社</span><span>RMC收益管理社区</span></a>
+    <nav class="sn-links" id="snLinks"></nav>
+    <a class="sn-cta" href="index.html">游戏中心</a>
+    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:40px">
+  <div class="rp-wrap">
+    <div style="margin-bottom:14px"><a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 返回游戏中心</a></div>
+    <div class="cm-eyebrow">角色扮演 · 模拟</div>
+    <h1 style="font-size:25px;font-weight:800;color:var(--navy);margin:0 0 6px">收益经理的一天（可玩版）</h1>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.8;margin:0 0 4px">
+      你是杭州滨江云璟酒店（320 间房）的<b>收益经理</b>。今天周五、明天会议旺季。事情会一件件找上门，
+      你只管选——<b>四个仪表此消彼长</b>：收益、客人、业主、团队。任何一个见底就难收场，全部拉满的人几乎不存在。
+      每步都告诉你依据《操作法典》哪张表。
+    </p>
+
+    <div class="rp-rolebar">
+      <span style="font-size:13px;color:var(--ink-3)">你扮演：</span>
+      <button class="rp-role on" data-role="rm">收益经理（主玩）</button>
+      <button class="rp-role" data-role="fd" disabled style="opacity:.5">前台（NPC）</button>
+      <button class="rp-role" data-role="guest" disabled style="opacity:.5">客人（NPC）</button>
+      <span class="cls-hint" style="margin-left:auto">提示：当前版本以收益经理视角做主决策；前台与客人作为情境中的对话方出现。</span>
+    </div>
+
+    <div class="rp-gauges" id="gauges"></div>
+
+    <div class="game-card" id="stage"></div>
+
+    <div class="cm-btns" style="justify-content:center;margin-top:14px">
+      <button class="cm-btn cm-btn-ghost" id="btnRestart">↺ 重玩一天</button>
+      <a class="cm-btn cm-btn-ghost" href="playbook.html">看角色扮演脚本</a>
+      <a class="cm-btn cm-btn-ghost" href="../codex.html">回看法典</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="site-main"><div class="sf-bot">
+  <span>RMC收益管理社区 · 角色扮演模拟</span>
+  <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+</div></div></footer>
+
+<script src="../assets/js/app.js"></script>
+<script>
+(function(){
+  "use strict";
+  var G={rev:50,guest:50,owner:50,team:50};
+  var GMETA={rev:{l:"收益",c:"var(--navy)"},guest:{l:"客人",c:"var(--navy)"},owner:{l:"业主",c:"var(--navy)"},team:{l:"团队",c:"var(--navy)"}};
+  var $=function(id){return document.getElementById(id);};
+  // 情境图：每个节点一组选择，d 为四仪表增量，next 为下一节点 id，"END" 表示结局
+  var NODES={
+    start:{who:"08:00 · 早会",txt:"销售总监甩给你一份周末预测：明天会议旺季，今天周五晚已满房 96%。他问你『今天基调怎么定？』",step:"情境 1 / 7",
+      choices:[
+        {t:"<b>先看价格弹性再定</b>：调取近 4 周同档日型数据，确认提价空间后动手",d:{rev:3,guest:1,owner:2,team:2},next:"ob",fb:"稳。先有数据再动手，避免拍脑袋。对应《法典》表 A（价格弹性与出租率）与表 J（收益例会）。",tab:"表A · 表J"},
+        {t:"<b>直接把今天 BAR 顶到上限 +20%</b>：满房了还怕卖不掉？",d:{rev:6,guest:-4,owner:4,team:-1},next:"ob",fb:"敢提价是本事，但满房日硬顶价可能把最后一小撮价格敏感客推给竞对，且前台后续难卖。对应表 A 上限规则。",tab:"表A"},
+        {t:"<b>维持原价，怕动错</b>：周末再说",d:{rev:-3,guest:1,owner:-3,team:0},next:"ob",fb:"保守但浪费峰值日。满房日前一天通常有提价空间，不抓等于把利润留给别人。对应表 A。",tab:"表A"}
+      ]},
+    ob:{who:"09:20 · 前台急call",txt:"前台：『经理，系统显示今天已售 323 间——超售了 3 间！有一位是保证订房（担保卡已扣），另一位是会员。怎么办？』",step:"情境 2 / 7",
+      choices:[
+        {t:"<b>按表 E 处理</b>：查 No-show 率，如果预计 No-show ≥ 超售量就等；不足则安排一位去合作酒店并补偿",d:{rev:2,guest:-1,owner:2,team:2},next:"group",fb:"标准动作。超售不是不能做，是按《法典》表 E（超售修正系数）算清楚再执行，步行客人要安置+补偿。",tab:"表E"},
+        {t:"<b>直接把保证订房那位 walk</b>：谁让他晚到",d:{rev:4,guest:-9,owner:3,team:-3},next:"group",fb:"大忌。保证订房（担保卡）walk 是最伤口碑也最易投诉到平台的事，且与表 E 相悖。",tab:"表E"},
+        {t:"<b>悄悄把超售 3 间取消</b>：不认了",d:{rev:-3,guest:0,owner:-2,team:-2},next:"group",fb:"取消已售订单同样违约且伤信任，且白白丢掉收入。表 E 给出的是『算清再超售』而非『超了就撤』。",tab:"表E"}
+      ]},
+    group:{who:"10:30 · 销售来询价",txt:"销售：『一个 40 间会议团队要今天入住，只肯出 ¥520（BAR ¥680）。今天已 90%。接不接？』",step:"情境 3 / 7",
+      choices:[
+        {t:"<b>接，但置换</b>：用表 G 算清——这 40 间若按散客能卖更高就拒；等价或略低则接，并让其挪到偏低谷日一部分",d:{rev:1,guest:0,owner:3,team:2},next:"ota",fb:"正确思路。团队价要用《法典》表 G（团队置换与综合贡献）衡量『接了挤掉多少散客高价』，不是只看单价。",tab:"表G"},
+        {t:"<b>全接，单价好谈</b>：40 间到手再说",d:{rev:-5,guest:1,owner:1,team:1},next:"ota",fb:"今天已 90%，低价接大团会挤掉高价散客，单位收益反而降。表 G 会提示『置换损失』。",tab:"表G"},
+        {t:"<b>一口回绝</b>：满房日不接团队",d:{rev:2,guest:1,owner:-2,team:0},next:"ota",fb:"满房日拒低价团没错，但完全不接可能伤销售关系、丢长期会议客。表 G 建议『能置换就接一部分』。",tab:"表G"}
+      ]},
+    ota:{who:"14:00 · 竞对弹窗",txt:"收益系统提示：隔壁竞品把今晚同档房降价 12%。你的直销占比 35%。怎么应对？",step:"情境 4 / 7",
+      choices:[
+        {t:"<b>守价 + 推直订</b>：用会员价/官网权益承接价格敏感客，不全盘跟降",d:{rev:1,guest:2,owner:1,team:2},next:"complaint",fb:"理智。表 H（渠道策略）讲『直订优先』——跟降伤价且养 OTA 依赖；用直订权益留住客更划算。",tab:"表H"},
+        {t:"<b>全面跟降 12%</b>：不能让竞对抢走",d:{rev:-4,guest:2,owner:-3,team:0},next:"complaint",fb:"价跟了，量未必回得来，还把行业价格带拉低、佣金更贵。表 H 通常不建议满盘跟。",tab:"表H"},
+        {t:"<b>只对 OTA 渠道降</b>：直销不降",d:{rev:-1,guest:2,owner:-1,team:0},next:"complaint",fb:"折中但治标；长期会训练客人只认 OTA 低价。表 H 强调『直订占比』是护城河。",tab:"表H"}
+      ]},
+    complaint:{who:"15:40 · 客诉升级",txt:"今早被 walk 的那位保证订房客人，在朋友圈发了长文投诉，并@了酒店官号。前台已安抚。你要不要出面？",step:"情境 5 / 7",
+      choices:[
+        {t:"<b>亲自致歉 + 实质补偿</b>：升级房型券 + 公开诚恳回应（不甩锅）",d:{rev:-2,guest:6,owner:0,team:1},next:"tail",fb:"对。表 M 的服务补救原则：客人见底时，真诚补救能把口碑拉回甚至更高。掩盖只会更糟。",tab:"表M"},
+        {t:"<b>让前台处理，自己不露面</b>：小事",d:{rev:0,guest:-4,owner:0,team:-2},next:"tail",fb:"客人仪表已低还躲，舆情易扩大。表 M 建议『高层在关键时刻出面』。",tab:"表M"},
+        {t:"<b>装没看见</b>",d:{rev:0,guest:-7,owner:0,team:-3},next:"tail",fb:"最差。舆情发酵会反噬收益（预订量下滑）。表 M 的服务补救就是为这种时刻准备的。",tab:"表M"}
+      ]},
+    tail:{who:"17:00 · 尾单巡检",txt:"巡检发现：明天会议日已 98%，但今天还剩 22 间尾房（低谷日尾单）。怎么处理？",step:"情境 6 / 7",
+      choices:[
+        {t:"<b>会员 + 最后一分钟促销</b>：用表 H 把尾单以限时权益清掉，不伤明日均价",d:{rev:3,guest:1,owner:2,team:1},next:"report",fb:"对。低谷尾单该用《法典》表 H（渠道/促销）做限时清仓，但隔离价格（不污染明日均价）。",tab:"表H"},
+        {t:"<b>公开大幅甩卖</b>：全场 5 折",d:{rev:-2,guest:3,owner:-2,team:0},next:"report",fb:"尾单清了但公开破价会拉低品牌价格带、伤明天会议日。表 H 强调『尾单要隔离渠道』。",tab:"表H"},
+        {t:"<b>留着，明天也许能卖</b>：不降",d:{rev:-3,guest:0,owner:-2,team:0},next:"report",fb:"易逝库存不过夜。留到明天大概率仍是空房，白丢收入。表 H 的尾单逻辑就是『今夜不定就归零』。",tab:"表H"}
+      ]},
+    report:{who:"18:30 · 收益例会",txt:"你要向业主汇报今日收益。数据：RevPAR 略高于基准，但客人满意度因上午 walk 事件下滑。怎么讲？",step:"情境 7 / 7",
+      choices:[
+        {t:"<b>如实讲 + 改进</b>：亮 RevPAR 与净利，坦承 walk 事件并已补救，给下周表 E 复核动作",d:{rev:2,guest:2,owner:3,team:3},next:"END",fb:"专业。表 J（收益例会）要求用统一指标讲清取舍，不藏问题、给对策。业主最怕『只报喜』。",tab:"表J"},
+        {t:"<b>只报 RevPAR 新高</b>：不提客诉",d:{rev:1,guest:-3,owner:2,team:-2},next:"END",fb:"短期好看，隐瞒服务隐患会在复盘中爆雷，且团队仪表受损。表 J 主张透明。",tab:"表J"},
+        {t:"<b>把客诉全推给前台</b>",d:{rev:0,guest:-2,owner:0,team:-6},next:"END",fb:"甩锅瞬间击穿团队仪表。表 J 与表 K（会议综合贡献）都强调『收益经理对结果负责』。",tab:"表J · 表K"}
+      ]}
+  };
+
+  function clamp(v){return Math.max(0,Math.min(100,v));}
+  function renderGauges(){
+    var html="";
+    ["rev","guest","owner","team"].forEach(function(k){
+      var v=G[k], cls="rp-g";
+      if(v<=15)cls+=" warn"; else if(v>=85)cls+=" glow";
+      html+='<div class="'+cls+'"><div class="gl">'+GMETA[k].l+'</div><div class="gv" id="gv_'+k+'">'+v+'</div>'+
+        '<div class="gbar"><i id="gb_'+k+'" style="width:'+v+'%"></i></div></div>';
+    });
+    $("gauges").innerHTML=html;
+  }
+  function setGauges(){
+    ["rev","guest","owner","team"].forEach(function(k){
+      var v=clamp(G[k]); G[k]=v;
+      var el=$("gv_"+k); if(el)el.textContent=v;
+      var b=$("gb_"+k); if(b)b.style.width=v+"%";
+      var card=el?el.parentNode:null;
+      if(card){card.classList.toggle("warn",v<=15);card.classList.toggle("low",false);card.classList.toggle("glow",v>=85);}
+    });
+  }
+  function deltaHtml(d){
+    return ["rev","guest","owner","team"].map(function(k){
+      var x=d[k]; if(!x)return "";
+      return '<span class="rp-d '+(x>0?"up":"down")+'">'+GMETA[k].l+(x>0?" +":" ")+x+'</span>';
+    }).join("");
+  }
+  function node(id){return NODES[id];}
+  function render(id){
+    var n=node(id);
+    var h='<div class="rp-step">'+n.step+'</div>';
+    h+='<div class="rp-scene"><div class="rs-who">'+n.who+'</div><div class="rs-txt">'+n.txt+'</div></div>';
+    h+='<div class="rp-opts" id="opts">';
+    n.choices.forEach(function(c,i){
+      h+='<button class="rp-opt" data-ci="'+i+'">'+c.t+'</button>';
+    });
+    h+='</div>';
+    h+='<div class="rp-fb" id="fb"></div>';
+    $("stage").innerHTML=h;
+    Array.prototype.forEach.call($("opts").querySelectorAll(".rp-opt"),function(b){
+      b.onclick=function(){choose(id,parseInt(b.getAttribute("data-ci"),10));};
+    });
+  }
+  function choose(id,ci){
+    var n=node(id), c=n.choices[ci];
+    ["rev","guest","owner","team"].forEach(function(k){if(c.d[k])G[k]+=c.d[k];});
+    setGauges();
+    var fb=$("fb");
+    var low=["rev","guest","owner","team"].filter(function(k){return G[k]<=15;});
+    var tone=low.length?"no":(G.rev>=55&&G.owner>=55?"ok":"part");
+    fb.className="rp-fb show "+tone;
+    fb.innerHTML='<div class="fb-t">你的选择</div>'+c.fb+
+      '<div class="rp-deltas">'+deltaHtml(c.d)+'</div>'+
+      (low.length?'<div style="margin-top:8px;color:var(--danger)">⚠️ 注意：'+low.map(function(k){return GMETA[k].l;}).join("、")+' 已见底，再伤就难收场。</div>':'')+
+      '<span class="fb-tab">依据 '+c.tab+'</span>';
+    // 锁定选项
+    Array.prototype.forEach.call($("opts").querySelectorAll(".rp-opt"),function(b){b.disabled=true;b.style.opacity=.6;});
+    if(c.next==="END"){ setTimeout(endGame,350); }
+    else {
+      var b=document.createElement("button");
+      b.className="cm-btn cm-btn-primary"; b.style.marginTop="12px"; b.textContent="继续 →";
+      b.onclick=function(){render(c.next);};
+      fb.appendChild(b);
+    }
+  }
+  function endGame(){
+    var maxK="rev",minK="rev";
+    ["rev","guest","owner","team"].forEach(function(k){
+      if(G[k]>G[maxK])maxK=k; if(G[k]<G[minK])minK=k;
+    });
+    var low=["rev","guest","owner","team"].filter(function(k){return G[k]<=15;});
+    var em,badge,desc;
+    if(low.length){
+      em="😣"; badge="四面楚歌型收益经理";
+      desc="有仪表见底（"+low.map(function(k){return GMETA[k].l;}).join("、")+"）。真实收益管理里，任何一端崩了都会反噬利润——客人崩了预订下滑，团队崩了执行走样，业主崩了预算被砍。重玩时记得『先算清再动手』（表 A/E），并留补救余地（表 M）。";
+    } else if(G.rev>=70&&G.owner>=65&&G.guest>=45&&G.team>=45){
+      em="🏆"; badge="稳健收益派";
+      desc="收益与业主双赢，客人、团队没拖后腿。这是教科书追求的『综合贡献最大化』（表 K）——不是把单一指标拉满，而是让四端都站得住。继续用表 A/E/G/H/J 这套组合拳。";
+    } else if(maxK==="guest"){
+      em="😊"; badge="客人至上型";
+      desc="你把客人满意度守得最高，口碑资产厚。但要小心：若收益/业主偏低，长期业主会质疑回报。下次可在满房日更敢提价（表 A）、团队置换更精（表 G）。";
+    } else if(maxK==="owner"){
+      em="💼"; badge="业主宠儿型";
+      desc="业主仪表最高，短期最讨喜。但别为了业主牺牲客人与团队太久——表 J 例会的透明汇报能帮你平衡长期关系。";
+    } else if(maxK==="team"){
+      em="🤝"; badge="团队凝聚型";
+      desc="团队仪表最高，执行最顺。收益管理落地靠前台/销售配合，你这点做得好。补强可在数据驱动决策（表 A/J）上再狠一点。";
+    } else {
+      em="📊"; badge="平衡经营型";
+      desc="四端都没崩、也没特别突出——这是新手最稳的结局。下一步目标：在守住底线的同时，把收益/业主推过 70（表 A 提价、表 G 置换、表 H 尾单清仓）。";
+    }
+    var h='<div class="rp-end"><div class="em">'+em+'</div><h2>'+badge+'</h2>'+
+      '<div class="rp-gauges" style="max-width:520px;margin:14px auto">';
+    ["rev","guest","owner","team"].forEach(function(k){
+      h+='<div class="rp-g'+(G[k]<=15?" warn":(G[k]>=85?" glow":""))+'"><div class="gl">'+GMETA[k].l+'</div><div class="gv">'+G[k]+'</div><div class="gbar"><i style="width:'+G[k]+'%"></i></div></div>';
+    });
+    h+='</div><div class="ed">'+desc+'</div>'+
+      '<div class="cm-btns" style="justify-content:center"><button class="cm-btn cm-btn-primary" id="btnReplay2">再演一天</button></div></div>';
+    $("stage").innerHTML=h;
+    $("btnReplay2").onclick=restart;
+  }
+  function restart(){
+    G={rev:50,guest:50,owner:50,team:50};
+    renderGauges(); render("start");
+  }
+  $("btnRestart").onclick=restart;
+  renderGauges(); render("start");
+})();
+</script>
+<script>
+(function(){var t=document.getElementById('snToggle'),l=document.getElementById('snLinks');if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();
+</script>
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../assets/js/notify.js"></script>
+</body>
+</html>
