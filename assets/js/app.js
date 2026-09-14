@@ -215,6 +215,7 @@
       { t: "★ 流程图（10 环节）", p: "process.html" },
       { t: "操作法典（15 表）", p: "codex.html" },
       { t: "流程：表 M 每日流水线", p: "games/pipeline.html" },
+      { t: "★ 案例集（24 情境）", p: "cases-book.html" },
       { t: "案例集", p: "games/cases.html" },
       { t: "课程 M01–M14", p: "curriculum.html" },
       { t: "教学资源包（院校）", p: "teach.html" },
