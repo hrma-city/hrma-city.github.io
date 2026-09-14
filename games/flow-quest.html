@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>流程闯关 · 30 关 · 收益管理游戏</title>
+<meta name="description" content="跟着收益管理的 30 个子步骤走一遍：每关一个真实决策，带规则提示与即时判分，不用背公式、不用经验，跟着做完就学会整套流程。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<link rel="stylesheet" href="../assets/css/auth.css">
+<link rel="stylesheet" href="../assets/css/notify.css">
+<style>
+  .fq-wrap{max-width:780px;margin:0 auto}
+  .fq-hud{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--white);
+    border:1px solid var(--line);border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;color:var(--ink-2)}
+  .fq-hud b{color:var(--navy);font-family:var(--mono);font-size:16px}
+  .fq-bar{height:9px;border-radius:6px;background:var(--bg-2);overflow:hidden;margin-bottom:18px}
+  .fq-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--navy),var(--gold));transition:.4s}
+  .fq-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px 26px;box-shadow:var(--shadow)}
+  .fq-step{font-size:12px;color:var(--gold-2);font-weight:800;letter-spacing:1px;margin-bottom:6px}
+  .fq-ctx{font-size:13px;color:var(--ink-3);margin-bottom:12px}
+  .fq-q{font-size:16.5px;font-weight:700;color:var(--navy);line-height:1.7;margin-bottom:14px}
+  .fq-hintbtn{font-family:inherit;font-size:13px;padding:7px 14px;border:1px dashed var(--gold);background:#FFF9EC;
+    color:var(--gold);border-radius:7px;cursor:pointer;margin-bottom:14px}
+  .fq-hintbox{display:none;font-size:13.5px;color:var(--ink-2);background:#FFF9EC;border-left:3px solid var(--gold);
+    border-radius:0 7px 7px 0;padding:10px 14px;margin-bottom:14px;line-height:1.8}
+  .fq-hintbox.show{display:block}
+  .fq-o{display:block;width:100%;text-align:left;font-family:inherit;font-size:14.5px;padding:12px 15px;
+    border:1px solid var(--line-2);border-radius:9px;background:var(--white);color:var(--ink);cursor:pointer;margin-bottom:9px;line-height:1.6}
+  .fq-o:hover{border-color:var(--navy);background:var(--bg-2)}
+  .fq-o b{margin-right:8px;color:var(--navy)}
+  .fq-o.right{background:#EDF7F0;border-color:var(--teal);color:#1F6B5C}
+  .fq-o.wrong{background:#FDF3F2;border-color:var(--danger);color:#A32B1E}
+  .fq-o[disabled]{cursor:default}
+  .fq-fb{display:none;margin-top:14px;border-radius:9px;padding:14px 16px;font-size:14px;line-height:1.8}
+  .fq-fb.show{display:block}
+  .fq-fb.ok{background:#EDF7F0;border-left:4px solid var(--teal)}
+  .fq-fb.no{background:#FDF3F2;border-left:4px solid var(--danger)}
+  .fq-fb b{color:var(--navy)}
+  .fq-fb .tab{display:inline-block;margin-top:9px;font-size:12px;background:var(--navy);color:#fff;padding:3px 11px;border-radius:20px}
+  .fq-next{display:none;margin-top:14px;width:100%;text-align:center}
+  .fq-next.show{display:block}
+  .fq-start,.fq-end{text-align:center}
+  .fq-end{display:none}
+  .fq-end .em{font-size:48px}
+  .fq-end h2{color:var(--navy);margin:10px 0 6px}
+  .fq-end .g{font-size:44px;font-weight:800;font-family:var(--mono);color:var(--navy)}
+  .fq-end p{font-size:14px;color:var(--ink-2);line-height:1.85;max-width:560px;margin:10px auto}
+  @media(max-width:640px){.fq-card{padding:18px 18px}}
+</style>
+</head>
+<body data-auth="public">
+<header class="site-nav"><div class="sn-inner">
+  <a class="sn-logo" href="../index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+  <nav class="sn-links" id="snLinks"></nav>
+  <a class="sn-cta" href="index.html">游戏中心</a>
+  <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+</div></header>
+
+<main class="site-main" style="padding-top:28px;padding-bottom:44px">
+  <div class="fq-wrap">
+    <div style="margin-bottom:14px"><a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 返回游戏中心</a></div>
+
+    <!-- 开始 -->
+    <div class="fq-card fq-start" id="vStart">
+      <div class="cm-eyebrow">流程闯关 · Flow Quest</div>
+      <h1 style="font-size:25px;font-weight:800;color:var(--navy);margin:0 0 10px">跟着流程走一遍，就学会了</h1>
+      <p style="font-size:14px;color:var(--ink-2);line-height:1.85;margin:0 0 8px">
+        不需要背公式，也不需要经验。这个游戏把酒店收益管理拆成
+        <b>10 个环节、30 个子步骤</b>，每一关给你一个真实决策场景，
+        <b>点「看规则」就能拿到判断依据</b>，选完立刻告诉你对在哪、错在哪、依据哪张表。
+      </p>
+      <p style="font-size:14px;color:var(--ink-2);line-height:1.85;margin:0 0 6px">
+        30 关走完，你等于把一位收益经理的完整工作节奏亲手写了一遍。
+      </p>
+      <div class="cm-btns" style="justify-content:center;margin-top:18px">
+        <button class="cm-btn cm-btn-primary" id="btnStart">开始闯关 →</button>
+        <a class="cm-btn cm-btn-ghost" href="../process-detail.html">先看 30 子步骤详解</a>
+      </div>
+      <p class="cm-hint" id="resumeTip" style="margin-top:12px"></p>
+    </div>
+
+    <!-- 闯关 -->
+    <div id="vPlay" style="display:none">
+      <div class="fq-hud">
+        <span>第 <b id="hNo">1</b> / 30 关</span>
+        <span>答对 <b id="hOk">0</b> 关</span>
+        <span id="hStep" style="color:var(--ink-3)"></span>
+      </div>
+      <div class="fq-bar"><i id="hBar" style="width:0%"></i></div>
+      <div class="fq-card">
+        <div class="fq-step" id="qStep"></div>
+        <div class="fq-ctx" id="qCtx"></div>
+        <div class="fq-q" id="qText"></div>
+        <button class="fq-hintbtn" id="btnHint">💡 看规则（不会就点我）</button>
+        <div class="fq-hintbox" id="qHint"></div>
+        <div id="qOpts"></div>
+        <div class="fq-fb" id="qFb"></div>
+        <button class="cm-btn cm-btn-primary fq-next" id="btnNext">下一关 →</button>
+      </div>
+      <div class="cm-btns" style="justify-content:center;margin-top:14px">
+        <button class="cm-btn cm-btn-ghost" id="btnQuit">退出并保存</button>
+      </div>
+    </div>
+
+    <!-- 结算 -->
+    <div class="fq-card fq-end" id="vEnd">
+      <div class="em">🎓</div>
+      <h2>30 关全部完成</h2>
+      <div class="g" id="eScore"></div>
+      <p id="eTitle"></p>
+      <p id="eDesc"></p>
+      <div class="cm-btns" style="justify-content:center;margin-top:16px">
+        <button class="cm-btn cm-btn-primary" id="btnAgain">再走一遍</button>
+        <a class="cm-btn cm-btn-ghost" href="../process-detail.html">看 30 子步骤详解</a>
+        <a class="cm-btn cm-btn-ghost" href="../cases-book.html">去读 24 个案例</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="site-main"><div class="sf-bot">
+  <span>RMC收益管理社区 · 流程闯关</span>
+  <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+</div></div></footer>
+
+<script src="../assets/js/app.js"></script>
+<script>
+var LEVELS = [{"sid": "1.1", "name": "竞组筛选：选谁进竞组", "q": "一家 320 间中高端酒店（ADR ¥680）要选竞组，以下哪家最应该被选入？", "o": ["3 公里内、ADR ¥1,050 的五星酒店", "3 公里内、ADR ¥700 的同档次酒店", "10 公里外、ADR ¥680 的同档次酒店", "同城 ADR ¥300 的经济型酒店"], "a": 1, "e": "竞组要看「三同」：同档次、同商圈、同客群。五星（¥1,050）档次差太远会拉高竞组均价、让你的 ARI 虚低；10 公里外不同客源；经济型不在一个市场。只有 B 同时满足三同。", "hint": "记住三同：同档次（ADR ±20%）、同商圈（3 公里）、同客群。", "tables": "表 C · 表 D", "step": 1, "sname": "确定竞组与市场定位"}, {"sid": "1.2", "name": "竞组复核：什么时候该换", "q": "竞组里的一家酒店停业装修，但它仍在 OTA 上低价挂牌。正确的做法是？", "o": ["保留，反正数据还在", "立即移出竞组，等其恢复正常营业且价格稳定后再评估是否纳入", "保留但手动把它的价格调高", "把整个竞组都换掉"], "a": 1, "e": "停业/装修期的酒店挂牌价不代表真实竞争，会污染竞组均价，让你的 ARI 虚高、从而不敢提价。应立即移出，恢复营业并价格稳定后再评估。", "hint": "停业、装修、换牌、新开 —— 这四种情况都要复核竞组。", "tables": "表 C · 表 D", "step": 1, "sname": "确定竞组与市场定位"}, {"sid": "1.3", "name": "基准校准：统一指数口径", "q": "本店 ADR 含双早 ¥680，竞组数据是不含早的 ¥620。直接相除得到 ARI = 110，这个结论可靠吗？", "o": ["可靠，110 说明价格领先", "不可靠，口径不一致（含早 vs 不含早），应先把早餐价值剥离再比", "不可靠，应该改用 OCC 比较", "可靠，但要把早餐成本加回去"], "a": 1, "e": "指数比较的前提是同口径。含早与不含早相差通常 ¥60–120/间，足以让 ARI 偏差 10 个点以上。必须先把早餐价值从本店 ADR 中剥离，或改用竞组的含早价。", "hint": "比之前先对齐口径：含税？含早？哪些房型？", "tables": "表 C · 表 D", "step": 1, "sname": "确定竞组与市场定位"}, {"sid": "2.1", "name": "目标拆解：按日型与季节分，不平均分", "q": "一家酒店 7–8 月暑期和 11 月展会月占全年收入 34%，1–2 月仅占 9%。年度预算应该怎么分？", "o": ["年度目标 ÷12，每月一样", "按季节系数与日型分解，旺季高目标、淡季保量目标", "全部压到旺季", "平均分配再每月微调"], "a": 1, "e": "÷12 会同时犯两个错：淡季为凑数低价甩卖（伤价），旺季早已卖满无房可提价（少赚）。必须按季节系数 × 日型分解。", "hint": "预算 = 年度目标 × 季节系数 × 日型系数，不是 ÷12。", "tables": "表 A · 表 N", "step": 2, "sname": "年度预算与目标分解"}, {"sid": "2.2", "name": "指标设定：禁单指标考核", "q": "只把 OCC 作为前台唯一考核指标，最可能发生什么？", "o": ["房价和出租率同步上涨", "前台为冲出租率低价抛售，ADR 下滑、GOPPAR 下降", "没任何影响", "员工更积极推销高价房"], "a": 1, "e": "单指标必然被博弈。考核 OCC，前台就会用价格换出租率；考核 ADR，前台就会惜售导致高空置。必须成对考核，或直接用 RevPAR / GOPPAR。", "hint": "考核什么就得到什么 —— OCC 与 ADR 必须成对。", "tables": "表 A · 表 N", "step": 2, "sname": "年度预算与目标分解"}, {"sid": "2.3", "name": "滚动校准：每月对比实际与预算", "q": "连续两个月实际收入都比预算低 8%，收益经理首先应该做什么？", "o": ["要求销售加大折扣力度", "先判断是预算模型问题还是执行问题，再决定纠偏动作", "把年度目标调低", "换掉收益经理"], "a": 1, "e": "连续同向偏差通常说明预算假设（季节系数、事件日历、客群结构）错了，属于模型问题；偶发偏差才是执行问题。先诊断再动手，否则会越纠越偏。", "hint": "滚动校准 = 实际 + 未来 3 个月预测，偏差 >±5% 必须写原因。", "tables": "表 N", "step": 2, "sname": "年度预算与目标分解"}, {"sid": "3.1", "name": "BAR 锚定：以最佳弹性房价为锚", "q": "一家酒店门市价 ¥1,280，但近 90 天散客实际成交均价是 ¥620。BAR 应该定为多少？", "o": ["¥1,280（门市价）", "约 ¥620 上下（当日散客公开渠道可售的最高弹性房价）", "¥1,280 × 0.5 = ¥640", "取两者平均 ¥950"], "a": 1, "e": "BAR 是「当日散客公开渠道可售的最高弹性房价」，必须贴近真实成交水平。用虚高的门市价当锚，会让所有折扣率失真、渠道价格打架。", "hint": "BAR ≠ 门市价，而是散客实际能卖到的最高弹性价。", "tables": "表 A · 表 F", "step": 3, "sname": "价格体系与房型价差搭建"}, {"sid": "3.2", "name": "房型价差：反映价值差异", "q": "标准房 ¥520，套房设施差异不足以支撑 3 倍价差，却定价 ¥1,580。最可能的结果是？", "o": ["套房供不应求", "套房长期空置，只能靠免费升级消耗，无法产生应有收入", "标准房卖不动", "两者都卖得很好"], "a": 1, "e": "价差必须与可感知价值匹配。定太高，高价房无人付费，只能当升级池消耗掉，既损失收入又让真正愿意付费的客人觉得不值。", "hint": "相邻房型价差 15%–25%；长期售罄=定低了，长期空置=定高了。", "tables": "表 F · 表 J", "step": 3, "sname": "价格体系与房型价差搭建"}, {"sid": "3.3", "name": "渠道价差与价格一致性", "q": "想让官网比 OTA 更有吸引力，正确做法是？", "o": ["官网公开挂更低的牌价", "牌价保持一致，但官网送积分、免费取消、延迟退房等权益", "官网牌价低 5%，算不上破价", "下架 OTA 只留官网"], "a": 1, "e": "公开破价违反表 H：会被平台降权、被客人比价后投诉、并永久拉低价格锚。用权益做差异化，既能吸引直订又不伤价格体系。", "hint": "牌价一致，差异靠权益 —— 这是表 H 的红线。", "tables": "表 H", "step": 3, "sname": "价格体系与房型价差搭建"}, {"sid": "4.1", "name": "字段治理：细分市场字段必填", "q": "上线收益管理的第一步通常是什么？", "o": ["立刻调高价格", "补齐并治理细分市场等基础数据字段", "换一套 RMS 系统", "多投 OTA 广告"], "a": 1, "e": "没有干净的细分数据，就无法区分客群、无法差别定价、也算不准 No-show。补数据是地基工程，先于一切调价动作。", "hint": "数据不干净，后面所有差别定价都是空中楼阁。", "tables": "表 E · 表 I", "step": 4, "sname": "数据采集与市场细分"}, {"sid": "4.2", "name": "客群细分：按渠道/提前期/敏感度分群", "q": "商务客平均提前 21 天预订、价格敏感；临时散客提前 1.5 天、价格不敏感。应该怎么定价？", "o": ["统一挂牌价，简单省事", "远期放早鸟价锁量，临近留给肯出高价的临时客", "远期定高价，临近打折", "只做临时客生意"], "a": 1, "e": "提前期是最有效的分群维度之一：远期需求用折扣换确定性（早鸟锁量），临近需求更急、愿意付高价，应保留库存承接。统一价会两头都丢。", "hint": "用提前期分群：远期锁量、临近留高价。", "tables": "表 A · 表 E", "step": 4, "sname": "数据采集与市场细分"}, {"sid": "4.3", "name": "参数基线：按月统计 No-show / 取消 / 提前期", "q": "某店房量 320，统计出 No-show 6% + 取消 14% = 20%，但一直只超售 5 间。主要问题是什么？", "o": ["超售太激进", "超售参数没按实际 No-show+取消 重算，导致大量可补卖的房间白白空置", "应该完全不超售", "房量太小"], "a": 1, "e": "超售要按「No-show + 取消」的合计来算。实际 20% 却只超售 5 间（约 1.6%），意味着大量本可补卖的房夜被浪费。当然超售上限还要受房量 5% 等约束。", "hint": "No-show + 取消率按月统计，是表 E 的直接输入。", "tables": "表 E", "step": 4, "sname": "数据采集与市场细分"}, {"sid": "5.1", "name": "基线预测：拆到日型，不只看月", "q": "预测与定价的最小颗粒度应该是？", "o": ["月度", "周度", "日型（D1–D4）", "季度"], "a": 2, "e": "周末与工作日的需求差异，往往远大于不同月份之间的差异。颗粒度只到月或周，就会把周末的溢价空间和平日的放量需求一起抹平。", "hint": "预测与定价必须做到「日」这一级。", "tables": "表 A · 表 I", "step": 5, "sname": "需求预测与在手追踪"}, {"sid": "5.2", "name": "Pickup 追踪：看增速，不只看绝对值", "q": "某日在手预订 45%，但过去一周增速是同档日型的 1.8 倍。应该怎么做？", "o": ["降价促销，因为在手量低", "守价或提价，因为增速显示需求强劲", "保持不变，等满房再说", "大幅提价 30%"], "a": 1, "e": "在手量的绝对值会骗人，增速才是先行指标。增速远高于历史同档，说明需求正在快速涌入，此时降价等于把后期的钱提前送掉。", "hint": "看增速，不只看绝对值 —— 这是 Pickup 的核心。", "tables": "表 I", "step": 5, "sname": "需求预测与在手追踪"}, {"sid": "5.3", "name": "事件叠加校准：模型补不了的部分靠人工", "q": "预测模型在换季时集体失准，最可能的原因是什么？", "o": ["历史数据不够多", "物候/事件驱动的需求日期位移，模型无法捕捉", "系统出了故障", "竞对恶意干扰"], "a": 1, "e": "花期、迁徙、赛事这类事件的日期每年会前后移动 7–14 天，而模型基于「去年同期 + 平滑」，天生捕捉不到这种位移。这是结构性缺陷，必须靠事件日历人工补位。", "hint": "模型补不了的，用「本地事件日历 + 换季校准会」补。", "tables": "表 I · 表 A", "step": 5, "sname": "需求预测与在手追踪"}, {"sid": "6.1", "name": "日型划分：至少四档", "q": "一家酒店全年只分「平日价」和「周末价」两档，最大的风险是什么？", "o": ["价格太复杂，客人看不懂", "峰值日（如展会）被按普通周末价卖掉，白白损失最大的溢价机会", "员工记不住", "系统不支持"], "a": 1, "e": "只用两档会把一年中最好的几天（展会、节假日核心日）按普通周末价卖掉。这些日子需求刚性、价格极不敏感，是全年溢价空间最大的窗口，损失不可逆。", "hint": "日型至少四档：D1 峰值 / D2 高涨 / D3 平峰 / D4 低谷。", "tables": "表 A · 表 B", "step": 6, "sname": "日型划分与库存分配"}, {"sid": "6.2", "name": "嵌套库存：高价房型包含低价房型余量", "q": "某日高级房已售罄但标准房还空着 40%，最可能缺的是什么机制？", "o": ["动态定价", "嵌套式库存控制（高价房型可用量应包含低价房型余量）", "超售机制", "渠道管理"], "a": 1, "e": "没有嵌套，各房型库存互不相通，就会出现「高价房卖完了、低价房还空着」的结构错配。嵌套让高价房型可以吃掉下级的剩余量。", "hint": "高价房型可用量 = 自身 + 所有下级房型余量。", "tables": "表 B", "step": 6, "sname": "日型划分与库存分配"}, {"sid": "6.3", "name": "团队预留与释放：必须设时限", "q": "销售为团队预留了 40 间房，约定 T-14 确认。到期对方没确认，收益经理应该？", "o": ["继续等，毕竟是大客户", "按约定自动释放房量，并立即补挂全渠道", "再等一周", "直接取消整个团队单"], "a": 1, "e": "预留不设时限或到期不释放，会把本可散卖的房量长期锁死。约定就是约定，到期释放并立即补挂渠道，才能赶上散客需求窗口。", "hint": "团队预留必须设时限 —— T-14 未确认自动释放。", "tables": "表 G · 表 B", "step": 6, "sname": "日型划分与库存分配"}, {"sid": "7.1", "name": "提价触发：什么情况下该提价", "q": "出租率已经 88%，但 ARI 只有 94（价格低于市场）。最该做什么？", "o": ["降价保住出租率", "提价——OCC 高且 ARI<100 说明卖便宜了，小步多次提价", "维持原价不动", "关闭低价渠道"], "a": 1, "e": "「OCC 高 + ARI 低」是最典型的「卖满了却没卖贵」。此时提价的风险最小、收益最大，应小步多次（每次 2%–3%）提价并观察 OCC 反应。", "hint": "OCC≥85% 且 ARI<95 → 先提价，不要先放量。", "tables": "表 A · 表 C", "step": 7, "sname": "动态定价"}, {"sid": "7.2", "name": "降价触发：什么情况下该放量", "q": "低谷日临近还剩一批空房，正确的处理方式是？", "o": ["全场公开 5 折甩卖", "牌价不动，用限时 + 隔离渠道（会员/小程序）的尾单清仓", "坚持不降，宁可空着", "只卖给团队"], "a": 1, "e": "公开甩卖会永久拉低价格锚；完全不卖则房晚归零。正确做法是牌价不动、用限时与隔离渠道清仓，且成交价只要高于变动成本（本例 ¥180）就比空着强。", "hint": "降价要隔离渠道、限定时长，牌价绝不动。", "tables": "表 A · 表 H", "step": 7, "sname": "动态定价"}, {"sid": "7.3", "name": "守价判定：什么时候什么都别做", "q": "在手量 62%、Pickup 增速与历史同档持平、ARI 101。最优动作是？", "o": ["小幅提价 3%", "小幅降价 3%", "什么都不做，保持守价并继续观察", "大幅提价抢占市场"], "a": 2, "e": "三个指标都处于健康区间时，最优动作就是不动。频繁调价会打乱价格预期、增加执行成本，反而损害收益。守价也是一种决策。", "hint": "指标都健康时就别动 —— 守价也是决策。", "tables": "表 A · 表 I", "step": 7, "sname": "动态定价"}, {"sid": "8.1", "name": "房型开关与最短住期（MinLOS）", "q": "峰值日在手预订已达 93%，此时应该？", "o": ["全部房型保持开放，尽量多卖", "关闭低价房型库存并设 MinLOS，把房留给高价需求", "降低 BAR 吸引更多订单", "只留套房"], "a": 1, "e": "需求强时继续开放低价房型，等于用低价把高价需求挤走。关闭低价房型 + 设最短住期，才能把有限的房量分配给肯出高价、住得久的客人。", "hint": "需求强 → 关低价房型 + 设 MinLOS。", "tables": "表 B", "step": 8, "sname": "库存控制与超售"}, {"sid": "8.2", "name": "超售计算：按 No-show 算，不是拍脑袋", "q": "房量 320，统计出的预期 No-show + 取消合计为 6%（约 19 间）。超售应该怎么定？", "o": ["完全不超售，绝对安全", "超售约 16–19 间（不超过预期 No-show，且不超过房量 5%）", "超售 40 间，最大化收益", "超售 5 间，凭经验"], "a": 1, "e": "不超售会把可补卖的房白白浪费；超售超过预期 No-show 则必然步行。正确区间是「不超过预期 No-show」且「不超过房量 5%」——本例约 16 间（房量 5%）。注意两个约束取小值。", "hint": "超售 ≤ 预期 No-show，且 ≤ 房量 5%；两个约束取小值。", "tables": "表 E", "step": 8, "sname": "库存控制与超售"}, {"sid": "8.3", "name": "步行应急：已经超售过度了怎么办", "q": "已经出现到店无房的客人，处置时最优先保护谁？", "o": ["先到先得", "保证订房（担保卡）客人优先保留房间", "价格高的客人优先", "OTA 客人优先"], "a": 1, "e": "保证订房（担保卡已扣款）具有最强的履约义务，walk 掉这类客人既违约又最容易引发公开投诉。超售扣减应从「不保证」的订单开始。", "hint": "保证订房优先保留 —— 这是 walk 处置的第一原则。", "tables": "表 L · 表 E", "step": 8, "sname": "库存控制与超售"}, {"sid": "9.1", "name": "渠道开关与配额：按日型分配", "q": "展会三日（需求极强）应该怎么处理渠道库存？", "o": ["OTA 全开，能卖多少卖多少", "压 OTA 配额，把房量优先留给直销与高价渠道", "关闭所有 OTA", "只留一个 OTA 独家"], "a": 1, "e": "需求强时不需要靠 OTA 走量，反而应该把有限的房量留给净贡献更高的直销与高价渠道。原则是「旺季控渠道、淡季借渠道」。", "hint": "旺季控渠道、淡季借渠道 —— 按日型给配额。", "tables": "表 H · 表 B", "step": 9, "sname": "渠道与团队策略"}, {"sid": "9.2", "name": "直订提升：用权益，不用降价", "q": "想提高直销占比，以下做法正确的是？", "o": ["官网公开挂比 OTA 低的价格", "牌价保持一致，但直销送积分、免费取消、延迟退房等权益", "把所有 OTA 下架", "给 OTA 更低的价换曝光"], "a": 1, "e": "公开破价违反表 H，会被平台降权、被客人比价后投诉，还会永久拉低价格锚。用权益做差异化，才能既提直订又不伤价格体系。", "hint": "提直订 = 权益差异化 + 库存倾斜，牌价不动。", "tables": "表 H · 表 B", "step": 9, "sname": "渠道与团队策略"}, {"sid": "9.3", "name": "团队置换与综合贡献：接不接要算两笔账", "q": "一个会议单报价低于 BAR，但会带来可观的餐饮与会场收入。判断是否该接，主要看什么？", "o": ["只看客房单价差", "置换损失（按本可卖出的间夜）+ 表 K 综合贡献（客房+餐饮+会场）", "领导或销售的意见", "对方结算周期"], "a": 1, "e": "全服务酒店的会议价值 = 客房 + 餐饮 + 会场 + 设备。只看客房会把划算的会误拒；但置换损失要按「本可卖出的间夜」算，按满房算会高估损失。", "hint": "团队单看两笔账：置换损失 + 表 K 综合贡献。", "tables": "表 G · 表 K", "step": 9, "sname": "渠道与团队策略"}, {"sid": "10.1", "name": "表 M 逐时执行：一天的时间轴", "q": "按表 M，一天中「查表定动作」应该在什么时间？", "o": ["07:30", "08:10", "08:30", "17:00"], "a": 2, "e": "表 M 的顺序是：07:30 取数 → 08:10 比价 → 08:30 查表 → 09:10 执行 → 17:00 巡检。先有数据、再比竞对、然后查表，顺序不能颠倒。", "hint": "表 M：07:30 取数 → 08:10 比价 → 08:30 查表 → 09:10 执行 → 17:00 巡检。", "tables": "表 M", "step": 10, "sname": "每日执行、监控与复盘"}, {"sid": "10.2", "name": "监控与预警：分档监控 + 价格异常告警", "q": "防止渠道价格错乱造成大额损失，最有效的一层防护是？", "o": ["每日人工巡检一次", "价格异常自动告警（偏离 BAR ±30% 即告警）", "等客人投诉再处理", "每周核对一次"], "a": 1, "e": "损失大小取决于发现速度。3 小时 20 分才发现损失 ¥21.7 万，10 分钟内熔断则约 ¥2 万。告警 + 熔断 + 巡检三层都要有，但告警是第一道。", "hint": "告警（发现快）+ 熔断（自动止损）+ 巡检（兜底），三层都要。", "tables": "表 I · 表 L", "step": 10, "sname": "每日执行、监控与复盘"}, {"sid": "10.3", "name": "异常处置与复盘：表 L 优先级最高", "q": "表 A 建议提价、表 C 显示价格已高于市场，两个结论冲突时应该怎么办？", "o": ["听收益经理的", "听销售的", "按表 O 的优先级仲裁（表 A 优先级 3 > 表 C 优先级 4）", "今天不做决策"], "a": 2, "e": "表之间冲突是常态，必须有一套仲裁规则而不是靠谁嗓门大。按表 O：表 A 优先级 3 高于表 C 的优先级 4；但要注意表 L（异常事件）优先级为 1，一旦触发直接覆盖所有表。", "hint": "表冲突按表 O 仲裁；表 L 异常事件优先级 1，覆盖一切。", "tables": "表 L · 表 O · 表 N", "step": 10, "sname": "每日执行、监控与复盘"}];
+var KEY = "hrma_flowquest_v1";
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  var cur=0, ok=0, answered=false;
+  var st={cur:0, ok:0, done:null};
+  try{ var s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s){st=s;} }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify({cur:cur, ok:ok, done:st.done})); }catch(e){} }
+
+  function esc(t){return String(t).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+
+  function start(idx){
+    cur=idx; 
+    if(idx===0){ ok=0; }
+    else { ok=st.ok||0; }
+    $("vStart").style.display="none"; $("vEnd").style.display="none"; $("vPlay").style.display="";
+    render();
+  }
+
+  function render(){
+    var L=LEVELS[cur];
+    $("hNo").textContent=cur+1;
+    $("hOk").textContent=ok;
+    $("hBar").style.width=((cur)/LEVELS.length*100)+"%";
+    $("hStep").textContent="环节 "+L.step+"　"+esc(L.sname);
+    $("qStep").textContent="子步骤 "+esc(L.sid);
+    $("qCtx").textContent="环节 "+L.step+"　"+esc(L.sname);
+    $("qText").textContent=L.q;
+    $("qHint").textContent=L.hint;
+    $("qHint").classList.remove("show");
+    answered=false;
+    $("qOpts").innerHTML=L.o.map(function(o,i){
+      return '<button class="fq-o" data-i="'+i+'"><b>'+"ABCD"[i]+'.</b>'+esc(o)+'</button>';
+    }).join("");
+    $("qFb").className="fq-fb"; $("qFb").innerHTML="";
+    $("btnNext").classList.remove("show");
+    $("btnNext").textContent = (cur===LEVELS.length-1)?"查看成绩 →":"下一关 →";
+    Array.prototype.forEach.call($("qOpts").querySelectorAll(".fq-o"),function(b){
+      b.onclick=function(){ pick(parseInt(b.getAttribute("data-i"),10)); };
+    });
+    save();
+  }
+
+  function pick(i){
+    if(answered)return; answered=true;
+    var L=LEVELS[cur];
+    var right = (i===L.a);
+    if(right) ok++;
+    Array.prototype.forEach.call($("qOpts").querySelectorAll(".fq-o"),function(b){
+      var j=parseInt(b.getAttribute("data-i"),10);
+      b.disabled=true;
+      if(j===L.a) b.classList.add("right");
+      else if(j===i) b.classList.add("wrong");
+    });
+    var fb=$("qFb");
+    fb.className="fq-fb show "+(right?"ok":"no");
+    fb.innerHTML='<b>'+(right?"✓ 正确":"✗ 再想想")+'</b>　'+esc(L.e)+
+      '<br><span class="tab">依据 '+esc(L.tables)+'</span>';
+    $("hOk").textContent=ok;
+    $("btnNext").classList.add("show");
+    save();
+  }
+
+  $("btnNext").onclick=function(){
+    if(cur>=LEVELS.length-1){ finish(); return; }
+    cur++; render();
+  };
+  $("btnHint").onclick=function(){ $("qHint").classList.toggle("show"); };
+  $("btnQuit").onclick=function(){ save(); location.href="../process-detail.html"; };
+
+  function finish(){
+    $("vPlay").style.display="none"; $("vEnd").style.display="";
+    var pct=Math.round(ok/LEVELS.length*100);
+    var g,title,desc;
+    if(pct>=90){g="S";title="收益管理流程已通关";desc="你已经能把整套流程跑下来，并且知道每一步为什么这么做。下一步是拿自家酒店的真实数据练——先做一次收益健康自检。";}
+    else if(pct>=75){g="A";title="流程掌握扎实";desc="主要环节都掌握了。建议把答错的几关对应的子步骤再读一遍，然后去案例集看真实情境是怎么变的。";}
+    else if(pct>=55){g="B";title="框架有了，细节要补";desc="你已经知道流程长什么样，但部分判定规则还不熟。建议先玩「看规则」再答题，把 30 个子步骤的规则过一遍。";}
+    else {g="C";title="刚起步，正常";desc="第一次走完流程答对不多很正常。这个游戏的设计就是让你「先看规则再选」——重玩一次，这次每关都先点「看规则」。";}
+    $("eScore").textContent=ok+" / "+LEVELS.length+"　（"+pct+"%）　评级 "+g;
+    $("eTitle").innerHTML="<b>"+title+"</b>";
+    $("eDesc").textContent=desc;
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    st={cur:0,ok:0,done:null};
+  }
+
+  $("btnStart").onclick=function(){ start(0); };
+  $("btnAgain").onclick=function(){ start(0); };
+
+  // 续玩提示
+  if(st && st.cur>0 && st.cur<LEVELS.length){
+    $("resumeTip").textContent="上次进行到第 "+(st.cur+1)+" 关（答对 "+(st.ok||0)+" 关）";
+    $("btnStart").textContent="继续闯关（第 "+(st.cur+1)+" 关）→";
+    $("btnStart").onclick=function(){ ok=st.ok||0; cur=st.cur; 
+      $("vStart").style.display="none"; $("vEnd").style.display="none"; $("vPlay").style.display=""; render(); };
+  }
+})();
+</script>
+<script>(function(){var t=document.getElementById('snToggle'),l=document.getElementById('snLinks');if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();</script>
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../assets/js/notify.js"></script>
+</body>
+</html>
