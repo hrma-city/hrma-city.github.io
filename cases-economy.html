@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>经济型酒店 · 收益管理案例分册 · RMC收益管理社区</title>
+<meta name="description" content="经济型酒店收益管理案例分册：6 个真实情境的完整复盘，含业态差异、核心指标、常见坑与配套练习题。底线只有一个：成交价必须高于变动成本">
+<style>
+  :root{--navy:#1B3A5C;--navy2:#2A5680;--gold:#B8894A;--gold2:#E8C87E;--ink:#222;--ink2:#4A5568;
+        --ink3:#7B8794;--line:#E1E5EA;--bg2:#F6F7F9;--teal:#2E8B7A;--red:#C0392B}
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    max-width:940px;margin:0 auto;padding:36px 28px;color:var(--ink);line-height:1.85;font-size:15px}
+  h1{font-size:32px;color:var(--navy);margin:0 0 6px}
+  h2{font-size:20px;color:var(--navy);margin:0 0 6px;line-height:1.45}
+  .cover{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;border-radius:14px;
+    padding:34px 38px;margin-bottom:22px}
+  .cover .eyebrow{font-size:12px;letter-spacing:2px;color:var(--gold2);font-weight:800;margin-bottom:8px}
+  .cover h1{color:#fff;font-size:31px}
+  .cover .sub{font-size:16px;color:var(--gold2);font-weight:600;margin:6px 0 14px}
+  .cover p{font-size:14.5px;color:rgba(255,255,255,.92);line-height:1.9;margin:0 0 10px}
+  .cover .meta{font-size:12.5px;color:rgba(255,255,255,.75);border-top:1px solid rgba(255,255,255,.25);
+    padding-top:12px;margin-top:12px}
+  .bk-sec{border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:14px;background:#fff}
+  .bk-sec .h{font-size:15px;font-weight:800;color:var(--navy2);margin-bottom:9px;letter-spacing:.5px;
+    border-left:4px solid var(--gold);padding-left:9px}
+  .bk-sec ul{margin:0;padding-left:20px}
+  .bk-sec li{margin-bottom:6px;font-size:14px;color:var(--ink2);line-height:1.8}
+  .bk-kpis{display:flex;flex-wrap:wrap;gap:7px}
+  .bk-kpi{font-size:12.5px;padding:5px 13px;border-radius:20px;background:#EAF0F7;color:var(--navy);font-weight:650}
+  .bk-trap{background:#FDF3F2;border-left:3px solid var(--red);border-radius:0 7px 7px 0;padding:9px 14px;
+    margin-bottom:8px;font-size:13.5px;color:var(--ink2);line-height:1.8}
+  .bk-who{background:var(--bg2);border-radius:9px;padding:11px 15px;font-size:13.5px;color:var(--ink2)}
+  .cb-case{border-top:2px solid var(--line);padding:26px 0 8px;margin-top:26px}
+  .cb-no{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1px;color:#fff;background:var(--navy);
+    border-radius:20px;padding:3px 13px;margin-bottom:8px}
+  .cb-sub2{font-size:14px;color:var(--gold);font-weight:600;margin-bottom:10px}
+  .cb-tags{margin-bottom:12px}
+  .cb-tag{display:inline-block;font-size:11.5px;padding:2px 10px;border-radius:20px;background:#EAF0F7;
+    color:var(--navy);font-weight:650;margin-right:6px}
+  .cb-dl{margin:0}
+  .cb-dl dt{font-size:13px;font-weight:800;color:var(--navy2);margin-top:14px;letter-spacing:.5px}
+  .cb-dl dd{margin:3px 0 0;font-size:14.5px;color:var(--ink2);line-height:1.85}
+  .cb-data{background:#F4F7FA;border-left:3px solid var(--navy2);border-radius:0 7px 7px 0;padding:10px 14px !important}
+  .cb-res{background:#EDF7F0;border-left:3px solid var(--teal);border-radius:0 7px 7px 0;padding:10px 14px !important}
+  .cb-take{background:#FFF9EC;border:1px solid var(--gold);border-radius:8px;padding:12px 16px;margin-top:16px;
+    font-size:14px;line-height:1.85}
+  .cb-tab{display:inline-block;margin-top:10px;font-size:12px;background:var(--navy);color:#fff;padding:3px 12px;
+    border-radius:20px}
+  .cb-ex{background:#F4F7FA;border:1px solid var(--line);border-radius:9px;padding:13px 16px;margin-top:14px}
+  .cb-exh{font-size:13px;font-weight:800;color:var(--navy2);margin-bottom:9px;letter-spacing:.5px}
+  .cb-q{margin-bottom:13px;padding-bottom:11px;border-bottom:1px dashed var(--line)}
+  .cb-q:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+  .cb-qt{font-size:13.5px;color:var(--ink);font-weight:650;margin-bottom:7px;line-height:1.7}
+  .cb-o{display:block;width:100%;text-align:left;font-family:inherit;font-size:13px;padding:7px 11px;
+    border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink2);cursor:pointer;
+    margin-bottom:5px;line-height:1.6}
+  .cb-o:hover{border-color:var(--navy)}
+  .cb-o.right{background:#EDF7F0;border-color:var(--teal);color:#1F6B5C;font-weight:600}
+  .cb-o.wrong{background:#FDF3F2;border-color:var(--red);color:#A32B1E}
+  .cb-o[disabled]{cursor:default;opacity:.95}
+  .cb-ans{font-size:12.5px;color:var(--ink2);background:#FFF9EC;border-left:3px solid var(--gold);
+    border-radius:0 6px 6px 0;padding:8px 11px;margin-top:6px;line-height:1.75}
+  .cb-top{text-align:right;margin-top:8px}
+  .cb-top a{font-size:12.5px;color:var(--ink3);text-decoration:none}
+  .foot{font-size:12.5px;color:var(--ink3);border-top:1px solid var(--line);padding-top:16px;margin-top:34px}
+  .noprint{margin-bottom:16px}
+  .noprint button,.noprint a{font-family:inherit;font-size:13.5px;padding:9px 18px;border:0;background:var(--navy);
+    color:#fff;border-radius:8px;cursor:pointer;margin-right:8px;text-decoration:none;display:inline-block}
+  .noprint .ghost{background:#fff;color:var(--navy);border:1px solid var(--navy)}
+  @media print{.noprint{display:none}body{padding:0;font-size:12.5px}.cb-case{page-break-inside:avoid}}
+  @media(max-width:640px){body{padding:20px 15px}.cover{padding:24px 20px}.cover h1{font-size:25px}}
+</style>
+</head>
+<body>
+
+<div class="noprint">
+  <button onclick="window.print()">打印 / 另存为 PDF</button>
+  <a class="ghost" href="case-books.html">全部 7 册</a>
+  <a class="ghost" href="cases-book.html">完整 24 案例</a>
+</div>
+
+<div class="cover">
+  <div class="eyebrow">收益管理案例分册 · Economy &amp; Budget</div>
+  <h1>经济型酒店</h1>
+  <div class="sub">底线只有一个：成交价必须高于变动成本</div>
+  <p>经济型酒店的收益管理没有花招，只有纪律。房量小、单价低、客源本地化，一次跟价到 ¥99 就可能让每卖一间亏 ¥10.85，而且把客人的价格锚永久拉到三位数以下。这一册讲的是如何在低价带守住底线，以及县城市场特有的需求节奏。</p>
+  <div class="meta">
+    本册含 6 个案例 · 每个案例配 2 道练习题　|　RMC收益管理社区　|　v1.0　|　2026 年 9 月<br>
+    案例为教学改编：酒店名称与部分数值经过处理，但决策逻辑、算式与判定依据均可用于实战。
+  </div>
+</div>
+
+<h2 style="font-size:19px;color:var(--navy);margin:24px 0 12px">这一册讲什么</h2>
+
+<div class="bk-sec">
+  <div class="h">这个业态，收益管理有什么不一样</div>
+  <ul><li>价格带极窄：挂牌价常在 ¥150–250，每 10 元的调整都是显著百分比。提价空间有限，降价空间更是几乎为零。</li><li>变动成本是硬底线：清洁、布草、易耗、水电、早餐构成单房变动成本，成交价低于它，卖得越多亏得越多。</li><li>客源本地化：返乡探亲、本地办事、过路自驾为主，需求受本地事件（赶集、考试、红白事）驱动，与商务周期不同步。</li><li>渠道依赖高：OTA 与上门是主力，直订能力弱。佣金对利润的侵蚀比高端酒店更致命。</li></ul>
+</div>
+
+<div class="bk-sec">
+  <div class="h">核心指标该看哪些</div>
+  <div class="bk-kpis"><span class="bk-kpi">单房变动成本</span><span class="bk-kpi">成交价底线（含佣金后）</span><span class="bk-kpi">OCC 与 ADR 的组合</span><span class="bk-kpi">渠道净贡献</span><span class="bk-kpi">本地事件日历</span></div>
+</div>
+
+<div class="bk-sec">
+  <div class="h">最常见的三个坑</div>
+  <div class="bk-trap">裸价跟到 ¥99：99×(1−15%) = ¥84.15，低于变动成本 ¥95，每卖一间亏 ¥10.85，还把价格锚永久拉低。</div><div class="bk-trap">把「满房」当目标：经济型的正确目标是利润，不是 OCC。低于变动成本的满房是亏损放大器。</div><div class="bk-trap">照搬商务酒店的高频调价：本地客源价格敏感度极高，频繁调价会引发抱怨。应聚焦底线与事件日。</div>
+</div>
+
+<div class="bk-sec">
+  <div class="h">最该用的几张判定表</div>
+  <ul><li>表 A 每日调价（守底线）</li><li>表 H 渠道</li><li>单房变动成本测算</li><li>表 L 异常事件</li></ul>
+</div>
+
+<div class="bk-who"><b>适合谁读：</b>经济型连锁、县城单体酒店的店长、投资人、区域运营经理。</div>
+
+<h2 style="font-size:19px;color:var(--navy);margin:28px 0 4px">本册案例（6 个）</h2>
+<p style="font-size:13.5px;color:var(--ink-2);margin:0 0 6px">
+  先读「酒店画像 + 情境」，自己想一遍你会怎么做；再看「决策过程」比思路；
+  重点看「复盘」里的「做错的是」——那部分最值钱。
+</p>
+
+<section class="cb-case" id="case7"><div class="cb-no">案例 1 · 一 · 业态与星级</div><h2>县城经济型酒店：¥99 的特价房，是引流还是自杀？</h2><div class="cb-sub2">价格有底线，跌破变动成本就是在给平台打工</div><div class="cb-tags"><span class="cb-tag">经济型</span><span class="cb-tag">价格底线</span><span class="cb-tag">入住率</span></div><dl class="cb-dl"><dt>酒店画像</dt><dd>河南某县城经济型连锁酒店，80 间房，主力客源为返乡探亲、本地办事、过路自驾。挂牌价 ¥168。</dd><dt>情境</dt><dd>2026 年春节后淡季，周边 4 家同行全部上线 ¥99 特价房抢量。店长顶不住，也想跟进，被区域收益经理拦下要求先算账。</dd><dt>关键数据</dt><dd class="cb-data">单房变动成本：清洁 ¥28 + 布草洗涤 ¥18 + 易耗品 ¥12 + 水电 ¥22 + 早餐 ¥15 = <b>¥95</b>。平台佣金 15%。若卖 ¥99，净到手 ¥84.15 ——<b>每卖一间亏 ¥10.85</b>。若卖 ¥139，净到手 ¥118.15，贡献毛利 ¥23.15。</dd><dt>决策过程</dt><dd>收益经理的结论很直接：¥99 低于变动成本，卖得越多亏得越多，而且会把客人的价格锚定拉到三位数以下，之后再也提不回去。正确做法是<b>用「权益包」而不是「裸价」</b>参与竞争：比如 ¥139 含早餐+延迟退房+免费停车，让客人感知价值接近，但保住变动成本之上的空间。</dd><dt>执行的动作</dt><dd>① 拒绝 ¥99，改成 ¥139 的「返乡特惠包」（含双早+延迟退房+停车）；② 与本地 3 家餐馆/加油站做异业联名券，成本由合作方分摊；③ 对连住 2 晚以上给第 2 晚 ¥119（拉长住期摊薄变动成本）；④ 把省下的让利预算投到本地生活平台的「新客立减」而非牌价；⑤ 每日只在 17:00 后对剩余房量做限时特价，且不早于当日 15:00 释放。</dd><dt>结果</dt><dd class="cb-res">一个月后 OCC 从 52% 升到 63%（虽然低于跟价同行的 71%），但 <b>GOP 为正 ¥2.1 万</b>；而三家跟价到 ¥99 的同行中，两家当月 GOP 为负。两个月后同行退出价格战，本店已站稳 ¥139–¥158 价格带。</dd><dt>复盘</dt><dd>做对的是：算清变动成本底线，宁可少卖也不做亏本买卖。做错的是：异业联名谈晚了，如果提前一个月谈，淡季起量会更顺。</dd></dl><div class="cb-take"><b>可复用动作　</b><b>任何低于变动成本的价格都是在自杀</b>；竞争用「权益包 + 限时尾单」，不动牌价。</div><div class="cb-tab">涉及：表 A 每日调价 · 表 B 库存 · 变动成本 / GOPPAR</div><div class="cb-ex"><div class="cb-exh">练习题（2 题 · 选一个答案看解析）</div><div class="cb-q" data-a="1"><div class="cb-qt">1. 单房变动成本 ¥95、平台佣金 15%。卖 ¥99 的净到手是多少？</div><button class="cb-o" data-i="0"><b>A.</b> ¥99，高于成本</button><button class="cb-o" data-i="1"><b>B.</b> ¥84.15，低于变动成本，每卖一间亏 ¥10.85</button><button class="cb-o" data-i="2"><b>C.</b> ¥95，刚好打平</button><button class="cb-o" data-i="3"><b>D.</b> ¥114</button><div class="cb-ans" style="display:none"><b>✓ 正确答案：B</b>　99 × (1−15%) = ¥84.15 &lt; 变动成本 ¥95，卖得越多亏得越多，还会把客人的价格锚永久拉到三位数以下。</div></div><div class="cb-q" data-a="1"><div class="cb-qt">2. 面对同行的 ¥99 特价房，正确的应对是？</div><button class="cb-o" data-i="0"><b>A.</b> 裸价跟降到 ¥99</button><button class="cb-o" data-i="1"><b>B.</b> 权益包（含早+延迟退房+停车）+ 限时尾单，牌价不动</button><button class="cb-o" data-i="2"><b>C.</b> 拒绝一切促销</button><button class="cb-o" data-i="3"><b>D.</b> 只做会员</button><div class="cb-ans" style="display:none"><b>✓ 正确答案：B</b>　底线是成交价必须高于变动成本。用权益包提升感知价值，用限时尾单在 17:00 后清剩余房量，既参与竞争又不破牌价。</div></div></div></section><section class="cb-case" id="case3"><div class="cb-no">案例 2 · 一 · 业态与星级</div><h2>120 间中端酒店：把 OTA 从 62% 压到 41%，一年多赚 38 万</h2><div class="cb-sub2">有限服务酒店没有餐饮可以补，渠道成本就是生死线</div><div class="cb-tags"><span class="cb-tag">中端有限服务</span><span class="cb-tag">渠道</span><span class="cb-tag">直订</span></div><dl class="cb-dl"><dt>酒店画像</dt><dd>成都东站商圈某中端有限服务酒店，120 间房，无会议室、只有简易早餐。客源极度依赖 OTA（62%）与上门（18%），直销仅 20%。</dd><dt>情境</dt><dd>2026 年平台佣金普遍上调到 15%–18%，且要求「独家价」。店长算账发现：卖得越多，净利润率越低。但一旦下架 OTA，出租率立刻掉到 50%。</dd><dt>关键数据</dt><dd class="cb-data">月房费收入约 ¥108 万；OTA 占 62% = ¥67 万，佣金 16% = ¥10.7 万；直销 20% = ¥21.6 万，获客成本约 3% = ¥0.65 万。若把 OTA 的 21 个百分点转到直销，可省约 ¥3.4 万/月。</dd><dt>决策过程</dt><dd>收益经理判断：不能硬下架 OTA（流量会断），也不能公开低价抢客（破价会被平台降权且伤品牌）。正确做法是<b>用「权益」而不是「价格」做差异化</b>——官网/小程序给的是免费取消、延迟退房、积分兑房、免费升级，牌价保持一致（守住表 H）。</dd><dt>执行的动作</dt><dd>① 前台对每一位 OTA 入住客人做「下次直订省更多」的权益卡引导；② 官网与小程序上线会员价（同价但送权益）；③ 携程保留挂牌但收紧低价房型库存（表 B），把优质房型留给直销；④ 企业协议与长住客全部走直销；⑤ 每周复盘渠道净贡献（NRevPAR）。</dd><dt>结果</dt><dd class="cb-res">6 个月后 OTA 占比从 62% 降到 41%，直销从 20% 升到 44%。整体 OCC 仅微降 1.2pp，但 NRevPAR 提升 9.4%，年化净利润增加约 <b>¥38 万</b>。</dd><dt>复盘</dt><dd>做对的是：用权益而非破价来提直订，守住了价格一致（表 H）。做错的是：一开始想直接给官网更低牌价，被及时纠正——那会引发平台和客人的双重反弹。</dd></dl><div class="cb-take"><b>可复用动作　</b>提直订 = <b>权益差异化 + 库存倾斜</b>，绝不等于公开降价；用 NRevPAR 而非 RevPAR 看渠道。</div><div class="cb-tab">涉及：表 H 渠道与一致性 · 表 B 库存与限制 · NRevPAR</div><div class="cb-ex"><div class="cb-exh">练习题（2 题 · 选一个答案看解析）</div><div class="cb-q" data-a="1"><div class="cb-qt">1. 想提升直订占比，正确的做法是？</div><button class="cb-o" data-i="0"><b>A.</b> 官网公开挂比 OTA 更低的牌价</button><button class="cb-o" data-i="1"><b>B.</b> 用权益差异化（积分、免费取消、延迟退房、升级），牌价保持一致</button><button class="cb-o" data-i="2"><b>C.</b> 把所有 OTA 全部下架</button><button class="cb-o" data-i="3"><b>D.</b> 给 OTA 独家低价换曝光</button><div class="cb-ans" style="display:none"><b>✓ 正确答案：B</b>　公开破价违反表 H 价格一致，会被平台降权、被客人比价后投诉，还会永久拉低价格锚。用权益做差异化才能既提直订又不伤价格体系。</div></div><div class="cb-q" data-a="2"><div class="cb-qt">2. 要衡量渠道的真实净贡献，应该看哪个指标？</div><button class="cb-o" data-i="0"><b>A.</b> RevPAR</button><button class="cb-o" data-i="1"><b>B.</b> OCC</button><button class="cb-o" data-i="2"><b>C.</b> NRevPAR（扣掉佣金/渠道费后的净 RevPAR）</button><button class="cb-o" data-i="3"><b>D.</b> ADR</button><div class="cb-ans" style="display:none"><b>✓ 正确答案：C</b>　RevPAR 与 ADR 都不含渠道成本。OTA 佣金约 15%、直销成本约 3%，中间 12 个点就是利润差异——只有 NRevPAR 能看出来。</div></div></div></section><section class="cb-case" id="case16"><div class="cb-no">案例 3 · 四 · 节假日</div><h2>五一 3 天假：48 小时里改了 9 次价</h2><div class="cb-sub2">短假期窗口极短，考验的是调价频率与刹车机制</div><div class="cb-tags"><span class="cb-tag">五一短假</span><span class="cb-tag">高频调价</span><span class="cb-tag">表I</span></div><dl class="cb-dl"><dt>酒店画像</dt><dd>南京某中端酒店，160 间房。五一 3 天假，需求集中在假期前 10 天才爆发。</dd><dt>情境</dt><dd>4 月 20 日（T-11），在手预订仅 38%，收益经理判断需求疲软，准备降价。但 4 月 25 日起 Pickup 突然加速，若不及时改判就会低价卖光。</dd><dt>关键数据</dt><dd class="cb-data">4/20 在手 38%（去年同期同日 44%）；4/25 在手 61%（增速 +23pp/5 天）；4/28 在手 79%；4/30 在手 91%。竞对 ADR 从 ¥620 涨到 ¥780。</dd><dt>决策过程</dt><dd>短假期的核心难点是<b>窗口短、变化快</b>。收益经理设了「每日两次」的监控节奏（09:00 与 17:00），并定了三个触发阈值：在手 <50% 且 Pickup 增速 <10pp/周 → 降价；在手 50–75% 且增速正常 → 守价；在手 >75% 或增速 >20pp/周 → 提价。用规则代替临场判断。</dd><dt>执行的动作</dt><dd>① 建立假期专项监控表（表 I），每日两次记录在手、Pickup、竞对价；② 按三档阈值触发动作，每次调整不超过 8%；③ 4/25 增速触发后连续提价 3 次（¥620→¥680→¥740→¥790）；④ 4/29 在手超 90% 后停止提价并关低价房型；⑤ 假期第 2 天对剩余房量做限时释放，避免最后一天空置。</dd><dt>结果</dt><dd class="cb-res">3 天假期最终 OCC 96%、ADR ¥752、<b>RevPAR ¥722</b>；若沿用 4/20 的降价判断，预计 ADR 仅 ¥600 左右，<b>少赚约 ¥7.3 万</b>。</dd><dt>复盘</dt><dd>做对的是：用「阈值规则」替代临场拍脑袋，避免情绪化决策。做错的是：4/20 差点降价，说明对短假期的爆发节奏经验不足。</dd></dl><div class="cb-take"><b>可复用动作　</b>短假期要<b>提高监控频率 + 预设调价阈值</b>；每次调整幅度控制在 8% 以内；在手超 90% 就停止提价。</div><div class="cb-tab">涉及：表 I 预订窗口监控 · 表 A 每日调价 · 调价台账</div><div class="cb-ex"><div class="cb-exh">练习题（2 题 · 选一个答案看解析）</div><div class="cb-q" data-a="1"><div class="cb-qt">1. 短假期（3 天）决策最容易犯的错是什么？</div><button class="cb-o" data-i="0"><b>A.</b> 调价太频繁</button><button class="cb-o" data-i="1"><b>B.</b> 只看某一时点的在手量就下结论，忽略 Pickup 增速</button><button class="cb-o" data-i="2"><b>C.</b> 调价次数太少</button><button class="cb-o" data-i="3"><b>D.</b> 过度关注竞对</button><div class="cb-ans" style="display:none"><b>✓ 正确答案：B</b>　本例 T-11 在手仅 38% 看似疲软，但 T-6 已升到 61%（+23pp/5 天）。只看绝对值会误判降价，把后面爆发的需求低价卖光。</div></div><div class="cb-q" data-a="1"><div class="cb-qt">2. 短假期的正确决策机制是？</div><button class="cb-o" data-i="0"><b>A.</b> 每天看一次</button><button class="cb-o" data-i="1"><b>B.</b> 提高监控频率（每日两次）+ 预设三档阈值，用规则代替临场判断</button><button class="cb-o" data-i="2"><b>C.</b> 每周看一次</button><button class="cb-o" data-i="3"><b>D.</b> 假期当天再决定</button><div class="cb-ans" style="display:none"><b>✓ 正确答案：B</b>　短假期窗口短、变化快，临场判断容易被情绪左右。预设阈值（在手&lt;50% 且增速&lt;10pp/周 → 降；50–75% → 守；&gt;75% 或增速&gt;20pp/周 → 提）能让动作稳定可复现。</div></div></div></section><section class="cb-case" id="case9"><div class="cb-no">案例 4 · 二 · 经济周期</div><h2>下行期：商旅预算砍 30%，是降价还是换客群？</h2><div class="cb-sub2">需求萎缩时，降价是最懒也最危险的答案</div><div class="cb-tags"><span class="cb-tag">下行期</span><span class="cb-tag">客群转移</span><span class="cb-tag">保价</span></div><dl class="cb-dl"><dt>酒店画像</dt><dd>天津某四星酒店，260 间房，客源 60% 依赖制造业与外贸商旅。2026 年外贸订单下滑，主要协议客户的差旅预算普遍削减 30%。</dd><dt>情境</dt><dd>协议客户集体要求重新谈价，威胁若不降 15% 就转去更便宜的酒店。同时 OTA 上的散客需求也在萎缩。销售总监主张全面降价保量。</dd><dt>关键数据</dt><dd class="cb-data">原协议均价 ¥520，散客均价 ¥680，OCC 71%，ADR ¥584。若全面降价 15%：ADR 降至 ¥496，即便 OCC 拉到 80%，RevPAR = ¥397 <b>低于当前的 ¥414</b>。</dd><dt>决策过程</dt><dd>收益经理算清：降价 15% 需要 OCC 提升 9pp 以上才能打平，而在需求整体下行时这几乎不可能。于是转向<b>换客群</b>：制造业商旅萎缩，但本地的职业教育考试、医疗陪护、周末亲子微度假需求相对稳定。同时用「保价换权益」稳住核心协议客。</dd><dt>执行的动作</dt><dd>① 拒绝全面降价，改为「原房价 + 免费取消 + 延迟退房 + 洗衣额度」的权益包稳住 A 档协议客；② 开发本地新客群：与两家培训机构签考试季长住协议、与医院合作陪护房；③ 周末推「本地微度假」套餐（含自助餐+影院联票），用 TrevPAR 补 RevPAR；④ 工作日低谷日用限时尾单清仓，但牌价不动；⑤ 每月重算各客群的净贡献，砍掉持续亏损的渠道。</dd><dt>结果</dt><dd class="cb-res">半年后 OCC 68%（降 3pp），但 ADR 保持 ¥571（仅降 2.2%），<b>RevPAR ¥388</b> —— 虽低于下行前，但比「全面降价」方案的 ¥397×更低的实际值更优；更重要的是餐饮与套餐带来的 TrevPAR 提升 6%，<b>整体 GOP 仅下降 4%</b>，远好于同区域降价同行的 12%–18% 降幅。</dd><dt>复盘</dt><dd>做对的是：没有跟着降价，用权益保价 + 换客群 + 二消补收入。做错的是：新客群开发晚了两个月，如果提前做客群储备，过渡会更平滑。</dd></dl><div class="cb-take"><b>可复用动作　</b>下行期先算<b>降价打平所需的 OCC 增量</b>，通常得不偿失；优先换客群、保价换权益、用 TrevPAR 补 RevPAR。</div><div class="cb-tab">涉及：表 A 调价 · 表 H 渠道 · TrevPAR / GOPPAR</div><div class="cb-ex"><div class="cb-exh">练习题（2 题 · 选一个答案看解析）</div><div class="cb-q" data-a="1"><div class="cb-qt">1. 下行期考虑降价 15%，判断其是否可行的核心依据是？</div><button class="cb-o" data-i="0"><b>A.</b> 竞对降了就跟降</button><button class="cb-o" data-i="1"><b>B.</b> 算清打平所需的 OCC 增量（本例需 +9pp，下行期不现实）</button><button class="cb-o" data-i="2"><b>C.</b> 业主要求就降</button><button class="cb-o" data-i="3"><b>D.</b> 看当月任务缺口</button><div class="cb-ans" style="display:none"><b>✓ 正确答案：B</b>　降价 15% 后 RevPAR 需靠 OCC 提升约 9pp 才能打平，但整体需求在萎缩，这个增量几乎不可能——所以降价大概率是净损失。</div></div><div class="cb-q" data-a="1"><div class="cb-qt">2. 下行期保住收益，优先应该做哪组动作？</div><button class="cb-o" data-i="0"><b>A.</b> 全面降价保量</button><button class="cb-o" data-i="1"><b>B.</b> 换客群 + 保价换权益 + 用 TrevPAR 补 RevPAR</button><button class="cb-o" data-i="2"><b>C.</b> 裁员压缩成本</button><button class="cb-o" data-i="3"><b>D.</b> 关闭部分楼层</button><div class="cb-ans" style="display:none"><b>✓ 正确答案：B</b>　降价解决不了需求萎缩。转向相对稳定的本地客群（考试、陪护、微度假），用权益而非降价留住协议客，再用餐饮二消补客房缺口，才是可持续的。</div></div></div></section><section class="cb-case" id="case23"><div class="cb-no">案例 5 · 五 · 特殊事件</div><h2>渠道断连 3 小时：以 ¥180 卖出了 47 间 ¥880 的房</h2><div class="cb-sub2">系统故障的损失，取决于你多快发现、多快止血</div><div class="cb-tags"><span class="cb-tag">系统故障</span><span class="cb-tag">渠道断连</span><span class="cb-tag">表L</span></div><dl class="cb-dl"><dt>酒店画像</dt><dd>深圳某商务酒店，220 间房。某日 14:20，PMS 与某 OTA 渠道的接口异常，该渠道的房价与库存回传错乱。</dd><dt>情境</dt><dd>14:20–17:40 期间，该 OTA 以错误价格 ¥180 卖出 47 间房（正常 BAR ¥880）。直到 17:40 前台发现「今天怎么突然这么多订单」才上报。</dd><dt>关键数据</dt><dd class="cb-data">47 间 ×（880 − 180）= <b>直接损失约 ¥32.9 万</b>；若客人到店后拒绝补差价，还需承担服务成本与客诉风险。故障持续 3 小时 20 分钟。</dd><dt>决策过程</dt><dd>复盘暴露两个问题：① <b>没有价格异常监控</b>——系统应能在价格偏离 BAR ±30% 时自动告警；② <b>没有熔断机制</b>——接口异常时应自动暂停该渠道而非继续接单。这属于典型的表 L 异常事件，优先级 1，应立即熔断而非边卖边查。</dd><dt>执行的动作</dt><dd>① 立即启动表 L：暂停该 OTA 渠道，恢复正确价格与库存；② 逐一致电 47 位客人，说明系统故障并提供两个选项：按 ¥180 履约（酒店承担损失）或免费取消 + 下次入住 8 折；③ 建立价格异常告警：任何成交价偏离 BAR ±30% 自动告警到收益经理手机；④ 与渠道建立熔断机制：接口异常连续 3 次即自动停售；⑤ 每日 09:00 做一次全渠道价格巡检（写入表 M 流水线）。</dd><dt>结果</dt><dd class="cb-res">47 位客人中 31 位选择履约（损失 ¥21.7 万），16 位取消（获赠下次 8 折权益，后续转化 9 位）。<b>总损失约 ¥21.7 万</b>，但因响应及时未引发舆情。上线告警与熔断后，此后 8 个月未再发生同类事故，期间自动拦截异常 3 次。</dd><dt>复盘</dt><dd>做对的是：事后建立了「告警 + 熔断 + 每日巡检」三层防护。做错的是：发现太晚（3 小时 20 分），如果有告警，可在 10 分钟内止损，损失能降到 ¥2 万以内。</dd></dl><div class="cb-take"><b>可复用动作　</b>系统故障走<b>表 L 立即熔断</b>；必须建「价格异常告警 + 渠道熔断 + 每日巡检」三层防护；损失大小取决于发现速度。</div><div class="cb-tab">涉及：表 L 异常事件应急 · 表 M 每日流水线 · 价格巡检</div><div class="cb-ex"><div class="cb-exh">练习题（2 题 · 选一个答案看解析）</div><div class="cb-q" data-a="1"><div class="cb-qt">1. 系统故障导致的损失大小，主要取决于什么？</div><button class="cb-o" data-i="0"><b>A.</b> 故障的类型</button><button class="cb-o" data-i="1"><b>B.</b> 发现速度——本例 3 小时 20 分 vs 10 分钟，损失差约 ¥20 万</button><button class="cb-o" data-i="2"><b>C.</b> 酒店房量</button><button class="cb-o" data-i="3"><b>D.</b> 所在城市</button><div class="cb-ans" style="display:none"><b>✓ 正确答案：B</b>　同样一次接口异常，3 小时 20 分才发现损失 ¥21.7 万；若有告警在 10 分钟内熔断，损失可控制在 ¥2 万以内。速度决定损失量级。</div></div><div class="cb-q" data-a="1"><div class="cb-qt">2. 防止此类事故，应建立哪三层防护？</div><button class="cb-o" data-i="0"><b>A.</b> 只做每日巡检就够</button><button class="cb-o" data-i="1"><b>B.</b> 价格异常告警 + 渠道熔断 + 每日全渠道巡检</button><button class="cb-o" data-i="2"><b>C.</b> 只做渠道熔断</button><button class="cb-o" data-i="3"><b>D.</b> 只靠员工警觉</button><div class="cb-ans" style="display:none"><b>✓ 正确答案：B</b>　告警负责「发现得快」，熔断负责「自动止损」，巡检负责「兜底复核」。三层缺一，就会重演本例的 3 小时空窗。</div></div></div></section><section class="cb-case" id="case24"><div class="cb-no">案例 6 · 五 · 特殊事件</div><h2>隔壁新开了家国际品牌：份额被抢走 18%，怎么守？</h2><div class="cb-sub2">新竞品开业是结构性冲击，防守要守「差异化」不是守「价格」</div><div class="cb-tags"><span class="cb-tag">竞对新开</span><span class="cb-tag">份额分流</span><span class="cb-tag">防守</span></div><dl class="cb-dl"><dt>酒店画像</dt><dd>宁波某老牌四星酒店，200 间房，开业 12 年。2026 年 3 月，200 米外新开一家国际品牌精选酒店（180 间），开业促销价仅 ¥499。</dd><dt>情境</dt><dd>新店开业后两个月，本店 OCC 从 79% 掉到 61%，MPI 从 105 掉到 87。销售建议跟进降价到 ¥520，被收益经理拦下。</dd><dt>关键数据</dt><dd class="cb-data">本店 ADR ¥640、OCC 61% → RevPAR ¥390。若跟降到 ¥520，测算 OCC 回到 72%，RevPAR ¥374 —— <b>比不跟降还低</b>。且本店装修已 12 年，硬件劣势用低价也补不回来。</dd><dt>决策过程</dt><dd>收益经理判断：新店的开业促销是<b>阶段性</b>的（通常 3–6 个月后会回调到正常价），跟降只会把本店拖入价格战且损害硬件升级的现金流。正确策略是<b>守差异化客群</b>：本店的优势是老客户、协议客、本地餐饮口碑与停车便利，应强化这些而不是拼价格。同时把价格战期当作「加速升级」的窗口。</dd><dt>执行的动作</dt><dd>① 不跟降，维持 ADR ¥640，但对协议客与会员给权益（免费停车、餐饮券、房型升级）；② 强化本地餐饮与会议（TrevPAR），把餐饮做成护城河；③ 对老客户做「回归计划」：连住 2 晚送餐饮券，锁住存量；④ 用省下的降价空间加速客房翻新（分两批，每批 40 间，避开旺季）；⑤ 把新店纳入竞组，持续监测其价格回调节点；⑥ 每月复盘 MPI 与客群结构变化。</dd><dt>结果</dt><dd class="cb-res">6 个月后新店促销结束、价格回调到 ¥720+，本店 OCC 回到 74%、ADR ¥628、<b>RevPAR ¥465</b>，虽低于冲击前的 ¥506，但远好于跟降方案的 ¥374。餐饮收入同比 +14%，翻新后的 80 间房 ADR 溢价 +¥90。</dd><dt>复盘</dt><dd>做对的是：没有陷入价格战，用差异化客群 + 餐饮护城河 + 加速翻新应对。做错的是：翻新启动晚了两个月，如果在新店开业前就完成，冲击会小得多。</dd></dl><div class="cb-take"><b>可复用动作　</b>新竞品冲击守<b>差异化客群</b>而非价格；开业促销是阶段性的，不要跟；把冲击期当作升级窗口。</div><div class="cb-tab">涉及：表 A 调价 · 表 D MPI · TrevPAR</div><div class="cb-ex"><div class="cb-exh">练习题（2 题 · 选一个答案看解析）</div><div class="cb-q" data-a="1"><div class="cb-qt">1. 200 米外新开国际品牌且开业促销 ¥499，跟降对吗？</div><button class="cb-o" data-i="0"><b>A.</b> 对，先保住份额再说</button><button class="cb-o" data-i="1"><b>B.</b> 不对——开业促销是阶段性的，跟降会陷入价格战且 RevPAR 更低</button><button class="cb-o" data-i="2"><b>C.</b> 看情况跟一半</button><button class="cb-o" data-i="3"><b>D.</b> 跟到对方同价</button><div class="cb-ans" style="display:none"><b>✓ 正确答案：B</b>　本例测算：跟降到 ¥520 后 RevPAR ¥374，反而低于维持 ¥640 的 ¥390。而且促销期通常 3–6 个月，跟降是长期损失换短期安慰。</div></div><div class="cb-q" data-a="1"><div class="cb-qt">2. 新竞品冲击下，正确的防守策略是？</div><button class="cb-o" data-i="0"><b>A.</b> 拼价格，比谁更低</button><button class="cb-o" data-i="1"><b>B.</b> 守差异化客群（老客/协议/餐饮护城河）+ 把冲击期当作升级窗口</button><button class="cb-o" data-i="2"><b>C.</b> 暂时关店避风头</button><button class="cb-o" data-i="3"><b>D.</b> 改名重新定位</button><div class="cb-ans" style="display:none"><b>✓ 正确答案：B</b>　本店优势是老客户、协议客、本地餐饮与停车——这些是硬件劣势无法复制的。把省下的降价空间用于翻新，冲击期反而是最好的施工窗口。</div></div></div></section>
+
+<div class="foot">
+  <b>RMC收益管理社区《经济型酒店 案例分册》v1.0</b>　·　2026 年 9 月<br>
+  可自由传播与用于内部培训，请勿用于商业销售；引用请注明出处。<br>
+  配套：《酒店收益管理案例集》（24 个完整案例）、《酒店收益管理白皮书》、
+  《酒店收益管理流程图》（10 环节）、《流程细化》（30 子步骤）、《操作法典》（15 张判定表）。<br>
+  联系：rm-community@qq.com　|　https://hrma-city.github.io/
+</div>
+
+<script>
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('.cb-o'); if(!btn)return;
+  var q=btn.closest('.cb-q'); if(!q || q.dataset.done)return;
+  q.dataset.done='1';
+  var ans=parseInt(q.getAttribute('data-a'),10);
+  var pick=parseInt(btn.getAttribute('data-i'),10);
+  Array.prototype.forEach.call(q.querySelectorAll('.cb-o'),function(o){
+    var i=parseInt(o.getAttribute('data-i'),10);
+    o.disabled=true;
+    if(i===ans) o.classList.add('right');
+    else if(i===pick) o.classList.add('wrong');
+  });
+  var a=q.querySelector('.cb-ans'); if(a) a.style.display='';
+});
+</script>
+</body>
+</html>
