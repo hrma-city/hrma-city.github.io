@@ -438,7 +438,8 @@
     style();
     try {
       if (!window.supabase || !window.HRMA_SUPABASE || !window.HRMA_SUPABASE.url) {
-        box.innerHTML = '<p style="color:var(--ink-3,#7B8794)">系统未配置，无法显示。</p>';
+        box.innerHTML = '<p style="color:var(--ink-2,#445);font-size:14px;line-height:1.7">认证服务需要登录后才可查看。' +
+          '你可以先看 <a href="cert-hub.html" style="color:var(--gold,#b9914a)">学习履历与认证准备度</a>（免登录）。</p>';
         return;
       }
       sb = window.supabase.createClient(window.HRMA_SUPABASE.url, window.HRMA_SUPABASE.anonKey);
@@ -447,6 +448,9 @@
       if (!sess || !sess.user) {
         box.innerHTML = '<p style="color:var(--ink-2,#445);font-size:14px;line-height:1.7">' +
           '请<a href="login.html?redirect=cert.html" style="color:var(--gold,#b9914a)">登录</a>' +
+          '<br>没有账号也没关系——你可以先看 ' +
+          '<a href="cert-hub.html" style="color:var(--gold,#b9914a)">我的学习履历与认证准备度</a>' +
+          '（免登录，读本机练习记录，告诉你达到哪一级、还差什么）。' +
           '后查看你的学习进度与证书。<br>证书编号支持公开查验：' +
           '<a href="verify.html" style="color:var(--gold,#b9914a)">打开证书查验页</a>。</p>';
         return;

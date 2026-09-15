@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>学习履历与认证准备度 · RMC收益管理社区</title>
+<meta name="description" content="免登录查看你的收益管理学习履历：训练营、90 题流程闯关、10 天打卡、47 题案例自测、收益健康自检五项进度，自动判定 L1/L2/L3 认证准备度并列出缺口，可生成可复制的学习履历。">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/community.css">
+<link rel="stylesheet" href="assets/css/auth.css">
+<link rel="stylesheet" href="assets/css/notify.css">
+<style>
+  .ch-wrap{max-width:960px;margin:0 auto}
+  .ch-note{background:#FFF9EC;border:1px solid var(--gold-2);border-radius:11px;padding:14px 18px;
+    font-size:13.5px;color:var(--ink-2);line-height:1.85;margin:16px 0}
+  .ch-note b{color:var(--navy)}
+  .ch-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:18px 0}
+  .ch-kpi{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--white);text-align:center}
+  .ch-kpi .v{font-family:var(--mono);font-size:24px;font-weight:800;color:var(--navy);line-height:1.2}
+  .ch-kpi .l{font-size:12px;color:var(--ink-3);margin-top:4px}
+  .ch-kpi .s{font-size:11.5px;color:var(--gold);margin-top:3px;min-height:16px}
+  .ch-item{border:1px solid var(--line);border-radius:12px;padding:15px 18px;background:var(--white);margin-bottom:12px}
+  .ch-item .h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+  .ch-item .t{font-size:15px;font-weight:700;color:var(--navy)}
+  .ch-item .n{font-size:12.5px;color:var(--ink-3)}
+  .ch-bar{height:8px;border-radius:5px;background:var(--bg-2);overflow:hidden}
+  .ch-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--navy),var(--gold))}
+  .ch-det{font-size:12.5px;color:var(--ink-2);line-height:1.75;margin-top:8px}
+  .ch-go{font-size:12.5px;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-2)}
+  .ch-lv{border:1px solid var(--line);border-radius:13px;padding:16px 20px;background:var(--white);margin-bottom:12px}
+  .ch-lv.ready{border-color:var(--teal);background:#F3FAF6}
+  .ch-lv .lh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+  .ch-lv .lv{font-family:var(--mono);font-size:19px;font-weight:800;color:var(--navy)}
+  .ch-lv .nm{font-size:15px;font-weight:700;color:var(--navy)}
+  .ch-lv .bd{font-size:11.5px;padding:3px 11px;border-radius:20px;font-weight:700}
+  .ch-lv .bd.ok{background:var(--teal);color:#fff}
+  .ch-lv .bd.no{background:var(--bg-2);color:var(--ink-3)}
+  .ch-lv p{font-size:13px;color:var(--ink-2);line-height:1.8;margin:6px 0 0}
+  .ch-lv ul{margin:8px 0 0;padding-left:20px;font-size:13px;color:var(--ink-2);line-height:1.8}
+  .ch-lv li.done{color:var(--teal)}
+  .ch-lv li.todo{color:#A32B1E}
+  .ch-res{background:var(--bg-2);border:1px solid var(--line);border-radius:11px;padding:15px 18px;margin-top:14px}
+  .ch-res .h{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:8px}
+  .ch-res pre{white-space:pre-wrap;word-break:break-word;font-family:var(--mono);font-size:12.5px;
+    line-height:1.8;color:var(--ink-2);margin:0;max-height:340px;overflow:auto}
+  .ch-btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+  .ch-btns button{font-family:inherit;font-size:13.5px;padding:9px 18px;border-radius:8px;cursor:pointer;
+    border:1px solid transparent;background:var(--navy);color:#fff}
+  .ch-btns button.ghost{background:#fff;color:var(--navy);border-color:var(--navy)}
+  .ch-btns button:disabled{opacity:.55;cursor:default}
+  .ch-empty{text-align:center;padding:26px 18px;color:var(--ink-3);font-size:14px;line-height:1.8}
+  @media(max-width:880px){.ch-kpis{grid-template-columns:repeat(2,1fr)}}
+  @media print{.noprint{display:none}body{padding:0}}
+</style>
+</head>
+<body data-auth="public">
+<header class="site-nav"><div class="sn-inner">
+  <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+  <nav class="sn-links" id="snLinks"></nav>
+  <a class="sn-cta" href="study.html">自学系统</a>
+  <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+</div></header>
+
+<main class="site-main" style="padding-top:26px;padding-bottom:44px">
+  <div class="ch-wrap">
+    <div class="cm-eyebrow">学习履历 · Learning Record</div>
+    <h1 style="font-size:28px;font-weight:800;color:var(--navy);margin:0 0 6px">我的学习履历与认证准备度</h1>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.85;margin:0">
+      这一页把你在本站做过的练习<b>汇总成一份可以拿得出手的记录</b>，
+      并按 L1 / L2 / L3 三级的门槛逐条比对，告诉你<b>已经够了什么、还差什么</b>。
+    </p>
+
+    <div class="ch-note">
+      <b>先说清楚边界</b>：本站是静态站，没有账号体系，所以这份履历<b>只存在你这台设备的浏览器里</b>——
+      换设备、换浏览器、清缓存都会丢失，我们无法在后台查证。<br>
+      它<b>不是证书</b>，也不会自动生成证书。它是一个「我学过什么、练到什么程度」的客观记录，
+      在你向社区申请正式认证时，可以作为自述材料附上；正式认证仍需参加社区组织的考核（见
+      <a href="cert.html" style="color:var(--gold)">资格认证</a>）。
+    </div>
+
+    <div id="chBody"><p style="color:var(--ink-3)">读取中…</p></div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="site-main"><div class="sf-bot">
+  <span>RMC收益管理社区 · 学习履历</span>
+  <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+</div></div></footer>
+
+<script src="assets/js/app.js"></script>
+<script>
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  var K_CAMP="hrma_camp7_v1", K_FB="hrma_fq_best_v1", K_FD="hrma_fq_daka_v1", K_FW="hrma_fq_wrong_v2",
+      K_CE="hrma_case_ex_v1", K_CD="hrma_case_done_v1", K_CW="hrma_case_wrong_v1", K_DG="hrma_diagnose_v1";
+
+  function load(k,d){ try{ var s=localStorage.getItem(k); return s?JSON.parse(s):d; }catch(e){ return d; } }
+  function today(){ var d=new Date(); return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
+  function esc(t){return String(t==null?"":t).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+
+  // ---------- 采集 ----------
+  var camp = load(K_CAMP, {}) || {};
+  var campN = Object.keys(camp).filter(function(k){ return camp[k]; }).length;
+
+  var fb = load(K_FB, []) || [];
+  var fBest = 0, fAvg = 0, fN = fb.length;
+  fb.forEach(function(r){ if((r.s||0)>fBest) fBest=r.s||0; });
+  if(fN) fAvg = Math.round(fb.reduce(function(a,b){return a+(b.s||0);},0)/fN);
+
+  var fd = load(K_FD, null);
+  var dakaN = (fd && fd.done)? Object.keys(fd.done).length : 0;
+  var dakaStreak = (fd && fd.streak) || 0;
+
+  var fw = load(K_FW, []) || [];
+
+  var ce = load(K_CE, []) || [];
+  var cBest = 0, cN = ce.length;
+  ce.forEach(function(r){ if((r.s||0)>cBest) cBest=r.s||0; });
+  var cdN = load(K_CD, 0) || 0;
+  var cw = load(K_CW, []) || [];
+
+  var dg = load(K_DG, null);
+  var dgDone = !!(dg && Object.keys(dg).length);
+
+  var any = campN || fN || dakaN || cdN || dgDone;
+
+  // ---------- 五项指标 ----------
+  var ITEMS = [
+    { t:"7 天训练营", n:"入门路径，打卡 " + campN + " / 7 天",
+      p: Math.round(campN/7*100),
+      d: campN===7? "已完成全部 7 天。" : ("还剩 " + (7-campN) + " 天，每天约 15 分钟。"),
+      go:"camp7.html", goT:"去训练营 →" },
+    { t:"90 题流程闯关", n:(fN? ("完成 " + fN + " 次，最佳 " + fBest + " / 300 分") : "还没有成绩记录"),
+      p: fN? Math.min(100, Math.round(fBest/300*100)) : 0,
+      d: fN? ("平均 " + fAvg + " 分。满分 300，达到 240 分说明流程判定已相当熟练。") :
+             "教学模式不计分；用<b>挑战模式</b>完整做一套 30 关以上才会有记录。",
+      go:"games/flow-quest.html", goT:"去闯关 →" },
+    { t:"10 天打卡", n:(dakaN? ("已打卡 " + dakaN + " / 10 天，连续 " + dakaStreak + " 天") : "还没开始"),
+      p: Math.round(dakaN/10*100),
+      d: dakaN===10? "10 天全部完成。" : (dakaN? ("继续坚持，连续天数 " + dakaStreak + "。") : "每天 3 关，约 5 分钟。"),
+      go:"games/flow-quest.html", goT:"去打卡 →" },
+    { t:"47 题案例自测", n:(cdN? ("完成 " + cdN + " 组" + (cN? ("，最佳 " + cBest + " 分") : "")) : "还没有练习记录"),
+      p: cdN? Math.min(100, Math.round(cdN/5*100)) : 0,
+      d: cdN? (cN? ("挑战模式最佳 " + cBest + " 分。") : "教学模式不计分；切到挑战模式可记录成绩。") :
+             "用真实情境检验你会不会用，5 篇可分卷做。",
+      go:"case-quiz.html", goT:"去自测 →" },
+    { t:"收益健康自检", n:(dgDone? "已保存过一份数据" : "还没做过"),
+      p: dgDone? 100:0,
+      d: dgDone? "你已用自家数据跑过一次体检（数据存在本机，不会上传）。" :
+                "把自家上月的 OCC / ADR / 竞对数据填进去，会得到一份可导出的诊断报告。",
+      go:"diagnose.html", goT:"去自检 →" }
+  ];
+
+  // ---------- 三级准备度 ----------
+  function li(ok, txt){ return '<li class="'+(ok?"done":"todo")+'">'+(ok?"✓ ":"○ ")+txt+'</li>'; }
+  var LV = [
+    { lv:"L1", nm:"助理收益管理师",
+      need:[
+        { ok: campN>=5, t:"7 天训练营完成 5 天以上（当前 " + campN + " 天）" },
+        { ok: fN>=1, t:"流程闯关有 1 次以上完整成绩记录（当前 " + fN + " 次）" },
+        { ok: cdN>=1, t:"案例自测完成 1 组以上（当前 " + cdN + " 组）" }
+      ] },
+    { lv:"L2", nm:"收益管理师",
+      need:[
+        { ok: campN>=7, t:"7 天训练营全部完成（当前 " + campN + " 天）" },
+        { ok: fBest>=240, t:"流程闯关挑战模式最佳分 ≥ 240（当前 " + fBest + " 分）" },
+        { ok: dakaN>=5, t:"10 天打卡完成 5 天以上（当前 " + dakaN + " 天）" },
+        { ok: cdN>=3, t:"案例自测完成 3 组以上（当前 " + cdN + " 组）" }
+      ] },
+    { lv:"L3", nm:"高级收益管理师",
+      need:[
+        { ok: fBest>=270, t:"流程闯关挑战模式最佳分 ≥ 270（当前 " + fBest + " 分）" },
+        { ok: dakaN>=10, t:"10 天打卡全部完成（当前 " + dakaN + " 天）" },
+        { ok: cdN>=5 && cBest>=200, t:"案例自测 5 组以上且最佳分 ≥ 200（当前 " + cdN + " 组 / " + cBest + " 分）" },
+        { ok: dgDone, t:"完成过一次收益健康自检（用自家真实数据）" },
+        { ok: (fw.length + cw.length)<=3, t:"错题本基本清空（当前流程 " + fw.length + " 题 + 案例 " + cw.length + " 题）" }
+      ] }
+  ];
+
+  function recordText(){
+    var L=[];
+    L.push("RMC收益管理社区 · 学习履历");
+    L.push("生成日期：" + today());
+    L.push("");
+    L.push("【一、完成情况】");
+    ITEMS.forEach(function(x){ L.push("· " + x.t + "：" + x.n); });
+    L.push("");
+    L.push("【二、认证准备度】");
+    LV.forEach(function(v){
+      var okN = v.need.filter(function(x){return x.ok;}).length;
+      var st = (okN===v.need.length)? "已达成" : ("达成 " + okN + " / " + v.need.length);
+      L.push("· " + v.lv + " " + v.nm + "：" + st);
+      v.need.forEach(function(x){ L.push("   " + (x.ok?"[✓] ":"[ ] ") + x.t); });
+    });
+    L.push("");
+    L.push("【三、说明】");
+    L.push("本记录由 hrma-city.github.io 自动生成，数据来源于本人本机浏览器的学习记录，");
+    L.push("未经过社区后台核实，也不是正式证书。仅作为申请社区认证时的自述辅助材料。");
+    return L.join("\n");
+  }
+
+  function render(){
+    var box=$("chBody");
+    if(!any){
+      box.innerHTML='<div class="ch-item"><div class="ch-empty">'+
+        '这台设备还没有学习记录。<br>先从 <a class="ch-go" href="camp7.html">7 天训练营</a> 开始，'+
+        '或去 <a class="ch-go" href="study.html">自学系统</a> 看看完整路径。<br><br>'+
+        '<span style="font-size:12.5px">（记录只存在本机浏览器，换个设备就看不到了。）</span></div></div>';
+      return;
+    }
+    var html="";
+
+    // KPI
+    html+='<div class="ch-kpis">'+
+      '<div class="ch-kpi"><div class="v">'+campN+'/7</div><div class="l">训练营</div><div class="s">'+(campN===7?"已完成":"")+'</div></div>'+
+      '<div class="ch-kpi"><div class="v">'+(fBest||"—")+'</div><div class="l">流程最佳分</div><div class="s">'+(fN?("均 "+fAvg):"暂无")+'</div></div>'+
+      '<div class="ch-kpi"><div class="v">'+dakaN+'/10</div><div class="l">打卡天数</div><div class="s">'+(dakaStreak?("连续 "+dakaStreak+" 天"):"")+'</div></div>'+
+      '<div class="ch-kpi"><div class="v">'+(cdN||"—")+'</div><div class="l">案例自测组数</div><div class="s">'+(cN?("最佳 "+cBest):"")+'</div></div>'+
+      '<div class="ch-kpi"><div class="v">'+(fw.length+cw.length)+'</div><div class="l">错题本</div><div class="s">'+(dgDone?"已自检":"未自检")+'</div></div>'+
+      '</div>';
+
+    // 五项
+    html+='<h2 style="font-size:19px;color:var(--navy);margin:22px 0 12px">五项练习的完成情况</h2>';
+    ITEMS.forEach(function(x){
+      html+='<div class="ch-item"><div class="h"><span class="t">'+esc(x.t)+'</span><span class="n">'+esc(x.n)+'</span></div>'+
+        '<div class="ch-bar"><i style="width:'+x.p+'%"></i></div>'+
+        '<div class="ch-det">'+x.d+'　<a class="ch-go" data-go="'+x.go+'">'+esc(x.goT)+'</a></div></div>';
+    });
+
+    // 三级
+    html+='<h2 style="font-size:19px;color:var(--navy);margin:24px 0 12px">认证准备度</h2>';
+    LV.forEach(function(v){
+      var okN=v.need.filter(function(x){return x.ok;}).length;
+      var ready=(okN===v.need.length);
+      html+='<div class="ch-lv'+(ready?" ready":"")+'"><div class="lh">'+
+        '<span class="lv">'+v.lv+'</span><span class="nm">'+esc(v.nm)+'</span>'+
+        '<span class="bd '+(ready?"ok":"no")+'">'+(ready?"已达成全部条件":"还差 "+(v.need.length-okN)+" 项")+'</span></div>'+
+        '<p>'+(ready? "这一级的门槛你已经全部满足。注意：这不等于已获证——正式证书需要在社区参加对应级别的考核。":
+               "下面是这一级的全部条件，勾掉的表示你已经满足。")+'</p>'+
+        '<ul>'+v.need.map(function(x){ return li(x.ok, esc(x.t)); }).join("")+'</ul></div>';
+    });
+
+    // 履历
+    html+='<h2 style="font-size:19px;color:var(--navy);margin:24px 0 12px">生成学习履历</h2>'+
+      '<div class="ch-res"><div class="h">可复制 / 可打印的学习记录（不是证书）</div>'+
+      '<pre id="chText">'+esc(recordText())+'</pre>'+
+      '<div class="ch-btns">'+
+        '<button id="btnCopy">📋 复制这段文字</button>'+
+        '<button class="ghost" onclick="window.print()">🖨 打印 / 存 PDF</button>'+
+        '<button class="ghost" id="btnMail">✉ 发给社区（申请认证）</button>'+
+      '</div>'+
+      '<p style="font-size:12.5px;color:var(--ink-3);margin:10px 0 0;line-height:1.75">'+
+        '「发给社区」会用你的邮件客户端起草一封邮件，把上面这段履历放进正文。'+
+        '我们收到后<b>不会仅凭它发证</b>——正式认证仍需参加社区组织的考核。</p></div>';
+
+    box.innerHTML=html;
+    // 运行时写入 href（避免静态扫描把模板串误判为失效链接）
+    Array.prototype.forEach.call(box.querySelectorAll('a[data-go]'),function(a){
+      a.setAttribute('href', a.getAttribute('data-go'));
+    });
+
+    var cp=$("btnCopy");
+    if(cp) cp.onclick=function(){
+      var t=$("chText").textContent;
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(t).then(function(){ cp.textContent="✓ 已复制"; },
+          function(){ fallbackCopy(t, cp); });
+      } else fallbackCopy(t, cp);
+    };
+    var ml=$("btnMail");
+    if(ml) ml.onclick=function(){
+      var sub=encodeURIComponent("申请收益管理认证 · 学习履历（"+today()+"）");
+      var bd=encodeURIComponent(recordText()+"\n\n——以下请补充——\n姓名：\n酒店/单位：\n职务：\n想申请的级别：L1 / L2 / L3\n可参加考核的时间：");
+      location.href="mailto:rm-community@qq.com?subject="+sub+"&body="+bd;
+    };
+  }
+
+  function fallbackCopy(t, btn){
+    var ta=document.createElement("textarea");
+    ta.value=t; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); btn.textContent="✓ 已复制"; }
+    catch(e){ btn.textContent="复制失败，请手动选中"; }
+    document.body.removeChild(ta);
+  }
+
+  render();
+})();
+</script>
+<script>(function(){var t=document.getElementById('snToggle'),l=document.getElementById('snLinks');if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();</script>
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/notify.js"></script>
+</body>
+</html>
