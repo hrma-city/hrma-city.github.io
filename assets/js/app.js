@@ -208,6 +208,16 @@
 
   /* ---------- 顶部导航：四大板块 + 社区 + 工具 ---------- */
   var BOARDS = [
+    { t: "自学系统", p: "study.html", items: [
+      { t: "★ 开始自学（进度看板）", p: "study.html" },
+      { t: "第 1 步 · 7 天训练营", p: "camp7.html" },
+      { t: "第 2 步 · 概念总表 + 白皮书", p: "concepts.html" },
+      { t: "第 3 步 · 30 个子步骤", p: "process-detail.html" },
+      { t: "第 4 步 · 90 题闯关", p: "games/flow-quest.html" },
+      { t: "第 5 步 · 24 个案例", p: "cases-book.html" },
+      { t: "第 6 步 · 收益健康自检", p: "diagnose.html" },
+      { t: "第 7 步 · 三级认证", p: "cert.html" }
+    ]},
     { t: "酒店", p: "sector-hotel.html", items: [
       { t: "板块总览", p: "sector-hotel.html" },
       { t: "概念总表（48 条）", p: "concepts.html" },
