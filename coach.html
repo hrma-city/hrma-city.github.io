@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>收益管理教练 · 随时问 · RMC收益管理社区</title>
+<meta name="description" content="收益管理教练：随时提问，按站内 117 条知识（48概念/30子步骤/15判定表/24案例）检索作答；能直接算 RevPAR、RGI、超售、置换；决策类问题会像教练一样追问关键数据再给判断。">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/community.css">
+<link rel="stylesheet" href="assets/css/auth.css">
+<link rel="stylesheet" href="assets/css/notify.css">
+<style>
+  .co-wrap{max-width:900px;margin:0 auto;display:flex;flex-direction:column;height:calc(100vh - 200px);min-height:520px}
+  .co-log{flex:1;overflow-y:auto;border:1px solid var(--line);border-radius:13px;background:var(--white);
+    padding:18px 20px;margin-bottom:12px}
+  .co-msg{margin-bottom:16px;line-height:1.85}
+  .co-msg.me{text-align:right}
+  .co-bub{display:inline-block;max-width:86%;text-align:left;padding:11px 15px;border-radius:12px;font-size:14.5px}
+  .co-msg.me .co-bub{background:var(--navy);color:#fff;border-bottom-right-radius:4px}
+  .co-msg.co .co-bub{background:var(--bg-2);color:var(--ink);border-bottom-left-radius:4px}
+  .co-msg.sys .co-bub{background:#FFF9EC;color:var(--ink-2);font-size:13px;border:1px solid var(--gold-2)}
+  .co-bub b{color:inherit}
+  .co-src{margin-top:9px;padding-top:9px;border-top:1px dashed var(--line-2);font-size:12.5px}
+  .co-hit{margin:7px 0;padding:9px 12px;border-radius:9px;background:#fff;border:1px solid var(--line)}
+  .co-hit .t{font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:3px}
+  .co-hit .t .ty{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:20px;margin-right:7px;
+    background:var(--navy);color:#fff;vertical-align:1px}
+  .co-hit .t .ty.概念{background:#2A5680}.co-hit .t .ty.流程{background:#2E8B7A}
+  .co-hit .t .ty.法典{background:#B8894A}.co-hit .t .ty.案例{background:#8A5AA8}
+  .co-hit .b{font-size:13px;color:var(--ink-2);line-height:1.75}
+  .co-hit .l{margin-top:6px;display:flex;gap:12px;flex-wrap:wrap}
+  .co-hit .l a{font-size:12px;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-2)}
+  .co-calc{background:#EDF7F0;border-left:3px solid var(--teal);border-radius:0 9px 9px 0;padding:12px 15px;
+    margin:9px 0;font-size:13.5px;color:#1F6B5C;line-height:1.9}
+  .co-calc .fx{font-family:var(--mono);font-size:13px;color:var(--navy);font-weight:700}
+  .co-ask{background:#FFF9EC;border-left:3px solid var(--gold);border-radius:0 9px 9px 0;padding:11px 15px;
+    margin:9px 0;font-size:14px;color:var(--ink-2);line-height:1.85}
+  .co-chips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 12px}
+  .co-chip{font-family:inherit;font-size:12.5px;padding:6px 13px;border:1px solid var(--line-2);
+    background:#fff;color:var(--ink-2);border-radius:20px;cursor:pointer}
+  .co-chip:hover{border-color:var(--navy);background:var(--bg-2)}
+  .co-in{display:flex;gap:9px}
+  .co-in input{flex:1;font-family:inherit;font-size:14.5px;padding:12px 16px;border:1px solid var(--line-2);
+    border-radius:10px;outline:none}
+  .co-in input:focus{border-color:var(--navy)}
+  .co-in button{font-family:inherit;font-size:14px;padding:12px 24px;border:0;border-radius:10px;
+    background:var(--navy);color:#fff;cursor:pointer;font-weight:650}
+  .co-in button:disabled{opacity:.5;cursor:default}
+  .co-tip{font-size:12px;color:var(--ink-3);margin-top:8px;line-height:1.7}
+  .co-note{background:#FFF9EC;border:1px solid var(--gold-2);border-radius:11px;padding:12px 17px;
+    font-size:13px;color:var(--ink-2);line-height:1.8;margin-bottom:14px}
+  .co-note b{color:var(--navy)}
+  .co-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+  .co-bar .h{font-size:12px;color:var(--ink-3)}
+  .co-clear{font-family:inherit;font-size:12px;padding:5px 12px;border:1px solid var(--line-2);background:#fff;
+    color:var(--ink-3);border-radius:16px;cursor:pointer}
+  @media(max-width:700px){.co-wrap{height:calc(100vh - 170px)}.co-bub{max-width:94%}}
+</style>
+</head>
+<body data-auth="public">
+<header class="site-nav"><div class="sn-inner">
+  <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+  <nav class="sn-links" id="snLinks"></nav>
+  <a class="sn-cta" href="study.html">自学系统</a>
+  <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+</div></header>
+
+<main class="site-main" style="padding-top:22px;padding-bottom:30px">
+  <div class="co-wrap">
+    <div class="co-bar">
+      <div>
+        <div class="cm-eyebrow">收益管理教练 · RM Coach</div>
+        <h1 style="font-size:24px;font-weight:800;color:var(--navy);margin:2px 0 0">随时问，按你的数字给判断</h1>
+      </div>
+      <button class="co-clear" id="btnClear">清空对话</button>
+    </div>
+
+    <div class="co-note">
+      <b>这是什么</b>：一个跑在你浏览器里的教练——内置本站全部
+      <b>117 条知识</b>（48 概念 / 30 个子步骤 / 15 张判定表 / 24 个案例），
+      能检索作答、能直接算 RevPAR·RGI·超售·置换，决策类问题还会<b>像教练一样追问你几个关键数字</b>再给判断。<br>
+      <b>它不是</b>：不是大语言模型，不会自由发挥，也<b>不会编造你没给的数据</b>。
+      回答只来自上面的知识库和你填的数字。复杂情况建议做
+      <a href="diagnose.html" style="color:var(--gold)">收益健康自检</a> 或
+      <a href="contact.html" style="color:var(--gold)">找专家</a>。
+    </div>
+
+    <div class="co-log" id="log"></div>
+
+    <div class="co-chips" id="chips"></div>
+
+    <div class="co-in">
+      <input id="q" placeholder="例如：RevPAR 怎么算 / 该不该降价 / 320间房 No-show 9% 该超售多少 / 团队报价680能接吗" autocomplete="off">
+      <button id="send">发送</button>
+    </div>
+    <div class="co-tip">
+      带数字的问题会直接算（如「OCC 72% ADR 520 算 RevPAR」）；决策问题会先问你几个数再判断。
+      对话存在本机浏览器。
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="site-main"><div class="sf-bot">
+  <span>RMC收益管理社区 · 收益管理教练</span>
+  <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+</div></div></footer>
+
+<script src="assets/js/app.js"></script>
+<script>
+var KB = [{"t": "概念", "title": "平均房价（ADR）", "kw": ["平均房价", "ADR", "adr", "基础"], "body": "客房总收入 ÷ 已售房数。衡量“卖得贵不贵”，和入住率一起决定 RevPAR。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c3"]]}, {"t": "概念", "title": "ARI（Average Rate Index）", "kw": ["ARI", "Average Rate Index", "average rate index", "指标"], "body": "价格指数 = 本店 ADR ÷ 竞组平均 ADR。>100 表示卖得比对手贵，要结合 MPI 一起看。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c11"], ["查判定表", "codex.html#table-c"], ["相关工具", "calc-templates.html#ari"]]}, {"t": "概念", "title": "提前期（Booking Lead Time）", "kw": ["提前期", "Booking Lead Time", "booking lead time", "预测"], "body": "从预订到实际使用（入住/起飞/出诊）的间隔。提前期越长计划性越强、价格越不敏感；越临近越急、越肯出价。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c24"]]}, {"t": "概念", "title": "渠道管理（Channel Management）", "kw": ["渠道管理", "Channel Management", "channel management", "渠道"], "body": "不同渠道成本不同（直订最便宜、OTA 有佣金）。渠道管理就是分配各渠道房量与价，让净收益最大。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c31"]]}, {"t": "概念", "title": "竞争响应（Competitive Response）", "kw": ["竞争响应", "Competitive Response", "competitive response", "竞争"], "body": "对手降价别慌：先看自己定位与客群敏感度，差异化守住，只对有价格敏感的部分局部跟，不盲跟。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c33"]]}, {"t": "概念", "title": "竞品对标组（Competitive Set）", "kw": ["竞品对标组", "Competitive Set", "competitive set", "竞争"], "body": "选 3–5 家最可比的竞争对手组成一个组，用来算 ARI、MPI、RGI，判断自己相对市场的位置。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c8"]]}, {"t": "概念", "title": "需求曲线（Demand Curve）", "kw": ["需求曲线", "Demand Curve", "demand curve", "预测"], "body": "价格与需求的反向关系：价越高需求越少。收益管理的目标不是最高价，而是总收入最大的那个价。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c25"]]}, {"t": "概念", "title": "需求预测（Demand Forecasting）", "kw": ["需求预测", "Demand Forecasting", "demand forecasting", "预测"], "body": "基于历史、在手预订、节假日与事件，判断未来各日期会有多少需求，是所有调价与房量动作的前提。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c5"]]}, {"t": "概念", "title": "差别定价（Differential Pricing）", "kw": ["差别定价", "Differential Pricing", "differential pricing", "定价"], "body": "同一种库存，对不同细分（渠道/提前期/弹性）卖不同价，把每间房卖到它肯出的价；前提是不引起客诉与渠道冲突。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c28"]]}, {"t": "概念", "title": "置换分析（Displacement Analysis）", "kw": ["置换分析", "Displacement Analysis", "displacement analysis", "库存"], "body": "比较同一房量给不同客源的净收益，把房留给净收益最高的客源；是超额预订与关低价决策的依据。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c17"], ["相关工具", "calc-templates.html#displacement"]]}, {"t": "概念", "title": "动态调价（Dynamic Pricing）", "kw": ["动态调价", "Dynamic Pricing", "dynamic pricing", "定价"], "body": "根据需求、库存与竞争，持续调整价格，而不是一年不变价。涨满房靠它，淡季保价也靠它。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=o4"]]}, {"t": "概念", "title": "早鸟价（Early Bird）", "kw": ["早鸟价", "Early Bird", "early bird", "定价"], "body": "用折扣换“提前锁定”：先把远期库存卖出去、回笼资金，把临近的高价库存留给临时客。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c26"]]}, {"t": "概念", "title": "固定产能（Fixed Capacity）", "kw": ["固定产能", "Fixed Capacity", "fixed capacity", "基础"], "body": "酒店的房、邮轮的舱、医生的号，短期几乎无法增加。产能锁死，只能把现有产能卖给更值钱的人。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c22"]]}, {"t": "概念", "title": "GOPPAR（GOP per Available Room）", "kw": ["GOPPAR", "GOP per Available Room", "gop per available room", "指标"], "body": "每可售房经营毛利 =（收入−运营成本）÷ 可售房，扣掉人工/能耗/物料后的真赚，反映经营效率。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c14"], ["相关工具", "calc-templates.html#goppar"]]}, {"t": "概念", "title": "尾单甩卖（Last-minute Sale）", "kw": ["尾单甩卖", "Last-minute Sale", "last-minute sale", "定价"], "body": "临近使用还有空房，空着也是归零——尾单甩卖哪怕低价也要尽量收回变动成本，优先覆盖变动成本。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c27"]]}, {"t": "概念", "title": "MPI（Market Penetration Index）", "kw": ["MPI", "Market Penetration Index", "market penetration index", "指标"], "body": "市场渗透指数 = 本店入住率 ÷ 竞组平均入住率。>100 表示抢到了比对手更多的份额。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c10"], ["查判定表", "codex.html#table-d"], ["相关工具", "calc-templates.html#mpi"]]}, {"t": "概念", "title": "市场细分（Market Segmentation）", "kw": ["市场细分", "Market Segmentation", "market segmentation", "预测"], "body": "把客户按渠道、价格敏感度、预订提前期等分成若干类，对不同细分定不同价、给不同库存。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c6"]]}, {"t": "概念", "title": "嵌套式库存控制（Nested Inventory Control）", "kw": ["嵌套式库存控制", "Nested Inventory Control", "nested inventory control", "库存"], "body": "库存按价格从高到低嵌套开放：先卖高价房类，卖不动再放低一档，确保不把高价房低价卖掉。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c30"]]}, {"t": "概念", "title": "NRevPAR（Net RevPAR）", "kw": ["NRevPAR", "Net RevPAR", "net revpar", "指标"], "body": "净可售房收入 =（房收入−佣金/渠道费）÷ 可售房，揭示不同渠道的真实净贡献，直订高于 OTA。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c15"], ["相关工具", "calc-templates.html#nrevpar"]]}, {"t": "概念", "title": "No-show / 取消（No-show & Cancellation）", "kw": ["No-show / 取消", "No-show & Cancellation", "no-show & cancellation", "库存"], "body": "No-show 率＝预订了却未到店的比例；取消率＝预订后又取消的比例。两者是超额预订与房量决策的地基。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c18"]]}, {"t": "概念", "title": "入住率（Occupancy (OCC)）", "kw": ["入住率", "Occupancy (OCC)", "occupancy (occ)", "基础"], "body": "已售房数 ÷ 可售房数。衡量“卖了多少”，是收益管理最基础的饱和指标。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c2"]]}, {"t": "概念", "title": "OTA 与直订（OTA vs Direct）", "kw": ["OTA 与直订", "OTA vs Direct", "ota vs direct", "渠道"], "body": "OTA 带来客源但有佣金，直订零佣金却要自己引流。两端搭配：用直订提净收益、用 OTA 补量，价格一致性是底线。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c32"]]}, {"t": "概念", "title": "超额预订（Overbooking）", "kw": ["超额预订", "Overbooking", "overbooking", "库存"], "body": "预计会有“订了不来/提前退房”的空房，故意多卖几间，把空置损失降到最低；但要控 walk-in 风险。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=o3"]]}, {"t": "概念", "title": "易逝库存（Perishable Inventory）", "kw": ["易逝库存", "Perishable Inventory", "perishable inventory", "基础"], "body": "房晚、舱位、号源、车位等，今天卖不掉明天价值归零——这是收益管理存在的根本原因，必须在有效期内卖出。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c21"]]}, {"t": "概念", "title": "价格弹性（Price Elasticity）", "kw": ["价格弹性", "Price Elasticity", "price elasticity", "预测"], "body": "需求量随价格变动的敏感程度。弹性大的客群提价会跑光，弹性小的客群可以涨。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c7"]]}, {"t": "概念", "title": "调价台账（Pricing Log）", "kw": ["调价台账", "Pricing Log", "pricing log", "定价"], "body": "每次调价都要登记：依据哪张表、改了什么价、实际与预期差多少，用于事后复盘命中率、沉淀经验。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c40"], ["查判定表", "codex.html#table-a"]]}, {"t": "概念", "title": "RASK（航空）（RASK · Airline）", "kw": ["RASK（航空）", "RASK · Airline", "rask · airline", "跨行业"], "body": "每座位公里收入 = 总收入 ÷ 可用座位公里（ASK）。座公里=座位×飞行公里，衡量单位运力产出。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c36"]]}, {"t": "概念", "title": "价格一致性（Rate Parity）", "kw": ["价格一致性", "Rate Parity", "rate parity", "定价"], "body": "同一房型在各渠道挂牌价（含含税总价）必须一致，否则客人比价后流失、伤品牌，是渠道管理红线。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c19"], ["查判定表", "codex.html#table-h"]]}, {"t": "概念", "title": "价格体系 / BAR（Rate Structure / BAR）", "kw": ["价格体系 / BAR", "Rate Structure / BAR", "rate structure / bar", "定价"], "body": "以基准 BAR 为锚，按房型、渠道、提前期展开的完整价格阶梯，保证价差合理、不互相打架。BAR 是当日散客公开渠道可售的最高弹性房价。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=o1"]]}, {"t": "概念", "title": "RGI（Revenue Generation Index）", "kw": ["RGI", "Revenue Generation Index", "revenue generation index", "指标"], "body": "综合收益指数 = 本店 RevPAR ÷ 竞组平均 RevPAR，是量价合一的最终竞争力指标。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c12"], ["查判定表", "codex.html#table-d"]]}, {"t": "概念", "title": "收益管理（Revenue Management）", "kw": ["收益管理", "Revenue Management", "revenue management", "基础"], "body": "在正确的时间、把正确的库存、以正确的价格、卖给正确的客户，追求整体收益最大化，而非单笔售价最高。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c1"]]}, {"t": "概念", "title": "RevPAR（Revenue per Available Room）", "kw": ["RevPAR", "Revenue per Available Room", "revenue per available room", "基础"], "body": "每可售房收入 = 客房总收入 ÷ 可售房数 = 入住率 × 平均房价。综合反映“量价”结果，是酒店最核心的收益指标。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c4"]]}, {"t": "概念", "title": "RevPAA（医疗号源）（RevPAA · Appointment）", "kw": ["RevPAA（医疗号源）", "RevPAA · Appointment", "revpaa · appointment", "跨行业"], "body": "单号产出 = 总营收 ÷ 可用号源。号源=库存、医生时段=房、号别=房型、No-show=爽约，医疗版 RevPAR。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c39"], ["相关工具", "tools.html#medical-appointment"]]}, {"t": "概念", "title": "RevPAC（邮轮）（RevPAC · Cruise）", "kw": ["RevPAC（邮轮）", "RevPAC · Cruise", "revpac · cruise", "跨行业"], "body": "单舱产出 =（船票+岸上餐饮）×已售 ÷ 可用舱位夜。舱位=房、航次=连住、套舱=房型，邮轮版 RevPAR。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c34"], ["相关工具", "tools.html#cruise"]]}, {"t": "概念", "title": "RevPAS（研学营地）（RevPAS · Camp）", "kw": ["RevPAS（研学营地）", "RevPAS · Camp", "revpas · camp", "跨行业"], "body": "单营位产出 =（营费+餐饮）×已售 ÷ 可用营位夜。营位=房、营期=连住、批次=档期，营地版 RevPAR。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c37"], ["相关工具", "tools.html#research-camp"]]}, {"t": "概念", "title": "RevPASH（餐饮）（RevPASH · F&B）", "kw": ["RevPASH（餐饮）", "RevPASH · F&B", "revpash · f&b", "跨行业"], "body": "每餐位每小时收入 = 营收 ÷ 餐位 ÷ 营业小时。翻台率×客单价，是餐饮收益管理的核心指标。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c35"]]}, {"t": "概念", "title": "RevPAT（租车）（RevPAT · Car Rental）", "kw": ["RevPAT（租车）", "RevPAT · Car Rental", "revpat · car rental", "跨行业"], "body": "单车产出 = 总营收 ÷ 可用车辆·天。车=房、租期=连住、车型=房型，租车版 RevPAR。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c38"], ["相关工具", "tools.html#car-rental"]]}, {"t": "概念", "title": "表A 每日调价判定（Table A）", "kw": ["表A 每日调价判定", "Table A", "table a", "法典"], "body": "《法典》表 A：每日价格调整判定表——看当天需求与库存，读出该涨价、降价还是持平。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=ca"], ["查判定表", "codex.html#table-a"]]}, {"t": "概念", "title": "表B 库存与限制（Table B）", "kw": ["表B 库存与限制", "Table B", "table b", "法典"], "body": "《法典》表 B：库存与限制条件配置表——价格定完后配库存动作（关房/连住/超售）。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=cb"], ["查判定表", "codex.html#table-b"]]}, {"t": "概念", "title": "表C 价格指数 ARI（Table C (ARI)）", "kw": ["表C 价格指数 ARI", "Table C (ARI)", "table c (ari)", "法典"], "body": "《法典》表 C：价格指数（ARI）判定表——按相对竞对贵贱决定提价或降价。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=cc"], ["查判定表", "codex.html#table-c"]]}, {"t": "概念", "title": "表D 渗透指数 MPI（Table D (MPI)）", "kw": ["表D 渗透指数 MPI", "Table D (MPI)", "table d (mpi)", "法典"], "body": "《法典》表 D：市场渗透指数（MPI）判定表——按份额领先/落后决定抢量还是提价。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=cd"], ["查判定表", "codex.html#table-d"]]}, {"t": "概念", "title": "表E 超售标准（Table E）", "kw": ["表E 超售标准", "Table E", "table e", "法典"], "body": "《法典》表 E：超额预订标准表——按历史 no-show/取消率算出可超售几间及安全上限。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=ce"], ["查判定表", "codex.html#table-e"]]}, {"t": "概念", "title": "表F 房型价差（Table F）", "kw": ["表F 房型价差", "Table F", "table f", "法典"], "body": "《法典》表 F：房型价差与价格体系展开规则——基准 BAR 如何展开全房型价格。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=cf"], ["查判定表", "codex.html#table-f"]]}, {"t": "概念", "title": "表G 团队询价（Table G）", "kw": ["表G 团队询价", "Table G", "table g", "法典"], "body": "《法典》表 G：客户/团队询价决策表——大客户或团队打折是否划算的判定逻辑（看置换分析）。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=cg"], ["查判定表", "codex.html#table-g"]]}, {"t": "概念", "title": "表H 渠道与一致性（Table H）", "kw": ["表H 渠道与一致性", "Table H", "table h", "法典"], "body": "《法典》表 H：渠道与价格一致性表——各渠道该不该卖、挂牌价（含含税总价）怎么对齐。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=ch"], ["查判定表", "codex.html#table-h"]]}, {"t": "概念", "title": "表O 冲突仲裁（Table O）", "kw": ["表O 冲突仲裁", "Table O", "table o", "法典"], "body": "《法典》表 O：多表冲突仲裁表——几张表结论打架时，只执行最高优先级那一条。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=co"], ["查判定表", "codex.html#table-o"]]}, {"t": "概念", "title": "TrevPAR（Total RevPAR）", "kw": ["TrevPAR", "Total RevPAR", "total revpar", "指标"], "body": "每可售房总收入 =（房费+餐饮+会议+其他全部收入）÷ 可售房，衡量单间房的综合产出，比 RevPAR 更全面。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c13"], ["相关工具", "calc-templates.html#trevpar"]]}, {"t": "概念", "title": "Walk 拒载（Walk-in / Denied Stay）", "kw": ["Walk 拒载", "Walk-in / Denied Stay", "walk-in / denied stay", "库存"], "body": "超售过头或 No-show 没发生，到店无房即为 Walk。要升级/赔礼/安置周边，是超售失控的最高成本。", "links": [["▶ 1 分钟解说", "gejijipo-player.html?id=c29"]]}, {"t": "流程", "title": "1.1　竞组筛选：选谁进竞组", "kw": ["竞组筛选：选谁进竞组", "1.1", "流程", "步骤"], "body": "触发：新店筹备期、每年一次、或市场结构发生明显变化时启动。。规则：「三同」标准：同档次（ADR 差距 ±20% 以内）、同商圈（3 公里内或共享同一客源）、同客群（商旅/度假/会议）。数量控制在 3–5 家：少于 3 家受单店促销扰动大，多于 5 家易混入不同档次。。动作：① 列 10–15 家备选；② 按三同标准打分筛选；③ 定 3–5 家并写下选择理由；④ 报业主/管理层备案，避免事后争议。。涉及：表 C · 表 D", "links": [["看完整流程", "process-detail.html#s1_1"]]}, {"t": "流程", "title": "1.2　竞组复核：什么时候该换", "kw": ["竞组复核：什么时候该换", "1.2", "流程", "步骤"], "body": "触发：每季度固定复核一次；出现停业装修、换品牌、新店开业、档次变动时立即复核。。规则：复核四问：① 这家还在营业吗？② 档次变了吗？③ 价格带还接近吗？④ 它还在抢我的客人吗？任一项为否即移出或替换。特别注意停业装修期的酒店仍会挂牌低价，会污染竞组均价。。动作：① 每季度导出竞组挂牌价与状态；② 剔除停业/装修/换牌的；③ 补充新开业的同档酒店；④ 更新后重算近 90 天指数，观察跳变是否正常。。涉及：表 C · 表 D", "links": [["看完整流程", "process-detail.html#s1_2"]]}, {"t": "流程", "title": "1.3　基准校准：统一指数口径", "kw": ["基准校准：统一指数口径", "1.3", "流程", "步骤"], "body": "触发：确定竞组后、以及每次更换数据源（如换 RMS 或收益系统）时必须校准。。规则：统一三个口径：① 含税/不含税；② 含早/不含早；③ 纳入计算的房型范围。RGI = MPI × ARI，三者必须是同一口径、同一时间段、同一竞组。口径不一致时指数毫无意义。。动作：① 写死口径说明（含税、含早、房型范围）；② 每月核对竞组数据是否为同口径；③ 用 RGI = MPI × ARI 验算，偏差 &gt;2% 说明口径有问题。。涉及：表 C · 表 D", "links": [["看完整流程", "process-detail.html#s1_3"]]}, {"t": "流程", "title": "2.1　目标拆解：按日型与季节分，不平均分", "kw": ["目标拆解：按日型与季节分，不平均分", "2.1", "流程", "步骤"], "body": "触发：每年 10–11 月启动下一年度预算；季度滚动校准。。规则：年度目标 不能 ÷12。按「季节系数 × 日型系数」拆到月、周、日：旺季定高价高目标，淡季定保量目标。日型至少分 D1 峰值 / D2 高涨 / D3 平峰 / D4 低谷。。动作：① 先算去年各月收入占比作为季节系数基准；② 叠加已知的展会/节假日/事件；③ 把年度目标按月分配；④ 再按日型拆到周与日。。涉及：表 A · 表 N", "links": [["看完整流程", "process-detail.html#s2_1"]]}, {"t": "流程", "title": "2.2　指标设定：禁单指标考核", "kw": ["指标设定：禁单指标考核", "2.2", "流程", "步骤"], "body": "触发：制定年度目标与各部门 KPI 时确定。。规则：OCC 与 ADR 必须成对考核，或直接用 RevPAR / GOPPAR。单考核 OCC 会诱导前台低价甩卖；单考核 ADR 会导致高空置。想看渠道真实贡献用 NRevPAR，想看经营质量用 GOPPAR。。动作：① 前台与销售共用 RevPAR 或 GOPPAR 作为主指标；② OCC 与 ADR 作为辅助指标成对出现；③ 把 NRevPAR 与直销占比纳入渠道考核。。涉及：表 A · 表 N", "links": [["看完整流程", "process-detail.html#s2_2"]]}, {"t": "流程", "title": "2.3　滚动校准：每月对比实际与预算", "kw": ["滚动校准：每月对比实际与预算", "2.3", "流程", "步骤"], "body": "触发：每月初（通常 5 日前）完成上月复盘与未来 3 个月滚动预测。。规则：滚动预测：实际（已发生）+ 最新预测（未来 3 个月）。偏差超过 ±5% 要写原因与纠偏动作；连续两个月偏差同向说明预算模型有问题，不是执行问题。。动作：① 每月 5 日前出上月实际 vs 预算；② 更新未来 3 个月预测；③ 偏差 &gt;±5% 写原因与动作；④ 年度中若市场结构变化，正式修订预算。。涉及：表 N", "links": [["看完整流程", "process-detail.html#s2_3"]]}, {"t": "流程", "title": "3.1　BAR 锚定：以最佳弹性房价为锚", "kw": ["BAR 锚定：以最佳弹性房价为锚", "3.1", "流程", "步骤"], "body": "触发：搭建价格体系时确定，每次大调价前复核。。规则：BAR = 当日散客公开渠道可售的最高弹性房价，不是虚高的门市价。所有折扣（协议、会员、早鸟、促销）都以 BAR 为基准展开。用门市价当 BAR，折扣体系必然层层叠叠、价格打架。。动作：① 统计近 90 天散客实际成交均价作为 BAR 基准；② 确认 BAR 低于或等于门市价；③ 所有渠道折扣以 BAR 为锚计算；④ 每月复核一次。。涉及：表 A · 表 F", "links": [["看完整流程", "process-detail.html#s3_1"]]}, {"t": "流程", "title": "3.2　房型价差：反映价值差异", "kw": ["房型价差：反映价值差异", "3.2", "流程", "步骤"], "body": "触发：搭建价格体系时设定，每季度用表 F 校验。。规则：价差要反映可感知的价值差异。经验值：相邻房型价差通常 15%–25%；套房等高等级房型可更高，但必须与设施差异匹配。价差太小 → 客人都升级、低价房空置；价差太大 → 高价房无人问津，沦为升级池。。动作：① 列出各房型的面积、景观、设施、权益差异；② 按差异化定相邻价差（15%–25% 起）；③ 用表 F 生成全房型价目表；④ 每季度用实际销售结构校验（若某房型长期售罄或长期空置，说明价差错了）。。涉及：表 F · 表 J", "links": [["看完整流程", "process-detail.html#s3_2"]]}, {"t": "流程", "title": "3.3　渠道价差与价格一致性", "kw": ["渠道价差与价格一致性", "3.3", "流程", "步骤"], "body": "触发：每次上新渠道、每次调价时检查。。规则：同一房型在各渠道的挂牌价（含税总价）必须一致——这是表 H 的红线。渠道差异只能用权益实现（积分、免费取消、延迟退房、早餐），不能用公开牌价差异化。破价会被平台降权、被客人比价后投诉，还会永久拉低价格锚。。动作：① 全渠道牌价保持一致；② 直销差异化用权益（会员价同价但送权益）；③ 每周做一次渠道价格巡检；④ 发现破价立即纠正并追责。。涉及：表 H", "links": [["看完整流程", "process-detail.html#s3_3"]]}, {"t": "流程", "title": "4.1　字段治理：细分市场字段必填", "kw": ["字段治理：细分市场字段必填", "4.1", "流程", "步骤"], "body": "触发：上线收益管理前必须完成；之后每月核查填报质量。。规则：PMS 的细分市场字段必须可用且被正确维护，历史日度数据至少 24 个月。字段缺失会导致所有客人都归为「散客」，差别定价无从谈起。这是收益管理的地基，比调价更重要。。动作：① 梳理 PMS 细分市场字段（散客/协议/会员/团队/OTA/上门）；② 培训前台正确归类；③ 补录或确认 24 个月历史数据；④ 每月抽查填报准确率。。涉及：表 E · 表 I", "links": [["看完整流程", "process-detail.html#s4_1"]]}, {"t": "流程", "title": "4.2　客群细分：按渠道/提前期/敏感度分群", "kw": ["客群细分：按渠道/提前期/敏感度分群", "4.2", "流程", "步骤"], "body": "触发：数据治理完成后进行，每季度回顾。。规则：至少按三个维度分群：渠道（OTA/直销/协议/团队）、提前期（远期/中期/临期）、价格敏感度（弹性大/小）。不同分群给不同价与不同库存。远期客计划性强、可用早鸟锁量；临期客更急、肯出高价。。动作：① 按渠道拆分间夜与均价；② 按提前期分档（如 T-30 以上 / T-7~30 / T-7 内）；③ 估算各分群的价格弹性；④ 对不同分群配置不同价与库存。。涉及：表 A · 表 E", "links": [["看完整流程", "process-detail.html#s4_2"]]}, {"t": "流程", "title": "4.3　参数基线：按月统计 No-show / 取消 / 提前期", "kw": ["参数基线：按月统计 No-show / 取消 / 提前期", "4.3", "流程", "步骤"], "body": "触发：每月固定统计（通常月初），作为表 E 超售计算的输入。。规则：三个基线参数必须按月统计：No-show 率 = 预订未到 ÷ 预订量；取消率 = 取消 ÷ 预订量；平均提前期。它们是超售与房量决策的地基，也是表 E 的直接输入。参数变了超售就必须跟着变。。动作：① 每月导出 No-show、取消、提前期数据；② 按细分市场分别统计（团队与散客差异很大）；③ 更新表 E 的超售参数；④ 记录进台账供下年对比。。涉及：表 E", "links": [["看完整流程", "process-detail.html#s4_3"]]}, {"t": "流程", "title": "5.1　基线预测：拆到日型，不只看月", "kw": ["基线预测：拆到日型，不只看月", "5.1", "流程", "步骤"], "body": "触发：未来 8 周日度预测，每周滚动更新。。规则：预测的最小颗粒度是日型，不是月、也不是周。基线 = 历史同期 × 季节系数 + 当前在手预订。周末与平日的差异往往远大于月与月之间的差异。。动作：① 取历史同期（去年同日型）需求；② 乘季节系数与趋势系数；③ 叠加当前在手预订；④ 输出未来 8 周日度预测。。涉及：表 A · 表 I", "links": [["看完整流程", "process-detail.html#s5_1"]]}, {"t": "流程", "title": "5.2　Pickup 追踪：看增速，不只看绝对值", "kw": ["Pickup 追踪：看增速，不只看绝对值", "5.2", "流程", "步骤"], "body": "触发：每日（旺季/临近时每日两次）追踪。。规则：Pickup = 一段时间内的新增预订量。判断需求强弱要看增速而不是某一时点的绝对值：在手 45% 但增速是同档日型的 1.8 倍，说明需求很强；在手 60% 但增速接近零，反而危险。。动作：① 建立 Pickup 追踪表（按日型分档记录在手量与增速）；② 与历史同档日型对比；③ 增速显著高于历史 → 提价信号；显著低于 → 放量信号。。涉及：表 I", "links": [["看完整流程", "process-detail.html#s5_2"]]}, {"t": "流程", "title": "5.3　事件叠加校准：模型补不了的部分靠人工", "kw": ["事件叠加校准：模型补不了的部分靠人工", "5.3", "流程", "步骤"], "body": "触发：换季前（每年 2 月、10 月）以及每次重大事件确认后。。规则：预测模型基于「去年同期 + 平滑」，无法捕捉物候与事件驱动的日期位移（花期、迁徙、马拉松、展会日期变动）。必须建立本地事件日历并人工叠加校准，否则会系统性失准。。动作：① 建本地事件日历（花季/迁徙/马拉松/展会/考试），标注历史日期与波动幅度；② 换季前开人工校准会；③ 事件驱动的日期提前 30 天提到旺季档并设 MinLOS；④ 事后把偏差记入台账。。涉及：表 I · 表 A", "links": [["看完整流程", "process-detail.html#s5_3"]]}, {"t": "流程", "title": "6.1　日型划分：至少四档", "kw": ["日型划分：至少四档", "6.1", "流程", "步骤"], "body": "触发：每年做全年日型日历；重大事件确认后更新。。规则：日型至少分四档：D1 峰值日（展会/节假日核心日，可提价 20%+）、D2 高涨日（周末/旺季）、D3 平峰日（普通工作日）、D4 低谷日（淡季/周日）。不同日型的定价与库存策略完全不同。。动作：① 做全年日历，逐日标注日型；② 叠加展会/节假日/赛事；③ 不同日型配不同价格档与库存策略；④ 每月复核。。涉及：表 A · 表 B", "links": [["看完整流程", "process-detail.html#s6_1"]]}, {"t": "流程", "title": "6.2　嵌套库存：高价房型包含低价房型余量", "kw": ["嵌套库存：高价房型包含低价房型余量", "6.2", "流程", "步骤"], "body": "触发：每次配置房型库存时。。规则：嵌套式库存控制：高价房型的可用量应包含其下所有低价房型的剩余量，卖出后逐级扣减。这样既保证高价房型不会被过早关闭，又保证低价房型不会被高价需求挤占。。动作：① 按房型等级建立嵌套关系（套房 &gt; 高级 &gt; 标准）；② 高价房型可用量 = 自身 + 所有下级余量；③ 卖出后从最低可用级开始扣减；④ 每日核对。。涉及：表 B", "links": [["看完整流程", "process-detail.html#s6_2"]]}, {"t": "流程", "title": "6.3　团队预留与释放：必须设时限", "kw": ["团队预留与释放：必须设时限", "6.3", "流程", "步骤"], "body": "触发：每次团队预留时设定；到期自动检查。。规则：团队预留房必须设确认时限（如 T-14 未确认自动释放），否则会把本可散卖的房量长期锁死。释放后要立即补挂公开渠道，避免来不及卖。。动作：① 预留时写明确认截止日（建议 T-14）；② 到期未确认自动释放；③ 释放后立即同步全渠道；④ 把这条写进销售与收益的协作规则。。涉及：表 G · 表 B", "links": [["看完整流程", "process-detail.html#s6_3"]]}, {"t": "流程", "title": "7.1　提价触发：什么情况下该提价", "kw": ["提价触发：什么情况下该提价", "7.1", "流程", "步骤"], "body": "触发：每日 08:30 查表时判定；临近时每日两次。。规则：提价三条件（满足两个即可启动）：① 在手 OCC 高（旺季 ≥75%，平峰 ≥65%）；② Pickup 增速快（高于历史同档）；③ ARI < 100（价格还落后市场）。动作：小步多次，每次 2%–3%，观察 3 天；单日累计不超过 8%。同时设 OCC 刹车线。。动作：① 查表 A 确认当前日型的建议档位；② 满足提价条件则小步提价；③ 记录进调价台账；④ 3 天后复核 OCC 与 ARI，跌破刹车线立即暂停。。涉及：表 A · 表 C", "links": [["看完整流程", "process-detail.html#s7_1"]]}, {"t": "流程", "title": "7.2　降价触发：什么情况下该放量", "kw": ["降价触发：什么情况下该放量", "7.2", "流程", "步骤"], "body": "触发：每日 17:00 巡检时判定；临近低谷日提前 1–2 天。。规则：降价（放量）三条件：① 在手量明显低于历史同档；② Pickup 增速慢或为负；③ 已临近（T-3 以内）且剩余房量多。动作：不动牌价，用限时尾单 + 隔离渠道（会员/小程序/最后一分钟产品）释放，避免污染公开价格。。动作：① 确认剩余房量与临近程度；② 只在隔离渠道做限时尾单；③ 设定释放时点（如 17:00 后）；④ 底线：成交价 &gt; 变动成本。。涉及：表 A · 表 H", "links": [["看完整流程", "process-detail.html#s7_2"]]}, {"t": "流程", "title": "7.3　守价判定：什么时候什么都别做", "kw": ["守价判定：什么时候什么都别做", "7.3", "流程", "步骤"], "body": "触发：每日查表时判定。。规则：守价条件：在手量处于合理区间（平峰 50%–75%）、Pickup 增速与历史同档接近、ARI 在 95–105 之间。此时最优动作是什么都不做，继续观察。频繁调价本身就是成本：会打乱价格预期、增加前台执行负担、让客人困惑。。动作：① 确认处于守价区间；② 不做价格动作，只做记录；③ 提高监控频率（如每周两次改每日一次）；④ 一旦触发 7.1 或 7.2 的条件再切换。。涉及：表 A · 表 I", "links": [["看完整流程", "process-detail.html#s7_3"]]}, {"t": "流程", "title": "8.1　房型开关与最短住期（MinLOS）", "kw": ["房型开关与最短住期（MinLOS）", "8.1", "流程", "步骤"], "body": "触发：每日 08:30 查表时判定。。规则：需求强时：关闭低价房型在公开渠道的库存，并设 MinLOS（最短住期）过滤「只住 1 晚还想要低价」的需求。需求弱时反向操作：放开房型、取消 MinLOS 以承接短住需求。。动作：① 按日型与各房型在手率决定开关；② 峰值日设 MinLOS 2–3 晚；③ 关闭低价房型在 OTA 的库存；④ 执行后核对各渠道是否同步（这一步最容易漏）。。涉及：表 B", "links": [["看完整流程", "process-detail.html#s8_1"]]}, {"t": "流程", "title": "8.2　超售计算：按 No-show 算，不是拍脑袋", "kw": ["超售计算：按 No-show 算，不是拍脑袋", "8.2", "流程", "步骤"], "body": "触发：每月更新参数；每日执行前复核。。规则：超售是算出来的：超售上限 ≈ 预期 No-show + 取消的合计，且受两个硬约束——① 不超过预期 No-show（避免步行）；② 通常不超过房量的 5%。参数必须按月重算：线上预付占比提高、取消政策收紧都会让 No-show 显著下降。。动作：① 按月统计 No-show + 取消率；② 按表 E 由参数反推标准超售间数；③ 特殊时期（展会/演唱会）单独下调；④ 保证订房（担保卡）优先保留，不参与超售扣减。。涉及：表 E", "links": [["看完整流程", "process-detail.html#s8_2"]]}, {"t": "流程", "title": "8.3　步行应急：已经超售过度了怎么办", "kw": ["步行应急：已经超售过度了怎么办", "8.3", "流程", "步骤"], "body": "触发：一旦发生步行风险立即触发（表 L 优先级 1）。。规则：保证订房（担保卡）优先保留，超售扣减从不保证的订单开始。若已发生步行：① 立即安排同档或更高档合作酒店；② 承担差价与交通；③ 赔付标准约为房费 1.5 倍 + ¥300 安置费；④ 24 小时内复盘并下调超售参数。。动作：① 启动表 L；② 优先安置保证订房客人；③ 按标准赔付并承担交通；④ 事后 24h 复盘，重算超售参数；⑤ 主动跟进客人，争取把负面转为补偿满意。。涉及：表 L · 表 E", "links": [["看完整流程", "process-detail.html#s8_3"]]}, {"t": "流程", "title": "9.1　渠道开关与配额：按日型分配", "kw": ["渠道开关与配额：按日型分配", "9.1", "流程", "步骤"], "body": "触发：每日 08:30 执行；旺季每日复核。。规则：渠道不是全开或全关，而是按日型给配额：需求强时压 OTA 房量、把库存留给直销与高价渠道；需求弱时放开 OTA 走量。原则是「旺季控渠道、淡季借渠道」。。动作：① 按日型设定各渠道的房量配额；② 峰值日压 OTA、开直销；③ 低谷日放开 OTA 与尾单频道；④ 每周复盘各渠道净贡献（NRevPAR）。。涉及：表 H · 表 B", "links": [["看完整流程", "process-detail.html#s9_1"]]}, {"t": "流程", "title": "9.2　直订提升：用权益，不用降价", "kw": ["直订提升：用权益，不用降价", "9.2", "流程", "步骤"], "body": "触发：持续进行；每月复盘直订占比。。规则：提直订 = 权益差异化 + 库存倾斜，绝不等于公开降价。直销可给：会员价（同价送权益）、免费取消、延迟退房、积分兑房、免费升级。牌价必须与 OTA 一致（表 H）。衡量用 NRevPAR 与直订占比。。动作：① 设计直销专属权益（不动牌价）；② 优质房型优先给直销；③ 前台引导 OTA 客人下次直订；④ 把 NRevPAR 与直订占比放进日报首屏。。涉及：表 H · 表 B", "links": [["看完整流程", "process-detail.html#s9_2"]]}, {"t": "流程", "title": "9.3　团队置换与综合贡献：接不接要算两笔账", "kw": ["团队置换与综合贡献：接不接要算两笔账", "9.3", "流程", "步骤"], "body": "触发：每次团队/会议询价时。。规则：判断团队单接不接，要算两笔账：① 置换损失 = 被挤掉的散客净收益（按「本可卖出的间夜」算，不是按满房算）；② 综合贡献（表 K）= 客房 + 餐饮 + 会场 + 设备。全服务酒店尤其不能只看客房。。动作：① 算本可散卖的间夜数；② 算置换损失；③ 加餐饮会场算综合贡献；④ 尝试把部分房量挪到低谷日以降低置换损失；⑤ 记录进决策台账。。涉及：表 G · 表 K", "links": [["看完整流程", "process-detail.html#s9_3"]]}, {"t": "流程", "title": "10.1　表 M 逐时执行：一天的时间轴", "kw": ["表 M 逐时执行：一天的时间轴", "10.1", "流程", "步骤"], "body": "触发：每个工作日。。规则：表 M 把一天写成固定时间轴：07:30 取数 → 08:10 比价 → 08:30 查表 → 09:10 执行 → 17:00 巡检。每步都有耗时上限与产出物。照着走完一遍，一天的工作就做完了。。动作：① 07:30 出《每日收益数据包》；② 08:10 记录竞组挂牌价、算 ARI/MPI；③ 08:30 按表定价格/库存/超售；④ 09:10 执行并留痕；⑤ 17:00 巡检剩余房量与尾单。。涉及：表 M", "links": [["看完整流程", "process-detail.html#s10_1"]]}, {"t": "流程", "title": "10.2　监控与预警：分档监控 + 价格异常告警", "kw": ["监控与预警：分档监控 + 价格异常告警", "10.2", "流程", "步骤"], "body": "触发：每日；临近日期按预订窗口分档提高频率。。规则：表 I 按预订窗口分档设定监控频率与触发阈值：越接近入住日盯得越紧（如 T-30 每周、T-14 每三日、T-7 每日、T-3 每日两次）。另外必须设价格异常告警：任何成交价偏离 BAR ±30% 自动告警。。动作：① 按表 I 给不同提前期的日期设定监控频率；② 设定触发阈值（在手/Pickup/竞对价）；③ 配置价格异常自动告警；④ 配置渠道熔断（接口异常连续 3 次自动停售）。。涉及：表 I · 表 L", "links": [["看完整流程", "process-detail.html#s10_2"]]}, {"t": "流程", "title": "10.3　异常处置与复盘：表 L 优先级最高", "kw": ["异常处置与复盘：表 L 优先级最高", "10.3", "流程", "步骤"], "body": "触发：异常事件立即触发；常规复盘按表 N（周/月/季）。。规则：表 L 优先级为 1，覆盖其他所有表——一旦触发（突发大单、竞对异常降价、系统故障、不可抗力、步行客人），立即按表 L 处置，不用再查别的。表与表结论打架时按表 O 仲裁（如 表 A 优先级 3 > 表 C 优先级 4）。事后 24 小时内复盘，并按表 N 做周/月/季节奏。。动作：① 识别异常 → 启动表 L → 立即处置；② 24 小时内写复盘；③ 表冲突按表 O 仲裁；④ 按表 N 做周（房型价差校验、8 周预测更新）、月（No-show 重算、命中率复盘）、季（竞组复核、价格体系重校）。。涉及：表 L · 表 O · 表 N", "links": [["看完整流程", "process-detail.html#s10_3"]]}, {"t": "法典", "title": "表 A", "kw": ["表A", "表a", "表 A", "法典", "判定表"], "body": "id=\"table-a\"> 表 A 每日价格调整判定表 最常用 这是整本法典用得最多的一张表。每天都要用。 两个输入 ：① 目标日当前预测 OCC（在手房晚 + 预测增量 ÷ 可售房量）； ② Pickup 偏差 =（当前在手房晚 − 去年同期同一提前窗口在手房晚）÷ 去年同期在手房晚 × 100%。 行＝预测 OCC 列＝Pickup 偏差 单元格＝价格动作 预测 OCC ＼ Pickup", "links": [["打开操作法典", "codex.html#table-a"]]}, {"t": "法典", "title": "表 B", "kw": ["表B", "表b", "表 B", "法典", "判定表"], "body": "id=\"table-b\"> 表 B 库存与限制条件配置表 与表 A 配套使用 价格定完之后，立刻配库存。 库存动作优先级高于价格动作 （见表 O）—— 房量安全永远比多卖 20 块钱重要。输入：目标日预测 OCC。 按预测 OCC 配置限制条件 预测 OCC MinLOS 最少住期 CTA 不可入住 低价渠道 Stop Sell 超额预订 </the", "links": [["打开操作法典", "codex.html#table-b"]]}, {"t": "法典", "title": "表 C", "kw": ["表C", "表c", "表 C", "法典", "判定表"], "body": "id=\"table-c\"> 表 C 价格指数（ARI）判定表 ARI = 本店 ADR ÷ 竞争组合加权 ADR × 100 。回答一个问题： 我卖得比隔壁贵还是便宜？ 云璟酒店竞争组合加权均价 ¥680，本店平峰 BAR 也是 ¥680，所以基准 ARI ≈ 100。 ARI 七档判定与动作 ARI 判定 动作 &gt; 120 严重偏高 MP", "links": [["打开操作法典", "codex.html#table-c"]]}, {"t": "法典", "title": "表 D", "kw": ["表D", "表d", "表 D", "法典", "判定表"], "body": "id=\"table-d\"> 表 D 市场渗透指数（MPI）判定表 偏诊断，少出动作 MPI = 本店 OCC ÷ 竞争组合 OCC × 100 。回答一个问题： 这条街的客人，我抢到了我该抢的份额吗？ MPI &gt; 100 说明份额领先。 MPI 五档判定与动作 MPI 判定 动作 &gt; 110 <td", "links": [["打开操作法典", "codex.html#table-d"]]}, {"t": "法典", "title": "表 E", "kw": ["表E", "表e", "表 E", "法典", "判定表"], "body": "id=\"table-e\"> 表 E 超额预订标准表 高风险动作 超售间数 = 可售房量 × 超售率 （向下取整）。三步走：查基准率 → 乘修正系数 → 卡硬上限。 第一步：查基准超售率 按「近 30 天 No-show 率 + 24 小时内取消率」合计值查表 No-show + 取消 合计 基准超售率 &lt;", "links": [["打开操作法典", "codex.html#table-e"]]}, {"t": "法典", "title": "表 F", "kw": ["表F", "表f", "表 F", "法典", "判定表"], "body": "id=\"table-f\"> 表 F 房型价差阶梯表 以 高级房 BAR 为基准 100 。设定一次，全房型价格自动生成。 云璟酒店平峰高级房 BAR = ¥680，则下表右侧为各房型平峰价。 房型价差系数与平峰价（基准 BAR ¥680） 房型 系数 平峰价 相对高级房差价 间数 标准房", "links": [["打开操作法典", "codex.html#table-f"]]}, {"t": "法典", "title": "表 G", "kw": ["表G", "表g", "表 G", "法典", "判定表"], "body": "id=\"table-g\"> 表 G 团队／协议询价接受判定表 置换分析简化版 销售拿来一个团队价，接不接？ 不要凭感觉，查这张表。 两个输入：① 比率 R = 团队报价 ÷ 该日预期散客 ADR；② 该日预测 OCC。 行＝比率 R 列＝预测 OCC 单元格＝决策 比率 R ＼ 预测 OCC &lt; 70% 70 – 85% &gt; 85%", "links": [["打开操作法典", "codex.html#table-g"]]}, {"t": "法典", "title": "表 H", "kw": ["表H", "表h", "表 H", "法典", "判定表"], "body": "id=\"table-h\"> 表 H 渠道开关判定表 按目标日预测 OCC 决定各渠道的开关状态。 核心原则：房好卖的时候关掉贵渠道，房难卖的时候全开。 渠道开关矩阵 预测 OCC OTA 国内 OTA 国际 GDS / TMC 批发商 / 包房 直销 / 会员 ≥ 95% 仅留 1 家产量最高 关", "links": [["打开操作法典", "codex.html#table-h"]]}, {"t": "法典", "title": "表 I", "kw": ["表I", "表i", "表 I", "法典", "判定表"], "body": "id=\"table-i\"> 表 I 预订窗口分档监控表 不同提前天数的日期， 监控频率和触发阈值都不一样 。 越接近入住日，盯得越紧。这是\"看数\"这一步的具体执行标准。 六档预订窗口 窗口 监控频率 关注指标 落后触发阈值 触发动作 0 – 3 天 每日 2 次 （10:00 / 17:00） 当日 Pickup、临时取消", "links": [["打开操作法典", "codex.html#table-i"]]}, {"t": "法典", "title": "表 J", "kw": ["表J", "表j", "表 J", "法典", "判定表"], "body": "id=\"table-j\"> 表 J 免费升级规则表 三种触发场景 ：① 超售需要腾房；② 目标日高档房预测空置 &gt; 20%；③ 会员权益兑现。 升级是成本最低的满意度工具，但必须用规则管住，不能前台想升就升。 执行顺序（严格按序，不得跳序） 1 忠诚会员等级 钻石 &gt; 铂金 &gt; 金卡 &gt; 银卡 2 同档内，预订价高者优先", "links": [["打开操作法典", "codex.html#table-j"]]}, {"t": "法典", "title": "表 K", "kw": ["表K", "表k", "表 K", "法典", "判定表"], "body": "id=\"table-k\"> 表 K 会议／宴会综合收益联动表 全服务酒店专属 全服务酒店最大的优势： 客房亏的钱，可以从餐饮和会场赚回来。 会议团队的价值 = 客房收入 + 餐饮收入 + 会场租金 + 设备/其他。 按会议规模的接受底线 规模 客房需求 餐饮保底 接受底线（综合贡献） 小型（≤", "links": [["打开操作法典", "codex.html#table-k"]]}, {"t": "法典", "title": "表 L", "kw": ["表L", "表l", "表 L", "法典", "判定表"], "body": "id=\"table-l\"> 表 L 异常事件应急判定表 优先级最高 本表优先级为 1，覆盖其他所有表。 一旦触发，立刻按本表执行，不用再查别的。 五类异常事件的标准应对 事件类型 判定信号 立即动作（2 小时内） 24 小时内 复盘 需求暴跌 （展会取消/恶劣天气/舆情）", "links": [["打开操作法典", "codex.html#table-l"]]}, {"t": "法典", "title": "表 M", "kw": ["表M", "表m", "表 M", "法典", "判定表"], "body": "id=\"table-m\"> 表 M 每日收益操作流水线（时间表） L1 核心 这是 L1 学员必须背下来的东西。 每天什么时候做什么、耗时上限多少、产出什么，全部写死。 照着走完一遍，一天的工作就做完了。 07:30 抓取昨日经营数据 → 产出《每日收益数据包》。耗时上限 20 min。 <div class=\"tl-t", "links": [["打开操作法典", "codex.html#table-m"]]}, {"t": "法典", "title": "表 N", "kw": ["表N", "表n", "表 N", "法典", "判定表"], "body": "id=\"table-n\"> 表 N 周度／月度节奏表 除了每天做的事，还有哪些事必须 按周、按月、按季度 做。漏掉任何一项，体系就会出现漏洞。 周期性动作清单 周期 动作 产出物 每周一 房型价差校验（表 F）、未来 8 周预测更新、渠道开关复核（表 H） 《周度收益报告》 每周三 竞争组合深度比价（含套餐 /", "links": [["打开操作法典", "codex.html#table-n"]]}, {"t": "法典", "title": "表 O", "kw": ["表O", "表o", "表 O", "法典", "判定表"], "body": "id=\"table-o\"> 表 O 决策优先级与冲突仲裁表 不纠结的终极保障 当多张表给出不同动作时，严格按本表执行。 有了它，学员永远不会卡住——这是整套\"闭眼执行\"方法论的最后一块拼图。 优先级从高到低 优先级 表 场景 1（最高） 表 L", "links": [["打开操作法典", "codex.html#table-o"]]}, {"t": "案例", "title": "案例1　450 间五星酒店：客房亏 8 万，为什么还要接这个会？", "kw": ["450 间五星酒店：客房亏 8 万，为什么还要接这个会？", "案例1", "五星全服务", "会议团队", "表K"], "body": "全服务酒店的客房亏损，可以从餐饮和会场赚回来。可复用动作：全服务酒店判断会议单，永远用表 K 算综合收益；被挤掉的散客只按「本可卖出的间夜」算，不是按满房算。", "links": [["读完整案例", "cases-book.html#case1"]]}, {"t": "案例", "title": "案例2　四星商务酒店：协议价签得太低，ADR 被锁死了三年", "kw": ["四星商务酒店：协议价签得太低，ADR 被锁死了三年", "案例2", "四星商务", "协议客", "价格体系"], "body": "协议客是压舱石，也可能是价格的枷锁。可复用动作：协议价必须设有效期 + 保量条款；每年做一次「频次—房价」矩阵复盘，清掉低效低价协议。", "links": [["读完整案例", "cases-book.html#case2"]]}, {"t": "案例", "title": "案例3　120 间中端酒店：把 OTA 从 62% 压到 41%，一年多赚 38 万", "kw": ["120 间中端酒店：把 OTA 从 62% 压到 41%，一年多赚 38 万", "案例3", "中端有限服务", "渠道", "直订"], "body": "有限服务酒店没有餐饮可以补，渠道成本就是生死线。可复用动作：提直订 = 权益差异化 + 库存倾斜，绝不等于公开降价；用 NRevPAR 而非 RevPAR 看渠道。", "links": [["读完整案例", "cases-book.html#case3"]]}, {"t": "案例", "title": "案例4　海岛度假村：淡季到底该关门，还是 ¥399 包三餐？", "kw": ["海岛度假村：淡季到底该关门，还是 ¥399 包三餐？", "案例4", "度假村", "季节性", "淡季"], "body": "极端季节性业态，考验的是变动成本底线与全年现金流。可复用动作：极端淡季别只盯客房：套餐化 + 二消 + 会员锁定三管齐下；闭店决策要把渠道排名与会员流失算进去。", "links": [["读完整案例", "cases-book.html#case4"]]}, {"t": "案例", "title": "案例5　服务式公寓：长租和短租，每个月都要重新配比", "kw": ["服务式公寓：长租和短租，每个月都要重新配比", "案例5", "服务式公寓", "长短租配比", "RevPAU"], "body": "长租保底、短租增收，配比是动态的不是固定的。可复用动作：服务式公寓的核心工具是到期日历；短租只动「当月到期」的房量，不动存量；用免租期替代降租。", "links": [["读完整案例", "cases-book.html#case5"]]}, {"t": "案例", "title": "案例6　40 间古镇民宿：不投 OTA 广告，靠内容把直订做到 63%", "kw": ["40 间古镇民宿：不投 OTA 广告，靠内容把直订做到 63%", "案例6", "精品民宿", "小体量", "内容获客"], "body": "小体量做不了价格战，只能做人群与内容的精准匹配。可复用动作：小体量民宿：不做价格战，做人群与内容匹配；OTA 当曝光入口，成交回私域。", "links": [["读完整案例", "cases-book.html#case6"]]}, {"t": "案例", "title": "案例7　县城经济型酒店：¥99 的特价房，是引流还是自杀？", "kw": ["县城经济型酒店：¥99 的特价房，是引流还是自杀？", "案例7", "经济型", "价格底线", "入住率"], "body": "价格有底线，跌破变动成本就是在给平台打工。可复用动作：任何低于变动成本的价格都是在自杀；竞争用「权益包 + 限时尾单」，不动牌价。", "links": [["读完整案例", "cases-book.html#case7"]]}, {"t": "案例", "title": "案例8　繁荣期最容易犯的错：不是卖不掉，是卖太便宜", "kw": ["繁荣期最容易犯的错：不是卖不掉，是卖太便宜", "案例8", "繁荣期", "提价节奏", "表A"], "body": "需求旺盛时，收益经理的价值是「敢提价」而不是「做满房」。可复用动作：繁荣期看 ARI 而不是 OCC；小步多次提价 + 设 OCC 刹车线；协议价新签必须跟涨。", "links": [["读完整案例", "cases-book.html#case8"]]}, {"t": "案例", "title": "案例9　下行期：商旅预算砍 30%，是降价还是换客群？", "kw": ["下行期：商旅预算砍 30%，是降价还是换客群？", "案例9", "下行期", "客群转移", "保价"], "body": "需求萎缩时，降价是最懒也最危险的答案。可复用动作：下行期先算降价打平所需的 OCC 增量，通常得不偿失；优先换客群、保价换权益、用 TrevPAR 补 RevPAR。", "links": [["读完整案例", "cases-book.html#case9"]]}, {"t": "案例", "title": "案例10　复苏期：需求回来了，什么时候该提价？", "kw": ["复苏期：需求回来了，什么时候该提价？", "案例10", "复苏期", "提价时机", "预测"], "body": "提早了吓跑客人，提晚了白丢一年。可复用动作：复苏期提价看三个信号（Pickup 增速 / 竞对动作 / 在手绝对量）；先提远期，临近期缓提；用预付折扣吸收价格敏感客。", "links": [["读完整案例", "cases-book.html#case10"]]}, {"t": "案例", "title": "案例11　旺季满房日：为什么我宁愿空 12 间也不卖？", "kw": ["旺季满房日：为什么我宁愿空 12 间也不卖？", "案例11", "旺季", "库存分配", "表B"], "body": "满房不等于最优，把房留给高价值需求才是。可复用动作：旺季判断「现在卖还是等」要看历史临时高价需求的期望值；永远设兜底释放时点，别把宝押到底。", "links": [["读完整案例", "cases-book.html#case11"]]}, {"t": "案例", "title": "案例12　商务酒店的周末洼地：用 2 天拉动 5 天", "kw": ["商务酒店的周末洼地：用 2 天拉动 5 天", "案例12", "平季", "周末洼地", "套餐"], "body": "周一到周四卖商务，周五周六卖本地人。可复用动作：周末洼地用换产品解决；套餐要 bundled 权益、牌价不动；周五做弹性日承接两种需求。", "links": [["读完整案例", "cases-book.html#case12"]]}, {"t": "案例", "title": "案例13　换季翻车：预测模型在季节切换时集体失准", "kw": ["换季翻车：预测模型在季节切换时集体失准", "案例13", "换季", "预测校准", "表I"], "body": "季节切换是预测最容易出错的窗口，必须人工校准。可复用动作：换季/事件驱动的需求必须人工校准；建「本地事件日历」并在换季前开校准会；事件日提高监控频率。", "links": [["读完整案例", "cases-book.html#case13"]]}, {"t": "案例", "title": "案例14　春节不是一条曲线，是两个完全不同的峰", "kw": ["春节不是一条曲线，是两个完全不同的峰", "案例14", "春节", "双峰结构", "日型切割"], "body": "返乡峰与旅游峰，定价逻辑相反。可复用动作：长假要按日型切段，不能一个价走到底；低谷段用套餐（含餐饮）保量，高峰段提价 + MinLOS。", "links": [["读完整案例", "cases-book.html#case14"]]}, {"t": "案例", "title": "案例15　国庆 7 天：为什么第 1 天和第 4 天要卖两个价", "kw": ["国庆 7 天：为什么第 1 天和第 4 天要卖两个价", "案例15", "国庆", "长假", "前中后段"], "body": "长假内部的日型差异，比长假与平日的差异还大。可复用动作：长假内部要按游客行为阶段切日型；弱日型用连住优惠转化，核心日顶格定价，尾段设限时释放。", "links": [["读完整案例", "cases-book.html#case15"]]}, {"t": "案例", "title": "案例16　五一 3 天假：48 小时里改了 9 次价", "kw": ["五一 3 天假：48 小时里改了 9 次价", "案例16", "五一短假", "高频调价", "表I"], "body": "短假期窗口极短，考验的是调价频率与刹车机制。可复用动作：短假期要提高监控频率 + 预设调价阈值；每次调整幅度控制在 8% 以内；在手超 90% 就停止提价。", "links": [["读完整案例", "cases-book.html#case16"]]}, {"t": "案例", "title": "案例17　暑期 60 天：亲子长住客，是把双刃剑", "kw": ["暑期 60 天：亲子长住客，是把双刃剑", "案例17", "暑期", "亲子客群", "长住"], "body": "长住拉高了 OCC，却可能压低 ADR 与餐饮弹性。可复用动作：长住客不必然拉低收益，关键是配产品 + 设计二消；用 MinLOS 过滤短住低价需求；看 TrevPAR 而非只看 ADR。", "links": [["读完整案例", "cases-book.html#case17"]]}, {"t": "案例", "title": "案例18　展会 3 天：从 T-90 到 T+1 的完整操盘记录", "kw": ["展会 3 天：从 T-90 到 T+1 的完整操盘记录", "案例18", "展会", "峰值日", "全程操盘"], "body": "一年最好的三天，值得提前 90 天开始准备。可复用动作：峰值事件要提前 90 天分五个时点操盘；核心日不参与早鸟；提价必须逐个渠道核对同步。", "links": [["读完整案例", "cases-book.html#case18"]]}, {"t": "案例", "title": "案例19　演唱会当晚：2 小时卖光 180 间，但价格定低了", "kw": ["演唱会当晚：2 小时卖光 180 间，但价格定低了", "案例19", "演唱会", "瞬时需求", "溢价"], "body": "瞬时需求爆发，考验的是反应速度与价格天花板判断。可复用动作：瞬时需求场景：先解决信息速度，再解决价格；定溢价看「场馆距离 + 竞对 1.3–1.5 倍」；售罄过快 = 定低了，要敢加档。", "links": [["读完整案例", "cases-book.html#case19"]]}, {"t": "案例", "title": "案例20　政府包场：稳定的大单，值不值得签？", "kw": ["政府包场：稳定的大单，值不值得签？", "案例20", "政府会议", "包场", "机会成本"], "body": "低风险低收益，要算的是机会成本而不是绝对收益。可复用动作：大单决策要算机会成本 + 隐性收益 + 风险对冲三笔账；能折中就别二选一，合同要留弹性条款。", "links": [["读完整案例", "cases-book.html#case20"]]}, {"t": "案例", "title": "案例21　台风来了：退订潮之后，是滞留客的爆发", "kw": ["台风来了：退订潮之后，是滞留客的爆发", "案例21", "极端天气", "台风", "双面影响"], "body": "灾害天气是双面的：先损失后收益，关键看节奏。可复用动作：灾害天气走表 L；退订优先引导改期而非退款；滞留需求「能承接但不抬价」，口碑比短期溢价值钱。", "links": [["读完整案例", "cases-book.html#case21"]]}, {"t": "案例", "title": "案例22　差评危机：评分从 4.6 掉到 4.1，还要不要提价？", "kw": ["差评危机：评分从 4.6 掉到 4.1，还要不要提价？", "案例22", "舆情危机", "口碑", "价格应对"], "body": "口碑下滑时，价格是最后一根稻草也是最好的缓冲。可复用动作：口碑危机时不要降价：先整改 + 用权益补偿 + 限量保体验；价格是缓冲，不是解药。", "links": [["读完整案例", "cases-book.html#case22"]]}, {"t": "案例", "title": "案例23　渠道断连 3 小时：以 ¥180 卖出了 47 间 ¥880 的房", "kw": ["渠道断连 3 小时：以 ¥180 卖出了 47 间 ¥880 的房", "案例23", "系统故障", "渠道断连", "表L"], "body": "系统故障的损失，取决于你多快发现、多快止血。可复用动作：系统故障走表 L 立即熔断；必须建「价格异常告警 + 渠道熔断 + 每日巡检」三层防护；损失大小取决于发现速度。", "links": [["读完整案例", "cases-book.html#case23"]]}, {"t": "案例", "title": "案例24　隔壁新开了家国际品牌：份额被抢走 18%，怎么守？", "kw": ["隔壁新开了家国际品牌：份额被抢走 18%，怎么守？", "案例24", "竞对新开", "份额分流", "防守"], "body": "新竞品开业是结构性冲击，防守要守「差异化」不是守「价格」。可复用动作：新竞品冲击守差异化客群而非价格；开业促销是阶段性的，不要跟；把冲击期当作升级窗口。", "links": [["读完整案例", "cases-book.html#case24"]]}];
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  var KEY="hrma_coach_log_v1";
+  var log=$("log"), state={flow:null, step:0, data:{}};
+
+  function esc(t){return String(t==null?"":t).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+  function loadLog(){ try{return JSON.parse(localStorage.getItem(KEY)||"[]");}catch(e){return [];} }
+  function saveLog(a){ try{localStorage.setItem(KEY,JSON.stringify(a.slice(-40)));}catch(e){} }
+
+  function me(html){ push("me", html); }
+  function co(html){ push("co", html); }
+  function sys(html){ push("sys", html); }
+  function push(who, html){
+    var arr=loadLog(); arr.push({w:who,h:html}); saveLog(arr);
+    var d=document.createElement("div");
+    d.className="co-msg "+who;
+    d.innerHTML='<div class="co-bub">'+html+'</div>';
+    log.appendChild(d); log.scrollTop=log.scrollHeight;
+  }
+  function restore(){
+    var arr=loadLog();
+    if(!arr.length){ hello(); return; }
+    arr.forEach(function(m){
+      var d=document.createElement("div");
+      d.className="co-msg "+m.w; d.innerHTML='<div class="co-bub">'+m.h+'</div>';
+      log.appendChild(d);
+    });
+    log.scrollTop=log.scrollHeight;
+  }
+
+  // ---------------- 检索 ----------------
+  var STOP={"怎么":1,"么办":1,"如何":1,"多少":1,"什么":1,"意思":1,"请问":1,"一下":1,
+    "可以":1,"需要":1,"应该":1,"我的":1,"我想":1,"帮我":1,"问题":1,"情况":1,"时候":1,
+    "这个":1,"那个":1,"该不":1,"要不":1,"是否":1,"有没":1,"有哪":1,"哪些":1,"为何":1,
+    "为什":1,"高怎":1,"怎么":1,"办呢":1,"呢":1,"吗":1,"啊":1,"的了":1};
+  function grams(s){
+    var out=[], t=String(s).toLowerCase();
+    var en=t.match(/[a-z][a-z]+/g)||[]; out=en.slice();
+    var cn=t.replace(/[^\u4e00-\u9fa5]/g," ");
+    cn.split(/\s+/).forEach(function(w){
+      for(var i=0;i<w.length-1;i++){ var g=w.substr(i,2); if(!STOP[g]) out.push(g); }
+      if(w.length===1 && !STOP[w]) out.push(w);
+    });
+    return out;
+  }
+  function score(item, gs, q){
+    var s=0, title=item.title.toLowerCase(), body=item.body.toLowerCase();
+    if(title.indexOf(q.toLowerCase())>=0) s+=40;
+    var kwBest=0;
+    (item.kw||[]).forEach(function(k){
+      if(!k) return;
+      var kk=String(k).toLowerCase();
+      var add=0;
+      if(kk.length>=2 && title.indexOf(kk)>=0) add=18;
+      if(kk.length>=2 && q.toLowerCase().indexOf(kk)>=0) add=25;
+      if(add>kwBest) kwBest=add;
+    });
+    s+=kwBest;
+    for(var i=0;i<gs.length;i++){
+      if(title.indexOf(gs[i])>=0) s+=6;
+      if(body.indexOf(gs[i])>=0) s+=1;
+    }
+    return s;
+  }
+  function search(q, n){
+    var gs=grams(q);
+    var arr=KB.map(function(it){ return {it:it, s:score(it, gs, q)}; })
+              .filter(function(x){ return x.s>=20; })
+              .sort(function(a,b){ return b.s-a.s; });
+    return arr.slice(0, n||3);
+  }
+  function hitsHtml(res){
+    if(!res.length) return "";
+    return res.map(function(r){
+      var it=r.it;
+      var ls=(it.links||[]).map(function(l){
+        return '<a data-go="'+esc(l[1])+'">'+esc(l[0])+' →</a>';
+      }).join("");
+      return '<div class="co-hit"><div class="t"><span class="ty '+esc(it.t)+'">'+esc(it.t)+'</span>'+esc(it.title)+'</div>'+
+             '<div class="b">'+esc(it.body)+'</div>'+
+             (ls? '<div class="l">'+ls+'</div>':'')+'</div>';
+    }).join("");
+  }
+  function bindGo(){
+    Array.prototype.forEach.call(log.querySelectorAll("a[data-go]"),function(a){
+      if(a.getAttribute("href")) return;
+      a.setAttribute("href", a.getAttribute("data-go"));
+    });
+  }
+
+  // ---------------- 取数字 ----------------
+  function nums(q){
+    var m=q.match(/\d+(\.\d+)?/g)||[];
+    return m.map(Number);
+  }
+  function pct(q){ // 找百分数
+    var m=q.match(/(\d+(?:\.\d+)?)\s*%/g)||[];
+    return m.map(function(x){ return parseFloat(x)/100; });
+  }
+  function money(q){
+    var m=q.match(/(?:¥|￥)?\s*(\d{3,5}(?:\.\d+)?)\s*(?:元)?/g)||[];
+    return m.map(function(x){ return parseFloat(x.replace(/[^\d.]/g,"")); });
+  }
+
+  // ---------------- 计算 ----------------
+  // 标签驱动取数：在指定关键词之后找数字（比按数值范围猜测可靠得多）
+  function numAfter(q, pats, isPct){
+    for(var i=0;i<pats.length;i++){
+      var re=new RegExp(pats[i]+"[^0-9]{0,2}(\\d+(?:\\.\\d+)?)"+(isPct?"\\s*%?":""));
+      var m=q.match(re);
+      if(m){ var v=parseFloat(m[1]); return isPct? (v>1? v/100 : v) : v; }
+      var re2=new RegExp("(\\d+(?:\\.\\d+)?)"+(isPct?"\\s*%?\\s*":"\\s*")+pats[i]);
+      var m2=q.match(re2);
+      if(m2){ var v2=parseFloat(m2[1]); return isPct? (v2>1? v2/100 : v2) : v2; }
+    }
+    return null;
+  }
+  function calcRevPAR(q){
+    var occ = numAfter(q, ["OCC","occ","出租率","入住率"], true);
+    var adr = numAfter(q, ["ADR","adr","平均房价","房价","卖价"]);
+    if(occ==null && pct(q).length) occ=pct(q)[0];
+    if(adr==null){ var mo=money(q); for(var i=0;i<mo.length;i++){ if(mo[i]>=100){ adr=mo[i]; break; } } }
+    if(occ==null||adr==null) return null;
+    return '<div class="co-calc"><b>RevPAR（每间可售房收入）</b><br>'+
+      '<span class="fx">RevPAR = OCC × ADR = '+(occ*100).toFixed(1)+'% × ¥'+adr+' = ¥'+Math.round(occ*adr)+'</span><br>'+
+      '（OCC '+(occ*100).toFixed(1)+'%　ADR ¥'+adr+'）<br>'+
+      '它同时包含「卖得贵不贵」和「卖得满不满」，是收益管理最核心的一个数。</div>';
+  }
+  function calcRGI(q){
+    var myOcc=numAfter(q, ["本店 OCC","本店出租率","我方 OCC","OCC"], true);
+    var myAdr=numAfter(q, ["本店 ADR","本店房价","我方 ADR","ADR"], false);
+    var mkOcc=numAfter(q, ["市场 OCC","竞组 OCC","市场出租率"], true);
+    var mkAdr=numAfter(q, ["市场 ADR","竞组 ADR","市场房价"], false);
+    if(myOcc==null||myAdr==null||mkOcc==null||mkAdr==null){
+      var ps=pct(q), big=money(q).filter(function(x){return x>=80;});
+      if(ps.length>=2&&big.length>=2){ myOcc=ps[0]; mkOcc=ps[1]; myAdr=big[0]; mkAdr=big[1]; }
+      else return null;
+    }
+    var myR=myOcc*myAdr, mkR=mkOcc*mkAdr;
+    var mpi=myOcc/mkOcc, ari=myAdr/mkAdr, rgi=mpi*ari;
+    var tip = rgi>=1? "领先市场，优先守住价格、考虑小步提价。" :
+              (ari<0.95? "RGI 落后主要因为<b>价不够</b>（ARI 偏低）→ 先查表 A 调价。" :
+               (mpi<0.95? "RGI 落后主要因为<b>量不够</b>（MPI 偏低）→ 先查表 H 渠道与表 B 库存。" :
+                "量与价都略低，先拆开看是哪一边拖的。"));
+    return '<div class="co-calc"><b>竞争站位指数（表 C／表 D）</b><br>'+
+      '<span class="fx">MPI = '+(mpi*100).toFixed(0)+'%　ARI = '+(ari*100).toFixed(0)+'%　RGI = '+(rgi*100).toFixed(0)+'%</span><br>'+
+      '你的 RevPAR ¥'+Math.round(myR)+'　市场 ¥'+Math.round(mkR)+'<br>'+tip+'</div>';
+  }
+  function calcOverbook(q){
+    var rooms = numAfter(q, ["房量","房间数","总房量","共"]);
+    if(rooms==null){ var mo=money(q); for(var i=0;i<mo.length;i++){ if(mo[i]>=30&&mo[i]<=3000){ rooms=mo[i]; break; } } }
+    var ns = numAfter(q, ["No-show","no-show","noshow","NOSHOW","未到","没到"], true);
+    if(ns==null && pct(q).length) ns=pct(q)[0];
+    if(rooms==null||ns==null) return null;
+    var byNs=Math.round(rooms*ns), cap=Math.round(rooms*0.05);
+    var ob=Math.min(byNs, cap);
+    return '<div class="co-calc"><b>超售间数（表 E，两个约束取小值）</b><br>'+
+      '<span class="fx">① 按 No-show：'+rooms+' × '+(ns*100).toFixed(1)+'% = '+byNs+' 间</span><br>'+
+      '<span class="fx">② 按房量上限 5%：'+rooms+' × 5% = '+cap+' 间</span><br>'+
+      '<b>建议超售 '+ob+' 间</b>（取小值）<br>'+
+      '注意：展会／演唱会期间 No-show 会明显下降，必须单独下调参数，否则会步行。'+
+      '保证订房（担保卡）优先保留，不参与扣减。</div>';
+  }
+  function calcDisplace(q){
+    var grp   = numAfter(q, ["团队报价","报价","团队价","出价","团价"]);
+    var bar   = numAfter(q, ["BAR","bar","Bar","牌价","门市价","散客价"]);
+    var nights= numAfter(q, ["间夜","间晚","团队共","共"]);
+    var occ   = numAfter(q, ["OCC","occ","出租率","入住率"], true);
+    if(occ==null && pct(q).length) occ=pct(q)[0];
+    if(grp==null||bar==null||nights==null||occ==null) return null;
+    var displaced = Math.round(nights*occ);           // 本可散卖出去的间夜
+    var loss = Math.round(displaced*(bar-grp));       // 被放弃的溢价
+    var gain = Math.round(nights*grp);
+    return '<div class="co-calc"><b>团队置换分析（表 G）</b><br>'+
+      '<span class="fx">本可散卖间夜 = 团队间夜 '+nights+' × 历史 OCC '+(occ*100).toFixed(0)+'% = '+displaced+' 间夜</span><br>'+
+      '<span class="fx">置换损失 = '+displaced+' ×（BAR ¥'+bar+' − 团队价 ¥'+grp+'）= ¥'+loss.toLocaleString()+'</span><br>'+
+      '团队带来房费 ¥'+gain.toLocaleString()+'。<br>'+
+      '<b>关键：分母用「本可散卖出去的间夜」，不是团队总间夜，更不是满房间夜</b>——'+
+      '按满房算会严重高估损失，从而误拒一个划算的团队。<br>'+
+      '全服务酒店<b>必须再算表 K</b>：加上餐饮、会场、设备的综合贡献再判断'+
+      '（案例 1：客房只赚 ¥3.2 万，但餐饮会场约 ¥52 万，综合 +¥55 万）。</div>';
+  }
+  function calcFloor(q){
+    var price = numAfter(q, ["卖","售价","成交价","定价","挂牌价","特价"]);
+    var vc    = numAfter(q, ["变动成本","单房成本","成本"]);
+    var comm  = numAfter(q, ["佣金","渠道费","扣点"], true);
+    if(comm==null) comm=0.15;
+    if(price==null){ var mo=money(q); if(mo.length) price=mo[0]; }
+    if(price==null) return null;
+    var net=price*(1-comm);
+    var out='<div class="co-calc"><b>价格底线（表 A／表 H）</b><br>'+
+      '<span class="fx">成交价 ¥'+price+' ×（1 − 佣金 '+(comm*100).toFixed(0)+'%）= 净到手 ¥'+net.toFixed(2)+'</span><br>';
+    if(vc!=null){
+      out += '单房变动成本 ¥'+vc+'　→　'+
+        (net>vc? '<b>每间赚 ¥'+(net-vc).toFixed(2)+'</b>，可以卖。'
+               : '<b style="color:#A32B1E">每卖一间亏 ¥'+(vc-net).toFixed(2)+'</b>，绝对不能卖——卖得越多亏得越多。');
+    } else {
+      out += '把单房变动成本也告诉我（如「变动成本 95」），我帮你判断是否跌破底线。';
+    }
+    out += '</div>';
+    return out;
+  }
+
+  // ---------------- 教练式追问 ----------------
+  var FLOWS = {
+    "降价": { q:["现在离入住还有几天？（如 7）","当前在手预订量大约多少百分比？（如 45）","最近一周的 Pickup 增速如何？（快／正常／停滞）"],
+      judge:function(d){
+        var t=parseFloat(d[0])||7, on=parseFloat(d[1])||50, sp=d[2]||"正常";
+        var slow=/停滞|停|慢|没有|0/.test(sp);
+        var fast=/快|很快|迅速|增长/.test(sp);
+        if(on<50&&slow) return "<b>可以放量，但别降牌价。</b>在手 "+on+"% 且增速停滞，说明后续需求不足。"+
+          "正确做法：牌价不动，用隔离渠道（会员／小程序）做<b>限时尾单</b>，成交价底线是单房变动成本。查表 A 与表 H。";
+        if(on>75||fast) return "<b>不要降价，很可能该提价。</b>在手 "+on+"%、增速"+sp+
+          "，说明需求在起。此时降价会把后面愿意付高价的客人提前用低价卖掉。查表 A 提价触发条件。";
+        return "<b>守价。</b>在手 "+on+"%、增速"+sp+"，指标都在健康区间——什么都不做往往就是最优解（表 A 守价判定）。";
+      }},
+    "提价": { q:["当前 ARI（房价指数）大概多少？（如 94）","当前 OCC 大约多少百分比？（如 85）","Pickup 增速如何？（快／正常／停滞）"],
+      judge:function(d){
+        var ari=parseFloat(d[0])||100, occ=parseFloat(d[1])||70, sp=d[2]||"正常";
+        var fast=/快|很快|增长/.test(sp);
+        if(ari<100&&(occ>85||fast)) return "<b>可以提，但小步快跑。</b>ARI "+ari+"（低于市场）且 OCC "+occ+"%、增速"+sp+
+          "。建议每次提 2%–3%，观察 3 天；设刹车线：OCC 跌破 82% 立即暂停。查表 A。";
+        if(ari>=100&&occ>90) return "<b>谨慎。</b>ARI 已达 "+ari+"、OCC "+occ+"%，继续提价的空间有限，"+
+          "更该做的是<b>优化客群结构</b>（减少低贡献渠道）而不是继续提价。查表 H。";
+        return "<b>暂不具备提价条件。</b>ARI "+ari+"、OCC "+occ+"%、增速"+sp+"。先看是不是量不够（MPI 低）——量不够时提价会两头空。";
+      }},
+    "团队": { q:["团队报价多少？（如 680）","当期 BAR 多少？（如 1180）","团队总共要多少间夜？（如 120）","历史同期 OCC 大约多少？（如 62）"],
+      judge:function(d){
+        var grp=+d[0], bar=+d[1], nights=+d[2], occ=(+d[3]||60)/100;
+        var displaced=Math.round(nights*occ);
+        var loss=Math.round(displaced*(bar-grp));
+        var gain=Math.round(nights*grp);
+        return "<b>置换测算（表 G）</b>：按历史 OCC "+Math.round(occ*100)+"%，团队占用的 "+nights+
+          " 间夜里约 <b>"+displaced+"</b> 间夜本可散卖出去。<br>"+
+          "放弃的溢价约 <b>¥"+loss.toLocaleString()+"</b>；团队带来房费 ¥"+gain.toLocaleString()+"。<br>"+
+          (grp>bar*0.8? "<b>价差不大，倾向可接。</b>" : "<b>价差偏大，需谨慎。</b>")+
+          "<br>全服务酒店<b>必须再算表 K</b>：加上餐饮、会场、设备的综合贡献——"+
+          "案例 1 中客房只赚 ¥3.2 万，餐饮会场贡献约 ¥52 万，综合 +¥55 万。只看客房会误拒。";
+      }}
+,
+    "超售": { q:["房量多少间？（如 320）","No-show 率多少？（如 9）","取消率多少？（如 12）"],
+      judge:function(d){
+        var rooms=+d[0], ns=(+d[1]||8)/100, cx=(+d[2]||10)/100;
+        var byNs=Math.round(rooms*ns), cap=Math.round(rooms*0.05);
+        var ob=Math.min(byNs, cap);
+        var exp=Math.round(rooms*(ns+cx));
+        return "<b>超售测算（表 E）</b>：<br>① 按 No-show："+rooms+" × "+(ns*100).toFixed(1)+"% = <b>"+byNs+" 间</b><br>"+
+          "② 按房量上限 5%：<b>"+cap+" 间</b><br>两个约束<b>取小值 → 建议超售 "+ob+" 间</b>。<br>"+
+          "（No-show + 取消合计约 "+((ns+cx)*100).toFixed(0)+"%，对应 "+exp+" 间，但超售必须受 5% 上限约束，不能照搬。）<br>"+
+          "展会／演唱会期间 No-show 会明显下降，<b>必须单独下调参数</b>，否则会步行。保证订房（担保卡）优先保留，不参与扣减。";
+      }}
+  };
+  function flowKey(q){
+    if(/降价|降多少|要不要降|该不该降|便宜|跌价/.test(q)) return "降价";
+    if(/提价|涨价|涨多少|要不要涨|该不该涨|提高价/.test(q)) return "提价";
+    if(/团队|会议|包场|接不接|置换/.test(q)) return "团队";
+    if(/超售|overbook|noshow|no-show|超额预订/.test(q.toLowerCase())) return "超售";
+    return null;
+  }
+
+  // ---------------- 主流程 ----------------
+  function answer(q){
+    q=(q||"").trim();
+    if(!q) return;
+    me(esc(q));
+
+    // 1) 正在追问流程中
+    if(state.flow){
+      var F=FLOWS[state.flow];
+      state.data[state.step]=q;
+      state.step++;
+      if(state.step < F.q.length){
+        co('<div class="co-ask">'+esc(F.q[state.step])+'</div>');
+        bindGo(); return;
+      }
+      var ans=F.q.map(function(_,i){ return state.data[i]; });
+      co('<b>判断如下（基于你给的数字）</b>'+F.judge(ans)+
+         '<div class="co-src">依据：站内判定表与案例。想深入可用 <a data-go="diagnose.html">收益健康自检</a> 跑一遍完整数据。</div>');
+      state={flow:null,step:0,data:{}};
+      bindGo(); return;
+    }
+
+    // 2) 决策类 → 启动追问
+    var fk=flowKey(q);
+    if(fk && /该不该|要不要|怎么办|如何|能不能|该降|该涨|该不|多少合适|合适吗/.test(q)){
+      state={flow:fk,step:0,data:{}};
+      co('<b>这个问题需要几个数才能判断，我问你几个：</b><div class="co-ask">'+esc(FLOWS[fk].q[0])+'</div>');
+      bindGo(); return;
+    }
+
+    // 3) 计算类
+    var c=tryCalc(q);
+    if(c){ co(c); }
+
+    // 4) 知识检索
+    var res=search(q, 3);
+    if(res.length){
+      co((c? "<b>相关依据：</b>":"<b>找到这些：</b>")+hitsHtml(res));
+    } else if(!c){
+      co("没有匹配到内容。换个说法试试，比如「RevPAR」「超售」「表 A」「春节定价」，"+
+         "或者直接点上面的常见问题。也可以去 <a data-go='concepts.html'>概念总表</a> 检索 48 个术语。");
+    }
+    bindGo();
+  }
+
+  function hello(){
+    sys("你好，我是收益管理教练。<b>直接问就行</b>——概念、算法、判定表、案例都可以；"+
+        "带数字的问题我会直接算；「该不该降价／要不要接团队」这类决策问题，我会先问你几个关键数字再给判断。<br>"+
+        "所有回答都来自本站知识库，<b>不会编造</b>。");
+  }
+
+  var CHIPS=["RevPAR 怎么算","RGI 落后怎么办","该不该降价","团队报价能接吗",
+             "超售多少合适","No-show 高怎么办","OTA 占比太高","表 A 是什么",
+             "春节怎么定价","民宿如何摆脱 OTA","收益管理第一步做什么"];
+  function renderChips(){
+    $("chips").innerHTML=CHIPS.map(function(c){
+      return '<button class="co-chip">'+esc(c)+'</button>';
+    }).join("");
+    Array.prototype.forEach.call($("chips").querySelectorAll(".co-chip"),function(b){
+      b.onclick=function(){ $("q").value=b.textContent; send(); };
+    });
+  }
+
+  function send(){
+    var q=$("q").value;
+    if(!q.trim()) return;
+    $("q").value="";
+    answer(q);
+  }
+
+  $("send").onclick=send;
+  $("q").addEventListener("keydown",function(e){ if(e.key==="Enter") send(); });
+  $("btnClear").onclick=function(){
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    state={flow:null,step:0,data:{}};
+    log.innerHTML=""; hello();
+  };
+
+  renderChips();
+  restore();
+})();
+</script>
+<script>(function(){var t=document.getElementById('snToggle'),l=document.getElementById('snLinks');if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();</script>
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/notify.js"></script>
+</body>
+</html>
