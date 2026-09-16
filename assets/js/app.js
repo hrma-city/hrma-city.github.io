@@ -211,6 +211,7 @@
     { t: "自学系统", p: "study.html", items: [
       { t: "★ 开始自学（进度看板）", p: "study.html" },
       { t: "随时提问 · 收益管理教练", p: "coach.html" },
+      { t: "习题集（138 题·可打印）", p: "exam-book.html" },
       { t: "第 1 步 · 7 天训练营", p: "camp7.html" },
       { t: "第 2 步 · 概念总表 + 白皮书", p: "concepts.html" },
       { t: "第 3 步 · 30 个子步骤", p: "process-detail.html" },
