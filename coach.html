@@ -48,26 +48,8 @@
     background:var(--navy);color:#fff;cursor:pointer;font-weight:650}
   .co-in button:disabled{opacity:.5;cursor:default}
   .co-tip{font-size:12px;color:var(--ink-3);margin-top:8px;line-height:1.7}
-  .co-think{color:var(--ink-3)}
   .co-skip{margin-top:8px;font-size:12.5px}
   .co-skip a{color:var(--ink-3);cursor:pointer;border-bottom:1px dashed var(--line-2)}
-  .co-set{margin:2px 0 8px}
-  .co-setbtn{font-family:inherit;font-size:12.5px;padding:6px 14px;border:1px solid var(--line-2);
-    background:#fff;color:var(--ink-2);border-radius:18px;cursor:pointer}
-  .co-setbtn:hover{border-color:var(--navy)}
-  .co-aitag{display:none;font-size:11.5px;padding:2px 10px;border-radius:20px;background:#2E8B7A;
-    color:#fff;font-weight:700;margin-left:8px;vertical-align:2px}
-  .co-panel{border:1px solid var(--line);border-radius:11px;padding:14px 17px;background:var(--bg-2);
-    margin-top:9px;font-size:13px;color:var(--ink-2);line-height:1.8}
-  .co-panel label{display:block;margin:9px 0 3px;font-size:12.5px;color:var(--navy);font-weight:700}
-  .co-panel input[type=text],.co-panel input[type=password],.co-panel select{width:100%;font-family:inherit;
-    font-size:13px;padding:8px 11px;border:1px solid var(--line-2);border-radius:8px;background:#fff;box-sizing:border-box}
-  .co-panel .row{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:12px}
-  .co-panel .row button{font-family:inherit;font-size:13px;padding:8px 16px;border-radius:8px;border:0;
-    background:var(--navy);color:#fff;cursor:pointer}
-  .co-panel .row button.ghost{background:#fff;color:var(--ink-2);border:1px solid var(--line-2)}
-  .co-panel .warn{margin-top:11px;padding:9px 12px;border-radius:8px;background:#FFF9EC;
-    border:1px solid var(--gold-2);font-size:12px;color:var(--ink-2);line-height:1.75}
   .co-tl{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-2);font-weight:650}
   .co-tls{margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--ink-3)}
   .co-tls a{display:inline-block;margin:0 8px 0 0;padding:3px 11px;border-radius:20px;background:var(--navy);
@@ -117,38 +99,6 @@
     <div class="co-in">
       <input id="q" placeholder="例如：RevPAR 怎么算 / 该不该降价 / 320间房 No-show 9% 该超售多少 / 团队报价680能接吗" autocomplete="off">
       <button id="send">发送</button>
-    </div>
-    <div class="co-set">
-      <button class="co-setbtn" id="btnSet">⚙ AI 设置（接入大模型后可回答知识库外的问题）</button>
-      <span class="co-aitag" id="aiTag">AI 已开启</span>
-      <div class="co-panel" id="setPanel" style="display:none">
-        <div>选择服务商（会自动填好地址和模型），或选「自定义」自己填。都用 OpenAI 兼容接口。</div>
-        <label>服务商</label>
-        <select id="setPreset"></select>
-        <label>接口地址（Base URL）</label>
-        <input type="text" id="setUrl" placeholder="https://api.deepseek.com/v1">
-        <label>API Key</label>
-        <input type="password" id="setKey" placeholder="sk-...">
-        <label>模型名</label>
-        <input type="text" id="setModel" placeholder="deepseek-chat">
-        <div class="row" style="margin-top:10px">
-          <label style="display:inline-flex;align-items:center;gap:6px;margin:0;font-weight:600">
-            <input type="checkbox" id="setOn" style="width:auto"> 开启 AI 作答
-          </label>
-        </div>
-        <div class="row">
-          <button id="btnSave">保存</button>
-          <button class="ghost" id="btnClearKey">清除 API Key</button>
-          <span id="saveTip" style="font-size:12px;color:var(--ink-3)"></span>
-        </div>
-        <div id="setTip" style="margin-top:9px;font-size:12.5px"></div>
-        <div class="warn">
-          <b>安全提示</b>：API Key 只保存在<b>你自己的浏览器</b>里，不会上传到本站任何服务器，
-          本站也读不到。但同一台设备上的其他人可能看到——公用电脑请勿保存，用完点「清除 API Key」。<br>
-          开启后，你的问题会连同站内相关知识一起发给你填的那个服务商，<b>费用由你的账号承担</b>。
-          不开启也能正常使用本地知识库。
-        </div>
-      </div>
     </div>
     <div class="co-tip">
       带数字的问题会直接算（如「OCC 72% ADR 520 算 RevPAR」）；决策问题会先问你几个数再判断。
@@ -464,60 +414,7 @@ var WHY = {"overbook": "<b>超售上限为什么是 5%？</b><br>\n先说清楚�
     return /为什么|为啥|凭什么|怎么来的|依据是|依据|原理|逻辑|怎么得出|为什么是|凭啥/.test(q);
   }
 
-  // ---------------- AI（可选，用户自带 Key） ----------------
-  var PRESETS = [
-    {n:"DeepSeek（推荐·便宜）", u:"https://api.deepseek.com/v1", m:"deepseek-chat"},
-    {n:"硅基流动 SiliconFlow", u:"https://api.siliconflow.cn/v1", m:"Qwen/Qwen2.5-7B-Instruct"},
-    {n:"智谱 GLM", u:"https://open.bigmodel.cn/api/paas/v4", m:"glm-4-flash"},
-    {n:"月之暗面 Kimi", u:"https://api.moonshot.cn/v1", m:"moonshot-v1-8k"},
-    {n:"通义千问（兼容模式）", u:"https://dashscope.aliyuncs.com/compatible-mode/v1", m:"qwen-plus"},
-    {n:"字节豆包火山方舟", u:"https://ark.cn-beijing.volces.com/api/v3", m:"doubao-pro-32k"},
-    {n:"自定义 / OpenAI 兼容", u:"", m:""}
-  ];
-  function llmCfg(){ return load(K_LLM, null); }
-  function llmOn(){ var c=llmCfg(); return !!(c && c.on && c.key && c.url); }
-
-  function askLLM(userQ, ctx, cb){
-    var cfg=llmCfg();
-    var sys="你是「RMC收益管理社区」的收益管理教练，服务酒店收益总监、店长、前台与业主。\n"+
-      "要求：\n"+
-      "1. 用中文回答，简洁直接，优先给可执行的动作与判断，不要空话。\n"+
-      "2. 能给数字就给数字，能给公式就给公式。\n"+
-      "3. 如涉及本站的判定表，用「表 X」这样的写法（表 A 每日调价、表 B 库存、表 E 超售、表 G 团队、表 H 渠道、表 K 会议综合、表 L 异常、表 M 流水线）。\n"+
-      "4. 不确定或缺少数据时，明确说明缺什么、以及需要哪些数才能判断，不要编造。\n"+
-      "5. 回答控制在 300 字以内，除非用户要求展开。";
-    if(ctx) sys+="\n\n【可参考的站内知识】\n"+ctx;
-    var msgs=[{role:"system",content:sys}];
-    var arr=load(KEY,[]).slice(-8);
-    arr.forEach(function(m){
-      var t=strip(m.h); if(!t) return;
-      if(m.w==="me") msgs.push({role:"user",content:t});
-      else if(t.indexOf("思考中")<0) msgs.push({role:"assistant",content:t});
-    });
-    msgs.push({role:"user",content:userQ});
-    var done=false;
-    var timer=setTimeout(function(){ if(!done){ done=true; cb(null,"请求超时（45 秒），可能网络不通或该服务不支持浏览器直连"); } }, 45000);
-    try{
-      fetch(cfg.url.replace(/\/+$/,"")+"/chat/completions", {
-        method:"POST",
-        headers:{"Content-Type":"application/json","Authorization":"Bearer "+cfg.key},
-        body:JSON.stringify({model:cfg.model, messages:msgs, temperature:0.4, max_tokens:900})
-      }).then(function(r){
-        return r.text().then(function(txt){
-          if(!r.ok) throw new Error("HTTP "+r.status+"："+txt.slice(0,160));
-          return JSON.parse(txt);
-        });
-      }).then(function(j){
-        if(done) return; done=true; clearTimeout(timer);
-        var t=j&&j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content;
-        if(t) cb(t,null);
-        else cb(null,(j&&j.error&&(j.error.message||JSON.stringify(j.error)))||"返回为空");
-      }).catch(function(e){
-        if(done) return; done=true; clearTimeout(timer);
-        cb(null, (e&&e.message)||"网络错误");
-      });
-    }catch(e){ if(!done){done=true; clearTimeout(timer); cb(null,(e&&e.message)||"调用失败");} }
-  }
+  function llmOn(){ return false; }
 
   // ---------------- 主流程 ----------------
   function localAnswer(q){
@@ -525,8 +422,8 @@ var WHY = {"overbook": "<b>超售上限为什么是 5%？</b><br>\n先说清楚�
     if(c) co(c);
     var res=search(q,3);
     if(res.length) co((c?"<b>相关依据：</b>":"<b>找到这些：</b>")+hitsHtml(res));
-    else if(!c) co("没有匹配到内容。换个说法试试，比如「RevPAR」「超售」「表 A」「春节定价」；"+
-      "也可以在下方设置里开启 AI，就能回答知识库之外的问题。");
+    else if(!c) co("没有匹配到内容。换个说法试试，比如「RevPAR」「超售」「表 A」「春节定价」，"+
+      "或去 <a data-go='concepts.html'>概念总表</a> 检索 48 个术语。");
   }
 
   function answer(q){
@@ -544,8 +441,8 @@ var WHY = {"overbook": "<b>超售上限为什么是 5%？</b><br>\n先说清楚�
     if(isWhy(q)){
       var wk = whyKeyFrom(q) || lastWhy;
       if(wk && WHY[wk]){
-        co(WHY[wk]+'<div class="co-src">这就是那个结论的依据。还想往下挖，'+
-           '可以在下方开启 AI 后继续追问。</div>');
+        co(WHY[wk]+'<div class="co-src">这就是那个结论的依据。想看完整规则，'+
+           '去 <a data-go=\'process-detail.html\'>流程细化（30 子步骤）</a>。</div>');
         return;
       }
       if(!lastWhy){
@@ -582,26 +479,6 @@ var WHY = {"overbook": "<b>超售上限为什么是 5%？</b><br>\n先说清楚�
       return;
     }
 
-    // ⑤ AI 已开启 → 走 AI（站内知识作为上下文）
-    if(llmOn()){
-      var res0=search(q,3);
-      var ctx=res0.map(function(r){ return "【"+r.it.t+"】"+r.it.title+"："+r.it.body; }).join("\n");
-      var bub=co('<span class="co-think">AI 思考中…</span>');
-      askLLM(q, ctx, function(text, err){
-        if(text){
-          reBubble(bub, esc(text).replace(/\n/g,"<br>")+
-            '<div class="co-src"><b>来源：AI 生成</b>（已把站内相关知识作为参考注入）。'+
-            'AI 可能出错，关键决策请回到判定表核对'+
-            (res0.length?'，或看上面「站内依据」。':'。')+'</div>');
-          if(res0.length) co("<b>站内依据（供核对）：</b>"+hitsHtml(res0));
-        } else {
-          reBubble(bub, "AI 调用失败："+esc(err||"未知错误")+"<br>已切回本地知识库给你答案：");
-          localAnswer(q);
-        }
-      });
-      return;
-    }
-
     // ⑥ 本地引擎
     localAnswer(q);
   }
@@ -610,7 +487,7 @@ var WHY = {"overbook": "<b>超售上限为什么是 5%？</b><br>\n先说清楚�
     sys("你好，我是收益管理教练。<b>直接问就行</b>——概念、算法、判定表、案例都可以；"+
         "带数字的问题我会直接算；决策问题我会先问你几个关键数。<br>"+
         "<b>问我「为什么」，我会把刚才那个结论的依据讲清楚</b>（比如超售为什么是 5%）。<br>"+
-        "想问知识库之外的问题，点下方「⚙ AI 设置」接入大模型（用你自己的 Key，存在本机）。");
+        "所有回答都来自本机知识库（117 条），离线可用，也不会编造。");
   }
 
   var CHIPS=["RevPAR 怎么算","RGI 落后怎么办","该不该降价","团队报价能接吗",
@@ -629,53 +506,6 @@ var WHY = {"overbook": "<b>超售上限为什么是 5%？</b><br>\n先说清楚�
     answer(q);
   }
 
-  // ---------------- AI 设置面板 ----------------
-  function renderSet(){
-    var cfg=load(K_LLM,{on:false,url:"",key:"",model:""});
-    var sel=$("setPreset");
-    sel.innerHTML=PRESETS.map(function(p,i){ return '<option value="'+i+'">'+esc(p.n)+'</option>'; }).join("");
-    $("setUrl").value=cfg.url||"";
-    $("setKey").value=cfg.key||"";
-    $("setModel").value=cfg.model||"";
-    $("setOn").checked=!!cfg.on;
-    syncState();
-  }
-  function syncState(){
-    var on=$("setOn").checked;
-    $("setTip").innerHTML = on
-      ? '<b style="color:#1F6B5C">已开启</b>：问题会发给 ' + esc($("setUrl").value||"(未填地址)") + '，站内知识会作为参考一起发送。'
-      : '<b>未开启</b>：只用本机知识库（117 条）回答，离线可用、完全免费。';
-  }
-  function bindSet(){
-    var sel=$("setPreset");
-    sel.onchange=function(){
-      var p=PRESETS[+sel.value]||PRESETS[0];
-      if(p.u){ $("setUrl").value=p.u; $("setModel").value=p.m; syncState(); }
-    };
-    $("setOn").onchange=syncState;
-    $("setUrl").oninput=syncState;
-    $("btnSave").onclick=function(){
-      var cfg={on:$("setOn").checked,url:$("setUrl").value.trim(),key:$("setKey").value.trim(),model:$("setModel").value.trim()};
-      if(cfg.on && (!cfg.url||!cfg.key)){ alert("开启 AI 需要填接口地址和 API Key"); return; }
-      save(K_LLM,cfg);
-      $("saveTip").textContent="已保存到本机浏览器";
-      $("aiTag").style.display = cfg.on? "":"none";
-      syncState();
-    };
-    $("btnClearKey").onclick=function(){
-      save(K_LLM,{on:false,url:$("setUrl").value.trim(),key:"",model:$("setModel").value.trim()});
-      $("setKey").value=""; $("setOn").checked=false;
-      $("saveTip").textContent="已清除 API Key";
-      $("aiTag").style.display="none";
-      syncState();
-    };
-    $("btnSet").onclick=function(){
-      var p=$("setPanel");
-      p.style.display = p.style.display==="none"? "":"none";
-      if(p.style.display==="") renderSet();
-    };
-  }
-
   $("send").onclick=send;
   $("q").addEventListener("keydown",function(e){ if(e.key==="Enter") send(); });
   $("btnClear").onclick=function(){
@@ -685,9 +515,6 @@ var WHY = {"overbook": "<b>超售上限为什么是 5%？</b><br>\n先说清楚�
   };
 
   renderChips();
-  bindSet();
-  var c0=load(K_LLM,null);
-  if(c0&&c0.on) $("aiTag").style.display="";
   restore();
 })();
 </script>
