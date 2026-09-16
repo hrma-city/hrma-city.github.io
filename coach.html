@@ -48,6 +48,10 @@
     background:var(--navy);color:#fff;cursor:pointer;font-weight:650}
   .co-in button:disabled{opacity:.5;cursor:default}
   .co-tip{font-size:12px;color:var(--ink-3);margin-top:8px;line-height:1.7}
+  .co-tl{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-2);font-weight:650}
+  .co-tls{margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--ink-3)}
+  .co-tls a{display:inline-block;margin:0 8px 0 0;padding:3px 11px;border-radius:20px;background:var(--navy);
+    color:#fff;text-decoration:none;font-weight:650}
   .co-note{background:#FFF9EC;border:1px solid var(--gold-2);border-radius:11px;padding:12px 17px;
     font-size:13px;color:var(--ink-2);line-height:1.8;margin-bottom:14px}
   .co-note b{color:var(--navy)}
@@ -123,6 +127,15 @@ var KB = [{"t": "概念", "title": "平均房价（ADR）", "kw": ["平均房价
   function co(html){ push("co", html); }
   function sys(html){ push("sys", html); }
   function push(who, html){
+    if(who!=="me"){
+      html=linkTables(linkCases(html));
+      var ts=tableRefs(html);
+      if(ts.length){
+        html += '<div class="co-tls">直达判定表：' + ts.map(function(L){
+          return '<a href="codex.html#table-'+L.toLowerCase()+'">表 '+L+'</a>';
+        }).join("") + '</div>';
+      }
+    }
     var arr=loadLog(); arr.push({w:who,h:html}); saveLog(arr);
     var d=document.createElement("div");
     d.className="co-msg "+who;
@@ -198,6 +211,23 @@ var KB = [{"t": "概念", "title": "平均房价（ADR）", "kw": ["平均房价
       if(a.getAttribute("href")) return;
       a.setAttribute("href", a.getAttribute("data-go"));
     });
+  }
+
+  // 把正文里的「表 X」自动变成法典直达链接（已在 <a> 内的不重复处理）
+  function linkTables(html){
+    return html.replace(/表\s*([A-O])(?![^<]*<\/a>)/g, function(m0, L){
+      return '<a class="co-tl" href="codex.html#table-'+L.toLowerCase()+'">表 '+L+'</a>';
+    });
+  }
+  function linkCases(html){
+    return html.replace(/案例\s*(\d{1,2})(?![^<]*<\/a>)/g, function(m0, N){
+      return '<a class="co-tl" href="cases-book.html#case'+N+'">案例 '+N+'</a>';
+    });
+  }
+  function tableRefs(html){
+    var out=[], seen={}, re=/表\s*([A-O])(?![^<]*<\/a>)/g, m;
+    while((m=re.exec(html))!==null){ if(!seen[m[1]]){ seen[m[1]]=1; out.push(m[1]); } }
+    return out;
   }
 
   // ---------------- 取数字 ----------------
