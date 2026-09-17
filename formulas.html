@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>计算器公式与适用边界手册 · 32 个公式 · RMC收益管理社区</title>
+<meta name="description" content="收益管理 32 个核心公式：OCC、ADR、RevPAR、MPI、ARI、RGI、预测、定价弹性、置换、超售、渠道净收益与 RevPASH/RASK/RevPAC/RevPAU/RevPAS/RevPAT/RevPAA 行业变体。每个公式都给变量、算例、适用边界与常见误用。">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/community.css">
+<link rel="stylesheet" href="assets/css/auth.css">
+<link rel="stylesheet" href="assets/css/notify.css">
+<style>
+  .fm-wrap{max-width:1080px;margin:0 auto}
+  .fm-hero{background:linear-gradient(120deg,var(--navy),#2A5680);color:#fff;border-radius:14px;padding:30px 34px;margin-bottom:20px}
+  .fm-hero .eyebrow{font-size:12px;letter-spacing:2px;font-weight:700;color:var(--gold-2)}
+  .fm-hero h1{color:#fff;font-size:28px;margin:6px 0 8px}
+  .fm-hero p{font-size:14px;color:rgba(255,255,255,.92);line-height:1.85;margin:0 0 6px}
+  .fm-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:16px 0 14px}
+  .fm-bar input{flex:1;min-width:200px;padding:9px 13px;border:1px solid var(--line);border-radius:9px;font-size:14px}
+  .fm-chip{border:1px solid var(--line);background:var(--white);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;color:var(--ink-2)}
+  .fm-chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .fm-btn{border:1px solid var(--navy);color:var(--navy);background:var(--white);border-radius:9px;padding:8px 14px;font-size:13px;cursor:pointer}
+  .fm-btn:hover{background:var(--navy);color:#fff}
+  .fm-item{background:var(--white);border:1px solid var(--line);border-left:5px solid var(--navy);border-radius:11px;padding:15px 20px;margin-bottom:12px}
+  .fm-hd{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+  .fm-hd .n{font-size:16.5px;font-weight:800;color:var(--navy)}
+  .fm-hd .g{font-size:11.5px;background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:2px 10px;color:var(--ink-3)}
+  .fm-hd .no{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+  .fm-f{background:#12263D;color:#E8F1FA;border-radius:9px;padding:12px 15px;font-family:var(--mono);font-size:14px;line-height:1.9;margin-top:10px;overflow-x:auto}
+  .fm-f b{color:#FFD48A}
+  .fm-r{display:grid;grid-template-columns:74px 1fr;gap:8px;margin-top:9px;font-size:13.5px;line-height:1.85}
+  .fm-r .k{font-size:12.5px;font-weight:700;color:var(--ink-3);padding-top:1px}
+  .fm-r .v{color:var(--ink-2)}
+  .fm-r.ex .v{color:var(--ink)}
+  .fm-r.edge{background:#FFF6F4;border-left:3px solid #C2543F;border-radius:0 8px 8px 0;padding:9px 12px}
+  .fm-r.edge .v{color:#7A2E1E}
+  .fm-r.mis{background:#FFF9EC;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:9px 12px}
+  .fm-links{margin-top:10px;display:flex;flex-wrap:wrap;gap:7px}
+  .fm-links a{font-size:12px;color:var(--navy);text-decoration:none;border:1px solid var(--line);border-radius:16px;padding:3px 11px;background:var(--bg-2)}
+  .fm-links a:hover{border-color:var(--navy);background:#fff}
+  .fm-empty{text-align:center;color:var(--ink-3);padding:30px;font-size:14px}
+  .fm-toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-bottom:16px}
+  .fm-toc a{background:var(--bg-2);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--navy);text-decoration:none}
+  .fm-toc a:hover{border-color:var(--navy);background:#fff}
+  @media print{
+    .site-nav,.site-footer,.fm-bar,.fm-toc,.fm-btn{display:none}
+    .fm-item{page-break-inside:avoid}
+    .fm-f{background:#F2F4F7;color:#12263D;border:1px solid #ccc}
+  }
+  @media(max-width:640px){.fm-hero{padding:22px 18px}.fm-hero h1{font-size:22px}.fm-r{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-auth="public">
+<header class="site-nav"><div class="sn-inner">
+  <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
+  <nav class="sn-links" id="snLinks"></nav>
+  <a class="sn-cta" href="cert.html">认证</a>
+  <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+</div></header>
+
+<main class="site-main" style="padding-top:26px;padding-bottom:44px">
+  <div class="fm-wrap">
+
+    <div class="fm-hero">
+      <div class="eyebrow">公式手册 · Formula &amp; Boundary</div>
+      <h1>32 个公式与它们的适用边界</h1>
+      <p>
+        站上每个计算器背后的公式都写在这里：<b>公式 → 变量说明 → 算例 → 适用边界 → 常见误用</b>。
+        收益管理里「算错」比「不算」更危险，所以每条都特别标注了<b>什么时候不能用</b>。
+      </p>
+      <p style="font-size:13px;color:rgba(255,255,255,.82)">
+        全部 32 条已接入<a href="coach.html" style="color:var(--gold-2)">收益管理教练</a>：直接问「RevPAR 怎么算」「超售上限怎么定」即可得到公式与边界。
+      </p>
+    </div>
+
+    <div class="fm-bar">
+      <input id="q" type="search" placeholder="搜公式：RevPAR / MPI / 超售 / 置换 / RevPASH …">
+      <span class="fm-btn" id="btnPrint">🖨 打印 / 存 PDF</span>
+    </div>
+    <div class="fm-bar" style="margin-top:-6px"><span class="fm-chip on" data-g="全部">全部</span><span class="fm-chip" data-g="基础指标">基础指标</span><span class="fm-chip" data-g="指数与对标">指数与对标</span><span class="fm-chip" data-g="预测">预测</span><span class="fm-chip" data-g="定价与弹性">定价与弹性</span><span class="fm-chip" data-g="库存与超售">库存与超售</span><span class="fm-chip" data-g="渠道与净收益">渠道与净收益</span><span class="fm-chip" data-g="跨行业变体">跨行业变体</span></div>
+
+    <div class="fm-toc" id="toc"><a href="#f1">入住率 OCC</a><a href="#f2">平均房价 ADR</a><a href="#f3">每可售房收入 RevPAR</a><a href="#f4">每可售房总收入 TrevPAR</a><a href="#f5">净每可售房收入 NRevPAR</a><a href="#f6">每可售房经营毛利 GOPPAR</a><a href="#f7">可售房晚（可用库存）</a><a href="#f8">市场渗透指数 MPI</a><a href="#f9">价格指数 ARI</a><a href="#f10">综合收益指数 RGI</a><a href="#f11">收益机会缺口（RGI 折算金额）</a><a href="#f12">入住率预测（Pick-up 法）</a><a href="#f13">净在手预订（净 OTB）</a><a href="#f14">调价的盈亏平衡量（打平量）</a><a href="#f15">价格弹性</a><a href="#f16">最低可接受价（保本价）</a><a href="#f17">线性需求下的最优价（简化）</a><a href="#f18">价差与栅栏收益（差别定价增量）</a><a href="#f19">团队置换净贡献</a><a href="#f20">建议超售量</a><a href="#f21">Walk（拒载）成本</a><a href="#f22">MinLOS 增收（简化）</a><a href="#f23">渠道净 ADR</a><a href="#f24">渠道期望净贡献排序</a><a href="#f25">直订 vs OTA 打平佣金率</a><a href="#f26">餐饮 RevPASH</a><a href="#f27">航空 RASK</a><a href="#f28">邮轮 RevPAC</a><a href="#f29">长租公寓 RevPAU</a><a href="#f30">研学营地 RevPAS</a><a href="#f31">租车 RevPAT</a><a href="#f32">医疗号源 RevPAA</a></div>
+
+    <div id="list">
+
+    <div class="fm-item" data-g="基础指标" data-k="OCC 入住率 occupancy 公式 怎么算" id="f1">
+      <div class="fm-hd"><span class="n">入住率 OCC</span><span class="g">基础指标</span><span class="no">No.1</span></div>
+      <div class="fm-f">OCC = 已售房晚 ÷ 可售房晚 × 100%</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">可售房晚 = 总房量 − 维修房(OOO) − 自用/免费房；已售房晚含付费与免费（口径要写清楚）。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">200 间房，其中 3 间维修、2 间自用 → 可售 195 间；当日售出 150 间 → OCC = 150÷195 = 76.9%。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">只衡量「卖得多不多」，不能单独判断好坏；跨店比较要口径一致（是否含日租、是否含免费房）。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">用总房量当分母（漏掉维修房），会把入住率算低 1–3pp，进而影响 MPI。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c2">▶ 入住率</a><a href="codex.html#table-d">表 D 渗透指数</a></div>
+    </div>
+
+    <div class="fm-item" data-g="基础指标" data-k="ADR 平均房价 公式 怎么算" id="f2">
+      <div class="fm-hd"><span class="n">平均房价 ADR</span><span class="g">基础指标</span><span class="no">No.2</span></div>
+      <div class="fm-f">ADR = 客房收入 ÷ 已售房晚</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">客房收入建议只计房费，不含餐费与杂项；含套餐时按拆分规则剥离。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">当日房费收入 ¥45,000，售出 150 间 → ADR = ¥300。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">ADR 上升不等于收益变好，必须与 OCC 同看（见 RevPAR）；跨店比较用 ARI。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">把免费房、员工房计入分母，ADR 被摊薄；或把餐饮收入算进分子，ADR 虚高。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c3">▶ ADR</a><a href="codex.html#table-c">表 C 价格指数</a></div>
+    </div>
+
+    <div class="fm-item" data-g="基础指标" data-k="RevPAR 公式 怎么算 每可售房收入" id="f3">
+      <div class="fm-hd"><span class="n">每可售房收入 RevPAR</span><span class="g">基础指标</span><span class="no">No.3</span></div>
+      <div class="fm-f">RevPAR = ADR × OCC = 客房收入 ÷ 可售房晚</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">两种算法必须一致：用「收入÷可售」最稳，用 ADR×OCC 时要注意两个指标的口径是否同源。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">ADR ¥300、OCC 76.9% → RevPAR = ¥230.7；等价于 45,000÷195 = ¥230.8。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">只看客房收入，不含渠道成本与运营成本；判断是否赚钱要看 NRevPAR / GOPPAR。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">用已售房晚当分母（那是 ADR）；或旺季拿 RevPAR 涨了当业绩好，忽略渠道成本同步上升。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c4">▶ RevPAR</a><a href="gejijipo-player.html?id=c16">▶ 四大指标怎么选</a></div>
+    </div>
+
+    <div class="fm-item" data-g="基础指标" data-k="TrevPAR 公式 总收入 怎么算" id="f4">
+      <div class="fm-hd"><span class="n">每可售房总收入 TrevPAR</span><span class="g">基础指标</span><span class="no">No.4</span></div>
+      <div class="fm-f">TrevPAR = (客房 + 餐饮 + 其他收入) ÷ 可售房晚</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">其他收入含会议室、SPA、迷你吧等；只统计酒店可控的营业部门。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">客房 45,000 + 餐饮 12,000 + 会议 3,000 = ¥60,000，可售 195 间 → TrevPAR = ¥307.7。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">适合餐饮/会议占比高的酒店（度假村、会议型）；经济型酒店用 TrevPAR 意义不大。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">把外包租金、停车场分成等不可控收入算进去，会让指标失去可比性。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c13">▶ TrevPAR</a><a href="calc-templates.html#trevpar">模板 TrevPAR</a></div>
+    </div>
+
+    <div class="fm-item" data-g="基础指标" data-k="NRevPAR 净收入 分销成本 公式" id="f5">
+      <div class="fm-hd"><span class="n">净每可售房收入 NRevPAR</span><span class="g">基础指标</span><span class="no">No.5</span></div>
+      <div class="fm-f">NRevPAR = (客房收入 − 分销成本) ÷ 可售房晚</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">分销成本 = 佣金 + 支付/结算手续费 + 渠道返现 + 会员折扣成本。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">客房收入 45,000，OTA 佣金 15% 占 40% 房量 → 分销成本 ≈ 45,000×0.4×0.15 = ¥2,700 → NRevPAR = (45,000−2,700)÷195 = ¥216.9。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">最贴近「真正落袋」的客房指标，但不含运营成本；渠道结构变化大的月份必看。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">只扣佣金不扣会员折扣与返现，会高估净收入；或者把直订获客成本也算进去（口径混用）。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c15">▶ NRevPAR</a><a href="calc-templates.html#nrevpar">模板 NRevPAR</a></div>
+    </div>
+
+    <div class="fm-item" data-g="基础指标" data-k="GOPPAR 毛利 利润 公式" id="f6">
+      <div class="fm-hd"><span class="n">每可售房经营毛利 GOPPAR</span><span class="g">基础指标</span><span class="no">No.6</span></div>
+      <div class="fm-f">GOPPAR = 经营毛利(GOP) ÷ 可售房晚</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">GOP = 总收入 − 部门成本 − 未分配费用（人工、能源、营销、行政）。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">当月 GOP ¥620,000，可售房晚 5,850 → GOPPAR = ¥106。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">唯一能判断「赚不赚钱」的口径，但受会计政策影响大（折旧/租金是否计入），跨店比较要对齐。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">用 RevPAR 替代 GOPPAR 做利润决策；或者跨月比较时不剔除一次性费用。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c14">▶ GOPPAR</a><a href="calc-templates.html#goppar">模板 GOPPAR</a></div>
+    </div>
+
+    <div class="fm-item" data-g="基础指标" data-k="可售房晚 可用房晚 库存 公式 分母" id="f7">
+      <div class="fm-hd"><span class="n">可售房晚（可用库存）</span><span class="g">基础指标</span><span class="no">No.7</span></div>
+      <div class="fm-f">可售房晚 = 总房量 − 维修房(OOO) − 自用/长住占用 − 已确认超售预留</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">统计周期按「夜」计：可售房晚 = 可售房数 × 天数。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">200 间 × 30 天 = 6,000 房晚；当月维修占用 60、自用 90 → 可售 5,850 房晚。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">所有 RevPAR 类指标的分母，口径错了会污染全部指标。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">把不可用房（装修楼层）仍留在分母里，指标整体被低估。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c22">▶ 固定产能</a></div>
+    </div>
+
+    <div class="fm-item" data-g="指数与对标" data-k="MPI 渗透指数 公式 怎么算 竞组" id="f8">
+      <div class="fm-hd"><span class="n">市场渗透指数 MPI</span><span class="g">指数与对标</span><span class="no">No.8</span></div>
+      <div class="fm-f">MPI = 本店 OCC ÷ 竞组平均 OCC × 100</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">竞组(Comp Set)建议 3–5 家最可比对手；数据来源要统一（STR 或自建共建池）。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">本店 OCC 76.9%，竞组平均 71.2% → MPI = 108。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">只看「量」不看「价」；MPI &gt; 100 但 ARI &lt; 100 通常意味着你在用低价换量。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">竞组选得太大或包含不同档次酒店，指数失真；或拿不同数据源（自家 PMS vs 第三方）对比。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c10">▶ MPI</a><a href="calc-templates.html#mpi">模板 MPI</a><a href="codex.html#table-d">表 D</a></div>
+    </div>
+
+    <div class="fm-item" data-g="指数与对标" data-k="ARI 价格指数 公式 怎么算" id="f9">
+      <div class="fm-hd"><span class="n">价格指数 ARI</span><span class="g">指数与对标</span><span class="no">No.9</span></div>
+      <div class="fm-f">ARI = 本店 ADR ÷ 竞组平均 ADR × 100</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">竞组 ADR 用公开抓取价或共建池数据的同一口径（同一房型、同一提前期）。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">本店 ADR ¥300，竞组 ¥330 → ARI = 90.9，说明卖得比对手便宜 9%。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">ARI 只反映价格位置，不反映是否合适：定位低于对手的店，ARI 90 也可能是合理的。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">拿自己的会员价/团队价去比对手的公开 BAR；或抓取时点不一致（提前 1 天 vs 30 天）。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c11">▶ ARI</a><a href="calc-templates.html#ari">模板 ARI</a><a href="codex.html#table-c">表 C</a></div>
+    </div>
+
+    <div class="fm-item" data-g="指数与对标" data-k="RGI 综合指数 公式 怎么算" id="f10">
+      <div class="fm-hd"><span class="n">综合收益指数 RGI</span><span class="g">指数与对标</span><span class="no">No.10</span></div>
+      <div class="fm-f">RGI = 本店 RevPAR ÷ 竞组平均 RevPAR × 100 = MPI × ARI ÷ 100</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">三者必须同一周期、同一竞组；用第二个等式可以反查是量的问题还是价的问题。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">MPI 108、ARI 90.9 → RGI = 108×90.9÷100 = 98.2（量赢价输，总体还差一点点）。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">RGI 是结果指标，不能直接指导动作；必须拆成 MPI 与 ARI 才能决定下一步。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">只看 RGI 是否 &gt;100；RGI 相同但结构相反时，动作完全相反。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c12">▶ RGI</a><a href="calc-templates.html#rgi">模板 RGI</a></div>
+    </div>
+
+    <div class="fm-item" data-g="指数与对标" data-k="机会金额 缺口 RGI 公式 收益机会" id="f11">
+      <div class="fm-hd"><span class="n">收益机会缺口（RGI 折算金额）</span><span class="g">指数与对标</span><span class="no">No.11</span></div>
+      <div class="fm-f">机会金额 = (竞组 RevPAR − 本店 RevPAR) × 可售房晚</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">也可写成：竞组 RevPAR × (1 − RGI÷100) × 可售房晚。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">竞组 RevPAR ¥240、本店 ¥230.8、月可售 5,850 → 机会 = 9.2×5,850 ≈ ¥53,820/月。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">这是「理论上限」，不是可达目标：还要扣掉定位差异、产品差异与客群结构差异。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">把机会金额当成承诺目标下发；多个诊断项同时命中时会重复计算，需要去重。</span></div>
+      <div class="fm-links"><a href="diagnose.html">收益健康自检</a><a href="gejijipo-player.html?id=c12">▶ RGI</a></div>
+    </div>
+
+    <div class="fm-item" data-g="预测" data-k="预测 pickup OTB 公式 入住率预测" id="f12">
+      <div class="fm-hd"><span class="n">入住率预测（Pick-up 法）</span><span class="g">预测</span><span class="no">No.12</span></div>
+      <div class="fm-f">预测需求量 = 在手预订(OTB) × (1 + 历史同周期新增率%)</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">新增率按「剩余天数相同」的历史样本取，细分市场分别算再相加。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">距到店 14 天，在手 120 间，历史上 T-14→T-0 平均新增 25% → 预测 = 120×1.25 = 150 间。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">没有历史样本的新店/新市场不适用；有重大事件时要单独修正（事件叠加系数）。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">直接照搬去年同期而不做星期对齐；或所有细分市场共用一个新增率。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c5">▶ 需求预测</a><a href="gejijipo-player.html?id=o2">▶ 做一份入住率预测</a><a href="tools.html#forecast">预测工具</a><a href="calc-templates.html#pickup">Pick-up 模板</a></div>
+    </div>
+
+    <div class="fm-item" data-g="预测" data-k="OTB 在手 取消率 净OTB 公式" id="f13">
+      <div class="fm-hd"><span class="n">净在手预订（净 OTB）</span><span class="g">预测</span><span class="no">No.13</span></div>
+      <div class="fm-f">净 OTB = 在手预订 × (1 − 预计取消率 − 预计 No-show 率)</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">取消率与 No-show 率建议按细分市场/价格类型分别取，不可取消房型单独算。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">在手 120 间，取消率 10%、No-show 3% → 净 OTB = 120×0.87 ≈ 104 间。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">短期（T-3 内）最准；T-30 以外波动大，只用于趋势判断。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">只看在手绝对值，忽略取消率上升（放太多免费取消的低价房会让在手虚高）。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c9">▶ 预订进度</a><a href="gejijipo-player.html?id=c18">▶ No-show 与取消率</a></div>
+    </div>
+
+    <div class="fm-item" data-g="预测" data-k="打平 盈亏平衡 降价 涨价 公式 打平量" id="f14">
+      <div class="fm-hd"><span class="n">调价的盈亏平衡量（打平量）</span><span class="g">预测</span><span class="no">No.14</span></div>
+      <div class="fm-f">打平量 = 现有量 ÷ (1 ± 调价幅度)　·　量增需求 = 1÷(1−降幅) − 1</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">降价用除法、涨价用乘法：涨价 10% 允许量跌到 1÷1.1 = 90.9%（相对跌幅 9.1%）。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">当前 OCC 80%、ADR ¥500，降 10% → 打平 OCC = 80%÷0.9 = 88.9%（+8.9pp）；涨 10% → 打平 OCC = 80%÷1.1 = 72.7%（−7.3pp）。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">假设成本不变、需求弹性在观察范围内成立；大幅调价（&gt;30%）时弹性会突变，公式失效。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">把「降价 10% 需多卖 10%」当成打平条件（实际要 11.1%）。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c7">▶ 价格弹性</a><a href="myths.html">误区 03</a><a href="formulas.html">公式手册</a></div>
+    </div>
+
+    <div class="fm-item" data-g="定价与弹性" data-k="弹性 价格弹性 E 公式 ed" id="f15">
+      <div class="fm-hd"><span class="n">价格弹性</span><span class="g">定价与弹性</span><span class="no">No.15</span></div>
+      <div class="fm-f">弹性 E = 需求量变动% ÷ 价格变动%（通常取绝对值）</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">|E| &gt; 1 需求敏感，降价能增加总收入；|E| &lt; 1 需求刚性，涨价能增加总收入。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">价格从 500 涨到 550（+10%），量从 150 掉到 141（−6%）→ E = −0.6，刚性，涨价有利。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">弹性随提前期、细分市场、竞争环境变化，不能跨期套用；样本少时噪声大。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">用一次促销的结果推算长期弹性；或忽略竞品同步调价的影响。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c7">▶ 价格弹性</a><a href="gejijipo-player.html?id=c25">▶ 需求曲线</a></div>
+    </div>
+
+    <div class="fm-item" data-g="定价与弹性" data-k="保本价 最低价 变动成本 边际贡献 公式" id="f16">
+      <div class="fm-hd"><span class="n">最低可接受价（保本价）</span><span class="g">定价与弹性</span><span class="no">No.16</span></div>
+      <div class="fm-f">保本价 = 单位变动成本 + 目标边际贡献　（淡季可压到 = 变动成本）</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">变动成本：清洁布草、易耗品、早餐、水电、渠道佣金、支付手续费。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">变动成本 ¥120 + 佣金 15% 折算 → 保本价 ≈ 120÷(1−0.15) = ¥141.2；低于这个价卖一间亏一间。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">只用于「是否值得接这一单」的判断，不能用来定挂牌价（挂牌价由需求决定）。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">用全成本（含折旧租金）算保本价 → 淡季拒绝所有低价单，反而空置损失更大。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c25">▶ 需求曲线</a><a href="gejijipo-player.html?id=s3">▶ 淡季保价不盲降</a></div>
+    </div>
+
+    <div class="fm-item" data-g="定价与弹性" data-k="最优价 定价 线性需求 公式" id="f17">
+      <div class="fm-hd"><span class="n">线性需求下的最优价（简化）</span><span class="g">定价与弹性</span><span class="no">No.17</span></div>
+      <div class="fm-f">最优价 P* = (a + c) ÷ 2　（需求 Q = a − bP，单位成本 c）</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">a 为需求曲线的价格截距，b 为斜率；实务中用历史价格—量数据拟合。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">拟合出 Q = 300 − 0.3P，成本 c = 120 → P* = (1000 + 120)÷2 = ¥560（a = 300÷0.3 = 1000）。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">要求需求近似线性、成本恒定；真实需求曲线常非线性，结果只作参考区间。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">把一次拟合的最优价当成永久答案；忽略竞品价格与品牌定位约束。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c25">▶ 需求曲线</a><a href="gejijipo-player.html?id=o1">▶ 搭建价格体系</a></div>
+    </div>
+
+    <div class="fm-item" data-g="定价与弹性" data-k="差别定价 栅栏 价差 BAR 公式" id="f18">
+      <div class="fm-hd"><span class="n">价差与栅栏收益（差别定价增量）</span><span class="g">定价与弹性</span><span class="no">No.18</span></div>
+      <div class="fm-f">增量收益 = Σ(各档价格 × 各档销量) − 统一价 × 总销量</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">前提是栅栏有效（高价客无法下移到低价档）。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">统一价 400 卖 100 间 = 40,000；分档后 70 间 @400 + 30 间 @800 = 52,000 → 增量 ¥12,000。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">栅栏一旦失效（高价客绕过条件买低价），增量会变负数。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">只分档不设栅栏；或档位太多（&gt;5 档）导致客人比价疲劳、前台解释成本高。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c28">▶ 差别定价</a><a href="codex.html#table-f">表 F 房型价差</a></div>
+    </div>
+
+    <div class="fm-item" data-g="库存与超售" data-k="置换 displacement 团队 净贡献 公式" id="f19">
+      <div class="fm-hd"><span class="n">团队置换净贡献</span><span class="g">库存与超售</span><span class="no">No.19</span></div>
+      <div class="fm-f">净贡献 = 团队总贡献 − 被挤掉散客的边际贡献</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">团队总贡献 = 间夜 × 团队净价 + 餐饮/会议室等附带贡献；被挤掉散客 = 预计被挤掉的间夜 × 散客边际收益。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">团队 80 间 @¥400 = 32,000 + 餐饮 6,000；被挤掉散客 60 间 @¥600 边际 36,000 → 净贡献 = 38,000 − 36,000 = +¥2,000，可以接。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">要按「净价」算（扣佣金与税），并考虑取消率差异；长住与多夜团队要算总间夜。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">只看团队间夜数或房间单价；忽略被挤掉的散客（这是最容易漏的一项）。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c17">▶ 置换分析</a><a href="codex.html#table-g">表 G 团队询价</a><a href="tools.html#displacement">置换工具</a><a href="calc-templates.html#displacement">模板</a></div>
+    </div>
+
+    <div class="fm-item" data-g="库存与超售" data-k="超售 overbooking 上限 公式 noshow" id="f20">
+      <div class="fm-hd"><span class="n">建议超售量</span><span class="g">库存与超售</span><span class="no">No.20</span></div>
+      <div class="fm-f">建议超售 = MIN( (No-show率 + 取消率) × 预订量 × 风险偏好 , 房量 × 硬上限% )</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">风险偏好：保守 0.4 / 中性 0.6 / 激进 0.8；硬上限一般 3–8%（有 walk 预案取高值）。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">200 间满房，No-show 8% + 取消 7% = 15%，中性 0.6，硬上限 5% → MIN(200×0.15×0.6, 200×0.05) = MIN(18, 10) = 10 间。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">需要至少 3 个月的历史 No-show/取消数据；新店、异常日（大型活动）不适用。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">直接按「历史 no-show 总数」超售而不设硬上限；或超售了却没有 walk 流程与授权。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=o3">▶ 设置超额预订</a><a href="codex.html#table-e">表 E 超售标准</a><a href="tools.html#overbooking">超售工具</a><a href="calc-templates.html#overbooking">模板</a></div>
+    </div>
+
+    <div class="fm-item" data-g="库存与超售" data-k="walk 拒载 成本 公式 超售" id="f21">
+      <div class="fm-hd"><span class="n">Walk（拒载）成本</span><span class="g">库存与超售</span><span class="no">No.21</span></div>
+      <div class="fm-f">Walk 成本 = 房费差价 + 交通 + 补偿 + 口碑/复购损失（常按 1 次房费的 2–3 倍估）</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">口碑损失难量化，实务中用复购率下降与差评处理成本折算。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">本店房费 ¥600，安排同级酒店 ¥750 + 打车 ¥80 + 补偿 ¥300 + 口碑折算 ¥600 → 单次 walk 成本 ≈ ¥1,730。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">适用于「有没有 walk 预案」的预算测算；不同城市/档次差异很大。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">只算房费差价，忽略口碑与复购 → 会系统性低估超售风险。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c29">▶ Walk 拒载</a><a href="gejijipo-player.html?id=s5">▶ 超售翻房补救</a></div>
+    </div>
+
+    <div class="fm-item" data-g="库存与超售" data-k="MinLOS 最小停留 增收 公式 连住" id="f22">
+      <div class="fm-hd"><span class="n">MinLOS 增收（简化）</span><span class="g">库存与超售</span><span class="no">No.22</span></div>
+      <div class="fm-f">增收 ≈ 被保护的连住订单间夜 × (连住价 − 短住价) − 因限制流失的短住订单 × 短住价</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">只统计「原本会被短住订单挤掉」的部分，别把全部长住需求都算成增量。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">周五设 MinLOS 2 晚：保住 8 个 2 晚单（¥700/晚），流失 3 个 1 晚单（¥500）→ 增收 = 16×700 − 3×500 − 16×500 = ¥1,700。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">需求弱的日期设 MinLOS 会直接损失订单；只在高需求日启用。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">全年统一设 MinLOS；或设了不检查流失，把损失当成没有。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=o6">▶ 最小停留天数</a><a href="gejijipo-player.html?id=c20">▶ 平均停留时长</a></div>
+    </div>
+
+    <div class="fm-item" data-g="渠道与净收益" data-k="净ADR 渠道 佣金 公式 OTA" id="f23">
+      <div class="fm-hd"><span class="n">渠道净 ADR</span><span class="g">渠道与净收益</span><span class="no">No.23</span></div>
+      <div class="fm-f">净 ADR = ADR × (1 − 佣金率 − 支付/结算费率) − 单均获客成本</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">直订也要算获客成本（投放、会员运营、人力摊销）。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">OTA：600×(1−0.15−0.006) ≈ ¥506；直订：560 − 80 = ¥480 → 这一单 OTA 反而更优。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">只比较「同一天、同一房型、同一取消政策」的订单才公平。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">只看佣金率，忽略直订获客成本与会员折扣 → 得出「直订永远更划算」的错结论。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c32">▶ OTA 与直订</a><a href="gejijipo-player.html?id=c31">▶ 渠道管理</a></div>
+    </div>
+
+    <div class="fm-item" data-g="渠道与净收益" data-k="渠道 期望 取消率 排序 公式" id="f24">
+      <div class="fm-hd"><span class="n">渠道期望净贡献排序</span><span class="g">渠道与净收益</span><span class="no">No.24</span></div>
+      <div class="fm-f">期望净贡献 = 净 ADR × (1 − 取消率 − No-show率) + 附加消费</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">附加消费：餐饮、升级、延住、会员积分兑现成本（负值）。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">A 渠道净 480、取消率 25% → 360；B 渠道净 450、取消率 5% → 427.5 → B 更优。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">取消率要用该渠道自身的历史值；大促/免费取消政策下会显著变化。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">用全店平均取消率代替渠道取消率；忽略不可取消房型带来的取消率差异。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c31">▶ 渠道管理</a><a href="gejijipo-player.html?id=c18">▶ No-show 与取消率</a></div>
+    </div>
+
+    <div class="fm-item" data-g="渠道与净收益" data-k="打平佣金 直订 OTA 公式" id="f25">
+      <div class="fm-hd"><span class="n">直订 vs OTA 打平佣金率</span><span class="g">渠道与净收益</span><span class="no">No.25</span></div>
+      <div class="fm-f">打平佣金率 = (OTA 单价 − 直订单价 − 直订获客成本) ÷ OTA 单价</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">若实际佣金率低于打平值，OTA 更划算；高于则直订更划算。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">OTA 600、直订 560、直订获客 80 → 打平佣金率 = (600−560−80)÷600 = −6.7% → 即使零佣金，直订也已更优。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">只适用于「可转移需求」；OTA 带来的增量需求不能这样比（要用增量毛利）。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">把 OTA 的增量需求也算进转移盘子，得出「关掉 OTA 更好」的错误结论。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c32">▶ OTA 与直订</a><a href="cases-bnb.html">民宿如何摆脱 OTA</a></div>
+    </div>
+
+    <div class="fm-item" data-g="跨行业变体" data-k="RevPASH 餐饮 翻台 公式 客单" id="f26">
+      <div class="fm-hd"><span class="n">餐饮 RevPASH</span><span class="g">跨行业变体</span><span class="no">No.26</span></div>
+      <div class="fm-f">RevPASH = 营业收入 ÷ (座位数 × 营业小时)</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">等价于「翻台率 × 客单价 ÷ 平均用餐时长」的小时化表达。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">80 个座位营业 6 小时，收入 ¥24,000 → RevPASH = 24,000 ÷ 480 = ¥50/座·小时。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">适合翻台快的业态；高端正餐一味追 RevPASH 会牺牲体验与客单。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">只看翻台率不看客单；或把营业小时按全天算（含备餐空档）导致指标偏低。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c35">▶ RevPASH（餐饮）</a><a href="fnb.html">餐饮板块</a></div>
+    </div>
+
+    <div class="fm-item" data-g="跨行业变体" data-k="RASK 航空 ASK 客座率 公式" id="f27">
+      <div class="fm-hd"><span class="n">航空 RASK</span><span class="g">跨行业变体</span><span class="no">No.27</span></div>
+      <div class="fm-f">RASK = 客运收入 ÷ 可用座公里(ASK)　·　ASK = 座位数 × 航段距离</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">配套看客座率(LF)与客公里收益(RRPK)：RASK = LF × RRPK。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">航班 180 座、航段 1,200km → ASK = 216,000；收入 ¥108,000 → RASK = ¥0.5/座公里。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">不同航段长度不可直接比较；低成本与全服务航司的成本结构差异大。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">用 RASK 跨航司比较而不看航段结构；忽略燃油与时刻成本。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c36">▶ RASK（航空）</a><a href="airline.html">航空板块</a></div>
+    </div>
+
+    <div class="fm-item" data-g="跨行业变体" data-k="RevPAC 邮轮 公式 舱位夜" id="f28">
+      <div class="fm-hd"><span class="n">邮轮 RevPAC</span><span class="g">跨行业变体</span><span class="no">No.28</span></div>
+      <div class="fm-f">RevPAC = (船票 + 岸上/餐饮)收入 ÷ 可用舱位夜；可用舱位夜 = 舱位数 × 航次天数</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">岸上消费与船上二次消费要计入分子，这是邮轮与酒店最大的差别。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">1,000 舱位 × 5 天 = 5,000 舱位夜；船票 600 万 + 船上消费 150 万 → RevPAC = ¥1,500。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">舱位等级嵌套复杂（内舱/海景/阳台/套房），要分层算再汇总。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">只算船票收入，忽略船上二次消费（可占 20–30%）。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c34">▶ RevPAC（邮轮）</a><a href="tools.html#cruise">邮轮工具</a><a href="calc-templates.html#cruise">模板</a></div>
+    </div>
+
+    <div class="fm-item" data-g="跨行业变体" data-k="RevPAU 长租公寓 免租期 公式" id="f29">
+      <div class="fm-hd"><span class="n">长租公寓 RevPAU</span><span class="g">跨行业变体</span><span class="no">No.29</span></div>
+      <div class="fm-f">RevPAU = 总营收 ÷ 可出租间夜；有效日租金 = (月租 ÷ 30) × (1 − 免租期天数 ÷ 365)</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">总营收含租金与服务费；免租期要折算成实际有效租金再比较。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">100 间 × 365 = 36,500 间夜，年营收 ¥985 万 → RevPAU = ¥270；月租 3,000 且免租 30 天 → 有效日租金 = 100×(1−0.082) = ¥91.8。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">空置期与续约率是关键杠杆；短租化会改变成本结构（清洁、渠道）。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">用名义月租算收益，忽略免租期与空置 → 高估 8–15%。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c30">▶ RevPAU（长租公寓）</a><a href="tools.html#rental-apartment">长租工具</a><a href="industries/rental-apartment/index.html">长租专业课</a></div>
+    </div>
+
+    <div class="fm-item" data-g="跨行业变体" data-k="RevPAS 研学营地 营位 公式" id="f30">
+      <div class="fm-hd"><span class="n">研学营地 RevPAS</span><span class="g">跨行业变体</span><span class="no">No.30</span></div>
+      <div class="fm-f">RevPAS = (营费 + 餐饮摊入) ÷ 可用营位夜；可用营位夜 = 营位数 × 营期天数 × 批次</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">营期短、批次少，全年可用营位夜远小于「营位 × 365」，这是营地与酒店最大的差别。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">200 营位 × 5 天 × 8 批 = 8,000 营位夜；收入 ¥320 万 → RevPAS = ¥400。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">淡旺季极强（寒暑假集中），年度均值没有决策价值，要按批次看。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">用 365 天当分母；忽略安全与师资配比带来的营位上限变化。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c37">▶ RevPAS（营地）</a><a href="tools.html#research-camp">营地工具</a><a href="calc-templates.html#research-camp">模板</a></div>
+    </div>
+
+    <div class="fm-item" data-g="跨行业变体" data-k="RevPAT 租车 车队 利用率 公式" id="f31">
+      <div class="fm-hd"><span class="n">租车 RevPAT</span><span class="g">跨行业变体</span><span class="no">No.31</span></div>
+      <div class="fm-f">RevPAT = 总营收 ÷ 可用车辆·天；可用车辆·天 = 车队规模 × 统计天数</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">分子含租金、保险、超时/超里程与异地还车费。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">300 辆车 × 30 天 = 9,000 车·天；收入 ¥270 万 → RevPAT = ¥300。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">利用率（UT）与车队规模互相牵制：扩车队会拉低 UT，要同时看两个指标。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">只看利用率不看 RevPAT（低价长租会拉高利用率、拉低收益）。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c38">▶ RevPAT（租车）</a><a href="tools.html#car-rental">租车工具</a><a href="calc-templates.html#car-rental">模板</a></div>
+    </div>
+
+    <div class="fm-item" data-g="跨行业变体" data-k="RevPAA 医疗 号源 公式" id="f32">
+      <div class="fm-hd"><span class="n">医疗号源 RevPAA</span><span class="g">跨行业变体</span><span class="no">No.32</span></div>
+      <div class="fm-f">RevPAA = 总营收 ÷ 可用号源；可用号源 = 医生数 × 出诊天数 × 每医生日号源</div>
+      <div class="fm-r"><span class="k">变量</span><span class="v">分子含挂号费与检查/治疗等关联收入（按科室口径确定）。</span></div>
+      <div class="fm-r ex"><span class="k">算例</span><span class="v">20 名医生 × 22 天 × 40 号 = 17,600 号；收入 ¥352 万 → RevPAA = ¥200。</span></div>
+      <div class="fm-r edge"><span class="k">适用边界</span><span class="v">涉及医疗合规：不能为收益而诱导过度检查；号源分配要考虑公益与急重症优先。</span></div>
+      <div class="fm-r mis"><span class="k">常见误用</span><span class="v">把 RevPAA 最大化当目标 → 与医疗伦理冲突；应以「号源利用率 + 合理收益」双目标。</span></div>
+      <div class="fm-links"><a href="gejijipo-player.html?id=c39">▶ RevPAA（医疗）</a><a href="tools.html#medical-appointment">号源工具</a><a href="calc-templates.html#medical-appointment">模板</a></div>
+    </div>
+    </div>
+    <div class="fm-empty" id="empty" style="display:none">没有匹配的公式，换个词试试。</div>
+
+    <div class="fm-r mis" style="padding:13px 17px;margin-top:18px">
+      <span class="k">总原则</span>
+      <span class="v">
+        公式给的是<b>结构</b>，参数给的是<b>判断</b>。同一条公式在不同城市、不同档次、不同客群下的参数完全不同，
+        正确做法是先用通用参数跑三个月，再用自己的数据校准。所有公式都假设「历史能代表未来」，
+        遇到新开业、装修改造、重大事件或政策变化时，请主动降低对历史数据的权重。
+      </span>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer"><div class="site-main"><div class="sf-bot">
+  <span>RMC收益管理社区 · 公式手册</span>
+  <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+</div></div></footer>
+
+<script src="assets/js/app.js"></script>
+<script>
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  var items=[].slice.call(document.querySelectorAll(".fm-item"));
+  var g="全部";
+  Array.prototype.forEach.call(document.querySelectorAll(".fm-chip"),function(c){
+    c.onclick=function(){
+      Array.prototype.forEach.call(document.querySelectorAll(".fm-chip"),function(x){x.classList.remove("on");});
+      c.classList.add("on"); g=c.textContent.trim(); filter();
+    };
+  });
+  function filter(){
+    var q=(""+$("q").value).trim().toLowerCase(), n=0;
+    items.forEach(function(it){
+      var okG = (g==="全部"||it.getAttribute("data-g")===g);
+      var okQ = !q || (it.textContent.toLowerCase().indexOf(q)>=0);
+      var v = okG&&okQ;
+      it.style.display = v? "":"none";
+      if(v) n++;
+    });
+    $("empty").style.display = n? "none":"block";
+  }
+  $("q").oninput=filter;
+  $("btnPrint").onclick=function(){ window.print(); };
+})();
+</script>
+<script>(function(){var t=document.getElementById('snToggle'),l=document.getElementById('snLinks');if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();</script>
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/notify.js"></script>
+</body>
+</html>

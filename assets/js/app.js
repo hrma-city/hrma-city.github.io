@@ -211,6 +211,9 @@
     { t: "自学系统", p: "study.html", items: [
       { t: "★ 开始自学（进度看板）", p: "study.html" },
       { t: "随时提问 · 收益管理教练", p: "coach.html" },
+      { t: "★ 下一步学什么（路径推荐）", p: "path.html" },
+      { t: "常见误区库（30 条）", p: "myths.html" },
+      { t: "公式手册（32 个·含边界）", p: "formulas.html" },
       { t: "习题集（138 题·可打印）", p: "exam-book.html" },
       { t: "第 1 步 · 7 天训练营", p: "camp7.html" },
       { t: "第 2 步 · 概念总表 + 白皮书", p: "concepts.html" },
@@ -231,6 +234,8 @@
       { t: "流程细化（30 子步骤）", p: "process-detail.html" },
       { t: "★ 流程闯关（30 关）", p: "games/flow-quest.html" },
       { t: "操作法典（15 表）", p: "codex.html" },
+      { t: "常见误区库（30 条）", p: "myths.html" },
+      { t: "公式手册（32 个·含边界）", p: "formulas.html" },
       { t: "流程：表 M 每日流水线", p: "games/pipeline.html" },
       { t: "★ 案例集（24 情境）", p: "cases-book.html" },
       { t: "案例集", p: "games/cases.html" },
