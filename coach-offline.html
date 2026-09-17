@@ -1459,6 +1459,15 @@ a.kr-item:hover { border-color: var(--navy-3); background: #F6F9FC; }
   #coTip p{margin:0}
   #coTip a{display:inline-block;margin-top:7px;color:var(--gold);text-decoration:none;
     border-bottom:1px solid var(--gold-2);font-size:12.5px}
+  @media print{
+    .co-set,.co-chips,.co-in,.co-bar .h,.site-footer,.site-nav,#coTip{display:none}
+    .co-wrap{height:auto}
+    .co-log{border:0;overflow:visible;max-height:none}
+    body{background:#fff}
+    .co-bub{background:#fff;border:1px solid #ddd}
+    .co-msg.me .co-bub{background:#F4F7FA;color:#000}
+    .co-msg{page-break-inside:avoid}
+  }
   .co-tl{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-2);font-weight:650}
   .co-tls{margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--ink-3)}
   .co-tls a{display:inline-block;margin:0 8px 0 0;padding:3px 11px;border-radius:20px;background:var(--navy);
@@ -1472,9 +1481,6 @@ a.kr-item:hover { border-color: var(--navy-3); background: #F6F9FC; }
     color:var(--ink-3);border-radius:16px;cursor:pointer}
   @media(max-width:700px){.co-wrap{height:calc(100vh - 170px)}.co-bub{max-width:94%}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"coach-offline","item":"https://hrma-city.github.io/coach-offline.html"}]}</script>
 </head>
 <body data-auth="public">
 <header class="site-nav"><div class="sn-inner"><a class="sn-logo"><span class="gem">收</span><span>RMC收益管理社区 · 收益管理教练（离线版）</span></a></div></header>
@@ -1486,8 +1492,8 @@ a.kr-item:hover { border-color: var(--navy-3); background: #F6F9FC; }
         <div class="cm-eyebrow">收益管理教练 · RM Coach</div>
         <h1 style="font-size:24px;font-weight:800;color:var(--navy);margin:2px 0 0">随时问，按你的数字给判断</h1>
       </div>
-      <a class="co-clear" href="coach-offline.html" download style="text-decoration:none;display:inline-block">⬇ 下载离线版</a>
-      <button class="co-clear" id="btnClear">清空对话</button>
+      <button class="co-clear" id="btnPrint">🖨 打印 / 存 PDF</button>
+            <button class="co-clear" id="btnClear">清空对话</button>
     </div>
 
     <div class="co-note">
@@ -1950,7 +1956,7 @@ var GLOSS = [{"k": "收益管理", "a": ["收益管理", "revenue management", "
     sys("你好，我是收益管理教练。<b>直接问就行</b>——概念、算法、判定表、案例都可以；"+
         "带数字的问题我会直接算；决策问题我会先问你几个关键数。<br>"+
         "<b>问我「为什么」，我会把刚才那个结论的依据讲清楚</b>（比如超售为什么是 5%）。<br>"+
-        "所有回答都来自本机知识库（117 条），离线可用，也不会编造。");
+        "所有回答都来自本机知识库（117 条 + 全站 189 页），离线可用，也不会编造。");
   }
 
   var CHIPS=["RevPAR 怎么算","RGI 落后怎么办","该不该降价","团队报价能接吗",
@@ -1971,6 +1977,7 @@ var GLOSS = [{"k": "收益管理", "a": ["收益管理", "revenue management", "
 
   $("send").onclick=send;
   $("q").addEventListener("keydown",function(e){ if(e.key==="Enter") send(); });
+  var bp=$("btnPrint"); if(bp) bp.onclick=function(){ window.print(); };
   $("btnClear").onclick=function(){
     try{ localStorage.removeItem(KEY); }catch(e){}
     state={flow:null,step:0,data:{}}; lastWhy=null;
