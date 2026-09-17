@@ -268,14 +268,14 @@ var DATA = {"quiz": [{"d": "指标", "q": "100 间房，某日 ADR ¥400、入�
     var extra=[];
     if(!diag) extra.push("还没做过<a href='diagnose.html' style='color:#9FE3F0'>收益健康自检</a>，建议用自家数据跑一次");
     if(caseDone===0) extra.push("案例自测还没开始，可在<a href='case-quiz.html' style='color:#9FE3F0'>47 题自测</a>里先做一篇");
-    extra.push("随时可以问<a href='coach.html' style='color:#9FE3F0'>收益管理教练</a>（306 条知识库 + 32 个公式 + 30 条误区）");
+    extra.push("随时可以问<a href='coach.html' style='color:#9FE3F0'>收益管理教练</a>（372 条知识库：全站 192 页 + 误区 30 条 + 公式 32 条）");
     $("rNote").innerHTML="补充建议："+extra.join("；")+"。";
 
     try{
       localStorage.setItem(K, JSON.stringify({k:lv.k,name:lv.name,correct:correct,total:total,
         date:new Date().toLocaleDateString("zh-CN")}));
     }catch(e){}
-    $("res").scrollIntoView({behavior:"smooth",block:"start"});
+    if($("res").scrollIntoView) $("res").scrollIntoView({behavior:"smooth",block:"start"});
   }
 
   $("btnGo").onclick=function(){
