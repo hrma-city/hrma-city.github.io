@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>收益决策引擎 · HRMA AI 定价助手</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    background:#f4f7fa;color:#1c2430;line-height:1.7;font-size:14.5px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 16px 60px}
+
+  header{background:linear-gradient(150deg,#0f2a4a,#16406e 60%,#1d6fb8);color:#fff;padding:34px 16px 30px}
+  .hi{max-width:1120px;margin:0 auto}
+  .eb{font-size:12px;letter-spacing:2.4px;opacity:.8;margin-bottom:8px}
+  h1{font-size:26px;font-weight:800;line-height:1.35;margin-bottom:8px}
+  .lead{opacity:.92;font-size:14.5px;max-width:760px}
+  .principle{background:rgba(255,255,255,.13);border-left:3px solid #e8b84b;border-radius:10px;
+    padding:13px 16px;margin-top:18px;font-size:13.5px;line-height:1.75}
+  .principle b{color:#ffd88a}
+
+  .panel{background:#fff;border:1px solid #e2e8ef;border-radius:14px;padding:18px 20px;margin-top:20px}
+  .pt{font-size:15.5px;font-weight:700;color:#0f2a4a;margin-bottom:12px}
+  .row{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+  .fld{display:flex;flex-direction:column;gap:5px}
+  .fld label{font-size:12.5px;color:#5b6a7d;font-weight:600}
+  .fld input,.fld select{border:1px solid #d5dee8;border-radius:8px;padding:8px 10px;font-size:14px;
+    font-family:inherit;background:#fff;color:#1c2430;min-width:110px}
+  button{font-family:inherit;cursor:pointer;border-radius:9px;border:none;font-weight:700;font-size:14.5px;
+    padding:11px 22px;transition:transform .1s}
+  button:active{transform:scale(.98)}
+  .btn-run{background:linear-gradient(90deg,#1d6fb8,#0f2a4a);color:#fff}
+  .btn-ghost{background:#eef3f9;color:#0f2a4a;border:1px solid #cfdcea}
+  .btn-sm{padding:7px 14px;font-size:13px}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+  @media(max-width:760px){.cards{grid-template-columns:repeat(2,1fr)}}
+  .card{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:14px 16px}
+  .cl{font-size:12.5px;color:#5b6a7d}
+  .cv{font-size:23px;font-weight:800;color:#0f2a4a;margin-top:2px}
+  .cv.up{color:#c0392b}.cv.down{color:#1a9c5b}
+  .cv.gold{color:#a8801f}
+
+  .ai{background:#fffdf5;border:1px solid #ecdcb4;border-left:4px solid #d99b1c;
+    border-radius:12px;padding:16px 18px;margin-top:18px;font-size:14px;line-height:1.85}
+  .ai h3{font-size:14.5px;color:#8a5a06;margin-bottom:8px;font-weight:700}
+  .ai ul{margin-left:18px}
+  .ai li{margin-bottom:4px}
+
+  .tw{overflow-x:auto;margin-top:8px;border:1px solid #e2e8ef;border-radius:12px;background:#fff}
+  table{width:100%;border-collapse:collapse;font-size:13.2px;min-width:900px}
+  th{background:#eef3f9;color:#3a4b60;font-size:12px;padding:9px 10px;text-align:left;
+    font-weight:700;white-space:nowrap}
+  td{padding:9px 10px;border-top:1px solid #edf1f6;white-space:nowrap}
+  tr:hover td{background:#fafcfe}
+  .up{color:#c0392b;font-weight:700}
+  .down{color:#1a9c5b;font-weight:700}
+  .flat{color:#6b7889}
+  .gain{font-weight:700}
+  .act{font-size:12.5px;color:#3a4b60;max-width:300px;white-space:normal}
+  .ev{display:inline-block;background:#fdecec;color:#b32d2d;border-radius:5px;
+    padding:1px 7px;font-size:11.5px;margin-left:5px}
+
+  .note{background:#eef4fb;border:1px solid #cfe0f2;border-radius:10px;padding:13px 16px;
+    font-size:13.3px;color:#3a4b60;margin-top:16px;line-height:1.8}
+  .warn{background:#fff8ec;border:1px solid #f0d9a8;border-left:4px solid #d99b1c;
+    border-radius:10px;padding:13px 16px;font-size:13.3px;color:#6b5320;margin-top:12px;line-height:1.8}
+
+  footer{margin-top:36px;text-align:center;color:#8494a8;font-size:12.5px;line-height:1.9}
+  @media print{header,.panel,.noprint{display:none}body{background:#fff}.tw{border:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hi">
+    <div class="eb">REVENUE DECISION ENGINE · 收益决策引擎</div>
+    <h1>HRMA 收益决策引擎</h1>
+    <p class="lead">上传你的在手预订与竞品价格，引擎按收益管理公式给出「未来每天该卖多少钱、该不该开关房型、机会金额多少」——不是聊天，是可执行的定价指令。</p>
+    <div class="principle">
+      <b>设计原则：价格由公式算，不由 AI 编。</b>
+      本引擎的每一个价格都来自确定性公式（对标竞品 ARI + 预订速度 Pickup + 需求弹性最优价），
+      <b>AI 只负责解读与表达</b>——绝不生成未经校验的数字。数据在你的浏览器本地计算，不上传服务器。
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="panel">
+    <div class="pt">① 参数与数据</div>
+    <div class="row">
+      <div class="fld"><label>可售房量</label><input type="number" id="cap" value="320"></div>
+      <div class="fld"><label>变动成本 / 保本价 ¥</label><input type="number" id="vc" value="180"></div>
+      <div class="fld"><label>分析天数</label>
+        <select id="days"><option value="14">未来 14 天</option><option value="30" selected>未来 30 天</option></select>
+      </div>
+      <div class="fld"><label>No-show 率 %</label><input type="number" id="ns" value="3"></div>
+      <button class="btn-run" id="run">运行决策引擎</button>
+      <button class="btn-ghost btn-sm" id="loadDemo">载入示例数据</button>
+      <button class="btn-ghost btn-sm noprint" onclick="window.print()">导出 / 打印报告</button>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="fld"><label>在手预订 CSV（可选，同结构）</label><input type="file" id="f1" accept=".csv"></div>
+      <div class="fld"><label>竞品价格 CSV（可选）</label><input type="file" id="f2" accept=".csv"></div>
+    </div>
+    <div class="note" style="margin-top:12px">
+      默认使用内置示例数据（某门店 2026-03 未来 30 天在手 + 竞品组合价）。
+      想算自己的店：按 <b>data/03_未来90天在手预订快照.csv</b> 与 <b>04_竞争组合90天价格.csv</b> 的表头准备两份 CSV 上传即可。
+    </div>
+  </div>
+
+  <div class="cards" id="cards"></div>
+
+  <div class="ai" id="aiBox"></div>
+
+  <div class="panel" style="padding:18px 16px 8px">
+    <div class="pt">② 每日决策卡</div>
+    <div class="tw">
+      <table id="tbl">
+        <thead><tr>
+          <th>入住日</th><th>星期</th><th>预测OCC</th><th>在手+增量</th>
+          <th>竞品均价</th><th>当前BAR</th><th>ARI 现</th>
+          <th>建议BAR</th><th>调幅</th><th>机会金额</th><th>动作指令</th>
+        </tr></thead>
+        <tbody id="tb"></tbody>
+      </table>
+    </div>
+    <div class="note">
+      <b>机会金额</b> = 按价格弹性测算的「建议价收入 − 当前价收入」，
+      已扣除涨价带来的量损（需求越刚，越敢涨）。<b>ARI</b> = 本店价 ÷ 竞品组合加权均价 × 100。
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="pt">③ 引擎用的公式（来自你的 32 公式库）</div>
+    <div class="note" style="margin-top:0">
+      <b>最优价求解</b>：在当前价 ±12% 区间内数值搜索（步长 0.5%），取收入最大化的价格 —— <b>候选集包含"维持现状"，因此机会金额恒 ≥ 0</b><br>
+      <b>价格弹性</b>：E 随预测 OCC 动态（≥85% → −0.7 需求刚性；70–85% → −1.0；&lt;70% → −1.5）<br>
+      <b>容量约束</b>：Q<sub>新</sub> = min( Q × (1 + E × 调幅), 可售房量 ) —— 满房日降价换不来增量，所以不会建议降价<br>
+      <b>竞品护栏</b>：建议价上限 = 竞品组合均价 × 1.2（OCC ≥ 90% 放宽至 1.4）；下限 = 变动成本<br>
+      <b>超售上限</b>：预测 OCC ≥ 95% 时，超售 = 可售房量 × No-show 率
+    </div>
+    <div class="warn">
+      <b>版本说明：</b>当前为 <b>MVP v0.1（确定性规则引擎）</b>——所有数字由公式算出，可解释、可复核。
+      「AI 解读层」目前是规则化摘要；接入大模型后可升级为自然语言诊断与问答，但<b>价格计算永远不会交给大模型瞎编</b>。
+    </div>
+  </div>
+
+  <footer>
+    HRMA 收益决策引擎 · MVP v0.1 · 数据本地计算不出端<br>
+    公式依据：RMC 收益管理社区 32 公式库（ARI / MPI / RGI / Pickup / 弹性 / 最优价 / 超售）
+  </footer>
+</div>
+
+<script>
+var DEMO = [
+["2026-03-01","日",2,321,99.0,80.8,17.4,"",725,800],
+["2026-03-02","一",2,218,68.8,68.1,-2.5,"",693,790],
+["2026-03-03","二",2,191,60.3,69.6,-20.8,"",691,780],
+["2026-03-04","三",4,251,79.7,70.3,19.7,"",683,610],
+["2026-03-05","四",4,230,73.1,71.8,-0.8,"",672,580],
+["2026-03-06","五",5,238,75.9,78.4,-6.8,"",694,630],
+["2026-03-07","六",7,253,81.2,90.1,-11.3,"",721,680],
+["2026-03-08","日",8,246,79.4,80.8,-0.4,"",737,740],
+["2026-03-09","一",8,257,82.8,68.1,15.6,"",695,690],
+["2026-03-10","二",7,202,65.3,69.6,-11.0,"",699,700],
+["2026-03-11","三",11,240,78.4,70.3,13.8,"",689,760],
+["2026-03-12","四",11,234,76.6,71.8,1.3,"",702,830],
+["2026-03-13","五",12,221,72.8,78.4,-7.9,"",691,790],
+["2026-03-14","六",19,333,99.0,90.1,18.6,"",720,580],
+["2026-03-15","日",16,241,80.3,80.8,-1.1,"",719,580],
+["2026-03-16","一",13,184,61.6,68.1,-10.4,"",704,650],
+["2026-03-17","二",15,192,64.7,69.6,-15.9,"",693,630],
+["2026-03-18","三",40,455,99.0,91.4,67.9,"滨江动漫节",864,870],
+["2026-03-19","四",46,463,99.0,93.3,68.8,"滨江动漫节",890,890],
+["2026-03-20","五",23,217,75.0,78.4,-6.2,"",687,720],
+["2026-03-21","六",32,288,99.0,90.1,12.7,"",734,890],
+["2026-03-22","日",27,211,74.4,80.8,0.7,"",714,780],
+["2026-03-23","一",20,151,53.4,68.1,-21.2,"",687,810],
+["2026-03-24","二",30,219,77.8,69.6,7.3,"",702,580],
+["2026-03-25","三",28,198,70.6,70.3,1.7,"",688,550],
+["2026-03-26","四",30,165,60.9,71.8,-9.4,"",703,660],
+["2026-03-27","五",34,169,63.4,78.4,-14.0,"",679,640],
+["2026-03-28","六",43,263,95.6,90.1,-2.0,"",723,720],
+["2026-03-29","日",50,251,94.1,80.8,12.0,"",707,690],
+["2026-03-30","一",36,171,64.7,71.5,-10.0,"",718,730]
+];
+var DATA = DEMO.slice();
+
+function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+function fmt(n){ return (n>=0?"":"-") + "¥" + Math.abs(Math.round(n)).toLocaleString("zh-CN"); }
+function pct(n){ return (n>=0?"+":"") + n.toFixed(1) + "%"; }
+
+function targetARI(occ){
+  if(occ >= 90) return 108;
+  if(occ >= 80) return 105;
+  if(occ >= 70) return 102;
+  if(occ >= 60) return 100;
+  return 95;
+}
+function elasticity(occ){
+  if(occ >= 85) return -0.7;
+  if(occ >= 70) return -1.0;
+  return -1.5;
+}
+
+function decide(d, cap, vc, nsRate){
+  var date=d[0], wd=d[1], otb=d[2], pickup=d[3], occF=d[4], occT=d[5], dev=d[6], ev=d[7], comp=d[8], bar=d[9];
+  var Q = Math.min(otb + pickup, cap);
+  var ariNow = comp>0 ? bar/comp*100 : 100;
+
+  var E = elasticity(occF);
+  var tARI = targetARI(occF);
+
+  var ceil = comp > 0 ? comp * (occF >= 90 ? 1.4 : 1.2) : bar * 1.5;
+  var loP = Math.max(vc, bar * 0.88);
+  var hiP = Math.min(ceil, bar * 1.12);
+  if(loP > hiP){ loP = vc; hiP = Math.max(vc, bar); }
+
+  var revNow = bar * Q;
+  var bestP = bar, bestRev = revNow;
+  for(var i = -24; i <= 24; i++){
+    var pc = Math.round(clamp(bar * (1 + i * 0.005), loP, hiP));
+    var xx = bar > 0 ? (pc / bar - 1) : 0;
+    var Qn = clamp(Q * (1 + E * xx), 0, cap);
+    var rev = pc * Qn;
+    if(rev > bestRev){ bestRev = rev; bestP = pc; }
+  }
+  var p = bestP;
+  var chg = bar > 0 ? (p / bar - 1) : 0;
+  var gain = bestRev - revNow;
+
+  var acts = [];
+  if(chg >= 0.03) acts.push("涨价：收紧低价房型与 OTA 库存，抬高 BAR");
+  else if(chg <= -0.03) acts.push("降价：开放促销、放开低价房抢量");
+  else acts.push("维持：观察 Pickup，暂不动价");
+
+  if(occF >= 90){
+    acts.push("设 MinLOS 2 晚、停止团队置换");
+    if(occF >= 95) acts.push("超售 " + Math.round(cap*nsRate/100) + " 间");
+  } else if(occF < 60){
+    acts.push("放开团队与 OTA，评估置换收益");
+  }
+  if(dev <= -10) acts.push("预订落后，加大曝光");
+  else if(dev >= 10) acts.push("预订超前，可继续抬价");
+  if(ev) acts.push("事件日（" + ev + "）：分段放房、提前锁价");
+
+  return {date:date, wd:wd, occF:occF, Q:Q, comp:comp, bar:bar, ariNow:ariNow,
+          tARI:tARI, p:p, chg:chg, gain:gain, act:acts.join("；"), ev:ev};
+}
+
+function render(){
+  var cap = Number(document.getElementById("cap").value) || 320;
+  var vc = Number(document.getElementById("vc").value) || 180;
+  var ns = Number(document.getElementById("ns").value) || 3;
+  var days = Number(document.getElementById("days").value) || 30;
+
+  var rows = DATA.slice(0, days).map(function(d){ return decide(d, cap, vc, ns); });
+
+  var total = 0, up=0, down=0, flat=0, chgSum=0;
+  rows.forEach(function(r){
+    total += r.gain; chgSum += r.chg;
+    if(r.chg >= 0.03) up++; else if(r.chg <= -0.03) down++; else flat++;
+  });
+  var avgChg = rows.length ? chgSum/rows.length*100 : 0;
+
+  document.getElementById("cards").innerHTML =
+    card("总机会金额（" + days + "天）", fmt(total), total>=0?"gold":"down") +
+    card("建议涨价", up + " 天", "up") +
+    card("建议降价", down + " 天", "down") +
+    card("平均调幅", pct(avgChg), avgChg>=0?"up":"down");
+
+  var sorted = rows.slice().sort(function(a,b){ return Math.abs(b.gain)-Math.abs(a.gain); }).slice(0,3);
+  var best = sorted[0];
+  var txt = "<h3>AI 解读 · 决策摘要</h3><ul>";
+  txt += "<li>未来 <b>" + days + "</b> 天，按建议价执行预计<b>净增收 " + fmt(total) + "</b>（已扣除涨价带来的量损）。</li>";
+  txt += "<li>节奏：<b>" + up + " 天建议涨、" + down + " 天建议降、" + flat + " 天维持</b>，平均调幅 " + pct(avgChg) + "。</li>";
+  if(best){
+    txt += "<li>影响最大的一天：<b>" + best.date + "（" + best.wd + "）</b>，预测 OCC " + best.occF.toFixed(1) +
+           "%，建议从 ¥" + best.bar + " 调到 <b>¥" + best.p + "</b>（" + pct(best.chg*100) + "），单日机会 " + fmt(best.gain) + "。</li>";
+  }
+  txt += "<li>执行原则：<b>先动价、再动库存</b>；涨价日同步收紧低价房型，降价日先放量再谈团队。</li>";
+  txt += "</ul>";
+  document.getElementById("aiBox").innerHTML = txt;
+
+  var tb = document.getElementById("tb");
+  tb.innerHTML = rows.map(function(r){
+    var cls = r.chg >= 0.03 ? "up" : (r.chg <= -0.03 ? "down" : "flat");
+    var gcls = r.gain >= 0 ? "up" : "down";
+    return "<tr>" +
+      "<td>" + r.date + (r.ev ? "<span class='ev'>" + r.ev + "</span>" : "") + "</td>" +
+      "<td>" + r.wd + "</td>" +
+      "<td>" + r.occF.toFixed(1) + "%</td>" +
+      "<td>" + Math.round(r.Q) + "</td>" +
+      "<td>¥" + r.comp + "</td>" +
+      "<td>¥" + r.bar + "</td>" +
+      "<td>" + r.ariNow.toFixed(0) + "→" + (r.comp>0 ? (r.p/r.comp*100).toFixed(0) : "-") + "</td>" +
+      "<td><b>¥" + r.p + "</b></td>" +
+      "<td class='" + cls + "'>" + pct(r.chg*100) + "</td>" +
+      "<td class='gain " + gcls + "'>" + fmt(r.gain) + "</td>" +
+      "<td class='act'>" + r.act + "</td>" +
+    "</tr>";
+  }).join("");
+}
+
+function card(label, val, cls){
+  return "<div class='card'><div class='cl'>" + label + "</div><div class='cv " + (cls||"") + "'>" + val + "</div></div>";
+}
+
+function parseCSV(text){
+  var lines = text.replace(/^\uFEFF/, "").trim().split(/\r?\n/);
+  var head = lines[0].split(",");
+  function idx(names){
+    for(var i=0;i<head.length;i++){
+      for(var j=0;j<names.length;j++){
+        if(head[i].indexOf(names[j]) >= 0) return i;
+      }
+    }
+    return -1;
+  }
+  return {lines:lines, head:head, idx:idx};
+}
+
+function applyUpload(){
+  var f1 = document.getElementById("f1").files[0];
+  var f2 = document.getElementById("f2").files[0];
+  if(!f1 || !f2){ alert("请同时选择「在手预订」与「竞品价格」两份 CSV"); return; }
+  Promise.all([f1.text(), f2.text()]).then(function(arr){
+    var A = parseCSV(arr[0]), B = parseCSV(arr[1]);
+    var aDate=A.idx(["入住日"]), aOtb=A.idx(["在手房晚"]), aPick=A.idx(["预测增量"]),
+        aOcc=A.idx(["预测OCC"]), aTar=A.idx(["目标OCC"]), aDev=A.idx(["Pickup偏差"]), aEv=A.idx(["事件"]), aWd=A.idx(["星期"]);
+    var bDate=B.idx(["入住日"]), bComp=B.idx(["竞争组合加权均价"]), bBar=B.idx(["本店SUP BAR"]);
+
+    var bmap = {};
+    for(var i=1;i<B.lines.length;i++){
+      var c = B.lines[i].split(",");
+      if(c.length < 3) continue;
+      bmap[(c[bDate]||"").trim()] = {comp: parseFloat(c[bComp])||0, bar: parseFloat(c[bBar])||0};
+    }
+
+    var out = [];
+    for(var k=1;k<A.lines.length;k++){
+      var r = A.lines[k].split(",");
+      if(r.length < 5) continue;
+      var dt = (r[aDate]||"").trim();
+      var m = bmap[dt];
+      if(!m) continue;
+      out.push([dt, (r[aWd]||"").trim(),
+        parseFloat(r[aOtb])||0, parseFloat(r[aPick])||0,
+        parseFloat(r[aOcc])||0, parseFloat(r[aTar])||0,
+        parseFloat(r[aDev])||0, (r[aEv]||"").trim(),
+        m.comp, m.bar]);
+    }
+    if(!out.length){ alert("未能解析出有效数据，请检查 CSV 表头是否与模板一致"); return; }
+    DATA = out;
+    render();
+    alert("已载入你的数据：" + out.length + " 天");
+  });
+}
+
+document.getElementById("run").addEventListener("click", render);
+document.getElementById("loadDemo").addEventListener("click", function(){ DATA = DEMO.slice(); render(); });
+document.getElementById("f2").addEventListener("change", applyUpload);
+render();
+</script>
+</body>
+</html>
