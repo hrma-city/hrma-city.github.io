@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>21 天定价实操营 · HRMA 收益管理</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    background:#f4f7fa;color:#1c2430;line-height:1.75;font-size:14.8px;padding-bottom:60px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 16px}
+
+  .hero{background:linear-gradient(150deg,#0f2a4a,#16406e 58%,#1d6fb8);color:#fff;padding:44px 16px 38px}
+  .hi{max-width:960px;margin:0 auto}
+  .eb{font-size:12px;letter-spacing:2.4px;opacity:.8;margin-bottom:9px}
+  h1{font-size:29px;font-weight:800;line-height:1.35;margin-bottom:12px}
+  .lead{opacity:.93;font-size:15px;max-width:720px}
+  .kick{background:rgba(255,255,255,.13);border-left:3px solid #e8b84b;border-radius:10px;
+    padding:14px 17px;margin-top:20px;font-size:14px;line-height:1.8}
+  .kick b{color:#ffd88a}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);
+    border-radius:20px;padding:5px 13px;font-size:12.8px}
+
+  .sec{margin-top:38px}
+  .sn{display:inline-block;background:#0f2a4a;color:#fff;font-size:12px;font-weight:700;
+    border-radius:6px;padding:3px 10px;margin-bottom:8px}
+  h2{font-size:21px;font-weight:800;color:#0f2a4a;margin-bottom:6px}
+  .sub{color:#5b6a7d;font-size:14px;margin-bottom:15px}
+
+  .card{background:#fff;border:1px solid #e2e8ef;border-radius:14px;padding:19px 21px;margin-bottom:13px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  @media(max-width:780px){.grid3,.grid2{grid-template-columns:1fr}}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8ef;
+    border-radius:12px;overflow:hidden;font-size:13.6px}
+  th{background:#eef3f9;color:#3a4b60;font-size:12.3px;text-align:left;padding:10px 12px;font-weight:700}
+  td{padding:10px 12px;border-top:1px solid #edf1f6;vertical-align:top}
+  tr:hover td{background:#fafcfe}
+
+  ul.clean{list-style:none}
+  ul.clean li{padding:5px 0 5px 20px;position:relative;font-size:14.3px}
+  ul.clean li::before{content:"";position:absolute;left:6px;top:15px;width:6px;height:6px;
+    border-radius:50%;background:#1d6fb8}
+  ul.no li::before{background:#c0392b;border-radius:0;height:2px;width:9px;top:16px}
+
+  .wk{border-left:3px solid #1d6fb8;padding-left:15px;margin-bottom:16px}
+  .wk-t{font-weight:700;color:#0f2a4a;font-size:15.5px;margin-bottom:4px}
+  .wk-d{color:#3a4b60;font-size:14px}
+
+  .step{display:flex;gap:12px;align-items:flex-start;margin-bottom:11px}
+  .dot{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:#0f2a4a;color:#fff;
+    font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .step b{color:#0f2a4a}
+
+  .price-box{background:linear-gradient(160deg,#fffdf6,#fff);border:2px solid #e8cf94;border-radius:16px;
+    padding:22px;text-align:center}
+  .p-old{color:#8494a8;text-decoration:line-through;font-size:14px}
+  .p-new{font-size:34px;font-weight:800;color:#0f2a4a;margin:4px 0}
+  .p-note{color:#6b7889;font-size:13px}
+
+  .btn{display:block;width:100%;text-align:center;text-decoration:none;padding:15px;
+    border-radius:12px;font-weight:700;font-size:16px;margin-top:14px;
+    background:linear-gradient(90deg,#1d6fb8,#0f2a4a);color:#fff;border:none;cursor:pointer;
+    font-family:inherit}
+  .btn:active{transform:scale(.99)}
+  .btn-ghost{background:#eef3f9;color:#0f2a4a;border:1px solid #cfdcea;font-size:14.5px;padding:12px}
+
+  input,select,textarea{width:100%;border:1px solid #d5dee8;border-radius:9px;padding:10px 12px;
+    font-size:14px;font-family:inherit;background:#fff;color:#1c2430;margin-top:5px}
+  label{font-size:12.8px;color:#5b6a7d;font-weight:600}
+
+  .warn{background:#fff8ec;border:1px solid #f0d9a8;border-left:4px solid #d99b1c;
+    border-radius:10px;padding:14px 17px;font-size:13.8px;line-height:1.8}
+  .ok{background:#eefaf3;border:1px solid #b6e3cd;border-left:4px solid #12804a;
+    border-radius:10px;padding:14px 17px;font-size:13.8px;line-height:1.8}
+  .metric{background:#0f2a4a;color:#fff;border-radius:14px;padding:20px;text-align:center}
+  .metric .m-v{font-size:27px;font-weight:800;color:#ffd88a}
+  .metric .m-l{font-size:13px;opacity:.9;margin-top:3px}
+
+  footer{margin-top:40px;text-align:center;color:#8494a8;font-size:12.5px;line-height:1.9}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hi">
+    <div class="eb">21-DAY PRICING BOOTCAMP · 定价实操营</div>
+    <h1>21 天定价实操营</h1>
+    <p class="lead">不是听 21 天课。是 21 天里，每天真的把房价调对——用决策引擎算出该卖多少，你照着执行，我们当天反馈。结营时你手里会有一份可量化的 RevPAR 前后对比。</p>
+    <div class="kick">
+      <b>核心区别：</b>收益管理是门手艺，听课学不会，只能靠「每天做、每天被纠正」练出来。
+      所以这个营 80% 是执行与反馈，20% 才是方法讲解。<b>没有完成每日调价打卡，不允许进入下一阶段。</b>
+    </div>
+    <div class="chips">
+      <span class="chip">21 天 · 每天一个定价动作</span>
+      <span class="chip">决策引擎全程使用权</span>
+      <span class="chip">3 次直播复盘会</span>
+      <span class="chip">导师当日反馈</span>
+      <span class="chip">产出个人定价手册</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="sec">
+    <span class="sn">01</span>
+    <h2>为什么是「实操营」，不是「课程」</h2>
+    <p class="sub">你的问题从来不是「不知道收益管理」，而是「知道但每天不知道该定多少钱」。</p>
+    <div class="grid3">
+      <div class="card">
+        <div style="font-weight:700;color:#0f2a4a;margin-bottom:7px">听课式学习</div>
+        <ul class="clean no">
+          <li>学完 30 个指标，第二天照样凭感觉定价</li>
+          <li>知道 ARI / RGI，但不知道今天该调多少</li>
+          <li>遇到竞品突然降价，还是慌</li>
+          <li>没人检查你的动作对不对</li>
+        </ul>
+      </div>
+      <div class="card" style="border:2px solid #b5d4f4">
+        <div style="font-weight:700;color:#16406e;margin-bottom:7px">实操营（本营）</div>
+        <ul class="clean">
+          <li>每天引擎给出「今日建议价」，你只管执行</li>
+          <li>调价、开关房型、渠道控制——都是具体动作</li>
+          <li>竞品异动当天就有应对指令</li>
+          <li>每晚打卡，导师次日反馈纠正</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div style="font-weight:700;color:#0f2a4a;margin-bottom:7px">21 天后你会有</div>
+        <ul class="clean">
+          <li>一套自己的每日定价 SOP</li>
+          <li>RevPAR / OCC 前后对比数据</li>
+          <li>机会金额兑现率（可量化）</li>
+          <li>一本个人定价手册（可带走复用）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sn">02</span>
+    <h2>21 天怎么走</h2>
+    <p class="sub">三周递进：先建基线，再精细运营，最后固化成你自己的方法。</p>
+
+    <div class="card">
+      <div class="wk">
+        <div class="wk-t">第 1 周（Day 1–7）· 建基线与跑通流程</div>
+        <div class="wk-d">接入你的真实数据 → 引擎算出基线机会金额 → 建立每日定价流程 → 按指令执行并记录。<br>
+          <b>周末产出：</b>你的第一份「7 天定价日志 + 与基线的第一次数据对比」。</div>
+      </div>
+      <div class="wk">
+        <div class="wk-t">第 2 周（Day 8–14）· 精细运营</div>
+        <div class="wk-d">房型价差与栅栏设计 → 渠道与库存开关 → 团队 / OTA 置换决策 → 继续执行。<br>
+          <b>周末产出：</b>第二次数据对比，找出你的店最有效的 2 个动作。</div>
+      </div>
+      <div class="wk">
+        <div class="wk-t">第 3 周（Day 15–21）· 放大与固化</div>
+        <div class="wk-d">MinLOS 与连住策略 → 超售与取消管理 → 竞品异动预案 → 沉淀你的定价手册。<br>
+          <b>结营产出：</b>21 天完整数据对比 + 个人定价手册 + 结营成果页。</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:15.5px;color:#16406e;margin:18px 0 8px">每天的节奏（4 步）</h3>
+    <div class="card">
+      <div class="step"><span class="dot">1</span><div><b>早 9:00 · 今日指令</b><br><span style="color:#5b6a7d">引擎输出当天各房型建议价、开关动作、机会金额。</span></div></div>
+      <div class="step"><span class="dot">2</span><div><b>白天 · 真实执行</b><br><span style="color:#5b6a7d">在你的 PMS / 渠道后台真的改价、开关房型、调整库存。</span></div></div>
+      <div class="step"><span class="dot">3</span><div><b>晚 20:00 · 打卡记录</b><br><span style="color:#5b6a7d">上传执行截图 + 当日实际 OCC / ADR，群里打卡。</span></div></div>
+      <div class="step"><span class="dot">4</span><div><b>次日 · 导师反馈</b><br><span style="color:#5b6a7d">指出动作对错、给出修正，错的当天就改回来。</span></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sn">03</span>
+    <h2>怎么衡量你有没有拿到结果</h2>
+    <p class="sub">收益管理最大的好处是：结果本来就写在数字里，不用争。</p>
+    <div class="grid3">
+      <div class="metric"><div class="m-v">机会金额</div><div class="m-l">开营时引擎算出你 30 天的增收空间</div></div>
+      <div class="metric"><div class="m-v">实际增收</div><div class="m-l">21 天执行后真实的收入变化</div></div>
+      <div class="metric"><div class="m-v">兑现率</div><div class="m-l">实际增收 ÷ 机会金额，你的执行力得分</div></div>
+    </div>
+    <div class="ok" style="margin-top:13px">
+      <b>结营必须提交的三份东西：</b>① 基线数据（开营前 30 天）② 21 天执行日志 ③ 结营后 30 天数据。
+      三者一对比，你有没有进步是<b>算出来的，不是感觉出来的</b>。优秀案例会收录进平台案例库（署名），
+      并有机会成为对外分享的标杆案例。
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sn">04</span>
+    <h2>我们的承诺，与不承诺</h2>
+    <div class="grid2">
+      <div class="ok">
+        <b>我们承诺：</b><br>
+        完成 21 天全部动作打卡，你一定拿到——<br>
+        · 一套可复用的每日定价 SOP<br>
+        · 你自己门店的前后对比数据<br>
+        · 一本个人定价手册（方法论 + 你的实战记录）<br>
+        · 全程引擎使用 + 3 次直播复盘 + 导师反馈
+      </div>
+      <div class="warn">
+        <b>我们不承诺：</b><br>
+        · 不承诺 RevPAR 具体涨幅——市场、竞品、事件都是变量，任何人承诺具体数字都是不负责任<br>
+        · 不承诺"听完就会"——本营不欢迎只想听课不动手的人<br>
+        · 不代你操作——我们给指令，你在自己的系统里执行
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sn">05</span>
+    <h2>适合谁 / 不适合谁</h2>
+    <div class="grid2">
+      <div class="card">
+        <div style="font-weight:700;color:#12804a;margin-bottom:7px">适合</div>
+        <ul class="clean">
+          <li>单体 / 中小连锁酒店的收益经理、店总、业主</li>
+          <li>已有基础数据（PMS 或 Excel 能导出在手与房价）</li>
+          <li>愿意 21 天里每天花 30 分钟真实调价</li>
+          <li>受够了"凭感觉定价"、想要一套确定流程的人</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div style="font-weight:700;color:#b32d2d;margin-bottom:7px">不适合</div>
+        <ul class="clean no">
+          <li>只想买课收藏、不打算动手执行</li>
+          <li>完全没有历史数据、也无法导出在手预订</li>
+          <li>指望别人替你改价、自己不参与</li>
+          <li>追求"一夜翻倍"的速成心态</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sn">06</span>
+    <h2>价格与开营</h2>
+    <div class="grid2">
+      <div class="price-box">
+        <div class="p-old">标准价 ¥2,980</div>
+        <div class="p-new">¥1,980</div>
+        <div class="p-note">首期早鸟 · 个人席位（限 30 人）</div>
+        <ul class="clean" style="text-align:left;margin-top:13px">
+          <li>21 天决策引擎全程使用权</li>
+          <li>每日定价指令 + 导师反馈</li>
+          <li>3 次直播复盘会（可回看）</li>
+          <li>定价手册模板 + 案例库收录机会</li>
+        </ul>
+      </div>
+      <div class="price-box" style="border-color:#cfdcea;background:#fff">
+        <div class="p-old">单买合计 ¥5,940</div>
+        <div class="p-new" style="font-size:28px">¥5,800</div>
+        <div class="p-note">酒店团队席 · 3 人（同店）</div>
+        <ul class="clean" style="text-align:left;margin-top:13px">
+          <li>3 个独立席位，各自打卡与反馈</li>
+          <li>额外 1 次门店专属复盘（60 分钟）</li>
+          <li>团队内部定价分工建议</li>
+          <li>结营出具门店级改善报告</li>
+        </ul>
+      </div>
+    </div>
+    <p style="font-size:13px;color:#8494a8;margin-top:9px">
+      ※ 每月一期，报名后由教务通知开班时间；会员与合伙人另有专属价，报名时备注即可。
+    </p>
+  </div>
+
+  <div class="sec">
+    <span class="sn">07</span>
+    <h2>报名</h2>
+    <p class="sub">填写信息后点击提交，会打开邮件客户端并自动填好报名内容，直接发送即可。</p>
+    <div class="card">
+      <div class="grid2">
+        <div><label>姓名</label><input id="f1" placeholder="您的称呼"></div>
+        <div><label>酒店 / 公司名称</label><input id="f2" placeholder="例如：XX 酒店"></div>
+        <div><label>职务</label><input id="f3" placeholder="收益经理 / 店总 / 业主"></div>
+        <div><label>房量</label><input id="f4" placeholder="例如：120 间"></div>
+        <div><label>手机 / 微信</label><input id="f5" placeholder="便于教务联系"></div>
+        <div><label>席位类型</label>
+          <select id="f6"><option>个人席位 ¥1,980</option><option>团队席 3 人 ¥5,800</option><option>咨询后再定</option></select>
+        </div>
+      </div>
+      <div style="margin-top:11px"><label>目前定价最大的困扰（选填）</label>
+        <textarea id="f7" rows="3" placeholder="例如：周末总是不敢涨价 / 竞品一降价我就慌 / 不知该不该关低价房"></textarea></div>
+      <button class="btn" id="submit">提交报名（¥1,980 早鸟）</button>
+      <a class="btn btn-ghost" href="mailto:rm-community@qq.com?subject=21天定价实操营咨询">先咨询，邮件我们</a>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sn">08</span>
+    <h2>常见问题</h2>
+    <div class="card">
+      <p style="margin-bottom:9px"><b>没有决策引擎能用吗？</b><br><span style="color:#5b6a7d">本营含 21 天引擎使用权；没有历史数据的门店，可先用平台示例门店演练流程，第 2 周起切换到自己的数据。</span></p>
+      <p style="margin-bottom:9px"><b>每天要花多少时间？</b><br><span style="color:#5b6a7d">执行约 20–30 分钟（看指令 + 改价 + 打卡），复盘会每次 60 分钟，共 3 次。</span></p>
+      <p style="margin-bottom:9px"><b>中途忙，能跟上吗？</b><br><span style="color:#5b6a7d">指令与复盘均可回看；但打卡不能补交超过 3 天，否则转入下一期（不额外收费）。</span></p>
+      <p><b>结营后还能用引擎吗？</b><br><span style="color:#5b6a7d">营期结束后可转为年度订阅继续使用，费用另计，营期内不做强制绑定。</span></p>
+    </div>
+  </div>
+
+  <footer>
+    HRMA 收益管理社区 · 21 天定价实操营<br>
+    咨询：rm-community@qq.com · 本页价格为首期早鸟价，以报名时确认为准
+  </footer>
+</div>
+
+<script>
+document.getElementById("submit").addEventListener("click", function(){
+  var v = function(id){ return (document.getElementById(id).value || "").trim(); };
+  var body = "姓名：" + v("f1") + "\n酒店/公司：" + v("f2") + "\n职务：" + v("f3") +
+    "\n房量：" + v("f4") + "\n联系方式：" + v("f5") + "\n席位：" + v("f6") +
+    "\n定价困扰：" + v("f7") + "\n\n—— 提交自 21 天定价实操营报名页";
+  if(!v("f1") || !v("f5")){ alert("请至少填写姓名与联系方式，便于教务联系你"); return; }
+  window.location.href = "mailto:rm-community@qq.com?subject=" +
+    encodeURIComponent("21天定价实操营报名 - " + v("f1")) + "&body=" + encodeURIComponent(body);
+});
+</script>
+</body>
+</html>
