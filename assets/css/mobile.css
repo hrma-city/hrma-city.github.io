@@ -1,0 +1,190 @@
+/* ==========================================================================
+   HRMA 移动端基础样式 · 由 app.js 注入（injectMobile）
+   - 仅 ≤768px 生效；桌面端这些移动元素默认隐藏
+   - 设计目标：手机可读、可装、可导航，不破坏桌面布局
+   ========================================================================== */
+
+/* ---------- 移动元素默认隐藏（桌面） ---------- */
+.mb-burger, .mb-drawer, .mb-backdrop, .mb-tabbar,
+.mb-home { display: none !important; }
+
+/* ---------- 防横向溢出（手机最大痛点） ---------- */
+html { overflow-x: clip; }
+img, video, iframe, canvas, svg, table { max-width: 100%; }
+* { box-sizing: border-box; }
+
+/* ==========================================================================
+   移动端（≤768px）
+   ========================================================================== */
+@media (max-width: 768px) {
+
+  /* 显示移动导航元素 */
+  .mb-burger   { display: inline-flex !important; }
+  .mb-drawer   { display: block !important; }
+  .mb-tabbar   { display: flex !important; }
+  .mb-backdrop { display: none; }
+  .mb-backdrop.show { display: block; }
+  .mb-home     { display: grid !important; }
+
+  /* 隐藏桌面顶部导航的链接/搜索/CTA，保留 logo 行 */
+  .site-nav .sn-links,
+  .site-nav .sn-cta,
+  .site-nav .sn-search-btn { display: none !important; }
+  .site-nav .sn-inner { padding: 8px 12px; gap: 8px; }
+  .site-nav .sn-logo span:last-child { display: none; } /* 仅留 gem */
+
+  /* 正文基础 */
+  body { font-size: 16px; line-height: 1.65; padding-bottom: 64px; }
+  .wrap, .container, main, .content, .page { padding-left: 14px; padding-right: 14px; }
+  h1 { font-size: 22px; } h2 { font-size: 19px; } h3 { font-size: 17px; }
+
+  /* 通用栅格塌成单列 */
+  .grid, .cards, .card-grid, .st-cards, .my-grid,
+  [class*="grid"], [class*="Grid"] {
+    grid-template-columns: 1fr !important;
+  }
+  .row, .flex, [class*="flex"] { flex-direction: column !important; }
+
+  /* 表格横向滚动（无需改 HTML，直接让 table 可滚） */
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    border-collapse: collapse;
+  }
+  td, th { white-space: nowrap; padding: 8px 10px; }
+  pre, code, .code { overflow-x: auto; }
+
+  /* 按钮/链接触摸目标 ≥ 44px */
+  a, button, .btn, input, select, textarea, label { min-height: 0; }
+  .btn, button, .nav-link, .sn-dd a, .mb-tab, .my-chip, .fm-chip {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 卡片圆角与间距收紧 */
+  .card, .st-card, .my-item, .fm-item, .co-card, .case-card {
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+
+  /* ---------- 汉堡按钮（固定左上） ---------- */
+  .mb-burger {
+    position: fixed;
+    top: 10px; left: 10px;
+    z-index: 1200;
+    width: 42px; height: 42px;
+    border: none; border-radius: 10px;
+    background: #1B3A5C; color: #fff;
+    font-size: 20px; line-height: 1;
+    align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px rgba(27,58,92,.35);
+    cursor: pointer;
+  }
+
+  /* ---------- 抽屉 ---------- */
+  .mb-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(15,23,42,.45);
+    z-index: 1300;
+  }
+  .mb-drawer {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: min(86vw, 320px);
+    background: #fff;
+    z-index: 1310;
+    transform: translateX(-100%);
+    transition: transform .22s ease;
+    overflow-y: auto;
+    box-shadow: 4px 0 24px rgba(0,0,0,.18);
+    padding: 0 0 80px;
+  }
+  .mb-drawer.open { transform: translateX(0); }
+  .mb-drawer-head {
+    position: sticky; top: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px;
+    background: #1B3A5C; color: #fff;
+  }
+  .mb-drawer-head .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+  .mb-drawer-head .gem {
+    width: 26px; height: 26px; border-radius: 7px;
+    background: #B8894A; color: #fff;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 14px;
+  }
+  .mb-close {
+    background: transparent; border: none; color: #fff;
+    font-size: 24px; line-height: 1; cursor: pointer; padding: 4px 8px;
+  }
+  .mb-sec { border-bottom: 1px solid #EEF1F4; }
+  .mb-sec-title {
+    padding: 12px 16px 6px;
+    font-size: 12px; letter-spacing: .08em;
+    color: #9AA5B1; text-transform: uppercase;
+  }
+  .mb-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px;
+    color: #1F2933; text-decoration: none;
+    font-size: 15px; border-radius: 0;
+  }
+  .mb-link:active { background: #F7F0E4; }
+  .mb-link .n {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: #EEF3F8; color: #1B3A5C;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex: none;
+  }
+  .mb-link.active { background: #F7F0E4; color: #B8894A; }
+  .mb-link.active .n { background: #B8894A; color: #fff; }
+
+  /* ---------- 底部 Tab 栏（5 入口） ---------- */
+  .mb-tabbar {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    z-index: 1200;
+    height: 56px;
+    background: #fff;
+    border-top: 1px solid #E6EAF0;
+    box-shadow: 0 -2px 14px rgba(15,23,42,.08);
+    display: flex;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .mb-tab {
+    flex: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 2px;
+    color: #7B8794; text-decoration: none;
+    font-size: 11px;
+    border: none; background: transparent; cursor: pointer;
+  }
+  .mb-tab .ic { font-size: 20px; line-height: 1; }
+  .mb-tab.active { color: #1B3A5C; }
+  .mb-tab.active .ic { filter: none; }
+
+  /* ---------- 首页移动入口（学问答查我） ---------- */
+  .mb-home {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 14px 0 18px;
+  }
+  .mb-home a {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px;
+    min-height: 110px;
+    background: linear-gradient(135deg, #1B3A5C, #2C5A86);
+    color: #fff; border-radius: 16px;
+    text-decoration: none; text-align: center;
+    box-shadow: 0 6px 18px rgba(27,58,92,.18);
+  }
+  .mb-home a .h-ic { font-size: 30px; }
+  .mb-home a .h-t { font-size: 17px; font-weight: 700; }
+  .mb-home a .h-d { font-size: 12px; opacity: .82; padding: 0 8px; }
+
+  /* 顶部 hero 在移动端收紧 */
+  .hero, .banner, .jumbotron { padding: 22px 14px !important; }
+}

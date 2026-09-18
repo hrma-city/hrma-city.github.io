@@ -9,7 +9,7 @@
   "use strict";
 
   /* ---------- 路径基准：自动判断当前在根还是子目录 ---------- */
-  var SUB = /(^|\/)(courses|exam|games|templates|data|ppt|theater|core|airline|fnb|attraction|entertainment|benchmark)\//.test(location.pathname);
+  var SUB = /(^|\/)(courses|exam|games|templates|data|ppt|theater|core|airline|fnb|attraction|entertainment|benchmark|books)\//.test(location.pathname);
   var BASE = SUB ? "../" : "";
   function href(p) { return BASE + p; }
   window.HRMA_href = href;
@@ -458,6 +458,7 @@
     buildNav();
     initCodex();
     injectGlobalUX();
+    injectMobile();
   });
 
   /* ---------- 全站 UX 增强：左侧目录 / 名词解释 / 表格预览 ---------- */
@@ -474,5 +475,98 @@
       s.onload = next; s.onerror = next;
       document.head.appendChild(s);
     })();
+  }
+
+  /* ---------- 移动端 UX：汉堡抽屉 + 底部 5 Tab + PWA ---------- */
+  function injectMobile() {
+    /* 0) PWA 元信息（manifest / theme-color / 图标） */
+    if (!document.querySelector('link[rel="manifest"]')) {
+      var ml = document.createElement("link");
+      ml.rel = "manifest"; ml.href = href("manifest.webmanifest");
+      document.head.appendChild(ml);
+    }
+    if (!document.querySelector('meta[name="theme-color"]')) {
+      var tc = document.createElement("meta");
+      tc.name = "theme-color"; tc.content = "#1B3A5C";
+      document.head.appendChild(tc);
+    }
+    if (!document.querySelector('link[rel="apple-touch-icon"]')) {
+      var at = document.createElement("link");
+      at.rel = "apple-touch-icon"; at.href = href("icon-192.png");
+      document.head.appendChild(at);
+    }
+
+    /* 1) 注入移动样式 */
+    if (!document.getElementById("mbCss")) {
+      var mc = document.createElement("link");
+      mc.id = "mbCss"; mc.rel = "stylesheet"; mc.href = href("assets/css/mobile.css");
+      document.head.appendChild(mc);
+    }
+
+    if (document.getElementById("mbDrawer")) return; /* 已注入，避免重复 */
+
+    /* 当前页用于高亮 */
+    var cur = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+
+    /* 2) 汉堡 + 遮罩 + 抽屉 */
+    var burger = document.createElement("button");
+    burger.id = "mbBurger"; burger.className = "mb-burger";
+    burger.setAttribute("aria-label", "打开菜单"); burger.textContent = "☰";
+    document.body.appendChild(burger);
+
+    var backdrop = document.createElement("div");
+    backdrop.id = "mbBackdrop"; backdrop.className = "mb-backdrop";
+    document.body.appendChild(backdrop);
+
+    var drawer = document.createElement("aside");
+    drawer.id = "mbDrawer"; drawer.className = "mb-drawer";
+    var dHead =
+      '<div class="mb-drawer-head"><div class="brand"><span class="gem">收</span>' +
+      '<span>RMC收益管理社区</span></div>' +
+      '<button class="mb-close" id="mbClose" aria-label="关闭">×</button></div>';
+    var dBody = '<a class="mb-link" href="' + href("index.html") + '"><span class="n">首</span>社区首页</a>';
+    BOARDS.forEach(function (b) {
+      dBody += '<div class="mb-sec"><div class="mb-sec-title">' + b.t + "</div>";
+      b.items.forEach(function (it) {
+        var active = (href(it.p).split("/").pop() || "").toLowerCase() === cur ? " active" : "";
+        dBody += '<a class="mb-link' + active + '" href="' + href(it.p) + '"><span class="n">' +
+          (it.n || "·") + "</span>" + it.t.replace(/^★\s*/, "") + "</a>";
+      });
+      dBody += "</div>";
+    });
+    drawer.innerHTML = dHead + dBody;
+    document.body.appendChild(drawer);
+
+    function openDrawer() { drawer.classList.add("open"); backdrop.classList.add("show"); }
+    function closeDrawer() { drawer.classList.remove("open"); backdrop.classList.remove("show"); }
+    burger.addEventListener("click", openDrawer);
+    backdrop.addEventListener("click", closeDrawer);
+    document.getElementById("mbClose").addEventListener("click", closeDrawer);
+    drawer.addEventListener("click", function (e) { if (e.target.closest("a")) closeDrawer(); });
+
+    /* 3) 底部 5 Tab：学 / 问 / 练 / 查 / 我 */
+    var TABS = [
+      { ic: "📚", t: "学", p: "study.html" },
+      { ic: "💬", t: "问", p: "coach.html" },
+      { ic: "🎯", t: "练", p: "games/flow-quest.html" },
+      { ic: "🔎", t: "查", p: "concepts.html" },
+      { ic: "👤", t: "我", p: "cert-hub.html" }
+    ];
+    var tabbar = document.createElement("nav");
+    tabbar.id = "mbTabbar"; tabbar.className = "mb-tabbar";
+    tabbar.innerHTML = TABS.map(function (x) {
+      var on = (href(x.p).split("/").pop() || "").toLowerCase() === cur ? " active" : "";
+      return '<a class="mb-tab' + on + '" href="' + href(x.p) + '"><span class="ic">' +
+        x.ic + '</span><span>' + x.t + "</span></a>";
+    }).join("");
+    document.body.appendChild(tabbar);
+
+    /* 4) PWA：注册 Service Worker（离线优先） */
+    if ("serviceWorker" in navigator) {
+      var swUrl = href("sw.js");
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register(swUrl, { scope: "/" }).catch(function () { /* 忽略失败 */ });
+      });
+    }
   }
 })();
