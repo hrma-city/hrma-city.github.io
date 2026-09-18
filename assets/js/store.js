@@ -194,6 +194,15 @@
         .catch(function () { self.syncing = false; self.status = "error"; self._emit(); return null; });
     },
     _emit: function () { if (typeof window.Store !== "undefined" && window.Store.onSync) window.Store.onSync(this.status); },
+    signIn: function (email, pw) {
+      var c = this.ensure();
+      if (!c) return Promise.reject(new Error("鉴权未配置"));
+      return c.auth.signInWithPassword({ email: email, password: pw });
+    },
+    signOut: function () {
+      var c = this.ensure();
+      return c ? c.auth.signOut() : Promise.resolve();
+    },
     // 启动：等待 SDK 就绪 -> 刷新登录态 -> 已登录则同步；并监听登录态变化
     watch: function () {
       var self = this, tries = 0;
@@ -233,33 +242,112 @@
     mergeValue: mergeValue,
     cloud: cloud,
     onSync: null,            // 外部可挂：function(status){}
-    version: "2.0.0"
+    version: "2.1.0"
   };
 
-  // ---- 启动：DOM 就绪后自动启动云同步（SDK 异步加载也来得及，内部轮询等待）----
+  // ---- 配置检测 / 相对路径（用于注册链接与弹窗定位）----
+  function isSupabaseConfigured() {
+    var C = window.HRMA_SUPABASE || {};
+    return !!(C.url && C.anonKey &&
+      /^https:\/\/.+\.supabase\.co/.test(C.url) &&
+      (C.anonKey || "").length > 40);
+  }
+  function relPrefix() {
+    return /\/((courses|exam|games|core|airline|attraction|entertainment|fnb|templates|data|ppt|theater|benchmark|community))\//.test(location.pathname) ? "../" : "";
+  }
+
+  // ---- 登录弹窗（未登录用户直接触发云同步入口）----
+  function showLoginModal() {
+    if (document.getElementById("hrmaLoginModal")) return;
+    var root = relPrefix();
+    var overlay = document.createElement("div");
+    overlay.id = "hrmaLoginModal";
+    overlay.className = "hrma-modal-mask";
+    overlay.innerHTML =
+      '<div class="hrma-modal">' +
+        '<button class="hrma-modal-x" id="hrmaLMClose" aria-label="关闭">×</button>' +
+        '<h3>登录后同步进度</h3>' +
+        '<p class="hrma-modal-sub">登录即可把 8 项学习进度备份到云端，换设备不丢失。</p>' +
+        '<div class="hrma-modal-msg" id="hrmaLMmsg"></div>' +
+        '<input type="email" id="hrmaLMemail" class="hrma-modal-in" placeholder="邮箱" autocomplete="email">' +
+        '<input type="password" id="hrmaLMpw" class="hrma-modal-in" placeholder="密码" autocomplete="current-password">' +
+        '<button class="hrma-modal-btn" id="hrmaLMbtn">登 录</button>' +
+        '<a class="hrma-modal-reg" href="' + root + 'register.html">还没有账号？去注册</a>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    var email = overlay.querySelector("#hrmaLMemail");
+    var pw = overlay.querySelector("#hrmaLMpw");
+    var btn = overlay.querySelector("#hrmaLMbtn");
+    var msg = overlay.querySelector("#hrmaLMmsg");
+    function close() { overlay.remove(); }
+    overlay.querySelector("#hrmaLMClose").onclick = close;
+    overlay.addEventListener("click", function (e) { if (e.target === overlay) close(); });
+    function submit() {
+      var e2 = email.value.trim(), p2 = pw.value;
+      if (!e2 || !p2) { msg.textContent = "请填写邮箱和密码。"; msg.className = "hrma-modal-msg err"; return; }
+      btn.disabled = true; btn.textContent = "登录中…";
+      cloud.signIn(e2, p2).then(function () {
+        close(); // onAuthStateChange 会触发 sync 与徽标刷新
+      }).catch(function (err) {
+        var m = (err && err.message) ? err.message : String(err);
+        if (/Invalid login/i.test(m) || /credentials/i.test(m)) m = "邮箱或密码不正确。";
+        else if (/Email not confirmed/i.test(m)) m = "邮箱尚未验证，请查收验证邮件后重试。";
+        msg.textContent = m; msg.className = "hrma-modal-msg err";
+        btn.disabled = false; btn.textContent = "登 录";
+      });
+    }
+    btn.onclick = submit;
+    pw.addEventListener("keydown", function (e) { if (e.key === "Enter") submit(); });
+    email.focus();
+  }
+  function confirmSignOut() {
+    if (!window.confirm("确定退出登录？本地进度已保留，云端进度仍在。")) return;
+    cloud.signOut();
+  }
+
   function injectSyncBadge() {
     if (document.getElementById("hrmaSync")) return;
     if (!document.getElementById("hrmaSyncStyle")) {
       var st = document.createElement("style");
       st.id = "hrmaSyncStyle";
-      st.textContent = ".hrma-sync{position:fixed;right:12px;bottom:64px;z-index:90;font:12px/1.4 system-ui,-apple-system,sans-serif;padding:6px 11px;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.18);background:#fff;color:#444;max-width:62vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hrma-sync.syncing{color:#1d6fb8}.hrma-sync.synced{color:#1a9c5b}.hrma-sync.error{color:#c0392b}.hrma-sync.noconf{color:#888}@media(max-width:768px){.hrma-sync{bottom:64px;right:8px;font-size:11px}}";
+      st.textContent =
+        ".hrma-sync{position:fixed;right:12px;bottom:64px;z-index:90;font:12px/1.4 system-ui,-apple-system,sans-serif;padding:6px 11px;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.18);background:#fff;color:#444;max-width:62vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}" +
+        ".hrma-sync.syncing{color:#1d6fb8}.hrma-sync.synced{color:#1a9c5b}.hrma-sync.error{color:#c0392b}.hrma-sync.noconf{color:#888;cursor:default}" +
+        "@media(max-width:768px){.hrma-sync{bottom:64px;right:8px;font-size:11px}}" +
+        ".hrma-modal-mask{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.42);display:flex;align-items:center;justify-content:center;padding:16px}" +
+        ".hrma-modal{position:relative;width:min(340px,92vw);background:#fff;border-radius:14px;padding:22px 20px 18px;box-shadow:0 12px 40px rgba(0,0,0,.25);font:14px/1.5 system-ui,-apple-system,sans-serif}" +
+        ".hrma-modal h3{margin:0 0 4px;font-size:17px;color:#222}" +
+        ".hrma-modal-sub{margin:0 0 12px;color:#777;font-size:12px}" +
+        ".hrma-modal-msg{display:none;margin:0 0 10px;padding:8px 10px;border-radius:8px;font-size:12px}" +
+        ".hrma-modal-msg.err{display:block;background:#fdecea;color:#c0392b}" +
+        ".hrma-modal-in{display:block;width:100%;box-sizing:border-box;margin:0 0 10px;padding:10px 12px;border:1px solid #d9dde3;border-radius:9px;font-size:14px}" +
+        ".hrma-modal-in:focus{outline:none;border-color:#1d6fb8;box-shadow:0 0 0 3px rgba(29,111,184,.15)}" +
+        ".hrma-modal-btn{width:100%;padding:11px;border:0;border-radius:9px;background:#1d6fb8;color:#fff;font-size:15px;font-weight:600;cursor:pointer}" +
+        ".hrma-modal-btn:disabled{opacity:.6;cursor:default}" +
+        ".hrma-modal-reg{display:block;text-align:center;margin-top:12px;color:#1d6fb8;font-size:13px;text-decoration:none}" +
+        ".hrma-modal-x{position:absolute;top:8px;right:10px;border:0;background:none;font-size:22px;line-height:1;color:#999;cursor:pointer}";
       document.head.appendChild(st);
     }
     var b = document.createElement("div");
     b.id = "hrmaSync"; b.className = "hrma-sync local";
     document.body.appendChild(b);
-    window.Store.onSync = function (st) { renderSync(b, st); };
+    window.Store.onSync = function (s) { renderSync(b, s); };
+    b.addEventListener("click", function () {
+      if (cloud.enabled) confirmSignOut();
+      else if (isSupabaseConfigured()) showLoginModal();
+    });
     renderSync(b, cloud.status);
   }
-  function renderSync(b, st) {
+  function renderSync(b, s) {
+    var conf = isSupabaseConfigured();
     var map = {
-      local:   ["☁ 本地存储（未登录）", "local"],
+      local:    [conf ? "☁ 点击登录同步" : "⚙ 未配置云同步", "local"],
       syncing: ["⟳ 同步中…", "syncing"],
       synced:  ["✓ 已云同步", "synced"],
       error:   ["⚠ 同步失败（保留本地）", "error"],
       noconf:  ["⚙ 未配置云同步", "noconf"]
     };
-    var m = map[st] || map.local;
+    var m = map[s] || map.local;
     b.textContent = m[0]; b.className = "hrma-sync " + m[1];
   }
 
