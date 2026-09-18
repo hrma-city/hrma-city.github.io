@@ -104,7 +104,9 @@
   function set(feature, val) {
     var key = KEYS[feature];
     if (!key) return false;
-    return writeRaw(key, val);
+    var ok = writeRaw(key, val);
+    schedulePush();
+    return ok;
   }
   // 局部更新：把 partial 合并进现有值（对象递归合并，其余覆盖）
   function update(feature, partial) {
@@ -126,45 +128,97 @@
   // 匿名 -> 登录：把本地全部数据合并进远端（调用方负责拿到 remote 后写回）
   function adopt(remote) { return mergeAll(getAll(), remote); }
 
-  // ---- 云同步（Supabase 待接入；未注入客户端时为安全 no-op）----
-  // 需要的表（建表 SQL 见 supabase/ 或阶段二说明）：
-  //   create table progress ( user_id uuid primary key, data jsonb not null, updated_at timestamptz default now() );
-  var CLOUD_TABLE = "progress";
+  // ---- 云同步（真实接入 Supabase；未配置/未登录时为安全 no-op）----
+  // 所需表（建表 SQL 见 SUPABASE-用户进度同步.sql，在 Supabase SQL Editor 跑一次）：
+  //   create table user_progress ( user_id uuid primary key, data jsonb, updated_at timestamptz );
+  var CLOUD_TABLE = "user_progress";
+  var _pushTimer = null;
   var cloud = {
     enabled: false,
     user: null,
     client: null,
-    init: function (supabaseClient) { this.client = supabaseClient; return this; },
-    login: function (user) { this.user = user; this.enabled = !!user; return this; },
-    logout: function () { this.user = null; this.enabled = false; return this; },
-    push: function () {
-      var self = this;
-      if (!self.enabled || !self.client) return Promise.resolve(false);
-      return self.client.from(CLOUD_TABLE)
-        .upsert({ user_id: self.user.id, data: getAll(), updated_at: new Date().toISOString() })
-        .then(function () { return true; })
-        .catch(function () { return false; });
+    syncing: false,
+    lastSync: 0,
+    status: "local",            // local | syncing | synced | error | noconf
+    // 自动发现 Supabase 客户端（auth-config.js 提供的 url/anonKey）
+    ensure: function () {
+      if (this.client) return this.client;
+      var CFG = window.HRMA_SUPABASE || {};
+      if (window.supabase && CFG.url && CFG.anonKey) {
+        try { this.client = window.supabase.createClient(CFG.url, CFG.anonKey); }
+        catch (e) { this.client = null; }
+      }
+      return this.client;
+    },
+    // 刷新当前登录用户
+    refreshUser: function () {
+      var self = this, c = this.ensure();
+      if (!c) { self.status = window.HRMA_SUPABASE ? "noconf" : "local"; return Promise.resolve(false); }
+      return c.auth.getSession().then(function (r) {
+        var u = r && r.data && r.data.session ? r.data.session.user : null;
+        self.user = u; self.enabled = !!u;
+        if (!u) self.status = "local";
+        return self.enabled;
+      }).catch(function () { self.enabled = false; self.status = "local"; return false; });
     },
     pull: function () {
       var self = this;
-      if (!self.enabled || !self.client) return Promise.resolve(null);
+      if (!self.enabled) return Promise.resolve(null);
       return self.client.from(CLOUD_TABLE)
-        .select("data").eq("user_id", self.user.id).single()
-        .then(function (r) { return r && r.data ? r.data.data : null; })
+        .select("data,updated_at").eq("user_id", self.user.id).single()
+        .then(function (r) { return (r && r.data) ? r.data : null; })
         .catch(function () { return null; });
     },
-    // 拉取远端 -> 与本地合并 -> 写回本地 + 推回远端，保证两端一致
+    push: function () {
+      var self = this;
+      if (!self.enabled) return Promise.resolve(false);
+      return self.client.from(CLOUD_TABLE).upsert({
+        user_id: self.user.id, data: getAll(), updated_at: new Date().toISOString()
+      }, { onConflict: "user_id" })
+        .then(function () { self.lastSync = Date.now(); self.status = "synced"; self._emit(); return true; })
+        .catch(function () { self.status = "error"; self._emit(); return false; });
+    },
+    // 拉取远端 -> 与本地合并(更优值) -> 写回本地 -> 推回远端
     sync: function () {
       var self = this;
-      if (!self.enabled || !self.client) return Promise.resolve(null);
+      if (!self.enabled) return Promise.resolve(null);
+      if (self.syncing) return Promise.resolve("syncing");
+      self.syncing = true; self.status = "syncing"; self._emit();
       return self.pull().then(function (remote) {
-        if (!remote) return self.push().then(function () { return getAll(); });
-        var merged = mergeAll(getAll(), remote);
+        if (!remote) return self.push().then(function () { return { pulled: false, pushed: true }; });
+        var remoteData = (remote.data && typeof remote.data === "object") ? remote.data : {};
+        var merged = mergeAll(getAll(), remoteData);
         for (var f in merged) { if (KEYS[f]) set(f, merged[f]); }
-        return self.push().then(function () { return merged; });
-      });
+        return self.push().then(function () { return { pulled: true, pushed: true, remoteAt: remote.updated_at }; });
+      }).then(function (res) { self.syncing = false; self._emit(); return res; })
+        .catch(function () { self.syncing = false; self.status = "error"; self._emit(); return null; });
+    },
+    _emit: function () { if (typeof window.Store !== "undefined" && window.Store.onSync) window.Store.onSync(this.status); },
+    // 启动：等待 SDK 就绪 -> 刷新登录态 -> 已登录则同步；并监听登录态变化
+    watch: function () {
+      var self = this, tries = 0;
+      (function wait() {
+        if (window.supabase) { self.ensure(); self.refreshUser().then(function (on) { if (on) self.sync(); }); return; }
+        if (++tries > 12) { self.status = window.HRMA_SUPABASE ? "noconf" : "local"; self._emit(); return; }
+        setTimeout(wait, 300);
+      })();
+      var c = this.ensure();
+      if (c && c.auth && c.auth.onAuthStateChange) {
+        c.auth.onAuthStateChange(function (ev, sess) {
+          self.user = (sess && sess.user) ? sess.user : null;
+          self.enabled = !!(sess && sess.user);
+          if (self.enabled) self.sync();
+          else { self.status = "local"; self._emit(); }
+        });
+      }
     }
   };
+  // 每次写进度后防抖(1.5s)推送到云端；离线/未登录则跳过
+  function schedulePush() {
+    if (!cloud.enabled) return;
+    if (_pushTimer) clearTimeout(_pushTimer);
+    _pushTimer = setTimeout(function () { cloud.push(); }, 1500);
+  }
 
   window.Store = {
     KEYS: KEYS,
@@ -178,6 +232,42 @@
     merge: mergeAll,
     mergeValue: mergeValue,
     cloud: cloud,
-    version: "1.0.0"
+    onSync: null,            // 外部可挂：function(status){}
+    version: "2.0.0"
   };
+
+  // ---- 启动：DOM 就绪后自动启动云同步（SDK 异步加载也来得及，内部轮询等待）----
+  function injectSyncBadge() {
+    if (document.getElementById("hrmaSync")) return;
+    if (!document.getElementById("hrmaSyncStyle")) {
+      var st = document.createElement("style");
+      st.id = "hrmaSyncStyle";
+      st.textContent = ".hrma-sync{position:fixed;right:12px;bottom:64px;z-index:90;font:12px/1.4 system-ui,-apple-system,sans-serif;padding:6px 11px;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.18);background:#fff;color:#444;max-width:62vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hrma-sync.syncing{color:#1d6fb8}.hrma-sync.synced{color:#1a9c5b}.hrma-sync.error{color:#c0392b}.hrma-sync.noconf{color:#888}@media(max-width:768px){.hrma-sync{bottom:64px;right:8px;font-size:11px}}";
+      document.head.appendChild(st);
+    }
+    var b = document.createElement("div");
+    b.id = "hrmaSync"; b.className = "hrma-sync local";
+    document.body.appendChild(b);
+    window.Store.onSync = function (st) { renderSync(b, st); };
+    renderSync(b, cloud.status);
+  }
+  function renderSync(b, st) {
+    var map = {
+      local:   ["☁ 本地存储（未登录）", "local"],
+      syncing: ["⟳ 同步中…", "syncing"],
+      synced:  ["✓ 已云同步", "synced"],
+      error:   ["⚠ 同步失败（保留本地）", "error"],
+      noconf:  ["⚙ 未配置云同步", "noconf"]
+    };
+    var m = map[st] || map.local;
+    b.textContent = m[0]; b.className = "hrma-sync " + m[1];
+  }
+
+  function bootCloud() {
+    cloud.watch();
+    injectSyncBadge();
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", bootCloud);
+  else bootCloud();
 })();
