@@ -66,6 +66,21 @@
   .warn{background:#fff8ec;border:1px solid #f0d9a8;border-left:4px solid #d99b1c;
     border-radius:10px;padding:13px 16px;font-size:13.3px;color:#6b5320;margin-top:12px;line-height:1.8}
 
+  .ad-sub{font-size:13px;color:#5b6a7d;margin:-4px 0 12px;line-height:1.8}
+  .ad-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+  .ad-chip{border:1px solid #cfdcea;background:#eef3f9;color:#0f2a4a;border-radius:18px;padding:6px 13px;font-size:12.5px;cursor:pointer}
+  .ad-chip:hover{background:#0f2a4a;color:#fff;border-color:#0f2a4a}
+  .ad-log{max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:6px 2px 10px}
+  .ad-msg{font-size:13.5px;line-height:1.9;padding:11px 14px;border-radius:11px;max-width:94%;white-space:normal}
+  .ad-u{align-self:flex-end;background:linear-gradient(90deg,#1d6fb8,#0f2a4a);color:#fff;border-bottom-right-radius:3px}
+  .ad-a{align-self:flex-start;background:#fffdf5;border:1px solid #ecdcb4;border-left:4px solid #d99b1c;border-bottom-left-radius:3px}
+  .ad-a b{color:#8a5a06}
+  .ad-a .cite{display:inline-block;margin-top:9px;font-size:12px;color:#5b6a7d}
+  .ad-a .cite a{color:#1d6fb8;text-decoration:none;border-bottom:1px dashed #1d6fb8}
+  .ad-input{display:flex;gap:10px;margin-top:6px}
+  .ad-input input{flex:1;border:1px solid #d5dee8;border-radius:9px;padding:11px 13px;font-size:14px;font-family:inherit}
+  @media(max-width:760px){.ad-log{max-height:300px}.ad-msg{max-width:100%}}
+
   footer{margin-top:36px;text-align:center;color:#8494a8;font-size:12.5px;line-height:1.9}
   @media print{header,.panel,.noprint{display:none}body{background:#fff}.tw{border:none}}
 </style>
@@ -145,13 +160,24 @@
       <b>超售上限</b>：预测 OCC ≥ 95% 时，超售 = 可售房量 × No-show 率
     </div>
     <div class="warn">
-      <b>版本说明：</b>当前为 <b>MVP v0.1（确定性规则引擎）</b>——所有数字由公式算出，可解释、可复核。
-      「AI 解读层」目前是规则化摘要；接入大模型后可升级为自然语言诊断与问答，但<b>价格计算永远不会交给大模型瞎编</b>。
+      <b>版本说明：</b>当前为 <b>MVP v0.2（规则引擎 + AI 方法论分身）</b>——所有价格由公式算出，可解释、可复核。
+      「AI 解读层」与「④ AI 顾问」均基于你的 32 公式与方法论做规则化 / 检索式解读；<b>价格计算永远不会交给模型瞎编</b>。
+    </div>
+  </div>
+
+  <div class="panel" id="advisorPanel">
+    <div class="pt">④ AI 收益管理顾问 · 方法论分身</div>
+    <p class="ad-sub">灌了你站内的 32 公式 + 收益管理实战方法论。问「竞品降价要不要跟」「满房日关不关低价房」等实战问题——<b>它只讲方法、不编价格</b>，具体数字永远以上方决策卡为准。</p>
+    <div class="ad-chips" id="adChips"></div>
+    <div class="ad-log" id="adLog"></div>
+    <div class="ad-input">
+      <input type="text" id="adQ" placeholder="例如：竞品突然降价，我要不要跟？" autocomplete="off">
+      <button class="btn-run" id="adSend">问顾问</button>
     </div>
   </div>
 
   <footer>
-    HRMA 收益决策引擎 · MVP v0.1 · 数据本地计算不出端<br>
+    HRMA 收益决策引擎 · MVP v0.2 · 数据本地计算不出端<br>
     公式依据：RMC 收益管理社区 32 公式库（ARI / MPI / RGI / Pickup / 弹性 / 最优价 / 超售）
   </footer>
 </div>
@@ -361,6 +387,120 @@ function applyUpload(){
     alert("已载入你的数据：" + out.length + " 天");
   });
 }
+
+// ===== 双引擎 ②：AI 方法论分身（客户端检索式，不联网、不编价格）=====
+var ADV = [
+  {k:["竞品","降价","跟价","跟风","对手","价格战","下调"],t:["竞品","定价"],
+   a:"先别急着跟。用 <b>ARI 价格指数（No.9）</b> = 本店价 ÷ 竞品组合加权均价 × 100 看你在什么位置：若你 ARI 已 ≤ 95（本店已比竞品便宜），对手降你更不该跟——那是它的低价策略，你跟着降只会双输；若你 ARI ≥ 105 且 OCC 偏低，可小幅跟进，但护栏是<b>保本价（No.16）</b>，绝不为抢量跌破。更优解是把量导去高价房型 / 直订渠道，而非单纯降价。跑一遍上方引擎：它用<b>最优价求解（No.17）</b>在 ±12% 内找收入最大点，满房日不会建议降。",
+   f:"价格指数 ARI · 最优价 · 保本价"},
+  {k:["满房","关房","低价房","关低价","售罄","满房日","停售","停掉"],t:["库存","定价"],
+   a:"满房日（预测 OCC ≥ 90%）核心不是降价而是保价保量。设 <b>MinLOS 2 晚（No.22）</b>、收紧低价房型与 OTA 库存、停止团队置换（No.19）。不要在这天降价——满房时降价换不来任何增量房晚，纯亏（容量约束：Q新 = min(Q×(1+E×调幅), 可售房量)）。引擎满房日会自动建议涨价 +12%。关低价房不是关掉，是把库存挪给高价房型和长住客。",
+   f:"MinLOS · 团队置换 · 容量约束"},
+  {k:["超售","oversell","walk","拒载","noshow","no-show","no show","多卖"],t:["超售","库存"],
+   a:"超售只在预测 OCC ≥ 95% 才考虑。<b>建议超售量（No.20）</b> = 可售房量 × No-show 率，如 320 间、No-show 3% → 约 10 间。但必须算 <b>Walk 成本（No.21）</b>：超售后若真满房，赔付 + 客户关系损失。保守做法：超售量 ≤ No-show 量，且优先保护高价值 / 协议客。引擎已按此给出超售指令。",
+   f:"建议超售量 · Walk 成本"},
+  {k:["淡季","occ低","入住率低","低需求","没人","空房","出租率低","50%","60%"],t:["定价","弹性"],
+   a:"OCC < 60% 时重点在放量不是守价。先对标竞品：若你 ARI > 105，可降到 100 左右抢量（引擎会算最优价，通常在当前价 −12% 内找收入最大）。但降价有边界：下限 = <b>变动成本（No.16 保本价）</b>，且用<b>价格弹性（No.15）</b>判断——OCC < 70% 时弹性约 −1.5（较敏感），降一点能换来较多量。同时放开团队与 OTA、评估置换（No.19）。记住：降价是为填满今天，不是长期标低价，避免养出只等促销的客群。",
+   f:"价格弹性 · 保本价 · 团队置换"},
+  {k:["团队","置换","团房","会议","置换净贡献","团队房","接团"],t:["团队","库存"],
+   a:"团队置换（No.19）先算净贡献：团队价 × 房晚 − 若散客能卖更高价的机会成本。只有当「团队价 + 餐饮 / 会议增量」 > 「散客最优价收入」时才接。满房日（OCC ≥ 90%）停止置换，把房留给高价散客。引擎在 OCC < 60% 会建议放开团队。判断式：置换净贡献 = 团队总收益 − 散客可售收入（按最优价 No.17）。",
+   f:"团队置换净贡献 · 最优价"},
+  {k:["渠道","ota","直订","佣金","分销","官网","携程","美团","平台"],t:["渠道","定价"],
+   a:"渠道看净不看毛。<b>渠道净 ADR（No.23）</b> = 挂牌价 − 佣金 − 其他成本；<b>直订 vs OTA 打平佣金率（No.25）</b>告诉你直订占比多高时综合收益持平。导向：把价格敏感、低弹性客导去 OTA 放量，把高价值 / 长住客引到直订（无佣金、可卖高价房型）。引擎涨价日会收紧 OTA 库存，正是此逻辑。排序用<b>渠道期望净贡献（No.24）</b>。",
+   f:"渠道净 ADR · 打平佣金率 · 净贡献排序"},
+  {k:["事件","展会","演唱会","动漫节","节假日","高峰","旺季","展会日"],t:["事件","库存"],
+   a:"事件日（如动漫节）需求刚性，引擎会标注并建议分段放房、提前锁价、可继续抬价（OCC ≥ 90% + MinLOS）。原则：事件前 1–2 周就分段放，别一次性放完；锁住高价房型给临时高价散客；用超售吸收 No-show。注意事件结束次日可能断崖，提前规划引流 / 甩卖。",
+   f:"事件日策略 · MinLOS · 超售"},
+  {k:["涨价","提价","抬价","该不该涨","要不要涨","升价"],t:["定价","弹性"],
+   a:"涨价前提是需求够硬。看预测 OCC：≥ 85% 弹性仅 −0.7（很刚性，敢涨），70–85% 弹性 −1.0，< 70% 别硬涨。引擎用<b>最优价求解（No.17）</b>在 ±12% 内找收入最大点——它比人准，因为把量损算进去了（涨价会损失部分量，但单价升，净收入可能更高）。规则：先动价、再动库存；涨价日同步收紧低价房型与 OTA。",
+   f:"最优价 · 价格弹性"},
+  {k:["revpar","adr","收入","每可售房","客房收入","业绩","赚多少","利润"],t:["指标","定价"],
+   a:"别只看 ADR。ADR 涨可能是你关了低价房、牺牲了量，总收入未必好。真正看收益的是 <b>RevPAR（No.3）</b> = ADR × OCC = 客房收入 ÷ 可售房晚。再往下 <b>NRevPAR（No.5）</b> 扣渠道成本、<b>GOPPAR（No.6）</b> 扣运营成本才是真利润。本引擎的机会金额就是 RevPAR 口径的净增收（已扣量损）。",
+   f:"RevPAR · NRevPAR · GOPPAR"},
+  {k:["预测","pickup","在手","预订","增量","偏差","落后","怎么预测"],t:["预测","指标"],
+   a:"预测用 <b>Pick-up 法（No.12）</b>：未来已售 = 当前在手(OTB, No.13) + 同周期历史增量。引擎的预订偏差 dev = 实际 pickup − 预期，dev ≤ −10 说明预订落后要加曝光，≥ +10 说明超前可继续抬价。预测永远有误差，用区间而非单点，决策留缓冲。",
+   f:"Pick-up 预测 · 净在手预订"},
+  {k:["mpi","rgi","对标","市场份额","渗透","指数","比别人"],t:["指标","竞品"],
+   a:"<b>MPI（No.8）</b> 看份额 = 你 OCC ÷ 市场 OCC，> 100 说明比市场卖得好；<b>ARI（No.9）</b> 看价 = 你价 ÷ 竞品价；<b>RGI（No.10）</b> 看综合收益 = MPI × ARI，> 100 说明赚到该赚的。若 MPI 高但 RGI 低，说明卖得多却卖便宜了，该提价。这正是指引引擎定目标 ARI 的逻辑（OCC ≥ 90% → 目标 108 …）。",
+   f:"MPI · ARI · RGI"},
+  {k:["弹性","elastic","敏感","灵敏","需求弹性"],t:["弹性","定价"],
+   a:"<b>价格弹性（No.15）</b> = 需求量变动% ÷ 价格变动%。需求越满（OCC 高）越不敏感（刚性，涨也少丢量）；越空越敏感（降一点能多卖很多）。引擎用三档：≥ 85% → −0.7，70–85% → −1.0，< 70% → −1.5。这是<b>最优价求解（No.17）</b>的核心输入——弹性决定你能涨 / 该降多少。",
+   f:"价格弹性 · 最优价"},
+  {k:["栅栏","价差","房型","分级","差别定价","rate fence","ratefence"],t:["定价","库存"],
+   a:"<b>价差与栅栏（No.18）</b>：用不可转让 / 提前付 / 长住等条件把客人分到不同价格，让愿付高价的付高价、价格敏感的拿低价，总收入比单一定价高。做法：高价房型配灵活退改、低价房型限提前付 / 不可退。引擎收紧低价房型就是栅栏操作——满房时把低价库存关掉，逼需求去高价房型。",
+   f:"价差与栅栏收益"},
+  {k:["minlos","最短","连住","两晚","连住两晚"],t:["库存","定价"],
+   a:"<b>MinLOS（No.22）</b> 满房 / 周末设 2 晚，强制拉长住宿、抬高 RevPAR、减少换房清洁成本。但别在淡季设——那会劝退短住客。引擎在 OCC ≥ 90% 自动建议设 MinLOS 2 晚。",
+   f:"MinLOS 增收"},
+  {k:["保本","成本","最低价","变动成本","底价","下限","不能低于"],t:["成本","定价"],
+   a:"<b>最低可接受价（No.16 保本价）</b> = 变动成本（每多卖一间多花的钱：布草 / 能耗 / 耗材 / 佣金分摊）。任何建议价下限都不能破它，破了一间就亏一间。引擎竞品护栏下限 = 变动成本。注意固定成本（房租 / 工资）靠出租率摊，不是单房定价要覆盖的。",
+   f:"保本价 · 最低可接受价"},
+  {k:["餐饮","revpash","餐厅","餐桌","翻台","饭","吃饭"],t:["跨行业"],
+   a:"餐饮用 <b>RevPASH（No.26）</b> = 餐饮收入 ÷（座位数 × 营业小时），核心是翻台 + 时段定价——闲时降价引流、高峰溢价。同一套方法论（弹性 + 时段库存）可直接迁移。你站上还有航空 RASK（No.27）、邮轮 RevPAC、长租 RevPAU、研学 RevPAS、租车 RevPAT、医疗 RevPAA（No.28–32），都是单位资源 × 时间的变体。",
+   f:"RevPASH · 跨行业变体"},
+  {k:["航空","rask","机票","航班","座位","舱位"],t:["跨行业"],
+   a:"航空用 <b>RASK（No.27）</b> = 收入 ÷ 可用座位公里，和酒店 RevPAR 同构：座位 = 房晚、航班 = 日期。动态定价、超售（No.20）、舱位栅栏（No.18）完全通用。引擎逻辑可直接套航班。",
+   f:"RASK · 超售 · 栅栏"},
+  {k:["景区","剧院","门票","演出","revpas","营地","研学"],t:["跨行业"],
+   a:"景区用 <b>RevPAS（No.30）</b> = 收入 ÷ 可用座次 / 场次；淡旺季 / 平日周末定价、限流（= 容量约束）、套票栅栏（No.18）通用。和酒店引擎同源，跨行业可直接复用方法论。",
+   f:"RevPAS · 容量约束 · 栅栏"},
+  {k:["报价","接不接","合同","协议价","谈判","这个价","给多少"],t:["定价","团队"],
+   a:"判断任何报价用净贡献 + 机会成本：该价 × 量 − 变动成本，再和若不接这库存能卖多少（<b>最优价 No.17</b> 收入）比。满房日任何低于最优价的量都是亏（机会成本）；淡季则只要价 > <b>保本价（No.16）</b> 且能填满就接。",
+   f:"最优价 · 保本价"},
+  {k:["新手","开始","入门","怎么学","第一步","不懂","不会","小白"],t:["入门"],
+   a:"先跑一遍上方引擎看机会金额——那是最该赚的钱。然后学三件事：① 指标（OCC / ADR / RevPAR No.1–3）② 对标（MPI / ARI / RGI No.8–10）③ 执行（最优价 / 弹性 / 超售 No.15–20）。完整体系在 <a href='formulas.html'>formulas.html</a>（32 公式）和 <a href='coach.html'>coach.html</a>（372 条问答）。记住：收益管理是先动价再动库存，每天看 Pickup。",
+   f:"基础指标 · 指数 · 执行公式"},
+  {k:["数据","csv","上传","准备","表头","字段","怎么导入","怎么用"],t:["数据","入门"],
+   a:"两份即可：① 未来在手预订（入住日、星期、在手房晚、预测增量、预测 OCC、目标 OCC、Pickup 偏差、事件）② 竞品价格（入住日、竞争组合加权均价、本店 BAR）。按 data/03、data/04 表头准备 CSV 上传，引擎自动算。没有就点载入示例数据先看效果。",
+   f:"数据准备 · Pick-up"},
+  {k:["负","不准","为什么","引擎","怀疑","错","乱","不对","奇怪"],t:["原理","定价"],
+   a:"机会金额永不为负——候选集含维持现状，所以引擎只报比现状更好的价（已扣量损）。若你看着某天建议降觉得亏，是因为那天 OCC 低、弹性大，降一点换的量 > 单价损失。若和你的 PMS 对不上，多半是竞品均价口径或 No-show 率设置问题，可调参数重跑。<b>价格由公式算，AI 只解读</b>——具体数看上方决策卡。",
+   f:"最优价原理 · 容量约束"}
+];
+
+function adAnswer(q){
+  q = (q||"").toLowerCase();
+  var best=null, bestScore=0;
+  ADV.forEach(function(e){
+    var s=0; e.k.forEach(function(kw){ if(q.indexOf(kw.toLowerCase())>=0) s++; });
+    e._s=s; if(s>bestScore){ bestScore=s; best=e; }
+  });
+  if(bestScore===0){
+    return {a:"这个问题我先用方法论兜底：收益管理的核心动作永远是「<b>先动价、再动库存</b>」，价格由公式算（上方决策卡），我来帮你理解<b>为什么</b>。你可以点上面的常见场景，或直接问：竞品降价要不要跟？满房日关不关低价房？OCC 才 50% 怎么办？超售设多少？团队置换接不接？更完整的 32 个公式在 <a href='formulas.html'>formulas.html</a>，372 条问答在 <a href='coach.html'>coach.html</a>。", f:""};
+  }
+  var rel = ADV.filter(function(e){ return e!==best && e.t.some(function(t){ return best.t.indexOf(t)>=0; }); })
+               .sort(function(a,b){ return b._s-a._s; }).slice(0,2).map(function(e){ return e.f; });
+  var extra = rel.length ? "<div class='cite'>相关公式：<a href='formulas.html'>"+rel.join(" · ")+"</a> · 详见 formulas.html</div>" : "";
+  return {a:best.a + extra, f:best.f};
+}
+function adPush(role, html){
+  var log=document.getElementById("adLog");
+  var d=document.createElement("div");
+  d.className="ad-msg "+(role==="u"?"ad-u":"ad-a");
+  d.innerHTML=html;
+  log.appendChild(d);
+  log.scrollTop=log.scrollHeight;
+}
+function adAsk(){
+  var inp=document.getElementById("adQ");
+  var q=inp.value.trim(); if(!q) return;
+  adPush("u", q.replace(/</g,"&lt;"));
+  inp.value="";
+  var r=adAnswer(q);
+  setTimeout(function(){ adPush("a", r.a); }, 220);
+}
+var ADV_CHIPS=["竞品突然降价，我要不要跟？","满房日要不要关低价房？","OCC 才 50% 怎么办？","超售设多少合适？","团队置换接不接？","该不该涨价？","为什么机会金额是负的？"];
+(function(){
+  var box=document.getElementById("adChips");
+  ADV_CHIPS.forEach(function(c){
+    var s=document.createElement("span"); s.className="ad-chip"; s.textContent=c;
+    s.onclick=function(){ document.getElementById("adQ").value=c; adAsk(); };
+    box.appendChild(s);
+  });
+  document.getElementById("adSend").addEventListener("click", adAsk);
+  document.getElementById("adQ").addEventListener("keydown", function(e){ if(e.key==="Enter") adAsk(); });
+  adPush("a","我是你的收益管理方法论分身，灌了你站内的 32 公式与实战原则。问我任何定价 / 库存 / 超售的决策，我讲方法、不编价格——具体数字看上方决策卡。先点一个场景试试 👇");
+})();
 
 document.getElementById("run").addEventListener("click", render);
 document.getElementById("loadDemo").addEventListener("click", function(){ DATA = DEMO.slice(); render(); });

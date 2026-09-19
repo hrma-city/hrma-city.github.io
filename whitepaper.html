@@ -2,489 +2,255 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>酒店收益管理白皮书 · 概念 · 流程 · 案例</title>
-<meta name="description" content="RMC收益管理社区《酒店收益管理白皮书》：系统讲解收益管理的概念体系、四层运营流程（年度/月度/周度/每日）与十五张判定表，并附五个真实场景案例的完整复盘。">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>免费白皮书 · 高校酒店管理收益管理《开课指南》 | HRMA</title>
+<meta name="description" content="免费领取《高校收益管理开课指南》白皮书 +《20个可直接进课堂的教学案例》：大纲模板、32 公式教学化处理、4 套脱敏数据集，并附一次免费开课诊断。">
 <style>
-  :root{--navy:#1B3A5C;--navy2:#2A5680;--gold:#B8894A;--gold2:#E8C87E;--ink:#222;--ink2:#4A5568;--ink3:#7B8794;--line:#E1E5EA;--bg2:#F6F7F9;--teal:#2E8B7A;--red:#C0392B;--amber:#B8730F}
-  *{box-sizing:border-box}
-  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;max-width:920px;margin:0 auto;padding:40px 30px;color:var(--ink);line-height:1.85;font-size:15px}
-  h1{font-size:32px;color:var(--navy);margin:0 0 8px;line-height:1.3}
-  h2{font-size:23px;color:var(--navy);border-left:5px solid var(--gold);padding-left:12px;margin:44px 0 14px}
-  h3{font-size:18px;color:var(--navy2);margin:28px 0 10px}
-  h4{font-size:15.5px;color:var(--ink);margin:18px 0 8px}
-  p{margin:0 0 12px}
-  ul,ol{margin:0 0 14px;padding-left:24px}
-  li{margin-bottom:6px}
-  .cover{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;border-radius:14px;padding:38px 40px;margin-bottom:30px}
-  .cover h1{color:#fff;font-size:34px;margin-bottom:6px}
-  .cover .sub{font-size:16px;color:var(--gold2);font-weight:600;margin-bottom:16px}
-  .cover .meta{font-size:13px;color:rgba(255,255,255,.75);border-top:1px solid rgba(255,255,255,.25);padding-top:14px;margin-top:14px}
-  .cover .abs{font-size:14.5px;line-height:1.9;color:rgba(255,255,255,.92)}
-  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
-  th{background:var(--bg2);text-align:left;padding:10px 12px;font-size:13px;color:var(--ink2);border-bottom:2px solid var(--line)}
-  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-  tr:hover td{background:#FCFCFA}
-  .num{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-  .tag{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:20px;background:var(--bg2);color:var(--ink2);font-weight:700;white-space:nowrap}
-  .tag.price{background:#FDF0E3;color:var(--amber)}
-  .tag.fcst{background:#EAF3FA;color:#1F6F8B}
-  .tag.inv{background:#EDF7F0;color:var(--teal)}
-  .tag.chan{background:#F2EEFA;color:#5B4B8A}
-  .tag.metric{background:#EAF0F7;color:var(--navy)}
-  .tag.base{background:#F1F1F1;color:#4A5568}
-  .case{border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:18px 0}
-  .case .ct{font-size:17px;font-weight:700;color:var(--navy);margin-bottom:4px}
-  .case .cm{font-size:12.5px;color:var(--ink3);margin-bottom:12px}
-  .case dt{font-weight:700;color:var(--navy2);font-size:13.5px;margin-top:12px}
-  .case dd{margin:3px 0 0;font-size:14px;color:var(--ink2)}
-  .warn{background:#FDF3F2;border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:13px 17px;margin:14px 0;font-size:14px}
-  .ok{background:#EDF7F0;border-left:4px solid var(--teal);border-radius:0 8px 8px 0;padding:13px 17px;margin:14px 0;font-size:14px}
-  .note{background:#FFF9EC;border-left:4px solid var(--gold);border-radius:0 8px 8px 0;padding:13px 17px;margin:14px 0;font-size:14px}
-  .toc{background:var(--bg2);border-radius:10px;padding:16px 22px;margin:20px 0}
-  .toc ol{margin:0;padding-left:22px}
-  .toc a{color:var(--navy);text-decoration:none}
-  .toc a:hover{text-decoration:underline}
-  hr{border:0;border-top:1px solid var(--line);margin:34px 0}
-  .foot{font-size:12.5px;color:var(--ink3);border-top:1px solid var(--line);padding-top:16px;margin-top:36px}
-  .noprint{margin-bottom:18px}
-  .noprint button{font-family:inherit;font-size:13.5px;padding:9px 18px;border:0;background:var(--navy);color:#fff;border-radius:8px;cursor:pointer;margin-right:8px}
-  .noprint button.ghost{background:#fff;color:var(--navy);border:1px solid var(--navy)}
-  @media print{.noprint{display:none}body{padding:0;font-size:12.5px}h2{page-break-after:avoid}.case{page-break-inside:avoid}}
-  @media(max-width:640px){body{padding:20px 16px}.cover{padding:26px 22px}.cover h1{font-size:26px}table{font-size:13px}}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    background:#f4f7fa;color:#1c2430;line-height:1.75;font-size:14.8px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+
+  .hero{background:linear-gradient(150deg,#0f2a4a,#16406e 58%,#1d6fb8);color:#fff;padding:44px 16px 38px}
+  .eb{font-size:12px;letter-spacing:2.4px;opacity:.8;margin-bottom:9px}
+  h1{font-size:28px;font-weight:800;line-height:1.35;margin-bottom:12px}
+  .lead{opacity:.93;font-size:15px;max-width:740px}
+  .hero-btns{display:flex;flex-wrap:wrap;gap:11px;margin-top:22px}
+  .btn{display:inline-block;padding:13px 26px;border-radius:30px;font-weight:700;font-size:15px;
+    text-decoration:none;border:none;cursor:pointer;font-family:inherit}
+  .btn-main{background:linear-gradient(90deg,#c99a3f,#a8801f);color:#fff;box-shadow:0 4px 14px rgba(184,145,74,.42)}
+
+  .two{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin-top:30px;align-items:start}
+  @media(max-width:860px){.two{grid-template-columns:1fr}}
+
+  .sec{margin-top:36px}
+  .sn{display:inline-block;background:#0f2a4a;color:#fff;font-size:12px;font-weight:700;
+    border-radius:6px;padding:3px 10px;margin-bottom:8px}
+  h2{font-size:21px;font-weight:800;color:#0f2a4a;margin-bottom:6px}
+  .sub{color:#5b6a7d;font-size:14px;margin-bottom:15px}
+
+  .card{background:#fff;border:1px solid #e2e8ef;border-radius:14px;padding:19px 21px;margin-bottom:13px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+  @media(max-width:800px){.grid2,.grid3{grid-template-columns:1fr}}
+
+  ul.clean{list-style:none}
+  ul.clean li{padding:5px 0 5px 20px;position:relative;font-size:14.2px}
+  ul.clean li::before{content:"";position:absolute;left:6px;top:15px;width:6px;height:6px;
+    border-radius:50%;background:#1d6fb8}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8ef;
+    border-radius:12px;overflow:hidden;font-size:13.8px}
+  th{background:#eef3f9;color:#3a4b60;font-size:12.3px;text-align:left;padding:10px 12px;font-weight:700}
+  td{padding:10px 12px;border-top:1px solid #edf1f6;vertical-align:top}
+
+  /* 领取框 */
+  .box{background:#fff;border:2px solid #e8b84b;border-radius:16px;padding:22px;position:sticky;top:14px}
+  .box h3{font-size:17px;color:#0f2a4a;margin:0 0 4px}
+  .box .hint{font-size:13px;color:#5b6a7d;margin-bottom:12px}
+  label{display:block;font-size:12.6px;color:#5b6a7d;margin-bottom:4px;font-weight:600}
+  input,select,textarea{width:100%;border:1px solid #d8e0ea;border-radius:9px;
+    padding:9px 11px;font-size:14px;font-family:inherit;background:#fbfcfe;color:#1c2430;margin-bottom:10px}
+  input:focus,textarea:focus{outline:none;border-color:#1d6fb8}
+  .submit{width:100%;background:linear-gradient(90deg,#1d6fb8,#0f2a4a);color:#fff;border:none;
+    border-radius:30px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+  .privacy{font-size:12px;color:#8494a8;margin-top:9px;text-align:center}
+
+  .note{background:#fff8ec;border:1px solid #f0dcae;border-radius:12px;padding:14px 17px;font-size:13.8px;color:#6a5220}
+  .quote{border-left:4px solid #1d6fb8;background:#eef4fb;padding:14px 18px;border-radius:9px;
+    margin:14px 0;font-size:14.5px;color:#0f2a4a}
+
+  .book{display:flex;gap:16px;background:#fff;border:1px solid #e2e8ef;border-radius:14px;
+    padding:20px;align-items:flex-start;margin-bottom:13px}
+  .cover{flex:0 0 auto;width:88px;height:118px;border-radius:8px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;padding:8px;font-weight:800;line-height:1.35}
+  .cover.a{background:linear-gradient(150deg,#0f2a4a,#1d6fb8);color:#fff;font-size:13px}
+  .cover.b{background:linear-gradient(150deg,#c99a3f,#a8801f);color:#fff;font-size:13px}
+  .cover small{font-size:10px;font-weight:600;opacity:.85;margin-top:4px}
+  .book h4{margin:0 0 5px;font-size:16.5px;color:#0f2a4a}
+
+  footer{margin-top:38px;background:#0f2a4a;color:rgba(255,255,255,.72);padding:26px 16px;
+    font-size:13px;text-align:center;line-height:1.9}
+  footer a{color:#e8b84b;text-decoration:none}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"whitepaper","item":"https://hrma-city.github.io/whitepaper.html"}]}</script>
 </head>
 <body>
 
-<div class="noprint">
-  <button onclick="window.print()">打印 / 另存为 PDF</button>
-  <button class="ghost" onclick="location.href='concepts.html'">看完整概念总表</button>
-  <button class="ghost" onclick="location.href='resources.html'">回资料下载</button>
-</div>
-
-<div class="cover">
-  <h1>酒店收益管理白皮书</h1>
-  <div class="sub">概念 · 流程 · 案例 —— 一套能落地的方法</div>
-  <div class="abs">
-    收益管理不是「涨价」，也不是「看心情调价」。它是一套把<b>易逝库存</b>在<b>固定产能</b>约束下，
-    卖给<b>最值钱的客人</b>的方法体系。本白皮书用三篇把它讲清楚：
-    <b>概念篇</b>解决「说什么」——统一语言与指标；
-    <b>流程篇</b>解决「怎么干」——从年度预算到每日流水线，以及十五张判定表各自站在哪个位置；
-    <b>案例篇</b>解决「会踩什么坑」——五个真实场景的完整复盘，每个都给出可复用的动作。
+<!-- ===== hero ===== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eb">免费领取 · 高校酒店管理专业专供</div>
+    <h1>《收益管理开课指南》白皮书<br>+《20 个可直接进课堂的教学案例》</h1>
+    <p class="lead">
+      你不用先花钱，也能先判断这件事能不能做。<br>
+      把这两份资料拿回去，对照自己的专业现状看一遍——<b>开这门课的障碍到底在哪，你会第一次看清楚。</b>
+    </p>
+    <div class="hero-btns">
+      <a class="btn btn-main" href="#get">免费领取（填邮箱即可）</a>
+    </div>
   </div>
-  <div class="meta">
-    RMC收益管理社区　|　版本 v1.0　|　2026 年 9 月　|　联系 rm-community@qq.com<br>
-    面向酒店业主、总经理、收益经理、前厅与销售人员。文中数值除注明外均为示例，用于说明方法。
+</section>
+
+<div class="wrap">
+
+  <!-- ===== 两份资料 ===== -->
+  <div class="sec">
+    <span class="sn">01</span>
+    <h2>你会拿到两样东西</h2>
+    <p class="sub">都不是宣传册。是可以直接摆在教务会议上讨论的工作底稿。</p>
+
+    <div class="book">
+      <div class="cover a">开课<br>指南<small>白皮书 v1.0</small></div>
+      <div>
+        <h4>《高校酒店管理专业 · 收益管理开课指南》</h4>
+        <ul class="clean">
+          <li><b>第 1 章 为什么必须开这门课</b>：产业需求、人才缺口、对口岗位与薪酬区间</li>
+          <li><b>第 2 章 开课的四个真实障碍</b>：师资、教材、数据、校企——以及各自的破解路径</li>
+          <li><b>第 3 章 一份可直接改的大纲</b>：学分/课时/模块划分/考核方式全字段模板</li>
+          <li><b>第 4 章 32 个公式怎么讲</b>：每个公式配"什么时候讲、用什么案例、学生易错在哪"</li>
+          <li><b>第 5 章 评价怎么做</b>：「1+3」评价模板与课程思政融入点</li>
+          <li><b>第 6 章 申报怎么报</b>：一流课程 / 教改立项的材料清单与常见扣分点</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="book">
+      <div class="cover b">20 案例<small>教学案例集</small></div>
+      <div>
+        <h4>《20 个可直接进课堂的教学案例》</h4>
+        <ul class="clean">
+          <li>覆盖四大板块：<b>超额预订 / 动态定价 / 竞争群分析 / 渠道与库存</b></li>
+          <li>每个案例含：业务情境 → 真实数据结构 → 学生任务 → 评判要点</li>
+          <li>全部基于脱敏真实业务数据，不是编的数字填空题</li>
+          <li>附 4 套脱敏数据集（Excel），课堂上直接发给学生做</li>
+        </ul>
+      </div>
+    </div>
   </div>
+
+  <!-- ===== 钩子升级 ===== -->
+  <div class="two">
+    <div>
+      <div class="sec" style="margin-top:0">
+        <span class="sn">02</span>
+        <h2>领取之后，还会发生三件事</h2>
+        <p class="sub">这是这份资料和其他白皮书最大的区别——<b>我们不是为了给你一份发完就忘的 PDF</b>。</p>
+        <div class="card">
+          <b>① 一次免费开课诊断</b>
+          <p style="color:#5b6a7d;font-size:13.8px">回邮件告诉我们你的专业现状（几届、多少学生、现有师资），我们回一份《开课障碍清单》给你——哪几条能自己解决、哪几条必须借外力。</p>
+        </div>
+        <div class="card">
+          <b>② 一次陪跑节奏的实地体验</b>
+          <p style="color:#5b6a7d;font-size:13.8px">我们会用你自己的某一段课程内容，演示一次完整的"评审→反馈→改稿"循环——<b>让你在付钱之前，先知道陪跑到底长什么样。</b></p>
+        </div>
+        <div class="card">
+          <b>③ 加入教师社群（可选，¥299/年）</b>
+          <p style="color:#5b6a7d;font-size:13.8px">同专业老师的开课互助群：每月一次专家答疑专场、案例更新推送、互相评大纲。</p>
+        </div>
+        <div class="quote">说白了：<b>先用免费的东西证明我们懂行，再谈要不要付费。</b>这是我们省掉无效销售的方式。</div>
+      </div>
+
+      <div>
+        <div class="sec" style="margin-top:0">
+          <span class="sn">03</span>
+          <h2>谁适合领</h2>
+          <div class="card" style="font-size:13.8px">
+            <ul class="clean" style="margin:0">
+              <li>正在筹建 / 改造收益管理课程的专业负责人</li>
+              <li>被安排上讲台、但自己没做过收益管理的老师</li>
+              <li>要冲省级一流课程 / 教改立项的骨干教师</li>
+              <li>负责产教融合与校企合作的院系领导</li>
+              <li>想把学生送进收益/电商/OTA 岗位的就业负责人</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 领取表单 ===== -->
+  <div class="sec" id="get">
+    <span class="sn">04</span>
+    <h2>免费领取</h2>
+    <p class="sub">填完提交，会自动带到你的邮件客户端——发送后我们通常在 1 个工作日内回复。</p>
+    <div class="two">
+      <div class="card">
+        <table>
+          <tbody>
+            <tr><td style="width:120px"><b>领取条件</b></td><td>填表即可，无门槛、无绑定、不推销</td></tr>
+            <tr><td><b>交付形式</b></td><td>PDF 两份 + Excel 数据集 4 套，邮件发送</td></tr>
+            <tr><td><b>多久到</b></td><td>通常 1 个工作日内，高峰期不超过 2 天</td></tr>
+            <tr><td><b>会不会被骚扰</b></td><td>不会。我们只在大版本更新或你主动询问时联系</td></tr>
+          </tbody>
+        </table>
+        <div class="note" style="margin-top:13px">
+          <b>为什么免费？</b>因为高校采购周期长、决策链长，靠推销没用。我们把最值钱的方法论先交出去，
+          让你用事实判断我们是不是真的懂——<b>这比任何销售话术都有效。</b>
+        </div>
+      </div>
+
+      <div class="box">
+        <h3>领取白皮书 +《20 案例》</h3>
+        <p class="hint">我们只用它发送资料，不做他用。</p>
+        <label>邮箱 <span style="color:#c0392b">*</span></label>
+        <input id="f1" type="email" placeholder="you@school.edu.cn">
+        <label>院校 / 院系</label>
+        <input id="f2" placeholder="例如：XX 职业技术学院 酒店管理学院">
+        <label>职务</label>
+        <select id="f3">
+          <option>专业负责人 / 系主任</option>
+          <option>骨干教师</option>
+          <option>教务 / 教发中心</option>
+          <option>院系领导</option>
+          <option>其他</option>
+        </select>
+        <label>当前进度</label>
+        <select id="f4">
+          <option>还在想，看看有没有必要开</option>
+          <option>已决定要开，正在找资源</option>
+          <option>已开课，但讲不好</option>
+          <option>正在准备申报（一流课程/教改）</option>
+        </select>
+        <label>最想先解决什么（选填）</label>
+        <textarea id="f5" rows="3" placeholder="例如：缺一个能讲的老师 / 没有真实案例 / 大纲不知道怎么定"></textarea>
+        <button class="submit" id="sub">免费领取，发送到邮箱</button>
+        <p class="privacy">提交即带到你的邮件客户端，我们不做第三方营销。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 下一步 ===== -->
+  <div class="sec">
+    <span class="sn">05</span>
+    <h2>如果你想直接看合作方案</h2>
+    <div class="grid3">
+      <div class="card"><b>T1 开课即用包</b><p style="color:#5b6a7d;font-size:13.6px">¥1.98–3.98 万/校<br>大纲+模块+数据集+导师连线+申报模板</p></div>
+      <div class="card" style="background:#fffdf6;border-color:#e8cf94"><b>T2 师资陪跑 ★</b><p style="color:#6a5220;font-size:13.6px">¥8–25 万<br>课程共建 8–12 万 + 年度陪跑 15–25 万，<b>按结果验收</b></p></div>
+      <div class="card"><b>T3 生态订阅</b><p style="color:#5b6a7d;font-size:13.6px">¥1–3 万/年<br>案例更新 + 社群 + 认证续费</p></div>
+    </div>
+    <a class="btn btn-main" style="margin-top:14px" href="campus.html">查看完整的院校师资陪跑方案 →</a>
+  </div>
+
 </div>
 
-<div class="toc">
-  <b>目录</b>
-  <ol>
-    <li><a href="#p1">第一篇　概念篇</a>——定义、两个前提、指标体系、术语表、常见误区</li>
-    <li><a href="#p2">第二篇　流程篇</a>——四层节奏、每日流水线、十五张判定表、周期动作、异常事件</li>
-    <li><a href="#p3">第三篇　案例篇</a>——五个场景的完整复盘</li>
-    <li><a href="#p4">附录</a>——公式速查、判定表索引、90 天落地路线</li>
-  </ol>
-</div>
+<footer>
+  HRMA 收益管理社区 · 高校酒店管理专业开课支持计划<br>
+  咨询：rm-community@qq.com ·
+  <a href="campus.html">院校师资陪跑方案</a> ·
+  <a href="index.html">返回社区首页</a>
+</footer>
 
-<!-- ==================== 第一篇 ==================== -->
-<h2 id="p1">第一篇　概念篇</h2>
-
-<h3>1.1　什么是收益管理</h3>
-<p>
-  收益管理（Revenue Management）的定义只有一句话：
-  <b>在正确的时间、把正确的库存、以正确的价格、卖给正确的客户</b>。
-  注意这里的目标是<b>整体收益最大化</b>，不是「单笔卖得最贵」——
-  把房价顶到 ¥1,200 只卖出 20 间，收入远不如 ¥700 卖满 300 间。
-</p>
-<div class="note">
-  <b>一个常见的误解：</b>收益管理 ≠ 涨价。淡季该放量的日子要敢降，满房日该提价的日子要敢提。
-  判断依据是<b>需求与库存的关系</b>，不是老板的心情。
-</div>
-
-<h3>1.2　两个前提：为什么酒店非做不可</h3>
-<p>收益管理能成立，靠两个客观约束。缺一个，整套方法就不适用。</p>
-<table>
-  <tr><th style="width:130px">前提</th><th>含义</th><th>带来的结论</th></tr>
-  <tr><td><b>易逝库存</b><br><span class="tag base">基础</span></td>
-      <td>房晚今天卖不掉，价值<b>永远归零</b>，无法留到明天再卖</td>
-      <td>宁可低价卖掉也不能空着——只要高于变动成本就有贡献</td></tr>
-  <tr><td><b>固定产能</b><br><span class="tag base">基础</span></td>
-      <td>320 间房短期变不成 400 间，产能<b>锁死</b></td>
-      <td>供不应求时，只能靠价格把房分配给肯出高价的人</td></tr>
-</table>
-<p>
-  这也是为什么收益管理最先成熟于<b>航空业</b>（舱位同样易逝且固定），
-  再被酒店、邮轮、景区、医院号源、租车、云算力等行业逐个借鉴——
-  <b>逻辑不变，只换产能单位、核心指标与术语</b>。
-</p>
-
-<h3>1.3　核心指标体系</h3>
-<p>指标分三层：量、价、以及量价合一的结果。缺任何一层都会误判。</p>
-<h4>第一层：量与价</h4>
-<table>
-  <tr><th style="width:110px">指标</th><th style="width:210px">公式</th><th>说明</th></tr>
-  <tr><td><b>OCC</b> 出租率</td><td class="num">已售房数 ÷ 可售房数</td><td>衡量「卖了多少」，饱和指标</td></tr>
-  <tr><td><b>ADR</b> 平均房价</td><td class="num">客房收入 ÷ 已售房数</td><td>衡量「卖得贵不贵」</td></tr>
-</table>
-<h4>第二层：量价合一</h4>
-<table>
-  <tr><th style="width:110px">指标</th><th style="width:230px">公式</th><th>说明</th></tr>
-  <tr><td><b>RevPAR</b></td><td class="num">客房收入 ÷ 可售房数<br>= OCC × ADR</td><td>酒店<b>最核心</b>的收益指标</td></tr>
-  <tr><td><b>TrevPAR</b></td><td class="num">（房费+餐饮+会议+其他）÷ 可售房</td><td>单间房综合产出，全服务酒店更适用</td></tr>
-  <tr><td><b>GOPPAR</b></td><td class="num">（收入 − 运营成本）÷ 可售房</td><td>扣掉人工/能耗/物料后的真赚</td></tr>
-  <tr><td><b>NRevPAR</b></td><td class="num">（房收入 − 佣金/渠道费）÷ 可售房</td><td>揭示不同渠道的<b>真实净贡献</b></td></tr>
-</table>
-<h4>第三层：竞争站位（没有对比就没有好坏）</h4>
-<table>
-  <tr><th style="width:110px">指数</th><th style="width:240px">公式</th><th>怎么看</th></tr>
-  <tr><td><b>MPI</b> 渗透指数</td><td class="num">本店 OCC ÷ 竞组 OCC × 100</td><td>&gt;100 = 抢到比对手更多的<b>份额</b></td></tr>
-  <tr><td><b>ARI</b> 价格指数</td><td class="num">本店 ADR ÷ 竞组 ADR × 100</td><td>&gt;100 = 卖得比对手<b>贵</b></td></tr>
-  <tr><td><b>RGI</b> 收益指数</td><td class="num">本店 RevPAR ÷ 竞组 RevPAR × 100</td><td><b>最核心</b>，量价合一的最终竞争力</td></tr>
-</table>
-<div class="note">
-  <b>三个指数必须一起看。</b>RGI 低时要先拆开：是 MPI 低（量不够，该放量）还是 ARI 低（价不够，该提价）——
-  <b>两者动作完全相反</b>，混着改只会越改越乱。
-</div>
-
-<h3>1.4　关键术语表（节选）</h3>
-<p>完整 48 条术语按英文术语字母序排列、带板块标签与 1 分钟解说，见《收益管理概念总表》。此处节选最常用的 17 条：</p>
-<table>
-  <tr><th style="width:40px">#</th><th style="width:180px">English</th><th style="width:110px">中文</th><th>释义</th><th style="width:60px">板块</th></tr>
-  <tr><td class="num">1</td><td>ADR</td><td>平均房价</td><td>客房收入 ÷ 已售房数，衡量卖得贵不贵</td><td><span class="tag metric">指标</span></td></tr>
-  <tr><td class="num">2</td><td>ARI</td><td>价格指数</td><td>本店 ADR ÷ 竞组 ADR，看价格站位</td><td><span class="tag metric">指标</span></td></tr>
-  <tr><td class="num">3</td><td>Booking Lead Time</td><td>提前期</td><td>预订到入住的间隔；越长计划性越强、价格越不敏感</td><td><span class="tag fcst">预测</span></td></tr>
-  <tr><td class="num">4</td><td>Differential Pricing</td><td>差别定价</td><td>同一库存对不同细分卖不同价</td><td><span class="tag price">定价</span></td></tr>
-  <tr><td class="num">5</td><td>Dynamic Pricing</td><td>动态调价</td><td>随需求/库存/竞争持续调价，而非一年不变</td><td><span class="tag price">定价</span></td></tr>
-  <tr><td class="num">6</td><td>Early Bird</td><td>早鸟价</td><td>用折扣换提前锁定，先把远期库存卖出去</td><td><span class="tag price">定价</span></td></tr>
-  <tr><td class="num">7</td><td>Fixed Capacity</td><td>固定产能</td><td>房量短期无法增加，只能卖给更值钱的人</td><td><span class="tag base">基础</span></td></tr>
-  <tr><td class="num">8</td><td>Last-minute Sale</td><td>尾单甩卖</td><td>临近仍有空房，低价也要收回变动成本</td><td><span class="tag price">定价</span></td></tr>
-  <tr><td class="num">9</td><td>Market Segmentation</td><td>市场细分</td><td>按渠道/敏感度/提前期分客群，区别定价与给量</td><td><span class="tag fcst">预测</span></td></tr>
-  <tr><td class="num">10</td><td>MPI</td><td>渗透指数</td><td>本店 OCC ÷ 竞组 OCC，看份额</td><td><span class="tag metric">指标</span></td></tr>
-  <tr><td class="num">11</td><td>No-show &amp; Cancellation</td><td>未到与取消</td><td>超售与房量决策的地基数据</td><td><span class="tag inv">库存</span></td></tr>
-  <tr><td class="num">12</td><td>Overbooking</td><td>超额预订</td><td>预计有人不来，故意多卖几间，把空置损失降到最低</td><td><span class="tag inv">库存</span></td></tr>
-  <tr><td class="num">13</td><td>Perishable Inventory</td><td>易逝库存</td><td>今天卖不掉明天归零——收益管理存在的根因</td><td><span class="tag base">基础</span></td></tr>
-  <tr><td class="num">14</td><td>Price Elasticity</td><td>价格弹性</td><td>需求对价格的敏感度；弹性大的客群提价会跑光</td><td><span class="tag fcst">预测</span></td></tr>
-  <tr><td class="num">15</td><td>Rate Parity</td><td>价格一致性</td><td>同房型各渠道挂牌价须一致，渠道管理红线</td><td><span class="tag chan">渠道</span></td></tr>
-  <tr><td class="num">16</td><td>RevPAR</td><td>每可售房收入</td><td>= OCC × ADR，最核心的收益指标</td><td><span class="tag metric">指标</span></td></tr>
-  <tr><td class="num">17</td><td>RGI</td><td>收益指数</td><td>本店 RevPAR ÷ 竞组 RevPAR，最终竞争力</td><td><span class="tag metric">指标</span></td></tr>
-</table>
-
-<h3>1.5　五个常见误区</h3>
-<ol>
-  <li><b>「出租率越高越好」</b>——错。OCC 96% 但 ADR 只有竞对 85%，说明<b>卖满了却卖便宜了</b>，该提价。</li>
-  <li><b>「超售就是冒险」</b>——错。不超售才是确定的损失。超售是<b>按 No-show 率算出来的</b>，不是拍脑袋。</li>
-  <li><b>「旺季才有收益管理」</b>——错。淡季更要做：低谷日放量、尾单清仓、渠道开关，都是收益动作。</li>
-  <li><b>「团队单能接就接」</b>——错。要先用<b>置换分析</b>算清「接这单会挤掉多少高价散客」。</li>
-  <li><b>「价格是收益部一个人的事」</b>——错。前厅执行升级、销售谈团队、业主看预算，缺一环体系就漏。</li>
-</ol>
-
-<!-- ==================== 第二篇 ==================== -->
-<h2 id="p2">第二篇　流程篇</h2>
-
-<h3>2.1　四层节奏：年度 → 月度 → 周度 → 每日</h3>
-<p>收益管理不是每天临时拍板，而是四层节奏层层收口。</p>
-<div class="note">
-  想看<b>每一步的详细拆解</b>（含名词解释视频与真实案例）？见
-  <b>《酒店收益管理流程图》</b>——把完整流程拆成 10 个环节，每环节配 3 个案例，
-  点流程图的任一节点即可钻取。本白皮书第二篇是它的浓缩版。
-</div>
-<table>
-  <tr><th style="width:90px">层级</th><th style="width:160px">核心动作</th><th>产出物</th></tr>
-  <tr><td><b>年度</b></td><td>预算分解、价格体系搭建、房型价差设定</td><td>年度预算、BAR 与房型价目表（表 F）</td></tr>
-  <tr><td><b>月度</b></td><td>更新未来 8 周预测、校准 No-show 与取消率</td><td>月度预测表、超售参数（表 E）</td></tr>
-  <tr><td><b>周度</b></td><td>房型价差校验、渠道开关复核、团队/会议排期</td><td>周度动作清单（表 N）</td></tr>
-  <tr><td><b>每日</b></td><td>取数 → 比价 → 查表 → 执行 → 巡检</td><td>每日调价与库存动作（表 M）</td></tr>
-</table>
-
-<h3>2.2　每日流水线（表 M）</h3>
-<p>这是 L1 学员必须背下来的一条时间轴。照着走完一遍，一天的工作就做完了。</p>
-<table>
-  <tr><th style="width:110px">时间</th><th style="width:200px">动作</th><th>产出 / 要点</th></tr>
-  <tr><td class="num">07:30</td><td>抓取昨日经营数据</td><td>每日收益数据包：OCC / ADR / RevPAR / 渠道结构</td></tr>
-  <tr><td class="num">08:10</td><td>竞对比价</td><td>记录竞组挂牌价，算 ARI / MPI（表 C / 表 D）</td></tr>
-  <tr><td class="num">08:30</td><td>查表定动作</td><td>按表 A 定价格、表 B 定库存限制、表 E 定超售</td></tr>
-  <tr><td class="num">09:10</td><td>执行与留痕</td><td>调价入系统、登记《调价台账》（依据哪张表、改了什么）</td></tr>
-  <tr><td class="num">17:00</td><td>巡检与尾单</td><td>剩余房量与临近需求复核；低谷日做尾单清仓（表 H）</td></tr>
-</table>
-<div class="ok">
-  <b>留痕是复盘的命根子。</b>每次调价都登记「依据哪张表、改了什么、预期多少」，
-  一周后对照实际结果——命中率才会提高。没有台账，永远只能凭感觉。
-</div>
-
-<h3>2.3　十五张判定表全景</h3>
-<p>
-  《操作法典》把收益决策拆成 15 张可查的表。学员不需要个人判断力，
-  只需要「看数 → 查表 → 执行 → 记录」。
-</p>
-<table>
-  <tr><th style="width:64px">编号</th><th style="width:220px">名称</th><th>用途</th></tr>
-  <tr><td><b>表 A</b></td><td>每日调价</td><td>按日型与出租率给出提价 / 守价 / 降价的判定</td></tr>
-  <tr><td><b>表 B</b></td><td>库存限制</td><td>什么时候该关低价房型、设最短住期（MinLOS）</td></tr>
-  <tr><td><b>表 C</b></td><td>价格指数 ARI</td><td>用竞组均价校准自己的价格站位</td></tr>
-  <tr><td><b>表 D</b></td><td>渗透指数 MPI</td><td>判断份额是涨是跌，与表 C 合看导出 RGI</td></tr>
-  <tr><td><b>表 E</b></td><td>超售标准</td><td>由 No-show 率反推标准超售间数，控步行风险</td></tr>
-  <tr><td><b>表 F</b></td><td>房型价差</td><td>展开成全房型价格表，保证价差合理不打架</td></tr>
-  <tr><td><b>表 G</b></td><td>团队询价</td><td>团队单接不接：置换分析与客房比率</td></tr>
-  <tr><td><b>表 H</b></td><td>价格一致</td><td>各渠道挂牌价一致性，渠道管理的红线</td></tr>
-  <tr><td><b>表 I</b></td><td>预订窗口分档监控</td><td>不同提前天数的日期，监控频率与触发阈值不同</td></tr>
-  <tr><td><b>表 J</b></td><td>免费升级规则</td><td>升级是成本最低的满意度工具，但必须用规则管住</td></tr>
-  <tr><td><b>表 K</b></td><td>会议／宴会综合收益联动</td><td>全服务酒店：客房亏的钱从餐饮会场赚回来</td></tr>
-  <tr><td><b>表 L</b></td><td>异常事件应急判定</td><td><b>优先级最高（1）</b>：一旦触发立刻执行，不用再查别的</td></tr>
-  <tr><td><b>表 M</b></td><td>每日收益操作流水线</td><td>一天的时间轴：什么时候做什么、耗时上限、产出什么</td></tr>
-  <tr><td><b>表 N</b></td><td>周度／月度节奏</td><td>按周、按月、按季必须做的周期性动作清单</td></tr>
-  <tr><td><b>表 O</b></td><td>冲突仲裁</td><td>多张表结论打架时的优先级（如 表 A 优先级 3 &gt; 表 C 优先级 4）</td></tr>
-</table>
-<div class="note">
-  <b>表会打架，这是正常的。</b>表 A 说提价、表 C 说降价时，按<b>表 O 的优先级</b>仲裁；
-  但<b>表 L（异常事件）优先级为 1</b>，一旦触发直接覆盖其余所有表。
-</div>
-
-<h3>2.4　周期性动作（表 N）</h3>
-<table>
-  <tr><th style="width:90px">周期</th><th style="width:230px">动作</th><th>产出物</th></tr>
-  <tr><td><b>每周一</b></td><td>房型价差校验（表 F）、未来 8 周预测更新、渠道开关复核（表 H）</td><td>周度动作清单</td></tr>
-  <tr><td><b>每月</b></td><td>重算 No-show 与取消率 → 更新超售参数（表 E）；复盘调价命中率</td><td>月度复盘报告</td></tr>
-  <tr><td><b>每季</b></td><td>竞组名单复核、价格体系重校、预算达成检视</td><td>季度策略调整</td></tr>
-</table>
-
-<h3>2.5　异常事件（表 L，优先级 1）</h3>
-<p>以下情况一旦出现，<b>立刻按表 L 执行，不用再查别的表</b>：</p>
-<ul>
-  <li>突发大额团队询价 / 会议包场</li>
-  <li>竞对异常大幅降价（跌幅超常规促销幅度）</li>
-  <li>系统或渠道故障导致价格/库存错乱</li>
-  <li>不可抗力（天气、公共事件）导致大量退订或激增</li>
-  <li>超售过度已产生步行客人</li>
-</ul>
-
-<h3>2.6　组织与协同</h3>
-<table>
-  <tr><th style="width:120px">角色</th><th>在收益体系里的职责</th></tr>
-  <tr><td><b>收益经理</b></td><td>定价格与库存策略、查表执行、留痕复盘；对 RevPAR / RGI 负责</td></tr>
-  <tr><td><b>前厅</b></td><td>执行升级（表 J）、处理 walk-in 与超售现场、反馈客人反应</td></tr>
-  <tr><td><b>销售</b></td><td>团队与会议询价，配合做置换分析（表 G）与综合贡献测算（表 K）</td></tr>
-  <tr><td><b>业主 / 总经理</b></td><td>批准预算与价格体系，看 RGI 与 GOPPAR，不干预日常单日调价</td></tr>
-</table>
-<!-- ==================== 第三篇 ==================== -->
-<h2 id="p3">第三篇　案例篇</h2>
-<p>
-  以下五个案例覆盖了最常见的五类决策失误。想看<b>更多业态与情境</b>（五星到民宿、繁荣期到台风天），见《酒店收益管理案例集》——24 个案例，可按维度筛选。
-</p>
-<p>每个案例统一按
-  <b>背景 → 数据 → 当时做法 → 结果 → 复盘 → 可复用动作</b>展开。
-  数值为示意，用于说明算法，不对应任何具体酒店。
-</p>
-
-<div class="case">
-  <div class="ct">案例一　卖满了，却没卖贵</div>
-  <div class="cm">板块：定价　|　依据：表 A · 表 C　|　最常见的漏损</div>
-  <dl>
-    <dt>背景</dt>
-    <dd>320 间全服务酒店，周五·大型展会前夜，预测满房。收益经理担心提价掉量，选择维持原价。</dd>
-    <dt>数据</dt>
-    <dd>本店 ADR ¥680，OCC 96%；竞组 ADR ¥820，OCC 92%。<br>
-        本店 RevPAR = 0.96 × 680 = <b>¥653</b>；竞组 RevPAR = 0.92 × 820 = <b>¥754</b>；
-        RGI = 653 / 754 = <b>87</b>（落后 13%）。</dd>
-    <dt>当时做法</dt>
-    <dd>担心掉量，维持 ¥680 不动。</dd>
-    <dt>结果</dt>
-    <dd>确实卖满（96%），但 ARI 仅 83。按竞组水平，本店 RevPAR 少赚约 ¥101/间；
-        按 320 间计，<b>单日少收入约 ¥32,320</b>。而这一天一整年只有几次。</dd>
-    <dt>复盘</dt>
-    <dd>「满房」不等于「收益做好了」。满房日还在按平日价卖，等于把利润白送给市场。
-        表 A 在满房日的判定本来就是<b>提价</b>，不敢用表，等于没有体系。</dd>
-    <dt>可复用动作</dt>
-    <dd>① 识别峰值日（展会/节假日/会议）；② 提前 3–7 天起按表 A 逐日提价，每次 3%–5%，观察 3 天；
-        ③ 同时收紧低价房型与促销库存（表 B）；④ 提价后记录命中率进《调价台账》。</dd>
-  </dl>
-  <div class="warn"><b>判断口诀：</b>出租率 ≥85% 且 ARI &lt;95 → 卖满了但没卖贵，先提价，不要先放量。</div>
-</div>
-
-<div class="case">
-  <div class="ct">案例二　超售失控：步行客人的代价</div>
-  <div class="cm">板块：库存　|　依据：表 E · 表 L　|　最伤口碑</div>
-  <dl>
-    <dt>背景</dt>
-    <dd>为冲出租率，收益经理在某日超售 20 间；但当月线上预付占比提高后，No-show 率已明显下降。</dd>
-    <dt>数据</dt>
-    <dd>房量 320；历史 No-show 12%（旧参数），实际 No-show 已降至 6%。<br>
-        按表 E，<b>标准超售应 ≈ 320 × 6% ≈ 19 间上限内的保守值</b>；但本次实际预订 340 间且到店率高，
-        最终 <b>3 位客人到店无房</b>。</dd>
-    <dt>当时做法</dt>
-    <dd>沿用了去年的超售参数，未按实际 No-show 复核。</dd>
-    <dt>结果</dt>
-    <dd>步行赔付 ≈ 3 ×（¥680 × 1.5 + ¥300 安置费）= <b>¥3,960</b>；
-        另有一位保证订房客人在社交平台发长文投诉，带来难以量化的口碑损失。</dd>
-    <dt>复盘</dt>
-    <dd>超售不是赌博，是<b>按 No-show 率算出来的</b>。参数必须按月复核：
-        线上预付占比提高、取消政策收紧，都会让 No-show 下降——沿用旧参数就等于超卖。</dd>
-    <dt>可复用动作</dt>
-    <dd>① 每月重算 No-show 与取消率，更新表 E 参数；② 超售上限不超过预期 No-show，
-        且不超过房量的 5%；③ 对保证订房（担保卡）优先保留房间；
-        ④ 一旦出现步行，立即按表 L 应急（优先级 1）处理并复盘。</dd>
-  </dl>
-  <div class="warn"><b>反向提醒：</b>完全不超售同样是确定的损失。No-show 9% 却不超售，
-    等于每 100 间里白扔约 9 间的收入。超售要「算准」，不是「不做」。</div>
-</div>
-
-<div class="case">
-  <div class="ct">案例三　40 间团队单，接还是不接</div>
-  <div class="cm">板块：定价 / 库存　|　依据：表 G · 表 K　|　销售与收益最容易吵架的地方</div>
-  <dl>
-    <dt>背景</dt>
-    <dd>销售拿来一个 40 间会议团队，只肯出 ¥520（BAR ¥680），要求当天入住。当天已售 90%。</dd>
-    <dt>数据</dt>
-    <dd>房量 320，已售 288，<b>剩余可售仅 32 间</b>——团队要 40 间，<b>必须挤掉 8 间散客</b>。<br>
-        散客期望价 ¥680，净收入（扣渠道 10%）≈ ¥612/间。</dd>
-    <dt>当时做法</dt>
-    <dd>两种典型错误：① 一口回绝（得罪销售、丢长期会议客）；② 全接（挤掉高价散客还压低均价）。</dd>
-    <dt>结果（用置换分析算）</dt>
-    <dd>接单净收益 = 40 × ¥520 × 0.9 ≈ ¥18,720；
-        被挤掉的 8 间散客净损失 = 8 × ¥612 ≈ ¥4,896；
-        <b>置换后净收益 ≈ ¥13,824</b>（若团队只带来房费）。<br>
-        若为全服务酒店，还要加上餐饮与会场（表 K）：假设餐饮+会场贡献 ¥12,000，
-        则<b>综合净收益 ≈ ¥25,824</b>——这时接单明显划算。</dd>
-    <dt>复盘</dt>
-    <dd>团队价不能只看单价，要看<b>置换损失</b>与<b>综合贡献</b>。
-        同一个团队，在只算房费时可能不划算，算上餐饮会场就划算了——这就是表 K 存在的意义。</dd>
-    <dt>可复用动作</dt>
-    <dd>① 先算「接这单会挤掉多少散客」（置换分析，表 G）；② 加上餐饮/会场/设备算综合贡献（表 K，全服务酒店必做）；
-        ③ 若必须接，尝试挪一部分房晚到低谷日，降低置换损失；④ 把算法固化成表，销售自己就能先算一遍。</dd>
-  </dl>
-</div>
-
-<div class="case">
-  <div class="ct">案例四　OTA 依赖：佣金在悄悄吃掉利润</div>
-  <div class="cm">板块：渠道　|　依据：表 H · NRevPAR　|　最容易被忽略的漏损</div>
-  <dl>
-    <dt>背景</dt>
-    <dd>某店 OTA 占比 55%、直销 25%，管理层只盯 OCC 与 ADR，没看渠道成本。</dd>
-    <dt>数据</dt>
-    <dd>月房费收入 ¥3,600,000；OTA 佣金约 15%，直销获客成本约 3%（差 12 个点）。</dd>
-    <dt>当时做法</dt>
-    <dd>为保量，持续给 OTA 独家价与促销，直销渠道无差异化权益。</dd>
-    <dt>结果</dt>
-    <dd>NRevPAR 明显低于 RevPAR——<b>账面上卖得不错，净到手被佣金吃掉</b>。
-        若把 <b>8 个百分点</b>的量从 OTA 转到直销，可省 ≈ 3,600,000 × 8% × 12% ≈ <b>¥34,560 / 月</b>，
-        年化约 <b>¥42 万</b>。</dd>
-    <dt>复盘</dt>
-    <dd>佣金是<b>结构性问题</b>，不是单日调价能解决的。它比「今天少提了 20 块」影响大得多，
-        却因为不在日报首页而被忽略。</dd>
-    <dt>可复用动作</dt>
-    <dd>① 把 NRevPAR 与直销占比放进日报首屏；② 做直订权益（会员价 / 免费取消 / 积分），
-        但<b>不公开破价</b>以守住价格一致（表 H）；③ 旺季用库存限制（表 B）压 OTA 房量；
-        ④ 按月复盘渠道净贡献，而不是只看产量。</dd>
-  </dl>
-  <div class="note"><b>价格一致（表 H）是红线：</b>直销要比 OTA 便宜，应该用<b>权益</b>（积分、取消政策），
-    而不是公开挂更低的牌价——后者会破坏价格体系并被平台处罚。</div>
-</div>
-
-<div class="case">
-  <div class="ct">案例五　低谷日尾单：甩还是守</div>
-  <div class="cm">板块：定价　|　依据：表 H · 变动成本　|　最容易搞错方向的决策</div>
-  <dl>
-    <dt>背景</dt>
-    <dd>周日（低谷日）17:00，还剩 22 间未售出。前台问要不要降价甩掉。</dd>
-    <dt>数据</dt>
-    <dd>单房变动成本（清洁+布草+易耗+早餐）≈ <b>¥180</b>；当前 BAR ¥544，OTA 挂牌 ¥544。</dd>
-    <dt>当时做法（两种极端）</dt>
-    <dd>① 全场 5 折公开甩卖 → 卖掉了，但拉低了品牌价格带，影响后续议价；
-        ② 坚持不降 → 最终只卖出 3 间，19 间<b>空置归零</b>。</dd>
-    <dt>结果</dt>
-    <dd>按变动成本判断：<b>只要成交价 &gt; ¥180，卖掉就比空着强</b>。
-        19 间空置 = 白丢 19 ×（544 − 180）≈ <b>¥6,916 的贡献毛利</b>。
-        而正确做法是<b>限时、隔离渠道</b>地甩，而不是公开破价。</dd>
-    <dt>复盘</dt>
-    <dd>易逝库存不过夜——<b>今晚不定就归零</b>。但甩的方式决定代价：
-        公开破价伤品牌与明天，隔离渠道甩只伤今天。</dd>
-    <dt>可复用动作</dt>
-    <dd>① 记住底线：成交价 &gt; 变动成本就该卖；② 用<b>限时 + 特定渠道</b>（会员/小程序/最后一分钟产品）清仓，
-        不污染 BAR 与公开挂牌价（表 H）；③ 17:00 巡检（表 M）就是为这件事留的固定时点。</dd>
-  </dl>
-</div>
-
-<!-- ==================== 附录 ==================== -->
-<h2 id="p4">附录</h2>
-
-<h3>附录 A　核心公式速查</h3>
-<table>
-  <tr><th style="width:150px">指标</th><th>公式</th></tr>
-  <tr><td>OCC 出租率</td><td class="num">已售房数 ÷ 可售房数</td></tr>
-  <tr><td>ADR 平均房价</td><td class="num">客房收入 ÷ 已售房数</td></tr>
-  <tr><td>RevPAR</td><td class="num">客房收入 ÷ 可售房数 = OCC × ADR</td></tr>
-  <tr><td>TrevPAR</td><td class="num">（房费 + 餐饮 + 会议 + 其他）÷ 可售房</td></tr>
-  <tr><td>GOPPAR</td><td class="num">（收入 − 运营成本）÷ 可售房</td></tr>
-  <tr><td>NRevPAR</td><td class="num">（房收入 − 佣金/渠道费）÷ 可售房</td></tr>
-  <tr><td>MPI 渗透指数</td><td class="num">本店 OCC ÷ 竞组 OCC × 100</td></tr>
-  <tr><td>ARI 价格指数</td><td class="num">本店 ADR ÷ 竞组 ADR × 100</td></tr>
-  <tr><td>RGI 收益指数</td><td class="num">本店 RevPAR ÷ 竞组 RevPAR × 100</td></tr>
-  <tr><td>No-show 率</td><td class="num">预订未到店 ÷ 预订量</td></tr>
-  <tr><td>步行赔付（估算）</td><td class="num">房费 × 1.5 + ¥300 安置费（每间）</td></tr>
-  <tr><td>置换净收益</td><td class="num">团队净收入 − 被挤掉的散客净损失 + 餐饮/会场贡献</td></tr>
-</table>
-
-<h3>附录 B　判定表索引（按用途查）</h3>
-<table>
-  <tr><th style="width:150px">我要解决的问题</th><th>查哪张表</th></tr>
-  <tr><td>今天该不该提价 / 降价</td><td><b>表 A</b>（每日调价）</td></tr>
-  <tr><td>要不要关低价房型、设最短住期</td><td><b>表 B</b>（库存限制）</td></tr>
-  <tr><td>我的价格贵了还是便宜了</td><td><b>表 C</b>（ARI）</td></tr>
-  <tr><td>我的份额是涨是跌</td><td><b>表 D</b>（MPI）</td></tr>
-  <tr><td>超售放几间</td><td><b>表 E</b>（超售标准）</td></tr>
-  <tr><td>房型之间价差怎么定</td><td><b>表 F</b>（房型价差）</td></tr>
-  <tr><td>团队单接不接</td><td><b>表 G</b>（团队询价）＋<b>表 K</b>（会议综合收益）</td></tr>
-  <tr><td>各渠道价格要不要一致</td><td><b>表 H</b>（价格一致）</td></tr>
-  <tr><td>离入住还有 X 天，该盯多紧</td><td><b>表 I</b>（预订窗口分档监控）</td></tr>
-  <tr><td>能不能给客人免费升级</td><td><b>表 J</b>（免费升级规则）</td></tr>
-  <tr><td>突发异常怎么办</td><td><b>表 L</b>（异常事件，优先级 1）</td></tr>
-  <tr><td>今天一天怎么排</td><td><b>表 M</b>（每日流水线）</td></tr>
-  <tr><td>这周/这个月还要做什么</td><td><b>表 N</b>（周度／月度节奏）</td></tr>
-  <tr><td>两张表结论打架听谁的</td><td><b>表 O</b>（冲突仲裁）</td></tr>
-</table>
-
-<h3>附录 C　90 天落地路线</h3>
-<table>
-  <tr><th style="width:110px">阶段</th><th style="width:170px">目标</th><th>关键动作</th></tr>
-  <tr><td><b>第 1–2 周</b></td><td>把数看对</td><td>补齐 24 个月历史日度数据；确认细分市场字段可用；
-      搭《每日收益数据包》（OCC/ADR/RevPAR/渠道结构）</td></tr>
-  <tr><td><b>第 3–4 周</b></td><td>把价站稳</td><td>建立 BAR 与房型价差（表 F）；确定竞组名单，开始算 ARI / MPI / RGI（表 C/D）</td></tr>
-  <tr><td><b>第 5–6 周</b></td><td>把流程跑起来</td><td>按表 M 走满 14 天；建立《调价台账》；每日留痕</td></tr>
-  <tr><td><b>第 7–9 周</b></td><td>把库存管住</td><td>重算 No-show/取消率，上超售参数（表 E）；
-      建立团队询价置换表（表 G）；渠道开关规则（表 H）</td></tr>
-  <tr><td><b>第 10–12 周</b></td><td>形成节奏</td><td>按表 N 固化周/月动作；月度复盘调价命中率；
-      把 RGI 与 GOPPAR 纳入管理层看板</td></tr>
-</table>
-<div class="ok">
-  <b>最容易失败的一步是第 5–6 周。</b>表格都建好了，但没人每天走流水线——
-  收益管理落不落地，差别就在<b>有没有人每天 08:30 真的去查表</b>。
-</div>
-
-<h3>附录 D　先给自己做一次体检</h3>
-<p>
-  读完整本白皮书，最好的下一步不是继续读，而是<b>拿自己酒店的数字算一遍</b>。
-  把上个月的 OCC、ADR、竞组数据、No-show、渠道占比填进
-  <b>《收益健康自检》</b>，系统会给出 RGI / MPI / ARI、健康分，
-  以及按严重程度排序的异常清单（每条都标注该做什么、依据哪张表）。
-</p>
-<div class="note">
-  自检是规则引擎，不是 AI 识图，也不会上传你的数据；机会金额为保守粗估，仅用于排优先级。
-  它的价值是<b>告诉你第一条该动的是什么</b>，而不是给你一份可以直接交给业主的财务承诺。
-</div>
-
-<hr>
-<div class="foot">
-  <b>RMC收益管理社区《酒店收益管理白皮书》v1.0</b>　·　2026 年 9 月<br>
-  本白皮书可自由传播与用于内部培训，请勿用于商业销售；引用请注明出处。<br>
-  配套资源：《收益管理概念总表》（48 条术语，按英文术语字母序，带板块标签与 1 分钟解说）、
-  《操作法典》（15 张判定表）、《收益健康自检》工具、8 张 Excel 实操模板。<br>
-  联系：rm-community@qq.com　|　https://hrma-city.github.io/
-</div>
-
-<script src="assets/js/app.js"></script>
+<script>
+document.getElementById("sub").addEventListener("click", function(){
+  var v = function(id){ return (document.getElementById(id).value || "").trim(); };
+  var mail = v("f1");
+  if(!mail || mail.indexOf("@") < 0){ alert("请填写正确的邮箱，我们要把资料发到这里"); return; }
+  var body = "资料接收邮箱：" + mail + "\n院校/院系：" + v("f2") + "\n职务：" + v("f3") +
+    "\n当前进度：" + v("f4") + "\n最想解决的问题：" + v("f5") +
+    "\n\n请发送：《收益管理开课指南》白皮书 +《20个教学案例》+ 4 套脱敏数据集。\n\n—— 提交自 白皮书领取页";
+  window.location.href = "mailto:rm-community@qq.com?subject=" +
+    encodeURIComponent("领取开课指南白皮书 - " + v("f2")) + "&body=" + encodeURIComponent(body);
+});
+</script>
 </body>
 </html>
