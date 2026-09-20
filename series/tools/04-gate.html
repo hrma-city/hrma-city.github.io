@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>触发条件检查表 · 工具预览</title><style>
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  color:#1a2733; background:#f5f7fa; line-height:1.7; }
+.bar { background:#0f2a4a; padding:11px 18px; }
+.bar a { color:#fff; text-decoration:none; font-size:13.5px; font-weight:700; }
+.wrap { max-width:880px; margin:0 auto; padding:26px 20px 60px; }
+h1 { color:#0f2a4a; font-size:22px; margin:6px 0 4px; }
+.sub { color:#5b6b7b; font-size:13px; margin-bottom:14px; }
+.note { background:#fff8e8; border-left:4px solid #e8b84b; padding:10px 14px;
+  border-radius:8px; font-size:13px; color:#6b5a2a; margin-bottom:18px; }
+table { border-collapse:collapse; width:100%; background:#fff; border-radius:10px;
+  overflow:hidden; box-shadow:0 2px 10px rgba(15,42,74,.07); font-size:13px; margin-bottom:22px; }
+th { background:#0f2a4a; color:#fff; padding:9px 10px; text-align:center; font-weight:600; }
+td { border:1px solid #e3e8ef; padding:8px 10px; text-align:center; }
+td.l { text-align:left; }
+tr:nth-child(even) td { background:#f3f7fc; }
+.cal { background:#eaf2fb; font-weight:700; }
+.sec { color:#0f2a4a; font-size:16px; font-weight:700; margin:26px 0 10px;
+  border-left:4px solid #1d6fb8; padding-left:10px; }
+.flist { background:#fff; border-radius:10px; padding:14px 18px; box-shadow:0 2px 10px rgba(15,42,74,.07); }
+.flist li { margin:7px 0; font-size:13px; }
+.flist code { background:#eef3f9; color:#0f2a4a; padding:1px 6px; border-radius:5px;
+  font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; }
+.dl { display:inline-block; margin-top:8px; background:#e8b84b; color:#0f2a4a;
+  font-weight:700; text-decoration:none; padding:11px 20px; border-radius:9px; font-size:14px; }
+.dl:hover { background:#d9a838; }
+.foot { text-align:center; color:#9aa7b5; font-size:12px; margin-top:34px; }
+</style></head><body><div class="bar"><a href="https://hrma-city.github.io/series/">← 返回知识地图</a></div><div class="wrap"><h1>触发条件检查表</h1><div class="sub">收益管理操作工具 · 在线预览（样例数据）</div><div class="note">每日开盘逐条打勾；命中数自动统计；满 3 条才动手调价/锁房，避免被单条噪声误触发。</div><table><thead><tr><th>#</th><th>触发条件</th><th>今日是否命中(是/否)</th><th>说明</th></tr></thead><tbody><tr><td>1</td><td>出租率 OCC 低于基线 10% 以上</td><td>否</td><td>低价促销候选</td></tr><tr><td>2</td><td>RevPAR 连续 3 天低于基线</td><td>否</td><td>需求走弱</td></tr><tr><td>3</td><td>竞品降价 ≥10% 且 RGI&lt;1</td><td>否</td><td>防守降价</td></tr><tr><td>4</td><td>在手可售 &gt; 总房量 40% 且距入住 ≤7 天</td><td>否</td><td>去化压力</td></tr><tr><td>5</td><td>Pace &lt; 0.9 且剩余天 &lt; 14</td><td>否</td><td>追赶窗口</td></tr><tr><td>6</td><td>重大事件/展会临近（需求上行）</td><td>否</td><td>提价窗口</td></tr><tr><td>7</td><td>团队置换后净收益 &gt; 0</td><td>否</td><td>接团</td></tr><tr><td>8</td><td>直销占比连续下降</td><td>否</td><td>调渠道结构</td></tr></tbody></table><div class="sec">关键公式（Excel 版自动计算）</div><div class="flist"><ul><li>命中数 = <code>COUNTIF(是否命中列,"是")</code></li><li>是否进入决策 = <code>IF(命中数≥3,"是","否")</code> —— 命中 ≥3 条才动手，避免噪声触发</li></ul></div><div class="sec">下载使用</div><a class="dl" href="04-gate.xlsx">⬇ 下载 Excel 版（带活公式）</a><div class="foot">本页为样例预览，真实计算请在 Excel 版中填写你的数据。</div></div></body></html>
