@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07 房型价差与价格栅栏 · HRMA 口袋书</title>
+<meta name="description" content="不靠店员推销，让客人在对比中自己选择更贵的那一间">
+<style>
+/* HRMA 口袋书系列 · 统一版式（130×184mm 口袋本，屏幕/打印双用） */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#eef1f6;color:#1c2430;line-height:1.85;font-size:15px}
+.paper{max-width:760px;margin:22px auto;background:#fff;box-shadow:0 4px 18px rgba(20,30,70,.10)}
+
+/* 封面 */
+.cover{background:#0f2a4a;color:#fff;padding:38px 34px 30px;position:relative}
+.cov-series{font-size:12px;letter-spacing:2.6px;opacity:.75;margin-bottom:10px}
+.cov-no{display:inline-block;background:#e8b84b;color:#3a2a00;font-weight:800;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-right:9px}
+.cov-title{font-size:31px;font-weight:800;line-height:1.35;margin:14px 0 12px}
+.cov-promise{font-size:16px;color:#ffe9bd;line-height:1.7;border-left:3px solid #e8b84b;padding-left:13px}
+.cov-badge{position:absolute;right:30px;top:32px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:9px 12px;text-align:center}
+.cov-badge b{display:block;font-size:19px;color:#e8b84b;line-height:1.2}
+.cov-badge span{font-size:11px;opacity:.8}
+.cov-for{margin-top:18px;font-size:13px;opacity:.72}
+
+/* 正文 */
+.body{padding:30px 34px 10px}
+.kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+  color:#fff;background:#1d6fb8;border-radius:5px;padding:2px 9px;margin-bottom:9px}
+h2{font-size:20px;font-weight:800;color:#0f2a4a;margin:0 0 12px;line-height:1.45}
+p{margin:10px 0}
+.lead{font-size:15.5px;color:#3a4b60}
+.story{background:#f7f9fc;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:14px 17px}
+.story .who{font-size:13px;color:#1d6fb8;font-weight:800;margin-bottom:5px}
+.point{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.pn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#0f2a4a;color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pt{font-size:15px}
+.pt b{color:#0f2a4a}
+figure{border:1px solid #e2e8ef;border-radius:11px;padding:15px 17px;background:#fbfcfe;margin:14px 0}
+figcaption{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+pre.figure-art{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.4px;line-height:1.75;color:#0f2a4a;white-space:pre-wrap}
+.formula{background:#fffdf6;border:2px solid #e8cf94;border-radius:12px;padding:16px 18px;margin:14px 0}
+.formula .fname{font-size:13px;color:#a8801f;font-weight:800;margin-bottom:7px}
+.formula .fexpr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:16px;font-weight:700;color:#0f2a4a;background:#fff;border-radius:8px;padding:10px 13px;
+  border:1px solid #f0dcae;line-height:1.7;white-space:pre-wrap}
+.ex{margin-top:11px;font-size:14.2px;color:#3a4b60}
+.ex b{color:#0f2a4a}
+ul.do{list-style:none}
+ul.do li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e6eaf1}
+ul.do li:last-child{border-bottom:none}
+ul.do li::before{content:"";position:absolute;left:7px;top:17px;width:8px;height:8px;
+  border-radius:2px;background:#1d9e75}
+.dont{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;margin-top:13px}
+.dont b{color:#a32d2d}
+.case{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:15px 18px}
+.case h4{font-size:14.5px;color:#0f2a4a;margin-bottom:6px}
+.case .num{color:#5b6a7d;font-size:13.6px}
+.case .end{margin-top:9px;font-size:14px;color:#3a4b60;border-top:1px dashed #dde3ec;padding-top:9px}
+table.data{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+table.data th{background:#eef3f9;color:#3a4b60;font-size:12.5px;text-align:left;padding:9px 11px}
+table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
+.qbox{background:#0f2a4a;color:#fff;border-radius:13px;padding:18px 20px;margin:18px 0}
+.qbox .qt{font-size:15px;font-weight:800;color:#e8b84b;margin-bottom:8px}
+.qbox ol{margin:0 0 0 18px}
+.qbox li{margin:5px 0;font-size:14.6px}
+.footer{margin-top:22px;background:#f4f7fa;border-top:1px solid #e2e8ef;padding:18px 34px 22px;
+  font-size:13px;color:#5b6a7d;line-height:1.8}
+.nextbox{background:#fff;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin-bottom:12px}
+.nextbox b{color:#0f2a4a}
+.qr{display:inline-block;border:1px solid #cfd8e5;border-radius:8px;padding:6px 10px;font-size:12px;color:#8494a8}
+
+/* 系列索引页 */
+.index-wrap{max-width:900px;margin:0 auto;padding:26px 18px 50px}
+.ihead{background:#0f2a4a;color:#fff;border-radius:14px;padding:26px 26px 22px;margin-bottom:20px}
+.ihead h1{font-size:25px;font-weight:800;margin-bottom:8px}
+.ihead p{opacity:.85;font-size:14.5px}
+.rule{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.rule h3{font-size:16px;color:#0f2a4a;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.bk{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:15px 16px;text-decoration:none;color:inherit;display:block}
+.bk:hover{border-color:#e8b84b}
+.bk .bno{font-size:11.5px;color:#a8801f;font-weight:800;letter-spacing:1px}
+.bk .bt{font-size:15.5px;font-weight:800;color:#0f2a4a;margin:4px 0 5px;line-height:1.4}
+.bk .bp{font-size:13px;color:#5b6a7d;line-height:1.65}
+.bk .bmeta{margin-top:8px;font-size:11.5px;color:#8494a8}
+.bigbook{background:#fffdf6;border:2px solid #e8cf94}
+
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .body{page-break-after:auto}
+}
+</style>
+</head>
+<body>
+<div class="paper">
+
+  <div class="cover">
+    <div class="cov-series">HRMA 口袋书系列 · REVENUE MANAGEMENT POCKET</div>
+    <div><span class="cov-no">07</span></div>
+    <div class="cov-title">房型价差与价格栅栏</div>
+    <div class="cov-promise">不靠店员推销，让客人在对比中自己选择更贵的那一间</div>
+    <div class="cov-for">适读：酒店收益经理、前厅经理、负责价格体系设计的运营人员</div>
+    <div class="cov-badge"><b>30</b><span>分钟读完</span></div>
+  </div>
+
+  <div class="body">
+
+    <div class="kicker">01 · 这个坑你一定踩过</div>
+    <h2>三个房型只差 20 元，客人为何该选贵的</h2>
+    <div class="story"><div class="who">现场</div><p>很多店的房型价格是这样排的：标准房 380、高级房 400、豪华房 420。三档之间差 20 元。</p><p>结果是八成客人订最便宜的那档——因为<b>“多花 20 块好像也没什么意义”</b>。价差太小，等于把几位价值的房子都按最低价卖出去了。</p></div>
+
+    <div class="kicker" style="margin-top:26px">02 · 核心概念</div>
+    <h2>客人不是嫌贵，是看不出差别</h2>
+    <p class="lead">客人的选择逻辑很简单：多付的这笔钱，值不值预期的那份改善？价差必须大到“看得出来”，小到“愿意掏”。这个区间通常是相邻房型的 8%–15%。</p>
+    <figure><figcaption>看不见差异就只会买最便宜的</figcaption><pre class="figure-art">错误示范：  标准 380 │ 高级 400 │ 豪华 420
+           └ 差价 20 元 → 客人读不出差别 → 全部涌向最便宜档
+
+正确示范：  标准 358 │ 高级 418 │ 豪华 498 │ 套房 698
+           └ 差价 60~200 元 → 每上一档都“看得见”明显差别
+
+原则：价差必须锚定能被感知的物理差异
+      面积、楼层、景观、床型、行政礼遇</pre></figure>
+    <div class="point"><div class="pn">1</div><div class="pt"><b>价差锚定物理差异，不锚定成本</b> 房间贵不贵，看的是客人能感知到什么，不是你装修花了多少。看不到的改善，不该出现在价格里。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>相邻档建议相差 8%–15%</b> 太小没有升级动力，太大会把客人直接推向更低档或被竞争者截走。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>用栅栏区分，而不是靠店员口述</b> 提前预订天数、可否取消、含不含早餐、会员限定——这些是明码标价的栅栏，比口头推销更可靠也更公平。</div></div>
+
+    <div class="kicker" style="margin-top:26px">03 · 怎么算</div>
+    <h2>算一遍，你会记一辈子</h2>
+    <div class="formula"><div class="fname">价差检验</div><div class="fexpr">相邻房型价差率 = (高一档房价 − 低一档房价) ÷ 低一档房价
+建议落在 8% ~ 15%；套房类可放宽到 30% 以上</div><div class="ex"><b>算一遍：</b>标准房 358 元，高级房 418 元。<br>价差率 = (418 − 358) ÷ 358 = <b>16.8%</b> → 略高但在可接受区间上沿。<br>若把高级房降到 398 元，价差率 = 11.2%，正好落在建议区间中段，通常会有更多客人愿意升级。<br><b>再算套房：</b>698 ÷ 418 ≈ 1.67 → 套房比高级房高 <b>67%</b>，属于合理（套房应当拉开距离）。</div></div>
+
+    <div class="kicker" style="margin-top:26px">04 · 怎么做</div>
+    <h2>三步上限，别超过三件事</h2>
+    <ul class="do"><li>把自己店所有房型列一行，算出<b>每对相邻房型的价差率</b>，找出低于 8% 的那几对。</li><li>给每一个价差写一句“为什么值这个钱”，写不出来的差价就该重新设计。</li><li>把至少一项差异做成明码栅栏（如提前 7 天预订不可取消立减），减少对店员口才的依赖。</li></ul>
+    <div class="dont"><b>不要做的事：</b><b>把看不见的差异算进房价</b> / <b>让所有房型挤在 5% 以内的价差里</b> / <b>用口头推销替代明码栅栏</b></div>
+
+    <div class="kicker" style="margin-top:26px">05 · 真实案例</div>
+    <h2>重排价格线之后发生了什么</h2>
+    <div class="case"><h4>重排价格线之后发生了什么</h4><table class="data"><thead><tr><th>房型</th><th>调整前</th><th>调整后</th><th>备注</th></tr></thead><tbody><tr><td>标准房</td><td>380 元</td><td>358 元</td><td>下调，作为价格锚点</td></tr><tr><td>高级房</td><td>400 元</td><td>418 元</td><td>拉到 +17%</td></tr><tr><td>豪华房</td><td>420 元</td><td>498 元</td><td>拉到 +19%</td></tr><tr><td>套房</td><td>520 元</td><td>698 元</td><td>与豪华拉开距离</td></tr></tbody></table><div class="end">价格线拉开后，高价档的销量通常会上升而不是下降——因为客人终于<b>有理由</b>往上选了。平均房价随之抬升，而入住率几乎不受影响。</div></div>
+
+    <div class="qbox">
+      <div class="qt">今日行动清单</div>
+      <ol><li>列出全部房型并算出相邻价差率。</li><li>为每一档差价写出一句“值在哪”。</li><li>把一项差异改成明码栅栏，本周上线。</li></ol>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="nextbox"><b>下一本：</b>No.08　最短住期 MinLOS 怎么用 —— 还有一种更强硬的库存工具，但用错会伤客——下一本专门讲它。</div>
+    <span class="qr">扫码获取配套数据 / 全套目录</span>
+    <div style="margin-top:10px">HRMA 收益管理社区 · 口袋书系列 07 · 咨询 rm-community@qq.com</div>
+    <div style="margin-top:6px;font-size:12px;color:#8494a8">本册为初稿 v0.1（核心内容已完成，约 1,000 字）；目标成稿 8,000–12,000 字，按模板逐段扩充即可。</div>
+  </div>
+
+</div>
+</body>
+</html>

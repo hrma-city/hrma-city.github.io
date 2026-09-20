@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>14 客源细分：把客人分成几类来定价 · HRMA 口袋书</title>
+<meta name="description" content="不再对所有客人报同一个价，而是给不同客人不同的门">
+<style>
+/* HRMA 口袋书系列 · 统一版式（130×184mm 口袋本，屏幕/打印双用） */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#eef1f6;color:#1c2430;line-height:1.85;font-size:15px}
+.paper{max-width:760px;margin:22px auto;background:#fff;box-shadow:0 4px 18px rgba(20,30,70,.10)}
+
+/* 封面 */
+.cover{background:#0f2a4a;color:#fff;padding:38px 34px 30px;position:relative}
+.cov-series{font-size:12px;letter-spacing:2.6px;opacity:.75;margin-bottom:10px}
+.cov-no{display:inline-block;background:#e8b84b;color:#3a2a00;font-weight:800;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-right:9px}
+.cov-title{font-size:31px;font-weight:800;line-height:1.35;margin:14px 0 12px}
+.cov-promise{font-size:16px;color:#ffe9bd;line-height:1.7;border-left:3px solid #e8b84b;padding-left:13px}
+.cov-badge{position:absolute;right:30px;top:32px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:9px 12px;text-align:center}
+.cov-badge b{display:block;font-size:19px;color:#e8b84b;line-height:1.2}
+.cov-badge span{font-size:11px;opacity:.8}
+.cov-for{margin-top:18px;font-size:13px;opacity:.72}
+
+/* 正文 */
+.body{padding:30px 34px 10px}
+.kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+  color:#fff;background:#1d6fb8;border-radius:5px;padding:2px 9px;margin-bottom:9px}
+h2{font-size:20px;font-weight:800;color:#0f2a4a;margin:0 0 12px;line-height:1.45}
+p{margin:10px 0}
+.lead{font-size:15.5px;color:#3a4b60}
+.story{background:#f7f9fc;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:14px 17px}
+.story .who{font-size:13px;color:#1d6fb8;font-weight:800;margin-bottom:5px}
+.point{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.pn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#0f2a4a;color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pt{font-size:15px}
+.pt b{color:#0f2a4a}
+figure{border:1px solid #e2e8ef;border-radius:11px;padding:15px 17px;background:#fbfcfe;margin:14px 0}
+figcaption{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+pre.figure-art{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.4px;line-height:1.75;color:#0f2a4a;white-space:pre-wrap}
+.formula{background:#fffdf6;border:2px solid #e8cf94;border-radius:12px;padding:16px 18px;margin:14px 0}
+.formula .fname{font-size:13px;color:#a8801f;font-weight:800;margin-bottom:7px}
+.formula .fexpr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:16px;font-weight:700;color:#0f2a4a;background:#fff;border-radius:8px;padding:10px 13px;
+  border:1px solid #f0dcae;line-height:1.7;white-space:pre-wrap}
+.ex{margin-top:11px;font-size:14.2px;color:#3a4b60}
+.ex b{color:#0f2a4a}
+ul.do{list-style:none}
+ul.do li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e6eaf1}
+ul.do li:last-child{border-bottom:none}
+ul.do li::before{content:"";position:absolute;left:7px;top:17px;width:8px;height:8px;
+  border-radius:2px;background:#1d9e75}
+.dont{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;margin-top:13px}
+.dont b{color:#a32d2d}
+.case{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:15px 18px}
+.case h4{font-size:14.5px;color:#0f2a4a;margin-bottom:6px}
+.case .num{color:#5b6a7d;font-size:13.6px}
+.case .end{margin-top:9px;font-size:14px;color:#3a4b60;border-top:1px dashed #dde3ec;padding-top:9px}
+table.data{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+table.data th{background:#eef3f9;color:#3a4b60;font-size:12.5px;text-align:left;padding:9px 11px}
+table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
+.qbox{background:#0f2a4a;color:#fff;border-radius:13px;padding:18px 20px;margin:18px 0}
+.qbox .qt{font-size:15px;font-weight:800;color:#e8b84b;margin-bottom:8px}
+.qbox ol{margin:0 0 0 18px}
+.qbox li{margin:5px 0;font-size:14.6px}
+.footer{margin-top:22px;background:#f4f7fa;border-top:1px solid #e2e8ef;padding:18px 34px 22px;
+  font-size:13px;color:#5b6a7d;line-height:1.8}
+.nextbox{background:#fff;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin-bottom:12px}
+.nextbox b{color:#0f2a4a}
+.qr{display:inline-block;border:1px solid #cfd8e5;border-radius:8px;padding:6px 10px;font-size:12px;color:#8494a8}
+
+/* 系列索引页 */
+.index-wrap{max-width:900px;margin:0 auto;padding:26px 18px 50px}
+.ihead{background:#0f2a4a;color:#fff;border-radius:14px;padding:26px 26px 22px;margin-bottom:20px}
+.ihead h1{font-size:25px;font-weight:800;margin-bottom:8px}
+.ihead p{opacity:.85;font-size:14.5px}
+.rule{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.rule h3{font-size:16px;color:#0f2a4a;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.bk{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:15px 16px;text-decoration:none;color:inherit;display:block}
+.bk:hover{border-color:#e8b84b}
+.bk .bno{font-size:11.5px;color:#a8801f;font-weight:800;letter-spacing:1px}
+.bk .bt{font-size:15.5px;font-weight:800;color:#0f2a4a;margin:4px 0 5px;line-height:1.4}
+.bk .bp{font-size:13px;color:#5b6a7d;line-height:1.65}
+.bk .bmeta{margin-top:8px;font-size:11.5px;color:#8494a8}
+.bigbook{background:#fffdf6;border:2px solid #e8cf94}
+
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .body{page-break-after:auto}
+}
+</style>
+</head>
+<body>
+<div class="paper">
+
+  <div class="cover">
+    <div class="cov-series">HRMA 口袋书系列 · REVENUE MANAGEMENT POCKET</div>
+    <div><span class="cov-no">14</span></div>
+    <div class="cov-title">客源细分：把客人分成几类来定价</div>
+    <div class="cov-promise">不再对所有客人报同一个价，而是给不同客人不同的门</div>
+    <div class="cov-for">适读：酒店收益经理、销售负责人、市场运营人员</div>
+    <div class="cov-badge"><b>30</b><span>分钟读完</span></div>
+  </div>
+
+  <div class="body">
+
+    <div class="kicker">01 · 这个坑你一定踩过</div>
+    <h2>同样的房，商务客和度假客愿意付的钱完全不同</h2>
+    <div class="story"><div class="who">现场</div><p>一位周二入住的商务客人，在意的是“发票、位置、能不能改期”，对价格不太敏感；而一位提前两个月订房的度假客人，第一件事是比价。</p><p>用同一个价、同一套条件去接待这两类人，结果必然是：<b>前者嫌麻烦，后者嫌贵。</b></p></div>
+
+    <div class="kicker" style="margin-top:26px">02 · 核心概念</div>
+    <h2>细分的目的，是把价格敏感度不同的人分开</h2>
+    <p class="lead">客源细分不是为了把人分成三六九等，而是为了让愿意多付的人有理由多付、对价格敏感的人有门槛更低的门可进——两类人各得其所，你两头都不丢。</p>
+    <figure><figcaption>常见细分与其行为特征</figcaption><pre class="figure-art">商务散客    提前期短、改期多、价格敏感度低 → 给灵活性，少给折扣
+休闲散客    提前期长、比价多、价格敏感度高 → 给提前订优惠，加不可取消栅栏
+协议客户    稳定量大、要求协议价           → 用间夜承诺换折扣
+会员客人    复购高、看重权益               → 给权益不给裸价
+团队客人    量大价低、占用库存多           → 先做置换测算
+OTA 客人    流量入口、忠诚度低             → 控库存不控价
+
+原则：价格敏感度高的细分 → 用栅栏（限制）隔离
+      价格敏感度低的细分 → 用便利（灵活）收费</pre></figure>
+    <div class="point"><div class="pn">1</div><div class="pt"><b>先按行为分，不按身份分</b> 真正影响付钱意愿的是预订提前期、取消概率、比价程度，而不是客人的头衔。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>每一档都要有栅栏</b> 便宜的价格必须附带限制：不可取消、提前天数、最少住期。没有栅栏的低价会漏给本来愿意付全价的人。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>细分要能统计</b> 分了但统计不出来，等于没分。每个细分都要有独立的间夜与收入口径。</div></div>
+
+    <div class="kicker" style="margin-top:26px">03 · 怎么算</div>
+    <h2>算一遍，你会记一辈子</h2>
+    <div class="formula"><div class="fname">细分贡献度</div><div class="fexpr">某细分贡献度 = 该细分间夜占比 × 该细分渠道净值
+加权净房价 = Σ(各细分净值 × 间夜占比) ÷ 总间夜</div><div class="ex"><b>算一遍：</b>当晚卖出 200 间。<br>商务散客 60 间，净值 380 元；休闲散客 60 间，净值 342 元；协议 50 间，净值 352 元；OTA 30 间，净值 340 元。<br>加权净房价 = (380×60 + 342×60 + 352×50 + 340×30) ÷ 200<br>　　　　　 = (22,800 + 20,520 + 17,600 + 10,200) ÷ 200 = <b>355.6 元</b><br>→ 商务散客占比虽不是最高，但净值最高，是最该被保护和争取的细分。</div></div>
+
+    <div class="kicker" style="margin-top:26px">04 · 怎么做</div>
+    <h2>三步上限，别超过三件事</h2>
+    <ul class="do"><li>列出本店现有的细分清单，写出每一类的<b>提前期、取消率、价格敏感度</b>三个特征。</li><li>给每一个低价细分补上至少一条栅栏（不可取消 / 提前天数 / 最少住期）。</li><li>把报表改成按细分出数，看清楚谁在真正贡献收入。</li></ul>
+    <div class="dont"><b>不要做的事：</b><b>只按客人身份而不按行为细分</b> / <b>给低价细分却不设任何栅栏</b> / <b>分了细分却从不按细分统计</b></div>
+
+    <div class="kicker" style="margin-top:26px">05 · 真实案例</div>
+    <h2>同一晚，五个细分的真实画像</h2>
+    <div class="case"><h4>同一晚，五个细分的真实画像</h4><table class="data"><thead><tr><th>细分</th><th>间夜</th><th>净值</th><th>提前期</th><th>推荐栅栏</th></tr></thead><tbody><tr><td>商务散客</td><td>60</td><td>380 元</td><td>0–3 天</td><td>保留灵活取消</td></tr><tr><td>休闲散客</td><td>60</td><td>342 元</td><td>15–45 天</td><td>提前订 + 不可取消</td></tr><tr><td>协议客户</td><td>50</td><td>352 元</td><td>不定</td><td>年承诺间夜</td></tr><tr><td>OTA 客人</td><td>30</td><td>340 元</td><td>0–7 天</td><td>控库存 + 限时</td></tr></tbody></table><div class="end">看清这张表之后，你就知道该保护谁、该限制谁，而不是对所有客人都用同一套动作。</div></div>
+
+    <div class="qbox">
+      <div class="qt">今日行动清单</div>
+      <ol><li>写出本店细分清单及三项行为特征。</li><li>给每个低价细分补一条栅栏。</li><li>把报表改为按细分出数。</li></ol>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="nextbox"><b>下一本：</b>No.15　库存分配：房该留给哪个渠道 —— 价格给对了，房却可能被最不值钱的渠道先订走。</div>
+    <span class="qr">扫码获取配套数据 / 全套目录</span>
+    <div style="margin-top:10px">HRMA 收益管理社区 · 口袋书系列 14 · 咨询 rm-community@qq.com</div>
+    <div style="margin-top:6px;font-size:12px;color:#8494a8">本册为初稿 v0.1（核心内容已完成，约 1,000 字）；目标成稿 8,000–12,000 字，按模板逐段扩充即可。</div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>酒店收益管理教学手册（高校版）</title>
+<style>
+/* HRMA 口袋书系列 · 统一版式（130×184mm 口袋本，屏幕/打印双用） */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#eef1f6;color:#1c2430;line-height:1.85;font-size:15px}
+.paper{max-width:760px;margin:22px auto;background:#fff;box-shadow:0 4px 18px rgba(20,30,70,.10)}
+
+/* 封面 */
+.cover{background:#0f2a4a;color:#fff;padding:38px 34px 30px;position:relative}
+.cov-series{font-size:12px;letter-spacing:2.6px;opacity:.75;margin-bottom:10px}
+.cov-no{display:inline-block;background:#e8b84b;color:#3a2a00;font-weight:800;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-right:9px}
+.cov-title{font-size:31px;font-weight:800;line-height:1.35;margin:14px 0 12px}
+.cov-promise{font-size:16px;color:#ffe9bd;line-height:1.7;border-left:3px solid #e8b84b;padding-left:13px}
+.cov-badge{position:absolute;right:30px;top:32px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:9px 12px;text-align:center}
+.cov-badge b{display:block;font-size:19px;color:#e8b84b;line-height:1.2}
+.cov-badge span{font-size:11px;opacity:.8}
+.cov-for{margin-top:18px;font-size:13px;opacity:.72}
+
+/* 正文 */
+.body{padding:30px 34px 10px}
+.kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+  color:#fff;background:#1d6fb8;border-radius:5px;padding:2px 9px;margin-bottom:9px}
+h2{font-size:20px;font-weight:800;color:#0f2a4a;margin:0 0 12px;line-height:1.45}
+p{margin:10px 0}
+.lead{font-size:15.5px;color:#3a4b60}
+.story{background:#f7f9fc;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:14px 17px}
+.story .who{font-size:13px;color:#1d6fb8;font-weight:800;margin-bottom:5px}
+.point{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.pn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#0f2a4a;color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pt{font-size:15px}
+.pt b{color:#0f2a4a}
+figure{border:1px solid #e2e8ef;border-radius:11px;padding:15px 17px;background:#fbfcfe;margin:14px 0}
+figcaption{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+pre.figure-art{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.4px;line-height:1.75;color:#0f2a4a;white-space:pre-wrap}
+.formula{background:#fffdf6;border:2px solid #e8cf94;border-radius:12px;padding:16px 18px;margin:14px 0}
+.formula .fname{font-size:13px;color:#a8801f;font-weight:800;margin-bottom:7px}
+.formula .fexpr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:16px;font-weight:700;color:#0f2a4a;background:#fff;border-radius:8px;padding:10px 13px;
+  border:1px solid #f0dcae;line-height:1.7;white-space:pre-wrap}
+.ex{margin-top:11px;font-size:14.2px;color:#3a4b60}
+.ex b{color:#0f2a4a}
+ul.do{list-style:none}
+ul.do li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e6eaf1}
+ul.do li:last-child{border-bottom:none}
+ul.do li::before{content:"";position:absolute;left:7px;top:17px;width:8px;height:8px;
+  border-radius:2px;background:#1d9e75}
+.dont{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;margin-top:13px}
+.dont b{color:#a32d2d}
+.case{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:15px 18px}
+.case h4{font-size:14.5px;color:#0f2a4a;margin-bottom:6px}
+.case .num{color:#5b6a7d;font-size:13.6px}
+.case .end{margin-top:9px;font-size:14px;color:#3a4b60;border-top:1px dashed #dde3ec;padding-top:9px}
+table.data{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+table.data th{background:#eef3f9;color:#3a4b60;font-size:12.5px;text-align:left;padding:9px 11px}
+table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
+.qbox{background:#0f2a4a;color:#fff;border-radius:13px;padding:18px 20px;margin:18px 0}
+.qbox .qt{font-size:15px;font-weight:800;color:#e8b84b;margin-bottom:8px}
+.qbox ol{margin:0 0 0 18px}
+.qbox li{margin:5px 0;font-size:14.6px}
+.footer{margin-top:22px;background:#f4f7fa;border-top:1px solid #e2e8ef;padding:18px 34px 22px;
+  font-size:13px;color:#5b6a7d;line-height:1.8}
+.nextbox{background:#fff;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin-bottom:12px}
+.nextbox b{color:#0f2a4a}
+.qr{display:inline-block;border:1px solid #cfd8e5;border-radius:8px;padding:6px 10px;font-size:12px;color:#8494a8}
+
+/* 系列索引页 */
+.index-wrap{max-width:900px;margin:0 auto;padding:26px 18px 50px}
+.ihead{background:#0f2a4a;color:#fff;border-radius:14px;padding:26px 26px 22px;margin-bottom:20px}
+.ihead h1{font-size:25px;font-weight:800;margin-bottom:8px}
+.ihead p{opacity:.85;font-size:14.5px}
+.rule{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.rule h3{font-size:16px;color:#0f2a4a;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.bk{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:15px 16px;text-decoration:none;color:inherit;display:block}
+.bk:hover{border-color:#e8b84b}
+.bk .bno{font-size:11.5px;color:#a8801f;font-weight:800;letter-spacing:1px}
+.bk .bt{font-size:15.5px;font-weight:800;color:#0f2a4a;margin:4px 0 5px;line-height:1.4}
+.bk .bp{font-size:13px;color:#5b6a7d;line-height:1.65}
+.bk .bmeta{margin-top:8px;font-size:11.5px;color:#8494a8}
+.bigbook{background:#fffdf6;border:2px solid #e8cf94}
+
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .body{page-break-after:auto}
+}
+</style>
+</head>
+<body>
+<div class="paper">
+  <div class="cover">
+    <div class="cov-series">HRMA 教学装 · 高校版</div>
+    <div class="cov-title">酒店收益管理<br>教学手册</div>
+    <div class="cov-promise">写给没有产业经验的老师：怎么把这门课讲明白，并做出可申报的成果</div>
+    <div class="cov-for">适读：酒店管理专业负责人、骨干教师、拟开设本课程的高校教师</div>
+  </div>
+  <div class="body"><div class="kicker">使用说明</div><h2>这本手册怎么用</h2><p class="lead">如果你手上没有产业经验，却要开这门课——这本手册就是为你写的。</p><p>它不教你收益管理本身，而是教你<b>怎么把收益管理讲给学生听</b>。全书三篇：准备篇解决"能不能开"，内容篇解决"讲什么、怎么讲"，教学篇解决"怎么考、怎么申报"。</p><div class="kicker" style="margin-top:26px">准备篇</div><h2>我该不该开这门课</h2><div class="point"><div class="pn">1</div><div class="pt"><b>为什么必须开</b>　收益岗已经是连锁与前厅体系的标准配置，而多数院校的课程还停留在十年前的前厅框架。学生会做题，不会看数。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>四个真实障碍</b>　师资没有产业经验 / 教材内容滞后 / 没有可用数据 / 校企对接无抓手。四个都有解法。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>课时模板</b>　32 学时（理论 20 + 实训 12）适用于三年制高职；48 学时版本适用于应用型本科。</div></div><table class="data"><thead><tr><th>周次</th><th>理论模块</th><th>实训安排</th></tr></thead><tbody><tr><td>1–2</td><td>收益管理世界观与三大指标</td><td>报表演练：算出一家店的 RevPAR</td></tr><tr><td>3–4</td><td>竞争指标与市场位置</td><td>选定竞争群并计算三件套</td></tr><tr><td>5–6</td><td>价格弹性与动态定价</td><td>给出一次涨价的论证</td></tr><tr><td>7–8</td><td>库存工具：超售、价差、住期限制</td><td>为一个日期设计两步方案</td></tr><tr><td>9–10</td><td>渠道净值与预测 pickup</td><td>画一条预订曲线</td></tr><tr><td>11–12</td><td>竞争应对与团队置换</td><td>一次完整的报价审批演练</td></tr><tr><td>13–16</td><td>综合实训与汇报</td><td>全流程：给定数据，制定一周价格与库存方案</td></tr></tbody></table><div class="kicker" style="margin-top:26px">内容篇</div><h2>32 个教学模块</h2><p class="lead">这些模块与 32 本口袋书一一对应。口袋书给学生自学，手册给你上课用——内容同源，省掉你重新写一遍的时间。</p><div class="case" style="margin-bottom:14px">
+      <h4>模块 01　收益管理到底是什么</h4>
+      <div class="num"><b>教学目标：</b>让学生理解“房间是过期作废的库存”，建立收益管理的基本世界观。　<b>建议课时：</b>2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>你的房间，是一张今晚 24 点就作废的票——收益管理其实只做一件事：在库存失效之前，把它卖给最愿意付钱的人。做不到的部分，今晚 24 点会准时归零——永远不会再有一月一日的这个晚上可以重卖。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">RevPAR = 入住率 × 平均房价
+       = 房晚总收入 ÷ 可售房量</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>把收益管理等同于“提价”　/　认为满房就等于经营得好</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先把“入住率 92%”和“入住率 78%”两家店的报表发下去，让学生自己发现矛盾。</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>发两张真实日报表，让学生各自算出 RevPAR，并解释为什么入住率高的店反而输了。</div>
+      <div class="end"><b>课后作业：</b>找一个你熟悉的门店/场景，写下它最大的库存浪费点，100 字以内。　　<b>配套口袋书：</b>No.01</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 02　OCC、ADR、RevPAR 一次搞懂</h4>
+      <div class="num"><b>教学目标：</b>打通 OCC/ADR/RevPAR 的口径与换算，建立统一语言。　<b>建议课时：</b>2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>三个数，回答三个不同的问题——OCC 回答“有没有人来”；ADR 回答“来的人掏了多少钱”；RevPAR 把这两件事合成一个数，回答“这家店到底赚钱能力如何”。单独看任何一个都会骗人。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">OCC    = 已售房晚 ÷ 可售房晚
+ADR    = 房晚收入 ÷ 已售房晚
+RevPAR = OCC × ADR = 房晚收入 ÷ 可售房晚</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>混淆 ADR 与 RevPAR 的分母　/　忽略免费房与自用房的处理</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>让三个学生用三种口径算同一个月的平均房价，暴露差异后再统一。</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>现场给一组原始数据，限时 10 分钟算出三个指标，并交叉验算。</div>
+      <div class="end"><b>课后作业：</b>写出本店（或实习店）的指标口径表，说明每一个异常项怎么处理。　　<b>配套口袋书：</b>No.02</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 03　MPI、ARI、RGI：竞争三件套</h4>
+      <div class="num"><b>教学目标：</b>理解竞争指标的含义，能判断自己在市场中的位置。　<b>建议课时：</b>2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>一个指标答一件事，三个凑成一张 X 光片——MPI 看份额（客人有没有选你），ARI 看价格水平（你有没有卖便宜），RGI 看综合地位（你到底赢没赢）。三者相乘还有个漂亮的关系：RGI = MPI × ARI。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">MPI = 本店入住率 ÷ 竞争群入住率
+ARI = 本店平均房价 ÷ 竞争群平均房价
+RGI = 本店 RevPAR ÷ 竞争群 RevPAR = MPI × ARI</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>拿不同档次的酒店做竞争群　/　只看 ARI 就下涨价结论</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先让学生猜“几元钱算贵”，再引入 ARI，制造认知落差。</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>给三家店的数据，让学生算出 MPI/ARI/RGI 并套四象限矩阵，说出该做什么。</div>
+      <div class="end"><b>课后作业：</b>选定一个真实商圈的 3–5 家竞争群，说明理由并算出本店三件套。　　<b>配套口袋书：</b>No.03</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 04　价格弹性：涨多少不会掉单</h4>
+      <div class="num"><b>教学目标：</b>理解弹性概念，能用数字论证一次涨价是否合理。　<b>建议课时：</b>2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>掉客 ≠ 掉得和你涨的一样多——弹性就是“客人对涨价有多敏感”。它通常远小于 1：意思是价格变动百分之一，需求量变动不到百分之一——这正是涨价能增加收入的原因。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">新需求量 = 原需求量 × (1 + E × 价格变动%)
+新房晚收入 = 新价 × 新需求量</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>忘记弹性是负数　/　在淡季照搬旺季的涨价幅度</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先问“涨 5% 会掉多少生意”，让学生猜，多数会高估。</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>分三组算三种入住率下的涨价结果，对比收入变化，得出“今天”的重要性。</div>
+      <div class="end"><b>课后作业：</b>给自己模拟的一个定价日，写一段 200 字的涨价论证，必须带数字。　　<b>配套口袋书：</b>No.04</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 05　什么时候该涨价</h4>
+      <div class="num"><b>教学目标：</b>把“该不该涨”从直觉变成清单。　<b>建议课时：</b>2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>别每天都重新判断一次——把“该不该涨价”写死成五条规则，你的工作就从每天一次脑力搏斗，变成每天一次核对清单。这是收益岗能持续做下去的前提。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">pickup（当日新增）= 今日在手预订 − 昨日在手预订
+同比进度 = 今日在手 ÷ 去年同期同日在手 × 100%</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>凭“感觉该涨”动手　/　调完价不看 pickup</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>不给任何触发条件就问学生要不要涨，观察他们靠什么做决定。</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>把五条触发条件做成卡片，用三个真实日期练习“是否上调”的判断。</div>
+      <div class="end"><b>课后作业：</b>给未来 30 天做一张触发条件核对表。　　<b>配套口袋书：</b>No.05</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 06　敢不敢超售，超多少</h4>
+      <div class="num"><b>教学目标：</b>理解超售的概率本质，能在风险可控下给出建议数量。　<b>建议课时：</b>2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>超售不是赌运气，是概率管理——总有客人订了不来。超售的本质，是把“确定会发生的一部分损失”用“可控的一部分风险”去对冲。关键在于：只对真正会满的日子超售，并永远留着退路。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">推荐超售数 = 预计最终需求 × 历史 No-show 率 × 保守系数
+建议系数：首次 0.5，数据稳定后 0.6~0.7</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>认为超售等于违规或失信　/　全年无差别开启超售</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>讲一个客人被送去别家的真实差评，再讲另一个白白空房的损失。</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>给历史未到率数据，让学生算出建议超售数，并写出 walk 预案要点。</div>
+      <div class="end"><b>课后作业：</b>为本店写一份完整的 walk 预案（含协议酒店与补偿标准）。　　<b>配套口袋书：</b>No.06</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 07　房型价差与价格栅栏</h4>
+      <div class="num"><b>教学目标：</b>掌握价差设计，理解“让客人自己往上买”。　<b>建议课时：</b>2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>客人不是嫌贵，是看不出差别——客人的选择逻辑很简单：多付的这笔钱，值不值预期的那份改善？价差必须大到“看得出来”，小到“愿意掏”。这个区间通常是相邻房型的 8%–15%。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">相邻房型价差率 = (高一档房价 − 低一档房价) ÷ 低一档房价
+建议落在 8% ~ 15%；套房类可放宽到 30% 以上</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>把看不见的差异算进房价　/　认为高价房一定卖不动</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>拿出三档只差 20 元的房价表，问学生他们会订哪一档。</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>让学生重排一张价格线，并为每一档差价写出“值在哪”。</div>
+      <div class="end"><b>课后作业：</b>挑一个房型，重设它与上下档的价差，并说明理由。　　<b>配套口袋书：</b>No.07</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 08　最短住期 MinLOS 怎么用</h4>
+      <div class="num"><b>教学目标：</b>理解限制类工具的作用与代价。　<b>建议课时：</b>2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>用规则把坏订单挡在门外——MinLOS 是收益管理里最接近“强制”的工具：它不商量价格，直接规定“住够几晚才能订”。正因如此，它的副作用也更明显——用错了会正面拒掉你的好客人。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">触发：目标日预计入住率 ≥ 90%，且次日预计入住率低于其 15 个百分点以上
+解除：预计入住率回落到 85% 以下 或 距入住不足 3 天而库存仍宽裕</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>优先上限制而不先调价格　/　官网与 OTA 设置不一致</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先让学生被某个 MinLOS 规则拦住（模拟预订），体会客人感受。</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>给一个周六/周日的预测数据，判断该提价还是该上限制。</div>
+      <div class="end"><b>课后作业：</b>为一个真实日期设计“先提价、后限制”的两步方案。　　<b>配套口袋书：</b>No.08</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 09　渠道要算净值，不算毛价</h4>
+      <div class="num"><b>教学目标：</b>从毛价思维切换到净值思维。　<b>建议课时：</b>2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>到手多少钱，才是一个渠道的真实价格——渠道差异不只在佣金，还有返现、积分、开票成本、结算周期与退订率。把这些折进去之后，你会看到一张和报表完全不同的渠道排名。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">渠道净值 = 挂牌价 × (1 − 佣金率) − 返现/积分 − 单笔其他成本
+加权净房价 = Σ(各渠道净值 × 该渠道间夜占比) ÷ 总间夜</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>把平均房价当成实收　/　用订单量而不是净值排渠道优先级</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>问“同一个 400 元，哪张单最赚钱”，学生通常答不上来。</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>给四个渠道的佣金条件，让学生算加权净房价，对比报表数字。</div>
+      <div class="end"><b>课后作业：</b>列出本店全部渠道并算出各自净值，重新排序。　　<b>配套口袋书：</b>No.09</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 10　需求预测与 Pickup 怎么看</h4>
+      <div class="num"><b>教学目标：</b>建立自身数据参照，能做基本的领先/落后判断。　<b>建议课时：</b>2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>预订是有节奏的，别只盯着总量——距离入住日 30 天、15 天、3 天，客人预订的速度完全不同。把这条曲线画出来，你就拥有了自己店最可靠的一份资产——比你买任何系统都先迈出这一步。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">pickup（当日新增）= 今日在手 − 昨日在手
+进度完成率 = 今日在手 ÷ 去年同期最终售出 × 100%
+领先/落后 = 今日在手 − 去年同期同日在手</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>拿不同星期属性的日子对比　/　一落后就降价</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>只给今天在手数，不給去年同期，让学生预测能否满房。</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>发放去重后的历史数据，让小组画出预订曲线并判断当前进度。</div>
+      <div class="end"><b>课后作业：</b>给自己画一条某典型月的预订曲线，标注领先/落后点位。　　<b>配套口袋书：</b>No.10</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 11　竞品降价了要不要跟</h4>
+      <div class="num"><b>教学目标：</b>建立应对竞争的判断顺序与底线。　<b>建议课时：</b>2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>先看自己，再看对手——竞品降价是信息，不是命令。它的意义要由你自己的 pickup 速度来解读——只有当你的生意确实在被抢走时，对手的价格才和你有关。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">不跟的预估损失 = 预计流失间夜 × 渠道净值
+跟随的预估损失 = 原可售间夜 × 跟价幅度
+两者相比，取损失更小的那一侧</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>看到降价立刻全线跟进　/　与市场最低价较劲</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>上课当天抛出“对手降了三十块”的消息，观察第一反应。</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>用真实案例做三次决策演练：跟价、加值、不动，并算各自的代价。</div>
+      <div class="end"><b>课后作业：</b>写一份本店的“竞争应对预案”，含可动用的三种加值武器。　　<b>配套口袋书：</b>No.11</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 12　团队询价：接还是不接</h4>
+      <div class="num"><b>教学目标：</b>掌握置换测算，能给出最低可接受价。　<b>建议课时：</b>2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>每一间卖给团队的房，都有一间散客因此住不进来——只要酒店在那天有散客需求，团队就不是纯增量，而是置换。判断一单该不该接，本质是比大小：这一单带来的净收益，能否盖过被替代的散客净收益。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">置换成本 = 被替代的散客间夜 × 散客渠道净值
+最低可接受团队净价 = (置换成本 − 团队附加贡献) ÷ 团队间夜数
+对应毛价 = 最低可接受净价 ÷ (1 − 团队佣金率)</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>用平均房价比团队价　/　忽略附加收益与取消风险</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>让销售专业的学生先凭直觉答应团队报价，再揭示亏损。</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>给一份完整的询价，让学生算出最低可接受价并决定接不接。</div>
+      <div class="end"><b>课后作业：</b>为一个模拟询价写出完整的报价审批意见（含数字）。　　<b>配套口袋书：</b>No.12</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 13　定价体系：BAR 与价格层级</h4>
+      <div class="num"><b>教学目标：</b>一个基准价管住几十种卖价，从此不再出现“同一个房五个价”。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>所有价格都应该从一个基准派生——BAR（Best Available Rate，最优可售价）是所有公开价格的锚。其余任何价格——协议价、会员价、套餐价、促销价——都应该是它按既定规则派生出来的结果，而不是临时拍出来的数字。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">折扣率 = 1 − 折后价 ÷ BAR
+一致性检验：同一天同一房型，各渠道 BAR 差值应 ≤ 0 元（含税口径一致）</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>让同一个房型在不同渠道出现不同基准价　/　用口头特价绕开规则</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：客人拿着手机问前台：为什么网上更便宜</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.13</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 14　客源细分：把客人分成几类来定价</h4>
+      <div class="num"><b>教学目标：</b>不再对所有客人报同一个价，而是给不同客人不同的门。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>细分的目的，是把价格敏感度不同的人分开——客源细分不是为了把人分成三六九等，而是为了让愿意多付的人有理由多付、对价格敏感的人有门槛更低的门可进——两类人各得其所，你两头都不丢。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">某细分贡献度 = 该细分间夜占比 × 该细分渠道净值
+加权净房价 = Σ(各细分净值 × 间夜占比) ÷ 总间夜</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>只按客人身份而不按行为细分　/　给低价细分却不设任何栅栏</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：同样的房，商务客和度假客愿意付的钱完全不同</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.14</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 15　库存分配：房该留给哪个渠道</h4>
+      <div class="num"><b>教学目标：</b>旺季不把好房间便宜卖光的一整套留房规则。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>先决定“留给谁”，再决定“卖多少”——库存分配的本质是取舍：今天放出去的每一间，都是从未来更高价的需求里预支的。高风险日子必须留房，低风险日子才放量。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">低净值渠道配额 = 可售房 × 该渠道策略占比（旺季建议 20%–30%）
+高价细分保护量 = 该细分近 4 周同星期实际成交的平均间夜 × 安全系数 1.1</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>旺季把所有库存一次性放给所有渠道　/　只控价格不控库存</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：房还没到周末，就被最便宜的渠道订光了</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.15</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 16　需求日历：给未来九十天分色</h4>
+      <div class="num"><b>教学目标：</b>一张三色日历，把你从每天重新判断一次里解放出来。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>把策略写在日期上，而不是记在脑子里——需求日历是收益管理里性价比最高的一件工具：做一次，用三个月。它把“我今天该怎么办”变成“今天是红色，按红色规则办”。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">红色：预计入住率 ≥ 90%
+黄色：70% ≤ 预计入住率 &lt; 90%
+绿色：预计入住率 &lt; 70%
+预计入住率 = 在手预订 + 剩余天数 × 历史日均 pickup ÷ 可售房</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>按星期几凭经验涂色　/　标了颜色却不绑定动作</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：每天重新想一遍“今天该涨还是该降”，是最耗神的活</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.16</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 17　年度预算与目标拆解</h4>
+      <div class="num"><b>教学目标：</b>把老板给的一个年度数字，拆成每天该卖多少钱。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>拆目标要用指数，不能用平均数——酒店生意有强季节性。把年度目标平均分到 12 个月，会得出一堆根本不可能完成的淡季指标和过于宽松的旺季指标。正确做法是用历史月指数加权。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">月指数 = 该月历史 RevPAR ÷ 全年月均 RevPAR
+该月目标 = 年度目标 × 月指数
+该日目标 ≈ 该月目标 × 该星期权重</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>把年度目标平均分成十二份　/　用单一年份数据算指数</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：“今年 RevPAR 做到 300”——然后呢</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.17</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 18　报表体系：周报月报怎么做</h4>
+      <div class="num"><b>教学目标：</b>四类报表定死字段，老板只需要看一页纸。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>每张报表只回答一个问题——把报表按频率分成四类：日报看动作、周报看趋势、月报看结构、预测表看未来。每一类只保留与它那个问题相关的字段，其余全部删掉。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">目标完成率 = 本期实际 RevPAR ÷ 本期目标 RevPAR × 100%
+偏差 = 本期实际 − 本期目标</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>为了显得专业堆砌字段　/　只给数据不给结论</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：做了十几张表，老板还是说看不懂</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.18</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 19　收益经理这个岗位到底干什么</h4>
+      <div class="num"><b>教学目标：</b>把岗位职责、考核指标与跨部门边界一次说清楚。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>收益岗的核心是决策权，不是报表权——收益经理存在的意义，是把“价格与库存的决策”从临时讨论变成有专人负责的流程。如果只有报表权没有决策权，这个岗位就只是一个统计员。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">自主调价区间：建议在 BAR 的 ±10% 以内
+超授权事项：低于 BAR 15% 以上、单笔团队接单、超售开启
+核心考核：RevPAR 达成率、RGI、预测准确率</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>只给报表权不给决策权　/　用营业收入考核收益岗</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：招了个收益经理，半年后他还在做报表</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.19</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 20　折扣与促销：什么时候该打折</h4>
+      <div class="num"><b>教学目标：</b>打折不是认输，但它必须有门槛、有期限、有止损线。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>能加值就别降价——降价会永久改变价格锚点；加值（送早餐、送权益、送积分）只影响这一次交易，月底可以撤。所以在同等成本下，永远优先选择加值。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">保本销量 = 原价间夜 × 原价净值 ÷ 折后净值
+折后所需增量 = 保本销量 − 原价间夜</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>做没有截止日的促销　/　全线无门槛打折</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：一次促销做完，房价三个月没抬回来</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.20</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 21　直销与会员：把客人留在自己手里</h4>
+      <div class="num"><b>教学目标：</b>算清一笔账：直销占比每提高一个点，你到底省下多少佣金。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>直销的本质不是抢渠道的生意，是留住自己的客人——直销不是要消灭 OTA——OTA 负责拉新，直销负责承接复购。你的目标不是把 OTA 关掉，而是让被 OTA 带来过的客人，第二次直接来找你。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">转移收益 = 转移间夜 × 平均房价 × (OTA 佣金率 − 直销获客成本率)
+直销占比 = 直销间夜 ÷ 总间夜</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>用比 OTA 更低的裸价做直销　/　只算第一次入住的账</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：每年付出去的佣金，够再开一家分店的前厅</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.21</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 22　OTA 运营与点评管理</h4>
+      <div class="num"><b>教学目标：</b>把曝光、转化、点评三件事串起来，做对顺序别做反。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>先修转化，再买曝光——同样一百个客人看到你，转化率 2% 和 4% 的差别，等于多了一倍的订单，而且不需要多付一分钱佣金。所以永远先修转化，再谈流量。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">订单量 = 曝光量 × 点击率 × 转化率
+转化提升收益 = 订单增量 × 平均房价 × (1 − 佣金率)</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>转化没修好就猛投曝光　/　只回复差评不归因</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：参加了一堆活动，订单却没有涨</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.22</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 23　成本、保本价与利润</h4>
+      <div class="num"><b>教学目标：</b>卖得贵不等于赚得多——往下算一层，才知道哪一单真正在赚钱。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>收益管理止步于 RevPAR，利润管理才开始——RevPAR 只看收入端。要判断一单到底赚不赚钱，必须知道它的变动成本，以及这一单能为固定成本贡献多少。这就是边际贡献的思路。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">边际贡献 = 净房价 − 变动成本
+保本房价（毛）=（变动成本 + 需分摊的固定成本/间）÷ (1 − 佣金率)
+接单下限 = 变动成本（此时边际贡献为 0）</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>用营业收入代替利润做判断　/　不知道变动成本就谈折扣</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：平均房价涨了，利润却没动</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.23</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 24　套餐、打包与价格锚定</h4>
+      <div class="num"><b>教学目标：</b>不加价格也能提高客单价的三套组合方法。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>给客人一个参照物，价格就有了坐标系——价格锚定不是套路，而是帮客人完成比较。你要做的不是说服他“这很便宜”，而是让他清楚“多付的这部分换到了什么”。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">套餐净收益 = 套餐售价 − 房晚固定成本分摊 − 各附加项变动成本
+成立条件：套餐净收益 &gt; 单卖净房价，且套餐毛利率不低于单卖</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>用打包的名义做裸降价　/　套餐附加项成本不核算</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：客人说贵，其实是在说“看不出值不值”</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.24</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 25　淡旺季与年度价格日历</h4>
+      <div class="num"><b>教学目标：</b>把一年的涨跌节奏提前排好，别等到旺季才开始想涨价。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>价格日历是提前量，不是事后反应——年度价格日历把一年分成若干价格档，并规定每档的启用日期与缩放节奏。它让你的动作提前于市场，而不是落后于市场。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">档位倍数 = 该档目标房价 ÷ 平季基准房价（常见：旺季 1.2–1.4，淡季 0.85–0.95）
+分批上调：从 D-60 起，每 15–20 天上调 5%，共 3–4 次</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>旺季临时一次性跳涨　/　淡季等到空房才促销</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：旺季涨价总是慢半拍</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.25</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 26　特殊事件与大型活动定价</h4>
+      <div class="num"><b>教学目标：</b>演唱会、考试、展会这类日子，怎么提前锁定收益而不惹差评。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>事件日要赚两次：当天赚价，前后赚量——大型活动不只影响当天，它会把需求溢出到前后各一天。聪明的做法是：事件当天适度提价，把前后日也一起经营起来。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">事件日目标价 = 平季基准 × 事件倍数（建议 1.4–1.8，极端 2.0）
+溢出日目标价 = 平季基准 × 1.1
+事件总增量 = 当日增量 + 前后两日溢出增量</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>无上限暴涨招致差评　/　只经营当天忽略溢出日</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：演唱会那天卖爆了，第二天收到一堆差评</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.26</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 27　餐饮收益管理 RevPASH</h4>
+      <div class="num"><b>教学目标：</b>把客房那套思路搬到餐厅：翻台、时段、人均三件事。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>餐厅卖的是“座位 × 时间”，不是菜——客房的库存是“间夜”，餐厅的库存是“座位小时”。RevPASH（每可用座位小时收入）就是餐厅版的 RevPAR，它同时容纳了翻台、时段与人均三件事。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">RevPASH = 时段总收入 ÷ (座位数 × 营业小时)
+翻台率 = 时段接待人次 ÷ 座位数
+人均消费 = 时段总收入 ÷ 接待人次</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>只看营收不看翻台与人均　/　为提高翻台牺牲体验</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：餐厅天天排队，月底却没赚到钱</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.27</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 28　会议宴会与多功能厅收益</h4>
+      <div class="num"><b>教学目标：</b>别把宴会厅当赠品——它有时比客房更赚钱。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>场地是另一种“过期作废”的库存——和客房一样，一个下午没卖出去的宴会厅永远不会补回来。它的库存单位是“场地 × 时段”，核心指标不是出租率，而是单位面积时段的贡献。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">综合贡献 = 场租 + 餐饮边际贡献 + 连带客房边际贡献
+最低可接受场租 = 该时段场地的机会成本 − 餐饮贡献 − 客房贡献</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>为争取餐饮而免收场租　/　只按场租判断接不接</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：客房满房的那天，宴会厅空了一整天</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.28</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 29　公寓、民宿与其他住宿业态</h4>
+      <div class="num"><b>教学目标：</b>同一套逻辑，换三个参数就能用在别的业态上。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>换行业不换逻辑，只换参数——收益管理成立的前提只有三条：产能相对固定、库存易逝、需求可细分且波动。公寓和民宿全都满足。变的只是：库存单位更长、需求曲线更陡、工具更轻。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">收益 = 售出单位 × 单位价格
+等效 RevPAR = 期间总收入 ÷ (可出租单位 × 期间天数)
+
+公寓：等效月租金 × 出租率
+民宿：出租率 × 日均价格</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>认为房量少就用不上收益管理　/　照搬酒店的全部工具</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：民宿老板说：我们这行不讲究这个</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.29</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 30　系统、工具与数据准备</h4>
+      <div class="num"><b>教学目标：</b>什么时候该上系统，以及上系统前必须先准备好的四张表。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>先有规则，再谈系统——收益管理系统（RMS）的价值在于：把你的定价规则、预测模型、库存策略自动执行并持续优化。但前提是这些规则已经存在——否则系统只能输出没人敢用的建议。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">年化收益 ≈ 年房晚收入 × RevPAR 提升幅度（通常 3%–7%）
+回本周期 = 系统年费 ÷ (年化收益 − 系统年费以外的增量成本)</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>基础数据没准备好就采购系统　/　用演示效果做采购决策</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：花几十万上了系统，结果算出来的建议没人敢用</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.30</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 31　跨行业参数速查</h4>
+      <div class="num"><b>教学目标：</b>六个行业一张对照表，看懂内核不变、参数在变。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>内核不变，参数在变——无论哪个行业，都只需要回答三个问题：我的库存单位是什么、它什么时候失效、需求怎么细分。回答完，剩下的工具可以整套搬过去。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">等效单位收益 = 期间收入 ÷ (可出租单位 × 期间)
+竞争指数    = 本方指标 ÷ 竞争群指标
+弹性        = 需求变动% ÷ 价格变动%
+机会金额    = 最优价收入 − 现价收入</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>被不同术语吓住　/　照搬工具却不换参数</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：航空的收益管理，和酒店真的一样吗</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.31</div>
+    </div><div class="case" style="margin-bottom:14px">
+      <h4>模块 32　收益管理三十个常见误区</h4>
+      <div class="num"><b>教学目标：</b>把最容易犯的错一次列全，当作你案头的最后一本。　<b>建议课时：</b>1–2 学时</div>
+      <div class="num" style="margin-top:6px"><b>核心概念：</b>多数错误不是不会算，而是看错了对象——收益管理里绝大多数失误，根源不是数学，而是盯错了指标、搞错了顺序、或者忽略了前提。以下三十条按四类归类。</div>
+      <div class="num" style="margin-top:6px"><b>关键公式：</b><br><span style="font-family:ui-monospace,Menlo,Consolas,monospace">决策质量 = 指标选对 × 顺序正确 × 前提成立 × 执行到位
+（任何一项为 0，整式为 0）</span></div>
+      <div class="num" style="margin-top:6px"><b>学生易错：</b>一次整改十条以上　/　把清单贴出来却从不核对</div>
+      <div class="num" style="margin-top:6px"><b>课堂导入：</b>先用本书开场的场景提问：做了三年收益，还是会犯的低级错误</div>
+      <div class="num" style="margin-top:6px"><b>课堂活动：</b>按本书给出的公式，让学生用一组真实数据当场算一遍，并说出结论。</div>
+      <div class="end"><b>课后作业：</b>完成本书封底的今日行动清单，并写一段 150 字的结果说明。　　<b>配套口袋书：</b>No.32</div>
+    </div><div class="kicker" style="margin-top:26px">教学篇</div><h2>怎么讲、怎么考、怎么报</h2><h3>评价方案「1+3」</h3><p><b>1 个核心</b>：期末综合实训（给定真实脱敏数据，产出一周的价格与库存方案，占 40%）。<b>3 个过程</b>：日常操作练习（每日指标计算）占 20%、课堂案例研讨占 20%、出勤与课堂表现占 20%。</p><h3>课程思政融入点</h3><ul class="do"><li>从“超售与客户承诺”讲<b>诚信经营与契约精神</b>。</li><li>从“渠道净值与契约”讲<b>规则意识与职业操守</b>。</li><li>从“收益不等于利润”讲<b>长期主义，反对短期逐利</b>。</li></ul><h3>申报材料清单（一流课程 / 教改）</h3><ul class="do"><li>课程标准与教学大纲（含课程思政设计）</li><li>授课录像 3 段（建议各 15 分钟，覆盖不同模块）</li><li>实训手册与学生成果样本</li><li>校企合作佐证（导师进课堂、实习基地）</li><li>学生竞赛或证书成果</li><li>课程评价数据与学生反馈</li></ul><div class="note" style="margin-top:12px"><b>建议：</b>把“学生有没有产出可展示的成果”作为课程设计的核心目标——这既是教学效果，也是申报材料。</div></div>
+  <div class="footer">
+    <div class="nextbox"><b>配套：</b>本手册的内容模块与 12 本口袋书一一对应，详见 <b>系列总目 index.html</b>。</div>
+    <div>HRMA 收益管理社区 · 教学装 · 咨询 rm-community@qq.com</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HRMA 书系总目 · 口袋书 / 教材 / 操作指南</title>
+<style>
+/* HRMA 口袋书系列 · 统一版式（130×184mm 口袋本，屏幕/打印双用） */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#eef1f6;color:#1c2430;line-height:1.85;font-size:15px}
+.paper{max-width:760px;margin:22px auto;background:#fff;box-shadow:0 4px 18px rgba(20,30,70,.10)}
+
+/* 封面 */
+.cover{background:#0f2a4a;color:#fff;padding:38px 34px 30px;position:relative}
+.cov-series{font-size:12px;letter-spacing:2.6px;opacity:.75;margin-bottom:10px}
+.cov-no{display:inline-block;background:#e8b84b;color:#3a2a00;font-weight:800;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-right:9px}
+.cov-title{font-size:31px;font-weight:800;line-height:1.35;margin:14px 0 12px}
+.cov-promise{font-size:16px;color:#ffe9bd;line-height:1.7;border-left:3px solid #e8b84b;padding-left:13px}
+.cov-badge{position:absolute;right:30px;top:32px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:9px 12px;text-align:center}
+.cov-badge b{display:block;font-size:19px;color:#e8b84b;line-height:1.2}
+.cov-badge span{font-size:11px;opacity:.8}
+.cov-for{margin-top:18px;font-size:13px;opacity:.72}
+
+/* 正文 */
+.body{padding:30px 34px 10px}
+.kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+  color:#fff;background:#1d6fb8;border-radius:5px;padding:2px 9px;margin-bottom:9px}
+h2{font-size:20px;font-weight:800;color:#0f2a4a;margin:0 0 12px;line-height:1.45}
+p{margin:10px 0}
+.lead{font-size:15.5px;color:#3a4b60}
+.story{background:#f7f9fc;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:14px 17px}
+.story .who{font-size:13px;color:#1d6fb8;font-weight:800;margin-bottom:5px}
+.point{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.pn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#0f2a4a;color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pt{font-size:15px}
+.pt b{color:#0f2a4a}
+figure{border:1px solid #e2e8ef;border-radius:11px;padding:15px 17px;background:#fbfcfe;margin:14px 0}
+figcaption{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+pre.figure-art{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.4px;line-height:1.75;color:#0f2a4a;white-space:pre-wrap}
+.formula{background:#fffdf6;border:2px solid #e8cf94;border-radius:12px;padding:16px 18px;margin:14px 0}
+.formula .fname{font-size:13px;color:#a8801f;font-weight:800;margin-bottom:7px}
+.formula .fexpr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:16px;font-weight:700;color:#0f2a4a;background:#fff;border-radius:8px;padding:10px 13px;
+  border:1px solid #f0dcae;line-height:1.7;white-space:pre-wrap}
+.ex{margin-top:11px;font-size:14.2px;color:#3a4b60}
+.ex b{color:#0f2a4a}
+ul.do{list-style:none}
+ul.do li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e6eaf1}
+ul.do li:last-child{border-bottom:none}
+ul.do li::before{content:"";position:absolute;left:7px;top:17px;width:8px;height:8px;
+  border-radius:2px;background:#1d9e75}
+.dont{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;margin-top:13px}
+.dont b{color:#a32d2d}
+.case{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:15px 18px}
+.case h4{font-size:14.5px;color:#0f2a4a;margin-bottom:6px}
+.case .num{color:#5b6a7d;font-size:13.6px}
+.case .end{margin-top:9px;font-size:14px;color:#3a4b60;border-top:1px dashed #dde3ec;padding-top:9px}
+table.data{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+table.data th{background:#eef3f9;color:#3a4b60;font-size:12.5px;text-align:left;padding:9px 11px}
+table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
+.qbox{background:#0f2a4a;color:#fff;border-radius:13px;padding:18px 20px;margin:18px 0}
+.qbox .qt{font-size:15px;font-weight:800;color:#e8b84b;margin-bottom:8px}
+.qbox ol{margin:0 0 0 18px}
+.qbox li{margin:5px 0;font-size:14.6px}
+.footer{margin-top:22px;background:#f4f7fa;border-top:1px solid #e2e8ef;padding:18px 34px 22px;
+  font-size:13px;color:#5b6a7d;line-height:1.8}
+.nextbox{background:#fff;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin-bottom:12px}
+.nextbox b{color:#0f2a4a}
+.qr{display:inline-block;border:1px solid #cfd8e5;border-radius:8px;padding:6px 10px;font-size:12px;color:#8494a8}
+
+/* 系列索引页 */
+.index-wrap{max-width:900px;margin:0 auto;padding:26px 18px 50px}
+.ihead{background:#0f2a4a;color:#fff;border-radius:14px;padding:26px 26px 22px;margin-bottom:20px}
+.ihead h1{font-size:25px;font-weight:800;margin-bottom:8px}
+.ihead p{opacity:.85;font-size:14.5px}
+.rule{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.rule h3{font-size:16px;color:#0f2a4a;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.bk{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:15px 16px;text-decoration:none;color:inherit;display:block}
+.bk:hover{border-color:#e8b84b}
+.bk .bno{font-size:11.5px;color:#a8801f;font-weight:800;letter-spacing:1px}
+.bk .bt{font-size:15.5px;font-weight:800;color:#0f2a4a;margin:4px 0 5px;line-height:1.4}
+.bk .bp{font-size:13px;color:#5b6a7d;line-height:1.65}
+.bk .bmeta{margin-top:8px;font-size:11.5px;color:#8494a8}
+.bigbook{background:#fffdf6;border:2px solid #e8cf94}
+
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .body{page-break-after:auto}
+}
+</style>
+</head>
+<body>
+<div class="index-wrap">
+  <div class="ihead">
+    <h1>HRMA 收益管理书系</h1>
+    <p>一套内容原子，三种包装：单概念口袋书 / 教师教材 / 酒店操作指南。<br>先口袋书发散，再逆向汇编成两本大书。</p>
+    <p style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.2)">
+      <b>注意：</b>以下 32 本为<b>素材层</b>（每个概念一个单元）。<b>成品是以主题分册的《主题系列》16 册</b>，
+      概念单元已全部并入其中 —— <a href="主题系列总目.html" style="color:#ffd88a;font-weight:800">查看主题系列总目 →</a></p>
+  </div>
+  <div class="rule">
+    <h3>口袋书统一规格</h3>
+    <p style="font-size:14px;color:#5b6a7d">开本 130×184 毫米 · 单本 48–64 页 · 正文 8,000–12,000 字 · <b>承诺 30 分钟读完</b> · 一本只讲一个概念。<br>
+    六段固定结构：这个坑你一定踩过 → 核心概念（一张图 + 三要点）→ 怎么算 → 怎么做 → 真实案例 → 今日行动清单。</p>
+  </div>
+  <div class="grid">
+    <a class="bk" href="pocket/No01-什么是收益管理.html"><div class="bno">01</div><div class="bt">收益管理到底是什么</div><div class="bp">一句话讲清：为什么你天天满房，却不如隔壁没住满的店赚钱</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No02-三个核心指标.html"><div class="bno">02</div><div class="bt">OCC、ADR、RevPAR 一次搞懂</div><div class="bp">把这三个数真正看懂，你才有资格跟任何人谈价格</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No03-竞争三件套.html"><div class="bno">03</div><div class="bt">MPI、ARI、RGI：竞争三件套</div><div class="bp">不用打听底价，也能知道自己在市场里到底是贵了、还是没份额</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No04-价格弹性.html"><div class="bno">04</div><div class="bt">价格弹性：涨多少不会掉单</div><div class="bp">给你一个敢涨价的理由，和一条不该越过的红线</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No05-什么时候涨价.html"><div class="bno">05</div><div class="bt">什么时候该涨价</div><div class="bp">五个可以挂在墙上的触发条件，让你不必再靠直觉拍脑袋</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No06-超额预订.html"><div class="bno">06</div><div class="bt">敢不敢超售，超多少</div><div class="bp">给超售一个能向店总交代的算法，和一份万一出事的处理流程</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No07-房型价差.html"><div class="bno">07</div><div class="bt">房型价差与价格栅栏</div><div class="bp">不靠店员推销，让客人在对比中自己选择更贵的那一间</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No08-最短住期.html"><div class="bno">08</div><div class="bt">最短住期 MinLOS 怎么用</div><div class="bp">在旺季守住收益的最后一道闸门，以及它的三个禁用场合</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No09-渠道净价.html"><div class="bno">09</div><div class="bt">渠道要算净值，不算毛价</div><div class="bp">同一间房卖 400 元，不同渠道到你口袋里差的钱能超过一百</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No10-预测与pickup.html"><div class="bno">10</div><div class="bt">需求预测与 Pickup 怎么看</div><div class="bp">不用复杂模型，用一张去年的对照表就能判断今年是领先还是掉队</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No11-竞品降价.html"><div class="bno">11</div><div class="bt">竞品降价了要不要跟</div><div class="bp">一套不必慌的判断顺序，和一条能保住房价体系的底线</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No12-团队置换.html"><div class="bno">12</div><div class="bt">团队询价：接还是不接</div><div class="bp">一个能当场算出盈亏线的置换公式，让你不必再靠“要不要做这一单”赌运气</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No13-价格体系.html"><div class="bno">13</div><div class="bt">定价体系：BAR 与价格层级</div><div class="bp">一个基准价管住几十种卖价，从此不再出现“同一个房五个价”</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No14-客源细分.html"><div class="bno">14</div><div class="bt">客源细分：把客人分成几类来定价</div><div class="bp">不再对所有客人报同一个价，而是给不同客人不同的门</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No15-库存分配.html"><div class="bno">15</div><div class="bt">库存分配：房该留给哪个渠道</div><div class="bp">旺季不把好房间便宜卖光的一整套留房规则</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No16-需求日历.html"><div class="bno">16</div><div class="bt">需求日历：给未来九十天分色</div><div class="bp">一张三色日历，把你从每天重新判断一次里解放出来</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No17-年度预算.html"><div class="bno">17</div><div class="bt">年度预算与目标拆解</div><div class="bp">把老板给的一个年度数字，拆成每天该卖多少钱</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No18-报表体系.html"><div class="bno">18</div><div class="bt">报表体系：周报月报怎么做</div><div class="bp">四类报表定死字段，老板只需要看一页纸</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No19-岗位与组织.html"><div class="bno">19</div><div class="bt">收益经理这个岗位到底干什么</div><div class="bp">把岗位职责、考核指标与跨部门边界一次说清楚</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No20-折扣与促销.html"><div class="bno">20</div><div class="bt">折扣与促销：什么时候该打折</div><div class="bp">打折不是认输，但它必须有门槛、有期限、有止损线</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No21-直销与会员.html"><div class="bno">21</div><div class="bt">直销与会员：把客人留在自己手里</div><div class="bp">算清一笔账：直销占比每提高一个点，你到底省下多少佣金</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No22-OTA与点评.html"><div class="bno">22</div><div class="bt">OTA 运营与点评管理</div><div class="bp">把曝光、转化、点评三件事串起来，做对顺序别做反</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No23-成本与利润.html"><div class="bno">23</div><div class="bt">成本、保本价与利润</div><div class="bp">卖得贵不等于赚得多——往下算一层，才知道哪一单真正在赚钱</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No24-套餐与锚定.html"><div class="bno">24</div><div class="bt">套餐、打包与价格锚定</div><div class="bp">不加价格也能提高客单价的三套组合方法</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No25-淡旺季.html"><div class="bno">25</div><div class="bt">淡旺季与年度价格日历</div><div class="bp">把一年的涨跌节奏提前排好，别等到旺季才开始想涨价</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No26-事件日定价.html"><div class="bno">26</div><div class="bt">特殊事件与大型活动定价</div><div class="bp">演唱会、考试、展会这类日子，怎么提前锁定收益而不惹差评</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No27-餐饮收益.html"><div class="bno">27</div><div class="bt">餐饮收益管理 RevPASH</div><div class="bp">把客房那套思路搬到餐厅：翻台、时段、人均三件事</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No28-会议宴会.html"><div class="bno">28</div><div class="bt">会议宴会与多功能厅收益</div><div class="bp">别把宴会厅当赠品——它有时比客房更赚钱</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No29-其他业态.html"><div class="bno">29</div><div class="bt">公寓、民宿与其他住宿业态</div><div class="bp">同一套逻辑，换三个参数就能用在别的业态上</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No30-系统与数据.html"><div class="bno">30</div><div class="bt">系统、工具与数据准备</div><div class="bp">什么时候该上系统，以及上系统前必须先准备好的四张表</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No31-跨行业参数.html"><div class="bno">31</div><div class="bt">跨行业参数速查</div><div class="bp">六个行业一张对照表，看懂内核不变、参数在变</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk" href="pocket/No32-常见误区.html"><div class="bno">32</div><div class="bt">收益管理三十个常见误区</div><div class="bp">把最容易犯的错一次列全，当作你案头的最后一本</div><div class="bmeta">30 分钟 · 共 32 本口袋书</div></a><a class="bk bigbook" href="textbook.html"><div class="bno">教学装</div><div class="bt">酒店收益管理教学手册（高校版）</div><div class="bp">写给没有产业经验的老师：怎么把这门课讲明白，并做出可申报的成果</div><div class="bmeta">给教师 · 含教学篇与申报清单</div></a><a class="bk bigbook" href="guide.html"><div class="bno">操作装</div><div class="bt">酒店收益管理实战手册（岗位版）</div><div class="bp">写给没时间系统学习的人：按一天、一周、一月的节奏编排，随时可以现场翻</div><div class="bmeta">给酒店人 · 含 32 个场景决策与自查清单</div></a>
+  </div>
+</div>
+</body>
+</html>

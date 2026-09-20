@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>16 需求日历：给未来九十天分色 · HRMA 口袋书</title>
+<meta name="description" content="一张三色日历，把你从每天重新判断一次里解放出来">
+<style>
+/* HRMA 口袋书系列 · 统一版式（130×184mm 口袋本，屏幕/打印双用） */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#eef1f6;color:#1c2430;line-height:1.85;font-size:15px}
+.paper{max-width:760px;margin:22px auto;background:#fff;box-shadow:0 4px 18px rgba(20,30,70,.10)}
+
+/* 封面 */
+.cover{background:#0f2a4a;color:#fff;padding:38px 34px 30px;position:relative}
+.cov-series{font-size:12px;letter-spacing:2.6px;opacity:.75;margin-bottom:10px}
+.cov-no{display:inline-block;background:#e8b84b;color:#3a2a00;font-weight:800;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-right:9px}
+.cov-title{font-size:31px;font-weight:800;line-height:1.35;margin:14px 0 12px}
+.cov-promise{font-size:16px;color:#ffe9bd;line-height:1.7;border-left:3px solid #e8b84b;padding-left:13px}
+.cov-badge{position:absolute;right:30px;top:32px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:9px 12px;text-align:center}
+.cov-badge b{display:block;font-size:19px;color:#e8b84b;line-height:1.2}
+.cov-badge span{font-size:11px;opacity:.8}
+.cov-for{margin-top:18px;font-size:13px;opacity:.72}
+
+/* 正文 */
+.body{padding:30px 34px 10px}
+.kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+  color:#fff;background:#1d6fb8;border-radius:5px;padding:2px 9px;margin-bottom:9px}
+h2{font-size:20px;font-weight:800;color:#0f2a4a;margin:0 0 12px;line-height:1.45}
+p{margin:10px 0}
+.lead{font-size:15.5px;color:#3a4b60}
+.story{background:#f7f9fc;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:14px 17px}
+.story .who{font-size:13px;color:#1d6fb8;font-weight:800;margin-bottom:5px}
+.point{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.pn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#0f2a4a;color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pt{font-size:15px}
+.pt b{color:#0f2a4a}
+figure{border:1px solid #e2e8ef;border-radius:11px;padding:15px 17px;background:#fbfcfe;margin:14px 0}
+figcaption{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+pre.figure-art{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.4px;line-height:1.75;color:#0f2a4a;white-space:pre-wrap}
+.formula{background:#fffdf6;border:2px solid #e8cf94;border-radius:12px;padding:16px 18px;margin:14px 0}
+.formula .fname{font-size:13px;color:#a8801f;font-weight:800;margin-bottom:7px}
+.formula .fexpr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:16px;font-weight:700;color:#0f2a4a;background:#fff;border-radius:8px;padding:10px 13px;
+  border:1px solid #f0dcae;line-height:1.7;white-space:pre-wrap}
+.ex{margin-top:11px;font-size:14.2px;color:#3a4b60}
+.ex b{color:#0f2a4a}
+ul.do{list-style:none}
+ul.do li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e6eaf1}
+ul.do li:last-child{border-bottom:none}
+ul.do li::before{content:"";position:absolute;left:7px;top:17px;width:8px;height:8px;
+  border-radius:2px;background:#1d9e75}
+.dont{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;margin-top:13px}
+.dont b{color:#a32d2d}
+.case{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:15px 18px}
+.case h4{font-size:14.5px;color:#0f2a4a;margin-bottom:6px}
+.case .num{color:#5b6a7d;font-size:13.6px}
+.case .end{margin-top:9px;font-size:14px;color:#3a4b60;border-top:1px dashed #dde3ec;padding-top:9px}
+table.data{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+table.data th{background:#eef3f9;color:#3a4b60;font-size:12.5px;text-align:left;padding:9px 11px}
+table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
+.qbox{background:#0f2a4a;color:#fff;border-radius:13px;padding:18px 20px;margin:18px 0}
+.qbox .qt{font-size:15px;font-weight:800;color:#e8b84b;margin-bottom:8px}
+.qbox ol{margin:0 0 0 18px}
+.qbox li{margin:5px 0;font-size:14.6px}
+.footer{margin-top:22px;background:#f4f7fa;border-top:1px solid #e2e8ef;padding:18px 34px 22px;
+  font-size:13px;color:#5b6a7d;line-height:1.8}
+.nextbox{background:#fff;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin-bottom:12px}
+.nextbox b{color:#0f2a4a}
+.qr{display:inline-block;border:1px solid #cfd8e5;border-radius:8px;padding:6px 10px;font-size:12px;color:#8494a8}
+
+/* 系列索引页 */
+.index-wrap{max-width:900px;margin:0 auto;padding:26px 18px 50px}
+.ihead{background:#0f2a4a;color:#fff;border-radius:14px;padding:26px 26px 22px;margin-bottom:20px}
+.ihead h1{font-size:25px;font-weight:800;margin-bottom:8px}
+.ihead p{opacity:.85;font-size:14.5px}
+.rule{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.rule h3{font-size:16px;color:#0f2a4a;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.bk{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:15px 16px;text-decoration:none;color:inherit;display:block}
+.bk:hover{border-color:#e8b84b}
+.bk .bno{font-size:11.5px;color:#a8801f;font-weight:800;letter-spacing:1px}
+.bk .bt{font-size:15.5px;font-weight:800;color:#0f2a4a;margin:4px 0 5px;line-height:1.4}
+.bk .bp{font-size:13px;color:#5b6a7d;line-height:1.65}
+.bk .bmeta{margin-top:8px;font-size:11.5px;color:#8494a8}
+.bigbook{background:#fffdf6;border:2px solid #e8cf94}
+
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .body{page-break-after:auto}
+}
+</style>
+</head>
+<body>
+<div class="paper">
+
+  <div class="cover">
+    <div class="cov-series">HRMA 口袋书系列 · REVENUE MANAGEMENT POCKET</div>
+    <div><span class="cov-no">16</span></div>
+    <div class="cov-title">需求日历：给未来九十天分色</div>
+    <div class="cov-promise">一张三色日历，把你从每天重新判断一次里解放出来</div>
+    <div class="cov-for">适读：酒店收益经理、店总、预订经理</div>
+    <div class="cov-badge"><b>30</b><span>分钟读完</span></div>
+  </div>
+
+  <div class="body">
+
+    <div class="kicker">01 · 这个坑你一定踩过</div>
+    <h2>每天重新想一遍“今天该涨还是该降”，是最耗神的活</h2>
+    <div class="story"><div class="who">现场</div><p>做收益最消耗人的，不是算，而是<b>每天早上重新做一次判断</b>。</p><p>解法是把判断提前做完一次：给未来 90 天的每一天标上颜色，颜色决定策略。此后每天只需要核对，不需要重新想。</p></div>
+
+    <div class="kicker" style="margin-top:26px">02 · 核心概念</div>
+    <h2>把策略写在日期上，而不是记在脑子里</h2>
+    <p class="lead">需求日历是收益管理里性价比最高的一件工具：做一次，用三个月。它把“我今天该怎么办”变成“今天是红色，按红色规则办”。</p>
+    <figure><figcaption>三色分档</figcaption><pre class="figure-art">🔴 红色（高需求）  预计入住率 ≥ 90%
+    策略：提价 → 收紧折扣 → 设住期限制 → 收紧渠道配额
+
+🟡 黄色（中需求）  预计入住率 70% ~ 90%
+    策略：维持基准价 → 观察 pickup → 只对领先的日子小幅试探
+
+🟢 绿色（低需求）  预计入住率 &lt; 70%
+    策略：开放促销 → 放宽配额 → 用加值代替降价 → 主攻细分</pre></figure>
+    <div class="point"><div class="pn">1</div><div class="pt"><b>颜色按预计入住率定，不按日期名称定</b> “周六一定是红色”是错的。判断依据永远是预计入住率，不是星期几或节日名字。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>每周更新一次，不每天重画</b> 需求预测会变，但不会每天都变。每周固定时间滚动更新未来 90 天即可。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>颜色必须绑定动作</b> 只标颜色不写动作，日历就变成了一张装饰。每档颜色要配一套预设动作。</div></div>
+
+    <div class="kicker" style="margin-top:26px">03 · 怎么算</div>
+    <h2>算一遍，你会记一辈子</h2>
+    <div class="formula"><div class="fname">分色阈值与滚动更新</div><div class="fexpr">红色：预计入住率 ≥ 90%
+黄色：70% ≤ 预计入住率 &lt; 90%
+绿色：预计入住率 &lt; 70%
+预计入住率 = 在手预订 + 剩余天数 × 历史日均 pickup ÷ 可售房</div><div class="ex"><b>算一遍：</b>某日可售 300 间，距今 10 天，当前在手 240 间，历史日均 pickup 4 间。<br>预计最终入住 = 240 + 10 × 4 = 280 间 → 预计入住率 = 280 ÷ 300 = <b>93%</b> → <b>红色</b>。<br>动作：按红色规则执行——提价 5%、收紧折扣、对该日设最少住期。</div></div>
+
+    <div class="kicker" style="margin-top:26px">04 · 怎么做</div>
+    <h2>三步上限，别超过三件事</h2>
+    <ul class="do"><li>今天就给未来 90 天标一次颜色，并写明每一档对应的预设动作。</li><li>固定每周一上午更新一次日历，滚动往后补 7 天。</li><li>把日历打印出来贴在团队看板上，让前厅和销售都知道今天是哪一档。</li></ul>
+    <div class="dont"><b>不要做的事：</b><b>按星期几凭经验涂色</b> / <b>标了颜色却不绑定动作</b> / <b>画一次之后三个月不更新</b></div>
+
+    <div class="kicker" style="margin-top:26px">05 · 真实案例</div>
+    <h2>一周日历长什么样</h2>
+    <div class="case"><h4>一周日历长什么样</h4><table class="data"><thead><tr><th>日期</th><th>预计入住率</th><th>颜色</th><th>预设动作</th></tr></thead><tbody><tr><td>周五</td><td>88%</td><td>黄色</td><td>维持，观察 pickup</td></tr><tr><td>周六</td><td>94%</td><td>红色</td><td>提价 5% + 最少住期 2 晚</td></tr><tr><td>周日</td><td>61%</td><td>绿色</td><td>开放促销 + 放宽配额</td></tr><tr><td>周一</td><td>52%</td><td>绿色</td><td>主攻协议与会员细分</td></tr></tbody></table><div class="end">看见这张表，任何人都知道今天该做什么。<b>这才是不依赖某个人的标准化交付。</b></div></div>
+
+    <div class="qbox">
+      <div class="qt">今日行动清单</div>
+      <ol><li>给未来 90 天标一次颜色。</li><li>写明每档颜色对应的预设动作。</li><li>固定每周一上午滚动更新。</li></ol>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="nextbox"><b>下一本：</b>No.17　年度预算与目标拆解 —— 日策略解决之后，往上还有一层：这一年的目标怎么分到每天。</div>
+    <span class="qr">扫码获取配套数据 / 全套目录</span>
+    <div style="margin-top:10px">HRMA 收益管理社区 · 口袋书系列 16 · 咨询 rm-community@qq.com</div>
+    <div style="margin-top:6px;font-size:12px;color:#8494a8">本册为初稿 v0.1（核心内容已完成，约 1,000 字）；目标成稿 8,000–12,000 字，按模板逐段扩充即可。</div>
+  </div>
+
+</div>
+</body>
+</html>

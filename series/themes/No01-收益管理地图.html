@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01 收益管理地图 · HRMA 收益管理主题系列</title>
+<meta name="description" content="一本书看清整个收益管理的骨架，以及每一块该在什么时候用">
+<style>
+/* HRMA 口袋书系列 · 统一版式（130×184mm 口袋本，屏幕/打印双用） */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#eef1f6;color:#1c2430;line-height:1.85;font-size:15px}
+.paper{max-width:760px;margin:22px auto;background:#fff;box-shadow:0 4px 18px rgba(20,30,70,.10)}
+
+/* 封面 */
+.cover{background:#0f2a4a;color:#fff;padding:38px 34px 30px;position:relative}
+.cov-series{font-size:12px;letter-spacing:2.6px;opacity:.75;margin-bottom:10px}
+.cov-no{display:inline-block;background:#e8b84b;color:#3a2a00;font-weight:800;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-right:9px}
+.cov-title{font-size:31px;font-weight:800;line-height:1.35;margin:14px 0 12px}
+.cov-promise{font-size:16px;color:#ffe9bd;line-height:1.7;border-left:3px solid #e8b84b;padding-left:13px}
+.cov-badge{position:absolute;right:30px;top:32px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:9px 12px;text-align:center}
+.cov-badge b{display:block;font-size:19px;color:#e8b84b;line-height:1.2}
+.cov-badge span{font-size:11px;opacity:.8}
+.cov-for{margin-top:18px;font-size:13px;opacity:.72}
+
+/* 正文 */
+.body{padding:30px 34px 10px}
+.kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+  color:#fff;background:#1d6fb8;border-radius:5px;padding:2px 9px;margin-bottom:9px}
+h2{font-size:20px;font-weight:800;color:#0f2a4a;margin:0 0 12px;line-height:1.45}
+p{margin:10px 0}
+.lead{font-size:15.5px;color:#3a4b60}
+.story{background:#f7f9fc;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:14px 17px}
+.story .who{font-size:13px;color:#1d6fb8;font-weight:800;margin-bottom:5px}
+.point{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.pn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#0f2a4a;color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pt{font-size:15px}
+.pt b{color:#0f2a4a}
+figure{border:1px solid #e2e8ef;border-radius:11px;padding:15px 17px;background:#fbfcfe;margin:14px 0}
+figcaption{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+pre.figure-art{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.4px;line-height:1.75;color:#0f2a4a;white-space:pre-wrap}
+.formula{background:#fffdf6;border:2px solid #e8cf94;border-radius:12px;padding:16px 18px;margin:14px 0}
+.formula .fname{font-size:13px;color:#a8801f;font-weight:800;margin-bottom:7px}
+.formula .fexpr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:16px;font-weight:700;color:#0f2a4a;background:#fff;border-radius:8px;padding:10px 13px;
+  border:1px solid #f0dcae;line-height:1.7;white-space:pre-wrap}
+.ex{margin-top:11px;font-size:14.2px;color:#3a4b60}
+.ex b{color:#0f2a4a}
+ul.do{list-style:none}
+ul.do li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e6eaf1}
+ul.do li:last-child{border-bottom:none}
+ul.do li::before{content:"";position:absolute;left:7px;top:17px;width:8px;height:8px;
+  border-radius:2px;background:#1d9e75}
+.dont{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;margin-top:13px}
+.dont b{color:#a32d2d}
+.case{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:15px 18px}
+.case h4{font-size:14.5px;color:#0f2a4a;margin-bottom:6px}
+.case .num{color:#5b6a7d;font-size:13.6px}
+.case .end{margin-top:9px;font-size:14px;color:#3a4b60;border-top:1px dashed #dde3ec;padding-top:9px}
+table.data{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+table.data th{background:#eef3f9;color:#3a4b60;font-size:12.5px;text-align:left;padding:9px 11px}
+table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
+.qbox{background:#0f2a4a;color:#fff;border-radius:13px;padding:18px 20px;margin:18px 0}
+.qbox .qt{font-size:15px;font-weight:800;color:#e8b84b;margin-bottom:8px}
+.qbox ol{margin:0 0 0 18px}
+.qbox li{margin:5px 0;font-size:14.6px}
+.footer{margin-top:22px;background:#f4f7fa;border-top:1px solid #e2e8ef;padding:18px 34px 22px;
+  font-size:13px;color:#5b6a7d;line-height:1.8}
+.nextbox{background:#fff;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin-bottom:12px}
+.nextbox b{color:#0f2a4a}
+.qr{display:inline-block;border:1px solid #cfd8e5;border-radius:8px;padding:6px 10px;font-size:12px;color:#8494a8}
+
+/* 系列索引页 */
+.index-wrap{max-width:900px;margin:0 auto;padding:26px 18px 50px}
+.ihead{background:#0f2a4a;color:#fff;border-radius:14px;padding:26px 26px 22px;margin-bottom:20px}
+.ihead h1{font-size:25px;font-weight:800;margin-bottom:8px}
+.ihead p{opacity:.85;font-size:14.5px}
+.rule{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.rule h3{font-size:16px;color:#0f2a4a;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.bk{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:15px 16px;text-decoration:none;color:inherit;display:block}
+.bk:hover{border-color:#e8b84b}
+.bk .bno{font-size:11.5px;color:#a8801f;font-weight:800;letter-spacing:1px}
+.bk .bt{font-size:15.5px;font-weight:800;color:#0f2a4a;margin:4px 0 5px;line-height:1.4}
+.bk .bp{font-size:13px;color:#5b6a7d;line-height:1.65}
+.bk .bmeta{margin-top:8px;font-size:11.5px;color:#8494a8}
+.bigbook{background:#fffdf6;border:2px solid #e8cf94}
+
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .body{page-break-after:auto}
+}
+</style>
+<style>
+.mapbox{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:14px 17px;margin:14px 0}
+.mapbox .lb{font-size:12px;color:#1d6fb8;font-weight:800;letter-spacing:1px;margin-bottom:5px}
+.unit{background:#fff;border:1px solid #e2e8ef;border-radius:13px;padding:18px 20px;margin-bottom:16px}
+.unit-h{font-size:17px;font-weight:800;color:#0f2a4a;margin-bottom:4px}
+.unit-tag{display:inline-block;font-size:11.5px;background:#eef3f9;color:#3a4b60;
+  border-radius:6px;padding:2px 8px;margin-bottom:10px}
+.syn{background:#fffdf6;border:2px solid #e8cf94;border-radius:13px;padding:16px 19px;margin-top:18px}
+.syn .st{font-size:14px;font-weight:800;color:#a8801f;margin-bottom:6px}
+</style>
+</head>
+<body>
+<div class="paper">
+  <div class="cover" style="background:linear-gradient(150deg,#0f2a4a,#16406e 70%,#1d6fb8)">
+    <div class="cov-series">HRMA 收益管理主题系列 · 前置页</div>
+    <div><span class="cov-no">前置一</span></div>
+    <div class="cov-title">酒店收益管理<br>知识图谱</div>
+    <div class="cov-promise">先看懂这张图，再翻任何一册——你会知道它在整张地图的哪个位置。</div>
+  </div>
+  <div class="body">
+    <div class="kicker">知识图谱</div>
+    <div style="margin:8px 0 4px"><svg viewBox="0 0 680 534" width="100%" role="img" xmlns="http://www.w3.org/2000/svg"
+  font-family='-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif'>
+<title>酒店收益管理知识图谱</title>
+<desc>三个前提、一条核心命题、六层十六册的知识结构，以及贯穿全书的唯一公式。</desc>
+
+<g><rect x="40" y="14" width="180" height="46" rx="8" fill="#e6f1fb" stroke="#185fa5" stroke-width="0.5"/>
+  <text x="130" y="37" text-anchor="middle" dominant-baseline="central" font-size="13.5" font-weight="500" fill="#0c447c">产能相对固定</text></g>
+<g><rect x="250" y="14" width="180" height="46" rx="8" fill="#e6f1fb" stroke="#185fa5" stroke-width="0.5"/>
+  <text x="340" y="37" text-anchor="middle" dominant-baseline="central" font-size="13.5" font-weight="500" fill="#0c447c">库存易逝</text></g>
+<g><rect x="460" y="14" width="180" height="46" rx="8" fill="#e6f1fb" stroke="#185fa5" stroke-width="0.5"/>
+  <text x="550" y="37" text-anchor="middle" dominant-baseline="central" font-size="13.5" font-weight="500" fill="#0c447c">需求可细分且波动</text></g>
+
+<g><rect x="40" y="76" width="600" height="44" rx="8" fill="#0f2a4a" stroke="#0f2a4a" stroke-width="0.5"/>
+  <text x="340" y="98" text-anchor="middle" dominant-baseline="central" font-size="15" font-weight="500" fill="#ffffff">核心命题：在库存失效之前，把它卖给最愿意付钱的人</text></g>
+
+<text x="52" y="162" dominant-baseline="central" font-size="13.5" font-weight="500" fill="#0f2a4a">基础层</text>
+<g><rect x="150" y="140" width="140" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="220" y="162" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">01 收益管理地图</text></g>
+<g><rect x="298" y="140" width="140" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="368" y="162" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">02 指标体系与利润</text></g>
+<g><rect x="446" y="140" width="194" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="543" y="162" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">03 竞争与市场位置</text></g>
+
+<text x="52" y="216" dominant-baseline="central" font-size="13.5" font-weight="500" fill="#0f2a4a">需求层</text>
+<g><rect x="150" y="194" width="140" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="220" y="216" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">04 需求预测</text></g>
+<g><rect x="298" y="194" width="140" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="368" y="216" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">05 预订进度</text></g>
+<g><rect x="446" y="194" width="194" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="543" y="216" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">06 市场细分</text></g>
+
+<text x="52" y="270" dominant-baseline="central" font-size="13.5" font-weight="500" fill="#0f2a4a">价格层</text>
+<g><rect x="150" y="248" width="140" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="220" y="270" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">07 价格体系</text></g>
+<g><rect x="298" y="248" width="140" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="368" y="270" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">08 动态定价</text></g>
+<g><rect x="446" y="248" width="194" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="543" y="270" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">09 折扣与促销</text></g>
+
+<text x="52" y="324" dominant-baseline="central" font-size="13.5" font-weight="500" fill="#0f2a4a">库存层</text>
+<g><rect x="150" y="302" width="140" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="220" y="324" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">10 库存控制</text></g>
+<g><rect x="298" y="302" width="140" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="368" y="324" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">11 超额预订</text></g>
+<g><rect x="446" y="302" width="194" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="543" y="324" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">12 置换分析</text></g>
+
+<text x="52" y="378" dominant-baseline="central" font-size="13.5" font-weight="500" fill="#0f2a4a">经营层</text>
+<g><rect x="150" y="356" width="140" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="220" y="378" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">13 预算与目标</text></g>
+<g><rect x="298" y="356" width="140" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="368" y="378" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">14 例会与报表</text></g>
+<g><rect x="446" y="356" width="194" height="44" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="543" y="378" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#04342c">15 系统与数据</text></g>
+
+<text x="52" y="432" dominant-baseline="central" font-size="13.5" font-weight="500" fill="#0f2a4a">延伸层</text>
+<g><rect x="150" y="410" width="300" height="44" rx="8" fill="#e6f1fb" stroke="#185fa5" stroke-width="0.5"/>
+  <text x="300" y="432" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#0c447c">16 跨行业参数与常见误区</text></g>
+
+<g><rect x="40" y="470" width="600" height="44" rx="8" fill="#faeeda" stroke="#854f0b" stroke-width="0.5"/>
+  <text x="340" y="492" text-anchor="middle" dominant-baseline="central" font-size="14.5" font-weight="500" fill="#412402">贯穿全书的唯一公式：RevPAR = 入住率 × 平均房价</text></g>
+</svg></div>
+    <div class="note"><b>怎么用这张图：</b>三个前提决定了这件事成不成立；六层十六册是知识的完整结构；最下面那条公式贯穿全部内容。你不需要从头读到尾——先找到自己最薄弱的那一层，只读那一层。</div>
+  </div>
+  <div class="footer">
+    <div>HRMA 收益管理社区 · 前置页 前置一 · 咨询 rm-community@qq.com</div>
+  </div>
+</div>
+<div class="paper">
+  <div class="cover" style="background:linear-gradient(150deg,#0f2a4a,#16406e 70%,#1d6fb8)">
+    <div class="cov-series">HRMA 收益管理主题系列 · 前置页</div>
+    <div><span class="cov-no">前置二</span></div>
+    <div class="cov-title">酒店收益管理<br>操作流程图</div>
+    <div class="cov-promise">知识是结构，工作是闭环。这张图回答：每天、每周、每年到底在做什么。</div>
+  </div>
+  <div class="body">
+    <div class="kicker">操作流程图</div>
+    <div style="margin:8px 0 4px"><svg viewBox="0 0 680 356" width="100%" role="img" xmlns="http://www.w3.org/2000/svg"
+  font-family='-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif'>
+<title>酒店收益管理操作流程图</title>
+<desc>预测、决策、执行、复盘四步闭环，底层由数据与系统支撑，顶部由年度预算提供基准。</desc>
+<defs>
+  <marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#5b6a7d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<g><rect x="250" y="18" width="180" height="58" rx="8" fill="#0f2a4a" stroke="#0f2a4a" stroke-width="0.5"/>
+  <text x="340" y="40" text-anchor="middle" dominant-baseline="central" font-size="14.5" font-weight="500" fill="#ffffff">一 · 预测</text>
+  <text x="340" y="59" text-anchor="middle" dominant-baseline="central" font-size="12.5" fill="#cfe0f5">曲线 · 分色 · 进度</text></g>
+
+<g><rect x="460" y="108" width="180" height="58" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="550" y="130" text-anchor="middle" dominant-baseline="central" font-size="14.5" font-weight="500" fill="#04342c">二 · 决策</text>
+  <text x="550" y="149" text-anchor="middle" dominant-baseline="central" font-size="12.5" fill="#04342c">定价 · 库存 · 配额</text></g>
+
+<g><rect x="250" y="198" width="180" height="58" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="340" y="220" text-anchor="middle" dominant-baseline="central" font-size="14.5" font-weight="500" fill="#04342c">三 · 执行</text>
+  <text x="340" y="239" text-anchor="middle" dominant-baseline="central" font-size="12.5" fill="#04342c">投放 · 监控 · 调整</text></g>
+
+<g><rect x="40" y="108" width="180" height="58" rx="8" fill="#e8f4f1" stroke="#0f6e56" stroke-width="0.5"/>
+  <text x="130" y="130" text-anchor="middle" dominant-baseline="central" font-size="14.5" font-weight="500" fill="#04342c">四 · 复盘</text>
+  <text x="130" y="149" text-anchor="middle" dominant-baseline="central" font-size="12.5" fill="#04342c">例会 · 报表 · 校准</text></g>
+
+<path d="M430 47 C455 60 470 90 475 108" fill="none" stroke="#5b6a7d" stroke-width="1.5" marker-end="url(#ar2)"/>
+<path d="M550 166 C545 186 470 210 435 220" fill="none" stroke="#5b6a7d" stroke-width="1.5" marker-end="url(#ar2)"/>
+<path d="M250 227 C225 212 150 180 125 166" fill="none" stroke="#5b6a7d" stroke-width="1.5" marker-end="url(#ar2)"/>
+<path d="M130 108 C135 88 210 60 245 50" fill="none" stroke="#5b6a7d" stroke-width="1.5" marker-end="url(#ar2)"/>
+
+<g><rect x="250" y="108" width="180" height="58" rx="8" fill="#e6f1fb" stroke="#185fa5" stroke-width="0.5"/>
+  <text x="340" y="130" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#0c447c">底座 · 数据与系统</text>
+  <text x="340" y="149" text-anchor="middle" dominant-baseline="central" font-size="12.5" fill="#0c447c">竞争群 · 历史 · 净值</text></g>
+
+<g><rect x="40" y="282" width="600" height="52" rx="8" fill="#faeeda" stroke="#854f0b" stroke-width="0.5"/>
+  <text x="340" y="302" text-anchor="middle" dominant-baseline="central" font-size="14.5" font-weight="500" fill="#412402">年度预算与目标：为每一环提供基准</text>
+  <text x="340" y="322" text-anchor="middle" dominant-baseline="central" font-size="12.5" fill="#412402">用历史月指数拆解到月、到周，每周对比一次偏差</text></g>
+</svg></div>
+    <div class="note"><b>怎么用这张图：</b>预测 → 决策 → 执行 → 复盘，四步走完一圈，再由预算与数据回到起点。预测每天看两个数，决策只在触发条件满足时动手，执行后必须留记录，复盘固定每周一次。</div>
+  </div>
+  <div class="footer">
+    <div>HRMA 收益管理社区 · 前置页 前置二 · 咨询 rm-community@qq.com</div>
+  </div>
+</div>
+
+<div class="paper">
+  <div class="cover">
+    <div class="cov-series">HRMA 收益管理主题系列 · 基础层</div>
+    <div><span class="cov-no">01 / 16</span></div>
+    <div class="cov-title">收益管理地图</div>
+    <div class="cov-promise">一本书看清整个收益管理的骨架，以及每一块该在什么时候用</div>
+    <div class="cov-for">适读：刚入行的收益新人、需要建立整体认知的店总与前厅管理者</div>
+    <div class="cov-badge"><b>45</b><span>分钟读完</span></div>
+  </div>
+
+  <div class="body">
+    <div class="mapbox"><div class="lb">本册在知识地图的位置 · 基础层</div>先建立度量与参照——否则后面所有的判断都没有坐标。</div>
+
+    <div class="kicker">本册导读</div>
+    <h2>为什么要单独讲这一册</h2>
+    <p class="lead">很多人学收益管理，是从公式开始的：先背 OCC、ADR、RevPAR，再背一堆指数。背完仍然不会用——因为不知道这些数字<b>分别在哪个环节起作用</b>。这一册不急着讲公式，而是先把整张地图铺开：收益管理解决的根本矛盾是什么、它由哪几块组成、每一块在什么时点被使用、以及它们之间怎么咬合。读完这一册，你再看后面任何一册，都知道它在地图的哪个位置。</p>
+
+    <div class="kicker" style="margin-top:26px">正文 · 1 个知识单元</div>
+    <h2>一个单元一个问题</h2>
+    <p class="lead">每个单元沿用同一套结构：先讲你会踩的坑，再讲概念与算法，最后给能当天执行的动作。</p>
+    <div class="unit">
+  <div class="unit-tag">单元 1 · 概念 No.01</div>
+  <div class="unit-h">收益管理到底是什么</div>
+  <div class="story"><div class="who">这个坑你一定踩过 · 百分之九十二的入住率，输给了百分之七十八</div><p>城东有两家店隔着一条马路。李总的店 300 间房，常年入住率 92%，同行都羡慕；对面那家店客房少些，<b>入住率只有 78%</b>，看上去冷冷清清。</p><p>年底对账，李总却发现自己的年收入比对面少了将近两百万。他不明白：明明我房都卖光了，晚上大厅还站满客人，怎么反倒输给一家没住满的店？</p><p>答案只有一行：<b>他把房间都卖出去了，却没有把房间卖贵。</b></p></div>
+  <h3 style="margin-top:14px">核心概念 · 你的房间，是一张今晚 24 点就作废的票</h3>
+  <p class="lead">收益管理其实只做一件事：在库存失效之前，把它卖给最愿意付钱的人。做不到的部分，今晚 24 点会准时归零——永远不会再有一月一日的这个晚上可以重卖。</p>
+  <figure><figcaption>今晚的库存，过期归零</figcaption><pre class="figure-art">今日可售    300 间
+├─ 售出  276 间 × 268 元  =  73,968 元
+└─ 空置   24 间 ×   0 元  =       0 元   ← 永久损失
+
+明天的可售房，又是全新的 300 间
+（今天没卖掉的，不能存到明天补回来）</pre></figure>
+  <div class="point"><div class="pn">1</div><div class="pt"><b>三个前提缺一不可</b> 产能相对固定（今晚就是 300 间，变不出来）、库存易逝（空一晚永远追不回）、需求可细分且波动（有人急有人挑）。三条同时成立，才有收益管理这回事。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>卖得掉 ≠ 卖得好</b> 满房只是结果指标。不看价格的满房，很可能是把应该卖 500 元的房子，提前用 300 元处理掉了。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>收益管理是选客人</b> 同一个晚上，房是固定的，能给谁？——给最愿意付钱的那批人。所谓提价，本质是一次筛选，而不是跟客人较劲。</div></div>
+  <h3 style="margin-top:14px">怎么算</h3>
+  <div class="formula"><div class="fname">最重要、也最容易被忽略的一个公式</div><div class="fexpr">RevPAR = 入住率 × 平均房价
+       = 房晚总收入 ÷ 可售房量</div><div class="ex"><b>套李总的店：</b>300 间房昨晚售出 276 间，房晚收入 73,968 元。<br>入住率 = 276 ÷ 300 = <b>92%</b>；平均房价 = 73,968 ÷ 276 = <b>268 元</b>；<br>RevPAR = 268 × 92% = <b>246.6 元</b>（等于 73,968 ÷ 300）。<br>再看对面那家：349 × 78% = <b>272.2 元</b>。每间可售房每天多 25.6 元——差的不是勤奋，是愿不愿意为高价留出库存。</div></div>
+  <h3 style="margin-top:14px">怎么做</h3>
+  <ul class="do"><li>从今天起每天开盘先看 <b>RevPAR</b>，而不是先看入住率。花五分钟算昨天的数，比盯一上午前台有用。</li><li>找出你店里“最容易满、却卖得最便宜”的那个房型——它通常就是你最大的漏点。</li><li>挑一个低需求的日子，把其中一个房型提价 5%，连续观察三天的预订速度有没有异常。</li></ul>
+  <div class="dont"><b>不要做的事：</b><b>为了追求满房一路降到底价</b> / <b>只看今天的出租率就下结论</b> / <b>在还没算清 RevPAR 之前就动手调价</b></div>
+  <h3 style="margin-top:14px">真实案例 · 同一条马路上的两家店，一夜之差</h3>
+  <div class="case"><h4>同一条马路上的两家店，一夜之差</h4><table class="data"><thead><tr><th>指标</th><th>A 店（李总）</th><th>B 店（对面）</th></tr></thead><tbody><tr><td>可售房量</td><td>300 间</td><td>240 间</td></tr><tr><td>入住率</td><td>92%</td><td>78%</td></tr><tr><td>平均房价</td><td>268 元</td><td>349 元</td></tr><tr><td>RevPAR</td><td>246.6 元</td><td>272.2 元</td></tr><tr><td>单间可售房日差</td><td>—</td><td>+25.6 元</td></tr></tbody></table><div class="end">按 300 间、365 天粗算，B 店每年比 A 店多出约 <b>280 万元</b>房晚收入。两家店的员工都在拼，差距不在努力程度，在有没有人专门盯着“卖什么价”。</div></div>
+</div>
+
+    <div class="syn">
+      <div class="st">单元之间的关系</div>
+      整张地图只有一句话：<b>在库存失效之前，把它卖给最愿意付钱的人。</b>围绕这句话，上游是预测（未来会来多少人），中游是价格与库存（卖多少钱、留给谁），下游是复盘与计划（做对了没有、下次怎么调）。本系列后续每一册，都是这张图上的一个格子。
+    </div>
+
+    <div class="qbox">
+      <div class="qt">本册行动清单</div>
+      <ol><li>写下你所在门店的库存单位，以及它的失效时点。</li><li>把本册的地图抄下来，标注你当前最薄弱的那一块。</li><li>接下来只读最薄弱那一块对应的册子，不要从头通读。</li></ol>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="nextbox"><b>下一册：</b>02　指标体系与利润 —— 从 RevPAR 一路往下算到边际贡献，看清收入与利润之间隔着什么</div>
+    <div style="margin-top:10px">HRMA 收益管理社区 · 主题系列 01 / 16 · 咨询 rm-community@qq.com</div>
+    <div style="margin-top:6px;font-size:12px;color:#8494a8">本册由 1 个概念单元汇编而成，属初稿 v0.2；后续按单元逐段扩充至成稿篇幅。</div>
+  </div>
+</div>
+</body>
+</html>

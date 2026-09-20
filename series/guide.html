@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>酒店收益管理实战手册（岗位版）</title>
+<style>
+/* HRMA 口袋书系列 · 统一版式（130×184mm 口袋本，屏幕/打印双用） */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#eef1f6;color:#1c2430;line-height:1.85;font-size:15px}
+.paper{max-width:760px;margin:22px auto;background:#fff;box-shadow:0 4px 18px rgba(20,30,70,.10)}
+
+/* 封面 */
+.cover{background:#0f2a4a;color:#fff;padding:38px 34px 30px;position:relative}
+.cov-series{font-size:12px;letter-spacing:2.6px;opacity:.75;margin-bottom:10px}
+.cov-no{display:inline-block;background:#e8b84b;color:#3a2a00;font-weight:800;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-right:9px}
+.cov-title{font-size:31px;font-weight:800;line-height:1.35;margin:14px 0 12px}
+.cov-promise{font-size:16px;color:#ffe9bd;line-height:1.7;border-left:3px solid #e8b84b;padding-left:13px}
+.cov-badge{position:absolute;right:30px;top:32px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:9px 12px;text-align:center}
+.cov-badge b{display:block;font-size:19px;color:#e8b84b;line-height:1.2}
+.cov-badge span{font-size:11px;opacity:.8}
+.cov-for{margin-top:18px;font-size:13px;opacity:.72}
+
+/* 正文 */
+.body{padding:30px 34px 10px}
+.kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+  color:#fff;background:#1d6fb8;border-radius:5px;padding:2px 9px;margin-bottom:9px}
+h2{font-size:20px;font-weight:800;color:#0f2a4a;margin:0 0 12px;line-height:1.45}
+p{margin:10px 0}
+.lead{font-size:15.5px;color:#3a4b60}
+.story{background:#f7f9fc;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:14px 17px}
+.story .who{font-size:13px;color:#1d6fb8;font-weight:800;margin-bottom:5px}
+.point{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.pn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#0f2a4a;color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pt{font-size:15px}
+.pt b{color:#0f2a4a}
+figure{border:1px solid #e2e8ef;border-radius:11px;padding:15px 17px;background:#fbfcfe;margin:14px 0}
+figcaption{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+pre.figure-art{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.4px;line-height:1.75;color:#0f2a4a;white-space:pre-wrap}
+.formula{background:#fffdf6;border:2px solid #e8cf94;border-radius:12px;padding:16px 18px;margin:14px 0}
+.formula .fname{font-size:13px;color:#a8801f;font-weight:800;margin-bottom:7px}
+.formula .fexpr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:16px;font-weight:700;color:#0f2a4a;background:#fff;border-radius:8px;padding:10px 13px;
+  border:1px solid #f0dcae;line-height:1.7;white-space:pre-wrap}
+.ex{margin-top:11px;font-size:14.2px;color:#3a4b60}
+.ex b{color:#0f2a4a}
+ul.do{list-style:none}
+ul.do li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e6eaf1}
+ul.do li:last-child{border-bottom:none}
+ul.do li::before{content:"";position:absolute;left:7px;top:17px;width:8px;height:8px;
+  border-radius:2px;background:#1d9e75}
+.dont{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;margin-top:13px}
+.dont b{color:#a32d2d}
+.case{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:15px 18px}
+.case h4{font-size:14.5px;color:#0f2a4a;margin-bottom:6px}
+.case .num{color:#5b6a7d;font-size:13.6px}
+.case .end{margin-top:9px;font-size:14px;color:#3a4b60;border-top:1px dashed #dde3ec;padding-top:9px}
+table.data{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+table.data th{background:#eef3f9;color:#3a4b60;font-size:12.5px;text-align:left;padding:9px 11px}
+table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
+.qbox{background:#0f2a4a;color:#fff;border-radius:13px;padding:18px 20px;margin:18px 0}
+.qbox .qt{font-size:15px;font-weight:800;color:#e8b84b;margin-bottom:8px}
+.qbox ol{margin:0 0 0 18px}
+.qbox li{margin:5px 0;font-size:14.6px}
+.footer{margin-top:22px;background:#f4f7fa;border-top:1px solid #e2e8ef;padding:18px 34px 22px;
+  font-size:13px;color:#5b6a7d;line-height:1.8}
+.nextbox{background:#fff;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin-bottom:12px}
+.nextbox b{color:#0f2a4a}
+.qr{display:inline-block;border:1px solid #cfd8e5;border-radius:8px;padding:6px 10px;font-size:12px;color:#8494a8}
+
+/* 系列索引页 */
+.index-wrap{max-width:900px;margin:0 auto;padding:26px 18px 50px}
+.ihead{background:#0f2a4a;color:#fff;border-radius:14px;padding:26px 26px 22px;margin-bottom:20px}
+.ihead h1{font-size:25px;font-weight:800;margin-bottom:8px}
+.ihead p{opacity:.85;font-size:14.5px}
+.rule{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.rule h3{font-size:16px;color:#0f2a4a;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.bk{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:15px 16px;text-decoration:none;color:inherit;display:block}
+.bk:hover{border-color:#e8b84b}
+.bk .bno{font-size:11.5px;color:#a8801f;font-weight:800;letter-spacing:1px}
+.bk .bt{font-size:15.5px;font-weight:800;color:#0f2a4a;margin:4px 0 5px;line-height:1.4}
+.bk .bp{font-size:13px;color:#5b6a7d;line-height:1.65}
+.bk .bmeta{margin-top:8px;font-size:11.5px;color:#8494a8}
+.bigbook{background:#fffdf6;border:2px solid #e8cf94}
+
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .body{page-break-after:auto}
+}
+</style>
+</head>
+<body>
+<div class="paper">
+  <div class="cover">
+    <div class="cov-series">HRMA 操作装 · 岗位版</div>
+    <div class="cov-title">酒店收益管理<br>实战手册</div>
+    <div class="cov-promise">写给没时间系统学习的人：按一天、一周、一月的节奏编排，随时可以现场翻</div>
+    <div class="cov-for">适读：酒店收益经理、前厅经理、预订经理、店总</div>
+  </div>
+  <div class="body"><div class="kicker">使用说明</div><h2>这本手册怎么用</h2><p class="lead">如果你没时间系统地学一门学问，只想明天就能用——翻这本就够了。</p><p>全书不按学科体系排，按<b>你工作的节奏</b>排：每天做什么、遇到场景怎么判断、每周每月开什么会、最后一张自查清单。</p><div class="kicker" style="margin-top:26px">第一部分</div><h2>每日动作：早上九点的十五分钟</h2><div class="step"><div class="step-t">看五个数（2 分钟）</div>今天的在手预订、昨天的 pickup、昨天与去年同期的 RevPAR、竞争群今天的挂牌价、今天是否有特殊事件。</div><div class="step"><div class="step-t">做一次判断（5 分钟）</div>未来三天是不是马上要满？pacing 是领先还是落后？竞争群有没有异动？</div><div class="step"><div class="step-t">动一次价格或库存（8 分钟）</div>每次只做一个动作：上调、下调、关闭某个房型、或什么都不做。做完必须记录。</div><div class="formula"><div class="fname">每日判断树</div><div class="fexpr">今天或明天预计入住率 ≥ 90%？
+   是 → 检查是否该提价 / 该上限制
+   否 → 检查 pacing 是否落后去年同期
+        落后 → 先查渠道与点评，再谈降价
+        领先 → 保持或小幅试探上调</div></div><div class="dont"><b>最常见的错误：</b>每天因为“感觉”反复小幅调价。<b>没触发就不要动</b>，频繁改动会让你的历史数据失去参考价值。</div><div class="kicker" style="margin-top:26px">第二部分</div><h2>场景决策：碰到什么情况怎么做</h2><p class="lead">以下 32 个卡片覆盖日常工作的主要场景。每张卡一句话给结论，需要细节时翻对应的口袋书。</p><div class="case" style="margin-bottom:13px">
+      <h4>百分之九十二的入住率，输给了百分之七十八</h4>
+      <div class="num"><b>结论：</b>一句话讲清：为什么你天天满房，却不如隔壁没住满的店赚钱</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>从今天起每天开盘先看 <b>RevPAR</b>，而不是先看入住率。花五分钟算昨天的数，比盯一上午前台有用。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>找出你店里“最容易满、却卖得最便宜”的那个房型——它通常就是你最大的漏点。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>为了追求满房一路降到底价　/　只看今天的出租率就下结论　/　在还没算清 RevPAR 之前就动手调价</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">RevPAR = 入住率 × 平均房价</span>　→　详见口袋书 No.01</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>同一个人同一个店，算出了三个不同的平均房价</h4>
+      <div class="num"><b>结论：</b>把这三个数真正看懂，你才有资格跟任何人谈价格</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>今天就把全店统一的口径表写出来：免费房、自用房、超售、升级各怎么算，签字贴前台。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>把三个数做成一张老板看得懂的日报：<b>今天 / 昨天 / 去年同期</b>三列对比。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>用不同口径的数互相比较　/　拿单一指标下商业决策　/　把 RevPAR 当成净收益</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">OCC    = 已售房晚 ÷ 可售房晚</span>　→　详见口袋书 No.02</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>老板问：“我们到底算贵还是算便宜？”</h4>
+      <div class="num"><b>结论：</b>不用打听底价，也能知道自己在市场里到底是贵了、还是没份额</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>今天就定死你的竞争群：写名字、写档次、写为什么要对比它，不要随便换。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>每天同一时间记录一次竞争群的挂牌价，做成一张雷打不动的表格——这是你最值钱的数据资产。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>只看 ARI 就决定是否涨价　/　把不同档次竞争对手混在一起来平均　/　用一天的汇率数据做月度判断</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">MPI = 本店入住率 ÷ 竞争群入住率</span>　→　详见口袋书 No.03</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>“一提价就没人订了”——这句话很少是真的</h4>
+      <div class="num"><b>结论：</b>给你一个敢涨价的理由，和一条不该越过的红线</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>先分需求等级：把未来 30 天按入住率分成高、中、低三档，只在<b>高档</b>日子试探涨价。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>单次调幅控制在 <b>5%–8%</b>，观察三天的预订速度（pickup）再决定要不要加码。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>一次性跳涨超过 12%　/　在淡季照搬旺季的涨价幅度　/　不看 pickup 就连续加价</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">新需求量 = 原需求量 × (1 + E × 价格变动%)</span>　→　详见口袋书 No.04</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>每天问自己该不该涨，是最消耗人的活</h4>
+      <div class="num"><b>结论：</b>五个可以挂在墙上的触发条件，让你不必再靠直觉拍脑袋</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>把五条触发条件打印出来贴在工位，从明天起<b>只按清单决策</b>。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>对每个即将到来的高需求日，提前 20 天开始记每天的 pickup。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>在同一个房型上一次跳涨超过 10%　/　在没有任何触发条件时因为“感觉该涨”而调价　/　调完不看 pickup 就连续加码</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">pickup（当日新增）= 今日在手预订 − 昨日在手预订</span>　→　详见口袋书 No.05</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>一边空着 24 间，一边把客人送去了别家</h4>
+      <div class="num"><b>结论：</b>给超售一个能向店总交代的算法，和一份万一出事的处理流程</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>把过去六个月每天的取消数和 No-show 数拉出来，算自己店的平均未到率。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>只在系统预测入住率 ≥ 95% 的日子开启超售，且数量由公式给出，不由心情给出。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>在没有退路的日子超售　/　把超售当成常规手段全年开启　/　让一线员工自行决定要不要超售</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">推荐超售数 = 预计最终需求 × 历史 No-show 率 × 保守系数</span>　→　详见口袋书 No.06</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>三个房型只差 20 元，客人为何该选贵的</h4>
+      <div class="num"><b>结论：</b>不靠店员推销，让客人在对比中自己选择更贵的那一间</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>把自己店所有房型列一行，算出<b>每对相邻房型的价差率</b>，找出低于 8% 的那几对。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>给每一个价差写一句“为什么值这个钱”，写不出来的差价就该重新设计。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>把看不见的差异算进房价　/　让所有房型挤在 5% 以内的价差里　/　用口头推销替代明码栅栏</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">相邻房型价差率 = (高一档房价 − 低一档房价) ÷ 低一档房价</span>　→　详见口袋书 No.07</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>周六全满，周日空一半</h4>
+      <div class="num"><b>结论：</b>在旺季守住收益的最后一道闸门，以及它的三个禁用场合</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>找出未来 60 天里“目标日高需求、次日低需求”的那些日期，列一张清单。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>先对这些日子单独提价 5%–8%，三天后看效果再决定是否叠加 MinLOS。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>全年无差别开启限制　/　官网与 OTA 设置不一致　/　设了限制之后忘记复查和解除</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">触发：目标日预计入住率 ≥ 90%，且次日预计入住率低于其 15 个百分点以上</span>　→　详见口袋书 No.08</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>月报表上说平均房价 420，财务说没钱赚</h4>
+      <div class="num"><b>结论：</b>同一间房卖 400 元，不同渠道到你口袋里差的钱能超过一百</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>把本店所有渠道列一张表，写出各自的佣金、返现、结算条件，算出净值。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>按<b>净值排序</b>而不是按订单量排序，重新看一遍你的渠道策略。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>只看平均房价就做渠道决策　/　为了冲订单量把库存全压到高佣金渠道　/　忽略退订率差异</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">渠道净值 = 挂牌价 × (1 − 佣金率) − 返现/积分 − 单笔其他成本</span>　→　详见口袋书 No.09</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>同一个人的两次预测，一次很准一次离谱</h4>
+      <div class="num"><b>结论：</b>不用复杂模型，用一张去年的对照表就能判断今年是领先还是掉队</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>选定一个典型月份，把<b>每个入住日的手预订曲线</b>画出来，先只做一个月。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>每天早上花五分钟，把今日在手和去年同期同日在手两个数字记进表。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>拿不同星期属性的日子做对比　/　在落后时第一时间降价　/　只看某一天的数据就推翻判断</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">pickup（当日新增）= 今日在手 − 昨日在手</span>　→　详见口袋书 No.10</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>对面掉了三十块，全店立刻炸了锅</h4>
+      <div class="num"><b>结论：</b>一套不必慌的判断顺序，和一条能保住房价体系的底线</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>遇到降价先走四步判断顺序，把结论写下来再动手，不当场做决定。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>准备三种“加值武器”：赠送早餐、房型升级券、会员积分，随时可置换 20–30 元的价格差。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>看到对手降价就全线跟进　/　和市场里最低的那家比价格　/　降价之后不设回归日期</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">不跟的预估损失 = 预计流失间夜 × 渠道净值</span>　→　详见口袋书 No.11</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>接了个六十间的大团队，月底利润反而少了</h4>
+      <div class="num"><b>结论：</b>一个能当场算出盈亏线的置换公式，让你不必再靠“要不要做这一单”赌运气</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>先查目标日的散客需求预测与预计入住率——这是全部测算的前提。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>用上面的公式算出这一单的<b>最低可接受价</b>，写进报价前的审批表。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>在没算置换成本前答应报价　/　只比平均房价、不比净收入　/　忽略团队更高的取消与缩房风险</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">置换成本 = 被替代的散客间夜 × 散客渠道净值</span>　→　详见口袋书 No.12</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>客人拿着手机问前台：为什么网上更便宜</h4>
+      <div class="num"><b>结论：</b>一个基准价管住几十种卖价，从此不再出现“同一个房五个价”</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>今天就写下本店的<b>价格层级表</b>：挂牌价、BAR、以及每一种派生价的比例与适用条件。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>把所有渠道的当日 BAR 拉出来对齐一次，找出不一致的地方。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>让同一个房型在不同渠道出现不同基准价　/　用口头特价绕开规则　/　设了折扣规则却不设有效期</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">折扣率 = 1 − 折后价 ÷ BAR</span>　→　详见口袋书 No.13</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>同样的房，商务客和度假客愿意付的钱完全不同</h4>
+      <div class="num"><b>结论：</b>不再对所有客人报同一个价，而是给不同客人不同的门</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>列出本店现有的细分清单，写出每一类的<b>提前期、取消率、价格敏感度</b>三个特征。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>给每一个低价细分补上至少一条栅栏（不可取消 / 提前天数 / 最少住期）。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>只按客人身份而不按行为细分　/　给低价细分却不设任何栅栏　/　分了细分却从不按细分统计</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">某细分贡献度 = 该细分间夜占比 × 该细分渠道净值</span>　→　详见口袋书 No.14</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>房还没到周末，就被最便宜的渠道订光了</h4>
+      <div class="num"><b>结论：</b>旺季不把好房间便宜卖光的一整套留房规则</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>给每个渠道写明<b>每日配额上限</b>，并写进渠道合同或后台设置。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>建立“临近回收”动作：D-7 收紧、D-3 回收，写进每周固定动作。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>旺季把所有库存一次性放给所有渠道　/　只控价格不控库存　/　设了配额却从不回收</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">低净值渠道配额 = 可售房 × 该渠道策略占比（旺季建议 20%–30%）</span>　→　详见口袋书 No.15</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>每天重新想一遍“今天该涨还是该降”，是最耗神的活</h4>
+      <div class="num"><b>结论：</b>一张三色日历，把你从每天重新判断一次里解放出来</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>今天就给未来 90 天标一次颜色，并写明每一档对应的预设动作。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>固定每周一上午更新一次日历，滚动往后补 7 天。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>按星期几凭经验涂色　/　标了颜色却不绑定动作　/　画一次之后三个月不更新</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">红色：预计入住率 ≥ 90%</span>　→　详见口袋书 No.16</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>“今年 RevPAR 做到 300”——然后呢</h4>
+      <div class="num"><b>结论：</b>把老板给的一个年度数字，拆成每天该卖多少钱</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>把过去三年的月度 RevPAR 拉出来，算出十二个月的<b>月指数表</b>。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>用年度目标乘月指数，得到每个月的目标，再拆到周。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>把年度目标平均分成十二份　/　用单一年份数据算指数　/　年底才发现没完成</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">月指数 = 该月历史 RevPAR ÷ 全年月均 RevPAR</span>　→　详见口袋书 No.17</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>做了十几张表，老板还是说看不懂</h4>
+      <div class="num"><b>结论：</b>四类报表定死字段，老板只需要看一页纸</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>今天就砍掉一半现有报表，只留四类，每类一页。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>给每张表加一个<b>结论栏</b>，强制自己写一句人话。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>为了显得专业堆砌字段　/　只给数据不给结论　/　报表发送时间随心情</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">目标完成率 = 本期实际 RevPAR ÷ 本期目标 RevPAR × 100%</span>　→　详见口袋书 No.18</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>招了个收益经理，半年后他还在做报表</h4>
+      <div class="num"><b>结论：</b>把岗位职责、考核指标与跨部门边界一次说清楚</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>今天就写一张<b>授权表</b>：收益经理能自己定什么、什么必须上报。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>把考核指标改成 RevPAR 达成率 + RGI + 预测准确率三项。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>只给报表权不给决策权　/　用营业收入考核收益岗　/　收益策略只在一个部门内部流转</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">自主调价区间：建议在 BAR 的 ±10% 以内</span>　→　详见口袋书 No.19</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>一次促销做完，房价三个月没抬回来</h4>
+      <div class="num"><b>结论：</b>打折不是认输，但它必须有门槛、有期限、有止损线</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>给本店列出可动用的三种加值武器，并算出每一种的<b>实际成本</b>。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>任何促销必须写明：门槛、截止日、止损线，三项缺一不执行。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>做没有截止日的促销　/　全线无门槛打折　/　降价却不设止损线</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">保本销量 = 原价间夜 × 原价净值 ÷ 折后净值</span>　→　详见口袋书 No.20</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>每年付出去的佣金，够再开一家分店的前厅</h4>
+      <div class="num"><b>结论：</b>算清一笔账：直销占比每提高一个点，你到底省下多少佣金</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>算出本店去年的佣金总额——先把这个数字摆在老板面前。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>设计一款<b>只有直销才有</b>的权益（建议：免费升级或延迟退房），成本可控且感知强。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>用比 OTA 更低的裸价做直销　/　只算第一次入住的账　/　忽略前台这个最低成本的直销触点</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">转移收益 = 转移间夜 × 平均房价 × (OTA 佣金率 − 直销获客成本率)</span>　→　详见口袋书 No.21</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>参加了一堆活动，订单却没有涨</h4>
+      <div class="num"><b>结论：</b>把曝光、转化、点评三件事串起来，做对顺序别做反</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>先看自己的<b>转化率</b>，而不是先看曝光量——如果转化率低于同类均值，先修转化。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>统计近三个月差评，按责任部门归类，找出最高频的三类问题。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>转化没修好就猛投曝光　/　只回复差评不归因　/　把房型详情页写成千篇一律</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">订单量 = 曝光量 × 点击率 × 转化率</span>　→　详见口袋书 No.22</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>平均房价涨了，利润却没动</h4>
+      <div class="num"><b>结论：</b>卖得贵不等于赚得多——往下算一层，才知道哪一单真正在赚钱</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>今天就向财务要一个数：<b>每间房的变动成本</b>是多少，含不含早餐。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>用变动成本重算一遍你现有的主要细分，看谁的边际贡献最高。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>用营业收入代替利润做判断　/　不知道变动成本就谈折扣　/　认为低价单一定不值得接</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">边际贡献 = 净房价 − 变动成本</span>　→　详见口袋书 No.23</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>客人说贵，其实是在说“看不出值不值”</h4>
+      <div class="num"><b>结论：</b>不加价格也能提高客单价的三套组合方法</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>挑一个主销房型，设计一个<b>含两项附加</b>的套餐，并算出它的净收益。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>在房型陈列中明确标出“推荐档”，放在中间偏上位置。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>用打包的名义做裸降价　/　套餐附加项成本不核算　/　把最贵档设为默认推荐</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">套餐净收益 = 套餐售价 − 房晚固定成本分摊 − 各附加项变动成本</span>　→　详见口袋书 No.24</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>旺季涨价总是慢半拍</h4>
+      <div class="num"><b>结论：</b>把一年的涨跌节奏提前排好，别等到旺季才开始想涨价</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>把未来 12 个月分成四档，写出每档的目标倍数与启用日期。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>为下一个旺季排一张<b>分批上调时间表</b>（每 15–20 天一档）。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>旺季临时一次性跳涨　/　淡季等到空房才促销　/　价格日历排完全年不看</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">档位倍数 = 该档目标房价 ÷ 平季基准房价（常见：旺季 1.2–1.4，淡季 0.85–0.95）</span>　→　详见口袋书 No.25</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>演唱会那天卖爆了，第二天收到一堆差评</h4>
+      <div class="num"><b>结论：</b>演唱会、考试、展会这类日子，怎么提前锁定收益而不惹差评</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>建立一张<b>本地事件日历</b>：演出、赛事、考试、展会，提前录入未来 12 个月。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>给事件日设定涨幅上限（建议不超过平日的 1.8 倍）并写进规则。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>无上限暴涨招致差评　/　只经营当天忽略溢出日　/　等活动全网扩散才开始动作</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">事件日目标价 = 平季基准 × 事件倍数（建议 1.4–1.8，极端 2.0）</span>　→　详见口袋书 No.26</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>餐厅天天排队，月底却没赚到钱</h4>
+      <div class="num"><b>结论：</b>把客房那套思路搬到餐厅：翻台、时段、人均三件事</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>算出本餐厅昨天晚餐时段的三个数：RevPASH、翻台率、人均消费。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>挑一个空闲时段设计<b>错峰优惠</b>，测算它的边际贡献是否为正。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>只看营收不看翻台与人均　/　为提高翻台牺牲体验　/　用低价引流却不核算客群质量</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">RevPASH = 时段总收入 ÷ (座位数 × 营业小时)</span>　→　详见口袋书 No.27</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>客房满房的那天，宴会厅空了一整天</h4>
+      <div class="num"><b>结论：</b>别把宴会厅当赠品——它有时比客房更赚钱</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>给多功能厅定一份<b>分时段价目表</b>：上午、下午、晚间、全天。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>把宴会销售的话术改成“场租 + 餐饮 + 客房”三件套报价。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>为争取餐饮而免收场租　/　只按场租判断接不接　/　忽略会议带来的连带客房</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">综合贡献 = 场租 + 餐饮边际贡献 + 连带客房边际贡献</span>　→　详见口袋书 No.28</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>民宿老板说：我们这行不讲究这个</h4>
+      <div class="num"><b>结论：</b>同一套逻辑，换三个参数就能用在别的业态上</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>先确认自己的<b>库存单位</b>是什么（间夜 / 套夜 / 月），再套用等效指标。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>找出一年里决定收益的那几十天，单独建一张日历。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>认为房量少就用不上收益管理　/　照搬酒店的全部工具　/　忽略政策与平台规则风险</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">收益 = 售出单位 × 单位价格</span>　→　详见口袋书 No.29</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>花几十万上了系统，结果算出来的建议没人敢用</h4>
+      <div class="num"><b>结论：</b>什么时候该上系统，以及上系统前必须先准备好的四张表</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>先自查四张表：竞争群、历史数据、房型价格、细分渠道，缺哪张补哪张。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>用手工流程跑三个月并留记录，把规则写下来。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>基础数据没准备好就采购系统　/　用演示效果做采购决策　/　上了系统就完全放弃人工判断</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">年化收益 ≈ 年房晚收入 × RevPAR 提升幅度（通常 3%–7%）</span>　→　详见口袋书 No.30</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>航空的收益管理，和酒店真的一样吗</h4>
+      <div class="num"><b>结论：</b>六个行业一张对照表，看懂内核不变、参数在变</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>挑一个你熟悉的行业，写出它的<b>三个问题</b>的答案。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>把这张对照表抄进你的笔记，遇到新业态时先套用。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>被不同术语吓住　/　照搬工具却不换参数　/　认为跨行业必须从头学</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">等效单位收益 = 期间收入 ÷ (可出租单位 × 期间)</span>　→　详见口袋书 No.31</div>
+    </div><div class="case" style="margin-bottom:13px">
+      <h4>做了三年收益，还是会犯的低级错误</h4>
+      <div class="num"><b>结论：</b>把最容易犯的错一次列全，当作你案头的最后一本</div>
+      <div class="num" style="margin-top:6px"><b>马上做：</b>把三十条打印出来，每季度核一次，标出本店当前命中哪几条。</div>
+      <div class="num" style="margin-top:6px"><b>跟着做：</b>从命中的条目里只挑<b>三条</b>作为下一季度的整改项，不要一次改十条。</div>
+      <div class="num" style="margin-top:6px"><b>不要做：</b>一次整改十条以上　/　把清单贴出来却从不核对　/　认为老手就不会犯基础错误</div>
+      <div class="end"><b>算法：</b><span style="font-family:ui-monospace,Menlo,Consolas,monospace">决策质量 = 指标选对 × 顺序正确 × 前提成立 × 执行到位</span>　→　详见口袋书 No.32</div>
+    </div><div class="kicker" style="margin-top:26px">第三部分</div><h2>每周每月：收益会议怎么开</h2><table class="data"><thead><tr><th>周期</th><th>固定动作</th><th>产出</th></tr></thead><tbody><tr><td>每日</td><td>看五个数 → 判断 → 一次动作</td><td>调价记录一行</td></tr><tr><td>每周</td><td>复盘上周七天数据 + 更新未来 30 天预测 + 与前厅、销售通气</td><td>周报 + 下周策略</td></tr><tr><td>每月</td><td>对比竞争三件套、检查渠道净值、调整竞争群名单</td><td>月报 + 下月主策略</td></tr><tr><td>每季</td><td>重画典型月预订曲线、校准 No-show 率、重设房型价差</td><td>参数更新表</td></tr></tbody></table><div class="formula"><div class="fname">收益会议固定议程（建议 45 分钟）</div><div class="fexpr">1. 上周结果通报（5 分钟）：RevPAR / MPI / ARI / RGI
+2. 本周预测与缺口（10 分钟）：哪些日子落后
+3. 竞争情报（10 分钟）：谁动了价、动了什么房型
+4. 本周动作清单（15 分钟）：≤3 条，明确负责人
+5. 追踪上次会议的动作（5 分钟）</div></div><div class="kicker" style="margin-top:26px">第四部分</div><h2>自查清单与常见错误</h2><h3>二十问自查（每季度做一次）</h3><ul class="do"><li>本店的指标口径是否已写下来并全店统一？</li><li>竞争群名单是否还是那 3–5 家，有无过期？</li><li>每天是否记录了竞争群的挂牌价？</li><li>相邻房型的价差是否都在 8% 以上？</li><li>高价房型是不是总被过早打开？</li><li>所有渠道的净值是否算过并按净值排序？</li><li>是否只用价格判断，从不看 pickup？</li><li>提价是否 ≥12% 的跨度？</li><li>是否只在预计满房的日子超售？</li><li>No-show 率是否每半年重算一次？</li><li>walk 预案是否写在纸上、人人都知道？</li><li>MinLOS/CTA 是否有明确的解除条件？</li><li>官网与 OTA 的限制条件是否一致？</li><li>团队报价是否都做过置换测算？</li><li>是否有“本月可动用”的加值武器清单？</li><li>每次调价是否留下了记录与结果？</li><li>是否用不同星期属性的日子做过同比？</li><li>发现落后时，是否先诊断了原因，而不是立刻降价？</li><li>全年是否存在“为保证满房一路降价”的日子？</li><li>过去 90 天，有没有一次完整的复盘文档？</li></ul><div class="note"><b>用法：</b>把这份清单打印出来，每个季度核一次；答不上来的那几条，就是下一季度的整改项。</div></div>
+  <div class="footer">
+    <div class="nextbox"><b>配套：</b>本手册的内容模块与 12 本口袋书一一对应，详见 <b>系列总目 index.html</b>。</div>
+    <div>HRMA 收益管理社区 · 操作装 · 咨询 rm-community@qq.com</div>
+  </div>
+</div>
+</body>
+</html>
