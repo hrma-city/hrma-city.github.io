@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>13 预算与目标拆解 · HRMA 收益管理主题系列</title>
+<meta name="description" content="把老板给的一个年度数字，拆成每天该卖多少钱">
+<style>
+/* HRMA 口袋书系列 · 统一版式（130×184mm 口袋本，屏幕/打印双用） */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#eef1f6;color:#1c2430;line-height:1.85;font-size:15px}
+.paper{max-width:760px;margin:22px auto;background:#fff;box-shadow:0 4px 18px rgba(20,30,70,.10)}
+
+/* 封面 */
+.cover{background:#0f2a4a;color:#fff;padding:38px 34px 30px;position:relative}
+.cov-series{font-size:12px;letter-spacing:2.6px;opacity:.75;margin-bottom:10px}
+.cov-no{display:inline-block;background:#e8b84b;color:#3a2a00;font-weight:800;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-right:9px}
+.cov-title{font-size:31px;font-weight:800;line-height:1.35;margin:14px 0 12px}
+.cov-promise{font-size:16px;color:#ffe9bd;line-height:1.7;border-left:3px solid #e8b84b;padding-left:13px}
+.cov-badge{position:absolute;right:30px;top:32px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:9px 12px;text-align:center}
+.cov-badge b{display:block;font-size:19px;color:#e8b84b;line-height:1.2}
+.cov-badge span{font-size:11px;opacity:.8}
+.cov-for{margin-top:18px;font-size:13px;opacity:.72}
+
+/* 正文 */
+.body{padding:30px 34px 10px}
+.kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+  color:#fff;background:#1d6fb8;border-radius:5px;padding:2px 9px;margin-bottom:9px}
+h2{font-size:20px;font-weight:800;color:#0f2a4a;margin:0 0 12px;line-height:1.45}
+p{margin:10px 0}
+.lead{font-size:15.5px;color:#3a4b60}
+.story{background:#f7f9fc;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:14px 17px}
+.story .who{font-size:13px;color:#1d6fb8;font-weight:800;margin-bottom:5px}
+.point{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.pn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#0f2a4a;color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pt{font-size:15px}
+.pt b{color:#0f2a4a}
+figure{border:1px solid #e2e8ef;border-radius:11px;padding:15px 17px;background:#fbfcfe;margin:14px 0}
+figcaption{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+pre.figure-art{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.4px;line-height:1.75;color:#0f2a4a;white-space:pre-wrap}
+.formula{background:#fffdf6;border:2px solid #e8cf94;border-radius:12px;padding:16px 18px;margin:14px 0}
+.formula .fname{font-size:13px;color:#a8801f;font-weight:800;margin-bottom:7px}
+.formula .fexpr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:16px;font-weight:700;color:#0f2a4a;background:#fff;border-radius:8px;padding:10px 13px;
+  border:1px solid #f0dcae;line-height:1.7;white-space:pre-wrap}
+.ex{margin-top:11px;font-size:14.2px;color:#3a4b60}
+.ex b{color:#0f2a4a}
+ul.do{list-style:none}
+ul.do li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e6eaf1}
+ul.do li:last-child{border-bottom:none}
+ul.do li::before{content:"";position:absolute;left:7px;top:17px;width:8px;height:8px;
+  border-radius:2px;background:#1d9e75}
+.dont{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;margin-top:13px}
+.dont b{color:#a32d2d}
+.case{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:15px 18px}
+.case h4{font-size:14.5px;color:#0f2a4a;margin-bottom:6px}
+.case .num{color:#5b6a7d;font-size:13.6px}
+.case .end{margin-top:9px;font-size:14px;color:#3a4b60;border-top:1px dashed #dde3ec;padding-top:9px}
+table.data{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+table.data th{background:#eef3f9;color:#3a4b60;font-size:12.5px;text-align:left;padding:9px 11px}
+table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
+.qbox{background:#0f2a4a;color:#fff;border-radius:13px;padding:18px 20px;margin:18px 0}
+.qbox .qt{font-size:15px;font-weight:800;color:#e8b84b;margin-bottom:8px}
+.qbox ol{margin:0 0 0 18px}
+.qbox li{margin:5px 0;font-size:14.6px}
+.footer{margin-top:22px;background:#f4f7fa;border-top:1px solid #e2e8ef;padding:18px 34px 22px;
+  font-size:13px;color:#5b6a7d;line-height:1.8}
+.nextbox{background:#fff;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin-bottom:12px}
+.nextbox b{color:#0f2a4a}
+.qr{display:inline-block;border:1px solid #cfd8e5;border-radius:8px;padding:6px 10px;font-size:12px;color:#8494a8}
+
+/* 系列索引页 */
+.index-wrap{max-width:900px;margin:0 auto;padding:26px 18px 50px}
+.ihead{background:#0f2a4a;color:#fff;border-radius:14px;padding:26px 26px 22px;margin-bottom:20px}
+.ihead h1{font-size:25px;font-weight:800;margin-bottom:8px}
+.ihead p{opacity:.85;font-size:14.5px}
+.rule{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.rule h3{font-size:16px;color:#0f2a4a;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.bk{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:15px 16px;text-decoration:none;color:inherit;display:block}
+.bk:hover{border-color:#e8b84b}
+.bk .bno{font-size:11.5px;color:#a8801f;font-weight:800;letter-spacing:1px}
+.bk .bt{font-size:15.5px;font-weight:800;color:#0f2a4a;margin:4px 0 5px;line-height:1.4}
+.bk .bp{font-size:13px;color:#5b6a7d;line-height:1.65}
+.bk .bmeta{margin-top:8px;font-size:11.5px;color:#8494a8}
+.bigbook{background:#fffdf6;border:2px solid #e8cf94}
+
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .body{page-break-after:auto}
+}
+</style>
+<style>
+.mapbox{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:14px 17px;margin:14px 0}
+.mapbox .lb{font-size:12px;color:#1d6fb8;font-weight:800;letter-spacing:1px;margin-bottom:5px}
+.unit{background:#fff;border:1px solid #e2e8ef;border-radius:13px;padding:18px 20px;margin-bottom:16px}
+.unit-h{font-size:17px;font-weight:800;color:#0f2a4a;margin-bottom:4px}
+.unit-tag{display:inline-block;font-size:11.5px;background:#eef3f9;color:#3a4b60;
+  border-radius:6px;padding:2px 8px;margin-bottom:10px}
+.syn{background:#fffdf6;border:2px solid #e8cf94;border-radius:13px;padding:16px 19px;margin-top:18px}
+.syn .st{font-size:14px;font-weight:800;color:#a8801f;margin-bottom:6px}
+</style>
+</head>
+<body>
+<div style="background:#0f2a4a;padding:11px 18px"><a href="https://hrma-city.github.io/series/" style="color:#fff;text-decoration:none;font-size:13.5px;font-weight:700">← 返回知识地图</a></div>
+<div class="paper">
+  <div class="cover">
+    <div class="cov-series">HRMA 收益管理主题系列 · 经营层</div>
+    <div><span class="cov-no">13 / 16</span></div>
+    <div class="cov-title">预算与目标拆解</div>
+    <div class="cov-promise">把老板给的一个年度数字，拆成每天该卖多少钱</div>
+    <div class="cov-for">适读：酒店收益经理、店总、业主代表</div>
+    <div class="cov-badge"><b>45</b><span>分钟读完</span></div>
+  </div>
+
+  <div class="body">
+    <div class="mapbox"><div class="lb">本册在知识地图的位置 · 经营层</div>把策略落到组织、流程与数字里，让它可持续。</div>
+
+    <div class="kicker">本册导读</div>
+    <h2>为什么要单独讲这一册</h2>
+    <p class="lead">“今年 RevPAR 做到 300”——然后呢？目标如果不落到每天，就只是一个口号。本册讲拆解方法：<b>用历史月指数加权</b>，而不是平均分十二份。因为酒店生意有强季节性，平均拆等于给自己造一份注定完不成的计划。拆完之后，每周只看一件事：离目标还差多少。</p>
+
+    <div class="kicker" style="margin-top:26px">正文 · 1 个知识单元</div>
+    <h2>一个单元一个问题</h2>
+    <p class="lead">每个单元沿用同一套结构：先讲你会踩的坑，再讲概念与算法，最后给能当天执行的动作。</p>
+    <div class="unit">
+  <div class="unit-tag">单元 1 · 概念 No.17</div>
+  <div class="unit-h">年度预算与目标拆解</div>
+  <div class="story"><div class="who">这个坑你一定踩过 · “今年 RevPAR 做到 300”——然后呢</div><p>年初老板拍下目标：全年 RevPAR 300 元。会议室里没人说话，因为谁也不知道<b>从明天早上开始该做什么</b>才能走到 300。</p><p>目标不能直接拆成 12 个月的平均值——因为每个月根本不一样。必须按历史节奏加权。</p></div>
+  <h3 style="margin-top:14px">核心概念 · 拆目标要用指数，不能用平均数</h3>
+  <p class="lead">酒店生意有强季节性。把年度目标平均分到 12 个月，会得出一堆根本不可能完成的淡季指标和过于宽松的旺季指标。正确做法是用历史月指数加权。</p>
+  <figure><figcaption>从年度目标到每日目标</figcaption><pre class="figure-art">年度 RevPAR 目标
+   ↓ 乘以各月历史指数
+月度 RevPAR 目标
+   ↓ 乘以各星期历史指数
+周度目标
+   ↓ ÷ 7（或用星期权重）
+每日目标  ← 这才是每天要盯的数</pre></figure>
+  <div class="point"><div class="pn">1</div><div class="pt"><b>月指数来自历史，不来自愿望</b> 月指数 = 该月历史 RevPAR ÷ 全年月均 RevPAR。用三年数据取平均更稳。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>淡季目标低不等于可以躺平</b> 淡季的绝对目标低，但正是练内功、累积渠道和会员的时候。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>目标要跟实际每周对比</b> 年度目标一旦拆到每周，就能每周看一次偏差，而不是年底才发现没完成。</div></div>
+  <h3 style="margin-top:14px">怎么算</h3>
+  <div class="formula"><div class="fname">目标拆解</div><div class="fexpr">月指数 = 该月历史 RevPAR ÷ 全年月均 RevPAR
+该月目标 = 年度目标 × 月指数
+该日目标 ≈ 该月目标 × 该星期权重</div><div class="ex"><b>算一遍：</b>年度目标 RevPAR = 300 元。<br>一月历史月均 216 元，全年月均 300 元 → 一月指数 = 216 ÷ 300 = <b>0.72</b>。<br>一月目标 = 300 × 0.72 = <b>216 元</b>。<br>若一月内周末权重为 1.25 → 周末日目标 ≈ 216 × 1.25 = <b>270 元</b>。<br>→ 每天开盘时，你要看的不是“今天卖了多少”，而是“今天离 270 还差多少”。</div></div>
+  <h3 style="margin-top:14px">怎么做</h3>
+  <ul class="do"><li>把过去三年的月度 RevPAR 拉出来，算出十二个月的<b>月指数表</b>。</li><li>用年度目标乘月指数，得到每个月的目标，再拆到周。</li><li>每周固定对比一次“目标 vs 实际”，把偏差超过 5% 的周单独复盘。</li></ul>
+  <div class="dont"><b>不要做的事：</b><b>把年度目标平均分成十二份</b> / <b>用单一年份数据算指数</b> / <b>年底才发现没完成</b></div>
+  <h3 style="margin-top:14px">真实案例 · 年度 300 元怎么落到每个月</h3>
+  <div class="case"><h4>年度 300 元怎么落到每个月</h4><table class="data"><thead><tr><th>月份</th><th>历史月均</th><th>月指数</th><th>今年目标</th></tr></thead><tbody><tr><td>一月</td><td>216 元</td><td>0.72</td><td>216 元</td></tr><tr><td>五月</td><td>330 元</td><td>1.10</td><td>330 元</td></tr><tr><td>十月</td><td>375 元</td><td>1.25</td><td>375 元</td></tr><tr><td>全年月均</td><td>300 元</td><td>1.00</td><td>300 元</td></tr></tbody></table><div class="end">淡旺季差异能到一点七倍。用平均数拆目标，等于给自己造一份注定完不成的计划。</div></div>
+</div>
+
+    <div class="syn">
+      <div class="st">单元之间的关系</div>
+      拆解的意义不在数字本身，而在于<b>让偏差早点暴露</b>。年度目标一旦落到每周，你就有五十次修正机会，而不是年底一次结算。
+    </div>
+
+    <div class="qbox">
+      <div class="qt">本册行动清单</div>
+      <ol><li>用三年数据算出十二个月的月指数。</li><li>把年度目标拆到月、再到周。</li><li>固定每周对比目标与实际，偏差超 5% 的周单独复盘。</li></ol>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="nextbox"><b>下一册：</b>14　收益例会与报表 —— 让策略真正落到执行：会议怎么开、报表怎么做、谁负责什么</div>
+    <div style="margin-top:10px">HRMA 收益管理社区 · 主题系列 13 / 16 · 咨询 rm-community@qq.com</div>
+    <div style="margin-top:6px;font-size:12px;color:#8494a8">本册由 1 个概念单元汇编而成，属初稿 v0.2；后续按单元逐段扩充至成稿篇幅。</div>
+  </div>
+</div>
+<div style="background:#0f2a4a;padding:11px 18px"><a href="https://hrma-city.github.io/series/" style="color:#fff;text-decoration:none;font-size:13.5px;font-weight:700">← 返回知识地图</a></div>
+</body>
+</html>

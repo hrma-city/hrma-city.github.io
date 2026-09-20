@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>15 系统、工具与数据准备 · HRMA 收益管理主题系列</title>
+<meta name="description" content="什么时候该上系统，以及上系统前必须先准备好的四张表">
+<style>
+/* HRMA 口袋书系列 · 统一版式（130×184mm 口袋本，屏幕/打印双用） */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#eef1f6;color:#1c2430;line-height:1.85;font-size:15px}
+.paper{max-width:760px;margin:22px auto;background:#fff;box-shadow:0 4px 18px rgba(20,30,70,.10)}
+
+/* 封面 */
+.cover{background:#0f2a4a;color:#fff;padding:38px 34px 30px;position:relative}
+.cov-series{font-size:12px;letter-spacing:2.6px;opacity:.75;margin-bottom:10px}
+.cov-no{display:inline-block;background:#e8b84b;color:#3a2a00;font-weight:800;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-right:9px}
+.cov-title{font-size:31px;font-weight:800;line-height:1.35;margin:14px 0 12px}
+.cov-promise{font-size:16px;color:#ffe9bd;line-height:1.7;border-left:3px solid #e8b84b;padding-left:13px}
+.cov-badge{position:absolute;right:30px;top:32px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:9px 12px;text-align:center}
+.cov-badge b{display:block;font-size:19px;color:#e8b84b;line-height:1.2}
+.cov-badge span{font-size:11px;opacity:.8}
+.cov-for{margin-top:18px;font-size:13px;opacity:.72}
+
+/* 正文 */
+.body{padding:30px 34px 10px}
+.kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+  color:#fff;background:#1d6fb8;border-radius:5px;padding:2px 9px;margin-bottom:9px}
+h2{font-size:20px;font-weight:800;color:#0f2a4a;margin:0 0 12px;line-height:1.45}
+p{margin:10px 0}
+.lead{font-size:15.5px;color:#3a4b60}
+.story{background:#f7f9fc;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:14px 17px}
+.story .who{font-size:13px;color:#1d6fb8;font-weight:800;margin-bottom:5px}
+.point{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.pn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#0f2a4a;color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pt{font-size:15px}
+.pt b{color:#0f2a4a}
+figure{border:1px solid #e2e8ef;border-radius:11px;padding:15px 17px;background:#fbfcfe;margin:14px 0}
+figcaption{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+pre.figure-art{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.4px;line-height:1.75;color:#0f2a4a;white-space:pre-wrap}
+.formula{background:#fffdf6;border:2px solid #e8cf94;border-radius:12px;padding:16px 18px;margin:14px 0}
+.formula .fname{font-size:13px;color:#a8801f;font-weight:800;margin-bottom:7px}
+.formula .fexpr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:16px;font-weight:700;color:#0f2a4a;background:#fff;border-radius:8px;padding:10px 13px;
+  border:1px solid #f0dcae;line-height:1.7;white-space:pre-wrap}
+.ex{margin-top:11px;font-size:14.2px;color:#3a4b60}
+.ex b{color:#0f2a4a}
+ul.do{list-style:none}
+ul.do li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e6eaf1}
+ul.do li:last-child{border-bottom:none}
+ul.do li::before{content:"";position:absolute;left:7px;top:17px;width:8px;height:8px;
+  border-radius:2px;background:#1d9e75}
+.dont{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;margin-top:13px}
+.dont b{color:#a32d2d}
+.case{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:15px 18px}
+.case h4{font-size:14.5px;color:#0f2a4a;margin-bottom:6px}
+.case .num{color:#5b6a7d;font-size:13.6px}
+.case .end{margin-top:9px;font-size:14px;color:#3a4b60;border-top:1px dashed #dde3ec;padding-top:9px}
+table.data{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+table.data th{background:#eef3f9;color:#3a4b60;font-size:12.5px;text-align:left;padding:9px 11px}
+table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
+.qbox{background:#0f2a4a;color:#fff;border-radius:13px;padding:18px 20px;margin:18px 0}
+.qbox .qt{font-size:15px;font-weight:800;color:#e8b84b;margin-bottom:8px}
+.qbox ol{margin:0 0 0 18px}
+.qbox li{margin:5px 0;font-size:14.6px}
+.footer{margin-top:22px;background:#f4f7fa;border-top:1px solid #e2e8ef;padding:18px 34px 22px;
+  font-size:13px;color:#5b6a7d;line-height:1.8}
+.nextbox{background:#fff;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin-bottom:12px}
+.nextbox b{color:#0f2a4a}
+.qr{display:inline-block;border:1px solid #cfd8e5;border-radius:8px;padding:6px 10px;font-size:12px;color:#8494a8}
+
+/* 系列索引页 */
+.index-wrap{max-width:900px;margin:0 auto;padding:26px 18px 50px}
+.ihead{background:#0f2a4a;color:#fff;border-radius:14px;padding:26px 26px 22px;margin-bottom:20px}
+.ihead h1{font-size:25px;font-weight:800;margin-bottom:8px}
+.ihead p{opacity:.85;font-size:14.5px}
+.rule{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.rule h3{font-size:16px;color:#0f2a4a;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.bk{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:15px 16px;text-decoration:none;color:inherit;display:block}
+.bk:hover{border-color:#e8b84b}
+.bk .bno{font-size:11.5px;color:#a8801f;font-weight:800;letter-spacing:1px}
+.bk .bt{font-size:15.5px;font-weight:800;color:#0f2a4a;margin:4px 0 5px;line-height:1.4}
+.bk .bp{font-size:13px;color:#5b6a7d;line-height:1.65}
+.bk .bmeta{margin-top:8px;font-size:11.5px;color:#8494a8}
+.bigbook{background:#fffdf6;border:2px solid #e8cf94}
+
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .body{page-break-after:auto}
+}
+</style>
+<style>
+.mapbox{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:14px 17px;margin:14px 0}
+.mapbox .lb{font-size:12px;color:#1d6fb8;font-weight:800;letter-spacing:1px;margin-bottom:5px}
+.unit{background:#fff;border:1px solid #e2e8ef;border-radius:13px;padding:18px 20px;margin-bottom:16px}
+.unit-h{font-size:17px;font-weight:800;color:#0f2a4a;margin-bottom:4px}
+.unit-tag{display:inline-block;font-size:11.5px;background:#eef3f9;color:#3a4b60;
+  border-radius:6px;padding:2px 8px;margin-bottom:10px}
+.syn{background:#fffdf6;border:2px solid #e8cf94;border-radius:13px;padding:16px 19px;margin-top:18px}
+.syn .st{font-size:14px;font-weight:800;color:#a8801f;margin-bottom:6px}
+</style>
+</head>
+<body>
+<div style="background:#0f2a4a;padding:11px 18px"><a href="https://hrma-city.github.io/series/" style="color:#fff;text-decoration:none;font-size:13.5px;font-weight:700">← 返回知识地图</a></div>
+<div class="paper">
+  <div class="cover">
+    <div class="cov-series">HRMA 收益管理主题系列 · 经营层</div>
+    <div><span class="cov-no">15 / 16</span></div>
+    <div class="cov-title">系统、工具与数据准备</div>
+    <div class="cov-promise">什么时候该上系统，以及上系统前必须先准备好的四张表</div>
+    <div class="cov-for">适读：酒店收益经理、店总、准备数字化的业主</div>
+    <div class="cov-badge"><b>45</b><span>分钟读完</span></div>
+  </div>
+
+  <div class="body">
+    <div class="mapbox"><div class="lb">本册在知识地图的位置 · 经营层</div>把策略落到组织、流程与数字里，让它可持续。</div>
+
+    <div class="kicker">本册导读</div>
+    <h2>为什么要单独讲这一册</h2>
+    <p class="lead">系统不会替你思考，它只是把你已经想清楚的规则算得更快。<b>没想清楚就上系统，只会把混乱自动化。</b>本册给出判断标准：先人工跑通流程并留下记录，把规则固化；再检查四张基础表是否齐备；最后才谈采购。同样的系统，在不同数据基础上，价值能差五倍。</p>
+
+    <div class="kicker" style="margin-top:26px">正文 · 1 个知识单元</div>
+    <h2>一个单元一个问题</h2>
+    <p class="lead">每个单元沿用同一套结构：先讲你会踩的坑，再讲概念与算法，最后给能当天执行的动作。</p>
+    <div class="unit">
+  <div class="unit-tag">单元 1 · 概念 No.30</div>
+  <div class="unit-h">系统、工具与数据准备</div>
+  <div class="story"><div class="who">这个坑你一定踩过 · 花几十万上了系统，结果算出来的建议没人敢用</div><p>一家店高价采购了收益管理系统，上线三个月后仍回到人工定价。原因是<b>输进去的基础数据是乱的</b>：竞争群没定、历史数据缺半年、房型口径不一致。</p><p>系统不会替你思考，它只是把你已经想清楚的规则算得更快。<b>没想清楚就上系统，只会把混乱自动化。</b></p></div>
+  <h3 style="margin-top:14px">核心概念 · 先有规则，再谈系统</h3>
+  <p class="lead">收益管理系统（RMS）的价值在于：把你的定价规则、预测模型、库存策略自动执行并持续优化。但前提是这些规则已经存在——否则系统只能输出没人敢用的建议。</p>
+  <figure><figcaption>上系统前必备的四张表</figcaption><pre class="figure-art">① 竞争群表      3–5 家，档次与商圈一致，写明理由
+② 历史数据表    至少 24 个月的日度：入住率、均价、细分、取消、No-show
+③ 房型与价格表  房型层级、价差、各派生价规则
+④ 细分与渠道表  每个细分的净值、栅栏、配额
+
+缺任何一张 → 系统输出都不可信</pre></figure>
+  <div class="point"><div class="pn">1</div><div class="pt"><b>数据是系统的燃料</b> 历史数据不足 24 个月时，任何自动预测都不可靠。先把记录做起来，再谈系统。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>先人工跑通，再自动化</b> 用手工流程跑三个月并留下记录，把规则固化下来——这套记录本身就是系统的配置说明书。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>评估系统看三件事</b> 预测准确率、建议可执行性、与你现有 PMS 的对接程度。演示效果不重要。</div></div>
+  <h3 style="margin-top:14px">怎么算</h3>
+  <div class="formula"><div class="fname">系统价值的粗略测算</div><div class="fexpr">年化收益 ≈ 年房晚收入 × RevPAR 提升幅度（通常 3%–7%）
+回本周期 = 系统年费 ÷ (年化收益 − 系统年费以外的增量成本)</div><div class="ex"><b>算一遍：</b>年房晚收入 2,000 万元，系统带来 RevPAR 提升 4%。<br>年化收益 = 2,000 万 × 4% = <b>80 万元</b>。<br>系统年费 15 万元 → 净增约 65 万元，<b>回本周期约 2–3 个月</b>。<br>但若基础数据不全导致提升只有 1%，年化收益仅 20 万，扣掉年费后所剩无几。</div></div>
+  <h3 style="margin-top:14px">怎么做</h3>
+  <ul class="do"><li>先自查四张表：竞争群、历史数据、房型价格、细分渠道，缺哪张补哪张。</li><li>用手工流程跑三个月并留记录，把规则写下来。</li><li>评估系统时只问三件事：预测准确率、建议能否执行、能否对接现有 PMS。</li></ul>
+  <div class="dont"><b>不要做的事：</b><b>基础数据没准备好就采购系统</b> / <b>用演示效果做采购决策</b> / <b>上了系统就完全放弃人工判断</b></div>
+  <h3 style="margin-top:14px">真实案例 · 数据完备度决定系统价值</h3>
+  <div class="case"><h4>数据完备度决定系统价值</h4><table class="data"><thead><tr><th>数据完备度</th><th>RevPAR 提升</th><th>年化收益</th><th>结论</th></tr></thead><tbody><tr><td>四张表齐全</td><td>4%–7%</td><td>80–140 万</td><td>值得上</td></tr><tr><td>缺历史数据</td><td>1%–2%</td><td>20–40 万</td><td>先补数据</td></tr><tr><td>竞争群未定</td><td>≈0</td><td>≈0</td><td>不能上</td></tr></tbody></table><div class="end">同样的系统，在不同数据基础上价值相差五倍以上。<b>先补数据的钱，比先买系统的钱花得值。</b></div></div>
+</div>
+
+    <div class="syn">
+      <div class="st">单元之间的关系</div>
+      先有规则，再谈系统。你在手工阶段留下的那份记录，本身就是系统的配置说明书——这也是最容易被忽略、却最省钱的一步。
+    </div>
+
+    <div class="qbox">
+      <div class="qt">本册行动清单</div>
+      <ol><li>自查四张基础表，列出缺口。</li><li>用手工流程跑三个月并留下记录。</li><li>评估系统时只问：预测准确率、建议能否执行、能否对接现有 PMS。</li></ol>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="nextbox"><b>下一册：</b>16　跨行业参数与常见误区 —— 把这套内核用到别处，以及把最容易犯的错一次列全</div>
+    <div style="margin-top:10px">HRMA 收益管理社区 · 主题系列 15 / 16 · 咨询 rm-community@qq.com</div>
+    <div style="margin-top:6px;font-size:12px;color:#8494a8">本册由 1 个概念单元汇编而成，属初稿 v0.2；后续按单元逐段扩充至成稿篇幅。</div>
+  </div>
+</div>
+<div style="background:#0f2a4a;padding:11px 18px"><a href="https://hrma-city.github.io/series/" style="color:#fff;text-decoration:none;font-size:13.5px;font-weight:700">← 返回知识地图</a></div>
+</body>
+</html>

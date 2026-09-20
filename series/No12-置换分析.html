@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12 置换分析与多业态收益 · HRMA 收益管理主题系列</title>
+<meta name="description" content="每一笔“看起来是增量”的生意，都要先算它挤掉了什么">
+<style>
+/* HRMA 口袋书系列 · 统一版式（130×184mm 口袋本，屏幕/打印双用） */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#eef1f6;color:#1c2430;line-height:1.85;font-size:15px}
+.paper{max-width:760px;margin:22px auto;background:#fff;box-shadow:0 4px 18px rgba(20,30,70,.10)}
+
+/* 封面 */
+.cover{background:#0f2a4a;color:#fff;padding:38px 34px 30px;position:relative}
+.cov-series{font-size:12px;letter-spacing:2.6px;opacity:.75;margin-bottom:10px}
+.cov-no{display:inline-block;background:#e8b84b;color:#3a2a00;font-weight:800;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-right:9px}
+.cov-title{font-size:31px;font-weight:800;line-height:1.35;margin:14px 0 12px}
+.cov-promise{font-size:16px;color:#ffe9bd;line-height:1.7;border-left:3px solid #e8b84b;padding-left:13px}
+.cov-badge{position:absolute;right:30px;top:32px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:9px 12px;text-align:center}
+.cov-badge b{display:block;font-size:19px;color:#e8b84b;line-height:1.2}
+.cov-badge span{font-size:11px;opacity:.8}
+.cov-for{margin-top:18px;font-size:13px;opacity:.72}
+
+/* 正文 */
+.body{padding:30px 34px 10px}
+.kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+  color:#fff;background:#1d6fb8;border-radius:5px;padding:2px 9px;margin-bottom:9px}
+h2{font-size:20px;font-weight:800;color:#0f2a4a;margin:0 0 12px;line-height:1.45}
+p{margin:10px 0}
+.lead{font-size:15.5px;color:#3a4b60}
+.story{background:#f7f9fc;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:14px 17px}
+.story .who{font-size:13px;color:#1d6fb8;font-weight:800;margin-bottom:5px}
+.point{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.pn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#0f2a4a;color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pt{font-size:15px}
+.pt b{color:#0f2a4a}
+figure{border:1px solid #e2e8ef;border-radius:11px;padding:15px 17px;background:#fbfcfe;margin:14px 0}
+figcaption{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+pre.figure-art{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.4px;line-height:1.75;color:#0f2a4a;white-space:pre-wrap}
+.formula{background:#fffdf6;border:2px solid #e8cf94;border-radius:12px;padding:16px 18px;margin:14px 0}
+.formula .fname{font-size:13px;color:#a8801f;font-weight:800;margin-bottom:7px}
+.formula .fexpr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:16px;font-weight:700;color:#0f2a4a;background:#fff;border-radius:8px;padding:10px 13px;
+  border:1px solid #f0dcae;line-height:1.7;white-space:pre-wrap}
+.ex{margin-top:11px;font-size:14.2px;color:#3a4b60}
+.ex b{color:#0f2a4a}
+ul.do{list-style:none}
+ul.do li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e6eaf1}
+ul.do li:last-child{border-bottom:none}
+ul.do li::before{content:"";position:absolute;left:7px;top:17px;width:8px;height:8px;
+  border-radius:2px;background:#1d9e75}
+.dont{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;margin-top:13px}
+.dont b{color:#a32d2d}
+.case{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:15px 18px}
+.case h4{font-size:14.5px;color:#0f2a4a;margin-bottom:6px}
+.case .num{color:#5b6a7d;font-size:13.6px}
+.case .end{margin-top:9px;font-size:14px;color:#3a4b60;border-top:1px dashed #dde3ec;padding-top:9px}
+table.data{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+table.data th{background:#eef3f9;color:#3a4b60;font-size:12.5px;text-align:left;padding:9px 11px}
+table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
+.qbox{background:#0f2a4a;color:#fff;border-radius:13px;padding:18px 20px;margin:18px 0}
+.qbox .qt{font-size:15px;font-weight:800;color:#e8b84b;margin-bottom:8px}
+.qbox ol{margin:0 0 0 18px}
+.qbox li{margin:5px 0;font-size:14.6px}
+.footer{margin-top:22px;background:#f4f7fa;border-top:1px solid #e2e8ef;padding:18px 34px 22px;
+  font-size:13px;color:#5b6a7d;line-height:1.8}
+.nextbox{background:#fff;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin-bottom:12px}
+.nextbox b{color:#0f2a4a}
+.qr{display:inline-block;border:1px solid #cfd8e5;border-radius:8px;padding:6px 10px;font-size:12px;color:#8494a8}
+
+/* 系列索引页 */
+.index-wrap{max-width:900px;margin:0 auto;padding:26px 18px 50px}
+.ihead{background:#0f2a4a;color:#fff;border-radius:14px;padding:26px 26px 22px;margin-bottom:20px}
+.ihead h1{font-size:25px;font-weight:800;margin-bottom:8px}
+.ihead p{opacity:.85;font-size:14.5px}
+.rule{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.rule h3{font-size:16px;color:#0f2a4a;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.bk{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:15px 16px;text-decoration:none;color:inherit;display:block}
+.bk:hover{border-color:#e8b84b}
+.bk .bno{font-size:11.5px;color:#a8801f;font-weight:800;letter-spacing:1px}
+.bk .bt{font-size:15.5px;font-weight:800;color:#0f2a4a;margin:4px 0 5px;line-height:1.4}
+.bk .bp{font-size:13px;color:#5b6a7d;line-height:1.65}
+.bk .bmeta{margin-top:8px;font-size:11.5px;color:#8494a8}
+.bigbook{background:#fffdf6;border:2px solid #e8cf94}
+
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .body{page-break-after:auto}
+}
+</style>
+<style>
+.mapbox{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:14px 17px;margin:14px 0}
+.mapbox .lb{font-size:12px;color:#1d6fb8;font-weight:800;letter-spacing:1px;margin-bottom:5px}
+.unit{background:#fff;border:1px solid #e2e8ef;border-radius:13px;padding:18px 20px;margin-bottom:16px}
+.unit-h{font-size:17px;font-weight:800;color:#0f2a4a;margin-bottom:4px}
+.unit-tag{display:inline-block;font-size:11.5px;background:#eef3f9;color:#3a4b60;
+  border-radius:6px;padding:2px 8px;margin-bottom:10px}
+.syn{background:#fffdf6;border:2px solid #e8cf94;border-radius:13px;padding:16px 19px;margin-top:18px}
+.syn .st{font-size:14px;font-weight:800;color:#a8801f;margin-bottom:6px}
+</style>
+</head>
+<body>
+<div style="background:#0f2a4a;padding:11px 18px"><a href="https://hrma-city.github.io/series/" style="color:#fff;text-decoration:none;font-size:13.5px;font-weight:700">← 返回知识地图</a></div>
+<div class="paper">
+  <div class="cover">
+    <div class="cov-series">HRMA 收益管理主题系列 · 库存层</div>
+    <div><span class="cov-no">12 / 16</span></div>
+    <div class="cov-title">置换分析与多业态收益</div>
+    <div class="cov-promise">每一笔“看起来是增量”的生意，都要先算它挤掉了什么</div>
+    <div class="cov-for">适读：酒店收益经理、销售总监、宴会与餐饮负责人、店总</div>
+    <div class="cov-badge"><b>60</b><span>分钟读完</span></div>
+  </div>
+
+  <div class="body">
+    <div class="mapbox"><div class="lb">本册在知识地图的位置 · 库存层</div>决定把有限的房留给谁，以及敢不敢多卖一点。</div>
+
+    <div class="kicker">本册导读</div>
+    <h2>为什么要单独讲这一册</h2>
+    <p class="lead">团队、宴会、餐饮、公寓民宿——这些业务有一个共同点：<b>它们的收入是显性的，代价是隐性的</b>。隐性代价就是“被挤掉的其他生意”。本册教你把这笔账算出来：置换成本、最低可接受价、综合贡献。算完你会发现，很多被当成“好单”的生意其实在亏钱，而一些被拒绝的低价单其实划算。</p>
+
+    <div class="kicker" style="margin-top:26px">正文 · 4 个知识单元</div>
+    <h2>一个单元一个问题</h2>
+    <p class="lead">每个单元沿用同一套结构：先讲你会踩的坑，再讲概念与算法，最后给能当天执行的动作。</p>
+    <div class="unit">
+  <div class="unit-tag">单元 1 · 概念 No.12</div>
+  <div class="unit-h">团队询价：接还是不接</div>
+  <div class="story"><div class="who">这个坑你一定踩过 · 接了个六十间的大团队，月底利润反而少了</div><p>销售兴冲冲签下一单 60 间的团队，报表上总收入多了，月底却没见到钱。因为这笔团队生意<b>挤掉了原本能卖更高价的散客</b>。</p><p>而且更难察觉的是：这种损失不会出现在任何一张常规报表里——它只体现为“本来可以有、后来没有了”的净收入。</p></div>
+  <h3 style="margin-top:14px">核心概念 · 每一间卖给团队的房，都有一间散客因此住不进来</h3>
+  <p class="lead">只要酒店在那天有散客需求，团队就不是纯增量，而是置换。判断一单该不该接，本质是比大小：这一单带来的净收益，能否盖过被替代的散客净收益。</p>
+  <figure><figcaption>置换的本质</figcaption><pre class="figure-art">当天可售 300 间
+├─ 散客预计需求 200 间 @ 净 382 元
+└─ 团队询价   60 间 @ 净 276 元
+
+接下团队 → 散客只能卖到 140 间
+被置换的散客净收入 = 60 × 382 = 22,920 元
+团队带来的净收入   = 60 × 276 = 16,560 元
+→ 亏 6,360 元，除非餐饮等其他收益能补足</pre></figure>
+  <div class="point"><div class="pn">1</div><div class="pt"><b>先问散客需求有多少</b> 没有散客需求的淡季，任何高于变动成本的团队都是增量；反之则必须做置换测算。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>用净收入比净收入</b> 团队常常没有佣金，但要扣餐饮、结算周期与取消风险；散客要扣 OTA 佣金。两边都要换算到净口径。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>别忘了附加收益</b> 团队带来的餐饮、会议、用车等综合贡献，常常是决定这一单能不能接的关键。</div></div>
+  <h3 style="margin-top:14px">怎么算</h3>
+  <div class="formula"><div class="fname">置换测算与最低可接受价</div><div class="fexpr">置换成本 = 被替代的散客间夜 × 散客渠道净值
+最低可接受团队净价 = (置换成本 − 团队附加贡献) ÷ 团队间夜数
+对应毛价 = 最低可接受净价 ÷ (1 − 团队佣金率)</div><div class="ex"><b>算一遍：</b>置换成本 = 60 × 382 = 22,920 元；团队附加餐饮贡献 4,000 元。<br>最低可接受团队净价 = (22,920 − 4,000) ÷ 60 = <b>315.3 元</b>。<br>若该团队需付 8% 佣金 → 对应毛价 = 315.3 ÷ 0.92 = <b>342.7 元</b>。<br>结论：<b>低于 343 元的报价不能接</b>；若还要含早餐，则需在此基础上再加早餐成本。</div></div>
+  <h3 style="margin-top:14px">怎么做</h3>
+  <ul class="do"><li>先查目标日的散客需求预测与预计入住率——这是全部测算的前提。</li><li>用上面的公式算出这一单的<b>最低可接受价</b>，写进报价前的审批表。</li><li>把餐饮、会议等附加贡献一起纳入测算，并明确谁负责确认这部分数据。</li></ul>
+  <div class="dont"><b>不要做的事：</b><b>在没算置换成本前答应报价</b> / <b>只比平均房价、不比净收入</b> / <b>忽略团队更高的取消与缩房风险</b></div>
+  <h3 style="margin-top:14px">真实案例 · 同一个团队，两个季节的两个答案</h3>
+  <div class="case"><h4>同一个团队，两个季节的两个答案</h4><table class="data"><thead><tr><th>情况</th><th>散客需求</th><th>可接受团队毛价</th><th>结论</th></tr></thead><tbody><tr><td>旺季周六</td><td>预计满房</td><td>约 343 元起</td><td>报价低于此应拒绝</td></tr><tr><td>淡季周二</td><td>预计仅 40%</td><td>贴近变动成本即可</td><td>通常可以接</td></tr></tbody></table><div class="end">同样一份团队报价，在不同日子有完全相反的答案。<b>收益管理从来不是价格问题，是“今天”的问题。</b></div></div>
+</div><div class="unit">
+  <div class="unit-tag">单元 2 · 概念 No.27</div>
+  <div class="unit-h">餐饮收益管理 RevPASH</div>
+  <div class="story"><div class="who">这个坑你一定踩过 · 餐厅天天排队，月底却没赚到钱</div><p>一家餐厅晚餐时段排号严重，老板很高兴。可月底一算，利润还不如隔壁不排队的。</p><p>原因是排队的那批客人人均消费低、占座时间长。<b>忙，不等于赚。</b>餐厅也有自己的 RevPAR——它叫 RevPASH。</p></div>
+  <h3 style="margin-top:14px">核心概念 · 餐厅卖的是“座位 × 时间”，不是菜</h3>
+  <p class="lead">客房的库存是“间夜”，餐厅的库存是“座位小时”。RevPASH（每可用座位小时收入）就是餐厅版的 RevPAR，它同时容纳了翻台、时段与人均三件事。</p>
+  <figure><figcaption>餐厅的三个杠杆</figcaption><pre class="figure-art">翻台率    一晚能接待几轮        → 缩短用餐时长、优化动线
+人均消费  每位客人贡献多少      → 组合推荐、套餐、酒水
+时段分布  需求集中在哪几个小时  → 错峰定价、预定时段优惠
+
+RevPASH = 时段总收入 ÷ (座位数 × 营业小时)</pre></figure>
+  <div class="point"><div class="pn">1</div><div class="pt"><b>翻台率不是越高越好</b> 强行赶客会压低人均、伤害口碑。要在翻台与人均之间找平衡点。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>时段是可以经营的</b> 下午与夜宵时段的边际成本很低，用错峰优惠填进去，几乎都是纯增量。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>排队要区分“有效排队”</b> 如果排队客的人均明显低于正常客，说明你的引流活动吸引了错误的客群。</div></div>
+  <h3 style="margin-top:14px">怎么算</h3>
+  <div class="formula"><div class="fname">RevPASH 与翻台检验</div><div class="fexpr">RevPASH = 时段总收入 ÷ (座位数 × 营业小时)
+翻台率 = 时段接待人次 ÷ 座位数
+人均消费 = 时段总收入 ÷ 接待人次</div><div class="ex"><b>算一遍：</b>餐厅 80 个座位，晚餐营业 4 小时。<br>昨晚收入 24,000 元，接待 200 人次。<br>　RevPASH = 24,000 ÷ (80 × 4) = <b>75 元/座位小时</b>；翻台率 = 200 ÷ 80 = <b>2.5 轮</b>；人均 = <b>120 元</b>。<br><b>若把翻台提到 3 轮但人均降到 100 元：</b>收入 = 240 × 100 = 24,000 元，RevPASH 不变。<br>→ 说明这次提速没有创造价值，只是让客人吃得更赶。</div></div>
+  <h3 style="margin-top:14px">怎么做</h3>
+  <ul class="do"><li>算出本餐厅昨天晚餐时段的三个数：RevPASH、翻台率、人均消费。</li><li>挑一个空闲时段设计<b>错峰优惠</b>，测算它的边际贡献是否为正。</li><li>统计排队客与正常客的人均差异，判断引流活动有没有引错人。</li></ul>
+  <div class="dont"><b>不要做的事：</b><b>只看营收不看翻台与人均</b> / <b>为提高翻台牺牲体验</b> / <b>用低价引流却不核算客群质量</b></div>
+  <h3 style="margin-top:14px">真实案例 · 提速前与提速后</h3>
+  <div class="case"><h4>提速前与提速后</h4><table class="data"><thead><tr><th>项目</th><th>提速前</th><th>提速后</th></tr></thead><tbody><tr><td>翻台率</td><td>2.5 轮</td><td>3.0 轮</td></tr><tr><td>人均消费</td><td>120 元</td><td>100 元</td></tr><tr><td>时段收入</td><td>24,000 元</td><td>24,000 元</td></tr><tr><td>RevPASH</td><td>75 元</td><td>75 元</td></tr></tbody></table><div class="end">收入一样，但客人吃得更赶、体验更差。<b>没有创造价值的提速，只是把成本转嫁给了体验。</b></div></div>
+</div><div class="unit">
+  <div class="unit-tag">单元 3 · 概念 No.28</div>
+  <div class="unit-h">会议宴会与多功能厅收益</div>
+  <div class="story"><div class="who">这个坑你一定踩过 · 客房满房的那天，宴会厅空了一整天</div><p>一家店客房做得很好，可多功能厅长期空置。销售的解释是：“反正也没人来问。”</p><p>多功能厅的问题往往不是没需求，而是<b>没有定价、没有档期管理、没有算过账</b>。它成了谁都能免费用的赠品。</p></div>
+  <h3 style="margin-top:14px">核心概念 · 场地是另一种“过期作废”的库存</h3>
+  <p class="lead">和客房一样，一个下午没卖出去的宴会厅永远不会补回来。它的库存单位是“场地 × 时段”，核心指标不是出租率，而是单位面积时段的贡献。</p>
+  <figure><figcaption>宴会收益的三个来源</figcaption><pre class="figure-art">场租      按场地 × 时段计价，是底线收入
+餐饮      宴会用餐，通常是毛利最高的部分
+连带客房  会议带来的客房需求，是隐藏的增量
+
+常见错误：为了争取餐饮收入而免收场租
+         结果：场地的机会成本被完全忽略</pre></figure>
+  <div class="point"><div class="pn">1</div><div class="pt"><b>场租、餐饮、客房要合起来算</b> 单独看某一项都会做出错误决策。一场会议的真实价值，是三项贡献之和。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>淡季工作日是宴会的主场</b> 会议需求与客房需求往往互补：周末客房旺、工作日会议旺。这是天然的填谷工具。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>场地也要有最低可接价</b> 就像团队置换一样，占用场地的会议必须超过它本可以带来的其他收益。</div></div>
+  <h3 style="margin-top:14px">怎么算</h3>
+  <div class="formula"><div class="fname">一场会议的综合贡献</div><div class="fexpr">综合贡献 = 场租 + 餐饮边际贡献 + 连带客房边际贡献
+最低可接受场租 = 该时段场地的机会成本 − 餐饮贡献 − 客房贡献</div><div class="ex"><b>算一遍：</b>某会议占下午半天，场租报价 3,000 元。<br>　餐饮 60 人 × 120 元 = 7,200 元，毛利率 55% → 贡献 <b>3,960 元</b>。<br>　连带客房 20 间 × 边际贡献 280 元 = <b>5,600 元</b>。<br>综合贡献 = 3,000 + 3,960 + 5,600 = <b>12,560 元</b>。<br>→ 即使这场会议只肯出 1,000 元场租，综合贡献仍达 10,560 元，<b>值得接</b>。</div></div>
+  <h3 style="margin-top:14px">怎么做</h3>
+  <ul class="do"><li>给多功能厅定一份<b>分时段价目表</b>：上午、下午、晚间、全天。</li><li>把宴会销售的话术改成“场租 + 餐饮 + 客房”三件套报价。</li><li>统计过去半年多功能厅的空置时段，挑出最该补的工作日下午。</li></ul>
+  <div class="dont"><b>不要做的事：</b><b>为争取餐饮而免收场租</b> / <b>只按场租判断接不接</b> / <b>忽略会议带来的连带客房</b></div>
+  <h3 style="margin-top:14px">真实案例 · 同一场会议，两种算法</h3>
+  <div class="case"><h4>同一场会议，两种算法</h4><table class="data"><thead><tr><th>算法</th><th>只看场租</th><th>综合贡献</th></tr></thead><tbody><tr><td>场租</td><td>3,000 元</td><td>3,000 元</td></tr><tr><td>餐饮贡献</td><td>不计</td><td>3,960 元</td></tr><tr><td>客房贡献</td><td>不计</td><td>5,600 元</td></tr><tr><td>合计</td><td>3,000 元</td><td>12,560 元</td></tr></tbody></table><div class="end">只看场租，你会拒绝很多实际上很划算的会议；<b>算综合贡献，很多“低价”单其实是好单。</b></div></div>
+</div><div class="unit">
+  <div class="unit-tag">单元 4 · 概念 No.29</div>
+  <div class="unit-h">公寓、民宿与其他住宿业态</div>
+  <div class="story"><div class="who">这个坑你一定踩过 · 民宿老板说：我们这行不讲究这个</div><p>民宿和公寓的常见说法是：“我们房量少，用不上收益管理。”</p><p>恰恰相反——<b>房量越少，每一间的损失占比越高</b>。只是三个参数变了：产能单位、需求节奏、可用工具。</p></div>
+  <h3 style="margin-top:14px">核心概念 · 换行业不换逻辑，只换参数</h3>
+  <p class="lead">收益管理成立的前提只有三条：产能相对固定、库存易逝、需求可细分且波动。公寓和民宿全都满足。变的只是：库存单位更长、需求曲线更陡、工具更轻。</p>
+  <figure><figcaption>三种业态的参数差异</figcaption><pre class="figure-art">             酒店        服务公寓       民宿/短租
+库存单位     间夜        间夜/月        整套/天
+核心指标     RevPAR      月均租金      出租率 × 均价
+提前期       0–30 天     30–180 天     0–60 天
+主力工具     动态定价    租期结构      周末与节假日分档
+主要风险     No-show     空置期长      政策与平台规则
+
+共同内核：产能固定 + 库存易逝 + 需求波动</pre></figure>
+  <div class="point"><div class="pn">1</div><div class="pt"><b>公寓的关键在租期结构</b> 长短租配比决定了空置风险。用“最短租期”管理淡季，用“溢价”管理旺季。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>民宿的关键在周末与节假日</b> 需求高度集中，一年里真正决定收益的可能只有几十天。把日历做准是第一位。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>房量少更要算机会成本</b> 20 间的民宿少卖 2 间，就是 10% 的收入；300 间的酒店少卖 2 间，几乎无感。</div></div>
+  <h3 style="margin-top:14px">怎么算</h3>
+  <div class="formula"><div class="fname">跨业态的同一套公式</div><div class="fexpr">收益 = 售出单位 × 单位价格
+等效 RevPAR = 期间总收入 ÷ (可出租单位 × 期间天数)
+
+公寓：等效月租金 × 出租率
+民宿：出租率 × 日均价格</div><div class="ex"><b>算一遍（民宿）：</b>8 套房源，某月 30 天 → 可出租 240 套夜。<br>实际售出 168 套夜，总收入 50,400 元 → 出租率 70%，日均 300 元。<br>等效指标 = 50,400 ÷ 240 = <b>210 元/套夜</b>。<br>若把出租率提到 78% 且日均提到 320 元：<br>　等效指标 = 0.78 × 320 = <b>249.6 元</b>，月收入增加约 <b>9,504 元</b>。</div></div>
+  <h3 style="margin-top:14px">怎么做</h3>
+  <ul class="do"><li>先确认自己的<b>库存单位</b>是什么（间夜 / 套夜 / 月），再套用等效指标。</li><li>找出一年里决定收益的那几十天，单独建一张日历。</li><li>只挑一件工具先用起来：分色日历或最短住期，不要一次上全套。</li></ul>
+  <div class="dont"><b>不要做的事：</b><b>认为房量少就用不上收益管理</b> / <b>照搬酒店的全部工具</b> / <b>忽略政策与平台规则风险</b></div>
+  <h3 style="margin-top:14px">真实案例 · 三家不同业态的等效指标</h3>
+  <div class="case"><h4>三家不同业态的等效指标</h4><table class="data"><thead><tr><th>业态</th><th>库存单位</th><th>核心指标</th><th>首要工具</th></tr></thead><tbody><tr><td>商务酒店</td><td>间夜</td><td>RevPAR</td><td>需求日历 + 动态定价</td></tr><tr><td>服务公寓</td><td>套月</td><td>出租率 × 月租</td><td>租期结构</td></tr><tr><td>民宿</td><td>套夜</td><td>出租率 × 日价</td><td>节假日分档</td></tr></tbody></table><div class="end">指标名字不同，算式完全一样。<b>学会一套，三种业态都能用。</b></div></div>
+</div>
+
+    <div class="syn">
+      <div class="st">单元之间的关系</div>
+      同一个算法可以贯穿四种业态：<b>算出被替代者的净值，再和替代者比大小。</b>变的只是库存单位——客房是间夜，餐厅是座位小时，宴会是场地时段，公寓是套月。
+    </div>
+
+    <div class="qbox">
+      <div class="qt">本册行动清单</div>
+      <ol><li>为下一个团队询价算出最低可接受价。</li><li>统计多功能厅的空置时段，定出分时段价目表。</li><li>确认自己业态的库存单位，套用等效指标。</li></ol>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="nextbox"><b>下一册：</b>13　预算与目标拆解 —— 把老板给的一个年度数字，拆成每天该卖多少钱</div>
+    <div style="margin-top:10px">HRMA 收益管理社区 · 主题系列 12 / 16 · 咨询 rm-community@qq.com</div>
+    <div style="margin-top:6px;font-size:12px;color:#8494a8">本册由 4 个概念单元汇编而成，属初稿 v0.2；后续按单元逐段扩充至成稿篇幅。</div>
+  </div>
+</div>
+<div style="background:#0f2a4a;padding:11px 18px"><a href="https://hrma-city.github.io/series/" style="color:#fff;text-decoration:none;font-size:13.5px;font-weight:700">← 返回知识地图</a></div>
+</body>
+</html>

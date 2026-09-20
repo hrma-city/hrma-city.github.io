@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01 预测怎么做 · HRMA 收益管理操作系列</title>
+<meta name="description" content="动手调价前先把未来看清：取历史、看在手、算 Pace 三步。">
+<style>
+/* HRMA 口袋书系列 · 统一版式（130×184mm 口袋本，屏幕/打印双用） */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#eef1f6;color:#1c2430;line-height:1.85;font-size:15px}
+.paper{max-width:760px;margin:22px auto;background:#fff;box-shadow:0 4px 18px rgba(20,30,70,.10)}
+
+/* 封面 */
+.cover{background:#0f2a4a;color:#fff;padding:38px 34px 30px;position:relative}
+.cov-series{font-size:12px;letter-spacing:2.6px;opacity:.75;margin-bottom:10px}
+.cov-no{display:inline-block;background:#e8b84b;color:#3a2a00;font-weight:800;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-right:9px}
+.cov-title{font-size:31px;font-weight:800;line-height:1.35;margin:14px 0 12px}
+.cov-promise{font-size:16px;color:#ffe9bd;line-height:1.7;border-left:3px solid #e8b84b;padding-left:13px}
+.cov-badge{position:absolute;right:30px;top:32px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:9px 12px;text-align:center}
+.cov-badge b{display:block;font-size:19px;color:#e8b84b;line-height:1.2}
+.cov-badge span{font-size:11px;opacity:.8}
+.cov-for{margin-top:18px;font-size:13px;opacity:.72}
+
+/* 正文 */
+.body{padding:30px 34px 10px}
+.kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+  color:#fff;background:#1d6fb8;border-radius:5px;padding:2px 9px;margin-bottom:9px}
+h2{font-size:20px;font-weight:800;color:#0f2a4a;margin:0 0 12px;line-height:1.45}
+p{margin:10px 0}
+.lead{font-size:15.5px;color:#3a4b60}
+.story{background:#f7f9fc;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:14px 17px}
+.story .who{font-size:13px;color:#1d6fb8;font-weight:800;margin-bottom:5px}
+.point{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.pn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#0f2a4a;color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pt{font-size:15px}
+.pt b{color:#0f2a4a}
+figure{border:1px solid #e2e8ef;border-radius:11px;padding:15px 17px;background:#fbfcfe;margin:14px 0}
+figcaption{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+pre.figure-art{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.4px;line-height:1.75;color:#0f2a4a;white-space:pre-wrap}
+.formula{background:#fffdf6;border:2px solid #e8cf94;border-radius:12px;padding:16px 18px;margin:14px 0}
+.formula .fname{font-size:13px;color:#a8801f;font-weight:800;margin-bottom:7px}
+.formula .fexpr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:16px;font-weight:700;color:#0f2a4a;background:#fff;border-radius:8px;padding:10px 13px;
+  border:1px solid #f0dcae;line-height:1.7;white-space:pre-wrap}
+.ex{margin-top:11px;font-size:14.2px;color:#3a4b60}
+.ex b{color:#0f2a4a}
+ul.do{list-style:none}
+ul.do li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e6eaf1}
+ul.do li:last-child{border-bottom:none}
+ul.do li::before{content:"";position:absolute;left:7px;top:17px;width:8px;height:8px;
+  border-radius:2px;background:#1d9e75}
+.dont{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;margin-top:13px}
+.dont b{color:#a32d2d}
+.case{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:15px 18px}
+.case h4{font-size:14.5px;color:#0f2a4a;margin-bottom:6px}
+.case .num{color:#5b6a7d;font-size:13.6px}
+.case .end{margin-top:9px;font-size:14px;color:#3a4b60;border-top:1px dashed #dde3ec;padding-top:9px}
+table.data{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+table.data th{background:#eef3f9;color:#3a4b60;font-size:12.5px;text-align:left;padding:9px 11px}
+table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
+.qbox{background:#0f2a4a;color:#fff;border-radius:13px;padding:18px 20px;margin:18px 0}
+.qbox .qt{font-size:15px;font-weight:800;color:#e8b84b;margin-bottom:8px}
+.qbox ol{margin:0 0 0 18px}
+.qbox li{margin:5px 0;font-size:14.6px}
+.footer{margin-top:22px;background:#f4f7fa;border-top:1px solid #e2e8ef;padding:18px 34px 22px;
+  font-size:13px;color:#5b6a7d;line-height:1.8}
+.nextbox{background:#fff;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin-bottom:12px}
+.nextbox b{color:#0f2a4a}
+.qr{display:inline-block;border:1px solid #cfd8e5;border-radius:8px;padding:6px 10px;font-size:12px;color:#8494a8}
+
+/* 系列索引页 */
+.index-wrap{max-width:900px;margin:0 auto;padding:26px 18px 50px}
+.ihead{background:#0f2a4a;color:#fff;border-radius:14px;padding:26px 26px 22px;margin-bottom:20px}
+.ihead h1{font-size:25px;font-weight:800;margin-bottom:8px}
+.ihead p{opacity:.85;font-size:14.5px}
+.rule{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.rule h3{font-size:16px;color:#0f2a4a;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.bk{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:15px 16px;text-decoration:none;color:inherit;display:block}
+.bk:hover{border-color:#e8b84b}
+.bk .bno{font-size:11.5px;color:#a8801f;font-weight:800;letter-spacing:1px}
+.bk .bt{font-size:15.5px;font-weight:800;color:#0f2a4a;margin:4px 0 5px;line-height:1.4}
+.bk .bp{font-size:13px;color:#5b6a7d;line-height:1.65}
+.bk .bmeta{margin-top:8px;font-size:11.5px;color:#8494a8}
+.bigbook{background:#fffdf6;border:2px solid #e8cf94}
+
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .body{page-break-after:auto}
+}
+</style>
+</head>
+<body>
+<div style="background:#0f2a4a;padding:11px 18px"><a href="https://hrma-city.github.io/series/" style="color:#fff;text-decoration:none;font-size:13.5px;font-weight:700">← 返回知识地图</a></div>
+<div class="paper">
+  <div class="cover">
+    <div class="cov-series">HRMA 收益管理操作系列 · 第 1 步 / 共 4 步</div>
+    <div><span class="cov-no">No.01 / 4</span></div>
+    <div class="cov-title">预测怎么做</div>
+    <div class="cov-promise">动手调价前先把未来看清：取历史、看在手、算 Pace 三步。</div>
+    <div class="cov-for">适读：收益管理岗 · 想把课讲落地的教师</div>
+    <div class="cov-badge"><b>20</b><span>分钟读完</span></div>
+  </div>
+
+  <div class="body">
+    <div class="mapbox"><div class="lb">本页在流程图的位置 · 第 1 步</div>这是「预测 → 决策 → 执行 → 复盘」闭环中的一环。流程图上的每个板块都跳到这里，讲这一步具体怎么做。</div>
+
+    <div class="kicker">本页导读</div>
+    <h2>这一步具体怎么做</h2>
+    <p class="lead">预测不是算命，是在你动手调价、锁房之前，先把「未来会来多少客人、以什么价格、从什么渠道来」看清。看清了，后面的决策才有锚；看清错了，后面全错。这一步占整个闭环价值的近一半。</p>
+
+    <div class="kicker" style="margin-top:26px">操作步骤 · 3 个</div>
+    <h2>一个动作一张牌</h2>
+    <p class="lead">每个动作沿用同一套结构：先讲你会踩的坑，再讲怎么做、给公式、给今天就能做的动作、给工具。</p>
+    <div class="unit" id="a-history">
+  <div class="unit-tag">动作 1</div>
+  <div class="unit-h">取历史数据　<span style="font-size:13px;color:#8494a8;font-weight:600">去年同周曲线做基准</span></div>
+  <div style="background:#fff4f4;border:1px solid #f0c4c4;border-radius:10px;padding:11px 14px;margin:10px 0;font-size:13.5px;line-height:1.7;color:#7a2e2e"><b>⚠ 别踩这个坑：</b>直接拿「上个月」当基准——但上个月可能有展会、疫情、装修，根本不是常态。</div>
+  <h3 style="margin-top:14px;color:#0f2a4a">怎么做</h3>
+  <p class="lead">拉过去 12-24 个月、同周期（同星期几、同节假日、同事件）的 OCC / ADR / RevPAR；按星期、按事件分层；把异常周（装修、疫情、大型会议）标注并剔除，得到一条干净的「常态基线」。</p>
+  <div style="background:#0f2a4a;color:#fff;border-radius:9px;padding:9px 14px;margin:12px 0;font-size:13px;font-weight:700;letter-spacing:.3px">基线 = 过去 N 个同周期实际值的移动平均（建议 N≥12）</div>
+  <h3 style="margin-top:8px;color:#0f2a4a">今天就能做的动作</h3>
+  <p class="lead">①导出历史 ②按星期分层 ③标异常 ④算基线 ⑤存为「历史基线表」</p>
+  <div style="background:#eef3f9;border-radius:9px;padding:9px 14px;margin-top:10px;font-size:13px;color:#3a4b60">🛠 工具：rm-engine 决策引擎 / 历史基线表模板</div>
+</div><div class="unit" id="a-onbook">
+  <div class="unit-tag">动作 2</div>
+  <div class="unit-h">看在手预订　<span style="font-size:13px;color:#8494a8;font-weight:600">已订 + 渠道在途</span></div>
+  <div style="background:#fff4f4;border:1px solid #f0c4c4;border-radius:10px;padding:11px 14px;margin:10px 0;font-size:13.5px;line-height:1.7;color:#7a2e2e"><b>⚠ 别踩这个坑：</b>把「询价」当「已订」，以为房量还多，结果到期全没了。</div>
+  <h3 style="margin-top:14px;color:#0f2a4a">怎么做</h3>
+  <p class="lead">区分「确定性预订」（已担保/预付）与「询价/候补」；读当前在手房量 = 总房量 - 已订 - 锁房；看渠道在途（OTA 未确认、团队待签）。</p>
+  <div style="background:#0f2a4a;color:#fff;border-radius:9px;padding:9px 14px;margin:12px 0;font-size:13px;font-weight:700;letter-spacing:.3px">在手可售 = 总房量 - 已确定性预订 - 已锁房</div>
+  <h3 style="margin-top:8px;color:#0f2a4a">今天就能做的动作</h3>
+  <p class="lead">每日开盘看在手可售；区分确定/询价；记录渠道在途</p>
+  <div style="background:#eef3f9;border-radius:9px;padding:9px 14px;margin-top:10px;font-size:13px;color:#3a4b60">🛠 工具：PMS 房量视图 / 渠道在途表</div>
+</div><div class="unit" id="a-pace">
+  <div class="unit-tag">动作 3</div>
+  <div class="unit-h">算 Pace 进度　<span style="font-size:13px;color:#8494a8;font-weight:600">pickup ÷ 剩余天</span></div>
+  <div style="background:#fff4f4;border:1px solid #f0c4c4;border-radius:10px;padding:11px 14px;margin:10px 0;font-size:13.5px;line-height:1.7;color:#7a2e2e"><b>⚠ 别踩这个坑：</b>只看「今天订了多少」，不看「比去年今天快还是慢」。</div>
+  <h3 style="margin-top:14px;color:#0f2a4a">怎么做</h3>
+  <p class="lead">Pace = 今年至今累积预订量 ÷ 去年同期同口径累积量。Pace>1 表示需求强于去年（可提价）；<1 表示弱（保守/促销）。结合剩余天数判断追赶空间。</p>
+  <div style="background:#0f2a4a;color:#fff;border-radius:9px;padding:9px 14px;margin:12px 0;font-size:13px;font-weight:700;letter-spacing:.3px">Pace = 本期至今预订量 ÷ 去年同期同口径预订量</div>
+  <h3 style="margin-top:8px;color:#0f2a4a">今天就能做的动作</h3>
+  <p class="lead">每周算一次 Pace；>1.1 标记提价窗口；<0.9 标记促销窗口</p>
+  <div style="background:#eef3f9;border-radius:9px;padding:9px 14px;margin-top:10px;font-size:13px;color:#3a4b60">🛠 工具：预订进度表 / pickup 曲线</div>
+</div>
+
+    <div class="syn" id="节奏">
+      <div class="st">这一步的节奏（每天 / 每周 / 每月 / 每年）</div>
+      <ul style="margin:6px 0 0 18px;line-height:2;font-size:13.5px"><li><b>每天</b>　开盘看在手可售 + Pace，5 分钟。</li><li><b>每周</b>　周一做未来 7-14 天预测，更新基线。</li><li><b>每月</b>　滚动未来 90 天预测，校准季节系数。</li><li><b>每年</b>　用全年实际修正历史基线权重。</li></ul>
+    </div>
+
+    <div class="qbox">
+      <div class="qt">本页行动清单</div>
+      <ol><li>拉 12+ 个月同周期历史，剔除异常周</li><li>建「历史基线表」并存档</li><li>每日区分确定预订与询价，看在手可售</li><li>每周算 Pace，标记提价/促销窗口</li></ol>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="nextbox"><b>下一步：</b>02　决策怎么做 —— 把预测变成价格与配额：先设门槛、再定策略、最后出配额。</div>
+    <div style="margin-top:10px">HRMA 收益管理社区 · 操作系列 01 / 4 · 咨询 rm-community@qq.com</div>
+    <div style="margin-top:6px;font-size:12px;color:#8494a8">操作系列与知识地图分册互补：地图讲「是什么 / 为什么」，这里讲「具体怎么做」。</div>
+  </div>
+</div>
+<div style="background:#0f2a4a;padding:11px 18px"><a href="https://hrma-city.github.io/series/" style="color:#fff;text-decoration:none;font-size:13.5px;font-weight:700">← 返回知识地图</a></div>
+</body>
+</html>

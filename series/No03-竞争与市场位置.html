@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03 竞争与市场位置 · HRMA 收益管理主题系列</title>
+<meta name="description" content="不打听底价，也能知道自己在市场里是贵了、还是没份额">
+<style>
+/* HRMA 口袋书系列 · 统一版式（130×184mm 口袋本，屏幕/打印双用） */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#eef1f6;color:#1c2430;line-height:1.85;font-size:15px}
+.paper{max-width:760px;margin:22px auto;background:#fff;box-shadow:0 4px 18px rgba(20,30,70,.10)}
+
+/* 封面 */
+.cover{background:#0f2a4a;color:#fff;padding:38px 34px 30px;position:relative}
+.cov-series{font-size:12px;letter-spacing:2.6px;opacity:.75;margin-bottom:10px}
+.cov-no{display:inline-block;background:#e8b84b;color:#3a2a00;font-weight:800;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-right:9px}
+.cov-title{font-size:31px;font-weight:800;line-height:1.35;margin:14px 0 12px}
+.cov-promise{font-size:16px;color:#ffe9bd;line-height:1.7;border-left:3px solid #e8b84b;padding-left:13px}
+.cov-badge{position:absolute;right:30px;top:32px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:9px 12px;text-align:center}
+.cov-badge b{display:block;font-size:19px;color:#e8b84b;line-height:1.2}
+.cov-badge span{font-size:11px;opacity:.8}
+.cov-for{margin-top:18px;font-size:13px;opacity:.72}
+
+/* 正文 */
+.body{padding:30px 34px 10px}
+.kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+  color:#fff;background:#1d6fb8;border-radius:5px;padding:2px 9px;margin-bottom:9px}
+h2{font-size:20px;font-weight:800;color:#0f2a4a;margin:0 0 12px;line-height:1.45}
+p{margin:10px 0}
+.lead{font-size:15.5px;color:#3a4b60}
+.story{background:#f7f9fc;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:14px 17px}
+.story .who{font-size:13px;color:#1d6fb8;font-weight:800;margin-bottom:5px}
+.point{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.pn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#0f2a4a;color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pt{font-size:15px}
+.pt b{color:#0f2a4a}
+figure{border:1px solid #e2e8ef;border-radius:11px;padding:15px 17px;background:#fbfcfe;margin:14px 0}
+figcaption{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+pre.figure-art{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.4px;line-height:1.75;color:#0f2a4a;white-space:pre-wrap}
+.formula{background:#fffdf6;border:2px solid #e8cf94;border-radius:12px;padding:16px 18px;margin:14px 0}
+.formula .fname{font-size:13px;color:#a8801f;font-weight:800;margin-bottom:7px}
+.formula .fexpr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:16px;font-weight:700;color:#0f2a4a;background:#fff;border-radius:8px;padding:10px 13px;
+  border:1px solid #f0dcae;line-height:1.7;white-space:pre-wrap}
+.ex{margin-top:11px;font-size:14.2px;color:#3a4b60}
+.ex b{color:#0f2a4a}
+ul.do{list-style:none}
+ul.do li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e6eaf1}
+ul.do li:last-child{border-bottom:none}
+ul.do li::before{content:"";position:absolute;left:7px;top:17px;width:8px;height:8px;
+  border-radius:2px;background:#1d9e75}
+.dont{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;margin-top:13px}
+.dont b{color:#a32d2d}
+.case{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:15px 18px}
+.case h4{font-size:14.5px;color:#0f2a4a;margin-bottom:6px}
+.case .num{color:#5b6a7d;font-size:13.6px}
+.case .end{margin-top:9px;font-size:14px;color:#3a4b60;border-top:1px dashed #dde3ec;padding-top:9px}
+table.data{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+table.data th{background:#eef3f9;color:#3a4b60;font-size:12.5px;text-align:left;padding:9px 11px}
+table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
+.qbox{background:#0f2a4a;color:#fff;border-radius:13px;padding:18px 20px;margin:18px 0}
+.qbox .qt{font-size:15px;font-weight:800;color:#e8b84b;margin-bottom:8px}
+.qbox ol{margin:0 0 0 18px}
+.qbox li{margin:5px 0;font-size:14.6px}
+.footer{margin-top:22px;background:#f4f7fa;border-top:1px solid #e2e8ef;padding:18px 34px 22px;
+  font-size:13px;color:#5b6a7d;line-height:1.8}
+.nextbox{background:#fff;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin-bottom:12px}
+.nextbox b{color:#0f2a4a}
+.qr{display:inline-block;border:1px solid #cfd8e5;border-radius:8px;padding:6px 10px;font-size:12px;color:#8494a8}
+
+/* 系列索引页 */
+.index-wrap{max-width:900px;margin:0 auto;padding:26px 18px 50px}
+.ihead{background:#0f2a4a;color:#fff;border-radius:14px;padding:26px 26px 22px;margin-bottom:20px}
+.ihead h1{font-size:25px;font-weight:800;margin-bottom:8px}
+.ihead p{opacity:.85;font-size:14.5px}
+.rule{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.rule h3{font-size:16px;color:#0f2a4a;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.bk{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:15px 16px;text-decoration:none;color:inherit;display:block}
+.bk:hover{border-color:#e8b84b}
+.bk .bno{font-size:11.5px;color:#a8801f;font-weight:800;letter-spacing:1px}
+.bk .bt{font-size:15.5px;font-weight:800;color:#0f2a4a;margin:4px 0 5px;line-height:1.4}
+.bk .bp{font-size:13px;color:#5b6a7d;line-height:1.65}
+.bk .bmeta{margin-top:8px;font-size:11.5px;color:#8494a8}
+.bigbook{background:#fffdf6;border:2px solid #e8cf94}
+
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .body{page-break-after:auto}
+}
+</style>
+<style>
+.mapbox{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:14px 17px;margin:14px 0}
+.mapbox .lb{font-size:12px;color:#1d6fb8;font-weight:800;letter-spacing:1px;margin-bottom:5px}
+.unit{background:#fff;border:1px solid #e2e8ef;border-radius:13px;padding:18px 20px;margin-bottom:16px}
+.unit-h{font-size:17px;font-weight:800;color:#0f2a4a;margin-bottom:4px}
+.unit-tag{display:inline-block;font-size:11.5px;background:#eef3f9;color:#3a4b60;
+  border-radius:6px;padding:2px 8px;margin-bottom:10px}
+.syn{background:#fffdf6;border:2px solid #e8cf94;border-radius:13px;padding:16px 19px;margin-top:18px}
+.syn .st{font-size:14px;font-weight:800;color:#a8801f;margin-bottom:6px}
+</style>
+</head>
+<body>
+<div style="background:#0f2a4a;padding:11px 18px"><a href="https://hrma-city.github.io/series/" style="color:#fff;text-decoration:none;font-size:13.5px;font-weight:700">← 返回知识地图</a></div>
+<div class="paper">
+  <div class="cover">
+    <div class="cov-series">HRMA 收益管理主题系列 · 基础层</div>
+    <div><span class="cov-no">03 / 16</span></div>
+    <div class="cov-title">竞争与市场位置</div>
+    <div class="cov-promise">不打听底价，也能知道自己在市场里是贵了、还是没份额</div>
+    <div class="cov-for">适读：酒店收益经理、店总、做市场分析的运营人员</div>
+    <div class="cov-badge"><b>60</b><span>分钟读完</span></div>
+  </div>
+
+  <div class="body">
+    <div class="mapbox"><div class="lb">本册在知识地图的位置 · 基础层</div>先建立度量与参照——否则后面所有的判断都没有坐标。</div>
+
+    <div class="kicker">本册导读</div>
+    <h2>为什么要单独讲这一册</h2>
+    <p class="lead">自己跟自己比，只能看出涨跌；跟竞争群比，才能知道<b>涨跌是市场给的，还是自己挣的</b>。本册解决两件事：一是用三个指数（MPI / ARI / RGI）把市场位置量化，避免凭感觉说“我们卖得便宜”；二是当对手真的降价时，给出一套不必慌的判断顺序。这两件事合起来，才是完整的竞争应对。</p>
+
+    <div class="kicker" style="margin-top:26px">正文 · 2 个知识单元</div>
+    <h2>一个单元一个问题</h2>
+    <p class="lead">每个单元沿用同一套结构：先讲你会踩的坑，再讲概念与算法，最后给能当天执行的动作。</p>
+    <div class="unit">
+  <div class="unit-tag">单元 1 · 概念 No.03</div>
+  <div class="unit-h">MPI、ARI、RGI：竞争三件套</div>
+  <div class="story"><div class="who">这个坑你一定踩过 · 老板问：“我们到底算贵还是算便宜？”</div><p>老板在会上问这个问题，你答“我们均价 412”。他摇头——他要知道的不是绝对值，是<b>相对于对面那几家</b>，我们是贵还是便宜。</p><p>而且还有一个更难的问题：别人家都在涨，只有你没涨，那你名义上没降价，实际上是降价了。<b>没有比较的价格，是没有意义的。</b></p></div>
+  <h3 style="margin-top:14px">核心概念 · 一个指标答一件事，三个凑成一张 X 光片</h3>
+  <p class="lead">MPI 看份额（客人有没有选你），ARI 看价格水平（你有没有卖便宜），RGI 看综合地位（你到底赢没赢）。三者相乘还有个漂亮的关系：RGI = MPI × ARI。</p>
+  <figure><figcaption>竞争三件套</figcaption><pre class="figure-art">MPI  市场渗透指数 = 本店入住率 ÷ 竞争群入住率    → 抢到份额了吗
+ARI  平均房价指数 = 本店平均房价 ÷ 竞争群房价    → 卖便宜了吗
+RGI  收入生成指数 = 本店 RevPAR ÷ 竞争群 RevPAR  → 综合地位
+
+三者关系：  RGI = MPI × ARI
+判断基准：  = 1.0 持平   &gt; 1.0 领先   &lt; 1.0 落后</pre></figure>
+  <div class="point"><div class="pn">1</div><div class="pt"><b>竞争群要先选对</b> 3–5 家，同一档次、同一商圈、同一客群。拿一家五星和一家快捷导进来平均，算出来的数全是噪音。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>ARI 低不等于错</b> 如果你的目标就是先用价格抢份额，ARI 低于 1 是设计出来的结果，不是失误。要看你抢没抢到 MPI。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>RGI 才是老板该看的数</b> 它同时容纳了“卖得多不多”和“卖得贵不贵”，是给业主汇报时唯一需要解释的那个指标。</div></div>
+  <h3 style="margin-top:14px">怎么算</h3>
+  <div class="formula"><div class="fname">三件套算法</div><div class="fexpr">MPI = 本店入住率 ÷ 竞争群入住率
+ARI = 本店平均房价 ÷ 竞争群平均房价
+RGI = 本店 RevPAR ÷ 竞争群 RevPAR = MPI × ARI</div><div class="ex"><b>算一遍：</b>本店入住率 80%、平均房价 400 元；竞争群入住率 76%、平均房价 415 元。<br>MPI = 80 ÷ 76 = <b>1.05</b>（份额略领先）；ARI = 400 ÷ 415 = <b>0.96</b>（卖便宜了 4%）；<br>RGI = 1.05 × 0.96 = <b>1.01</b>。→ 你在靠低价换份额，综合只是勉强持平，还有 4% 的价格空间可以试探。</div></div>
+  <h3 style="margin-top:14px">怎么做</h3>
+  <ul class="do"><li>今天就定死你的竞争群：写名字、写档次、写为什么要对比它，不要随便换。</li><li>每天同一时间记录一次竞争群的挂牌价，做成一张雷打不动的表格——这是你最值钱的数据资产。</li><li>用左下角的组合矩阵判断该涨还是该守（见案例）。</li></ul>
+  <div class="dont"><b>不要做的事：</b><b>只看 ARI 就决定是否涨价</b> / <b>把不同档次竞争对手混在一起来平均</b> / <b>用一天的汇率数据做月度判断</b></div>
+  <h3 style="margin-top:14px">真实案例 · 四个象限，四种打法</h3>
+  <div class="case"><h4>四个象限，四种打法</h4><table class="data"><thead><tr><th>MPI</th><th>ARI</th><th>含义</th><th>该做什么</th></tr></thead><tbody><tr><td>高</td><td>低</td><td>靠低价换来了份额</td><td>小幅提价试探，看份额会不会掉</td></tr><tr><td>低</td><td>高</td><td>在收缩中保住了价格</td><td>不一定是坏事，但要查份额流失原因</td></tr><tr><td>低</td><td>低</td><td>全面落后</td><td>先别调价，查产品、点评、渠道</td></tr><tr><td>高</td><td>高</td><td>真正的领先者</td><td>保持节奏，警惕竞争者反扑</td></tr></tbody></table><div class="end">这个矩阵的价值在于：它让你不必纠结“要不要涨”，而是先看自己在哪一格。<b>不同象限的动作完全不同。</b></div></div>
+</div><div class="unit">
+  <div class="unit-tag">单元 2 · 概念 No.11</div>
+  <div class="unit-h">竞品降价了要不要跟</div>
+  <div class="story"><div class="who">这个坑你一定踩过 · 对面掉了三十块，全店立刻炸了锅</div><p>前台跑来报：“对面降到 368 了！”销售要求立刻跟进，店总怕损失份额，群里吵成一团。</p><p>但没人问那个最关键的问题：<b>我们自己的预订进度，到底有没有受影响？</b>如果没有，跟价就是在把自己的钱白送出去。</p></div>
+  <h3 style="margin-top:14px">核心概念 · 先看自己，再看对手</h3>
+  <p class="lead">竞品降价是信息，不是命令。它的意义要由你自己的 pickup 速度来解读——只有当你的生意确实在被抢走时，对手的价格才和你有关。</p>
+  <figure><figcaption>四步判断顺序</figcaption><pre class="figure-art">① 看自身进度：今日 pickup 是否连续三天走弱？
+② 看自身库存：目标日剩余可售是否明显偏高？
+③ 看对手范围：是全市场普降，还是仅一家在促销？
+④ 看你的替代手段：能不能用加值代替降价？
+
+①②同时成立 → 才考虑降价
+①②不成立  → 只是噪音，不用理会</pre></figure>
+  <div class="point"><div class="pn">1</div><div class="pt"><b>降价不可逆，加值可逆</b> 降下去的价格很难再收回来；送早餐、送房型升级、送积分，本月可以加也可以撤，是更便宜的武器。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>不要和市场最低价较劲</b> 总有一家愿意亏本引流。你要赢的是自己的竞争群均值，不是全场最低那位。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>跟进也要有幅度与期限</b> 真要跟，就用“限时、限房型、限渠道”的三限方式跟，避免全线降价。</div></div>
+  <h3 style="margin-top:14px">怎么算</h3>
+  <div class="formula"><div class="fname">用“损失换算”决定要不要跟</div><div class="fexpr">不跟的预估损失 = 预计流失间夜 × 渠道净值
+跟随的预估损失 = 原可售间夜 × 跟价幅度
+两者相比，取损失更小的那一侧</div><div class="ex"><b>算一遍：</b>目标日预计售出 200 间夜，渠道净值 340 元，对手降价 8%。<br>若选择跟随：损失 = 200 × 340 × 8% = <b>5,440 元</b>。<br>若不跟：按经验流失其中 10% 的量 → 20 间夜 × 340 = <b>6,800 元</b>。<br>两者接近 → 此时更划算的做法是<b>不全面跟价</b>，而是对最敏感的一两个房型小幅跟随或用加值替代。</div></div>
+  <h3 style="margin-top:14px">怎么做</h3>
+  <ul class="do"><li>遇到降价先走四步判断顺序，把结论写下来再动手，不当场做决定。</li><li>准备三种“加值武器”：赠送早餐、房型升级券、会员积分，随时可置换 20–30 元的价格差。</li><li>必须跟进时，只做限时、限房型、限渠道的局部跟价，并写清楚截止日期。</li></ul>
+  <div class="dont"><b>不要做的事：</b><b>看到对手降价就全线跟进</b> / <b>和市场里最低的那家比价格</b> / <b>降价之后不设回归日期</b></div>
+  <h3 style="margin-top:14px">真实案例 · 三种反应，三种结局</h3>
+  <div class="case"><h4>三种反应，三种结局</h4><table class="data"><thead><tr><th>做法</th><th>短期效果</th><th>长期代价</th></tr></thead><tbody><tr><td>全线跟价 8%</td><td>份额保住</td><td>全年房价体系下移约 3%</td></tr><tr><td>加值替代（送早餐）</td><td>转化约一半流失</td><td>成本可控，可随时撤销</td></tr><tr><td>不动，继续观察</td><td>可能流失少量预订</td><td>零代价，保住房价体系</td></tr></tbody></table><div class="end"><b>最贵的不是流失的那一晚，而是被迫下移的价格体系。</b>价格一旦滑落，需要用两三个旺季才能抬回来。</div></div>
+</div>
+
+    <div class="syn">
+      <div class="st">单元之间的关系</div>
+      竞争指标是<b>诊断</b>，降价应对是<b>处方</b>。只诊断不开方，你会一直知道自己落后；只开方不诊断，你会每次都被对手牵着走。顺序永远是：先看自己的进度，再看对手。
+    </div>
+
+    <div class="qbox">
+      <div class="qt">本册行动清单</div>
+      <ol><li>选定 3–5 家竞争群并写下理由。</li><li>算出本店 MPI / ARI / RGI，判断自己在哪个象限。</li><li>准备好三种加值武器，替代直接降价。</li></ol>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="nextbox"><b>下一册：</b>04　需求预测 —— 用去年的自己，预测今年的自己——不需要复杂模型</div>
+    <div style="margin-top:10px">HRMA 收益管理社区 · 主题系列 03 / 16 · 咨询 rm-community@qq.com</div>
+    <div style="margin-top:6px;font-size:12px;color:#8494a8">本册由 2 个概念单元汇编而成，属初稿 v0.2；后续按单元逐段扩充至成稿篇幅。</div>
+  </div>
+</div>
+<div style="background:#0f2a4a;padding:11px 18px"><a href="https://hrma-city.github.io/series/" style="color:#fff;text-decoration:none;font-size:13.5px;font-weight:700">← 返回知识地图</a></div>
+</body>
+</html>

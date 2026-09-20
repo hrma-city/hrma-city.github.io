@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10 库存控制 · HRMA 收益管理主题系列</title>
+<meta name="description" content="房价之外，另一半收益来自“把房留给谁”">
+<style>
+/* HRMA 口袋书系列 · 统一版式（130×184mm 口袋本，屏幕/打印双用） */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#eef1f6;color:#1c2430;line-height:1.85;font-size:15px}
+.paper{max-width:760px;margin:22px auto;background:#fff;box-shadow:0 4px 18px rgba(20,30,70,.10)}
+
+/* 封面 */
+.cover{background:#0f2a4a;color:#fff;padding:38px 34px 30px;position:relative}
+.cov-series{font-size:12px;letter-spacing:2.6px;opacity:.75;margin-bottom:10px}
+.cov-no{display:inline-block;background:#e8b84b;color:#3a2a00;font-weight:800;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-right:9px}
+.cov-title{font-size:31px;font-weight:800;line-height:1.35;margin:14px 0 12px}
+.cov-promise{font-size:16px;color:#ffe9bd;line-height:1.7;border-left:3px solid #e8b84b;padding-left:13px}
+.cov-badge{position:absolute;right:30px;top:32px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:9px 12px;text-align:center}
+.cov-badge b{display:block;font-size:19px;color:#e8b84b;line-height:1.2}
+.cov-badge span{font-size:11px;opacity:.8}
+.cov-for{margin-top:18px;font-size:13px;opacity:.72}
+
+/* 正文 */
+.body{padding:30px 34px 10px}
+.kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+  color:#fff;background:#1d6fb8;border-radius:5px;padding:2px 9px;margin-bottom:9px}
+h2{font-size:20px;font-weight:800;color:#0f2a4a;margin:0 0 12px;line-height:1.45}
+p{margin:10px 0}
+.lead{font-size:15.5px;color:#3a4b60}
+.story{background:#f7f9fc;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:14px 17px}
+.story .who{font-size:13px;color:#1d6fb8;font-weight:800;margin-bottom:5px}
+.point{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.pn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#0f2a4a;color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pt{font-size:15px}
+.pt b{color:#0f2a4a}
+figure{border:1px solid #e2e8ef;border-radius:11px;padding:15px 17px;background:#fbfcfe;margin:14px 0}
+figcaption{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+pre.figure-art{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.4px;line-height:1.75;color:#0f2a4a;white-space:pre-wrap}
+.formula{background:#fffdf6;border:2px solid #e8cf94;border-radius:12px;padding:16px 18px;margin:14px 0}
+.formula .fname{font-size:13px;color:#a8801f;font-weight:800;margin-bottom:7px}
+.formula .fexpr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:16px;font-weight:700;color:#0f2a4a;background:#fff;border-radius:8px;padding:10px 13px;
+  border:1px solid #f0dcae;line-height:1.7;white-space:pre-wrap}
+.ex{margin-top:11px;font-size:14.2px;color:#3a4b60}
+.ex b{color:#0f2a4a}
+ul.do{list-style:none}
+ul.do li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e6eaf1}
+ul.do li:last-child{border-bottom:none}
+ul.do li::before{content:"";position:absolute;left:7px;top:17px;width:8px;height:8px;
+  border-radius:2px;background:#1d9e75}
+.dont{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;margin-top:13px}
+.dont b{color:#a32d2d}
+.case{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:15px 18px}
+.case h4{font-size:14.5px;color:#0f2a4a;margin-bottom:6px}
+.case .num{color:#5b6a7d;font-size:13.6px}
+.case .end{margin-top:9px;font-size:14px;color:#3a4b60;border-top:1px dashed #dde3ec;padding-top:9px}
+table.data{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+table.data th{background:#eef3f9;color:#3a4b60;font-size:12.5px;text-align:left;padding:9px 11px}
+table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
+.qbox{background:#0f2a4a;color:#fff;border-radius:13px;padding:18px 20px;margin:18px 0}
+.qbox .qt{font-size:15px;font-weight:800;color:#e8b84b;margin-bottom:8px}
+.qbox ol{margin:0 0 0 18px}
+.qbox li{margin:5px 0;font-size:14.6px}
+.footer{margin-top:22px;background:#f4f7fa;border-top:1px solid #e2e8ef;padding:18px 34px 22px;
+  font-size:13px;color:#5b6a7d;line-height:1.8}
+.nextbox{background:#fff;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin-bottom:12px}
+.nextbox b{color:#0f2a4a}
+.qr{display:inline-block;border:1px solid #cfd8e5;border-radius:8px;padding:6px 10px;font-size:12px;color:#8494a8}
+
+/* 系列索引页 */
+.index-wrap{max-width:900px;margin:0 auto;padding:26px 18px 50px}
+.ihead{background:#0f2a4a;color:#fff;border-radius:14px;padding:26px 26px 22px;margin-bottom:20px}
+.ihead h1{font-size:25px;font-weight:800;margin-bottom:8px}
+.ihead p{opacity:.85;font-size:14.5px}
+.rule{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.rule h3{font-size:16px;color:#0f2a4a;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.bk{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:15px 16px;text-decoration:none;color:inherit;display:block}
+.bk:hover{border-color:#e8b84b}
+.bk .bno{font-size:11.5px;color:#a8801f;font-weight:800;letter-spacing:1px}
+.bk .bt{font-size:15.5px;font-weight:800;color:#0f2a4a;margin:4px 0 5px;line-height:1.4}
+.bk .bp{font-size:13px;color:#5b6a7d;line-height:1.65}
+.bk .bmeta{margin-top:8px;font-size:11.5px;color:#8494a8}
+.bigbook{background:#fffdf6;border:2px solid #e8cf94}
+
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .body{page-break-after:auto}
+}
+</style>
+<style>
+.mapbox{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:14px 17px;margin:14px 0}
+.mapbox .lb{font-size:12px;color:#1d6fb8;font-weight:800;letter-spacing:1px;margin-bottom:5px}
+.unit{background:#fff;border:1px solid #e2e8ef;border-radius:13px;padding:18px 20px;margin-bottom:16px}
+.unit-h{font-size:17px;font-weight:800;color:#0f2a4a;margin-bottom:4px}
+.unit-tag{display:inline-block;font-size:11.5px;background:#eef3f9;color:#3a4b60;
+  border-radius:6px;padding:2px 8px;margin-bottom:10px}
+.syn{background:#fffdf6;border:2px solid #e8cf94;border-radius:13px;padding:16px 19px;margin-top:18px}
+.syn .st{font-size:14px;font-weight:800;color:#a8801f;margin-bottom:6px}
+</style>
+</head>
+<body>
+<div style="background:#0f2a4a;padding:11px 18px"><a href="https://hrma-city.github.io/series/" style="color:#fff;text-decoration:none;font-size:13.5px;font-weight:700">← 返回知识地图</a></div>
+<div class="paper">
+  <div class="cover">
+    <div class="cov-series">HRMA 收益管理主题系列 · 库存层</div>
+    <div><span class="cov-no">10 / 16</span></div>
+    <div class="cov-title">库存控制</div>
+    <div class="cov-promise">房价之外，另一半收益来自“把房留给谁”</div>
+    <div class="cov-for">适读：酒店收益经理、渠道运营、预订经理</div>
+    <div class="cov-badge"><b>60</b><span>分钟读完</span></div>
+  </div>
+
+  <div class="body">
+    <div class="mapbox"><div class="lb">本册在知识地图的位置 · 库存层</div>决定把有限的房留给谁，以及敢不敢多卖一点。</div>
+
+    <div class="kicker">本册导读</div>
+    <h2>为什么要单独讲这一册</h2>
+    <p class="lead">很多店只做价格，不做库存。结果是：价格定得不错，但好房子在最便宜的时候被订走了。本册讲两件库存工具——配额与保护（房该给哪个渠道、给多少），以及住期限制与禁止入住（什么时候该用硬的规则）。它们的收益常常比调价更直接：<b>不用卖得更贵，只要把房留给更值钱的人。</b></p>
+
+    <div class="kicker" style="margin-top:26px">正文 · 2 个知识单元</div>
+    <h2>一个单元一个问题</h2>
+    <p class="lead">每个单元沿用同一套结构：先讲你会踩的坑，再讲概念与算法，最后给能当天执行的动作。</p>
+    <div class="unit">
+  <div class="unit-tag">单元 1 · 概念 No.15</div>
+  <div class="unit-h">库存分配：房该留给哪个渠道</div>
+  <div class="story"><div class="who">这个坑你一定踩过 · 房还没到周末，就被最便宜的渠道订光了</div><p>某店周三就把周末的房全量开放，结果 40% 被低净值渠道提前吃掉。等到周五商务客来问，已经没房了。</p><p>这不是价格问题，是<b>库存分配</b>问题——你把有限的房，在最便宜的时候交出去了。</p></div>
+  <h3 style="margin-top:14px">核心概念 · 先决定“留给谁”，再决定“卖多少”</h3>
+  <p class="lead">库存分配的本质是取舍：今天放出去的每一间，都是从未来更高价的需求里预支的。高风险日子必须留房，低风险日子才放量。</p>
+  <figure><figcaption>库存分配的三种手法</figcaption><pre class="figure-art">配额（Allocation）   给某渠道每天最多 N 间，卖完即止
+保护（Protection）   为高价细分保留 N 间，不到时间点不放
+回收（Recall）       临近日期时，把没卖完的配额收回来
+
+节奏：
+  D-30 全量开放，仅设少量配额
+  D-7  收紧低净值渠道配额
+  D-3  回收未售配额，优先给直销与高价细分</pre></figure>
+  <div class="point"><div class="pn">1</div><div class="pt"><b>配额是上限，不是承诺</b> 给渠道的配额是“最多这么多”，不是“保证给这么多”。超出的需求应当回到直销。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>越接近入住日越要收紧</b> 需求不确定性随时间下降。临近日期时你更清楚值不值得继续卖便宜渠道。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>被拒订单是重要信号</b> 如果某个高价细分频繁订不到房，说明你的保护量不足，或者低价渠道放量过猛。</div></div>
+  <h3 style="margin-top:14px">怎么算</h3>
+  <div class="formula"><div class="fname">配额与保护量</div><div class="fexpr">低净值渠道配额 = 可售房 × 该渠道策略占比（旺季建议 20%–30%）
+高价细分保护量 = 该细分近 4 周同星期实际成交的平均间夜 × 安全系数 1.1</div><div class="ex"><b>算一遍：</b>300 间房，周末预计入住率 90%。<br>低净值渠道配额 = 300 × 25% = <b>75 间</b>。<br>高价细分近 4 周同星期平均成交 90 间 → 保护量 = 90 × 1.1 = <b>99 间</b>。<br>→ 剩余可自由分配的房 = 300 − 75 − 99 = <b>126 间</b>，按日期节奏分批放出。</div></div>
+  <h3 style="margin-top:14px">怎么做</h3>
+  <ul class="do"><li>给每个渠道写明<b>每日配额上限</b>，并写进渠道合同或后台设置。</li><li>建立“临近回收”动作：D-7 收紧、D-3 回收，写进每周固定动作。</li><li>统计一次“高价细分订不到房”的次数，如果超过每周 3 次，说明保护量要上调。</li></ul>
+  <div class="dont"><b>不要做的事：</b><b>旺季把所有库存一次性放给所有渠道</b> / <b>只控价格不控库存</b> / <b>设了配额却从不回收</b></div>
+  <h3 style="margin-top:14px">真实案例 · 同一个周末，两种分配结果</h3>
+  <div class="case"><h4>同一个周末，两种分配结果</h4><table class="data"><thead><tr><th>做法</th><th>低净值渠道占比</th><th>最终加权净值</th><th>结果</th></tr></thead><tbody><tr><td>全量开放</td><td>45%</td><td>约 348 元</td><td>提前售罄，商务客流失</td></tr><tr><td>配额 + 保护</td><td>25%</td><td>约 372 元</td><td>高价细分仍有房</td></tr></tbody></table><div class="end">库存分配的收益常常比调价更直接——<b>你不需要卖得更贵，只需要把房留给更值钱的人。</b></div></div>
+</div><div class="unit">
+  <div class="unit-tag">单元 2 · 概念 No.08</div>
+  <div class="unit-h">最短住期 MinLOS 怎么用</div>
+  <div class="story"><div class="who">这个坑你一定踩过 · 周六全满，周日空一半</div><p>度假型酒店最常见的痛：周六一房难求，周日紧接着空一大半。因为大量客人只订周六一晚。</p><p>这时提价往往不够——真正有效的是一句硬规则：<b>周六入住的订单，必须连住两晚。</b>这就是最短住期（Minimum Length of Stay）。</p></div>
+  <h3 style="margin-top:14px">核心概念 · 用规则把坏订单挡在门外</h3>
+  <p class="lead">MinLOS 是收益管理里最接近“强制”的工具：它不商量价格，直接规定“住够几晚才能订”。正因如此，它的副作用也更明显——用错了会正面拒掉你的好客人。</p>
+  <figure><figcaption>MinLOS 与相关工具的区别</figcaption><pre class="figure-art">MinLOS（最短住期）  今天可以入住，但必须连住 N 晚
+CTA（禁止入住）     今天不允许新入住，但已在住的可以续到今天
+CTD（禁止离店）     今天不允许退房离店
+MaxLOS（最长住期）  最多住 N 晚（防长住客占满低价库存）
+
+优先顺序：先调价格 → 不够再上 MinLOS → 最后才考虑 CTA</pre></figure>
+  <div class="point"><div class="pn">1</div><div class="pt"><b>先价格，后限制</b> 限制会直接拒绝生意。只有在价格已经到位、库存仍然告急时，才轮到 MinLOS 出场。</div></div><div class="point"><div class="pn">2</div><div class="pt"><b>只用在需求明显分层的日子</b> 周六、节前、演唱会夜——这些“某一晚特别抢手”的日子才是它的舞台。全年无差别开启只会赶走客人。</div></div><div class="point"><div class="pn">3</div><div class="pt"><b>上线同时必须检查渠道一致性</b> 官网设了两晚、OTA 还能订一晚，客人会认为你在搞差别对待。所有渠道要同步。</div></div>
+  <h3 style="margin-top:14px">怎么算</h3>
+  <div class="formula"><div class="fname">要不要上 MinLOS</div><div class="fexpr">触发：目标日预计入住率 ≥ 90%，且次日预计入住率低于其 15 个百分点以上
+解除：预计入住率回落到 85% 以下 或 距入住不足 3 天而库存仍宽裕</div><div class="ex"><b>算一遍：</b>某周六预计入住率 94%，次日周日预计只有 62%。<br>差值 = 94% − 62% = <b>32 个百分点</b>，远超 15 个点 → 符合触发条件。<br>动作：对该周六设 MinLOS = 2 晚，并同步所有渠道。<br>三天后复查：若周六预订速度因此大跌导致预计入住率掉到 88%，立即解除。<b>限制必须是可逆的。</b></div></div>
+  <h3 style="margin-top:14px">怎么做</h3>
+  <ul class="do"><li>找出未来 60 天里“目标日高需求、次日低需求”的那些日期，列一张清单。</li><li>先对这些日子单独提价 5%–8%，三天后看效果再决定是否叠加 MinLOS。</li><li>任何 MinLOS 都要设定自动解除条件（日期与阈值），写在日历里不要靠记忆。</li></ul>
+  <div class="dont"><b>不要做的事：</b><b>全年无差别开启限制</b> / <b>官网与 OTA 设置不一致</b> / <b>设了限制之后忘记复查和解除</b></div>
+  <h3 style="margin-top:14px">真实案例 · 同一周六，先加价还是先加限制</h3>
+  <div class="case"><h4>同一周六，先加价还是先加限制</h4><table class="data"><thead><tr><th>动作顺序</th><th>做法</th><th>结果</th></tr></thead><tbody><tr><td>第一步</td><td>该周六房价上调 8%</td><td>入住率预期降到 91%</td></tr><tr><td>第二步</td><td>仍未缓解，加 MinLOS 2 晚</td><td>周日的连带入住率上升 9 个点</td></tr><tr><td>错误做法</td><td>直接上 MinLOS 不调价</td><td>少赚了 8% 的价格空间</td></tr></tbody></table><div class="end"><b>永远先用价格，再用限制。</b>跳过价格直接设限制，等于把本可以收上来的钱免费送给了愿意付高价的人。</div></div>
+</div>
+
+    <div class="syn">
+      <div class="st">单元之间的关系</div>
+      配额解决<b>分给谁</b>，限制解决<b>怎么挡</b>。两者都要遵循同一条原则：先调价格，价格到位仍不够，才动用限制。
+    </div>
+
+    <div class="qbox">
+      <div class="qt">本册行动清单</div>
+      <ol><li>给每个渠道设每日配额上限。</li><li>把 D-7 收紧、D-3 回收写进每周固定动作。</li><li>为任何已设限制的日期写明解除条件。</li></ol>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="nextbox"><b>下一册：</b>11　超额预订 —— 给超售一个能向店总交代的算法，和一份万一出事的处理流程</div>
+    <div style="margin-top:10px">HRMA 收益管理社区 · 主题系列 10 / 16 · 咨询 rm-community@qq.com</div>
+    <div style="margin-top:6px;font-size:12px;color:#8494a8">本册由 2 个概念单元汇编而成，属初稿 v0.2；后续按单元逐段扩充至成稿篇幅。</div>
+  </div>
+</div>
+<div style="background:#0f2a4a;padding:11px 18px"><a href="https://hrma-city.github.io/series/" style="color:#fff;text-decoration:none;font-size:13.5px;font-weight:700">← 返回知识地图</a></div>
+</body>
+</html>

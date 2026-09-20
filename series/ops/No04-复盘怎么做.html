@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04 复盘怎么做 · HRMA 收益管理操作系列</title>
+<meta name="description" content="让下一圈更准：对实际、比预测偏差、调模型参数。">
+<style>
+/* HRMA 口袋书系列 · 统一版式（130×184mm 口袋本，屏幕/打印双用） */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#eef1f6;color:#1c2430;line-height:1.85;font-size:15px}
+.paper{max-width:760px;margin:22px auto;background:#fff;box-shadow:0 4px 18px rgba(20,30,70,.10)}
+
+/* 封面 */
+.cover{background:#0f2a4a;color:#fff;padding:38px 34px 30px;position:relative}
+.cov-series{font-size:12px;letter-spacing:2.6px;opacity:.75;margin-bottom:10px}
+.cov-no{display:inline-block;background:#e8b84b;color:#3a2a00;font-weight:800;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-right:9px}
+.cov-title{font-size:31px;font-weight:800;line-height:1.35;margin:14px 0 12px}
+.cov-promise{font-size:16px;color:#ffe9bd;line-height:1.7;border-left:3px solid #e8b84b;padding-left:13px}
+.cov-badge{position:absolute;right:30px;top:32px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:9px 12px;text-align:center}
+.cov-badge b{display:block;font-size:19px;color:#e8b84b;line-height:1.2}
+.cov-badge span{font-size:11px;opacity:.8}
+.cov-for{margin-top:18px;font-size:13px;opacity:.72}
+
+/* 正文 */
+.body{padding:30px 34px 10px}
+.kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+  color:#fff;background:#1d6fb8;border-radius:5px;padding:2px 9px;margin-bottom:9px}
+h2{font-size:20px;font-weight:800;color:#0f2a4a;margin:0 0 12px;line-height:1.45}
+p{margin:10px 0}
+.lead{font-size:15.5px;color:#3a4b60}
+.story{background:#f7f9fc;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:14px 17px}
+.story .who{font-size:13px;color:#1d6fb8;font-weight:800;margin-bottom:5px}
+.point{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
+.pn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#0f2a4a;color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pt{font-size:15px}
+.pt b{color:#0f2a4a}
+figure{border:1px solid #e2e8ef;border-radius:11px;padding:15px 17px;background:#fbfcfe;margin:14px 0}
+figcaption{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+pre.figure-art{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.4px;line-height:1.75;color:#0f2a4a;white-space:pre-wrap}
+.formula{background:#fffdf6;border:2px solid #e8cf94;border-radius:12px;padding:16px 18px;margin:14px 0}
+.formula .fname{font-size:13px;color:#a8801f;font-weight:800;margin-bottom:7px}
+.formula .fexpr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:16px;font-weight:700;color:#0f2a4a;background:#fff;border-radius:8px;padding:10px 13px;
+  border:1px solid #f0dcae;line-height:1.7;white-space:pre-wrap}
+.ex{margin-top:11px;font-size:14.2px;color:#3a4b60}
+.ex b{color:#0f2a4a}
+ul.do{list-style:none}
+ul.do li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e6eaf1}
+ul.do li:last-child{border-bottom:none}
+ul.do li::before{content:"";position:absolute;left:7px;top:17px;width:8px;height:8px;
+  border-radius:2px;background:#1d9e75}
+.dont{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;margin-top:13px}
+.dont b{color:#a32d2d}
+.case{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:12px;padding:15px 18px}
+.case h4{font-size:14.5px;color:#0f2a4a;margin-bottom:6px}
+.case .num{color:#5b6a7d;font-size:13.6px}
+.case .end{margin-top:9px;font-size:14px;color:#3a4b60;border-top:1px dashed #dde3ec;padding-top:9px}
+table.data{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+table.data th{background:#eef3f9;color:#3a4b60;font-size:12.5px;text-align:left;padding:9px 11px}
+table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
+.qbox{background:#0f2a4a;color:#fff;border-radius:13px;padding:18px 20px;margin:18px 0}
+.qbox .qt{font-size:15px;font-weight:800;color:#e8b84b;margin-bottom:8px}
+.qbox ol{margin:0 0 0 18px}
+.qbox li{margin:5px 0;font-size:14.6px}
+.footer{margin-top:22px;background:#f4f7fa;border-top:1px solid #e2e8ef;padding:18px 34px 22px;
+  font-size:13px;color:#5b6a7d;line-height:1.8}
+.nextbox{background:#fff;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin-bottom:12px}
+.nextbox b{color:#0f2a4a}
+.qr{display:inline-block;border:1px solid #cfd8e5;border-radius:8px;padding:6px 10px;font-size:12px;color:#8494a8}
+
+/* 系列索引页 */
+.index-wrap{max-width:900px;margin:0 auto;padding:26px 18px 50px}
+.ihead{background:#0f2a4a;color:#fff;border-radius:14px;padding:26px 26px 22px;margin-bottom:20px}
+.ihead h1{font-size:25px;font-weight:800;margin-bottom:8px}
+.ihead p{opacity:.85;font-size:14.5px}
+.rule{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.rule h3{font-size:16px;color:#0f2a4a;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.bk{background:#fff;border:1px solid #e2e8ef;border-radius:12px;padding:15px 16px;text-decoration:none;color:inherit;display:block}
+.bk:hover{border-color:#e8b84b}
+.bk .bno{font-size:11.5px;color:#a8801f;font-weight:800;letter-spacing:1px}
+.bk .bt{font-size:15.5px;font-weight:800;color:#0f2a4a;margin:4px 0 5px;line-height:1.4}
+.bk .bp{font-size:13px;color:#5b6a7d;line-height:1.65}
+.bk .bmeta{margin-top:8px;font-size:11.5px;color:#8494a8}
+.bigbook{background:#fffdf6;border:2px solid #e8cf94}
+
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .body{page-break-after:auto}
+}
+</style>
+</head>
+<body>
+<div style="background:#0f2a4a;padding:11px 18px"><a href="https://hrma-city.github.io/series/" style="color:#fff;text-decoration:none;font-size:13.5px;font-weight:700">← 返回知识地图</a></div>
+<div class="paper">
+  <div class="cover">
+    <div class="cov-series">HRMA 收益管理操作系列 · 第 4 步 / 共 4 步</div>
+    <div><span class="cov-no">No.04 / 4</span></div>
+    <div class="cov-title">复盘怎么做</div>
+    <div class="cov-promise">让下一圈更准：对实际、比预测偏差、调模型参数。</div>
+    <div class="cov-for">适读：收益管理岗 · 想把课讲落地的教师</div>
+    <div class="cov-badge"><b>20</b><span>分钟读完</span></div>
+  </div>
+
+  <div class="body">
+    <div class="mapbox"><div class="lb">本页在流程图的位置 · 第 4 步</div>这是「预测 → 决策 → 执行 → 复盘」闭环中的一环。流程图上的每个板块都跳到这里，讲这一步具体怎么做。</div>
+
+    <div class="kicker">本页导读</div>
+    <h2>这一步具体怎么做</h2>
+    <p class="lead">复盘是让下一圈更准的动作。不复盘，预测永远停留在「去年的你」。对实际、比预测、调模型——三步闭环。</p>
+
+    <div class="kicker" style="margin-top:26px">操作步骤 · 3 个</div>
+    <h2>一个动作一张牌</h2>
+    <p class="lead">每个动作沿用同一套结构：先讲你会踩的坑，再讲怎么做、给公式、给今天就能做的动作、给工具。</p>
+    <div class="unit" id="a-actual">
+  <div class="unit-tag">动作 1</div>
+  <div class="unit-h">对实际结果　<span style="font-size:13px;color:#8494a8;font-weight:600">出租率 / RevPAR</span></div>
+  <div style="background:#fff4f4;border:1px solid #f0c4c4;border-radius:10px;padding:11px 14px;margin:10px 0;font-size:13.5px;line-height:1.7;color:#7a2e2e"><b>⚠ 别踩这个坑：</b>只记「赚了多少」，不拆「为什么差」。</div>
+  <h3 style="margin-top:14px;color:#0f2a4a">怎么做</h3>
+  <p class="lead">周期结束，拉实际 OCC / ADR / RevPAR，与预测并排；记录实际值。</p>
+  <div style="background:#0f2a4a;color:#fff;border-radius:9px;padding:9px 14px;margin:12px 0;font-size:13px;font-weight:700;letter-spacing:.3px">实际值 = 周期末系统结算值</div>
+  <h3 style="margin-top:8px;color:#0f2a4a">今天就能做的动作</h3>
+  <p class="lead">导出实际 → 与预测并排 → 存档</p>
+  <div style="background:#eef3f9;border-radius:9px;padding:9px 14px;margin-top:10px;font-size:13px;color:#3a4b60">🛠 工具：收益报表 / 结算导出</div>
+</div><div class="unit" id="a-variance">
+  <div class="unit-tag">动作 2</div>
+  <div class="unit-h">比预测偏差　<span style="font-size:13px;color:#8494a8;font-weight:600">实际 vs 预测 %</span></div>
+  <div style="background:#fff4f4;border:1px solid #f0c4c4;border-radius:10px;padding:11px 14px;margin:10px 0;font-size:13.5px;line-height:1.7;color:#7a2e2e"><b>⚠ 别踩这个坑：</b>偏差 5% 就慌，或 30% 也不管——没有标准。</div>
+  <h3 style="margin-top:14px;color:#0f2a4a">怎么做</h3>
+  <p class="lead">算预测误差% = (实际-预测)/预测；归因（天气/事件/竞品/自身）。设容忍带（如 ±10%），超带必复盘。</p>
+  <div style="background:#0f2a4a;color:#fff;border-radius:9px;padding:9px 14px;margin:12px 0;font-size:13px;font-weight:700;letter-spacing:.3px">预测误差% = (实际值 - 预测值) ÷ 预测值 × 100%</div>
+  <h3 style="margin-top:8px;color:#0f2a4a">今天就能做的动作</h3>
+  <p class="lead">算误差% → 归因 → 超带写复盘笔记</p>
+  <div style="background:#eef3f9;border-radius:9px;padding:9px 14px;margin-top:10px;font-size:13px;color:#3a4b60">🛠 工具：误差归因表</div>
+</div><div class="unit" id="a-tune">
+  <div class="unit-tag">动作 3</div>
+  <div class="unit-h">调模型参数　<span style="font-size:13px;color:#8494a8;font-weight:600">更新权重</span></div>
+  <div style="background:#fff4f4;border:1px solid #f0c4c4;border-radius:10px;padding:11px 14px;margin:10px 0;font-size:13.5px;line-height:1.7;color:#7a2e2e"><b>⚠ 别踩这个坑：</b>复盘完就完了，模型从不更新，明年还错。</div>
+  <h3 style="margin-top:14px;color:#0f2a4a">怎么做</h3>
+  <p class="lead">把归因结论转成参数修正：更新历史基线权重、季节系数、弹性值；记入模型版本。</p>
+  <div style="background:#0f2a4a;color:#fff;border-radius:9px;padding:9px 14px;margin:12px 0;font-size:13px;font-weight:700;letter-spacing:.3px">新基线 = 旧基线 ×(1 - 学习率) + 实际 × 学习率</div>
+  <h3 style="margin-top:8px;color:#0f2a4a">今天就能做的动作</h3>
+  <p class="lead">更新基线/弹性 → 记版本 → 下次预测用新参数</p>
+  <div style="background:#eef3f9;border-radius:9px;padding:9px 14px;margin-top:10px;font-size:13px;color:#3a4b60">🛠 工具：模型版本记录</div>
+</div>
+
+    <div class="syn" id="节奏">
+      <div class="st">这一步的节奏（每天 / 每周 / 每月 / 每年）</div>
+      <ul style="margin:6px 0 0 18px;line-height:2;font-size:13.5px"><li><b>每天</b>　收盘看当天实际 vs 预测。</li><li><b>每周</b>　例会比预测偏差，校准门槛。</li><li><b>每月</b>　月报看累计误差，调模型。</li><li><b>每年</b>　全年复盘，重训模型。</li></ul>
+    </div>
+
+    <div class="qbox">
+      <div class="qt">本页行动清单</div>
+      <ol><li>周期末导出实际并与预测并排</li><li>算预测误差%并归因</li><li>超容忍带写复盘笔记</li><li>把结论写回模型参数与版本</li></ol>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="nextbox"><b>下一步：</b>四个步骤已全部讲完，回到流程图走完整一圈 —— 建议回到知识地图首页的操作流程图，按每天 / 每周 / 每月 / 每年实际跑起来。</div>
+    <div style="margin-top:10px">HRMA 收益管理社区 · 操作系列 04 / 4 · 咨询 rm-community@qq.com</div>
+    <div style="margin-top:6px;font-size:12px;color:#8494a8">操作系列与知识地图分册互补：地图讲「是什么 / 为什么」，这里讲「具体怎么做」。</div>
+  </div>
+</div>
+<div style="background:#0f2a4a;padding:11px 18px"><a href="https://hrma-city.github.io/series/" style="color:#fff;text-decoration:none;font-size:13.5px;font-weight:700">← 返回知识地图</a></div>
+</body>
+</html>
