@@ -1,89 +1,16 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>收益管理资讯 · 每日更新 · RMC收益管理社区</title>
-<meta name="description" content="RMC收益管理社区资讯板块：每日汇聚全网收益管理相关资讯，覆盖住宿、餐饮、航空、景区、娱乐、剧院六大行业，附社区独家解读。含 RevPAR、客座率、ADR 等行业关键数据。">
-<link rel="stylesheet" href="assets/css/main.css">
-<link rel="stylesheet" href="assets/css/site.css">
-<link rel="stylesheet" href="assets/css/community.css">
-<style>
-.nw-card {
-  border: 1px solid var(--line-2); border-radius: 10px; background: var(--white);
-  padding: 20px 22px; margin-bottom: 16px;
-}
-.nw-tag {
-  display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11.5px;
-  background: var(--gold-soft); color: var(--gold); margin-right: 8px; vertical-align: middle;
-}
-.nw-src { font-size: 12px; color: var(--ink-3); vertical-align: middle; }
-.nw-h { font-size: 17px; font-weight: 600; color: var(--navy); line-height: 1.6; margin: 10px 0 10px; }
-.nw-p { font-size: 13.5px; line-height: 1.8; color: var(--ink-2); }
-.nw-data {
-  display: flex; flex-wrap: wrap; gap: 18px; margin: 12px 0;
-  padding: 12px 14px; background: var(--bg-2); border-radius: 8px;
-}
-.nw-d { min-width: 92px; }
-.nw-dv { font-family: var(--mono); font-size: 16px; color: var(--navy); }
-.nw-dl { font-size: 11.5px; color: var(--ink-3); margin-top: 2px; }
-.nw-up { color: var(--danger) !important; }
-.nw-down { color: var(--teal) !important; }
-.nw-read {
-  margin-top: 12px; padding: 12px 14px; border-left: 3px solid var(--gold);
-  background: #FDFAF4; font-size: 13.5px; line-height: 1.8; color: var(--ink);
-}
-.nw-read b { color: var(--gold); }
-.nw-note {
-  padding: 13px 16px; border-radius: 8px; font-size: 13px; line-height: 1.75;
-  background: var(--bg-2); color: var(--ink-2); margin-bottom: 4px;
-}
-</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC"],"url":"https://hrma-city.github.io/","description":"RMC收益管理社区。覆盖住宿、餐饮、航空、景区、娱乐、剧院六大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"收益管理资讯","item":"https://hrma-city.github.io/news.html"}]}</script>
-<link rel="stylesheet" href="assets/css/auth.css">
-<link rel="stylesheet" href="assets/css/notify.css">
-</head>
-<body data-auth="public">
+# -*- coding: utf-8 -*-
+import io, sys
 
-<header class="site-nav">
-  <div class="sn-inner">
-    <a class="sn-logo" href="index.html">
-      <span class="gem">收</span><span>RMC收益管理社区</span>
-    </a>
-    <nav class="sn-links" id="snLinks">
-      <a href="index.html">首页</a>
-      <a href="academy.html">学院</a>
-      <a href="books.html">书籍</a>
-      <a href="games/index.html">游戏</a>
-      <a href="cert.html">认证</a>
-      <a href="experts.html">专家</a>
-      <a href="news.html" class="on">资讯</a>
-      <a href="community.html">社区</a>
-      <a href="theater.html">剧院</a>
-      <a href="industries.html">行业矩阵</a>
-    </nav>
-    <a class="sn-cta" href="industries.html">选行业</a>
-    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
-  </div>
-</header>
+sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-<main class="site-main" style="padding-top:34px;padding-bottom:44px">
+PATH = "news.html"
 
-  <div class="cm-eyebrow">收益管理资讯 · News</div>
-  <h1 class="cm-section-title" style="font-size:30px">每天十分钟，看懂行业在发生什么</h1>
-  <p class="cm-section-lead">
-    每日从全网筛选与收益管理相关的动态，覆盖<b>住宿、餐饮、航空、景区、娱乐</b>六大行业。
-    每条都附上<b>社区解读</b>——不只告诉你发生了什么，还说清楚这在收益管理上意味着什么。
-  </p>
+with open(PATH, "r", encoding="utf-8") as f:
+    html = f.read()
 
-  <div class="nw-note">
-    <b>最近更新：2026-09-22</b> · 本页每日更新，本期共 6 条，覆盖住宿业、航空业、餐饮业、景区文旅、娱乐休闲、国际六类动态。
-    资讯标题与数据均引自公开报道，版权归原作者所有；「社区解读」为本社区原创观点。
-    若你是原作者且不希望被收录，可邮件联系我们移除。
-  </div>
-  <div class="nw-card">
+# ---- new cards (6) ----
+NEW_CARDS = '''  <div class="nw-card">
     <div><span class="nw-tag">住宿业</span><span class="nw-src">2026-09-21 · 携程 / 去哪儿 / 途家 双节预订 + 市场监管总局·文旅部 9月行政指导会</span></div>
     <h2 class="nw-h">监管"把定价权还给酒店"叫停平台自动跟价，但双节预订近2倍、上半年却"量稳价跌"</h2>
     <div class="nw-data">
@@ -184,62 +111,28 @@
       <b>社区解读 ·</b> 这是"需求冲击下 OCC 封顶、恢复靠事件/宗教旅游"的极端样本。迪拜长线依赖型市场最脆弱（RevPAR −35.2%），麦加靠宗教旅游逆势 +8.7%——事件日历是 OCC 锚。运营寒冬中 pipeline 创新高，是逆周期供给下注，但短期 OCC 未恢复时新供给会压制 RevPAR。可执行：① 年度预算别被"pipeline 新高"误导，短期供给增会稀释 RevPAR；② 把事件/宗教/会议日历当 OCC 第一驱动，长线市场建需求预警；③ 韧性来自多元客源（国内+事件），单点依赖长线最危险，与国内"县域反向游对冲核心城市"同理。
     </div>
   </div>
+'''
 
-  <div class="cm-btns" style="margin-top:26px">
-    <a class="cm-btn cm-btn-primary" href="community.html">去社区讨论</a>
-    <a class="cm-btn cm-btn-ghost" href="industries.html">查看行业矩阵</a>
-    <a class="cm-btn cm-btn-ghost" href="mailto:rm-community@qq.com">投稿 / 纠错</a>
-  </div>
+# replace from first nw-card up to (but not including) cm-btns
+idx_card = html.index('  <div class="nw-card">')
+idx_btns = html.index('  <div class="cm-btns"')
+new_html = html[:idx_card] + NEW_CARDS + "\n" + html[idx_btns:]
 
-</main>
+# update nw-note date
+import re
+new_html = new_html.replace('最近更新：2026-09-21', '最近更新：2026-09-22')
 
-<footer class="site-footer">
-  <div class="sf-grid">
-    <div>
-      <div class="sf-t">RMC收益管理社区</div>
-      <p class="sf-desc">跨行业收益管理专业社区。一套通用内核，覆盖住宿、餐饮、航空、景区、娱乐、剧院六大行业。</p>
-    </div>
-    <div>
-      <div class="sf-t">行业</div>
-      <a href="lodging.html">住宿业</a>
-      <a href="industries.html">餐饮业</a>
-      <a href="industries.html">航空业</a>
-      <a href="industries.html">景区文旅</a>
-      <a href="industries.html">娱乐休闲</a>
-    </div>
-    <div>
-      <div class="sf-t">学习</div>
-      <a href="academy.html">学院首页</a>
-      <a href="codex.html">操作法典</a>
-      <a href="books.html">书籍专栏</a>
-      <a href="resources.html">模板与资料</a>
-    </div>
-    <div>
-      <div class="sf-t">社区</div>
-      <a href="experts.html">专家高手</a>
-      <a href="news.html">收益管理资讯</a>
-      <a href="community.html">行业交流</a>
-      <a href="cert.html">资格认证</a>
-    </div>
-  </div>
-  <div class="sf-bot">
-    <span>RMC收益管理社区 · 通用内核 + 行业参数</span>
-    <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
-  </div>
-</footer>
+with open(PATH, "w", encoding="utf-8") as f:
+    f.write(new_html)
 
-<script src="assets/js/app.js"></script>
-<script>
-(function(){
-  var t=document.getElementById('snToggle'), l=document.getElementById('snLinks');
-  if(t&&l){ t.addEventListener('click',function(){ l.classList.toggle('open'); }); }
-})();
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
-<script src="auth-config.js"></script>
-<script src="assets/js/demo-backend.js"></script>
-<script src="auth.js"></script>
-<script>window.HRMA_PREFIX="";</script>
-<script src="assets/js/notify.js"></script>
-</body>
-</html>
+# ---- self checks ----
+cards = new_html.count('class="nw-card"')
+tags = new_html.count('class="nw-tag"')
+reads = new_html.count('class="nw-read"')
+data = new_html.count('class="nw-data"')
+h2 = new_html.count('class="nw-h"')
+opens = new_html.count('<div')
+closes = new_html.count('</div>')
+print("cards=%d tags=%d reads=%d data=%d h2=%d div_open=%d div_close=%d" % (cards, tags, reads, data, h2, opens, closes))
+print("date_ok=", '最近更新：2026-09-22' in new_html)
+print("note_ok=", '本期共 6 条' in new_html)
