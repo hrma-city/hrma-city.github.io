@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>场景化锻炼 · 超售决策（不靠系统）</title>
+<style>
+  :root{--navy:#0f2a4a;--navy2:#12365c;--gold:#e8b84b;--gold2:#c99a3f;--ink:#1d2433;--mut:#8a94a6;--line:#e3e8f0;--ok:#1f9d6b;--bad:#d8503e;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#eef2f7;color:var(--ink);line-height:1.7;}
+  .top{background:var(--navy);color:#fff;padding:22px 24px;}
+  .top h1{margin:0;font-size:20px;}
+  .top p{margin:6px 0 0;color:#cdd9e8;font-size:13px;}
+  .wrap{max-width:860px;margin:0 auto;padding:22px 18px 60px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0;box-shadow:0 2px 10px rgba(15,42,74,.05);}
+  .tag{display:inline-block;background:var(--gold);color:#3a2c08;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:10px;}
+  h2{font-size:17px;margin:0 0 10px;color:var(--navy2);}
+  .data{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0;}
+  .cell{background:#f4f7fb;border:1px solid var(--line);border-radius:8px;padding:10px 12px;}
+  .cell b{display:block;font-size:18px;color:var(--navy);}
+  .cell span{font-size:12px;color:var(--mut);}
+  .opts{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
+  button.opt{appearance:none;border:1px solid var(--navy2);background:#fff;color:var(--navy2);font-size:15px;font-weight:600;padding:12px 18px;border-radius:10px;cursor:pointer;transition:.15s;flex:1;min-width:120px;}
+  button.opt:hover{background:var(--navy2);color:#fff;}
+  button.opt:disabled{opacity:.5;cursor:not-allowed;}
+  .result{display:none;margin-top:8px;}
+  .verdict{border-left:4px solid var(--navy2);background:#f7faff;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px;}
+  .verdict.ok{border-color:var(--ok);background:#f1faf5;}
+  .verdict.warn{border-color:var(--gold2);background:#fdfaf0;}
+  .verdict.bad{border-color:var(--bad);background:#fdf1ef;}
+  .formula{background:#0f2a4a;color:#e8eef7;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:12px 16px;border-radius:8px;overflow-x:auto;white-space:pre;}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:center;}
+  th{background:#f4f7fb;color:var(--navy2);}
+  .reveal{font-size:14px;}
+  .btn2{appearance:none;border:none;background:var(--gold);color:#3a2c08;font-weight:700;padding:10px 20px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .note{font-size:12px;color:var(--mut);margin-top:10px;}
+  a.back{color:var(--navy2);font-size:13px;text-decoration:none;}
+  a.back:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>场景化锻炼 · 超售决策</h1>
+  <p>纯浏览器运行 · 不联网 · 不装系统 · 适配课堂投屏 ｜ 数据取自「杭州滨江云璟酒店」脱敏数据集 2025-10-02（国庆次日）</p>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <span class="tag">场景</span>
+    <h2>国庆次日，前厅打来电话：“今天订满了，还能不能再接几间？”</h2>
+    <p>你是收益课上的“当日收益官”。桌上没有 RMS 系统，只有一张日报和一张判定表（表 E）。请基于以下信息做决策：</p>
+    <div class="data">
+      <div class="cell"><b>320</b><span>可售房量（间）</span></div>
+      <div class="cell"><b>308</b><span>当前已确认预订（间）</span></div>
+      <div class="cell"><b>11%</b><span>历史 No-show 率（今日预期）</span></div>
+      <div class="cell"><b>¥680</b><span>每间空置的机会成本（房费贡献）</span></div>
+      <div class="cell"><b>¥1,200</b><span>每间 walk（拒住）成本（升级+补偿）</span></div>
+    </div>
+    <p class="reveal" id="actual"></p>
+    <h2 style="margin-top:18px;">第一步：你决定超售多少间？</h2>
+    <div class="opts" id="opts">
+      <button class="opt" data-n="0">不超售（0 间）</button>
+      <button class="opt" data-n="8">保守超售（8 间）</button>
+      <button class="opt" data-n="20">激进超售（20 间）</button>
+      <button class="opt" data-n="50">极端超售（50 间）</button>
+    </div>
+  </div>
+
+  <div class="card result" id="result">
+    <h2>决策结果核算</h2>
+    <div class="formula" id="calc"></div>
+    <div id="verdicts"></div>
+    <h2 style="margin-top:18px;">对照 · 表 E 三步法</h2>
+    <div class="verdict"><b>① 算可超售数：</b>可超售上限 ≈ 预期 No-show 数。今日预期 No-show = 308 × 11% ≈ <b>34 间</b>。超过这个数，就开始承担 walk 风险。</div>
+    <div class="verdict"><b>② 设安全边界：</b>No-show 有波动（历史 8%–14%），不能顶满 34。留缓冲，通常取预期值的 60%–90%。</div>
+    <div class="verdict"><b>③ 触发处置：</b>一旦实际到店超过可售房，立即启动升级/补偿/walk 流程，并记入《调价台账》，让本次经验变成下次的可查资产。</div>
+    <p class="note">这节课要学生明白的只有一句话：<b>超售不是“多接几间”的胆量，而是“空置损失 vs 拒绝入住成本”的量化权衡。</b>系统只是把这个结果自动执行；判断本身，用一张表和四个数就能练。</p>
+    <div style="margin-top:16px;"><button class="btn2" onclick="location.reload()">再来一次</button>
+    <a class="back" style="margin-left:16px;" href="../专题-零基础不上系统也能开课.html">← 返回专题页</a></div>
+  </div>
+
+  <div class="card">
+    <h2>讲师出题提示（来自数据集 10 个异常点之一）</h2>
+    <p>该日期在脱敏数据集里被标记为 <b>“超售风险”</b>：国庆次日 OCC 96%，但 No-show 率异常升至 11%。把它和 2025-07-09 台风“海棠”（48h Pickup 落后 45%，考表 L 需求暴跌）、2025-08-21 竞对恶意降价（考表 C 不盲目跟价）串起来，就是一整套“异常日决策”场景库——全部脱敏、可复现、不依赖任何系统。</p>
+  </div>
+</div>
+
+<script>
+  // 固定实际 No-show = 34 间（= 308×11%，取整），保证课堂可复现、可讲解
+  var NO_SHOW = 34;
+  document.getElementById('actual').innerHTML = '<b>本期实际 No-show 揭晓：' + NO_SHOW + ' 间</b>（系统揭晓前，学生应先用预期值 34 估上限）。';
+  var ROOMS = 320, BOOKED = 308, EMPTY_COST = 680, WALK_COST = 1200;
+
+  function choose(n){
+    var opts = document.querySelectorAll('#opts .opt');
+    opts.forEach(function(b){ b.disabled = true; });
+    var accepted = BOOKED + n;            // 接受预订总数
+    var showUp = accepted - NO_SHOW;      // 实际到店
+    var sold = Math.min(ROOMS, showUp);   // 实际售出（封顶 320）
+    var empty = Math.max(0, ROOMS - showUp);
+    var walk = Math.max(0, showUp - ROOMS);
+    var revenue = sold * EMPTY_COST;      // 房费贡献
+    var walkLoss = walk * WALK_COST;
+    var net = revenue - walkLoss;
+    // 参照系：不超售(n=0) 的净收益
+    var baseSold = Math.min(ROOMS, BOOKED - NO_SHOW); // 274
+    var baseNet = baseSold * EMPTY_COST;
+
+    var calc =
+      '接受预订   = 308 + ' + n + ' = ' + accepted + ' 间\n' +
+      '实际到店   = ' + accepted + ' − 34(No-show) = ' + showUp + ' 间\n' +
+      '实际售出   = min(320, ' + showUp + ') = ' + sold + ' 间\n' +
+      '空置房     = ' + empty + ' 间  × ¥680 = ¥' + (empty*EMPTY_COST).toLocaleString() + '\n' +
+      '拒住(walk) = ' + walk + ' 间  × ¥1,200 = ¥' + (walk*WALK_COST).toLocaleString() + '\n' +
+      '净贡献     = ' + sold + '×680 − ' + walk + '×1200 = ¥' + net.toLocaleString();
+    document.getElementById('calc').textContent = calc;
+
+    var v = [];
+    if(n === 0){
+      v.push(['warn','偏保守','不超售 → 今日至少空置 ' + empty + ' 间，白白损失约 ¥' + (empty*EMPTY_COST).toLocaleString() + '。账面上“零风险”，但空置本身就是成本。这正是多数新手的第一反应，要让他们看见“不决策也是决策”。']);
+    } else if(n <= 34){
+      v.push(['ok','落在安全区','超售 ' + n + ' 间 ≤ 预期 No-show 34，且留有缓冲，净贡献 ¥' + net.toLocaleString() + '，比不超售多赚 ¥' + (net-baseNet).toLocaleString() + '。表 E 第②步“安全边界”执行到位。']);
+    } else {
+      v.push(['bad','触发 walk 风险','超售 ' + n + ' 间 > 预期 No-show 34，出现 ' + walk + ' 间拒住，单 walk 成本 ¥' + (walk*WALK_COST).toLocaleString() + '。净贡献反而比安全区低。对应表 E 第③步：此刻必须启动升级/补偿流程并记入台账。']);
+    }
+    if(n === 50){
+      v.push(['bad','典型误判','“能接就接”是系统思维的反面。极端超售把风险敞口完全暴露，正是要让学生亲手算疼的一次。']);
+    }
+    var html = '';
+    v.forEach(function(x){
+      html += '<div class="verdict '+x[0]+'"><b>'+x[1]+'：</b>'+x[2]+'</div>';
+    });
+    html += '<div class="verdict"><b>对照基准：</b>不超售净贡献 ¥' + baseNet.toLocaleString() + '；你这版的净贡献 ¥' + net.toLocaleString() + '（' + (net>=baseNet?('多 '+ (net-baseNet).toLocaleString()):('少 '+ (baseNet-net).toLocaleString()) ) + '）。</div>';
+    document.getElementById('verdicts').innerHTML = html;
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('result').scrollIntoView({behavior:'smooth'});
+  }
+
+  document.querySelectorAll('#opts .opt').forEach(function(b){
+    b.addEventListener('click', function(){ choose(parseInt(b.getAttribute('data-n'),10)); });
+  });
+</script>
+</body>
+</html>

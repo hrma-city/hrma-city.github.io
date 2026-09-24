@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>竞赛游戏 · 收益管理知识抢答（不靠系统）</title>
+<style>
+  :root{--navy:#0f2a4a;--navy2:#12365c;--gold:#e8b84b;--gold2:#c99a3f;--ink:#1d2433;--mut:#8a94a6;--line:#e3e8f0;--ok:#1f9d6b;--bad:#d8503e;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#eef2f7;color:var(--ink);line-height:1.6;}
+  .top{background:var(--navy);color:#fff;padding:22px 24px;}
+  .top h1{margin:0;font-size:20px;}
+  .top p{margin:6px 0 0;color:#cdd9e8;font-size:13px;}
+  .wrap{max-width:820px;margin:0 auto;padding:22px 18px 60px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0;box-shadow:0 2px 10px rgba(15,42,74,.05);}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:8px;}
+  .pill{background:#f4f7fb;border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:13px;color:var(--navy2);font-weight:600;}
+  .pill b{color:var(--gold2);}
+  .timer{margin-left:auto;font-size:22px;font-weight:800;color:var(--navy);}
+  .q{font-size:17px;font-weight:700;color:var(--navy2);margin:10px 0 16px;}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  button.opt{appearance:none;border:1px solid var(--navy2);background:#fff;color:var(--navy2);font-size:15px;font-weight:600;padding:14px 16px;border-radius:10px;cursor:pointer;transition:.15s;text-align:left;}
+  button.opt:hover:not(:disabled){background:var(--navy2);color:#fff;}
+  button.opt.correct{background:var(--ok);border-color:var(--ok);color:#fff;}
+  button.opt.wrong{background:var(--bad);border-color:var(--bad);color:#fff;}
+  button.opt:disabled{cursor:default;}
+  .exp{margin-top:14px;font-size:14px;background:#f7faff;border-left:4px solid var(--gold2);padding:10px 14px;border-radius:0 8px 8px 0;display:none;}
+  .next{margin-top:14px;}
+  .btn{appearance:none;border:none;background:var(--gold);color:#3a2c08;font-weight:700;padding:11px 22px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .btn.ghost{background:#fff;border:1px solid var(--navy2);color:var(--navy2);}
+  .board{list-style:none;margin:0;padding:0;}
+  .board li{display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px dashed var(--line);font-size:14px;}
+  .board li b{color:var(--navy2);}
+  .finish{text-align:center;}
+  .finish .big{font-size:40px;font-weight:800;color:var(--navy);}
+  .mode{font-size:13px;color:var(--mut);}
+  input.name{appearance:none;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:14px;width:180px;}
+  a.back{color:var(--navy2);font-size:13px;text-decoration:none;margin-left:14px;}
+  a.back:hover{text-decoration:underline;}
+  .hide{display:none;}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>竞赛游戏 · 收益管理知识抢答</h1>
+  <p>纯浏览器运行 · 不联网 · 不装系统 · 适配课堂投屏 ｜ 老师开“练习/竞赛”两模式，学生个人或小组轮流抢答</p>
+</div>
+<div class="wrap">
+
+  <div class="card" id="setup">
+    <h2>开赛设置</h2>
+    <div class="row">
+      <span class="mode">参赛名：</span>
+      <input class="name" id="pname" placeholder="如 第3组 / 张三" value="第1组">
+      <label class="mode" style="margin-left:14px;"><input type="checkbox" id="timed" checked> 计时模式（每题 15 秒）</label>
+    </div>
+    <p class="mode">共 12 题，覆盖指标计算、竞争诊断、超售、Pickup、折扣伦理与脏数据识别。练习模式不计分、可慢慢想；竞赛模式计时+计分，结束进排行榜。</p>
+    <div style="margin-top:12px;"><button class="btn" onclick="start()">开始</button></div>
+  </div>
+
+  <div class="card hide" id="quiz">
+    <div class="row">
+      <span class="pill">第 <b id="qn">1</b>/12 题</span>
+      <span class="pill">得分 <b id="score">0</b></span>
+      <span class="timer" id="timer">15</span>
+    </div>
+    <div class="q" id="question"></div>
+    <div class="opts" id="opts"></div>
+    <div class="exp" id="exp"></div>
+    <div class="next"><button class="btn hide" id="nextBtn" onclick="next()">下一题 →</button></div>
+  </div>
+
+  <div class="card hide finish" id="over">
+    <h2>竞赛结束</h2>
+    <div class="big" id="finalScore">0</div>
+    <p id="finalMsg" class="mode"></p>
+    <div style="text-align:left;max-width:420px;margin:16px auto;">
+      <h2 style="font-size:15px;">本机排行榜（前三名）</h2>
+      <ol class="board" id="board"></ol>
+    </div>
+    <button class="btn" onclick="location.reload()">再来一局</button>
+    <a class="back" href="../专题-零基础不上系统也能开课.html">← 返回专题页</a>
+  </div>
+
+  <div class="card">
+    <h2>这道题从哪来（讲师备注）</h2>
+    <p class="mode">题库与《酒店收益管理》教材每章“自测”、三级认证默写表同源——同一批内容原子。12 题都可在脱敏数据集与判定表里找到依据，不依赖任何商业系统即可出题、判分、复盘。需要更多题量时，按教材 26 章各自“常见错误”段扩展即可。</p>
+  </div>
+</div>
+
+<script>
+  var Q = [
+    {q:"RevPAR 的正确计算公式是？", o:["ADR × OCC","ADR + OCC","客房收入 ÷ 已售房晚","可售房量 × ADR"], a:0, e:"RevPAR = 出租率 × 平均房价 = 客房收入 ÷ 可售房量。它把“卖了多少”和“卖得贵不贵”压成一个数，是收益管理的第一指标。"},
+    {q:"本店 OCC 80%、ADR ¥500，RevPAR 是多少？", o:["¥400","¥625","¥900","¥480"], a:0, e:"500 × 80% = 400。记住：RevPAR 永远 ≤ ADR。"},
+    {q:"ARI > 100 表示？", o:["本店均价低于竞争","本店均价高于竞争","出租率更高","总收入更高"], a:1, e:"ARI=本店ADR÷竞争组合加权均价×100。>100 即本店卖得比对手贵，要结合 RGI 看是否“贵得有理”。"},
+    {q:"Pickup 指的是？", o:["取消的预订","一段时间内新增的预订房晚","在手预订总量","No-show 数"], a:1, e:"Pickup = 某窗口内新增的预订房晚。追踪 Pickup 斜率是做需求预测的核心动作，用脱敏数据 03 号文件即可练。"},
+    {q:"MinLOS（最短住宿天数）的主要作用是？", o:["限制最低价","保住批量、拦掉碎片化预订","限制超售","限制渠道"], a:1, e:"旺季或展会日设 MinLOS，避免把紧俏日期拆成零散短住，保住高价值批量。"},
+    {q:"超售决策的核心权衡是？", o:["房价 vs 成本","空置损失 vs 拒绝入住成本","渠道 vs 直销","淡旺 vs 平季"], a:1, e:"超售不是胆量，是把“空一间亏多少”和“拒住赔多少”量化后取最优。见场景锻炼游戏中的表 E 三步法。"},
+    {q:"NRevPAR 与 RevPAR 的关键区别是？", o:["NRevPAR 含餐饮","NRevPAR 扣除了渠道成本","NRevPAR 含税费","没有区别"], a:1, e:"NRevPAR = (客房收入 − 渠道佣金等) ÷ 可售房量。比 RevPAR 更真实反映“到手”收益，用分渠道数据 02 号即可算。"},
+    {q:"需求暴涨日（如动漫节首日），表 A 建议？", o:["降价引流","提价至区间上限并核查库存","直接关店","全渠道放开不设限"], a:1, e:"暴涨日应提价并守库存上限，同时核查是否触发表 L 需求暴涨约束，防止一次性把价格打满伤长期。"},
+    {q:"竞对突然把挂牌价下调 22%，正确做法？", o:["立刻跟降","先查 ARI 与自身库存再定","立即涨价","完全不理"], a:1, e:"不盲目跟价。先算自己 ARI 是否本就偏高、库存是否紧张，再决定跟多少。对应表 C 的 ARI 诊断。"},
+    {q:"以下哪条违反折扣伦理边界？", o:["提前预付更便宜","不可取消更便宜","对老顾客单独报更高价","套餐含早餐更值"], a:2, e:"价格差异只能来自购买时间/取消条件/产品/需求量四条，绝不能“看人报价”。这是教材第12章的三处课程思政落点之一。"},
+    {q:"日报显示已售房晚 341 间，但可售房只有 320 间，首先？", o:["直接采用","用 已售=可售×OCC 交叉验算","忽略","直接上报领导"], a:1, e:"超售数据必为脏数据。先交叉验算三条（已售=可售×OCC、收入=已售×ADR、RevPAR=OCC×ADR），对不上就退回源头。这是数据诚信的第一课。"},
+    {q:"年度预算基线通常取自？", o:["昨日数据","历史同期 + 趋势外推","竞对价格","随机生成"], a:1, e:"预算基线=历史同期实际 + 合理的需求趋势，再用脱敏数据 01 号做年度复盘训练，而不是拍脑袋。"}
+  ];
+
+  var idx=0, score=0, timed=true, timerId=null, remain=15;
+  function start(){
+    timed = document.getElementById('timed').checked;
+    document.getElementById('setup').classList.add('hide');
+    document.getElementById('quiz').classList.remove('hide');
+    render();
+  }
+  function render(){
+    var item = Q[idx];
+    document.getElementById('qn').textContent = idx+1;
+    document.getElementById('score').textContent = score;
+    document.getElementById('question').textContent = item.q;
+    var ob = document.getElementById('opts'); ob.innerHTML='';
+    item.o.forEach(function(t,i){
+      var b=document.createElement('button');
+      b.className='opt'; b.textContent=t;
+      b.onclick=function(){answer(i,b);};
+      ob.appendChild(b);
+    });
+    document.getElementById('exp').style.display='none';
+    document.getElementById('exp').textContent='';
+    document.getElementById('nextBtn').classList.add('hide');
+    if(timed){ remain=15; document.getElementById('timer').textContent=remain; tick(); }
+    else { document.getElementById('timer').textContent='∞'; }
+  }
+  function tick(){
+    timerId=setInterval(function(){
+      remain--; document.getElementById('timer').textContent=remain;
+      if(remain<=0){ clearInterval(timerId); lock(); }
+    },1000);
+  }
+  function answer(i,b){
+    if(timed) clearInterval(timerId);
+    lock(i);
+  }
+  function lock(chosen){
+    var item=Q[idx];
+    var bs=document.querySelectorAll('#opts .opt');
+    bs.forEach(function(b,j){
+      b.disabled=true;
+      if(j===item.a) b.classList.add('correct');
+      else if(j===chosen && chosen!==item.a) b.classList.add('wrong');
+    });
+    if(chosen===item.a) score += (timed?10:5);
+    document.getElementById('score').textContent=score;
+    var exp=document.getElementById('exp');
+    exp.innerHTML='<b>解析：</b>'+item.e;
+    exp.style.display='block';
+    document.getElementById('nextBtn').classList.remove('hide');
+  }
+  function next(){
+    idx++;
+    if(idx>=Q.length){ finish(); }
+    else render();
+  }
+  function finish(){
+    document.getElementById('quiz').classList.add('hide');
+    document.getElementById('over').classList.remove('hide');
+    document.getElementById('finalScore').textContent=score;
+    var msg = score>=100?'优秀：判断链已经成型。':(score>=70?'良好：核心概念过关，多练异常场景。':'需巩固：回到教材每章“自测”段，先有自己的答案再对表。');
+    document.getElementById('finalMsg').textContent=msg+'（满分 '+ (timed?120:60) +'）';
+    // 排行榜（本机 localStorage）
+    var name=document.getElementById('pname').value||'匿名';
+    var board=JSON.parse(localStorage.getItem('rm_quiz_board')||'[]');
+    board.push({n:name,s:score,t:Date.now()});
+    board.sort(function(a,b){return b.s-a.s;});
+    board=board.slice(0,10);
+    localStorage.setItem('rm_quiz_board',JSON.stringify(board));
+    var ol=document.getElementById('board'); ol.innerHTML='';
+    board.slice(0,3).forEach(function(r,i){
+      var li=document.createElement('li');
+      li.innerHTML='<span><b>'+(i+1)+'.</b> '+r.n+'</span><span>'+r.s+' 分</span>';
+      ol.appendChild(li);
+    });
+  }
+</script>
+</body>
+</html>
