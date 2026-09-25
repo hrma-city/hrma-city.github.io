@@ -79,7 +79,7 @@
       <ol class="board" id="board"></ol>
     </div>
     <button class="btn" onclick="location.reload()">再来一局</button>
-    <a class="back" href="../专题-零基础不上系统也能开课.html">← 返回专题页</a>
+    <a class="back" href="why-no-system.html">← 返回专题页</a>
   </div>
 
   <div class="card">
@@ -150,7 +150,10 @@
     if(chosen===item.a) score += (timed?10:5);
     document.getElementById('score').textContent=score;
     var exp=document.getElementById('exp');
-    exp.innerHTML='<b>解析：</b>'+item.e;
+    var ok=(chosen===item.a);
+    var lead=ok?'判你过了。':'判你卡住了。';
+    var body=ok?('记住这条：'+item.e):('错在哪：'+item.e);
+    exp.innerHTML='<div style="border-left:4px solid #e8b84b;background:#fffdf5;padding:10px 12px;border-radius:6px"><b>AI 教练 · '+lead+'</b><br>'+body+'<br><span style="color:#8a94a6;font-size:12px">回到判定表，把这一格再走一遍——判断力是练出来的，不是背出来的。</span></div>';
     exp.style.display='block';
     document.getElementById('nextBtn').classList.remove('hide');
   }

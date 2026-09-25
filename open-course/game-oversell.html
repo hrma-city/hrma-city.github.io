@@ -77,7 +77,7 @@
     <div class="verdict"><b>③ 触发处置：</b>一旦实际到店超过可售房，立即启动升级/补偿/walk 流程，并记入《调价台账》，让本次经验变成下次的可查资产。</div>
     <p class="note">这节课要学生明白的只有一句话：<b>超售不是“多接几间”的胆量，而是“空置损失 vs 拒绝入住成本”的量化权衡。</b>系统只是把这个结果自动执行；判断本身，用一张表和四个数就能练。</p>
     <div style="margin-top:16px;"><button class="btn2" onclick="location.reload()">再来一次</button>
-    <a class="back" style="margin-left:16px;" href="../专题-零基础不上系统也能开课.html">← 返回专题页</a></div>
+    <a class="back" style="margin-left:16px;" href="why-no-system.html">← 返回专题页</a></div>
   </div>
 
   <div class="card">
@@ -127,7 +127,18 @@
     if(n === 50){
       v.push(['bad','典型误判','“能接就接”是系统思维的反面。极端超售把风险敞口完全暴露，正是要让学生亲手算疼的一次。']);
     }
+
+    var coach = '';
+    if(n === 0){
+      coach = '你选了不超售——今天白空 ' + empty + ' 间，扔掉约 ¥' + (empty*EMPTY_COST).toLocaleString() + '。账面上零风险，但空置本身就是成本。我不判你错，我判你没算账：不决策也是一种决策，而且往往是最贵的那种。';
+    } else if(n <= 34){
+      coach = '你落在安全区：超售 ' + n + ' 间没顶满 34，留了缓冲，比不超售多赚 ¥' + (net-baseNet).toLocaleString() + '。这一步就是收益官和赌徒的分界线——你守住了表 E 第②步的安全边界。';
+    } else {
+      coach = '你踩过线了：超售 ' + n + ' 间超过预期 No-show 34，出现 ' + walk + ' 间拒住。我不罚你分，我要你按表 E 第③步立刻启动升级/补偿，并把它记进《调价台账》——疼一次，下次就有得查。';
+    }
+
     var html = '';
+    html += '<div class="verdict" style="border-left:4px solid #e8b84b;background:#fffdf5"><b>AI 教练 · 判你这一步：</b>' + coach + '</div>';
     v.forEach(function(x){
       html += '<div class="verdict '+x[0]+'"><b>'+x[1]+'：</b>'+x[2]+'</div>';
     });
