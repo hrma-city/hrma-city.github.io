@@ -1,163 +1,198 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>教学咨询 · RMC收益管理社区</title>
-<meta name="description" content="教学资源包（教案/课件/PPT/经营游戏）与教学指导咨询服务，含营销定价方案。">
-<link rel="stylesheet" href="assets/css/main.css">
-<link rel="stylesheet" href="assets/css/site.css">
-<link rel="stylesheet" href="assets/css/commerce.css">
-<link rel="stylesheet" href="assets/css/notify.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教学入口 · 打开就能上课</title>
+<meta name="description" content="酒店收益管理教学入口：课堂投屏游戏、课后练习、综合实训、251 题题库、AI 教练分身，全部打开即用，不装系统、不等数据。">
 <style>
-.hub-hero{background:linear-gradient(135deg,#B8894A,#D4A96A);color:#fff;border-radius:16px;padding:30px 26px;margin-bottom:22px}
-.hub-hero h1{margin:0 0 6px;font-size:26px}
-.hub-hero p{margin:0;opacity:.95;font-size:14px}
-.sec{max-width:1080px;margin:24px auto 0;background:#fff;border:1px solid #E1E5EA;border-radius:14px;padding:20px 22px;scroll-margin-top:90px}
-.sec h2{margin:0 0 8px;color:#1B3A5C;font-size:20px}
-.sec p{color:#33415c;font-size:14px;line-height:1.8;margin:6px 0}
-.sec ul{margin:6px 0 0 20px;color:#33415c;font-size:14px;line-height:1.8}
-.price-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-top:12px}
-.pc{background:#FBF9F4;border:1px solid #E1E5EA;border-radius:12px;padding:16px}
-.pc h3{margin:0 0 4px;color:#1B3A5C}
-.pc .pp{color:#B8894A;font-weight:800;font-size:22px;margin:6px 0}
-.pc ul{margin:0 0 0 18px}
-.note{background:#F7F0E4;border-left:4px solid #B8894A;padding:12px 16px;border-radius:8px;color:#52606D;font-size:13px;margin-top:10px}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;margin:0;background:#f5f7fa;color:#1d2433;line-height:1.7;}
+.hd{background:#0f2a4a;color:#fff;padding:30px 32px 26px;}
+.hd h1{margin:0 0 8px;font-size:25px;}
+.hd p{margin:0;color:#cdd9e8;font-size:14.5px;max-width:760px;}
+.topnav{background:#12365c;padding:8px 32px;font-size:13px;}
+.topnav a{color:#cdd9e8;text-decoration:none;margin-right:16px;}
+.topnav a:hover{color:#e8b84b;}
+.wrap{max-width:940px;margin:0 auto;padding:24px 32px 60px;}
+.sec{margin:26px 0;}
+.sec h2{font-size:19px;color:#0f2a4a;border-left:4px solid #e8b84b;padding-left:10px;margin:0 0 6px;}
+.sec .lead{font-size:14px;color:#5a6478;margin:0 0 12px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;}
+.card{background:#fff;border:1px solid #e3e8f0;border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;}
+.card:hover{border-color:#1d6fb8;}
+.card .tag{font-size:11.5px;color:#fff;background:#1d6fb8;border-radius:10px;padding:2px 9px;display:inline-block;margin-bottom:6px;align-self:flex-start;}
+.card .tag.hot{background:#e8b84b;color:#0f2a4a;font-weight:700;}
+.card h3{margin:4px 0 5px;font-size:16px;color:#0f2a4a;}
+.card .d{font-size:13.5px;color:#4a5468;flex:1;margin:0 0 8px;}
+.card .m{font-size:12px;color:#8a94a6;margin:0 0 8px;}
+.card a.go{color:#1d6fb8;font-size:13.5px;font-weight:700;text-decoration:none;}
+.card a.go:hover{text-decoration:underline;}
+.list{background:#fff;border:1px solid #e3e8f0;border-radius:10px;padding:6px 16px;}
+.list a{display:block;padding:10px 0;border-bottom:1px dashed #eef1f6;color:#1d6fb8;text-decoration:none;font-size:14px;}
+.list a:last-child{border-bottom:none;}
+.list a:hover{text-decoration:underline;}
+.list a span{color:#8a94a6;font-size:12.5px;margin-left:8px;}
+.hook{background:#0f2a4a;color:#fff;border-radius:12px;padding:24px 28px;margin:28px 0 10px;}
+.hook h3{margin:0 0 8px;font-size:19px;color:#e8b84b;}
+.hook p{margin:6px 0;font-size:14.5px;color:#e8eef6;}
+.hook a.btn{display:inline-block;background:#e8b84b;color:#0f2a4a;font-weight:700;padding:11px 22px;border-radius:8px;text-decoration:none;margin-top:10px;font-size:14.5px;}
+.note{background:#fffdf5;border:1px solid #f0dfae;border-radius:8px;padding:12px 16px;font-size:13.5px;margin:10px 0;}
+.ft{text-align:center;color:#8a94a6;font-size:12.5px;padding:26px;}
+@media print{body{background:#fff;}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"teach","item":"https://hrma-city.github.io/teach.html"}]}</script>
 </head>
-<body data-auth="public">
-<header class="site-nav">
-  <div class="sn-inner">
-    <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
-    <nav class="sn-links" id="snLinks"></nav>
-    <a class="sn-cta" href="gejijipo.html">各个击破</a>
-    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
-  </div>
-</header>
+<body>
 
-<main class="site-main" style="padding-top:30px;padding-bottom:50px">
-  <div class="hub-hero">
-    <h1>教学咨询</h1>
-    <p>为院校与培训机构提供：可直接上课的<b>教学资源包</b>，以及把收益管理教好的<b>教学指导咨询</b>。</p>
-  </div>
+<div class="hd">
+  <h1>教学入口 · 打开就能上课</h1>
+  <p>下面这些东西都不用装系统、不用等数据，点开即用。我按<b>教学用途</b>重新排过——不是按难度，是按你什么时候会用到它。</p>
+</div>
 
-  <div class="sec" id="download" style="border:2px solid #B8894A;box-shadow:0 4px 18px rgba(184,137,74,.12)">
-    <h2>↓ 直接下载整套教学资源包（不是描述，是能拿走的文件）</h2>
-    <p>下面这个 ZIP 把开课要用的东西一次打包：<b>8 张 Excel 模板、3 套讲师 PPT（103 页）、4 份模拟数据集、15 表口袋本 PDF、L1–L3 真题卷、14 份模块教案</b>。解压后按《资源包清单》三条路径直接用，无需联网、无需再找素材。</p>
-    <div class="hero-btns" style="justify-content:flex-start;gap:12px;margin-bottom:8px">
-      <a class="btn-gold" href="teach/HRMA教学资源包.zip" download>⬇ 下载整套教学资源包（ZIP · 0.95 MB）</a>
-      <a class="btn-ghost" href="teach/资源包清单.md" download>查看资源包清单</a>
-      <a class="btn-ghost" href="teach/plans/M01.md" download>先看一份教案样例</a>
-    </div>
-    <p class="note">提示：院校内训可直接采购「院校年包」（见下方 ⑥），含分组竞赛游戏授权与师资培训；本 ZIP 为自助版，已含全部可下载物料。</p>
+<div class="topnav">
+  <a href="index.html">首页</a>
+  <a href="campus.html">院校师资陪跑</a>
+  <a href="campus-resources.html">院校专区</a>
+  <a href="open-course/why-no-system.html">为什么不上系统也能开课</a>
+</div>
+
+<div class="wrap">
+
+  <div class="note">
+    <b>第一次来？</b>三步：① 先玩「课堂分组竞赛」或「超售决策」（15 分钟，投屏就能上）② 备课有问题去问「AI 教练分身」③ 要课件和数据，邮件领七件套。
   </div>
 
-  <div class="sec" id="pack">
-    <h2>① 教学资源包里有什么</h2>
-    <p>一套打包好的授课素材，开箱即用：</p>
-    <ul>
-      <li><b>教案</b>：每模块含教学目标、重难点、课堂活动、作业与测评。</li>
-      <li><b>课件 / PPT</b>：概念篇、操作篇、案例篇配套幻灯片，可直接放映。</li>
-      <li><b><a href="games/roleplay.html">学生角色扮演经营场景模拟游戏</a></b>：学生扮演前台/收益经理/客人，在模拟场景中做定价与房量决策。</li>
-      <li><b><a href="games/classroom.html">分组经营竞赛游戏</a></b>：多组学生各管一家虚拟酒店，按周期比 RevPAR、比利润，课堂即时排名。</li>
-    </ul>
-    <p class="note">资源包与现有“各个击破”短视频、通用内核六模块、操作法典 15 表、游戏库（games/）同源，可组合成完整课程。</p>
-  </div>
-
-  <div class="sec" id="ppt">
-    <h2>② 教案 / 课件 / PPT</h2>
-    <p>覆盖 L1–L3 共 14 个教学模块 + 六大行业专业课（航空/餐饮/景区/娱乐）。每套含：</p>
-    <ul><li>知识点清单与对齐的“各个击破”短视频；</li><li>课堂练习用的判定表与计算模板（见<a href="calc-templates.html">计算模板</a>）；</li><li>随堂测与期末测评题库（见<a href="exam/workbook.html">演练题库</a>）。</li></ul>
-  </div>
-
-  <div class="sec" id="role">
-    <h2>③ 角色扮演经营场景模拟游戏</h2>
-    <p>学生轮流扮演不同角色，在给定需求与竞争环境下做决策：</p>
-    <ul><li>收益经理：决定今日的价与房量；</li><li>前台：面对 walk-in 与超售的现场处理；</li><li>客人：对价格与可得性做出反应。</li></ul>
-    <p>通过“做中学”理解动态定价、超售、置换分析的真实权衡。</p>
-    <div class="cm-btns" style="margin-top:10px">
-      <a class="cm-btn cm-btn-primary" href="games/roleplay.html">▶ 开始角色扮演模拟（收益经理的一天）</a>
-      <a class="cm-btn cm-btn-ghost" href="games/playbook.html">查看 4 套角色扮演剧本</a>
-    </div>
-  </div>
-
-  <div class="sec" id="compete">
-    <h2>④ 分组经营竞赛游戏</h2>
-    <p>将班级分为若干“酒店集团”，每家初始条件相同，按日/周经营：</p>
-    <ul><li>系统给出需求与事件；各组报价、放量、做预测；</li><li>周期末按 RevPAR、GOPPAR、市场份额排名；</li><li>教师可叠加节假日/展会/竞品降价等事件，训练应变。</li></ul>
-    <p>参考现有<a href="games/sim.html">经营模拟 30 天</a>与<a href="games/level.html">决策闯关</a>。</p>
-    <div class="cm-btns" style="margin-top:10px">
-      <a class="cm-btn cm-btn-primary" href="games/classroom.html">▶ 课堂分组竞赛（投影版 · 免登录）</a>
-      <a class="cm-btn cm-btn-ghost" href="games/arena.html">联机对战沙盘</a>
-      <a class="cm-btn cm-btn-ghost" href="games/sim.html">单人 30 天经营</a>
+  <div class="sec">
+    <h2>一、课堂现场（投屏 / 分组，最先用这些）</h2>
+    <p class="lead">接上投影就能开。这几个都是断网可玩的，不用担心教室网络。</p>
+    <div class="grid">
+      <div class="card">
+        <span class="tag hot">最推荐</span>
+        <h3>课堂分组竞赛</h3>
+        <p class="d">多组各管一家虚拟酒店，每回合面对同一市场出价，系统按累计净利实时排名，课堂即时见高下。免登录。</p>
+        <p class="m">2–8 组 ｜ 投屏模式 ｜ 断网可玩</p>
+        <a class="go" href="games/classroom.html">开赛 →</a>
+      </div>
+      <div class="card">
+        <span class="tag hot">15 分钟一节课</span>
+        <h3>超售决策（场景锻炼）</h3>
+        <p class="d">320 间房、已订 308、No-show 11%。学生自己决定超售几间，页面当场核算空置损失与拒住成本，并对照表 E 三步法给出判定。亲手算疼一次。</p>
+        <p class="m">单人 ｜ 浏览器即开 ｜ 可投屏</p>
+        <a class="go" href="open-course/game-oversell.html">开始 →</a>
+      </div>
+      <div class="card">
+        <span class="tag">期末复习 / 公开课</span>
+        <h3>知识抢答竞赛</h3>
+        <p class="d">12 题计时抢答，覆盖指标计算、竞争诊断、超售、Pickup、折扣伦理、脏数据。练习与竞赛两种模式，带本机排行榜。</p>
+        <p class="m">计时 ｜ 计分 ｜ 排行榜</p>
+        <a class="go" href="open-course/game-quiz.html">开始 →</a>
+      </div>
+      <div class="card">
+        <span class="tag">最真实</span>
+        <h3>一日流水线</h3>
+        <p class="d">按时间轴走完收益经理的一整天：07:30 取数 → 08:10 比价 → 08:30 查表 → 09:10 执行 → 17:00 巡检。时钟推着你走。</p>
+        <p class="m">9 个环节 ｜ 约 10 分钟</p>
+        <a class="go" href="games/pipeline.html">开始上班 →</a>
+      </div>
     </div>
   </div>
 
-  <div class="sec" id="consult">
-    <h2>⑤ 教学指导咨询</h2>
-    <p>面向开课院校与培训机构，提供：</p>
-    <ul><li>课程体系设计与模块对齐；</li><li>师资培训与备课指导；</li><li>实验/实训方案与评分标准共建；</li><li>结合真实数据的案例工作坊。</li></ul>
-  </div>
-
-  <div class="sec" id="pricing">
-    <h2>⑥ 营销定价方案（建议）</h2>
-    <p>资源包与咨询采用分层定价，降低首次采购门槛、靠续费与扩增变现：</p>
-    <div class="price-grid">
-      <div class="pc"><h3>体验包</h3><div class="pp">¥199<span style="font-size:13px">/ 模块</span></div>
-        <ul><li>单模块教案+PPT+短视频</li><li>适合试讲 / 单章采购</li></ul></div>
-      <div class="pc"><h3>标准包 ★</h3><div class="pp">¥599<span style="font-size:13px">/ 模块</span></div>
-        <ul><li>教案+PPT+题库+计算模板</li><li>含角色扮演游戏脚本</li><li>教师答疑群</li></ul></div>
-      <div class="pc"><h3>院校年包</h3><div class="pp">¥1999<span style="font-size:13px">/ 年</span></div>
-        <ul><li>全 14 模块 + 6 行业课</li><li>分组竞赛游戏授权</li><li>2 次师资培训</li></ul></div>
-      <div class="pc"><h3>教学咨询</h3><div class="pp">¥800<span style="font-size:13px">/ 次起</span></div>
-        <ul><li>单次指导 ¥800</li><li>月度陪跑 ¥5000</li><li>共建课程面议</li></ul></div>
+  <div class="sec">
+    <h2>二、课后练习（学生自己练）</h2>
+    <p class="lead">这几个适合布置成课后作业，或让学生自己在宿舍练。</p>
+    <div class="grid">
+      <div class="card">
+        <span class="tag">单点肌肉记忆</span>
+        <h3>决策闯关 · 14 关</h3>
+        <p class="d">14 个真实场景，覆盖价格、库存、超售、团队、渠道、竞争、应急、冲突仲裁。每关四个选项，选完立刻告诉你对在哪、错在哪、依据哪张表。</p>
+        <p class="m">14 关 ｜ 覆盖表 A–O ｜ 约 15 分钟</p>
+        <a class="go" href="games/level.html">开始闯关 →</a>
+      </div>
+      <div class="card">
+        <span class="tag">有错题本</span>
+        <h3>流程闯关 · 30 关</h3>
+        <p class="d">把收益管理的 10 个环节拆成 30 个子步骤。教学模式可看规则提示，挑战模式关掉提示并计分，错题自动进错题本，还有 10 天打卡。</p>
+        <p class="m">30 关 ｜ 教学 / 挑战 ｜ 10 天打卡</p>
+        <a class="go" href="games/flow-quest.html">开始闯关 →</a>
+      </div>
+      <div class="card">
+        <span class="tag">连续情境</span>
+        <h3>值班叙事</h3>
+        <p class="d">你是今天当班的收益经理。八点半前台说超售爆了，十点销售拿来团队询价……一个个情境连续找上门，选完立刻看到后果，结束有复盘。</p>
+        <p class="m">6 个情境 ｜ 随机组合 ｜ 结束复盘</p>
+        <a class="go" href="games/duty.html">开始值班 →</a>
+      </div>
+      <div class="card">
+        <span class="tag">最轻松</span>
+        <h3>卡牌版</h3>
+        <p class="d">左右滑卡片做二选一，收益、客人、业主、团队四个仪表此消彼长。任何一个见底或爆表，你的位置就坐不稳了。比谁撑得久。</p>
+        <p class="m">无限模式 ｜ 存最佳纪录</p>
+        <a class="go" href="games/reigns.html">开始翻牌 →</a>
+      </div>
     </div>
-    <p class="note">定价为演示建议，最终以合同为准。采购与咨询流程复用会员/下单系统（见<a href="pricing.html">会员与定价</a>），演示环境下本地即可下单。</p>
   </div>
 
-  <div class="sec" id="plans">
-    <h2>⑦ 14 模块教案（逐份下载）</h2>
-    <p>每份教案都是实打实可上课的文档：含<b>教学目标、课时切分、教学流程（标准 90 分钟结构）、课堂活动、作业与测评、讲师注意事项、配套资源</b>。与《教案总纲》和 15 张判定表同源，换任何讲师来讲内容一致。</p>
-    <div class="tbl-wrap">
-      <table class="tbl">
-        <thead><tr><th>模块</th><th>名称</th><th class="mid">级别</th><th class="mid">课时</th><th class="mid">下载</th></tr></thead>
-        <tbody>
-          <tr><td><b>M01</b></td><td>收益管理的语言：指标与计算</td><td class="mid">L1</td><td class="mid">2</td><td class="mid"><a href="teach/plans/M01.md" download>教案</a></td></tr>
-          <tr><td><b>M02</b></td><td>系统与数据导航</td><td class="mid">L1</td><td class="mid">2</td><td class="mid"><a href="teach/plans/M02.md" download>教案</a></td></tr>
-          <tr><td><b>M03</b></td><td>每日操作流水线 ★</td><td class="mid">L1</td><td class="mid">6</td><td class="mid"><a href="teach/plans/M03.md" download>教案</a></td></tr>
-          <tr><td><b>M04</b></td><td>报表与台账</td><td class="mid">L1</td><td class="mid">2</td><td class="mid"><a href="teach/plans/M04.md" download>教案</a></td></tr>
-          <tr><td><b>M05</b></td><td>需求预测：Pickup 与预订曲线 ★</td><td class="mid">L2</td><td class="mid">8</td><td class="mid"><a href="teach/plans/M05.md" download>教案</a></td></tr>
-          <tr><td><b>M06</b></td><td>价格体系设计</td><td class="mid">L2</td><td class="mid">6</td><td class="mid"><a href="teach/plans/M06.md" download>教案</a></td></tr>
-          <tr><td><b>M07</b></td><td>库存与限制条件战术</td><td class="mid">L2</td><td class="mid">6</td><td class="mid"><a href="teach/plans/M07.md" download>教案</a></td></tr>
-          <tr><td><b>M08</b></td><td>渠道与分销管理</td><td class="mid">L2</td><td class="mid">6</td><td class="mid"><a href="teach/plans/M08.md" download>教案</a></td></tr>
-          <tr><td><b>M09</b></td><td>竞争监测与市场定位</td><td class="mid">L2</td><td class="mid">6</td><td class="mid"><a href="teach/plans/M09.md" download>教案</a></td></tr>
-          <tr><td><b>M10</b></td><td>客源细分战略</td><td class="mid">L3</td><td class="mid">6</td><td class="mid"><a href="teach/plans/M10.md" download>教案</a></td></tr>
-          <tr><td><b>M11</b></td><td>年度预算与滚动预测 ★</td><td class="mid">L3</td><td class="mid">8</td><td class="mid"><a href="teach/plans/M11.md" download>教案</a></td></tr>
-          <tr><td><b>M12</b></td><td>会议与汇报</td><td class="mid">L3</td><td class="mid">6</td><td class="mid"><a href="teach/plans/M12.md" download>教案</a></td></tr>
-          <tr><td><b>M13</b></td><td>跨部门协同与变革推动</td><td class="mid">L3</td><td class="mid">6</td><td class="mid"><a href="teach/plans/M13.md" download>教案</a></td></tr>
-          <tr><td><b>M14</b></td><td>收益管理系统与自动化</td><td class="mid">L3</td><td class="mid">6</td><td class="mid"><a href="teach/plans/M14.md" download>教案</a></td></tr>
-        </tbody>
-      </table>
+  <div class="sec">
+    <h2>三、综合实训与考核</h2>
+    <p class="lead">学完一轮之后用这些做综合检验，也适合当期末考核的替代形式。</p>
+    <div class="grid">
+      <div class="card">
+        <span class="tag hot">综合权衡</span>
+        <h3>经营模拟 30 天</h3>
+        <p class="d">连续经营一家 320 间房的酒店 30 天。每天定房价、定超售、开促销，系统按需求模型算出 OCC / ADR / RevPAR，超售爆了要赔钱，最后给经营评级。</p>
+        <p class="m">30 天 ｜ 价格 × 超售 × 促销 ｜ 实时图表 ｜ 评级复盘</p>
+        <a class="go" href="games/sim.html">开始经营 →</a>
+      </div>
+      <div class="card">
+        <span class="tag">多结局</span>
+        <h3>角色扮演模拟</h3>
+        <p class="d">超售、团队询价、竞对降价、客诉、尾单一件件找上门。四个仪表此消彼长，每步都标依据哪张表，多结局可重玩。</p>
+        <p class="m">7 个情境 ｜ 分支多结局</p>
+        <a class="go" href="games/roleplay.html">开始扮演 →</a>
+      </div>
+      <div class="card">
+        <span class="tag">题库</span>
+        <h3>演练题库 · 251 题</h3>
+        <p class="d">配套演练题库，适合出卷、随堂测验、期末复习。与闯关类游戏互补：游戏练判断，题库验知识。</p>
+        <p class="m">251 题 ｜ 可出卷</p>
+        <a class="go" href="exam/workbook.html">打开题库 →</a>
+      </div>
     </div>
-    <p class="note">14 份教案已随上面「整套教学资源包」ZIP 一同打包（在 <code>teach/plans/</code> 目录）。要改某模块，直接编辑对应 md 即可。</p>
   </div>
-</main>
 
-<footer class="site-footer">
-  <div class="sf-grid">
-    <div><div class="sf-t">RMC收益管理社区</div><p class="sf-desc">跨行业收益管理专业社区。</p></div>
-    <div><div class="sf-t">学习</div><a href="academy.html">学院首页</a><a href="codex.html">操作法典</a><a href="gejijipo.html">各个击破</a><a href="resources.html">模板与资料</a></div>
-    <div><div class="sf-t">社区</div><a href="experts.html">专家高手</a><a href="community.html">行业交流</a><a href="cert.html">资格认证</a><a href="jobs.html">招聘内推</a></div>
+  <div class="sec">
+    <h2>四、备课与参考资料</h2>
+    <p class="lead">你自己备课时用的。</p>
+    <div class="list">
+      <a href="open-course/ai-coach-chat.html">AI 教练分身<span>备课有问题直接问，按判定表答你，打开就能对话</span></a>
+      <a href="codex.html">收益管理法典<span>判定表与规则总览</span></a>
+      <a href="games/cases.html">案例分析集<span>课堂举例用</span></a>
+      <a href="games/playbook.html">游戏化教具<span>线下集训或小组对战时配套使用</span></a>
+      <a href="campus-resources.html">院校专区 · 七件套工具箱<span>教材、课件、数据、模板、题库、游戏</span></a>
+      <a href="open-course/why-no-system.html">为什么不上系统也能开课<span>给领导和同事看的那一篇</span></a>
+    </div>
   </div>
-  <div class="sf-bot"><span>RMC收益管理社区 · 通用内核 + 行业参数</span></div>
-</footer>
-<script src="auth-config.js"></script>
-<script src="assets/js/demo-backend.js"></script>
-<script src="assets/js/app.js"></script>
-<script>window.HRMA_PREFIX="";</script>
-<script src="assets/js/notify.js"></script>
+
+  <div class="sec">
+    <h2>五、联机对战（需要配置，课堂暂不推荐）</h2>
+    <p class="lead">多人在线实时对战：同一批虚拟需求定价、按份额竞争算 RevPAR 排名；或全员共同经营一家酒店冲刺目标线。</p>
+    <div class="list">
+      <a href="games/arena.html">联机对战大厅<span>需要联网实时能力，教室网络不稳时别用</span></a>
+    </div>
+  </div>
+
+  <div class="hook">
+    <h3>要课件和数据，邮件领七件套</h3>
+    <p>上面这些是打开就能玩的。教材、课件、脱敏经营数据、表格模板这些源文件，发邮件找我领：</p>
+    <p>① 教材（26 章完整版，可打印）　② 课件 L1/L2/L3 讲师版 + 讲师手册<br>
+       ③ 4 套脱敏经营数据（含 10 个讲师出题专用异常点）　④ 62 个可填表格模板<br>
+       ⑤ 题库　⑥ 超售决策游戏　⑦ 知识抢答游戏</p>
+    <p>院校要用、想走账，可开《开课工具包》发票。</p>
+    <a class="btn" href="mailto:rm-community@qq.com?subject=%E9%A2%86%E5%8F%96%E5%BC%80%E8%AF%BE%E5%B7%A5%E5%85%B7%E5%8C%85">发邮件领取 →</a>
+    <p style="margin-top:12px;font-size:13.5px;color:#cdd9e8;">正在写《酒店收益管理：高校教师开课手册》，想先看章节，邮件里说一声。</p>
+  </div>
+
+  <div class="ft">打开就能上课 ｜ 收益管理教学教练 ｜ 只写判定表，不写观点文</div>
+</div>
+
 </body>
 </html>
