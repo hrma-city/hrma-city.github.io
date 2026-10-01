@@ -1,0 +1,3926 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>微课放映版 · 32 节（分镜 + 旁白）</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9edf2;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+     color:#1b2b3d;overflow:hidden}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+.slide{width:1280px;height:720px;background:#fff;position:relative;display:none;
+       box-shadow:0 6px 30px rgba(0,0,0,.18);overflow:hidden;flex-direction:column}
+.slide.on{display:flex}
+/* 节封面 */
+.s-cover{background:linear-gradient(135deg,#0f2a4a 0%,#1d6fb8 100%);color:#fff;
+         justify-content:center;align-items:center;text-align:center}
+.s-cover .no{font-size:26px;letter-spacing:5px;color:#e8b84b;margin-bottom:22px;font-weight:700}
+.s-cover .tt{font-size:62px;font-weight:800;line-height:1.3}
+.s-cover .mt{font-size:24px;color:#cfe0f0;margin-top:26px}
+.s-cover .one{font-size:26px;color:#e8b84b;margin-top:22px;max-width:900px;line-height:1.7}
+.s-cover .hint{font-size:19px;color:#9fb6cc;margin-top:34px}
+/* 放映页 */
+.s-play{padding:0;justify-content:flex-start}
+.s-play .topbar{background:#0f2a4a;color:#fff;padding:16px 40px;display:flex;
+    align-items:center;gap:22px;flex:none}
+.s-play .tm{background:#e8b84b;color:#0f2a4a;font-weight:800;font-size:20px;
+    padding:6px 14px;border-radius:4px;font-family:ui-monospace,Menlo,monospace}
+.s-play .sec{font-size:19px;color:#cfe0f0}
+.s-play .sp{flex:1}
+.s-play .cnt{font-size:17px;color:#9fb6cc}
+.s-play .vwrap{flex:1;display:flex;flex-direction:column;padding:30px 46px 0}
+.s-play .vlb{font-size:17px;letter-spacing:3px;color:#1d6fb8;font-weight:800;margin-bottom:12px}
+.s-play .vis{font-size:29px;line-height:1.6;color:#0f2a4a;font-weight:700;
+    border-left:7px solid #1d6fb8;padding-left:18px}
+.s-play .swrap{flex:none;padding:22px 46px 26px;border-top:3px solid #e8b84b;
+    background:#fbfcfe;min-height:300px}
+.s-play .slb{font-size:17px;letter-spacing:3px;color:#8a6d1f;font-weight:800;margin-bottom:12px}
+.s-play .say{font-size:30px;line-height:1.95;color:#16283c}
+.s-play .say b{color:#c0392b}
+/* 进度条 */
+.s-play .prog{position:absolute;left:0;bottom:0;height:6px;background:#e8b84b;width:0;
+    transition:width .25s linear}
+.pg{position:absolute;right:26px;bottom:18px;font-size:16px;color:#8a97a8}
+.s-end{background:linear-gradient(135deg,#0f2a4a 0%,#1d6fb8 100%);color:#fff;
+       justify-content:center;align-items:center;text-align:center}
+.s-end .t1{font-size:54px;font-weight:800;margin-bottom:24px}
+.s-end .t2{font-size:27px;color:#cfe0f0;line-height:2}
+#bar{position:fixed;left:0;right:0;bottom:0;height:54px;background:#0f2a4a;color:#fff;
+     display:flex;align-items:center;gap:13px;padding:0 18px;font-size:14px;z-index:9}
+#bar b{color:#e8b84b}
+#bar .sp{flex:1}
+#bar button{background:#1d6fb8;border:none;color:#fff;padding:7px 15px;border-radius:4px;
+    cursor:pointer;font-size:14px}
+#bar button:hover{background:#2b8ac9}
+#bar button.play{background:#e8b84b;color:#0f2a4a;font-weight:800}
+#bar select{background:#fff;border:none;padding:6px 9px;border-radius:4px;font-size:14px;max-width:210px}
+@media print{
+  body{overflow:visible;background:#fff}
+  #stage{position:static;display:block}
+  #bar{display:none}
+  .slide{display:flex!important;page-break-after:always;width:100%;height:100%;box-shadow:none}
+  @page{size:landscape;margin:0}
+}
+</style></head><body>
+<div id="stage"><div class="slide s-cover" data-sec="封面" data-a="0" data-b="0">
+<div class="no">微课放映版 · 32 节</div>
+<div class="tt">酒店收益管理</div>
+<div class="mt">每节 10 分钟 ｜ 分镜 ＋ 旁白 ｜ 可直接投屏念，或当提词器录制</div>
+<div class="hint">空格键＝开始／暂停自动播放　→ ← 翻页　F 全屏　P 打印</div>
+<div class="pg">1 / 259</div></div><div class="slide s-cover" data-sec="1-1 收益管理是什么" data-a="0" data-b="0">
+    <div class="no">第 1-1 节</div>
+    <div class="tt">收益管理是什么</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">把会过期的房，在合适的时间卖给愿意多付的人；唯一判据是机会成本</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">2 / 259</div></div><div class="slide s-play" data-sec="1-1 收益管理是什么" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 1-1 节 · 收益管理是什么</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">标题页 + 一个问题：今晚有 100 间空房，卖 400 还是 600？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">先问你一个问题。今晚这家酒店有 100 间房空着，现在有客人来问价，有人出 400，有人出 600。你卖多少钱？<br>很多人会说：当然卖 600。也有人会说：能卖出去最重要，400 也卖。<br>这两个答案，都可能错。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">3 / 259</div></div><div class="slide s-play" data-sec="1-1 收益管理是什么" data-a="30" data-b="120">
+        <div class="topbar">
+          <span class="tm">0:30–2:00</span>
+          <span class="sec">第 1-1 节 · 收益管理是什么</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">草莓图 + 三个字：会过期</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们先看一件跟酒店无关的事。你有一盒草莓，今天不卖，明天就坏了。<br>这时候你会想什么？你会想：赶紧卖掉，哪怕便宜点。<br>酒店的房间跟这盒草莓一模一样——今天晚上这间房没卖出去，它的价值就永远消失了，你没法把它存起来明天再卖。<br>这就叫<b>易逝性</b>，也就是三个字：会过期。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">4 / 259</div></div><div class="slide s-play" data-sec="1-1 收益管理是什么" data-a="120" data-b="240">
+        <div class="topbar">
+          <span class="tm">2:00–4:00</span>
+          <span class="sec">第 1-1 节 · 收益管理是什么</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">两个人：一个举 2 块，一个举 5 块</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">但是只知道会过期还不够，你还是会贱卖。<br>关键在于第二件事：同样一盒草莓，有人愿意出 2 块，有人愿意出 5 块。<br>如果你不分青红皂白 2 块就卖，那个愿意出 5 块的人，你本可以等到他。<br>所以收益管理要做的是：<b>把出 5 块的人和出 2 块的人分开</b>——用提前预订、不可取消、最少住几晚这些条件把他们隔开。<br>这叫<b>栅栏</b>。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">5 / 259</div></div><div class="slide s-play" data-sec="1-1 收益管理是什么" data-a="240" data-b="360">
+        <div class="topbar">
+          <span class="tm">4:00–6:00</span>
+          <span class="sec">第 1-1 节 · 收益管理是什么</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">天平图：左边现在卖 400，右边留给后面的人</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">回到开头那个问题：卖 400 还是 600？<br>真正该问的不是卖多少钱，而是：<b>现在卖掉这间房，值不值？</b><br>如果你今天 400 卖掉，晚上来了一个愿意出 700 的客人，你就亏了 300。<br>如果你为了等 700 的客人不卖，结果晚上没人来，你就亏了 400。<br>所以真正的判据是：<b>现在卖掉的钱，抵不抵得上留给后面那个人的期望价值？</b><br>这就是<b>机会成本</b>，也是这本书里唯一的判据。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">6 / 259</div></div><div class="slide s-play" data-sec="1-1 收益管理是什么" data-a="360" data-b="480">
+        <div class="topbar">
+          <span class="tm">6:00–8:00</span>
+          <span class="sec">第 1-1 节 · 收益管理是什么</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算例：100 间房，200 块卖掉 40 间</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们来算一个数。100 间房，你图省事，40 间以 200 块卖给了旅行团，正常价是 500。<br>这 40 间你收了 8000 块。看起来不错，房也填满了。<br>但如果你留着，按历史数据，这 40 间里通常能卖出 25 间散客，均价 500，那就是 12500 块。<br>你少的这 4500 块，就是你填满房付出的代价。<br><b>填满不值得填的房，是负资产。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">7 / 259</div></div><div class="slide s-play" data-sec="1-1 收益管理是什么" data-a="480" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:00–9:30</span>
+          <span class="sec">第 1-1 节 · 收益管理是什么</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">判定表：是否适用收益管理（四行）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">那怎么判断一个生意该不该做收益管理？看四件事：<br>第一，东西会不会过期；第二，成本是不是高固定、低变动；<br>第三，需求能不能预测；第四，客人肯付的钱是不是不一样。<br>四条全中，就值得做。缺一条，方法就要改。<br>这张表后面每一章都会用到，它是全书的总开关。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">8 / 259</div></div><div class="slide s-play" data-sec="1-1 收益管理是什么" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 1-1 节 · 收益管理是什么</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：三个核心指标</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">这一节你只要记住一句话：<b>卖与不卖，比的都是机会成本。</b><br>下一节我们讲三个指标：OCC、ADR、RevPAR。看完你会发现，很多酒店引以为豪的那个数字，其实是个陷阱。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">9 / 259</div></div><div class="slide s-cover" data-sec="1-2 三个核心指标" data-a="0" data-b="0">
+    <div class="no">第 1-2 节</div>
+    <div class="tt">三个核心指标</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">OCC 看出租率、ADR 看均价、RevPAR 才是总成绩</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">10 / 259</div></div><div class="slide s-play" data-sec="1-2 三个核心指标" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 1-2 节 · 三个核心指标</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：哪家店经营得好？A 店出租率 90%　B 店出租率 60%</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">两家店，A 店出租率 90%，B 店 60%。哪家经营得好？<br>大部分人会选 A。这一节我要让你改变这个答案。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">11 / 259</div></div><div class="slide s-play" data-sec="1-2 三个核心指标" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 1-2 节 · 三个核心指标</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">OCC 定义与算法（大字 + 算式）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">先说第一个指标，OCC，出租率。算法很简单：卖出去的房 ÷ 可售房。<br>A 店 90%，意思是 100 间房卖了 90 间。B 店 60%，卖了 60 间。<br>这个指标衡量的是量。它回答我卖得多不多，但不回答我卖得贵不贵。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">12 / 259</div></div><div class="slide s-play" data-sec="1-2 三个核心指标" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 1-2 节 · 三个核心指标</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">ADR 定义 + A 店 300 / B 店 500</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第二个指标，ADR，平均房价。已售房的总收入 ÷ 卖出的间数。<br>现在补一个信息：A 店均价 300 块，B 店均价 500 块。<br>看出问题了吗？A 店卖了 90 间，每间 300；B 店卖了 60 间，每间 500。<br>单看出租率，A 赢；单看均价，B 赢。到底谁赢？</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">13 / 259</div></div><div class="slide s-play" data-sec="1-2 三个核心指标" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 1-2 节 · 三个核心指标</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">RevPAR 算式：90%×300=270　60%×500=300</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第三个指标叫 RevPAR，每间可售房收入。它把前两个乘起来：OCC × ADR。<br>算一下：A 店 90% 乘 300，等于 <b>270</b>。B 店 60% 乘 500，等于 <b>300</b>。<br>B 店赢了。它赢在哪？赢在把每一间可售房都摊进来算。<br>所以 RevPAR 才是总成绩——因为它既看量，也看价。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">14 / 259</div></div><div class="slide s-play" data-sec="1-2 三个核心指标" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 1-2 节 · 三个核心指标</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">警示框：只考核出租率会发生什么</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">这里有个特别现实的问题。如果酒店只考核前台的出租率，会发生什么？<br>前台会降价。因为降价最容易把房卖掉，出租率立刻上去了，奖金拿到了。<br>但 ADR 掉下来，RevPAR 可能反而降。<br><b>你考核什么，员工就给你什么——单一指标一定会被玩坏。</b><br>所以看经营，永远不要只看一个数字。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">15 / 259</div></div><div class="slide s-play" data-sec="1-2 三个核心指标" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 1-2 节 · 三个核心指标</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：指标诊断三行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张三行的诊断表：量的问题看 OCC，价的问题看 ADR，总的看 RevPAR。<br>以后拿到任何一组数字，先问：这是量的问题，还是价的问题？<br>这个问题答对了，后面的动作就不会错。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">16 / 259</div></div><div class="slide s-play" data-sec="1-2 三个核心指标" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 1-2 节 · 三个核心指标</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：竞争三件套</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：RevPAR 等于 OCC 乘 ADR，它是总成绩。<br>下一节我们加一个维度——你自己做得好不好不算数，得看跟同行比。这就是 MPI、ARI、RGI。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">17 / 259</div></div><div class="slide s-cover" data-sec="1-3 竞争三件套" data-a="0" data-b="0">
+    <div class="no">第 1-3 节</div>
+    <div class="tt">竞争三件套</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">MPI 看量、ARI 看价、RGI 看总；先看哪个决定你该动什么</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">18 / 259</div></div><div class="slide s-play" data-sec="1-3 竞争三件套" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 1-3 节 · 竞争三件套</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：你考了 80 分，是好是坏？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">你考了 80 分，是好是坏？<br>没法回答，对吧？得看班里平均分。<br>酒店也一样——你自己 RevPAR 涨了 5%，不算成绩，得看同行涨了多少。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">19 / 259</div></div><div class="slide s-play" data-sec="1-3 竞争三件套" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 1-3 节 · 竞争三件套</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">MPI 定义 + 算式（我的 OCC ÷ 竞争群 OCC × 100）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第一个，MPI，市场渗透指数。你的出租率 ÷ 竞争群的平均出租率。<br>MPI 大于 100，说明你抢到的量比同行多；小于 100，说明量被别人拿走了。<br>它只管量，不管价。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">20 / 259</div></div><div class="slide s-play" data-sec="1-3 竞争三件套" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 1-3 节 · 竞争三件套</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">ARI 定义 + 算式（我的 ADR ÷ 竞争群 ADR × 100）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第二个，ARI，平均房价指数。你的均价 ÷ 竞争群均价。<br>ARI 大于 100，说明你卖得比同行贵；小于 100，说明你便宜了。<br>它只管价，不管量。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">21 / 259</div></div><div class="slide s-play" data-sec="1-3 竞争三件套" data-a="270" data-b="360">
+        <div class="topbar">
+          <span class="tm">4:30–6:00</span>
+          <span class="sec">第 1-3 节 · 竞争三件套</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">RGI 定义 + 三者关系：RGI ≈ MPI × ARI</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第三个，RGI，收入生成指数。你的 RevPAR ÷ 竞争群 RevPAR。<br>它就是总排名，而且约等于 MPI 乘 ARI。<br>这三个数放在一起，最有价值的地方不是排名多少，而是——<b>能告诉你该动什么</b>。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">22 / 259</div></div><div class="slide s-play" data-sec="1-3 竞争三件套" data-a="360" data-b="480">
+        <div class="topbar">
+          <span class="tm">6:00–8:00</span>
+          <span class="sec">第 1-3 节 · 竞争三件套</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">诊断表：MPI 低动渠道 / ARI 低动价档</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">怎么用法？记住两句话：<br><b>MPI 低，是量不够——该动渠道、动曝光、动产品</b>，降价不一定有用。<br><b>ARI 低，是价不够——该动价档、动 BAR</b>，这时候到处跑渠道是白费力气。<br>两个都低，才是真的全面落后。<br>很多店一看到 RGI 低就降价，结果 MPI 没救回来，ARI 又掉了一截。这就是没拆开看的代价。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">23 / 259</div></div><div class="slide s-play" data-sec="1-3 竞争三件套" data-a="480" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:00–9:30</span>
+          <span class="sec">第 1-3 节 · 竞争三件套</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算例：MPI 88、ARI 101、RGI 89</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">举个例子。你 MPI 88，ARI 101，RGI 89。<br>ARI 101 说明你的价格没问题，甚至略高。MPI 88 说明量被抢走了。<br>这时候降价有用吗？没用，因为你的价本来就合理，抢不到量是渠道或曝光的问题。<br>正确动作：去查 OTA 曝光、查评分、查产品有没有竞争力。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">24 / 259</div></div><div class="slide s-play" data-sec="1-3 竞争三件套" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 1-3 节 · 竞争三件套</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：价格弹性</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住这个顺序：先拆 MPI 和 ARI，再决定动作。<br>下一节讲价格弹性——降价到底能换来多少量。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">25 / 259</div></div><div class="slide s-cover" data-sec="1-4 价格弹性" data-a="0" data-b="0">
+    <div class="no">第 1-4 节</div>
+    <div class="tt">价格弹性</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">降价能换多少量；弹性要小范围测，不能猜</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">26 / 259</div></div><div class="slide s-play" data-sec="1-4 价格弹性" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 1-4 节 · 价格弹性</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：降价一定能多卖吗？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">降价一定能多卖吗？<br>大部分人的直觉是当然。这一节我要告诉你：不一定，而且你没法靠猜。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">27 / 259</div></div><div class="slide s-play" data-sec="1-4 价格弹性" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 1-4 节 · 价格弹性</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">弹性定义 + 算式（量变动% ÷ 价变动%）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">弹性怎么算？用量的变动百分比，除以价的变动百分比。<br>比如降价 10%，销量涨了 15%，弹性就是 15 除以 10，等于 1.5。<br>弹性绝对值大于 1，叫<b>富有弹性</b>——降价划算，因为量涨得比价跌得多。<br>小于 1，叫<b>缺乏弹性</b>——降价亏，量根本补不回来。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">28 / 259</div></div><div class="slide s-play" data-sec="1-4 价格弹性" data-a="150" data-b="300">
+        <div class="topbar">
+          <span class="tm">2:30–5:00</span>
+          <span class="sec">第 1-4 节 · 价格弹性</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">四组算例对照表</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们算四组。假设原来收入是 100。<br>第一组：降 10%，量涨 15%。0.9 乘 1.15，等于 103.5，<b>赚了</b>。<br>第二组：降 10%，量涨 5%。0.9 乘 1.05，等于 94.5，<b>亏了</b>。<br>第三组：降 20%，量涨 30%。0.8 乘 1.3，等于 104，赚。<br>第四组：降 20%，量涨 10%。0.8 乘 1.1，等于 88，<b>亏得很厉害</b>。<br>看明白了吗？降得多不一定好，关键看量补不补得回来。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">29 / 259</div></div><div class="slide s-play" data-sec="1-4 价格弹性" data-a="300" data-b="420">
+        <div class="topbar">
+          <span class="tm">5:00–7:00</span>
+          <span class="sec">第 1-4 节 · 价格弹性</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">警示：弹性不是常数</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">这里有个坑：弹性不是一个固定数字。<br>周末的弹性跟工作日不一样，淡季跟旺季不一样，商务客跟游客也不一样。<br>你去年测出来的弹性，今年不一定成立。<br>所以<b>弹性不能猜，只能测</b>。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">30 / 259</div></div><div class="slide s-play" data-sec="1-4 价格弹性" data-a="420" data-b="540">
+        <div class="topbar">
+          <span class="tm">7:00–9:00</span>
+          <span class="sec">第 1-4 节 · 价格弹性</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">测试三原则：限量、限时、限渠道</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">怎么测？三个限制：限量、限时、限渠道。<br>限量，比如只放 20 间；限时，比如只做一周；限渠道，比如只在官网。<br>这样做有两个好处：第一，万一错了损失可控；第二，你能<b>归因</b>——知道量是从哪来的。<br>如果全场降价，你根本说不清销量为什么变，而且降下去就涨不回来了。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">31 / 259</div></div><div class="slide s-play" data-sec="1-4 价格弹性" data-a="540" data-b="570">
+        <div class="topbar">
+          <span class="tm">9:00–9:30</span>
+          <span class="sec">第 1-4 节 · 价格弹性</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：价格弹性四行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张判定表：什么时候可以降、降多少、测多久、什么信号算失败。<br>核心一条：<b>没有测试数据的降价，都是赌博。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">32 / 259</div></div><div class="slide s-play" data-sec="1-4 价格弹性" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 1-4 节 · 价格弹性</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：五个常见误区</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：弹性要测不要猜，测就要限量限时限渠道。<br>下一节是模块一最后一节，我们来清理五个最常见的误区。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">33 / 259</div></div><div class="slide s-cover" data-sec="1-5 五个常见误区" data-a="0" data-b="0">
+    <div class="no">第 1-5 节</div>
+    <div class="tt">五个常见误区</div>
+    <div class="mt">时长 10 分钟 ｜ 共 8 屏</div>
+    <div class="one">收益管理不是涨价；满房不是成绩；没系统也能做</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">34 / 259</div></div><div class="slide s-play" data-sec="1-5 五个常见误区" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 1-5 节 · 五个常见误区</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 8</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">标题页：这五个坑，几乎人人踩过</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">最后一节，我们清理五个误区。这五个，几乎每个刚接触收益管理的人都会踩。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">35 / 259</div></div><div class="slide s-play" data-sec="1-5 五个常见误区" data-a="30" data-b="120">
+        <div class="topbar">
+          <span class="tm">0:30–2:00</span>
+          <span class="sec">第 1-5 节 · 五个常见误区</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 8</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">误区一：收益管理就是涨价</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第一个误区：收益管理就是涨价。<br>错。收益管理是该低时低得下去、该高时守得住。<br>只会涨价的店，旺季赚一点，淡季空一半，全年 RevPAR 反而不高。<br>真正的本事，是淡季敢降到位，旺季敢守住不松口。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">36 / 259</div></div><div class="slide s-play" data-sec="1-5 五个常见误区" data-a="120" data-b="210">
+        <div class="topbar">
+          <span class="tm">2:00–3:30</span>
+          <span class="sec">第 1-5 节 · 五个常见误区</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 8</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">误区二：填满房就是成绩</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第二个误区：填满房就是成绩。<br>回想 1-1 那 40 间 200 块的例子——填满不值得填的房，是负资产。<br>出租率 90% 配均价 300，还不如 60% 配 500。<br><b>别把满当成目标，值才是。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">37 / 259</div></div><div class="slide s-play" data-sec="1-5 五个常见误区" data-a="210" data-b="300">
+        <div class="topbar">
+          <span class="tm">3:30–5:00</span>
+          <span class="sec">第 1-5 节 · 五个常见误区</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 8</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">误区三：有房就该卖</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第三个误区：有房就该卖。<br>这是销售同学最常说的话。但收益管理最反直觉的一步，恰恰是有房不卖。<br>给高价客人留房，叫保护位。我们会专门用一整节讲它。<br>你现在只要接受一件事：<b>有时候最好的销售动作，是不卖。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">38 / 259</div></div><div class="slide s-play" data-sec="1-5 五个常见误区" data-a="300" data-b="390">
+        <div class="topbar">
+          <span class="tm">5:00–6:30</span>
+          <span class="sec">第 1-5 节 · 五个常见误区</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 8</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">误区四：没有系统做不了</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第四个误区：没有收益管理系统就做不了。<br>这本书的整个前提就是否定这句话。系统替代的是计算和记录，替代不了判断。<br>一张手写的 pickup 表、一份需求日历、几张打印的判定表，就够了。<br>我见过太多店买了系统却没人会用——<b>垃圾数据进系统，出来的还是垃圾结论。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">39 / 259</div></div><div class="slide s-play" data-sec="1-5 五个常见误区" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 1-5 节 · 五个常见误区</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 8</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">误区五：这是收益部一个人的事</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第五个误区：这是收益部一个人的事。<br>收益管理要跟前厅、销售、渠道打交道，冲突是常态。<br>销售要接团，收益要留房，谁说了算？<br>答案不是职位高低，是<b>优先级仲裁</b>：收入最大化，大于库存保护，大于客情，大于方便。<br>用数据裁决，不是用职位裁决。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">40 / 259</div></div><div class="slide s-play" data-sec="1-5 五个常见误区" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 1-5 节 · 五个常见误区</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 8</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">模块一收束：三句话</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">模块一到这里结束，你只要记住三句话：<br>第一，卖与不卖，比的都是机会成本。<br>第二，RevPAR 才是总成绩，别被出租率骗了。<br>第三，先拆 MPI 和 ARI，再决定动什么。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">41 / 259</div></div><div class="slide s-play" data-sec="1-5 五个常见误区" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 1-5 节 · 五个常见误区</span>
+          <span class="sp"></span>
+          <span class="cnt">8 / 8</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：模块二 数据罗盘</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">从下一节开始，我们进入模块二——数据罗盘。<br>第一课会告诉你一件事：<b>预测精度，就是你的收益天花板。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">42 / 259</div></div><div class="slide s-cover" data-sec="2-1 预测精度就是天花板" data-a="0" data-b="0">
+    <div class="no">第 2-1 节</div>
+    <div class="tt">预测精度就是天花板</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">保护位、超售、预算全建立在预测上；预测错，后面全错</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">43 / 259</div></div><div class="slide s-play" data-sec="2-1 预测精度就是天花板" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 2-1 节 · 预测精度就是天花板</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：一家店的收益上限，由什么决定？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">一家酒店的收益上限，到底由什么决定？有人说是位置，有人说是装修，有人说是销售能力。<br>都不对。我给你一个可能没想到的答案：<b>预测精度。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">44 / 259</div></div><div class="slide s-play" data-sec="2-1 预测精度就是天花板" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 2-1 节 · 预测精度就是天花板</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">链条图：预测 → 保护位 / 超售 / 定价 / 预算</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">为什么？往下看。你要给高价客人留多少房，是不是得先知道会有多少高价客来？<br>你要超售几间，是不是得先知道会有多少人取消和不到？<br>你要不要涨价，是不是得先知道接下来几天会不会满？<br>年度预算怎么拆，是不是也得先预测每个月的需求？<br>这四个动作，全部建立在同一个东西上：预测。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">45 / 259</div></div><div class="slide s-play" data-sec="2-1 预测精度就是天花板" data-a="150" data-b="300">
+        <div class="topbar">
+          <span class="tm">2:30–5:00</span>
+          <span class="sec">第 2-1 节 · 预测精度就是天花板</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">两个方向的错误（各一个算例）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">预测错了会怎样？两个方向都会亏。<br>方向一，<b>预测高了</b>：你以为会有很多高价客，于是留了 18 间保护位，结果只来了 6 个。<br>那 12 间就空在那里——本来低价也能卖掉的，现在一分钱没有。<br>方向二，<b>预测低了</b>：你以为没什么人，早早低价放完了，结果后面临近日期需求暴涨，全城满房，你的房早卖光了。<br>少赚多少？假设 30 间少卖了 200 块一间，就是 6000 块。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">46 / 259</div></div><div class="slide s-play" data-sec="2-1 预测精度就是天花板" data-a="300" data-b="420">
+        <div class="topbar">
+          <span class="tm">5:00–7:00</span>
+          <span class="sec">第 2-1 节 · 预测精度就是天花板</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">关键句：预测精度 = 收益天花板</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">所以这句话请你记牢：<b>预测精度，就是你的收益天花板。</b><br>方法再漂亮、价格体系再完整，如果预测是拍脑袋的，后面所有动作都是在错误地基上盖房子。<br>这也是为什么这一节放在模块二的第一节——它是后面所有决策的地基。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">47 / 259</div></div><div class="slide s-play" data-sec="2-1 预测精度就是天花板" data-a="420" data-b="510">
+        <div class="topbar">
+          <span class="tm">7:00–8:30</span>
+          <span class="sec">第 2-1 节 · 预测精度就是天花板</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">那小酒店怎么办（Excel + 判定表）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">你可能会说：我们店没有系统，怎么预测？<br>没关系。预测的核心不是工具，是<b>有没有把历史数据看一遍</b>。<br>你只要有一张表，把过去 8 周每个星期几的在手量记下来，就能做出第一版预测。<br>后面 2-2、2-3 两节我会手把手教你做这两张表，用 Excel 就够。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">48 / 259</div></div><div class="slide s-play" data-sec="2-1 预测精度就是天花板" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 2-1 节 · 预测精度就是天花板</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：预测四行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张四行的判定表：预测从哪来、多久更新一次、误差多大要报警、什么时候必须重做。<br>核心一条：<b>预测不是做完就锁进抽屉的，它每周都要重算。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">49 / 259</div></div><div class="slide s-play" data-sec="2-1 预测精度就是天花板" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 2-1 节 · 预测精度就是天花板</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：预订曲线</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：预测精度就是收益天花板。<br>下一节我们讲最实用的一个预测工具——预订曲线，也就是 pickup。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">50 / 259</div></div><div class="slide s-cover" data-sec="2-2 预订曲线（pickup）怎么看" data-a="0" data-b="0">
+    <div class="no">第 2-2 节</div>
+    <div class="tt">预订曲线（pickup）怎么看</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">要跟去年同期同星期几比，不是跟今天比</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">51 / 259</div></div><div class="slide s-play" data-sec="2-2 预订曲线（pickup）怎么看" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 2-2 节 · 预订曲线（pickup）怎么看</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：今天出租率 80%，是好是坏？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">今天出租率 80%，是好是坏？<br>如果你只能看这一个数字，答案是：没法判断。这一节教你换个看法。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">52 / 259</div></div><div class="slide s-play" data-sec="2-2 预订曲线（pickup）怎么看" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 2-2 节 · 预订曲线（pickup）怎么看</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">关键概念：在手量（on-hand）与提前期</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">先认识两个词。第一个叫<b>在手量</b>，就是到今天为止，未来某一天已经订出去多少间。<br>第二个叫<b>提前期</b>，就是距离那一天还有几天。<br>比如今天是 10 月 1 日，10 月 8 日那一天现在订了 40 间，提前期就是 7 天。<br>把每一天、每个提前期的在手量记下来，连成一条线，就是<b>预订曲线</b>，也叫 pickup。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">53 / 259</div></div><div class="slide s-play" data-sec="2-2 预订曲线（pickup）怎么看" data-a="150" data-b="300">
+        <div class="topbar">
+          <span class="tm">2:30–5:00</span>
+          <span class="sec">第 2-2 节 · 预订曲线（pickup）怎么看</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">错误对比：跟今天比 vs 跟去年同期比</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">这里有个特别关键的点，很多人做错。<br>错误做法：拿今天的在手量，跟昨天比，看涨了没有。<br>这是错的。因为不同日期的需求本来就不同——周五和周一的曲线根本不是一回事。<br>正确做法：<b>拿今年这一天的在手量，跟去年同期、同一个星期几的在手量比。</b><br>比如今年 10 月 8 日是周三，就拿它跟去年 10 月的那几个周三比。这才叫可比。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">54 / 259</div></div><div class="slide s-play" data-sec="2-2 预订曲线（pickup）怎么看" data-a="300" data-b="420">
+        <div class="topbar">
+          <span class="tm">5:00–7:00</span>
+          <span class="sec">第 2-2 节 · 预订曲线（pickup）怎么看</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算例：今年 42 间 vs 去年同星期几 55 间</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们来读一组数。今年 10 月 8 日，提前 7 天，在手 42 间。<br>去年同期的几个周三，提前 7 天平均在手 55 间。<br>结论是什么？<b>落后了 13 间。</b><br>这时候你该做什么？不是等，是立刻查：是渠道曝光少了？是价格定高了？还是竞品在搞活动？<br>如果你不比去年，你根本发现不了这 13 间的缺口。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">55 / 259</div></div><div class="slide s-play" data-sec="2-2 预订曲线（pickup）怎么看" data-a="420" data-b="510">
+        <div class="topbar">
+          <span class="tm">7:00–8:30</span>
+          <span class="sec">第 2-2 节 · 预订曲线（pickup）怎么看</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">不只看一个点：看曲线的斜率</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">还有一个更细的看法：不只看某个点的数字，要看<b>曲线的斜率</b>。<br>如果在手量虽然比去年低，但最近几天涨得很快，说明只是启动晚了，未必是坏事。<br>反过来，如果在手量跟去年差不多，但最近三天几乎不动了，那是危险信号——需求停滞了。<br><b>看数字，更要看趋势。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">56 / 259</div></div><div class="slide s-play" data-sec="2-2 预订曲线（pickup）怎么看" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 2-2 节 · 预订曲线（pickup）怎么看</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：pickup 四行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张表：提前多少天看一次、落后多少要报警、落后了先查什么、什么情况要下调预测。<br>核心一条：<b>每周至少重算一次 pickup，而且永远跟去年同星期几比。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">57 / 259</div></div><div class="slide s-play" data-sec="2-2 预订曲线（pickup）怎么看" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 2-2 节 · 预订曲线（pickup）怎么看</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：需求日历</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：pickup 要跟去年同星期几比，还要看趋势。<br>下一节我们把它变成一张能贴在墙上的表——需求日历。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">58 / 259</div></div><div class="slide s-cover" data-sec="2-3 需求日历怎么建" data-a="0" data-b="0">
+    <div class="no">第 2-3 节</div>
+    <div class="tt">需求日历怎么建</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">把紧俏度标到每一天，它是所有判断的共同底稿</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">59 / 259</div></div><div class="slide s-play" data-sec="2-3 需求日历怎么建" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 2-3 节 · 需求日历怎么建</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：一年 365 天，哪几天最该提前布价？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">一年 365 天，哪几天最该提前动手？<br>如果你只能凭印象说旺季和淡季，那你每年都会漏掉最赚钱的那几天。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">60 / 259</div></div><div class="slide s-play" data-sec="2-3 需求日历怎么建" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 2-3 节 · 需求日历怎么建</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">什么是需求日历（图：一个月，每格标高/中/低）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">需求日历是什么？很简单——把未来每一天的<b>紧俏程度</b>标出来。<br>通常分三档：高、中、低。高的日子要提前布价、提前限制条件；低的日子要考虑促销、考虑填量。<br>它不是一张精确预测表，而是一张<b>共识底稿</b>：收益、销售、前厅、餐饮，所有人看同一张表说话。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">61 / 259</div></div><div class="slide s-play" data-sec="2-3 需求日历怎么建" data-a="150" data-b="300">
+        <div class="topbar">
+          <span class="tm">2:30–5:00</span>
+          <span class="sec">第 2-3 节 · 需求日历怎么建</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">怎么标：三步法</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">怎么标？三步。<br>第一步，<b>看历史</b>：去年同一天、同一个星期几的出租率和均价是多少。<br>第二步，<b>看事件</b>：有没有展会、考试、演出、长假。这一步最容易被漏。<br>第三步，<b>看今年在手</b>：到现在为止预订进度如何，比去年快还是慢。<br>三步看完，给这一天标上高中低。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">62 / 259</div></div><div class="slide s-play" data-sec="2-3 需求日历怎么建" data-a="300" data-b="420">
+        <div class="topbar">
+          <span class="tm">5:00–7:00</span>
+          <span class="sec">第 2-3 节 · 需求日历怎么建</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算例：某月 30 天标完的结果</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们看一个例子。某个月 30 天，标完之后大概是这样：<br>高需求 6 天，集中在两个周末加一个展会周；<br>中需求 14 天，是普通的工作日；<br>低需求 10 天，是展会结束后的那一周，加上几个周一。<br>这时候你的动作就很清楚了：<b>那 6 天提前 60 天开始布价，那 10 天做带栅栏的促销。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">63 / 259</div></div><div class="slide s-play" data-sec="2-3 需求日历怎么建" data-a="420" data-b="510">
+        <div class="topbar">
+          <span class="tm">7:00–8:30</span>
+          <span class="sec">第 2-3 节 · 需求日历怎么建</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">常见错误：只标法定假期</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">这里说一个最常见的错误：<b>只标法定假期。</b><br>很多店的需求日历上只有春节、国庆、五一。但真正影响本地酒店的，常常是这些：展会、考试季、演唱会、体育赛事、甚至是周边学校的开学和放假。<br>我见过一个城市，一场演唱会让周边酒店满房，但那家店的日历上什么都没标——因为那天不是假期。<br><b>本地事件，往往比法定假期更赚钱。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">64 / 259</div></div><div class="slide s-play" data-sec="2-3 需求日历怎么建" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 2-3 节 · 需求日历怎么建</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：需求日历四行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张表：多久更新一次、谁来标、标完要给谁看、跟哪些动作挂钩。<br>核心一条：<b>需求日历不是收益部自己的表，是全店共用的一张表。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">65 / 259</div></div><div class="slide s-play" data-sec="2-3 需求日历怎么建" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 2-3 节 · 需求日历怎么建</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：预测准不准怎么量</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：需求日历是全店的共识底稿，别忘了标本地事件。<br>下一节我们讲怎么衡量预测准不准——MAPE。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">66 / 259</div></div><div class="slide s-cover" data-sec="2-4 预测准不准怎么量" data-a="0" data-b="0">
+    <div class="no">第 2-4 节</div>
+    <div class="tt">预测准不准怎么量</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">MAPE 小于 10% 为良好；错了要回头改参数</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">67 / 259</div></div><div class="slide s-play" data-sec="2-4 预测准不准怎么量" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 2-4 节 · 预测准不准怎么量</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：你说你预测准，怎么证明？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">你说你预测得准，怎么证明？<br>感觉准不算。这一节给你一个数字：MAPE。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">68 / 259</div></div><div class="slide s-play" data-sec="2-4 预测准不准怎么量" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 2-4 节 · 预测准不准怎么量</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">MAPE 定义与算法</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">MAPE，平均绝对百分比误差。名字很吓人，算法其实很朴素。<br>每一天，用预测值减实际值，取绝对值，除以实际值，得到一个百分比。<br>把这些天的百分比平均起来，就是 MAPE。<br>比如你预测 100 间，实际来了 92 间，这一天误差就是 8%。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">69 / 259</div></div><div class="slide s-play" data-sec="2-4 预测准不准怎么量" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 2-4 节 · 预测准不准怎么量</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">良好 / 可接受 / 需改进 三档</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">多少算好？给个经验值：<br>MAPE 小于 10%，<b>良好</b>；<br>10% 到 20%，<b>可接受</b>，但还有改进空间；<br>大于 20%，<b>需要重做预测方法</b>。<br>不要追求 2%、3%——那既不现实也没必要，收益管理要的是方向对，不是小数点后两位对。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">70 / 259</div></div><div class="slide s-play" data-sec="2-4 预测准不准怎么量" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 2-4 节 · 预测准不准怎么量</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算例：一周七天的误差计算</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们算一周。七天里，误差分别是 8%、12%、5%、22%、9%、11%、6%。<br>加总 73%，除以 7，MAPE 约等于 <b>10.4%</b>。<br>看起来还行，但你注意到第四天是 22% 吗？<br>这一天拖累了整体，而且它很可能是某个特殊日子。<br><b>所以不要只看平均值，要找出误差最大的那几天单独查。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">71 / 259</div></div><div class="slide s-play" data-sec="2-4 预测准不准怎么量" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 2-4 节 · 预测准不准怎么量</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">发现误差大怎么办（回头改参数）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">发现某天误差大，怎么办？<br>不要急着改预测，先问三个问题：<br>那天有什么事？是不是漏标了事件？<br>那天的竞争群有没有变化？有没有新酒店开业？<br>那天的价格是不是定得特别离谱，导致需求被扭曲了？<br>查清楚原因，再回来调参数。<b>不看原因直接调数，叫做过拟合，下次照样错。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">72 / 259</div></div><div class="slide s-play" data-sec="2-4 预测准不准怎么量" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 2-4 节 · 预测准不准怎么量</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：预测复盘四行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张表：多久复盘一次、看哪些天的误差、误差超多少要查原因、查完改什么。<br>核心一条：<b>每月复盘一次，只深挖误差最大的三天。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">73 / 259</div></div><div class="slide s-play" data-sec="2-4 预测准不准怎么量" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 2-4 节 · 预测准不准怎么量</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：客源细分</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：MAPE 小于 10% 算良好，超了要找原因再改。<br>下一节我们讲客源细分——把客人分成几堆来卖。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">74 / 259</div></div><div class="slide s-cover" data-sec="2-5 客源细分" data-a="0" data-b="0">
+    <div class="no">第 2-5 节</div>
+    <div class="tt">客源细分</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">把客人分成几堆来卖；分得出来才分（前台能识别）</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">75 / 259</div></div><div class="slide s-play" data-sec="2-5 客源细分" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 2-5 节 · 客源细分</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：为什么不能所有客人一个价？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">为什么不能所有客人一个价？<br>因为有人急着要、愿意多付；有人不急、只挑便宜的。<br>一个价，你要么把前者赶走，要么把后者白送。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">76 / 259</div></div><div class="slide s-play" data-sec="2-5 客源细分" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 2-5 节 · 客源细分</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">细分三要素：谁、愿付多少、什么条件</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">细分怎么分？记住三个要素。<br>第一，<b>谁</b>——商务客、游客、团队、会员、协议公司。<br>第二，<b>愿付多少</b>——不同客群的价格敏感度完全不同。<br>第三，<b>什么条件</b>——提前多久订、能不能取消、最少住几晚。<br>三样都写清楚，这一堆客源才叫分好了。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">77 / 259</div></div><div class="slide s-play" data-sec="2-5 客源细分" data-a="150" data-b="300">
+        <div class="topbar">
+          <span class="tm">2:30–5:00</span>
+          <span class="sec">第 2-5 节 · 客源细分</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">常见五堆及其特征（表）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我给你一个常用分法，五堆：<br><b>商务散客</b>——提前期短、取消多、价格不敏感、多在周中；<br><b>旅游散客</b>——提前期长、取消少、价格敏感、多在周末；<br><b>协议公司</b>——稳定、量大、要折扣、需要账期；<br><b>团队</b>——量大、价低、取消率低、要截止日期；<br><b>会员直销</b>——复购高、要权益不要裸价。<br>这五堆的打法完全不同。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">78 / 259</div></div><div class="slide s-play" data-sec="2-5 客源细分" data-a="300" data-b="420">
+        <div class="topbar">
+          <span class="tm">5:00–7:00</span>
+          <span class="sec">第 2-5 节 · 客源细分</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">关键提醒：分得出来才叫分（前台能识别）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">这里有一条特别重要的提醒：<b>分得出来才叫分。</b><br>什么意思？如果前台和渠道分不出这堆客人，你的细分就是纸上谈兵。<br>比如你说要区分价格敏感型和品质敏感型，但前台根本不知道哪个客人是哪一类——这个细分就是假的。<br>所以细分必须配一个<b>识别方式</b>：提前三天订的算一类，用公司协议码的算一类，官网会员登录的算一类。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">79 / 259</div></div><div class="slide s-play" data-sec="2-5 客源细分" data-a="420" data-b="510">
+        <div class="topbar">
+          <span class="tm">7:00–8:30</span>
+          <span class="sec">第 2-5 节 · 客源细分</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">细分与栅栏的配合</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">细分跟栅栏是配套的。你把客人分成堆，然后用栅栏把他们隔开，防止高价客人跑到低价那一堆去。<br>这叫防止<b>下移</b>，英文叫 buy-down。<br>如果商务客发现提前订、不可退的价格更便宜，他也会去订——你就白白损失了。<br>所以每一堆的价格，都要配对应的条件。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">80 / 259</div></div><div class="slide s-play" data-sec="2-5 客源细分" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 2-5 节 · 客源细分</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：客源细分四行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张表：分成几堆合适、每堆怎么识别、配什么栅栏、怎么防止下移。<br>核心一条：<b>五堆以内，超过五堆前台就分不出来了。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">81 / 259</div></div><div class="slide s-play" data-sec="2-5 客源细分" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 2-5 节 · 客源细分</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：每天该看哪几张表</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：细分必须能识别，还要配栅栏防下移。<br>下一节我们讲每天该看哪几张表——以及怎么给报表做减法。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">82 / 259</div></div><div class="slide s-cover" data-sec="2-6 每天该看哪几张表" data-a="0" data-b="0">
+    <div class="no">第 2-6 节</div>
+    <div class="tt">每天该看哪几张表</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">没有动作对应的报表就是废表</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">83 / 259</div></div><div class="slide s-play" data-sec="2-6 每天该看哪几张表" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 2-6 节 · 每天该看哪几张表</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：你们店每天看几张表？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">你们店每天看几张报表？<br>五张？十张？二十张？<br>这一节我要教你做减法。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">84 / 259</div></div><div class="slide s-play" data-sec="2-6 每天该看哪几张表" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 2-6 节 · 每天该看哪几张表</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">废表定义：看完没有动作的，就是废表</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">先给一个定义：<b>看完之后没有对应动作的报表，就是废表。</b><br>听起来很绝对，但这是真的。报表不是用来看的，是用来做决定的。<br>如果一张表你看完之后说哦知道了，然后什么也没做，那它就是负担，不是资产。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">85 / 259</div></div><div class="slide s-play" data-sec="2-6 每天该看哪几张表" data-a="150" data-b="300">
+        <div class="topbar">
+          <span class="tm">2:30–5:00</span>
+          <span class="sec">第 2-6 节 · 每天该看哪几张表</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">六张核心表与各自动作</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">那该留哪几张？我给你六张，每张都配一个动作。<br>第一张，<b>在手与 pickup 表</b>——动作：判断要不要调价。<br>第二张，<b>未来 14 天需求日历</b>——动作：决定哪天提前布价。<br>第三张，<b>竞品价格表</b>——动作：决定跟不跟。<br>第四张，<b>渠道产量表</b>——动作：调整渠道配额。<br>第五张，<b>昨日实际与预测对比</b>——动作：修正预测参数。<br>第六张，<b>取消与 No-show 表</b>——动作：调整超售额度。<br>六张，每张都对应一个明确的动作。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">86 / 259</div></div><div class="slide s-play" data-sec="2-6 每天该看哪几张表" data-a="300" data-b="420">
+        <div class="topbar">
+          <span class="tm">5:00–7:00</span>
+          <span class="sec">第 2-6 节 · 每天该看哪几张表</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">频率：日报 / 周报 / 月报怎么分</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">还要注意频率。不是所有表都要天天看。<br>在手表、竞品表，<b>每天看</b>，因为它们驱动每天的调价。<br>渠道产量表、取消表，<b>每周看一次</b>就够，趋势性指标天天看只会被噪音干扰。<br>预测精度复盘，<b>每月一次</b>。<br>频率分错，再好的表也变成噪音。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">87 / 259</div></div><div class="slide s-play" data-sec="2-6 每天该看哪几张表" data-a="420" data-b="510">
+        <div class="topbar">
+          <span class="tm">7:00–8:30</span>
+          <span class="sec">第 2-6 节 · 每天该看哪几张表</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">做减法练习：12 张删到 6 张</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们做个练习。假设你现在手上有 12 张表。<br>请你对每一张问同一个问题：看完这张表，我要做什么？<br>答不上来的，直接删。<br>通常一轮下来能删掉一半。别舍不得——<b>报表是负担，不是成绩。</b><br>留下来六张，每张写清楚对应的动作和频率，贴在你桌上。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">88 / 259</div></div><div class="slide s-play" data-sec="2-6 每天该看哪几张表" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 2-6 节 · 每天该看哪几张表</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">模块二收束：三句话</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">模块二到这里结束，记住三句话：<br>第一，预测精度就是你的收益天花板。<br>第二，pickup 要跟去年同星期几比，还要看趋势。<br>第三，没有动作对应的报表就是废表，该删就删。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">89 / 259</div></div><div class="slide s-play" data-sec="2-6 每天该看哪几张表" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 2-6 节 · 每天该看哪几张表</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：模块三 定价引擎</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">从下一节开始进入模块三——定价引擎。<br>第一课讲一个所有价格的地基：<b>BAR。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">90 / 259</div></div><div class="slide s-cover" data-sec="3-1 BAR：所有价格的锚" data-a="0" data-b="0">
+    <div class="no">第 3-1 节</div>
+    <div class="tt">BAR：所有价格的锚</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">先有层级，才有折扣空间；现场放价会连锁失衡</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">91 / 259</div></div><div class="slide s-play" data-sec="3-1 BAR：所有价格的锚" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 3-1 节 · BAR：所有价格的锚</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：客人说网上更便宜，前台能不能直接给个价？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">客人在前台说：我在网上看到更便宜的，你能给我那个价吗？<br>前台能不能直接答应？<br>这一节的答案，会决定你这家店的价格体系稳不稳。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">92 / 259</div></div><div class="slide s-play" data-sec="3-1 BAR：所有价格的锚" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 3-1 节 · BAR：所有价格的锚</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">BAR 是什么（基准价，不是最高价）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">先说 BAR 是什么。BAR 是<b>基准房价</b>，是所有价格的锚。<br>注意两个常见误解：BAR 不是最高价，也不是最低价。<br>它是中间那个参照点——往上可以有溢价房型，往下可以有各种折扣。<br>所有折扣都是<i>从 BAR 往下推</i>出来的：会员价降一档、协议价降两档、团队价再降。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">93 / 259</div></div><div class="slide s-play" data-sec="3-1 BAR：所有价格的锚" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 3-1 节 · BAR：所有价格的锚</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">三层 BAR 与价档推导（图）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们来看一套典型结构。<br>假设 BAR 定在 600。往上是行政房 750、套房 900；往下是会员价 540、协议价 500、团队价 420。<br>每一档都有明确的<b>适用条件</b>：会员价要登录、协议价要公司码、团队价要十间起且提前 14 天。<br>这就是一套价格体系——不是一堆价格，是一堆<i>带条件的价格</i>。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">94 / 259</div></div><div class="slide s-play" data-sec="3-1 BAR：所有价格的锚" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 3-1 节 · BAR：所有价格的锚</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">为什么现场不能放价</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">回到开头的问题。前台能不能现场给个价？<br>不能。因为现场放价会引发连锁反应：<br>第一，这个价格没有条件，谁都能拿到，等于凭空多出一个档位；<br>第二，其他客人知道了会要求同等待遇；<br>第三，OTA 比价时你的价格体系会显得混乱。<br><b>现场放价一次，看起来解决了眼前一个客人，实际上破坏了整个体系。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">95 / 259</div></div><div class="slide s-play" data-sec="3-1 BAR：所有价格的锚" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 3-1 节 · BAR：所有价格的锚</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">正确做法：用权益不用裸价</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">那客人嫌贵怎么办？正确做法是用<b>权益</b>而不是裸价。<br>比如：给一次房型升级、送一份早餐、给延迟退房、加积分。<br>这些都有成本，但<b>不会破坏价格体系</b>——因为其他客人看不到一个更低的数字。<br>记住这句话：<b>降价格会留下痕迹，给权益不会。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">96 / 259</div></div><div class="slide s-play" data-sec="3-1 BAR：所有价格的锚" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 3-1 节 · BAR：所有价格的锚</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：BAR 四行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张表：BAR 怎么定、多久审一次、价档差多少合适、什么情况可以破例。<br>核心一条：<b>破例必须有审批和期限，不能变成常态。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">97 / 259</div></div><div class="slide s-play" data-sec="3-1 BAR：所有价格的锚" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 3-1 节 · BAR：所有价格的锚</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：什么时候涨价</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：BAR 是锚，所有折扣从它往下推，现场不能放价。<br>下一节我们讲最常被问的问题：<b>到底什么时候该涨价？</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">98 / 259</div></div><div class="slide s-cover" data-sec="3-2 什么时候涨价" data-a="0" data-b="0">
+    <div class="no">第 3-2 节</div>
+    <div class="tt">什么时候涨价</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">四条信号齐了才动，不齐就等</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">99 / 259</div></div><div class="slide s-play" data-sec="3-2 什么时候涨价" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 3-2 节 · 什么时候涨价</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：销售说客人都在问，赶紧涨价，涨不涨？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">销售跑来说：最近问的人特别多，赶紧涨价吧。<br>涨不涨？<br>大多数时候，这个理由不够。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">100 / 259</div></div><div class="slide s-play" data-sec="3-2 什么时候涨价" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 3-2 节 · 什么时候涨价</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">四条信号（各一行）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">涨价要看四条信号，缺一不可：<br>第一，<b>在手量</b>——未来那一天已经订出去多少；<br>第二，<b>pickup 速度</b>——最近这几天预订是快了还是慢了；<br>第三，<b>距入住天数</b>——还剩几天，太早太晚都不一样；<br>第四，<b>竞品价格</b>——同行现在卖多少。<br>四条一起看，才敢动手。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">101 / 259</div></div><div class="slide s-play" data-sec="3-2 什么时候涨价" data-a="150" data-b="300">
+        <div class="topbar">
+          <span class="tm">2:30–5:00</span>
+          <span class="sec">第 3-2 节 · 什么时候涨价</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">逐条解释：为什么单看一条会错</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">为什么单看一条会错？我逐个说。<br>只用在手量：在手高可能是团队压的房，团队随时可能减房，虚高。<br>只用 pickup 速度：涨得快可能是因为你价格本来就低，涨了反而会停。<br>只看天数：同样的剩余天数，淡季和旺季完全是两回事。<br>只看竞品：竞品涨不一定对，它也可能判断错了。<br><b>四条交叉验证，才能过滤掉假信号。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">102 / 259</div></div><div class="slide s-play" data-sec="3-2 什么时候涨价" data-a="300" data-b="420">
+        <div class="topbar">
+          <span class="tm">5:00–7:00</span>
+          <span class="sec">第 3-2 节 · 什么时候涨价</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算例：距周六 9 天，四条信号逐一勾选</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们走一遍。今天是周四，距周六还有 9 天。<br>在手量：周六已经 82%，高于去年同期 70%，<b>信号一成立</b>。<br>pickup：最近三天平均每天新增 12 间，比去年快，<b>信号二成立</b>。<br>天数：剩 9 天，属于布价窗口内，<b>信号三成立</b>。<br>竞品：竞争群均价已经从 580 涨到 650，<b>信号四成立</b>。<br>四条全中，结论：<b>上调一档</b>，并且 48 小时后复查 pickup。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">103 / 259</div></div><div class="slide s-play" data-sec="3-2 什么时候涨价" data-a="420" data-b="510">
+        <div class="topbar">
+          <span class="tm">7:00–8:30</span>
+          <span class="sec">第 3-2 节 · 什么时候涨价</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">关键纪律：分档上调 + 观察 pickup</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">这里有个纪律问题：涨多少？<br>不要一步到位。分档上调，每次一档，然后<b>观察 pickup 有没有明显下滑</b>。<br>如果涨了一档之后 pickup 基本不变，说明还能再涨；如果明显变慢，就停在这里。<br>一次性涨到位有两个坏处：一是可能把客人吓走，二是你<b>无法归因</b>——不知道是价格太高还是需求本来就不行。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">104 / 259</div></div><div class="slide s-play" data-sec="3-2 什么时候涨价" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 3-2 节 · 什么时候涨价</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：涨价决策七行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张七行的判定表，把四条信号拆成可勾选的行，再加上涨几档、多久复查。<br>核心一条：<b>信号不齐就等，等不丢人，乱动才丢人。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">105 / 259</div></div><div class="slide s-play" data-sec="3-2 什么时候涨价" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 3-2 节 · 什么时候涨价</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：竞品降价</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：四条信号齐了才涨，分档上调并观察反应。<br>下一节讲一个更难的决定：<b>竞品降价了，跟不跟？</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">106 / 259</div></div><div class="slide s-cover" data-sec="3-3 竞品降价跟不跟" data-a="0" data-b="0">
+    <div class="no">第 3-3 节</div>
+    <div class="tt">竞品降价跟不跟</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">先看全城数据判断原因，跟错比不跟更贵</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">107 / 259</div></div><div class="slide s-play" data-sec="3-3 竞品降价跟不跟" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 3-3 节 · 竞品降价跟不跟</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：对面降了 100 块，我们跟不跟？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">对面酒店降了 100 块，销售急了：不跟我们就没客人了。<br>跟不跟？<br>我的答案通常是：<b>先别急，先查一件事。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">108 / 259</div></div><div class="slide s-play" data-sec="3-3 竞品降价跟不跟" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 3-3 节 · 竞品降价跟不跟</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">关键第一步：查全城 pickup，不是查竞品</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">要查的这一件事，不是竞品，是<b>全城的需求</b>。<br>也就是说：整个城市这几天的预订进度，是不是也在跌？<br>如果全城都在跌，说明是需求侧的问题——市场不行了，这时候跟降也没用，因为客人不是被对面抢走的，是根本不来。<br>如果全城平稳，只有你的 MPI 在跌，那才是竞争侧的问题——客人被对面拿走了。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">109 / 259</div></div><div class="slide s-play" data-sec="3-3 竞品降价跟不跟" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 3-3 节 · 竞品降价跟不跟</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">两种情形，两种处方</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">两种情形，处方完全不同。<br>情形一，<b>需求下滑</b>：跟降无效，只会把价格打下去回不来。正确动作是保住价格，用套餐和权益维持价值感，同时控制成本。<br>情形二，<b>被抢客</b>：先查原因——是曝光少了？评分掉了？还是产品不如人？<br>多数时候原因不是价格，而是这些。修好它们，比降价有效得多。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">110 / 259</div></div><div class="slide s-play" data-sec="3-3 竞品降价跟不跟" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 3-3 节 · 竞品降价跟不跟</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算例：全城跌 6% vs 全城平稳</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们看两组数据。<br>第一组：竞品 A 从 620 降到 520，你的 MPI 从 102 掉到 88，同时全城 pickup 同比下降 6%。<br>这是需求下滑。你跟降到 520，结果多半是：价格降了，量也没回来。<br>第二组：竞品降价，你的 MPI 掉到 88，但全城 pickup <b>平稳</b>。<br>这是被抢客。这时候才值得考虑动作——但优先改动渠道和曝光，而不是直接裸价跟降。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">111 / 259</div></div><div class="slide s-play" data-sec="3-3 竞品降价跟不跟" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 3-3 节 · 竞品降价跟不跟</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">降价不可逆：为什么跟错比不跟更贵</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">这里要说一个最重要的原则：<b>降价不可逆。</b><br>降下去容易，涨回来难——老客人会记得你的低价，OTA 比价会留下记录，协议客户会要求按新价执行。<br>我跟很多店算过这笔账：一次跟错价，把价格打下去 8%，要花半年以上才能涨回来，期间的损失远超当时少接的那点客。<br><b>所以跟错比不跟更贵。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">112 / 259</div></div><div class="slide s-play" data-sec="3-3 竞品降价跟不跟" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 3-3 节 · 竞品降价跟不跟</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：竞品应对六行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张六行的表：先看什么、怎么分情形、各情形的处方、什么情况才可以跟、跟多少、怎么撤。<br>核心一条：<b>任何跟降都要设定期限和复盘点。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">113 / 259</div></div><div class="slide s-play" data-sec="3-3 竞品降价跟不跟" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 3-3 节 · 竞品降价跟不跟</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：折扣与栅栏</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：先查全城数据分情形，降价不可逆。<br>下一节讲一个几乎每个店都在犯的错误——<b>促销不带栅栏。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">114 / 259</div></div><div class="slide s-cover" data-sec="3-4 折扣必须配栅栏" data-a="0" data-b="0">
+    <div class="no">第 3-4 节</div>
+    <div class="tt">折扣必须配栅栏</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">没有栅栏的促销等于永久降价</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">115 / 259</div></div><div class="slide s-play" data-sec="3-4 折扣必须配栅栏" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 3-4 节 · 折扣必须配栅栏</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：全场八折做一个月，会怎样？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">如果我们全场八折做一个月，会怎么样？<br>短期看，销量肯定上去。但一个月之后呢？这一节告诉你答案。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">116 / 259</div></div><div class="slide s-play" data-sec="3-4 折扣必须配栅栏" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 3-4 节 · 折扣必须配栅栏</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下移（buy-down）：老客户也来用折扣</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">问题出在一个词：<b>下移</b>，英文叫 buy-down。<br>什么意思？你本来卖 500 的房，老客户一直买。现在打八折变 400。<br>这些老客户会怎么做？他们也会去订 400 的。<br>于是你本来能收 500 的那部分收入，白白少了 100。<br><b>促销本来是为了拉新客，结果老客户先享受了。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">117 / 259</div></div><div class="slide s-play" data-sec="3-4 折扣必须配栅栏" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 3-4 节 · 折扣必须配栅栏</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算例：八折一个月的账</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们来算这笔账。假设平时月销 1000 间夜，均价 500，收入 50 万。<br>八折后，均价变 400。假设量涨了 30%，卖 1300 间夜。<br>收入是 1300 乘 400，等于 <b>52 万</b>。<br>只多了 2 万，但你的价格体系被打到 400 了。<br>更糟的是下个月：折扣一停，那些被折扣吸引来的客人消失了，老客户也习惯了低价——销量可能跌回 900 间夜，而且均价很难立刻回到 500。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">118 / 259</div></div><div class="slide s-play" data-sec="3-4 折扣必须配栅栏" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 3-4 节 · 折扣必须配栅栏</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">栅栏三件套：提前期 / 不可取消 / 会员</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">怎么办？给折扣加栅栏。最常用三件：<br>第一，<b>提前期</b>——比如提前 14 天订才享受。这把不急的客人挡在外面，急的客人本来就要订，不会为了折扣等两周。<br>第二，<b>不可取消</b>——订了不能退。不确定行程的人不会选，正好把价格敏感的游客和刚需的商务客分开。<br>第三，<b>会员限定</b>——只有登录会员才有。既拉新，又不影响公开价格。<br>三件叠加使用，效果最好。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">119 / 259</div></div><div class="slide s-play" data-sec="3-4 折扣必须配栅栏" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 3-4 节 · 折扣必须配栅栏</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">关键补充：栅栏必须提前明示</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">这里补一条特别容易被忽略的：<b>栅栏必须提前明示。</b><br>客人不是反感条件，是反感<i>到了才知道有条件</i>。<br>所以房型名称后面要写明两晚起，预订页面要写清楚不可取消。<br>我见过太多投诉，不是因为条件苛刻，而是因为客人到了前台才发现。<br><b>限制不伤人，没被告知才伤人。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">120 / 259</div></div><div class="slide s-play" data-sec="3-4 折扣必须配栅栏" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 3-4 节 · 折扣必须配栅栏</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：促销栅栏五行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张五行表：促销前先问什么、配几道栅栏、栅栏够不够严、怎么明示、什么时候必须停。<br>核心一条：<b>没有栅栏的促销，等于永久降价。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">121 / 259</div></div><div class="slide s-play" data-sec="3-4 折扣必须配栅栏" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 3-4 节 · 折扣必须配栅栏</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：套餐与锚定</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：促销必配栅栏，而且必须提前写明。<br>下一节我们讲一个不用降价也能让客人觉得划算的办法——<b>套餐与锚定。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">122 / 259</div></div><div class="slide s-cover" data-sec="3-5 套餐与锚定" data-a="0" data-b="0">
+    <div class="no">第 3-5 节</div>
+    <div class="tt">套餐与锚定</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">加价值不加折扣；用组合让客人觉得划算</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">123 / 259</div></div><div class="slide s-play" data-sec="3-5 套餐与锚定" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 3-5 节 · 套餐与锚定</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：同样少收 100 块，哪种方式更好？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">同样少收 100 块，有两种做法：直接降价 100，或者加价值 100 的东西。<br>哪种更好？这一节告诉你，后者的成本往往只有前者的三分之一。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">124 / 259</div></div><div class="slide s-play" data-sec="3-5 套餐与锚定" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 3-5 节 · 套餐与锚定</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">锚定效应：客人判断的是相对值</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">先说一个心理现象：<b>客人判断的不是绝对值，是相对值。</b><br>一间房 800，你说含双早和延迟退房，客人觉得值。<br>同一间房你说 700 不含任何东西，客人反而觉得贵。<br>为什么？因为客人心里有个参照系。你给的参照系不同，他的感受就不同。<br>这叫<b>锚定</b>。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">125 / 259</div></div><div class="slide s-play" data-sec="3-5 套餐与锚定" data-a="150" data-b="300">
+        <div class="topbar">
+          <span class="tm">2:30–5:00</span>
+          <span class="sec">第 3-5 节 · 套餐与锚定</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算例：降价 150 vs 套餐（成本对比）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们来算一笔账。<br>方案一，<b>直接降价 150</b>：收入少 150，成本不变，毛利少 150。<br>方案二，<b>做套餐</b>：加双早（成本 40）、加延迟退房（成本几乎为零）、加一份欢迎水果（成本 15）。<br>客人感知到的价值可能是 200 多，但你的成本只有 <b>55</b>。<br>同样是让客人觉得划算了，方案二多保留了 95 块的毛利。<br><b>这就是加价值不加折扣的意思。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">126 / 259</div></div><div class="slide s-play" data-sec="3-5 套餐与锚定" data-a="300" data-b="420">
+        <div class="topbar">
+          <span class="tm">5:00–7:00</span>
+          <span class="sec">第 3-5 节 · 套餐与锚定</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">套餐设计三原则</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">套餐怎么设计？三条原则。<br>第一，<b>加的东西要跟房有关</b>——早餐、升级、延迟退房、停车，这些都是客人本来就要花钱买的。<br>第二，<b>成本要可控</b>——别加那种成本不确定的东西，比如自助晚餐。<br>第三，<b>不要堆太多</b>——权益堆到七八项，客人记不住，而且成本吃掉了溢价。<br>三到四项最合适。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">127 / 259</div></div><div class="slide s-play" data-sec="3-5 套餐与锚定" data-a="420" data-b="510">
+        <div class="topbar">
+          <span class="tm">7:00–8:30</span>
+          <span class="sec">第 3-5 节 · 套餐与锚定</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">常见错误：套餐变变相降价</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">说一个常见错误：把套餐做成<b>变相降价</b>。<br>比如原价 800，套餐价 600，但套餐里加的东西客人根本不需要。<br>那客人只会把它理解成 600 的房价——你的 BAR 又被打了一次。<br>判断标准很简单：<b>如果去掉套餐里的权益，这个价格你还敢公开挂吗？</b><br>不敢，那就是变相降价。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">128 / 259</div></div><div class="slide s-play" data-sec="3-5 套餐与锚定" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 3-5 节 · 套餐与锚定</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：套餐四行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张四行表：什么场景用套餐、加什么、成本上限多少、怎么避免变相降价。<br>核心一条：<b>套餐应该跟 BAR 并存，而不是替代 BAR。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">129 / 259</div></div><div class="slide s-play" data-sec="3-5 套餐与锚定" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 3-5 节 · 套餐与锚定</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：团队询价</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：加价值不加折扣，成本能省三分之二。<br>下一节是模块三最后一节，我们算一笔最实际的账——<b>一个团到底该不该接。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">130 / 259</div></div><div class="slide s-cover" data-sec="3-6 团队询价怎么算" data-a="0" data-b="0">
+    <div class="no">第 3-6 节</div>
+    <div class="tt">团队询价怎么算</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">算总贡献减机会成本；紧俏日与淡季结论相反</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">131 / 259</div></div><div class="slide s-play" data-sec="3-6 团队询价怎么算" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 3-6 节 · 团队询价怎么算</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：一个团要 40 间，出价 380，接不接？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">销售接到一个团：40 间，住三晚，出价 380 含早。同期散客价 620。<br>接不接？<br>大部分人会说：380 比 620 低那么多，不接。这个答案通常是错的。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">132 / 259</div></div><div class="slide s-play" data-sec="3-6 团队询价怎么算" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 3-6 节 · 团队询价怎么算</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">第一步：算总贡献（房 + 餐 + 其他 − 变动成本）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第一步，算<b>总贡献</b>。注意，不是只算房钱。<br>这 40 间房，团队客人还会吃饭、会用会议室、会买其他服务。<br>公式是：房价 + 餐饮 + 其他消费，减去变动成本。<br>假设房价 380，餐饮和其他人均 60，变动成本 90，早餐成本 25。<br>单间贡献 = 380 + 60 − 90 − 25 = <b>325</b>。<br>40 间住 3 晚，就是 120 个间夜，总贡献 39000 块。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">133 / 259</div></div><div class="slide s-play" data-sec="3-6 团队询价怎么算" data-a="150" data-b="300">
+        <div class="topbar">
+          <span class="tm">2:30–5:00</span>
+          <span class="sec">第 3-6 节 · 团队询价怎么算</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">第二步：算机会成本（关键）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第二步，也是最容易错的：算<b>机会成本</b>。<br>这 40 间房如果不给团队，能卖给散客吗？能卖多少？<br>关键在这里：要用<b>期望散客需求</b>，不是用房总量。<br>假设这家店 200 间房，预测散客出租率 65%——那每晚空着的大概是 70 间。<br>团队只要 40 间，<b>根本不会挤占散客</b>，因为散客本来也只卖 135 间。<br>机会成本约等于零，结论：<b>接。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">134 / 259</div></div><div class="slide s-play" data-sec="3-6 团队询价怎么算" data-a="300" data-b="420">
+        <div class="topbar">
+          <span class="tm">5:00–7:00</span>
+          <span class="sec">第 3-6 节 · 团队询价怎么算</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">第三步：换个日期，结论反转</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第三步，换个日期看。同样是这个团，如果改到展会日呢？<br>展会日预测满房，散客需求 200 间，全都能卖掉，均价 620。<br>这时候团队的 40 间，就要挤掉 40 间散客。<br>机会成本 = 40 × 3 晚 × 620 = 74400 块。<br>而团队总贡献只有 39000。<br><b>净亏 35400 块。结论：不接，或者大幅提价。</b><br>同一个团，换个日期，结论完全相反。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">135 / 259</div></div><div class="slide s-play" data-sec="3-6 团队询价怎么算" data-a="420" data-b="510">
+        <div class="topbar">
+          <span class="tm">7:00–8:30</span>
+          <span class="sec">第 3-6 节 · 团队询价怎么算</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">附加条件：截止日期、押金、置换比例</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">最后说三条附加条件，接团必须写清楚。<br>第一，<b>截止日期</b>——过时不确认就放房，否则销售会一直被压着。<br>第二，<b>押金</b>——降低取消风险。<br>第三，<b>置换比例</b>——约定最少实际用房比例，防止虚报。<br>另外要防止团队价外溢到公开渠道，否则你的 BAR 会被自己人打穿。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">136 / 259</div></div><div class="slide s-play" data-sec="3-6 团队询价怎么算" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 3-6 节 · 团队询价怎么算</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">模块三收束：三句话</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">模块三到这里结束，记住三句话：<br>第一，先有 BAR 层级，才有折扣空间，现场不能放价。<br>第二，促销必须配栅栏，没有栅栏的促销等于永久降价。<br>第三，接不接团看总贡献减机会成本，而且要用期望散客需求。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">137 / 259</div></div><div class="slide s-play" data-sec="3-6 团队询价怎么算" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 3-6 节 · 团队询价怎么算</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：模块四 库存战场</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">从下一节开始进入模块四——库存战场。<br>第一课讲一个很多店从来没想过的事：<b>房型之间的差价，到底该定多少。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">138 / 259</div></div><div class="slide s-cover" data-sec="4-1 房型价差" data-a="0" data-b="0">
+    <div class="no">第 4-1 节</div>
+    <div class="tt">房型价差</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">按价值差定档；售罄顺序是最便宜的诊断工具</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">139 / 259</div></div><div class="slide s-play" data-sec="4-1 房型价差" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 4-1 节 · 房型价差</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：行政房比高级房贵多少合适？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">行政房比高级房贵多少合适？<br>大部分人的做法是：贵 100 块吧，或者贵 20%。<br>这两种都是拍脑袋。这一节给你一个可验证的办法。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">140 / 259</div></div><div class="slide s-play" data-sec="4-1 房型价差" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 4-1 节 · 房型价差</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">价值差：把每一项折算成钱</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">正确做法是按<b>价值差</b>定，也就是把差异逐项折算成客人愿意付的钱。<br>比如行政房比高级房：面积大 8 平米，值 30 块；楼层高 3 层，值 20 块；含行政酒廊，值 60 块。<br>加总 110 块。那价差就应该是 110 左右，而不是拍一个整数。<br>这样定出来的价差，客人觉得合理，你的溢价也有依据。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">141 / 259</div></div><div class="slide s-play" data-sec="4-1 房型价差" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 4-1 节 · 房型价差</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">净利差：别忘了算权益成本</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">但这里有个坑：<b>要看净利差，不是售价差。</b><br>行政房含酒廊，酒廊是有成本的。假设成本 60 块。<br>那售价差 110，减掉权益成本 60，<b>净利差只有 50</b>。<br>如果你只盯着售价差，会以为自己赚了很多，其实大部分被成本吃掉了。<br>所以定完价差，一定要回过头算一遍净利差。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">142 / 259</div></div><div class="slide s-play" data-sec="4-1 房型价差" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 4-1 节 · 房型价差</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">诊断工具：售罄顺序（最便宜的方法）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">现在给你一个几乎零成本的诊断工具：<b>看售罄顺序。</b><br>正常情况下，房型应该按价格从低到高依次卖完——便宜的先没，贵的后没。<br>如果你发现<b>最贵的行政房最先卖光</b>，那说明什么？<br>要么价差太小，大家都觉得行政房划算；要么行政房数量配得太少。<br>你只要每天看一眼哪个房型最先没房，就能发现价差问题。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">143 / 259</div></div><div class="slide s-play" data-sec="4-1 房型价差" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 4-1 节 · 房型价差</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算例：三个房型，一周售罄顺序异常</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">看一个例子。三个房型：标准 400、豪华 460、行政 700。<br>观察一周，发现行政房<b>最先售罄</b>。<br>算一下价差率：豪华到行政，240 除以 460，等于 <b>52%</b>。<br>经验上限是 25% 左右，52% 明显过大——虽然行政房有酒廊撑着，但还是偏低了。<br>调整：把行政房降到 620，价差 35%。<br>调整后观察两周，售罄顺序应该恢复由低到高。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">144 / 259</div></div><div class="slide s-play" data-sec="4-1 房型价差" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 4-1 节 · 房型价差</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：房型价差四行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张四行表：价差怎么算、上限多少、怎么用售罄顺序诊断、多久复查一次。<br>核心一条：<b>售罄顺序是最便宜的诊断工具，每天看一眼就行。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">145 / 259</div></div><div class="slide s-play" data-sec="4-1 房型价差" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 4-1 节 · 房型价差</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：限制条件</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：价差按价值差定，看净利差，用售罄顺序诊断。<br>下一节讲一个特别好用但经常被用错的工具——<b>最短住期。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">146 / 259</div></div><div class="slide s-cover" data-sec="4-2 最短住期与限制条件" data-a="0" data-b="0">
+    <div class="no">第 4-2 节</div>
+    <div class="tt">最短住期与限制条件</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">用 MinLOS、CTA、CTD 把客群分开；剂量从最轻开始</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">147 / 259</div></div><div class="slide s-play" data-sec="4-2 最短住期与限制条件" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 4-2 节 · 最短住期与限制条件</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">场景：周六演唱会满房，周五周日空着</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">周六有演唱会，房基本订满了。但周五和周日空一大片。<br>这时候你该怎么办？<br>只把周六的价格涨上去，解决不了周五和周日的空房。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">148 / 259</div></div><div class="slide s-play" data-sec="4-2 最短住期与限制条件" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 4-2 节 · 最短住期与限制条件</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">MinLOS：最少住几晚</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第一个工具叫 MinLOS，最短住期。<br>比如设成两晚起：客人想订周六，必须连着周五或周日一起订。<br>这样周六的客人就顺带把前后两天填上了。<br>它的本质是<b>用条件把客人分开</b>——只住一晚的客人被挡住，愿意住两晚的客人被留下。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">149 / 259</div></div><div class="slide s-play" data-sec="4-2 最短住期与限制条件" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 4-2 节 · 最短住期与限制条件</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">CTA 与 CTD：不许入住 / 不许离店</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">还有两个工具，容易混淆，我一次讲清。<br><b>CTA</b>， Closed to Arrival，<b>不允许在这一天入住</b>，但允许从前面连住过来。<br>比如周日设 CTA，那周日只能是从周六连住过来的客人，不能新入住。<br><b>CTD</b>，Closed to Departure，<b>不允许在这一天离店</b>，要求住到后面。<br>比如周五设 CTD，周五入住的客人必须住到周六。<br>记住：CTA 管入住，CTD 管离店。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">150 / 259</div></div><div class="slide s-play" data-sec="4-2 最短住期与限制条件" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 4-2 节 · 最短住期与限制条件</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算例：周五空、周六满、周日空，怎么组合</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">回到开头的场景：周五空、周六满、周日空。<br>正确组合是<b>周五设 MinLOS 两晚，周日设 CTA</b>。<br>周五起住两晚，把周五和周六串起来；周日不允许新入住，只能从周六连过来。<br>这三天就被串成了一个两晚的产品，前后两天的空房都被带动。<br>至于 CTD？这里<b>不需要</b>——它会限制周五入住的客人，反而减少订单。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">151 / 259</div></div><div class="slide s-play" data-sec="4-2 最短住期与限制条件" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 4-2 节 · 最短住期与限制条件</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">剂量：从最轻开始 + 必须提前明示</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">最后两条纪律。<br>第一，<b>剂量从最轻开始</b>。有店第一次用 MinLOS 就设三晚，结果预订暴跌一半，赶紧撤了。<br>正确做法是先设两晚，观察 pickup，反应不大再加码。<br>第二，<b>必须提前明示</b>。房型名称后面要写两晚起，预订页面要写清楚。<br>客人不反感条件，反感的是到了才知道。<br>还有一条：活动日过后<b>记得撤掉</b>，忘了撤会持续损失订单。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">152 / 259</div></div><div class="slide s-play" data-sec="4-2 最短住期与限制条件" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 4-2 节 · 最短住期与限制条件</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：限制条件五行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张五行表：何时设、设哪个、设几晚、在哪几个渠道生效、什么时候撤。<br>核心一条：<b>所有渠道必须一致，否则客人会投诉。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">153 / 259</div></div><div class="slide s-play" data-sec="4-2 最短住期与限制条件" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 4-2 节 · 最短住期与限制条件</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：超额预订</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：MinLOS 管连住，CTA 管入住，CTD 管离店，剂量从两晚开始。<br>下一节讲一个听起来很吓人、其实很科学的做法——<b>超额预订。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">154 / 259</div></div><div class="slide s-cover" data-sec="4-3 超额预订" data-a="0" data-b="0">
+    <div class="no">第 4-3 节</div>
+    <div class="tt">超额预订</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">按历史取消率定额度，分房型设置，必须留升级池</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">155 / 259</div></div><div class="slide s-play" data-sec="4-3 超额预订" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 4-3 节 · 超额预订</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：明知会有人不来，能不能多卖几间？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">每天都有客人取消、都有人订了不来。房间就这么空着了吗？<br>能不能多卖几间，赌一把？<br>可以，而且必须做——但要讲方法。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">156 / 259</div></div><div class="slide s-play" data-sec="4-3 超额预订" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 4-3 节 · 超额预订</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">为什么可以超售：取消率是可预测的</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">为什么可以超售？因为<b>取消和不到是可预测的</b>。<br>只要你记录了过去三个月的数据，就知道每个星期几大概有多少人取消、多少人 No-show。<br>假设周三平均取消 7%，No-show 4%，合计 11%。<br>那 100 间房，理论上可以超售 11 间。<br>这不是赌博，这是概率。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">157 / 259</div></div><div class="slide s-play" data-sec="4-3 超额预订" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 4-3 节 · 超额预订</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">为什么要打折：增量收益递减，风险递增</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">但实际不能按理论值满打满算，要打折。为什么？<br>因为<b>增量收益递减，风险递增</b>。<br>超售从 6 间加到 10 间，收益多 1200，但 walk 风险从 2% 涨到 8%。<br>再从 10 间加到 14 间，收益只多 600，风险却涨到 20%。<br>第 11 间以后的性价比急剧下降。<br>所以经验做法是：<b>理论值减半左右，再按当天情况调整。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">158 / 259</div></div><div class="slide s-play" data-sec="4-3 超额预订" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 4-3 节 · 超额预订</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">四个调整因素（紧俏、团队、周边、确认）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">具体怎么调？看四个因素。<br>第一，<b>当天紧不紧俏</b>——越紧俏越要少超，因为真客人都来了你安置不了。<br>第二，<b>团队占比</b>——团队取消率远低于散客，团队多就要少超。<br>第三，<b>周边有没有同档酒店</b>——有地方安置可以多超一点，没有就保守。<br>第四，<b>有没有做到店确认</b>——发过短信确认的，No-show 会明显下降，可以多超一点。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">159 / 259</div></div><div class="slide s-play" data-sec="4-3 超额预订" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 4-3 节 · 超额预订</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">分房型 + 升级池：套房绝不超售</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">最后两条铁律。<br>第一，<b>必须分房型设置</b>。比如标准房超 6 间，套房<b>一间都不超</b>。<br>为什么？因为套房无法用升级来补救——一旦超了只能外送客人，代价极高。<br>第二，<b>必须留升级池</b>。每晚预留 2 到 3 间高房型不卖，专门用来补救。<br>这两条做到，walk 风险能降到接近零。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">160 / 259</div></div><div class="slide s-play" data-sec="4-3 超额预订" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 4-3 节 · 超额预订</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：超售七行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张七行表：历史取消率、No-show 率、四个调整因素、最终额度、分房型怎么分、升级池留几间、预案。<br>核心一条：<b>有超售就必须有升级池，没有升级池的超售是裸奔。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">161 / 259</div></div><div class="slide s-play" data-sec="4-3 超额预订" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 4-3 节 · 超额预订</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：保护位</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：超售按历史数据定、分房型设、留升级池。<br>下一节是全书<b>最反直觉</b>的一节——保护位，也就是有房不卖。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">162 / 259</div></div><div class="slide s-cover" data-sec="4-4 保护位与库存分配" data-a="0" data-b="0">
+    <div class="no">第 4-4 节</div>
+    <div class="tt">保护位与库存分配</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">低价上限等于可用房减保护位；且必须随时间释放</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">163 / 259</div></div><div class="slide s-play" data-sec="4-4 保护位与库存分配" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 4-4 节 · 保护位与库存分配</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">冲突：明明有房，为什么不卖？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">销售跑来质问：系统里明明还有 18 间房，为什么不让我卖？<br>这一节我要告诉你：<b>有时候最好的销售动作，就是不卖。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">164 / 259</div></div><div class="slide s-play" data-sec="4-4 保护位与库存分配" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 4-4 节 · 保护位与库存分配</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">保护位是什么 + 低价上限公式</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">这 18 间叫<b>保护位</b>，是留给高价客人的。<br>公式很简单：<b>低价房的上限 = 可用房 − 保护位</b>。<br>比如剩 30 间，预计高价客会要 18 间，那保护位就是 18，低价最多只能卖 12 间。<br>卖了 12 间之后，即使系统显示还有房，也<b>必须把低价档关掉</b>。<br>这一步最需要纪律。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">165 / 259</div></div><div class="slide s-play" data-sec="4-4 保护位与库存分配" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 4-4 节 · 保护位与库存分配</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">Littlewood 判据：低价要抵得上机会成本才卖</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">那保护位怎么定？用一个判据，叫 Littlewood。<br>规则是：<b>只有当低价房的收入，大于等于高价房收入乘以高价客出现的概率时，才卖给低价客。</b><br>假设低价 400，高价 700，高价客出现的概率 70%。<br>400 对比 700 乘 0.7 等于 490。<br>400 小于 490，所以<b>不卖</b>，留着等高价客。<br>这就是保护位的数学依据——它依然是机会成本。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">166 / 259</div></div><div class="slide s-play" data-sec="4-4 保护位与库存分配" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 4-4 节 · 保护位与库存分配</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">最关键：保护位必须动态释放</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">下面是这一节<b>最重要的一点</b>：保护位不是设一次就固定的，它<b>必须随时间释放</b>。<br>看一组数：D-7 时保护位 18，低价上限 12。<br>到了 D-4，高价客只订了 7 间，剩余期望降到 11，保护位就降到 11，上限升到 19。<br>到了 D-2，高价只订了 9 间，明显低于预测，保护位降到 8，基本放开。<br><b>如果你 D-1 还死守 18 间，那 9 间房就白白空掉。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">167 / 259</div></div><div class="slide s-play" data-sec="4-4 保护位与库存分配" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 4-4 节 · 保护位与库存分配</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算例：D-7 到 D-1 的五次重算</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们把整条线走一遍。剩 30 间，高价 700，低价 400。<br>D-7：高价期望 18，保护位 18，低价最多卖 12。<br>D-5：高价实订 6，保护位 16，上限 14。<br>D-4：高价实订 7，保护位 12，上限 18。<br>D-2：高价实订 9，保护位 8，上限 22。<br>D-1：高价实订 10，保护位 5，基本放开。<br>看出规律了吗？<b>保护位一路递减。判断依据永远是剩余期望需求，不是最初设的那个数。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">168 / 259</div></div><div class="slide s-play" data-sec="4-4 保护位与库存分配" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 4-4 节 · 保护位与库存分配</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：保护位七行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张七行表：高价期望需求怎么估、保护位怎么算、上限多少、多久重算、什么时候释放、释放到多少、低价档什么时候关。<br>核心一条：<b>保护位每天重算，死守不放和一开始就不留，是同样严重的错误。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">169 / 259</div></div><div class="slide s-play" data-sec="4-4 保护位与库存分配" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 4-4 节 · 保护位与库存分配</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：升级池</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：低价上限等于可用房减保护位，而且每天要重算。<br>下一节讲一个常被忽略、但关键时刻能救命的东西——<b>升级池。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">170 / 259</div></div><div class="slide s-cover" data-sec="4-5 升级池与客房补救" data-a="0" data-b="0">
+    <div class="no">第 4-5 节</div>
+    <div class="tt">升级池与客房补救</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">留 2–3 间不卖，是成本最低的保险</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">171 / 259</div></div><div class="slide s-play" data-sec="4-5 升级池与客房补救" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 4-5 节 · 升级池与客房补救</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">场景：房全卖光了，结果来了一个必须照顾的客人</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">房全卖光了，结果晚上来了三种人：白金会员要求升级、有间房空调坏了要换房、还有一位客人投诉要补救。<br>你怎么办？<br>如果你把最高房型 100% 卖光了，你一个办法都没有。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">172 / 259</div></div><div class="slide s-play" data-sec="4-5 升级池与客房补救" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 4-5 节 · 升级池与客房补救</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">什么是升级池，为什么必须留</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">所以要留<b>升级池</b>——每晚预留 2 到 3 间高房型<b>不卖</b>。<br>它的用途有三个：<br>第一，<b>会员升级</b>——很多酒店对高等级会员承诺了升级权益，不给就是违约。<br>第二，<b>超售补救</b>——上一节说过，超售必须有升级池兜底。<br>第三，<b>服务补救</b>——房间出问题、客人投诉，需要换房安抚。<br>这三种情况都有一个共同点：<b>发生时你没得商量，只能立刻拿出房来。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">173 / 259</div></div><div class="slide s-play" data-sec="4-5 升级池与客房补救" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 4-5 节 · 升级池与客房补救</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算例：留 3 间的成本 vs 一次差评的代价</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">算一笔账。留 3 间不卖，按 600 块算，损失 1800 块。<br>但一次处理不了会怎样？<br>会员投诉、平台差评。按经验，评分每降 0.1，你要降价 2% 到 5% 才能维持转化。<br>一家 200 间房的店，降 3% 就是每天少 3600 块。<br><b>1800 换 3600，而且后者的损失是长期的。</b><br>所以升级池不是浪费，是保险。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">174 / 259</div></div><div class="slide s-play" data-sec="4-5 升级池与客房补救" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 4-5 节 · 升级池与客房补救</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">留多少、留哪种、什么时候可以放出来</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">具体怎么操作？<br><b>留多少</b>：通常是高房型的 5% 到 10%，或者固定 2 到 3 间。<br><b>留哪种</b>：留最高房型或次高房型，不要留中间房型——中间房型升不上去也没法补救。<br><b>什么时候放</b>：到当天下午 6 点，如果确认没有升级需求、超售也没超，就可以放出来卖。<br><b>原则是不浪费，但不能提前放。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">175 / 259</div></div><div class="slide s-play" data-sec="4-5 升级池与客房补救" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 4-5 节 · 升级池与客房补救</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">三种补救场景的标准动作</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">三种场景的标准动作，我一次说清。<br><b>会员升级</b>：到店前 24 小时预排，不要等客人到了才找房。<br><b>超售补救</b>：优先升级，其次同档外送，外送要包车费和差价。<br><b>故障换房</b>：先道歉再换房，换房后 30 分钟内跟进一次。<br>三条都有同一个要求：<b>提前预排，别临场找房。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">176 / 259</div></div><div class="slide s-play" data-sec="4-5 升级池与客房补救" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 4-5 节 · 升级池与客房补救</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">模块四收束：三句话</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">模块四到这里结束，记住三句话：<br>第一，价差按价值差定，用售罄顺序诊断。<br>第二，保护位每天重算，死守不放等于白留。<br>第三，留 2 到 3 间升级池，这是成本最低的保险。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">177 / 259</div></div><div class="slide s-play" data-sec="4-5 升级池与客房补救" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 4-5 节 · 升级池与客房补救</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：模块五 流量战场</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">从下一节进入模块五——流量战场。<br>第一课先纠正一个几乎全行业都在犯的错误：<b>比价格比错了。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">178 / 259</div></div><div class="slide s-cover" data-sec="5-1 渠道净价" data-a="0" data-b="0">
+    <div class="no">第 5-1 节</div>
+    <div class="tt">渠道净价</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">到手多少钱才算数；比净价不比挂牌价</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">179 / 259</div></div><div class="slide s-play" data-sec="5-1 渠道净价" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 5-1 节 · 渠道净价</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：OTA 卖 500，直销卖 480，哪个赚？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">OTA 卖 500，自家官网卖 480，哪个赚钱？<br>大部分人会说 OTA，因为 500 比 480 多。<br>这个答案是错的。这一节给你一个必须刻在脑子里的概念。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">180 / 259</div></div><div class="slide s-play" data-sec="5-1 渠道净价" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 5-1 节 · 渠道净价</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">净价定义与算法</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">这个概念叫<b>净价</b>：扣掉所有渠道成本之后，你真正拿到手的钱。<br>公式：净价 = 售价 ×（1 − 佣金率）− 其他成本。<br>OTA 卖 500，佣金 15%，净价是 500 × 0.85 = <b>425</b>。<br>官网卖 480，支付手续费 2%，净价是 480 × 0.98 ≈ <b>470</b>。<br>480 的直销，比 500 的 OTA <b>多赚 45 块</b>。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">181 / 259</div></div><div class="slide s-play" data-sec="5-1 渠道净价" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 5-1 节 · 渠道净价</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">四渠道净价对照（算例）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们把常见渠道都算一遍。假设挂牌都是 500：<br>OTA 佣金 15%：净价 425。<br>批发商佣金 10%：净价 450。<br>协议客户佣金 8%：净价 460。<br>直销手续费 2%：净价 490。<br>同样是 500 的房价，到手相差最多 65 块，<b>超过 13%</b>。<br>这就是为什么渠道结构比挂牌价更重要。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">182 / 259</div></div><div class="slide s-play" data-sec="5-1 渠道净价" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 5-1 节 · 渠道净价</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">隐性成本：返现、积分、促销</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">还有一层要注意：<b>隐性成本</b>。<br>合同上写的佣金是 15%，但实际还有平台返现、积分抵扣、促销补贴。<br>这些加起来，真实成本常常到 18% 甚至 20%。<br>所以判断一个渠道值不值，不能只问佣金多少，要问财务：<b>这个渠道去年前前后后一共拿走多少？</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">183 / 259</div></div><div class="slide s-play" data-sec="5-1 渠道净价" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 5-1 节 · 渠道净价</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">用法：净价决定你该推哪个渠道</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">净价怎么用？它决定你<b>该把房给谁</b>。<br>同样的房，给直销多赚 65 块，那你当然应该想办法把客人引到直销。<br>但要注意：直销也有获客成本，不能简单地说 OTA 就该砍掉。<br>正确的做法是算<b>边际净价</b>——多一间房给这个渠道，我净赚多少。<br>用边际值比较，才不会做出极端的判断。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">184 / 259</div></div><div class="slide s-play" data-sec="5-1 渠道净价" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 5-1 节 · 渠道净价</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：渠道净价五行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张五行表：各渠道费率、隐性成本清单、净价怎么算、边际净价怎么比、多久更新一次费率。<br>核心一条：<b>永远比净价，不比挂牌价。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">185 / 259</div></div><div class="slide s-play" data-sec="5-1 渠道净价" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 5-1 节 · 渠道净价</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：直销与会员</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：净价才是真实收入，隐性成本别漏。<br>下一节我们顺着这个问题往下：<b>怎么把客人变成自己的。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">186 / 259</div></div><div class="slide s-cover" data-sec="5-2 直销与会员" data-a="0" data-b="0">
+    <div class="no">第 5-2 节</div>
+    <div class="tt">直销与会员</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">给权益不给裸价折扣；裸价会破坏 BAR</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">187 / 259</div></div><div class="slide s-play" data-sec="5-2 直销与会员" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 5-2 节 · 直销与会员</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：为什么酒店都想做直销？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">为什么所有酒店都想做直销？<br>因为省钱。但省多少，很少有人算清楚。这一节我们先算账，再讲怎么做。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">188 / 259</div></div><div class="slide s-play" data-sec="5-2 直销与会员" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 5-2 节 · 直销与会员</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算账：转移 10 个百分点省多少</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">我们来算。年售 2 万间夜，售价 500，OTA 佣金 15%。<br>现在直销占 20%，如果提到 30%，转移了 2000 间夜。<br>节约的佣金 = 2000 × 500 × 15% = <b>15 万</b>。<br>如果提到 40%，转移 4000 间夜，节约 30 万。<br>这就是为什么直销值得做——<b>它直接等于利润，不需要多卖一间房。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">189 / 259</div></div><div class="slide s-play" data-sec="5-2 直销与会员" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 5-2 节 · 直销与会员</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">但要减掉权益成本</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">不过要减掉成本。客人为什么愿意走直销？因为你给了好处。<br>假设你给的是：房型升级（成本 30）、双早（成本 40）、积分（成本 15）。<br>每间成本 85。转移 2000 间夜，成本 17 万。<br>节约 15 万，成本 17 万——<b>反而亏了 2 万</b>。<br>所以会员权益必须精打细算，<b>不能给得起就给</b>。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">190 / 259</div></div><div class="slide s-play" data-sec="5-2 直销与会员" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 5-2 节 · 直销与会员</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">关键原则：给权益，不给裸价折扣</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">这里有一条核心原则：<b>给权益，不给裸价折扣。</b><br>同样让客人省 100 块，两种方式后果完全不同。<br>裸价折扣：官网挂 400，所有人都看到了，OTA 会来要求同价，你的 BAR 被打穿。<br>给权益：房价还是 500，但会员登录后有升级、有早餐、有积分。<br>其他渠道看不到一个更低的数字，<b>价格体系完好无损</b>。<br>这就是为什么会员制比打折高级。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">191 / 259</div></div><div class="slide s-play" data-sec="5-2 直销与会员" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 5-2 节 · 直销与会员</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">会员不是终点：分层与复购</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">最后一点：<b>办了卡不等于直销成了。</b><br>很多店会员数很好看，但复购率极低。为什么？<br>因为缺两件事：<b>分层</b>和<b>触达</b>。<br>分层：不同等级的会员给不同权益，让高价值客人有升级动力。<br>触达：离店 7 天回访、生日提醒、积分到期提醒——这些动作成本极低，但对复购影响很大。<br><b>会员的价值在复购，不在办卡数。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">192 / 259</div></div><div class="slide s-play" data-sec="5-2 直销与会员" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 5-2 节 · 直销与会员</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：直销会员五行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张五行表：节约怎么算、权益成本上限、给什么权益、怎么分层、怎么触达。<br>核心一条：<b>权益成本必须小于节约的佣金，否则不如不做。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">193 / 259</div></div><div class="slide s-play" data-sec="5-2 直销与会员" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 5-2 节 · 直销与会员</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：评分就是价格</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：直销省的是佣金，但要减权益成本，而且给权益不给裸价。<br>下一节讲一个跟钱直接相关、却常被当成服务问题的事——<b>评分。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">194 / 259</div></div><div class="slide s-cover" data-sec="5-3 评分就是价格" data-a="0" data-b="0">
+    <div class="no">第 5-3 节</div>
+    <div class="tt">评分就是价格</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">评分每降 0.1，要降价 2–5% 才能维持转化</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">195 / 259</div></div><div class="slide s-play" data-sec="5-3 评分就是价格" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 5-3 节 · 评分就是价格</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：评分从 4.6 掉到 4.3，损失多少钱？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">评分从 4.6 掉到 4.3，损失多少钱？<br>很多人会说：这是服务问题，让前厅去处理。<br>错。这是<b>价格问题</b>，而且损失可以算出来。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">196 / 259</div></div><div class="slide s-play" data-sec="5-3 评分就是价格" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 5-3 节 · 评分就是价格</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">量化：0.1 分 = 2–5% 定价能力</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">先给一个经验值：评分每降 0.1 分，你要<b>降价 2% 到 5%</b> 才能维持同样的转化率。<br>也就是说，评分和价格之间是可以互相换算的。<br>掉 0.3 分，大约相当于损失 6% 到 15% 的定价能力。<br>一家年营收 1000 万的店，这就是 <b>60 万到 150 万</b>。<br>现在你还觉得评分只是服务问题吗？</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">197 / 259</div></div><div class="slide s-play" data-sec="5-3 评分就是价格" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 5-3 节 · 评分就是价格</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">所以：降价补转化是最差的选择</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">既然评分掉了转化就掉，那能不能降价补回来？<br>可以，但这是<b>最差的选择</b>。为什么？<br>第一，降价掩盖了真问题——差评还在，根因没解决。<br>第二，降价不可逆——等评分修好了，价格涨不回去了。<br>第三，你会陷入恶性循环：降价 → 利润变薄 → 服务投入减少 → 评分继续掉。<br><b>正确顺序是先修因，再修分。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">198 / 259</div></div><div class="slide s-play" data-sec="5-3 评分就是价格" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 5-3 节 · 评分就是价格</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">正确三步：修因 → 回复 → 回升后提价</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">正确做法三步。<br><b>第一步，修因</b>：把最近 30 条差评归类，找出最集中的问题。通常是两三个：前台等待长、空调不制冷、卫生问题。集中资源先修这几个。<br><b>第二步，回复</b>：24 小时内公开回复每一条差评。记住，回复是写给<b>潜在客人</b>看的，不是写给差评者本人看的。<br><b>第三步，回升后提价</b>：评分回到 4.5 之后，<b>同步上调 BAR 3% 到 5%</b>。<br>这一步最常被漏掉——很多人修好了评分，价格却忘了涨回去，等于白修。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">199 / 259</div></div><div class="slide s-play" data-sec="5-3 评分就是价格" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 5-3 节 · 评分就是价格</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">红线：不得刷评、诱导好评</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">最后一条是红线：<b>绝对不能刷评或诱导好评。</b><br>包括：让员工写好评、用小礼品换好评、找刷单团队。<br>平台对这类行为的处罚很重：降权、扣分、甚至下架。<br>一次违规的风险，远大于评分提升带来的那点收益。<br><b>这条没有例外。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">200 / 259</div></div><div class="slide s-play" data-sec="5-3 评分就是价格" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 5-3 节 · 评分就是价格</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：评分四行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张四行表：损失怎么算、先修什么、怎么回复、回升后做什么。<br>核心一条：<b>修好评分后必须同步提价，否则等于白修。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">201 / 259</div></div><div class="slide s-play" data-sec="5-3 评分就是价格" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 5-3 节 · 评分就是价格</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：价格倒挂与渠道冲突</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：评分是价格，先修因再修分，回升后要提价。<br>下一节讲渠道里最头疼的问题——<b>价格倒挂。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">202 / 259</div></div><div class="slide s-cover" data-sec="5-4 价格倒挂与渠道冲突" data-a="0" data-b="0">
+    <div class="no">第 5-4 节</div>
+    <div class="tt">价格倒挂与渠道冲突</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">一致性、配额、底线——渠道治理三条原则</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">203 / 259</div></div><div class="slide s-play" data-sec="5-4 价格倒挂与渠道冲突" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 5-4 节 · 价格倒挂与渠道冲突</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">场景：客人拿着 OTA 的价格来前台要低价</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">客人拿着手机说：你看，你们官网 500，这个平台才 430，给我 430 吧。<br>这就是价格倒挂。它几乎每个店都遇到过，而且处理错了会引发连锁问题。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">204 / 259</div></div><div class="slide s-play" data-sec="5-4 价格倒挂与渠道冲突" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 5-4 节 · 价格倒挂与渠道冲突</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">倒挂是怎么产生的</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">先说倒挂怎么来的。常见三种原因：<br>第一，<b>平台补贴</b>——平台自己贴钱做促销，你的结算价没变，但客人看到的价格低了。<br>第二，<b>批发商甩卖</b>——你把房批发给中间商，中间商低价甩给别的平台。<br>第三，<b>渠道私自改价</b>——某些渠道为了冲量，自己降价卖，差额自己补。<br>三种里最麻烦的是第三种，因为你完全不知情。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">205 / 259</div></div><div class="slide s-play" data-sec="5-4 价格倒挂与渠道冲突" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 5-4 节 · 价格倒挂与渠道冲突</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">三条治理原则之：价格一致性</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">治理倒挂有三条原则。第一条，<b>价格一致性</b>。<br>同一种产品、同一种条件，在所有渠道应该同一个价。<br>注意这句话的关键：<b>同产品、同条件</b>。<br>不可取消的房和可以取消的房，价格本来就可以不同——这不是倒挂，这是产品差异。<br>倒挂是指：<b>一模一样的东西，在不同地方卖不同的价。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">206 / 259</div></div><div class="slide s-play" data-sec="5-4 价格倒挂与渠道冲突" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 5-4 节 · 价格倒挂与渠道冲突</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">配额管理与底线守则</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">第二条，<b>配额管理</b>。给每个渠道设定每日可售数量上限。<br>好处是：即使某个渠道乱来，影响也被限制在配额内；而且你能控制渠道结构不被单一渠道绑架。<br>第三条，<b>底线守则</b>。两条硬线不能破：<br>价格不低于变动成本，以及不破坏 BAR 层级。<br>任何渠道、任何时候，这两条都是红线。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">207 / 259</div></div><div class="slide s-play" data-sec="5-4 价格倒挂与渠道冲突" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 5-4 节 · 价格倒挂与渠道冲突</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">被发现倒挂时的标准动作</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">发现倒挂了怎么办？按顺序做三件事。<br>第一，<b>取证</b>——截图存证，记录时间、平台、价格、房型、条件。<br>第二，<b>沟通</b>——联系渠道要求改回或下架，态度要坚决但留记录。<br>第三，<b>配额惩罚</b>——不改就削减配额，这是你唯一真正有效的筹码。<br>不要用口头抱怨替代这三步，<b>没有记录的沟通等于没发生。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">208 / 259</div></div><div class="slide s-play" data-sec="5-4 价格倒挂与渠道冲突" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 5-4 节 · 价格倒挂与渠道冲突</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：渠道治理五行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张五行表：怎么判断是否倒挂、三条原则、发现后三步、配额怎么设、什么情况终止合作。<br>核心一条：<b>一致性是原则，配额是手段，底线是红线。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">209 / 259</div></div><div class="slide s-play" data-sec="5-4 价格倒挂与渠道冲突" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 5-4 节 · 价格倒挂与渠道冲突</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：渠道结构规划</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：一致性管原则，配额管手段，底线是不能碰的红线。<br>下一节是模块五最后一节：<b>渠道结构到底该怎么配。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">210 / 259</div></div><div class="slide s-cover" data-sec="5-5 渠道结构规划" data-a="0" data-b="0">
+    <div class="no">第 5-5 节</div>
+    <div class="tt">渠道结构规划</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">各渠道占比上限；单一渠道过高即失控</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">211 / 259</div></div><div class="slide s-play" data-sec="5-5 渠道结构规划" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 5-5 节 · 渠道结构规划</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：OTA 占多少算健康？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">OTA 占到多少算健康？<br>30%？50%？70%？<br>这一节我给你一个判断方法，而不是一个固定数字。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">212 / 259</div></div><div class="slide s-play" data-sec="5-5 渠道结构规划" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 5-5 节 · 渠道结构规划</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">为什么单一渠道过高危险</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">先说为什么单一渠道占比过高危险。三个原因：<br>第一，<b>议价权丧失</b>——占到 70% 以后，佣金涨一点你也没办法。<br>第二，<b>成本被锁死</b>——想转直销也转不动，因为客人都在那边找你。<br>第三，<b>风险集中</b>——平台一次规则调整或降权，你的生意立刻腰斩。<br>所以结构上必须留余地。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">213 / 259</div></div><div class="slide s-play" data-sec="5-5 渠道结构规划" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 5-5 节 · 渠道结构规划</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">参考区间（按酒店类型）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给个参考区间，但请按自己的情况调整。<br><b>商务型城市酒店</b>：协议与直销可以做到 50% 到 60%，OTA 控制在 30% 左右。<br><b>度假型酒店</b>：OTA 占比通常更高，40% 到 50% 也正常，因为客源更依赖平台。<br><b>新开业酒店</b>：前期 OTA 高一些是合理的，但要在 12 个月内降到目标区间。<br><b>关键是要有目标，并且每月看一次实际占比。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">214 / 259</div></div><div class="slide s-play" data-sec="5-5 渠道结构规划" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 5-5 节 · 渠道结构规划</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">怎么调：不是砍 OTA，是加直销</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">这里说一个常见的错做法：<b>直接砍 OTA 配额。</b><br>这样做的结果是：总量立刻掉下来，因为直销补不上。<br>正确顺序是<b>先把直销做起来，再逐步收 OTA</b>。<br>每提升 5 个百分点的直销，就收 3 个百分点的 OTA，留 2 个百分点作为缓冲。<br><b>替代先行，收缩在后。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">215 / 259</div></div><div class="slide s-play" data-sec="5-5 渠道结构规划" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 5-5 节 · 渠道结构规划</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">月度复盘看什么</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">最后说月度复盘看什么。四个数：<br>第一，<b>各渠道占比</b>——有没有偏离目标。<br>第二，<b>各渠道净价</b>——费率有没有变化，隐性成本有没有增加。<br>第三，<b>各渠道取消率</b>——取消率高的渠道，实际价值要打折。<br>第四，<b>新增客源占比</b>——这个渠道是带来新客人，还是在抢你自己的老客。<br>四个数一起看，才知道渠道结构是不是健康。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">216 / 259</div></div><div class="slide s-play" data-sec="5-5 渠道结构规划" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 5-5 节 · 渠道结构规划</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">模块五收束：三句话</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">模块五到这里结束，记住三句话：<br>第一，永远比净价，不比挂牌价。<br>第二，评分就是价格，修好后要同步提价。<br>第三，渠道结构要有目标，替代先行、收缩在后。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">217 / 259</div></div><div class="slide s-play" data-sec="5-5 渠道结构规划" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 5-5 节 · 渠道结构规划</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：模块六 体系构建</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">从下一节进入最后一个模块——体系构建。<br>第一课我要纠正一个普遍误解：<b>收益管理不是每天调价。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">218 / 259</div></div><div class="slide s-cover" data-sec="6-1 运营全景：从年到日" data-a="0" data-b="0">
+    <div class="no">第 6-1 节</div>
+    <div class="tt">运营全景：从年到日</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">日只是最后一环；前面还有年、季、月、周</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">219 / 259</div></div><div class="slide s-play" data-sec="6-1 运营全景：从年到日" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 6-1 节 · 运营全景：从年到日</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：收益管理，是不是每天调价？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">很多人以为收益管理就是每天调价。<br>如果真是这样，那这门课只需要一节课。<br>这一节我要给你看完整的时间轴。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">220 / 259</div></div><div class="slide s-play" data-sec="6-1 运营全景：从年到日" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 6-1 节 · 运营全景：从年到日</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">五层时间轴：年 / 季 / 月 / 周 / 日</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">收益管理的工作分布在五个时间层上。<br><b>年</b>：定目标、拆预算、定价格体系。<br><b>季</b>：更新竞争群、谈协议价、做季度复盘。<br><b>月</b>：复盘纠偏、看 RGI、调整策略。<br><b>周</b>：滚动预测、看未来 14 天、做限制条件。<br><b>日</b>：取数、判表、执行、收口。<br>每天调价只是最下面那一层。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">221 / 259</div></div><div class="slide s-play" data-sec="6-1 运营全景：从年到日" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 6-1 节 · 运营全景：从年到日</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">每一层解决什么（各一句）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">每一层解决的事完全不同，我各说一句。<br>年这一层，解决<b>往哪走</b>——目标定错了，后面全是在错误的方向上努力。<br>季这一层，解决<b>对手变了怎么办</b>——竞争群、协议价、市场结构都在变。<br>月这一层，解决<b>偏差怎么纠</b>——年初定的目标，到三月就得修正。<br>周这一层，解决<b>未来怎么布</b>——提前 7 到 14 天才是能动价的时候。<br>日这一层，解决<b>今天怎么收</b>——临近日期主要是回收和补救。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">222 / 259</div></div><div class="slide s-play" data-sec="6-1 运营全景：从年到日" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 6-1 节 · 运营全景：从年到日</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">最常见的错误：只做最下面一层</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">最常见的错误是什么？<b>只做日这一层。</b><br>很多店的收益工作就是：每天早上看一眼昨天卖了多少，然后调一下价格。<br>这样做等于什么？等于你只在最后一环用力，前面四环全部放弃。<br>而前面四环恰恰决定了大部分结果——<b>目标定错、预算乱拆、竞争群没更新、未来没布价，你今天再怎么调也补不回来。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">223 / 259</div></div><div class="slide s-play" data-sec="6-1 运营全景：从年到日" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 6-1 节 · 运营全景：从年到日</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">怎么排自己的年度节奏</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">那怎么排？给你一个最简版。<br>每年 11 月：做下一年预算与价格体系。<br>每季度首月：更新竞争群、复盘上季度。<br>每月 5 日前：上月复盘，看 RGI 拆 MPI 和 ARI。<br>每周一：滚动看未来 14 天，做限制条件。<br>每天上午：走一遍日流程。<br><b>把这五件事写进日历，比任何方法都重要。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">224 / 259</div></div><div class="slide s-play" data-sec="6-1 运营全景：从年到日" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 6-1 节 · 运营全景：从年到日</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：运营节奏五行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张五行表：五个时间层各自做什么、多久一次、产出了什么、交给谁、怎么检查。<br>核心一条：<b>日只是最后一环，别把全部精力压在这一层。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">225 / 259</div></div><div class="slide s-play" data-sec="6-1 运营全景：从年到日" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 6-1 节 · 运营全景：从年到日</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：每日实操流程</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：五个时间层，日只是最后一环。<br>下一节我们把日这一层拆开——<b>一天到底该怎么过。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">226 / 259</div></div><div class="slide s-cover" data-sec="6-2 每日实操流程" data-a="0" data-b="0">
+    <div class="no">第 6-2 节</div>
+    <div class="tt">每日实操流程</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">取数、判表、执行、收口，四个阶段九个时段</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">227 / 259</div></div><div class="slide s-play" data-sec="6-2 每日实操流程" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 6-2 节 · 每日实操流程</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：收益经理的一天是怎么过的？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">收益经理的一天到底怎么过？<br>很多人以为是看看数据、调调价格。<br>这一节给你完整的时间表。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">228 / 259</div></div><div class="slide s-play" data-sec="6-2 每日实操流程" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 6-2 节 · 每日实操流程</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">四个阶段：取数 → 判表 → 执行 → 收口</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">一天分四个阶段。<br><b>取数</b>——把需要的数字拿齐；<br><b>判表</b>——对照判定表做判断；<br><b>执行</b>——把决定落实成动作；<br><b>收口</b>——记下今天做了什么。<br>四个阶段缺一不可，尤其是最后那个收口，最常被漏。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">229 / 259</div></div><div class="slide s-play" data-sec="6-2 每日实操流程" data-a="150" data-b="300">
+        <div class="topbar">
+          <span class="tm">2:30–5:00</span>
+          <span class="sec">第 6-2 节 · 每日实操流程</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">九个时段（时间表）</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">按时间排下来是这样：<br><b>07:30</b> 取昨天实际与今天在手；<br><b>08:10</b> 走判定表，形成今天的判断；<br><b>08:40</b> 早会同步，把结论交给前厅和销售；<br><b>上午</b> 执行动作——调价、开关档位、设限制条件；<br><b>11:00</b> 看上午 pickup，有异常立刻处理；<br><b>14:00</b> 滚动看未来 7 到 14 天，这是下午最重要的事；<br><b>16:00</b> 看 D-7 和 D-3 的临近日期，做回收；<br><b>17:00</b> 收口，写记录；<br><b>夜班</b> 守夜，处理临时变化。<br>九个时段，各有各的事。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">230 / 259</div></div><div class="slide s-play" data-sec="6-2 每日实操流程" data-a="300" data-b="420">
+        <div class="topbar">
+          <span class="tm">5:00–7:00</span>
+          <span class="sec">第 6-2 节 · 每日实操流程</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">最容易漏的三个环节</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">其中有三个环节最容易被漏，我重点说。<br>第一个，<b>下午看未来</b>。很多店的人下午没事干，因为上午已经调完价了。这是错的——下午必须看未来 7 到 14 天，那才是还能动手的窗口。<br>第二个，<b>D-7 和 D-3 的回收</b>。临近日期需求会突然变化，不回收就会漏赚或空房。<br>第三个，<b>收口</b>。不记录，三天后你就说不清自己为什么这么调，更没法复盘。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">231 / 259</div></div><div class="slide s-play" data-sec="6-2 每日实操流程" data-a="420" data-b="510">
+        <div class="topbar">
+          <span class="tm">7:00–8:30</span>
+          <span class="sec">第 6-2 节 · 每日实操流程</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">必看六个数字</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">每天必看的数，我给你六个：<br>今天在手、昨日实际、未来 7 天在手、竞品均价、昨日取消与 No-show、本月累计 RGI。<br>这六个数覆盖了：今天、昨天、未来、竞争、风险、全局。<br>把这六个做成一张表，每天早上十分钟就能看完。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">232 / 259</div></div><div class="slide s-play" data-sec="6-2 每日实操流程" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 6-2 节 · 每日实操流程</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：每日流程七行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张七行表：四个阶段、九个时段、六个必看数、五个动作、三条红线。<br>核心一条：<b>收口必须写清改了什么、为什么、谁批、明天复核什么。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">233 / 259</div></div><div class="slide s-play" data-sec="6-2 每日实操流程" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 6-2 节 · 每日实操流程</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：收益例会</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：四个阶段，下午看未来，收口必写。<br>下一节讲把这些串起来的机制——<b>收益例会。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">234 / 259</div></div><div class="slide s-cover" data-sec="6-3 收益例会怎么开" data-a="0" data-b="0">
+    <div class="no">第 6-3 节</div>
+    <div class="tt">收益例会怎么开</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">固定议程 45 分钟；超时说明把讨论当成了决策</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">235 / 259</div></div><div class="slide s-play" data-sec="6-3 收益例会怎么开" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 6-3 节 · 收益例会怎么开</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：你们的会为什么开不完？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">很多店的收益例会一开就是两小时，最后还不欢而散。<br>为什么开不完？<br>因为你把<b>讨论</b>当成了<b>决策</b>。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">236 / 259</div></div><div class="slide s-play" data-sec="6-3 收益例会怎么开" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 6-3 节 · 收益例会怎么开</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">三段式议程：回顾过去 / 分析现状 / 决策未来</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">标准议程三段。<br>第一段，<b>回顾过去</b>：上周实际与目标对比，差在哪。<br>第二段，<b>分析现状</b>：在手、pickup、竞品、风险，形成判断。<br>第三段，<b>决策未来</b>：未来两周做什么，谁负责，什么时候复核。<br>三段各占三分之一时间，每一段都必须产出结论。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">237 / 259</div></div><div class="slide s-play" data-sec="6-3 收益例会怎么开" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 6-3 节 · 收益例会怎么开</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">45 分钟怎么分配 + 谁参加</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">时间怎么分配？45 分钟版本：<br>回顾过去 10 分钟，分析现状 15 分钟，决策未来 15 分钟，机动 5 分钟。<br>参加的人：收益负责人主持，销售、前厅、餐饮各派一人，财务可选。<br>不用所有人都来，<b>但销售必须在场</b>——因为大部分冲突发生在收益和销售之间。<br>每周固定一次，别改成有事才开。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">238 / 259</div></div><div class="slide s-play" data-sec="6-3 收益例会怎么开" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 6-3 节 · 收益例会怎么开</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">每条结论的三个要素</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">每条结论必须带三样东西，缺一不可。<br>第一，<b>结论本身</b>——做什么，不做什么。<br>第二，<b>责任人</b>——谁去做。<br>第三，<b>复核时间</b>——什么时候看结果。<br>我见过太多会议记录只有讨论过程，没有这三样。<br><b>没有责任人和复核时间的结论，等于没结论。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">239 / 259</div></div><div class="slide s-play" data-sec="6-3 收益例会怎么开" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 6-3 节 · 收益例会怎么开</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">冲突怎么裁：优先级仲裁</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">会议里最常出现的是冲突。怎么办？<br>用<b>优先级仲裁</b>：收入最大化，大于库存保护，大于客情，大于方便。<br>下位不能推翻上位。比如不能因为方便就破坏库存保护。<br>关键点是：<b>用数据裁决，不是用职位裁决。</b><br>让判定表说话，而不是让总监说话。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">240 / 259</div></div><div class="slide s-play" data-sec="6-3 收益例会怎么开" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 6-3 节 · 收益例会怎么开</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：例会五行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张五行表：议程三段、时间分配、参加人、结论三要素、冲突怎么裁。<br>核心一条：<b>会议超时，说明你在讨论而不是决策——回到判定表。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">241 / 259</div></div><div class="slide s-play" data-sec="6-3 收益例会怎么开" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 6-3 节 · 收益例会怎么开</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：年度预算分解</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：三段议程，结论带责任人和复核时间，冲突用优先级仲裁。<br>下一节讲很多店做错的一件事——<b>年目标怎么拆。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">242 / 259</div></div><div class="slide s-cover" data-sec="6-4 年度预算分解" data-a="0" data-b="0">
+    <div class="no">第 6-4 节</div>
+    <div class="tt">年度预算分解</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">月指数 × 星期几 × 事件日；严禁平均分成十二份</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">243 / 259</div></div><div class="slide s-play" data-sec="6-4 年度预算分解" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 6-4 节 · 年度预算分解</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：年目标 1200 万，每月多少？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">年目标 1200 万，每个月多少？<br>大部分人脱口而出：100 万。<br>这个答案，会让你的店在淡季拼命、在旺季浪费。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">244 / 259</div></div><div class="slide s-play" data-sec="6-4 年度预算分解" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 6-4 节 · 年度预算分解</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">为什么不能平均分</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">为什么不能平均分？因为每个月的需求根本不一样。<br>举个极端的例子：一家商务酒店，1 月指数 0.62，10 月指数 1.18。<br>也就是说 10 月一天的量，差不多是 1 月的两倍。<br>如果都按 100 万下指标：1 月的人拼死也完不成，士气崩了；<br>10 月的人轻松完成，然后就停下来了——<b>白白浪费了最赚钱的那个月。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">245 / 259</div></div><div class="slide s-play" data-sec="6-4 年度预算分解" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 6-4 节 · 年度预算分解</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">月指数法：三步</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">正确做法叫<b>月指数法</b>，三步。<br>第一步，算<b>月指数</b>：用过去两三年的数据，算出每个月占全年的比例，再归一化。<br>第二步，<b>把年目标按指数分到月</b>：某月目标 = 年目标 × 该月指数 ÷ 12 个月指数之和。<br>第三步，<b>再往下拆</b>：从月拆到周，再到每一天，这一步要乘上星期几系数。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">246 / 259</div></div><div class="slide s-play" data-sec="6-4 年度预算分解" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 6-4 节 · 年度预算分解</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">算例：1200 万拆到月，再拆到一周</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">走一遍。12 个月指数加起来是 12。1 月指数 0.62，那 1 月目标就是 1200 × 0.62 ÷ 12 = <b>62 万</b>。<br>10 月指数 1.18，目标就是 <b>118 万</b>。<br>再往下拆到天：假设 10 月有 31 天，平均每天 38000。<br>但周中和周末不一样——周一到周四系数 1.08，周六 0.86。<br>那周一就是 41000，周六就是 32700。<br><b>三层叠加之后，每天的目标才真正可用。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">247 / 259</div></div><div class="slide s-play" data-sec="6-4 年度预算分解" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 6-4 节 · 年度预算分解</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">必须给双目标：OCC 与 ADR</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">最后一条：<b>目标必须是双目标。</b><br>只给收入目标，执行的人不知道该做量还是做价。<br>所以每个月除了收入，还要给<b>OCC 和 ADR 两个分解值</b>。<br>月底复盘时你才知道：没完成，是量没做到，还是价没做到。<br><b>只有收入目标的目标，等于没有目标。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">248 / 259</div></div><div class="slide s-play" data-sec="6-4 年度预算分解" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 6-4 节 · 年度预算分解</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">本节判定表：预算分解五行</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">给你一张五行表：月指数怎么算、怎么拆到周和日、星期几系数、双目标怎么给、多久纠偏一次。<br>核心一条：<b>严禁平均分成十二份，每月复盘纠偏。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">249 / 259</div></div><div class="slide s-play" data-sec="6-4 年度预算分解" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 6-4 节 · 年度预算分解</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">下节预告：从 0 到 1 搭体系</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">记住：月指数 × 星期几 × 事件日三层叠加，还要给双目标。<br>下一节是全部 32 节的最后一节——<b>从 0 到 1 搭起这套体系。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">250 / 259</div></div><div class="slide s-cover" data-sec="6-5 从 0 到 1 搭体系" data-a="0" data-b="0">
+    <div class="no">第 6-5 节</div>
+    <div class="tt">从 0 到 1 搭体系</div>
+    <div class="mt">时长 10 分钟 ｜ 共 7 屏</div>
+    <div class="one">人才、流程、工具三件事；最低配置只需 Excel</div>
+    <div class="hint">空格开始自动播放 ｜ 每屏按标注时长停留</div>
+    <div class="pg">251 / 259</div></div><div class="slide s-play" data-sec="6-5 从 0 到 1 搭体系" data-a="0" data-b="30">
+        <div class="topbar">
+          <span class="tm">0:00–0:30</span>
+          <span class="sec">第 6-5 节 · 从 0 到 1 搭体系</span>
+          <span class="sp"></span>
+          <span class="cnt">1 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">问题：一家店想把收益管理做起来，先做什么？</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">一家店想把收益管理真正做起来，第一步做什么？<br>买系统？招一个收益总监？<br>都不是。这一节给你正确的顺序。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">252 / 259</div></div><div class="slide s-play" data-sec="6-5 从 0 到 1 搭体系" data-a="30" data-b="150">
+        <div class="topbar">
+          <span class="tm">0:30–2:30</span>
+          <span class="sec">第 6-5 节 · 从 0 到 1 搭体系</span>
+          <span class="sp"></span>
+          <span class="cnt">2 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">三件事与其顺序：流程 → 人才 → 工具</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">三件事：流程、人才、工具。<br>顺序很关键，我建议是<b>先流程，再人才，最后工具</b>。<br>为什么？因为工具是为流程服务的。流程没有，买了系统也不知道往里填什么。<br>我见过太多店先花几十万上系统，结果没人用，最后变成一台很贵的计算器。<br><b>先用 Excel 把流程跑通，跑通了再考虑工具。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">253 / 259</div></div><div class="slide s-play" data-sec="6-5 从 0 到 1 搭体系" data-a="150" data-b="270">
+        <div class="topbar">
+          <span class="tm">2:30–4:30</span>
+          <span class="sec">第 6-5 节 · 从 0 到 1 搭体系</span>
+          <span class="sp"></span>
+          <span class="cnt">3 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">最低配置：只需要 Excel 和打印的判定表</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">那最低配置是什么？说出来你可能不信：<b>一台装了 Excel 的电脑，加上打印出来的判定表。</b><br>你需要的东西就这些：<br>一张 pickup 表，记录每天的在手量；<br>一份需求日历，标好每一天的紧俏度；<br>32 张判定表，遇到决定就查；<br>一张月度复盘表。<br>四样东西，全部可以用 Excel 做，<b>不需要任何专业软件</b>。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">254 / 259</div></div><div class="slide s-play" data-sec="6-5 从 0 到 1 搭体系" data-a="270" data-b="390">
+        <div class="topbar">
+          <span class="tm">4:30–6:30</span>
+          <span class="sec">第 6-5 节 · 从 0 到 1 搭体系</span>
+          <span class="sp"></span>
+          <span class="cnt">4 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">人才：不一定要专职，但必须有人负责</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">人才这块说一个现实：小店不一定需要专职收益经理。<br>可以由前厅经理或销售经理<b>兼任</b>，但必须有明确的三件事：<br>第一，<b>明确的职责</b>——谁做决定，谁执行，谁复核。<br>第二，<b>固定的时间</b>——每天至少一小时，每周一次例会。<br>第三，<b>可查的记录</b>——做了什么决定，为什么。<br><b>兼职可以，没人负责不行。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">255 / 259</div></div><div class="slide s-play" data-sec="6-5 从 0 到 1 搭体系" data-a="390" data-b="510">
+        <div class="topbar">
+          <span class="tm">6:30–8:30</span>
+          <span class="sec">第 6-5 节 · 从 0 到 1 搭体系</span>
+          <span class="sp"></span>
+          <span class="cnt">5 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">全书收束：如果只记住三句话</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">到这里，32 节全部结束。如果只能记住三句话，我希望是这三句：<br>第一，<b>卖与不卖，比的都是机会成本</b>——不看能卖多少，看留给后面的人值多少。<br>第二，<b>先动可得性，后动价格</b>——关掉低价档不降 BAR 也能把客群往上推，而且这个动作可逆；降价不可逆。<br>第三，<b>任何决定都要能指到判定表的某一行</b>——说不出依据的决定，不叫决定，只是感觉。<br>做到这三句，这门课你就真的学会了。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">256 / 259</div></div><div class="slide s-play" data-sec="6-5 从 0 到 1 搭体系" data-a="510" data-b="570">
+        <div class="topbar">
+          <span class="tm">8:30–9:30</span>
+          <span class="sec">第 6-5 节 · 从 0 到 1 搭体系</span>
+          <span class="sp"></span>
+          <span class="cnt">6 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">怎么检验自己真懂了</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">最后给你一个检验方法，两道题：<br>第一，合上所有资料，默写出六个模块各解决什么问题。<br>第二，随便拿一个真实场景，独立填出对应的判定表，并说明每一条指到了哪一行。<br>这两道题都能做到，才算真正提纲挈领。<br><b>做不到就回去重看，不要自欺。</b></div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">257 / 259</div></div><div class="slide s-play" data-sec="6-5 从 0 到 1 搭体系" data-a="570" data-b="600">
+        <div class="topbar">
+          <span class="tm">9:30–10:00</span>
+          <span class="sec">第 6-5 节 · 从 0 到 1 搭体系</span>
+          <span class="sp"></span>
+          <span class="cnt">7 / 7</span>
+        </div>
+        <div class="vwrap">
+          <div class="vlb">画面（这一屏 PPT 放什么）</div>
+          <div class="vis">课程结束</div>
+        </div>
+        <div class="swrap">
+          <div class="slb">旁白（可直接念）</div>
+          <div class="say">课程到这里结束。接下来是实战沙盘和综合设计——<b>把这套判定表用在你自己的案例上。</b><br>记住：方法不难，难在每天真的去做。</div>
+        </div>
+        <div class="prog"></div>
+        <div class="pg">258 / 259</div></div><div class="slide s-end" data-sec="结束" data-a="0" data-b="0">
+<div class="t1">32 节全部完成</div>
+<div class="t2">先录第一批 9 节就能支撑一轮开课<br>
+剩下的边开边补，不要等全部录完才开始</div>
+<div class="pg">259 / 259</div></div></div>
+<div id="bar">
+  <button id="prev">←</button><button id="next">→</button>
+  <button id="pb">自动播放</button>
+  <span>速度 <select id="spd"><option value="1">1×</option><option value="1.25">1.25×</option>
+    <option value="1.5">1.5×</option><option value="2">2×</option></select></span>
+  <span class="sp"></span>
+  <span>当前：<b id="csec">—</b></span>
+  <span>屏 <b id="idx">1 / 259</b></span>
+  <span>跳至 <select id="jump"><option value="">— 选一节 —</option><option value="1-1 收益管理是什么">1-1 收益管理是什么</option><option value="1-2 三个核心指标">1-2 三个核心指标</option><option value="1-3 竞争三件套">1-3 竞争三件套</option><option value="1-4 价格弹性">1-4 价格弹性</option><option value="1-5 五个常见误区">1-5 五个常见误区</option><option value="2-1 预测精度就是天花板">2-1 预测精度就是天花板</option><option value="2-2 预订曲线（pickup）怎么看">2-2 预订曲线（pickup）怎么看</option><option value="2-3 需求日历怎么建">2-3 需求日历怎么建</option><option value="2-4 预测准不准怎么量">2-4 预测准不准怎么量</option><option value="2-5 客源细分">2-5 客源细分</option><option value="2-6 每天该看哪几张表">2-6 每天该看哪几张表</option><option value="3-1 BAR：所有价格的锚">3-1 BAR：所有价格的锚</option><option value="3-2 什么时候涨价">3-2 什么时候涨价</option><option value="3-3 竞品降价跟不跟">3-3 竞品降价跟不跟</option><option value="3-4 折扣必须配栅栏">3-4 折扣必须配栅栏</option><option value="3-5 套餐与锚定">3-5 套餐与锚定</option><option value="3-6 团队询价怎么算">3-6 团队询价怎么算</option><option value="4-1 房型价差">4-1 房型价差</option><option value="4-2 最短住期与限制条件">4-2 最短住期与限制条件</option><option value="4-3 超额预订">4-3 超额预订</option><option value="4-4 保护位与库存分配">4-4 保护位与库存分配</option><option value="4-5 升级池与客房补救">4-5 升级池与客房补救</option><option value="5-1 渠道净价">5-1 渠道净价</option><option value="5-2 直销与会员">5-2 直销与会员</option><option value="5-3 评分就是价格">5-3 评分就是价格</option><option value="5-4 价格倒挂与渠道冲突">5-4 价格倒挂与渠道冲突</option><option value="5-5 渠道结构规划">5-5 渠道结构规划</option><option value="6-1 运营全景：从年到日">6-1 运营全景：从年到日</option><option value="6-2 每日实操流程">6-2 每日实操流程</option><option value="6-3 收益例会怎么开">6-3 收益例会怎么开</option><option value="6-4 年度预算分解">6-4 年度预算分解</option><option value="6-5 从 0 到 1 搭体系">6-5 从 0 到 1 搭体系</option></select></span>
+  <button id="fs">全屏 F</button><button id="prt">打印 P</button>
+</div>
+<script>
+(function(){
+  var S=[].slice.call(document.querySelectorAll('.slide')), i=0, timer=null;
+  function dur(el){ var a=el.getAttribute('data-a')||0, b=el.getAttribute('data-b')||0;
+    return Math.max(2,(parseInt(b,10)-parseInt(a,10))); }
+  function go(n){ stop();
+    if(n<0)n=0; if(n>=S.length)n=S.length-1;
+    S[i].classList.remove('on'); i=n; S[i].classList.add('on');
+    document.getElementById('idx').textContent=(i+1)+' / '+S.length;
+    document.getElementById('csec').textContent=S[i].getAttribute('data-sec')||'';
+    var inp=document.getElementById('buf'); if(inp) inp.value=dur(S[i]);
+    try{location.hash='p'+(i+1);}catch(e){}
+  }
+  function step(){ // 自动播放：按本屏时长前进
+    var el=S[i], d=dur(el)*(parseFloat(document.getElementById('spd').value)||1)*1000;
+    var pr=el.querySelector('.prog'); if(pr){pr.style.width='0%';
+      setTimeout(function(){pr.style.transition='width '+d+'ms linear';pr.style.width='100%';},20);}
+    timer=setTimeout(function(){ if(i<S.length-1) go(i+1); else stop(); }, d);
+  }
+  function play(){ stop(); step(); document.getElementById('pb').textContent='暂停';
+    document.getElementById('pb').classList.add('play'); }
+  function stop(){ if(timer){clearTimeout(timer);timer=null;}
+    var b=document.getElementById('pb'); b.textContent='自动播放'; b.classList.remove('play');
+    var pr=(S[i]||{}).querySelector&&S[i].querySelector('.prog'); }
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();go(i+1);}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(i-1);}
+    else if(e.key===' '){e.preventDefault(); if(timer)stop();else play();}
+    else if(e.key==='f'||e.key==='F'){var d=document.getElementById('stage');
+      if(!document.fullscreenElement){d.requestFullscreen&&d.requestFullscreen();}
+      else{document.exitFullscreen&&document.exitFullscreen();}}
+  });
+  document.getElementById('prev').onclick=function(){go(i-1);};
+  document.getElementById('next').onclick=function(){go(i+1);};
+  document.getElementById('pb').onclick=function(){ if(timer)stop();else play(); };
+  document.getElementById('prt').onclick=function(){window.print();};
+  document.getElementById('fs').onclick=function(){var d=document.getElementById('stage');
+    if(!document.fullscreenElement){d.requestFullscreen&&d.requestFullscreen();}
+    else{document.exitFullscreen&&document.exitFullscreen();}};
+  document.getElementById('jump').addEventListener('change',function(){
+    var v=this.value; if(!v)return;
+    for(var k=0;k<S.length;k++){ if(S[k].getAttribute('data-sec')===v){go(k);return;} }
+    var n=parseInt(v,10); if(!isNaN(n))go(n-1);
+  });
+  var h=parseInt((location.hash||'').replace('#p',''),10);
+  go(isNaN(h)?0:h-1);
+})();
+</script>
+</body></html>
