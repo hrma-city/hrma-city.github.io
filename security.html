@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/access-gate.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>站点防护现状与升级路径 · RMC收益管理社区</title>
+<style>
+:root{--navy:#0f2a4a;--blue:#1d6fb8;--gold:#e8b84b;--ink:#1a2733;--mute:#5b6a7d;--line:#e3e8ef;--red:#c0392b;--green:#1a7f4b;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+     color:var(--ink);background:#f5f7fa;line-height:1.85;}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 60px}
+header{background:linear-gradient(140deg,#0f2a4a,#1d6fb8);color:#fff;padding:40px 0 34px;margin-bottom:32px}
+header .in{max-width:900px;margin:0 auto;padding:0 20px}
+header h1{margin:0 0 8px;font-size:26px;letter-spacing:.5px}
+header .s{color:#c6d8ec;font-size:14px}
+h2{font-size:19px;margin:36px 0 14px;padding-left:12px;border-left:4px solid var(--gold)}
+h3{font-size:15.5px;margin:22px 0 8px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;background:#fff;
+      box-shadow:0 1px 3px rgba(16,30,50,.06)}
+th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#eef3f9;font-weight:700;color:var(--navy);font-size:13.5px}
+.box{background:#fff;padding:20px 22px;border-radius:10px;box-shadow:0 1px 3px rgba(16,30,50,.06);margin:16px 0}
+.warn{background:#fdf6e3;border-left:4px solid var(--gold);padding:16px 18px;border-radius:0 8px 8px 0;margin:18px 0}
+.warn b{color:#6b5518}
+.bad{background:#fdecea;border-left:4px solid var(--red);padding:16px 18px;border-radius:0 8px 8px 0;margin:18px 0}
+.good{background:#eaf7f0;border-left:4px solid var(--green);padding:16px 18px;border-radius:0 8px 8px 0;margin:18px 0}
+code{background:#eef1f6;padding:2px 6px;border-radius:4px;font-size:13px;
+     font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+ol,ul{padding-left:22px;margin:10px 0}
+li{margin:6px 0}
+.tag{display:inline-block;font-size:12px;padding:2px 9px;border-radius:20px;margin-right:6px}
+.t-ok{background:#eaf7f0;color:var(--green);border:1px solid #b7e2cb}
+.t-no{background:#fdecea;color:var(--red);border:1px solid #f3c3bd}
+.t-mid{background:#fdf6e3;color:#6b5518;border:1px solid #edd9a0}
+.foot{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--mute)}
+</style>
+</head>
+<body>
+<header><div class="in">
+  <h1>站点防护现状与升级路径</h1>
+  <div class="s">RMC 收益管理社区 · 2026-10-02 · 内部说明，勿外传</div>
+</div></header>
+<div class="wrap">
+
+<h2>一、先讲结论</h2>
+<div class="warn">
+  <b>GitHub Pages 是纯静态托管，没有服务器，所以它做不了真正的登录鉴权。</b><br>
+  现在装上的访问门是<b>浏览器端检查</b>：能挡住搜索引擎、随手点开链接的人、地址被转发扩散；
+  <b>挡不住</b>懂技术的人直接下载源文件。<br>
+  如果你的要求是「资料绝对不能被拿到」，那必须换到有服务器的托管平台（见第五节）。
+</div>
+<p>下面把「现在已经做了什么」「挡得住什么」「还差什么」逐条列清，方便你判断要不要继续投入。</p>
+
+<h2>二、已经做完的四件事</h2>
+<table>
+<tr><th>措施</th><th>覆盖范围</th><th>状态</th></tr>
+<tr><td>全站访问门（邮箱白名单）</td><td>326 个页面，只有 <code>3984557428@qq.com</code> 能进入</td><td><span class="tag t-ok">已上线</span></td></tr>
+<tr><td>robots.txt 全站禁止抓取</td><td>14 个搜索引擎/AI 爬虫 UA 全部 <code>Disallow: /</code></td><td><span class="tag t-ok">已上线</span></td></tr>
+<tr><td>页面 noindex 标签</td><td>293 页补齐（另有 33 页原本就有）</td><td><span class="tag t-ok">已上线</span></td></tr>
+<tr><td>登录页防护说明</td><td>access.html 上明写清能力边界，不制造虚假安全感</td><td><span class="tag t-ok">已上线</span></td></tr>
+</table>
+
+<div class="box">
+<h3>robots.txt 这次是「策略反转」，你要知道为什么</h3>
+<p>原来的 robots.txt 写的是<b>全面放行</b>所有 AI 爬虫（GPTBot、ClaudeBot、Perplexity、百度等），目的是让 AI 搜到并引用你的内容，提升曝光。</p>
+<p>但现在的实际情况是：站点上放着你的<b>教材全文（508KB）、15 张判定表 PDF、讲师版 PPT、报价策略、定价模型</b>——这些是私有资产。原来那份配置等于把它们主动送去给 AI 训练。</p>
+<p><b>所以已改为全站禁止抓取。</b>如果将来你想重新做公开引流，必须先想清楚：哪些页面可以公开，哪些必须留在门后。两件事不能同时要。</p>
+</div>
+
+<h2>三、这层门到底挡得住什么</h2>
+<table>
+<tr><th>场景</th><th>挡得住吗</th><th>说明</th></tr>
+<tr><td>搜索引擎收录你的教材全文</td><td><span class="tag t-ok">挡得住</span></td><td>robots + noindex 双保险</td></tr>
+<tr><td>AI 爬虫抓走内容去训练</td><td><span class="tag t-ok">挡得住</span></td><td>14 个主流爬虫 UA 已明确禁止</td></tr>
+<tr><td>微信里链接被随手转发、同学点开</td><td><span class="tag t-ok">挡得住</span></td><td>会先落到登录页</td></tr>
+<tr><td>同行搜你的书名找到教材</td><td><span class="tag t-ok">挡得住</span></td><td>已不进索引</td></tr>
+<tr><td>普通访客浏览</td><td><span class="tag t-ok">挡得住</span></td><td>需要邮箱验证</td></tr>
+<tr><td>懂技术的人 curl 下载 HTML 源码</td><td><span class="tag t-no">挡不住</span></td><td>静态站的固有限制</td></tr>
+<tr><td>直接下载 zip / pptx / pdf 成品</td><td><span class="tag t-no">挡不住</span></td><td>门只管页面，管不到文件本身</td></tr>
+</table>
+
+<h2>四、还差什么：38 个成品文件仍是敞开的</h2>
+<p>访问门管页面，管不到直接下载的文件。目前全站有 <b>38 个可直接下载的成品</b>，只要有人猜到地址就能拿走，合计约 3.0MB。最值钱的几个：</p>
+<table>
+<tr><th>文件</th><th>体积</th><th>风险</th></tr>
+<tr><td><code>teach/HRMA教学资源包.zip</code></td><td>1.2 MB</td><td><span class="tag t-no">高</span> 整套教学资源打包</td></tr>
+<tr><td><code>series/HRMA收益管理书系-下载.zip</code></td><td>520 KB</td><td><span class="tag t-no">高</span> 32 本口袋书全集</td></tr>
+<tr><td><code>assets/pdf/收益管理15张判定表-口袋本.pdf</code></td><td>216 KB</td><td><span class="tag t-no">高</span> 核心方法论</td></tr>
+<tr><td><code>ppt/HRMA-L1/L2/L3-讲师版.pptx</code></td><td>各约 170 KB</td><td><span class="tag t-no">高</span> 完整授课课件</td></tr>
+<tr><td><code>templates/*.xlsx</code>（8 个）</td><td>约 200 KB</td><td><span class="tag t-mid">中</span> 可直接改用的工作模板</td></tr>
+<tr><td><code>data/*.csv</code>（4 个）</td><td>约 180 KB</td><td><span class="tag t-mid">中</span> 历史经营数据样例</td></tr>
+</table>
+<div class="bad">
+<b>撤下这些文件是有代价的取舍，不是免费操作。</b><br>
+撤下后，<code>resources.html</code>、<code>series/index.html</code>、<code>books.html</code>、<code>coach.html</code> 等页面上的下载链接会失效。<br>
+换句话说：<b>要么成品可下载（方便客户，但也方便别人拿走），要么撤掉（安全，但你自己看东西也不方便）。</b><br>
+目前维持原状未撤，等你决定。
+</div>
+
+<h2>五、如果你要真正的加密级保护</h2>
+<p>这需要把站点迁到<b>有服务器</b>的平台，由服务器在返回内容之前先验身份。三条路：</p>
+
+<h3>路线 A · Cloudflare Access（免费，推荐先试）</h3>
+<p>Cloudflare 的「零信任」网关，可以直接保护 <code>*.pages.dev</code> 域名，不需要买域名。配置大概 20 分钟：</p>
+<ol>
+<li>注册 Cloudflare 账号（免费）</li>
+<li>把 <code>crm/</code> 目录推到 Cloudflare Pages（免费，生成 <code>xxx.pages.dev</code> 地址）</li>
+<li>Zero Trust → Access → Applications → Self-hosted，域名填你的 pages.dev 地址</li>
+<li>登录方式选「One-time PIN（邮箱验证码）」，策略里只填 <code>3984557428@qq.com</code></li>
+<li>之后任何人访问都会先收到 Cloudflare 的验证页，输入邮箱、收到验证码才放行</li>
+</ol>
+<div class="box">
+<b>优点</b>：真正的服务端鉴权，连源码都拿不到；服务器在请求到达前就把人拦了。<br>
+<b>代价</b>：服务器在境外（<code>*.pages.dev</code> 无大陆节点），你自己访问可能慢或偶尔打不开；静态站 55MB 每次都是从境外拉。<br>
+<b>适合</b>：资料以「自己查阅 + 少量熟人」为主，且能接受访问偶尔不稳。
+</div>
+
+<h3>路线 B · 腾讯云（国内最稳，但要备案）</h3>
+<p>项目里已经备好了 <code>deploy_tcb.sh</code>（CloudBase 静态托管）和 <code>国内可用性与备案方案.md</code>。国内访问速度是所有方案里最好的，但需要：买域名 → 提交 ICP 备案（10–20 天）→ 开通环境 → 上传。</p>
+<div class="box">
+<b>优点</b>：国内访问快、稳定，微信里打开体验好。<br>
+<b>代价</b>：备案要 10–20 天且需要你本人操作；纯静态托管<b>同样没有登录功能</b>，还得额外配一层网关。<br>
+<b>适合</b>：确定要长期公开运营、且主要客户在国内。
+</div>
+
+<h3>路线 C · 只保护最值钱的（最省事的折中）</h3>
+<p>接受站点页面继续公开，但把<b>教材全文、书系、PPT、判定表 PDF</b>这四类撤出公开仓库，只在你需要时从本地取用或用带密码的压缩包单独发。</p>
+<div class="good">
+<b>优点</b>：今天就能做完，几乎零成本，立刻堵住最大的漏洞（整包被人拿走）。<br>
+<b>代价</b>：客户要看样章就没法自助下载了，要你手动发。<br>
+<b>适合</b>：你现在还没到需要公开站点引流的阶段——<b>按你当前进度（尚无第一个学校案例），这其实是最匹配的选择。</b>
+</div>
+
+<h2>六、我的建议</h2>
+<div class="box">
+<p><b>先做路线 C，把四个高危成品撤下来。</b>理由：它今天就能做完，能立刻堵住「整包被拿走」这个最大风险，而且不动你的页面结构。</p>
+<p><b>暂时不要为了登录去迁 Cloudflare。</b>你的站点现在几乎没有外部流量（还没有第一个学校案例），迁移带来的访问不稳定风险大于收益。等你真有了客户、站点开始被人访问，再上 Cloudflare Access，那时它的价值才显现。</p>
+<p><b>等真到了要长期公开卖课的那天，再走路线 B 备案 + 国内托管。</b>那时访问速度才会真正影响成交。</p>
+</div>
+
+<h2>七、日常操作备忘</h2>
+<table>
+<tr><th>要做的事</th><th>怎么做</th></tr>
+<tr><td>改完内容重新上线</td><td><code>cd hrma &amp;&amp; zsh sync_gh.sh "说明"</code></td></tr>
+<tr><td>新增页面（自动带门）</td><td>放到 <code>crm/</code> 下，注入器会覆盖；新增后跑一次注入脚本即可</td></tr>
+<tr><td>临时撤销访问门</td><td><code>python3 inject_gate.py --undo</code>，再重新部署</td></tr>
+<tr><td>让所有设备重新验证</td><td>改 <code>access-gate.js</code> 里的 <code>SALT</code> 值即可（旧凭证自动失效）</td></tr>
+<tr><td>改白名单邮箱</td><td>改 <code>access-gate.js</code> 与 <code>access-login.js</code> 里的 <code>EMAIL</code>（两处必须一致）</td></tr>
+<tr><td>撤下可下载成品</td><td>从 <code>crm/</code> 移到 <code>crm/_private/</code>（下划线开头不会被发布），并同步修掉页面里的下载链接</td></tr>
+</table>
+
+<div class="foot">
+RMC 收益管理社区 · 内部技术说明 · 2026-10-02<br>
+本文档含防护弱点，请勿外传或截图给外部。
+</div>
+
+</div>
+</body>
+</html>
