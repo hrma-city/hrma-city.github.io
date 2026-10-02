@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<script>window.HRMA_PREFIX="";</script>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/access-gate.js"></script>
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>酒店收益管理 · 底层逻辑（一页纸 · 分层版）</title>
+<style>
+@page{size:A4;margin:11mm}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;color:#1c2430;background:#fff;font-size:12px;line-height:1.58}
+.sheet{max-width:794px;margin:0 auto}
+.hdr{background:linear-gradient(135deg,#0f2a4a,#1d6fb8);color:#fff;padding:14px 20px;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;align-items:center}
+.hdr .t{font-size:20px;font-weight:800;letter-spacing:.5px}
+.hdr .s{font-size:11px;opacity:.85;margin-top:2px}
+.tag{background:#e8b84b;color:#3a2a00;font-weight:800;font-size:10.5px;padding:4px 9px;border-radius:6px;white-space:nowrap}
+h3{color:#0f2a4a;font-size:13px;font-weight:800;margin:12px 0 6px;padding-bottom:3px;border-bottom:2px solid #e8b84b;display:inline-block}
+.one{background:#fff8e8;border:2px solid #e8b84b;border-radius:10px;padding:11px 14px;margin:11px 0}
+.one .lb{font-size:10.5px;font-weight:800;color:#a8801f;letter-spacing:1.5px;margin-bottom:4px}
+.one .cn{font-size:15px;font-weight:800;color:#0f2a4a;line-height:1.5}
+.one .px{font-size:12.5px;color:#3a2a00;margin-top:7px;padding-top:7px;border-top:1px dashed #e8cf94}
+.three{counter-reset:n;margin:6px 0}
+.three .it{display:flex;gap:8px;padding:5px 0;border-bottom:1px dashed #e6eaf1;font-size:11.8px;color:#3a4b60}
+.three .it:last-child{border-bottom:none}
+.three .no{flex:0 0 auto;width:19px;height:19px;border-radius:50%;background:#1d6fb8;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.three .it b{color:#0f2a4a}
+.four{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:7px 0}
+.aud{background:#fbfcfe;border:1px solid #e2e8ef;border-radius:9px;padding:9px 11px;border-top:3px solid #1d6fb8}
+.aud.kid{border-top-color:#1d9e75}
+.aud.out{border-top-color:#1d6fb8}
+.aud.beg{border-top-color:#0f2a4a}
+.aud.pro{border-top-color:#e8b84b}
+.aud .who{font-size:10.5px;font-weight:800;letter-spacing:1px;margin-bottom:4px}
+.kid .who{color:#1d9e75}.out .who{color:#1d6fb8}.beg .who{color:#0f2a4a}.pro .who{color:#a8801f}
+.aud .say{font-size:12.2px;font-weight:700;color:#0f2a4a;line-height:1.5;margin-bottom:5px}
+.aud ul{list-style:none}
+.aud li{font-size:11px;color:#3a4b60;padding:2px 0 2px 12px;position:relative;line-height:1.55}
+.aud li::before{content:"";position:absolute;left:2px;top:9px;width:5px;height:5px;border-radius:1px;background:#8494a8}
+.aud li b{color:#0f2a4a}
+.foot{margin-top:11px;background:#0f2a4a;color:#cfe0f0;border-radius:0 0 10px 10px;padding:10px 18px;font-size:11.3px;line-height:1.6}
+.foot b{color:#e8b84b}
+@media print{body{background:#fff}.sheet{box-shadow:none}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"onepager-logic","item":"https://hrma-city.github.io/onepager-logic.html"}]}</script>
+</head>
+<body><div class="sheet">
+<div class="hdr">
+  <div><div class="t">酒店收益管理 · 底层逻辑</div><div class="s">一句话 → 三句话 → 四种说法（小孩 / 门外汉 / 初学者 / 资深者）</div></div>
+  <div class="tag">HRMA 一页纸 ①</div>
+</div>
+
+<div class="one">
+  <div class="lb">一 句 话 · 最 短 口 径</div>
+  <div class="cn">把"今晚卖不掉就作废"的房间，在最合适的时间，卖给最愿意付钱的那批人。</div>
+  <div class="px"><b>机理版一句话：</b>一间房该不该现在卖，不看它能卖多少钱，看<b>留给后面的客人能值多少钱</b>——卖与不卖，比的都是机会成本。</div>
+</div>
+
+<h3>三 句 话 · 讲清来龙去脉</h3>
+<div class="three">
+  <div class="it"><div class="no">1</div><div><b>为什么能管：</b>房间当晚卖不掉就永久作废，而多卖一间的成本极低——空着是最大的浪费。</div></div>
+  <div class="it"><div class="no">2</div><div><b>凭什么能分：</b>不同客人愿意付不同的价。用"提前订、不可退、最少住几晚"这类<b>条件</b>把肯付高价的人隔开，别让他们下移去占低价。</div></div>
+  <div class="it"><div class="no">3</div><div><b>怎么判：</b>每卖一间前问一句——现在卖掉的钱，抵不抵得上"留给后面可能出更高价的人"？<b>抵得上就卖，抵不上就留。</b></div></div>
+</div>
+
+<h3>四 种 说 法 · 同一件事，换个说法</h3>
+<div class="four">
+  <div class="aud kid">
+    <div class="who">① 给小孩（10 岁）</div>
+    <div class="say">就像一盒今天不吃就会坏的草莓——别急着全便宜卖掉，留一点给出价高的人，但也别留到烂掉。</div>
+    <ul>
+      <li>草莓今天坏了就<b>白白没了</b></li>
+      <li>有人出 2 块，有人出 5 块</li>
+      <li>先猜会有几个出 5 块的，<b>留够给他们</b>，剩下的再便宜卖</li>
+    </ul>
+  </div>
+  <div class="aud out">
+    <div class="who">② 给门外汉（不懂酒店）</div>
+    <div class="say">跟机票一样——同一个座位，提前买便宜、临出发贵。把"过期作废"的东西，按时间分批卖给出价不同的人。</div>
+    <ul>
+      <li>房间<b>当晚作废</b>，不像衣服能库存</li>
+      <li>用"要提前订、不能退"这类条件把人分开</li>
+      <li>每天算：<b>现在卖 vs 留给后面</b>，哪个划算</li>
+    </ul>
+  </div>
+  <div class="aud beg">
+    <div class="who">③ 给初学者（入行 / 学生）</div>
+    <div class="say">以"机会成本"为唯一判据，用价格和可得性两个阀门，把有限库存逐间分配给期望收益最高的客群。</div>
+    <ul>
+      <li>价值由<b>支付意愿</b>定，靠栅栏(fence)隔离防下移</li>
+      <li><b>Littlewood 判据</b>：低价 ≥ 机会成本才接 → 保护位</li>
+      <li>管的是 <b>pickup 曲线</b>，预测精度 = 收益上限</li>
+      <li>先动<b>可得性</b>（关低价档），后动价格</li>
+    </ul>
+  </div>
+  <div class="aud pro">
+    <div class="who">④ 给资深者（总监 / 从业者）</div>
+    <div class="say">不是"定价学"，是不确定需求下对易逝库存做逐间机会成本控制的期望值工程——可得性才是主力阀门。</div>
+    <ul>
+      <li>目标函数是<b>净 RevPAR → GOPPAR</b>，佣金必须进边际贡献</li>
+      <li>用<b>分布</b>不用点估计；取消与 No-show 要建模</li>
+      <li>最大漏损在<b>价格体系治理</b>（现场放价、协议价失控、会员外溢），不在每日调价</li>
+    </ul>
+  </div>
+</div>
+
+<h3>统 一 机 理 链 · 五种说法共用一条骨架</h3>
+<svg viewBox="0 0 680 62" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,BlinkMacSystemFont,&quot;PingFang SC&quot;,&quot;Microsoft YaHei&quot;,system-ui,sans-serif">
+  <defs><marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5b6a7d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+  <rect x="8" y="16" width="104" height="30" rx="7" fill="#e6eef6" stroke="#1d6fb8" stroke-width="1.2"/><text x="60" y="34" font-size="11.5" font-weight="800" fill="#0f2a4a" text-anchor="middle">支付意愿分化</text>
+  <rect x="126" y="16" width="88" height="30" rx="7" fill="#e6eef6" stroke="#1d6fb8" stroke-width="1.2"/><text x="170" y="34" font-size="11.5" font-weight="800" fill="#0f2a4a" text-anchor="middle">栅栏隔离</text>
+  <rect x="228" y="16" width="112" height="30" rx="7" fill="#fff4d8" stroke="#e8b84b" stroke-width="1.5"/><text x="284" y="34" font-size="11.8" font-weight="800" fill="#0f2a4a" text-anchor="middle">机会成本判据</text>
+  <rect x="354" y="16" width="112" height="30" rx="7" fill="#e6eef6" stroke="#1d6fb8" stroke-width="1.2"/><text x="410" y="34" font-size="11.5" font-weight="800" fill="#0f2a4a" text-anchor="middle">价格·可得性</text>
+  <rect x="480" y="16" width="104" height="30" rx="7" fill="#185fa5"/><text x="532" y="34" font-size="11.5" font-weight="800" fill="#fff" text-anchor="middle">期望收益最大</text>
+  <line x1="112" y1="31" x2="124" y2="31" stroke="#5b6a7d" stroke-width="1.5" marker-end="url(#a1)"/>
+  <line x1="214" y1="31" x2="226" y2="31" stroke="#5b6a7d" stroke-width="1.5" marker-end="url(#a1)"/>
+  <line x1="340" y1="31" x2="352" y2="31" stroke="#5b6a7d" stroke-width="1.5" marker-end="url(#a1)"/>
+  <line x1="466" y1="31" x2="478" y2="31" stroke="#5b6a7d" stroke-width="1.5" marker-end="url(#a1)"/>
+  <text x="612" y="27" font-size="10" fill="#5b6a7d" text-anchor="middle">预测精度</text><text x="612" y="40" font-size="10" fill="#5b6a7d" text-anchor="middle">决定上限</text>
+</svg>
+
+<div class="foot"><b>收口：</b>四种说法、五个层级，底层只有一条——<b>卖与不卖，比的都是机会成本。</b> 讲不清楚的版本，说明自己还没真懂；挑一个对象能讲清楚的版本，才算学会。</div>
+</div></body></html>
