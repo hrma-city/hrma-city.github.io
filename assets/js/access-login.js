@@ -228,7 +228,7 @@
         return;
       }
       /* 本地模式：没有邮件服务，直接在本机改密码（只影响这台设备） */
-      var db = localGet(); seedAdmin();
+      var db = seedAdmin();
       var u = db.users.filter(function (x) { return x.email === email; })[0];
       if (!u) { say('本机没有这个邮箱的账号。若你是站长，请用管理员邮箱再试。', 'bad'); return; }
       var np = window.prompt('本机改密码（只影响这台设备）\n请输入新密码，至少 6 位：');
