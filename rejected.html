@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/access-gate.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>未通过审核 · RMC 收益管理社区</title>
+<style>
+  :root{ --navy:#0f2a4a; --blue:#1d6fb8; --gold:#e8b84b; --mute:#5b6a7d; }
+  *{box-sizing:border-box;}
+  body{ margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+        background:linear-gradient(160deg,#0f2a4a 0%,#163a63 55%,#1d6fb8 100%);
+        font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+        color:#fff; padding:24px; }
+  .card{ width:100%; max-width:460px; background:#fff; border-radius:14px;
+         box-shadow:0 20px 60px rgba(0,0,0,.28); overflow:hidden; }
+  .hd{ background:#5b3a3a; padding:26px 28px 20px; }
+  .hd h1{ margin:8px 0 6px; font-size:21px; }
+  .hd .sub{ font-size:13px; color:#e8d0d0; line-height:1.6; }
+  .bd{ padding:26px 28px 22px; }
+  .reason{ background:#fdf6f5; border-left:3px solid #c0392b; padding:12px 14px;
+           border-radius:0 6px 6px 0; font-size:13.5px; color:#7a2c22; line-height:1.7; margin-bottom:18px; }
+  .btn{ display:block; text-align:center; padding:12px; font-size:15px; font-weight:700;
+        background:var(--gold); color:var(--navy); border:1px solid var(--gold);
+        border-radius:8px; cursor:pointer; text-decoration:none; margin-bottom:10px; }
+  .btn:hover{ filter:brightness(1.05); }
+  .btn.gray{ background:#fff; color:var(--mute); border-color:#d6dde6; }
+  .note{ margin-top:18px; padding-top:16px; border-top:1px solid #e8ecf1;
+         font-size:12.5px; color:var(--mute); line-height:1.85; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="hd">
+    <h1>暂未通过审核</h1>
+    <div class="sub">你的访问申请当前状态为「未通过」。</div>
+  </div>
+  <div class="bd">
+    <div class="reason" id="reason">管理员未填写说明。</div>
+    <a class="btn" href="access.html">返回登录页</a>
+    <a class="btn gray" href="register.html">重新提交申请</a>
+    <div class="note">
+      如认为这是误判，请直接联系管理员说明情况。<br>
+      本站内容为内部资料，所有访问均需审核。
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  try {
+    var s = JSON.parse(localStorage.getItem('hrma_session_v2')||'null');
+    if (s && s.note) document.getElementById('reason').textContent = s.note;
+  } catch(e){}
+})();
+</script>
+</body>
+</html>

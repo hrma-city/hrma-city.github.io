@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>访问审核后台 · RMC 收益管理社区</title>
+<style>
+  :root{ --navy:#0f2a4a; --blue:#1d6fb8; --gold:#e8b84b; --mute:#5b6a7d; --ink:#1a2733;
+         --ok:#1a7f4b; --bad:#c0392b; }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:#f4f6f9; color:var(--ink);
+        font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif; }
+  .top{ background:var(--navy); color:#fff; padding:20px 28px; }
+  .top h1{ margin:0 0 6px; font-size:19px; }
+  .top .sub{ font-size:13px; color:#b9cbe0; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:24px 20px 60px; }
+  .bar{ background:#fff; border:1px solid #e3e8ef; border-radius:10px; padding:16px 18px; margin-bottom:18px; }
+  .bar.warn{ background:#fdf6e3; border-color:#f0dfae; }
+  .bar h3{ margin:0 0 8px; font-size:15px; }
+  .bar p{ margin:4px 0; font-size:13px; color:var(--mute); line-height:1.75; }
+  .bar code{ background:#eef2f7; padding:1px 6px; border-radius:4px; font-size:12.5px; }
+  .tabs{ display:flex; gap:8px; margin-bottom:16px; }
+  .tab{ padding:8px 16px; font-size:13.5px; border-radius:20px; cursor:pointer;
+        background:#fff; border:1px solid #d6dde6; color:var(--mute); }
+  .tab.on{ background:var(--navy); color:#fff; border-color:var(--navy); }
+  table{ width:100%; border-collapse:collapse; background:#fff; border-radius:10px;
+         overflow:hidden; box-shadow:0 1px 3px rgba(16,30,50,.07); }
+  th{ background:#eef2f7; font-size:12.5px; color:var(--mute); font-weight:600;
+      text-align:left; padding:11px 14px; }
+  td{ padding:13px 14px; font-size:13.5px; border-top:1px solid #eef1f5; vertical-align:top; }
+  tr:hover td{ background:#fafbfd; }
+  .pill{ display:inline-block; font-size:11.5px; padding:3px 10px; border-radius:20px; font-weight:600; }
+  .pill.pending{ background:#fdf1e3; color:#9a6a12; }
+  .pill.approved{ background:#e6f5ec; color:var(--ok); }
+  .pill.rejected{ background:#fbeae8; color:var(--bad); }
+  .act{ display:flex; gap:8px; flex-wrap:wrap; }
+  .btn{ padding:7px 14px; font-size:13px; font-weight:600; border-radius:6px; cursor:pointer;
+        border:1px solid var(--blue); background:var(--blue); color:#fff; }
+  .btn.no{ background:#fff; color:var(--bad); border-color:#e3b6b0; }
+  .btn.ghost{ background:#fff; color:var(--mute); border-color:#d6dde6; }
+  .btn:disabled{ opacity:.5; cursor:default; }
+  .empty{ text-align:center; padding:50px 20px; color:#8a97a5; font-size:14px; }
+  .reason-txt{ color:var(--mute); font-size:12.5px; margin-top:5px; line-height:1.6; max-width:320px; }
+  .sec{ margin-top:30px; }
+  .sec h2{ font-size:16px; margin:0 0 12px; }
+  .note{ font-size:12.5px; color:var(--mute); line-height:1.8; margin-top:26px;
+         padding-top:18px; border-top:1px solid #e3e8ef; }
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>🔐 访问审核后台</h1>
+  <div class="sub">只有管理员账号可进入。审核通过后，对方用其注册的邮箱和密码即可登录。</div>
+</div>
+<div class="wrap">
+
+  <div class="bar warn" id="modeBar">
+    <h3>当前模式：本地审核（未接入云端账号库）</h3>
+    <p>申请记录保存在<b>打开本页面这台设备的浏览器</b>里。要让别的设备上的申请也能被你审核，需接入云端账号库（见下方说明）。</p>
+  </div>
+
+  <div class="bar" id="cloudBar" style="display:none">
+    <h3>当前模式：云端账号库</h3>
+    <p>申请记录存于云端，<b>任意设备登录本后台都能审核</b>，名单不会因换设备或清缓存丢失。</p>
+  </div>
+
+  <div class="tabs">
+    <div class="tab on" data-f="pending">待审核</div>
+    <div class="tab" data-f="approved">已通过</div>
+    <div class="tab" data-f="rejected">已拒绝</div>
+  </div>
+
+  <div id="list"></div>
+
+  <div class="note" id="setupNote">
+    <b>如何接入云端账号库（可选，但强烈建议）</b><br>
+    1. 到 <code>supabase.com</code> 免费注册一个项目；<br>
+    2. 在 SQL Editor 执行本项目里的 <code>supabase/profiles-setup.sql</code>；<br>
+    3. 把项目地址与匿名密钥填进 <code>auth-config.js</code>，重新部署。<br>
+    接入后：任何人可在任意设备注册，你可在任意设备审核，且密码由云端校验、不会明文留在浏览器里。
+  </div>
+</div>
+
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js"></script>
+<script>
+(function(){
+  var ADMIN='3984557428@qq.com';
+  var KEY_USERS='hrma_users_local';
+  var KEY_SESSION='hrma_session_v2';
+  var cur='pending';
+
+  /* 只有管理员能进这个页面 */
+  var s=null;
+  try{ s=JSON.parse(localStorage.getItem(KEY_SESSION)||'null'); }catch(e){}
+  if(!s||!s.email||String(s.email).toLowerCase()!==ADMIN){
+    document.body.innerHTML='<div style="max-width:520px;margin:14vh auto;background:#fff;'
+      +'border-radius:12px;padding:36px;text-align:center;font-family:sans-serif;'
+      +'box-shadow:0 12px 40px rgba(0,0,0,.14)">'
+      +'<div style="font-size:34px">🔒</div>'
+      +'<h2 style="color:#1a2733;margin:12px 0 6px;font-size:18px">仅管理员可进入</h2>'
+      +'<p style="color:#5b6a7d;font-size:13.5px;line-height:1.8">审核后台只对管理员账号 <b>'
+      +ADMIN+'</b> 开放。<br>请用该邮箱的管理员密码登录后再打开本页面。</p>'
+      +'<a href="access.html" style="display:inline-block;margin-top:16px;padding:11px 26px;'
+      +'background:#e8b84b;color:#0f2a4a;text-decoration:none;font-weight:700;border-radius:8px">'
+      +'前往登录</a></div>';
+    return;
+  }
+
+  var C=window.HRMA_SUPABASE||{};
+  var useCloud = !!(C.url && C.anonKey && String(C.anonKey).indexOf('XXXX')<0);
+  if(useCloud){ document.getElementById('modeBar').style.display='none';
+               document.getElementById('cloudBar').style.display='block';
+               document.getElementById('setupNote').style.display='none'; }
+
+  function localDb(){ try{ return JSON.parse(localStorage.getItem(KEY_USERS)||'null'); }catch(e){ return null; } }
+  function saveLocal(db){ try{ localStorage.setItem(KEY_USERS, JSON.stringify(db)); }catch(e){} }
+
+  function api(path,opts){
+    opts=opts||{};
+    return fetch(C.url+path,{method:opts.method||'GET',
+      headers:{apikey:C.anonKey,'Content-Type':'application/json',
+               Authorization:'Bearer '+(s.access_token||C.anonKey)},
+      body:opts.body?JSON.stringify(opts.body):undefined, cache:'no-store'});
+  }
+
+  function esc(t){ return String(t==null?'':t).replace(/[&<>"']/g,function(m){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
+
+  function render(rows){
+    var box=document.getElementById('list');
+    if(!rows.length){
+      box.innerHTML='<div class="empty">没有'+({pending:'待审核',approved:'已通过',rejected:'已拒绝'})[cur]+'的申请。</div>';
+      return;
+    }
+    var LABEL={pending:'待审核',approved:'已通过',rejected:'已拒绝'};
+    var h='<div class="sec"><h2>'+LABEL[cur]+' · '+rows.length+' 条</h2>';
+    rows.forEach(function(u){
+      h+='<div style="background:#fff;border:1px solid #e3e8ef;border-radius:8px;padding:12px 14px;margin-bottom:10px">'
+        +'<div style="font-size:13.5px"><b>'+esc(u.full_name||u.name||'-')+'</b> · '+esc(u.email)+'</div>'
+        +(u.org?'<div style="font-size:12.5px;color:#5b6a7d;margin-top:3px">'+esc(u.org)+'</div>':'')
+        +(u.reason?'<div style="font-size:12.5px;color:#5b6a7d;margin-top:3px">理由：'+esc(u.reason)+'</div>':'')
+        +'<div class="act" style="margin-top:9px">'
+        +(u.status!=='approved'?'<button class="btn" data-a="approved" data-e="'+esc(u.email)+'">通过</button>':'')
+        +(u.status!=='pending'?'<button class="btn ghost" data-a="pending" data-e="'+esc(u.email)+'">退回待审</button>':'')
+        +(u.status!=='rejected'?'<button class="btn no" data-a="rejected" data-e="'+esc(u.email)+'">拒绝</button>':'')
+        +'</div></div>';
+    });
+    box.innerHTML=h+'</div>';
+    box.querySelectorAll('button[data-a]').forEach(function(b){
+      b.addEventListener('click',function(){
+        setStatus(b.getAttribute('data-e'), b.getAttribute('data-a'), b);
+      });
+    });
+  }
+
+  function setStatus(email, action, btn){
+    btn.disabled=true; btn.textContent='处理中…';
+    if(useCloud){
+      api('/rest/v1/profiles?email=eq.'+encodeURIComponent(email),{method:'PATCH',
+        body:{status:action, reviewed_at:new Date().toISOString()}})
+        .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return load(); })
+        .catch(function(e){ alert('操作失败：'+e.message+'。请确认数据库策略已配置。'); btn.disabled=false; });
+      return;
+    }
+    var db=localDb(); if(!db){ alert('未找到本地账号表。'); return; }
+    db.users.forEach(function(u){ if(u.email===email) u.status=action; });
+    saveLocal(db);
+    /* 同步登录态：若正在改的是自己，直接放行 */
+    if(String(email).toLowerCase()===ADMIN) s.status=action;
+    try{ localStorage.setItem(KEY_SESSION, JSON.stringify(s)); }catch(e){}
+    load();
+  }
+
+  function load(){
+    if(useCloud){
+      api('/rest/v1/profiles?select=email,full_name,org,reason,status,created_at&order=created_at.desc')
+        .then(function(r){ return r.json(); })
+        .then(function(rows){ render((rows||[]).filter(function(u){ return (u.status||'pending')===cur; })); })
+        .catch(function(e){ document.getElementById('list').innerHTML=
+          '<div class="empty">读取失败：'+esc(e.message)+'。请检查 profiles 表与网络。</div>'; });
+      return;
+    }
+    var db=localDb();
+    if(!db){ document.getElementById('list').innerHTML=
+      '<div class="empty">尚无任何注册申请。<br>把登录链接发给对方，对方注册后申请会出现在这里。</div>'; return; }
+    render((db.users||[]).filter(function(u){ return (u.status||'pending')===cur; }));
+  }
+
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click',function(){
+      document.querySelectorAll('.tab').forEach(function(x){ x.classList.remove('on'); });
+      t.classList.add('on'); cur=t.getAttribute('data-f'); load();
+    });
+  });
+
+  load();
+})();
+</script>
+</body>
+</html>

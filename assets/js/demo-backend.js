@@ -193,10 +193,14 @@
           };
           users.push(u); lsSet(KEY.users, users);
           var profiles = lsGet(KEY.profiles, []);
+          /* ⚠️ 安全修复（2026-10-02）：
+             原来这里硬编码 status:"approved"，等于「任何人注册即自动通过审核」，
+             配合 access-gate 只查邮箱的旧逻辑，等于任何人都能进站。
+             现改为 pending，必须由管理员在 admin-approve.html 手动通过。 */
           profiles.push({
             id: u.id, email: u.email, full_name: u.full_name, org: u.org,
             role_text: u.role_text, phone: u.phone, reason: u.reason,
-            status: "approved", created_at: nowISO()
+            status: "pending", created_at: nowISO()
           });
           lsSet(KEY.profiles, profiles);
           var sess = { user: { id: u.id, email: u.email, user_metadata: { full_name: u.full_name } }, access_token: "demo" };
