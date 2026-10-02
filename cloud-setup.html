@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/access-gate.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>接入云端账号库 · 建表 SQL · RMC 收益管理社区</title>
+<style>
+  :root{ --navy:#0f2a4a; --blue:#1d6fb8; --gold:#e8b84b; --mute:#5b6a7d; }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:#f4f6f9; color:#1a2733;
+        font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif; }
+  .hd{ background:var(--navy); color:#fff; padding:26px 28px 22px; }
+  .hd h1{ margin:0 0 6px; font-size:20px; }
+  .hd .sub{ font-size:13px; color:#b9cbe0; line-height:1.7; }
+  .wrap{ max-width:920px; margin:0 auto; padding:24px 20px 60px; }
+  .card{ background:#fff; border:1px solid #e3e8ef; border-radius:10px; padding:20px 22px; margin-bottom:18px; }
+  .card h2{ margin:0 0 12px; font-size:16px; }
+  .card h3{ margin:18px 0 8px; font-size:14px; color:var(--navy); }
+  .card p{ margin:6px 0; font-size:13.5px; color:var(--mute); line-height:1.8; }
+  .card ol,.card ul{ margin:8px 0; padding-left:22px; font-size:13.5px; color:var(--mute); line-height:1.9; }
+  .card b{ color:#1a2733; }
+  code{ background:#eef2f7; padding:1px 6px; border-radius:4px; font-size:12.5px; }
+  pre{ background:#0f2a4a; color:#e8f0f9; padding:18px 20px; border-radius:8px;
+       overflow-x:auto; font-size:12.5px; line-height:1.75;
+       font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .btn{ display:inline-block; padding:10px 20px; background:var(--gold); color:var(--navy);
+        text-decoration:none; font-weight:700; border-radius:8px; font-size:14px; margin:8px 8px 0 0; }
+  .btn.ghost{ background:#fff; color:var(--blue); border:1px solid var(--blue); }
+  .note{ background:#fdf6e3; border-left:3px solid var(--gold); padding:12px 14px;
+         border-radius:0 6px 6px 0; font-size:13px; color:#6b5518; line-height:1.8; margin:14px 0; }
+  .tag{ display:inline-block; font-size:11.5px; padding:3px 9px; border-radius:20px;
+        background:#e8f0f9; color:var(--blue); margin-left:8px; vertical-align:middle; }
+</style>
+</head>
+<body>
+<div class="hd">
+  <h1>接入云端账号库<span class="tag">给别人开访问必须做这步</span></h1>
+  <div class="sub">接好后：任何人可在任意设备注册与登录，你在任意设备都能审核，密码由云端校验而不留在浏览器里。</div>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <h2>当前模式的真实局限（请先看懂）</h2>
+    <p>没接云端账号库时，登录注册走<b>浏览器本地模式</b>：账号与审核记录存在<b>各自设备的浏览器</b>里，不在你的服务器上。</p>
+    <ul>
+      <li>你在<b>自己电脑</b>上打开注册页给自己注册 → 你能审核自己；</li>
+      <li>别人在<b>他自己的设备</b>上注册 → 记录存在<b>他的设备里</b>，你在他设备上看不到，也审不了。</li>
+    </ul>
+    <div class="note">
+      <b>所以：本地模式只能验证「密码校验 + 审核流程」这套逻辑是否工作，不能真正给外人开访问。</b><br>
+      要把链接发给老师、同事或任何其他人并审核他们，<b>必须接入云端账号库</b>（下方步骤，约 15 分钟）。接入后申请记录存在云端，你在哪台设备登录审核后台都能看到全部申请。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>接入步骤（约 15 分钟，只需做一次）</h2>
+    <ol>
+      <li>打开 <code>https://supabase.com</code> 免费注册（GitHub 账号可一键登录），新建一个项目（免费额度够用，选地区时选离你近的）。</li>
+      <li>项目左侧点 <b>SQL Editor</b> → <b>New query</b>。</li>
+      <li>把下方代码框里<b>全部内容</b>粘贴进去，点 <b>Run</b>。看到 <code>Success</code> 即完成。</li>
+      <li>项目 → <b>Settings → API</b>，复制两个值：<code>Project URL</code> 和 <code>anon public key</code>。</li>
+      <li>把这两个值填进本项目的 <code>auth-config.js</code>，重新部署即可。</li>
+    </ol>
+    <p style="margin-top:12px"><a class="btn" href="supabase/profiles-setup.sql" download>下载 SQL 文件</a><a class="btn ghost" onclick="navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('sql').textContent);this.textContent='已复制 ✓'">一键复制 SQL</a></p>
+  </div>
+
+  <div class="card">
+    <h2>要执行的 SQL（完整内容）</h2>
+    <p>建 <code>profiles</code> 表存申请与审核结果，并开启行级安全策略——<b>关键在于它带 <code>status</code> 字段，默认为 <code>pending</code>，只有管理员能改成 <code>approved</code></b>。</p>
+<pre id="sql">-- RMC 收益管理社区 · 访问审核数据表
+-- 在 Supabase → SQL Editor → New query 中粘贴全部内容，点 Run
+
+-- 1) 建表
+create table if not exists public.profiles (
+  id          uuid primary key references auth.users(id) on delete cascade,
+  email       text unique not null,
+  full_name   text,
+  org         text,
+  phone       text,
+  reason      text,
+  status      text not null default 'pending'
+              check (status in ('pending','approved','rejected')),
+  note        text,
+  reviewed_at timestamptz,
+  created_at  timestamptz not null default now()
+);
+
+-- 2) 索引
+create index if not exists profiles_status_idx on public.profiles (status);
+
+-- 3) 开启行级安全（必须开，否则匿名密钥可读写全表）
+alter table public.profiles enable row level security;
+
+-- 4) 策略
+drop policy if exists "allow insert pending" on public.profiles;
+create policy "allow insert pending" on public.profiles
+  for insert to anon, authenticated
+  with check (status = 'pending');
+
+drop policy if exists "read own" on public.profiles;
+create policy "read own" on public.profiles
+  for select to authenticated
+  using (auth.uid() = id);
+
+drop policy if exists "admin read all" on public.profiles;
+create policy "admin read all" on public.profiles
+  for select to authenticated
+  using ((auth.jwt() ->> 'email') = '3984557428@qq.com');
+
+drop policy if exists "admin update" on public.profiles;
+create policy "admin update" on public.profiles
+  for update to authenticated
+  using ((auth.jwt() ->> 'email') = '3984557428@qq.com')
+  with check ((auth.jwt() ->> 'email') = '3984557428@qq.com');
+
+-- 5) 新用户注册自动建 pending 记录；管理员邮箱自动 approved
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+begin
+  insert into public.profiles (id, email, full_name, status, created_at)
+  values (
+    new.id,
+    new.email,
+    coalesce(new.raw_user_meta_data->>'full_name',''),
+    case when new.email = '3984557428@qq.com' then 'approved' else 'pending' end,
+    now()
+  )
+  on conflict (email) do update set status = excluded.status;
+  return new;
+end;
+$$;
+
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function public.handle_new_user();</pre>
+  </div>
+
+  <div class="card">
+    <h2>接好之后，怎么用</h2>
+    <ul>
+      <li>把登录链接发给对方：<code>https://hrma-city.github.io/access.html</code></li>
+      <li>对方点「注册申请」→ 填邮箱、密码、单位、理由 → 提交，进入「待审核」页</li>
+      <li>你打开审核后台：<code>https://hrma-city.github.io/admin-approve.html</code> → 点「通过」</li>
+      <li>对方刷新或重新登录即可进入</li>
+    </ul>
+    <p><a class="btn" href="admin-approve.html">打开审核后台</a><a class="btn ghost" href="access.html">打开登录页</a></p>
+  </div>
+
+  <div class="card">
+    <h2>安全提醒</h2>
+    <ul>
+      <li><b>初始密码请尽快改掉。</b>管理员初始密码写在登录脚本里，公开可查。第一次登录后建议在 Supabase 的 Users 里重设。</li>
+      <li>密码由 Supabase 以不可逆方式存储与校验，浏览器不会拿到你的明文密码。</li>
+      <li><b>本层仍不是文件级加密</b>：页面本身是静态文件，懂技术的人仍可直接下载源文件。若需连文件一起保护，须把站点迁到带访问网关的平台（Cloudflare Access / 腾讯云）。</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>
