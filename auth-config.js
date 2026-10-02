@@ -11,6 +11,13 @@
    详细步骤见同目录 supabase-setup.md
    ========================================================================== */
 
+/* ★ 鉴权模式开关（重要）
+   'local' = 本地模式：账号存在各自浏览器，不联网。适合只有你自己访问。
+   'cloud' = 云端模式：走 Supabase 真实服务端校验，可给外部人开账号。
+   切到 cloud 之前必须先完成：① 建 profiles 表(见 cloud-setup.html) ② 在 Supabase 建好管理员账号。
+   否则会出现「配了地址但云端没账号」→ 连站长自己也登不进去。 */
+window.HRMA_AUTH_MODE = 'local';
+
 window.HRMA_SUPABASE = {
   // 例： "https://abcdefghijklmnop.supabase.co"
   url: "https://ivcylkcbodoacajyvnpy.supabase.co",

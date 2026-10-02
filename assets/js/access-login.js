@@ -105,6 +105,8 @@
 
   /* ---------------- 真实后端模式 ---------------- */
   function supabase() {
+    /* 模式开关为 local 时直接不走云端，避免"配了地址但云端没账号"把站长锁在门外 */
+    if (String(window.HRMA_AUTH_MODE || 'cloud') === 'local') return null;
     var C = window.HRMA_SUPABASE || {};
     if (!C.url || !C.anonKey) return null;
     if (String(C.anonKey).indexOf('XXXX') >= 0) return null;
@@ -169,7 +171,11 @@
 
       var C = supabase();
       var job = C
-        ? loginSupabase(C, email, pw)
+        ? loginSupabase(C, email, pw).then(function (res) {
+            /* 云端校验失败时，管理员回落到本地初始密码，避免半配置把自己锁死 */
+            if (res && res.error && email === ADMIN_EMAIL) return loginLocal(email, pw);
+            return res;
+          })
         : loginLocal(email, pw);
 
       job.then(function (res) {
@@ -203,16 +209,34 @@
   if (resetLink) {
     resetLink.addEventListener('click', function (e) {
       e.preventDefault();
-      var email = String(emailEl.value || '').trim();
-      if (!email) { say('请先填写邮箱，再点重置密码。', 'bad'); return; }
+      var email = String(emailEl.value || '').trim().toLowerCase();
+      if (!email) { say('请先填写邮箱，再点「忘记密码」。', 'bad'); return; }
       var C = supabase();
       if (C) {
-        api(C, '/auth/v1/recover', { method: 'POST', body: {} })
-          .then(function () { say('重置邮件已发送，请查收邮箱（含垃圾箱）。', 'ok'); })
-          .catch(function () { say('发送失败，请稍后再试。', 'bad'); });
-      } else {
-        say('本地降级模式不支持邮件重置。首次登录请用初始密码，登录后可在账号表里改。', 'bad');
+        say('正在发送重置邮件…', 'ok');
+        /* Supabase recover 必须带 email，之前是空 body，所以点了没反应 */
+        api(C, '/auth/v1/recover', { method: 'POST', body: { email: email } })
+          .then(function (r) {
+            return r.json().catch(function () { return {}; })
+                    .then(function (j) { return { ok: r.ok, j: j }; });
+          })
+          .then(function (o) {
+            if (o.ok) say('重置邮件已发送，请查收邮箱（含垃圾箱）。', 'ok');
+            else say('发送失败：' + ((o.j && (o.j.msg || o.j.error_description)) || '未知错误'), 'bad');
+          })
+          .catch(function () { say('发送失败，请检查网络后重试。', 'bad'); });
+        return;
       }
+      /* 本地模式：没有邮件服务，直接在本机改密码（只影响这台设备） */
+      var db = localGet(); seedAdmin();
+      var u = db.users.filter(function (x) { return x.email === email; })[0];
+      if (!u) { say('本机没有这个邮箱的账号。若你是站长，请用管理员邮箱再试。', 'bad'); return; }
+      var np = window.prompt('本机改密码（只影响这台设备）\n请输入新密码，至少 6 位：');
+      if (!np) return;
+      if (np.length < 6) { say('密码至少 6 位，未修改。', 'bad'); return; }
+      u.password = hash(np);
+      localSet(db);
+      say('已在本机更新该邮箱的密码，请用新密码登录。', 'ok');
     });
   }
 
