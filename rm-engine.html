@@ -453,7 +453,7 @@ var ADV = [
    a:"判断任何报价用净贡献 + 机会成本：该价 × 量 − 变动成本，再和若不接这库存能卖多少（<b>最优价 No.17</b> 收入）比。满房日任何低于最优价的量都是亏（机会成本）；淡季则只要价 > <b>保本价（No.16）</b> 且能填满就接。",
    f:"最优价 · 保本价"},
   {k:["新手","开始","入门","怎么学","第一步","不懂","不会","小白"],t:["入门"],
-   a:"先跑一遍上方引擎看机会金额——那是最该赚的钱。然后学三件事：① 指标（OCC / ADR / RevPAR No.1–3）② 对标（MPI / ARI / RGI No.8–10）③ 执行（最优价 / 弹性 / 超售 No.15–20）。完整体系在 <a href='formulas.html'>formulas.html</a>（32 公式）和 <a href='coach.html'>coach.html</a>（372 条问答）。记住：收益管理是先动价再动库存，每天看 Pickup。",
+   a:"先跑一遍上方引擎看机会金额——那是最该赚的钱。然后学三件事：① 指标（OCC / ADR / RevPAR No.1–3）② 对标（MPI / ARI / RGI No.8–10）③ 执行（最优价 / 弹性 / 超售 No.15–20）。完整体系在 formulas.html（32 公式）和 coach.html（372 条问答）。记住：收益管理是先动价再动库存，每天看 Pickup。",
    f:"基础指标 · 指数 · 执行公式"},
   {k:["数据","csv","上传","准备","表头","字段","怎么导入","怎么用"],t:["数据","入门"],
    a:"两份即可：① 未来在手预订（入住日、星期、在手房晚、预测增量、预测 OCC、目标 OCC、Pickup 偏差、事件）② 竞品价格（入住日、竞争组合加权均价、本店 BAR）。按 data/03、data/04 表头准备 CSV 上传，引擎自动算。没有就点载入示例数据先看效果。",
@@ -471,11 +471,11 @@ function adAnswer(q){
     e._s=s; if(s>bestScore){ bestScore=s; best=e; }
   });
   if(bestScore===0){
-    return {a:"这个问题我先用方法论兜底：收益管理的核心动作永远是「<b>先动价、再动库存</b>」，价格由公式算（上方决策卡），我来帮你理解<b>为什么</b>。你可以点上面的常见场景，或直接问：竞品降价要不要跟？满房日关不关低价房？OCC 才 50% 怎么办？超售设多少？团队置换接不接？更完整的 32 个公式在 <a href='formulas.html'>formulas.html</a>，372 条问答在 <a href='coach.html'>coach.html</a>。", f:""};
+    return {a:"这个问题我先用方法论兜底：收益管理的核心动作永远是「<b>先动价、再动库存</b>」，价格由公式算（上方决策卡），我来帮你理解<b>为什么</b>。你可以点上面的常见场景，或直接问：竞品降价要不要跟？满房日关不关低价房？OCC 才 50% 怎么办？超售设多少？团队置换接不接？更完整的 32 个公式在 formulas.html，372 条问答在 coach.html。", f:""};
   }
   var rel = ADV.filter(function(e){ return e!==best && e.t.some(function(t){ return best.t.indexOf(t)>=0; }); })
                .sort(function(a,b){ return b._s-a._s; }).slice(0,2).map(function(e){ return e.f; });
-  var extra = rel.length ? "<div class='cite'>相关公式：<a href='formulas.html'>"+rel.join(" · ")+"</a> · 详见 formulas.html</div>" : "";
+  var extra = rel.length ? "<div class='cite'>相关公式："+rel.join(" · ")+" · 详见 formulas.html</div>" : "";
   return {a:best.a + extra, f:best.f};
 }
 function adPush(role, html){
