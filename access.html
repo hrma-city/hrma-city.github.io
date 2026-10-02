@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
+<title>访问验证 · RMC 收益管理社区</title>
+<style>
+  :root{ --navy:#0f2a4a; --blue:#1d6fb8; --gold:#e8b84b; --ink:#1a2733; --mute:#5b6a7d; }
+  *{box-sizing:border-box;}
+  body{ margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+        background:linear-gradient(160deg,#0f2a4a 0%,#163a63 55%,#1d6fb8 100%);
+        font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+        color:#fff; padding:24px; }
+  .card{ width:100%; max-width:460px; background:#fff; border-radius:14px;
+         box-shadow:0 20px 60px rgba(0,0,0,.28); overflow:hidden; }
+  .hd{ background:var(--navy); color:#fff; padding:26px 28px 22px; }
+  .hd .lock{ font-size:22px; }
+  .hd h1{ margin:10px 0 6px; font-size:21px; letter-spacing:.5px; }
+  .hd .sub{ font-size:13px; color:#b9cbe0; line-height:1.6; }
+  .bd{ padding:26px 28px 22px; }
+  label{ display:block; font-size:13px; color:var(--mute); margin-bottom:7px; }
+  input{ width:100%; padding:12px 14px; font-size:15px; border:1px solid #d6dde6;
+         border-radius:8px; outline:none; }
+  input:focus{ border-color:var(--blue); box-shadow:0 0 0 3px rgba(29,111,184,.12); }
+  button{ width:100%; margin-top:14px; padding:12px; font-size:15px; font-weight:700;
+          background:var(--gold); color:var(--navy); border:1px solid var(--gold);
+          border-radius:8px; cursor:pointer; }
+  button:hover{ filter:brightness(1.05); }
+  .msg{ min-height:20px; margin-top:10px; font-size:13px; }
+  .msg.ok{ color:#1a7f4b; } .msg.bad{ color:#c0392b; }
+  .note{ margin-top:20px; padding-top:18px; border-top:1px solid #e8ecf1;
+         font-size:12.5px; color:var(--mute); line-height:1.85; }
+  .note b{ color:var(--ink); }
+  .note .warn{ background:#fdf6e3; border-left:3px solid var(--gold);
+               padding:10px 12px; margin:10px 0; border-radius:0 6px 6px 0; color:#6b5518; }
+  .foot{ padding:14px 28px 20px; font-size:11.5px; color:#8a97a5; line-height:1.7; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="hd">
+    <div class="lock">🔒</div>
+    <h1>本站内容仅限本人使用</h1>
+    <div class="sub">请输入登记邮箱以继续。未登记的邮箱无法进入。</div>
+  </div>
+  <div class="bd">
+    <label for="email">登记邮箱</label>
+    <input id="email" type="email" placeholder="name@example.com" autocomplete="username" autofocus>
+    <button id="btn">验证并进入</button>
+    <div id="msg" class="msg"></div>
+    <input id="next" type="hidden" value="">
+    <div class="note">
+      <b>关于这道门的真实防护范围</b>
+      <div class="warn">
+        本站托管在纯静态平台（无服务器），因此这层验证是<b>浏览器端检查</b>，不是服务端加密鉴权。
+        它能挡住：搜索引擎收录、随手点开链接的人、地址被转发扩散的情况。<br>
+        它挡不住：熟悉技术的人直接下载网页源文件。<br>
+        若需要<b>真正的加密级保护</b>，须把站点迁到带访问网关的平台（Cloudflare Access / 腾讯云），见下方说明。
+      </div>
+      · 验证状态保存在本机浏览器，换设备需各验证一次（约 3 秒）。<br>
+      · 清除浏览器数据会清掉凭证，重新输入邮箱即可。
+    </div>
+  </div>
+  <div class="foot">
+    RMC 收益管理社区 · 内容与数据均受著作权保护<br>
+    如需正式授权与课程合作，请通过正式渠道联系。
+  </div>
+</div>
+<script src="assets/js/access-login.js"></script>
+<script>
+(function(){
+  var m = location.search.match(/[?&]next=([^&]*)/);
+  if (m) { try { document.getElementById('next').value = decodeURIComponent(m[1]); } catch(e){} }
+})();
+</script>
+</body>
+</html>
