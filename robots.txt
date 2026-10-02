@@ -1,56 +1,65 @@
 # robots.txt - RMC收益管理社区
-# 2026-10-02 策略反转：此前为提升 GEO 可见度全面放行爬虫。
-# 现站点内容为本人私有资产（教材书稿、判定表、课件、数据、报价策略等），
-# 已全站加访问门，故改为禁止一切爬虫与 AI 抓取。
-#
-# 注意：robots.txt 只是"君子协定"，不构成安全边界。
-# 真正的防护依赖 access-gate.js 访问门；若需加密级保护须迁移到带网关的平台。
+# 策略：全面放行搜索引擎与 AI 爬虫，以提升 GEO（生成式引擎优化）可见度
 
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /assets/js/
 
-# 各家搜索引擎与 AI 爬虫一并明确禁止
+# OpenAI ChatGPT 爬虫
 User-agent: GPTBot
-Disallow: /
+Allow: /
 
+# OpenAI 搜索爬虫
 User-agent: OAI-SearchBot
-Disallow: /
+Allow: /
 
+# ChatGPT 用户访问
 User-agent: ChatGPT-User
-Disallow: /
+Allow: /
 
-User-agent: ClaudeBot
-Disallow: /
-
-User-agent: Claude-User
-Disallow: /
-
+# Perplexity 爬虫
 User-agent: PerplexityBot
-Disallow: /
+Allow: /
 
+# Perplexity 用户访问
 User-agent: Perplexity-User
-Disallow: /
+Allow: /
 
+# Anthropic Claude 爬虫
+User-agent: ClaudeBot
+Allow: /
+
+# Claude 用户访问
+User-agent: Claude-User
+Allow: /
+
+# Google Gemini / AI 训练
 User-agent: Google-Extended
-Disallow: /
+Allow: /
 
-User-agent: Applebot
-Disallow: /
-
+# Apple AI
 User-agent: Applebot-Extended
-Disallow: /
+Allow: /
 
+# Microsoft Bing
 User-agent: Bingbot
-Disallow: /
+Allow: /
 
+# 字节跳动
 User-agent: Bytespider
-Disallow: /
+Allow: /
 
+# 百度
 User-agent: Baiduspider
-Disallow: /
+Allow: /
 
+# DuckDuckGo AI
 User-agent: DuckAssistBot
-Disallow: /
+Allow: /
 
+# Common Crawl
 User-agent: CCBot
-Disallow: /
+Allow: /
+
+Sitemap: https://hrma-city.github.io/sitemap.xml
+Sitemap: https://hrma-city.github.io/llms.txt
