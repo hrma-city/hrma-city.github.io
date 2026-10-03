@@ -364,23 +364,25 @@
         若直接 enter() 会被当成管理员放行 → 跳首页 → 门校验失败 → 弹回登录页，
         形成"页面打不开"的无限循环。凭证无效就留在登录页，不要跳。 */
   /* ⚠️ 只在「登录页本身」才自动跳。
-     me.html 等页面也会加载本文件（用于复用 sha256 / GATE_API），
-     若在这里无条件 enter()，会把这些页面一律弹回首页 —— 表现为
-     「点改密页被踢回首页」。所以先判断当前是不是登录页。 */
-  try {
-    var _cur = (location.pathname.split('/').pop() || '').toLowerCase();
-    var _isLoginPage = (_cur === 'access.html' || _cur === 'login.html');
-    if (!_isLoginPage) return;   /* 非登录页：只加载工具函数，绝不跳转 */
+     me.html / register.html 等页面也会加载本文件（复用 sha256 / GATE_API），
+     若在这里无条件 enter()，会把这些页面一律弹回首页。
 
+     ⚠️⚠️ 这里**绝对不能在 IIFE 里 return**：一旦 return，末尾的
+     `window.HRMA_GATE_API = {...}` 永远不会执行 → register.html 里
+     `HRMA_GATE_API.registerLocal(...)` 报
+     「Cannot read properties of undefined (reading 'registerLocal')」，
+     表现为「点注册申请完全没反应」（这个 bug 真实发生过一次，勿再改回 return）。
+     正确写法：整段包成函数，非登录页只是不调用它。 */
+  function autoEnterOnLoginPage() {
     var s = null;
     try { s = JSON.parse(localStorage.getItem(KEY_SESSION) || 'null'); } catch (e) {}
 
-    if (!s || !s.email) return;                 /* 无登录态：就停在登录页，正常显示表单 */
+    if (!s || !s.email) return;                 /* 无登录态：留在登录页显示表单 */
 
     /* 两种情况留在原地，绝不 enter()：
-       (1) 没有 pwRef —— 旧版本残留的凭证；
+       (1) 没有 pwRef —— 旧版本残留的会话；
        (2) pwRef 与账号表里该邮箱当前的密码对不上（改过密码、清过账号表、
-           恢复码重签过、或换了设备/域名）—— 若此时 enter() 会被门判失败，
+           恢复码重签过、换了设备/域名）—— 此时 enter() 会被门判失败，
            又弹回登录页，再 enter()……形成「页面永远打不开」的死循环。
        正确做法：清掉陈旧凭证，让用户用密码或恢复码重新进一次。 */
     if (!s.pwRef) {
@@ -405,6 +407,10 @@
     }
 
     enter(s);   /* 凭证与账号表一致，才真正放行 */
+  }
+  try {
+    var _cur = (location.pathname.split('/').pop() || '').toLowerCase();
+    if (_cur === 'access.html' || _cur === 'login.html') autoEnterOnLoginPage();
   } catch (e) {}
 
   /* 暴露给注册页/门复用的接口（不再暴露任何密码） */
