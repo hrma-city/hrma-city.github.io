@@ -26,7 +26,7 @@
     <nav class="sn-links" id="snLinks">
       <a href="index.html">首页</a>
       <a href="about.html">关于学院</a>
-      <a href="login.html">登录</a>
+      <a href="access.html">登录</a>
       <a href="register.html">申请账号</a>
       <a href="admin.html" class="on">审批后台</a>
       <a href="admin-payments.html">大额核销</a>
@@ -68,7 +68,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
 <script src="auth-config.js"></script>
 <script src="assets/js/demo-backend.js"></script>
-<script src="auth.js"></script>
+<script src="auth.js?v=2"></script>
 <script>
 (function () {
   var A = window.HRMAAuth;
@@ -195,7 +195,7 @@
     }
     try {
       var s = await A.session();
-      if (!s) { location.href = "login.html?redirect=admin.html"; return; }
+      if (!s) { location.href = "access.html?redirect=admin.html"; return; }
       if (!A.isAdmin(s.user.email)) {
         listEl.innerHTML = '<div class="adm-empty">无权限：本页面仅管理员可访问。</div>';
         return;

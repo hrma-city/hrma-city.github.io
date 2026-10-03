@@ -25,11 +25,11 @@
     <nav class="sn-links" id="snLinks">
       <a href="index.html">首页</a>
       <a href="about.html">关于学院</a>
-      <a href="login.html">登录</a>
+      <a href="access.html">登录</a>
       <a href="register.html">申请账号</a>
       <a href="contact.html">联系我们</a>
     </nav>
-    <a class="sn-cta" href="login.html">去登录</a>
+    <a class="sn-cta" href="access.html">去登录</a>
     <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
   </div>
 </header>
@@ -58,7 +58,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
 <script src="auth-config.js"></script>
 <script src="assets/js/demo-backend.js"></script>
-<script src="auth.js"></script>
+<script src="auth.js?v=2"></script>
 <script>
 (function () {
   var A = window.HRMAAuth;
@@ -145,7 +145,7 @@
         "请查收并点击验证邮件完成邮箱确认，随后使用本邮箱即可直接登录。" +
         "无需等待管理员审核。",
         "若未收到验证邮件，请检查垃圾邮件箱，或在登录页使用「重置密码」触发新邮件。");
-      actions.innerHTML = link("login.html", "去登录") + link("index.html", "返回首页");
+      actions.innerHTML = link("access.html", "去登录") + link("index.html", "返回首页");
     } else {
       showState(state);
     }
@@ -155,7 +155,7 @@
     var o = document.getElementById("out");
     if (o) o.addEventListener("click", async function () {
       try { await A.signOut(); } catch (e) {}
-      location.href = "login.html";
+      location.href = "access.html";
     });
   }
 })();

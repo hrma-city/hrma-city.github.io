@@ -488,7 +488,7 @@
     if(!sb){ myStrBox.innerHTML='<p class="cm-hint">组件加载中，请刷新</p>'; return; }
     var sess=await sb.auth.getSession();
     var user=(sess&&sess.data&&sess.data.session)?sess.data.session.user:null;
-    if(!user){ myStrBox.innerHTML='<p class="cm-hint">请先 <a href="../login.html">登录</a> 查看你上报的样本。</p>'; return; }
+    if(!user){ myStrBox.innerHTML='<p class="cm-hint">请先 <a href="../access.html">登录</a> 查看你上报的样本。</p>'; return; }
     var r=await sb.from('str_samples').select('*').eq('user_id',user.id).order('month',{ascending:false});
     if(r.error){ myStrBox.innerHTML='<p class="cm-hint">加载失败：'+E(r.error.message)+'</p>'; return; }
     var rows=r.data||[];

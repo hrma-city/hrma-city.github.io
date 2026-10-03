@@ -171,11 +171,35 @@
     // 避免子目录页只存文件名导致跳错位置。
     var here = location.pathname || "/index.html";
     location.href = url + (url.indexOf("?") < 0 ? "?" : "&") +
-      "redirect=" + encodeURIComponent(here);
+      "next=" + encodeURIComponent(here);
+  }
+
+  /* ★ 与整站访问门（access-gate.js）合流，避免「重复鉴权」。
+     旧体系只认 Supabase 云端 session；整站门认本机 hrma_session_v2 + 账号表密码哈希。
+     站长明明用恢复码进了站，点 data-auth="protected" 的页面（如 resources.html 模板与资料）
+     却被这套旧逻辑弹去登录页——因为它压根不看本机登录态。 */
+  function localGateSession() {
+    try {
+      var s = JSON.parse(localStorage.getItem('hrma_session_v2') || 'null');
+      if (!s || !s.email || !s.pwRef) return null;
+      if (String(s.status || 'pending').toLowerCase() !== 'approved') return null;
+      var db = JSON.parse(localStorage.getItem('hrma_users_local') || 'null');
+      var arr = (db && !Array.isArray(db) && Array.isArray(db.users)) ? db.users : [];
+      var u = arr.filter(function (x) {
+        return x && String(x.email).toLowerCase() === String(s.email).toLowerCase();
+      })[0];
+      if (!u || !(u.pw || u.password) || String(u.pw || u.password) !== String(s.pwRef)) return null;
+      return { user: { email: u.email, name: u.name || '' } };
+    } catch (e) { return null; }
   }
 
   async function guard(opts) {
     opts = opts || {};
+    /* 整站门已认定登录（恢复码/邮箱密码都可能是入口）→ 直接放行，
+       不再重复要求旧体系登录。 */
+    var _lg = localGateSession();
+    if (_lg) { pass(); if (opts.admin && !isAdmin(_lg.user.email)) { /* 管理员校验仍生效 */
+      return; } return; }
     showBox('<div class="auth-spin"></div><p class="auth-tip">正在验证登录状态…</p>');
 
     if (!configured()) {
@@ -204,7 +228,7 @@
       return;
     }
 
-    if (!s) { go(prefix() + "login.html"); return; }
+    if (!s) { go(prefix() + "access.html"); return; }
 
     // 管理员后台：仅管理员可进，且不受自身审批状态限制（可自助审批自己与他人）
     if (opts.admin) {
@@ -250,10 +274,10 @@
     // 未登录的公开页：在主导航追加「登录」入口，让账户区可被找到
     var nav = document.getElementById("snLinks");
     if (!nav) return;
-    if (nav.querySelector('a[href="login.html"]') ||
-        nav.querySelector('a[href="../login.html"]')) return; // 已有则跳过
+    if (nav.querySelector('a[href="access.html"]') ||
+        nav.querySelector('a[href="../access.html"]')) return; // 已有则跳过
     var a = document.createElement("a");
-    a.href = prefix() + "login.html";
+    a.href = prefix() + "access.html";
     a.textContent = "登录";
     a.className = "hrma-login-link";
     nav.appendChild(a);
@@ -272,7 +296,7 @@
     document.body.appendChild(chip);
     document.getElementById("hrmaOut").onclick = async function () {
       await signOut();
-      location.href = prefix() + "login.html";
+      location.href = prefix() + "access.html";
     };
   }
 
