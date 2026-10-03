@@ -149,6 +149,7 @@ body.mode-teach .pro{display:none}
     <div class="track"><i id="fill"></i></div>
     <span id="pct">0 / 14 站</span>
     <button id="reset" type="button" style="font:inherit;font-size:12px;border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:6px;padding:4px 10px;cursor:pointer">清空进度</button>
+    <span id="ver" style="margin-left:auto;font-size:11.5px;color:#8a94a3">—</span>
   </div>
 </div>
 
@@ -210,7 +211,7 @@ body.mode-teach .pro{display:none}
 
 <footer>
   <div class="wrap">
-    <span>RMC 收益管理社区 · 只写判定表，不写观点文</span>
+    <span>RMC 收益管理社区 · 只写判定表，不写观点文<span id="ver2" style="margin-left:10px;opacity:.7"></span></span>
     <span><a href="index.html">首页</a> · <a href="teach.html">教师区</a> · <a href="resources.html">资料库</a></span>
   </div>
 </footer>
@@ -358,6 +359,17 @@ var DATA = [
   game:['games/flow-quest.html','流程闯关 90 关，用来验收整门课的熟练度'],
   course:'courses/m14-rms.html', plan:'teach/plans/M14.md', ppt:'ppt/HRMA-L3-收益管理经理-讲师版.pptx'}
 ];
+
+
+/* 版本号：站点有 CDN 缓存（约 1–2 分钟），改完不会立刻生效。
+   标出来，是为了让人一眼分辨「我看到的是不是最新的」——
+   否则改了没变化，谁都分不清是没改好还是缓存没过。 */
+var VER='v4 · 10-04 02:00';
+try{
+  var v1=document.getElementById('ver'), v2=document.getElementById('ver2');
+  if(v1) v1.textContent='内容版本 '+VER;
+  if(v2) v2.textContent='内容版本 '+VER;
+}catch(e){}
 
 var LVNAME={L1:'收益执行专员',L2:'收益管理主管',L3:'收益管理经理'};
 var KEY='hrma_path_done_v1';
