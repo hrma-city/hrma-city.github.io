@@ -93,7 +93,7 @@
 </div>
 <script src="auth-config.js"></script>
 <script>try{if(String(window.HRMA_AUTH_MODE||'cloud')==='local'){var t=document.getElementById('localTip');if(t)t.style.display='block';}}catch(e){}</script>
-<script src="assets/js/access-login.js?v=v3"></script>
+<script src="assets/js/access-login.js?v=v4"></script>
 <script>
 (function(){
   var m = location.search.match(/[?&]next=([^&]*)/);
@@ -103,6 +103,23 @@
   /* 未配真实后端时，明示当前是本地审核模式 */
   if (window.HRMA_GATE_API && !window.HRMA_GATE_API.supabase()) {
     var n = document.getElementById('beNote'); if (n) n.style.display = 'block';
+  }
+
+  /* 被访问门弹回来时（needpw=1），说明本机残留了无效登录态。
+     清掉它并给出明确提示，否则用户会以为页面坏了、来回刷新。 */
+  var msgEl = document.getElementById('msg');
+  if (/[?&]needpw=1/.test(location.search) && msgEl) {
+    try {
+      ['hrma_session_v2','hrma_gate_v1'].forEach(function(k){
+        try{ localStorage.removeItem(k); }catch(e){}
+      });
+    } catch (e) {}
+    msgEl.textContent = '检测到旧的登录状态已失效，已为你清除。请重新输入邮箱和密码登录。';
+    msgEl.className = 'msg bad';
+    /* 清掉参数，避免刷新时反复触发 */
+    try {
+      history.replaceState(null, '', location.pathname);
+    } catch (e) {}
   }
 })();
 </script>

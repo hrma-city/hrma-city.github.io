@@ -322,10 +322,17 @@
     });
   }
 
-  /* 已登录则直接进入 */
+  /* 已登录则直接进入。
+     ⚠️ 必须校验会话凭证（pwRef）：旧版本残留的会话没有它，
+        若直接 enter() 会被当成管理员放行 → 跳首页 → 门校验失败 → 弹回登录页，
+        形成"页面打不开"的无限循环。凭证无效就留在登录页，不要跳。 */
   try {
     var s = JSON.parse(localStorage.getItem(KEY_SESSION) || 'null');
-    if (s && s.email) { enter(s); }
+    if (s && s.email && s.pwRef) { enter(s); }
+    else if (s && s.email) {
+      /* 残留无效会话：清掉，避免反复触发 */
+      try { localStorage.removeItem(KEY_SESSION); } catch (e) {}
+    }
   } catch (e) {}
 
   /* 暴露给注册页/门复用的接口（不再暴露任何密码） */
