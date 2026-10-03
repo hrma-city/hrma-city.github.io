@@ -12,11 +12,16 @@
    ========================================================================== */
 
 /* ★ 鉴权模式开关（重要）
+   'cloud' = 云端模式：走 Supabase 真实服务端校验，可给外部人开账号（当前）。
    'local' = 本地模式：账号存在各自浏览器，不联网。适合只有你自己访问。
-   'cloud' = 云端模式：走 Supabase 真实服务端校验，可给外部人开账号。
-   切到 cloud 之前必须先完成：① 建 profiles 表(见 cloud-setup.html) ② 在 Supabase 建好管理员账号。
-   否则会出现「配了地址但云端没账号」→ 连站长自己也登不进去。 */
-window.HRMA_AUTH_MODE = 'local';
+                       一旦切回 'local'，云端注册/审核/登录三端会被整条旁路。
+
+   ⚠️ 任何时候都不建议长期停留在 'local'：本地模式下的申请记录只存在
+      填表那台设备的浏览器里，别人在哪注册你都看不到、也审不了。
+
+   切回 'local' 前请先确认：① profiles 表已建好(见 cloud-setup.html) ② 想给外人开号就不该切。
+   切回 'local' 的唯一代价：本机以外的人无法被审核通过（不是安全降档，是功能降档）。 */
+window.HRMA_AUTH_MODE = 'cloud';
 
 window.HRMA_SUPABASE = {
   // 例： "https://abcdefghijklmnop.supabase.co"

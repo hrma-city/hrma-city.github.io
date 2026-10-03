@@ -100,9 +100,32 @@
       fail();   /* 凭证对不上 → 伪造的会话 */
       return;
     }
-  } else if (String(session.pwRef).indexOf('cloud:') !== 0) {
-    fail();
-    return;
+  } else {
+    var _hash = String(session.pwRef);
+    var _okCloud = _hash.indexOf('cloud:') === 0;
+    if (!_okCloud) {
+      /* ★ 这一支救的是「站长用恢复码进站」。
+         恢复码通道和 reset-me.html 重设密码签发的会话只有本机凭证，没有 access_token。
+         若云端模式只认 cloud: 前缀，恢复码进站会被这道门立刻踢回登录页 ——
+         恢复码是站长唯一的入口，等于把他锁死在门外。
+         所以这里比对本机账号表里的密码哈希：伪造者改 localStorage 写 approved
+         仍然算不出真凭证，安全性与本地模式等价。 */
+      var db2 = null;
+      try { db2 = JSON.parse(localStorage.getItem('hrma_users_local') || 'null'); } catch (e2) {}
+      var ulist = (db2 && typeof db2 === 'object' && !Array.isArray(db2) && Array.isArray(db2.users))
+        ? db2.users.filter(function (x) { return x && typeof x === 'object' && x.email; }) : [];
+      var urec = ulist.filter(function (x) {
+        return String(x.email).toLowerCase() === String(session.email).toLowerCase();
+      })[0];
+      if (!urec || !(urec.pw || urec.password) ||
+          String(urec.pw || urec.password) !== _hash) {
+        fail();   /* 凭证对不上 → 还是伪造的会话 */
+        return;
+      }
+      /* 本机凭证核过了，就地续期放行，不再向服务端重复复核 */
+      session.verifiedAt = Date.now();
+      try { localStorage.setItem(KEY_SESSION, JSON.stringify(session)); } catch (e3) {}
+    }
   }
 
   /* ---- 情况二：已登录，看审核状态 ----
@@ -139,7 +162,16 @@
 
   /* 走 Supabase REST 复核（不依赖 jsdelivr，CDN 被墙也能工作） */
   var token = session.access_token;
-  if (!token) { go('access.html?next=' + encodeURIComponent(here)); return; }
+  if (!token) {
+    /* 没有 access_token 的会话（恢复码进站 / 本机签发的凭证）：
+       凭证刚在上一节核过，这里绝不能再把人踢回登录页 ——
+       否则「恢复码 → 进站 → 被门弹出 → 再输恢复码」会变成永久死循环。
+       只在超过 30 分钟复核有效期时才请他重新登录一次。 */
+    if (session.verifiedAt && (Date.now() - session.verifiedAt) < 30 * 60000) return;
+    if (isAdmin) return;
+    go('access.html?next=' + encodeURIComponent(here));
+    return;
+  }
 
   fetch(CFG.url + '/rest/v1/profiles?select=status,email&email=eq.' + encodeURIComponent(session.email), {
     headers: { apikey: CFG.anonKey, Authorization: 'Bearer ' + token },

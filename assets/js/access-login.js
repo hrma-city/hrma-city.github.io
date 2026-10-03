@@ -299,6 +299,20 @@
       });
   }
 
+  /* ⚠️ 云端不可达时的自诊文案。
+     以前 Supabase 连不上 → fetch 直接 reject → 上层的 .then 永远不执行 →
+     页面停在「提交中…」或静默失败，用户看到的就是「点注册没反应」。
+     这里把网络层异常压成一句能自己判断原因的话。 */
+  function cloudErr(e) {
+    var m = e && e.message ? String(e.message) : String(e);
+    if (/Failed to fetch|NetworkError|ERR_CONNECTION|ERR_NETWORK|ERR_NAME|Load failed|timeout/i.test(m)) {
+      return '连不上云端账号库（Supabase）：' + m.slice(0, 80)
+        + '。请确认 Supabase 项目没有暂停/被删除，且本机网络可访问 supabase.co。'
+        + '若只是你自己要用、不给外人开号，把 auth-config.js 里的 HRMA_AUTH_MODE 改回 \'local\' 即可继续用。';
+    }
+    return '云端账号库返回错误：' + m.slice(0, 140);
+  }
+
   function registerSupabase(C, email, pw, name, org, reason) {
     return api(C, '/auth/v1/signup', { method: 'POST', body: { email: email, password: pw } })
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
@@ -308,7 +322,8 @@
           method: 'POST', token: o.j.access_token || C.anonKey,
           body: { email: email, full_name: name || '', org: org || '', reason: reason || '' }
         }).then(function () { return { user: { email: email, name: name, status: 'pending', issuedAt: Date.now() } }; });
-      });
+      })
+      .catch(function (e) { return { error: cloudErr(e) }; });
   }
 
   /* ---------------- 事件绑定 ---------------- */
