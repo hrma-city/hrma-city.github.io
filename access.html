@@ -53,6 +53,10 @@
   .rclinks a{ color:#1d6fb8; font-size:12.5px; text-decoration:none; }
   .rclinks a:hover{ text-decoration:underline; }
   .rcbox button.ghost{ background:#fff; color:#6b5518; border:1px solid #d8c58a; font-weight:400; }
+  .pwstate{ margin:10px 0 0; font-size:12.5px; line-height:1.75; color:#8a97a5;
+            background:#f6f8fb; border:1px solid #e8ecf1; border-radius:6px; padding:8px 10px; }
+  .pwstate b{ color:#1a2733; }
+  .pwstate.no{ background:#fdf6e3; border-color:#e8d9a8; color:#6b5518; }
   .rcbox.hit{ animation: rcfocus 1.1s ease-out 2; }
   @keyframes rcfocus{ 0%,100%{ box-shadow:0 0 0 0 rgba(232,184,75,0); }
                    30%{ box-shadow:0 0 0 6px rgba(232,184,75,.55); } }
@@ -99,11 +103,11 @@
     <input id="password" type="password" placeholder="请输入密码" autocomplete="current-password">
     <button id="btn">登录并进入</button>
     <div id="msg" class="msg"></div>
+    <p class="pwstate" id="pwState">正在检查本机状态…</p>
 
     <div class="alt">
       <a id="regLink">注册申请 →</a>
-      <a id="resetLink">忘记密码</a>
-    </div>
+      <a id="resetLink">忘记密码</a>    </div>
     <div class="note">
       <b>访问规则</b><br>
       · 注册申请需经管理员（<span id="adminMail">—</span>）审核通过后才能进入。<br>
@@ -269,6 +273,29 @@
       },2600);
     });
   });
+})();
+
+/* 显示「这台设备上的账号表现状」——只说有没有密码，从不显示密码本身。
+   站长反复卡在「密码是多少」，其实真正要回答的是：到底有没有设过密码。 */
+(function(){
+  var el=document.getElementById('pwState');
+  if(!el) return;
+  var ADMIN='3984557428@qq.com';
+  var db=null;
+  try{ db=JSON.parse(localStorage.getItem('hrma_users_local')||'null'); }catch(e){}
+  var u=(db && Array.isArray(db.users)) ? db.users.filter(function(x){
+    return x && String(x.email).toLowerCase()===ADMIN; })[0] : null;
+  if(!u){
+    el.className='pwstate no';
+    el.innerHTML='<b>本机状态：</b>这台浏览器里还没有你的账号记录（可能被清过，或你换了浏览器/用了无痕窗口）。'
+      +'所以任何密码都会判错。<b>请用顶部的恢复码进站</b>，进站后到「修改我的密码」设一个。';
+  }else if(u.pw){
+    el.innerHTML='<b>本机状态：</b>已设置密码。密码是单向哈希存储的，'
+      +'谁都看不到原密码——<b>忘了就重设</b>：进站后到「修改我的密码」设一个新的，或用恢复码重设。';
+  }else{
+    el.className='pwstate no';
+    el.innerHTML='<b>本机状态：</b>账号存在但没有密码。请直接用顶部的恢复码进站。';
+  }
 })();
 </script>
 </body>
