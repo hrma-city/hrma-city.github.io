@@ -56,7 +56,13 @@
     msg.textContent = t || '';
     msg.className = 'msg' + (kind ? ' ' + kind : '');
   }
-  function busy(on) { btn.disabled = on; btn.textContent = on ? '验证中…' : '登录并进入'; }
+  /* 注意：register.html 复用本模块，它的按钮文案是「提交申请…」而不是「登录并进入」。
+     所以把初始文案记进 data-lbl，busy(false) 时还原，否则注册页按钮会被改成「登录并进入」。 */
+  function busy(on) {
+    if (!btn.getAttribute('data-lbl')) btn.setAttribute('data-lbl', (btn.textContent || '登录并进入').trim());
+    btn.disabled = on;
+    btn.textContent = on ? '验证中…' : btn.getAttribute('data-lbl');
+  }
 
   /* ---------- 密码哈希：优先用浏览器原生 SHA-256 ---------- */
   function sha256Hex(str) {
