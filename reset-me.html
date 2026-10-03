@@ -130,9 +130,20 @@
         if(!Array.isArray(db.approved))db.approved=[];
         if(db.approved.indexOf(ADMIN)<0)db.approved.push(ADMIN);
         localStorage.setItem(KEY_USERS,JSON.stringify(db));
-        try{localStorage.removeItem(KEY_SESSION);}catch(e){}
-        say('管理员密码已重设，请用新密码登录。','ok');
+
+        /* ★ 站长自助直通：设完密码直接发一张会话凭证并进站，不再要求再输一遍。
+           「只给我一个人看」的场景下，这一步是唯一且必成的入口，不能让站长卡第二次。 */
+        try{
+          localStorage.setItem(KEY_SESSION, JSON.stringify({
+            email:ADMIN, name:'站长', status:'approved',
+            pwRef:r[1],                       // 与新密码哈希一致 → 门必然放行
+            issuedAt:new Date().toISOString(),
+            autoIssued:true
+          }));
+        }catch(e){}
+        say('管理员密码已重设，已自动登录。正在进入首页…',''ok'');
         $('btn').disabled=false;
+        setTimeout(function(){ location.replace('index.html'); }, 900);
       })
       .catch(function(e){ say('操作失败：'+(e&&e.message?e.message:'未知错误'),'bad'); $('btn').disabled=false; });
   });
