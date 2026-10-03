@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <script src="assets/js/site-nav.js"></script>
 <script>window.HRMA_PREFIX="";</script>
-<script src="assets/js/access-gate.js"></script>
+<script src="assets/js/access-gate.js?v=v3"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <title>修改我的密码 · RMC 收益管理社区</title>
@@ -62,7 +62,7 @@
   <div class="foot">RMC 收益管理社区 · 内容与数据均受著作权保护</div>
 </div>
 <script src="auth-config.js"></script>
-<script src="assets/js/access-login.js"></script>
+<script src="assets/js/access-login.js?v=v3"></script>
 <script>
 (function(){
   var $=function(id){return document.getElementById(id);};
@@ -92,7 +92,9 @@
 
     window.HRMA_GATE_API.sha256(oldPw).then(function(hOld){
       var stored=u.pw||u.password;
-      if(stored!==hOld && stored!==oldPw){ say('当前密码不对。','bad'); $('btn').disabled=false; return; }
+      /* 兼容三种历史格式：SHA-256 / v2 老哈希 / v2 明文 */
+      var legacy=(function(x){var h=5381,t='hrma$'+x;for(var i=0;i<t.length;i++){h=((h<<5)+h+t.charCodeAt(i))>>>0;}return h.toString(16)+'.'+t.length;})(oldPw);
+      if(stored!==hOld && stored!==legacy && stored!==oldPw){ say('当前密码不对。','bad'); $('btn').disabled=false; return; }
       return window.HRMA_GATE_API.sha256(np).then(function(hNew){
         u.pw=hNew; try{delete u.password;}catch(e){}
         db.users=db.users; localStorage.setItem(KEY_USERS,JSON.stringify(db));

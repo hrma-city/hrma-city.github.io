@@ -74,6 +74,15 @@
     return Promise.resolve('fb$' + h.toString(16) + '.' + s.length);
   }
 
+  /* v2 时代的老哈希算法（djb2 + 'hrma$' 前缀）。
+     保留它只为**向后兼容**：早期用 reset-me 页面设过的密码存的是老哈希，
+     若只认 SHA-256 就会永远登不进去。校验通过后立刻升级为 SHA-256。 */
+  function legacyHash(str) {
+    var h = 5381, s = 'hrma$' + str;
+    for (var i = 0; i < s.length; i++) { h = ((h << 5) + h + s.charCodeAt(i)) >>> 0; }
+    return h.toString(16) + '.' + s.length;
+  }
+
   function saveSession(s) {
     s.verifiedAt = Date.now();
     s.issuedAt = s.issuedAt || Date.now();
@@ -124,8 +133,15 @@
     if (!u) return Promise.resolve({ error: 'noaccount' });
     var stored = u.pw || u.password;
     return sha256Hex(pw).then(function (h) {
-      /* 兼容 v2 留下的明文/旧哈希记录：首次成功后升级为 SHA-256 */
-      if (stored !== h && stored !== pw) return { error: 'badpw' };
+      /* 兼容三种历史存储格式，校验通过后一律升级为 SHA-256：
+         1) SHA-256（当前）
+         2) v2 老哈希 djb2（早期 reset-me 页面写入的）
+         3) v2 明文
+         少任何一种都会让用户永远登不进去。 */
+      var ok = (stored === h);
+      if (!ok && stored === legacyHash(pw)) ok = true;
+      if (!ok && stored === pw) ok = true;
+      if (!ok) return { error: 'badpw' };
       if (stored !== h) { u.pw = h; try { delete u.password; } catch (e) {} localSet(db); }
       return { user: { email: u.email, name: u.name, status: u.status, issuedAt: Date.now() }, pwHash: h };
     });
