@@ -85,6 +85,13 @@ h3.sec{font-size:15px;margin:30px 0 10px;font-weight:600}
   border:1px solid var(--navy);color:var(--navy);background:#fff;white-space:nowrap}
 .bookbar .btns a.dl{background:var(--navy);color:#fff}
 
+
+.lv{font-size:11.5px;padding:2px 9px;border-radius:20px;background:#eef4fb;color:#185fa5;border:1px solid #cfe0f5;white-space:nowrap}
+.lv.L2{background:#eaf3de;color:#3b6d11;border-color:#c6dda0}
+.lv.L3{background:#faeeda;color:#854f0b;border-color:#f0dca4}
+.tchmeta{font-size:12.5px;color:var(--muted);margin-top:11px;line-height:1.6}
+.tchmeta b{color:var(--navy)}
+
 </style>
 </head>
 <body>
@@ -120,9 +127,13 @@ h3.sec{font-size:15px;margin:30px 0 10px;font-weight:600}
 <div class="bookbar"><div><b>主教材：《酒店收益管理：从原理到决策》（学生版 · 五篇三十二章）</b><span>下面每一站的「读」，都直接跳进这本书的对应章节。想从头到尾读，用右边两个入口。</span></div><div class="btns"><a href="textbook.html">在线读全本</a><a class="dl" href="%E9%85%92%E5%BA%97%E6%94%B6%E7%9B%8A%E7%AE%A1%E7%90%86%EF%BC%9A%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%86%B3%E7%AD%96%EF%BC%88%E5%AD%A6%E7%94%9F%E7%89%88%20%C2%B7%20%E4%BA%94%E7%AF%87%E6%A1%86%E6%9E%B6%EF%BC%89.pdf">下载 PDF（260 页）</a></div></div>
 
   <div class="tips">
-    <b>怎么用这一页</b>：每一站按 读 → 看 → 练 → 考 顺序走。<b>读</b>是这一站的概念，<b>看</b>是真实数据长什么样，
-    <b>练</b>是亲手做一遍，<b>考</b>是检验你会不会判断。做完点「标记完成」，进度会存在你这台设备上。
-    教师切到教师视角，每一站下面会多出教案、课件与考核标准。
+    <b>教材和模块是什么关系</b>（这是最容易被弄混的一点）：<b>教材</b>是学生读的东西——三十二章的系统正文；
+    <b>课程模块 M01–M14</b>是教师教的东西——教案页，写着这一站几课时、属于哪一级认证、学习目标是什么。
+    两者编号是对齐的：学生在第 N 站读教材的某一章，教师就在第 N 站用对应的教案讲它。
+    所以<b>学生只读教材</b>，教案、教师册、课件都在教师视角里，不会混进来。<br><br>
+    <b>怎么用这一页</b>：每一站按 读 → 看 → 练 → 考 走。<b>读</b>＝主教材对应章节（这一站全部的知识正文）；
+    <b>看</b>＝真实数据长什么样；<b>练</b>＝亲手做一遍；<b>考</b>＝检验你会不会判断。
+    站名右边的 L1/L2/L3 是认证级别（L1 执行专员 → L2 主管 → L3 经理）。做完点「标记完成」，进度存在你这台设备上。
   </div>
 
   <div id="stages"></div>
@@ -173,133 +184,120 @@ h3.sec{font-size:15px;margin:30px 0 10px;font-weight:600}
 <script>
 var DATA = [
  {n:'M01', t:'收益管理的语言：指标与计算',
+  p:'学完你能：算出一家酒店今天到底赚不赚钱，知道每个数字是怎么来的。', lv:'L1', hrs:'2 课时',
   ch:['textbook.html#ch02','教材 第 2 章 · 三个核心指标：OCC、ADR、RevPAR'],
-  p:'学完你能：算出一家酒店今天到底赚不赚钱，知道每个数字是怎么来的。',
-  read:['courses/m01-metrics.html','课程模块 M01'],
+  read:['series/No02-指标体系.html','书系 02 · 指标体系'],
   see:['series/tools/01-baseline.html','历史基线表'],
-  read2:['series/No02-指标体系.html','书系 02 · 指标体系'],
   do:['templates/01_每日收益日报.xlsx','填一份每日收益日报'],
   test:['exam/quiz.html','在线考核'],
-  plan:'teach/plans/M01.md', ppt:'ppt/HRMA-L1-收益执行专员-讲师版.pptx'},
+  course:'courses/m01-metrics.html', plan:'teach/plans/M01.md', ppt:'ppt/HRMA-L1-收益执行专员-讲师版.pptx'},
  {n:'M02', t:'系统与数据导航',
+  p:'学完你能：分清 PMS、CRS、RMS 各管什么，知道哪个数字能信、哪个不能。', lv:'L1', hrs:'2 课时',
   ch:['textbook.html#ch17','教材 第 17 章 · 运营全景：从年到日的节奏'],
-  p:'学完你能：分清 PMS、CRS、RMS 各管什么，知道哪个数字能信、哪个不能。',
-  read:['courses/m02-systems.html','课程模块 M02'],
+  read:['series/No15-系统与数据.html','书系 15 · 系统与数据'],
   see:['series/tools/02-onbook.html','渠道在途表'],
-  read2:['series/No15-系统与数据.html','书系 15 · 系统与数据'],
   do:['data/01_历史日度经营数据_2025.csv','打开真实历史数据'],
   test:['exam/quiz.html','在线考核'],
-  plan:'teach/plans/M02.md', ppt:'ppt/HRMA-L1-收益执行专员-讲师版.pptx'},
+  course:'courses/m02-systems.html', plan:'teach/plans/M02.md', ppt:'ppt/HRMA-L1-收益执行专员-讲师版.pptx'},
  {n:'M03', t:'每日操作流水线',
+  p:'学完你能：把收益经理每天要做的固定动作，从头到尾跑一遍。', lv:'L1', hrs:'6 课时',
   ch:['textbook.html#ch18','教材 第 18 章 · 每日实操流程：一天具体做什么'],
-  p:'学完你能：把收益经理每天要做的固定动作，从头到尾跑一遍。',
-  read:['courses/m03-dailyops.html','课程模块 M03'],
+  read:['books/daily-flow.html','每日流水线桌面卡片'],
   see:['series/tools/04-gate.html','触发条件检查表'],
-  read2:['books/daily-flow.html','每日流水线桌面卡片'],
   do:['games/pipeline.html','游戏 · 一日流水线'],
   test:['exam/quiz.html','在线考核'],
-  plan:'teach/plans/M03.md', ppt:'ppt/HRMA-L1-收益执行专员-讲师版.pptx'},
+  course:'courses/m03-dailyops.html', plan:'teach/plans/M03.md', ppt:'ppt/HRMA-L1-收益执行专员-讲师版.pptx'},
  {n:'M04', t:'报表与台账',
+  p:'学完你能：自己出一份能拿去开会的日报、周报。', lv:'L1', hrs:'2 课时',
   ch:['textbook.html#ch23','教材 第 23 章 · 报表体系：每天该看哪几张表'],
-  p:'学完你能：自己出一份能拿去开会的日报、周报。',
-  read:['courses/m04-reports.html','课程模块 M04'],
+  read:['series/No14-收益例会与报表.html','书系 14 · 例会与报表'],
   see:['series/tools/09-review.html','复盘偏差表'],
-  read2:['series/No14-收益例会与报表.html','书系 14 · 例会与报表'],
   do:['templates/07_周报月报模板.xlsx','做一份周报月报'],
   test:['exam/quiz.html','在线考核'],
-  plan:'teach/plans/M04.md', ppt:'ppt/HRMA-L1-收益执行专员-讲师版.pptx'},
+  course:'courses/m04-reports.html', plan:'teach/plans/M04.md', ppt:'ppt/HRMA-L1-收益执行专员-讲师版.pptx'},
  {n:'M05', t:'需求预测：Pickup 与预订曲线',
+  p:'学完你能：看着预订进度，判断这个日期该不该紧张。', lv:'L2', hrs:'8 课时',
   ch:['textbook.html#ch20','教材 第 20 章 · 预测与需求日历'],
-  p:'学完你能：看着预订进度，判断这个日期该不该紧张。',
-  read:['courses/m05-forecast.html','课程模块 M05'],
+  read:['series/No04-需求预测.html','书系 04 · 需求预测'],
   see:['series/tools/03-pace.html','预订进度表（Pace）'],
-  read2:['series/No04-需求预测.html','书系 04 · 需求预测'],
   do:['games/duty.html','游戏 · 值班叙事'],
   test:['exam/quiz.html','在线考核'],
-  plan:'teach/plans/M05.md', ppt:'ppt/HRMA-L2-收益管理主管-讲师版.pptx'},
+  course:'courses/m05-forecast.html', plan:'teach/plans/M05.md', ppt:'ppt/HRMA-L2-收益管理主管-讲师版.pptx'},
  {n:'M06', t:'价格体系设计',
+  p:'学完你能：把房型之间的价差排出来，说清楚为什么这么排。', lv:'L2', hrs:'6 课时',
   ch:['textbook.html#ch22','教材 第 22 章 · 价格体系 BAR：所有价格的锚'],
-  p:'学完你能：把房型之间的价差排出来，说清楚为什么这么排。',
-  read:['courses/m06-pricing.html','课程模块 M06'],
+  read:['series/No07-价格体系.html','书系 07 · 价格体系'],
   see:['series/tools/08-pms-price.html','PMS 价格联动模板'],
-  read2:['series/No07-价格体系.html','书系 07 · 价格体系'],
   do:['games/level.html','游戏 · 决策闯关'],
   test:['exam/quiz.html','在线考核'],
-  plan:'teach/plans/M06.md', ppt:'ppt/HRMA-L2-收益管理主管-讲师版.pptx'},
+  course:'courses/m06-pricing.html', plan:'teach/plans/M06.md', ppt:'ppt/HRMA-L2-收益管理主管-讲师版.pptx'},
  {n:'M07', t:'库存与限制条件战术',
+  p:'学完你能：决定什么时候开关 MinLOS、CTA、CTD，而不是凭感觉。', lv:'L2', hrs:'6 课时',
   ch:['textbook.html#ch10','教材 第 10 章 · 最短住期 MinLOS：用条件把客群分开'],
-  p:'学完你能：决定什么时候开关 MinLOS、CTA、CTD，而不是凭感觉。',
-  read:['courses/m07-inventory.html','课程模块 M07'],
+  read:['series/No10-库存控制.html','书系 10 · 库存控制'],
   see:['series/tools/06-quota.html','渠道/细分每日配额表'],
-  read2:['series/No10-库存控制.html','书系 10 · 库存控制'],
   do:['games/arena.html','游戏 · 联机对战'],
   test:['exam/quiz.html','在线考核'],
-  plan:'teach/plans/M07.md', ppt:'ppt/HRMA-L2-收益管理主管-讲师版.pptx'},
+  course:'courses/m07-inventory.html', plan:'teach/plans/M07.md', ppt:'ppt/HRMA-L2-收益管理主管-讲师版.pptx'},
  {n:'M08', t:'渠道与分销管理',
+  p:'学完你能：把有限库存分给不同渠道，知道每一间给出去的代价。', lv:'L2', hrs:'6 课时',
   ch:['textbook.html#ch13','教材 第 13 章 · 渠道净价：到手多少钱才算数'],
-  p:'学完你能：把有限库存分给不同渠道，知道每一间给出去的代价。',
-  read:['courses/m08-channel.html','课程模块 M08'],
+  read:['series/No15-系统与数据.html','书系 15 · 系统与数据'],
   see:['core/k04-channel.html','通用内核 K04 · 渠道管理'],
-  read2:['series/No15-系统与数据.html','书系 15 · 系统与数据'],
   do:['games/roleplay.html','游戏 · 收益经理的一天'],
   test:['exam/quiz.html','在线考核'],
-  plan:'teach/plans/M08.md', ppt:'ppt/HRMA-L2-收益管理主管-讲师版.pptx'},
+  course:'courses/m08-channel.html', plan:'teach/plans/M08.md', ppt:'ppt/HRMA-L2-收益管理主管-讲师版.pptx'},
  {n:'M09', t:'竞争监测与市场定位',
+  p:'学完你能：看清自己在竞争组合里的位置，知道该跟谁比、比什么。', lv:'L2', hrs:'6 课时',
   ch:['textbook.html#ch03','教材 第 3 章 · 竞争三件套：MPI、ARI、RGI'],
-  p:'学完你能：看清自己在竞争组合里的位置，知道该跟谁比、比什么。',
-  read:['courses/m09-compset.html','课程模块 M09'],
+  read:['series/No03-竞争与市场位置.html','书系 03 · 竞争与市场位置'],
   see:['series/tools/05-elasticity.html','需求价格弹性测算表'],
-  read2:['series/No03-竞争与市场位置.html','书系 03 · 竞争与市场位置'],
   do:['games/reigns.html','游戏 · 卡牌版'],
   test:['exam/quiz.html','在线考核'],
-  plan:'teach/plans/M09.md', ppt:'ppt/HRMA-L2-收益管理主管-讲师版.pptx'},
+  course:'courses/m09-compset.html', plan:'teach/plans/M09.md', ppt:'ppt/HRMA-L2-收益管理主管-讲师版.pptx'},
  {n:'M10', t:'客源细分战略',
+  p:'学完你能：把客人分成几类，并为每一类定不同的打法。', lv:'L3', hrs:'6 课时',
   ch:['textbook.html#ch14','教材 第 14 章 · 客源细分：把客人分成几堆来卖'],
-  p:'学完你能：把客人分成几类，并为每一类定不同的打法。',
-  read:['courses/m10-segment.html','课程模块 M10'],
+  read:['series/tools/07-displacement.html','团队置换分析表'],
   see:['series/No06-市场细分.html','书系 06 · 市场细分'],
-  read2:['series/tools/07-displacement.html','团队置换分析表'],
   do:['games/cases.html','案例分析集（12 个）'],
   test:['exam/quiz.html','在线考核'],
-  plan:'teach/plans/M10.md', ppt:'ppt/HRMA-L3-收益管理经理-讲师版.pptx'},
+  course:'courses/m10-segment.html', plan:'teach/plans/M10.md', ppt:'ppt/HRMA-L3-收益管理经理-讲师版.pptx'},
  {n:'M11', t:'年度预算与滚动预测',
+  p:'学完你能：把全年目标拆到每个月、每一天，并且能解释拆的依据。', lv:'L3', hrs:'8 课时',
   ch:['textbook.html#ch21','教材 第 21 章 · 年度预算：把一年拆到每天'],
-  p:'学完你能：把全年目标拆到每个月、每一天，并且能解释拆的依据。',
-  read:['courses/m11-budget.html','课程模块 M11'],
+  read:['series/No13-预算与目标.html','书系 13 · 预算与目标'],
   see:['templates/06_年度预算与月度分解.xlsx','年度预算与月度分解表'],
-  read2:['series/No13-预算与目标.html','书系 13 · 预算与目标'],
   do:['games/sim.html','游戏 · 经营模拟 30 天'],
   test:['exam/quiz.html','在线考核'],
-  plan:'teach/plans/M11.md', ppt:'ppt/HRMA-L3-收益管理经理-讲师版.pptx'},
+  course:'courses/m11-budget.html', plan:'teach/plans/M11.md', ppt:'ppt/HRMA-L3-收益管理经理-讲师版.pptx'},
  {n:'M12', t:'会议与汇报',
+  p:'学完你能：在收益例会上讲清楚三件事——发生了什么、为什么、下一步怎么做。', lv:'L3', hrs:'6 课时',
   ch:['textbook.html#ch19','教材 第 19 章 · 执行标准与收益例会'],
-  p:'学完你能：在收益例会上讲清楚三件事——发生了什么、为什么、下一步怎么做。',
-  read:['courses/m12-meetings.html','课程模块 M12'],
+  read:['templates/07_周报月报模板.xlsx','周报月报模板'],
   see:['series/No14-收益例会与报表.html','书系 14 · 例会与报表'],
-  read2:['templates/07_周报月报模板.xlsx','周报月报模板'],
   do:['games/classroom.html','游戏 · 课堂分组经营竞赛'],
   test:['exam/quiz.html','在线考核'],
-  plan:'teach/plans/M12.md', ppt:'ppt/HRMA-L3-收益管理经理-讲师版.pptx'},
+  course:'courses/m12-meetings.html', plan:'teach/plans/M12.md', ppt:'ppt/HRMA-L3-收益管理经理-讲师版.pptx'},
  {n:'M13', t:'跨部门协同与变革推动',
+  p:'学完你能：说服前厅、销售、预订配合你的策略，而不是各干各的。', lv:'L3', hrs:'6 课时',
   ch:['textbook.html#ch25','教材 第 25 章 · 岗位与组织：谁来干这件事'],
-  p:'学完你能：说服前厅、销售、预订配合你的策略，而不是各干各的。',
-  read:['courses/m13-team.html','课程模块 M13'],
+  read:['series/No16-跨行业与误区.html','书系 16 · 跨行业与误区'],
   see:['books/cases.html','跨行业收益管理案例集'],
-  read2:['series/No16-跨行业与误区.html','书系 16 · 跨行业与误区'],
   do:['games/cases.html','案例分析集（12 个）'],
   test:['exam/quiz.html','在线考核'],
-  plan:'teach/plans/M13.md', ppt:'ppt/HRMA-L3-收益管理经理-讲师版.pptx'},
+  course:'courses/m13-team.html', plan:'teach/plans/M13.md', ppt:'ppt/HRMA-L3-收益管理经理-讲师版.pptx'},
  {n:'M14', t:'收益管理系统与自动化',
+  p:'学完你能：判断该不该上系统、上了以后哪些动作可以交给它、哪些必须人来做。', lv:'L3', hrs:'6 课时',
   ch:['textbook.html#ch27','教材 第 27 章 · 系统与数据：工具能替你做什么'],
-  p:'学完你能：判断该不该上系统、上了以后哪些动作可以交给它、哪些必须人来做。',
-  read:['courses/m14-rms.html','课程模块 M14'],
+  read:['series/No15-系统与数据.html','书系 15 · 系统与数据'],
   see:['core/index.html','通用内核六模块'],
-  read2:['series/No15-系统与数据.html','书系 15 · 系统与数据'],
   do:['games/flow-quest.html','流程闯关 · 90 关题库'],
   test:['exam/certification.html','考核认证标准'],
-  plan:'teach/plans/M14.md', ppt:'ppt/HRMA-L3-收益管理经理-讲师版.pptx'}
+  course:'courses/m14-rms.html', plan:'teach/plans/M14.md', ppt:'ppt/HRMA-L3-收益管理经理-讲师版.pptx'}
 ];
 
+var LVNAME={L1:'收益执行专员',L2:'收益管理主管',L3:'收益管理经理'};
 var KEY='hrma_path_done_v1';
 function loadDone(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
 function saveDone(a){ try{ localStorage.setItem(KEY, JSON.stringify(a)); }catch(e){} }
@@ -338,19 +336,21 @@ function render(){
   DATA.forEach(function(s,i){
     var isDone=done.indexOf(s.n)>=0;
     html+='<section class="stage'+(isDone?' done':'')+'" data-n="'+s.n+'">'
-      +'<div class="top"><span class="num">'+s.n+'</span><h2>'+esc(s.t)+'</h2></div>'
+      +'<div class="top"><span class="num">'+s.n+'</span><h2>'+esc(s.t)+'</h2>'
+      +'<span class="lv '+s.lv+'">'+s.lv+' · '+esc(s.hrs)+'</span></div>'
       +'<p class="promise">'+esc(s.p)+'</p>'
       +'<div class="steps">'
         +'<div class="step"><div class="k">读</div>'+link(s.ch)+'<div class="n" style="margin-top:6px"><a href="'+esc(s.read[0])+'" style="font-weight:400">'+esc(s.read[1])+'</a></div></div>'
-        +'<div class="step"><div class="k">看</div>'+link(s.see)+'<div class="n" style="margin-top:6px"><a href="'+esc(s.read2[0])+'" style="font-weight:400">'+esc(s.read2[1])+'</a></div></div>'
+        +'<div class="step"><div class="k">看</div>'+link(s.see)+'</div>'
         +'<div class="step"><div class="k">练</div>'+link(s.do)+'</div>'
         +'<div class="step"><div class="k">考</div>'+link(s.test)+'</div>'
       +'</div>'
+      +'<div class="tchmeta tch">这一站属于 <b>'+s.lv+'</b>（'+LVNAME[s.lv]+'）· '+esc(s.hrs)+' —— 下面四件是教这一站用的材料，不是学生要读的。</div>'
       +'<div class="tchbox tch">'
+        +'<div><div class="k">教案页</div><a href="'+esc(s.course)+'">课程模块 '+s.n+'</a></div>'
         +'<div><div class="k">教材教学装</div><a href="'+esc(tchLink(s.ch))+'">教师册 · '+esc(chNo(s.ch))+' 章</a></div>'
-        +'<div><div class="k">教案</div><a href="'+esc(s.plan)+'">'+s.n+' 教案（文本）</a></div>'
-        +'<div><div class="k">课件</div><a href="'+esc(s.ppt)+'">讲师版课件（PPTX）</a></div>'
-        +'<div><div class="k">考核</div><a href="exam/certification.html">本站考核标准</a></div>'
+        +'<div><div class="k">课件</div><a href="'+esc(s.ppt)+'">'+s.lv+' 讲师版（PPTX）</a></div>'
+        +'<div><div class="k">教案文本</div><a href="'+esc(s.plan)+'">'+s.n+' 教案（md）</a></div>'
       +'</div>'
       +'<div class="mark"><button type="button" class="mk'+(isDone?' on':'')+'">'+(isDone?'已完成，点此撤销':'标记这一站完成')+'</button>'
       +'<span>完成这一站再进下一站</span></div>'
