@@ -156,14 +156,29 @@
     for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}
     return Promise.resolve('fb$'+h.toString(16)+'.'+s.length);
   }
+  /* 恢复码清洗：全角转半角、去掉所有空白/换行、去掉「恢复码：」前缀、统一大写。
+     站长一般是「从本机 txt 整段复制」过来，极易带上换行或全角符号，这里一律容忍。 */
+  function normRC(s){
+    s=String(s||'');
+    try{
+      s=s.replace(/[\uff01-\uff5e]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-0xfee0);});
+    }catch(e){}
+    s=s.replace(/[\s\u00a0\ufeff\r\n\t]/g,'');
+    s=s.replace(/^(恢复码|管理员恢复码|recovery\s*code?)[\s:：=、]*/i,'');
+    return s.toUpperCase();
+  }
+  var BAD='恢复码不对。三个最常见原因：① 你拿的是旧码——每重新生成一次恢复码，旧码立刻作废，'+
+          '请打开本机 hrma/_private_files/管理员恢复码.txt 看「生成时间」那一行，用最新的那个；'+
+          '② 别手打，整段复制；③ 正确格式 RC-XXXXXXXX-XXXXXXXX，共 32 个字符。空格、全角、'+
+          '首尾换行都会自动忽略，但如果字符本身抄漏了就过不了。';
   btn.addEventListener('click',function(){
-    var code=String(inp.value||'').trim();
+    var code=normRC(inp.value);
     if(!code){ say('请先填恢复码。','bad'); return; }
     var rcHash; try{ rcHash=localStorage.getItem(KEY_RC); }catch(e){}
     if(!rcHash){ say('本机没找到恢复码记录，通道不可用。请到 reset-me.html 重设。','bad'); return; }
     btn.disabled=true; say('校验中……','');
     sha256Hex('hrma-rc|'+code).then(function(h){
-      if(h!==rcHash){ btn.disabled=false; say('恢复码不对。','bad'); inp.value=''; return; }
+      if(h!==rcHash){ btn.disabled=false; say(BAD,'bad'); inp.value=''; return; }
       var ADMIN2=ADMIN;
       var db; try{ db=JSON.parse(localStorage.getItem(KEY_USERS)||'null'); }catch(e){}
       if(!db||typeof db!=='object'||Array.isArray(db)) db={users:[],approved:[]};

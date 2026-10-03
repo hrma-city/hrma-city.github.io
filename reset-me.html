@@ -91,6 +91,18 @@
   var ADMIN='3984557428@qq.com';
   var KEY_USERS='hrma_users_local', KEY_SESSION='hrma_session_v2', KEY_RC='hrma_rc_hash';
 
+  /* 恢复码清洗：全角转半角、去掉所有空白/换行、去掉「恢复码：」前缀、统一大写。
+     站长通常是整段复制本机 txt，容易带换行或全角，这里一律容忍。 */
+  function normRC(s){
+    s=String(s||'');
+    try{
+      s=s.replace(/[\uff01-\uff5e]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-0xfee0);});
+    }catch(e){}
+    s=s.replace(/[\s\u00a0\ufeff\r\n\t]/g,'');
+    s=s.replace(/^(恢复码|管理员恢复码|recovery\s*code?)[\s:：=、]*/i,'');
+    return s.toUpperCase();
+  }
+
   /* 自助脱困：清空本机账号/会话数据。
      只删本机 localStorage，不影响任何其他人，也不影响网站内容。 */
   var wipeBtn=$('wipe');
@@ -107,7 +119,7 @@
   }
 
   $('btn').addEventListener('click',function(){
-    var rc=$('rc').value, np=$('np').value, np2=$('np2').value;
+    var rc=normRC($('rc').value), np=$('np').value, np2=$('np2').value;
     if(!rc||!np){ say('请填写恢复码和新密码。','bad'); return; }
     if(np.length<8){ say('新密码至少 8 位。','bad'); return; }
     if(np!==np2){ say('两次输入的新密码不一致。','bad'); return; }
@@ -119,7 +131,12 @@
 
     Promise.all([sha256Hex('hrma-rc|'+rc), sha256Hex(np)])
       .then(function(r){
-        if(r[0]!==rcHash){ say('恢复码不对。','bad'); $('btn').disabled=false; return; }
+        if(r[0]!==rcHash){
+          say('恢复码不对。每重新生成一次恢复码，旧码立刻作废——请打开本机 '+
+              'hrma/_private_files/管理员恢复码.txt，看「生成时间」那一行，用最新的码整段复制。'+
+              '正确格式 RC-XXXXXXXX-XXXXXXXX，共 32 个字符。','bad');
+          $('btn').disabled=false; return;
+        }
         var db;
         try{db=JSON.parse(localStorage.getItem(KEY_USERS)||'null');}catch(e){}
         if(!db||typeof db!=='object'||Array.isArray(db)){db={users:[],approved:[]};}
