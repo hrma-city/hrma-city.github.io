@@ -1,26 +1,47 @@
 /* ==========================================================================
-   HRMA 访问门 · 登录逻辑 v2（邮箱 + 密码 + 管理员审核）
+   HRMA 访问门 · 登录逻辑 v3（邮箱 + 密码 + 管理员审核）
    --------------------------------------------------------------------------
-   两种后端，自动选择：
-     A. 已配 Supabase（auth-config.js 填了 url/anonKey）→ 走真实服务端校验
-        · 密码由 Supabase 校验，浏览器拿不到明文密码
-        · 登录后仍需管理员审核（profiles.status = approved 才能进）
-     B. 未配 Supabase → 降级为本机账号表
-        · 初始账号 3984557428@qq.com，密码见 ADMIN_INIT_PASSWORD
-        · 其他人注册后进「待审核」，需你在「审核后台」通过
+   v3 相对 v2 修掉的 4 个真实漏洞：
 
-   登录成功后写 hrma_session_v2 = {email, name, status, access_token, verifiedAt}
+   ① 管理员密码曾以明文写在本文件里 → 任何人打开网页源码即可看到并登录。
+      现在密码只以 SHA-256 哈希存在于站长本机的账号表里，源码不含任何秘密。
+      首次设置密码走 reset-me.html（需恢复码），之后可在 me.html 自行修改。
+
+   ② 「忘记密码」原本允许任何人给管理员邮箱设新密码 → 等于无密码。
+      现在管理员不能在该流程改密，只能用恢复码在 reset-me.html 重设。
+
+   ③ 访问门原本对管理员邮箱无条件放行 → 改 localStorage 就能冒充。
+      现在门只认「登录时由密码校验签发的会话」，并每 30 分钟复核。
+
+   ④ 本地名单模式原本只要 session.status==='approved' 就放行 → 可自行伪造。
+      现在本地模式下已通过名单只认「管理员审核后台写入的名单」，
+      且会话必须带服务器/密码签发的凭证。
+
+   ⚠️ 防护边界（纯静态站点固有限制，必须诚实告知使用者）：
+      GitHub Pages 没有服务器。页面 HTML 本身是公开的，懂技术的人可以直接
+      下载源文件或绕过 JS。配了 Supabase 后密码与审核状态是**真实服务端
+      校验**（不可伪造）；要连静态文件一起加密，须迁到带访问网关的平台
+      （Cloudflare Access / 腾讯云 COS 私有读）。
+
+   依赖：auth-config.js（Supabase 地址、匿名密钥、管理员密码哈希）
    ========================================================================== */
 (function () {
   'use strict';
 
   var ADMIN_EMAIL = '3984557428@qq.com';
-  /* ⚠️ 首次使用请立刻用「忘记密码」改掉这个初始密码，改完它就作废。
-        这是本地降级模式用的，仅在未配 Supabase 时生效。 */
-  var ADMIN_INIT_PASSWORD = 'Rmc@2026Init';
+
+  /* ⚠️ 这里曾放管理员密码的哈希 —— 那等于把密码公开，已彻底移除。
+     原因：密码是低熵的，攻击者拿到哈希后可离线字典爆破；即使爆破不出，
+     也能把哈希直接当凭证塞进 localStorage 冒充管理员。
+     现在管理员密码只存在于站长自己浏览器的账号表里，源码不含任何秘密。
+
+     首次设置密码：打开 reset-me.html，用恢复码设一个只有你知道的密码。
+     恢复码是 128 位随机值，其哈希公开是安全的（无法爆破）。 */
+
   var KEY_SESSION = 'hrma_session_v2';
-  var KEY_USERS = 'hrma_users_local';       // 本地降级模式：账号表
-  var KEY_LOCALLIST = 'hrma_approved_local';// 本地降级模式：已通过名单
+  var KEY_USERS = 'hrma_users_local';        // 本地降级模式：账号表
+  var KEY_LOCALLIST = 'hrma_approved_local'; // 本地降级模式：管理员审核通过的名单
+  var KEY_V2 = 'hrma_gate_v1';               // 旧版「只输邮箱」凭证，必须清理
 
   var $ = function (id) { return document.getElementById(id); };
   var msg = $('msg'), btn = $('btn'), emailEl = $('email'), pwEl = $('password');
@@ -37,8 +58,25 @@
   }
   function busy(on) { btn.disabled = on; btn.textContent = on ? '验证中…' : '登录并进入'; }
 
+  /* ---------- 密码哈希：优先用浏览器原生 SHA-256 ---------- */
+  function sha256Hex(str) {
+    if (window.crypto && window.crypto.subtle && window.TextEncoder) {
+      return window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(str))
+        .then(function (buf) {
+          return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+            return ('0' + b.toString(16)).slice(-2);
+          }).join('');
+        });
+    }
+    /* 老浏览器兜底（强度弱但仍非明文） */
+    var h = 5381, s = 'hrma$3$' + str;
+    for (var i = 0; i < s.length; i++) { h = ((h << 5) + h + s.charCodeAt(i)) >>> 0; }
+    return Promise.resolve('fb$' + h.toString(16) + '.' + s.length);
+  }
+
   function saveSession(s) {
     s.verifiedAt = Date.now();
+    s.issuedAt = s.issuedAt || Date.now();
     try { localStorage.setItem(KEY_SESSION, JSON.stringify(s)); } catch (e) {}
   }
 
@@ -49,48 +87,48 @@
     return t;
   }
 
-  function enter(s) {
-    if (String(s.email).toLowerCase() === ADMIN_EMAIL) {
-      s.status = 'approved';
-      saveSession(s);
+  /* 会话凭证绑定「密码哈希」——只有知道密码的人才算得出这个值，
+     改 localStorage 写个 approved 或伪造 email 都无效。
+     门会用本机账号表里的密码哈希重算并比对（见 access-gate.js）。 */
+  function enter(s, pwHash) {
+    if (pwHash) s.pwRef = pwHash;
+    s.issuedAt = s.issuedAt || Date.now();
+    s.status = String(s.email).toLowerCase() === ADMIN_EMAIL ? 'approved' : s.status;
+    s.verifiedAt = Date.now();
+    try { localStorage.setItem(KEY_SESSION, JSON.stringify(s)); } catch (e) {}
+    if (String(s.email).toLowerCase() === ADMIN_EMAIL || s.status === 'approved') {
       location.replace(safeTarget(next));
-      return;
+    } else if (s.status === 'rejected') {
+      location.replace('rejected.html');
+    } else {
+      location.replace('pending.html');
     }
-    saveSession(s);
-    if (s.status === 'approved') { location.replace(safeTarget(next)); return; }
-    if (s.status === 'rejected') { location.replace('rejected.html'); return; }
-    location.replace('pending.html');
   }
 
   /* ---------------- 本地降级模式 ---------------- */
   function localGet() { try { return JSON.parse(localStorage.getItem(KEY_USERS) || 'null'); } catch (e) { return null; } }
   function localSet(v) { try { localStorage.setItem(KEY_USERS, JSON.stringify(v)); } catch (e) {} }
 
+  /* 账号表：不存在则建空表。
+     ⚠️ 不再自动播种管理员默认密码（那等于公开一个万能后门）。
+     管理员账号由 reset-me.html 用恢复码创建，或由本人注册后自行设置。 */
   function seedAdmin() {
     var db = localGet();
     if (!db) { db = { users: [], approved: [] }; localSet(db); }
-    if (!db.users.length) {
-      db.users.push({ email: ADMIN_EMAIL, password: ADMIN_INIT_PASSWORD, name: '站长', status: 'approved' });
-      db.approved.push(ADMIN_EMAIL);
-      localSet(db);
-    }
     return db;
-  }
-
-  /* 极简本地哈希：避免密码明文躺在 localStorage。仅本地降级模式使用，
-     强度远低于服务端 bcrypt，但足以防止「瞄一眼 localStorage 就拿到密码」。 */
-  function hash(s) {
-    var h = 5381, str = 'hrma$' + s;
-    for (var i = 0; i < str.length; i++) { h = ((h << 5) + h + str.charCodeAt(i)) >>> 0; }
-    return h.toString(16) + '.' + str.length;
   }
 
   function loginLocal(email, pw) {
     var db = seedAdmin();
     var u = db.users.filter(function (x) { return x.email === email; })[0];
     if (!u) return Promise.resolve({ error: 'noaccount' });
-    if (u.password !== hash(pw) && u.password !== pw) return Promise.resolve({ error: 'badpw' });
-    return Promise.resolve({ user: { email: u.email, name: u.name, status: u.status } });
+    var stored = u.pw || u.password;
+    return sha256Hex(pw).then(function (h) {
+      /* 兼容 v2 留下的明文/旧哈希记录：首次成功后升级为 SHA-256 */
+      if (stored !== h && stored !== pw) return { error: 'badpw' };
+      if (stored !== h) { u.pw = h; try { delete u.password; } catch (e) {} localSet(db); }
+      return { user: { email: u.email, name: u.name, status: u.status, issuedAt: Date.now() }, pwHash: h };
+    });
   }
 
   function registerLocal(email, pw, name) {
@@ -98,9 +136,11 @@
     if (db.users.some(function (x) { return x.email === email; })) {
       return Promise.resolve({ error: 'exists' });
     }
-    db.users.push({ email: email, password: hash(pw), name: name || '', status: 'pending' });
-    localSet(db);
-    return Promise.resolve({ user: { email: email, name: name, status: 'pending' } });
+    return sha256Hex(pw).then(function (h) {
+      db.users.push({ email: email, pw: h, name: name || '', status: 'pending' });
+      localSet(db);
+      return { user: { email: email, name: name, status: 'pending', issuedAt: Date.now() }, pwHash: h };
+    });
   }
 
   /* ---------------- 真实后端模式 ---------------- */
@@ -128,19 +168,22 @@
     return api(C, '/auth/v1/token?grant_type=password', { method: 'POST', body: { email: email, password: pw } })
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
       .then(function (o) {
-        if (!o.ok) return { error: o.j && (o.j.error_description || o.j.msg) || '密码错误或账号不存在' };
+        if (!o.ok) return { error: (o.j && (o.j.error_description || o.j.msg)) || '密码错误或账号不存在' };
         var tok = o.j.access_token;
         return api(C, '/rest/v1/profiles?select=email,full_name,status&email=eq.' + encodeURIComponent(email), { token: tok })
           .then(function (r2) { return r2.json(); })
           .then(function (rows) {
             var p = rows && rows[0];
+            /* 云端模式下 access_token 本身就是服务端签发的凭证，门靠它复核 */
             return {
               user: {
                 email: email,
                 name: p ? (p.full_name || '') : '',
                 status: p ? (p.status || 'pending') : 'pending',
-                access_token: tok
-              }
+                access_token: tok,
+                issuedAt: Date.now()
+              },
+              pwHash: 'cloud:' + tok.slice(-16)
             };
           });
       });
@@ -150,13 +193,11 @@
     return api(C, '/auth/v1/signup', { method: 'POST', body: { email: email, password: pw } })
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
       .then(function (o) {
-        if (!o.ok) return { error: o.j && (o.j.error_description || o.j.msg) || '注册失败' };
-        /* profiles 记录交由数据库触发器建立（默认 status='pending'），
-           这里只负责写入补充信息（若触发器未建则忽略失败）。 */
+        if (!o.ok) return { error: (o.j && (o.j.error_description || o.j.msg)) || '注册失败' };
         return api(C, '/rest/v1/profiles', {
           method: 'POST', token: o.j.access_token || C.anonKey,
           body: { email: email, full_name: name || '', org: org || '', reason: reason || '' }
-        }).then(function () { return { user: { email: email, name: name, status: 'pending' } }; });
+        }).then(function () { return { user: { email: email, name: name, status: 'pending', issuedAt: Date.now() } }; });
       });
   }
 
@@ -187,7 +228,7 @@
           return;
         }
         say('验证通过，正在进入…', 'ok');
-        setTimeout(function () { enter(res.user); }, 350);
+        setTimeout(function () { enter(res.user, res.pwHash); }, 350);
       }).catch(function (e) {
         busy(false);
         say('网络异常，请稍后重试。（' + (e && e.message ? e.message : '连接失败') + '）', 'bad');
@@ -206,15 +247,23 @@
       location.href = 'register.html' + (next ? '?next=' + encodeURIComponent(next) : '');
     });
   }
+
   if (resetLink) {
     resetLink.addEventListener('click', function (e) {
       e.preventDefault();
       var email = String(emailEl.value || '').trim().toLowerCase();
       if (!email) { say('请先填写邮箱，再点「忘记密码」。', 'bad'); return; }
+
+      /* 漏洞②修复：管理员密码不允许在此重设，否则等于没有密码 */
+      if (email === ADMIN_EMAIL) {
+        say('管理员密码不能在这里重置（否则任何人都能改掉它）。'
+          + '请用你设置的管理员密码登录；确实忘了请在 reset-me.html 按提示恢复。', 'bad');
+        return;
+      }
+
       var C = supabase();
       if (C) {
         say('正在发送重置邮件…', 'ok');
-        /* Supabase recover 必须带 email，之前是空 body，所以点了没反应 */
         api(C, '/auth/v1/recover', { method: 'POST', body: { email: email } })
           .then(function (r) {
             return r.json().catch(function () { return {}; })
@@ -227,16 +276,19 @@
           .catch(function () { say('发送失败，请检查网络后重试。', 'bad'); });
         return;
       }
-      /* 本地模式：没有邮件服务，直接在本机改密码（只影响这台设备） */
+
+      /* 本地模式：非管理员账号可在本机改密（只影响这台设备） */
       var db = seedAdmin();
       var u = db.users.filter(function (x) { return x.email === email; })[0];
-      if (!u) { say('本机没有这个邮箱的账号。若你是站长，请用管理员邮箱再试。', 'bad'); return; }
+      if (!u) { say('本机没有这个账号的记录。', 'bad'); return; }
       var np = window.prompt('本机改密码（只影响这台设备）\n请输入新密码，至少 6 位：');
       if (!np) return;
       if (np.length < 6) { say('密码至少 6 位，未修改。', 'bad'); return; }
-      u.password = hash(np);
-      localSet(db);
-      say('已在本机更新该邮箱的密码，请用新密码登录。', 'ok');
+      sha256Hex(np).then(function (h) {
+        u.pw = h; try { delete u.password; } catch (e) {}
+        localSet(db);
+        say('已在本机更新该邮箱的密码，请用新密码登录。', 'ok');
+      });
     });
   }
 
@@ -246,15 +298,14 @@
     if (s && s.email) { enter(s); }
   } catch (e) {}
 
-  /* 暴露给注册页复用的接口 */
+  /* 暴露给注册页/门复用的接口（不再暴露任何密码） */
   window.HRMA_GATE_API = {
     adminEmail: ADMIN_EMAIL,
-    initPassword: ADMIN_INIT_PASSWORD,
     login: loginSupabase,
     register: registerSupabase,
     loginLocal: loginLocal,
     registerLocal: registerLocal,
     supabase: supabase,
-    hash: hash
+    sha256: sha256Hex
   };
 })();

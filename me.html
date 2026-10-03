@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script src="assets/js/site-nav.js"></script>
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/access-gate.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>修改我的密码 · RMC 收益管理社区</title>
+<style>
+  :root{ --navy:#0f2a4a; --blue:#1d6fb8; --gold:#e8b84b; --ink:#1a2733; --mute:#5b6a7d; }
+  *{box-sizing:border-box;}
+  body{ margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+        background:linear-gradient(160deg,#0f2a4a 0%,#163a63 55%,#1d6fb8 100%);
+        font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+        color:#fff; padding:24px; }
+  .card{ width:100%; max-width:460px; background:#fff; border-radius:14px;
+         box-shadow:0 20px 60px rgba(0,0,0,.28); overflow:hidden; }
+  .hd{ background:var(--navy); color:#fff; padding:26px 28px 22px; }
+  .hd h1{ margin:8px 0 6px; font-size:21px; }
+  .hd .sub{ font-size:13px; color:#b9cbe0; line-height:1.6; }
+  .bd{ padding:26px 28px 22px; }
+  label{ display:block; font-size:13px; color:var(--mute); margin-bottom:7px; }
+  input{ width:100%; padding:12px 14px; font-size:15px; border:1px solid #d6dde6;
+         border-radius:8px; outline:none; margin-bottom:14px; }
+  input:focus{ border-color:var(--blue); box-shadow:0 0 0 3px rgba(29,111,184,.12); }
+  button{ width:100%; margin-top:4px; padding:12px; font-size:15px; font-weight:700;
+          background:var(--gold); color:var(--navy); border:1px solid var(--gold);
+          border-radius:8px; cursor:pointer; }
+  .msg{ min-height:20px; margin-top:10px; font-size:13px; }
+  .msg.ok{ color:#1a7f4b; } .msg.bad{ color:#c0392b; }
+  .note{ margin-top:20px; padding-top:18px; border-top:1px solid #e8ecf1;
+         font-size:12.5px; color:var(--mute); line-height:1.85; }
+  .note b{ color:var(--ink); }
+  .foot{ padding:14px 28px 20px; font-size:11.5px; color:#8a97a5; line-height:1.7; }
+  a{ color:var(--blue); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="hd">
+    <h1>修改我的密码</h1>
+    <div class="sub">登录状态下可随时更换自己的密码，改完立即生效。</div>
+  </div>
+  <div class="bd">
+    <label for="old">当前密码</label>
+    <input id="old" type="password" placeholder="请输入当前密码" autocomplete="current-password">
+    <label for="np">新密码（至少 8 位）</label>
+    <input id="np" type="password" placeholder="至少 8 位，建议字母+数字+符号" autocomplete="new-password">
+    <label for="np2">再输入一次新密码</label>
+    <input id="np2" type="password" placeholder="重复新密码" autocomplete="new-password">
+    <button id="btn">保存新密码</button>
+    <div id="msg" class="msg"></div>
+    <div class="note">
+      <b>当前身份：</b><span id="who">—</span><br>
+      · 密码只保存在<b>你这台设备的浏览器</b>里（SHA-256 哈希，不是明文）。<br>
+      · 换设备或清除浏览器数据后，需要重新设置密码。<br>
+      · <a href="index.html">返回首页</a>
+    </div>
+  </div>
+  <div class="foot">RMC 收益管理社区 · 内容与数据均受著作权保护</div>
+</div>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-login.js"></script>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var msg=$('msg');
+  function say(t,k){msg.textContent=t||'';msg.className='msg'+(k?' '+k:'');}
+
+  var KEY_SESSION='hrma_session_v2', KEY_USERS='hrma_users_local';
+  var s=null;
+  try{s=JSON.parse(localStorage.getItem(KEY_SESSION)||'null');}catch(e){}
+  if(!s||!s.email){ location.replace('access.html?next=me.html'); return; }
+  $('who').textContent=s.email;
+
+  $('btn').addEventListener('click',function(){
+    var oldPw=$('old').value, np=$('np').value, np2=$('np2').value;
+    if(!oldPw||!np){ say('请把当前密码和新密码都填上。','bad'); return; }
+    if(np.length<8){ say('新密码至少 8 位。','bad'); return; }
+    if(np!==np2){ say('两次输入的新密码不一致。','bad'); return; }
+    if(np===oldPw){ say('新密码不能与当前密码相同。','bad'); return; }
+
+    $('btn').disabled=true;
+    var db;
+    try{db=JSON.parse(localStorage.getItem(KEY_USERS)||'null');}catch(e){}
+    if(!db||!db.users){ say('本机没有账号表，无法修改。请先退出后重新登录一次。','bad'); $('btn').disabled=false; return; }
+
+    var u=db.users.filter(function(x){return x.email===s.email;})[0];
+    if(!u){ say('本机账号表里找不到你的记录。','bad'); $('btn').disabled=false; return; }
+
+    window.HRMA_GATE_API.sha256(oldPw).then(function(hOld){
+      var stored=u.pw||u.password;
+      if(stored!==hOld && stored!==oldPw){ say('当前密码不对。','bad'); $('btn').disabled=false; return; }
+      return window.HRMA_GATE_API.sha256(np).then(function(hNew){
+        u.pw=hNew; try{delete u.password;}catch(e){}
+        db.users=db.users; localStorage.setItem(KEY_USERS,JSON.stringify(db));
+        say('密码已更新，下次登录请用新密码。','ok');
+        $('old').value=$('np').value=$('np2').value='';
+        $('btn').disabled=false;
+      });
+    }).catch(function(e){
+      say('修改失败：'+(e&&e.message?e.message:'未知错误'),'bad');
+      $('btn').disabled=false;
+    });
+  });
+})();
+</script>
+</body>
+</html>

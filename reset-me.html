@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script src="assets/js/site-nav.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>恢复管理员密码 · RMC 收益管理社区</title>
+<style>
+  :root{ --navy:#0f2a4a; --blue:#1d6fb8; --gold:#e8b84b; --ink:#1a2733; --mute:#5b6a7d; }
+  *{box-sizing:border-box;}
+  body{ margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+        background:linear-gradient(160deg,#0f2a4a 0%,#163a63 55%,#1d6fb8 100%);
+        font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+        color:#fff; padding:24px; }
+  .card{ width:100%; max-width:500px; background:#fff; border-radius:14px;
+         box-shadow:0 20px 60px rgba(0,0,0,.28); overflow:hidden; }
+  .hd{ background:var(--navy); color:#fff; padding:26px 28px 22px; }
+  .hd h1{ margin:8px 0 6px; font-size:21px; }
+  .hd .sub{ font-size:13px; color:#b9cbe0; line-height:1.6; }
+  .bd{ padding:26px 28px 22px; }
+  label{ display:block; font-size:13px; color:var(--mute); margin-bottom:7px; }
+  input{ width:100%; padding:12px 14px; font-size:15px; border:1px solid #d6dde6;
+         border-radius:8px; outline:none; margin-bottom:14px; }
+  input:focus{ border-color:var(--blue); box-shadow:0 0 0 3px rgba(29,111,184,.12); }
+  button{ width:100%; margin-top:4px; padding:12px; font-size:15px; font-weight:700;
+          background:var(--gold); color:var(--navy); border:1px solid var(--gold);
+          border-radius:8px; cursor:pointer; }
+  .msg{ min-height:20px; margin-top:10px; font-size:13px; }
+  .msg.ok{ color:#1a7f4b; } .msg.bad{ color:#c0392b; }
+  .note{ margin-top:20px; padding-top:18px; border-top:1px solid #e8ecf1;
+         font-size:12.5px; color:var(--mute); line-height:1.9; }
+  .note b{ color:var(--ink); }
+  .note code{ background:#f2f5f8; padding:2px 6px; border-radius:4px; font-size:12px; }
+  .foot{ padding:14px 28px 20px; font-size:11.5px; color:#8a97a5; line-height:1.7; }
+  a{ color:var(--blue); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="hd">
+    <h1>恢复管理员密码</h1>
+    <div class="sub">仅供站长本人使用。需要「恢复码」才能重设——恢复码只在你自己的电脑上。</div>
+  </div>
+  <div class="bd">
+    <label for="rc">恢复码</label>
+    <input id="rc" type="password" placeholder="首次部署时生成的恢复码" autocomplete="off">
+    <label for="np">新密码（至少 8 位）</label>
+    <input id="np" type="password" placeholder="至少 8 位" autocomplete="new-password">
+    <label for="np2">再输入一次新密码</label>
+    <input id="np2" type="password" placeholder="重复新密码" autocomplete="new-password">
+    <button id="btn">重设管理员密码</button>
+    <div id="msg" class="msg"></div>
+    <div class="note">
+      <b>为什么这里要恢复码？</b><br>
+      因为「忘记密码」如果不需要任何凭证，就等于任何人都能把管理员密码改掉，
+      整道门就形同虚设。所以重设密码必须提供只有你才持有的恢复码。<br><br>
+      <b>恢复码存在哪里？</b><br>
+      在你自己的项目目录：<code>hrma/_private_files/管理员恢复码.txt</code>（不发布到网站）。<br>
+      若已丢失，请在本机运行下面的命令重新生成（<b>不会</b>影响现有密码）：<br>
+      <code>python3 hrma/gen_recovery.py</code><br><br>
+      <a href="access.html">← 返回登录</a>
+    </div>
+  </div>
+  <div class="foot">RMC 收益管理社区 · 内容与数据均受著作权保护</div>
+</div>
+<script src="auth-config.js"></script>
+<script src="assets/js/_rc.local.js"></script>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var msg=$('msg');
+  function say(t,k){msg.textContent=t||'';msg.className='msg'+(k?' '+k:'');}
+  function sha256Hex(str){
+    if(window.crypto&&window.crypto.subtle&&window.TextEncoder){
+      return window.crypto.subtle.digest('SHA-256',new TextEncoder().encode(str))
+        .then(function(buf){return Array.prototype.map.call(new Uint8Array(buf),function(b){
+          return ('0'+b.toString(16)).slice(-2);}).join('');});
+    }
+    var h=5381,s='hrma$3$'+str;
+    for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;}
+    return Promise.resolve('fb$'+h.toString(16)+'.'+s.length);
+  }
+
+  var ADMIN='3984557428@qq.com';
+  var KEY_USERS='hrma_users_local', KEY_SESSION='hrma_session_v2', KEY_RC='hrma_rc_hash';
+
+  $('btn').addEventListener('click',function(){
+    var rc=$('rc').value, np=$('np').value, np2=$('np2').value;
+    if(!rc||!np){ say('请填写恢复码和新密码。','bad'); return; }
+    if(np.length<8){ say('新密码至少 8 位。','bad'); return; }
+    if(np!==np2){ say('两次输入的新密码不一致。','bad'); return; }
+    $('btn').disabled=true; say('校验中…','');
+
+    var rcHash;
+    try{ rcHash=localStorage.getItem(KEY_RC); }catch(e){}
+    if(!rcHash){ say('本机没有恢复码记录。请按下方说明运行 gen_recovery.py 生成。','bad'); $('btn').disabled=false; return; }
+
+    Promise.all([sha256Hex('hrma-rc|'+rc), sha256Hex(np)])
+      .then(function(r){
+        if(r[0]!==rcHash){ say('恢复码不对。','bad'); $('btn').disabled=false; return; }
+        var db;
+        try{db=JSON.parse(localStorage.getItem(KEY_USERS)||'null');}catch(e){}
+        if(!db){db={users:[],approved:[]};}
+        if(!db.users.length)db.users.push([]);
+        var u=db.users.filter(function(x){return x.email===ADMIN;})[0];
+        if(!u){u={email:ADMIN,name:'站长',status:'approved'};db.users.push(u);}
+        u.pw=r[1]; try{delete u.password;}catch(e){}
+        if(db.approved.indexOf(ADMIN)<0)db.approved.push(ADMIN);
+        localStorage.setItem(KEY_USERS,JSON.stringify(db));
+        try{localStorage.removeItem(KEY_SESSION);}catch(e){}
+        say('管理员密码已重设，请用新密码登录。','ok');
+        $('btn').disabled=false;
+      })
+      .catch(function(e){ say('操作失败：'+(e&&e.message?e.message:'未知错误'),'bad'); $('btn').disabled=false; });
+  });
+})();
+</script>
+</body>
+</html>

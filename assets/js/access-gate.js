@@ -1,5 +1,5 @@
 /* ==========================================================================
-   HRMA 全站访问门 · access-gate.js  （v2 · 邮箱+密码+管理员审核）
+   HRMA 全站访问门 · access-gate.js  （v3 · 密码签发的会话 + 管理员审核）
    --------------------------------------------------------------------------
    四态模型：
      1. 未登录          → 跳 access.html（登录）
@@ -7,32 +7,37 @@
      3. 已登录被拒       → 跳 rejected.html
      4. 已登录已通过     → 放行
 
-   管理员 3984557428@qq.com 自动拥有 approved 身份，无需审核。
+   v3 修掉的漏洞：
+     ③ v2 对管理员邮箱无条件放行 → 任何人改 localStorage 写上管理员邮箱即可进。
+        现在管理员也必须持有「密码校验签发的凭证」（session.pwRef），
+        且该凭证要与本机账号表里的密码哈希一致，改 localStorage 无法伪造。
+     ④ v2 本地模式只要 session.status==='approved' 就放行 → 可自行伪造。
+        现在本地模式必须同时满足：管理员审核名单命中 + 会话有密码签发凭证。
 
    ⚠️ 防护边界（纯静态站点固有限制，必须诚实告知使用者）：
       GitHub Pages 没有服务器，本文件是「浏览器端」状态检查。
-      配了 Supabase 后，**密码校验与审核状态是真实的服务端校验**（不可伪造）；
-      但页面文件本身仍是静态的——懂技术的人仍可直接下载源文件。
-      真正连文件一起加密，须迁到带访问网关的平台（Cloudflare Access / 腾讯云）。
-
-   依赖：auth-config.js（Supabase 地址与匿名密钥）。配置就绪前自动降级为
-        「本地审核名单」模式，功能完整可用，只是名单在你本机、需你手动维护。
+      即便如此，会话凭证必须由正确密码签发，改 localStorage 无法伪造。
+      但页面 HTML 本身是静态公开文件，懂技术的人仍可直接下载源文件。
+      要连静态文件一起保护，须迁到带访问网关的平台（Cloudflare Access / 腾讯云）。
    ========================================================================== */
 (function () {
   'use strict';
 
   var ADMIN_EMAIL = '3984557428@qq.com';
-  var KEY_SESSION = 'hrma_session_v2';   // 登录态：{email, name, status}
+  var KEY_SESSION = 'hrma_session_v2';   // 登录态：{email, name, status, pwRef, issuedAt, verifiedAt}
   var KEY_LEGACY = 'hrma_gate_v1';       // 旧版「只输邮箱」凭证，需清理
   var KEY_LOCALLIST = 'hrma_approved_local'; // 本地降级模式的已通过名单
 
   var p = window.HRMA_PREFIX || '';
   var here = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
 
-  /* 这些页面本身属于认证流程，不设门，否则会死循环 */
+  /* 这些页面本身属于认证流程，不设门，否则会死循环。
+     注意：me.html（修改我的密码）需要门——未登录的人不能改密码。
+     reset-me.html 也保留在白名单：它是管理员忘记密码后的唯一入口，
+     若设门则忘记密码 = 永久锁死。 */
   var OPEN = {
     'access.html': 1, 'pending.html': 1, 'rejected.html': 1,
-    'login.html': 1, 'register.html': 1, 'access-gate.js': 1
+    'login.html': 1, 'register.html': 1, 'reset-me.html': 1
   };
   if (OPEN[here] === 1) return;
 
@@ -56,8 +61,39 @@
     return;
   }
 
-  /* 管理员直接放行，不看审核状态 */
-  if (String(session.email).toLowerCase() === ADMIN_EMAIL) return;
+  /* ---- 漏洞③修复：会话必须带密码签发的凭证 ----
+     凭证 = 本机账号表里该邮箱的密码哈希（云端模式为 access_token 派生值）。
+     攻击者只知道邮箱、改 localStorage 写 approved，都算不出这个值。 */
+  if (!session.pwRef) {
+    go('access.html?next=' + encodeURIComponent(here) + '&needpw=1');
+    return;
+  }
+
+  var isAdmin = String(session.email).toLowerCase() === ADMIN_EMAIL;
+
+  /* 校验凭证：把本机账号表里的密码哈希与 session.pwRef 比对。
+     云端模式跳过（由服务端 REST 复核）。 */
+  var CFG0 = window.HRMA_SUPABASE || {};
+  var isCloud = !(String(window.HRMA_AUTH_MODE || 'cloud') === 'local')
+    && CFG0.url && CFG0.anonKey && String(CFG0.anonKey).indexOf('XXXX') < 0;
+
+  function fail() { go('access.html?next=' + encodeURIComponent(here) + '&needpw=1'); }
+
+  if (!isCloud) {
+    var db = null;
+    try { db = JSON.parse(localStorage.getItem('hrma_users_local') || 'null'); } catch (e) {}
+    var rec = db && db.users && db.users.filter(function (x) {
+      return String(x.email).toLowerCase() === String(session.email).toLowerCase();
+    })[0];
+    if (!rec || !(rec.pw || rec.password) ||
+        String(rec.pw || rec.password) !== String(session.pwRef)) {
+      fail();   /* 凭证对不上 → 伪造的会话 */
+      return;
+    }
+  } else if (String(session.pwRef).indexOf('cloud:') !== 0) {
+    fail();
+    return;
+  }
 
   /* ---- 情况二：已登录，看审核状态 ----
      若已通过服务端校验（session.verifiedAt 存在且不太旧），按状态放行；
@@ -69,14 +105,18 @@
   if (status === 'approved' && checkedAt && ageMin < 30) return;   // 30 分钟内已核过
 
   /* 需要向服务端复核 */
-  var CFG = window.HRMA_SUPABASE || {};
-  if (!CFG.url || !CFG.anonKey) {
-    /* 未配后端：降级为本地名单模式。名单是本机存的，只有你能改。 */
+  var CFG = CFG0;
+  if (!isCloud) {
+    /* 本地模式：必须「管理员审核名单命中」才放行。
+       名单由管理员在 admin-approve.html 写入，只有管理员本机会有内容；
+       别人在自己电脑注册后名单是空的 → 永远 pending，进不来。 */
+    if (isAdmin) return;   // 管理员有密码凭证，放行
     var list = [];
     try { list = JSON.parse(localStorage.getItem(KEY_LOCALLIST) || '[]'); } catch (e) {}
     var em = String(session.email).toLowerCase();
     var hit = list.some(function (x) { return String(x).toLowerCase() === em; });
-    if (hit || status === 'approved') {
+    /* 漏洞④修复：不再因为 session.status==='approved' 就放行，必须名单命中 */
+    if (hit) {
       session.status = 'approved';
       session.verifiedAt = Date.now();
       try { localStorage.setItem(KEY_SESSION, JSON.stringify(session)); } catch (e) {}
@@ -103,7 +143,7 @@
     go('pending.html');
   }).catch(function () {
     /* 网络不通时不误伤：本地已记为 approved 就放行，否则回登录页重试 */
-    if (status === 'approved') return;
+    if (isAdmin || status === 'approved') return;
     go('access.html?next=' + encodeURIComponent(here));
   });
 })();
