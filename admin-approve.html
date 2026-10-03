@@ -139,8 +139,13 @@
   var KEY_LOCALLIST='hrma_approved_local';
   function readList(){ try{ var v=JSON.parse(localStorage.getItem(KEY_LOCALLIST)||'[]');
                             return Array.isArray(v)?v:[]; }catch(e){ return []; } }
-  function syncLocalList(){
-    var list=readList(), em=String(email||'').toLowerCase();
+  function syncLocalList(email, action){
+    /* ⚠️ 参数必须显式传入：这个函数定义在 IIFE 顶层，拿不到 setStatus 里的
+       同名局部变量，早期版本直接引用它们 → ReferenceError「email is not defined」
+       → 名单写不进去，后台显示「已通过」而门依然把人挡在门外。 */
+    var em=String(email||'').toLowerCase();
+    if(!em) return;
+    var list=readList();
     var i=-1; for(var k=0;k<list.length;k++){ if(String(list[k]).toLowerCase()===em){ i=k; break; } }
     if(action==='approved'){ if(i<0) list.push(em); }
     else if(i>=0){ list.splice(i,1); }
@@ -205,7 +210,7 @@
     var db=localDb(); if(!db){ alert('未找到本地账号表。'); return; }
     db.users.forEach(function(u){ if(u.email===email) u.status=action; });
     saveLocal(db);
-    syncLocalList();
+    syncLocalList(email, action);
     /* 同步登录态：若正在改的是自己，直接放行 */
     if(String(email).toLowerCase()===ADMIN) s.status=action;
     try{ localStorage.setItem(KEY_SESSION, JSON.stringify(s)); }catch(e){}
