@@ -39,6 +39,16 @@
   .note b{ color:var(--ink); }
   .note .warn{ background:#fdf6e3; border-left:3px solid var(--gold);
                padding:10px 12px; margin:10px 0; border-radius:0 6px 6px 0; color:#6b5518; }
+  .rcbox{ margin-top:18px; padding:14px 14px 8px; background:#fdf6e3;
+          border:1px solid #e8d9a8; border-left:3px solid var(--gold);
+          border-radius:0 8px 8px 0; }
+  .rcbox b{ color:#6b5518; font-size:13.5px; }
+  .rcbox > span{ font-size:12.5px; color:#8a7433; line-height:1.7;
+                 display:block; margin-top:5px; }
+  .rcrow{ display:flex; gap:8px; align-items:stretch; margin-top:10px; }
+  .rcrow input{ margin-bottom:0; flex:1 1 auto; min-width:0; font-size:14px; }
+  .rcbox button{ width:auto; flex:0 0 auto; padding:12px 18px; margin-top:0;
+                 font-size:14px; background:var(--navy); color:#fff; border-color:var(--navy); }
   .tag{ display:inline-block; font-size:11px; padding:3px 8px; border-radius:20px;
         background:#e8f0f9; color:var(--blue); margin-left:6px; vertical-align:middle; }
   .tag.warn{ background:#fdf1e3; color:#9a6a12; }
@@ -62,6 +72,18 @@
     <input id="password" type="password" placeholder="请输入密码" autocomplete="current-password">
     <button id="btn">登录并进入</button>
     <div id="msg" class="msg"></div>
+
+    <!-- 站长通道提到最显眼位置：贴恢复码直接进站，不用记密码 -->
+    <div class="rcbox">
+      <b>站长本人？用恢复码直接进站</b><br>
+      <span>贴一次恢复码就永久登录，之后点任何页面都直接进，不用再记密码。</span>
+      <div class="rcrow">
+        <input id="rcIn" type="text" placeholder="恢复码（整段复制粘贴即可）" autocomplete="off">
+        <button id="rcBtn" type="button">用恢复码进站</button>
+      </div>
+      <div id="rcMsg" class="msg"></div>
+    </div>
+
     <div class="alt">
       <a id="regLink">注册申请 →</a>
       <a id="resetLink">忘记密码</a>
@@ -77,19 +99,6 @@
         <a href="reset-me.html" style="color:#9a6a12;font-weight:700">恢复管理员密码</a>
         重设——需要你本机保存的恢复码，没有恢复码任何人都改不了你的密码。<br>
         登录成功后可在 <a href="me.html" style="color:#9a6a12;font-weight:700">修改我的密码</a> 里换成只有你知道的密码。
-      </div>
-      <div class="warn" id="rcBox" style="display:block">
-        <b>站长通道：用恢复码直接进站</b><br>
-        不用记住密码。在下面填一次恢复码，永久登录，之后点任何页面都直接进。
-        <div style="margin:8px 0">
-          <input id="rcIn" type="text" placeholder="恢复码" autocomplete="off"
-                 style="width:100%;max-width:300px;padding:8px 10px;border:1px solid #c8ccd4;border-radius:6px;font-size:14px">
-        </div>
-        <button id="rcBtn" type="button"
-          style="padding:8px 16px;background:#1d6fb8;color:#fff;border:0;border-radius:6px;font-size:14px;cursor:pointer">
-          用恢复码进站
-        </button>
-        <div id="rcMsg" class="msg"></div>
       </div>
       <div class="warn" id="beNote" style="display:none">
         <b>当前未接入云端账号库</b><br>
@@ -193,17 +202,31 @@
       if(!u.pw) u.pw='直通'+Date.now()+Math.random().toString(36).slice(2,10);
       try{ delete u.password; }catch(e){}
       try{ localStorage.setItem(KEY_USERS,JSON.stringify(db)); }catch(e){}
+      var sess={ email:ADMIN2, name:'站长', status:'approved',
+                 pwRef:u.pw, issuedAt:new Date().toISOString(), autoIssued:true };
+      var writeOk=false;
       try{
-        localStorage.setItem(KEY_SESSION, JSON.stringify({
-          email:ADMIN2, name:'站长', status:'approved',
-          pwRef:u.pw, issuedAt:new Date().toISOString(), autoIssued:true
-        }));
+        localStorage.setItem(KEY_SESSION, JSON.stringify(sess));
+        /* 必须读回核对：无痕窗口/禁存储时写入会静默失败，
+           结果就是「校验通过」进了首页却被门踢回来，看起来像没跳。 */
+        var back=JSON.parse(localStorage.getItem(KEY_SESSION)||'null');
+        writeOk=!!(back&&back.pwRef&&String(back.pwRef)===String(sess.pwRef));
       }catch(e){}
+      if(!writeOk){
+        btn.disabled=false;
+        say('校验通过，但本机没能保存登录状态。请换普通窗口（不是无痕/隐私窗口）打开本站再试。','bad');
+        return;
+      }
       say('校验通过，正在进入……','ok');
       var nx='index.html';
       var mm=location.search.match(/[?&]next=([^&]*)/);
       if(mm) nx=decodeURIComponent(mm[1])||'index.html';
-      setTimeout(function(){ location.replace(nx); },900);
+      function goNow(){ try{ location.href=nx; }catch(e){ try{ location.replace(nx); }catch(e2){} } }
+      setTimeout(goNow,700);
+      /* 兜底：目标页加载慢时会停在原页面不动，这里强制再跳一次 */
+      setTimeout(function(){
+        if(String(location.pathname).indexOf('access.html')>=0) goNow();
+      },2600);
     });
   });
 })();

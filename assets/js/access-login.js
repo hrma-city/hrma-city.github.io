@@ -246,8 +246,17 @@
         if (res.error) {
           if (res.error === 'noaccount') say('该邮箱尚未注册。请点下方「注册申请」，'
             + '或用恢复码在 reset-me.html 设一个密码。', 'bad');
-          else if (res.error === 'badpw') say('密码不对。若用恢复码设过密码，'
-            + '请先按 Command+Shift+R 强制刷新本页再试。', 'bad');
+          else if (res.error === 'badpw') {
+            /* 站长本机常常压根没设过密码，只看到「密码不对」会永远卡住。
+               这里直接指路到恢复码通道，别让他再猜密码。 */
+            var _mail = '';
+            try { _mail = String((document.getElementById('email') || {}).value || ''); } catch (e) {}
+            var _isAdminTry = String(_mail).trim().toLowerCase() === '3984557428@qq.com';
+            say(_isAdminTry
+              ? '密码不对。站长本人不用记密码：把恢复码贴到上面「用恢复码进站」的输入框里，'
+                + '点一下就进站了；如果想换一个密码，去 reset-me.html 用恢复码重设。'
+              : '密码不对。忘记密码请到 reset-me.html 用恢复码重设。', 'bad');
+          }
           else say('登录失败：' + res.error, 'bad');
           return;
         }
