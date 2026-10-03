@@ -306,8 +306,25 @@ function saveDone(a){ try{ localStorage.setItem(KEY, JSON.stringify(a)); }catch(
 
 function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(m){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
+/* 链接下面那行小字写「来源类型」而不是把标题再抄一遍 ——
+   抄一遍等于同一句话显示两次，看上去像是渲染出错。 */
+function kindOf(u){
+  u=String(u||'');
+  if(u.indexOf('textbook.html#')===0) return '主教材 · 对应章节';
+  if(u.indexOf('series/tools/')===0) return '工具表';
+  if(u.indexOf('games/')===0) return '情境游戏';
+  if(u.indexOf('exam/')===0) return '考核';
+  if(u.indexOf('templates/')===0||/\.xlsx$/.test(u)) return '表格模板';
+  if(u.indexOf('data/')===0) return '真实数据集';
+  if(u.indexOf('core/')===0) return '通用内核';
+  if(u.indexOf('courses/')===0) return '课程模块';
+  if(u.indexOf('series/No')===0) return '主题分册';
+  if(u.indexOf('books/')===0) return '延伸读物';
+  return '';
+}
 function link(pair, label){
-  return '<a href="'+esc(pair[0])+'">'+esc(label||pair[1])+'</a><div class="n">'+esc(pair[1])+'</div>';
+  var k=kindOf(pair[0]);
+  return '<a href="'+esc(pair[0])+'">'+esc(label||pair[1])+'</a>'+(k?'<div class="n">'+esc(k)+'</div>':'');
 }
 
 function render(){
