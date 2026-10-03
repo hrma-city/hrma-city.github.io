@@ -113,7 +113,11 @@
   }
 
   var C=window.HRMA_SUPABASE||{};
-  var useCloud = !!(C.url && C.anonKey && String(C.anonKey).indexOf('XXXX')<0);
+  /* ⚠️ 必须和 access-gate.js / access-login.js 用同一套判断：
+     少了 HRMA_AUTH_MODE 这一项，本地模式下会因为「配了 Supabase 地址」而误判成云端模式，
+     去请求没建表的云端库 → 后台一片「读取失败：Failed to fetch」。 */
+  var useCloud = String(window.HRMA_AUTH_MODE||'cloud')!=='local'
+    && !!(C.url && C.anonKey && String(C.anonKey).indexOf('XXXX')<0);
   if(useCloud){ document.getElementById('modeBar').style.display='none';
                document.getElementById('cloudBar').style.display='block';
                document.getElementById('setupNote').style.display='none'; }
