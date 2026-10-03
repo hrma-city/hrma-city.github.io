@@ -176,14 +176,43 @@
   /* 本地模式注册。
      ★ 站长邮箱（管理员）走「直批」：不需要等任何人审核，注册即开通并自动进站。
        原因：本地模式下审核名单与账号表都只存在这台设备上，站长自己申请自己审是死锁；
-       而且站长是唯一持有恢复码的人，恢复码通道本就是他的终极入口，这里只是等价入口。 */
-  function registerLocal(email, pw, name) {
+       而且站长是唯一持有恢复码的人，恢复码通道本就是他的终极入口，这里只是等价入口。
+
+     v10 新增：
+       · 落库字段补全：单位（org）、申请理由（reason）、申请时间（appliedAt / updatedAt）。
+         以前只存 email + name + pw，管理员在后台看到的申请是「一堆没有来历的邮箱」，
+         没法判断该不该放人进来。
+       · 重复提交区分处理：
+         dup-pending   —— 已经在等审核了，不重复建号，只刷新资料并提示「别再提交了，等着」；
+         dup-reapply   —— 之前被拒绝过 / 已通过，允许再次提交（退回 pending），
+                          这样「注册按钮点了没反应」不会变成用户以为程序坏了；
+         旧的 exists    —— 一律改成这两种，前端才能给出可执行的下一步。 */
+  function registerLocal(email, pw, name, org, reason) {
     var db = seedAdmin();
     var isAdminReg = String(email).toLowerCase() === ADMIN_EMAIL;
     var exist = db.users.filter(function (x) { return x.email === email; })[0];
+    var now = new Date().toISOString();
+
     if (exist && !isAdminReg) {
-      return Promise.resolve({ error: 'exists' });
+      var st = String(exist.status || 'pending').toLowerCase();
+      var already = st === 'pending';
+      if (!already) exist.status = 'pending';          /* 被拒/已通过 → 允许重新申请 */
+      exist.name = name || exist.name || '';
+      exist.org = org || exist.org || '';
+      exist.reason = reason || exist.reason || '';
+      exist.appliedAt = exist.appliedAt || now;
+      exist.updatedAt = now;
+      localSet(db);
+      /* 已通过的人再提交一次不该掉回待审，所以他手上的会话凭证保持不变 */
+      return Promise.resolve({
+        error: already ? 'dup-pending' : 'dup-reapply',
+        user: { email: exist.email, name: exist.name, org: exist.org,
+                status: exist.status, issuedAt: Date.now() },
+        pwHash: exist.pw || exist.password || '',
+        autoLogin: false
+      });
     }
+
     return sha256Hex(pw).then(function (h) {
       if (!exist) {
         exist = { email: email, name: name || '' };
@@ -191,6 +220,10 @@
       }
       exist.pw = h;
       exist.name = name || exist.name || '';
+      exist.org = org || exist.org || '';
+      exist.reason = reason || exist.reason || '';
+      exist.appliedAt = now;
+      exist.updatedAt = now;
       exist.status = isAdminReg ? 'approved' : 'pending';
       try { delete exist.password; } catch (e) {}
       if (isAdminReg) {
@@ -427,6 +460,32 @@
     if (_cur === 'access.html' || _cur === 'login.html') autoEnterOnLoginPage();
   } catch (e) {}
 
+  /* ---------------- 本地账号表只读视图 ----------------
+     给 pending.html / admin-approve.html 用。
+     ★ 只返回资料字段，**绝不带密码哈希**：这两个页面本身是静态公开的，
+       一旦把 pw 带出去就等于把密码发出去。 */
+  function mask(u) {
+    return {
+      email: u.email || '',
+      name: u.name || '',
+      org: u.org || '',
+      reason: u.reason || '',
+      status: u.status || 'pending',
+      appliedAt: u.appliedAt || '',
+      updatedAt: u.updatedAt || ''
+    };
+  }
+  function getLocalUser(email) {
+    var db = seedAdmin();
+    var u = db.users.filter(function (x) {
+      return String(x.email).toLowerCase() === String(email || '').toLowerCase();
+    })[0];
+    return u ? mask(u) : null;
+  }
+  function listLocalUsers() {
+    return seedAdmin().users.map(mask);
+  }
+
   /* 暴露给注册页/门复用的接口（不再暴露任何密码） */
   window.HRMA_GATE_API = {
     adminEmail: ADMIN_EMAIL,
@@ -434,6 +493,8 @@
     register: registerSupabase,
     loginLocal: loginLocal,
     registerLocal: registerLocal,
+    getLocalUser: getLocalUser,
+    listLocalUsers: listLocalUsers,
     supabase: supabase,
     sha256: sha256Hex
   };

@@ -61,8 +61,10 @@
 
   <div class="bar warn" id="modeBar">
     <h3>当前未接入云端账号库：你只能审核「本设备」上的申请</h3>
-    <p>申请记录存在<b>打开本页面这台设备的浏览器</b>里。别人在他自己电脑上注册的账号<b>不会出现在这里</b>，也无法被审核通过。要真正给别人开访问，请先完成
-      <a href="cloud-setup.html" style="color:#9a6a12;font-weight:700">云端接入</a>（约 15 分钟）。</p>
+    <p>申请记录存在<b>打开本页面这台设备的浏览器</b>里。别人在他自己电脑上注册的账号<b>不会出现在这里</b>，也无法被审核通过。<br>
+      要真正给别人开访问，需先完成
+      <a href="cloud-setup.html" style="color:#9a6a12;font-weight:700">云端接入</a>
+      —— 第一次做请预留 30–60 分钟（含注册与邮箱验证），不保证一次成功。</p>
   </div>
 
   <div class="bar" id="cloudBar" style="display:none">
@@ -81,7 +83,7 @@
   <div class="note" id="setupNote">
     <b>当前限制：未接入云端账号库，你只能审核「本设备浏览器里」的申请</b><br>
     别人在他自己电脑上注册的账号不会出现在这里。要真正给别人开访问，需先完成云端接入：
-    <a href="cloud-setup.html" style="color:#1d6fb8;font-weight:700">查看接入步骤（约 15 分钟）</a><br>
+    <a href="cloud-setup.html" style="color:#1d6fb8;font-weight:700">查看接入步骤（首次 30–60 分钟，不保证一次成功）</a><br>
     接入后：任何人可在任意设备注册，你可在任意设备审核，密码由云端校验、不会明文留在浏览器里。
   </div>
 </div>
@@ -127,6 +129,24 @@
   function localDb(){ try{ return JSON.parse(localStorage.getItem(KEY_USERS)||'null'); }catch(e){ return null; } }
   function saveLocal(db){ try{ localStorage.setItem(KEY_USERS, JSON.stringify(db)); }catch(e){} }
 
+  /* ★★ 本地模式的放行名单同步（少这一步 = 审核通过也进不来）★★
+     access-gate.js 在本地模式下的放行判定只有一条路：
+       读 localStorage['hrma_approved_local']，看申请人邮箱在不在名单里。
+     而以前「通过」只改了 users[].status='approved'，从不写这个名单，
+     结果：后台显示「已通过」，申请人登录成功，门却把他弹回 pending.html ——
+     管理员以为批了，申请人以为注册坏了，两边都看不见对方的真相。
+     所以批准/退回/拒绝必须同步维护这个名单。 */
+  var KEY_LOCALLIST='hrma_approved_local';
+  function readList(){ try{ var v=JSON.parse(localStorage.getItem(KEY_LOCALLIST)||'[]');
+                            return Array.isArray(v)?v:[]; }catch(e){ return []; } }
+  function syncLocalList(){
+    var list=readList(), em=String(email||'').toLowerCase();
+    var i=-1; for(var k=0;k<list.length;k++){ if(String(list[k]).toLowerCase()===em){ i=k; break; } }
+    if(action==='approved'){ if(i<0) list.push(em); }
+    else if(i>=0){ list.splice(i,1); }
+    try{ localStorage.setItem(KEY_LOCALLIST, JSON.stringify(list)); }catch(e){}
+  }
+
   function api(path,opts){
     opts=opts||{};
     return fetch(C.url+path,{method:opts.method||'GET',
@@ -137,6 +157,12 @@
 
   function esc(t){ return String(t==null?'':t).replace(/[&<>"']/g,function(m){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
+  function fmtT(iso){
+    if(!iso) return '—';
+    var d=new Date(iso); if(isNaN(d.getTime())) return String(iso);
+    var p=function(n){ return (n<10?'0':'')+n; };
+    return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes());
+  }
 
   function render(rows){
     var box=document.getElementById('list');
@@ -151,6 +177,8 @@
         +'<div style="font-size:13.5px"><b>'+esc(u.full_name||u.name||'-')+'</b> · '+esc(u.email)+'</div>'
         +(u.org?'<div style="font-size:12.5px;color:#5b6a7d;margin-top:3px">'+esc(u.org)+'</div>':'')
         +(u.reason?'<div style="font-size:12.5px;color:#5b6a7d;margin-top:3px">理由：'+esc(u.reason)+'</div>':'')
+        +'<div style="font-size:12px;color:#9aa7b5;margin-top:4px">提交时间：'+fmtT(u.appliedAt)
+        + (u.updatedAt&&u.updatedAt!==u.appliedAt?'　最近更新：'+fmtT(u.updatedAt):'')+'</div>'
         +'<div class="act" style="margin-top:9px">'
         +(u.status!=='approved'?'<button class="btn" data-a="approved" data-e="'+esc(u.email)+'">通过</button>':'')
         +(u.status!=='pending'?'<button class="btn ghost" data-a="pending" data-e="'+esc(u.email)+'">退回待审</button>':'')
@@ -177,6 +205,7 @@
     var db=localDb(); if(!db){ alert('未找到本地账号表。'); return; }
     db.users.forEach(function(u){ if(u.email===email) u.status=action; });
     saveLocal(db);
+    syncLocalList();
     /* 同步登录态：若正在改的是自己，直接放行 */
     if(String(email).toLowerCase()===ADMIN) s.status=action;
     try{ localStorage.setItem(KEY_SESSION, JSON.stringify(s)); }catch(e){}

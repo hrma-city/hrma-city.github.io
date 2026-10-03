@@ -1,170 +1,266 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+<meta charset="utf-8">
 <script>window.HRMA_PREFIX="";</script>
-
-<meta charset="UTF-8">
-<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-<script>window.HRMA_PREFIX="";</script>
-<script src="assets/js/access-gate.js?v=v5"></script>
+<script src="assets/js/access-gate.js?v=v6"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>账号状态 · RMC收益管理社区</title>
-<link rel="stylesheet" href="assets/css/main.css">
-<link rel="stylesheet" href="assets/css/site.css">
-<link rel="stylesheet" href="assets/css/auth.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"pending","item":"https://hrma-city.github.io/pending.html"}]}</script>
-<link rel="stylesheet" href="assets/css/notify.css">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>申请状态 · RMC 收益管理社区</title>
+<style>
+  :root{ --navy:#0f2a4a; --blue:#1d6fb8; --gold:#e8b84b; --mute:#5b6a7d; --ink:#1a2733;
+         --ok:#1a7f4b; --bad:#c0392b; }
+  *{box-sizing:border-box;}
+  body{ margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+        background:linear-gradient(160deg,#0f2a4a 0%,#163a63 55%,#1d6fb8 100%);
+        font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+        color:#fff; padding:24px; }
+  .card{ width:100%; max-width:520px; background:#fff; border-radius:14px;
+         box-shadow:0 20px 60px rgba(0,0,0,.28); overflow:hidden; }
+  .hd{ background:var(--navy); color:#fff; padding:26px 28px 20px; }
+  .hd h1{ margin:8px 0 6px; font-size:21px; letter-spacing:.5px; }
+  .hd .sub{ font-size:13px; color:#b9cbe0; line-height:1.6; }
+  .bd{ padding:26px 28px 22px; }
+  .ic{ width:54px; height:54px; border-radius:50%; display:flex; align-items:center;
+       justify-content:center; font-size:26px; margin-bottom:14px; }
+  .ic.wait{ background:#fdf6e3; color:#9a6a12; }
+  .ic.ok{ background:#e6f5ec; color:var(--ok); }
+  .ic.no{ background:#fbeae8; color:var(--bad); }
+  .ic.info{ background:#eef2f7; color:var(--mute); }
+  h2{ margin:0 0 10px; font-size:19px; color:var(--ink); }
+  p{ margin:0 0 10px; font-size:14px; line-height:1.85; color:#3b4a5c; }
+  .rows{ margin:16px 0 4px; border-top:1px solid #eef1f5; }
+  .row{ display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #eef1f5;
+        font-size:13.5px; }
+  .row .k{ color:var(--mute); width:88px; flex:none; }
+  .row .v{ color:var(--ink); word-break:break-all; }
+  .warn{ margin-top:18px; padding:12px 14px; background:#fdf6e3; border-left:3px solid var(--gold);
+         border-radius:0 6px 6px 0; font-size:12.8px; line-height:1.9; color:#6b5518; }
+  .acts{ margin-top:20px; display:flex; gap:10px; flex-wrap:wrap; }
+  .btn{ display:inline-block; padding:11px 20px; font-size:14px; font-weight:700;
+         border-radius:8px; text-decoration:none; cursor:pointer; }
+  .btn.pri{ background:var(--gold); color:var(--navy); border:1px solid var(--gold); }
+  .btn.sec{ background:#fff; color:var(--blue); border:1px solid #d6dde6; }
+  .btn.gh{ background:#fff; color:var(--mute); border:1px solid #d6dde6; }
+  .foot{ padding:14px 28px 20px; font-size:11.5px; color:#8a97a5; line-height:1.7;
+         border-top:1px solid #eef1f5; }
+</style>
 </head>
-<body data-auth="public">
-
-<header class="site-nav">
-  <div class="sn-inner">
-    <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
-    <nav class="sn-links" id="snLinks">
-      <a href="index.html">首页</a>
-      <a href="about.html">关于学院</a>
-      <a href="access.html">登录</a>
-      <a href="register.html">申请账号</a>
-      <a href="contact.html">联系我们</a>
-    </nav>
-    <a class="sn-cta" href="access.html">去登录</a>
-    <button class="sn-toggle" id="snToggle" aria-label="菜单">☰</button>
+<body>
+<div class="card">
+  <div class="hd">
+    <h1>申请状态</h1>
+    <div class="sub">这里显示你提交的访问申请当前处于哪一步。</div>
   </div>
-</header>
-
-<main>
-  <div class="pend-box" id="box">
-    <div class="pend-ic wait">…</div>
-    <h1 id="ptitle">正在读取账号状态</h1>
-    <p id="pbody">请稍候。</p>
-    <div class="pb-note" id="pnote" style="display:none"></div>
-    <div id="pactions">
-      <a class="btn-primary" href="index.html" style="display:inline-block;width:auto;padding:11px 26px;text-decoration:none">返回首页</a>
-    </div>
+  <div class="bd">
+    <div class="ic info" id="ic">ℹ</div>
+    <h2 id="title">正在读取…</h2>
+    <p id="body">请稍候。</p>
+    <div class="rows" id="rows" style="display:none"></div>
+    <div class="warn" id="warn" style="display:none"></div>
+    <div class="acts" id="acts"></div>
   </div>
-</main>
-
-<footer class="site-footer">
-  <div class="sf-in">
-    <div class="sf-bot">
-      <span>RMC收益管理社区 · 阈值基准 SPEC v1.0</span>
-      <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
-    </div>
+  <div class="foot">
+    RMC 收益管理社区 · 内容与数据均受著作权保护<br>
+    <a href="mailto:rm-community@qq.com" style="color:#1d6fb8">rm-community@qq.com</a>
   </div>
-</footer>
+</div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
 <script src="auth-config.js"></script>
-<script src="assets/js/demo-backend.js"></script>
-<script src="auth.js?v=2"></script>
+<script src="assets/js/access-login.js?v=v10"></script>
 <script>
+/* ==========================================================================
+   申请状态页 —— 本地模式（当前默认）与云端模式两套读法
+   --------------------------------------------------------------------------
+   ★ 这个文件以前只认 Supabase：云端没配好时就 fallback 到
+     「状态未知 / 账号状态异常」，而站点现在默认跑在本地模式，
+     于是本地注册完跳过来看到一句废话，用户就以为「注册功能坏了」。
+
+     本地模式的真相是：申请记录存在**打开本站那台设备的浏览器**里，
+     管理员只能在这台设备的后台点通过。所以本页必须直接讲清楚这一点，
+     并给出去审核后台的入口 —— 而不是让用户对着「状态未知」猜。
+   ========================================================================== */
 (function () {
-  var A = window.HRMAAuth;
-  var box = document.getElementById("box");
-  var ic = box.querySelector(".pend-ic");
-  var title = document.getElementById("ptitle");
-  var body = document.getElementById("pbody");
-  var note = document.getElementById("pnote");
-  var actions = document.getElementById("pactions");
+  'use strict';
 
-  var q = new URLSearchParams(location.search);
-  var state = q.get("state") || "";
-  var email = q.get("email") || "";
-  var rejNote = q.get("note") || "";
+  var $ = function (id) { return document.getElementById(id); };
+  var ADMIN = '3984557428@qq.com';
+  var KEY_SESSION = 'hrma_session_v2';
 
-  function render(kind, t, b, n) {
-    var icMap = { wait: ["wait", "⏳"], ok: ["ok", "✓"], no: ["no", "✕"], info: ["wait", "ℹ"] };
-    var m = icMap[kind] || icMap.info;
-    ic.className = "pend-ic " + m[0];
-    ic.textContent = m[1];
-    title.textContent = t;
-    body.innerHTML = b;
-    if (n) { note.style.display = ""; note.textContent = n; } else { note.style.display = "none"; }
+  function nextTarget() {
+    var m = location.search.match(/[?&]next=([^&]*)/);
+    var t = m ? decodeURIComponent(m[1]) : '';
+    if (!t || /^https?:/i.test(t) || t.charAt(0) === '/' || t.indexOf('..') >= 0) return 'index.html';
+    return t;
   }
-
-  function link(href, text) {
-    var a = document.createElement("a");
-    a.className = "btn-primary";
-    a.href = href;
-    a.style.display = "inline-block";
-    a.style.width = "auto";
-    a.style.padding = "11px 26px";
-    a.style.textDecoration = "none";
-    a.style.margin = "4px";
-    a.textContent = text;
-    return a.outerHTML;
-  }
-
-  // 已登录且已通过 → 直接进课程
-  (async function () {
-    if (!A || !A.configured()) {
-      // 未配置：按 URL 状态展示说明
-      fallback();
-      return;
-    }
-    try {
-      var s = await A.session();
-      if (s) {
-        var p = await A.profile();
-        if (p && p.status === "approved") {
-          location.href = "curriculum.html";
-          return;
-        }
-        if (p && p.status === "rejected") { showState("rejected", p.note || ""); return; }
-        if (p && p.status === "pending") { showState("pending"); return; }
-        showState(p ? p.status : "noprofile");
-        return;
-      }
-    } catch (e) {}
-    fallback();
-  })();
-
-  function showState(st, n) {
-    if (st === "rejected") {
-      render("no", "申请未通过", "很抱歉，你的账号申请未通过审核。如有疑问可邮件联系社区。", n);
-      actions.innerHTML = link("contact.html", "联系社区") + link("register.html", "重新申请");
-    } else if (st === "pending") {
-      render("wait", "待验证邮箱", "你的账号已注册，等待你点击验证邮件完成邮箱确认。确认后即可直接登录，无需管理员审核。");
-      actions.innerHTML = link("index.html", "返回首页") + '<button class="btn-primary" id="out" style="display:inline-block;width:auto;padding:11px 26px;margin:4px">退出登录</button>';
-      bindOut();
-    } else if (st === "noprofile") {
-      render("info", "资料未初始化", "未找到你的账号资料，可能是注册未成功完成。请重新提交申请或联系社区。");
-      actions.innerHTML = link("register.html", "重新申请") + link("contact.html", "联系社区");
-    } else {
-      render("info", "状态未知", "你的账号状态异常，请联系社区协助处理。");
-      actions.innerHTML = link("contact.html", "联系社区") + link("index.html", "返回首页");
-    }
-  }
-
-  function fallback() {
-    if (state === "registered") {
-      render("ok", "注册成功",
-        "我们已收到 <b>" + (email || "你的邮箱") + "</b> 的申请。" +
-        "请查收并点击验证邮件完成邮箱确认，随后使用本邮箱即可直接登录。" +
-        "无需等待管理员审核。",
-        "若未收到验证邮件，请检查垃圾邮件箱，或在登录页使用「重置密码」触发新邮件。");
-      actions.innerHTML = link("access.html", "去登录") + link("index.html", "返回首页");
-    } else {
-      showState(state);
-    }
-  }
-
-  function bindOut() {
-    var o = document.getElementById("out");
-    if (o) o.addEventListener("click", async function () {
-      try { await A.signOut(); } catch (e) {}
-      location.href = "access.html";
+  function esc(t) {
+    return String(t == null ? '' : t).replace(/[&<>"']/g, function (m) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
     });
   }
+  function fmtTime(iso) {
+    if (!iso) return '—';
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return String(iso);
+    var p = function (n) { return (n < 10 ? '0' : '') + n; };
+    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate())
+      + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+  }
+
+  function render(kind, title, bodyHtml, rows, warnHtml, acts) {
+    var map = { wait: ['wait', '⏳'], ok: ['ok', '✓'], no: ['no', '✕'], info: ['info', 'ℹ'] };
+    var m = map[kind] || map.info;
+    var ic = $('ic'); ic.className = 'ic ' + m[0]; ic.textContent = m[1];
+    $('title').textContent = title;
+    $('body').innerHTML = bodyHtml;
+    var r = $('rows');
+    if (rows && rows.length) {
+      r.style.display = '';
+      r.innerHTML = rows.map(function (x) {
+        return '<div class="row"><div class="k">' + esc(x[0]) + '</div>'
+          + '<div class="v">' + esc(x[1]) + '</div></div>';
+      }).join('');
+    } else { r.style.display = 'none'; r.innerHTML = ''; }
+    var w = $('warn');
+    if (warnHtml) { w.style.display = ''; w.innerHTML = warnHtml; } else { w.style.display = 'none'; w.innerHTML = ''; }
+    var a = $('acts');
+    a.innerHTML = (acts || []).map(function (x) {
+      return '<a class="btn ' + (x[2] || 'sec') + '" href="' + esc(x[1]) + '">' + esc(x[0]) + '</a>';
+    }).join('');
+  }
+
+  function setSession(s) {
+    try { localStorage.setItem(KEY_SESSION, JSON.stringify(s)); } catch (e) {}
+  }
+
+  function readSession() {
+    try { return JSON.parse(localStorage.getItem(KEY_SESSION) || 'null'); } catch (e) { return null; }
+  }
+
+  /* ---------------- 本地模式（当前默认） ---------------- */
+  function localBranch(s) {
+    var email = String((s && s.email) || '').toLowerCase();
+    if (!email) {
+      render('info', '还没有申请记录',
+        '你没有进行中的访问申请。填一次申请表单即可开通账号。',
+        null,
+        '本站现在跑在<b>本地模式</b>：申请记录与审核名单都保存在<b>你打开网站的那台设备的浏览器</b>里，不会上传到任何服务器。',
+        [['去提交申请', 'register.html?next=' + encodeURIComponent(nextTarget()), 'pri'],
+         ['用恢复码进站（站长）', 'access.html', 'gh']]);
+      return;
+    }
+
+    var rec = (window.HRMA_GATE_API && window.HRMA_GATE_API.getLocalUser)
+      ? window.HRMA_GATE_API.getLocalUser(email) : null;
+
+    if (!rec) {
+      /* 有会话但账号表里没这个人：最常见是「清过缓存 / 换过设备 / 别人在自己电脑注册的」。
+         以前这种情况会显示「状态未知」，用户只能干等。这里给出明确出口。 */
+      render('info', '本机没有这个账号的记录',
+        '你这台设备的浏览器里，没有 <b>' + esc(email) + '</b> 的申请记录。'
+        + '最常见的原因是：申请是在<b>另一台设备</b>上提交的，或者在别的设备上清过浏览器数据。',
+        null,
+        '本地模式下，申请记录<b>只保存在提交时用的那台设备</b>上，换设备不跟着走。',
+        [['回到这台设备重新申请', 'register.html?next=' + encodeURIComponent(nextTarget()), 'pri'],
+         ['用恢复码进站（站长）', 'access.html', 'gh']]);
+      return;
+    }
+
+    var rows = [
+      ['邮箱', rec.email],
+      ['姓名', rec.name || '—'],
+      ['单位 / 院校', rec.org || '—'],
+      ['提交时间', fmtTime(rec.appliedAt)]
+    ];
+
+    if (rec.status === 'approved') {
+      render('ok', '已通过，正在进入…',
+        '管理员已经通过了 <b>' + esc(rec.email) + '</b> 的访问申请。正在带你进去，如果没有自动跳转请手动点下面的按钮。',
+        rows, null,
+        [['进入本站', nextTarget(), 'pri'],
+         ['返回首页', 'index.html', 'gh']]);
+      setTimeout(function () { location.replace(nextTarget()); }, 2200);
+      return;
+    }
+
+    if (rec.status === 'rejected') {
+      render('no', '申请未通过',
+        '管理员没有通过 <b>' + esc(rec.email) + '</b> 的访问申请。你可以重新提交一份申请，管理员会在后台看到。',
+        rows,
+        '如果想说明情况，可以直接邮件联系社区。',
+        [['重新提交申请', 'register.html?next=' + encodeURIComponent(nextTarget()), 'pri'],
+         ['联系社区', 'mailto:rm-community@qq.com', 'gh']]);
+      return;
+    }
+
+    /* pending（默认状态） */
+    var isAdminSelf = email === ADMIN;
+    render('wait', '已收到申请，等待管理员审核',
+      '我们已收到 <b>' + esc(rec.email) + '</b>（' + esc(rec.name || '未填姓名') + '）的访问申请，当前状态：<b>待审核</b>。',
+      rows,
+      isAdminSelf
+        ? '你用的是管理员邮箱：请到审核后台点「通过」，通过后本页会自动放行。'
+        : '<b>当前是本地模式，管理员只能在「提交申请的那台设备」上审核通过。</b>'
+          + '请先登录管理员账号，打开 <b>admin-approve.html</b>（访问审核后台），在「待审核」里点通过；'
+          + '通过后再回到本页（或重新登录）即可进入。'
+          + '如果想让申请人在他自己电脑上也能提交、你也能在他那台设备上审核，需要先接入云端账号库。',
+      [['去审核后台（管理员）', 'admin-approve.html', 'pri'],
+       ['重新提交申请', 'register.html?next=' + encodeURIComponent(nextTarget()), 'sec'],
+       ['返回首页', 'index.html', 'gh']]);
+  }
+
+  /* ---------------- 云端模式 ---------------- */
+  function cloudBranch(s) {
+    var C = window.HRMA_SUPABASE || {};
+    var token = s && (s.access_token || (s.pwRef || '').slice(5));
+    if (!C.url || !C.anonKey || !token) {
+      render('info', '无法读取云端状态',
+        '当前账号没有可用的云端登录凭证，请在云端登录页重新登录。', null, null,
+        [['去登录', 'access.html?next=' + encodeURIComponent(nextTarget()), 'pri']]);
+      return;
+    }
+    fetch(C.url + '/rest/v1/profiles?select=email,full_name,status,note&email=eq.'
+          + encodeURIComponent(s.email),
+          { headers: { apikey: C.anonKey, Authorization: 'Bearer ' + token }, cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (rows) {
+        var p = rows && rows[0];
+        var st = p ? String(p.status || 'pending') : 'noprofile';
+        if (st === 'approved') { location.replace(nextTarget()); return; }
+        if (st === 'rejected') {
+          render('no', '申请未通过', '很抱歉，你的访问申请未通过审核。', null, p && p.note ? esc(p.note) : null,
+            [['重新提交申请', 'register.html', 'pri'], ['联系社区', 'mailto:rm-community@qq.com', 'gh']]);
+          return;
+        }
+        if (st === 'noprofile') {
+          render('info', '资料未初始化', '云端找不到你的账号资料，可能是注册没有完成。',
+            null, null, [['重新提交申请', 'register.html', 'pri']]);
+          return;
+        }
+        render('wait', '待验证邮箱', '你的账号已注册，正在等待邮箱验证与管理审核。确认邮件查收后即可登录。',
+          [['邮箱', s.email]], null,
+          [[s.email === ADMIN ? '去审核后台' : '返回首页', s.email === ADMIN ? 'admin-approve.html' : 'index.html', 'pri']]);
+      })
+      .catch(function (e) {
+        render('info', '读取失败', '连接云端失败：' + esc(e && e.message) + '。请稍后刷新重试。', null, null,
+          [['刷新重试', location.pathname, 'pri']]);
+      });
+  }
+
+  /* ---------------- 入口 ---------------- */
+  var s = readSession();
+  var useLocal = String(window.HRMA_AUTH_MODE || 'cloud') === 'local'
+    || !(window.HRMA_SUPABASE && window.HRMA_SUPABASE.url && window.HRMA_SUPABASE.anonKey);
+
+  if (!s || !s.email || !s.pwRef) {
+    /* 没有会话：去登录/申请页，由那边的逻辑接管 */
+    var t = nextTarget();
+    location.replace('access.html?next=' + encodeURIComponent(t === 'index.html' ? '' : t));
+    return;
+  }
+  if (s.status === 'rejected' && !useLocal) { /* 交给云端分支显示 */ }
+  if (useLocal) { localBranch(s); } else { cloudBranch(s); }
 })();
 </script>
-<script>
-(function(){var t=document.getElementById('snToggle'),l=document.getElementById('snLinks');
-if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();
-</script>
-<script>window.HRMA_PREFIX="";</script>
-<script src="assets/js/notify.js"></script>
 </body>
 </html>
