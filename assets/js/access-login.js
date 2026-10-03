@@ -193,6 +193,19 @@
     var exist = db.users.filter(function (x) { return x.email === email; })[0];
     var now = new Date().toISOString();
 
+    /* ★ 站长邮箱若已经有密码，绝不允许注册流程覆盖它。
+       本地模式下账号表只存在他自己电脑上，一旦被覆盖，
+       旧密码立刻失效而他又没有密码可以找回 → 把自己永久锁在门外。
+       （脏数据：记录存在但没有 pw 字段时仍然允许重设，否则连修都修不回来。） */
+    if (isAdminReg && exist && exist.pw && !exist.hasCloudPw) {
+      return Promise.resolve({
+        error: 'exists-admin',
+        user: { email: exist.email, name: exist.name || '', status: exist.status || 'approved' },
+        pwHash: exist.pw,
+        autoLogin: false
+      });
+    }
+
     if (exist && !isAdminReg) {
       var st = String(exist.status || 'pending').toLowerCase();
       var already = st === 'pending';

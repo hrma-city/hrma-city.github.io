@@ -218,11 +218,16 @@
       cursor = h.e;
     });
     if (cursor < text.length) frag.appendChild(document.createTextNode(text.slice(cursor)));
-    node.parentNode.replaceChild(frag, node);
+    /* 节点可能已被别的脚本从文档里摘掉（解包后又重新包裹等），
+       此时 parentNode 为 null → replaceChild 抛
+       "Cannot read properties of null (reading 'replaceChild')"，
+       会连带中断本文件后面的所有初始化。加判空即可，功能不变。 */
+    if (node && node.parentNode) node.parentNode.replaceChild(frag, node);
   }
 
   function unwrapTerms() {
     document.querySelectorAll(".gterm").forEach(function (sp) {
+      if (!sp.parentNode) return;   /* 已被摘掉的孤立节点，跳过 */
       sp.parentNode.replaceChild(document.createTextNode(sp.textContent), sp);
     });
     hidePop();

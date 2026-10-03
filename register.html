@@ -156,6 +156,14 @@
           setTimeout(function(){ location.replace('pending.html'); }, 500);
           return;
         }
+        if(res.error==='exists-admin'){
+          /* 站长邮箱已注册：这里**绝不**覆盖他的密码，
+             否则他在本机唯一的密码会立刻失效，等于把自己锁在门外。 */
+          say('这个邮箱已经有账号了，密码没有被改动。忘记密码请用恢复码：'
+            + '在 login/access 页面顶部「用恢复码进站」输入恢复码，'
+            + '或在 reset-me.html 用恢复码重设密码。','bad');
+          return;
+        }
         say(res.error==='exists' ? '该邮箱已注册，请直接登录。' : '提交失败：'+res.error,'bad');
         return;
       }
