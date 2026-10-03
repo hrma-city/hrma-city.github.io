@@ -321,7 +321,15 @@
         return api(C, '/rest/v1/profiles', {
           method: 'POST', token: o.j.access_token || C.anonKey,
           body: { email: email, full_name: name || '', org: org || '', reason: reason || '' }
-        }).then(function () { return { user: { email: email, name: name, status: 'pending', issuedAt: Date.now() } }; });
+        }).then(function () {
+          /* ★ 要把 signup 签发的 access_token 一起带回前端。
+             Supabase 的 signup 会自动登录，这个 token 是现成的；
+             丢掉它，申请人后面去「待审核页」查状态就只能读到「资料未初始化」
+             （profiles 表只允许本人读，没 token 什么都读不到），
+             而且会被迫再登录一次，看起来像「注册了却用不了」。 */
+          return { user: { email: email, name: name, status: 'pending',
+                           access_token: o.j.access_token || '', issuedAt: Date.now() } };
+        });
       })
       .catch(function (e) { return { error: cloudErr(e) }; });
   }

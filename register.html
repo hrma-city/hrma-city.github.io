@@ -186,12 +186,22 @@
          会把它当伪造会话弹回登录页，形成「注册→被踢→再注册」的死循环。 */
       try{ localStorage.setItem('hrma_session_v2', JSON.stringify({
         email:email, name:name, status:'pending', pwRef:res.pwHash,
+        /* 云端注册时 Supabase 已自动登录，把它的 token 一并存下。
+           待审核页要靠这个 token 去读自己的申请状态（profiles 表只允许本人读，
+           没有 token 会误报「资料未初始化」，让人以为注册没成功）。 */
+        access_token: (res.user && res.user.access_token) || '',
         issuedAt:new Date().toISOString(), verifiedAt:Date.now()
       })); }catch(e){}
       location.replace('pending.html');
     }).catch(function(e){
       btn.disabled=false; btn.textContent='提交申请';
-      say('提交失败：'+(e&&e.message?e.message:'网络异常'),'bad');
+      var m = e && e.message ? String(e.message) : '未知错误';
+      if(/Failed to fetch|NetworkError|ERR_CONNECTION|timeout/i.test(m)){
+        say('提交失败：连不上云端账号库（Supabase）。请确认 Supabase 项目未暂停/未删除，'
+          + '且本机可访问 supabase.co（若公司网络拦截外网 API，换手机热点再试）。','bad');
+      } else {
+        say('提交失败：'+m,'bad');
+      }
     });
   });
 })();

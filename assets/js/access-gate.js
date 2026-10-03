@@ -163,12 +163,15 @@
   /* 走 Supabase REST 复核（不依赖 jsdelivr，CDN 被墙也能工作） */
   var token = session.access_token;
   if (!token) {
-    /* 没有 access_token 的会话（恢复码进站 / 本机签发的凭证）：
-       凭证刚在上一节核过，这里绝不能再把人踢回登录页 ——
-       否则「恢复码 → 进站 → 被门弹出 → 再输恢复码」会变成永久死循环。
-       只在超过 30 分钟复核有效期时才请他重新登录一次。 */
+    /* 没有 access_token 的会话有两类，都不该一律踢回登录页：
+       (a) 站长用恢复码进站 —— 凭证在上一节已与本机账号表核过，踢回去又是死循环；
+       (b) 云端刚提交完申请、还没登录过 —— 这种会话 status 是 pending/rejected，
+           踢回登录页，对方看到的就是「注册了却进不去」，实际申请还在队列里好好地。
+       所以这里按状态分流：待审 → 待审页，被拒 → 拒绝页，只有状态异常才请他重新登录。 */
+    if (isAdmin) return;                                   // 站长：凭证已核过
     if (session.verifiedAt && (Date.now() - session.verifiedAt) < 30 * 60000) return;
-    if (isAdmin) return;
+    if (status === 'rejected') { go('rejected.html'); return; }
+    if (status !== 'approved') { go('pending.html'); return; }
     go('access.html?next=' + encodeURIComponent(here));
     return;
   }

@@ -212,7 +212,16 @@
   /* ---------------- 云端模式 ---------------- */
   function cloudBranch(s) {
     var C = window.HRMA_SUPABASE || {};
-    var token = s && (s.access_token || (s.pwRef || '').slice(5));
+    /* 只认真正的 JWT（三段 base64）。
+       早期版本把 token 尾部截在 pwRef 里（'cloud:xxxxxxxx'），
+       直接 slice 会得到一个假 token → 服务端返回 401 → 前端误判成
+       「资料未初始化」，申请人以为注册失败，其实申请好好地在队列里。 */
+    var JWTISH = /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/;
+    var token = (s && s.access_token) || '';
+    if (!token && s) {
+      var tail = String(s.pwRef || '').slice(5);
+      if (JWTISH.test(tail)) token = tail;
+    }
     if (!C.url || !C.anonKey || !token) {
       render('info', '无法读取云端状态',
         '当前账号没有可用的云端登录凭证，请在云端登录页重新登录。', null, null,
@@ -233,8 +242,15 @@
           return;
         }
         if (st === 'noprofile') {
-          render('info', '资料未初始化', '云端找不到你的账号资料，可能是注册没有完成。',
-            null, null, [['重新提交申请', 'register.html', 'pri']]);
+          /* 读不到不等于没申请：profiles 表有行级权限（本人读本人 / 管理员读全部），
+             401、网络抖动、刚注册未落库都会走到这里。别把它说成「注册失败」，
+             那会让申请人白白再注册一次，把真的申请记录顶掉。 */
+          render('info', '暂时读不到申请记录',
+            '云端没能返回你的申请状态。这多数是网络或权限临时问题，<b>不代表申请失败</b>。'
+            + '请先刷新重试；仍然看不到，再考虑重新提交（重新提交前建议先联系管理员确认）。',
+            null, null,
+            [['刷新重试', location.pathname, 'pri'],
+             ['重新提交申请', 'register.html', 'sec']]);
           return;
         }
         render('wait', '待验证邮箱', '你的账号已注册，正在等待邮箱验证与管理审核。确认邮件查收后即可登录。',
