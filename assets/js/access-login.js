@@ -335,12 +335,39 @@
     var _isLoginPage = (_cur === 'access.html' || _cur === 'login.html');
     if (!_isLoginPage) return;   /* 非登录页：只加载工具函数，绝不跳转 */
 
-    var s = JSON.parse(localStorage.getItem(KEY_SESSION) || 'null');
-    if (s && s.email && s.pwRef) { enter(s); }
-    else if (s && s.email) {
-      /* 残留无效会话：清掉，避免反复触发 */
+    var s = null;
+    try { s = JSON.parse(localStorage.getItem(KEY_SESSION) || 'null'); } catch (e) {}
+
+    if (!s || !s.email) return;                 /* 无登录态：就停在登录页，正常显示表单 */
+
+    /* 两种情况留在原地，绝不 enter()：
+       (1) 没有 pwRef —— 旧版本残留的凭证；
+       (2) pwRef 与账号表里该邮箱当前的密码对不上（改过密码、清过账号表、
+           恢复码重签过、或换了设备/域名）—— 若此时 enter() 会被门判失败，
+           又弹回登录页，再 enter()……形成「页面永远打不开」的死循环。
+       正确做法：清掉陈旧凭证，让用户用密码或恢复码重新进一次。 */
+    if (!s.pwRef) {
       try { localStorage.removeItem(KEY_SESSION); } catch (e) {}
+      return;
     }
+
+    var _u = null;
+    try {
+      var _db  = JSON.parse(localStorage.getItem(KEY_USERS) || 'null');
+      var _arr = (_db && Array.isArray(_db.users)) ? _db.users : null;
+      if (_arr) {
+        for (var _i = 0; _i < _arr.length; _i++) {
+          var _x = _arr[_i];
+          if (_x && typeof _x === 'object' && _x.email === s.email) { _u = _x; break; }
+        }
+      }
+    } catch (e) {}
+    if (!_u || !_u.pw || String(_u.pw) !== String(s.pwRef)) {
+      try { localStorage.removeItem(KEY_SESSION); } catch (e) {}
+      return;
+    }
+
+    enter(s);   /* 凭证与账号表一致，才真正放行 */
   } catch (e) {}
 
   /* 暴露给注册页/门复用的接口（不再暴露任何密码） */
