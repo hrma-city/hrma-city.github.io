@@ -34,10 +34,15 @@
   /* 这些页面本身属于认证流程，不设门，否则会死循环。
      注意：me.html（修改我的密码）需要门——未登录的人不能改密码。
      reset-me.html 也保留在白名单：它是管理员忘记密码后的唯一入口，
-     若设门则忘记密码 = 永久锁死。 */
+     若设门则忘记密码 = 永久锁死。
+
+     admin-approve.html（后台）也放行：它**自己**就检查 session 是不是管理员，
+     不满足时显示「仅管理员可进入」+ 登录入口。若给它设门，未登录点后台会被
+     「后台页 → 弹回登录页」来回弹两次，页面看起来一直在闪。 */
   var OPEN = {
     'access.html': 1, 'pending.html': 1, 'rejected.html': 1,
-    'login.html': 1, 'register.html': 1, 'reset-me.html': 1
+    'login.html': 1, 'register.html': 1, 'reset-me.html': 1,
+    'admin-approve.html': 1
   };
   if (OPEN[here] === 1) return;
 
