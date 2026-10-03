@@ -82,7 +82,12 @@
   if (!isCloud) {
     var db = null;
     try { db = JSON.parse(localStorage.getItem('hrma_users_local') || 'null'); } catch (e) {}
-    var rec = db && db.users && db.users.filter(function (x) {
+    /* 结构归一化：v1 存成数组、v2 缺字段、空数组脏数据都要挡住，
+       否则 .filter 抛错会让整页白屏/循环跳转。 */
+    var list = (db && typeof db === 'object' && !Array.isArray(db) && Array.isArray(db.users))
+      ? db.users.filter(function (x) { return x && typeof x === 'object' && x.email; })
+      : [];
+    var rec = list.filter(function (x) {
       return String(x.email).toLowerCase() === String(session.email).toLowerCase();
     })[0];
     if (!rec || !(rec.pw || rec.password) ||
@@ -113,6 +118,7 @@
     if (isAdmin) return;   // 管理员有密码凭证，放行
     var list = [];
     try { list = JSON.parse(localStorage.getItem(KEY_LOCALLIST) || '[]'); } catch (e) {}
+    if (!Array.isArray(list)) list = [];   // 名单被写坏时不能变成放行通道
     var em = String(session.email).toLowerCase();
     var hit = list.some(function (x) { return String(x).toLowerCase() === em; });
     /* 漏洞④修复：不再因为 session.status==='approved' 就放行，必须名单命中 */

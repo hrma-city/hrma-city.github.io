@@ -52,6 +52,12 @@
     <button id="btn">重设管理员密码</button>
     <div id="msg" class="msg"></div>
     <div class="note">
+      <b>登录时提示「登录出错」或怎么都进不去？</b><br>
+      点下面的按钮清空本机的账号数据（只影响这台设备，网站内容不受影响），
+      然后重新用恢复码设一次密码。<br>
+      <button id="wipe" style="width:auto;padding:9px 20px;font-size:13px;background:#fff;color:#9a6a12;border:1px solid #e0c78a;margin-top:8px">
+        清空本机账号数据并重置
+      </button><br><br>
       <b>为什么这里要恢复码？</b><br>
       因为「忘记密码」如果不需要任何凭证，就等于任何人都能把管理员密码改掉，
       整道门就形同虚设。所以重设密码必须提供只有你才持有的恢复码。<br><br>
@@ -85,6 +91,21 @@
   var ADMIN='3984557428@qq.com';
   var KEY_USERS='hrma_users_local', KEY_SESSION='hrma_session_v2', KEY_RC='hrma_rc_hash';
 
+  /* 自助脱困：清空本机账号/会话数据。
+     只删本机 localStorage，不影响任何其他人，也不影响网站内容。 */
+  var wipeBtn=$('wipe');
+  if(wipeBtn){
+    wipeBtn.addEventListener('click',function(){
+      if(!window.confirm('确定清空这台设备上的账号与登录数据吗？\n\n'+
+        '只会删除本浏览器的数据，网站内容与其他人完全不受影响。\n'+
+        '清空后需要重新用恢复码设置密码。')) return;
+      ['hrma_users_local','hrma_approved_local','hrma_session_v2','hrma_gate_v1']
+        .forEach(function(k){ try{ localStorage.removeItem(k); }catch(e){} });
+      $('rc').value=''; $('np').value=''; $('np2').value='';
+      say('已清空本机账号数据。现在填恢复码，点「重设管理员密码」即可。','ok');
+    });
+  }
+
   $('btn').addEventListener('click',function(){
     var rc=$('rc').value, np=$('np').value, np2=$('np2').value;
     if(!rc||!np){ say('请填写恢复码和新密码。','bad'); return; }
@@ -101,11 +122,12 @@
         if(r[0]!==rcHash){ say('恢复码不对。','bad'); $('btn').disabled=false; return; }
         var db;
         try{db=JSON.parse(localStorage.getItem(KEY_USERS)||'null');}catch(e){}
-        if(!db){db={users:[],approved:[]};}
-        if(!db.users.length)db.users.push([]);
+        if(!db||typeof db!=='object'||Array.isArray(db)){db={users:[],approved:[]};}
+        if(!Array.isArray(db.users))db.users=[];
         var u=db.users.filter(function(x){return x.email===ADMIN;})[0];
         if(!u){u={email:ADMIN,name:'站长',status:'approved'};db.users.push(u);}
         u.pw=r[1]; try{delete u.password;}catch(e){}
+        if(!Array.isArray(db.approved))db.approved=[];
         if(db.approved.indexOf(ADMIN)<0)db.approved.push(ADMIN);
         localStorage.setItem(KEY_USERS,JSON.stringify(db));
         try{localStorage.removeItem(KEY_SESSION);}catch(e){}

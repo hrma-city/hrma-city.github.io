@@ -118,12 +118,18 @@
   function localGet() { try { return JSON.parse(localStorage.getItem(KEY_USERS) || 'null'); } catch (e) { return null; } }
   function localSet(v) { try { localStorage.setItem(KEY_USERS, JSON.stringify(v)); } catch (e) {} }
 
-  /* 账号表：不存在则建空表。
-     ⚠️ 不再自动播种管理员默认密码（那等于公开一个万能后门）。
-     管理员账号由 reset-me.html 用恢复码创建，或由本人注册后自行设置。 */
+  /* 账号表：不存在或结构异常则重建。
+     ⚠️ 这里必须做结构归一化——历史上 v1 存成数组、v2 缺 approved 字段，
+        若直接 .filter 会抛 TypeError，被外层 catch 捕获后显示成"网络异常"，
+        让真正的错误原因完全看不见。 */
   function seedAdmin() {
     var db = localGet();
-    if (!db) { db = { users: [], approved: [] }; localSet(db); }
+    if (!db || typeof db !== 'object' || Array.isArray(db)) db = { users: [], approved: [] };
+    if (!Array.isArray(db.users)) db.users = [];
+    if (!Array.isArray(db.approved)) db.approved = [];
+    /* 清掉早期版本误写入的空数组/无效项，避免 filter 时炸掉 */
+    db.users = db.users.filter(function (x) { return x && typeof x === 'object' && x.email; });
+    localSet(db);
     return db;
   }
 
@@ -238,8 +244,10 @@
       job.then(function (res) {
         busy(false);
         if (res.error) {
-          if (res.error === 'noaccount') say('该邮箱尚未注册，请先点下方「注册申请」。', 'bad');
-          else if (res.error === 'badpw') say('密码不对。', 'bad');
+          if (res.error === 'noaccount') say('该邮箱尚未注册。请点下方「注册申请」，'
+            + '或用恢复码在 reset-me.html 设一个密码。', 'bad');
+          else if (res.error === 'badpw') say('密码不对。若用恢复码设过密码，'
+            + '请先按 Command+Shift+R 强制刷新本页再试。', 'bad');
           else say('登录失败：' + res.error, 'bad');
           return;
         }
@@ -247,7 +255,13 @@
         setTimeout(function () { enter(res.user, res.pwHash); }, 350);
       }).catch(function (e) {
         busy(false);
-        say('网络异常，请稍后重试。（' + (e && e.message ? e.message : '连接失败') + '）', 'bad');
+        /* ⚠️ 这里不是网络问题——本地模式不联网。
+           之前一律显示"网络异常"，把真实异常（账号表结构损坏等）全掩盖了。
+           现在直接显示错误名与消息，并给出一条可执行的兜底路径。 */
+        var msgTxt = e && e.message ? e.message : String(e);
+        say('登录出错：' + msgTxt
+          + '　若反复出现，请用恢复码在 reset-me.html 重设密码（会清空本机账号表）。', 'bad');
+        if (window.console && console.error) console.error('[HRMA login]', e);
       });
     });
   }
