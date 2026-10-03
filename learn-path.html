@@ -62,8 +62,8 @@ main{padding:26px 0 60px}
 body.teach .tch{display:grid}
 body.teach .stu{display:none}
 .tchbox{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px;
-  grid-template-columns:repeat(3,1fr);gap:10px}
-@media(max-width:720px){.tchbox{grid-template-columns:1fr}}
+  grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:900px){.tchbox{grid-template-columns:repeat(2,1fr)}}
 .tchbox div{font-size:13px}
 .tchbox .k{font-size:11px;color:var(--muted);letter-spacing:1px}
 footer{background:var(--navy);color:#9fb6d4;padding:26px 0;font-size:13px}
@@ -322,6 +322,11 @@ function kindOf(u){
   if(u.indexOf('books/')===0) return '延伸读物';
   return '';
 }
+/* 学生版教材与教师册章节号一一对应：学生在这一站读第 N 章，
+   教师看到的就应该是同一章的教学装（怎么讲、怎么考、怎么判）。 */
+function chNo(ch){ var m=String(ch[0]||'').match(/#ch(\d\d)$/); return m? String(parseInt(m[1],10)) : '对应'; }
+function tchLink(ch){ var m=String(ch[0]||'').match(/#ch(\d\d)$/);
+  return m? 'textbook-teacher.html#tch'+m[1] : 'textbook-teacher.html'; }
 function link(pair, label){
   var k=kindOf(pair[0]);
   return '<a href="'+esc(pair[0])+'">'+esc(label||pair[1])+'</a>'+(k?'<div class="n">'+esc(k)+'</div>':'');
@@ -342,6 +347,7 @@ function render(){
         +'<div class="step"><div class="k">考</div>'+link(s.test)+'</div>'
       +'</div>'
       +'<div class="tchbox tch">'
+        +'<div><div class="k">教材教学装</div><a href="'+esc(tchLink(s.ch))+'">教师册 · '+esc(chNo(s.ch))+' 章</a></div>'
         +'<div><div class="k">教案</div><a href="'+esc(s.plan)+'">'+s.n+' 教案（文本）</a></div>'
         +'<div><div class="k">课件</div><a href="'+esc(s.ppt)+'">讲师版课件（PPTX）</a></div>'
         +'<div><div class="k">考核</div><a href="exam/certification.html">本站考核标准</a></div>'
