@@ -326,7 +326,15 @@
      ⚠️ 必须校验会话凭证（pwRef）：旧版本残留的会话没有它，
         若直接 enter() 会被当成管理员放行 → 跳首页 → 门校验失败 → 弹回登录页，
         形成"页面打不开"的无限循环。凭证无效就留在登录页，不要跳。 */
+  /* ⚠️ 只在「登录页本身」才自动跳。
+     me.html 等页面也会加载本文件（用于复用 sha256 / GATE_API），
+     若在这里无条件 enter()，会把这些页面一律弹回首页 —— 表现为
+     「点改密页被踢回首页」。所以先判断当前是不是登录页。 */
   try {
+    var _cur = (location.pathname.split('/').pop() || '').toLowerCase();
+    var _isLoginPage = (_cur === 'access.html' || _cur === 'login.html');
+    if (!_isLoginPage) return;   /* 非登录页：只加载工具函数，绝不跳转 */
+
     var s = JSON.parse(localStorage.getItem(KEY_SESSION) || 'null');
     if (s && s.email && s.pwRef) { enter(s); }
     else if (s && s.email) {
