@@ -376,7 +376,7 @@ var DATA = [
 /* 版本号：站点有 CDN 缓存（约 1–2 分钟），改完不会立刻生效。
    标出来，是为了让人一眼分辨「我看到的是不是最新的」——
    否则改了没变化，谁都分不清是没改好还是缓存没过。 */
-var VER='v5 · 10-04 02:10';
+var VER='v6 · 10-04 02:15';
 try{
   var v1=document.getElementById('ver'), v2=document.getElementById('ver2');
   if(v1) v1.textContent='内容版本 '+VER;
@@ -581,6 +581,9 @@ function setMode(m){
   ['btnStu','btnPro','btnTch'].forEach(function(id){
     document.getElementById(id).classList.toggle('on', id===map[m]);
   });
+  /* 切换身份后必须重算进度：学生数「章」、酒店人数「模块」，
+     不重算就会出现「切到酒店人还显示 0/32 章」这种对不上的情况。 */
+  render();
 }
 document.getElementById('btnStu').addEventListener('click',function(){ setMode('stu'); });
 document.getElementById('btnPro').addEventListener('click',function(){ setMode('pro'); });
