@@ -244,8 +244,8 @@
       job.then(function (res) {
         busy(false);
         if (res.error) {
-          if (res.error === 'noaccount') say('该邮箱尚未注册。请点下方「注册申请」，'
-            + '或用恢复码在 reset-me.html 设一个密码。', 'bad');
+          if (res.error === 'noaccount') say('这个邮箱在「这台设备的浏览器」里还没有账号，'
+            + '所以密码对不上。若要进入本站，请把恢复码贴到上面「用恢复码进站」的框里。', 'bad');
           else if (res.error === 'badpw') {
             /* 站长本机常常压根没设过密码，只看到「密码不对」会永远卡住。
                这里直接指路到恢复码通道，别让他再猜密码。 */
