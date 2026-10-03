@@ -55,6 +55,20 @@
   function say(t, kind) {
     msg.textContent = t || '';
     msg.className = 'msg' + (kind ? ' ' + kind : '');
+    /* 密码失败时把恢复码框闪一下并把光标送过去。
+       站长本地模式最常见的卡点就是「没设过密码 / 账号表被清空」，
+       与其让他反复猜密码，不如立刻把他推到唯一可行的入口上。 */
+    if (kind === 'bad') {
+      var box = document.getElementById('rcBox');
+      if (box) {
+        box.classList.remove('hit'); void box.offsetWidth; box.classList.add('hit');
+        try { box.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {}
+        setTimeout(function () {
+          var ri = document.getElementById('rcIn');
+          if (ri && document.activeElement !== ri) ri.focus();
+        }, 350);
+      }
+    }
   }
   /* 注意：register.html 复用本模块，它的按钮文案是「提交申请…」而不是「登录并进入」。
      所以把初始文案记进 data-lbl，busy(false) 时还原，否则注册页按钮会被改成「登录并进入」。 */
