@@ -83,7 +83,7 @@
       <label for="reason">申请理由</label>
       <textarea id="reason" placeholder="例：准备开设酒店收益管理课程，需要教材与课件资料"></textarea>
     </div>
-    <button id="btn">提交申请</button>
+    <button id="btn">提交申请（站长邮箱直接开通）</button>
     <div id="msg" class="msg"></div>
     <div class="alt">已有账号？<a id="loginLink">直接登录 →</a></div>
     <div class="note">
@@ -143,8 +143,26 @@
         else say('注册失败：'+res.error,'bad');
         return;
       }
+      /* ★ 站长邮箱：免审核、注册即开通，并直接签发会话进站。
+         以前所有人（含站长）都落成 pending → 跳 pending.html → 门因缺 pwRef
+         弹回登录页 → 用户以为「注册申请无效」，实际是个死循环。 */
+      if (res.autoLogin) {
+        try{
+          localStorage.setItem('hrma_session_v2', JSON.stringify({
+            email: email, name: res.user && res.user.name || name,
+            status: 'approved', pwRef: res.pwHash,
+            issuedAt: new Date().toISOString(), verifiedAt: Date.now()
+          }));
+        }catch(e){}
+        say('已开通：这是站长邮箱，无需审核。正在进入…','ok');
+        setTimeout(function(){ location.href = next() || 'index.html'; }, 600);
+        return;
+      }
+      /* 待审核分支：pwRef 必须带上密码哈希，否则门第 67 行「会话无凭证」
+         会把它当伪造会话弹回登录页，形成「注册→被踢→再注册」的死循环。 */
       try{ localStorage.setItem('hrma_session_v2', JSON.stringify({
-        email:email, name:name, status:'pending', verifiedAt:Date.now()
+        email:email, name:name, status:'pending', pwRef:res.pwHash,
+        issuedAt:new Date().toISOString(), verifiedAt:Date.now()
       })); }catch(e){}
       location.replace('pending.html');
     }).catch(function(e){

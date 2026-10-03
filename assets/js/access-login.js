@@ -153,15 +153,37 @@
     });
   }
 
+  /* 本地模式注册。
+     ★ 站长邮箱（管理员）走「直批」：不需要等任何人审核，注册即开通并自动进站。
+       原因：本地模式下审核名单与账号表都只存在这台设备上，站长自己申请自己审是死锁；
+       而且站长是唯一持有恢复码的人，恢复码通道本就是他的终极入口，这里只是等价入口。 */
   function registerLocal(email, pw, name) {
     var db = seedAdmin();
-    if (db.users.some(function (x) { return x.email === email; })) {
+    var isAdminReg = String(email).toLowerCase() === ADMIN_EMAIL;
+    var exist = db.users.filter(function (x) { return x.email === email; })[0];
+    if (exist && !isAdminReg) {
       return Promise.resolve({ error: 'exists' });
     }
     return sha256Hex(pw).then(function (h) {
-      db.users.push({ email: email, pw: h, name: name || '', status: 'pending' });
+      if (!exist) {
+        exist = { email: email, name: name || '' };
+        db.users.push(exist);
+      }
+      exist.pw = h;
+      exist.name = name || exist.name || '';
+      exist.status = isAdminReg ? 'approved' : 'pending';
+      try { delete exist.password; } catch (e) {}
+      if (isAdminReg) {
+        if (!Array.isArray(db.approved)) db.approved = [];
+        if (db.approved.indexOf(email) < 0) db.approved.push(email);
+      }
       localSet(db);
-      return { user: { email: email, name: name, status: 'pending', issuedAt: Date.now() }, pwHash: h };
+      return {
+        user: { email: email, name: exist.name, status: exist.status, issuedAt: Date.now() },
+        pwHash: h,
+        autoLogin: isAdminReg,
+        reApproved: isAdminReg && !!exist
+      };
     });
   }
 
