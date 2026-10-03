@@ -59,8 +59,7 @@ main{padding:26px 0 60px}
 .mark button.on{background:var(--blue);color:#fff}
 .mark span{font-size:12.5px;color:var(--muted)}
 .tch{display:none}
-body.teach .tch{display:grid}
-body.teach .stu{display:none}
+body.mode-teach .tch{display:grid}
 .tchbox{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px;
   grid-template-columns:repeat(4,1fr);gap:10px}
 @media(max-width:900px){.tchbox{grid-template-columns:repeat(2,1fr)}}
@@ -92,6 +91,22 @@ h3.sec{font-size:15px;margin:30px 0 10px;font-weight:600}
 .tchmeta{font-size:12.5px;color:var(--muted);margin-top:11px;line-height:1.6}
 .tchmeta b{color:var(--navy)}
 
+
+body.mode-pro #pathStu{display:none}
+body.mode-pro #pathPro{display:block}
+body.mode-pro .stu{display:none}
+body.mode-pro .tch{display:none}
+body.mode-pro .pro{display:block}
+body.mode-teach .stu{display:none}
+body.mode-teach .pro{display:none}
+#pathPro{display:none}
+.pro{display:none}
+.lvgrp{margin:22px 0 10px;font-size:14px;font-weight:600;color:var(--navy);
+  border-left:3px solid var(--gold);padding-left:10px}
+.lvgrp span{font-weight:400;font-size:12.5px;color:var(--muted);margin-left:8px}
+.wt{font-size:11.5px;color:#854f0b;background:#faeeda;border:1px solid #f0dca4;
+  border-radius:20px;padding:1px 8px;white-space:nowrap}
+
 </style>
 </head>
 <body>
@@ -105,11 +120,13 @@ h3.sec{font-size:15px;margin:30px 0 10px;font-weight:600}
 <div class="hero">
   <div class="wrap">
     <h1>收益管理 · 十四站学习路径</h1>
-    <p class="stu">不知道从哪开始？就从第一站开始。每一站都是同样的四步：读一点、看一眼真实数据、动手做一遍、做题拿徽章。走完十四站，你就具备独立做收益管理判断的能力。</p>
-    <p class="tch">同一条路径，教师视角。十四站就是一份现成的教学大纲：每站配教案、课件与考核标准，可以直接排进课表，也可以整门课布置给学生。</p>
+    <p class="stu">不知道从哪开始？就从第一站开始。每一站都是同样的四步：读一点、看一眼真实数据、动手做一遍、做题拿徽章。走完十四站，你就具备独立做收益管理判断的能力。<b>这一条走的是新版教材（三十二章）。</b></p>
+    <p class="pro">你在店里做事，要的是能立刻用上的东西。这一条走的是职业认证的十四个模块，按 <b>L1 执行专员 → L2 主管 → L3 经理</b> 三级递进，每个模块标了课时与认证权重，学完直接报考对应级别。</p>
+    <p class="tch">同一条学生路径，教师视角。十四站就是一份现成的教学大纲：每站配教案页、教师册、课件与教案文本，可以直接排进课表，也可以整门课布置给学生。</p>
     <div class="switch">
-      <button id="btnStu" class="on" type="button">我是学生 / 自学</button>
-      <button id="btnTch" type="button">我是教师 / 要开课</button>
+      <button id="btnStu" class="on" type="button">我是学生 · 学这门课</button>
+      <button id="btnPro" type="button">我是酒店人 · 在岗考级</button>
+      <button id="btnTch" type="button">我是教师 · 要开课</button>
     </div>
   </div>
 </div>
@@ -127,6 +144,10 @@ h3.sec{font-size:15px;margin:30px 0 10px;font-weight:600}
 <div class="bookbar"><div><b>主教材：《酒店收益管理：从原理到决策》（学生版 · 五篇三十二章）</b><span>下面每一站的「读」，都直接跳进这本书的对应章节。想从头到尾读，用右边两个入口。</span></div><div class="btns"><a href="textbook.html">在线读全本</a><a class="dl" href="%E9%85%92%E5%BA%97%E6%94%B6%E7%9B%8A%E7%AE%A1%E7%90%86%EF%BC%9A%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%86%B3%E7%AD%96%EF%BC%88%E5%AD%A6%E7%94%9F%E7%89%88%20%C2%B7%20%E4%BA%94%E7%AF%87%E6%A1%86%E6%9E%B6%EF%BC%89.pdf">下载 PDF（260 页）</a></div></div>
 
   <div class="tips">
+    <b>两条路径，各走各的</b>：<b>学生</b>走新版教材（三十二章，按学历教育编排，配习题与教具）；
+    <b>酒店人</b>走职业认证模块（M01–M14，按 L1/L2/L3 三级考级编排，配工具表与实战场景）。
+    内容都来自同一套知识体系，只是<b>编排方式和出口不同</b>——一个通向课程结业，一个通向职业认证。
+    你只需走其中一条，不用两条都看。<br><br>
     <b>教材和模块是什么关系</b>（这是最容易被弄混的一点）：<b>教材</b>是学生读的东西——三十二章的系统正文；
     <b>课程模块 M01–M14</b>是教师教的东西——教案页，写着这一站几课时、属于哪一级认证、学习目标是什么。
     两者编号是对齐的：学生在第 N 站读教材的某一章，教师就在第 N 站用对应的教案讲它。
@@ -136,7 +157,8 @@ h3.sec{font-size:15px;margin:30px 0 10px;font-weight:600}
     站名右边的 L1/L2/L3 是认证级别（L1 执行专员 → L2 主管 → L3 经理）。做完点「标记完成」，进度存在你这台设备上。
   </div>
 
-  <div id="stages"></div>
+  <div id="pathStu"><div id="stages"></div></div>
+  <div id="pathPro"></div>
 
   <h3 class="sec">走完十四站之后</h3>
   <div class="certs">
@@ -330,6 +352,45 @@ function link(pair, label){
   return '<a href="'+esc(pair[0])+'">'+esc(label||pair[1])+'</a>'+(k?'<div class="n">'+esc(k)+'</div>':'');
 }
 
+/* ---------------- 酒店人路径：职业认证模块（L1→L2→L3） ----------------
+   与学生路径共用同一套知识体系，但编排按认证级别走：
+   每个模块标了课时与认证权重，学完直接报考对应级别。
+   权重只显示模块页里明确写了的，写死的数字一律不编。 */
+var WT={'M04':'12.5%','M05':'25%','M06':'18.75%','M07':'18.75%','M08':'18.75%',
+        'M09':'18.75%','M10':'20%','M11':'25%','M12':'20%','M13':'15%','M14':'15%'};
+var GRP=[
+  ['L1','L1 · 收益执行专员','把每天的标准动作做对：看数、查表、执行、复盘'],
+  ['L2','L2 · 收益管理主管','能独立做定价、库存、渠道与竞争判断'],
+  ['L3','L3 · 收益管理经理','管全年：预算、细分、组织协同与系统']
+];
+function renderPro(){
+  var done=loadDone(), html='';
+  GRP.forEach(function(g){
+    var list=DATA.filter(function(x){ return x.lv===g[0]; });
+    var hrs=list.reduce(function(a,x){ return a+parseInt(x.hrs,10); },0);
+    html+='<div class="lvgrp">'+g[1]+'<span>'+list.length+' 个模块 · 共 '+hrs+' 课时 · '+g[2]+'</span></div>';
+    list.forEach(function(s){
+      var isDone=done.indexOf(s.n)>=0;
+      html+='<section class="stage'+(isDone?' done':'')+'" data-n="'+s.n+'">'
+        +'<div class="top"><span class="num">'+s.n+'</span><h2>'+esc(s.t)+'</h2>'
+        +'<span class="lv '+s.lv+'">'+s.lv+' · '+esc(s.hrs)+'</span>'
+        +(WT[s.n]?'<span class="wt">占认证 '+WT[s.n]+'</span>':'')+'</div>'
+        +'<p class="promise">'+esc(s.p)+'</p>'
+        +'<div class="steps">'
+          +'<div class="step"><div class="k">学</div>'+link([s.course,'模块 '+s.n+' · '+s.lv])+'</div>'
+          +'<div class="step"><div class="k">用</div>'+link(s.see)+'</div>'
+          +'<div class="step"><div class="k">练</div>'+link(s.do)+'</div>'
+          +'<div class="step"><div class="k">考</div>'+link(s.test)+'</div>'
+        +'</div>'
+        +'<div class="mark"><button type="button" class="mk'+(isDone?' on':'')+'">'
+        +(isDone?'已完成，点此撤销':'标记这一模块完成')+'</button>'
+        +'<span>'+(WT[s.n]?'这一模块占 '+s.lv+' 认证 '+WT[s.n]+'，考级时权重不低':'')+'</span></div>'
+      +'</section>';
+    });
+  });
+  document.getElementById('pathPro').innerHTML=html;
+}
+
 function render(){
   var done=loadDone();
   var html='';
@@ -361,6 +422,8 @@ function render(){
   document.getElementById('fill').style.width=pct+'%';
   document.getElementById('pct').textContent=done.length+' / '+DATA.length+' 站';
 
+  renderPro();
+
   Array.prototype.forEach.call(document.querySelectorAll('.mk'),function(b){
     b.addEventListener('click',function(){
       var sec=b.closest('.stage'), n=sec.getAttribute('data-n'), d=loadDone(), i=d.indexOf(n);
@@ -370,14 +433,19 @@ function render(){
   });
 }
 
-document.getElementById('btnStu').addEventListener('click',function(){
-  document.body.classList.remove('teach');
-  this.classList.add('on'); document.getElementById('btnTch').classList.remove('on');
-});
-document.getElementById('btnTch').addEventListener('click',function(){
-  document.body.classList.add('teach');
-  this.classList.add('on'); document.getElementById('btnStu').classList.remove('on');
-});
+function setMode(m){
+  var b=document.body;
+  b.classList.remove('teach','mode-pro','mode-teach');
+  if(m==='pro') b.classList.add('mode-pro');
+  if(m==='teach') b.classList.add('mode-teach');
+  var map={stu:'btnStu',pro:'btnPro',teach:'btnTch'};
+  ['btnStu','btnPro','btnTch'].forEach(function(id){
+    document.getElementById(id).classList.toggle('on', id===map[m]);
+  });
+}
+document.getElementById('btnStu').addEventListener('click',function(){ setMode('stu'); });
+document.getElementById('btnPro').addEventListener('click',function(){ setMode('pro'); });
+document.getElementById('btnTch').addEventListener('click',function(){ setMode('teach'); });
 document.getElementById('reset').addEventListener('click',function(){
   if(confirm('清空本机上的十四站进度？')){ saveDone([]); render(); }
 });
