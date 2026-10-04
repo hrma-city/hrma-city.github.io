@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <script>window.HRMA_PREFIX="";</script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v8"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -154,6 +155,8 @@ body.mode-pro .stuonly{display:none}
     <span>进度</span>
     <div class="track"><i id="fill"></i></div>
     <span id="pct">0 / 14 站</span>
+    <button id="hard" type="button" title="页面看着还是旧的？点这里强制重新下载一次"
+      style="font:inherit;font-size:12px;border:1px solid #e8b84b;background:#fffaf0;color:#8a6a10;border-radius:6px;padding:4px 10px;cursor:pointer">强制刷新</button>
     <button id="reset" type="button" style="font:inherit;font-size:12px;border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:6px;padding:4px 10px;cursor:pointer">清空进度</button>
     <span id="ver" style="margin-left:auto;font-size:11.5px;color:#8a94a3">—</span>
   </div>
@@ -379,7 +382,7 @@ var DATA = [
 /* 版本号：站点有 CDN 缓存（约 1–2 分钟），改完不会立刻生效。
    标出来，是为了让人一眼分辨「我看到的是不是最新的」——
    否则改了没变化，谁都分不清是没改好还是缓存没过。 */
-var VER='v8 · 10-04 02:25';
+var VER='v9 · 10-04 在线学习版';
 try{
   var v1=document.getElementById('ver'), v2=document.getElementById('ver2');
   if(v1) v1.textContent='内容版本 '+VER;
@@ -397,6 +400,7 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(m){
    抄一遍等于同一句话显示两次，看上去像是渲染出错。 */
 function kindOf(u){
   u=String(u||'');
+  if(u.indexOf('learn.html')===0) return '在线学习与考核';
   if(u.indexOf('textbook.html#')===0) return '主教材 · 对应章节';
   if(u.indexOf('series/tools/')===0) return '工具表';
   if(u.indexOf('games/')===0) return '情境游戏';
@@ -514,31 +518,36 @@ function renderStu(){
     html+='<div class="lvgrp">'+esc(g.part)+(g.mod?' · '+esc(g.mod):'')+'<span>'+esc(g.desc)+'</span></div>';
     g.chs.forEach(function(c){
       var key='C'+c.n, isDone=done.indexOf(key)>=0;
-      var readHref = c.n===0 ? 'textbook.html' : 'textbook.html#ch'+pad2(c.n);
-      var exHref   = c.n===0 ? '' : 'textbook.html#ex'+pad2(c.n);
+      /* 学生路线改成「在网站里学」：learn.html 是在线学习+考核版（要点 / 公式 / 判定表 /
+         案例全拆成卡片，章末 5 题速测，答完给教材原文出处）。
+         textbook.html 退为「翻阅备查」。#chNNq 后缀 = 打开后直接进本章速测。 */
+      var readHref = c.n===0 ? 'learn.html' : 'learn.html#ch'+c.n;
+      var exHref   = c.n===0 ? '' : 'learn.html#ch'+c.n+'q';
+      var flipHref = c.n===0 ? 'textbook.html' : 'textbook.html#ch'+pad2(c.n);
       html+='<section class="stage'+(isDone?' done':'')+'" data-n="'+key+'">'
         +'<div class="top"><span class="num">'+(c.n===0?'开篇':'第 '+c.n+' 章')+'</span><h2>'+esc(c.t)+'</h2></div>'
         +'<div class="steps">'
-          +'<div class="step"><div class="k">读</div><a href="'+esc(readHref)+'">教材这一章</a><div class="n">主教材 · 对应章节</div></div>'
+          +'<div class="step"><div class="k">学</div><a href="'+esc(readHref)+'">在线学这一章</a><div class="n">要点·公式·判定表·案例</div></div>'
           +(exHref
-            ? '<div class="step"><div class="k">练</div><a href="'+esc(exHref)+'">做本章练习</a><div class="n">答案在附录 B</div></div>'
+            ? '<div class="step"><div class="k">练</div><a href="'+esc(exHref)+'">本章速测 5 题</a><div class="n">答完给教材原文出处</div></div>'
             : '<div class="step"><div class="k">练</div><div class="n">开篇没有练习，读完就往下走</div></div>')
           +'<div class="step"><div class="k">用</div>'
             +(c.tool ? link(c.tool) : '<div class="n">这一章是概念章，没有配套工具</div>')
           +'</div>'
+          +'<div class="step"><div class="k">翻</div><a href="'+esc(flipHref)+'">教材原文</a><div class="n">只作翻阅备查</div></div>'
         +'</div>'
         +(c.n>0 ? (
           '<div class="tchmeta tch">教这一章：下面五步按课堂顺序走</div>'
           +'<div class="chain tch">'
-            +'<div class="ci"><div class="k">讲</div><a href="'+esc(readHref)+'">教材第 '+c.n+' 章</a>'
+            +'<div class="ci"><div class="k">讲</div><a href="'+esc(readHref)+'">在线学第 '+c.n+' 章</a>'
               +'<div class="n">配 <a href="textbook-teacher.html#tch'+pad2(c.n)+'">教师册同章</a></div></div>'
             +'<div class="ci"><div class="k">演示</div>'
               +(c.tool? link(c.tool) : '<div class="n">概念章，用教材里的「填表示例」演示</div>')+'</div>'
             +'<div class="ci"><div class="k">练</div>'
-              +'<a href="textbook.html#ex'+pad2(c.n)+'">本章练习</a><div class="n">当堂做，答案在附录 B</div></div>'
-            +'<div class="ci"><div class="k">判</div><a href="textbook.html#appA">教材判定表全集</a>'
+              +'<a href="'+esc(exHref)+'">本章速测 5 题</a><div class="n">当堂做，答完给原文出处</div></div>'
+            +'<div class="ci"><div class="k">判</div><a href="learn.html#appA">教材判定表全集</a>'
               +'<div class="n">按表判，不靠感觉</div></div>'
-            +'<div class="ci"><div class="k">考</div><a href="textbook.html#appD">自测题库索引</a>'
+            +'<div class="ci"><div class="k">考</div><a href="learn.html#final">综合自测（40 题）</a>'
               +'<div class="n">整篇学完再测</div></div>'
           +'</div>') : '')
         +'<div class="mark"><button type="button" class="mk'+(isDone?' on':'')+'">'
@@ -593,6 +602,12 @@ document.getElementById('btnPro').addEventListener('click',function(){ setMode('
 document.getElementById('btnTch').addEventListener('click',function(){ setMode('teach'); });
 document.getElementById('reset').addEventListener('click',function(){
   if(confirm('清空本机上的学习进度（两条路径都会清空）？')){ saveDone([]); render(); }
+});
+/* 强制刷新：给 URL 加一个随机 query，浏览器与 CDN 都会当成新资源重新下载。
+   之前反复出现「代码改了、线上还是旧版，点模块跳首页」就是这个缓存问题。
+   注意别用 location.reload(true)，现代浏览器已忽略那个参数，等于没点。 */
+document.getElementById('hard').addEventListener('click',function(){
+  location.replace(location.pathname+'?_r='+Date.now()+location.hash);
 });
 render();
 </script>
