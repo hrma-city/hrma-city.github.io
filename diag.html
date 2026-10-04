@@ -65,7 +65,20 @@ pre{background:#0f2a4a;color:#d6e6f5;border-radius:8px;padding:12px;font-size:12
   </div>
 
   <div class="card">
-    <h2>五、把这段结果发给我</h2>
+    <h2>五、决定性一步：直接在新标签打开（带破缓存参数）</h2>
+    <p class="hint">下面三个按钮会在<strong>新标签页</strong>打开目标页，并在网址末尾加一个你从没打过的随机参数。
+    这能一次分清两种可能：<b>能打开</b> = 之前是缓存；<b>还是首页</b> = 你的网络或浏览器在把找不到的页面换成首页。</p>
+    <div>
+      <button onclick="openFresh('courses/m01-metrics.html')">新标签打开 M01</button>
+      <button onclick="openFresh('exam/workbook.html')">新标签打开题库</button>
+      <button class="ghost" onclick="openFresh('')">我要自己手输</button>
+    </div>
+    <p class="hint" style="margin-top:10px">「我要自己手输」会给你一段可复制的网址，粘到地址栏回车即可。
+    新标签打开后，请看<strong>地址栏</strong>和<strong>页面标题</strong>：标题里出现「M01 收益管理的语言」就是对的。</p>
+  </div>
+
+  <div class="card">
+    <h2>六、把这段结果发给我</h2>
     <p class="hint">复制下面框里的全部内容发过来即可（第一行到第四行），不用截图。</p>
     <pre id="rep">点完上面的按钮再点这里</pre>
     <button class="ghost" onclick="build()">生成结果文本</button>
@@ -116,21 +129,22 @@ function gate(){
   var h='<tr><td>正在取…</td><td></td></tr>';
   document.getElementById('tGate').innerHTML=h;
   var url='assets/js/access-gate.js?diag='+Date.now();
-  fetch(url,{cache:'no-store'}).then(function(r){ return r.text(); }).then(function(t){
+  fetch(url,{cache:'no-store'}).then(function(r){
+    var code=r.status;
+    return r.text().then(function(t){ return {code:code,txt:t}; });
+  }).then(function(o){
+    var t=o.txt;
     var fixed = t.indexOf('encodeURIComponent(rel)')>=0;
     var legacy = t.indexOf("encodeURIComponent(here)")>=0;
     var h2='';
-    h2+=row('取到的文件', '<code>'+esc(url)+'</code>　'+pill('ok','HTTP '+r.status));
+    h2+=row('取到的文件', '<code>'+esc(url)+'</code>　'+pill('ok','HTTP '+o.code));
     h2+=row('含修复（rel）', fixed? pill('ok','有'):pill('no','没有'));
     h2+=row('还残留旧写法（here）', legacy? pill('no','有'):pill('ok','没有'));
-    h2+=row('结论', fixed? pill('ok','你拿到的是修好的版本'):pill('no','你拿到的还是旧版本 —— 请点下面「强制刷新」再测'));
-    h2+=row('怎么强制刷新', '在地址栏这页按 F5；或回到学习路径页点右上角<b>金色「强制刷新」</b>按钮；'+
-      '仍不行就换一次网络（手机流量）再打开，排除代理/CDN 缓存');
+    h2+=row('结论', fixed? pill('ok','你拿到的是修好的版本'):pill('no','你拿到的还是旧版本'));
     document.getElementById('tGate').innerHTML=h2;
     RESULT['门脚本']=fixed?'新版本（含 rel 修复）':'旧版本（缺 rel 修复）';
   }).catch(function(e){
-    var h2=row('取不到', pill('no', e.message));
-    document.getElementById('tGate').innerHTML=h2;
+    document.getElementById('tGate').innerHTML=row('取不到', pill('no', e.message));
     RESULT['门脚本']='取不到：'+e.message;
   });
 }
@@ -164,7 +178,24 @@ function build(){
   var out=[];
   for(var k in RESULT){ if(Object.prototype.hasOwnProperty.call(RESULT,k)) out.push(k+'：'+RESULT[k]); }
   document.getElementById('rep').textContent=out.join('\n')+
+    '\n（新标签打开后，请把地址栏网址 + 页面标题也告诉我：____）'+
     '\n（把这段发给我，文字全部复制过去即可）';
+}
+
+/* 破缓存打开：加一个从未出现过的随机参数，绕过浏览器与中间代理的缓存 */
+function openFresh(path){
+  var q=path+'?fresh='+Date.now();
+  var full=location.origin+'/'+q;
+  RESULT['新标签试开']=full;
+  build();
+  window.open(full,'_blank');
+  if(!path){
+    var ta=document.createElement('textarea');
+    ta.value=full; ta.style.position='fixed'; ta.style.left='-9999px';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+  }
 }
 
 env(); sess(); gate();
