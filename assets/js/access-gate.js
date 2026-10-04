@@ -29,7 +29,16 @@
   var KEY_LOCALLIST = 'hrma_approved_local'; // 本地降级模式的已通过名单
 
   var p = window.HRMA_PREFIX || '';
-  var here = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  /* here 有两个用途，必须分开：
+     1) file —— 只取文件名，用来查 OPEN 白名单（access.html 等）；
+     2) rel  —— 站点内相对路径（含子目录），用作登录后的回跳目标 next=。
+     ⚠️ 2026-10-04 修的长期 bug：原来两者都用了 split('/').pop()，
+     于是 courses/m01-metrics.html 被记成 next=m01-metrics.html，
+     登录后跳到根目录那个不存在的文件 → 404 → 落到首页。
+     表现就是「教材能进、子目录的课程模块和题库点进去全是主页」，
+     反复登录也没用，因为丢的是目录不是权限。 */
+  var rel = (location.pathname.replace(/^\/+/, '') || 'index.html');
+  var here = (rel.split('/').pop() || 'index.html').toLowerCase();
 
   /* 这些页面本身属于认证流程，不设门，否则会死循环。
      注意：me.html（修改我的密码）需要门——未登录的人不能改密码。
@@ -62,7 +71,7 @@
 
   /* ---- 情况一：从未登录 ---- */
   if (!session || !session.email) {
-    go('access.html?next=' + encodeURIComponent(here) + (qs('from') ? '&from=' + encodeURIComponent(qs('from')) : ''));
+    go('access.html?next=' + encodeURIComponent(rel) + (qs('from') ? '&from=' + encodeURIComponent(qs('from')) : ''));
     return;
   }
 
@@ -70,7 +79,7 @@
      凭证 = 本机账号表里该邮箱的密码哈希（云端模式为 access_token 派生值）。
      攻击者只知道邮箱、改 localStorage 写 approved，都算不出这个值。 */
   if (!session.pwRef) {
-    go('access.html?next=' + encodeURIComponent(here) + '&needpw=1');
+    go('access.html?next=' + encodeURIComponent(rel) + '&needpw=1');
     return;
   }
 
@@ -82,7 +91,7 @@
   var isCloud = !(String(window.HRMA_AUTH_MODE || 'cloud') === 'local')
     && CFG0.url && CFG0.anonKey && String(CFG0.anonKey).indexOf('XXXX') < 0;
 
-  function fail() { go('access.html?next=' + encodeURIComponent(here) + '&needpw=1'); }
+  function fail() { go('access.html?next=' + encodeURIComponent(rel) + '&needpw=1'); }
 
   if (!isCloud) {
     var db = null;
@@ -172,7 +181,7 @@
     if (session.verifiedAt && (Date.now() - session.verifiedAt) < 30 * 60000) return;
     if (status === 'rejected') { go('rejected.html'); return; }
     if (status !== 'approved') { go('pending.html'); return; }
-    go('access.html?next=' + encodeURIComponent(here));
+    go('access.html?next=' + encodeURIComponent(rel));
     return;
   }
 
@@ -190,6 +199,6 @@
   }).catch(function () {
     /* 网络不通时不误伤：本地已记为 approved 就放行，否则回登录页重试 */
     if (isAdmin || status === 'approved') return;
-    go('access.html?next=' + encodeURIComponent(here));
+    go('access.html?next=' + encodeURIComponent(rel));
   });
 })();
