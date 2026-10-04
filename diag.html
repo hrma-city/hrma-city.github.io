@@ -4,201 +4,140 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-<title>自检 · 访问门与链接状态</title>
+<title>定位 · 服务器到底返回了什么</title>
 <style>
-:root{--ink:#152238;--ink2:#3d4c63;--mute:#6b7a90;--line:#dfe6ef;--navy:#0f2a4a;--blue:#1d6fb8;--gold:#e8b84b;--bg:#f4f7fb;--ok:#1c7a4a;--no:#b3261e}
+:root{--ink:#152238;--ink2:#3d4c63;--mute:#6b7a90;--line:#dfe6ef;--navy:#0f2a4a;--ok:#1c7a4a;--no:#b3261e;--warn:#8a6a10}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 "PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;padding:22px}
-.wrap{max-width:900px;margin:0 auto}
-h1{font-size:20px;color:var(--navy);margin:0 0 4px}
-p.lead{color:var(--ink2);font-size:14px;margin:0 0 18px}
-.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:14px}
-h2{font-size:15px;color:var(--navy);margin:0 0 10px}
+body{margin:0;background:#f4f7fb;color:var(--ink);font:15px/1.7 "PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;padding:20px}
+.wrap{max-width:940px;margin:0 auto}
+h1{font-size:20px;color:var(--navy);margin:0 0 6px}
+p.lead{margin:0 0 18px;color:var(--ink2);font-size:14px}
+.big{font-size:26px;font-weight:800;line-height:1.35;padding:16px 18px;border-radius:12px;margin:0 0 14px}
+.big.ok{background:#e7f5ee;color:var(--ok);border:1px solid #b6e0c9}
+.big.no{background:#fdecea;color:var(--no);border:1px solid #f5c6c0}
+.big.mid{background:#fff4d6;color:var(--warn);border:1px solid #f0dca8}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:12px}
+.card h2{font-size:15px;margin:0 0 10px;color:var(--navy)}
 table{width:100%;border-collapse:collapse;font-size:13.5px}
-td{border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}
-td:first-child{width:38%;color:var(--mute)}
-code{background:#f0f3f8;border-radius:4px;padding:1px 6px;font-size:12.5px;word-break:break-all}
-.pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700}
-.pill.ok{background:#e7f5ee;color:var(--ok)}
-.pill.no{background:#fdecea;color:var(--no)}
-.pill.mid{background:#fff4d6;color:#8a6a10}
-iframe{width:100%;height:230px;border:1px solid var(--line);border-radius:8px;background:#fff}
-button{font:inherit;background:var(--blue);color:#fff;border:0;border-radius:8px;padding:9px 18px;font-size:14px;font-weight:600;cursor:pointer;margin-right:8px}
-button.ghost{background:#fff;color:var(--blue);border:1px solid var(--blue)}
-.hint{font-size:12.5px;color:var(--mute)}
-.big{font-size:15px;font-weight:700}
-pre{background:#0f2a4a;color:#d6e6f5;border-radius:8px;padding:12px;font-size:12px;overflow:auto;max-height:190px;white-space:pre-wrap;word-break:break-all}
+td{border-bottom:1px solid var(--line);padding:7px 6px;vertical-align:top;word-break:break-all}
+td:first-child{width:30%;color:var(--mute)}
+code{background:#f0f3f8;border-radius:4px;padding:1px 5px;font-size:12.5px}
+pre{background:#0f2a4a;color:#d6e6f5;border-radius:8px;padding:12px;font-size:12px;overflow:auto;max-height:260px;white-space:pre-wrap;word-break:break-all;margin:0}
+button{font:inherit;background:#1d6fb8;color:#fff;border:0;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:600;cursor:pointer}
+.st{display:inline-block;border-radius:6px;padding:2px 9px;font-size:12px;font-weight:700}
+.st.g{background:#e7f5ee;color:var(--ok)}.st.r{background:#fdecea;color:var(--no)}.st.y{background:#fff4d6;color:var(--warn)}
+.hint{font-size:12.5px;color:var(--mute);margin:8px 0 0}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>自检页 · 一次看清「链接到底打开了什么」</h1>
-  <p class="lead">这一页会把你浏览器当前的实际情况全部列出来。不用复制地址栏、不用截图猜，把下面几行结果告诉我就行。</p>
+  <h1>定位：服务器到底返回了什么</h1>
+  <p class="lead">这一页会自动跑三项检测，<strong>不用你点任何按钮</strong>。看完最上面那一行大字，把结果告诉我即可。</p>
+
+  <div class="big mid" id="head">正在检测…（约 10 秒）</div>
 
   <div class="card">
-    <h2>一、环境</h2>
-    <table><tbody id="tEnv"></tbody></table>
+    <h2>检测 1 · 课程模块页 courses/m01-metrics.html</h2>
+    <table><tbody id="t1"><tr><td>等待</td><td></td></tr></tbody></table>
+    <pre id="p1"></pre>
   </div>
 
   <div class="card">
-    <h2>二、登录状态（本机 localStorage）</h2>
-    <table><tbody id="tSess"></tbody></table>
+    <h2>检测 2 · 题库页 exam/workbook.html</h2>
+    <table><tbody id="t2"><tr><td>等待</td><td></td></tr></tbody></table>
+    <pre id="p2"></pre>
   </div>
 
   <div class="card">
-    <h2>三、浏览器实际拿到的门脚本</h2>
-    <table><tbody id="tGate"></tbody></table>
-    <p class="hint">这一栏最关键：只要显示「旧版」，说明你的浏览器/网络还在用旧文件，后面所有怪事都解释得通。</p>
+    <h2>检测 3 · 首页 index.html（对照组，应该正常）</h2>
+    <table><tbody id="t3"><tr><td>等待</td><td></td></tr></tbody></table>
+    <pre id="p3"></pre>
   </div>
 
   <div class="card">
-    <h2>四、实测：把目标页装进下面的框里</h2>
-    <p class="hint">同源 iframe 能读到子页面的真实标题和正文。如果下面显示的是首页，说明确实走错了。</p>
-    <div>
-      <button onclick="probe('courses/m01-metrics.html')">测 M01 模块页</button>
-      <button onclick="probe('exam/workbook.html')">测题库页</button>
-      <button class="ghost" onclick="probe('textbook.html')">测教材页（对照）</button>
-    </div>
-    <p style="margin:10px 0 8px" class="big" id="pT">还没测</p>
-    <pre id="pB">点上面任一按钮。</pre>
-    <iframe id="fr" src="about:blank"></iframe>
-  </div>
-
-  <div class="card">
-    <h2>五、决定性一步：直接在新标签打开（带破缓存参数）</h2>
-    <p class="hint">下面三个按钮会在<strong>新标签页</strong>打开目标页，并在网址末尾加一个你从没打过的随机参数。
-    这能一次分清两种可能：<b>能打开</b> = 之前是缓存；<b>还是首页</b> = 你的网络或浏览器在把找不到的页面换成首页。</p>
-    <div>
-      <button onclick="openFresh('courses/m01-metrics.html')">新标签打开 M01</button>
-      <button onclick="openFresh('exam/workbook.html')">新标签打开题库</button>
-      <button class="ghost" onclick="openFresh('')">我要自己手输</button>
-    </div>
-    <p class="hint" style="margin-top:10px">「我要自己手输」会给你一段可复制的网址，粘到地址栏回车即可。
-    新标签打开后，请看<strong>地址栏</strong>和<strong>页面标题</strong>：标题里出现「M01 收益管理的语言」就是对的。</p>
-  </div>
-
-  <div class="card">
-    <h2>六、把这段结果发给我</h2>
-    <p class="hint">复制下面框里的全部内容发过来即可（第一行到第四行），不用截图。</p>
-    <pre id="rep">点完上面的按钮再点这里</pre>
-    <button class="ghost" onclick="build()">生成结果文本</button>
+    <h2>把结果发我</h2>
+    <p class="hint">点下面按钮，然后复制框里全部内容发我。</p>
+    <button onclick="build()">生成结果文本</button>
+    <pre id="rep" style="margin-top:10px">点上面按钮</pre>
   </div>
 </div>
 
 <script>
+var OUT=[];
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function row(t,v){ return '<tr><td>'+t+'</td><td>'+v+'</td></tr>'; }
-function pill(cls,txt){ return '<span class="pill '+cls+'">'+txt+'</span>'; }
-var RESULT={};
+function st(cls,t){ return '<span class="st '+cls+'">'+t+'</span>'; }
+function rows(a){ document.getElementById('t'+a.i).innerHTML=a.rows.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>';}).join(''); }
+var VERDICT=[];
 
-function env(){
-  var h='';
-  h+=row('当前地址', '<code>'+esc(location.href)+'</code>');
-  h+=row('你的网址根', '<code>'+esc(location.origin)+'</code>');
-  h+=row('是否 https', location.protocol==='https:'?pill('ok','是'):pill('no','否'));
-  h+=row('浏览器', esc(navigator.userAgent.slice(0,90)));
-  RESULT['地址']=location.href;
-  document.getElementById('tEnv').innerHTML=h;
-}
-
-function sess(){
-  var h='', s=null, users=null;
-  try{ s=JSON.parse(localStorage.getItem('hrma_session_v2')||'null'); }catch(e){}
-  try{ users=JSON.parse(localStorage.getItem('hrma_users_local')||'null'); }catch(e){}
-  h+=row('本机有登录态吗', s? pill('ok','有'):pill('no','没有'));
-  if(s){
-    h+=row('邮箱', esc(s.email||'(空)'));
-    h+=row('状态', esc(s.status||'(空)'));
-    h+=row('凭证 pwRef', s.pwRef? '<code>'+esc(String(s.pwRef).slice(0,10))+'…</code>' : pill('no','没有凭证'));
-    h+=row('最后核验时间', s.verifiedAt? new Date(Number(s.verifiedAt)).toLocaleString('zh-CN') : '(无)');
-    h+=row('已过多久', s.verifiedAt? (Math.round((Date.now()-Number(s.verifiedAt))/60000)+' 分钟前') : '(未知)');
-  }
-  var recs = (users && users.users) ? users.users : (Array.isArray(users)?users:[]);
-  h+=row('本机账号表条数', recs.length);
-  if(s){
-    var rec=recs.filter(function(x){ return String(x.email).toLowerCase()===String(s.email).toLowerCase(); })[0];
-    h+=row('账号表里有你吗', rec? pill('ok','有'):pill('no','没有 —— 这会导致每次都被踢回登录页'));
-    h+=row('密码哈希对得上吗', (rec && (rec.pw||rec.password) && String(rec.pw||rec.password)===String(s.pwRef))? pill('ok','对得上'):pill('no','对不上'));
-  }
-  RESULT['登录态']=s? (s.email+' / '+s.status+' / 凭证'+(s.pwRef?'有':'无')) : '无';
-  RESULT['账号表']=recs.length+' 条'+(s?('，本机账号表匹配：'+(recs.some(function(x){return String(x.email).toLowerCase()===String(s.email).toLowerCase();})?'有':'无')):'');
-  document.getElementById('tSess').innerHTML=h;
-}
-
-function gate(){
-  var h='<tr><td>正在取…</td><td></td></tr>';
-  document.getElementById('tGate').innerHTML=h;
-  var url='assets/js/access-gate.js?diag='+Date.now();
-  fetch(url,{cache:'no-store'}).then(function(r){
-    var code=r.status;
-    return r.text().then(function(t){ return {code:code,txt:t}; });
-  }).then(function(o){
-    var t=o.txt;
-    var fixed = t.indexOf('encodeURIComponent(rel)')>=0;
-    var legacy = t.indexOf("encodeURIComponent(here)")>=0;
-    var h2='';
-    h2+=row('取到的文件', '<code>'+esc(url)+'</code>　'+pill('ok','HTTP '+o.code));
-    h2+=row('含修复（rel）', fixed? pill('ok','有'):pill('no','没有'));
-    h2+=row('还残留旧写法（here）', legacy? pill('no','有'):pill('ok','没有'));
-    h2+=row('结论', fixed? pill('ok','你拿到的是修好的版本'):pill('no','你拿到的还是旧版本'));
-    document.getElementById('tGate').innerHTML=h2;
-    RESULT['门脚本']=fixed?'新版本（含 rel 修复）':'旧版本（缺 rel 修复）';
-  }).catch(function(e){
-    document.getElementById('tGate').innerHTML=row('取不到', pill('no', e.message));
-    RESULT['门脚本']='取不到：'+e.message;
+/* 用 fetch 直接取原始字节：不经任何 JS 跳转、不经 iframe。
+   res.url / res.redirected / status / 正文首段，四样合起来就能定性。 */
+function probe(path, slot){
+  var t0=Date.now();
+  fetch(path+'?probe='+Date.now(), {cache:'no-store', redirect:'follow'})
+  .then(function(r){
+    return r.text().then(function(txt){ return {r:r, txt:txt, ms:Date.now()-t0}; });
+  })
+  .then(function(o){
+    var r=o.r, txt=o.txt;
+    var tm=/<title[^>]*>([\s\S]{0,120}?)<\/title>/i.exec(txt);
+    var title=tm?tm[1].replace(/\s+/g,' ').trim():'(没有 title 标签)';
+    var isHome=/RMC收益管理社区<\/title>/i.test(txt) || /选一个入口|按你要做的事/.test(txt);
+    var isM01=/M01/.test(txt)&&/收益管理的语言/.test(txt);
+    var verdict = isM01? st('g','正确：拿到了 M01 模块页')
+                : isHome? st('r','拿到的是首页（服务器返回错页）')
+                : st('y','拿到的是其他页面');
+    var rows=[
+      ['请求的网址', '<code>'+esc(path)+'?probe=…</code>'],
+      ['HTTP 状态', st(r.status===200?'g':(r.status===404?'r':'y'), r.status)],
+      ['是否被重定向', (r.redirected? st('y','是'):st('g','否'))+'　最终地址 <code>'+esc(r.url.replace(location.origin,''))+'</code>'],
+      ['响应里的标题', '<code>'+esc(title)+'</code>'],
+      ['判定', verdict],
+      ['耗时', o.ms+' ms　大小 '+Math.round(txt.length/1024)+' KB'],
+      ['正文前 200 字', '<code>'+esc(txt.replace(/<script[\s\S]*?<\/script>/g,' ').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().slice(0,200))+'</code>']
+    ];
+    rows({i:slot, rows:rows});
+    document.getElementById('p'+slot).textContent =
+      'status='+r.status+'  redirected='+r.redirected+'\n最终地址='+r.url+'\ntitle='+title+'\n\n'+
+      txt.replace(/<script[\s\S]*?<\/script>/g,' ').replace(/<style[\s\S]*?<\/style>/g,' ')
+         .replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().slice(0,400);
+    OUT.push('['+path+'] '+verdict.replace(/<[^>]+>/g,'')+' | HTTP '+r.status+' | 最终地址 '+r.url
+      +' | title='+title);
+    VERDICT.push({p:path, ok:isM01||!isHome});
+  })
+  .catch(function(e){
+    rows({i:slot, rows:[['结果', st('r','请求失败：'+e.message)]]});
+    document.getElementById('p'+slot).textContent='失败：'+e.message;
+    OUT.push('['+path+'] 请求失败：'+e.message);
   });
 }
 
-/* 用同源 iframe 读子页面的真实标题与正文 —— 这一步能一锤定音 */
-function probe(path){
-  var fr=document.getElementById('fr');
-  document.getElementById('pT').textContent='正在打开 '+path+' …';
-  document.getElementById('pB').textContent='';
-  fr.src=path+'?probe='+Date.now();
+function run(){
+  probe('courses/m01-metrics.html', 1);
+  probe('exam/workbook.html', 2);
+  probe('index.html', 3);
   setTimeout(function(){
-    var t='', b='', ok=false, note='';
-    try{
-      var d=fr.contentDocument;
-      t=d?d.title:'';
-      b=d?(d.body?d.body.innerText:''):'';
-      ok=!!d;
-    }catch(e){ note='读不到（同源被拒）：'+e.message; }
-    b=(b||'').replace(/\s+/g,' ').trim();
-    var isHome = /收益管理社区|学习路径|按你要做的事/.test(t) && b.length<1200 && /选一个入口|欢迎/.test(b);
-    var txt = t+'\n—— 正文前 260 字 ——\n'+b.slice(0,260)+(b.length>260?'…':'');
-    document.getElementById('pT').innerHTML = ok
-      ? (isHome? pill('no','打开的是首页/门户，不是目标内容页') : pill('ok','打开了正确的内容页：'+esc(t)))
-      : pill('mid','无法判断');
-    document.getElementById('pB').textContent=txt + (note?('\n'+note):'');
-    RESULT['实测 '+path] = ok ? (t+' | '+b.slice(0,80)) : '读不到：'+note;
-  }, 3000);
+    var bad=OUT.filter(function(x){ return x.indexOf('首页')>=0 || x.indexOf('失败')>=0; });
+    var head=document.getElementById('head');
+    if(!OUT.length){ head.className='big mid'; head.textContent='还没拿到结果，请点下面「重新检测」'; return; }
+    if(bad.length===0){
+      head.className='big ok';
+      head.textContent='结论：三个页面都取对了 —— 你的网络能正常拿到内容页。那问题出在浏览器跳转/缓存环节，点下面的「重新检测」再试一次，或把结果发我。';
+    } else {
+      head.className='big no';
+      head.textContent='结论：有问题 —— '+bad.length+' 个页面服务器返回的不是内容页。'
+        +'这说明你这边网络/代理把地址换成了首页，不是浏览器缓存。请把下面结果发我。';
+    }
+  }, 9000);
 }
 
 function build(){
-  var out=[];
-  for(var k in RESULT){ if(Object.prototype.hasOwnProperty.call(RESULT,k)) out.push(k+'：'+RESULT[k]); }
-  document.getElementById('rep').textContent=out.join('\n')+
-    '\n（新标签打开后，请把地址栏网址 + 页面标题也告诉我：____）'+
-    '\n（把这段发给我，文字全部复制过去即可）';
+  OUT.push('---');
+  OUT.push('当前地址：'+location.href);
+  OUT.push('浏览器：'+navigator.userAgent.slice(0,100));
+  document.getElementById('rep').textContent=OUT.join('\n')+'\n（全部复制发我）';
 }
 
-/* 破缓存打开：加一个从未出现过的随机参数，绕过浏览器与中间代理的缓存 */
-function openFresh(path){
-  var q=path+'?fresh='+Date.now();
-  var full=location.origin+'/'+q;
-  RESULT['新标签试开']=full;
-  build();
-  window.open(full,'_blank');
-  if(!path){
-    var ta=document.createElement('textarea');
-    ta.value=full; ta.style.position='fixed'; ta.style.left='-9999px';
-    document.body.appendChild(ta); ta.select();
-    try{ document.execCommand('copy'); }catch(e){}
-    document.body.removeChild(ta);
-  }
-}
-
-env(); sess(); gate();
+run();
 </script>
 </body>
 </html>

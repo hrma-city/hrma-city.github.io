@@ -27,6 +27,30 @@ a.c i{font-style:normal;font-size:12.5px;color:var(--mute);display:block;line-he
 .note{background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:10px;padding:13px 16px;font-size:13.5px;color:var(--ink2);margin-bottom:20px}
 .note b{color:var(--navy)}
 h2.s{font-size:15px;color:var(--navy);border-left:4px solid var(--gold);padding-left:9px;margin:24px 0 12px}
+/* 题库专用样式：从 assets/css/main.css 里挑出题库用到的类，避免引入全站 CSS 污染本页 */
+.reader{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.reader h2{font-size:18px;color:var(--navy);margin:0 0 4px}
+.reader .meta{font-size:12.5px;color:var(--mute);margin-bottom:12px}
+.ex-q{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0;background:#fff}
+.q-t{font-weight:600;color:var(--ink);margin-bottom:8px}
+.q-b{color:var(--ink2);font-size:14px}
+.ex-a{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+.ex-a summary{cursor:pointer;font-size:13.5px;color:var(--blue);font-weight:600;list-style:none}
+.ex-a summary::-webkit-details-marker{display:none}
+.ex-a summary::before{content:"▸ ";display:inline-block;transition:transform .15s}
+.ex-a[open] summary::before{transform:rotate(90deg)}
+.a-body{margin-top:8px;padding:9px 12px;background:#f7fafd;border-radius:8px;font-size:13.5px;color:var(--ink2)}
+.a-body b{color:var(--navy)}
+.pill{display:inline-block;font-size:11.5px;border-radius:999px;padding:1px 9px;margin:0 5px 5px 0;font-weight:600}
+.pill-navy{background:#e8eef7;color:#2b4a7d}
+.pill-teal{background:#e2f3f1;color:#1a6b62}
+.pill-amber{background:#fdf1dc;color:#8a6a10}
+.pill-red{background:#fdecea;color:#b3261e}
+.up{font-size:11.5px;color:var(--mute);text-transform:uppercase;letter-spacing:.5px}
+.err{background:#fdecea;border:1px solid #f5c6c0;color:var(--no);border-radius:8px;padding:10px 13px;font-size:13.5px;margin-top:10px}
+.hide{display:none}
+.filter{margin:10px 0 0;font-size:13px;color:var(--ink2)}
+.filter button{font:inherit;font-size:12.5px;background:#fff;color:var(--blue);border:1px solid var(--blue);border-radius:999px;padding:4px 12px;cursor:pointer;margin:0 6px 6px 0}
 </style>
 </head>
 <body>
@@ -49,12 +73,61 @@ h2.s{font-size:15px;color:var(--navy);border-left:4px solid var(--gold);padding-
 
   <h2 class="s">酒店人线：认证模块与题库</h2>
   <div class="grid">
-    <a class="c" href="workbook.html"><span class="tag">251 题</span><b>认证演练题库</b><i>按 L1 / L2 / L3 与模块 M01–M14 组织，可按级别筛选</i></a>
-    <a class="c" href="../courses/index.html"><span class="tag">14 个模块</span><b>M01–M14 课程目录</b><i>点任一模块直接进对应课程页</i></a>
+    <a class="c" href="workbook.html" id="wbBtn"><span class="tag">251 题</span><b>认证演练题库 · 在本页读</b><i>点下面「在本页做题库」按钮，题目直接显示在这一页，可按级别筛选，答案点击展开</i></a>
+    <a class="c" href="../courses/index.html"><span class="tag">14 个模块</span><b>M01–M14 课程目录</b><i>点任一模块的「在本页读」，不必跳页</i></a>
     <a class="c" href="certification.html"><span class="tag">认证</span><b>认证与证书说明</b><i>级别怎么定、怎么考、怎么续</i></a>
     <a class="c" href="quiz.html"><span class="tag">练习</span><b>快速测验</b><i>短练，检验单点概念</i></a>
     <a class="c" href="quest.html"><span class="tag">任务</span><b>闯关式任务</b><i>按情境推进的练习</i></a>
   </div>
+
+  <div class="filter hide" id="wbFilter">
+    <b>按级别筛选：</b>
+    <button data-lv="">全部</button>
+    <button data-lv="L1">L1 执行专员</button>
+    <button data-lv="L2">L2 主管</button>
+    <button data-lv="L3">L3 经理</button>
+    <span id="wbCount" style="color:var(--mute);font-size:12.5px"></span>
+  </div>
+  <div class="reader hide" id="wbReader"></div>
 </div>
+
+<script>
+/* 把题库页搬进本页。⚠️ 千万别删 .wrap —— 题库正文容器就是 .wrap
+   （.layout > .main > .wrap > .ex-q…）。答案区是原生 <details>，不需要 JS 就能折叠。 */
+document.getElementById('wbBtn').addEventListener('click', function(e){
+  e.preventDefault();
+  var box=document.getElementById('wbReader'), fil=document.getElementById('wbFilter');
+  if(!box.classList.contains('hide')){ box.classList.add('hide'); fil.classList.add('hide'); return; }
+  box.classList.remove('hide'); fil.classList.remove('hide');
+  box.innerHTML='<div class="meta">正在取 251 道题…</div>';
+  box.scrollIntoView({behavior:'smooth',block:'start'});
+  fetch('workbook.html?inpage='+Date.now(),{cache:'no-store'})
+  .then(function(r){ return r.text().then(function(t){ return {ok:r.ok,t:t}; }); })
+  .then(function(o){
+    var d=document.createElement('div');
+    d.innerHTML=o.t;
+    var w=d.querySelector('.wrap');
+    if(!w){ box.innerHTML='<div class="err">题库页结构没读到。请点上方「认证演练题库」链接单独打开。</div>'; return; }
+    d.querySelectorAll('script,style,nav,header,footer,.crumb').forEach(function(n){ n.remove(); });
+    w.querySelectorAll('a').forEach(function(a){ a.removeAttribute('href'); a.style.color='inherit'; });
+    box.innerHTML='<h2>认证演练题库</h2><div class="meta">共 '+w.querySelectorAll('.ex-q').length
+      +' 题 · 点每题的「参考答案」展开答案 · 用上面按钮按级别筛选</div><div id="wbBody">'+w.innerHTML+'</div>';
+    fil.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click',function(){
+        fil.querySelectorAll('button').forEach(function(x){ x.style.background='#fff'; });
+        b.style.background='var(--blue)'; b.style.color='#fff';
+        var lv=b.getAttribute('data-lv'), n=0;
+        document.querySelectorAll('#wbBody .ex-q').forEach(function(q){
+          var ok=!lv || q.innerHTML.indexOf('>'+lv+'<')>=0 || q.textContent.indexOf(lv)>=0;
+          q.style.display=ok?'':'none'; if(ok) n++;
+        });
+        document.getElementById('wbCount').textContent='当前显示 '+n+' 题';
+      });
+    });
+    document.getElementById('wbCount').textContent='当前显示 '+w.querySelectorAll('.ex-q').length+' 题';
+  })
+  .catch(function(e){ box.innerHTML='<div class="err">读取失败：'+e.message+'</div>'; });
+});
+</script>
 </body>
 </html>

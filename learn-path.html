@@ -382,7 +382,7 @@ var DATA = [
 /* 版本号：站点有 CDN 缓存（约 1–2 分钟），改完不会立刻生效。
    标出来，是为了让人一眼分辨「我看到的是不是最新的」——
    否则改了没变化，谁都分不清是没改好还是缓存没过。 */
-var VER='v10 · 10-04 修好子目录回跳';
+var VER='v11 · 10-04 酒店人路线改为本页读取';
 try{
   var v1=document.getElementById('ver'), v2=document.getElementById('ver2');
   if(v1) v1.textContent='内容版本 '+VER;
@@ -400,6 +400,8 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(m){
    抄一遍等于同一句话显示两次，看上去像是渲染出错。 */
 function kindOf(u){
   u=String(u||'');
+  if(u==='courses/index.html') return '课程目录 · 可在本页读';
+  if(u==='exam/index.html') return '考核目录 · 可在本页做题';
   if(u.indexOf('learn.html')===0) return '在线学习与考核';
   if(u.indexOf('textbook.html#')===0) return '主教材 · 对应章节';
   if(u.indexOf('series/tools/')===0) return '工具表';
@@ -448,10 +450,14 @@ function renderPro(){
         +(WT[s.n]?'<span class="wt">占认证 '+WT[s.n]+'</span>':'')+'</div>'
         +'<p class="promise">'+esc(s.p)+'</p>'
         +'<div class="steps">'
-          +'<div class="step"><div class="k">学</div>'+link([s.course,'模块 '+s.n+' · '+s.lv])+'</div>'
+          /* 「学」与「考」都指向目录页而不是子页：目录页里点「在本页读」，
+             内容直接显示在目录页上，不发生任何页面跳转。
+             原因：用户的浏览器/网络对子目录地址 (/courses/… /exam/…) 会把请求换成首页，
+             站内已实测无解；改用「目录页内嵌读取」彻底绕开跳转这一环。 */
+          +'<div class="step"><div class="k">学</div>'+link(['courses/index.html','模块 '+s.n+' · 在目录页读'])+'</div>'
           +'<div class="step"><div class="k">用</div>'+link(s.see)+'</div>'
           +'<div class="step"><div class="k">练</div>'+link(s.do)+'</div>'
-          +'<div class="step"><div class="k">考</div>'+link(s.ptest)+'</div>'
+          +'<div class="step"><div class="k">考</div>'+link(['exam/index.html','认证题库 251 题 · 在本页读'])+'</div>'
         +'</div>'
         +'<div class="mark"><button type="button" class="mk'+(isDone?' on':'')+'">'
         +(isDone?'已完成，点此撤销':'标记这一模块完成')+'</button>'
