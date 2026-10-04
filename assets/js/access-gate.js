@@ -33,7 +33,7 @@
      1) file —— 只取文件名，用来查 OPEN 白名单（access.html 等）；
      2) rel  —— 站点内相对路径（含子目录），用作登录后的回跳目标 next=。
      ⚠️ 2026-10-04 修的长期 bug：原来两者都用了 split('/').pop()，
-     于是 courses/m01-metrics.html 被记成 next=m01-metrics.html，
+     于是 m01.html 被记成 next=m01-metrics.html，
      登录后跳到根目录那个不存在的文件 → 404 → 落到首页。
      表现就是「教材能进、子目录的课程模块和题库点进去全是主页」，
      反复登录也没用，因为丢的是目录不是权限。 */

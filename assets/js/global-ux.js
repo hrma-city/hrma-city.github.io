@@ -21,11 +21,11 @@
     { t: "资源", p: "resources.html", ic: "⚙" },
     { t: "书籍", p: "books.html", ic: "书" },
     { t: "各个击破", p: "gejijipo.html", ic: "▶" },
-    { t: "游戏", p: "games/index.html", ic: "游" },
+    { t: "游戏", p: "games.html", ic: "游" },
     { t: "认证", p: "cert.html", ic: "证" },
     { t: "专家", p: "experts.html", ic: "专" },
     { t: "会员", p: "pricing.html", ic: "★" },
-    { t: "基准", p: "benchmark/index.html", ic: "◈" },
+    { t: "基准", p: "benchmark.html", ic: "◈" },
     { t: "社区", p: "community.html", ic: "聊" },
     { t: "资讯", p: "news.html", ic: "闻" },
     { t: "行业矩阵", p: "industries.html", ic: "▦" }

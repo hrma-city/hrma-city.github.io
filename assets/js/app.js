@@ -22,7 +22,7 @@
         { id: "home",      n: "首", t: "社区首页",       p: "index.html" },
         { id: "academy",   n: "院", t: "收益管理学院",   p: "academy.html" },
         { id: "books",     n: "书", t: "书籍专栏",       p: "books.html" },
-        { id: "games",     n: "游", t: "收益管理游戏",   p: "games/index.html" },
+        { id: "games",     n: "游", t: "收益管理游戏",   p: "games.html" },
         { id: "cert",      n: "证", t: "资格认证",       p: "cert.html" },
         { id: "experts",   n: "专", t: "专家高手",       p: "experts.html" },
         { id: "news",      n: "闻", t: "收益管理资讯",   p: "news.html" },
@@ -44,61 +44,61 @@
     {
       title: "通用内核六模块",
       items: [
-        { id: "kidx", n: "核", t: "内核总览",     p: "core/index.html" },
-        { id: "k01",  n: "K01", t: "需求预测",     p: "core/k01-forecast.html" },
-        { id: "k02",  n: "K02", t: "动态定价",     p: "core/k02-pricing.html" },
-        { id: "k03",  n: "K03", t: "库存控制",     p: "core/k03-inventory.html" },
-        { id: "k04",  n: "K04", t: "渠道管理",     p: "core/k04-channel.html" },
-        { id: "k05",  n: "K05", t: "竞争响应",     p: "core/k05-competition.html" },
-        { id: "k06",  n: "K06", t: "超售与No-show", p: "core/k06-noshow.html" }
+        { id: "kidx", n: "核", t: "内核总览",     p: "core.html" },
+        { id: "k01",  n: "K01", t: "需求预测",     p: "k01-forecast.html" },
+        { id: "k02",  n: "K02", t: "动态定价",     p: "k02-pricing.html" },
+        { id: "k03",  n: "K03", t: "库存控制",     p: "k03-inventory.html" },
+        { id: "k04",  n: "K04", t: "渠道管理",     p: "k04-channel.html" },
+        { id: "k05",  n: "K05", t: "竞争响应",     p: "k05-competition.html" },
+        { id: "k06",  n: "K06", t: "超售与No-show", p: "k06-noshow.html" }
       ]
     },
     {
       title: "航空业专业课",
       items: [
-        { id: "airline-idx", n: "A", t: "课程首页", p: "airline/index.html" },
-        { id: "airline-a1", n: "A1", t: "指标体系", p: "airline/a1-metrics.html" },
-        { id: "airline-a2", n: "A2", t: "需求预测", p: "airline/a2-forecast.html" },
-        { id: "airline-a3", n: "A3", t: "舱位与定价", p: "airline/a3-pricing.html" },
-        { id: "airline-a4", n: "A4", t: "库存与网络", p: "airline/a4-inventory.html" },
-        { id: "airline-a5", n: "A5", t: "渠道与竞争", p: "airline/a5-channel.html" },
-        { id: "airline-a6", n: "A6", t: "落地清单", p: "airline/a6-ops.html" }
+        { id: "airline-idx", n: "A", t: "课程首页", p: "airline-index.html" },
+        { id: "airline-a1", n: "A1", t: "指标体系", p: "a1-metrics.html" },
+        { id: "airline-a2", n: "A2", t: "需求预测", p: "a2-forecast.html" },
+        { id: "airline-a3", n: "A3", t: "舱位与定价", p: "a3-pricing.html" },
+        { id: "airline-a4", n: "A4", t: "库存与网络", p: "a4-inventory.html" },
+        { id: "airline-a5", n: "A5", t: "渠道与竞争", p: "a5-channel.html" },
+        { id: "airline-a6", n: "A6", t: "落地清单", p: "a6-ops.html" }
       ]
     },
     {
       title: "餐饮业专业课",
       items: [
-        { id: "fnb-idx", n: "F", t: "课程首页", p: "fnb/index.html" },
-        { id: "fnb-f1", n: "F1", t: "指标体系", p: "fnb/f1-metrics.html" },
-        { id: "fnb-f2", n: "F2", t: "需求预测", p: "fnb/f2-forecast.html" },
-        { id: "fnb-f3", n: "F3", t: "菜单与定价", p: "fnb/f3-pricing.html" },
-        { id: "fnb-f4", n: "F4", t: "翻台与产能", p: "fnb/f4-inventory.html" },
-        { id: "fnb-f5", n: "F5", t: "渠道与竞争", p: "fnb/f5-channel.html" },
-        { id: "fnb-f6", n: "F6", t: "落地清单", p: "fnb/f6-ops.html" }
+        { id: "fnb-idx", n: "F", t: "课程首页", p: "fnb-index.html" },
+        { id: "fnb-f1", n: "F1", t: "指标体系", p: "f1-metrics.html" },
+        { id: "fnb-f2", n: "F2", t: "需求预测", p: "f2-forecast.html" },
+        { id: "fnb-f3", n: "F3", t: "菜单与定价", p: "f3-pricing.html" },
+        { id: "fnb-f4", n: "F4", t: "翻台与产能", p: "f4-inventory.html" },
+        { id: "fnb-f5", n: "F5", t: "渠道与竞争", p: "f5-channel.html" },
+        { id: "fnb-f6", n: "F6", t: "落地清单", p: "f6-ops.html" }
       ]
     },
     {
       title: "景区文旅专业课",
       items: [
-        { id: "attraction-idx", n: "T", t: "课程首页", p: "attraction/index.html" },
-        { id: "attraction-t1", n: "T1", t: "指标体系", p: "attraction/t1-metrics.html" },
-        { id: "attraction-t2", n: "T2", t: "需求预测", p: "attraction/t2-forecast.html" },
-        { id: "attraction-t3", n: "T3", t: "票务定价", p: "attraction/t3-pricing.html" },
-        { id: "attraction-t4", n: "T4", t: "承载与分时", p: "attraction/t4-inventory.html" },
-        { id: "attraction-t5", n: "T5", t: "渠道与竞争", p: "attraction/t5-channel.html" },
-        { id: "attraction-t6", n: "T6", t: "落地清单", p: "attraction/t6-ops.html" }
+        { id: "attraction-idx", n: "T", t: "课程首页", p: "attraction-index.html" },
+        { id: "attraction-t1", n: "T1", t: "指标体系", p: "t1-metrics.html" },
+        { id: "attraction-t2", n: "T2", t: "需求预测", p: "t2-forecast.html" },
+        { id: "attraction-t3", n: "T3", t: "票务定价", p: "t3-pricing.html" },
+        { id: "attraction-t4", n: "T4", t: "承载与分时", p: "t4-inventory.html" },
+        { id: "attraction-t5", n: "T5", t: "渠道与竞争", p: "t5-channel.html" },
+        { id: "attraction-t6", n: "T6", t: "落地清单", p: "t6-ops.html" }
       ]
     },
     {
       title: "娱乐休闲专业课",
       items: [
-        { id: "entertainment-idx", n: "E", t: "课程首页", p: "entertainment/index.html" },
-        { id: "entertainment-e1", n: "E1", t: "指标体系", p: "entertainment/e1-metrics.html" },
-        { id: "entertainment-e2", n: "E2", t: "需求预测", p: "entertainment/e2-forecast.html" },
-        { id: "entertainment-e3", n: "E3", t: "场次与座位", p: "entertainment/e3-pricing.html" },
-        { id: "entertainment-e4", n: "E4", t: "产能控制", p: "entertainment/e4-inventory.html" },
-        { id: "entertainment-e5", n: "E5", t: "渠道与竞争", p: "entertainment/e5-channel.html" },
-        { id: "entertainment-e6", n: "E6", t: "落地清单", p: "entertainment/e6-ops.html" }
+        { id: "entertainment-idx", n: "E", t: "课程首页", p: "entertainment-index.html" },
+        { id: "entertainment-e1", n: "E1", t: "指标体系", p: "e1-metrics.html" },
+        { id: "entertainment-e2", n: "E2", t: "需求预测", p: "e2-forecast.html" },
+        { id: "entertainment-e3", n: "E3", t: "场次与座位", p: "e3-pricing.html" },
+        { id: "entertainment-e4", n: "E4", t: "产能控制", p: "e4-inventory.html" },
+        { id: "entertainment-e5", n: "E5", t: "渠道与竞争", p: "e5-channel.html" },
+        { id: "entertainment-e6", n: "E6", t: "落地清单", p: "e6-ops.html" }
       ]
     },
     {
@@ -113,52 +113,52 @@
     {
       title: "L1 · 收益执行专员",
       items: [
-        { id: "m01", n: "M01", t: "收益管理的语言", p: "courses/m01-metrics.html" },
-        { id: "m02", n: "M02", t: "系统与数据导航", p: "courses/m02-systems.html" },
-        { id: "m03", n: "M03", t: "每日操作流水线", p: "courses/m03-dailyops.html" },
-        { id: "m04", n: "M04", t: "报表与台账",     p: "courses/m04-reports.html" }
+        { id: "m01", n: "M01", t: "收益管理的语言", p: "m01.html" },
+        { id: "m02", n: "M02", t: "系统与数据导航", p: "m02.html" },
+        { id: "m03", n: "M03", t: "每日操作流水线", p: "m03.html" },
+        { id: "m04", n: "M04", t: "报表与台账",     p: "m04.html" }
       ]
     },
     {
       title: "L2 · 收益管理主管",
       items: [
-        { id: "m05", n: "M05", t: "需求预测",         p: "courses/m05-forecast.html" },
-        { id: "m06", n: "M06", t: "价格体系设计",     p: "courses/m06-pricing.html" },
-        { id: "m07", n: "M07", t: "库存与限制条件",   p: "courses/m07-inventory.html" },
-        { id: "m08", n: "M08", t: "渠道与分销",       p: "courses/m08-channel.html" },
-        { id: "m09", n: "M09", t: "竞争监测与定位",   p: "courses/m09-compset.html" }
+        { id: "m05", n: "M05", t: "需求预测",         p: "m05.html" },
+        { id: "m06", n: "M06", t: "价格体系设计",     p: "m06.html" },
+        { id: "m07", n: "M07", t: "库存与限制条件",   p: "m07.html" },
+        { id: "m08", n: "M08", t: "渠道与分销",       p: "m08.html" },
+        { id: "m09", n: "M09", t: "竞争监测与定位",   p: "m09.html" }
       ]
     },
     {
       title: "L3 · 收益管理经理",
       items: [
-        { id: "m10", n: "M10", t: "客源细分战略",   p: "courses/m10-segment.html" },
-        { id: "m11", n: "M11", t: "年度预算与预测", p: "courses/m11-budget.html" },
-        { id: "m12", n: "M12", t: "会议与汇报",     p: "courses/m12-meetings.html" },
-        { id: "m13", n: "M13", t: "跨部门协同",     p: "courses/m13-team.html" },
-        { id: "m14", n: "M14", t: "系统自动化",     p: "courses/m14-rms.html" }
+        { id: "m10", n: "M10", t: "客源细分战略",   p: "m10.html" },
+        { id: "m11", n: "M11", t: "年度预算与预测", p: "m11.html" },
+        { id: "m12", n: "M12", t: "会议与汇报",     p: "m12.html" },
+        { id: "m13", n: "M13", t: "跨部门协同",     p: "m13.html" },
+        { id: "m14", n: "M14", t: "系统自动化",     p: "m14.html" }
       ]
     },
     {
       title: "游戏 · 以练代学",
       items: [
-        { id: "gduty",   n: "值", t: "值班叙事",          p: "games/duty.html" },
-        { id: "greigns", n: "卡", t: "Reigns 卡牌",       p: "games/reigns.html" },
-        { id: "gpipe",   n: "流", t: "一日流水线",        p: "games/pipeline.html" },
-        { id: "glevel",  n: "闯", t: "决策闯关（经典）",  p: "games/level.html" },
-        { id: "gsim",   n: "营", t: "经营模拟 30 天",  p: "games/sim.html" },
-        { id: "grole",  n: "演", t: "角色扮演模拟",    p: "games/roleplay.html" },
-        { id: "gcls",   n: "赛", t: "课堂分组竞赛",    p: "games/classroom.html" },
-        { id: "garena", n: "联", t: "联机对战沙盘",    p: "games/arena.html" },
-        { id: "cases",  n: "案", t: "案例分析集",      p: "games/cases.html" },
-        { id: "play",   n: "具", t: "游戏化教具",      p: "games/playbook.html" }
+        { id: "gduty",   n: "值", t: "值班叙事",          p: "duty.html" },
+        { id: "greigns", n: "卡", t: "Reigns 卡牌",       p: "reigns.html" },
+        { id: "gpipe",   n: "流", t: "一日流水线",        p: "pipeline.html" },
+        { id: "glevel",  n: "闯", t: "决策闯关（经典）",  p: "level.html" },
+        { id: "gsim",   n: "营", t: "经营模拟 30 天",  p: "sim.html" },
+        { id: "grole",  n: "演", t: "角色扮演模拟",    p: "roleplay.html" },
+        { id: "gcls",   n: "赛", t: "课堂分组竞赛",    p: "classroom.html" },
+        { id: "garena", n: "联", t: "联机对战沙盘",    p: "arena.html" },
+        { id: "cases",  n: "案", t: "案例分析集",      p: "games-cases.html" },
+        { id: "play",   n: "具", t: "游戏化教具",      p: "playbook.html" }
       ]
     },
     {
       title: "考核与资源",
       items: [
-        { id: "workbook", n: "EX", t: "演练题库",         p: "exam/workbook.html" },
-        { id: "certstd",  n: "CE", t: "认证考核标准",     p: "exam/certification.html" },
+        { id: "workbook", n: "EX", t: "演练题库",         p: "wb.html" },
+        { id: "certstd",  n: "CE", t: "认证考核标准",     p: "certification.html" },
         { id: "res",      n: "RC", t: "模板与资料下载",   p: "resources.html" }
       ]
     }
@@ -218,7 +218,7 @@
       { t: "第 1 步 · 7 天训练营", p: "camp7.html" },
       { t: "第 2 步 · 概念总表 + 白皮书", p: "concepts.html" },
       { t: "第 3 步 · 30 个子步骤", p: "process-detail.html" },
-      { t: "第 4 步 · 90 题闯关", p: "games/flow-quest.html" },
+      { t: "第 4 步 · 90 题闯关", p: "flow-quest.html" },
       { t: "第 5 步 · 24 个案例", p: "cases-book.html" },
       { t: "　├ 按业态分册（7 本）", p: "case-books.html" },
       { t: "　└ 47 题案例自测", p: "case-quiz.html" },
@@ -232,47 +232,47 @@
       { t: "白皮书（概念·流程·案例）", p: "whitepaper.html" },
       { t: "★ 流程图（10 环节）", p: "process.html" },
       { t: "流程细化（30 子步骤）", p: "process-detail.html" },
-      { t: "★ 流程闯关（30 关）", p: "games/flow-quest.html" },
+      { t: "★ 流程闯关（30 关）", p: "flow-quest.html" },
       { t: "操作法典（15 表）", p: "codex.html" },
       { t: "常见误区库（30 条）", p: "myths.html" },
       { t: "公式手册（32 个·含边界）", p: "formulas.html" },
-      { t: "流程：表 M 每日流水线", p: "games/pipeline.html" },
+      { t: "流程：表 M 每日流水线", p: "pipeline.html" },
       { t: "★ 案例集（24 情境）", p: "cases-book.html" },
-      { t: "案例集", p: "games/cases.html" },
+      { t: "案例集", p: "games-cases.html" },
       { t: "课程 M01–M14", p: "curriculum.html" },
       { t: "教学资源包（院校）", p: "teach.html" },
       { t: "7 天入门训练营", p: "camp7.html" },
-      { t: "游戏中心", p: "games/index.html" },
+      { t: "游戏中心", p: "games.html" },
       { t: "概念解说视频", p: "gejijipo.html?part=concept" },
       { t: "三级认证", p: "cert.html" }
     ]},
     { t: "住宿业", p: "sector-lodging.html", items: [
       { t: "板块总览", p: "sector-lodging.html" },
       { t: "住宿业总览", p: "lodging.html" },
-      { t: "长租公寓专业课", p: "industries/rental-apartment/index.html" },
+      { t: "长租公寓专业课", p: "rental-apartment-index.html" },
       { t: "长租 RevPAU 计算器", p: "tools.html#rental-apartment" }
     ]},
     { t: "旅游业", p: "sector-tourism.html", items: [
       { t: "板块总览", p: "sector-tourism.html" },
-      { t: "航空业", p: "airline/index.html" },
-      { t: "景区文旅", p: "attraction/index.html" },
-      { t: "邮轮", p: "industries/cruise/index.html" },
-      { t: "研学营地", p: "industries/research-camp/index.html" },
+      { t: "航空业", p: "airline-index.html" },
+      { t: "景区文旅", p: "attraction-index.html" },
+      { t: "邮轮", p: "cruise-index.html" },
+      { t: "研学营地", p: "research-camp-index.html" },
       { t: "邮轮 RevPAC 计算器", p: "tools.html#cruise" },
       { t: "营地 RevPAS 计算器", p: "tools.html#research-camp" }
     ]},
     { t: "其他行业", p: "sector-others.html", items: [
       { t: "板块总览", p: "sector-others.html" },
-      { t: "餐饮业", p: "fnb/index.html" },
-      { t: "娱乐休闲", p: "entertainment/index.html" },
-      { t: "医疗号源", p: "industries/medical-appointment/index.html" },
-      { t: "租车", p: "industries/car-rental/index.html" },
-      { t: "新兴行业速览", p: "industries/index.html" },
+      { t: "餐饮业", p: "fnb-index.html" },
+      { t: "娱乐休闲", p: "entertainment-index.html" },
+      { t: "医疗号源", p: "medical-appointment-index.html" },
+      { t: "租车", p: "car-rental-index.html" },
+      { t: "新兴行业速览", p: "industries-index.html" },
       { t: "租车 RevPAT 计算器", p: "tools.html#car-rental" },
       { t: "医疗 RevPAA 计算器", p: "tools.html#medical-appointment" }
     ]},
     { t: "知识分享", p: "knowledge.html", items: [
-      { t: "通用内核六模块", p: "core/index.html" },
+      { t: "通用内核六模块", p: "core.html" },
       { t: "收益管理学院", p: "academy.html" },
       { t: "操作篇视频", p: "gejijipo.html?part=op" },
       { t: "案例篇视频", p: "gejijipo.html?part=case" },
@@ -362,7 +362,7 @@
       logo.innerHTML = '<span class="gem">收</span><span>RMC收益管理社区</span>';
     }
     var cta = document.querySelector(".sn-cta");
-    if (cta) { cta.setAttribute("href", href("games/index.html")); cta.textContent = "开始练"; }
+    if (cta) { cta.setAttribute("href", href("games.html")); cta.textContent = "开始练"; }
   }
 
   /* ---------- 全站搜索 ---------- */
@@ -548,7 +548,7 @@
     var TABS = [
       { ic: "📚", t: "学", p: "study.html" },
       { ic: "💬", t: "问", p: "coach.html" },
-      { ic: "🎯", t: "练", p: "games/flow-quest.html" },
+      { ic: "🎯", t: "练", p: "flow-quest.html" },
       { ic: "🔎", t: "查", p: "concepts.html" },
       { ic: "👤", t: "我", p: "cert-hub.html" }
     ];

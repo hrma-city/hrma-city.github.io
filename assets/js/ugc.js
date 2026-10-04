@@ -42,7 +42,7 @@ window.RMCUGC = (function () {
     var s = await window.HRMAAuth.session();
     if (s && s.user) return s;
     location.href = prefix() + "login.html?redirect=" +
-      encodeURIComponent(location.pathname.split("/").pop() || "community/board.html");
+      encodeURIComponent(location.pathname.split("/").pop() || "board.html");
     return null;
   }
 

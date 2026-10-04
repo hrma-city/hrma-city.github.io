@@ -2,6 +2,9 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <title>定位 · 服务器到底返回了什么</title>
@@ -37,13 +40,13 @@ button{font:inherit;background:#1d6fb8;color:#fff;border:0;border-radius:8px;pad
   <div class="big mid" id="head">正在检测…（约 10 秒）</div>
 
   <div class="card">
-    <h2>检测 1 · 课程模块页 courses/m01-metrics.html</h2>
+    <h2>检测 1 · 课程模块页 m01.html</h2>
     <table><tbody id="t1"><tr><td>等待</td><td></td></tr></tbody></table>
     <pre id="p1"></pre>
   </div>
 
   <div class="card">
-    <h2>检测 2 · 题库页 exam/workbook.html</h2>
+    <h2>检测 2 · 题库页 wb.html</h2>
     <table><tbody id="t2"><tr><td>等待</td><td></td></tr></tbody></table>
     <pre id="p2"></pre>
   </div>
@@ -112,8 +115,8 @@ function probe(path, slot){
 }
 
 function run(){
-  probe('courses/m01-metrics.html', 1);
-  probe('exam/workbook.html', 2);
+  probe('m01.html', 1);
+  probe('wb.html', 2);
   probe('index.html', 3);
   setTimeout(function(){
     var bad=OUT.filter(function(x){ return x.indexOf('首页')>=0 || x.indexOf('失败')>=0; });
@@ -139,5 +142,6 @@ function build(){
 
 run();
 </script>
-</body>
+<script src="assets/js/site-nav.js?v=v10"></script>
+  </body>
 </html>
