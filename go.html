@@ -35,13 +35,24 @@ main{padding:22px 0 60px}
 .tip{background:#fff8e6;border:1px solid #f0dca4;color:#7a5a10;font-size:13px;border-radius:10px;padding:12px 14px}
 .foot{color:var(--muted);font-size:12.5px;text-align:center;padding:0 0 40px}
 .lv{font-size:12px;color:#8896a8;font-weight:600;margin:14px 0 7px}
+
+#rd{position:fixed;inset:0;background:#fff;z-index:100000;display:none;overflow:auto}
+#rd.on{display:block}
+#rdb{position:sticky;top:0;background:#0f2a4a;color:#fff;padding:10px 14px;display:flex;gap:10px;align-items:center;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+#rdb b{font-size:15px}
+#rdb button{font:inherit;font-size:13.5px;padding:7px 14px;border-radius:7px;border:0;cursor:pointer;background:#e8b84b;color:#3a2a05;font-weight:700}
+#rdb a{color:#cfe0f5;font-size:13px}
+#rdc{max-width:860px;margin:0 auto;padding:20px 18px 80px}
+#rdc .layout,#rdc .main{max-width:none;margin:0;padding:0}
+a.nolink{color:#1d6fb8;text-decoration:none}
+#rdload{padding:40px 10px;color:#5b6a7d;font-size:15px}
 </style>
 </head>
 <body>
 <div class="top">
   <div class="wrap">
     <h1>RMC 收益管理 · 我的学习入口</h1>
-    <p>所有页面都在根目录，点哪一页都直接打开哪一页，不会跳去别处。</p>
+    <p>点任意<b>标题就地在这一页阅读</b>：地址不变、不会跳走，看完点左上角「返回目录」。</p>
     <div class="nav">
       <a class="on" href="go.html?v=12">学习入口</a>
       <a href="learn-path.html?v=12">学习路径（含进度）</a>
@@ -58,13 +69,13 @@ main{padding:22px 0 60px}
 <main class="wrap">
 
   <div class="block" style="border-color:#e8b84b;background:#fffdf5">
-    <h2>排查用：三个「极简对照版」页面</h2>
+    <h2>直接阅读（不跳页）</h2>
     <p class="sub">这三个页面<b>不含任何脚本</b>（没有登录门、没有导航、没有统计），只有正文。
        用来判断问题出在哪一层：<b>如果它们能正常打开 → 是页面脚本的问题；打不开 → 是网络层的问题。</b></p>
     <div class="grid">
-      <a class="item" href="m01-min.html"><b>M01 极简版</b><span>模块一 · 指标与计算</span></a>
-      <a class="item" href="m12-min.html"><b>M12 极简版</b><span>模块十二 · 收益例会</span></a>
-      <a class="item" href="wb-min.html"><b>题库 极简版</b><span>251 题</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m01');return false;"><b>M01 极简版</b><span>模块一 · 指标与计算</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m12');return false;"><b>M12 极简版</b><span>模块十二 · 收益例会</span></a>
+      <a class="item" href="#" onclick="window.openCourse('wb');return false;"><b>题库 极简版</b><span>251 题</span></a>
     </div>
   </div>
 
@@ -86,30 +97,30 @@ main{padding:22px 0 60px}
     <p class="sub">M01–M14 逐模块学，练完进演练题库；每页顶部有「上一模块 / 下一模块」。</p>
     <div class="lv">L1 收益执行专员</div>
     <div class="grid">
-      <a class="item" href="m01.html?v=12"><b>M01</b><span>指标与计算</span></a>
-      <a class="item" href="m02.html?v=12"><b>M02</b><span>系统与数据导航</span></a>
-      <a class="item" href="m03.html?v=12"><b>M03</b><span>每日操作流水线</span></a>
-      <a class="item" href="m04.html?v=12"><b>M04</b><span>报表体系</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m01');return false;"><b>M01</b><span>指标与计算</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m02');return false;"><b>M02</b><span>系统与数据导航</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m03');return false;"><b>M03</b><span>每日操作流水线</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m04');return false;"><b>M04</b><span>报表体系</span></a>
     </div>
     <div class="lv">L2 收益管理主管</div>
     <div class="grid">
-      <a class="item" href="m05.html?v=12"><b>M05</b><span>需求预测</span></a>
-      <a class="item" href="m06.html?v=12"><b>M06</b><span>动态定价</span></a>
-      <a class="item" href="m07.html?v=12"><b>M07</b><span>库存与限制条件</span></a>
-      <a class="item" href="m08.html?v=12"><b>M08</b><span>渠道与净价</span></a>
-      <a class="item" href="m09.html?v=12"><b>M09</b><span>竞争比价响应</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m05');return false;"><b>M05</b><span>需求预测</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m06');return false;"><b>M06</b><span>动态定价</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m07');return false;"><b>M07</b><span>库存与限制条件</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m08');return false;"><b>M08</b><span>渠道与净价</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m09');return false;"><b>M09</b><span>竞争比价响应</span></a>
     </div>
     <div class="lv">L3 收益管理经理</div>
     <div class="grid">
-      <a class="item" href="m10.html?v=12"><b>M10</b><span>市场细分与定价</span></a>
-      <a class="item" href="m11.html?v=12"><b>M11</b><span>年度预算与分解</span></a>
-      <a class="item" href="m12.html?v=12"><b>M12</b><span>收益例会与会议</span></a>
-      <a class="item" href="m13.html?v=12"><b>M13</b><span>团队与组织</span></a>
-      <a class="item" href="m14.html?v=12"><b>M14</b><span>收益管理与 RMS</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m10');return false;"><b>M10</b><span>市场细分与定价</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m11');return false;"><b>M11</b><span>年度预算与分解</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m12');return false;"><b>M12</b><span>收益例会与会议</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m13');return false;"><b>M13</b><span>团队与组织</span></a>
+      <a class="item" href="#" onclick="window.openCourse('m14');return false;"><b>M14</b><span>收益管理与 RMS</span></a>
     </div>
     <div class="lv">考核</div>
     <div class="grid">
-      <a class="item" href="wb.html?v=12"><b>认证演练题库</b><span>251 题，按 L1/L2/L3 筛</span></a>
+      <a class="item" href="#" onclick="window.openCourse('wb');return false;"><b>认证演练题库</b><span>251 题，按 L1/L2/L3 筛</span></a>
       <a class="item" href="certification.html?v=12"><b>认证说明</b><span>三级资格怎么评</span></a>
       <a class="item" href="cert-hub.html?v=12"><b>证书中心</b><span>证书申请与查询</span></a>
     </div>
@@ -145,8 +156,45 @@ main{padding:22px 0 60px}
 
   <p class="tip">打不开某个地址时，记住一条：<b>本站所有页面地址里都不带目录</b>（形如 <b>/m01.html</b>，不是 /courses/m01-metrics.html）。凡是带目录的旧地址，在你的网络里会被换成首页。</p>
 
-  <p class="foot">内容版本 go · 2026-10-04 架构改版</p>
+  <p class="foot">内容版本 go · 2026-10-04 同页阅读版（零跳转）</p>
 </main>
 <script src="assets/js/site-nav.js?v=v10"></script>
+
+<div id="rd" role="dialog" aria-modal="true">
+  <div id="rdb">
+    <button type="button" id="rdx">← 返回目录</button>
+    <b id="rdt">阅读中</b>
+    <span style="flex:1"></span>
+    <a id="rdopen" href="#" target="_blank" rel="noopener">在新标签打开完整页</a>
+  </div>
+  <div id="rdc"><div id="rdload">正在载入…</div></div>
+</div>
+<script>
+(function(){
+  var box=document.getElementById('rd'), body=document.getElementById('rdc'),
+      title=document.getElementById('rdt'), open=document.getElementById('rdopen');
+  var TITLES={m01:'M01 收益管理的语言：指标与计算',m02:'M02 系统与数据导航',m03:'M03 每日操作流水线',
+    m04:'M04 报表体系',m05:'M05 需求预测',m06:'M06 动态定价',m07:'M07 库存与限制条件战术',
+    m08:'M08 渠道与净价',m09:'M09 竞争比价响应',m10:'M10 市场细分与定价',m11:'M11 年度预算与分解',
+    m12:'M12 收益例会与会议',m13:'M13 团队与组织',m14:'M14 收益管理与 RMS',wb:'认证演练题库（251 题）'};
+  function close(){box.classList.remove('on');document.body.style.overflow='';}
+  function bind(){var x=document.getElementById('rdx');if(x&&!x.__b){x.__b=1;x.addEventListener('click',close);}}
+  if(document.body) bind(); else document.addEventListener('DOMContentLoaded',bind);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&box.classList.contains('on'))close();});
+  window.openCourse=function(key){
+    title.textContent=TITLES[key]||key; open.href=key+'.html';
+    body.innerHTML='<p id="rdload">正在载入…</p>';
+    box.classList.add('on'); document.body.style.overflow='hidden'; box.scrollTop=0;
+    var s=document.createElement('script');
+    s.src='course-'+key+'.js?v=20';
+    s.onload=function(){
+      var d=(window.HRMACOURSE||{})[key];
+      body.innerHTML=d?('<div class="wrap">'+d+'</div>'):'<p>这一页暂时读不到，请点右上角「在新标签打开完整页」。</p>';
+    };
+    s.onerror=function(){body.innerHTML='<p>这一页暂时读不到，请点右上角「在新标签打开完整页」。</p>';};
+    document.head.appendChild(s);
+  };
+})();
+</script>
 </body>
 </html>
