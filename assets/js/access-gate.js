@@ -51,7 +51,7 @@
   var OPEN = {
     'access.html': 1, 'pending.html': 1, 'rejected.html': 1,
     'login.html': 1, 'register.html': 1, 'reset-me.html': 1,
-    'admin-approve.html': 1
+    'admin-approve.html': 1, 'signin.html': 1
   };
   if (OPEN[here] === 1) return;
 
@@ -71,7 +71,7 @@
 
   /* ---- 情况一：从未登录 ---- */
   if (!session || !session.email) {
-    go('access.html?next=' + encodeURIComponent(rel) + (qs('from') ? '&from=' + encodeURIComponent(qs('from')) : ''));
+    go('signin.html?next=' + encodeURIComponent(rel) + (qs('from') ? '&from=' + encodeURIComponent(qs('from')) : ''));
     return;
   }
 
@@ -79,7 +79,7 @@
      凭证 = 本机账号表里该邮箱的密码哈希（云端模式为 access_token 派生值）。
      攻击者只知道邮箱、改 localStorage 写 approved，都算不出这个值。 */
   if (!session.pwRef) {
-    go('access.html?next=' + encodeURIComponent(rel) + '&needpw=1');
+    go('signin.html?next=' + encodeURIComponent(rel) + '&needpw=1');
     return;
   }
 
@@ -91,7 +91,7 @@
   var isCloud = !(String(window.HRMA_AUTH_MODE || 'cloud') === 'local')
     && CFG0.url && CFG0.anonKey && String(CFG0.anonKey).indexOf('XXXX') < 0;
 
-  function fail() { go('access.html?next=' + encodeURIComponent(rel) + '&needpw=1'); }
+  function fail() { go('signin.html?next=' + encodeURIComponent(rel) + '&needpw=1'); }
 
   if (!isCloud) {
     var db = null;
@@ -181,7 +181,7 @@
     if (session.verifiedAt && (Date.now() - session.verifiedAt) < 30 * 60000) return;
     if (status === 'rejected') { go('rejected.html'); return; }
     if (status !== 'approved') { go('pending.html'); return; }
-    go('access.html?next=' + encodeURIComponent(rel));
+    go('signin.html?next=' + encodeURIComponent(rel));
     return;
   }
 
@@ -199,6 +199,6 @@
   }).catch(function () {
     /* 网络不通时不误伤：本地已记为 approved 就放行，否则回登录页重试 */
     if (isAdmin || status === 'approved') return;
-    go('access.html?next=' + encodeURIComponent(rel));
+    go('signin.html?next=' + encodeURIComponent(rel));
   });
 })();

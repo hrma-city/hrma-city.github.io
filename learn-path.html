@@ -7,7 +7,7 @@
 </script>
 </script>
 <script src="auth-config.js"></script>
-<script src="assets/js/access-gate.js?v=v9"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>收益管理 · 学习路径（学生按教材 / 酒店人按认证） · RMC收益管理社区</title>
 <meta name="description" content="两条学习路径：学生按新版教材五篇三十二章走（读→练→用，收尾综合实训）；酒店人按 L1/L2/L3 认证模块走（学→用→练→考）。同源知识，不同编排。">
@@ -391,7 +391,8 @@ var DATA = [
 /* 版本号：站点有 CDN 缓存（约 1–2 分钟），改完不会立刻生效。
    标出来，是为了让人一眼分辨「我看到的是不是最新的」——
    否则改了没变化，谁都分不清是没改好还是缓存没过。 */
-var VER='v13 · 10-04 加静态直达模块清单（不依赖脚本）';
+var VER='v14 · 三身份去串线，综合自测后置，酒店人改零跳转单页';
+
 try{
   var v1=document.getElementById('ver'), v2=document.getElementById('ver2');
   if(v1) v1.textContent='内容版本 '+VER;
@@ -463,10 +464,10 @@ function renderPro(){
              内容直接显示在目录页上，不发生任何页面跳转。
              原因：用户的浏览器/网络对子目录地址 (/courses/… /exam/…) 会把请求换成首页，
              站内已实测无解；改用「目录页内嵌读取」彻底绕开跳转这一环。 */
-          +'<div class="step"><div class="k">学</div>'+link(['courses.html','模块 '+s.n+' · 在目录页读'])+'</div>'
+          +'<div class="step"><div class="k">学</div>'+link(['all-in-one.html#z-pro','模块 '+s.n+' · 在本页展开读'])+'</div>'
           +'<div class="step"><div class="k">用</div>'+link(s.see)+'</div>'
           +'<div class="step"><div class="k">练</div>'+link(s.do)+'</div>'
-          +'<div class="step"><div class="k">考</div>'+link(['exam.html','认证题库 251 题 · 在本页读'])+'</div>'
+          +'<div class="step"><div class="k">考</div>'+link(['all-in-one.html#z-pro','认证题库 251 题 · 在本页展开做'])+'</div>'
         +'</div>'
         +'<div class="mark"><button type="button" class="mk'+(isDone?' on':'')+'">'
         +(isDone?'已完成，点此撤销':'标记这一模块完成')+'</button>'
@@ -562,8 +563,8 @@ function renderStu(){
               +'<a href="'+esc(exHref)+'">本章速测 5 题</a><div class="n">当堂做，答完给原文出处</div></div>'
             +'<div class="ci"><div class="k">判</div><a href="learn.html#appA">教材判定表全集</a>'
               +'<div class="n">按表判，不靠感觉</div></div>'
-            +'<div class="ci"><div class="k">考</div><a href="learn.html#final">综合自测（40 题）</a>'
-              +'<div class="n">整篇学完再测</div></div>'
+            +'<div class="ci"><div class="k">考</div><a href="textbook.html#ex'+pad2(c.n)+'">本章教材练习</a>'
+              +'<div class="n">答案在教材附录 B；综合卷留到全篇学完</div></div>'
           +'</div>') : '')
         +'<div class="mark"><button type="button" class="mk'+(isDone?' on':'')+'">'
           +(isDone?'已完成，点此撤销':'标记这一章完成')+'</button>'
