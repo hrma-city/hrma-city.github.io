@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>自检 · 访问门与链接状态</title>
+<style>
+:root{--ink:#152238;--ink2:#3d4c63;--mute:#6b7a90;--line:#dfe6ef;--navy:#0f2a4a;--blue:#1d6fb8;--gold:#e8b84b;--bg:#f4f7fb;--ok:#1c7a4a;--no:#b3261e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 "PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;padding:22px}
+.wrap{max-width:900px;margin:0 auto}
+h1{font-size:20px;color:var(--navy);margin:0 0 4px}
+p.lead{color:var(--ink2);font-size:14px;margin:0 0 18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:14px}
+h2{font-size:15px;color:var(--navy);margin:0 0 10px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+td{border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}
+td:first-child{width:38%;color:var(--mute)}
+code{background:#f0f3f8;border-radius:4px;padding:1px 6px;font-size:12.5px;word-break:break-all}
+.pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700}
+.pill.ok{background:#e7f5ee;color:var(--ok)}
+.pill.no{background:#fdecea;color:var(--no)}
+.pill.mid{background:#fff4d6;color:#8a6a10}
+iframe{width:100%;height:230px;border:1px solid var(--line);border-radius:8px;background:#fff}
+button{font:inherit;background:var(--blue);color:#fff;border:0;border-radius:8px;padding:9px 18px;font-size:14px;font-weight:600;cursor:pointer;margin-right:8px}
+button.ghost{background:#fff;color:var(--blue);border:1px solid var(--blue)}
+.hint{font-size:12.5px;color:var(--mute)}
+.big{font-size:15px;font-weight:700}
+pre{background:#0f2a4a;color:#d6e6f5;border-radius:8px;padding:12px;font-size:12px;overflow:auto;max-height:190px;white-space:pre-wrap;word-break:break-all}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>自检页 · 一次看清「链接到底打开了什么」</h1>
+  <p class="lead">这一页会把你浏览器当前的实际情况全部列出来。不用复制地址栏、不用截图猜，把下面几行结果告诉我就行。</p>
+
+  <div class="card">
+    <h2>一、环境</h2>
+    <table><tbody id="tEnv"></tbody></table>
+  </div>
+
+  <div class="card">
+    <h2>二、登录状态（本机 localStorage）</h2>
+    <table><tbody id="tSess"></tbody></table>
+  </div>
+
+  <div class="card">
+    <h2>三、浏览器实际拿到的门脚本</h2>
+    <table><tbody id="tGate"></tbody></table>
+    <p class="hint">这一栏最关键：只要显示「旧版」，说明你的浏览器/网络还在用旧文件，后面所有怪事都解释得通。</p>
+  </div>
+
+  <div class="card">
+    <h2>四、实测：把目标页装进下面的框里</h2>
+    <p class="hint">同源 iframe 能读到子页面的真实标题和正文。如果下面显示的是首页，说明确实走错了。</p>
+    <div>
+      <button onclick="probe('courses/m01-metrics.html')">测 M01 模块页</button>
+      <button onclick="probe('exam/workbook.html')">测题库页</button>
+      <button class="ghost" onclick="probe('textbook.html')">测教材页（对照）</button>
+    </div>
+    <p style="margin:10px 0 8px" class="big" id="pT">还没测</p>
+    <pre id="pB">点上面任一按钮。</pre>
+    <iframe id="fr" src="about:blank"></iframe>
+  </div>
+
+  <div class="card">
+    <h2>五、把这段结果发给我</h2>
+    <p class="hint">复制下面框里的全部内容发过来即可（第一行到第四行），不用截图。</p>
+    <pre id="rep">点完上面的按钮再点这里</pre>
+    <button class="ghost" onclick="build()">生成结果文本</button>
+  </div>
+</div>
+
+<script>
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function row(t,v){ return '<tr><td>'+t+'</td><td>'+v+'</td></tr>'; }
+function pill(cls,txt){ return '<span class="pill '+cls+'">'+txt+'</span>'; }
+var RESULT={};
+
+function env(){
+  var h='';
+  h+=row('当前地址', '<code>'+esc(location.href)+'</code>');
+  h+=row('你的网址根', '<code>'+esc(location.origin)+'</code>');
+  h+=row('是否 https', location.protocol==='https:'?pill('ok','是'):pill('no','否'));
+  h+=row('浏览器', esc(navigator.userAgent.slice(0,90)));
+  RESULT['地址']=location.href;
+  document.getElementById('tEnv').innerHTML=h;
+}
+
+function sess(){
+  var h='', s=null, users=null;
+  try{ s=JSON.parse(localStorage.getItem('hrma_session_v2')||'null'); }catch(e){}
+  try{ users=JSON.parse(localStorage.getItem('hrma_users_local')||'null'); }catch(e){}
+  h+=row('本机有登录态吗', s? pill('ok','有'):pill('no','没有'));
+  if(s){
+    h+=row('邮箱', esc(s.email||'(空)'));
+    h+=row('状态', esc(s.status||'(空)'));
+    h+=row('凭证 pwRef', s.pwRef? '<code>'+esc(String(s.pwRef).slice(0,10))+'…</code>' : pill('no','没有凭证'));
+    h+=row('最后核验时间', s.verifiedAt? new Date(Number(s.verifiedAt)).toLocaleString('zh-CN') : '(无)');
+    h+=row('已过多久', s.verifiedAt? (Math.round((Date.now()-Number(s.verifiedAt))/60000)+' 分钟前') : '(未知)');
+  }
+  var recs = (users && users.users) ? users.users : (Array.isArray(users)?users:[]);
+  h+=row('本机账号表条数', recs.length);
+  if(s){
+    var rec=recs.filter(function(x){ return String(x.email).toLowerCase()===String(s.email).toLowerCase(); })[0];
+    h+=row('账号表里有你吗', rec? pill('ok','有'):pill('no','没有 —— 这会导致每次都被踢回登录页'));
+    h+=row('密码哈希对得上吗', (rec && (rec.pw||rec.password) && String(rec.pw||rec.password)===String(s.pwRef))? pill('ok','对得上'):pill('no','对不上'));
+  }
+  RESULT['登录态']=s? (s.email+' / '+s.status+' / 凭证'+(s.pwRef?'有':'无')) : '无';
+  RESULT['账号表']=recs.length+' 条'+(s?('，本机账号表匹配：'+(recs.some(function(x){return String(x.email).toLowerCase()===String(s.email).toLowerCase();})?'有':'无')):'');
+  document.getElementById('tSess').innerHTML=h;
+}
+
+function gate(){
+  var h='<tr><td>正在取…</td><td></td></tr>';
+  document.getElementById('tGate').innerHTML=h;
+  var url='assets/js/access-gate.js?diag='+Date.now();
+  fetch(url,{cache:'no-store'}).then(function(r){ return r.text(); }).then(function(t){
+    var fixed = t.indexOf('encodeURIComponent(rel)')>=0;
+    var legacy = t.indexOf("encodeURIComponent(here)")>=0;
+    var h2='';
+    h2+=row('取到的文件', '<code>'+esc(url)+'</code>　'+pill('ok','HTTP '+r.status));
+    h2+=row('含修复（rel）', fixed? pill('ok','有'):pill('no','没有'));
+    h2+=row('还残留旧写法（here）', legacy? pill('no','有'):pill('ok','没有'));
+    h2+=row('结论', fixed? pill('ok','你拿到的是修好的版本'):pill('no','你拿到的还是旧版本 —— 请点下面「强制刷新」再测'));
+    h2+=row('怎么强制刷新', '在地址栏这页按 F5；或回到学习路径页点右上角<b>金色「强制刷新」</b>按钮；'+
+      '仍不行就换一次网络（手机流量）再打开，排除代理/CDN 缓存');
+    document.getElementById('tGate').innerHTML=h2;
+    RESULT['门脚本']=fixed?'新版本（含 rel 修复）':'旧版本（缺 rel 修复）';
+  }).catch(function(e){
+    var h2=row('取不到', pill('no', e.message));
+    document.getElementById('tGate').innerHTML=h2;
+    RESULT['门脚本']='取不到：'+e.message;
+  });
+}
+
+/* 用同源 iframe 读子页面的真实标题与正文 —— 这一步能一锤定音 */
+function probe(path){
+  var fr=document.getElementById('fr');
+  document.getElementById('pT').textContent='正在打开 '+path+' …';
+  document.getElementById('pB').textContent='';
+  fr.src=path+'?probe='+Date.now();
+  setTimeout(function(){
+    var t='', b='', ok=false, note='';
+    try{
+      var d=fr.contentDocument;
+      t=d?d.title:'';
+      b=d?(d.body?d.body.innerText:''):'';
+      ok=!!d;
+    }catch(e){ note='读不到（同源被拒）：'+e.message; }
+    b=(b||'').replace(/\s+/g,' ').trim();
+    var isHome = /收益管理社区|学习路径|按你要做的事/.test(t) && b.length<1200 && /选一个入口|欢迎/.test(b);
+    var txt = t+'\n—— 正文前 260 字 ——\n'+b.slice(0,260)+(b.length>260?'…':'');
+    document.getElementById('pT').innerHTML = ok
+      ? (isHome? pill('no','打开的是首页/门户，不是目标内容页') : pill('ok','打开了正确的内容页：'+esc(t)))
+      : pill('mid','无法判断');
+    document.getElementById('pB').textContent=txt + (note?('\n'+note):'');
+    RESULT['实测 '+path] = ok ? (t+' | '+b.slice(0,80)) : '读不到：'+note;
+  }, 3000);
+}
+
+function build(){
+  var out=[];
+  for(var k in RESULT){ if(Object.prototype.hasOwnProperty.call(RESULT,k)) out.push(k+'：'+RESULT[k]); }
+  document.getElementById('rep').textContent=out.join('\n')+
+    '\n（把这段发给我，文字全部复制过去即可）';
+}
+
+env(); sess(); gate();
+</script>
+</body>
+</html>
