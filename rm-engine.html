@@ -8,11 +8,6 @@
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <script>window.HRMA_PREFIX="";</script>
 
-
-
-
-
-
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v11"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -100,6 +95,40 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"rm-engine","item":"https://hrma-city.github.io/rm-engine.html"}]}</script>
+
+<style id="rm-teach-css">
+.rmtbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:#fff;border:1px solid #e2e8ef;
+  border-left:4px solid #e8b84b;border-radius:12px;padding:12px 16px;margin:16px 0 18px;
+  box-shadow:0 1px 6px rgba(15,42,74,.05)}
+.rmtbar .lbl{font-size:13.5px;font-weight:700;color:#0f2a4a;margin-right:4px}
+.rmtbar .seg{display:inline-flex;overflow:hidden;border-radius:8px;border:1px solid #cfd9e4}
+.rmtbar .seg a{padding:7px 15px;font-size:13px;color:#42566d;text-decoration:none}
+.rmtbar .seg a.on{background:#0f2a4a;color:#fff;font-weight:700}
+.rmtbar .rmt-space{flex:1}
+.rmtbar .link{font-size:13px;color:#1d6fb8;text-decoration:none}
+.rmtbar .link:hover{text-decoration:underline}
+.rmt-module{display:none;background:#f7fafe;border:1px dashed #b9cde3;border-radius:12px;
+  padding:14px 18px;margin:0 0 18px;font-size:13.5px;line-height:1.9;color:#33475e}
+body.rmt-teach .rmt-module{display:block}
+.rmt-module h4{margin:0 0 8px;font-size:14px;color:#0f2a4a}
+.rmt-module .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px 22px}
+.rmt-module .k{color:#5b6a7d}
+.rmt-module .v{color:#1f2a37;font-weight:600}
+.rmt-card-tip{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed #c9d6e3;
+  font-size:12.5px;color:#5b6a7d;line-height:1.75}
+body.rmt-teach .rmt-card-tip{display:block}
+.rmt-qs{margin-top:10px;background:#fff;border:1px solid #e2e8ef;border-radius:10px;padding:12px 16px;
+  font-size:13px;line-height:1.9;color:#33475e}
+body.rmt-teach .rmt-qs{display:block}
+.rmt-task{display:none;background:#fffdf5;border:1px solid #e8d9a8;border-radius:12px;padding:16px 18px;margin:0 0 16px}
+body.rmt-teach .rmt-task{display:block}
+.rmt-task h4{margin:0 0 10px;font-size:14.5px;color:#7a5a10}
+.rmt-task table{border-collapse:collapse;width:100%;font-size:13px;margin:8px 0 4px}
+.rmt-task td,.rmt-task th{border:1px solid #e0d4ac;padding:6px 9px;text-align:left;vertical-align:top}
+.rmt-task th{background:#f6f1e2}
+@media print{ .rmtbar,.rmt-qs,.noprint{display:none!important}
+  body.rmt-teach .rmt-module{display:block} }
+</style>
 </head>
 <body>
 
@@ -520,5 +549,126 @@ document.getElementById("loadDemo").addEventListener("click", function(){ DATA =
 document.getElementById("f2").addEventListener("change", applyUpload);
 render();
 </script>
+
+<script>
+(function(){
+  var panel=document.querySelector('.panel'), wrap=document.querySelector('.wrap');
+  if(!panel||!wrap) return;
+
+  /* ---- 1. 用法切换条 ---- */
+  var bar=document.createElement('div'); bar.className='rmtbar';
+  bar.innerHTML='<span class="lbl">这页怎么用</span>'+
+    '<span class="seg"><a class="on" href="#" data-m="hotel">酒店人实操</a>'+
+    '<a href="#" data-m="teach">教师课堂推演</a></span>'+
+    '<span class="rmt-space"></span>'+
+    '<a class="link" href="slides.html">教材投屏课件（32 章）</a>'+
+    '<a class="link" href="teach-case.html">案例教案册</a>'+
+    '<a class="link" href="case-work.html">学生工作纸</a>';
+  wrap.insertBefore(bar, wrap.firstChild);
+
+  /* ---- 2. 课堂讲法（默认隐藏） ---- */
+  var mod=document.createElement('div'); mod.className='rmt-module';
+  mod.innerHTML='<h4>课堂讲法 · 这一组参数在考什么</h4>'+
+    '<div class="grid2">'+
+    '<div><span class="k">考的核心：</span><span class="v">建议价 ≠ 最高价，是收入最大化价</span></div>'+
+    '<div><span class="k">对应教材：</span><span class="v">CH05 需求预测 · CH06 动态定价 · CH07 库存约束</span></div>'+
+    '<div><span class="k">对应法典：</span><span class="v">表 A（定价矩阵）· 表 E（超售）· 表 N（竞品响应）</span></div>'+
+    '<div><span class="k">关键公式：</span><span class="v">ARI = 本店价 ÷ 竞品组合均价 × 100</span></div>'+
+    '</div>'+
+    '<div style="margin-top:8px"><span class="k">讲 45 秒：</span>'+
+    '先让学生盯着「平均调幅」猜（他们大多答"该降价抢量"），再点运行打脸——'+
+    '引擎算出的是<b>收入最大化价</b>，不是最好卖的价。'+
+    '满房日（Q 触顶）引擎<b>不会</b>建议降价，这就是容量约束，也是学生最难自己想到的。</div>'+
+    '<div style="margin-top:6px"><span class="k">学生最常踩的坑：</span>'+
+    '① 把「机会金额」当增收（它是相对当前价的差额，不是绝对增收，翻 CH04 量差价差归因）；'+
+    '② 见 ARI 高就想涨价（ARI 只说明相对位置，不说明该不该动，要叠加 OCC 与弹性）；'+
+    '③ 漏掉变动成本这条硬底线 —— 低于变动成本多卖一间多亏一间（CH06 判定表）。</div>';
+  wrap.insertBefore(mod, panel);
+
+  /* ---- 3. 输出卡片逐个加讲法 ---- */
+  var TIPS=[
+    '讲这条：机会金额 = 建议价收入 − 当前价收入，已扣涨价带来的量损。它是<b>差额</b>不是增收，翻 CH04。',
+    '讲这条：挑这 7 天涨价，是因为预测 OCC 高 + 需求刚性（弹性 E 更钝）。对应 CH07 保护位。',
+    '讲这条：这 9 天降价，不是因为日子差，而是「降价换量」在这几天净收益更高；满房日引擎不会给降价，这是容量约束。',
+    '讲这条：平均调幅是新价相对旧价，不是相对竞品。让学生自己复算一遍，翻 CH01 指标口径。'
+  ];
+  var cards=document.getElementById('cards');
+  if(cards){
+    [].slice.call(cards.children).forEach(function(c,i){
+      var d=document.createElement('div'); d.className='rmt-card-tip';
+      d.innerHTML=(i<TIPS?TIPS[i]:'讲这条：对照教材本章要点，先让学生自己答一次。');
+      c.appendChild(d);
+    });
+  }
+
+  /* ---- 4. 课堂任务卡（打印带走） ---- */
+  function snap(){
+    function v(id){ var e=document.getElementById(id); return e?e.value.trim():'-'; }
+    return { cap:v('cap'), vc:v('vc'), ns:v('ns'),
+      days:(document.getElementById('days')||{}).value||'-',
+      rows:(document.getElementById('tb')||{}).rows?document.getElementById('tb').rows.length:0 };
+  }
+  var task=document.createElement('div'); task.className='rmt-task';
+  task.id='rmtTask';
+  task.innerHTML='<h4>课堂任务卡（打印给学生 · 答案单独发）</h4>'+
+    '<div id="rmtTaskBody">读取参数中…</div>'+
+    '<div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">'+
+    '<button class="btn-ghost btn-sm noprint" id="rmtCopy">复制题面（贴工作纸 / 群公告）</button>'+
+    '<button class="btn-ghost btn-sm noprint" onclick="window.print()">打印任务卡 + 答案</button></div>';
+  var tb=document.getElementById('tbl');
+  if(tb&&tb.parentNode) tb.parentNode.parentNode.insertBefore(task, tb.parentNode);
+  else wrap.appendChild(task);
+
+  function fillTask(){
+    var s=snap();
+    var head='<table><tr><th>参数</th><th>值</th><th>学生填</th></tr>'+
+      '<tr><td>可售房量</td><td>'+s.cap+'</td><td>　</td></tr>'+
+      '<tr><td>变动成本 / 保本价</td><td>¥'+s.vc+'</td><td>　</td></tr>'+
+      '<tr><td>No-show 率</td><td>'+s.ns+'%</td><td>　</td></tr>'+
+      '<tr><td>分析天数</td><td>'+s.days+'</td><td>　</td></tr></table>'+
+      '<div><b>四问（把答案写在右边空格）：</b></div>'+
+      '<div style="margin:6px 0">1. 未来 30 天该不该整体涨价？<br><span style="color:#8a97a5">答：________________</span></div>'+
+      '<div>2. 哪几天该涨价、哪几天该降价？理由各一条。<br><span style="color:#8a97a5">答：________________</span></div>'+
+      '<div>3. 变动成本这条线在这套算法里起了什么作用？<br><span style="color:#8a97a5">答：________________</span></div>'+
+      '<div>4. 「机会金额」是增收吗？说一下它和「增收」差在哪。<br><span style="color:#8a97a5">答：________________</span></div>';
+    document.getElementById('rmtTaskBody').innerHTML=head;
+  }
+  fillTask();
+  var cp=document.getElementById('rmtCopy');
+  if(cp) cp.onclick=function(){
+    var s=snap();
+    var t='【课堂任务】某酒店 '+s.cap+' 间房，变动成本 ¥'+s.vc+'/间夜，No-show '+s.ns+'%，看未来 '+s.days+' 天。\n'+
+      '1) 该不该整体涨价？为什么？\n2) 哪几天该涨、哪几天该降？\n'+
+      '3) 低于变动成本时该不该降？\n4) 「机会金额」是增收吗？';
+    if(navigator.clipboard) navigator.clipboard.writeText(t).then(function(){ cp.textContent='已复制 ✓'; },
+      function(){ cp.textContent='复制失败，请手动选中'; });
+    else cp.textContent='请手动选中复制';
+  };
+
+  /* ---- 5. 课堂三问 ---- */
+  var qs=document.createElement('div'); qs.className='rmt-qs';
+  qs.innerHTML='<b>课堂上追问这三句（学生答完再翻答案）：</b><br>'+
+    '① <b>「满房那天，引擎还让你降价吗？」</b>——不降，因为 Q 触顶，降价换不来量。<br>'+
+    '② <b>「ARI 涨了，是不是就该涨价？」</b>——不是，ARI 只比位置，不说明该不该动，还要看 OCC、弹性和竞品护栏。<br>'+
+    '③ <b>「机会金额是赚到的钱吗？」</b>——不是，它是相对当前价的<b>差额</b>，跟 KPI 口径有关，翻 CH04。';
+  var adv=document.getElementById('advisorPanel');
+  if(adv&&adv.parentNode) adv.parentNode.insertBefore(qs, adv);
+  else wrap.appendChild(qs);
+
+  /* ---- 6. 切换 ---- */
+  bar.querySelectorAll('.seg a').forEach(function(a){
+    a.onclick=function(e){
+      e.preventDefault();
+      bar.querySelectorAll('.seg a').forEach(function(x){ x.classList.remove('on'); });
+      a.classList.add('on');
+      var on = a.getAttribute('data-m')==='teach';
+      document.body.classList.toggle('rmt-teach', on);
+      document.title = on ? '收益决策引擎（教师课堂模式） · HRMA' : '收益决策引擎 · HRMA AI 定价助手';
+      if(on) window.scrollTo({top:0, behavior:'smooth'});
+    };
+  });
+})();
+</script>
+
 </body>
 </html>
