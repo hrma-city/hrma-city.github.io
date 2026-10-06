@@ -1,0 +1,417 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script><script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>第 1 章 收益管理是什么：一句话与底层逻辑 · 投屏课件</title><style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='study-teach.html'">← 教师线</button>
+  <span class="pt">第一篇 · 认知篇 · 本质与衡量</span>
+  <span class="tt">第 1 章 收益管理是什么：一句话与底层逻辑 · 投屏课件</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 28</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">第一篇 · 认知篇 · 本质与衡量</div><h1>收益管理是什么：一句话与底层逻辑</h1><div class="meta">第 1 章 ｜ 本质与衡量 ｜ 共 28 屏</div><div class="promise-b">读完这章你能说清：为什么同样一间房，昨天卖 300、今天卖 800 都不是乱来——并记住那条贯穿全书的判据。</div></section>
+<section class="sl task" data-i="1" data-k="task"><h2>本章要你做到</h2><div class="bd"><div class="tk">课堂任务卡 · 第 1 章</div><div class="tsc"><b>情境：</b>A 店全年平均出租率 70%、平均房价 400 元。B 店出租率 65%、平均房价 460 元。 哪家经营得更好？</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>产能是否易逝？</td><td>过期作废（房晚/机位/场次/车位）→ 需要；可储存 → 不需要</td></tr><tr><td>产能是否短期固定？</td><td>短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要</td></tr><tr><td>需求是否波动？</td><td>有明显淡旺/时段差异 → 需要；全年平稳 → 不需要</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>A：100 × 70% × 400 = 28,000 元/天。B：100 × 65% × 460 = 29,900 元/天。 B 店出租率低 5 个百分点，收入反而更高。 第一课：不要只看住满没住满，要看卖出了多少钱。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden><div class="tk">课堂任务卡 · 第 1 章</div><div class="tsc"><b>情境：</b>A 店全年平均出租率 70%、平均房价 400 元。B 店出租率 65%、平均房价 460 元。 哪家经营得更好？</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>产能是否易逝？</td><td>过期作废（房晚/机位/场次/车位）→ 需要；可储存 → 不需要</td></tr><tr><td>产能是否短期固定？</td><td>短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要</td></tr><tr><td>需求是否波动？</td><td>有明显淡旺/时段差异 → 需要；全年平稳 → 不需要</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>A：100 × 70% × 400 = 28,000 元/天。B：100 × 65% × 460 = 29,900 元/天。 B 店出租率低 5 个百分点，收入反而更高。 第一课：不要只看住满没住满，要看卖出了多少钱。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境导入</h2><div class="bd"><div class="swho">你一定踩过的坑</div><p>周三上午，前台小王接到电话："明天还有房吗？多少钱？"他看了一眼系统：还剩 20 间。心想反正空着也是空着，报了个 320。</p><p>对方立刻订了 5 间。小王还挺高兴——上午就开了张。</p><p>第二天下午，一个商务团打来电话要 10 间，出价 680，连住两晚。小王翻遍系统，只剩 3 间，只能说对不起。</p><p><b>他不是不努力，他是不知道：这 20 间房"留给谁更值"。</b>更关键的是——他做决定的时候，手上其实有答案：昨天同期还剩几间、去年这个日子卖了多少、附近展馆下周有没有活动。他只是没看。</p></div><div class="srctpl" hidden><div class="swho">你一定踩过的坑</div><p>周三上午，前台小王接到电话："明天还有房吗？多少钱？"他看了一眼系统：还剩 20 间。心想反正空着也是空着，报了个 320。</p><p>对方立刻订了 5 间。小王还挺高兴——上午就开了张。</p><p>第二天下午，一个商务团打来电话要 10 间，出价 680，连住两晚。小王翻遍系统，只剩 3 间，只能说对不起。</p><p><b>他不是不努力，他是不知道：这 20 间房"留给谁更值"。</b>更关键的是——他做决定的时候，手上其实有答案：昨天同期还剩几间、去年这个日子卖了多少、附近展馆下周有没有活动。他只是没看。</p></div></section>
+<section class="sl story" data-i="3" data-k="story"><h2>情境导入</h2><div class="bd"><div class="swho">你一定踩过的坑</div><p>这就是收益管理要解决的问题：<b>不是"能不能卖掉"，而是"该不该现在卖掉、卖给谁"。</b></p></div><div class="srctpl" hidden><div class="swho">你一定踩过的坑</div><p>这就是收益管理要解决的问题：<b>不是"能不能卖掉"，而是"该不该现在卖掉、卖给谁"。</b></p></div></section>
+<section class="sl pts" data-i="4" data-k="pts"><h2>要点</h2><div class="bd"><ul>
+<li><b>库存易逝</b>：房晚不可储存。今晚卖不掉，这间的价值永久归零——不像衣服能囤到明年卖，也不像产能可以补产。这是收益管理存在的<b>第一前提</b>。</li>
+<li><b>成本结构极端</b>：酒店固定成本极高（房租、人工、折旧、能耗），而多卖一间的变动成本极低（洗涤、易耗品，几十元）。这意味着<b>在成本之上多卖的任何一间，几乎都是净利润</b>——但也意味着，把一间本可卖 680 的房以 320 卖掉，损失的是 360 的纯利。</li>
+<li><b>客人出价不同</b>：商务客临时出差、时间紧、公司买单，愿意付 680；游客提前一个月规划、自掏腰包，只愿付 320。<b>同样的房，在不同人眼里值不同的钱。</b>所以问题从来不是"定多少钱"，而是"把房留给哪一类人"。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>库存易逝</b>：房晚不可储存。今晚卖不掉，这间的价值永久归零——不像衣服能囤到明年卖，也不像产能可以补产。这是收益管理存在的<b>第一前提</b>。</li>
+<li><b>成本结构极端</b>：酒店固定成本极高（房租、人工、折旧、能耗），而多卖一间的变动成本极低（洗涤、易耗品，几十元）。这意味着<b>在成本之上多卖的任何一间，几乎都是净利润</b>——但也意味着，把一间本可卖 680 的房以 320 卖掉，损失的是 360 的纯利。</li>
+<li><b>客人出价不同</b>：商务客临时出差、时间紧、公司买单，愿意付 680；游客提前一个月规划、自掏腰包，只愿付 320。<b>同样的房，在不同人眼里值不同的钱。</b>所以问题从来不是"定多少钱"，而是"把房留给哪一类人"。</li>
+</ul></div></div></section>
+<section class="sl pts" data-i="5" data-k="pts"><h2>三要点怎么用（各配一例）</h2><div class="bd"><ul>
+<li><b>易逝性</b>——例：某店 12 月 31 日晚剩 20 间没卖出。这 20 间的价值在零点那一刻<b>永久归零</b>，无法补回、无法储存、无法改日再卖。这就是"必须提前管"的根本原因。</li>
+<li><b>成本结构</b>——例：一间房卖 600，变动成本约 80（洗涤+易耗+能耗），固定成本照付。所以多卖一间的净增约 520，<b>几乎是纯利</b>；反过来，把本可卖 600 的房以 300 卖掉，等于白送 220。</li>
+<li><b>客群差异</b>——例：同一间大床房，提前 30 天订的游客只肯出 320，当天订的商务客愿意出 680。<b>差别不在房，在时间紧迫度与谁付钱。</b></li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>易逝性</b>——例：某店 12 月 31 日晚剩 20 间没卖出。这 20 间的价值在零点那一刻<b>永久归零</b>，无法补回、无法储存、无法改日再卖。这就是"必须提前管"的根本原因。</li>
+<li><b>成本结构</b>——例：一间房卖 600，变动成本约 80（洗涤+易耗+能耗），固定成本照付。所以多卖一间的净增约 520，<b>几乎是纯利</b>；反过来，把本可卖 600 的房以 300 卖掉，等于白送 220。</li>
+<li><b>客群差异</b>——例：同一间大床房，提前 30 天订的游客只肯出 320，当天订的商务客愿意出 680。<b>差别不在房，在时间紧迫度与谁付钱。</b></li>
+</ul></div></div></section>
+<section class="sl fml" data-i="6" data-k="fml"><h2>核心定义</h2><div class="bd"><div class="fe">收益管理 = 在正确的时间，以正确的价格，
+           把有限的易逝库存，卖给愿意付最高价的客源</div>
+<div class="ex" id="ex01">注意四个关键词：<b>有限</b>、<b>易逝</b>、<b>时间</b>、<b>价最高</b>。如果房间无限、或可以储存、或所有人出价一样，收益管理就不存在。<br>
+<b>而贯穿全书的唯一判据是：</b>一间房该不该现在卖掉，不看它能卖多少钱，看<b>留给后面的客人能值多少钱</b>——卖与不卖，比的都是<b>机会成本</b>。</div></div></div><div class="srctpl" hidden><div class="fn">核心定义</div><div class="fe">收益管理 = 在正确的时间，以正确的价格，
+           把有限的易逝库存，卖给愿意付最高价的客源</div>
+<div class="ex" id="ex01">注意四个关键词：<b>有限</b>、<b>易逝</b>、<b>时间</b>、<b>价最高</b>。如果房间无限、或可以储存、或所有人出价一样，收益管理就不存在。<br>
+<b>而贯穿全书的唯一判据是：</b>一间房该不该现在卖掉，不看它能卖多少钱，看<b>留给后面的客人能值多少钱</b>——卖与不卖，比的都是<b>机会成本</b>。</div></div></div></section>
+<section class="sl fml" data-i="7" data-k="fml"><h2>算例 3 · 一次"留住"的价值</h2><div class="bd"><div class="fe">剩 10 间房，离入住还有 5 天
+方案甲：全部按 400 卖掉 → 收入 4,000
+方案乙：关掉 400 档，只留 650 档 → 预计卖出 6 间 → 收入 3,900
+        剩 4 间空置（损失 1,600）
+最终比较：甲 4,000　乙 3,900</div>
+<div class="ex" id="ex01b">本例中甲略优——说明<b>并非所有"等待"都划算</b>，关键看高价需求的概率。<br>若预计能卖出 7 间：乙 = 7 × 650 = 4,550 &gt; 甲 → <b>此时等待才划算</b>。<br><b>这就是第 12 章"保护位"要解决的问题：到底该留几间。</b></div></div></div><div class="srctpl" hidden><div class="fn">算例 3 · 一次"留住"的价值</div><div class="fe">剩 10 间房，离入住还有 5 天
+方案甲：全部按 400 卖掉 → 收入 4,000
+方案乙：关掉 400 档，只留 650 档 → 预计卖出 6 间 → 收入 3,900
+        剩 4 间空置（损失 1,600）
+最终比较：甲 4,000　乙 3,900</div>
+<div class="ex" id="ex01b">本例中甲略优——说明<b>并非所有"等待"都划算</b>，关键看高价需求的概率。<br>若预计能卖出 7 间：乙 = 7 × 650 = 4,550 &gt; 甲 → <b>此时等待才划算</b>。<br><b>这就是第 12 章"保护位"要解决的问题：到底该留几间。</b></div></div></div></section>
+<section class="sl judge" data-i="8" data-k="judge"><h2>本章判定表 · 什么生意需要收益管理（逐项勾选，全中才适用）</h2><div class="bd">
+<table>
+<tr><td>产能是否易逝？</td><td>过期作废（房晚/机位/场次/车位）→ 需要；可储存 → 不需要</td></tr>
+<tr><td>产能是否短期固定？</td><td>短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要</td></tr>
+<tr><td>需求是否波动？</td><td>有明显淡旺/时段差异 → 需要；全年平稳 → 不需要</td></tr>
+<tr><td>客群能否分层？</td><td>不同客群支付意愿不同 → 需要；所有人出价一样 → 不需要</td></tr>
+<tr><td>能否提前预订？</td><td>可提前预订 → 可做预测与控制；只能现场买 → 只能现场定价</td></tr>
+<tr><td>成本结构如何？</td><td>固定成本占比高、边际成本低 → 填满空房价值大</td></tr>
+<tr><td>是否有历史数据？</td><td>有可分析的历史 → 可预测；无 → 只能凭经验</td></tr>
+<tr><td>能否拒绝生意？</td><td>可以拒绝低价客（如设限制）→ 可做；必须来者不拒 → 难做</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>判断一个新业务要不要引入收益管理时，逐行勾选。<b>前四项全中才算适用</b>；后四项决定"能做多深"。</div></div></div><div class="srctpl" hidden><div class="jt">本章判定表 · 什么生意需要收益管理（逐项勾选，全中才适用）</div>
+<table>
+<tr><td>产能是否易逝？</td><td>过期作废（房晚/机位/场次/车位）→ 需要；可储存 → 不需要</td></tr>
+<tr><td>产能是否短期固定？</td><td>短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要</td></tr>
+<tr><td>需求是否波动？</td><td>有明显淡旺/时段差异 → 需要；全年平稳 → 不需要</td></tr>
+<tr><td>客群能否分层？</td><td>不同客群支付意愿不同 → 需要；所有人出价一样 → 不需要</td></tr>
+<tr><td>能否提前预订？</td><td>可提前预订 → 可做预测与控制；只能现场买 → 只能现场定价</td></tr>
+<tr><td>成本结构如何？</td><td>固定成本占比高、边际成本低 → 填满空房价值大</td></tr>
+<tr><td>是否有历史数据？</td><td>有可分析的历史 → 可预测；无 → 只能凭经验</td></tr>
+<tr><td>能否拒绝生意？</td><td>可以拒绝低价客（如设限制）→ 可做；必须来者不拒 → 难做</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>判断一个新业务要不要引入收益管理时，逐行勾选。<b>前四项全中才算适用</b>；后四项决定"能做多深"。</div></div></div></section>
+<section class="sl judge" data-i="9" data-k="judge"><h2>场景：一家新开的共享自习室，问要不要做收益管理</h2><div class="bd">
+<table>
+<tr><td>产能是否易逝？</td><td><b>是</b>——一个晚上的座位卖不掉即归零 ✓</td></tr>
+<tr><td>产能是否固定？</td><td><b>是</b>——短期内无法增加座位 ✓</td></tr>
+<tr><td>需求是否波动？</td><td><b>是</b>——工作日晚上与考试季爆满，白天很空 ✓</td></tr>
+<tr><td>客群能否分层？</td><td><b>是</b>——有月卡学员、次卡用户、临时客 ✓</td></tr>
+<tr><td>能否提前预订？</td><td><b>是</b>——可线上预约选座 ✓</td></tr>
+<tr><td>成本结构？</td><td>固定成本为主（房租），边际成本低 ✓</td></tr>
+<tr><td>有无历史数据？</td><td>新店暂无，需先积累 2–3 个月 △</td></tr>
+<tr><td>能否拒绝生意？</td><td>可设"高峰时段不接次卡" ✓</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：前五项全中 → 适用。</b>但第 7 项暂不满足，说明<b>初期只能用简单规则（时段定价 + 限额），等积累数据后再做预测与保护位。</b><br><b>这就是判定表的价值——它不只说"要不要做"，还说"现在能做多深"。</b></div></div></div><div class="srctpl" hidden><div class="jt">场景：一家新开的共享自习室，问要不要做收益管理</div>
+<table>
+<tr><td>产能是否易逝？</td><td><b>是</b>——一个晚上的座位卖不掉即归零 ✓</td></tr>
+<tr><td>产能是否固定？</td><td><b>是</b>——短期内无法增加座位 ✓</td></tr>
+<tr><td>需求是否波动？</td><td><b>是</b>——工作日晚上与考试季爆满，白天很空 ✓</td></tr>
+<tr><td>客群能否分层？</td><td><b>是</b>——有月卡学员、次卡用户、临时客 ✓</td></tr>
+<tr><td>能否提前预订？</td><td><b>是</b>——可线上预约选座 ✓</td></tr>
+<tr><td>成本结构？</td><td>固定成本为主（房租），边际成本低 ✓</td></tr>
+<tr><td>有无历史数据？</td><td>新店暂无，需先积累 2–3 个月 △</td></tr>
+<tr><td>能否拒绝生意？</td><td>可设"高峰时段不接次卡" ✓</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：前五项全中 → 适用。</b>但第 7 项暂不满足，说明<b>初期只能用简单规则（时段定价 + 限额），等积累数据后再做预测与保护位。</b><br><b>这就是判定表的价值——它不只说"要不要做"，还说"现在能做多深"。</b></div></div></div></section>
+<section class="sl case" data-i="10" data-k="case"><div class="ct">案例一 · 两家同样 100 间房的酒店</div><div class="cq">A 店全年平均出租率 70%、平均房价 400 元。B 店出租率 65%、平均房价 460 元。<br>哪家经营得更好？</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例一 · 两家同样 100 间房的酒店</div>
+<div class="num">A 店全年平均出租率 70%、平均房价 400 元。B 店出租率 65%、平均房价 460 元。<br>哪家经营得更好？</div>
+<div class="end">A：100 × 70% × 400 = <b>28,000 元/天</b>。B：100 × 65% × 460 = <b>29,900 元/天</b>。<br>
+B 店出租率低 5 个百分点，收入反而更高。<br><b>第一课：不要只看住满没住满，要看卖出了多少钱。</b></div></div></div></section>
+<section class="sl caseans" data-i="11" data-k="caseans"><div class="ct">案例一 · 两家同样 100 间房的酒店 · 结论</div><div class="ca" style="display:block">A：100 × 70% × 400 = <b>28,000 元/天</b>。B：100 × 65% × 460 = <b>29,900 元/天</b>。<br>
+B 店出租率低 5 个百分点，收入反而更高。<br><b>第一课：不要只看住满没住满，要看卖出了多少钱。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例一 · 两家同样 100 间房的酒店</div>
+<div class="num">A 店全年平均出租率 70%、平均房价 400 元。B 店出租率 65%、平均房价 460 元。<br>哪家经营得更好？</div>
+<div class="end">A：100 × 70% × 400 = <b>28,000 元/天</b>。B：100 × 65% × 460 = <b>29,900 元/天</b>。<br>
+B 店出租率低 5 个百分点，收入反而更高。<br><b>第一课：不要只看住满没住满，要看卖出了多少钱。</b></div></div></div></section>
+<section class="sl case" data-i="12" data-k="case"><div class="ct">案例二 · 一次"填满房"的代价</div><div class="cq">某店为把出租率从 78% 冲到 90%，把 60 间房以 199 元投给低价渠道（正常价 450）。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例二 · 一次"填满房"的代价</div>
+<div class="num">某店为把出租率从 78% 冲到 90%，把 60 间房以 199 元投给低价渠道（正常价 450）。</div>
+<div class="end">多卖的 12 间确实带来了 2,388 元收入；但同期有 8 位愿意付 450 的散客因为没房而流失，损失 3,600 元。<br>
+<b>净效果：−1,212 元。出租率上去了，钱少了。</b><br>
+这就是"填满房"的陷阱——<b>填满不值得填的房，是负资产。</b></div></div></div></section>
+<section class="sl caseans" data-i="13" data-k="caseans"><div class="ct">案例二 · 一次"填满房"的代价 · 结论</div><div class="ca" style="display:block">多卖的 12 间确实带来了 2,388 元收入；但同期有 8 位愿意付 450 的散客因为没房而流失，损失 3,600 元。<br>
+<b>净效果：−1,212 元。出租率上去了，钱少了。</b><br>
+这就是"填满房"的陷阱——<b>填满不值得填的房，是负资产。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例二 · 一次"填满房"的代价</div>
+<div class="num">某店为把出租率从 78% 冲到 90%，把 60 间房以 199 元投给低价渠道（正常价 450）。</div>
+<div class="end">多卖的 12 间确实带来了 2,388 元收入；但同期有 8 位愿意付 450 的散客因为没房而流失，损失 3,600 元。<br>
+<b>净效果：−1,212 元。出租率上去了，钱少了。</b><br>
+这就是"填满房"的陷阱——<b>填满不值得填的房，是负资产。</b></div></div></div></section>
+<section class="sl case" data-i="14" data-k="case"><div class="ct">案例三 · 把"感觉"变成"数字"</div><div class="cq">某店店长凭经验判断"下周肯定淡"，准备降价促销。收益专员查了三件事：① 下周有本地马拉松（历史同期出租率高 22%）；② 当前在手已比去年同期高 15%；③ 竞品已悄悄提价 8%。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例三 · 把"感觉"变成"数字"</div>
+<div class="num">某店店长凭经验判断"下周肯定淡"，准备降价促销。收益专员查了三件事：① 下周有本地马拉松（历史同期出租率高 22%）；② 当前在手已比去年同期高 15%；③ 竞品已悄悄提价 8%。</div>
+<div class="end">三条证据全部指向"下周不但不淡，反而紧俏"。该店改为小幅提价 + 设 MinLOS=2。<br>结果：当周 RevPAR 比去年同期高 19%，而如果按店长的直觉降价，将损失约 12% 的收入。<br><b>结论：收益管理不是取代经验，是给经验装上仪表盘。经验告诉你"可能"，数据告诉你"多少"。</b></div></div></div></section>
+<section class="sl caseans" data-i="15" data-k="caseans"><div class="ct">案例三 · 把"感觉"变成"数字" · 结论</div><div class="ca" style="display:block">三条证据全部指向"下周不但不淡，反而紧俏"。该店改为小幅提价 + 设 MinLOS=2。<br>结果：当周 RevPAR 比去年同期高 19%，而如果按店长的直觉降价，将损失约 12% 的收入。<br><b>结论：收益管理不是取代经验，是给经验装上仪表盘。经验告诉你"可能"，数据告诉你"多少"。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例三 · 把"感觉"变成"数字"</div>
+<div class="num">某店店长凭经验判断"下周肯定淡"，准备降价促销。收益专员查了三件事：① 下周有本地马拉松（历史同期出租率高 22%）；② 当前在手已比去年同期高 15%；③ 竞品已悄悄提价 8%。</div>
+<div class="end">三条证据全部指向"下周不但不淡，反而紧俏"。该店改为小幅提价 + 设 MinLOS=2。<br>结果：当周 RevPAR 比去年同期高 19%，而如果按店长的直觉降价，将损失约 12% 的收入。<br><b>结论：收益管理不是取代经验，是给经验装上仪表盘。经验告诉你"可能"，数据告诉你"多少"。</b></div></div></div></section>
+<section class="sl case" data-i="16" data-k="case"><div class="ct">案例四 · 一次完整的"留住"决策（含对话）</div><div class="cq"><b>周三 08:10，收益专员小林与销售总监的对话：</b><br>
+销售："周末还有 25 间，我有个旅行社要 20 间，350 一间，接不接？"<br>
+小林："我先问三个数——去年同日现在在手多少？"<br>销售："大概 30 多间吧。"<br>
+小林："今年 48 间，高出约 40%。近三天日均 pickup 11 间，历史是 7 间。还有 4 天。"<br>
+销售："所以呢？"<br>
+小林："所以散客后劲足。按第 12 章，高价期望需求约 20 间，我们该保护 20 间——低价最多放 5 间。"<br>
+销售："那我只接 5 间？客户会不高兴。"<br>
+小林："或者说：20 间可以，但要 480。这样总贡献更高。"</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例四 · 一次完整的"留住"决策（含对话）</div>
+<div class="num"><b>周三 08:10，收益专员小林与销售总监的对话：</b><br>
+销售："周末还有 25 间，我有个旅行社要 20 间，350 一间，接不接？"<br>
+小林："我先问三个数——去年同日现在在手多少？"<br>销售："大概 30 多间吧。"<br>
+小林："今年 48 间，高出约 40%。近三天日均 pickup 11 间，历史是 7 间。还有 4 天。"<br>
+销售："所以呢？"<br>
+小林："所以散客后劲足。按第 12 章，高价期望需求约 20 间，我们该保护 20 间——低价最多放 5 间。"<br>
+销售："那我只接 5 间？客户会不高兴。"<br>
+小林："或者说：20 间可以，但要 480。这样总贡献更高。"</div>
+<div class="end">最终客户接受了 15 间 @450。周末散客又卖出 18 间 @650。<br>
+<b>若按原方案全接 20 间 @350：收入 7,000 + 散客约 5 间 = 10,250。</b><br>
+<b>实际结果：15×450 + 18×650 = 18,450。</b><br>
+<b>结论：这次"少接 5 间"多赚了 8,200 元。收益管理的收益，常常来自"敢于不卖"。</b></div></div></div></section>
+<section class="sl caseans" data-i="17" data-k="caseans"><div class="ct">案例四 · 一次完整的"留住"决策（含对话） · 结论</div><div class="ca" style="display:block">最终客户接受了 15 间 @450。周末散客又卖出 18 间 @650。<br>
+<b>若按原方案全接 20 间 @350：收入 7,000 + 散客约 5 间 = 10,250。</b><br>
+<b>实际结果：15×450 + 18×650 = 18,450。</b><br>
+<b>结论：这次"少接 5 间"多赚了 8,200 元。收益管理的收益，常常来自"敢于不卖"。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例四 · 一次完整的"留住"决策（含对话）</div>
+<div class="num"><b>周三 08:10，收益专员小林与销售总监的对话：</b><br>
+销售："周末还有 25 间，我有个旅行社要 20 间，350 一间，接不接？"<br>
+小林："我先问三个数——去年同日现在在手多少？"<br>销售："大概 30 多间吧。"<br>
+小林："今年 48 间，高出约 40%。近三天日均 pickup 11 间，历史是 7 间。还有 4 天。"<br>
+销售："所以呢？"<br>
+小林："所以散客后劲足。按第 12 章，高价期望需求约 20 间，我们该保护 20 间——低价最多放 5 间。"<br>
+销售："那我只接 5 间？客户会不高兴。"<br>
+小林："或者说：20 间可以，但要 480。这样总贡献更高。"</div>
+<div class="end">最终客户接受了 15 间 @450。周末散客又卖出 18 间 @650。<br>
+<b>若按原方案全接 20 间 @350：收入 7,000 + 散客约 5 间 = 10,250。</b><br>
+<b>实际结果：15×450 + 18×650 = 18,450。</b><br>
+<b>结论：这次"少接 5 间"多赚了 8,200 元。收益管理的收益，常常来自"敢于不卖"。</b></div></div></div></section>
+<section class="sl pts" data-i="18" data-k="pts"><h2>常见错误（续）</h2><div class="bd"><ul>
+<li><b>把收益管理等同于"涨价"</b>。它同样包括"该低的时候低得下去"。只涨不降的叫定价，不叫收益管理。</li>
+<li><b>把出租率当目标</b>。出租率是手段，收入是结果，利润才是目的（第 2、26 章）。</li>
+<li><b>认为收益管理只是收益岗的事</b>。它需要前厅、销售、市场、财务配合（第 25 章）。</li>
+</ul></div><ul>
+<li><b>认为"房间空着也是空着，便宜卖总比没有好"</b>——忽略了这间房本可以留给更高价的客人（第 12 章）。</li>
+<li><b>把收益管理当成一次性项目</b>——它是一套需要每天运转的体系，不是做一次方案就结束。</li>
+</ul></div><ul>
+<li><b>往下（第 2 章）</b>：知道了"该看收入"，下一步是学会怎么算收入——三个核心指标。</li>
+<li><b>往下（第 12 章）</b>："把房留给哪一类人"这句话，会变成可计算的东西——保护位。</li>
+<li><b>贯穿</b>：本章的"机会成本"判据，会在第 4、12、15、26 章反复出现。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>把收益管理等同于"涨价"</b>。它同样包括"该低的时候低得下去"。只涨不降的叫定价，不叫收益管理。</li>
+<li><b>把出租率当目标</b>。出租率是手段，收入是结果，利润才是目的（第 2、26 章）。</li>
+<li><b>认为收益管理只是收益岗的事</b>。它需要前厅、销售、市场、财务配合（第 25 章）。</li>
+</ul></div><ul>
+<li><b>认为"房间空着也是空着，便宜卖总比没有好"</b>——忽略了这间房本可以留给更高价的客人（第 12 章）。</li>
+<li><b>把收益管理当成一次性项目</b>——它是一套需要每天运转的体系，不是做一次方案就结束。</li>
+</ul></div><ul>
+<li><b>往下（第 2 章）</b>：知道了"该看收入"，下一步是学会怎么算收入——三个核心指标。</li>
+<li><b>往下（第 12 章）</b>："把房留给哪一类人"这句话，会变成可计算的东西——保护位。</li>
+<li><b>贯穿</b>：本章的"机会成本"判据，会在第 4、12、15、26 章反复出现。</li>
+</ul></div></div></section>
+<section class="sl tip" data-i="19" data-k="tip"><h2>提醒</h2><div class="bd"><b>自学者提示：</b>找一家你熟悉的酒店，查它周一和周六的价格。如果不同，说明它在做收益管理。然后试着回答：<b>为什么周一便宜？</b>答案通常是"商务客周末不来，而周末有游客"——这就是客群分层的直觉起点。<br>再进一步：查它提前 30 天和提前 1 天的价格，如果不同，说明它在按"时间"管理。这两组价格，就藏着整门学科。</div></div><div class="srctpl" hidden><b>自学者提示：</b>找一家你熟悉的酒店，查它周一和周六的价格。如果不同，说明它在做收益管理。然后试着回答：<b>为什么周一便宜？</b>答案通常是"商务客周末不来，而周末有游客"——这就是客群分层的直觉起点。<br>再进一步：查它提前 30 天和提前 1 天的价格，如果不同，说明它在按"时间"管理。这两组价格，就藏着整门学科。</div></div></section>
+<section class="sl note" data-i="20" data-k="note"><h2>与前后章的联系</h2><div class="bd"><div class="et">练习</div><ol>
+<li>为什么电影院下午场便宜、晚场贵？用"易逝库存"解释。</li>
+<li>一家酒店把房价从 400 降到 360，出租率从 60% 升到 70%。收入是升是降？</li>
+<li>举一个"产能可储存、因此不需要收益管理"的生意例子。</li>
+<li>用本章的 8 行判定表，判断"理发店"是否适用收益管理。</li>
+<li>用自己的话解释：为什么"填满房"可能是负资产？</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习</div><ol>
+<li>为什么电影院下午场便宜、晚场贵？用"易逝库存"解释。</li>
+<li>一家酒店把房价从 400 降到 360，出租率从 60% 升到 70%。收入是升是降？</li>
+<li>举一个"产能可储存、因此不需要收益管理"的生意例子。</li>
+<li>用本章的 8 行判定表，判断"理发店"是否适用收益管理。</li>
+<li>用自己的话解释：为什么"填满房"可能是负资产？</li>
+</ol></div></div></section>
+<section class="sl pts" data-i="21" data-k="pts"><h2>要点</h2><div class="bd"><ol>
+<li><b>收益管理的对象</b>：有限的、易逝的、需求波动的、客群可分层的产能。</li>
+<li><b>四个行业本质</b>：库存易逝、固定成本高而边际成本低、需求可预测、支付意愿分化。</li>
+<li><b>唯一判据</b>：卖与不卖，比的都是<b>机会成本</b>——留给后面的客人值多少钱。</li>
+<li><b>核心指标</b>：RevPAR = OCC × ADR（详见第 2 章），是收入最大化目标的量化形式。</li>
+<li><b>最大陷阱</b>：把"填满房"当成绩——填满不值得填的房，是负资产。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>收益管理的对象</b>：有限的、易逝的、需求波动的、客群可分层的产能。</li>
+<li><b>四个行业本质</b>：库存易逝、固定成本高而边际成本低、需求可预测、支付意愿分化。</li>
+<li><b>唯一判据</b>：卖与不卖，比的都是<b>机会成本</b>——留给后面的客人值多少钱。</li>
+<li><b>核心指标</b>：RevPAR = OCC × ADR（详见第 2 章），是收入最大化目标的量化形式。</li>
+<li><b>最大陷阱</b>：把"填满房"当成绩——填满不值得填的房，是负资产。</li>
+</ol></div></div></section>
+<section class="sl note" data-i="22" data-k="note"><h2>本章小结（5 条，可复述）</h2><div class="bd"><div class="et">练习（进阶）</div><ol start="6">
+<li>用一句话向一位从没接触过酒店的人解释收益管理，并说明为什么"降价填满"可能是错的。</li>
+<li>某店 100 间房，把 40 间以 200 元卖出（正常价 500）。计算这次"填满"的机会成本。</li>
+<li>列出你所在（或熟悉）的机构中，符合第 1 章判定表前四项的三个业务。</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习（进阶）</div><ol start="6">
+<li>用一句话向一位从没接触过酒店的人解释收益管理，并说明为什么"降价填满"可能是错的。</li>
+<li>某店 100 间房，把 40 间以 200 元卖出（正常价 500）。计算这次"填满"的机会成本。</li>
+<li>列出你所在（或熟悉）的机构中，符合第 1 章判定表前四项的三个业务。</li>
+</ol></div></div></section>
+<section class="sl judge" data-i="23" data-k="judge"><h2>遇到下面这些情况，直接按"动作"做</h2><div class="bd">
+<table>
+<tr><td>客人问"今晚还有房吗、多少钱"</td><td>先查<b>在手/去年同期/pickup</b>三个数，再报价——不要凭"剩几间"定价</td></tr>
+<tr><td>剩房不多，想卖贵一点</td><td><b>先关低价档</b>（可得性），再考虑提价；不要一步涨到位</td></tr>
+<tr><td>淡季空房很多</td><td>做<b>带栅栏</b>的促销（提前订/不可退/会员），不裸降价</td></tr>
+<tr><td>销售要接一个大团</td><td>先算<b>置换</b>：团收入 ≥ 被挤散客的期望收益才接（第 15 章）</td></tr>
+<tr><td>老板问"为什么这月收入降了"</td><td>不要只看自己 → 看<b>RGI</b>与竞品（第 3 章）</td></tr>
+</table></div></div><div class="srctpl" hidden><div class="jt">遇到下面这些情况，直接按"动作"做</div>
+<table>
+<tr><td>客人问"今晚还有房吗、多少钱"</td><td>先查<b>在手/去年同期/pickup</b>三个数，再报价——不要凭"剩几间"定价</td></tr>
+<tr><td>剩房不多，想卖贵一点</td><td><b>先关低价档</b>（可得性），再考虑提价；不要一步涨到位</td></tr>
+<tr><td>淡季空房很多</td><td>做<b>带栅栏</b>的促销（提前订/不可退/会员），不裸降价</td></tr>
+<tr><td>销售要接一个大团</td><td>先算<b>置换</b>：团收入 ≥ 被挤散客的期望收益才接（第 15 章）</td></tr>
+<tr><td>老板问"为什么这月收入降了"</td><td>不要只看自己 → 看<b>RGI</b>与竞品（第 3 章）</td></tr>
+</table></div></div></section>
+<section class="sl note" data-i="24" data-k="note"><h2>常见场景速查</h2><div class="bd">第一篇 · 认知篇 ｜ 本质与衡量 ｜ 第 2 章</div><div class="tk">课堂任务卡 · 第 1 章</div><div class="tsc"><b>情境：</b>A 店全年平均出租率 70%、平均房价 400 元。B 店出租率 65%、平均房价 460 元。 哪家经营得更好？</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>产能是否易逝？</td><td>过期作废（房晚/机位/场次/车位）→ 需要；可储存 → 不需要</td></tr><tr><td>产能是否短期固定？</td><td>短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要</td></tr><tr><td>需求是否波动？</td><td>有明显淡旺/时段差异 → 需要；全年平稳 → 不需要</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>A：100 × 70% × 400 = 28,000 元/天。B：100 × 65% × 460 = 29,900 元/天。 B 店出租率低 5 个百分点，收入反而更高。 第一课：不要只看住满没住满，要看卖出了多少钱。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden>第一篇 · 认知篇 ｜ 本质与衡量 ｜ 第 2 章</div><div class="tk">课堂任务卡 · 第 1 章</div><div class="tsc"><b>情境：</b>A 店全年平均出租率 70%、平均房价 400 元。B 店出租率 65%、平均房价 460 元。 哪家经营得更好？</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>产能是否易逝？</td><td>过期作废（房晚/机位/场次/车位）→ 需要；可储存 → 不需要</td></tr><tr><td>产能是否短期固定？</td><td>短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要</td></tr><tr><td>需求是否波动？</td><td>有明显淡旺/时段差异 → 需要；全年平稳 → 不需要</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>A：100 × 70% × 400 = 28,000 元/天。B：100 × 65% × 460 = 29,900 元/天。 B 店出租率低 5 个百分点，收入反而更高。 第一课：不要只看住满没住满，要看卖出了多少钱。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl pts" data-i="25" data-k="pts"><h2>要点</h2><div class="bd"><div class="nk">反面案例 · 案例一 · 两家同样 100 间房的酒店</div><div class="nnum">A 店全年平均出租率 70%、平均房价 400 元。B 店出租率 65%、平均房价 460 元。 哪家经营得更好？</div><div class="nend">A：100 × 70% × 400 = 28,000 元/天。B：100 × 65% × 460 = 29,900 元/天。 B 店出租率低 5 个百分点，收入反而更高。 第一课：不要只看住满没住满，要看卖出了多少钱。</div></div></div><div class="srctpl" hidden><div class="nk">反面案例 · 案例一 · 两家同样 100 间房的酒店</div><div class="nnum">A 店全年平均出租率 70%、平均房价 400 元。B 店出租率 65%、平均房价 460 元。 哪家经营得更好？</div><div class="nend">A：100 × 70% × 400 = 28,000 元/天。B：100 × 65% × 460 = 29,900 元/天。 B 店出租率低 5 个百分点，收入反而更高。 第一课：不要只看住满没住满，要看卖出了多少钱。</div></div></div></section>
+<section class="sl sum" data-i="26" data-k="sum"><h2>本章小结</h2><div class="bd"><ol>
+<li><b>收益管理的对象</b>：有限的、易逝的、需求波动的、客群可分层的产能。</li>
+<li><b>四个行业本质</b>：库存易逝、固定成本高而边际成本低、需求可预测、支付意愿分化。</li>
+<li><b>唯一判据</b>：卖与不卖，比的都是<b>机会成本</b>——留给后面的客人值多少钱。</li>
+<li><b>核心指标</b>：RevPAR = OCC × ADR（详见第 2 章），是收入最大化目标的量化形式。</li>
+<li><b>最大陷阱</b>：把"填满房"当成绩——填满不值得填的房，是负资产。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>用一句话向一位从没接触过酒店的人解释收益管理，并说明为什么"降价填满"可能是错的。</li>
+<li>某店 100 间房，把 40 间以 200 元卖出（正常价 500）。计算这次"填满"的机会成本。</li>
+<li>列出你所在（或熟悉）的机构中，符合第 1 章判定表前四项的三个业务。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>收益管理的对象</b>：有限的、易逝的、需求波动的、客群可分层的产能。</li>
+<li><b>四个行业本质</b>：库存易逝、固定成本高而边际成本低、需求可预测、支付意愿分化。</li>
+<li><b>唯一判据</b>：卖与不卖，比的都是<b>机会成本</b>——留给后面的客人值多少钱。</li>
+<li><b>核心指标</b>：RevPAR = OCC × ADR（详见第 2 章），是收入最大化目标的量化形式。</li>
+<li><b>最大陷阱</b>：把"填满房"当成绩——填满不值得填的房，是负资产。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>用一句话向一位从没接触过酒店的人解释收益管理，并说明为什么"降价填满"可能是错的。</li>
+<li>某店 100 间房，把 40 间以 200 元卖出（正常价 500）。计算这次"填满"的机会成本。</li>
+<li>列出你所在（或熟悉）的机构中，符合第 1 章判定表前四项的三个业务。</li>
+</ol></div></div></section>
+<section class="sl end" data-i="27" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li class="fml-i"><b>核心定义</b><br>收益管理 = 在正确的时间，以正确的价格， 把有限的易逝库存，卖给愿意付最高价的客源</li><li class="fml-i"><b>算例 3 · 一次"留住"的价值</b><br>剩 10 间房，离入住还有 5 天 方案甲：全部按 400 卖掉 → 收入 4,000 方案乙：关掉 400 档，只留 650 档 → 预计卖出 6 间 → 收入 3,900 剩 4 间空置（损失 1,600） 最终比较：甲 4,000 乙 3,900</li><li class="fml-i">产能是否易逝？过期作废（房晚/机位/场次/车位）→ 需要；可储存 → 不需要</li><li class="fml-i">产能是否短期固定？短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要</li><li class="fml-i">需求是否波动？有明显淡旺/时段差异 → 需要；全年平稳 → 不需要</li><li class="fml-i">客群能否分层？不同客群支付意愿不同 → 需要；所有人出价一样 → 不需要</li><li class="fml-i">产能是否易逝？是——一个晚上的座位卖不掉即归零 ✓</li><li class="fml-i">产能是否固定？是——短期内无法增加座位 ✓</li><li class="fml-i">需求是否波动？是——工作日晚上与考试季爆满，白天很空 ✓</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 28 屏）</div><a href="#p0" data-i="0">01　收益管理是什么：一句话与底层逻辑</a><a href="#p1" data-i="1">02　本章要你做到</a><a href="#p2" data-i="2">03　情境导入</a><a href="#p3" data-i="3">04　情境导入</a><a href="#p4" data-i="4">05　要点</a><a href="#p5" data-i="5">06　三要点怎么用（各配一例）</a><a href="#p6" data-i="6">07　核心定义</a><a href="#p7" data-i="7">08　算例 3 · 一次"留住"的价值</a><a href="#p8" data-i="8">09　本章判定表 · 什么生意需要收益管理（逐项勾选，全中才适用）</a><a href="#p9" data-i="9">10　场景：一家新开的共享自习室，问要不要做收益管理</a><a href="#p10" data-i="10">11　案例一 · 两家同样 100 间房的酒店</a><a href="#p11" data-i="11">12　案例一 · 两家同样 100 间房的酒店 · 结论</a><a href="#p12" data-i="12">13　案例二 · 一次"填满房"的代价</a><a href="#p13" data-i="13">14　案例二 · 一次"填满房"的代价 · 结论</a><a href="#p14" data-i="14">15　案例三 · 把"感觉"变成"数字"</a><a href="#p15" data-i="15">16　案例三 · 把"感觉"变成"数字" · 结论</a><a href="#p16" data-i="16">17　案例四 · 一次完整的"留住"决策（含对话）</a><a href="#p17" data-i="17">18　案例四 · 一次完整的"留住"决策（含对话） · 结论</a><a href="#p18" data-i="18">19　常见错误（续）</a><a href="#p19" data-i="19">20　提醒</a><a href="#p20" data-i="20">21　与前后章的联系</a><a href="#p21" data-i="21">22　要点</a><a href="#p22" data-i="22">23　本章小结（5 条，可复述）</a><a href="#p23" data-i="23">24　遇到下面这些情况，直接按"动作"做</a><a href="#p24" data-i="24">25　常见场景速查</a><a href="#p25" data-i="25">26　要点</a><a href="#p26" data-i="26">27　本章小结</a><a href="#p27" data-i="27">28　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 教材对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=28, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  var st=b.style.fontSize, n=0;
+  b.style.fontSize='';
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('.rev')){ e.target.closest('.sl').classList.add('showans'); dofit(); return; }
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function dofit(){fit();}
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+  else if(k==='/'){e.preventDefault();T();}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>

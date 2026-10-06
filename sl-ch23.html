@@ -1,0 +1,406 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script><script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>第 23 章 报表体系：每天该看哪几张表 · 投屏课件</title><style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='study-teach.html'">← 教师线</button>
+  <span class="pt">第三篇 · 运营篇 · 模块 E · 计划与支撑</span>
+  <span class="tt">第 23 章 报表体系：每天该看哪几张表 · 投屏课件</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 25</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">第三篇 · 运营篇 · 模块 E · 计划与支撑</div><h1>报表体系：每天该看哪几张表</h1><div class="meta">第 23 章 ｜ 模块 E · 计划与支撑 ｜ 共 25 屏</div><div class="promise-b">读完这章你能列出：收益岗每天、每周、每月必看的表。</div></section>
+<section class="sl task" data-i="1" data-k="task"><h2>本章要你做到</h2><div class="bd"><div class="tk">课堂任务卡 · 第 23 章</div><div class="tsc"><b>情境：</b>某店收益经理每天看 60 张系统报表，耗时 2 小时，但决策仍靠经验。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>能否指向动作</td><td>看完能说出"今天该做什么"→ 合格；只能"知道情况"→ 不合格</td></tr><tr><td>是否有对比基准</td><td>必须有历史同期与预算两条基准线</td></tr><tr><td>是否有竞品维度</td><td>没有竞品对标的表，无法判断相对位置</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>重做：只保留 9 张（日 4 / 周 3 / 月 2），每张都加"对比基准"和"建议动作"两栏。 结果：每日读表时间降到 20 分钟，决策速度反而更快、更准。 结论：报表的目的是触发动作，不是陈列数据。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden><div class="tk">课堂任务卡 · 第 23 章</div><div class="tsc"><b>情境：</b>某店收益经理每天看 60 张系统报表，耗时 2 小时，但决策仍靠经验。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>能否指向动作</td><td>看完能说出"今天该做什么"→ 合格；只能"知道情况"→ 不合格</td></tr><tr><td>是否有对比基准</td><td>必须有历史同期与预算两条基准线</td></tr><tr><td>是否有竞品维度</td><td>没有竞品对标的表，无法判断相对位置</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>重做：只保留 9 张（日 4 / 周 3 / 月 2），每张都加"对比基准"和"建议动作"两栏。 结果：每日读表时间降到 20 分钟，决策速度反而更快、更准。 结论：报表的目的是触发动作，不是陈列数据。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境导入</h2><div class="bd"><div class="swho">你一定踩过的坑</div><p>系统里有 60 张报表，收益经理每天打开一堆，看两小时，最后还是不知道今天该干什么。</p><p><b>报表多不等于信息多。</b>真正需要的，是几张能直接指向"今天该做什么动作"的表。</p><p>判断一张报表要不要存在的标准只有一个：<b>看完能不能说出一个动作？</b>不能，就删掉。</p></div><div class="srctpl" hidden><div class="swho">你一定踩过的坑</div><p>系统里有 60 张报表，收益经理每天打开一堆，看两小时，最后还是不知道今天该干什么。</p><p><b>报表多不等于信息多。</b>真正需要的，是几张能直接指向"今天该做什么动作"的表。</p><p>判断一张报表要不要存在的标准只有一个：<b>看完能不能说出一个动作？</b>不能，就删掉。</p></div></section>
+<section class="sl pts" data-i="3" data-k="pts"><h2>三要点怎么用（各配一例）</h2><div class="bd"><ul>
+<li><b>日报看动作</b>：今天该调价还是该关档？——看在手、pickup、竞品、配额。</li>
+<li><b>周报看趋势</b>：未来两周的缺口在哪？——看滚动预测与需求日历。</li>
+<li><b>月报看结构</b>：量的问题还是价的问题？——看 RGI/MPI/ARI 与客源渠道结构。</li>
+</ul></div><ul>
+<li><b>日报看动作</b>——例：看完要能说"今天关哪一档"。<b>说不出动作的表不合格。</b></li>
+<li><b>周报看趋势</b>——例：未来 14 天哪几天有缺口，提前布动作。</li>
+<li><b>月报看结构</b>——例：RGI 拆成 MPI 与 ARI，定性后决定"补量还是提价"。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>日报看动作</b>：今天该调价还是该关档？——看在手、pickup、竞品、配额。</li>
+<li><b>周报看趋势</b>：未来两周的缺口在哪？——看滚动预测与需求日历。</li>
+<li><b>月报看结构</b>：量的问题还是价的问题？——看 RGI/MPI/ARI 与客源渠道结构。</li>
+</ul></div><ul>
+<li><b>日报看动作</b>——例：看完要能说"今天关哪一档"。<b>说不出动作的表不合格。</b></li>
+<li><b>周报看趋势</b>——例：未来 14 天哪几天有缺口，提前布动作。</li>
+<li><b>月报看结构</b>——例：RGI 拆成 MPI 与 ARI，定性后决定"补量还是提价"。</li>
+</ul></div></div></section>
+<section class="sl fml" data-i="4" data-k="fml"><h2>核心报表清单</h2><div class="bd"><div class="fe">每日（4）：在手表 / pickup 表 / 竞品价表 / 渠道配额表
+每周（3）：14 天滚动预测表 / 需求日历 / 竞品周报
+每月（2）：RGI·MPI·ARI 表 / 客源贡献与渠道净价表</div>
+<div class="ex" id="ex23"><b>算例（日报核心三行）：</b><br>
+① 今日在手 78 间（去年同期 65）→ 高出 20%<br>
+② 近 3 日 pickup 日均 11 间（历史 7）→ 偏快<br>
+③ 竞品 A 已提价 8%，我方未动 → 有提价空间<br>
+<b>三行数据直接指向一个动作：今日上调 BAR 一档。</b><br>
+<b>这就是"能指向动作"的报表——好的报表应该这样。</b></div></div></div><div class="srctpl" hidden><div class="fn">核心报表清单</div><div class="fe">每日（4）：在手表 / pickup 表 / 竞品价表 / 渠道配额表
+每周（3）：14 天滚动预测表 / 需求日历 / 竞品周报
+每月（2）：RGI·MPI·ARI 表 / 客源贡献与渠道净价表</div>
+<div class="ex" id="ex23"><b>算例（日报核心三行）：</b><br>
+① 今日在手 78 间（去年同期 65）→ 高出 20%<br>
+② 近 3 日 pickup 日均 11 间（历史 7）→ 偏快<br>
+③ 竞品 A 已提价 8%，我方未动 → 有提价空间<br>
+<b>三行数据直接指向一个动作：今日上调 BAR 一档。</b><br>
+<b>这就是"能指向动作"的报表——好的报表应该这样。</b></div></div></div></section>
+<section class="sl fml" data-i="5" data-k="fml"><h2>算例 · 一张好报表的三要素</h2><div class="bd"><div class="fe">① 有数值：今日在手 62 间
+② 有基准：去年同期 48 间、预算对应 55 间
+③ 指向动作：高出预算 13% → 检查是否需要收紧低价档</div>
+<div class="ex" id="ex23b">缺了第 ② 条，数字无法判断高低；缺了第 ③ 条，看完不知道做什么。<br>
+<b>只有数值的报表叫"数据"，三样齐全才叫"管理报表"。</b>这就是为什么很多酒店系统里有 60 张表却依然靠感觉决策。</div></div></div><div class="srctpl" hidden><div class="fn">算例 · 一张好报表的三要素</div><div class="fe">① 有数值：今日在手 62 间
+② 有基准：去年同期 48 间、预算对应 55 间
+③ 指向动作：高出预算 13% → 检查是否需要收紧低价档</div>
+<div class="ex" id="ex23b">缺了第 ② 条，数字无法判断高低；缺了第 ③ 条，看完不知道做什么。<br>
+<b>只有数值的报表叫"数据"，三样齐全才叫"管理报表"。</b>这就是为什么很多酒店系统里有 60 张表却依然靠感觉决策。</div></div></div></section>
+<section class="sl judge" data-i="6" data-k="judge"><h2>本章判定表 · 报表是否合格</h2><div class="bd">
+<table>
+<tr><td>能否指向动作</td><td>看完能说出"今天该做什么"→ 合格；只能"知道情况"→ 不合格</td></tr>
+<tr><td>是否有对比基准</td><td>必须有<b>历史同期</b>与<b>预算</b>两条基准线</td></tr>
+<tr><td>是否有竞品维度</td><td>没有竞品对标的表，无法判断相对位置</td></tr>
+<tr><td>更新频率</td><td>日表每天更新；周表周一更新；月表月初 3 日内出</td></tr>
+<tr><td>是否有人看</td><td><b>没人看的报表应删掉</b>——报表不是越多越好</td></tr>
+<tr><td>是否口径统一</td><td>与财务、前厅口径一致（可售房、免费房如何处理）</td></tr>
+<tr><td>是否留痕</td><td>报表应能导出归档，作为复盘依据</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>每季度清理一次报表。<b>问每个看表的人："看完你会做什么？"答不上来的表，删。</b></div></div></div><div class="srctpl" hidden><div class="jt">本章判定表 · 报表是否合格</div>
+<table>
+<tr><td>能否指向动作</td><td>看完能说出"今天该做什么"→ 合格；只能"知道情况"→ 不合格</td></tr>
+<tr><td>是否有对比基准</td><td>必须有<b>历史同期</b>与<b>预算</b>两条基准线</td></tr>
+<tr><td>是否有竞品维度</td><td>没有竞品对标的表，无法判断相对位置</td></tr>
+<tr><td>更新频率</td><td>日表每天更新；周表周一更新；月表月初 3 日内出</td></tr>
+<tr><td>是否有人看</td><td><b>没人看的报表应删掉</b>——报表不是越多越好</td></tr>
+<tr><td>是否口径统一</td><td>与财务、前厅口径一致（可售房、免费房如何处理）</td></tr>
+<tr><td>是否留痕</td><td>报表应能导出归档，作为复盘依据</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>每季度清理一次报表。<b>问每个看表的人："看完你会做什么？"答不上来的表，删。</b></div></div></div></section>
+<section class="sl judge" data-i="7" data-k="judge"><h2>场景：季度清理报表，逐张过</h2><div class="bd">
+<table>
+<tr><td>谁在看？</td><td>能说出姓名 → 保留；"好像有人看" → 删</td></tr>
+<tr><td>看完做什么？</td><td>能说出一个动作 → 保留；"了解一下" → 删</td></tr>
+<tr><td>有基准吗？</td><td>有历史同期/预算 → 保留；孤立数字 → 补或删</td></tr>
+<tr><td>多久用一次？</td><td>每周以上 → 保留；季度一次 → 改为季报</td></tr>
+<tr><td>口径统一吗？</td><td>与财务一致 → 保留；两套数字 → <b>必须先统一</b></td></tr>
+<tr><td>本季清理结果</td><td>60 张 → <b>9 张</b>，读表时间从 2 小时降到 20 分钟</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：报表的合格线是"看完能说出一个动作"。</b><br>达不到这条线的表，无论做得多精美，都是在消耗而不是在帮助。</div></div></div><div class="srctpl" hidden><div class="jt">场景：季度清理报表，逐张过</div>
+<table>
+<tr><td>谁在看？</td><td>能说出姓名 → 保留；"好像有人看" → 删</td></tr>
+<tr><td>看完做什么？</td><td>能说出一个动作 → 保留；"了解一下" → 删</td></tr>
+<tr><td>有基准吗？</td><td>有历史同期/预算 → 保留；孤立数字 → 补或删</td></tr>
+<tr><td>多久用一次？</td><td>每周以上 → 保留；季度一次 → 改为季报</td></tr>
+<tr><td>口径统一吗？</td><td>与财务一致 → 保留；两套数字 → <b>必须先统一</b></td></tr>
+<tr><td>本季清理结果</td><td>60 张 → <b>9 张</b>，读表时间从 2 小时降到 20 分钟</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：报表的合格线是"看完能说出一个动作"。</b><br>达不到这条线的表，无论做得多精美，都是在消耗而不是在帮助。</div></div></div></section>
+<section class="sl case" data-i="8" data-k="case"><div class="ct">案例 · 从 60 张表到 9 张表</div><div class="cq">某店收益经理每天看 60 张系统报表，耗时 2 小时，但决策仍靠经验。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例 · 从 60 张表到 9 张表</div>
+<div class="num">某店收益经理每天看 60 张系统报表，耗时 2 小时，但决策仍靠经验。</div>
+<div class="end">重做：只保留 9 张（日 4 / 周 3 / 月 2），每张都加"对比基准"和"建议动作"两栏。<br>
+结果：每日读表时间降到 20 分钟，<b>决策速度反而更快、更准</b>。<br>
+<b>结论：报表的目的是触发动作，不是陈列数据。</b></div></div></div></section>
+<section class="sl caseans" data-i="9" data-k="caseans"><div class="ct">案例 · 从 60 张表到 9 张表 · 结论</div><div class="ca" style="display:block">重做：只保留 9 张（日 4 / 周 3 / 月 2），每张都加"对比基准"和"建议动作"两栏。<br>
+结果：每日读表时间降到 20 分钟，<b>决策速度反而更快、更准</b>。<br>
+<b>结论：报表的目的是触发动作，不是陈列数据。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例 · 从 60 张表到 9 张表</div>
+<div class="num">某店收益经理每天看 60 张系统报表，耗时 2 小时，但决策仍靠经验。</div>
+<div class="end">重做：只保留 9 张（日 4 / 周 3 / 月 2），每张都加"对比基准"和"建议动作"两栏。<br>
+结果：每日读表时间降到 20 分钟，<b>决策速度反而更快、更准</b>。<br>
+<b>结论：报表的目的是触发动作，不是陈列数据。</b></div></div></div></section>
+<section class="sl case" data-i="10" data-k="case"><div class="ct">案例三 · 两套数字的代价</div><div class="cq">某店收益部与财务部对"出租率"的算法不同（是否计入免费房），两边报表长期对不上。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例三 · 两套数字的代价</div>
+<div class="num">某店收益部与财务部对"出租率"的算法不同（是否计入免费房），两边报表长期对不上。</div>
+<div class="end">后果：经营会上每次都要先花 20 分钟争论"哪个数是对的"，而真正的议题被挤掉。<br>
+统一口径后（写入制度、双方签字），会议效率大幅提升，且<b>收益部的数据第一次被财务采信</b>。<br>
+<b>结论：口径不统一，你的分析再对也没有说服力。这是收益岗最该先解决的政治问题。</b></div></div></div></section>
+<section class="sl caseans" data-i="11" data-k="caseans"><div class="ct">案例三 · 两套数字的代价 · 结论</div><div class="ca" style="display:block">后果：经营会上每次都要先花 20 分钟争论"哪个数是对的"，而真正的议题被挤掉。<br>
+统一口径后（写入制度、双方签字），会议效率大幅提升，且<b>收益部的数据第一次被财务采信</b>。<br>
+<b>结论：口径不统一，你的分析再对也没有说服力。这是收益岗最该先解决的政治问题。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例三 · 两套数字的代价</div>
+<div class="num">某店收益部与财务部对"出租率"的算法不同（是否计入免费房），两边报表长期对不上。</div>
+<div class="end">后果：经营会上每次都要先花 20 分钟争论"哪个数是对的"，而真正的议题被挤掉。<br>
+统一口径后（写入制度、双方签字），会议效率大幅提升，且<b>收益部的数据第一次被财务采信</b>。<br>
+<b>结论：口径不统一，你的分析再对也没有说服力。这是收益岗最该先解决的政治问题。</b></div></div></div></section>
+<section class="sl case" data-i="12" data-k="case"><div class="ct">案例四 · 一张报表如何改变决策</div><div class="cq">某店原来的月报只有一行："本月出租率 78%、平均房价 460"。<br>
+改造后加入三要素——<b>数值 + 基准 + 指向动作</b>：<br>
+· 数值：RevPAR 359<br>
+· 基准：预算 372（−3.5%）、去年同期 341（+5.3%）、市场 RGI 103<br>
+· 动作：量略低于预算但跑赢市场 → <b>不需降价，补渠道曝光即可</b></div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例四 · 一张报表如何改变决策</div>
+<div class="num">某店原来的月报只有一行："本月出租率 78%、平均房价 460"。<br>
+改造后加入三要素——<b>数值 + 基准 + 指向动作</b>：<br>
+· 数值：RevPAR 359<br>
+· 基准：预算 372（−3.5%）、去年同期 341（+5.3%）、市场 RGI 103<br>
+· 动作：量略低于预算但跑赢市场 → <b>不需降价，补渠道曝光即可</b></div>
+<div class="end">改造前后对比：<br>
+<b>旧月报</b>下，团队看到"出租率 78%"会觉得不错，或看到"低于预期"就提议降价。<br>
+<b>新月报</b>下，团队能立刻判断"是否跑赢市场""缺口在量还是在价""该不该降价"。<br>
+<b>结论：报表的差别不在于数据多少，而在于有没有基准和动作。没有这两样，再多的数字也只是噪音。</b></div></div></div></section>
+<section class="sl caseans" data-i="13" data-k="caseans"><div class="ct">案例四 · 一张报表如何改变决策 · 结论</div><div class="ca" style="display:block">改造前后对比：<br>
+<b>旧月报</b>下，团队看到"出租率 78%"会觉得不错，或看到"低于预期"就提议降价。<br>
+<b>新月报</b>下，团队能立刻判断"是否跑赢市场""缺口在量还是在价""该不该降价"。<br>
+<b>结论：报表的差别不在于数据多少，而在于有没有基准和动作。没有这两样，再多的数字也只是噪音。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例四 · 一张报表如何改变决策</div>
+<div class="num">某店原来的月报只有一行："本月出租率 78%、平均房价 460"。<br>
+改造后加入三要素——<b>数值 + 基准 + 指向动作</b>：<br>
+· 数值：RevPAR 359<br>
+· 基准：预算 372（−3.5%）、去年同期 341（+5.3%）、市场 RGI 103<br>
+· 动作：量略低于预算但跑赢市场 → <b>不需降价，补渠道曝光即可</b></div>
+<div class="end">改造前后对比：<br>
+<b>旧月报</b>下，团队看到"出租率 78%"会觉得不错，或看到"低于预期"就提议降价。<br>
+<b>新月报</b>下，团队能立刻判断"是否跑赢市场""缺口在量还是在价""该不该降价"。<br>
+<b>结论：报表的差别不在于数据多少，而在于有没有基准和动作。没有这两样，再多的数字也只是噪音。</b></div></div></div></section>
+<section class="sl pts" data-i="14" data-k="pts"><h2>常见错误（续）</h2><div class="bd"><ul>
+<li><b>报表越多越好</b>。恰恰相反，报表多会淹没关键信息。</li>
+<li><b>没有对比基准</b>。孤立的数字无法判断高低。</li>
+<li><b>口径与财务不一致</b>。会导致两套数字互不信任。</li>
+</ul></div><ul>
+<li><b>报表越做越细</b>——细到 SKU 级别反而淹没关键信息，应按决策频率做。</li>
+<li><b>只看自己店的数据</b>——缺竞品维度，就无法判断相对位置（第 3 章）。</li>
+</ul></div><ul>
+<li><b>往上（第 18 章）</b>：取数环节用的就是这些表。</li>
+<li><b>往上（第 2、3 章）</b>：月报的核心就是 RevPAR 与 RGI。</li>
+<li><b>往下（第 27 章）</b>：RMS 系统的主要价值就是自动生成这些表。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>报表越多越好</b>。恰恰相反，报表多会淹没关键信息。</li>
+<li><b>没有对比基准</b>。孤立的数字无法判断高低。</li>
+<li><b>口径与财务不一致</b>。会导致两套数字互不信任。</li>
+</ul></div><ul>
+<li><b>报表越做越细</b>——细到 SKU 级别反而淹没关键信息，应按决策频率做。</li>
+<li><b>只看自己店的数据</b>——缺竞品维度，就无法判断相对位置（第 3 章）。</li>
+</ul></div><ul>
+<li><b>往上（第 18 章）</b>：取数环节用的就是这些表。</li>
+<li><b>往上（第 2、3 章）</b>：月报的核心就是 RevPAR 与 RGI。</li>
+<li><b>往下（第 27 章）</b>：RMS 系统的主要价值就是自动生成这些表。</li>
+</ul></div></div></section>
+<section class="sl tip" data-i="15" data-k="tip"><h2>提醒</h2><div class="bd"><b>自学者提示：</b>给自己做一张"晨间 15 分钟表"：<b>今日在手、昨日实际、未来 7 日在手、竞品最低价、昨日取消数</b>。五个数字，每天记一次，两周就能看出规律——这比看 60 张报表有用得多。</div></div><div class="srctpl" hidden><b>自学者提示：</b>给自己做一张"晨间 15 分钟表"：<b>今日在手、昨日实际、未来 7 日在手、竞品最低价、昨日取消数</b>。五个数字，每天记一次，两周就能看出规律——这比看 60 张报表有用得多。</div></div></section>
+<section class="sl note" data-i="16" data-k="note"><h2>与前后章的联系</h2><div class="bd"><div class="et">练习</div><ol>
+<li>设计你自己的"晨间 15 分钟表"，列出要记的 5 个数字。</li>
+<li>为什么报表必须有对比基准？</li>
+<li>什么样的报表应该被删掉？</li>
+<li>日报、周报、月报分别回答什么问题？</li>
+<li>为什么报表口径要与财务统一？</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习</div><ol>
+<li>设计你自己的"晨间 15 分钟表"，列出要记的 5 个数字。</li>
+<li>为什么报表必须有对比基准？</li>
+<li>什么样的报表应该被删掉？</li>
+<li>日报、周报、月报分别回答什么问题？</li>
+<li>为什么报表口径要与财务统一？</li>
+</ol></div></div></section>
+<section class="sl pts" data-i="17" data-k="pts"><h2>要点</h2><div class="bd"><ol>
+<li><b>日报看动作、周报看趋势、月报看结构</b>。</li>
+<li><b>合格报表的三要素</b>：数值 ＋ 基准（预算/同期）＋ 指向动作。</li>
+<li><b>没有基准的数字无法判断高低</b>，也就无法触发动作。</li>
+<li><b>口径必须与财务统一</b>，否则分析再对也没有说服力。</li>
+<li><b>每季度清理一次报表</b>：写不出"用来做什么"的就删。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>日报看动作、周报看趋势、月报看结构</b>。</li>
+<li><b>合格报表的三要素</b>：数值 ＋ 基准（预算/同期）＋ 指向动作。</li>
+<li><b>没有基准的数字无法判断高低</b>，也就无法触发动作。</li>
+<li><b>口径必须与财务统一</b>，否则分析再对也没有说服力。</li>
+<li><b>每季度清理一次报表</b>：写不出"用来做什么"的就删。</li>
+</ol></div></div></section>
+<section class="sl note" data-i="18" data-k="note"><h2>本章小结（5 条，可复述）</h2><div class="bd"><div class="et">练习（进阶）</div><ol start="6">
+<li>把"本月出租率 78%"改造成合格报表（补上基准与动作）。</li>
+<li>为什么口径不统一会让收益岗失去话语权？</li>
+<li>设计你自己的"晨间 15 分钟表"，列出 5 个数字及各自的基准。</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习（进阶）</div><ol start="6">
+<li>把"本月出租率 78%"改造成合格报表（补上基准与动作）。</li>
+<li>为什么口径不统一会让收益岗失去话语权？</li>
+<li>设计你自己的"晨间 15 分钟表"，列出 5 个数字及各自的基准。</li>
+</ol></div></div></section>
+<section class="sl judge" data-i="19" data-k="judge"><h2>遇到下面这些情况，直接按"动作"做</h2><div class="bd">
+<table>
+<tr><td>系统里有 60 张表</td><td>给每张贴便签写"<b>用来做什么</b>"；写不出的删</td></tr>
+<tr><td>看了报表还是不知做什么</td><td>说明缺<b>基准</b>或<b>指向动作</b> → 补上这两栏</td></tr>
+<tr><td>两份报表数字对不上</td><td>先<b>统一口径</b>并写入制度，否则分析再对也没说服力</td></tr>
+<tr><td>不知道该看日/周/月哪种</td><td>日报看动作、周报看趋势、月报看结构</td></tr>
+<tr><td>报表越做越细</td><td>细到 SKU 会淹没关键；按<b>决策频率</b>做</td></tr>
+</table></div></div><div class="srctpl" hidden><div class="jt">遇到下面这些情况，直接按"动作"做</div>
+<table>
+<tr><td>系统里有 60 张表</td><td>给每张贴便签写"<b>用来做什么</b>"；写不出的删</td></tr>
+<tr><td>看了报表还是不知做什么</td><td>说明缺<b>基准</b>或<b>指向动作</b> → 补上这两栏</td></tr>
+<tr><td>两份报表数字对不上</td><td>先<b>统一口径</b>并写入制度，否则分析再对也没说服力</td></tr>
+<tr><td>不知道该看日/周/月哪种</td><td>日报看动作、周报看趋势、月报看结构</td></tr>
+<tr><td>报表越做越细</td><td>细到 SKU 会淹没关键；按<b>决策频率</b>做</td></tr>
+</table></div></div></section>
+<section class="sl note" data-i="20" data-k="note"><h2>常见场景速查</h2><div class="bd">第三篇 · 运营篇 ｜ 模块 E · 计划与支撑 ｜ 第 24 章</div><div class="tk">课堂任务卡 · 第 23 章</div><div class="tsc"><b>情境：</b>某店收益经理每天看 60 张系统报表，耗时 2 小时，但决策仍靠经验。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>能否指向动作</td><td>看完能说出"今天该做什么"→ 合格；只能"知道情况"→ 不合格</td></tr><tr><td>是否有对比基准</td><td>必须有历史同期与预算两条基准线</td></tr><tr><td>是否有竞品维度</td><td>没有竞品对标的表，无法判断相对位置</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>重做：只保留 9 张（日 4 / 周 3 / 月 2），每张都加"对比基准"和"建议动作"两栏。 结果：每日读表时间降到 20 分钟，决策速度反而更快、更准。 结论：报表的目的是触发动作，不是陈列数据。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden>第三篇 · 运营篇 ｜ 模块 E · 计划与支撑 ｜ 第 24 章</div><div class="tk">课堂任务卡 · 第 23 章</div><div class="tsc"><b>情境：</b>某店收益经理每天看 60 张系统报表，耗时 2 小时，但决策仍靠经验。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>能否指向动作</td><td>看完能说出"今天该做什么"→ 合格；只能"知道情况"→ 不合格</td></tr><tr><td>是否有对比基准</td><td>必须有历史同期与预算两条基准线</td></tr><tr><td>是否有竞品维度</td><td>没有竞品对标的表，无法判断相对位置</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>重做：只保留 9 张（日 4 / 周 3 / 月 2），每张都加"对比基准"和"建议动作"两栏。 结果：每日读表时间降到 20 分钟，决策速度反而更快、更准。 结论：报表的目的是触发动作，不是陈列数据。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl note" data-i="21" data-k="note"><h2>常见场景速查</h2><div class="bd"><div class="vk">变体题 · 条件变了结论变吗</div><ul><li><b>把「更新频率」这一项反过来</b>（或换成另一个典型值）：动作还一样吗？<br><span class="vq">判据：日表每天更新；周表周一更新；月表月初 3 日内出</span></li><li><b>把「多久用一次？」这一项反过来</b>（或换成另一个典型值）：动作还一样吗？<br><span class="vq">判据：每周以上 → 保留；季度一次 → 改为季报</span></li></ul><div class="vwhy"><b>为什么做这个：</b>学生照抄答案不算会。条件一变就要重判，才是真的会了。</div></div></div><div class="srctpl" hidden><div class="vk">变体题 · 条件变了结论变吗</div><ul><li><b>把「更新频率」这一项反过来</b>（或换成另一个典型值）：动作还一样吗？<br><span class="vq">判据：日表每天更新；周表周一更新；月表月初 3 日内出</span></li><li><b>把「多久用一次？」这一项反过来</b>（或换成另一个典型值）：动作还一样吗？<br><span class="vq">判据：每周以上 → 保留；季度一次 → 改为季报</span></li></ul><div class="vwhy"><b>为什么做这个：</b>学生照抄答案不算会。条件一变就要重判，才是真的会了。</div></div></div></section>
+<section class="sl pts" data-i="22" data-k="pts"><h2>要点</h2><div class="bd"><div class="nk">反面案例 · 案例 · 从 60 张表到 9 张表</div><div class="nnum">某店收益经理每天看 60 张系统报表，耗时 2 小时，但决策仍靠经验。</div><div class="nend">重做：只保留 9 张（日 4 / 周 3 / 月 2），每张都加"对比基准"和"建议动作"两栏。 结果：每日读表时间降到 20 分钟，决策速度反而更快、更准。 结论：报表的目的是触发动作，不是陈列数据。</div></div></div><div class="srctpl" hidden><div class="nk">反面案例 · 案例 · 从 60 张表到 9 张表</div><div class="nnum">某店收益经理每天看 60 张系统报表，耗时 2 小时，但决策仍靠经验。</div><div class="nend">重做：只保留 9 张（日 4 / 周 3 / 月 2），每张都加"对比基准"和"建议动作"两栏。 结果：每日读表时间降到 20 分钟，决策速度反而更快、更准。 结论：报表的目的是触发动作，不是陈列数据。</div></div></div></section>
+<section class="sl sum" data-i="23" data-k="sum"><h2>本章小结</h2><div class="bd"><ol>
+<li><b>日报看动作、周报看趋势、月报看结构</b>。</li>
+<li><b>合格报表的三要素</b>：数值 ＋ 基准（预算/同期）＋ 指向动作。</li>
+<li><b>没有基准的数字无法判断高低</b>，也就无法触发动作。</li>
+<li><b>口径必须与财务统一</b>，否则分析再对也没有说服力。</li>
+<li><b>每季度清理一次报表</b>：写不出"用来做什么"的就删。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>把"本月出租率 78%"改造成合格报表（补上基准与动作）。</li>
+<li>为什么口径不统一会让收益岗失去话语权？</li>
+<li>设计你自己的"晨间 15 分钟表"，列出 5 个数字及各自的基准。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>日报看动作、周报看趋势、月报看结构</b>。</li>
+<li><b>合格报表的三要素</b>：数值 ＋ 基准（预算/同期）＋ 指向动作。</li>
+<li><b>没有基准的数字无法判断高低</b>，也就无法触发动作。</li>
+<li><b>口径必须与财务统一</b>，否则分析再对也没有说服力。</li>
+<li><b>每季度清理一次报表</b>：写不出"用来做什么"的就删。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>把"本月出租率 78%"改造成合格报表（补上基准与动作）。</li>
+<li>为什么口径不统一会让收益岗失去话语权？</li>
+<li>设计你自己的"晨间 15 分钟表"，列出 5 个数字及各自的基准。</li>
+</ol></div></div></section>
+<section class="sl end" data-i="24" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li>日报看动作：今天该调价还是该关档？——看在手、pickup、竞品、配额。</li><li>周报看趋势：未来两周的缺口在哪？——看滚动预测与需求日历。</li><li>月报看结构：量的问题还是价的问题？——看 RGI/MPI/ARI 与客源渠道结构。</li><li>日报看动作——例：看完要能说"今天关哪一档"。说不出动作的表不合格。</li><li>周报看趋势——例：未来 14 天哪几天有缺口，提前布动作。</li><li>月报看结构——例：RGI 拆成 MPI 与 ARI，定性后决定"补量还是提价"。</li><li class="fml-i">能否指向动作看完能说出"今天该做什么"→ 合格；只能"知道情况"→ 不合格</li><li class="fml-i">是否有对比基准必须有历史同期与预算两条基准线</li><li class="fml-i">是否有竞品维度没有竞品对标的表，无法判断相对位置</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 25 屏）</div><a href="#p0" data-i="0">01　报表体系：每天该看哪几张表</a><a href="#p1" data-i="1">02　本章要你做到</a><a href="#p2" data-i="2">03　情境导入</a><a href="#p3" data-i="3">04　三要点怎么用（各配一例）</a><a href="#p4" data-i="4">05　核心报表清单</a><a href="#p5" data-i="5">06　算例 · 一张好报表的三要素</a><a href="#p6" data-i="6">07　本章判定表 · 报表是否合格</a><a href="#p7" data-i="7">08　场景：季度清理报表，逐张过</a><a href="#p8" data-i="8">09　案例 · 从 60 张表到 9 张表</a><a href="#p9" data-i="9">10　案例 · 从 60 张表到 9 张表 · 结论</a><a href="#p10" data-i="10">11　案例三 · 两套数字的代价</a><a href="#p11" data-i="11">12　案例三 · 两套数字的代价 · 结论</a><a href="#p12" data-i="12">13　案例四 · 一张报表如何改变决策</a><a href="#p13" data-i="13">14　案例四 · 一张报表如何改变决策 · 结论</a><a href="#p14" data-i="14">15　常见错误（续）</a><a href="#p15" data-i="15">16　提醒</a><a href="#p16" data-i="16">17　与前后章的联系</a><a href="#p17" data-i="17">18　要点</a><a href="#p18" data-i="18">19　本章小结（5 条，可复述）</a><a href="#p19" data-i="19">20　遇到下面这些情况，直接按"动作"做</a><a href="#p20" data-i="20">21　常见场景速查</a><a href="#p21" data-i="21">22　常见场景速查</a><a href="#p22" data-i="22">23　要点</a><a href="#p23" data-i="23">24　本章小结</a><a href="#p24" data-i="24">25　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 教材对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=25, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  var st=b.style.fontSize, n=0;
+  b.style.fontSize='';
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('.rev')){ e.target.closest('.sl').classList.add('showans'); dofit(); return; }
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function dofit(){fit();}
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+  else if(k==='/'){e.preventDefault();T();}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>

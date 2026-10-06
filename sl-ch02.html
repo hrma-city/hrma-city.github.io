@@ -1,0 +1,413 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script><script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>第 2 章 三个核心指标：OCC、ADR、RevPAR · 投屏课件</title><style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='study-teach.html'">← 教师线</button>
+  <span class="pt">第一篇 · 认知篇 · 本质与衡量</span>
+  <span class="tt">第 2 章 三个核心指标：OCC、ADR、RevPAR · 投屏课件</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 28</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">第一篇 · 认知篇 · 本质与衡量</div><h1>三个核心指标：OCC、ADR、RevPAR</h1><div class="meta">第 2 章 ｜ 本质与衡量 ｜ 共 28 屏</div><div class="promise-b">读完这章你能算清：一家酒店经营得好不好，不靠感觉。</div></section>
+<section class="sl task" data-i="1" data-k="task"><h2>本章要你做到</h2><div class="bd"><div class="tk">课堂任务卡 · 第 2 章</div><div class="tsc"><b>情境：</b>100 间房，当前 OCC 60%、ADR 500，RevPAR = 300。 方案：降价到 450，预计出租率升到 70%。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>看"卖得满不满"</td><td>用 OCC，但绝不能单独用它做奖惩（会诱发低价填房）</td></tr><tr><td>看"卖得贵不贵"</td><td>用 ADR，同样不能单独用（会诱发空房死守高价）</td></tr><tr><td>看"整体经营结果"</td><td>用 RevPAR（量与价的乘积）——行业通用</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>新 RevPAR = 70% × 450 = 315 &gt; 300 → 划算。 但如果出租率只升到 64%：64% × 450 = 288 &lt; 300 → 不划算。 关键：降价是否划算，完全取决于能否换来足够的量。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden><div class="tk">课堂任务卡 · 第 2 章</div><div class="tsc"><b>情境：</b>100 间房，当前 OCC 60%、ADR 500，RevPAR = 300。 方案：降价到 450，预计出租率升到 70%。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>看"卖得满不满"</td><td>用 OCC，但绝不能单独用它做奖惩（会诱发低价填房）</td></tr><tr><td>看"卖得贵不贵"</td><td>用 ADR，同样不能单独用（会诱发空房死守高价）</td></tr><tr><td>看"整体经营结果"</td><td>用 RevPAR（量与价的乘积）——行业通用</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>新 RevPAR = 70% × 450 = 315 &gt; 300 → 划算。 但如果出租率只升到 64%：64% × 450 = 288 &lt; 300 → 不划算。 关键：降价是否划算，完全取决于能否换来足够的量。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境导入</h2><div class="bd"><div class="swho">你一定踩过的坑</div><p>月底经营会。前厅经理先报："我们这个月住得很好，出租率 85%！"销售经理接着报："我们房价守得也不错，平均 520！"两人都在报喜。</p><p>总经理却盯着报表皱眉——因为这个月收入其实比上个月少了。</p><p><b>问题出在哪？</b>出租率高说明量好，平均房价高说明价好，但两个指标各自只说了一半。上个月可能是"出租率 70%、房价 600"，这个月是"出租率 85%、房价 520"——量上去了，价下来了，<b>乘起来反而更少。</b></p></div><div class="srctpl" hidden><div class="swho">你一定踩过的坑</div><p>月底经营会。前厅经理先报："我们这个月住得很好，出租率 85%！"销售经理接着报："我们房价守得也不错，平均 520！"两人都在报喜。</p><p>总经理却盯着报表皱眉——因为这个月收入其实比上个月少了。</p><p><b>问题出在哪？</b>出租率高说明量好，平均房价高说明价好，但两个指标各自只说了一半。上个月可能是"出租率 70%、房价 600"，这个月是"出租率 85%、房价 520"——量上去了，价下来了，<b>乘起来反而更少。</b></p></div></section>
+<section class="sl story" data-i="3" data-k="story"><h2>情境导入</h2><div class="bd"><div class="swho">你一定踩过的坑</div><p>缺的是一个把量和价合在一起看的指标。这就是 RevPAR。</p></div><div class="srctpl" hidden><div class="swho">你一定踩过的坑</div><p>缺的是一个把量和价合在一起看的指标。这就是 RevPAR。</p></div></section>
+<section class="sl pts" data-i="4" data-k="pts"><h2>要点</h2><div class="bd"><ul>
+<li><b>OCC（出租率）＝已售房 ÷ 可售房</b>。它看"量"。但单独看会误导——因为它不告诉你卖多少钱。一间 100 元卖掉和 1000 元卖掉，在出租率上是完全一样的。</li>
+<li><b>ADR（平均房价）＝客房收入 ÷ 已售房</b>。它看"价"。单独看同样误导——因为它不告诉你卖了多少间。只卖 1 间 1000 元的房，ADR 是 1000，但酒店几乎是空的。</li>
+<li><b>RevPAR（每可售房收入）＝ OCC × ADR ＝客房总收入 ÷ 可售房总数</b>。它是唯一把量与价合在一起的核心指标，也是行业通用的经营结果指标。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>OCC（出租率）＝已售房 ÷ 可售房</b>。它看"量"。但单独看会误导——因为它不告诉你卖多少钱。一间 100 元卖掉和 1000 元卖掉，在出租率上是完全一样的。</li>
+<li><b>ADR（平均房价）＝客房收入 ÷ 已售房</b>。它看"价"。单独看同样误导——因为它不告诉你卖了多少间。只卖 1 间 1000 元的房，ADR 是 1000，但酒店几乎是空的。</li>
+<li><b>RevPAR（每可售房收入）＝ OCC × ADR ＝客房总收入 ÷ 可售房总数</b>。它是唯一把量与价合在一起的核心指标，也是行业通用的经营结果指标。</li>
+</ul></div></div></section>
+<section class="sl pts" data-i="5" data-k="pts"><h2>三要点怎么用（各配一例）</h2><div class="bd"><ul>
+<li><b>OCC</b>——例：100 间房卖 90 间，OCC 90%。看起来很好，但如果均价只有 150，收入远不如卖 60 间均价 400。<b>OCC 高不等于经营好。</b></li>
+<li><b>ADR</b>——例：某店只卖出去 5 间套房（单价 3,000），ADR = 3,000，看起来"超高端"，但 95 间空着。<b>ADR 高同样不等于经营好。</b></li>
+<li><b>RevPAR</b>——例：把上面两种极端合起来看，RevPAR 才能真正反映"可售房的整体产出"。<b>它同时惩罚"空置"和"贱卖"。</b></li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>OCC</b>——例：100 间房卖 90 间，OCC 90%。看起来很好，但如果均价只有 150，收入远不如卖 60 间均价 400。<b>OCC 高不等于经营好。</b></li>
+<li><b>ADR</b>——例：某店只卖出去 5 间套房（单价 3,000），ADR = 3,000，看起来"超高端"，但 95 间空着。<b>ADR 高同样不等于经营好。</b></li>
+<li><b>RevPAR</b>——例：把上面两种极端合起来看，RevPAR 才能真正反映"可售房的整体产出"。<b>它同时惩罚"空置"和"贱卖"。</b></li>
+</ul></div></div></section>
+<section class="sl fml" data-i="6" data-k="fml"><h2>核心公式</h2><div class="bd"><div class="fe">RevPAR = OCC × ADR
+       = 客房总收入 ÷ 可售房总数</div>
+<div class="ex" id="ex02"><b>算例 1：</b>100 间房，卖出 70 间，房价 400。<br>
+OCC = 70/100 = 70%；ADR = 400；<b>RevPAR = 70% × 400 = 280 元</b>。<br><br>
+<b>算例 2：</b>另一家 100 间房，卖出 60 间，房价 460。<br>
+OCC = 60%；ADR = 460；<b>RevPAR = 60% × 460 = 276 元</b>。<br>
+前者出租率高 10 个百分点，RevPAR 只高 4 元。<br><br>
+<b>算例 3（反直觉）：</b>100 间房，只卖 10 间但房价 2,800（某奢侈套房）。<br>
+OCC = 10%；ADR = 2,800；RevPAR = 280。<b>与算例 1 完全相同</b>——可见只看 ADR 会误判得多离谱。</div></div></div><div class="srctpl" hidden><div class="fn">核心公式</div><div class="fe">RevPAR = OCC × ADR
+       = 客房总收入 ÷ 可售房总数</div>
+<div class="ex" id="ex02"><b>算例 1：</b>100 间房，卖出 70 间，房价 400。<br>
+OCC = 70/100 = 70%；ADR = 400；<b>RevPAR = 70% × 400 = 280 元</b>。<br><br>
+<b>算例 2：</b>另一家 100 间房，卖出 60 间，房价 460。<br>
+OCC = 60%；ADR = 460；<b>RevPAR = 60% × 460 = 276 元</b>。<br>
+前者出租率高 10 个百分点，RevPAR 只高 4 元。<br><br>
+<b>算例 3（反直觉）：</b>100 间房，只卖 10 间但房价 2,800（某奢侈套房）。<br>
+OCC = 10%；ADR = 2,800；RevPAR = 280。<b>与算例 1 完全相同</b>——可见只看 ADR 会误判得多离谱。</div></div></div></section>
+<section class="sl fml" data-i="7" data-k="fml"><h2>算例 4 · 两种提升 RevPAR 的路径</h2><div class="bd"><div class="fe">当前：OCC 60%、ADR 500 → RevPAR 300
+路径甲（提价）：OCC 55%、ADR 560 → RevPAR 308
+路径乙（放量）：OCC 70%、ADR 470 → RevPAR 329</div>
+<div class="ex" id="ex02b">本例中<b>放量优于提价</b>——但要注意：放量通常意味着降价，会压缩利润空间。<br><b>所以 RevPAR 只是第一层判断，最终要看 GOPPAR（第 26 章）。</b><br>这也解释了为什么"冲出租率"和"守房价"之争永远没有答案——<b>要看哪个路径的利润更高，不是哪个 RevPAR 更高。</b></div></div></div><div class="srctpl" hidden><div class="fn">算例 4 · 两种提升 RevPAR 的路径</div><div class="fe">当前：OCC 60%、ADR 500 → RevPAR 300
+路径甲（提价）：OCC 55%、ADR 560 → RevPAR 308
+路径乙（放量）：OCC 70%、ADR 470 → RevPAR 329</div>
+<div class="ex" id="ex02b">本例中<b>放量优于提价</b>——但要注意：放量通常意味着降价，会压缩利润空间。<br><b>所以 RevPAR 只是第一层判断，最终要看 GOPPAR（第 26 章）。</b><br>这也解释了为什么"冲出租率"和"守房价"之争永远没有答案——<b>要看哪个路径的利润更高，不是哪个 RevPAR 更高。</b></div></div></div></section>
+<section class="sl judge" data-i="8" data-k="judge"><h2>本章判定表 · 用哪个指标评价经营</h2><div class="bd">
+<table>
+<tr><td>看"卖得满不满"</td><td>用 OCC，<b>但绝不能单独用它做奖惩</b>（会诱发低价填房）</td></tr>
+<tr><td>看"卖得贵不贵"</td><td>用 ADR，<b>同样不能单独用</b>（会诱发空房死守高价）</td></tr>
+<tr><td>看"整体经营结果"</td><td><b>用 RevPAR</b>（量与价的乘积）——行业通用</td></tr>
+<tr><td>看"赚不赚钱"</td><td>RevPAR 不够，要看 GOPPAR（第 26 章）——渠道佣金会吃掉收入</td></tr>
+<tr><td>看"相对市场"</td><td>要看 RGI（第 3 章）——市场普跌时跌得少就是赢</td></tr>
+<tr><td>降价是否划算</td><td>降 X% 价，量必须涨<b>超过</b> X% 才划算（第 4 章）</td></tr>
+<tr><td>常见错误</td><td>用"平均房价"代替"实际到手价"；用"出租率"代替"收入"</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>任何经营汇报，<b>必须同时给出 OCC、ADR、RevPAR 三个数</b>。只给其中一个，都是在回避另一半事实。</div></div></div><div class="srctpl" hidden><div class="jt">本章判定表 · 用哪个指标评价经营</div>
+<table>
+<tr><td>看"卖得满不满"</td><td>用 OCC，<b>但绝不能单独用它做奖惩</b>（会诱发低价填房）</td></tr>
+<tr><td>看"卖得贵不贵"</td><td>用 ADR，<b>同样不能单独用</b>（会诱发空房死守高价）</td></tr>
+<tr><td>看"整体经营结果"</td><td><b>用 RevPAR</b>（量与价的乘积）——行业通用</td></tr>
+<tr><td>看"赚不赚钱"</td><td>RevPAR 不够，要看 GOPPAR（第 26 章）——渠道佣金会吃掉收入</td></tr>
+<tr><td>看"相对市场"</td><td>要看 RGI（第 3 章）——市场普跌时跌得少就是赢</td></tr>
+<tr><td>降价是否划算</td><td>降 X% 价，量必须涨<b>超过</b> X% 才划算（第 4 章）</td></tr>
+<tr><td>常见错误</td><td>用"平均房价"代替"实际到手价"；用"出租率"代替"收入"</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>任何经营汇报，<b>必须同时给出 OCC、ADR、RevPAR 三个数</b>。只给其中一个，都是在回避另一半事实。</div></div></div></section>
+<section class="sl judge" data-i="9" data-k="judge"><h2>场景：月底经营会，你只有 3 分钟汇报</h2><div class="bd">
+<table>
+<tr><td>先看结果指标</td><td>报 <b>RevPAR</b>（并与预算、去年同期比）✓</td></tr>
+<tr><td>再看相对位置</td><td>报 <b>RGI</b>（市场涨跌时尤其重要）✓</td></tr>
+<tr><td>补充量与价</td><td>同时给出 OCC 与 ADR，说明变化来自哪一侧 ✓</td></tr>
+<tr><td>是否报出租率</td><td>可作参考，<b>但不得单独作为成绩</b> ✗</td></tr>
+<tr><td>是否报平均房价</td><td>同上，<b>不得单独作为成绩</b> ✗</td></tr>
+<tr><td>是否扣渠道成本</td><td>季度/年度汇报必须给出 <b>GOPPAR</b> ✓</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：三分钟汇报的标准句式是——</b>"本月 RevPAR 320，完成预算 98%，RGI 103（跑赢市场）；OCC 降 2 个点、ADR 升 4%，说明变化主要来自价格。"<br><b>一句话里同时有量、价、结果、相对位置——这才叫会看数。</b></div></div></div><div class="srctpl" hidden><div class="jt">场景：月底经营会，你只有 3 分钟汇报</div>
+<table>
+<tr><td>先看结果指标</td><td>报 <b>RevPAR</b>（并与预算、去年同期比）✓</td></tr>
+<tr><td>再看相对位置</td><td>报 <b>RGI</b>（市场涨跌时尤其重要）✓</td></tr>
+<tr><td>补充量与价</td><td>同时给出 OCC 与 ADR，说明变化来自哪一侧 ✓</td></tr>
+<tr><td>是否报出租率</td><td>可作参考，<b>但不得单独作为成绩</b> ✗</td></tr>
+<tr><td>是否报平均房价</td><td>同上，<b>不得单独作为成绩</b> ✗</td></tr>
+<tr><td>是否扣渠道成本</td><td>季度/年度汇报必须给出 <b>GOPPAR</b> ✓</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：三分钟汇报的标准句式是——</b>"本月 RevPAR 320，完成预算 98%，RGI 103（跑赢市场）；OCC 降 2 个点、ADR 升 4%，说明变化主要来自价格。"<br><b>一句话里同时有量、价、结果、相对位置——这才叫会看数。</b></div></div></div></section>
+<section class="sl case" data-i="10" data-k="case"><div class="ct">案例一 · 降价换量是否划算</div><div class="cq">100 间房，当前 OCC 60%、ADR 500，RevPAR = 300。<br>方案：降价到 450，预计出租率升到 70%。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例一 · 降价换量是否划算</div>
+<div class="num">100 间房，当前 OCC 60%、ADR 500，RevPAR = 300。<br>方案：降价到 450，预计出租率升到 70%。</div>
+<div class="end">新 RevPAR = 70% × 450 = <b>315</b> &gt; 300 → <b>划算</b>。<br>
+但如果出租率只升到 64%：64% × 450 = <b>288</b> &lt; 300 → <b>不划算</b>。<br>
+<b>关键：降价是否划算，完全取决于能否换来足够的量。</b></div></div></div></section>
+<section class="sl caseans" data-i="11" data-k="caseans"><div class="ct">案例一 · 降价换量是否划算 · 结论</div><div class="ca" style="display:block">新 RevPAR = 70% × 450 = <b>315</b> &gt; 300 → <b>划算</b>。<br>
+但如果出租率只升到 64%：64% × 450 = <b>288</b> &lt; 300 → <b>不划算</b>。<br>
+<b>关键：降价是否划算，完全取决于能否换来足够的量。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例一 · 降价换量是否划算</div>
+<div class="num">100 间房，当前 OCC 60%、ADR 500，RevPAR = 300。<br>方案：降价到 450，预计出租率升到 70%。</div>
+<div class="end">新 RevPAR = 70% × 450 = <b>315</b> &gt; 300 → <b>划算</b>。<br>
+但如果出租率只升到 64%：64% × 450 = <b>288</b> &lt; 300 → <b>不划算</b>。<br>
+<b>关键：降价是否划算，完全取决于能否换来足够的量。</b></div></div></div></section>
+<section class="sl case" data-i="12" data-k="case"><div class="ct">案例二 · 两个团队，两种考核</div><div class="cq">A 店考核前厅"出租率"，考核销售"平均房价"。B 店两个部门都考核 RevPAR。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例二 · 两个团队，两种考核</div>
+<div class="num">A 店考核前厅"出租率"，考核销售"平均房价"。B 店两个部门都考核 RevPAR。</div>
+<div class="end">A 店：前厅为冲出租率低价甩房，销售为守房价拒绝团队——<b>两个部门互相打架，公司整体受损。</b><br>
+B 店：两个部门都被迫同时考虑量与价，会主动协商"什么时候该放、什么时候该守"。<br>
+<b>结论：指标怎么设，团队就怎么干。用单一指标考核，一定会诱发扭曲行为。</b></div></div></div></section>
+<section class="sl caseans" data-i="13" data-k="caseans"><div class="ct">案例二 · 两个团队，两种考核 · 结论</div><div class="ca" style="display:block">A 店：前厅为冲出租率低价甩房，销售为守房价拒绝团队——<b>两个部门互相打架，公司整体受损。</b><br>
+B 店：两个部门都被迫同时考虑量与价，会主动协商"什么时候该放、什么时候该守"。<br>
+<b>结论：指标怎么设，团队就怎么干。用单一指标考核，一定会诱发扭曲行为。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例二 · 两个团队，两种考核</div>
+<div class="num">A 店考核前厅"出租率"，考核销售"平均房价"。B 店两个部门都考核 RevPAR。</div>
+<div class="end">A 店：前厅为冲出租率低价甩房，销售为守房价拒绝团队——<b>两个部门互相打架，公司整体受损。</b><br>
+B 店：两个部门都被迫同时考虑量与价，会主动协商"什么时候该放、什么时候该守"。<br>
+<b>结论：指标怎么设，团队就怎么干。用单一指标考核，一定会诱发扭曲行为。</b></div></div></div></section>
+<section class="sl case" data-i="14" data-k="case"><div class="ct">案例三 · 被指标误导的一次奖惩</div><div class="cq">某集团对店长考核"出租率排名"，第一名奖励。结果各店纷纷低价甩房冲量。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例三 · 被指标误导的一次奖惩</div>
+<div class="num">某集团对店长考核"出租率排名"，第一名奖励。结果各店纷纷低价甩房冲量。</div>
+<div class="end">半年后：集团整体出租率从 72% 升到 81%，但 RevPAR 反而下降 6%，利润下降更明显。<br>
+集团改为考核 RevPAR 与 GOPPAR 后，出租率回落到 76%，但利润回升。<br>
+<b>结论：你考核什么，就会得到什么。考核出租率，一定得到低价；考核利润，才能得到经营。</b></div></div></div></section>
+<section class="sl caseans" data-i="15" data-k="caseans"><div class="ct">案例三 · 被指标误导的一次奖惩 · 结论</div><div class="ca" style="display:block">半年后：集团整体出租率从 72% 升到 81%，但 RevPAR 反而下降 6%，利润下降更明显。<br>
+集团改为考核 RevPAR 与 GOPPAR 后，出租率回落到 76%，但利润回升。<br>
+<b>结论：你考核什么，就会得到什么。考核出租率，一定得到低价；考核利润，才能得到经营。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例三 · 被指标误导的一次奖惩</div>
+<div class="num">某集团对店长考核"出租率排名"，第一名奖励。结果各店纷纷低价甩房冲量。</div>
+<div class="end">半年后：集团整体出租率从 72% 升到 81%，但 RevPAR 反而下降 6%，利润下降更明显。<br>
+集团改为考核 RevPAR 与 GOPPAR 后，出租率回落到 76%，但利润回升。<br>
+<b>结论：你考核什么，就会得到什么。考核出租率，一定得到低价；考核利润，才能得到经营。</b></div></div></div></section>
+<section class="sl case" data-i="16" data-k="case"><div class="ct">案例四 · 三个指标如何一起看（含时间线）</div><div class="cq"><b>某店一个月的指标变化：</b><br>
+<b>第 1 周</b>：OCC 78%、ADR 480 → RevPAR 374。销售说"量不错"。<br>
+<b>第 2 周</b>：为冲量降价到 430 → OCC 86%、ADR 430 → RevPAR 370。销售说"住得更满了"。<br>
+<b>第 3 周</b>：收益岗介入，关掉最低两档、加 MinLOS → OCC 79%、ADR 505 → RevPAR 399。<br>
+<b>第 4 周</b>：维持策略 → OCC 80%、ADR 515 → RevPAR 412。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例四 · 三个指标如何一起看（含时间线）</div>
+<div class="num"><b>某店一个月的指标变化：</b><br>
+<b>第 1 周</b>：OCC 78%、ADR 480 → RevPAR 374。销售说"量不错"。<br>
+<b>第 2 周</b>：为冲量降价到 430 → OCC 86%、ADR 430 → RevPAR 370。销售说"住得更满了"。<br>
+<b>第 3 周</b>：收益岗介入，关掉最低两档、加 MinLOS → OCC 79%、ADR 505 → RevPAR 399。<br>
+<b>第 4 周</b>：维持策略 → OCC 80%、ADR 515 → RevPAR 412。</div>
+<div class="end">关键对比：第 2 周出租率最高（86%），但 RevPAR 反而低于第 1 周；第 3 周出租率降到 79%，RevPAR 却升到 399。<br>
+<b>结论：出租率与 RevPAR 可以反向变动。只盯出租率，会把第 2 周当成"好"，把第 3 周当成"差"——完全看反了。</b></div></div></div></section>
+<section class="sl caseans" data-i="17" data-k="caseans"><div class="ct">案例四 · 三个指标如何一起看（含时间线） · 结论</div><div class="ca" style="display:block">关键对比：第 2 周出租率最高（86%），但 RevPAR 反而低于第 1 周；第 3 周出租率降到 79%，RevPAR 却升到 399。<br>
+<b>结论：出租率与 RevPAR 可以反向变动。只盯出租率，会把第 2 周当成"好"，把第 3 周当成"差"——完全看反了。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例四 · 三个指标如何一起看（含时间线）</div>
+<div class="num"><b>某店一个月的指标变化：</b><br>
+<b>第 1 周</b>：OCC 78%、ADR 480 → RevPAR 374。销售说"量不错"。<br>
+<b>第 2 周</b>：为冲量降价到 430 → OCC 86%、ADR 430 → RevPAR 370。销售说"住得更满了"。<br>
+<b>第 3 周</b>：收益岗介入，关掉最低两档、加 MinLOS → OCC 79%、ADR 505 → RevPAR 399。<br>
+<b>第 4 周</b>：维持策略 → OCC 80%、ADR 515 → RevPAR 412。</div>
+<div class="end">关键对比：第 2 周出租率最高（86%），但 RevPAR 反而低于第 1 周；第 3 周出租率降到 79%，RevPAR 却升到 399。<br>
+<b>结论：出租率与 RevPAR 可以反向变动。只盯出租率，会把第 2 周当成"好"，把第 3 周当成"差"——完全看反了。</b></div></div></div></section>
+<section class="sl pts" data-i="18" data-k="pts"><h2>常见错误（续）</h2><div class="bd"><ul>
+<li><b>把 ADR 当成"卖价"</b>。ADR 是所有已售房的平均，包含团队价、协议价，不等于挂牌价。</li>
+<li><b>忽略"可售房"口径</b>。装修房、自用房、免费房是否计入可售房，会直接改变 OCC 与 RevPAR，必须与财务统一口径。</li>
+<li><b>用 RevPAR 代替利润</b>。RevPAR 高但渠道佣金高，利润可能更低（第 26 章）。</li>
+</ul></div><ul>
+<li><b>拿不同口径的 OCC 互相比较</b>——有的店把维修房计入可售房，有的不计，直接比会得出错误结论。</li>
+<li><b>忽略"免费房/自用房"的处理</b>——它们是否计入可售房与收入，要全店统一。</li>
+</ul></div><ul>
+<li><b>往上（第 1 章）</b>：RevPAR 就是第 1 章"收入最大化"目标的量化形式。</li>
+<li><b>往下（第 3 章）</b>：RevPAR 是绝对值，要判断好坏还得看相对市场——RGI。</li>
+<li><b>往下（第 26 章）</b>：RevPAR 不扣成本，真正的经营指标是 GOPPAR。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>把 ADR 当成"卖价"</b>。ADR 是所有已售房的平均，包含团队价、协议价，不等于挂牌价。</li>
+<li><b>忽略"可售房"口径</b>。装修房、自用房、免费房是否计入可售房，会直接改变 OCC 与 RevPAR，必须与财务统一口径。</li>
+<li><b>用 RevPAR 代替利润</b>。RevPAR 高但渠道佣金高，利润可能更低（第 26 章）。</li>
+</ul></div><ul>
+<li><b>拿不同口径的 OCC 互相比较</b>——有的店把维修房计入可售房，有的不计，直接比会得出错误结论。</li>
+<li><b>忽略"免费房/自用房"的处理</b>——它们是否计入可售房与收入，要全店统一。</li>
+</ul></div><ul>
+<li><b>往上（第 1 章）</b>：RevPAR 就是第 1 章"收入最大化"目标的量化形式。</li>
+<li><b>往下（第 3 章）</b>：RevPAR 是绝对值，要判断好坏还得看相对市场——RGI。</li>
+<li><b>往下（第 26 章）</b>：RevPAR 不扣成本，真正的经营指标是 GOPPAR。</li>
+</ul></div></div></section>
+<section class="sl tip" data-i="19" data-k="tip"><h2>提醒</h2><div class="bd"><b>自学者提示：</b>记住一个速判法——<b>降价 X% 后，出租率必须提升超过 X% 才划得来</b>。降 10% 价，量要涨 10% 以上（严格说是 11.1%）。<br>
+练习方法：随便找一家酒店，用"房价 × 出租率"心算它的 RevPAR，再和上个月比——你会发现自己开始像收益经理一样思考了。</div></div><div class="srctpl" hidden><b>自学者提示：</b>记住一个速判法——<b>降价 X% 后，出租率必须提升超过 X% 才划得来</b>。降 10% 价，量要涨 10% 以上（严格说是 11.1%）。<br>
+练习方法：随便找一家酒店，用"房价 × 出租率"心算它的 RevPAR，再和上个月比——你会发现自己开始像收益经理一样思考了。</div></div></section>
+<section class="sl note" data-i="20" data-k="note"><h2>与前后章的联系</h2><div class="bd"><div class="et">练习</div><ol>
+<li>120 间房卖 84 间，房价 380，求 OCC、ADR、RevPAR。</li>
+<li>RevPAR 320、ADR 400，求出租率。</li>
+<li>房价从 500 降到 450（降 10%），出租率要升到多少才能保住原 RevPAR？</li>
+<li>A 店 OCC 80%/ADR 400，B 店 OCC 60%/ADR 550，哪家 RevPAR 高？</li>
+<li>为什么不能用"出租率"单独考核前厅？</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习</div><ol>
+<li>120 间房卖 84 间，房价 380，求 OCC、ADR、RevPAR。</li>
+<li>RevPAR 320、ADR 400，求出租率。</li>
+<li>房价从 500 降到 450（降 10%），出租率要升到多少才能保住原 RevPAR？</li>
+<li>A 店 OCC 80%/ADR 400，B 店 OCC 60%/ADR 550，哪家 RevPAR 高？</li>
+<li>为什么不能用"出租率"单独考核前厅？</li>
+</ol></div></div></section>
+<section class="sl pts" data-i="21" data-k="pts"><h2>要点</h2><div class="bd"><ol>
+<li><b>三个指标</b>：OCC（量）、ADR（价）、RevPAR（量×价）。</li>
+<li><b>单独看会误导</b>：OCC 高可能是低价换来的，ADR 高可能是空房撑的。</li>
+<li><b>核心是 RevPAR</b>＝客房收入 ÷ 可售房数，同时惩罚"空置"与"贱卖"。</li>
+<li><b>降价速判</b>：降 X% 价，量必须涨超过 X% 才划算（10%→11.1%，20%→25%，30%→42.9%）。</li>
+<li><b>再上一层</b>：RevPAR 之上是 GOPPAR（第 26 章），因为它不扣成本与佣金。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>三个指标</b>：OCC（量）、ADR（价）、RevPAR（量×价）。</li>
+<li><b>单独看会误导</b>：OCC 高可能是低价换来的，ADR 高可能是空房撑的。</li>
+<li><b>核心是 RevPAR</b>＝客房收入 ÷ 可售房数，同时惩罚"空置"与"贱卖"。</li>
+<li><b>降价速判</b>：降 X% 价，量必须涨超过 X% 才划算（10%→11.1%，20%→25%，30%→42.9%）。</li>
+<li><b>再上一层</b>：RevPAR 之上是 GOPPAR（第 26 章），因为它不扣成本与佣金。</li>
+</ol></div></div></section>
+<section class="sl note" data-i="22" data-k="note"><h2>本章小结（5 条，可复述）</h2><div class="bd"><div class="et">练习（进阶）</div><ol start="6">
+<li>某店上月 OCC 82%/ADR 450，本月 OCC 76%/ADR 510。哪个月经营更好？好多少？</li>
+<li>为什么"考核出租率"一定会诱发低价甩房？用本章公式说明。</li>
+<li>房价 600，若降到 540，出租率至少要升到多少才能保住原 RevPAR？（原 65%）</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习（进阶）</div><ol start="6">
+<li>某店上月 OCC 82%/ADR 450，本月 OCC 76%/ADR 510。哪个月经营更好？好多少？</li>
+<li>为什么"考核出租率"一定会诱发低价甩房？用本章公式说明。</li>
+<li>房价 600，若降到 540，出租率至少要升到多少才能保住原 RevPAR？（原 65%）</li>
+</ol></div></div></section>
+<section class="sl judge" data-i="23" data-k="judge"><h2>遇到下面这些情况，直接按"动作"做</h2><div class="bd">
+<table>
+<tr><td>要汇报本月经营</td><td>必报 <b>RevPAR + RGI</b>，并同时给出 OCC 与 ADR 说明变化来自哪一侧</td></tr>
+<tr><td>出租率很高但收入不高</td><td>算 RevPAR，多半是<b>房价太低</b>；查渠道结构（第 13 章）</td></tr>
+<tr><td>房价很高但收入不高</td><td>算 RevPAR，多半是<b>出租率太低</b>；查渠道曝光与竞品（第 3、24 章）</td></tr>
+<tr><td>有人提议降价冲量</td><td>先算<b>临界量</b>：降 X% 需量涨超 X%（10%→11.1%）</td></tr>
+<tr><td>要定明年目标</td><td>不能用"今年+10%"，要<b>按月指数拆到日</b>（第 21 章）</td></tr>
+</table></div></div><div class="srctpl" hidden><div class="jt">遇到下面这些情况，直接按"动作"做</div>
+<table>
+<tr><td>要汇报本月经营</td><td>必报 <b>RevPAR + RGI</b>，并同时给出 OCC 与 ADR 说明变化来自哪一侧</td></tr>
+<tr><td>出租率很高但收入不高</td><td>算 RevPAR，多半是<b>房价太低</b>；查渠道结构（第 13 章）</td></tr>
+<tr><td>房价很高但收入不高</td><td>算 RevPAR，多半是<b>出租率太低</b>；查渠道曝光与竞品（第 3、24 章）</td></tr>
+<tr><td>有人提议降价冲量</td><td>先算<b>临界量</b>：降 X% 需量涨超 X%（10%→11.1%）</td></tr>
+<tr><td>要定明年目标</td><td>不能用"今年+10%"，要<b>按月指数拆到日</b>（第 21 章）</td></tr>
+</table></div></div></section>
+<section class="sl note" data-i="24" data-k="note"><h2>常见场景速查</h2><div class="bd">第一篇 · 认知篇 ｜ 本质与衡量 ｜ 第 3 章</div><div class="tk">课堂任务卡 · 第 2 章</div><div class="tsc"><b>情境：</b>100 间房，当前 OCC 60%、ADR 500，RevPAR = 300。 方案：降价到 450，预计出租率升到 70%。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>看"卖得满不满"</td><td>用 OCC，但绝不能单独用它做奖惩（会诱发低价填房）</td></tr><tr><td>看"卖得贵不贵"</td><td>用 ADR，同样不能单独用（会诱发空房死守高价）</td></tr><tr><td>看"整体经营结果"</td><td>用 RevPAR（量与价的乘积）——行业通用</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>新 RevPAR = 70% × 450 = 315 &gt; 300 → 划算。 但如果出租率只升到 64%：64% × 450 = 288 &lt; 300 → 不划算。 关键：降价是否划算，完全取决于能否换来足够的量。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden>第一篇 · 认知篇 ｜ 本质与衡量 ｜ 第 3 章</div><div class="tk">课堂任务卡 · 第 2 章</div><div class="tsc"><b>情境：</b>100 间房，当前 OCC 60%、ADR 500，RevPAR = 300。 方案：降价到 450，预计出租率升到 70%。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>看"卖得满不满"</td><td>用 OCC，但绝不能单独用它做奖惩（会诱发低价填房）</td></tr><tr><td>看"卖得贵不贵"</td><td>用 ADR，同样不能单独用（会诱发空房死守高价）</td></tr><tr><td>看"整体经营结果"</td><td>用 RevPAR（量与价的乘积）——行业通用</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>新 RevPAR = 70% × 450 = 315 &gt; 300 → 划算。 但如果出租率只升到 64%：64% × 450 = 288 &lt; 300 → 不划算。 关键：降价是否划算，完全取决于能否换来足够的量。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl pts" data-i="25" data-k="pts"><h2>要点</h2><div class="bd"><div class="nk">反面案例 · 案例三 · 被指标误导的一次奖惩</div><div class="nnum">某集团对店长考核"出租率排名"，第一名奖励。结果各店纷纷低价甩房冲量。</div><div class="nend">半年后：集团整体出租率从 72% 升到 81%，但 RevPAR 反而下降 6%，利润下降更明显。 集团改为考核 RevPAR 与 GOPPAR 后，出租率回落到 76%，但利润回升。 结论：你考核什么，就会得到什么。考核出租率，一定得到低价；考核利润，才能得到经营。</div></div></div><div class="srctpl" hidden><div class="nk">反面案例 · 案例三 · 被指标误导的一次奖惩</div><div class="nnum">某集团对店长考核"出租率排名"，第一名奖励。结果各店纷纷低价甩房冲量。</div><div class="nend">半年后：集团整体出租率从 72% 升到 81%，但 RevPAR 反而下降 6%，利润下降更明显。 集团改为考核 RevPAR 与 GOPPAR 后，出租率回落到 76%，但利润回升。 结论：你考核什么，就会得到什么。考核出租率，一定得到低价；考核利润，才能得到经营。</div></div></div></section>
+<section class="sl sum" data-i="26" data-k="sum"><h2>本章小结</h2><div class="bd"><ol>
+<li><b>三个指标</b>：OCC（量）、ADR（价）、RevPAR（量×价）。</li>
+<li><b>单独看会误导</b>：OCC 高可能是低价换来的，ADR 高可能是空房撑的。</li>
+<li><b>核心是 RevPAR</b>＝客房收入 ÷ 可售房数，同时惩罚"空置"与"贱卖"。</li>
+<li><b>降价速判</b>：降 X% 价，量必须涨超过 X% 才划算（10%→11.1%，20%→25%，30%→42.9%）。</li>
+<li><b>再上一层</b>：RevPAR 之上是 GOPPAR（第 26 章），因为它不扣成本与佣金。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>某店上月 OCC 82%/ADR 450，本月 OCC 76%/ADR 510。哪个月经营更好？好多少？</li>
+<li>为什么"考核出租率"一定会诱发低价甩房？用本章公式说明。</li>
+<li>房价 600，若降到 540，出租率至少要升到多少才能保住原 RevPAR？（原 65%）</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>三个指标</b>：OCC（量）、ADR（价）、RevPAR（量×价）。</li>
+<li><b>单独看会误导</b>：OCC 高可能是低价换来的，ADR 高可能是空房撑的。</li>
+<li><b>核心是 RevPAR</b>＝客房收入 ÷ 可售房数，同时惩罚"空置"与"贱卖"。</li>
+<li><b>降价速判</b>：降 X% 价，量必须涨超过 X% 才划算（10%→11.1%，20%→25%，30%→42.9%）。</li>
+<li><b>再上一层</b>：RevPAR 之上是 GOPPAR（第 26 章），因为它不扣成本与佣金。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>某店上月 OCC 82%/ADR 450，本月 OCC 76%/ADR 510。哪个月经营更好？好多少？</li>
+<li>为什么"考核出租率"一定会诱发低价甩房？用本章公式说明。</li>
+<li>房价 600，若降到 540，出租率至少要升到多少才能保住原 RevPAR？（原 65%）</li>
+</ol></div></div></section>
+<section class="sl end" data-i="27" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li class="fml-i"><b>核心公式</b><br>RevPAR = OCC × ADR = 客房总收入 ÷ 可售房总数</li><li class="fml-i"><b>算例 4 · 两种提升 RevPAR 的路径</b><br>当前：OCC 60%、ADR 500 → RevPAR 300 路径甲（提价）：OCC 55%、ADR 560 → RevPAR 308 路径乙（放量）：OCC 70%、ADR 470 → RevPAR 329</li><li class="fml-i">看"卖得满不满"用 OCC，但绝不能单独用它做奖惩（会诱发低价填房）</li><li class="fml-i">看"卖得贵不贵"用 ADR，同样不能单独用（会诱发空房死守高价）</li><li class="fml-i">看"整体经营结果"用 RevPAR（量与价的乘积）——行业通用</li><li class="fml-i">看"赚不赚钱"RevPAR 不够，要看 GOPPAR（第 26 章）——渠道佣金会吃掉收入</li><li class="fml-i">先看结果指标报 RevPAR（并与预算、去年同期比）✓</li><li class="fml-i">再看相对位置报 RGI（市场涨跌时尤其重要）✓</li><li class="fml-i">补充量与价同时给出 OCC 与 ADR，说明变化来自哪一侧 ✓</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 28 屏）</div><a href="#p0" data-i="0">01　三个核心指标：OCC、ADR、RevPAR</a><a href="#p1" data-i="1">02　本章要你做到</a><a href="#p2" data-i="2">03　情境导入</a><a href="#p3" data-i="3">04　情境导入</a><a href="#p4" data-i="4">05　要点</a><a href="#p5" data-i="5">06　三要点怎么用（各配一例）</a><a href="#p6" data-i="6">07　核心公式</a><a href="#p7" data-i="7">08　算例 4 · 两种提升 RevPAR 的路径</a><a href="#p8" data-i="8">09　本章判定表 · 用哪个指标评价经营</a><a href="#p9" data-i="9">10　场景：月底经营会，你只有 3 分钟汇报</a><a href="#p10" data-i="10">11　案例一 · 降价换量是否划算</a><a href="#p11" data-i="11">12　案例一 · 降价换量是否划算 · 结论</a><a href="#p12" data-i="12">13　案例二 · 两个团队，两种考核</a><a href="#p13" data-i="13">14　案例二 · 两个团队，两种考核 · 结论</a><a href="#p14" data-i="14">15　案例三 · 被指标误导的一次奖惩</a><a href="#p15" data-i="15">16　案例三 · 被指标误导的一次奖惩 · 结论</a><a href="#p16" data-i="16">17　案例四 · 三个指标如何一起看（含时间线）</a><a href="#p17" data-i="17">18　案例四 · 三个指标如何一起看（含时间线） · 结论</a><a href="#p18" data-i="18">19　常见错误（续）</a><a href="#p19" data-i="19">20　提醒</a><a href="#p20" data-i="20">21　与前后章的联系</a><a href="#p21" data-i="21">22　要点</a><a href="#p22" data-i="22">23　本章小结（5 条，可复述）</a><a href="#p23" data-i="23">24　遇到下面这些情况，直接按"动作"做</a><a href="#p24" data-i="24">25　常见场景速查</a><a href="#p25" data-i="25">26　要点</a><a href="#p26" data-i="26">27　本章小结</a><a href="#p27" data-i="27">28　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 教材对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=28, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  var st=b.style.fontSize, n=0;
+  b.style.fontSize='';
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('.rev')){ e.target.closest('.sl').classList.add('showans'); dofit(); return; }
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function dofit(){fit();}
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+  else if(k==='/'){e.preventDefault();T();}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>

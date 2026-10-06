@@ -1,0 +1,431 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script><script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>第 12 章 库存分配与保护位：给谁留多少房 · 投屏课件</title><style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='study-teach.html'">← 教师线</button>
+  <span class="pt">第二篇 · 决策篇 · 模块 B · 库存决策</span>
+  <span class="tt">第 12 章 库存分配与保护位：给谁留多少房 · 投屏课件</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 26</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">第二篇 · 决策篇 · 模块 B · 库存决策</div><h1>库存分配与保护位：给谁留多少房</h1><div class="meta">第 12 章 ｜ 模块 B · 库存决策 ｜ 共 26 屏</div><div class="promise-b">读完这章你能算出：低价该放多少间，高价该保护多少间——这是全书最核心的一章。</div></section>
+<section class="sl task" data-i="1" data-k="task"><h2>本章要你做到</h2><div class="bd"><div class="tk">课堂任务卡 · 第 12 章</div><div class="tsc"><b>情境：</b>某日剩 20 间，保护位设 15 间给高价。到 D-1，高价只来了 4 间，低价档一直关着。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>高价需求期望</td><td>由预测给出（第 20 章）；需求强 → 保护位高</td></tr><tr><td>需求不确定性</td><td>越不确定，保护位应略保守（留余地）</td></tr><tr><td>剩余天数</td><td>临近入住且高价需求未出现 → 逐步释放保护位，别死守</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>结果当天只卖 4 间，空 16 间。 错误在于保护位没有随时间释放。正确做法：从 D-7 开始，每天按实际 pickup 修正保护位；到 D-2 若高价仍远低于预测，应把保护位降到 5–8 间并放开低价。 保护位是动态值，不是一次性决策。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden><div class="tk">课堂任务卡 · 第 12 章</div><div class="tsc"><b>情境：</b>某日剩 20 间，保护位设 15 间给高价。到 D-1，高价只来了 4 间，低价档一直关着。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>高价需求期望</td><td>由预测给出（第 20 章）；需求强 → 保护位高</td></tr><tr><td>需求不确定性</td><td>越不确定，保护位应略保守（留余地）</td></tr><tr><td>剩余天数</td><td>临近入住且高价需求未出现 → 逐步释放保护位，别死守</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>结果当天只卖 4 间，空 16 间。 错误在于保护位没有随时间释放。正确做法：从 D-7 开始，每天按实际 pickup 修正保护位；到 D-2 若高价仍远低于预测，应把保护位降到 5–8 间并放开低价。 保护位是动态值，不是一次性决策。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境导入</h2><div class="bd"><div class="swho">你一定踩过的坑</div><p>旺季某日剩 30 间。销售问："低价档还能放吗？"经理说："先卖掉再说。"</p><p>结果两小时内低价档卖光，下午来的商务客一间房都没有了。</p><p><b>问题在于：库存不是"先到先得"，而应该"按价值分配"。</b></p><p>这里的关键概念是<b>保护位</b>——给高价客源预留的房量，低价档不能动。理解了保护位，你就理解了收益管理最核心的机制。</p><p>而保护位背后的判据，正是第 1 章那句话的量化形式：<b>低价 ≥ 机会成本，才卖。</b></p></div><div class="srctpl" hidden><div class="swho">你一定踩过的坑</div><p>旺季某日剩 30 间。销售问："低价档还能放吗？"经理说："先卖掉再说。"</p><p>结果两小时内低价档卖光，下午来的商务客一间房都没有了。</p><p><b>问题在于：库存不是"先到先得"，而应该"按价值分配"。</b></p><p>这里的关键概念是<b>保护位</b>——给高价客源预留的房量，低价档不能动。理解了保护位，你就理解了收益管理最核心的机制。</p><p>而保护位背后的判据，正是第 1 章那句话的量化形式：<b>低价 ≥ 机会成本，才卖。</b></p></div></section>
+<section class="sl pts" data-i="3" data-k="pts"><h2>三要点怎么用（各配一例）</h2><div class="bd"><ul>
+<li><b>保护位（protection level）</b>：给高价客源保留的房量，低价档不能动。它是"留给未来"的那部分。</li>
+<li><b>低价售卖上限 ＝ 可用房 − 保护位</b>。这就是库存分配的核心算式，也是本章最常用的一句话。</li>
+<li><b>保护位由预测决定，且必须动态调整</b>：预计高价需求越多越确定，保护位越高；临近时若高价需求没来，就要<b>逐步释放</b>。</li>
+</ul></div><ul>
+<li><b>保护位</b>——例：剩 30 间，预计高价客会要 18 间 → 保护 18 间，低价最多卖 12 间。</li>
+<li><b>售卖上限</b>——例：低价档卖了 12 间后<b>立即关闭</b>，即使系统显示还有 18 间可售。<b>这是最需要纪律的一步。</b></li>
+<li><b>动态释放</b>——例：到 D-2 高价客只订了 6 间（预测 18 间）→ 保护位降到 8 间，放开低价填量。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>保护位（protection level）</b>：给高价客源保留的房量，低价档不能动。它是"留给未来"的那部分。</li>
+<li><b>低价售卖上限 ＝ 可用房 − 保护位</b>。这就是库存分配的核心算式，也是本章最常用的一句话。</li>
+<li><b>保护位由预测决定，且必须动态调整</b>：预计高价需求越多越确定，保护位越高；临近时若高价需求没来，就要<b>逐步释放</b>。</li>
+</ul></div><ul>
+<li><b>保护位</b>——例：剩 30 间，预计高价客会要 18 间 → 保护 18 间，低价最多卖 12 间。</li>
+<li><b>售卖上限</b>——例：低价档卖了 12 间后<b>立即关闭</b>，即使系统显示还有 18 间可售。<b>这是最需要纪律的一步。</b></li>
+<li><b>动态释放</b>——例：到 D-2 高价客只订了 6 间（预测 18 间）→ 保护位降到 8 间，放开低价填量。</li>
+</ul></div></div></section>
+<section class="sl fml" data-i="4" data-k="fml"><h2>核心公式（Littlewood 判据简化版）</h2><div class="bd"><div class="fe">接受一个低价预订，当且仅当：
+    低价 ≥ 高价 × P(高价需求会来)
+保护位 ≈ 高价客源的期望需求（按预测分布）
+低价售卖上限 = 可用房 − 保护位</div>
+<div class="ex" id="ex12"><b>算例 1（基础）：</b>剩 30 间。低价 400，高价 700，历史显示高价需求期望 18 间。<br>
+保护位 = 18 间 → 低价售卖上限 = 30 − 18 = <b>12 间</b>。<br>
+若低价已卖 12 间 → <b>关闭低价档</b>（即使还有 18 间空房）。<br>
+<b>注意：此时"空着"不是浪费，是在等高价客。</b><br><br>
+<b>算例 2（概率的影响）：</b>若高价需求只有 50% 概率出现（期望 9 间）：<br>
+判据：400 ≥ 700 × 50% = 350 → <b>成立，可以卖低价</b>。<br>
+若概率升到 70%：700 × 70% = 490 &gt; 400 → <b>不该卖低价，应保护。</b><br>
+<b>这就是"机会成本"的量化——高价出现的概率越高，越该保护。</b></div></div></div><div class="srctpl" hidden><div class="fn">核心公式（Littlewood 判据简化版）</div><div class="fe">接受一个低价预订，当且仅当：
+    低价 ≥ 高价 × P(高价需求会来)
+保护位 ≈ 高价客源的期望需求（按预测分布）
+低价售卖上限 = 可用房 − 保护位</div>
+<div class="ex" id="ex12"><b>算例 1（基础）：</b>剩 30 间。低价 400，高价 700，历史显示高价需求期望 18 间。<br>
+保护位 = 18 间 → 低价售卖上限 = 30 − 18 = <b>12 间</b>。<br>
+若低价已卖 12 间 → <b>关闭低价档</b>（即使还有 18 间空房）。<br>
+<b>注意：此时"空着"不是浪费，是在等高价客。</b><br><br>
+<b>算例 2（概率的影响）：</b>若高价需求只有 50% 概率出现（期望 9 间）：<br>
+判据：400 ≥ 700 × 50% = 350 → <b>成立，可以卖低价</b>。<br>
+若概率升到 70%：700 × 70% = 490 &gt; 400 → <b>不该卖低价，应保护。</b><br>
+<b>这就是"机会成本"的量化——高价出现的概率越高，越该保护。</b></div></div></div></section>
+<section class="sl fml" data-i="5" data-k="fml"><h2>算例 3 · 保护位随时间的释放</h2><div class="bd"><div class="fe">剩 30 间，高价 700、低价 400，高价期望需求 18 间
+D-7 ：保护位 18 → 低价上限 12
+D-4 ：高价实订 7，剩余期望 ~11 → 保护位降到 12 → 上限 18
+D-2 ：高价实订 9，明显低于预测 → 保护位降到 8 → 上限 22
+D-1 ：高价实订 10 → 保护位降到 5 → 基本放开</div>
+<div class="ex" id="ex12b"><b>核心：保护位随时间递减，而不是一成不变。</b><br>若 D-1 仍死守 18 间，就会像案例一那样大量空房。<br><b>判断依据始终是"剩余期望需求"，而不是最初设的那个数。</b></div></div></div><div class="srctpl" hidden><div class="fn">算例 3 · 保护位随时间的释放</div><div class="fe">剩 30 间，高价 700、低价 400，高价期望需求 18 间
+D-7 ：保护位 18 → 低价上限 12
+D-4 ：高价实订 7，剩余期望 ~11 → 保护位降到 12 → 上限 18
+D-2 ：高价实订 9，明显低于预测 → 保护位降到 8 → 上限 22
+D-1 ：高价实订 10 → 保护位降到 5 → 基本放开</div>
+<div class="ex" id="ex12b"><b>核心：保护位随时间递减，而不是一成不变。</b><br>若 D-1 仍死守 18 间，就会像案例一那样大量空房。<br><b>判断依据始终是"剩余期望需求"，而不是最初设的那个数。</b></div></div></div></section>
+<section class="sl judge" data-i="6" data-k="judge"><h2>本章判定表 · 保护位怎么定与怎么放</h2><div class="bd">
+<table>
+<tr><td>高价需求期望</td><td>由预测给出（第 20 章）；需求强 → 保护位高</td></tr>
+<tr><td>需求不确定性</td><td>越不确定，保护位应略保守（留余地）</td></tr>
+<tr><td>剩余天数</td><td>临近入住且高价需求未出现 → <b>逐步释放保护位</b>，别死守</td></tr>
+<tr><td>价差大小</td><td>高低价差越大 → 越该保护（等高价更值）</td></tr>
+<tr><td>动态调整频率</td><td><b>每天按 pickup 重算</b>，不是一次定死</td></tr>
+<tr><td>释放机制</td><td>D-3 起若高价需求明显不足 → 放开低价填量</td></tr>
+<tr><td>配合工具</td><td>关低价档（可得性）是执行保护位的主要手段</td></tr>
+<tr><td>红线</td><td>不得让低价客挤占已设的保护位；不得"先卖再说"</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>每天问三个数：<b>高价期望需求多少？已卖多少低价？剩余几天？</b>三个数决定保护位要不要动。</div></div></div><div class="srctpl" hidden><div class="jt">本章判定表 · 保护位怎么定与怎么放</div>
+<table>
+<tr><td>高价需求期望</td><td>由预测给出（第 20 章）；需求强 → 保护位高</td></tr>
+<tr><td>需求不确定性</td><td>越不确定，保护位应略保守（留余地）</td></tr>
+<tr><td>剩余天数</td><td>临近入住且高价需求未出现 → <b>逐步释放保护位</b>，别死守</td></tr>
+<tr><td>价差大小</td><td>高低价差越大 → 越该保护（等高价更值）</td></tr>
+<tr><td>动态调整频率</td><td><b>每天按 pickup 重算</b>，不是一次定死</td></tr>
+<tr><td>释放机制</td><td>D-3 起若高价需求明显不足 → 放开低价填量</td></tr>
+<tr><td>配合工具</td><td>关低价档（可得性）是执行保护位的主要手段</td></tr>
+<tr><td>红线</td><td>不得让低价客挤占已设的保护位；不得"先卖再说"</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>每天问三个数：<b>高价期望需求多少？已卖多少低价？剩余几天？</b>三个数决定保护位要不要动。</div></div></div></section>
+<section class="sl judge" data-i="7" data-k="judge"><h2>场景：距入住 5 天，剩 28 间，低价档已卖 9 间</h2><div class="bd">
+<table>
+<tr><td>高价期望需求</td><td>历史同期高价需求约 15 间 → 保护位 15</td></tr>
+<tr><td>可用房</td><td>28 间 → 低价上限 = 28 − 15 = <b>13 间</b></td></tr>
+<tr><td>已卖低价</td><td>9 间 → 还可卖 <b>4 间</b>（13 − 9）</td></tr>
+<tr><td>剩余天数</td><td>5 天 → 尚未进入集中释放期</td></tr>
+<tr><td>价差大小</td><td>700 vs 400，价差 300 → <b>值得保护</b></td></tr>
+<tr><td>动作</td><td>低价档再开放 4 间即关闭</td></tr>
+<tr><td>明日复查</td><td>按新的高价实订数重算保护位（不是沿用 15）</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：低价档只再放 4 间就关。</b><br><b>关键：这个"13"是今天算出来的，明天要重算</b>——若明天高价实订已达 12，保护位应降到 10，低价上限升到 18。</div></div></div><div class="srctpl" hidden><div class="jt">场景：距入住 5 天，剩 28 间，低价档已卖 9 间</div>
+<table>
+<tr><td>高价期望需求</td><td>历史同期高价需求约 15 间 → 保护位 15</td></tr>
+<tr><td>可用房</td><td>28 间 → 低价上限 = 28 − 15 = <b>13 间</b></td></tr>
+<tr><td>已卖低价</td><td>9 间 → 还可卖 <b>4 间</b>（13 − 9）</td></tr>
+<tr><td>剩余天数</td><td>5 天 → 尚未进入集中释放期</td></tr>
+<tr><td>价差大小</td><td>700 vs 400，价差 300 → <b>值得保护</b></td></tr>
+<tr><td>动作</td><td>低价档再开放 4 间即关闭</td></tr>
+<tr><td>明日复查</td><td>按新的高价实订数重算保护位（不是沿用 15）</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：低价档只再放 4 间就关。</b><br><b>关键：这个"13"是今天算出来的，明天要重算</b>——若明天高价实订已达 12，保护位应降到 10，低价上限升到 18。</div></div></div></section>
+<section class="sl case" data-i="8" data-k="case"><div class="ct">案例一 · 死守保护位的代价</div><div class="cq">某日剩 20 间，保护位设 15 间给高价。到 D-1，高价只来了 4 间，低价档一直关着。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例一 · 死守保护位的代价</div>
+<div class="num">某日剩 20 间，保护位设 15 间给高价。到 D-1，高价只来了 4 间，低价档一直关着。</div>
+<div class="end">结果当天只卖 4 间，空 16 间。<br>
+<b>错误在于保护位没有随时间释放。</b>正确做法：从 D-7 开始，每天按实际 pickup 修正保护位；到 D-2 若高价仍远低于预测，应把保护位降到 5–8 间并放开低价。<br>
+<b>保护位是动态值，不是一次性决策。</b></div></div></div></section>
+<section class="sl caseans" data-i="9" data-k="caseans"><div class="ct">案例一 · 死守保护位的代价 · 结论</div><div class="ca" style="display:block">结果当天只卖 4 间，空 16 间。<br>
+<b>错误在于保护位没有随时间释放。</b>正确做法：从 D-7 开始，每天按实际 pickup 修正保护位；到 D-2 若高价仍远低于预测，应把保护位降到 5–8 间并放开低价。<br>
+<b>保护位是动态值，不是一次性决策。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例一 · 死守保护位的代价</div>
+<div class="num">某日剩 20 间，保护位设 15 间给高价。到 D-1，高价只来了 4 间，低价档一直关着。</div>
+<div class="end">结果当天只卖 4 间，空 16 间。<br>
+<b>错误在于保护位没有随时间释放。</b>正确做法：从 D-7 开始，每天按实际 pickup 修正保护位；到 D-2 若高价仍远低于预测，应把保护位降到 5–8 间并放开低价。<br>
+<b>保护位是动态值，不是一次性决策。</b></div></div></div></section>
+<section class="sl case" data-i="10" data-k="case"><div class="ct">案例二 · 保护位带来的收益</div><div class="cq">某店旺季周末，以前"先到先得"。改为设保护位后：低价档卖到上限即关闭。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例二 · 保护位带来的收益</div>
+<div class="num">某店旺季周末，以前"先到先得"。改为设保护位后：低价档卖到上限即关闭。</div>
+<div class="end">第一个月：低价间夜减少 18%，但高价间夜增加 12%，<b>RevPAR 提升 7%</b>。<br>
+<b>结论：少卖一些低价房，换来的高价房收入更多——这就是保护位的全部意义。</b></div></div></div></section>
+<section class="sl caseans" data-i="11" data-k="caseans"><div class="ct">案例二 · 保护位带来的收益 · 结论</div><div class="ca" style="display:block">第一个月：低价间夜减少 18%，但高价间夜增加 12%，<b>RevPAR 提升 7%</b>。<br>
+<b>结论：少卖一些低价房，换来的高价房收入更多——这就是保护位的全部意义。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例二 · 保护位带来的收益</div>
+<div class="num">某店旺季周末，以前"先到先得"。改为设保护位后：低价档卖到上限即关闭。</div>
+<div class="end">第一个月：低价间夜减少 18%，但高价间夜增加 12%，<b>RevPAR 提升 7%</b>。<br>
+<b>结论：少卖一些低价房，换来的高价房收入更多——这就是保护位的全部意义。</b></div></div></div></section>
+<section class="sl case" data-i="12" data-k="case"><div class="ct">案例三 · 保护位与超售的配合</div><div class="cq">某店设了保护位（留 15 间给高价客），同时又超售 8 间。结果当天高价客只来 6 位，而超售的 8 位客人也到了。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例三 · 保护位与超售的配合</div>
+<div class="num">某店设了保护位（留 15 间给高价客），同时又超售 8 间。结果当天高价客只来 6 位，而超售的 8 位客人也到了。</div>
+<div class="end">由于保护位留的 15 间实际只用了 6 间，剩余 9 间正好吸收了超售客——<b>零 walk，且高价房基本卖出。</b><br><b>结论：保护位与超售不是矛盾，而是互补</b>——保护位留下的房，恰好是超售客的缓冲。两者要一起算，不能分别拍脑袋。</div></div></div></section>
+<section class="sl caseans" data-i="13" data-k="caseans"><div class="ct">案例三 · 保护位与超售的配合 · 结论</div><div class="ca" style="display:block">由于保护位留的 15 间实际只用了 6 间，剩余 9 间正好吸收了超售客——<b>零 walk，且高价房基本卖出。</b><br><b>结论：保护位与超售不是矛盾，而是互补</b>——保护位留下的房，恰好是超售客的缓冲。两者要一起算，不能分别拍脑袋。</div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例三 · 保护位与超售的配合</div>
+<div class="num">某店设了保护位（留 15 间给高价客），同时又超售 8 间。结果当天高价客只来 6 位，而超售的 8 位客人也到了。</div>
+<div class="end">由于保护位留的 15 间实际只用了 6 间，剩余 9 间正好吸收了超售客——<b>零 walk，且高价房基本卖出。</b><br><b>结论：保护位与超售不是矛盾，而是互补</b>——保护位留下的房，恰好是超售客的缓冲。两者要一起算，不能分别拍脑袋。</div></div></div></section>
+<section class="sl case" data-i="14" data-k="case"><div class="ct">案例四 · 保护位救回的一次旺季（含对话）</div><div class="cq"><b>旺季某周末，剩 30 间：</b><br>
+销售："有旅行社要 25 间 @380，接不接？现在离入住还有 6 天。"<br>
+收益："先算保护位。历史同期高价散客需求期望约 18 间，散客净价 650。"<br>
+销售："所以？"<br>
+收益："保护 18 间，低价最多放 12 间。所以<b>最多接 12 间</b>。"<br>
+销售："客户要 25 间，我只给 12 间他会走。"<br>
+收益："那就报 480，25 间全接——用第 15 章置换公式验算：25×480 = 12,000，被挤散客期望 18×650 = 11,700，<b>12,000 &gt; 11,700，刚好划算。</b>"<br>
+销售："所以要么少接，要么提价。"<br>
+收益："对。<b>没有第三个选项——不能既多接又不提价。</b>"</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例四 · 保护位救回的一次旺季（含对话）</div>
+<div class="num"><b>旺季某周末，剩 30 间：</b><br>
+销售："有旅行社要 25 间 @380，接不接？现在离入住还有 6 天。"<br>
+收益："先算保护位。历史同期高价散客需求期望约 18 间，散客净价 650。"<br>
+销售："所以？"<br>
+收益："保护 18 间，低价最多放 12 间。所以<b>最多接 12 间</b>。"<br>
+销售："客户要 25 间，我只给 12 间他会走。"<br>
+收益："那就报 480，25 间全接——用第 15 章置换公式验算：25×480 = 12,000，被挤散客期望 18×650 = 11,700，<b>12,000 &gt; 11,700，刚好划算。</b>"<br>
+销售："所以要么少接，要么提价。"<br>
+收益："对。<b>没有第三个选项——不能既多接又不提价。</b>"</div>
+<div class="end">最终客户接受 20 间 @450（介于两方案之间）。周末散客又卖 16 间 @650。<br>
+总收入 = 9,000 + 10,400 = <b>19,400</b>；若按原方案 25 间 @380 = 9,500 + 散客 5 间×650=3,250 → <b>12,750</b>。<br>
+<b>差额 6,650 元——这就是保护位的价值。</b></div></div></div></section>
+<section class="sl caseans" data-i="15" data-k="caseans"><div class="ct">案例四 · 保护位救回的一次旺季（含对话） · 结论</div><div class="ca" style="display:block">最终客户接受 20 间 @450（介于两方案之间）。周末散客又卖 16 间 @650。<br>
+总收入 = 9,000 + 10,400 = <b>19,400</b>；若按原方案 25 间 @380 = 9,500 + 散客 5 间×650=3,250 → <b>12,750</b>。<br>
+<b>差额 6,650 元——这就是保护位的价值。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例四 · 保护位救回的一次旺季（含对话）</div>
+<div class="num"><b>旺季某周末，剩 30 间：</b><br>
+销售："有旅行社要 25 间 @380，接不接？现在离入住还有 6 天。"<br>
+收益："先算保护位。历史同期高价散客需求期望约 18 间，散客净价 650。"<br>
+销售："所以？"<br>
+收益："保护 18 间，低价最多放 12 间。所以<b>最多接 12 间</b>。"<br>
+销售："客户要 25 间，我只给 12 间他会走。"<br>
+收益："那就报 480，25 间全接——用第 15 章置换公式验算：25×480 = 12,000，被挤散客期望 18×650 = 11,700，<b>12,000 &gt; 11,700，刚好划算。</b>"<br>
+销售："所以要么少接，要么提价。"<br>
+收益："对。<b>没有第三个选项——不能既多接又不提价。</b>"</div>
+<div class="end">最终客户接受 20 间 @450（介于两方案之间）。周末散客又卖 16 间 @650。<br>
+总收入 = 9,000 + 10,400 = <b>19,400</b>；若按原方案 25 间 @380 = 9,500 + 散客 5 间×650=3,250 → <b>12,750</b>。<br>
+<b>差额 6,650 元——这就是保护位的价值。</b></div></div></div></section>
+<section class="sl pts" data-i="16" data-k="pts"><h2>常见错误（续）</h2><div class="bd"><ul>
+<li><b>"先卖掉再说"</b>。这是库存分配最常见的失败模式。</li>
+<li><b>保护位一次定死</b>。必须每天按 pickup 重算并逐步释放。</li>
+<li><b>只看间数不看价差</b>。价差大时才更值得保护；价差小时保护意义不大。</li>
+</ul></div><ul>
+<li><b>保护位只在旺季设</b>——淡季价差小时，保护的意义下降，应相应降低而不是照搬。</li>
+<li><b>关了低价档就不再看</b>——关闭后要持续盯高价 pickup，否则会错过该放开的时机。</li>
+</ul></div><ul>
+<li><b>往上（第 1 章）</b>：保护位就是"机会成本"判据的落地形式——<b>本章是全书的枢纽</b>。</li>
+<li><b>往上（第 5 章）</b>：关低价档（可得性）是执行保护位的主要动作。</li>
+<li><b>往下（第 15 章）</b>：团队置换是保护位思想在大宗生意上的应用。</li>
+<li><b>往下（第 20 章）</b>：保护位的质量完全取决于预测精度。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>"先卖掉再说"</b>。这是库存分配最常见的失败模式。</li>
+<li><b>保护位一次定死</b>。必须每天按 pickup 重算并逐步释放。</li>
+<li><b>只看间数不看价差</b>。价差大时才更值得保护；价差小时保护意义不大。</li>
+</ul></div><ul>
+<li><b>保护位只在旺季设</b>——淡季价差小时，保护的意义下降，应相应降低而不是照搬。</li>
+<li><b>关了低价档就不再看</b>——关闭后要持续盯高价 pickup，否则会错过该放开的时机。</li>
+</ul></div><ul>
+<li><b>往上（第 1 章）</b>：保护位就是"机会成本"判据的落地形式——<b>本章是全书的枢纽</b>。</li>
+<li><b>往上（第 5 章）</b>：关低价档（可得性）是执行保护位的主要动作。</li>
+<li><b>往下（第 15 章）</b>：团队置换是保护位思想在大宗生意上的应用。</li>
+<li><b>往下（第 20 章）</b>：保护位的质量完全取决于预测精度。</li>
+</ul></div></div></section>
+<section class="sl tip" data-i="17" data-k="tip"><h2>提醒</h2><div class="bd"><b>自学者提示：</b>把"保护位"想象成给贵宾留的座位。<b>留多少取决于"贵宾会来几个"的预测；临近开场还没来，就该把座位放出去。</b>这个比喻记住了，保护位的动态性就理解了。</div></div><div class="srctpl" hidden><b>自学者提示：</b>把"保护位"想象成给贵宾留的座位。<b>留多少取决于"贵宾会来几个"的预测；临近开场还没来，就该把座位放出去。</b>这个比喻记住了，保护位的动态性就理解了。</div></div></section>
+<section class="sl note" data-i="18" data-k="note"><h2>与前后章的联系</h2><div class="bd"><div class="et">练习</div><ol>
+<li>剩 40 间，低价 350，高价 680，高价期望需求 22 间。低价最多能卖几间？</li>
+<li>低价 400、高价 700，高价需求出现概率 60%。该不该卖低价？概率升到 75% 呢？</li>
+<li>到 D-2 高价需求远低于预测，保护位该怎么办？</li>
+<li>为什么"空着等高价客"有时是正确决策？</li>
+<li>价差很小（如 100 元）时，还需要设保护位吗？为什么？</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习</div><ol>
+<li>剩 40 间，低价 350，高价 680，高价期望需求 22 间。低价最多能卖几间？</li>
+<li>低价 400、高价 700，高价需求出现概率 60%。该不该卖低价？概率升到 75% 呢？</li>
+<li>到 D-2 高价需求远低于预测，保护位该怎么办？</li>
+<li>为什么"空着等高价客"有时是正确决策？</li>
+<li>价差很小（如 100 元）时，还需要设保护位吗？为什么？</li>
+</ol></div></div></section>
+<section class="sl pts" data-i="19" data-k="pts"><h2>要点</h2><div class="bd"><ol>
+<li><b>保护位</b>＝给高价客源预留的房量；<b>低价上限 = 可用房 − 保护位</b>。</li>
+<li><b>Littlewood 判据</b>：低价 ≥ 高价 × P(高价需求会来) 才卖。</li>
+<li><b>保护位由预测决定</b>：高价期望需求越大、越确定，保护位越高。</li>
+<li><b>必须动态释放</b>：临近时高价需求没来 → 逐步降低保护位。</li>
+<li><b>与超售互补</b>：保护位留下的房，恰是超售客的缓冲——两者要一起算。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>保护位</b>＝给高价客源预留的房量；<b>低价上限 = 可用房 − 保护位</b>。</li>
+<li><b>Littlewood 判据</b>：低价 ≥ 高价 × P(高价需求会来) 才卖。</li>
+<li><b>保护位由预测决定</b>：高价期望需求越大、越确定，保护位越高。</li>
+<li><b>必须动态释放</b>：临近时高价需求没来 → 逐步降低保护位。</li>
+<li><b>与超售互补</b>：保护位留下的房，恰是超售客的缓冲——两者要一起算。</li>
+</ol></div></div></section>
+<section class="sl note" data-i="20" data-k="note"><h2>本章小结（5 条，可复述）</h2><div class="bd"><div class="et">练习（进阶）</div><ol start="6">
+<li>剩 40 间，低价 380、高价 700，高价需求概率 60%（期望 20 间）。低价最多卖几间？</li>
+<li>为什么保护位"设了就不管"会造成大量空房？</li>
+<li>本章是全书的枢纽——用一句话说明它如何把第 1 章的"机会成本"变成可计算的东西。</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习（进阶）</div><ol start="6">
+<li>剩 40 间，低价 380、高价 700，高价需求概率 60%（期望 20 间）。低价最多卖几间？</li>
+<li>为什么保护位"设了就不管"会造成大量空房？</li>
+<li>本章是全书的枢纽——用一句话说明它如何把第 1 章的"机会成本"变成可计算的东西。</li>
+</ol></div></div></section>
+<section class="sl judge" data-i="21" data-k="judge"><h2>遇到下面这些情况，直接按"动作"做</h2><div class="bd">
+<table>
+<tr><td>销售问"低价还能放吗"</td><td>算 <b>可用房 − 保护位</b>；到上限立即关档，即使系统显示有房</td></tr>
+<tr><td>还剩很多房、时间快到了</td><td><b>释放保护位</b>——按剩余期望需求重算，不沿用原数</td></tr>
+<tr><td>高价客没来、房空了</td><td>说明保护位<b>没随时间释放</b>；建立每日重算机制</td></tr>
+<tr><td>高低价差很小</td><td>保护位意义不大 → 可少保护，优先卖掉</td></tr>
+<tr><td>同时设了保护位和超售</td><td>两者<b>互补</b>：保护位剩下的房正好吸收超售客；要一起算</td></tr>
+</table></div></div><div class="srctpl" hidden><div class="jt">遇到下面这些情况，直接按"动作"做</div>
+<table>
+<tr><td>销售问"低价还能放吗"</td><td>算 <b>可用房 − 保护位</b>；到上限立即关档，即使系统显示有房</td></tr>
+<tr><td>还剩很多房、时间快到了</td><td><b>释放保护位</b>——按剩余期望需求重算，不沿用原数</td></tr>
+<tr><td>高价客没来、房空了</td><td>说明保护位<b>没随时间释放</b>；建立每日重算机制</td></tr>
+<tr><td>高低价差很小</td><td>保护位意义不大 → 可少保护，优先卖掉</td></tr>
+<tr><td>同时设了保护位和超售</td><td>两者<b>互补</b>：保护位剩下的房正好吸收超售客；要一起算</td></tr>
+</table></div></div></section>
+<section class="sl note" data-i="22" data-k="note"><h2>常见场景速查</h2><div class="bd">卖给谁、走哪条路：让每一间房落到最值的地方</div>第二篇 · 决策篇 ｜ 模块 C · 客源与渠道决策 ｜ 第 13 章</div><div class="tk">课堂任务卡 · 第 12 章</div><div class="tsc"><b>情境：</b>某日剩 20 间，保护位设 15 间给高价。到 D-1，高价只来了 4 间，低价档一直关着。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>高价需求期望</td><td>由预测给出（第 20 章）；需求强 → 保护位高</td></tr><tr><td>需求不确定性</td><td>越不确定，保护位应略保守（留余地）</td></tr><tr><td>剩余天数</td><td>临近入住且高价需求未出现 → 逐步释放保护位，别死守</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>结果当天只卖 4 间，空 16 间。 错误在于保护位没有随时间释放。正确做法：从 D-7 开始，每天按实际 pickup 修正保护位；到 D-2 若高价仍远低于预测，应把保护位降到 5–8 间并放开低价。 保护位是动态值，不是一次性决策。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden>卖给谁、走哪条路：让每一间房落到最值的地方</div>第二篇 · 决策篇 ｜ 模块 C · 客源与渠道决策 ｜ 第 13 章</div><div class="tk">课堂任务卡 · 第 12 章</div><div class="tsc"><b>情境：</b>某日剩 20 间，保护位设 15 间给高价。到 D-1，高价只来了 4 间，低价档一直关着。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>高价需求期望</td><td>由预测给出（第 20 章）；需求强 → 保护位高</td></tr><tr><td>需求不确定性</td><td>越不确定，保护位应略保守（留余地）</td></tr><tr><td>剩余天数</td><td>临近入住且高价需求未出现 → 逐步释放保护位，别死守</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>结果当天只卖 4 间，空 16 间。 错误在于保护位没有随时间释放。正确做法：从 D-7 开始，每天按实际 pickup 修正保护位；到 D-2 若高价仍远低于预测，应把保护位降到 5–8 间并放开低价。 保护位是动态值，不是一次性决策。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl pts" data-i="23" data-k="pts"><h2>要点</h2><div class="bd"><div class="nk">反面案例 · 案例一 · 死守保护位的代价</div><div class="nnum">某日剩 20 间，保护位设 15 间给高价。到 D-1，高价只来了 4 间，低价档一直关着。</div><div class="nend">结果当天只卖 4 间，空 16 间。 错误在于保护位没有随时间释放。正确做法：从 D-7 开始，每天按实际 pickup 修正保护位；到 D-2 若高价仍远低于预测，应把保护位降到 5–8 间并放开低价。 保护位是动态值，不是一次性决策。</div></div></div><div class="srctpl" hidden><div class="nk">反面案例 · 案例一 · 死守保护位的代价</div><div class="nnum">某日剩 20 间，保护位设 15 间给高价。到 D-1，高价只来了 4 间，低价档一直关着。</div><div class="nend">结果当天只卖 4 间，空 16 间。 错误在于保护位没有随时间释放。正确做法：从 D-7 开始，每天按实际 pickup 修正保护位；到 D-2 若高价仍远低于预测，应把保护位降到 5–8 间并放开低价。 保护位是动态值，不是一次性决策。</div></div></div></section>
+<section class="sl sum" data-i="24" data-k="sum"><h2>本章小结</h2><div class="bd"><ol>
+<li><b>保护位</b>＝给高价客源预留的房量；<b>低价上限 = 可用房 − 保护位</b>。</li>
+<li><b>Littlewood 判据</b>：低价 ≥ 高价 × P(高价需求会来) 才卖。</li>
+<li><b>保护位由预测决定</b>：高价期望需求越大、越确定，保护位越高。</li>
+<li><b>必须动态释放</b>：临近时高价需求没来 → 逐步降低保护位。</li>
+<li><b>与超售互补</b>：保护位留下的房，恰是超售客的缓冲——两者要一起算。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>剩 40 间，低价 380、高价 700，高价需求概率 60%（期望 20 间）。低价最多卖几间？</li>
+<li>为什么保护位"设了就不管"会造成大量空房？</li>
+<li>本章是全书的枢纽——用一句话说明它如何把第 1 章的"机会成本"变成可计算的东西。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>保护位</b>＝给高价客源预留的房量；<b>低价上限 = 可用房 − 保护位</b>。</li>
+<li><b>Littlewood 判据</b>：低价 ≥ 高价 × P(高价需求会来) 才卖。</li>
+<li><b>保护位由预测决定</b>：高价期望需求越大、越确定，保护位越高。</li>
+<li><b>必须动态释放</b>：临近时高价需求没来 → 逐步降低保护位。</li>
+<li><b>与超售互补</b>：保护位留下的房，恰是超售客的缓冲——两者要一起算。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>剩 40 间，低价 380、高价 700，高价需求概率 60%（期望 20 间）。低价最多卖几间？</li>
+<li>为什么保护位"设了就不管"会造成大量空房？</li>
+<li>本章是全书的枢纽——用一句话说明它如何把第 1 章的"机会成本"变成可计算的东西。</li>
+</ol></div></div></section>
+<section class="sl end" data-i="25" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li>保护位（protection level）：给高价客源保留的房量，低价档不能动。它是"留给未来"的那部分。</li><li>低价售卖上限 ＝ 可用房 − 保护位。这就是库存分配的核心算式，也是本章最常用的一句话。</li><li>保护位由预测决定，且必须动态调整：预计高价需求越多越确定，保护位越高；临近时若高价需求没来，就要逐步释放。</li><li>保护位——例：剩 30 间，预计高价客会要 18 间 → 保护 18 间，低价最多卖 12 间。</li><li>售卖上限——例：低价档卖了 12 间后立即关闭，即使系统显示还有 18 间可售。这是最需要纪律的一步。</li><li>动态释放——例：到 D-2 高价客只订了 6 间（预测 18 间）→ 保护位降到 8 间，放开低价填量。</li><li class="fml-i">高价需求期望由预测给出（第 20 章）；需求强 → 保护位高</li><li class="fml-i">需求不确定性越不确定，保护位应略保守（留余地）</li><li class="fml-i">剩余天数临近入住且高价需求未出现 → 逐步释放保护位，别死守</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 26 屏）</div><a href="#p0" data-i="0">01　库存分配与保护位：给谁留多少房</a><a href="#p1" data-i="1">02　本章要你做到</a><a href="#p2" data-i="2">03　情境导入</a><a href="#p3" data-i="3">04　三要点怎么用（各配一例）</a><a href="#p4" data-i="4">05　核心公式（Littlewood 判据简化版）</a><a href="#p5" data-i="5">06　算例 3 · 保护位随时间的释放</a><a href="#p6" data-i="6">07　本章判定表 · 保护位怎么定与怎么放</a><a href="#p7" data-i="7">08　场景：距入住 5 天，剩 28 间，低价档已卖 9 间</a><a href="#p8" data-i="8">09　案例一 · 死守保护位的代价</a><a href="#p9" data-i="9">10　案例一 · 死守保护位的代价 · 结论</a><a href="#p10" data-i="10">11　案例二 · 保护位带来的收益</a><a href="#p11" data-i="11">12　案例二 · 保护位带来的收益 · 结论</a><a href="#p12" data-i="12">13　案例三 · 保护位与超售的配合</a><a href="#p13" data-i="13">14　案例三 · 保护位与超售的配合 · 结论</a><a href="#p14" data-i="14">15　案例四 · 保护位救回的一次旺季（含对话）</a><a href="#p15" data-i="15">16　案例四 · 保护位救回的一次旺季（含对话） · 结论</a><a href="#p16" data-i="16">17　常见错误（续）</a><a href="#p17" data-i="17">18　提醒</a><a href="#p18" data-i="18">19　与前后章的联系</a><a href="#p19" data-i="19">20　要点</a><a href="#p20" data-i="20">21　本章小结（5 条，可复述）</a><a href="#p21" data-i="21">22　遇到下面这些情况，直接按"动作"做</a><a href="#p22" data-i="22">23　常见场景速查</a><a href="#p23" data-i="23">24　要点</a><a href="#p24" data-i="24">25　本章小结</a><a href="#p25" data-i="25">26　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 教材对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=26, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  var st=b.style.fontSize, n=0;
+  b.style.fontSize='';
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('.rev')){ e.target.closest('.sl').classList.add('showans'); dofit(); return; }
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function dofit(){fit();}
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+  else if(k==='/'){e.preventDefault();T();}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>

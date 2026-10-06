@@ -1,0 +1,421 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script><script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>第 10 章 最短住期 MinLOS：用条件把客群分开 · 投屏课件</title><style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='study-teach.html'">← 教师线</button>
+  <span class="pt">第二篇 · 决策篇 · 模块 B · 库存决策</span>
+  <span class="tt">第 10 章 最短住期 MinLOS：用条件把客群分开 · 投屏课件</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 26</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">第二篇 · 决策篇 · 模块 B · 库存决策</div><h1>最短住期 MinLOS：用条件把客群分开</h1><div class="meta">第 10 章 ｜ 模块 B · 库存决策 ｜ 共 26 屏</div><div class="promise-b">读完这章你会用：不加价也能提升收入的"隐形武器"。</div></section>
+<section class="sl task" data-i="1" data-k="task"><h2>本章要你做到</h2><div class="bd"><div class="tk">课堂任务卡 · 第 10 章</div><div class="tsc"><b>情境：</b>周六演唱会（满房），周日为空。若放任单晚预订，周六满房、周日大量空房。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>是否紧俏日</td><td>是（预计满房）→ 可设；淡季 → 不设（会吓跑客人）</td></tr><tr><td>单晚客 vs 连住客</td><td>连住客期望收益更高 → 设 MinLOS 保护</td></tr><tr><td>剩余房量</td><td>剩余 ≤15% → 设；剩余充足 → 不设</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>做法：周六设 MinLOS=2，周日设 CTA（不允许周日单独入住，只允许周六开始连住）。 结果：周日出租率从 30% 提升到 70%。 总收入提升，而客人并没有觉得被宰——只是要求多住一晚。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden><div class="tk">课堂任务卡 · 第 10 章</div><div class="tsc"><b>情境：</b>周六演唱会（满房），周日为空。若放任单晚预订，周六满房、周日大量空房。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>是否紧俏日</td><td>是（预计满房）→ 可设；淡季 → 不设（会吓跑客人）</td></tr><tr><td>单晚客 vs 连住客</td><td>连住客期望收益更高 → 设 MinLOS 保护</td></tr><tr><td>剩余房量</td><td>剩余 ≤15% → 设；剩余充足 → 不设</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>做法：周六设 MinLOS=2，周日设 CTA（不允许周日单独入住，只允许周六开始连住）。 结果：周日出租率从 30% 提升到 70%。 总收入提升，而客人并没有觉得被宰——只是要求多住一晚。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境导入</h2><div class="bd"><div class="swho">你一定踩过的坑</div><p>周六是旺季，只剩 6 间房。一个客人只订周六一晚，付 800 订走了。</p><p>周日晚上这 6 间全空着——<b>因为周六一晚的客人把"周六+周日"的连带需求挡在了门外。</b></p><p>如果当时要求"最少住两晚"，周六和周日都能卖掉，两晚合计收入更高。</p><p>更妙的是：<b>这个动作完全没有提价。</b>客人看到的还是一个价格，只是多了一个条件。这就是可得性控制的威力。</p></div><div class="srctpl" hidden><div class="swho">你一定踩过的坑</div><p>周六是旺季，只剩 6 间房。一个客人只订周六一晚，付 800 订走了。</p><p>周日晚上这 6 间全空着——<b>因为周六一晚的客人把"周六+周日"的连带需求挡在了门外。</b></p><p>如果当时要求"最少住两晚"，周六和周日都能卖掉，两晚合计收入更高。</p><p>更妙的是：<b>这个动作完全没有提价。</b>客人看到的还是一个价格，只是多了一个条件。这就是可得性控制的威力。</p></div></section>
+<section class="sl pts" data-i="3" data-k="pts"><h2>三要点怎么用（各配一例）</h2><div class="bd"><ul>
+<li><b>MinLOS（最少住几晚）</b>：要求客人至少连住 N 晚，把"住一晚就走"的需求挡掉，把房留给连住客。</li>
+<li><b>CTA / CTD（关闭到达 / 关闭离店）</b>：CTA 不让某天入住（保护从前一日开始的连住）；CTD 不让某天离店（保护向后延伸的连住）。</li>
+<li><b>这是可得性控制，不是涨价</b>：客人感知不到"被宰"，只是多了个条件——<b>比直接提价温和得多，也不伤口碑。</b></li>
+</ul></div><ul>
+<li><b>MinLOS</b>——例：周六满房、周日空 → 设"最少住 2 晚"，把周六的客顺延到周日，两晚都卖出。</li>
+<li><b>CTA</b>——例：周日不允许"入住"（但允许从周六连住过来）→ 保护从前一日开始的连住客。</li>
+<li><b>CTD</b>——例：周五不允许"离店"（要求住到周六）→ 把周五的客延伸到旺季的周六，提升整体收益。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>MinLOS（最少住几晚）</b>：要求客人至少连住 N 晚，把"住一晚就走"的需求挡掉，把房留给连住客。</li>
+<li><b>CTA / CTD（关闭到达 / 关闭离店）</b>：CTA 不让某天入住（保护从前一日开始的连住）；CTD 不让某天离店（保护向后延伸的连住）。</li>
+<li><b>这是可得性控制，不是涨价</b>：客人感知不到"被宰"，只是多了个条件——<b>比直接提价温和得多，也不伤口碑。</b></li>
+</ul></div><ul>
+<li><b>MinLOS</b>——例：周六满房、周日空 → 设"最少住 2 晚"，把周六的客顺延到周日，两晚都卖出。</li>
+<li><b>CTA</b>——例：周日不允许"入住"（但允许从周六连住过来）→ 保护从前一日开始的连住客。</li>
+<li><b>CTD</b>——例：周五不允许"离店"（要求住到周六）→ 把周五的客延伸到旺季的周六，提升整体收益。</li>
+</ul></div></div></section>
+<section class="sl fml" data-i="4" data-k="fml"><h2>核心判据</h2><div class="bd"><div class="fe">设置限制的条件：
+  当「单晚客的边际收益 &lt; 保住连住客的期望收益」时启用
+MinLOS → 挡掉只住一晚的客
+CTA    → 不让某日入住（保护从前面开始的连住）
+CTD    → 不让某日离店（保护向后延伸的连住）</div>
+<div class="ex" id="ex10"><b>算例 1（该设）：</b>周六剩 6 间。客人 A 只住周六，付 800。客人 B 想住周六+周日，愿付 750/晚 × 2 = 1,500。<br>
+接受 A：收入 800，周日大概率空房。<br>
+设 MinLOS=2：A 被挡（或改订两晚），B 成交 1,500。<br>
+<b>1,500 &gt; 800 → 设 MinLOS 划算。</b><br><br>
+<b>算例 2（不该设）：</b>若周日也是满房日（同样紧俏），则不必设——因为不愁卖，连住客的价值优势消失。<br>
+<b>结论：MinLOS 的价值来自"前后日需求不对称"。前后都旺，就没必要设。</b></div></div></div><div class="srctpl" hidden><div class="fn">核心判据</div><div class="fe">设置限制的条件：
+  当「单晚客的边际收益 &lt; 保住连住客的期望收益」时启用
+MinLOS → 挡掉只住一晚的客
+CTA    → 不让某日入住（保护从前面开始的连住）
+CTD    → 不让某日离店（保护向后延伸的连住）</div>
+<div class="ex" id="ex10"><b>算例 1（该设）：</b>周六剩 6 间。客人 A 只住周六，付 800。客人 B 想住周六+周日，愿付 750/晚 × 2 = 1,500。<br>
+接受 A：收入 800，周日大概率空房。<br>
+设 MinLOS=2：A 被挡（或改订两晚），B 成交 1,500。<br>
+<b>1,500 &gt; 800 → 设 MinLOS 划算。</b><br><br>
+<b>算例 2（不该设）：</b>若周日也是满房日（同样紧俏），则不必设——因为不愁卖，连住客的价值优势消失。<br>
+<b>结论：MinLOS 的价值来自"前后日需求不对称"。前后都旺，就没必要设。</b></div></div></div></section>
+<section class="sl fml" data-i="5" data-k="fml"><h2>算例 3 · 三种限制的选择</h2><div class="bd"><div class="fe">场景：周五空、周六满（演唱会）、周日空
+① MinLOS=2（周五起）→ 周五+周六连住，填满周五
+② CTA 周日          → 周日不能单订，只能从周六连住过来
+③ CTD 周五          → 周五入住的客必须住到周六</div>
+<div class="ex" id="ex10b"><b>正确组合是 ① + ②：</b>周五设 MinLOS=2（连带周六），周日设 CTA（只接周六连住过来的客）。<br>这样三个晚上串成一条"两晚"的产品，<b>把原本会空置的周五和周日都带动起来</b>。<br><b>CTD 在这里反而不必要</b>——它会限制周五入住的客人，减少订单。</div></div></div><div class="srctpl" hidden><div class="fn">算例 3 · 三种限制的选择</div><div class="fe">场景：周五空、周六满（演唱会）、周日空
+① MinLOS=2（周五起）→ 周五+周六连住，填满周五
+② CTA 周日          → 周日不能单订，只能从周六连住过来
+③ CTD 周五          → 周五入住的客必须住到周六</div>
+<div class="ex" id="ex10b"><b>正确组合是 ① + ②：</b>周五设 MinLOS=2（连带周六），周日设 CTA（只接周六连住过来的客）。<br>这样三个晚上串成一条"两晚"的产品，<b>把原本会空置的周五和周日都带动起来</b>。<br><b>CTD 在这里反而不必要</b>——它会限制周五入住的客人，减少订单。</div></div></div></section>
+<section class="sl judge" data-i="6" data-k="judge"><h2>本章判定表 · 何时设 MinLOS / CTA / CTD</h2><div class="bd">
+<table>
+<tr><td>是否紧俏日</td><td>是（预计满房）→ 可设；淡季 → 不设（会吓跑客人）</td></tr>
+<tr><td>单晚客 vs 连住客</td><td>连住客期望收益更高 → 设 MinLOS 保护</td></tr>
+<tr><td>剩余房量</td><td>剩余 ≤15% → 设；剩余充足 → 不设</td></tr>
+<tr><td>前后日是否也紧俏</td><td>前一日也紧俏 → 用 <b>CTA</b>；后一日也紧俏 → 用 <b>CTD</b>；只有本日紧俏 → 用 MinLOS</td></tr>
+<tr><td>是否造成滞销</td><td>设完要盯 pickup；若反而滞销 → <b>立即撤掉</b></td></tr>
+<tr><td>沟通是否到位</td><td>必须在预订页面<b>明确写出</b>，否则客人到店才知道会投诉</td></tr>
+<tr><td>提前多久设</td><td>紧俏日前 7–14 天设置，给市场适应时间</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>先看"前后日需求是否对称"——对称就不用设。<b>设完 48 小时内必须复查 pickup</b>，滞销就撤。</div></div></div><div class="srctpl" hidden><div class="jt">本章判定表 · 何时设 MinLOS / CTA / CTD</div>
+<table>
+<tr><td>是否紧俏日</td><td>是（预计满房）→ 可设；淡季 → 不设（会吓跑客人）</td></tr>
+<tr><td>单晚客 vs 连住客</td><td>连住客期望收益更高 → 设 MinLOS 保护</td></tr>
+<tr><td>剩余房量</td><td>剩余 ≤15% → 设；剩余充足 → 不设</td></tr>
+<tr><td>前后日是否也紧俏</td><td>前一日也紧俏 → 用 <b>CTA</b>；后一日也紧俏 → 用 <b>CTD</b>；只有本日紧俏 → 用 MinLOS</td></tr>
+<tr><td>是否造成滞销</td><td>设完要盯 pickup；若反而滞销 → <b>立即撤掉</b></td></tr>
+<tr><td>沟通是否到位</td><td>必须在预订页面<b>明确写出</b>，否则客人到店才知道会投诉</td></tr>
+<tr><td>提前多久设</td><td>紧俏日前 7–14 天设置，给市场适应时间</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>先看"前后日需求是否对称"——对称就不用设。<b>设完 48 小时内必须复查 pickup</b>，滞销就撤。</div></div></div></section>
+<section class="sl judge" data-i="7" data-k="judge"><h2>场景：距演唱会周六还有 12 天，周五、周日目前较空</h2><div class="bd">
+<table>
+<tr><td>本日是否紧俏？</td><td>周六预计满房 → <b>是</b> ✓</td></tr>
+<tr><td>前后日需求对称吗？</td><td>周五空、周日空 → <b>不对称</b>（正是 MinLOS 的用武之地）✓</td></tr>
+<tr><td>剩余房量？</td><td>周六剩 12% → ≤15% 阈值 ✓</td></tr>
+<tr><td>用什么工具？</td><td>周五设 <b>MinLOS=2</b>，周日设 <b>CTA</b> ✓</td></tr>
+<tr><td>何时设？</td><td>提前 7–14 天（现剩 12 天，正合适）✓</td></tr>
+<tr><td>是否页面明示？</td><td>必须在房型名后标注"两晚起" ✓</td></tr>
+<tr><td>设后观察</td><td>48 小时内看 pickup；若明显下滑则撤掉 ✓</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：设，且提前设。</b><br><b>注意第 2 行</b>——若前后日都紧俏（对称），就没必要设，因为连住客的价值优势消失了。</div></div></div><div class="srctpl" hidden><div class="jt">场景：距演唱会周六还有 12 天，周五、周日目前较空</div>
+<table>
+<tr><td>本日是否紧俏？</td><td>周六预计满房 → <b>是</b> ✓</td></tr>
+<tr><td>前后日需求对称吗？</td><td>周五空、周日空 → <b>不对称</b>（正是 MinLOS 的用武之地）✓</td></tr>
+<tr><td>剩余房量？</td><td>周六剩 12% → ≤15% 阈值 ✓</td></tr>
+<tr><td>用什么工具？</td><td>周五设 <b>MinLOS=2</b>，周日设 <b>CTA</b> ✓</td></tr>
+<tr><td>何时设？</td><td>提前 7–14 天（现剩 12 天，正合适）✓</td></tr>
+<tr><td>是否页面明示？</td><td>必须在房型名后标注"两晚起" ✓</td></tr>
+<tr><td>设后观察</td><td>48 小时内看 pickup；若明显下滑则撤掉 ✓</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：设，且提前设。</b><br><b>注意第 2 行</b>——若前后日都紧俏（对称），就没必要设，因为连住客的价值优势消失了。</div></div></div></section>
+<section class="sl case" data-i="8" data-k="case"><div class="ct">案例一 · 演唱会当晚</div><div class="cq">周六演唱会（满房），周日为空。若放任单晚预订，周六满房、周日大量空房。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例一 · 演唱会当晚</div>
+<div class="num">周六演唱会（满房），周日为空。若放任单晚预订，周六满房、周日大量空房。</div>
+<div class="end">做法：周六设 <b>MinLOS=2</b>，周日设 <b>CTA</b>（不允许周日单独入住，只允许周六开始连住）。<br>
+结果：周日出租率从 30% 提升到 70%。<br>
+<b>总收入提升，而客人并没有觉得被宰——只是要求多住一晚。</b></div></div></div></section>
+<section class="sl caseans" data-i="9" data-k="caseans"><div class="ct">案例一 · 演唱会当晚 · 结论</div><div class="ca" style="display:block">做法：周六设 <b>MinLOS=2</b>，周日设 <b>CTA</b>（不允许周日单独入住，只允许周六开始连住）。<br>
+结果：周日出租率从 30% 提升到 70%。<br>
+<b>总收入提升，而客人并没有觉得被宰——只是要求多住一晚。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例一 · 演唱会当晚</div>
+<div class="num">周六演唱会（满房），周日为空。若放任单晚预订，周六满房、周日大量空房。</div>
+<div class="end">做法：周六设 <b>MinLOS=2</b>，周日设 <b>CTA</b>（不允许周日单独入住，只允许周六开始连住）。<br>
+结果：周日出租率从 30% 提升到 70%。<br>
+<b>总收入提升，而客人并没有觉得被宰——只是要求多住一晚。</b></div></div></div></section>
+<section class="sl case" data-i="10" data-k="case"><div class="ct">案例二 · 设错了的一次</div><div class="cq">某店在平季周三设 MinLOS=2，结果 pickup 立刻下滑 40%。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例二 · 设错了的一次</div>
+<div class="num">某店在平季周三设 MinLOS=2，结果 pickup 立刻下滑 40%。</div>
+<div class="end">原因：周三并非紧俏日，连住客的期望收益并不高于单晚客——<b>条件无的放矢，只是把客人赶走。</b><br>
+撤掉后恢复正常。<br>
+<b>结论：限制条件是稀缺性工具，只在紧俏时用。滥用会直接损失订单。</b></div></div></div></section>
+<section class="sl caseans" data-i="11" data-k="caseans"><div class="ct">案例二 · 设错了的一次 · 结论</div><div class="ca" style="display:block">原因：周三并非紧俏日，连住客的期望收益并不高于单晚客——<b>条件无的放矢，只是把客人赶走。</b><br>
+撤掉后恢复正常。<br>
+<b>结论：限制条件是稀缺性工具，只在紧俏时用。滥用会直接损失订单。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例二 · 设错了的一次</div>
+<div class="num">某店在平季周三设 MinLOS=2，结果 pickup 立刻下滑 40%。</div>
+<div class="end">原因：周三并非紧俏日，连住客的期望收益并不高于单晚客——<b>条件无的放矢，只是把客人赶走。</b><br>
+撤掉后恢复正常。<br>
+<b>结论：限制条件是稀缺性工具，只在紧俏时用。滥用会直接损失订单。</b></div></div></div></section>
+<section class="sl case" data-i="12" data-k="case"><div class="ct">案例三 · 限制条件的"剂量"</div><div class="cq">某店第一次用 MinLOS，直接设了 3 晚。结果 pickup 暴跌 55%，被迫撤回。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例三 · 限制条件的"剂量"</div>
+<div class="num">某店第一次用 MinLOS，直接设了 3 晚。结果 pickup 暴跌 55%，被迫撤回。</div>
+<div class="end">第二次改为 MinLOS=2，pickup 仅降 8%，而周日出租率从 35% 升到 68%。<br><b>结论：限制条件也有剂量。从最轻的开始（2 晚），观察反应，再决定是否加码。</b>一步到位往往把客人吓走，而且你无法判断"是条件太重，还是方向错了"。</div></div></div></section>
+<section class="sl caseans" data-i="13" data-k="caseans"><div class="ct">案例三 · 限制条件的"剂量" · 结论</div><div class="ca" style="display:block">第二次改为 MinLOS=2，pickup 仅降 8%，而周日出租率从 35% 升到 68%。<br><b>结论：限制条件也有剂量。从最轻的开始（2 晚），观察反应，再决定是否加码。</b>一步到位往往把客人吓走，而且你无法判断"是条件太重，还是方向错了"。</div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例三 · 限制条件的"剂量"</div>
+<div class="num">某店第一次用 MinLOS，直接设了 3 晚。结果 pickup 暴跌 55%，被迫撤回。</div>
+<div class="end">第二次改为 MinLOS=2，pickup 仅降 8%，而周日出租率从 35% 升到 68%。<br><b>结论：限制条件也有剂量。从最轻的开始（2 晚），观察反应，再决定是否加码。</b>一步到位往往把客人吓走，而且你无法判断"是条件太重，还是方向错了"。</div></div></div></section>
+<section class="sl case" data-i="14" data-k="case"><div class="ct">案例四 · 一次限制条件的完整执行（含时间线）</div><div class="cq"><b>演唱会周末，提前 14 天的完整布防：</b><br>
+<b>D-14</b>：查日历确认演唱会日期与规模；周五设 MinLOS=2，周日设 CTA；各渠道房型名后加注"两晚起"。<br>
+<b>D-10</b>：前台与预订部培训：遇到只订一晚的客人如何解释与推荐。<br>
+<b>D-7</b>：观察 pickup——周五 pickup 上升 40%，周日上升 25%，方向正确。<br>
+<b>D-3</b>：周六已满，回收 OTA 剩余配额转直销。<br>
+<b>D-1</b>：检查到店确认短信已全部发出。<br>
+<b>活动后</b>：撤除 MinLOS 与 CTA（<b>关键：别忘了撤</b>）；复盘实际系数。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例四 · 一次限制条件的完整执行（含时间线）</div>
+<div class="num"><b>演唱会周末，提前 14 天的完整布防：</b><br>
+<b>D-14</b>：查日历确认演唱会日期与规模；周五设 MinLOS=2，周日设 CTA；各渠道房型名后加注"两晚起"。<br>
+<b>D-10</b>：前台与预订部培训：遇到只订一晚的客人如何解释与推荐。<br>
+<b>D-7</b>：观察 pickup——周五 pickup 上升 40%，周日上升 25%，方向正确。<br>
+<b>D-3</b>：周六已满，回收 OTA 剩余配额转直销。<br>
+<b>D-1</b>：检查到店确认短信已全部发出。<br>
+<b>活动后</b>：撤除 MinLOS 与 CTA（<b>关键：别忘了撤</b>）；复盘实际系数。</div>
+<div class="end">结果：周五出租率从平日的 45% 升到 88%，周日从 35% 升到 70%；周末三天 RevPAR 比去年同期高 42%。<br>
+<b>结论：限制条件的价值不在"设"，而在"提前设 + 各渠道一致 + 事后撤除 + 复盘"。四个环节缺一，效果就打折。</b></div></div></div></section>
+<section class="sl caseans" data-i="15" data-k="caseans"><div class="ct">案例四 · 一次限制条件的完整执行（含时间线） · 结论</div><div class="ca" style="display:block">结果：周五出租率从平日的 45% 升到 88%，周日从 35% 升到 70%；周末三天 RevPAR 比去年同期高 42%。<br>
+<b>结论：限制条件的价值不在"设"，而在"提前设 + 各渠道一致 + 事后撤除 + 复盘"。四个环节缺一，效果就打折。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例四 · 一次限制条件的完整执行（含时间线）</div>
+<div class="num"><b>演唱会周末，提前 14 天的完整布防：</b><br>
+<b>D-14</b>：查日历确认演唱会日期与规模；周五设 MinLOS=2，周日设 CTA；各渠道房型名后加注"两晚起"。<br>
+<b>D-10</b>：前台与预订部培训：遇到只订一晚的客人如何解释与推荐。<br>
+<b>D-7</b>：观察 pickup——周五 pickup 上升 40%，周日上升 25%，方向正确。<br>
+<b>D-3</b>：周六已满，回收 OTA 剩余配额转直销。<br>
+<b>D-1</b>：检查到店确认短信已全部发出。<br>
+<b>活动后</b>：撤除 MinLOS 与 CTA（<b>关键：别忘了撤</b>）；复盘实际系数。</div>
+<div class="end">结果：周五出租率从平日的 45% 升到 88%，周日从 35% 升到 70%；周末三天 RevPAR 比去年同期高 42%。<br>
+<b>结论：限制条件的价值不在"设"，而在"提前设 + 各渠道一致 + 事后撤除 + 复盘"。四个环节缺一，效果就打折。</b></div></div></div></section>
+<section class="sl pts" data-i="16" data-k="pts"><h2>常见错误（续）</h2><div class="bd"><ul>
+<li><b>旺季淡季都设</b>。只在紧俏日设，滥用会赶客。</li>
+<li><b>设了不撤</b>。若 pickup 下滑要立即撤掉，不要硬扛。</li>
+<li><b>不在页面写明</b>。客人到店才发现会引发投诉，反噬评分。</li>
+</ul></div><ul>
+<li><b>限制条件设了就忘了撤</b>——活动日过后仍挂着 MinLOS，会持续损失订单。</li>
+<li><b>各渠道设得不一致</b>——官网设了、OTA 没设，客人到店才知道，引发投诉。</li>
+</ul></div><ul>
+<li><b>往上（第 4 章）</b>：MinLOS 是一种"栅栏"——用条件隔离不同客群。</li>
+<li><b>往上（第 5 章）</b>："先动可得性，后动价格"——MinLOS 就是第一个可得性动作。</li>
+<li><b>往下（第 12 章）</b>：保护位解决"留多少间"，MinLOS 解决"留给谁"——两者常配合使用。</li>
+<li><b>往下（第 20 章）</b>：需求日历告诉你哪天该设、哪天不该设。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>旺季淡季都设</b>。只在紧俏日设，滥用会赶客。</li>
+<li><b>设了不撤</b>。若 pickup 下滑要立即撤掉，不要硬扛。</li>
+<li><b>不在页面写明</b>。客人到店才发现会引发投诉，反噬评分。</li>
+</ul></div><ul>
+<li><b>限制条件设了就忘了撤</b>——活动日过后仍挂着 MinLOS，会持续损失订单。</li>
+<li><b>各渠道设得不一致</b>——官网设了、OTA 没设，客人到店才知道，引发投诉。</li>
+</ul></div><ul>
+<li><b>往上（第 4 章）</b>：MinLOS 是一种"栅栏"——用条件隔离不同客群。</li>
+<li><b>往上（第 5 章）</b>："先动可得性，后动价格"——MinLOS 就是第一个可得性动作。</li>
+<li><b>往下（第 12 章）</b>：保护位解决"留多少间"，MinLOS 解决"留给谁"——两者常配合使用。</li>
+<li><b>往下（第 20 章）</b>：需求日历告诉你哪天该设、哪天不该设。</li>
+</ul></div></div></section>
+<section class="sl tip" data-i="17" data-k="tip"><h2>提醒</h2><div class="bd"><b>自学者提示：</b>MinLOS、"不可取消"、"提前预订"都属于<b>栅栏</b>。栅栏的本质是：<b>用"让客人付出一点代价"（时间承诺、不可反悔），换取更低的价格。</b>愿意付代价的人通常是价格敏感型；不愿付的人通常是时间敏感型——价格弹性低，可以卖贵。<b>这就是整门学科最精巧的一个设计。</b></div></div><div class="srctpl" hidden><b>自学者提示：</b>MinLOS、"不可取消"、"提前预订"都属于<b>栅栏</b>。栅栏的本质是：<b>用"让客人付出一点代价"（时间承诺、不可反悔），换取更低的价格。</b>愿意付代价的人通常是价格敏感型；不愿付的人通常是时间敏感型——价格弹性低，可以卖贵。<b>这就是整门学科最精巧的一个设计。</b></div></div></section>
+<section class="sl note" data-i="18" data-k="note"><h2>与前后章的联系</h2><div class="bd"><div class="et">练习</div><ol>
+<li>周六剩 5 间、周日剩 40 间，该设 MinLOS 吗？设几晚？</li>
+<li>CTA 和 CTD 分别解决什么问题？各举一个场景。</li>
+<li>为什么说 MinLOS 比直接涨价"温和"？</li>
+<li>设完 MinLOS 后 pickup 下滑 30%，该怎么办？</li>
+<li>若周六和周日都满房，还需要设 MinLOS 吗？为什么？</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习</div><ol>
+<li>周六剩 5 间、周日剩 40 间，该设 MinLOS 吗？设几晚？</li>
+<li>CTA 和 CTD 分别解决什么问题？各举一个场景。</li>
+<li>为什么说 MinLOS 比直接涨价"温和"？</li>
+<li>设完 MinLOS 后 pickup 下滑 30%，该怎么办？</li>
+<li>若周六和周日都满房，还需要设 MinLOS 吗？为什么？</li>
+</ol></div></div></section>
+<section class="sl pts" data-i="19" data-k="pts"><h2>要点</h2><div class="bd"><ol>
+<li><b>MinLOS</b> 挡掉单晚客、<b>CTA</b> 保护前日连住、<b>CTD</b> 保护后日连住。</li>
+<li><b>前提是"前后日需求不对称"</b>——对称则不必设。</li>
+<li><b>可得性优于价格</b>：加条件比提价温和，不伤口碑。</li>
+<li><b>必须前置告知</b>：页面、房型名、确认短信三处都要写明。</li>
+<li><b>设了要盯、用完要撤</b>：48 小时看 pickup；活动结束立即撤除。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>MinLOS</b> 挡掉单晚客、<b>CTA</b> 保护前日连住、<b>CTD</b> 保护后日连住。</li>
+<li><b>前提是"前后日需求不对称"</b>——对称则不必设。</li>
+<li><b>可得性优于价格</b>：加条件比提价温和，不伤口碑。</li>
+<li><b>必须前置告知</b>：页面、房型名、确认短信三处都要写明。</li>
+<li><b>设了要盯、用完要撤</b>：48 小时看 pickup；活动结束立即撤除。</li>
+</ol></div></div></section>
+<section class="sl note" data-i="20" data-k="note"><h2>本章小结（5 条，可复述）</h2><div class="bd"><div class="et">练习（进阶）</div><ol start="6">
+<li>周五、周六、周日都紧俏，还需要设 MinLOS 吗？为什么？</li>
+<li>为什么"各渠道设得不一致"会引发投诉？</li>
+<li>设计一次演唱会周末的限制条件方案（写出 D-14 到 D-1 的动作）。</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习（进阶）</div><ol start="6">
+<li>周五、周六、周日都紧俏，还需要设 MinLOS 吗？为什么？</li>
+<li>为什么"各渠道设得不一致"会引发投诉？</li>
+<li>设计一次演唱会周末的限制条件方案（写出 D-14 到 D-1 的动作）。</li>
+</ol></div></div></section>
+<section class="sl judge" data-i="21" data-k="judge"><h2>遇到下面这些情况，直接按"动作"做</h2><div class="bd">
+<table>
+<tr><td>周六满、周日空</td><td>周五设 <b>MinLOS=2</b>，周日设 <b>CTA</b>（只接连住）</td></tr>
+<tr><td>周五空、周六满</td><td>周五设 MinLOS=2（连带周六）</td></tr>
+<tr><td>三天都满</td><td><b>不必设</b>——前后对称，连住客的价值优势消失</td></tr>
+<tr><td>设完 pickup 暴跌</td><td>可能条件太重 → 从 <b>2 晚</b>开始，不要一上来设 3 晚</td></tr>
+<tr><td>活动日结束后</td><td><b>立即撤除</b> MinLOS/CTA（最常被忘的一步）</td></tr>
+<tr><td>客人到店才知道要住两晚</td><td>说明页面没标注 → 三处都要写（页面/房型名/确认短信）</td></tr>
+</table></div></div><div class="srctpl" hidden><div class="jt">遇到下面这些情况，直接按"动作"做</div>
+<table>
+<tr><td>周六满、周日空</td><td>周五设 <b>MinLOS=2</b>，周日设 <b>CTA</b>（只接连住）</td></tr>
+<tr><td>周五空、周六满</td><td>周五设 MinLOS=2（连带周六）</td></tr>
+<tr><td>三天都满</td><td><b>不必设</b>——前后对称，连住客的价值优势消失</td></tr>
+<tr><td>设完 pickup 暴跌</td><td>可能条件太重 → 从 <b>2 晚</b>开始，不要一上来设 3 晚</td></tr>
+<tr><td>活动日结束后</td><td><b>立即撤除</b> MinLOS/CTA（最常被忘的一步）</td></tr>
+<tr><td>客人到店才知道要住两晚</td><td>说明页面没标注 → 三处都要写（页面/房型名/确认短信）</td></tr>
+</table></div></div></section>
+<section class="sl note" data-i="22" data-k="note"><h2>常见场景速查</h2><div class="bd">第二篇 · 决策篇 ｜ 模块 B · 库存决策 ｜ 第 11 章</div><div class="tk">课堂任务卡 · 第 10 章</div><div class="tsc"><b>情境：</b>周六演唱会（满房），周日为空。若放任单晚预订，周六满房、周日大量空房。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>是否紧俏日</td><td>是（预计满房）→ 可设；淡季 → 不设（会吓跑客人）</td></tr><tr><td>单晚客 vs 连住客</td><td>连住客期望收益更高 → 设 MinLOS 保护</td></tr><tr><td>剩余房量</td><td>剩余 ≤15% → 设；剩余充足 → 不设</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>做法：周六设 MinLOS=2，周日设 CTA（不允许周日单独入住，只允许周六开始连住）。 结果：周日出租率从 30% 提升到 70%。 总收入提升，而客人并没有觉得被宰——只是要求多住一晚。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden>第二篇 · 决策篇 ｜ 模块 B · 库存决策 ｜ 第 11 章</div><div class="tk">课堂任务卡 · 第 10 章</div><div class="tsc"><b>情境：</b>周六演唱会（满房），周日为空。若放任单晚预订，周六满房、周日大量空房。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>是否紧俏日</td><td>是（预计满房）→ 可设；淡季 → 不设（会吓跑客人）</td></tr><tr><td>单晚客 vs 连住客</td><td>连住客期望收益更高 → 设 MinLOS 保护</td></tr><tr><td>剩余房量</td><td>剩余 ≤15% → 设；剩余充足 → 不设</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>做法：周六设 MinLOS=2，周日设 CTA（不允许周日单独入住，只允许周六开始连住）。 结果：周日出租率从 30% 提升到 70%。 总收入提升，而客人并没有觉得被宰——只是要求多住一晚。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl pts" data-i="23" data-k="pts"><h2>要点</h2><div class="bd"><div class="nk">反面案例 · 案例二 · 设错了的一次</div><div class="nnum">某店在平季周三设 MinLOS=2，结果 pickup 立刻下滑 40%。</div><div class="nend">原因：周三并非紧俏日，连住客的期望收益并不高于单晚客——条件无的放矢，只是把客人赶走。 撤掉后恢复正常。 结论：限制条件是稀缺性工具，只在紧俏时用。滥用会直接损失订单。</div></div></div><div class="srctpl" hidden><div class="nk">反面案例 · 案例二 · 设错了的一次</div><div class="nnum">某店在平季周三设 MinLOS=2，结果 pickup 立刻下滑 40%。</div><div class="nend">原因：周三并非紧俏日，连住客的期望收益并不高于单晚客——条件无的放矢，只是把客人赶走。 撤掉后恢复正常。 结论：限制条件是稀缺性工具，只在紧俏时用。滥用会直接损失订单。</div></div></div></section>
+<section class="sl sum" data-i="24" data-k="sum"><h2>本章小结</h2><div class="bd"><ol>
+<li><b>MinLOS</b> 挡掉单晚客、<b>CTA</b> 保护前日连住、<b>CTD</b> 保护后日连住。</li>
+<li><b>前提是"前后日需求不对称"</b>——对称则不必设。</li>
+<li><b>可得性优于价格</b>：加条件比提价温和，不伤口碑。</li>
+<li><b>必须前置告知</b>：页面、房型名、确认短信三处都要写明。</li>
+<li><b>设了要盯、用完要撤</b>：48 小时看 pickup；活动结束立即撤除。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>周五、周六、周日都紧俏，还需要设 MinLOS 吗？为什么？</li>
+<li>为什么"各渠道设得不一致"会引发投诉？</li>
+<li>设计一次演唱会周末的限制条件方案（写出 D-14 到 D-1 的动作）。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>MinLOS</b> 挡掉单晚客、<b>CTA</b> 保护前日连住、<b>CTD</b> 保护后日连住。</li>
+<li><b>前提是"前后日需求不对称"</b>——对称则不必设。</li>
+<li><b>可得性优于价格</b>：加条件比提价温和，不伤口碑。</li>
+<li><b>必须前置告知</b>：页面、房型名、确认短信三处都要写明。</li>
+<li><b>设了要盯、用完要撤</b>：48 小时看 pickup；活动结束立即撤除。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>周五、周六、周日都紧俏，还需要设 MinLOS 吗？为什么？</li>
+<li>为什么"各渠道设得不一致"会引发投诉？</li>
+<li>设计一次演唱会周末的限制条件方案（写出 D-14 到 D-1 的动作）。</li>
+</ol></div></div></section>
+<section class="sl end" data-i="25" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li>MinLOS（最少住几晚）：要求客人至少连住 N 晚，把"住一晚就走"的需求挡掉，把房留给连住客。</li><li>这是可得性控制，不是涨价：客人感知不到"被宰"，只是多了个条件——比直接提价温和得多，也不伤口碑。</li><li>MinLOS——例：周六满房、周日空 → 设"最少住 2 晚"，把周六的客顺延到周日，两晚都卖出。</li><li>CTA——例：周日不允许"入住"（但允许从周六连住过来）→ 保护从前一日开始的连住客。</li><li class="fml-i"><b>核心判据</b><br>设置限制的条件： 当「单晚客的边际收益 < 保住连住客的期望收益」时启用 MinLOS → 挡掉只住一晚的客 CTA → 不让某日入住（保护从前面开始的连住） CTD → 不让某日离店（保护向后延伸的连住）</li><li class="fml-i">是否紧俏日是（预计满房）→ 可设；淡季 → 不设（会吓跑客人）</li><li class="fml-i">单晚客 vs 连住客连住客期望收益更高 → 设 MinLOS 保护</li><li class="fml-i">剩余房量剩余 ≤15% → 设；剩余充足 → 不设</li><li class="fml-i">前后日是否也紧俏前一日也紧俏 → 用 CTA；后一日也紧俏 → 用 CTD；只有本日紧俏 → 用 MinLOS</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 26 屏）</div><a href="#p0" data-i="0">01　最短住期 MinLOS：用条件把客群分开</a><a href="#p1" data-i="1">02　本章要你做到</a><a href="#p2" data-i="2">03　情境导入</a><a href="#p3" data-i="3">04　三要点怎么用（各配一例）</a><a href="#p4" data-i="4">05　核心判据</a><a href="#p5" data-i="5">06　算例 3 · 三种限制的选择</a><a href="#p6" data-i="6">07　本章判定表 · 何时设 MinLOS / CTA / CTD</a><a href="#p7" data-i="7">08　场景：距演唱会周六还有 12 天，周五、周日目前较空</a><a href="#p8" data-i="8">09　案例一 · 演唱会当晚</a><a href="#p9" data-i="9">10　案例一 · 演唱会当晚 · 结论</a><a href="#p10" data-i="10">11　案例二 · 设错了的一次</a><a href="#p11" data-i="11">12　案例二 · 设错了的一次 · 结论</a><a href="#p12" data-i="12">13　案例三 · 限制条件的"剂量"</a><a href="#p13" data-i="13">14　案例三 · 限制条件的"剂量" · 结论</a><a href="#p14" data-i="14">15　案例四 · 一次限制条件的完整执行（含时间线）</a><a href="#p15" data-i="15">16　案例四 · 一次限制条件的完整执行（含时间线） · 结论</a><a href="#p16" data-i="16">17　常见错误（续）</a><a href="#p17" data-i="17">18　提醒</a><a href="#p18" data-i="18">19　与前后章的联系</a><a href="#p19" data-i="19">20　要点</a><a href="#p20" data-i="20">21　本章小结（5 条，可复述）</a><a href="#p21" data-i="21">22　遇到下面这些情况，直接按"动作"做</a><a href="#p22" data-i="22">23　常见场景速查</a><a href="#p23" data-i="23">24　要点</a><a href="#p24" data-i="24">25　本章小结</a><a href="#p25" data-i="25">26　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 教材对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=26, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  var st=b.style.fontSize, n=0;
+  b.style.fontSize='';
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('.rev')){ e.target.closest('.sl').classList.add('showans'); dofit(); return; }
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function dofit(){fit();}
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+  else if(k==='/'){e.preventDefault();T();}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>

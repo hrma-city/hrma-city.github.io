@@ -1,0 +1,413 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script><script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>第 29 章 餐饮收益：RevPASH 与翻台 · 投屏课件</title><style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='study-teach.html'">← 教师线</button>
+  <span class="pt">第五篇 · 延伸篇 · 迁移与自查</span>
+  <span class="tt">第 29 章 餐饮收益：RevPASH 与翻台 · 投屏课件</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 24</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">第五篇 · 延伸篇 · 迁移与自查</div><h1>餐饮收益：RevPASH 与翻台</h1><div class="meta">第 29 章 ｜ 迁移与自查 ｜ 共 24 屏</div><div class="promise-b">读完这章你能把收益管理的思路用在餐厅上。</div></section>
+<section class="sl task" data-i="1" data-k="task"><h2>本章要你做到</h2><div class="bd"><div class="tk">课堂任务卡 · 第 29 章</div><div class="tsc"><b>情境：</b>某店周一至周三晚餐上座率仅 35%。推出"工作日双人套餐"（原价 400，套餐 288，限周一至周三）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>核心指标</td><td>用 RevPASH，不用"上座率"（上座率高但客单低也可能亏）</td></tr><tr><td>闲时怎么做</td><td>时段折扣（早鸟/下午茶/工作日套餐），必须限时（栅栏）</td></tr><tr><td>忙时怎么做</td><td>提高客单（推荐、套餐），而非赶人；必要时设用餐时限</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>上座率升到 65%。虽然客单降了，但 RevPASH 从 18 升到 29，且带动了酒水消费。 关键：套餐只在工作日可用（栅栏），周末客人无法占用，不侵蚀周末收入。 这正是客房"淡季加栅栏促销"的同一套逻辑。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden><div class="tk">课堂任务卡 · 第 29 章</div><div class="tsc"><b>情境：</b>某店周一至周三晚餐上座率仅 35%。推出"工作日双人套餐"（原价 400，套餐 288，限周一至周三）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>核心指标</td><td>用 RevPASH，不用"上座率"（上座率高但客单低也可能亏）</td></tr><tr><td>闲时怎么做</td><td>时段折扣（早鸟/下午茶/工作日套餐），必须限时（栅栏）</td></tr><tr><td>忙时怎么做</td><td>提高客单（推荐、套餐），而非赶人；必要时设用餐时限</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>上座率升到 65%。虽然客单降了，但 RevPASH 从 18 升到 29，且带动了酒水消费。 关键：套餐只在工作日可用（栅栏），周末客人无法占用，不侵蚀周末收入。 这正是客房"淡季加栅栏促销"的同一套逻辑。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境导入</h2><div class="bd"><div class="swho">你一定踩过的坑</div><p>餐厅周末排队、周一空一半。经理的办法是"周末多安排人、周一少安排人"——<b>只调了成本，没调需求。</b></p><p>收益管理的思路是：<b>用价格和时间差把周一的客人请过来</b>，而不是被动地接受空桌。</p><p>很多人以为收益管理只属于客房。其实餐厅的产能比客房更易逝——<b>一小时卖不掉就是零</b>，连"今晚"都没有。</p></div><div class="srctpl" hidden><div class="swho">你一定踩过的坑</div><p>餐厅周末排队、周一空一半。经理的办法是"周末多安排人、周一少安排人"——<b>只调了成本，没调需求。</b></p><p>收益管理的思路是：<b>用价格和时间差把周一的客人请过来</b>，而不是被动地接受空桌。</p><p>很多人以为收益管理只属于客房。其实餐厅的产能比客房更易逝——<b>一小时卖不掉就是零</b>，连"今晚"都没有。</p></div></section>
+<section class="sl pts" data-i="3" data-k="pts"><h2>三要点怎么用（各配一例）</h2><div class="bd"><ul>
+<li><b>餐厅的产能是"座位 × 时间"</b>，比客房更易逝：一小时卖不掉即归零，无法储存。</li>
+<li><b>RevPASH ＝ 每可用座位每小时收入</b>，是餐饮的核心指标（对应客房的 RevPAR）。</li>
+<li><b>调节手段</b>：时段定价（早鸟/下午茶）、限时用餐、套餐、预约配额——<b>本质都是"用条件换价格"。</b></li>
+</ul></div><ul>
+<li><b>产能＝座位×时间</b>——例：100 个座位营业 8 小时 = 800 个"座位小时"。<b>每空一小时就永久损失一小时。</b></li>
+<li><b>RevPASH</b>——例：当日收入 24,000 ÷ 800 = 30 元。<b>把它按午/晚、周中/周末拆开，问题立刻现形。</b></li>
+<li><b>调节手段</b>——例：闲时推"下午茶套餐"（限 14:00–17:00），忙时提客单（推荐、套餐），必要时设用餐时限。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>餐厅的产能是"座位 × 时间"</b>，比客房更易逝：一小时卖不掉即归零，无法储存。</li>
+<li><b>RevPASH ＝ 每可用座位每小时收入</b>，是餐饮的核心指标（对应客房的 RevPAR）。</li>
+<li><b>调节手段</b>：时段定价（早鸟/下午茶）、限时用餐、套餐、预约配额——<b>本质都是"用条件换价格"。</b></li>
+</ul></div><ul>
+<li><b>产能＝座位×时间</b>——例：100 个座位营业 8 小时 = 800 个"座位小时"。<b>每空一小时就永久损失一小时。</b></li>
+<li><b>RevPASH</b>——例：当日收入 24,000 ÷ 800 = 30 元。<b>把它按午/晚、周中/周末拆开，问题立刻现形。</b></li>
+<li><b>调节手段</b>——例：闲时推"下午茶套餐"（限 14:00–17:00），忙时提客单（推荐、套餐），必要时设用餐时限。</li>
+</ul></div></div></section>
+<section class="sl fml" data-i="4" data-k="fml"><h2>核心公式</h2><div class="bd"><div class="fe">RevPASH = 餐饮收入 ÷ (座位数 × 营业小时数)
+翻台率 = 就餐批次 ÷ 座位数（提高翻台＝提高产能利用率）
+人均消费 × 翻台率 × 座位数 = 时段收入</div>
+<div class="ex" id="ex29"><b>算例 1：</b>100 个座位，营业 8 小时，当日收入 24,000。<br>
+RevPASH = 24,000 ÷ (100 × 8) = <b>30 元</b>。<br>
+若通过限时 90 分钟把翻台从 2 次提到 2.5 次，收入可升到 30,000 → RevPASH <b>37.5</b>。<br>
+<b>注意：限时不能太狠，否则降低客单价与体验（会反噬评分）。</b><br><br>
+<b>算例 2（闲时）：</b>周一至周三晚餐上座率仅 35%。推出工作日双人套餐（原价 400，套餐 288，限周一至周三）。<br>
+上座率升到 65%，RevPASH 从 18 升到 29，且带动酒水消费。</div></div></div><div class="srctpl" hidden><div class="fn">核心公式</div><div class="fe">RevPASH = 餐饮收入 ÷ (座位数 × 营业小时数)
+翻台率 = 就餐批次 ÷ 座位数（提高翻台＝提高产能利用率）
+人均消费 × 翻台率 × 座位数 = 时段收入</div>
+<div class="ex" id="ex29"><b>算例 1：</b>100 个座位，营业 8 小时，当日收入 24,000。<br>
+RevPASH = 24,000 ÷ (100 × 8) = <b>30 元</b>。<br>
+若通过限时 90 分钟把翻台从 2 次提到 2.5 次，收入可升到 30,000 → RevPASH <b>37.5</b>。<br>
+<b>注意：限时不能太狠，否则降低客单价与体验（会反噬评分）。</b><br><br>
+<b>算例 2（闲时）：</b>周一至周三晚餐上座率仅 35%。推出工作日双人套餐（原价 400，套餐 288，限周一至周三）。<br>
+上座率升到 65%，RevPASH 从 18 升到 29，且带动酒水消费。</div></div></div></section>
+<section class="sl fml" data-i="5" data-k="fml"><h2>算例 3 · 翻台与客单的取舍</h2><div class="bd"><div class="fe">100 座，晚餐 3 小时
+方案甲（慢翻台）：翻台 1.5 次 × 客单 200 = 300/座·晚
+方案乙（快翻台）：翻台 2.2 次 × 客单 160 = 352/座·晚</div>
+<div class="ex" id="ex29b">快翻台收入更高，但<b>客单下降 20%</b>，且可能影响体验与评分（第 24 章）。<br>
+<b>折中做法：</b>通过限时 90 分钟 + 优化出餐速度提升翻台，<b>而不靠压缩客单</b>。<br>
+<b>结论：翻台要以"不损伤客单与体验"为前提，否则评分下降的损失会超过翻台收益。</b></div></div></div><div class="srctpl" hidden><div class="fn">算例 3 · 翻台与客单的取舍</div><div class="fe">100 座，晚餐 3 小时
+方案甲（慢翻台）：翻台 1.5 次 × 客单 200 = 300/座·晚
+方案乙（快翻台）：翻台 2.2 次 × 客单 160 = 352/座·晚</div>
+<div class="ex" id="ex29b">快翻台收入更高，但<b>客单下降 20%</b>，且可能影响体验与评分（第 24 章）。<br>
+<b>折中做法：</b>通过限时 90 分钟 + 优化出餐速度提升翻台，<b>而不靠压缩客单</b>。<br>
+<b>结论：翻台要以"不损伤客单与体验"为前提，否则评分下降的损失会超过翻台收益。</b></div></div></div></section>
+<section class="sl judge" data-i="6" data-k="judge"><h2>本章判定表 · 餐饮收益动作</h2><div class="bd">
+<table>
+<tr><td>核心指标</td><td>用 <b>RevPASH</b>，不用"上座率"（上座率高但客单低也可能亏）</td></tr>
+<tr><td>闲时怎么做</td><td>时段折扣（早鸟/下午茶/工作日套餐），<b>必须限时</b>（栅栏）</td></tr>
+<tr><td>忙时怎么做</td><td>提高客单（推荐、套餐），而非赶人；必要时设用餐时限</td></tr>
+<tr><td>预约配额</td><td>给不同渠道设配额（如 OTA 餐饮券限量）</td></tr>
+<tr><td>菜单工程</td><td>分析每道菜的<b>贡献额与受欢迎度</b>，砍掉"高成本低利润"的菜</td></tr>
+<tr><td>与客房联动</td><td>住客早餐、套餐含餐要计入整体贡献（第 30 章）</td></tr>
+<tr><td>红线</td><td>不得因赶翻台损害体验（会反噬评分，第 24 章）</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>每天算一次 RevPASH，并按"时段"拆分（午/晚、周中/周末）——<b>拆开后你会发现，亏损往往集中在某几个时段。</b></div></div></div><div class="srctpl" hidden><div class="jt">本章判定表 · 餐饮收益动作</div>
+<table>
+<tr><td>核心指标</td><td>用 <b>RevPASH</b>，不用"上座率"（上座率高但客单低也可能亏）</td></tr>
+<tr><td>闲时怎么做</td><td>时段折扣（早鸟/下午茶/工作日套餐），<b>必须限时</b>（栅栏）</td></tr>
+<tr><td>忙时怎么做</td><td>提高客单（推荐、套餐），而非赶人；必要时设用餐时限</td></tr>
+<tr><td>预约配额</td><td>给不同渠道设配额（如 OTA 餐饮券限量）</td></tr>
+<tr><td>菜单工程</td><td>分析每道菜的<b>贡献额与受欢迎度</b>，砍掉"高成本低利润"的菜</td></tr>
+<tr><td>与客房联动</td><td>住客早餐、套餐含餐要计入整体贡献（第 30 章）</td></tr>
+<tr><td>红线</td><td>不得因赶翻台损害体验（会反噬评分，第 24 章）</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>每天算一次 RevPASH，并按"时段"拆分（午/晚、周中/周末）——<b>拆开后你会发现，亏损往往集中在某几个时段。</b></div></div></div></section>
+<section class="sl judge" data-i="7" data-k="judge"><h2>场景：周一晚餐上座率仅 32%，RevPASH 12</h2><div class="bd">
+<table>
+<tr><td>核心指标</td><td>RevPASH 12（周末 46）→ <b>差距明显</b></td></tr>
+<tr><td>闲时促销</td><td>推"周一至周三双人套餐"288（原价 400）✓</td></tr>
+<tr><td>有栅栏吗？</td><td>限周一至周三、限 17:30 前入座 → ✓</td></tr>
+<tr><td>会侵蚀周末吗？</td><td>周末不可用 → <b>不会</b> ✓</td></tr>
+<tr><td>成本真实吗？</td><td>已与厨房核算套餐成本 → ✓</td></tr>
+<tr><td>预约配额</td><td>每日限量 30 份 → ✓</td></tr>
+<tr><td>是否赶翻台</td><td><b>不设时限</b>（避免伤体验）✓</td></tr>
+<tr><td>预期</td><td>上座率 32%→55%，RevPASH 12→20（客单降但总量升）</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：做闲时套餐，但带栅栏、限量、不动周末。</b><br><b>关键：套餐的目的是"填满闲时产能"，不是"降价"——两者区别在于有没有栅栏。</b></div></div></div><div class="srctpl" hidden><div class="jt">场景：周一晚餐上座率仅 32%，RevPASH 12</div>
+<table>
+<tr><td>核心指标</td><td>RevPASH 12（周末 46）→ <b>差距明显</b></td></tr>
+<tr><td>闲时促销</td><td>推"周一至周三双人套餐"288（原价 400）✓</td></tr>
+<tr><td>有栅栏吗？</td><td>限周一至周三、限 17:30 前入座 → ✓</td></tr>
+<tr><td>会侵蚀周末吗？</td><td>周末不可用 → <b>不会</b> ✓</td></tr>
+<tr><td>成本真实吗？</td><td>已与厨房核算套餐成本 → ✓</td></tr>
+<tr><td>预约配额</td><td>每日限量 30 份 → ✓</td></tr>
+<tr><td>是否赶翻台</td><td><b>不设时限</b>（避免伤体验）✓</td></tr>
+<tr><td>预期</td><td>上座率 32%→55%，RevPASH 12→20（客单降但总量升）</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：做闲时套餐，但带栅栏、限量、不动周末。</b><br><b>关键：套餐的目的是"填满闲时产能"，不是"降价"——两者区别在于有没有栅栏。</b></div></div></div></section>
+<section class="sl case" data-i="8" data-k="case"><div class="ct">案例 · 周一的问题</div><div class="cq">某店周一至周三晚餐上座率仅 35%。推出"工作日双人套餐"（原价 400，套餐 288，限周一至周三）。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例 · 周一的问题</div>
+<div class="num">某店周一至周三晚餐上座率仅 35%。推出"工作日双人套餐"（原价 400，套餐 288，限周一至周三）。</div>
+<div class="end">上座率升到 65%。虽然客单降了，但 RevPASH 从 18 升到 29，且带动了酒水消费。<br>
+<b>关键：套餐只在工作日可用（栅栏），周末客人无法占用，不侵蚀周末收入。</b><br>
+<b>这正是客房"淡季加栅栏促销"的同一套逻辑。</b></div></div></div></section>
+<section class="sl caseans" data-i="9" data-k="caseans"><div class="ct">案例 · 周一的问题 · 结论</div><div class="ca" style="display:block">上座率升到 65%。虽然客单降了，但 RevPASH 从 18 升到 29，且带动了酒水消费。<br>
+<b>关键：套餐只在工作日可用（栅栏），周末客人无法占用，不侵蚀周末收入。</b><br>
+<b>这正是客房"淡季加栅栏促销"的同一套逻辑。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例 · 周一的问题</div>
+<div class="num">某店周一至周三晚餐上座率仅 35%。推出"工作日双人套餐"（原价 400，套餐 288，限周一至周三）。</div>
+<div class="end">上座率升到 65%。虽然客单降了，但 RevPASH 从 18 升到 29，且带动了酒水消费。<br>
+<b>关键：套餐只在工作日可用（栅栏），周末客人无法占用，不侵蚀周末收入。</b><br>
+<b>这正是客房"淡季加栅栏促销"的同一套逻辑。</b></div></div></div></section>
+<section class="sl case" data-i="10" data-k="case"><div class="ct">案例三 · 菜单工程的发现</div><div class="cq">某餐厅按"销量"排菜单，把卖得最好的菜放在最显眼位置。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例三 · 菜单工程的发现</div>
+<div class="num">某餐厅按"销量"排菜单，把卖得最好的菜放在最显眼位置。</div>
+<div class="end">改用"贡献额 × 受欢迎度"两维分析后发现：销量第一的菜<b>贡献额其实很低</b>（食材成本高、制作耗时）；而一道销量中等的菜贡献额排第一。<br>
+调整后（把高贡献菜前置、重排菜单、优化低贡献菜），<b>人均贡献提升 8%，而客人几乎没察觉变化。</b><br>
+<b>结论：销量不等于利润。菜单工程就是餐饮版的"客源结构优化"（第 14 章）——看贡献，不看数量。</b></div></div></div></section>
+<section class="sl caseans" data-i="11" data-k="caseans"><div class="ct">案例三 · 菜单工程的发现 · 结论</div><div class="ca" style="display:block">改用"贡献额 × 受欢迎度"两维分析后发现：销量第一的菜<b>贡献额其实很低</b>（食材成本高、制作耗时）；而一道销量中等的菜贡献额排第一。<br>
+调整后（把高贡献菜前置、重排菜单、优化低贡献菜），<b>人均贡献提升 8%，而客人几乎没察觉变化。</b><br>
+<b>结论：销量不等于利润。菜单工程就是餐饮版的"客源结构优化"（第 14 章）——看贡献，不看数量。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例三 · 菜单工程的发现</div>
+<div class="num">某餐厅按"销量"排菜单，把卖得最好的菜放在最显眼位置。</div>
+<div class="end">改用"贡献额 × 受欢迎度"两维分析后发现：销量第一的菜<b>贡献额其实很低</b>（食材成本高、制作耗时）；而一道销量中等的菜贡献额排第一。<br>
+调整后（把高贡献菜前置、重排菜单、优化低贡献菜），<b>人均贡献提升 8%，而客人几乎没察觉变化。</b><br>
+<b>结论：销量不等于利润。菜单工程就是餐饮版的"客源结构优化"（第 14 章）——看贡献，不看数量。</b></div></div></div></section>
+<section class="sl case" data-i="12" data-k="case"><div class="ct">案例四 · 一间餐厅的时段改造（含数据）</div><div class="cq">某酒店餐厅 120 座，改造前 RevPASH 全天平均 22，周末晚 46、周一晚 12。<br>
+<b>改造动作：</b><br>
+① 按午/晚、周中/周末拆开看 RevPASH → 锁定"周一至周三晚餐"为最大洼地<br>
+② 推"工作日双人套餐"288（原价 400），限 17:30 前入座、每日 30 份<br>
+③ 菜单工程：把高贡献菜前置，砍掉两道高成本低利润菜<br>
+④ 忙时（周末晚）不赶翻台，改为提客单（套餐推荐）</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例四 · 一间餐厅的时段改造（含数据）</div>
+<div class="num">某酒店餐厅 120 座，改造前 RevPASH 全天平均 22，周末晚 46、周一晚 12。<br>
+<b>改造动作：</b><br>
+① 按午/晚、周中/周末拆开看 RevPASH → 锁定"周一至周三晚餐"为最大洼地<br>
+② 推"工作日双人套餐"288（原价 400），限 17:30 前入座、每日 30 份<br>
+③ 菜单工程：把高贡献菜前置，砍掉两道高成本低利润菜<br>
+④ 忙时（周末晚）不赶翻台，改为提客单（套餐推荐）</div>
+<div class="end">三个月后：周一至周三晚餐上座率 32%→58%，RevPASH 12→21；周末晚维持 46。<br>
+<b>全天平均 RevPASH 从 22 升到 29（+32%）</b>，而厨房人力未增加。<br>
+<b>结论：餐饮收益的关键动作是"拆分时段找洼地"——整体看RevPASH只会看到平均值，拆开才会看到问题在哪一顿。</b></div></div></div></section>
+<section class="sl caseans" data-i="13" data-k="caseans"><div class="ct">案例四 · 一间餐厅的时段改造（含数据） · 结论</div><div class="ca" style="display:block">三个月后：周一至周三晚餐上座率 32%→58%，RevPASH 12→21；周末晚维持 46。<br>
+<b>全天平均 RevPASH 从 22 升到 29（+32%）</b>，而厨房人力未增加。<br>
+<b>结论：餐饮收益的关键动作是"拆分时段找洼地"——整体看RevPASH只会看到平均值，拆开才会看到问题在哪一顿。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例四 · 一间餐厅的时段改造（含数据）</div>
+<div class="num">某酒店餐厅 120 座，改造前 RevPASH 全天平均 22，周末晚 46、周一晚 12。<br>
+<b>改造动作：</b><br>
+① 按午/晚、周中/周末拆开看 RevPASH → 锁定"周一至周三晚餐"为最大洼地<br>
+② 推"工作日双人套餐"288（原价 400），限 17:30 前入座、每日 30 份<br>
+③ 菜单工程：把高贡献菜前置，砍掉两道高成本低利润菜<br>
+④ 忙时（周末晚）不赶翻台，改为提客单（套餐推荐）</div>
+<div class="end">三个月后：周一至周三晚餐上座率 32%→58%，RevPASH 12→21；周末晚维持 46。<br>
+<b>全天平均 RevPASH 从 22 升到 29（+32%）</b>，而厨房人力未增加。<br>
+<b>结论：餐饮收益的关键动作是"拆分时段找洼地"——整体看RevPASH只会看到平均值，拆开才会看到问题在哪一顿。</b></div></div></div></section>
+<section class="sl pts" data-i="14" data-k="pts"><h2>常见错误（续）</h2><div class="bd"><ul>
+<li><b>用上座率当核心指标</b>。上座率高但客单低仍可能亏损。</li>
+<li><b>闲时促销不限时</b>。会被周末客人占用，侵蚀高峰收入。</li>
+<li><b>只看收入不看食材成本</b>。餐饮的变动成本占比远高于客房。</li>
+</ul></div><ul>
+<li><b>只算收入不算食材成本率</b>——餐饮的变动成本占比远高于客房，收入高不代表赚钱。</li>
+<li><b>套餐内容与厨房能力脱节</b>——推了套餐但出餐慢，反而拖累翻台与体验。</li>
+</ul></div><ul>
+<li><b>往上（第 2 章）</b>：RevPASH 就是餐饮版的 RevPAR。</li>
+<li><b>往上（第 8 章）</b>：套餐逻辑与客房完全一致。</li>
+<li><b>往上（第 26 章）</b>：餐饮变动成本占比高，底线更硬。</li>
+<li><b>往下（第 31 章）</b>：这是跨行业迁移的第一个例子。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>用上座率当核心指标</b>。上座率高但客单低仍可能亏损。</li>
+<li><b>闲时促销不限时</b>。会被周末客人占用，侵蚀高峰收入。</li>
+<li><b>只看收入不看食材成本</b>。餐饮的变动成本占比远高于客房。</li>
+</ul></div><ul>
+<li><b>只算收入不算食材成本率</b>——餐饮的变动成本占比远高于客房，收入高不代表赚钱。</li>
+<li><b>套餐内容与厨房能力脱节</b>——推了套餐但出餐慢，反而拖累翻台与体验。</li>
+</ul></div><ul>
+<li><b>往上（第 2 章）</b>：RevPASH 就是餐饮版的 RevPAR。</li>
+<li><b>往上（第 8 章）</b>：套餐逻辑与客房完全一致。</li>
+<li><b>往上（第 26 章）</b>：餐饮变动成本占比高，底线更硬。</li>
+<li><b>往下（第 31 章）</b>：这是跨行业迁移的第一个例子。</li>
+</ul></div></div></section>
+<section class="sl tip" data-i="15" data-k="tip"><h2>提醒</h2><div class="bd"><b>自学者提示：</b>餐厅和客房的收益管理<b>完全相通</b>——产能易逝、需求波动、客群分层、用栅栏隔开。学会客房，餐饮自然通；反过来也一样。</div></div><div class="srctpl" hidden><b>自学者提示：</b>餐厅和客房的收益管理<b>完全相通</b>——产能易逝、需求波动、客群分层、用栅栏隔开。学会客房，餐饮自然通；反过来也一样。</div></div></section>
+<section class="sl note" data-i="16" data-k="note"><h2>与前后章的联系</h2><div class="bd"><div class="et">练习</div><ol>
+<li>120 座，营业 6 小时，收入 18,000，求 RevPASH。</li>
+<li>为什么餐饮不能用"上座率"当核心指标？</li>
+<li>设计一个闲时促销（写出栅栏条件）。</li>
+<li>为什么"限时用餐"要谨慎？</li>
+<li>菜单工程要分析哪两个维度？</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习</div><ol>
+<li>120 座，营业 6 小时，收入 18,000，求 RevPASH。</li>
+<li>为什么餐饮不能用"上座率"当核心指标？</li>
+<li>设计一个闲时促销（写出栅栏条件）。</li>
+<li>为什么"限时用餐"要谨慎？</li>
+<li>菜单工程要分析哪两个维度？</li>
+</ol></div></div></section>
+<section class="sl pts" data-i="17" data-k="pts"><h2>要点</h2><div class="bd"><ol>
+<li><b>产能＝座位 × 时间</b>；比客房更易逝（一小时卖不掉即归零）。</li>
+<li><b>RevPASH</b>＝收入 ÷(座位数 × 营业小时)；对应客房的 RevPAR。</li>
+<li><b>核心动作是拆时段</b>——整体平均值会掩盖洼地。</li>
+<li><b>闲时促销必须带栅栏</b>（限时段、限份数），否则侵蚀高峰。</li>
+<li><b>菜单工程看"贡献额 × 受欢迎度"</b>，销量高不等于利润高。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>产能＝座位 × 时间</b>；比客房更易逝（一小时卖不掉即归零）。</li>
+<li><b>RevPASH</b>＝收入 ÷(座位数 × 营业小时)；对应客房的 RevPAR。</li>
+<li><b>核心动作是拆时段</b>——整体平均值会掩盖洼地。</li>
+<li><b>闲时促销必须带栅栏</b>（限时段、限份数），否则侵蚀高峰。</li>
+<li><b>菜单工程看"贡献额 × 受欢迎度"</b>，销量高不等于利润高。</li>
+</ol></div></div></section>
+<section class="sl note" data-i="18" data-k="note"><h2>本章小结（5 条，可复述）</h2><div class="bd"><div class="et">练习（进阶）</div><ol start="6">
+<li>120 座、营业 6 小时、收入 1.8 万，求 RevPASH；若拆时段后周一晚只有 12，说明什么？</li>
+<li>为什么"赶翻台"要谨慎？它与评分有什么关系？</li>
+<li>用菜单工程分析你熟悉的一家餐厅（列出两道该前置、两道该砍的菜）。</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习（进阶）</div><ol start="6">
+<li>120 座、营业 6 小时、收入 1.8 万，求 RevPASH；若拆时段后周一晚只有 12，说明什么？</li>
+<li>为什么"赶翻台"要谨慎？它与评分有什么关系？</li>
+<li>用菜单工程分析你熟悉的一家餐厅（列出两道该前置、两道该砍的菜）。</li>
+</ol></div></div></section>
+<section class="sl judge" data-i="19" data-k="judge"><h2>遇到下面这些情况，直接按"动作"做</h2><div class="bd">
+<table>
+<tr><td>周一晚上没人</td><td>不要只调人手 → 推<b>限时段</b>的工作日套餐</td></tr>
+<tr><td>上座率很高但没钱赚</td><td>算 <b>RevPASH</b>与食材成本率；上座率不是利润指标</td></tr>
+<tr><td>想提高翻台</td><td>优先<b>优化出餐</b>与限时 90 分钟；不要靠压客单</td></tr>
+<tr><td>菜单怎么排</td><td>按<b>贡献额 × 受欢迎度</b>；销量第一 ≠ 贡献第一</td></tr>
+<tr><td>闲时促销会不会影响周末</td><td>只要<b>限时段</b>（如仅周一至周三），就不会侵蚀高峰</td></tr>
+</table></div></div><div class="srctpl" hidden><div class="jt">遇到下面这些情况，直接按"动作"做</div>
+<table>
+<tr><td>周一晚上没人</td><td>不要只调人手 → 推<b>限时段</b>的工作日套餐</td></tr>
+<tr><td>上座率很高但没钱赚</td><td>算 <b>RevPASH</b>与食材成本率；上座率不是利润指标</td></tr>
+<tr><td>想提高翻台</td><td>优先<b>优化出餐</b>与限时 90 分钟；不要靠压客单</td></tr>
+<tr><td>菜单怎么排</td><td>按<b>贡献额 × 受欢迎度</b>；销量第一 ≠ 贡献第一</td></tr>
+<tr><td>闲时促销会不会影响周末</td><td>只要<b>限时段</b>（如仅周一至周三），就不会侵蚀高峰</td></tr>
+</table></div></div></section>
+<section class="sl note" data-i="20" data-k="note"><h2>常见场景速查</h2><div class="bd">第五篇 · 延伸篇 ｜ 迁移与自查 ｜ 第 30 章</div><div class="tk">课堂任务卡 · 第 29 章</div><div class="tsc"><b>情境：</b>某店周一至周三晚餐上座率仅 35%。推出"工作日双人套餐"（原价 400，套餐 288，限周一至周三）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>核心指标</td><td>用 RevPASH，不用"上座率"（上座率高但客单低也可能亏）</td></tr><tr><td>闲时怎么做</td><td>时段折扣（早鸟/下午茶/工作日套餐），必须限时（栅栏）</td></tr><tr><td>忙时怎么做</td><td>提高客单（推荐、套餐），而非赶人；必要时设用餐时限</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>上座率升到 65%。虽然客单降了，但 RevPASH 从 18 升到 29，且带动了酒水消费。 关键：套餐只在工作日可用（栅栏），周末客人无法占用，不侵蚀周末收入。 这正是客房"淡季加栅栏促销"的同一套逻辑。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden>第五篇 · 延伸篇 ｜ 迁移与自查 ｜ 第 30 章</div><div class="tk">课堂任务卡 · 第 29 章</div><div class="tsc"><b>情境：</b>某店周一至周三晚餐上座率仅 35%。推出"工作日双人套餐"（原价 400，套餐 288，限周一至周三）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>核心指标</td><td>用 RevPASH，不用"上座率"（上座率高但客单低也可能亏）</td></tr><tr><td>闲时怎么做</td><td>时段折扣（早鸟/下午茶/工作日套餐），必须限时（栅栏）</td></tr><tr><td>忙时怎么做</td><td>提高客单（推荐、套餐），而非赶人；必要时设用餐时限</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>上座率升到 65%。虽然客单降了，但 RevPASH 从 18 升到 29，且带动了酒水消费。 关键：套餐只在工作日可用（栅栏），周末客人无法占用，不侵蚀周末收入。 这正是客房"淡季加栅栏促销"的同一套逻辑。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl pts" data-i="21" data-k="pts"><h2>要点</h2><div class="bd"><div class="nk">反面案例 · 用「上座率」判断餐饮好坏</div><div class="nnum">某餐厅以「上座率高」为荣，并按「销量」排菜单——把卖得最好的菜放在最显眼位置。</div><div class="nend">代价：上座率高但客单低也可能亏（判定表第 1 行）；改用「贡献额 × 受欢迎度」两维分析后发现，销量第一的菜贡献额其实很低（食材成本高、制作耗时），而一道销量中等的菜贡献额排第一——等于把最好赚的位置让给了最不赚钱的菜。<br><b>判定表怎么说：</b>核心指标用 RevPASH，不用上座率；菜单按「贡献额 × 受欢迎度」排，销量第一 ≠ 贡献第一；红线是不得因赶翻台损害体验（会反噬评分，见第 24 章）。<br><b>正确做法：</b>把高贡献菜前置、重排菜单、优化低贡献菜 → 人均贡献提升 8%，而客人几乎无感。</div></div></div><div class="srctpl" hidden><div class="nk">反面案例 · 用「上座率」判断餐饮好坏</div><div class="nnum">某餐厅以「上座率高」为荣，并按「销量」排菜单——把卖得最好的菜放在最显眼位置。</div><div class="nend">代价：上座率高但客单低也可能亏（判定表第 1 行）；改用「贡献额 × 受欢迎度」两维分析后发现，销量第一的菜贡献额其实很低（食材成本高、制作耗时），而一道销量中等的菜贡献额排第一——等于把最好赚的位置让给了最不赚钱的菜。<br><b>判定表怎么说：</b>核心指标用 RevPASH，不用上座率；菜单按「贡献额 × 受欢迎度」排，销量第一 ≠ 贡献第一；红线是不得因赶翻台损害体验（会反噬评分，见第 24 章）。<br><b>正确做法：</b>把高贡献菜前置、重排菜单、优化低贡献菜 → 人均贡献提升 8%，而客人几乎无感。</div></div></div></section>
+<section class="sl sum" data-i="22" data-k="sum"><h2>本章小结</h2><div class="bd"><ol>
+<li><b>产能＝座位 × 时间</b>；比客房更易逝（一小时卖不掉即归零）。</li>
+<li><b>RevPASH</b>＝收入 ÷(座位数 × 营业小时)；对应客房的 RevPAR。</li>
+<li><b>核心动作是拆时段</b>——整体平均值会掩盖洼地。</li>
+<li><b>闲时促销必须带栅栏</b>（限时段、限份数），否则侵蚀高峰。</li>
+<li><b>菜单工程看"贡献额 × 受欢迎度"</b>，销量高不等于利润高。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>120 座、营业 6 小时、收入 1.8 万，求 RevPASH；若拆时段后周一晚只有 12，说明什么？</li>
+<li>为什么"赶翻台"要谨慎？它与评分有什么关系？</li>
+<li>用菜单工程分析你熟悉的一家餐厅（列出两道该前置、两道该砍的菜）。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>产能＝座位 × 时间</b>；比客房更易逝（一小时卖不掉即归零）。</li>
+<li><b>RevPASH</b>＝收入 ÷(座位数 × 营业小时)；对应客房的 RevPAR。</li>
+<li><b>核心动作是拆时段</b>——整体平均值会掩盖洼地。</li>
+<li><b>闲时促销必须带栅栏</b>（限时段、限份数），否则侵蚀高峰。</li>
+<li><b>菜单工程看"贡献额 × 受欢迎度"</b>，销量高不等于利润高。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>120 座、营业 6 小时、收入 1.8 万，求 RevPASH；若拆时段后周一晚只有 12，说明什么？</li>
+<li>为什么"赶翻台"要谨慎？它与评分有什么关系？</li>
+<li>用菜单工程分析你熟悉的一家餐厅（列出两道该前置、两道该砍的菜）。</li>
+</ol></div></div></section>
+<section class="sl end" data-i="23" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li>餐厅的产能是"座位 × 时间"，比客房更易逝：一小时卖不掉即归零，无法储存。</li><li>RevPASH ＝ 每可用座位每小时收入，是餐饮的核心指标（对应客房的 RevPAR）。</li><li>调节手段：时段定价（早鸟/下午茶）、限时用餐、套餐、预约配额——本质都是"用条件换价格"。</li><li>产能＝座位×时间——例：100 个座位营业 8 小时 = 800 个"座位小时"。每空一小时就永久损失一小时。</li><li>RevPASH——例：当日收入 24,000 ÷ 800 = 30 元。把它按午/晚、周中/周末拆开，问题立刻现形。</li><li>调节手段——例：闲时推"下午茶套餐"（限 14:00–17:00），忙时提客单（推荐、套餐），必要时设用餐时限。</li><li class="fml-i">核心指标用 RevPASH，不用"上座率"（上座率高但客单低也可能亏）</li><li class="fml-i">闲时怎么做时段折扣（早鸟/下午茶/工作日套餐），必须限时（栅栏）</li><li class="fml-i">忙时怎么做提高客单（推荐、套餐），而非赶人；必要时设用餐时限</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 24 屏）</div><a href="#p0" data-i="0">01　餐饮收益：RevPASH 与翻台</a><a href="#p1" data-i="1">02　本章要你做到</a><a href="#p2" data-i="2">03　情境导入</a><a href="#p3" data-i="3">04　三要点怎么用（各配一例）</a><a href="#p4" data-i="4">05　核心公式</a><a href="#p5" data-i="5">06　算例 3 · 翻台与客单的取舍</a><a href="#p6" data-i="6">07　本章判定表 · 餐饮收益动作</a><a href="#p7" data-i="7">08　场景：周一晚餐上座率仅 32%，RevPASH 12</a><a href="#p8" data-i="8">09　案例 · 周一的问题</a><a href="#p9" data-i="9">10　案例 · 周一的问题 · 结论</a><a href="#p10" data-i="10">11　案例三 · 菜单工程的发现</a><a href="#p11" data-i="11">12　案例三 · 菜单工程的发现 · 结论</a><a href="#p12" data-i="12">13　案例四 · 一间餐厅的时段改造（含数据）</a><a href="#p13" data-i="13">14　案例四 · 一间餐厅的时段改造（含数据） · 结论</a><a href="#p14" data-i="14">15　常见错误（续）</a><a href="#p15" data-i="15">16　提醒</a><a href="#p16" data-i="16">17　与前后章的联系</a><a href="#p17" data-i="17">18　要点</a><a href="#p18" data-i="18">19　本章小结（5 条，可复述）</a><a href="#p19" data-i="19">20　遇到下面这些情况，直接按"动作"做</a><a href="#p20" data-i="20">21　常见场景速查</a><a href="#p21" data-i="21">22　要点</a><a href="#p22" data-i="22">23　本章小结</a><a href="#p23" data-i="23">24　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 教材对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=24, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  var st=b.style.fontSize, n=0;
+  b.style.fontSize='';
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('.rev')){ e.target.closest('.sl').classList.add('showans'); dofit(); return; }
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function dofit(){fit();}
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+  else if(k==='/'){e.preventDefault();T();}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>

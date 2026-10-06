@@ -1,0 +1,426 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script><script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>第 31 章 其他业态与跨行业参数 · 投屏课件</title><style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='study-teach.html'">← 教师线</button>
+  <span class="pt">第五篇 · 延伸篇 · 迁移与自查</span>
+  <span class="tt">第 31 章 其他业态与跨行业参数 · 投屏课件</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 26</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">第五篇 · 延伸篇 · 迁移与自查</div><h1>其他业态与跨行业参数</h1><div class="meta">第 31 章 ｜ 迁移与自查 ｜ 共 26 屏</div><div class="promise-b">读完这章你能迁移：把收益管理用到酒店之外。</div></section>
+<section class="sl task" data-i="1" data-k="task"><h2>本章要你做到</h2><div class="bd"><div class="tk">课堂任务卡 · 第 31 章</div><div class="tsc"><b>情境：</b>某公寓 50 套。长租月租 4,000（稳定），短租日均 320（波动，淡季常空）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>产能是否易逝</td><td>过期作废 → 可；可储存 → 不可</td></tr><tr><td>产能是否短期固定</td><td>无法快速扩产 → 可</td></tr><tr><td>需求是否波动</td><td>有明显时段/季节差 → 可</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>旺季短租月化可达 320 × 30 × 85% = 8,160 &gt; 4,000 → 旺季增量转短租。 淡季短租月化约 320 × 30 × 40% = 3,840 &lt; 4,000 → 淡季转长租。 关键：保留长租基本盘（如 70%），用剩余 30% 做短租弹性。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden><div class="tk">课堂任务卡 · 第 31 章</div><div class="tsc"><b>情境：</b>某公寓 50 套。长租月租 4,000（稳定），短租日均 320（波动，淡季常空）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>产能是否易逝</td><td>过期作废 → 可；可储存 → 不可</td></tr><tr><td>产能是否短期固定</td><td>无法快速扩产 → 可</td></tr><tr><td>需求是否波动</td><td>有明显时段/季节差 → 可</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>旺季短租月化可达 320 × 30 × 85% = 8,160 &gt; 4,000 → 旺季增量转短租。 淡季短租月化约 320 × 30 × 40% = 3,840 &lt; 4,000 → 淡季转长租。 关键：保留长租基本盘（如 70%），用剩余 30% 做短租弹性。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境导入</h2><div class="bd"><div class="swho">你一定踩过的坑</div><p>学完收益管理，以为只能在酒店用。</p><p>其实<b>所有"产能易逝 + 需求波动 + 客群分层"的生意都适用</b>：航空、租车、影院、剧场、停车场、健身房、医美预约、生鲜零售、共享充电宝……</p><p>你甚至能靠这个技能跨行业就业——因为<b>换的是参数，不是逻辑。</b></p></div><div class="srctpl" hidden><div class="swho">你一定踩过的坑</div><p>学完收益管理，以为只能在酒店用。</p><p>其实<b>所有"产能易逝 + 需求波动 + 客群分层"的生意都适用</b>：航空、租车、影院、剧场、停车场、健身房、医美预约、生鲜零售、共享充电宝……</p><p>你甚至能靠这个技能跨行业就业——因为<b>换的是参数，不是逻辑。</b></p></div></section>
+<section class="sl pts" data-i="3" data-k="pts"><h2>三要点怎么用（各配一例）</h2><div class="bd"><ul>
+<li><b>套用第 1 章判定表</b>：易逝、固定、波动、可分层——四条全中即可用。</li>
+<li><b>换的是参数，不是逻辑</b>：把"房晚"换成"座位/车位/机位/时段"，逻辑完全一样。</li>
+<li><b>行业差异在栅栏形式</b>：酒店用"提前订/不可退"，影院用"时段"，健身房用"年卡/次卡"。</li>
+</ul></div><ul>
+<li><b>套判定表</b>——例：共享自习室——座位易逝 ✓、短期固定 ✓、需求波动 ✓、可分层（月卡/次卡）✓ → 适用。</li>
+<li><b>换参数</b>——例：把"房晚"换成"座位小时"，RevPAR 换成 RevPASH。<b>公式结构完全不变。</b></li>
+<li><b>找天然栅栏</b>——例：健身房的栅栏是"时段"，医美的栅栏是"预付不可退"，影院的栅栏是"场次"。<b>每个行业都有天然的，要去找。</b></li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>套用第 1 章判定表</b>：易逝、固定、波动、可分层——四条全中即可用。</li>
+<li><b>换的是参数，不是逻辑</b>：把"房晚"换成"座位/车位/机位/时段"，逻辑完全一样。</li>
+<li><b>行业差异在栅栏形式</b>：酒店用"提前订/不可退"，影院用"时段"，健身房用"年卡/次卡"。</li>
+</ul></div><ul>
+<li><b>套判定表</b>——例：共享自习室——座位易逝 ✓、短期固定 ✓、需求波动 ✓、可分层（月卡/次卡）✓ → 适用。</li>
+<li><b>换参数</b>——例：把"房晚"换成"座位小时"，RevPAR 换成 RevPASH。<b>公式结构完全不变。</b></li>
+<li><b>找天然栅栏</b>——例：健身房的栅栏是"时段"，医美的栅栏是"预付不可退"，影院的栅栏是"场次"。<b>每个行业都有天然的，要去找。</b></li>
+</ul></div></div></section>
+<section class="sl fml" data-i="4" data-k="fml"><h2>迁移公式（通用）</h2><div class="bd"><div class="fe">产能单位：房晚 → 座位 / 车位 / 机位 / 时段 / 舱位
+核心指标：RevPAR → RevPASH（餐饮）/ RASM（航空）/ 单位时段收入
+控制阀门：价格 + 可得性（开关某价档 / 加限制条件）</div>
+<div class="ex" id="ex31"><b>算例（停车场）：</b>产能＝车位×小时，易逝、固定；需求早晚高峰波动；客群分临停/月租/预约。<br>
+做法：高峰提价、闲时套餐（夜间包月）、月租限量、预约配额。<br>
+<b>完全对应酒店的：旺季守价、淡季套餐、团队置换、渠道配额。</b></div></div></div><div class="srctpl" hidden><div class="fn">迁移公式（通用）</div><div class="fe">产能单位：房晚 → 座位 / 车位 / 机位 / 时段 / 舱位
+核心指标：RevPAR → RevPASH（餐饮）/ RASM（航空）/ 单位时段收入
+控制阀门：价格 + 可得性（开关某价档 / 加限制条件）</div>
+<div class="ex" id="ex31"><b>算例（停车场）：</b>产能＝车位×小时，易逝、固定；需求早晚高峰波动；客群分临停/月租/预约。<br>
+做法：高峰提价、闲时套餐（夜间包月）、月租限量、预约配额。<br>
+<b>完全对应酒店的：旺季守价、淡季套餐、团队置换、渠道配额。</b></div></div></div></section>
+<section class="sl fml" data-i="5" data-k="fml"><h2>算例 3 · 停车场的完整迁移</h2><div class="bd"><div class="fe">产能＝车位×小时（易逝、固定）
+需求＝早晚高峰 vs 夜间（波动）
+客群＝临停 / 月租 / 预约（可分层）
+栅栏＝时段（夜间包月不可白天用）
+指标＝车位小时收入（对应 RevPAR）
+动作＝高峰提价、闲时包月、月租限量、预约配额</div>
+<div class="ex" id="ex31b"><b>六项全部对应酒店的六个概念</b>——产能易逝、需求波动、客群分层、栅栏、指标、动作。<br>
+<b>结论：迁移的不是公式，是这六个问题的答案。答出这六个，任何行业都能用。</b></div></div></div><div class="srctpl" hidden><div class="fn">算例 3 · 停车场的完整迁移</div><div class="fe">产能＝车位×小时（易逝、固定）
+需求＝早晚高峰 vs 夜间（波动）
+客群＝临停 / 月租 / 预约（可分层）
+栅栏＝时段（夜间包月不可白天用）
+指标＝车位小时收入（对应 RevPAR）
+动作＝高峰提价、闲时包月、月租限量、预约配额</div>
+<div class="ex" id="ex31b"><b>六项全部对应酒店的六个概念</b>——产能易逝、需求波动、客群分层、栅栏、指标、动作。<br>
+<b>结论：迁移的不是公式，是这六个问题的答案。答出这六个，任何行业都能用。</b></div></div></div></section>
+<section class="sl judge" data-i="6" data-k="judge"><h2>本章判定表 · 这个行业能不能用（回到第 1 章）</h2><div class="bd">
+<table>
+<tr><td>产能是否易逝</td><td>过期作废 → 可；可储存 → 不可</td></tr>
+<tr><td>产能是否短期固定</td><td>无法快速扩产 → 可</td></tr>
+<tr><td>需求是否波动</td><td>有明显时段/季节差 → 可</td></tr>
+<tr><td>客群是否可分层</td><td>支付意愿不同 → 可</td></tr>
+<tr><td>能否提前预订</td><td>能 → 可做预测与保护位；不能 → 只能现场定价</td></tr>
+<tr><td>栅栏是什么</td><td>找出该行业天然的"限制条件"（时段/会员/不可退/资质）</td></tr>
+<tr><td>指标怎么换</td><td>把 RevPAR 换成"单位产能单位时间的收入"</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>拿到一个新行业，先填这七项。<b>前五项全中，就一定能用；第六项决定你用什么栅栏。</b></div></div></div><div class="srctpl" hidden><div class="jt">本章判定表 · 这个行业能不能用（回到第 1 章）</div>
+<table>
+<tr><td>产能是否易逝</td><td>过期作废 → 可；可储存 → 不可</td></tr>
+<tr><td>产能是否短期固定</td><td>无法快速扩产 → 可</td></tr>
+<tr><td>需求是否波动</td><td>有明显时段/季节差 → 可</td></tr>
+<tr><td>客群是否可分层</td><td>支付意愿不同 → 可</td></tr>
+<tr><td>能否提前预订</td><td>能 → 可做预测与保护位；不能 → 只能现场定价</td></tr>
+<tr><td>栅栏是什么</td><td>找出该行业天然的"限制条件"（时段/会员/不可退/资质）</td></tr>
+<tr><td>指标怎么换</td><td>把 RevPAR 换成"单位产能单位时间的收入"</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>拿到一个新行业，先填这七项。<b>前五项全中，就一定能用；第六项决定你用什么栅栏。</b></div></div></div></section>
+<section class="sl judge" data-i="7" data-k="judge"><h2>场景：有人问"剧本杀门店"能做收益管理吗</h2><div class="bd">
+<table>
+<tr><td>产能是否易逝？</td><td>一场卖不掉即归零 → <b>是</b> ✓</td></tr>
+<tr><td>产能是否固定？</td><td>房间数与场次短期固定 → <b>是</b> ✓</td></tr>
+<tr><td>需求是否波动？</td><td>周末与工作日晚间差异极大 → <b>是</b> ✓</td></tr>
+<tr><td>客群可分层？</td><td>有拼场客、包场客、会员 → <b>是</b> ✓</td></tr>
+<tr><td>能否提前预订？</td><td>可线上预约 → <b>是</b> ✓</td></tr>
+<tr><td>天然栅栏？</td><td><b>场次 + 时段</b>（工作日场更便宜）✓</td></tr>
+<tr><td>指标怎么换？</td><td>每房每小时收入（对应 RevPAR）✓</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：全中 → 完全适用。</b><br>具体打法：工作日场降价（带栅栏）、周末场守价、拼场与包场分设保护位（第 12 章）、会员锁客（第 16 章）。</div></div></div><div class="srctpl" hidden><div class="jt">场景：有人问"剧本杀门店"能做收益管理吗</div>
+<table>
+<tr><td>产能是否易逝？</td><td>一场卖不掉即归零 → <b>是</b> ✓</td></tr>
+<tr><td>产能是否固定？</td><td>房间数与场次短期固定 → <b>是</b> ✓</td></tr>
+<tr><td>需求是否波动？</td><td>周末与工作日晚间差异极大 → <b>是</b> ✓</td></tr>
+<tr><td>客群可分层？</td><td>有拼场客、包场客、会员 → <b>是</b> ✓</td></tr>
+<tr><td>能否提前预订？</td><td>可线上预约 → <b>是</b> ✓</td></tr>
+<tr><td>天然栅栏？</td><td><b>场次 + 时段</b>（工作日场更便宜）✓</td></tr>
+<tr><td>指标怎么换？</td><td>每房每小时收入（对应 RevPAR）✓</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：全中 → 完全适用。</b><br>具体打法：工作日场降价（带栅栏）、周末场守价、拼场与包场分设保护位（第 12 章）、会员锁客（第 16 章）。</div></div></div></section>
+<section class="sl case" data-i="8" data-k="case"><div class="ct">案例一 · 长短租配比（公寓）</div><div class="cq">某公寓 50 套。长租月租 4,000（稳定），短租日均 320（波动，淡季常空）。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例一 · 长短租配比（公寓）</div>
+<div class="num">某公寓 50 套。长租月租 4,000（稳定），短租日均 320（波动，淡季常空）。</div>
+<div class="end">旺季短租月化可达 320 × 30 × 85% = 8,160 &gt; 4,000 → <b>旺季增量转短租</b>。<br>
+淡季短租月化约 320 × 30 × 40% = 3,840 &lt; 4,000 → <b>淡季转长租</b>。<br>
+<b>关键：保留长租基本盘（如 70%），用剩余 30% 做短租弹性。</b></div></div></div></section>
+<section class="sl caseans" data-i="9" data-k="caseans"><div class="ct">案例一 · 长短租配比（公寓） · 结论</div><div class="ca" style="display:block">旺季短租月化可达 320 × 30 × 85% = 8,160 &gt; 4,000 → <b>旺季增量转短租</b>。<br>
+淡季短租月化约 320 × 30 × 40% = 3,840 &lt; 4,000 → <b>淡季转长租</b>。<br>
+<b>关键：保留长租基本盘（如 70%），用剩余 30% 做短租弹性。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例一 · 长短租配比（公寓）</div>
+<div class="num">某公寓 50 套。长租月租 4,000（稳定），短租日均 320（波动，淡季常空）。</div>
+<div class="end">旺季短租月化可达 320 × 30 × 85% = 8,160 &gt; 4,000 → <b>旺季增量转短租</b>。<br>
+淡季短租月化约 320 × 30 × 40% = 3,840 &lt; 4,000 → <b>淡季转长租</b>。<br>
+<b>关键：保留长租基本盘（如 70%），用剩余 30% 做短租弹性。</b></div></div></div></section>
+<section class="sl case" data-i="10" data-k="case"><div class="ct">案例二 · 健身房的一次"收益管理"</div><div class="cq">健身房晚 7–9 点器械排队，下午 2–5 点几乎没人。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例二 · 健身房的一次"收益管理"</div>
+<div class="num">健身房晚 7–9 点器械排队，下午 2–5 点几乎没人。</div>
+<div class="end">做法：推出"午后卡"（价格低 40%，限工作日 14:00–17:00 入场）。<br>
+结果：闲时利用率提升，晚间拥挤缓解，<b>且年卡价格体系未被侵蚀（因为栅栏是"时段"）</b>。<br>
+<b>这正是酒店的"淡季套餐 + 栅栏"逻辑——换了个产能单位而已。</b></div></div></div></section>
+<section class="sl caseans" data-i="11" data-k="caseans"><div class="ct">案例二 · 健身房的一次"收益管理" · 结论</div><div class="ca" style="display:block">做法：推出"午后卡"（价格低 40%，限工作日 14:00–17:00 入场）。<br>
+结果：闲时利用率提升，晚间拥挤缓解，<b>且年卡价格体系未被侵蚀（因为栅栏是"时段"）</b>。<br>
+<b>这正是酒店的"淡季套餐 + 栅栏"逻辑——换了个产能单位而已。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例二 · 健身房的一次"收益管理"</div>
+<div class="num">健身房晚 7–9 点器械排队，下午 2–5 点几乎没人。</div>
+<div class="end">做法：推出"午后卡"（价格低 40%，限工作日 14:00–17:00 入场）。<br>
+结果：闲时利用率提升，晚间拥挤缓解，<b>且年卡价格体系未被侵蚀（因为栅栏是"时段"）</b>。<br>
+<b>这正是酒店的"淡季套餐 + 栅栏"逻辑——换了个产能单位而已。</b></div></div></div></section>
+<section class="sl case" data-i="12" data-k="case"><div class="ct">案例三 · 一次失败的迁移</div><div class="cq">某学员把酒店的做法直接搬到生鲜超市：对临期商品"提前预订打折"。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例三 · 一次失败的迁移</div>
+<div class="num">某学员把酒店的做法直接搬到生鲜超市：对临期商品"提前预订打折"。</div>
+<div class="end">失败原因：生鲜的问题不是"卖给谁"，而是"损耗速度不可控"——产能确实易逝，但<b>需求预测精度极低</b>，且客群分层不明显（所有人都要便宜的）。<br>
+判定表第 3、4 项实际不满足。<br>
+<b>结论：判定表不是走过场。前四项中任一项不满足，迁移就会失败——这能帮你省下试错成本。</b></div></div></div></section>
+<section class="sl caseans" data-i="13" data-k="caseans"><div class="ct">案例三 · 一次失败的迁移 · 结论</div><div class="ca" style="display:block">失败原因：生鲜的问题不是"卖给谁"，而是"损耗速度不可控"——产能确实易逝，但<b>需求预测精度极低</b>，且客群分层不明显（所有人都要便宜的）。<br>
+判定表第 3、4 项实际不满足。<br>
+<b>结论：判定表不是走过场。前四项中任一项不满足，迁移就会失败——这能帮你省下试错成本。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例三 · 一次失败的迁移</div>
+<div class="num">某学员把酒店的做法直接搬到生鲜超市：对临期商品"提前预订打折"。</div>
+<div class="end">失败原因：生鲜的问题不是"卖给谁"，而是"损耗速度不可控"——产能确实易逝，但<b>需求预测精度极低</b>，且客群分层不明显（所有人都要便宜的）。<br>
+判定表第 3、4 项实际不满足。<br>
+<b>结论：判定表不是走过场。前四项中任一项不满足，迁移就会失败——这能帮你省下试错成本。</b></div></div></div></section>
+<section class="sl case" data-i="14" data-k="case"><div class="ct">案例四 · 一次成功的迁移：共享自习室</div><div class="cq">某学员把酒店收益管理搬到共享自习室，逐项对应：<br>
+· <b>产能单位</b>：座位小时（替代房晚）<br>
+· <b>易逝性</b>：晚上没卖出的座位永久归零 ✓<br>
+· <b>指标</b>：每座每小时收入（替代 RevPAR）<br>
+· <b>客群分层</b>：月卡学员 / 次卡用户 / 临时客 ✓<br>
+· <b>天然栅栏</b>：<b>时段</b>——工作日白天便宜、晚间与考试季贵<br>
+· <b>保护位</b>：为月卡学员保留固定比例座位，次卡与临时客限量<br>
+· <b>超售</b>：按历史 No-show 率超售（预约未到的常见）</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例四 · 一次成功的迁移：共享自习室</div>
+<div class="num">某学员把酒店收益管理搬到共享自习室，逐项对应：<br>
+· <b>产能单位</b>：座位小时（替代房晚）<br>
+· <b>易逝性</b>：晚上没卖出的座位永久归零 ✓<br>
+· <b>指标</b>：每座每小时收入（替代 RevPAR）<br>
+· <b>客群分层</b>：月卡学员 / 次卡用户 / 临时客 ✓<br>
+· <b>天然栅栏</b>：<b>时段</b>——工作日白天便宜、晚间与考试季贵<br>
+· <b>保护位</b>：为月卡学员保留固定比例座位，次卡与临时客限量<br>
+· <b>超售</b>：按历史 No-show 率超售（预约未到的常见）</div>
+<div class="end">六个月后：晚间与考试季满座率提升，月卡续费率从 58% 升到 71%，<b>单位座位小时收入提升 26%。</b><br>
+<b>结论：迁移成功的标志不是"用了同样的术语"，而是"六问都答得出来"——产能、易逝、波动、分层、栅栏、指标。</b></div></div></div></section>
+<section class="sl caseans" data-i="15" data-k="caseans"><div class="ct">案例四 · 一次成功的迁移：共享自习室 · 结论</div><div class="ca" style="display:block">六个月后：晚间与考试季满座率提升，月卡续费率从 58% 升到 71%，<b>单位座位小时收入提升 26%。</b><br>
+<b>结论：迁移成功的标志不是"用了同样的术语"，而是"六问都答得出来"——产能、易逝、波动、分层、栅栏、指标。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例四 · 一次成功的迁移：共享自习室</div>
+<div class="num">某学员把酒店收益管理搬到共享自习室，逐项对应：<br>
+· <b>产能单位</b>：座位小时（替代房晚）<br>
+· <b>易逝性</b>：晚上没卖出的座位永久归零 ✓<br>
+· <b>指标</b>：每座每小时收入（替代 RevPAR）<br>
+· <b>客群分层</b>：月卡学员 / 次卡用户 / 临时客 ✓<br>
+· <b>天然栅栏</b>：<b>时段</b>——工作日白天便宜、晚间与考试季贵<br>
+· <b>保护位</b>：为月卡学员保留固定比例座位，次卡与临时客限量<br>
+· <b>超售</b>：按历史 No-show 率超售（预约未到的常见）</div>
+<div class="end">六个月后：晚间与考试季满座率提升，月卡续费率从 58% 升到 71%，<b>单位座位小时收入提升 26%。</b><br>
+<b>结论：迁移成功的标志不是"用了同样的术语"，而是"六问都答得出来"——产能、易逝、波动、分层、栅栏、指标。</b></div></div></div></section>
+<section class="sl pts" data-i="16" data-k="pts"><h2>常见错误（续）</h2><div class="bd"><ul>
+<li><b>认为收益管理只属于酒店</b>。它属于所有易逝产能行业。</li>
+<li><b>照搬栅栏形式</b>。每个行业的天然栅栏不同，要重新找。</li>
+<li><b>忽略产能单位的定义</b>。定义错了（如把"座位"当产能而忽略"时间"），指标就错了。</li>
+</ul></div><ul>
+<li><b>照搬酒店的具体做法</b>——应搬逻辑（六问），不是搬形式（房型、MinLOS 等）。</li>
+<li><b>忽略行业的监管与习俗</b>——如医疗、教育行业的价格调整受更多限制。</li>
+</ul></div><ul>
+<li><b>往上（第 1 章）</b>：本章就是第 1 章判定表的迁移应用。</li>
+<li><b>往上（第 29、30 章）</b>：餐饮与会议是酒店内的第一次迁移。</li>
+<li><b>全书收束</b>：32 章的逻辑，在这一章被抽象成可复用的方法论。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>认为收益管理只属于酒店</b>。它属于所有易逝产能行业。</li>
+<li><b>照搬栅栏形式</b>。每个行业的天然栅栏不同，要重新找。</li>
+<li><b>忽略产能单位的定义</b>。定义错了（如把"座位"当产能而忽略"时间"），指标就错了。</li>
+</ul></div><ul>
+<li><b>照搬酒店的具体做法</b>——应搬逻辑（六问），不是搬形式（房型、MinLOS 等）。</li>
+<li><b>忽略行业的监管与习俗</b>——如医疗、教育行业的价格调整受更多限制。</li>
+</ul></div><ul>
+<li><b>往上（第 1 章）</b>：本章就是第 1 章判定表的迁移应用。</li>
+<li><b>往上（第 29、30 章）</b>：餐饮与会议是酒店内的第一次迁移。</li>
+<li><b>全书收束</b>：32 章的逻辑，在这一章被抽象成可复用的方法论。</li>
+</ul></div></div></section>
+<section class="sl tip" data-i="17" data-k="tip"><h2>提醒</h2><div class="bd"><b>自学者提示：</b>练习迁移最好的方法：挑一个你熟悉的行业，把它的<b>产能单位、易逝性、客群分层、天然栅栏</b>写下来，然后套用第 12 章的保护位和第 10 章的栅栏。<b>你能迁移成功一次，就真正掌握了这门学科。</b></div></div><div class="srctpl" hidden><b>自学者提示：</b>练习迁移最好的方法：挑一个你熟悉的行业，把它的<b>产能单位、易逝性、客群分层、天然栅栏</b>写下来，然后套用第 12 章的保护位和第 10 章的栅栏。<b>你能迁移成功一次，就真正掌握了这门学科。</b></div></div></section>
+<section class="sl note" data-i="18" data-k="note"><h2>与前后章的联系</h2><div class="bd"><div class="et">练习</div><ol>
+<li>用判定表判断：医美诊所预约是否适用收益管理？</li>
+<li>航空业的核心指标 RASM 对应酒店的什么？</li>
+<li>举一个"产能可储存、因此不适用"的生意。</li>
+<li>停车场的天然栅栏是什么？</li>
+<li>挑一个你熟悉的行业，写出它的产能单位与三个客群分层。</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习</div><ol>
+<li>用判定表判断：医美诊所预约是否适用收益管理？</li>
+<li>航空业的核心指标 RASM 对应酒店的什么？</li>
+<li>举一个"产能可储存、因此不适用"的生意。</li>
+<li>停车场的天然栅栏是什么？</li>
+<li>挑一个你熟悉的行业，写出它的产能单位与三个客群分层。</li>
+</ol></div></div></section>
+<section class="sl pts" data-i="19" data-k="pts"><h2>要点</h2><div class="bd"><ol>
+<li><b>迁移六问</b>：产能单位、是否易逝、是否波动、能否分层、天然栅栏、指标怎么换。</li>
+<li><b>前四项全中才适用</b>；后两项决定"用什么栅栏、看什么指标"。</li>
+<li><b>搬逻辑，不搬形式</b>——房型、MinLOS 是酒店的形式，不是逻辑本身。</li>
+<li><b>每个行业都有天然栅栏</b>：时段、会员、预付不可退、场次——要去找。</li>
+<li><b>判定表能帮你省下试错成本</b>：不满足就不要硬搬。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>迁移六问</b>：产能单位、是否易逝、是否波动、能否分层、天然栅栏、指标怎么换。</li>
+<li><b>前四项全中才适用</b>；后两项决定"用什么栅栏、看什么指标"。</li>
+<li><b>搬逻辑，不搬形式</b>——房型、MinLOS 是酒店的形式，不是逻辑本身。</li>
+<li><b>每个行业都有天然栅栏</b>：时段、会员、预付不可退、场次——要去找。</li>
+<li><b>判定表能帮你省下试错成本</b>：不满足就不要硬搬。</li>
+</ol></div></div></section>
+<section class="sl note" data-i="20" data-k="note"><h2>本章小结（5 条，可复述）</h2><div class="bd"><div class="et">练习（进阶）</div><ol start="6">
+<li>用六问分析"医美诊所预约"是否适用。</li>
+<li>为什么直接照搬酒店做法（如 MinLOS）在多数行业会失败？</li>
+<li>挑一个你熟悉的行业，写出它的产能单位与三个客群分层。</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习（进阶）</div><ol start="6">
+<li>用六问分析"医美诊所预约"是否适用。</li>
+<li>为什么直接照搬酒店做法（如 MinLOS）在多数行业会失败？</li>
+<li>挑一个你熟悉的行业，写出它的产能单位与三个客群分层。</li>
+</ol></div></div></section>
+<section class="sl judge" data-i="21" data-k="judge"><h2>要把这套方法用到新行业，先答这六个问题</h2><div class="bd">
+<table>
+<tr><td>① 产能单位是什么？</td><td>房晚 → 座位 / 车位 / 机位 / 时段 / 诊位</td></tr>
+<tr><td>② 是否过期作废？</td><td>是 → 需收益管理；可储存 → 不适用</td></tr>
+<tr><td>③ 需求是否波动？</td><td>有明显时段差 → 适用</td></tr>
+<tr><td>④ 客群能否分层？</td><td>支付意愿不同 → 适用</td></tr>
+<tr><td>⑤ 天然栅栏是什么？</td><td>时段 / 会员 / 预付不可退 / 场次——要去找</td></tr>
+<tr><td>⑥ 指标怎么换？</td><td>改成"单位产能单位时间的收入"</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>前四项全中才适用。</b>答不全就不要硬搬——判定表能帮你省下试错成本。</div></div></div><div class="srctpl" hidden><div class="jt">要把这套方法用到新行业，先答这六个问题</div>
+<table>
+<tr><td>① 产能单位是什么？</td><td>房晚 → 座位 / 车位 / 机位 / 时段 / 诊位</td></tr>
+<tr><td>② 是否过期作废？</td><td>是 → 需收益管理；可储存 → 不适用</td></tr>
+<tr><td>③ 需求是否波动？</td><td>有明显时段差 → 适用</td></tr>
+<tr><td>④ 客群能否分层？</td><td>支付意愿不同 → 适用</td></tr>
+<tr><td>⑤ 天然栅栏是什么？</td><td>时段 / 会员 / 预付不可退 / 场次——要去找</td></tr>
+<tr><td>⑥ 指标怎么换？</td><td>改成"单位产能单位时间的收入"</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>前四项全中才适用。</b>答不全就不要硬搬——判定表能帮你省下试错成本。</div></div></div></section>
+<section class="sl note" data-i="22" data-k="note"><h2>常见场景速查</h2><div class="bd">第五篇 · 延伸篇 ｜ 迁移与自查 ｜ 第 32 章</div><div class="tk">课堂任务卡 · 第 31 章</div><div class="tsc"><b>情境：</b>某公寓 50 套。长租月租 4,000（稳定），短租日均 320（波动，淡季常空）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>产能是否易逝</td><td>过期作废 → 可；可储存 → 不可</td></tr><tr><td>产能是否短期固定</td><td>无法快速扩产 → 可</td></tr><tr><td>需求是否波动</td><td>有明显时段/季节差 → 可</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>旺季短租月化可达 320 × 30 × 85% = 8,160 &gt; 4,000 → 旺季增量转短租。 淡季短租月化约 320 × 30 × 40% = 3,840 &lt; 4,000 → 淡季转长租。 关键：保留长租基本盘（如 70%），用剩余 30% 做短租弹性。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden>第五篇 · 延伸篇 ｜ 迁移与自查 ｜ 第 32 章</div><div class="tk">课堂任务卡 · 第 31 章</div><div class="tsc"><b>情境：</b>某公寓 50 套。长租月租 4,000（稳定），短租日均 320（波动，淡季常空）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>产能是否易逝</td><td>过期作废 → 可；可储存 → 不可</td></tr><tr><td>产能是否短期固定</td><td>无法快速扩产 → 可</td></tr><tr><td>需求是否波动</td><td>有明显时段/季节差 → 可</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>旺季短租月化可达 320 × 30 × 85% = 8,160 &gt; 4,000 → 旺季增量转短租。 淡季短租月化约 320 × 30 × 40% = 3,840 &lt; 4,000 → 淡季转长租。 关键：保留长租基本盘（如 70%），用剩余 30% 做短租弹性。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl pts" data-i="23" data-k="pts"><h2>要点</h2><div class="bd"><div class="nk">反面案例 · 案例三 · 一次失败的迁移</div><div class="nnum">某学员把酒店的做法直接搬到生鲜超市：对临期商品"提前预订打折"。</div><div class="nend">失败原因：生鲜的问题不是"卖给谁"，而是"损耗速度不可控"——产能确实易逝，但需求预测精度极低，且客群分层不明显（所有人都要便宜的）。 判定表第 3、4 项实际不满足。 结论：判定表不是走过场。前四项中任一项不满足，迁移就会失败——这能帮你省下试错成本。</div></div></div><div class="srctpl" hidden><div class="nk">反面案例 · 案例三 · 一次失败的迁移</div><div class="nnum">某学员把酒店的做法直接搬到生鲜超市：对临期商品"提前预订打折"。</div><div class="nend">失败原因：生鲜的问题不是"卖给谁"，而是"损耗速度不可控"——产能确实易逝，但需求预测精度极低，且客群分层不明显（所有人都要便宜的）。 判定表第 3、4 项实际不满足。 结论：判定表不是走过场。前四项中任一项不满足，迁移就会失败——这能帮你省下试错成本。</div></div></div></section>
+<section class="sl sum" data-i="24" data-k="sum"><h2>本章小结</h2><div class="bd"><ol>
+<li><b>迁移六问</b>：产能单位、是否易逝、是否波动、能否分层、天然栅栏、指标怎么换。</li>
+<li><b>前四项全中才适用</b>；后两项决定"用什么栅栏、看什么指标"。</li>
+<li><b>搬逻辑，不搬形式</b>——房型、MinLOS 是酒店的形式，不是逻辑本身。</li>
+<li><b>每个行业都有天然栅栏</b>：时段、会员、预付不可退、场次——要去找。</li>
+<li><b>判定表能帮你省下试错成本</b>：不满足就不要硬搬。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>用六问分析"医美诊所预约"是否适用。</li>
+<li>为什么直接照搬酒店做法（如 MinLOS）在多数行业会失败？</li>
+<li>挑一个你熟悉的行业，写出它的产能单位与三个客群分层。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>迁移六问</b>：产能单位、是否易逝、是否波动、能否分层、天然栅栏、指标怎么换。</li>
+<li><b>前四项全中才适用</b>；后两项决定"用什么栅栏、看什么指标"。</li>
+<li><b>搬逻辑，不搬形式</b>——房型、MinLOS 是酒店的形式，不是逻辑本身。</li>
+<li><b>每个行业都有天然栅栏</b>：时段、会员、预付不可退、场次——要去找。</li>
+<li><b>判定表能帮你省下试错成本</b>：不满足就不要硬搬。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>用六问分析"医美诊所预约"是否适用。</li>
+<li>为什么直接照搬酒店做法（如 MinLOS）在多数行业会失败？</li>
+<li>挑一个你熟悉的行业，写出它的产能单位与三个客群分层。</li>
+</ol></div></div></section>
+<section class="sl end" data-i="25" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li>换的是参数，不是逻辑：把"房晚"换成"座位/车位/机位/时段"，逻辑完全一样。</li><li>行业差异在栅栏形式：酒店用"提前订/不可退"，影院用"时段"，健身房用"年卡/次卡"。</li><li>套判定表——例：共享自习室——座位易逝 ✓、短期固定 ✓、需求波动 ✓、可分层（月卡/次卡）✓ → 适用。</li><li>换参数——例：把"房晚"换成"座位小时"，RevPAR 换成 RevPASH。公式结构完全不变。</li><li class="fml-i"><b>迁移公式（通用）</b><br>产能单位：房晚 → 座位 / 车位 / 机位 / 时段 / 舱位 核心指标：RevPAR → RevPASH（餐饮）/ RASM（航空）/ 单位时段收入 控制阀门：价格 + 可得性（开关某价档 / 加限制条件）</li><li class="fml-i">产能是否易逝过期作废 → 可；可储存 → 不可</li><li class="fml-i">产能是否短期固定无法快速扩产 → 可</li><li class="fml-i">需求是否波动有明显时段/季节差 → 可</li><li class="fml-i">客群是否可分层支付意愿不同 → 可</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 26 屏）</div><a href="#p0" data-i="0">01　其他业态与跨行业参数</a><a href="#p1" data-i="1">02　本章要你做到</a><a href="#p2" data-i="2">03　情境导入</a><a href="#p3" data-i="3">04　三要点怎么用（各配一例）</a><a href="#p4" data-i="4">05　迁移公式（通用）</a><a href="#p5" data-i="5">06　算例 3 · 停车场的完整迁移</a><a href="#p6" data-i="6">07　本章判定表 · 这个行业能不能用（回到第 1 章）</a><a href="#p7" data-i="7">08　场景：有人问"剧本杀门店"能做收益管理吗</a><a href="#p8" data-i="8">09　案例一 · 长短租配比（公寓）</a><a href="#p9" data-i="9">10　案例一 · 长短租配比（公寓） · 结论</a><a href="#p10" data-i="10">11　案例二 · 健身房的一次"收益管理"</a><a href="#p11" data-i="11">12　案例二 · 健身房的一次"收益管理" · 结论</a><a href="#p12" data-i="12">13　案例三 · 一次失败的迁移</a><a href="#p13" data-i="13">14　案例三 · 一次失败的迁移 · 结论</a><a href="#p14" data-i="14">15　案例四 · 一次成功的迁移：共享自习室</a><a href="#p15" data-i="15">16　案例四 · 一次成功的迁移：共享自习室 · 结论</a><a href="#p16" data-i="16">17　常见错误（续）</a><a href="#p17" data-i="17">18　提醒</a><a href="#p18" data-i="18">19　与前后章的联系</a><a href="#p19" data-i="19">20　要点</a><a href="#p20" data-i="20">21　本章小结（5 条，可复述）</a><a href="#p21" data-i="21">22　要把这套方法用到新行业，先答这六个问题</a><a href="#p22" data-i="22">23　常见场景速查</a><a href="#p23" data-i="23">24　要点</a><a href="#p24" data-i="24">25　本章小结</a><a href="#p25" data-i="25">26　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 教材对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=26, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  var st=b.style.fontSize, n=0;
+  b.style.fontSize='';
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('.rev')){ e.target.closest('.sl').classList.add('showans'); dofit(); return; }
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function dofit(){fit();}
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+  else if(k==='/'){e.preventDefault();T();}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>

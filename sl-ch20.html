@@ -1,0 +1,413 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script><script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>第 20 章 预测与需求日历 · 投屏课件</title><style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='study-teach.html'">← 教师线</button>
+  <span class="pt">第三篇 · 运营篇 · 模块 E · 计划与支撑</span>
+  <span class="tt">第 20 章 预测与需求日历 · 投屏课件</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 25</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">第三篇 · 运营篇 · 模块 E · 计划与支撑</div><h1>预测与需求日历</h1><div class="meta">第 20 章 ｜ 模块 E · 计划与支撑 ｜ 共 25 屏</div><div class="promise-b">读完这章你能回答：凭什么现在就知道那天会不会满房。</div></section>
+<section class="sl task" data-i="1" data-k="task"><h2>本章要你做到</h2><div class="bd"><div class="tk">课堂任务卡 · 第 20 章</div><div class="tsc"><b>情境：</b>A 店凭经验判断展会日"肯定满"，提前 30 天关掉所有低价档。B 店查历史：去年同展会 D-30 在手只有 30 间，最终 95 间。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>用多久的历史</td><td>至少 2 年，剔除异常年（如疫情、大修、政策突变）</td></tr><tr><td>按什么分组</td><td>按星期几分组（周一与周六 pickup 完全不同）；再叠加事件日</td></tr><tr><td>偏差怎么看</td><td>实际 pickup 持续高于预测 → 上调；持续低于 → 下调</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>B 店判断：增长空间还很大，此时关闭低价档为时过早，应先保持开放、观察 pickup。 最终 A 店因过早关档损失了大量中价客源；B 店逐步收紧，满房且均价更高。 结论：预测的价值在于"什么时候该动手"，而不只是"会不会满"。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden><div class="tk">课堂任务卡 · 第 20 章</div><div class="tsc"><b>情境：</b>A 店凭经验判断展会日"肯定满"，提前 30 天关掉所有低价档。B 店查历史：去年同展会 D-30 在手只有 30 间，最终 95 间。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>用多久的历史</td><td>至少 2 年，剔除异常年（如疫情、大修、政策突变）</td></tr><tr><td>按什么分组</td><td>按星期几分组（周一与周六 pickup 完全不同）；再叠加事件日</td></tr><tr><td>偏差怎么看</td><td>实际 pickup 持续高于预测 → 上调；持续低于 → 下调</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>B 店判断：增长空间还很大，此时关闭低价档为时过早，应先保持开放、观察 pickup。 最终 A 店因过早关档损失了大量中价客源；B 店逐步收紧，满房且均价更高。 结论：预测的价值在于"什么时候该动手"，而不只是"会不会满"。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境导入</h2><div class="bd"><div class="swho">你一定踩过的坑</div><p>距国庆还有 40 天，销售说"放心，肯定爆满"，于是价格一路往上抬。</p><p>结果那年高速免费政策变了，客流没来，最后出租率不到 50%——<b>高价把客人都吓跑了。</b></p><p>错不在涨价，在于<b>把"感觉"当成了"预测"。</b></p><p>预测不是算命，它是一套方法：用历史数据推断未来，再每天用新发生的实际数据去修正。<b>预测准不准，直接决定收益管理的上限。</b></p></div><div class="srctpl" hidden><div class="swho">你一定踩过的坑</div><p>距国庆还有 40 天，销售说"放心，肯定爆满"，于是价格一路往上抬。</p><p>结果那年高速免费政策变了，客流没来，最后出租率不到 50%——<b>高价把客人都吓跑了。</b></p><p>错不在涨价，在于<b>把"感觉"当成了"预测"。</b></p><p>预测不是算命，它是一套方法：用历史数据推断未来，再每天用新发生的实际数据去修正。<b>预测准不准，直接决定收益管理的上限。</b></p></div></section>
+<section class="sl pts" data-i="3" data-k="pts"><h2>三要点怎么用（各配一例）</h2><div class="bd"><ul>
+<li><b>预测的对象是需求曲线，不是最终出租率</b>：你要猜的是"每天会来多少订单"，而不是"月底能住满多少"。</li>
+<li><b>pickup（预订进度）是预测的最小单元</b>：每个提前期新增多少预订，是可以直接统计的历史规律。</li>
+<li><b>预测要不断修正</b>：把预测值和实际 pickup 对比，偏差就是下次的修正依据。</li>
+</ul></div><ul>
+<li><b>曲线而非结果</b>——例：预测"距入住 10 天时会有 50 间在手"，而不是"当天会住满 90 间"。<b>前者可以每天校验，后者只能事后知道。</b></li>
+<li><b>pickup 是最小单元</b>——例：统计"D-10 那天平均新增 4 间""D-3 平均新增 9 间"，这就是最直接的历史规律。</li>
+<li><b>日历与预测配合</b>——例：日历说"这天有演唱会"（定性），pickup 说"实际进了 12 间"（定量）。<b>一个定性、一个定量。</b></li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>预测的对象是需求曲线，不是最终出租率</b>：你要猜的是"每天会来多少订单"，而不是"月底能住满多少"。</li>
+<li><b>pickup（预订进度）是预测的最小单元</b>：每个提前期新增多少预订，是可以直接统计的历史规律。</li>
+<li><b>预测要不断修正</b>：把预测值和实际 pickup 对比，偏差就是下次的修正依据。</li>
+</ul></div><ul>
+<li><b>曲线而非结果</b>——例：预测"距入住 10 天时会有 50 间在手"，而不是"当天会住满 90 间"。<b>前者可以每天校验，后者只能事后知道。</b></li>
+<li><b>pickup 是最小单元</b>——例：统计"D-10 那天平均新增 4 间""D-3 平均新增 9 间"，这就是最直接的历史规律。</li>
+<li><b>日历与预测配合</b>——例：日历说"这天有演唱会"（定性），pickup 说"实际进了 12 间"（定量）。<b>一个定性、一个定量。</b></li>
+</ul></div></div></section>
+<section class="sl fml" data-i="4" data-k="fml"><h2>核心公式</h2><div class="bd"><div class="fe">某日最终预订量预测 = 当前在手 + Σ(剩余各提前期的历史 pickup)
+pickup(提前期 d) = 历史上「距入住 d 天」那天新增的预订数
+预测准确度：MAPE（平均绝对百分比误差）&lt;10% 为良好</div>
+<div class="ex" id="ex20"><b>算例：</b>距某日还有 10 天，当前在手 50 间。<br>
+历史 pickup：D-10 新增 4、D-9 增 5、D-8 增 3……D-1 增 2，剩余期合计约 35 间。<br>
+预测最终 = 50 + 35 = <b>85 间</b>。可售 100 间 → 预计出租率 85%，属紧俏 → 可执行保护位与关低价档。<br>
+<b>关键：随着时间推进，用实际 pickup 替换历史值，预测会自动收敛变准。</b></div></div></div><div class="srctpl" hidden><div class="fn">核心公式</div><div class="fe">某日最终预订量预测 = 当前在手 + Σ(剩余各提前期的历史 pickup)
+pickup(提前期 d) = 历史上「距入住 d 天」那天新增的预订数
+预测准确度：MAPE（平均绝对百分比误差）&lt;10% 为良好</div>
+<div class="ex" id="ex20"><b>算例：</b>距某日还有 10 天，当前在手 50 间。<br>
+历史 pickup：D-10 新增 4、D-9 增 5、D-8 增 3……D-1 增 2，剩余期合计约 35 间。<br>
+预测最终 = 50 + 35 = <b>85 间</b>。可售 100 间 → 预计出租率 85%，属紧俏 → 可执行保护位与关低价档。<br>
+<b>关键：随着时间推进，用实际 pickup 替换历史值，预测会自动收敛变准。</b></div></div></div></section>
+<section class="sl fml" data-i="5" data-k="fml"><h2>算例 3 · 预测随时间的自我修正</h2><div class="bd"><div class="fe">D-10：在手 50，历史剩余 pickup 35 → 预测最终 85
+D-7 ：在手 63（实际新增 13，历史为 11）→ 略快
+      剩余 pickup 修正为 26 → 预测最终 89
+D-3 ：在手 78（新增快于历史）→ 预测最终 94
+D-1 ：在手 91 → 预测最终 93（收敛）</div>
+<div class="ex" id="ex20b"><b>预测会随实际数据不断收敛，越临近越准。</b><br>
+这正是"每天用实际替换历史"的意义——<b>预测不是一次算完就放着，而是每天在更新。</b><br>
+若某天实际 pickup 明显偏离，就是需要人工干预的信号（检查是否有事件变化或渠道异常）。</div></div></div><div class="srctpl" hidden><div class="fn">算例 3 · 预测随时间的自我修正</div><div class="fe">D-10：在手 50，历史剩余 pickup 35 → 预测最终 85
+D-7 ：在手 63（实际新增 13，历史为 11）→ 略快
+      剩余 pickup 修正为 26 → 预测最终 89
+D-3 ：在手 78（新增快于历史）→ 预测最终 94
+D-1 ：在手 91 → 预测最终 93（收敛）</div>
+<div class="ex" id="ex20b"><b>预测会随实际数据不断收敛，越临近越准。</b><br>
+这正是"每天用实际替换历史"的意义——<b>预测不是一次算完就放着，而是每天在更新。</b><br>
+若某天实际 pickup 明显偏离，就是需要人工干预的信号（检查是否有事件变化或渠道异常）。</div></div></div></section>
+<section class="sl judge" data-i="6" data-k="judge"><h2>本章判定表 · 预测与需求日历怎么用</h2><div class="bd">
+<table>
+<tr><td>用多久的历史</td><td>至少 2 年，<b>剔除异常年</b>（如疫情、大修、政策突变）</td></tr>
+<tr><td>按什么分组</td><td><b>按星期几分组</b>（周一与周六 pickup 完全不同）；再叠加事件日</td></tr>
+<tr><td>偏差怎么看</td><td>实际 pickup 持续高于预测 → 上调；持续低于 → 下调</td></tr>
+<tr><td>日历标什么</td><td>展会、演出、赛事、节假日、寒暑假、考试季、航班换季</td></tr>
+<tr><td>日历更新频率</td><td><b>每周一更新，滚动往后补 7 天</b>（固定动作）</td></tr>
+<tr><td>事件日提前量</td><td>大型事件提前 <b>6–12 个月</b>标注并开始布价</td></tr>
+<tr><td>准确度标准</td><td>MAPE &lt;10% 为良好；&gt;20% 需重建模型</td></tr>
+<tr><td>最重要的用途</td><td><b>预测决定保护位（第 12 章）</b>——预测越准，收益越高</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>预测与日历是"一个定性、一个定量"：<b>日历告诉你哪天特殊，pickup 告诉你实际来了多少。</b>两者配合才是完整预测。</div></div></div><div class="srctpl" hidden><div class="jt">本章判定表 · 预测与需求日历怎么用</div>
+<table>
+<tr><td>用多久的历史</td><td>至少 2 年，<b>剔除异常年</b>（如疫情、大修、政策突变）</td></tr>
+<tr><td>按什么分组</td><td><b>按星期几分组</b>（周一与周六 pickup 完全不同）；再叠加事件日</td></tr>
+<tr><td>偏差怎么看</td><td>实际 pickup 持续高于预测 → 上调；持续低于 → 下调</td></tr>
+<tr><td>日历标什么</td><td>展会、演出、赛事、节假日、寒暑假、考试季、航班换季</td></tr>
+<tr><td>日历更新频率</td><td><b>每周一更新，滚动往后补 7 天</b>（固定动作）</td></tr>
+<tr><td>事件日提前量</td><td>大型事件提前 <b>6–12 个月</b>标注并开始布价</td></tr>
+<tr><td>准确度标准</td><td>MAPE &lt;10% 为良好；&gt;20% 需重建模型</td></tr>
+<tr><td>最重要的用途</td><td><b>预测决定保护位（第 12 章）</b>——预测越准，收益越高</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>预测与日历是"一个定性、一个定量"：<b>日历告诉你哪天特殊，pickup 告诉你实际来了多少。</b>两者配合才是完整预测。</div></div></div></section>
+<section class="sl judge" data-i="7" data-k="judge"><h2>场景：距入住 6 天，预测最终 88 间，但近 3 天实际 pickup 明显偏慢</h2><div class="bd">
+<table>
+<tr><td>预测值</td><td>88 间（可售 100，预计出租率 88%）</td></tr>
+<tr><td>实际 pickup</td><td>近 3 天日均 5 间，历史同期 9 间 → <b>明显偏慢</b></td></tr>
+<tr><td>是日历事件变化吗？</td><td>查日历：原标注的展会取消 → <b>是原因之一</b></td></tr>
+<tr><td>是渠道异常吗？</td><td>查渠道：某 OTA 配额已满，关闭了 → <b>是原因之二</b></td></tr>
+<tr><td>修正预测</td><td>下调至约 76 间</td></tr>
+<tr><td>对应动作</td><td><b>释放保护位、开放低价档填量</b>（不硬守）</td></tr>
+<tr><td>记录</td><td>写明"展会取消 + OTA 配额满"两个原因，供下次参考</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：预测偏了不可怕，可怕的是不查原因、也不修正动作。</b><br><b>预测的价值一半在于估算，一半在于"偏差触发你去查发生了什么"。</b></div></div></div><div class="srctpl" hidden><div class="jt">场景：距入住 6 天，预测最终 88 间，但近 3 天实际 pickup 明显偏慢</div>
+<table>
+<tr><td>预测值</td><td>88 间（可售 100，预计出租率 88%）</td></tr>
+<tr><td>实际 pickup</td><td>近 3 天日均 5 间，历史同期 9 间 → <b>明显偏慢</b></td></tr>
+<tr><td>是日历事件变化吗？</td><td>查日历：原标注的展会取消 → <b>是原因之一</b></td></tr>
+<tr><td>是渠道异常吗？</td><td>查渠道：某 OTA 配额已满，关闭了 → <b>是原因之二</b></td></tr>
+<tr><td>修正预测</td><td>下调至约 76 间</td></tr>
+<tr><td>对应动作</td><td><b>释放保护位、开放低价档填量</b>（不硬守）</td></tr>
+<tr><td>记录</td><td>写明"展会取消 + OTA 配额满"两个原因，供下次参考</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：预测偏了不可怕，可怕的是不查原因、也不修正动作。</b><br><b>预测的价值一半在于估算，一半在于"偏差触发你去查发生了什么"。</b></div></div></div></section>
+<section class="sl case" data-i="8" data-k="case"><div class="ct">案例 · 两次不同的"感觉"</div><div class="cq">A 店凭经验判断展会日"肯定满"，提前 30 天关掉所有低价档。B 店查历史：去年同展会 D-30 在手只有 30 间，最终 95 间。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例 · 两次不同的"感觉"</div>
+<div class="num">A 店凭经验判断展会日"肯定满"，提前 30 天关掉所有低价档。B 店查历史：去年同展会 D-30 在手只有 30 间，最终 95 间。</div>
+<div class="end">B 店判断：增长空间还很大，<b>此时关闭低价档为时过早</b>，应先保持开放、观察 pickup。<br>
+最终 A 店因过早关档损失了大量中价客源；B 店逐步收紧，满房且均价更高。<br>
+<b>结论：预测的价值在于"什么时候该动手"，而不只是"会不会满"。</b></div></div></div></section>
+<section class="sl caseans" data-i="9" data-k="caseans"><div class="ct">案例 · 两次不同的"感觉" · 结论</div><div class="ca" style="display:block">B 店判断：增长空间还很大，<b>此时关闭低价档为时过早</b>，应先保持开放、观察 pickup。<br>
+最终 A 店因过早关档损失了大量中价客源；B 店逐步收紧，满房且均价更高。<br>
+<b>结论：预测的价值在于"什么时候该动手"，而不只是"会不会满"。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例 · 两次不同的"感觉"</div>
+<div class="num">A 店凭经验判断展会日"肯定满"，提前 30 天关掉所有低价档。B 店查历史：去年同展会 D-30 在手只有 30 间，最终 95 间。</div>
+<div class="end">B 店判断：增长空间还很大，<b>此时关闭低价档为时过早</b>，应先保持开放、观察 pickup。<br>
+最终 A 店因过早关档损失了大量中价客源；B 店逐步收紧，满房且均价更高。<br>
+<b>结论：预测的价值在于"什么时候该动手"，而不只是"会不会满"。</b></div></div></div></section>
+<section class="sl case" data-i="10" data-k="case"><div class="ct">案例三 · 一张日历的复利</div><div class="cq">某店第一年只标了 8 个事件日（主要是法定假期）。第三年，他们建立了完整的信息源，标出了 31 个。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例三 · 一张日历的复利</div>
+<div class="num">某店第一年只标了 8 个事件日（主要是法定假期）。第三年，他们建立了完整的信息源，标出了 31 个。</div>
+<div class="end">第三年事件日带来的额外收入是第一年的 <b>3.6 倍</b>，而<b>投入几乎没变</b>（每月 30 分钟信息同步）。<br>
+<b>结论：需求日历是有复利的资产——第一年粗糙，第三年精准，而它每年都在自动产生收益。</b></div></div></div></section>
+<section class="sl caseans" data-i="11" data-k="caseans"><div class="ct">案例三 · 一张日历的复利 · 结论</div><div class="ca" style="display:block">第三年事件日带来的额外收入是第一年的 <b>3.6 倍</b>，而<b>投入几乎没变</b>（每月 30 分钟信息同步）。<br>
+<b>结论：需求日历是有复利的资产——第一年粗糙，第三年精准，而它每年都在自动产生收益。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例三 · 一张日历的复利</div>
+<div class="num">某店第一年只标了 8 个事件日（主要是法定假期）。第三年，他们建立了完整的信息源，标出了 31 个。</div>
+<div class="end">第三年事件日带来的额外收入是第一年的 <b>3.6 倍</b>，而<b>投入几乎没变</b>（每月 30 分钟信息同步）。<br>
+<b>结论：需求日历是有复利的资产——第一年粗糙，第三年精准，而它每年都在自动产生收益。</b></div></div></div></section>
+<section class="sl case" data-i="12" data-k="case"><div class="ct">案例四 · 预测如何救了一次布价</div><div class="cq"><b>某店 D-21 时的一场争论：</b><br>
+销售："展会还有三周，在手才 30 间，肯定很淡，要不要先降点价？"<br>
+收益："我查了去年同展会：D-21 在手 28 间，最终 95 间。<b>增长主要发生在 D-10 到 D-2。</b>"<br>
+销售："所以现在不能降？"<br>
+收益："对。现在在手低是<b>正常的</b>——因为散客还没开始订。如果现在降价，就是把后面会来的高价客提前贱卖了。"<br>
+销售："那什么时候动手？"<br>
+收益："等到 D-10，看 pickup 是否如期启动。启动了就收紧，没启动再促销也不迟。"</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例四 · 预测如何救了一次布价</div>
+<div class="num"><b>某店 D-21 时的一场争论：</b><br>
+销售："展会还有三周，在手才 30 间，肯定很淡，要不要先降点价？"<br>
+收益："我查了去年同展会：D-21 在手 28 间，最终 95 间。<b>增长主要发生在 D-10 到 D-2。</b>"<br>
+销售："所以现在不能降？"<br>
+收益："对。现在在手低是<b>正常的</b>——因为散客还没开始订。如果现在降价，就是把后面会来的高价客提前贱卖了。"<br>
+销售："那什么时候动手？"<br>
+收益："等到 D-10，看 pickup 是否如期启动。启动了就收紧，没启动再促销也不迟。"</div>
+<div class="end">D-10 时 pickup 果然启动（日均 12 间，历史 5 间），该店按计划收紧低价档并分阶段提价，最终满房且 ADR 比去年高 18%。<br>
+<b>结论：预测的价值不只是"算出结果"，更在于"告诉你现在该不该动手"。很多错误不是判断错，是<b>动手太早</b>。</b></div></div></div></section>
+<section class="sl caseans" data-i="13" data-k="caseans"><div class="ct">案例四 · 预测如何救了一次布价 · 结论</div><div class="ca" style="display:block">D-10 时 pickup 果然启动（日均 12 间，历史 5 间），该店按计划收紧低价档并分阶段提价，最终满房且 ADR 比去年高 18%。<br>
+<b>结论：预测的价值不只是"算出结果"，更在于"告诉你现在该不该动手"。很多错误不是判断错，是<b>动手太早</b>。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例四 · 预测如何救了一次布价</div>
+<div class="num"><b>某店 D-21 时的一场争论：</b><br>
+销售："展会还有三周，在手才 30 间，肯定很淡，要不要先降点价？"<br>
+收益："我查了去年同展会：D-21 在手 28 间，最终 95 间。<b>增长主要发生在 D-10 到 D-2。</b>"<br>
+销售："所以现在不能降？"<br>
+收益："对。现在在手低是<b>正常的</b>——因为散客还没开始订。如果现在降价，就是把后面会来的高价客提前贱卖了。"<br>
+销售："那什么时候动手？"<br>
+收益："等到 D-10，看 pickup 是否如期启动。启动了就收紧，没启动再促销也不迟。"</div>
+<div class="end">D-10 时 pickup 果然启动（日均 12 间，历史 5 间），该店按计划收紧低价档并分阶段提价，最终满房且 ADR 比去年高 18%。<br>
+<b>结论：预测的价值不只是"算出结果"，更在于"告诉你现在该不该动手"。很多错误不是判断错，是<b>动手太早</b>。</b></div></div></div></section>
+<section class="sl pts" data-i="14" data-k="pts"><h2>常见错误（续）</h2><div class="bd"><ul>
+<li><b>用单一年份做历史</b>。偶然大单会把规律带歪，至少 2–3 年加权。</li>
+<li><b>不按星期几分组</b>。周一与周六的需求模式完全不同。</li>
+<li><b>只标节假日</b>。漏掉本地展会、考试季，这些往往影响更大。</li>
+</ul></div><ul>
+<li><b>只让一个人维护日历</b>——销售、前厅、市场各自掌握不同信息源，应共同维护。</li>
+<li><b>标了事件日却不布价</b>——日历的价值在"提前行动"，标注本身不产生收益。</li>
+</ul></div><ul>
+<li><b>往下（第 12 章）</b>：预测决定保护位——这是预测最重要的用途。</li>
+<li><b>往下（第 18 章）</b>：每天的"取数→判表"就是在比对预测与实际。</li>
+<li><b>往上（第 5 章）</b>：在手与 pickup 的比较，是涨价触发的基础。</li>
+<li><b>往下（第 27 章）</b>：RMS 系统主要就是自动做这两件事。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>用单一年份做历史</b>。偶然大单会把规律带歪，至少 2–3 年加权。</li>
+<li><b>不按星期几分组</b>。周一与周六的需求模式完全不同。</li>
+<li><b>只标节假日</b>。漏掉本地展会、考试季，这些往往影响更大。</li>
+</ul></div><ul>
+<li><b>只让一个人维护日历</b>——销售、前厅、市场各自掌握不同信息源，应共同维护。</li>
+<li><b>标了事件日却不布价</b>——日历的价值在"提前行动"，标注本身不产生收益。</li>
+</ul></div><ul>
+<li><b>往下（第 12 章）</b>：预测决定保护位——这是预测最重要的用途。</li>
+<li><b>往下（第 18 章）</b>：每天的"取数→判表"就是在比对预测与实际。</li>
+<li><b>往上（第 5 章）</b>：在手与 pickup 的比较，是涨价触发的基础。</li>
+<li><b>往下（第 27 章）</b>：RMS 系统主要就是自动做这两件事。</li>
+</ul></div></div></section>
+<section class="sl tip" data-i="15" data-k="tip"><h2>提醒</h2><div class="bd"><b>自学者提示：</b>没有系统也能做预测——用 Excel 建一张表：<b>行是星期几，列是提前期（D-30 到 D-0）</b>，填入历史 pickup，就是你的第一个预测模型。<br>再单独建一张"需求日历"，把明年本地的展会、演出、假期标进去。这两张表，就是整个运营篇的地基。</div></div><div class="srctpl" hidden><b>自学者提示：</b>没有系统也能做预测——用 Excel 建一张表：<b>行是星期几，列是提前期（D-30 到 D-0）</b>，填入历史 pickup，就是你的第一个预测模型。<br>再单独建一张"需求日历"，把明年本地的展会、演出、假期标进去。这两张表，就是整个运营篇的地基。</div></div></section>
+<section class="sl note" data-i="16" data-k="note"><h2>与前后章的联系</h2><div class="bd"><div class="et">练习</div><ol>
+<li>当前在手 60，剩余提前期历史 pickup 合计 25，预测最终多少间？</li>
+<li>为什么预测要按星期几分组？</li>
+<li>实际 pickup 连续一周高于预测，说明什么、该怎么办？</li>
+<li>MAPE 大于 20% 说明什么？</li>
+<li>需求日历应标注哪些事件？至少列出 5 类。</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习</div><ol>
+<li>当前在手 60，剩余提前期历史 pickup 合计 25，预测最终多少间？</li>
+<li>为什么预测要按星期几分组？</li>
+<li>实际 pickup 连续一周高于预测，说明什么、该怎么办？</li>
+<li>MAPE 大于 20% 说明什么？</li>
+<li>需求日历应标注哪些事件？至少列出 5 类。</li>
+</ol></div></div></section>
+<section class="sl pts" data-i="17" data-k="pts"><h2>要点</h2><div class="bd"><ol>
+<li><b>预测对象是需求曲线，不是最终出租率</b>。</li>
+<li><b>pickup 是最小单元</b>：统计每个提前期的历史新增量。</li>
+<li><b>预测 = 当前在手 + 剩余各期的历史 pickup</b>，并每天用实际值替换历史值。</li>
+<li><b>日历是定性、pickup 是定量</b>：日历说"哪天特殊"，pickup 说"实际来了多少"。</li>
+<li><b>偏差要查原因</b>：事件取消？渠道关闭？——偏差本身就是信号。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>预测对象是需求曲线，不是最终出租率</b>。</li>
+<li><b>pickup 是最小单元</b>：统计每个提前期的历史新增量。</li>
+<li><b>预测 = 当前在手 + 剩余各期的历史 pickup</b>，并每天用实际值替换历史值。</li>
+<li><b>日历是定性、pickup 是定量</b>：日历说"哪天特殊"，pickup 说"实际来了多少"。</li>
+<li><b>偏差要查原因</b>：事件取消？渠道关闭？——偏差本身就是信号。</li>
+</ol></div></div></section>
+<section class="sl note" data-i="18" data-k="note"><h2>本章小结（5 条，可复述）</h2><div class="bd"><div class="et">练习（进阶）</div><ol start="6">
+<li>为什么"在手低"不等于"需求弱"？举本章例子说明。</li>
+<li>预测偏差很大时，你的第一反应应该是什么？</li>
+<li>用 Excel 设计一张 pickup 表（说明行、列各是什么）。</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习（进阶）</div><ol start="6">
+<li>为什么"在手低"不等于"需求弱"？举本章例子说明。</li>
+<li>预测偏差很大时，你的第一反应应该是什么？</li>
+<li>用 Excel 设计一张 pickup 表（说明行、列各是什么）。</li>
+</ol></div></div></section>
+<section class="sl judge" data-i="19" data-k="judge"><h2>遇到下面这些情况，直接按"动作"做</h2><div class="bd">
+<table>
+<tr><td>"在手很低，是不是很淡"</td><td>不一定——看<b>pickup 是否还没启动</b>（参考去年同期的增长节奏）</td></tr>
+<tr><td>要不要现在降价</td><td>先查历史：<b>增长发生在哪个提前期</b>；别动手太早</td></tr>
+<tr><td>预测偏差很大</td><td>先<b>查原因</b>（事件取消？渠道关闭？），再修正动作</td></tr>
+<tr><td>没有预测系统</td><td>用 Excel：<b>行=星期几，列=提前期</b>，填历史 pickup</td></tr>
+<tr><td>不知道有什么活动</td><td>建<b>信息源清单</b>：展馆、票务、校历、航线公告</td></tr>
+<tr><td>MAPE &gt; 20%</td><td>预测模型需重建（先查口径与异常年）</td></tr>
+</table></div></div><div class="srctpl" hidden><div class="jt">遇到下面这些情况，直接按"动作"做</div>
+<table>
+<tr><td>"在手很低，是不是很淡"</td><td>不一定——看<b>pickup 是否还没启动</b>（参考去年同期的增长节奏）</td></tr>
+<tr><td>要不要现在降价</td><td>先查历史：<b>增长发生在哪个提前期</b>；别动手太早</td></tr>
+<tr><td>预测偏差很大</td><td>先<b>查原因</b>（事件取消？渠道关闭？），再修正动作</td></tr>
+<tr><td>没有预测系统</td><td>用 Excel：<b>行=星期几，列=提前期</b>，填历史 pickup</td></tr>
+<tr><td>不知道有什么活动</td><td>建<b>信息源清单</b>：展馆、票务、校历、航线公告</td></tr>
+<tr><td>MAPE &gt; 20%</td><td>预测模型需重建（先查口径与异常年）</td></tr>
+</table></div></div></section>
+<section class="sl note" data-i="20" data-k="note"><h2>常见场景速查</h2><div class="bd">第三篇 · 运营篇 ｜ 模块 E · 计划与支撑 ｜ 第 21 章</div></div><div class="srctpl" hidden>第三篇 · 运营篇 ｜ 模块 E · 计划与支撑 ｜ 第 21 章</div></div></section>
+<section class="sl note" data-i="21" data-k="note"><h2>常见场景速查</h2><div class="bd"><div class="tk">课堂任务卡 · 第 20 章</div><div class="tsc"><b>情境：</b>A 店凭经验判断展会日"肯定满"，提前 30 天关掉所有低价档。B 店查历史：去年同展会 D-30 在手只有 30 间，最终 95 间。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>用多久的历史</td><td>至少 2 年，剔除异常年（如疫情、大修、政策突变）</td></tr><tr><td>按什么分组</td><td>按星期几分组（周一与周六 pickup 完全不同）；再叠加事件日</td></tr><tr><td>偏差怎么看</td><td>实际 pickup 持续高于预测 → 上调；持续低于 → 下调</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>B 店判断：增长空间还很大，此时关闭低价档为时过早，应先保持开放、观察 pickup。 最终 A 店因过早关档损失了大量中价客源；B 店逐步收紧，满房且均价更高。 结论：预测的价值在于"什么时候该动手"，而不只是"会不会满"。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden><div class="tk">课堂任务卡 · 第 20 章</div><div class="tsc"><b>情境：</b>A 店凭经验判断展会日"肯定满"，提前 30 天关掉所有低价档。B 店查历史：去年同展会 D-30 在手只有 30 间，最终 95 间。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>用多久的历史</td><td>至少 2 年，剔除异常年（如疫情、大修、政策突变）</td></tr><tr><td>按什么分组</td><td>按星期几分组（周一与周六 pickup 完全不同）；再叠加事件日</td></tr><tr><td>偏差怎么看</td><td>实际 pickup 持续高于预测 → 上调；持续低于 → 下调</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>B 店判断：增长空间还很大，此时关闭低价档为时过早，应先保持开放、观察 pickup。 最终 A 店因过早关档损失了大量中价客源；B 店逐步收紧，满房且均价更高。 结论：预测的价值在于"什么时候该动手"，而不只是"会不会满"。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl pts" data-i="22" data-k="pts"><h2>要点</h2><div class="bd"><div class="nk">反面案例 · 案例四 · 预测如何救了一次布价</div><div class="nnum">某店 D-21 时的一场争论： 销售："展会还有三周，在手才 30 间，肯定很淡，要不要先降点价？" 收益："我查了去年同展会：D-21 在手 28 间，最终 95 间。增长主要发生在 D-10 到 D-2。" 销售："所以现在不能降？" 收益："对。现在在手低是正常的——因为散客还没开始订。如果现在降价，就是把后面会来的高价客提前贱卖了。" 销售："那什么时候动手？" 收益："等到 D-10，看 pickup 是否如期启动。启动了就收紧，没启动再促销也不迟。"</div><div class="nend">D-10 时 pickup 果然启动（日均 12 间，历史 5 间），该店按计划收紧低价档并分阶段提价，最终满房且 ADR 比去年高 18%。 结论：预测的价值不只是"算出结果"，更在于"告诉你现在该不该动手"。很多错误不是判断错，是动手太早。</div></div></div><div class="srctpl" hidden><div class="nk">反面案例 · 案例四 · 预测如何救了一次布价</div><div class="nnum">某店 D-21 时的一场争论： 销售："展会还有三周，在手才 30 间，肯定很淡，要不要先降点价？" 收益："我查了去年同展会：D-21 在手 28 间，最终 95 间。增长主要发生在 D-10 到 D-2。" 销售："所以现在不能降？" 收益："对。现在在手低是正常的——因为散客还没开始订。如果现在降价，就是把后面会来的高价客提前贱卖了。" 销售："那什么时候动手？" 收益："等到 D-10，看 pickup 是否如期启动。启动了就收紧，没启动再促销也不迟。"</div><div class="nend">D-10 时 pickup 果然启动（日均 12 间，历史 5 间），该店按计划收紧低价档并分阶段提价，最终满房且 ADR 比去年高 18%。 结论：预测的价值不只是"算出结果"，更在于"告诉你现在该不该动手"。很多错误不是判断错，是动手太早。</div></div></div></section>
+<section class="sl sum" data-i="23" data-k="sum"><h2>本章小结</h2><div class="bd"><ol>
+<li><b>预测对象是需求曲线，不是最终出租率</b>。</li>
+<li><b>pickup 是最小单元</b>：统计每个提前期的历史新增量。</li>
+<li><b>预测 = 当前在手 + 剩余各期的历史 pickup</b>，并每天用实际值替换历史值。</li>
+<li><b>日历是定性、pickup 是定量</b>：日历说"哪天特殊"，pickup 说"实际来了多少"。</li>
+<li><b>偏差要查原因</b>：事件取消？渠道关闭？——偏差本身就是信号。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>为什么"在手低"不等于"需求弱"？举本章例子说明。</li>
+<li>预测偏差很大时，你的第一反应应该是什么？</li>
+<li>用 Excel 设计一张 pickup 表（说明行、列各是什么）。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>预测对象是需求曲线，不是最终出租率</b>。</li>
+<li><b>pickup 是最小单元</b>：统计每个提前期的历史新增量。</li>
+<li><b>预测 = 当前在手 + 剩余各期的历史 pickup</b>，并每天用实际值替换历史值。</li>
+<li><b>日历是定性、pickup 是定量</b>：日历说"哪天特殊"，pickup 说"实际来了多少"。</li>
+<li><b>偏差要查原因</b>：事件取消？渠道关闭？——偏差本身就是信号。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>为什么"在手低"不等于"需求弱"？举本章例子说明。</li>
+<li>预测偏差很大时，你的第一反应应该是什么？</li>
+<li>用 Excel 设计一张 pickup 表（说明行、列各是什么）。</li>
+</ol></div></div></section>
+<section class="sl end" data-i="24" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li>预测的对象是需求曲线，不是最终出租率：你要猜的是"每天会来多少订单"，而不是"月底能住满多少"。</li><li>pickup（预订进度）是预测的最小单元：每个提前期新增多少预订，是可以直接统计的历史规律。</li><li>预测要不断修正：把预测值和实际 pickup 对比，偏差就是下次的修正依据。</li><li class="fml-i"><b>核心公式</b><br>某日最终预订量预测 = 当前在手 + Σ(剩余各提前期的历史 pickup) pickup(提前期 d) = 历史上「距入住 d 天」那天新增的预订数 预测准确度：MAPE（平均绝对百分比误差）<10% 为良好</li><li class="fml-i"><b>算例 3 · 预测随时间的自我修正</b><br>D-10：在手 50，历史剩余 pickup 35 → 预测最终 85 D-7 ：在手 63（实际新增 13，历史为 11）→ 略快 剩余 pickup 修正为 26 → 预测最终 89 D-3 ：在手 78（新增快于历史）→ 预测最终 94 D-1 ：在手 91 → 预测最终 </li><li class="fml-i">用多久的历史至少 2 年，剔除异常年（如疫情、大修、政策突变）</li><li class="fml-i">按什么分组按星期几分组（周一与周六 pickup 完全不同）；再叠加事件日</li><li class="fml-i">偏差怎么看实际 pickup 持续高于预测 → 上调；持续低于 → 下调</li><li class="fml-i">日历标什么展会、演出、赛事、节假日、寒暑假、考试季、航班换季</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 25 屏）</div><a href="#p0" data-i="0">01　预测与需求日历</a><a href="#p1" data-i="1">02　本章要你做到</a><a href="#p2" data-i="2">03　情境导入</a><a href="#p3" data-i="3">04　三要点怎么用（各配一例）</a><a href="#p4" data-i="4">05　核心公式</a><a href="#p5" data-i="5">06　算例 3 · 预测随时间的自我修正</a><a href="#p6" data-i="6">07　本章判定表 · 预测与需求日历怎么用</a><a href="#p7" data-i="7">08　场景：距入住 6 天，预测最终 88 间，但近 3 天实际 pickup 明显偏慢</a><a href="#p8" data-i="8">09　案例 · 两次不同的"感觉"</a><a href="#p9" data-i="9">10　案例 · 两次不同的"感觉" · 结论</a><a href="#p10" data-i="10">11　案例三 · 一张日历的复利</a><a href="#p11" data-i="11">12　案例三 · 一张日历的复利 · 结论</a><a href="#p12" data-i="12">13　案例四 · 预测如何救了一次布价</a><a href="#p13" data-i="13">14　案例四 · 预测如何救了一次布价 · 结论</a><a href="#p14" data-i="14">15　常见错误（续）</a><a href="#p15" data-i="15">16　提醒</a><a href="#p16" data-i="16">17　与前后章的联系</a><a href="#p17" data-i="17">18　要点</a><a href="#p18" data-i="18">19　本章小结（5 条，可复述）</a><a href="#p19" data-i="19">20　遇到下面这些情况，直接按"动作"做</a><a href="#p20" data-i="20">21　常见场景速查</a><a href="#p21" data-i="21">22　常见场景速查</a><a href="#p22" data-i="22">23　要点</a><a href="#p23" data-i="23">24　本章小结</a><a href="#p24" data-i="24">25　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 教材对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=25, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  var st=b.style.fontSize, n=0;
+  b.style.fontSize='';
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('.rev')){ e.target.closest('.sl').classList.add('showans'); dofit(); return; }
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function dofit(){fit();}
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+  else if(k==='/'){e.preventDefault();T();}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>

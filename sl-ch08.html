@@ -1,0 +1,426 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script><script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>第 8 章 套餐与锚定：让客人觉得划算 · 投屏课件</title><style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='study-teach.html'">← 教师线</button>
+  <span class="pt">第二篇 · 决策篇 · 模块 A · 定价决策</span>
+  <span class="tt">第 8 章 套餐与锚定：让客人觉得划算 · 投屏课件</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 26</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">第二篇 · 决策篇 · 模块 A · 定价决策</div><h1>套餐与锚定：让客人觉得划算</h1><div class="meta">第 8 章 ｜ 模块 A · 定价决策 ｜ 共 26 屏</div><div class="promise-b">读完这章你能设计：不降房价，却让客人觉得更值的产品。</div></section>
+<section class="sl task" data-i="1" data-k="task"><h2>本章要你做到</h2><div class="bd"><div class="tk">课堂任务卡 · 第 8 章</div><div class="tsc"><b>情境：</b>某店周末纯房卖 450 鲜有问津。推出"周末微度假套餐"680（含双早 + 双人下午茶 + 16 点退房）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>与 BAR 的关系</td><td>套餐价 必须高于纯房 BAR，否则是变相降价（硬门槛）</td></tr><tr><td>附加项选择</td><td>选低成本高感知的：早餐、延迟退房、升级、积分</td></tr><tr><td>是否有锚定项</td><td>页面应展示更高价选项（套房/含更多权益）作为锚</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>附加成本约 70，净收 610（比原来 450 多 160）。 客人感知价值 700+，觉得划算；酒店多赚；且纯房价 450 的体系完好无损。 结论：套餐是"加价值"，不是"降价格"——这是它比打折高明的地方。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden><div class="tk">课堂任务卡 · 第 8 章</div><div class="tsc"><b>情境：</b>某店周末纯房卖 450 鲜有问津。推出"周末微度假套餐"680（含双早 + 双人下午茶 + 16 点退房）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>与 BAR 的关系</td><td>套餐价 必须高于纯房 BAR，否则是变相降价（硬门槛）</td></tr><tr><td>附加项选择</td><td>选低成本高感知的：早餐、延迟退房、升级、积分</td></tr><tr><td>是否有锚定项</td><td>页面应展示更高价选项（套房/含更多权益）作为锚</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>附加成本约 70，净收 610（比原来 450 多 160）。 客人感知价值 700+，觉得划算；酒店多赚；且纯房价 450 的体系完好无损。 结论：套餐是"加价值"，不是"降价格"——这是它比打折高明的地方。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境导入</h2><div class="bd"><div class="swho">你一定踩过的坑</div><p>客房卖 600，市场嫌贵，销售建议降到 500。</p><p>但总经理换了个做法：加了个"含双早 + 双人下午茶 + 16 点退房"的套餐，标价 780。结果套餐卖得比原来的纯房还好。</p><p>为什么？<b>因为客人不是嫌 600 贵，是觉得 600"不值"。</b></p><p>加一点成本不高的东西，客人的<b>感知价值</b>大幅提升——而你的成本只增加了一点点。这中间的差额，就是套餐的利润空间。</p></div><div class="srctpl" hidden><div class="swho">你一定踩过的坑</div><p>客房卖 600，市场嫌贵，销售建议降到 500。</p><p>但总经理换了个做法：加了个"含双早 + 双人下午茶 + 16 点退房"的套餐，标价 780。结果套餐卖得比原来的纯房还好。</p><p>为什么？<b>因为客人不是嫌 600 贵，是觉得 600"不值"。</b></p><p>加一点成本不高的东西，客人的<b>感知价值</b>大幅提升——而你的成本只增加了一点点。这中间的差额，就是套餐的利润空间。</p></div></section>
+<section class="sl pts" data-i="3" data-k="pts"><h2>三要点怎么用（各配一例）</h2><div class="bd"><ul>
+<li><b>锚定效应</b>：客人判断"贵不贵"靠对比。先展示高价选项，中价就显得合理——这是预订页面排序的基本原理。</li>
+<li><b>套餐的价值</b>：把<b>低感知成本、高感知价值</b>的项（早餐、延迟退房、升级）打包进去，用感知价值换支付意愿。</li>
+<li><b>套餐不等于降价</b>：套餐价必须<b>高于</b>纯房价，否则会侵蚀 BAR，变成变相降价。</li>
+</ul></div><ul>
+<li><b>锚定</b>——例：预订页先展示"行政套房 1,280"，再看"高级房 680"，后者就显得合理；若先看到 680 再看 1,280，680 反而显得便宜。<b>顺序影响判断。</b></li>
+<li><b>低成本高感知</b>——例：延迟退房成本约 0，客人感知价值 50–100；免费升级成本约 20，感知价值 150+。<b>优先打包这类项目。</b></li>
+<li><b>保护 BAR</b>——例：套餐卖 780，纯房 BAR 仍为 600。<b>拆开算绝不比纯房便宜</b>，否则就是变相降价。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>锚定效应</b>：客人判断"贵不贵"靠对比。先展示高价选项，中价就显得合理——这是预订页面排序的基本原理。</li>
+<li><b>套餐的价值</b>：把<b>低感知成本、高感知价值</b>的项（早餐、延迟退房、升级）打包进去，用感知价值换支付意愿。</li>
+<li><b>套餐不等于降价</b>：套餐价必须<b>高于</b>纯房价，否则会侵蚀 BAR，变成变相降价。</li>
+</ul></div><ul>
+<li><b>锚定</b>——例：预订页先展示"行政套房 1,280"，再看"高级房 680"，后者就显得合理；若先看到 680 再看 1,280，680 反而显得便宜。<b>顺序影响判断。</b></li>
+<li><b>低成本高感知</b>——例：延迟退房成本约 0，客人感知价值 50–100；免费升级成本约 20，感知价值 150+。<b>优先打包这类项目。</b></li>
+<li><b>保护 BAR</b>——例：套餐卖 780，纯房 BAR 仍为 600。<b>拆开算绝不比纯房便宜</b>，否则就是变相降价。</li>
+</ul></div></div></section>
+<section class="sl fml" data-i="4" data-k="fml"><h2>核心公式</h2><div class="bd"><div class="fe">套餐价 = 房价 + 附加项成本 × (1 + 溢价率)
+客人感知价值 = 附加项的「市场价」之和（不是你的成本）
+利润空间 = 套餐价 − 房价 − 附加项成本</div>
+<div class="ex" id="ex08"><b>算例：</b>房价 600。早餐成本 30、市价 88；下午茶成本 25、市价 128；延迟退房成本约 0、感知价值 100。<br>
+客人感知总价值 ≈ 600 + 88 + 128 + 100 = <b>916</b>。<br>
+套餐定价 <b>780</b> → 客人觉得"省了 136"，你多收 180、多花成本 55，<b>净赚 125</b>。<br>
+<b>关键：定价锚定的是"客人眼中的市价"，不是你的成本。</b></div></div></div><div class="srctpl" hidden><div class="fn">核心公式</div><div class="fe">套餐价 = 房价 + 附加项成本 × (1 + 溢价率)
+客人感知价值 = 附加项的「市场价」之和（不是你的成本）
+利润空间 = 套餐价 − 房价 − 附加项成本</div>
+<div class="ex" id="ex08"><b>算例：</b>房价 600。早餐成本 30、市价 88；下午茶成本 25、市价 128；延迟退房成本约 0、感知价值 100。<br>
+客人感知总价值 ≈ 600 + 88 + 128 + 100 = <b>916</b>。<br>
+套餐定价 <b>780</b> → 客人觉得"省了 136"，你多收 180、多花成本 55，<b>净赚 125</b>。<br>
+<b>关键：定价锚定的是"客人眼中的市价"，不是你的成本。</b></div></div></div></section>
+<section class="sl fml" data-i="5" data-k="fml"><h2>算例 3 · 一个套餐的完整核算</h2><div class="bd"><div class="fe">纯房价 600
+附加：双早(成本60/市价176) + 下午茶(成本50/市价128)
+     + 16点退房(成本0/感知100)
+客人感知价值 = 600 + 176 + 128 + 100 = 1,004
+套餐定价 850 → 客人觉得省 154
+你多收 250、多花成本 110 → 净赚 140</div>
+<div class="ex" id="ex08b">若改为直接降价：房价降到 550 才能产生类似的吸引力 → <b>收入直接少 50/间，且 BAR 被下移。</b><br>
+<b>结论：套餐比降价多赚约 190/间，且不伤价格体系。</b>这就是它值得优先使用的原因。</div></div></div><div class="srctpl" hidden><div class="fn">算例 3 · 一个套餐的完整核算</div><div class="fe">纯房价 600
+附加：双早(成本60/市价176) + 下午茶(成本50/市价128)
+     + 16点退房(成本0/感知100)
+客人感知价值 = 600 + 176 + 128 + 100 = 1,004
+套餐定价 850 → 客人觉得省 154
+你多收 250、多花成本 110 → 净赚 140</div>
+<div class="ex" id="ex08b">若改为直接降价：房价降到 550 才能产生类似的吸引力 → <b>收入直接少 50/间，且 BAR 被下移。</b><br>
+<b>结论：套餐比降价多赚约 190/间，且不伤价格体系。</b>这就是它值得优先使用的原因。</div></div></div></section>
+<section class="sl judge" data-i="6" data-k="judge"><h2>本章判定表 · 套餐设计是否合格</h2><div class="bd">
+<table>
+<tr><td>与 BAR 的关系</td><td>套餐价 <b>必须高于</b>纯房 BAR，否则是变相降价（硬门槛）</td></tr>
+<tr><td>附加项选择</td><td>选<b>低成本高感知</b>的：早餐、延迟退房、升级、积分</td></tr>
+<tr><td>是否有锚定项</td><td>页面应展示更高价选项（套房/含更多权益）作为锚</td></tr>
+<tr><td>是否可拆分</td><td>客人若能拆出裸房价并发现更便宜 → 设计失败</td></tr>
+<tr><td>是否限量/限时</td><td>套餐应有期限或限量，避免变成常态价</td></tr>
+<tr><td>成本是否真实核算</td><td>早餐、下午茶的实际成本要问餐饮部，不能拍脑袋</td></tr>
+<tr><td>与竞品对比</td><td>套餐内容应与竞品有差异，避免陷入同质比价</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>设计完套餐，先问"拆开算是否比纯房便宜"。若是，重做。<b>套餐的第一原则是保护价格体系。</b></div></div></div><div class="srctpl" hidden><div class="jt">本章判定表 · 套餐设计是否合格</div>
+<table>
+<tr><td>与 BAR 的关系</td><td>套餐价 <b>必须高于</b>纯房 BAR，否则是变相降价（硬门槛）</td></tr>
+<tr><td>附加项选择</td><td>选<b>低成本高感知</b>的：早餐、延迟退房、升级、积分</td></tr>
+<tr><td>是否有锚定项</td><td>页面应展示更高价选项（套房/含更多权益）作为锚</td></tr>
+<tr><td>是否可拆分</td><td>客人若能拆出裸房价并发现更便宜 → 设计失败</td></tr>
+<tr><td>是否限量/限时</td><td>套餐应有期限或限量，避免变成常态价</td></tr>
+<tr><td>成本是否真实核算</td><td>早餐、下午茶的实际成本要问餐饮部，不能拍脑袋</td></tr>
+<tr><td>与竞品对比</td><td>套餐内容应与竞品有差异，避免陷入同质比价</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>设计完套餐，先问"拆开算是否比纯房便宜"。若是，重做。<b>套餐的第一原则是保护价格体系。</b></div></div></div></section>
+<section class="sl judge" data-i="7" data-k="judge"><h2>场景：设计"暑期亲子套餐"1,080（含房+双早+儿童乐园+延迟退房）</h2><div class="bd">
+<table>
+<tr><td>与 BAR 的关系</td><td>纯房 BAR 780，套餐 1,080 &gt; 780 → ✓</td></tr>
+<tr><td>附加项是否低成本高感知？</td><td>乐园(成本40/市价160)、早餐(60/176)、退房(0/100) → ✓</td></tr>
+<tr><td>有锚定项吗？</td><td>页面同时展示"亲子套房 1,580"作为高价锚 → ✓</td></tr>
+<tr><td>可拆分吗？</td><td>拆开：房780+早176+园160+退房100=1,216 &gt; 1,080 → 客人拆开更贵 → ✓</td></tr>
+<tr><td>限量/限时？</td><td>限暑期、每日 15 份 → ✓</td></tr>
+<tr><td>成本真实核算？</td><td>已与餐饮/乐园部门确认成本 → ✓</td></tr>
+<tr><td>与竞品差异？</td><td>竞品无儿童乐园，差异化明显 → ✓</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：七项全中 → 合格套餐，可上线。</b><br><b>关键验证是第 4 行</b>——拆开算必须比套餐贵，否则客人会自己拆，套餐就白设计了。</div></div></div><div class="srctpl" hidden><div class="jt">场景：设计"暑期亲子套餐"1,080（含房+双早+儿童乐园+延迟退房）</div>
+<table>
+<tr><td>与 BAR 的关系</td><td>纯房 BAR 780，套餐 1,080 &gt; 780 → ✓</td></tr>
+<tr><td>附加项是否低成本高感知？</td><td>乐园(成本40/市价160)、早餐(60/176)、退房(0/100) → ✓</td></tr>
+<tr><td>有锚定项吗？</td><td>页面同时展示"亲子套房 1,580"作为高价锚 → ✓</td></tr>
+<tr><td>可拆分吗？</td><td>拆开：房780+早176+园160+退房100=1,216 &gt; 1,080 → 客人拆开更贵 → ✓</td></tr>
+<tr><td>限量/限时？</td><td>限暑期、每日 15 份 → ✓</td></tr>
+<tr><td>成本真实核算？</td><td>已与餐饮/乐园部门确认成本 → ✓</td></tr>
+<tr><td>与竞品差异？</td><td>竞品无儿童乐园，差异化明显 → ✓</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：七项全中 → 合格套餐，可上线。</b><br><b>关键验证是第 4 行</b>——拆开算必须比套餐贵，否则客人会自己拆，套餐就白设计了。</div></div></div></section>
+<section class="sl case" data-i="8" data-k="case"><div class="ct">案例一 · 一个套餐救活淡季周末</div><div class="cq">某店周末纯房卖 450 鲜有问津。推出"周末微度假套餐"680（含双早 + 双人下午茶 + 16 点退房）。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例一 · 一个套餐救活淡季周末</div>
+<div class="num">某店周末纯房卖 450 鲜有问津。推出"周末微度假套餐"680（含双早 + 双人下午茶 + 16 点退房）。</div>
+<div class="end">附加成本约 70，净收 610（比原来 450 多 160）。<br>
+客人感知价值 700+，觉得划算；酒店多赚；<b>且纯房价 450 的体系完好无损。</b><br>
+<b>结论：套餐是"加价值"，不是"降价格"——这是它比打折高明的地方。</b></div></div></div></section>
+<section class="sl caseans" data-i="9" data-k="caseans"><div class="ct">案例一 · 一个套餐救活淡季周末 · 结论</div><div class="ca" style="display:block">附加成本约 70，净收 610（比原来 450 多 160）。<br>
+客人感知价值 700+，觉得划算；酒店多赚；<b>且纯房价 450 的体系完好无损。</b><br>
+<b>结论：套餐是"加价值"，不是"降价格"——这是它比打折高明的地方。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例一 · 一个套餐救活淡季周末</div>
+<div class="num">某店周末纯房卖 450 鲜有问津。推出"周末微度假套餐"680（含双早 + 双人下午茶 + 16 点退房）。</div>
+<div class="end">附加成本约 70，净收 610（比原来 450 多 160）。<br>
+客人感知价值 700+，觉得划算；酒店多赚；<b>且纯房价 450 的体系完好无损。</b><br>
+<b>结论：套餐是"加价值"，不是"降价格"——这是它比打折高明的地方。</b></div></div></div></section>
+<section class="sl case" data-i="10" data-k="case"><div class="ct">案例二 · 页面排序的威力</div><div class="cq">某店预订页原本按价格从低到高排序，客人多数选最便宜的房型。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例二 · 页面排序的威力</div>
+<div class="num">某店预订页原本按价格从低到高排序，客人多数选最便宜的房型。</div>
+<div class="end">改为把"行政房 + 套餐"放在首位（作为锚），纯房放第二位。<br>
+结果：选择中高价选项的客人比例从 22% 升到 41%，ADR 提升 9%，而<b>总订单量几乎没变</b>。<br>
+<b>结论：客人不是只买便宜的，是在可见范围里选"看起来最值"的。你展示什么，决定了他们选什么。</b></div></div></div></section>
+<section class="sl caseans" data-i="11" data-k="caseans"><div class="ct">案例二 · 页面排序的威力 · 结论</div><div class="ca" style="display:block">改为把"行政房 + 套餐"放在首位（作为锚），纯房放第二位。<br>
+结果：选择中高价选项的客人比例从 22% 升到 41%，ADR 提升 9%，而<b>总订单量几乎没变</b>。<br>
+<b>结论：客人不是只买便宜的，是在可见范围里选"看起来最值"的。你展示什么，决定了他们选什么。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例二 · 页面排序的威力</div>
+<div class="num">某店预订页原本按价格从低到高排序，客人多数选最便宜的房型。</div>
+<div class="end">改为把"行政房 + 套餐"放在首位（作为锚），纯房放第二位。<br>
+结果：选择中高价选项的客人比例从 22% 升到 41%，ADR 提升 9%，而<b>总订单量几乎没变</b>。<br>
+<b>结论：客人不是只买便宜的，是在可见范围里选"看起来最值"的。你展示什么，决定了他们选什么。</b></div></div></div></section>
+<section class="sl case" data-i="12" data-k="case"><div class="ct">案例三 · 拆开算就露馅的套餐</div><div class="cq">某店推"住宿+双早"套餐 680，而纯房 BAR 600、早餐市价 176。</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例三 · 拆开算就露馅的套餐</div>
+<div class="num">某店推"住宿+双早"套餐 680，而纯房 BAR 600、早餐市价 176。</div>
+<div class="end">客人一算：600 + 176 = 776 &gt; 680 → 套餐确实便宜，于是大量客人通过套餐"变相"拿到了低于 BAR 的房价。<br>
+结果：ADR 从 600 掉到约 570，价格体系被自己设计的套餐侵蚀。<br>
+<b>修正：</b>套餐价调整为 720（高于拆算价的 93 折以内仍算合理），或改为"加价值但价格不低于拆算值"。<br>
+<b>结论：设计完套餐，第一件事就是"拆开算一遍"。这是最容易出错、也最容易自查的一步。</b></div></div></div></section>
+<section class="sl caseans" data-i="13" data-k="caseans"><div class="ct">案例三 · 拆开算就露馅的套餐 · 结论</div><div class="ca" style="display:block">客人一算：600 + 176 = 776 &gt; 680 → 套餐确实便宜，于是大量客人通过套餐"变相"拿到了低于 BAR 的房价。<br>
+结果：ADR 从 600 掉到约 570，价格体系被自己设计的套餐侵蚀。<br>
+<b>修正：</b>套餐价调整为 720（高于拆算价的 93 折以内仍算合理），或改为"加价值但价格不低于拆算值"。<br>
+<b>结论：设计完套餐，第一件事就是"拆开算一遍"。这是最容易出错、也最容易自查的一步。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例三 · 拆开算就露馅的套餐</div>
+<div class="num">某店推"住宿+双早"套餐 680，而纯房 BAR 600、早餐市价 176。</div>
+<div class="end">客人一算：600 + 176 = 776 &gt; 680 → 套餐确实便宜，于是大量客人通过套餐"变相"拿到了低于 BAR 的房价。<br>
+结果：ADR 从 600 掉到约 570，价格体系被自己设计的套餐侵蚀。<br>
+<b>修正：</b>套餐价调整为 720（高于拆算价的 93 折以内仍算合理），或改为"加价值但价格不低于拆算值"。<br>
+<b>结论：设计完套餐，第一件事就是"拆开算一遍"。这是最容易出错、也最容易自查的一步。</b></div></div></div></section>
+<section class="sl case" data-i="14" data-k="case"><div class="ct">案例四 · 一个套餐从设计到复盘（含数据）</div><div class="cq"><b>某店"周末微度假套餐"的完整过程：</b><br>
+<b>设计</b>：纯房 BAR 600（成本 80）＋ 双早（成本 60/市价 176）＋ 下午茶（50/128）＋ 16 点退房（0/100）<br>
+<b>定价</b>：客人感知价值 600+176+128+100 = 1,004 → 定价 850（客人觉得省 154）<br>
+<b>核算</b>：多收 250、多花成本 110 → <b>净赚 140/间</b><br>
+<b>校验</b>：拆开算 600+176+128+100 = 1,004 &gt; 850 ✓（不可拆分套利）<br>
+<b>上线</b>：限周末、每日 15 份，页面同时展示"亲子套房 1,280"作高价锚</div></div><div class="nextq">先想 30 秒 → 按 → 翻到下一屏看结论</div><div class="srctpl" hidden><div class="ct">案例四 · 一个套餐从设计到复盘（含数据）</div>
+<div class="num"><b>某店"周末微度假套餐"的完整过程：</b><br>
+<b>设计</b>：纯房 BAR 600（成本 80）＋ 双早（成本 60/市价 176）＋ 下午茶（50/128）＋ 16 点退房（0/100）<br>
+<b>定价</b>：客人感知价值 600+176+128+100 = 1,004 → 定价 850（客人觉得省 154）<br>
+<b>核算</b>：多收 250、多花成本 110 → <b>净赚 140/间</b><br>
+<b>校验</b>：拆开算 600+176+128+100 = 1,004 &gt; 850 ✓（不可拆分套利）<br>
+<b>上线</b>：限周末、每日 15 份，页面同时展示"亲子套房 1,280"作高价锚</div>
+<div class="end">结果：两个月售出 620 份，净增利 86,800 元；纯房 BAR 600 未受影响，ADR 反而上升 4%。<br>
+<b>若改为直接降价到 550：两个月少收约 31 万元，且 BAR 被永久下移。</b><br>
+<b>结论：套餐是"用感知价值换支付意愿"，降价是"用利润换订单"——前者可持续，后者不可逆。</b></div></div></div></section>
+<section class="sl caseans" data-i="15" data-k="caseans"><div class="ct">案例四 · 一个套餐从设计到复盘（含数据） · 结论</div><div class="ca" style="display:block">结果：两个月售出 620 份，净增利 86,800 元；纯房 BAR 600 未受影响，ADR 反而上升 4%。<br>
+<b>若改为直接降价到 550：两个月少收约 31 万元，且 BAR 被永久下移。</b><br>
+<b>结论：套餐是"用感知价值换支付意愿"，降价是"用利润换订单"——前者可持续，后者不可逆。</b></div></div><button class="back" onclick="go(-1)">← 回看题目</button><div class="srctpl" hidden><div class="ct">案例四 · 一个套餐从设计到复盘（含数据）</div>
+<div class="num"><b>某店"周末微度假套餐"的完整过程：</b><br>
+<b>设计</b>：纯房 BAR 600（成本 80）＋ 双早（成本 60/市价 176）＋ 下午茶（50/128）＋ 16 点退房（0/100）<br>
+<b>定价</b>：客人感知价值 600+176+128+100 = 1,004 → 定价 850（客人觉得省 154）<br>
+<b>核算</b>：多收 250、多花成本 110 → <b>净赚 140/间</b><br>
+<b>校验</b>：拆开算 600+176+128+100 = 1,004 &gt; 850 ✓（不可拆分套利）<br>
+<b>上线</b>：限周末、每日 15 份，页面同时展示"亲子套房 1,280"作高价锚</div>
+<div class="end">结果：两个月售出 620 份，净增利 86,800 元；纯房 BAR 600 未受影响，ADR 反而上升 4%。<br>
+<b>若改为直接降价到 550：两个月少收约 31 万元，且 BAR 被永久下移。</b><br>
+<b>结论：套餐是"用感知价值换支付意愿"，降价是"用利润换订单"——前者可持续，后者不可逆。</b></div></div></div></section>
+<section class="sl pts" data-i="16" data-k="pts"><h2>常见错误（续）</h2><div class="bd"><ul>
+<li><b>套餐价低于纯房价</b>。等于变相降价，会侵蚀 BAR。</li>
+<li><b>按成本定价</b>。应按客人的感知市价定价，否则白白放弃利润空间。</li>
+<li><b>把套餐做成常态</b>。失去稀缺性后，它就变成了新的"正常价"。</li>
+</ul></div><ul>
+<li><b>套餐内容越多越好</b>——堆砌低感知项目会增加成本却不增加吸引力，应精选 2–3 项高感知的。</li>
+<li><b>不与餐饮部核对成本</b>——早餐、自助餐的实际成本常被低估，导致套餐"看起来赚、实际亏"。</li>
+</ul></div><ul>
+<li><b>往上（第 7 章）</b>：套餐是"加价值不降价格"的典型做法，比折扣更优。</li>
+<li><b>往下（第 22 章）</b>：套餐不得破坏 BAR 层级，是价格体系的一部分。</li>
+<li><b>往下（第 29 章）</b>：餐饮的套餐逻辑与此完全相通。</li>
+<li><b>往上（第 4 章）</b>：套餐本质上是在改变客人的价格感知，从而影响弹性。</li>
+</ul></div></div><div class="srctpl" hidden><ul>
+<li><b>套餐价低于纯房价</b>。等于变相降价，会侵蚀 BAR。</li>
+<li><b>按成本定价</b>。应按客人的感知市价定价，否则白白放弃利润空间。</li>
+<li><b>把套餐做成常态</b>。失去稀缺性后，它就变成了新的"正常价"。</li>
+</ul></div><ul>
+<li><b>套餐内容越多越好</b>——堆砌低感知项目会增加成本却不增加吸引力，应精选 2–3 项高感知的。</li>
+<li><b>不与餐饮部核对成本</b>——早餐、自助餐的实际成本常被低估，导致套餐"看起来赚、实际亏"。</li>
+</ul></div><ul>
+<li><b>往上（第 7 章）</b>：套餐是"加价值不降价格"的典型做法，比折扣更优。</li>
+<li><b>往下（第 22 章）</b>：套餐不得破坏 BAR 层级，是价格体系的一部分。</li>
+<li><b>往下（第 29 章）</b>：餐饮的套餐逻辑与此完全相通。</li>
+<li><b>往上（第 4 章）</b>：套餐本质上是在改变客人的价格感知，从而影响弹性。</li>
+</ul></div></div></section>
+<section class="sl tip" data-i="17" data-k="tip"><h2>提醒</h2><div class="bd"><b>自学者提示：</b>设计套餐时，把每一项按<b>"客人眼中的市价"</b>列出来，而不是按你的成本。<b>感知价值与成本之间的差额，就是你要的利润空间。</b><br>晚餐自助标价 198、成本 60——这就是典型的"高感知、低成本"项，优先打包。</div></div><div class="srctpl" hidden><b>自学者提示：</b>设计套餐时，把每一项按<b>"客人眼中的市价"</b>列出来，而不是按你的成本。<b>感知价值与成本之间的差额，就是你要的利润空间。</b><br>晚餐自助标价 198、成本 60——这就是典型的"高感知、低成本"项，优先打包。</div></div></section>
+<section class="sl note" data-i="18" data-k="note"><h2>与前后章的联系</h2><div class="bd"><div class="et">练习</div><ol>
+<li>房价 500，加早餐（成本 30/市价 88）与延迟退房（成本 0/感知 100），设计一个套餐价。</li>
+<li>为什么套餐价必须高于纯房 BAR？</li>
+<li>什么是锚定效应？在预订页面如何应用？</li>
+<li>某套餐售价 720、房价 600、附加成本 60，利润空间多少？</li>
+<li>为什么套餐不能做成常态？</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习</div><ol>
+<li>房价 500，加早餐（成本 30/市价 88）与延迟退房（成本 0/感知 100），设计一个套餐价。</li>
+<li>为什么套餐价必须高于纯房 BAR？</li>
+<li>什么是锚定效应？在预订页面如何应用？</li>
+<li>某套餐售价 720、房价 600、附加成本 60，利润空间多少？</li>
+<li>为什么套餐不能做成常态？</li>
+</ol></div></div></section>
+<section class="sl pts" data-i="19" data-k="pts"><h2>要点</h2><div class="bd"><ol>
+<li><b>锚定效应</b>：客人靠对比判断贵贱——页面顺序影响选择。</li>
+<li><b>低成本高感知项优先</b>：延迟退房（成本 0）、升级（20）、早餐（60）。</li>
+<li><b>定价锚是"客人眼中的市价"</b>，不是你的成本——差额就是利润空间。</li>
+<li><b>硬门槛</b>：套餐价必须高于纯房 BAR；拆开算必须比套餐贵。</li>
+<li><b>验算口诀</b>：设计完套餐，第一件事就是"拆开算一遍"。</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>锚定效应</b>：客人靠对比判断贵贱——页面顺序影响选择。</li>
+<li><b>低成本高感知项优先</b>：延迟退房（成本 0）、升级（20）、早餐（60）。</li>
+<li><b>定价锚是"客人眼中的市价"</b>，不是你的成本——差额就是利润空间。</li>
+<li><b>硬门槛</b>：套餐价必须高于纯房 BAR；拆开算必须比套餐贵。</li>
+<li><b>验算口诀</b>：设计完套餐，第一件事就是"拆开算一遍"。</li>
+</ol></div></div></section>
+<section class="sl note" data-i="20" data-k="note"><h2>本章小结（5 条，可复述）</h2><div class="bd"><div class="et">练习（进阶）</div><ol start="6">
+<li>某套餐售价 700，纯房 BAR 600，早餐市价 176、成本 60。这个设计合格吗？</li>
+<li>为什么"套餐内容堆得越多"不一定越好？</li>
+<li>用锚定效应解释：为什么预订页常把最贵的房型放在第一位？</li>
+</ol></div></div><div class="srctpl" hidden><div class="et">练习（进阶）</div><ol start="6">
+<li>某套餐售价 700，纯房 BAR 600，早餐市价 176、成本 60。这个设计合格吗？</li>
+<li>为什么"套餐内容堆得越多"不一定越好？</li>
+<li>用锚定效应解释：为什么预订页常把最贵的房型放在第一位？</li>
+</ol></div></div></section>
+<section class="sl judge" data-i="21" data-k="judge"><h2>遇到下面这些情况，直接按"动作"做</h2><div class="bd">
+<table>
+<tr><td>客人说"你们太贵了"</td><td>不要降价——<b>加价值</b>（含早/下午茶/延迟退房）并推套餐</td></tr>
+<tr><td>设计完一个套餐</td><td>第一件事：<b>拆开算一遍</b>，确认拆开比套餐贵</td></tr>
+<tr><td>套餐卖得很好但 ADR 掉了</td><td>检查是否<b>套餐价低于纯房 BAR</b> → 提价或拆算校验</td></tr>
+<tr><td>不知道加什么进套餐</td><td>选<b>低成本高感知</b>项：延迟退房(0)、升级(20)、早餐(60)</td></tr>
+<tr><td>要在页面放几个房型</td><td>把<b>最贵的放前面</b>作锚（锚定效应）</td></tr>
+</table></div></div><div class="srctpl" hidden><div class="jt">遇到下面这些情况，直接按"动作"做</div>
+<table>
+<tr><td>客人说"你们太贵了"</td><td>不要降价——<b>加价值</b>（含早/下午茶/延迟退房）并推套餐</td></tr>
+<tr><td>设计完一个套餐</td><td>第一件事：<b>拆开算一遍</b>，确认拆开比套餐贵</td></tr>
+<tr><td>套餐卖得很好但 ADR 掉了</td><td>检查是否<b>套餐价低于纯房 BAR</b> → 提价或拆算校验</td></tr>
+<tr><td>不知道加什么进套餐</td><td>选<b>低成本高感知</b>项：延迟退房(0)、升级(20)、早餐(60)</td></tr>
+<tr><td>要在页面放几个房型</td><td>把<b>最贵的放前面</b>作锚（锚定效应）</td></tr>
+</table></div></div></section>
+<section class="sl note" data-i="22" data-k="note"><h2>常见场景速查</h2><div class="bd">留多少、放多少：把有限的房分给对的人</div>第二篇 · 决策篇 ｜ 模块 B · 库存决策 ｜ 第 9 章</div><div class="tk">课堂任务卡 · 第 8 章</div><div class="tsc"><b>情境：</b>某店周末纯房卖 450 鲜有问津。推出"周末微度假套餐"680（含双早 + 双人下午茶 + 16 点退房）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>与 BAR 的关系</td><td>套餐价 必须高于纯房 BAR，否则是变相降价（硬门槛）</td></tr><tr><td>附加项选择</td><td>选低成本高感知的：早餐、延迟退房、升级、积分</td></tr><tr><td>是否有锚定项</td><td>页面应展示更高价选项（套房/含更多权益）作为锚</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>附加成本约 70，净收 610（比原来 450 多 160）。 客人感知价值 700+，觉得划算；酒店多赚；且纯房价 450 的体系完好无损。 结论：套餐是"加价值"，不是"降价格"——这是它比打折高明的地方。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div><div class="srctpl" hidden>留多少、放多少：把有限的房分给对的人</div>第二篇 · 决策篇 ｜ 模块 B · 库存决策 ｜ 第 9 章</div><div class="tk">课堂任务卡 · 第 8 章</div><div class="tsc"><b>情境：</b>某店周末纯房卖 450 鲜有问津。推出"周末微度假套餐"680（含双早 + 双人下午茶 + 16 点退房）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出你的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>与 BAR 的关系</td><td>套餐价 必须高于纯房 BAR，否则是变相降价（硬门槛）</td></tr><tr><td>附加项选择</td><td>选低成本高感知的：早餐、延迟退房、升级、积分</td></tr><tr><td>是否有锚定项</td><td>页面应展示更高价选项（套房/含更多权益）作为锚</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>附加成本约 70，净收 610（比原来 450 多 160）。 客人感知价值 700+，觉得划算；酒店多赚；且纯房价 450 的体系完好无损。 结论：套餐是"加价值"，不是"降价格"——这是它比打折高明的地方。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div></div></section>
+<section class="sl pts" data-i="23" data-k="pts"><h2>要点</h2><div class="bd"><div class="nk">反面案例 · 案例三 · 拆开算就露馅的套餐</div><div class="nnum">某店推"住宿+双早"套餐 680，而纯房 BAR 600、早餐市价 176。</div><div class="nend">客人一算：600 + 176 = 776 &gt; 680 → 套餐确实便宜，于是大量客人通过套餐"变相"拿到了低于 BAR 的房价。 结果：ADR 从 600 掉到约 570，价格体系被自己设计的套餐侵蚀。 修正：套餐价调整为 720（高于拆算价的 93 折以内仍算合理），或改为"加价值但价格不低于拆算值"。 结论：设计完套餐，第一件事就是"拆开算一遍"。这是最容易出错、也最容易自查的一步。</div></div></div><div class="srctpl" hidden><div class="nk">反面案例 · 案例三 · 拆开算就露馅的套餐</div><div class="nnum">某店推"住宿+双早"套餐 680，而纯房 BAR 600、早餐市价 176。</div><div class="nend">客人一算：600 + 176 = 776 &gt; 680 → 套餐确实便宜，于是大量客人通过套餐"变相"拿到了低于 BAR 的房价。 结果：ADR 从 600 掉到约 570，价格体系被自己设计的套餐侵蚀。 修正：套餐价调整为 720（高于拆算价的 93 折以内仍算合理），或改为"加价值但价格不低于拆算值"。 结论：设计完套餐，第一件事就是"拆开算一遍"。这是最容易出错、也最容易自查的一步。</div></div></div></section>
+<section class="sl sum" data-i="24" data-k="sum"><h2>本章小结</h2><div class="bd"><ol>
+<li><b>锚定效应</b>：客人靠对比判断贵贱——页面顺序影响选择。</li>
+<li><b>低成本高感知项优先</b>：延迟退房（成本 0）、升级（20）、早餐（60）。</li>
+<li><b>定价锚是"客人眼中的市价"</b>，不是你的成本——差额就是利润空间。</li>
+<li><b>硬门槛</b>：套餐价必须高于纯房 BAR；拆开算必须比套餐贵。</li>
+<li><b>验算口诀</b>：设计完套餐，第一件事就是"拆开算一遍"。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>某套餐售价 700，纯房 BAR 600，早餐市价 176、成本 60。这个设计合格吗？</li>
+<li>为什么"套餐内容堆得越多"不一定越好？</li>
+<li>用锚定效应解释：为什么预订页常把最贵的房型放在第一位？</li>
+</ol></div></div><div class="srctpl" hidden><ol>
+<li><b>锚定效应</b>：客人靠对比判断贵贱——页面顺序影响选择。</li>
+<li><b>低成本高感知项优先</b>：延迟退房（成本 0）、升级（20）、早餐（60）。</li>
+<li><b>定价锚是"客人眼中的市价"</b>，不是你的成本——差额就是利润空间。</li>
+<li><b>硬门槛</b>：套餐价必须高于纯房 BAR；拆开算必须比套餐贵。</li>
+<li><b>验算口诀</b>：设计完套餐，第一件事就是"拆开算一遍"。</li>
+</ol></div><div class="et">练习（进阶）</div><ol start="6">
+<li>某套餐售价 700，纯房 BAR 600，早餐市价 176、成本 60。这个设计合格吗？</li>
+<li>为什么"套餐内容堆得越多"不一定越好？</li>
+<li>用锚定效应解释：为什么预订页常把最贵的房型放在第一位？</li>
+</ol></div></div></section>
+<section class="sl end" data-i="25" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li>锚定效应：客人判断"贵不贵"靠对比。先展示高价选项，中价就显得合理——这是预订页面排序的基本原理。</li><li>套餐的价值：把低感知成本、高感知价值的项（早餐、延迟退房、升级）打包进去，用感知价值换支付意愿。</li><li>套餐不等于降价：套餐价必须高于纯房价，否则会侵蚀 BAR，变成变相降价。</li><li>保护 BAR——例：套餐卖 780，纯房 BAR 仍为 600。拆开算绝不比纯房便宜，否则就是变相降价。</li><li class="fml-i"><b>核心公式</b><br>套餐价 = 房价 + 附加项成本 × (1 + 溢价率) 客人感知价值 = 附加项的「市场价」之和（不是你的成本） 利润空间 = 套餐价 − 房价 − 附加项成本</li><li class="fml-i">与 BAR 的关系套餐价 必须高于纯房 BAR，否则是变相降价（硬门槛）</li><li class="fml-i">附加项选择选低成本高感知的：早餐、延迟退房、升级、积分</li><li class="fml-i">是否有锚定项页面应展示更高价选项（套房/含更多权益）作为锚</li><li class="fml-i">是否可拆分客人若能拆出裸房价并发现更便宜 → 设计失败</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 26 屏）</div><a href="#p0" data-i="0">01　套餐与锚定：让客人觉得划算</a><a href="#p1" data-i="1">02　本章要你做到</a><a href="#p2" data-i="2">03　情境导入</a><a href="#p3" data-i="3">04　三要点怎么用（各配一例）</a><a href="#p4" data-i="4">05　核心公式</a><a href="#p5" data-i="5">06　算例 3 · 一个套餐的完整核算</a><a href="#p6" data-i="6">07　本章判定表 · 套餐设计是否合格</a><a href="#p7" data-i="7">08　场景：设计"暑期亲子套餐"1,080（含房+双早+儿童乐园+延迟退房）</a><a href="#p8" data-i="8">09　案例一 · 一个套餐救活淡季周末</a><a href="#p9" data-i="9">10　案例一 · 一个套餐救活淡季周末 · 结论</a><a href="#p10" data-i="10">11　案例二 · 页面排序的威力</a><a href="#p11" data-i="11">12　案例二 · 页面排序的威力 · 结论</a><a href="#p12" data-i="12">13　案例三 · 拆开算就露馅的套餐</a><a href="#p13" data-i="13">14　案例三 · 拆开算就露馅的套餐 · 结论</a><a href="#p14" data-i="14">15　案例四 · 一个套餐从设计到复盘（含数据）</a><a href="#p15" data-i="15">16　案例四 · 一个套餐从设计到复盘（含数据） · 结论</a><a href="#p16" data-i="16">17　常见错误（续）</a><a href="#p17" data-i="17">18　提醒</a><a href="#p18" data-i="18">19　与前后章的联系</a><a href="#p19" data-i="19">20　要点</a><a href="#p20" data-i="20">21　本章小结（5 条，可复述）</a><a href="#p21" data-i="21">22　遇到下面这些情况，直接按"动作"做</a><a href="#p22" data-i="22">23　常见场景速查</a><a href="#p23" data-i="23">24　要点</a><a href="#p24" data-i="24">25　本章小结</a><a href="#p25" data-i="25">26　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 教材对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=26, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  var st=b.style.fontSize, n=0;
+  b.style.fontSize='';
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('.rev')){ e.target.closest('.sl').classList.add('showans'); dofit(); return; }
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function dofit(){fit();}
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+  else if(k==='/'){e.preventDefault();T();}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>
