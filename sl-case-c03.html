@@ -1,0 +1,372 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>案例 03 · 林岚的星期二</title><style>"
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+
+.sl.dp{background:#fff}
+.sl.dp .dp{background:#f7fafc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.sum{background:#0f2a4a}
+.sl.sum h2{color:#ffd479}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='slides-case.html'">← 案例课件</button>
+  <span class="pt">案例教材 · 投屏课件</span>
+  <span class="tt">案例 03 · 林岚的星期二</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 13</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">案例教材 · 投屏课件</div><h1>案例 03 · 林岚的星期二</h1><div class="meta">杭州滨江云璟酒店 · 第 0 篇 ｜ 共 13 屏</div><div class="promise-b">&lt;b&gt;引子&lt;/b&gt;：收益经理一天到底在做什么？不是调价——调价只是最后那十分钟。跟着林岚过一个完整的星期二。</div></section>
+<section class="sl story" data-i="1" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p><b>8:30 · 看数</b></p><p>林岚的星期二从三张表开始：昨日经营、在手预订、竞品比价。</p><p>昨天的数字：OCC 71.5%、ADR 618、RevPAR<a class="rf" href="#n3"><sup>③</sup></a> 442。在手（未来 30 天）比去年同期高 3 个点。</p><p>她真正盯的是<b>未来 14 天的在手曲线</b>——图上第 9 天（下周三）有个明显的凹陷：在手只有 62 间，去年同期那天是 148 间。</p><p>她在便签上写：<b>"下周三，在手偏低，原因待查。"</b></p><p><b>9:15 · 查表（第一遍）</b></p><p>林岚打开《收益管理操作法典》，先查<b>表 B（库存与限制条件）</b>，再查<b>表 A（价格）</b>。</p><p>顺序不能反。她跟小马说过一次："<b>先看要不要关门，再看要不要改价。</b>门开着的时候改价，等于给本来能高价卖的房降价。"</p><p>表 B 的判据：下周三在手 62 间，离入住还有 9 天，属于"远期低在手"——<b>结论：暂不限制，保持开放</b>。</p><p>表 A 的判据：在手低于去年同期 58%，且无展会驱动——<b>结论：暂不调价，先观察两天</b>。</p><p>她在便签上加一行：<b>"下周三：不调价，观察。若 3 天后在手仍 < 80，启动会员定向价（带栅栏）。"</b></p><p><b>10:40 · 插曲一：郑昊的团队询价</b></p></div><div class="srctpl" hidden><p><b>8:30 · 看数</b></p><p>林岚的星期二从三张表开始：昨日经营、在手预订、竞品比价。</p><p>昨天的数字：OCC 71.5%、ADR 618、RevPAR<a class="rf" href="#n3"><sup>③</sup></a> 442。在手（未来 30 天）比去年同期高 3 个点。</p><p>她真正盯的是<b>未来 14 天的在手曲线</b>——图上第 9 天（下周三）有个明显的凹陷：在手只有 62 间，去年同期那天是 148 间。</p><p>她在便签上写：<b>"下周三，在手偏低，原因待查。"</b></p><p><b>9:15 · 查表（第一遍）</b></p><p>林岚打开《收益管理操作法典》，先查<b>表 B（库存与限制条件）</b>，再查<b>表 A（价格）</b>。</p><p>顺序不能反。她跟小马说过一次："<b>先看要不要关门，再看要不要改价。</b>门开着的时候改价，等于给本来能高价卖的房降价。"</p><p>表 B 的判据：下周三在手 62 间，离入住还有 9 天，属于"远期低在手"——<b>结论：暂不限制，保持开放</b>。</p><p>表 A 的判据：在手低于去年同期 58%，且无展会驱动——<b>结论：暂不调价，先观察两天</b>。</p><p>她在便签上加一行：<b>"下周三：不调价，观察。若 3 天后在手仍 < 80，启动会员定向价（带栅栏）。"</b></p><p><b>10:40 · 插曲一：郑昊的团队询价</b></p></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>销售总监郑昊推门进来，手里拿着一张询价单。</p><p>"下周三，一家医疗器械公司，40 间，住一晚，出价 480。接不接？"</p><p>林岚没直接答，先问了三个问题：</p><p>"一是<b>日期</b>——下周三；二是<b>房型</b>——他们要什么房型？三是<b>有没有餐饮和会议室</b>？"</p><p>"高级房，要一个 60 人的会议室，中午一餐。"</p><p>林岚打开置换分析<a class="rf" href="#n8"><sup>⑧</sup></a>表：</p><p>再看被置换掉的散客：下周三高级房当前在手 62 间里，高级房约 30 间，按当前 BAR<a class="rf" href="#n6"><sup>⑥</sup></a> 600 算，若团队占用 40 间，会挤掉约 25 间散客（因为散客还在增长期）。</p><p>被置换价值 = 25 × 600 − 25 × 95 = <b>12,625 元</b>。</p><p><b>净置换收益 = 30,600 − 12,625 = 17,975 元 > 0 → 接。</b></p><p>"接。"林岚说，"但有条件：<b>只给高级房，不给豪华房；会议室按门市价 8,000 收，不打折。</b>"</p><p>"会议室不打折？他们要压价。"</p><p>"房费已经让了 120 一间，四十间是四千八。会议室再打折，这单就不赚了。"她把置换表转给郑昊看，"<b>你要谈可以谈房费，别谈会议室——会议室是净利，房费有成本。</b>"</p></div><div class="srctpl" hidden><p>销售总监郑昊推门进来，手里拿着一张询价单。</p><p>"下周三，一家医疗器械公司，40 间，住一晚，出价 480。接不接？"</p><p>林岚没直接答，先问了三个问题：</p><p>"一是<b>日期</b>——下周三；二是<b>房型</b>——他们要什么房型？三是<b>有没有餐饮和会议室</b>？"</p><p>"高级房，要一个 60 人的会议室，中午一餐。"</p><p>林岚打开置换分析<a class="rf" href="#n8"><sup>⑧</sup></a>表：</p><p>再看被置换掉的散客：下周三高级房当前在手 62 间里，高级房约 30 间，按当前 BAR<a class="rf" href="#n6"><sup>⑥</sup></a> 600 算，若团队占用 40 间，会挤掉约 25 间散客（因为散客还在增长期）。</p><p>被置换价值 = 25 × 600 − 25 × 95 = <b>12,625 元</b>。</p><p><b>净置换收益 = 30,600 − 12,625 = 17,975 元 > 0 → 接。</b></p><p>"接。"林岚说，"但有条件：<b>只给高级房，不给豪华房；会议室按门市价 8,000 收，不打折。</b>"</p><p>"会议室不打折？他们要压价。"</p><p>"房费已经让了 120 一间，四十间是四千八。会议室再打折，这单就不赚了。"她把置换表转给郑昊看，"<b>你要谈可以谈房费，别谈会议室——会议室是净利，房费有成本。</b>"</p></div></section>
+<section class="sl story" data-i="3" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>郑昊看了半天，说："行。"</p><p><b>13:20 · 插曲二：B 店降价了</b></p><p>赵敏发来比价截图：B 店把下周三的 BAR<a class="rf" href="#n6"><sup>⑥</sup></a> 从 680 降到 578，降了 15%。</p><p>林岚看了三秒钟，问："我们下周三的 ARI<a class="rf" href="#n12"><sup>⑫</sup></a> 是多少？"</p><p>赵敏查了一下：<b>ARI<a class="rf" href="#n12"><sup>⑫</sup></a> = 618 ÷ 578 = 1.069</b>（我们比 B 店贵 6.9%）。</p><p>"上个月同期的 ARI 是多少？"</p><p>"1.02 左右。"</p><p>"<b>我们的相对位置变贵了 5 个点，但还在合理区间。</b>"林岚说，"不跟。"</p><p>赵敏犹豫："B 店降了 15%，会不会把客人都吸走？"</p><p>林岚调出去年 B 店两次降价的数据："<b>看历史：B 店去年降过两次，一次我们跟了，结果 ADR 掉了 8%，OCC 只涨 3 个点，GOP 是亏的；一次没跟，OCC 掉了 2 个点，但 ADR 保住，GOP 反而是赚的。</b>"</p><p>"那这次？"</p><p>"这次更不该跟。"林岚指着在手曲线，"<b>B 店降价通常是为了填周末，他们下周三四的会展需求比我们弱。我们下周三在手虽然偏低，但还有 9 天，且是工作日商务需求——这两个客群不重叠。</b>"</p></div><div class="srctpl" hidden><p>郑昊看了半天，说："行。"</p><p><b>13:20 · 插曲二：B 店降价了</b></p><p>赵敏发来比价截图：B 店把下周三的 BAR<a class="rf" href="#n6"><sup>⑥</sup></a> 从 680 降到 578，降了 15%。</p><p>林岚看了三秒钟，问："我们下周三的 ARI<a class="rf" href="#n12"><sup>⑫</sup></a> 是多少？"</p><p>赵敏查了一下：<b>ARI<a class="rf" href="#n12"><sup>⑫</sup></a> = 618 ÷ 578 = 1.069</b>（我们比 B 店贵 6.9%）。</p><p>"上个月同期的 ARI 是多少？"</p><p>"1.02 左右。"</p><p>"<b>我们的相对位置变贵了 5 个点，但还在合理区间。</b>"林岚说，"不跟。"</p><p>赵敏犹豫："B 店降了 15%，会不会把客人都吸走？"</p><p>林岚调出去年 B 店两次降价的数据："<b>看历史：B 店去年降过两次，一次我们跟了，结果 ADR 掉了 8%，OCC 只涨 3 个点，GOP 是亏的；一次没跟，OCC 掉了 2 个点，但 ADR 保住，GOP 反而是赚的。</b>"</p><p>"那这次？"</p><p>"这次更不该跟。"林岚指着在手曲线，"<b>B 店降价通常是为了填周末，他们下周三四的会展需求比我们弱。我们下周三在手虽然偏低，但还有 9 天，且是工作日商务需求——这两个客群不重叠。</b>"</p></div></section>
+<section class="sl story" data-i="4" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>她给赵敏的结论："<b>不跟价，但在官网加一条：连住两晚送早餐（成本 40 元，感知价值 80 元）。</b>用价值战替代价格战。"</p><p><b>16:50 · 插曲三：苏晴要放房</b></p><p>前厅经理苏晴打来内线："今晚还有 38 间没卖出去，前台有几个 walk-in 客人在问，能不能放个 450 的特价？现在 BAR 是 618。"</p><p>林岚看了眼时间：<b>16:50，距夜审还有 7 小时</b>。</p><p>"苏晴，现在是几点？"</p><p>"快五点。"</p><p>"<b>表 L（应急）的启动时间是夜审前 3 小时，也就是 21:00 之后。</b>现在放 450，等于给所有还没订的人一个降价预期——包括那些已经在官网看了三次、准备下单的客人。"</p><p>"可空着也是空着。"</p><p>"这话周总上个月说过。"林岚笑了笑，"<b>今天这 38 间，从现在到 21:00 还能卖出去多少？过去四周同期平均是 14 间。剩下 24 间，21:00 后按表 L 放 480 的当日尾房价<a class="rf" href="#n25"><sup>㉕</sup></a>——只对 walk-in 和 OTA 最后三小时开放，官网不挂。</b>"</p><p>"为什么尾房价<a class="rf" href="#n25"><sup>㉕</sup></a> 480 不是 450？"</p></div><div class="srctpl" hidden><p>她给赵敏的结论："<b>不跟价，但在官网加一条：连住两晚送早餐（成本 40 元，感知价值 80 元）。</b>用价值战替代价格战。"</p><p><b>16:50 · 插曲三：苏晴要放房</b></p><p>前厅经理苏晴打来内线："今晚还有 38 间没卖出去，前台有几个 walk-in 客人在问，能不能放个 450 的特价？现在 BAR 是 618。"</p><p>林岚看了眼时间：<b>16:50，距夜审还有 7 小时</b>。</p><p>"苏晴，现在是几点？"</p><p>"快五点。"</p><p>"<b>表 L（应急）的启动时间是夜审前 3 小时，也就是 21:00 之后。</b>现在放 450，等于给所有还没订的人一个降价预期——包括那些已经在官网看了三次、准备下单的客人。"</p><p>"可空着也是空着。"</p><p>"这话周总上个月说过。"林岚笑了笑，"<b>今天这 38 间，从现在到 21:00 还能卖出去多少？过去四周同期平均是 14 间。剩下 24 间，21:00 后按表 L 放 480 的当日尾房价<a class="rf" href="#n25"><sup>㉕</sup></a>——只对 walk-in 和 OTA 最后三小时开放，官网不挂。</b>"</p><p>"为什么尾房价<a class="rf" href="#n25"><sup>㉕</sup></a> 480 不是 450？"</p></div></section>
+<section class="sl story" data-i="5" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>"<b>因为 480 仍然高于我们的变动成本<a class="rf" href="#n24"><sup>㉔</sup></a>加合理贡献，而且不伤明天的 BAR。</b>450 会被截图，明天所有协议公司都会来问。"</p><p>苏晴沉默两秒："行，那我等到九点。"</p><p><b>17:40 · 记台账</b></p><p>林岚打开《调价台账<a class="rf" href="#n34"><sup>㉟</sup></a>》，今天只记了三行：</p><p><b>没有一行是"调价"。</b></p></div><div class="srctpl" hidden><p>"<b>因为 480 仍然高于我们的变动成本<a class="rf" href="#n24"><sup>㉔</sup></a>加合理贡献，而且不伤明天的 BAR。</b>450 会被截图，明天所有协议公司都会来问。"</p><p>苏晴沉默两秒："行，那我等到九点。"</p><p><b>17:40 · 记台账</b></p><p>林岚打开《调价台账<a class="rf" href="#n34"><sup>㉟</sup></a>》，今天只记了三行：</p><p><b>没有一行是"调价"。</b></p></div></section>
+<section class="sl dp" data-i="6" data-k="dp"><h2>决策点 · 你会怎么选</h2><div class="bd">
+<p><b>决策点一：先查库存表还是先查价格表？</b></p>
+<ul>
+<li>顺序：<b>表 B（库存）→ 表 A（价格）→ 表 L（应急）</b></li>
+<li><b>判据</b>：门还开着就降价，等于给本来能高价卖的房打折。</li>
+</ul>
+<p><b>决策点二：团队接不接？</b></p>
+<ul>
+<li>用<b>置换分析</b>：团队总贡献 − 被置换散客价值 > 0 才接</li>
+<li><b>判据</b>：看的是"多赚多少"，不是"这单赚不赚"。</li>
+</ul>
+<p><b>决策点三：竞品降价跟不跟？</b></p>
+<ul>
+<li>三步：ARI 变化 → 历史同情境结果 → 客群是否重叠</li>
+<li><b>判据</b>：<b>用价值战（附加服务）替代价格战</b>，成本更低、不伤价格体系。</li>
+</ul>
+<p><b>决策点四：尾房什么时候放、放多少？</b></p>
+<ul>
+<li>时间：<b>夜审前 3 小时</b>（不是傍晚）</li>
+<li>价格：<b>高于变动成本且有贡献</b>，且不进公开渠道</li>
+<li><b>判据</b>：<b>尾房价不能成为明天的挂牌价。</b></li>
+</ul>
+
+</div><div class="srctpl" hidden>
+<p><b>决策点一：先查库存表还是先查价格表？</b></p>
+<ul>
+<li>顺序：<b>表 B（库存）→ 表 A（价格）→ 表 L（应急）</b></li>
+<li><b>判据</b>：门还开着就降价，等于给本来能高价卖的房打折。</li>
+</ul>
+<p><b>决策点二：团队接不接？</b></p>
+<ul>
+<li>用<b>置换分析</b>：团队总贡献 − 被置换散客价值 > 0 才接</li>
+<li><b>判据</b>：看的是"多赚多少"，不是"这单赚不赚"。</li>
+</ul>
+<p><b>决策点三：竞品降价跟不跟？</b></p>
+<ul>
+<li>三步：ARI 变化 → 历史同情境结果 → 客群是否重叠</li>
+<li><b>判据</b>：<b>用价值战（附加服务）替代价格战</b>，成本更低、不伤价格体系。</li>
+</ul>
+<p><b>决策点四：尾房什么时候放、放多少？</b></p>
+<ul>
+<li>时间：<b>夜审前 3 小时</b>（不是傍晚）</li>
+<li>价格：<b>高于变动成本且有贡献</b>，且不进公开渠道</li>
+<li><b>判据</b>：<b>尾房价不能成为明天的挂牌价。</b></li>
+</ul>
+
+</div></section>
+<section class="sl fml" data-i="7" data-k="fml"><h2>知识提炼</h2><div class="bd">
+<h4>一、每日三步（一天的完整节奏）</h4>
+<p>```</p>
+<p>① 看数（8:30–9:00）   昨日经营 + 在手曲线 + 竞品比价</p>
+<p>        ↓ 找出"哪天要出事"</p>
+<p>② 查表（9:00–9:30）   表 B（库存）→ 表 A（价格）</p>
+<p>        ↓ 得出"做 / 不做"</p>
+<p>③ 执行（全天）         团队置换 / 竞品响应 / 尾房处理</p>
+<p>        ↓</p>
+<p>④ 记台账（17:30）      动作 + 依据 + 待观察结果</p>
+<p>```</p>
+<p class="quote"><b>看数的重点在未来，不在昨天。</b>昨天是结果，未来才是能动手的地方。</p>
+<h4>二、判定表的调用顺序（不能反）</h4>
+<table>
+<tr><td>顺序</td><td>表</td><td>问的问题</td><td>输出</td></tr>
+<tr><td>1</td><td><b>表 B · 库存限制</b></td><td>要不要关门 / 设最短住期？</td><td>限制条件</td></tr>
+<tr><td>2</td><td><b>表 A · 价格</b></td><td>升、降、还是维持？</td><td>BAR 调整</td></tr>
+<tr><td>3</td><td><b>表 L · 应急</b></td><td>夜审前 3 小时还有余房怎么办？</td><td>尾房价</td></tr>
+</table>
+<p class="quote"><b>优先级：库存 > 价格 > 应急。</b>先决定"卖不卖"，再决定"卖多少钱"，最后处理"实在卖不掉"。</p>
+<h4>三、置换分析算式</h4>
+<p>```</p>
+<p>团队总贡献 = 房费 + 餐饮会议收入 − 变动成本</p>
+<p>被置换价值 = 被挤掉的散客间夜 × (散客价 − 变动成本)</p>
+<p>净置换收益 = 团队总贡献 − 被置换价值</p>
+<p>```</p>
+<p>本例：30,600 − 12,625 = <b>+17,975 → 接</b></p>
+<p class="quote"><b>判定表 · 团队接不接</b></p>
+<p class="quote">| 净置换收益 | 结论 |</p>
+<p class="quote">|---|---|</p>
+<p class="quote">| > 0 | 接（但限制房型，不让出高价房型） |</p>
+<p class="quote">| = 0 | 看战略价值（新客户？长住？） |</p>
+<p class="quote">| < 0 | 不接，或抬高报价 / 换日期 |</p>
+<h4>四、竞争响应的三条判据</h4>
+<table>
+<tr><td>判据</td><td>本例</td><td>结论</td></tr>
+<tr><td>ARI 变化</td><td>1.02 → 1.069（贵 5 个点）</td><td>仍在合理区间</td></tr>
+<tr><td>历史同情境</td><td>跟价那次 GOP 亏</td><td>不跟的经验依据</td></tr>
+<tr><td>客群重叠</td><td>B 店抢周末，我们是工作日商务</td><td>不重叠</td></tr>
+</table>
+<p class="quote"><b>三条都指向"跟"才跟。有一条说"不"，就该考虑不跟。</b></p>
+
+</div><div class="srctpl" hidden>
+<h4>一、每日三步（一天的完整节奏）</h4>
+<p>```</p>
+<p>① 看数（8:30–9:00）   昨日经营 + 在手曲线 + 竞品比价</p>
+<p>        ↓ 找出"哪天要出事"</p>
+<p>② 查表（9:00–9:30）   表 B（库存）→ 表 A（价格）</p>
+<p>        ↓ 得出"做 / 不做"</p>
+<p>③ 执行（全天）         团队置换 / 竞品响应 / 尾房处理</p>
+<p>        ↓</p>
+<p>④ 记台账（17:30）      动作 + 依据 + 待观察结果</p>
+<p>```</p>
+<p class="quote"><b>看数的重点在未来，不在昨天。</b>昨天是结果，未来才是能动手的地方。</p>
+<h4>二、判定表的调用顺序（不能反）</h4>
+<table>
+<tr><td>顺序</td><td>表</td><td>问的问题</td><td>输出</td></tr>
+<tr><td>1</td><td><b>表 B · 库存限制</b></td><td>要不要关门 / 设最短住期？</td><td>限制条件</td></tr>
+<tr><td>2</td><td><b>表 A · 价格</b></td><td>升、降、还是维持？</td><td>BAR 调整</td></tr>
+<tr><td>3</td><td><b>表 L · 应急</b></td><td>夜审前 3 小时还有余房怎么办？</td><td>尾房价</td></tr>
+</table>
+<p class="quote"><b>优先级：库存 > 价格 > 应急。</b>先决定"卖不卖"，再决定"卖多少钱"，最后处理"实在卖不掉"。</p>
+<h4>三、置换分析算式</h4>
+<p>```</p>
+<p>团队总贡献 = 房费 + 餐饮会议收入 − 变动成本</p>
+<p>被置换价值 = 被挤掉的散客间夜 × (散客价 − 变动成本)</p>
+<p>净置换收益 = 团队总贡献 − 被置换价值</p>
+<p>```</p>
+<p>本例：30,600 − 12,625 = <b>+17,975 → 接</b></p>
+<p class="quote"><b>判定表 · 团队接不接</b></p>
+<p class="quote">| 净置换收益 | 结论 |</p>
+<p class="quote">|---|---|</p>
+<p class="quote">| > 0 | 接（但限制房型，不让出高价房型） |</p>
+<p class="quote">| = 0 | 看战略价值（新客户？长住？） |</p>
+<p class="quote">| < 0 | 不接，或抬高报价 / 换日期 |</p>
+<h4>四、竞争响应的三条判据</h4>
+<table>
+<tr><td>判据</td><td>本例</td><td>结论</td></tr>
+<tr><td>ARI 变化</td><td>1.02 → 1.069（贵 5 个点）</td><td>仍在合理区间</td></tr>
+<tr><td>历史同情境</td><td>跟价那次 GOP 亏</td><td>不跟的经验依据</td></tr>
+<tr><td>客群重叠</td><td>B 店抢周末，我们是工作日商务</td><td>不重叠</td></tr>
+</table>
+<p class="quote"><b>三条都指向"跟"才跟。有一条说"不"，就该考虑不跟。</b></p>
+
+</div></section>
+<section class="sl judge" data-i="8" data-k="judge"><h2>同一家酒店 · 不同情境</h2><div class="bd">
+<table>
+<tr><td>情境</td><td>表 B（库存）</td><td>表 A（价格）</td><td>表 L（应急）</td></tr>
+<tr><td><b>本例</b>：平常工作日</td><td>保持开放</td><td>维持，观察</td><td>21:00 后放 480</td></tr>
+<tr><td>展会周（案例 05）</td><td>关低价档 + 最短住期 2 晚</td><td>提价</td><td>不用</td></tr>
+<tr><td>淡季（案例 01）</td><td>开放</td><td>不降（或带栅栏降）</td><td>每晚都可能用</td></tr>
+<tr><td>满房日（案例 13）</td><td>关门 + 防超售</td><td>提价</td><td>不用</td></tr>
+</table>
+<p class="quote"><b>同样是 300 间房，五种情境给出五套完全不同的限制条件组合。</b></p>
+<p class="quote">这就是"查表"的意义——<b>不靠感觉，靠判据。</b></p>
+
+</div><div class="srctpl" hidden>
+<table>
+<tr><td>情境</td><td>表 B（库存）</td><td>表 A（价格）</td><td>表 L（应急）</td></tr>
+<tr><td><b>本例</b>：平常工作日</td><td>保持开放</td><td>维持，观察</td><td>21:00 后放 480</td></tr>
+<tr><td>展会周（案例 05）</td><td>关低价档 + 最短住期 2 晚</td><td>提价</td><td>不用</td></tr>
+<tr><td>淡季（案例 01）</td><td>开放</td><td>不降（或带栅栏降）</td><td>每晚都可能用</td></tr>
+<tr><td>满房日（案例 13）</td><td>关门 + 防超售</td><td>提价</td><td>不用</td></tr>
+</table>
+<p class="quote"><b>同样是 300 间房，五种情境给出五套完全不同的限制条件组合。</b></p>
+<p class="quote">这就是"查表"的意义——<b>不靠感觉，靠判据。</b></p>
+
+</div></section>
+<section class="sl tip" data-i="9" data-k="tip"><h2>课堂填这张表（学生工作纸）</h2><div class="bd">
+<p><b>《每日收益数据包》</b>——昨日经营 + 在手曲线 + 竞品比价 + 今日动作四块一页纸，8:30 前出。</p>
+<ul>
+<li>在线预览：<code>01_每日收益日报.xlsx</code></li>
+<li>下载：见站点资料区</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div><div class="srctpl" hidden>
+<p><b>《每日收益数据包》</b>——昨日经营 + 在手曲线 + 竞品比价 + 今日动作四块一页纸，8:30 前出。</p>
+<ul>
+<li>在线预览：<code>01_每日收益日报.xlsx</code></li>
+<li>下载：见站点资料区</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div></section>
+<section class="sl case" data-i="10" data-k="case"><h2>配套练习游戏</h2><div class="bd">
+<p><b>《一日流水线》</b>——从早上 8:30 到夜审，你会遇到 6 个插曲（团队询价、竞品降价、前台放房…），每个都要查表决定，跑完看你的 GOP。</p>
+<ul>
+<li>在线玩：<code>games.html</code>（站点游戏中心）</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div><div class="srctpl" hidden>
+<p><b>《一日流水线》</b>——从早上 8:30 到夜审，你会遇到 6 个插曲（团队询价、竞品降价、前台放房…），每个都要查表决定，跑完看你的 GOP。</p>
+<ul>
+<li>在线玩：<code>games.html</code>（站点游戏中心）</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div></section>
+<section class="sl sum" data-i="11" data-k="sum"><h2>一句话记住</h2><div class="bd">
+<p class="quote"><b>收益经理一天的工作，大部分时间是判断"不做"。</b></p>
+<p class="quote">调价是最后十分钟的事；前面九个小时，都在确认"今天不需要调价"。</p></div><div class="bkch"></div><div class="srctpl" hidden>
+<p class="quote"><b>收益经理一天的工作，大部分时间是判断"不做"。</b></p>
+<p class="quote">调价是最后十分钟的事；前面九个小时，都在确认"今天不需要调价"。</p></div><div class="bkch"></div></section>
+<section class="sl end" data-i="12" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li>顺序：表 B（库存）→ 表 A（价格）→ 表 L（应急）</li><li>判据：门还开着就降价，等于给本来能高价卖的房打折。</li><li>用置换分析：团队总贡献 − 被置换散客价值 > 0 才接</li><li>判据：看的是"多赚多少"，不是"这单赚不赚"。</li><li>三步：ARI 变化 → 历史同情境结果 → 客群是否重叠</li><li>判据：用价值战（附加服务）替代价格战，成本更低、不伤价格体系。</li><li>时间：夜审前 3 小时（不是傍晚）</li><li>价格：高于变动成本且有贡献，且不进公开渠道</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 13 屏）</div><a href="#p0" data-i="0">01　案例 03 · 林岚的星期二</a><a href="#p1" data-i="1">02　情境</a><a href="#p2" data-i="2">03　情境</a><a href="#p3" data-i="3">04　情境</a><a href="#p4" data-i="4">05　情境</a><a href="#p5" data-i="5">06　情境</a><a href="#p6" data-i="6">07　决策点拆解</a><a href="#p7" data-i="7">08　知识提炼</a><a href="#p8" data-i="8">09　同一家酒店 · 不同情境</a><a href="#p9" data-i="9">10　课堂填这张表（学生工作纸）</a><a href="#p10" data-i="10">11　配套练习游戏</a><a href="#p11" data-i="11">12　一句话记住</a><a href="#p12" data-i="12">13　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 案例对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=13, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  b.style.fontSize='';
+  var n=0;
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>

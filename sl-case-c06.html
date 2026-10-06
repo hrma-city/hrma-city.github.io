@@ -1,0 +1,379 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>案例 06 · 399 还是 599</title><style>"
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+
+.sl.dp{background:#fff}
+.sl.dp .dp{background:#f7fafc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.sum{background:#0f2a4a}
+.sl.sum h2{color:#ffd479}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='slides-case.html'">← 案例课件</button>
+  <span class="pt">案例教材 · 投屏课件</span>
+  <span class="tt">案例 06 · 399 还是 599</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 10</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">案例教材 · 投屏课件</div><h1>案例 06 · 399 还是 599</h1><div class="meta">杭州滨江云璟酒店 · 第 0 篇 ｜ 共 10 屏</div><div class="promise-b">&lt;b&gt;引子&lt;/b&gt;：又到淡季。这一次周总还想降，但林岚说"降，只降给本来不会来的人"——同样的降价，结果完全不同。</div></section>
+<section class="sl story" data-i="1" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>十二月，云璟酒店又进入淡季。OCC 46%，和十一月那次几乎一样。</p><p>周总把林岚叫进办公室，开口第一句是："上个月那次，我认了。"</p><p>林岚没说话，把一张表放在桌上。</p><p>"这次如果还要做，我建议这么做。"</p><p><b>林岚的方案：同样降到 399，但加四道栅栏。</b></p><p>周总看了三分钟，问了三个问题。</p><p><b>"第一，这么严，还有人来订吗？"</b></p><p>林岚调出会员池数据：</p><p><b>"第二，OTA 不挂，赵敏那边会不会有意见？"</b></p><p>赵敏在会上自己回答了："我算过。上个月 OTA 涨了 670 间，净价只有 460，把 GOP 拉下来 5.4%（见案例 04）。这 399 如果挂到 OTA，等于再复制一次那个问题。<b>我不反对做量，但我不想再做一次'-5.4%'。</b>"</p><p><b>"第三，399 和 599 之间，为什么不定 499？"</b></p><p>林岚早算过：</p><p>"<b>499 的性价比更高，但 399 的传播力更强。</b>"林岚说，"这次我们不是要冲量，是要<b>给价格敏感的人一个进来的理由，同时不让其他人看到</b>。传播力反而没那么重要——因为 OTA 不挂、公开渠道看不到。"</p></div><div class="srctpl" hidden><p>十二月，云璟酒店又进入淡季。OCC 46%，和十一月那次几乎一样。</p><p>周总把林岚叫进办公室，开口第一句是："上个月那次，我认了。"</p><p>林岚没说话，把一张表放在桌上。</p><p>"这次如果还要做，我建议这么做。"</p><p><b>林岚的方案：同样降到 399，但加四道栅栏。</b></p><p>周总看了三分钟，问了三个问题。</p><p><b>"第一，这么严，还有人来订吗？"</b></p><p>林岚调出会员池数据：</p><p><b>"第二，OTA 不挂，赵敏那边会不会有意见？"</b></p><p>赵敏在会上自己回答了："我算过。上个月 OTA 涨了 670 间，净价只有 460，把 GOP 拉下来 5.4%（见案例 04）。这 399 如果挂到 OTA，等于再复制一次那个问题。<b>我不反对做量，但我不想再做一次'-5.4%'。</b>"</p><p><b>"第三，399 和 599 之间，为什么不定 499？"</b></p><p>林岚早算过：</p><p>"<b>499 的性价比更高，但 399 的传播力更强。</b>"林岚说，"这次我们不是要冲量，是要<b>给价格敏感的人一个进来的理由，同时不让其他人看到</b>。传播力反而没那么重要——因为 OTA 不挂、公开渠道看不到。"</p></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>"那为什么不定 499？"</p><p>"<b>可以定 499。</b>"林岚说，"我建议分两层：会员专享 499（提前 7 天），另设一个更严格的'闪购'399（提前 14 天 + 仅限高级房 20 间）。<b>价格层级本身就是栅栏</b>——越便宜的条件越苛刻。"</p><p>周总笑了："你这是把降价做成了考试。"</p><p>"对，就是要考。"林岚说，"<b>能通过考试拿到低价的，本来就不会付全价。</b>"</p><p><b>执行三周后的数字：</b></p><p>最关键的对比在最后两行：<b>同样是"降价到 399"，无栅栏那次 ADR 掉了 88 元、丢了一个年 1,200 间夜的协议客户；有栅栏这次 ADR 只掉 22 元，协议客一个没丢。</b></p><p>小马把两份报表并排贴在会议室墙上，下面写了一行字：</p></div><div class="srctpl" hidden><p>"那为什么不定 499？"</p><p>"<b>可以定 499。</b>"林岚说，"我建议分两层：会员专享 499（提前 7 天），另设一个更严格的'闪购'399（提前 14 天 + 仅限高级房 20 间）。<b>价格层级本身就是栅栏</b>——越便宜的条件越苛刻。"</p><p>周总笑了："你这是把降价做成了考试。"</p><p>"对，就是要考。"林岚说，"<b>能通过考试拿到低价的，本来就不会付全价。</b>"</p><p><b>执行三周后的数字：</b></p><p>最关键的对比在最后两行：<b>同样是"降价到 399"，无栅栏那次 ADR 掉了 88 元、丢了一个年 1,200 间夜的协议客户；有栅栏这次 ADR 只掉 22 元，协议客一个没丢。</b></p><p>小马把两份报表并排贴在会议室墙上，下面写了一行字：</p></div></section>
+<section class="sl dp" data-i="3" data-k="dp"><h2>决策点 · 你会怎么选</h2><div class="bd">
+<p><b>决策点一：栅栏设几道？</b></p>
+<ul>
+<li>一道不够（容易被绕过），四道是常见配置：提前预订 / 不可改退 / 限定渠道 / 限定房型</li>
+<li><b>判据</b>：<b>栅栏的数量决定"能拿到低价的人"有多窄，也就决定了 ADR 掉多少。</b></li>
+</ul>
+<p><b>决策点二：为什么不挂 OTA？</b></p>
+<ul>
+<li>OTA 是公开渠道，一旦挂出，所有人可见——包括本来付全价的人</li>
+<li><b>判据</b>：<b>低价只能出现在"需要身份验证"的渠道。</b></li>
+</ul>
+<p><b>决策点三：399 还是 499？</b></p>
+<ul>
+<li>用打平公式算：需要出租率涨 50.4% vs 20.2%</li>
+<li><b>判据</b>：<b>先算打平点，再决定幅度；不要先定幅度再祈祷。</b></li>
+</ul>
+<p><b>决策点四：要不要做价格层级？</b></p>
+<ul>
+<li>要。<b>越便宜的条件越苛刻</b>（499 提前 7 天 / 399 提前 14 天且限量 20 间）</li>
+<li><b>判据</b>：<b>层级本身就是筛选器</b>，让不同支付意愿的人自己走到对应那一层。</li>
+</ul>
+
+</div><div class="srctpl" hidden>
+<p><b>决策点一：栅栏设几道？</b></p>
+<ul>
+<li>一道不够（容易被绕过），四道是常见配置：提前预订 / 不可改退 / 限定渠道 / 限定房型</li>
+<li><b>判据</b>：<b>栅栏的数量决定"能拿到低价的人"有多窄，也就决定了 ADR 掉多少。</b></li>
+</ul>
+<p><b>决策点二：为什么不挂 OTA？</b></p>
+<ul>
+<li>OTA 是公开渠道，一旦挂出，所有人可见——包括本来付全价的人</li>
+<li><b>判据</b>：<b>低价只能出现在"需要身份验证"的渠道。</b></li>
+</ul>
+<p><b>决策点三：399 还是 499？</b></p>
+<ul>
+<li>用打平公式算：需要出租率涨 50.4% vs 20.2%</li>
+<li><b>判据</b>：<b>先算打平点，再决定幅度；不要先定幅度再祈祷。</b></li>
+</ul>
+<p><b>决策点四：要不要做价格层级？</b></p>
+<ul>
+<li>要。<b>越便宜的条件越苛刻</b>（499 提前 7 天 / 399 提前 14 天且限量 20 间）</li>
+<li><b>判据</b>：<b>层级本身就是筛选器</b>，让不同支付意愿的人自己走到对应那一层。</li>
+</ul>
+
+</div></section>
+<section class="sl fml" data-i="4" data-k="fml"><h2>知识提炼</h2><div class="bd">
+<h4>一、价格栅栏的四道闸（完整版）</h4>
+<table>
+<tr><td>闸</td><td>常见设置</td><td>挡住的是</td><td>副作用</td></tr>
+<tr><td><b>提前预订</b></td><td>7 / 14 / 21 / 30 天</td><td>临时客</td><td>太小会伤商务客，建议 ≥7 天</td></tr>
+<tr><td><b>不可改退</b></td><td>预付，不改不退</td><td>行程不定的人</td><td>转化率会降，但价保住了</td></tr>
+<tr><td><b>限定渠道</b></td><td>官网会员 / App / 特定银行</td><td>公开比价流量</td><td>需要会员池有量</td></tr>
+<tr><td><b>限定房型/限量</b></td><td>仅高级房，每日 20–40 间</td><td>想低价住好房的人</td><td>保护高价房型的价差</td></tr>
+</table>
+<p class="quote"><b>栅栏组合的原则</b>：<b>每一道闸都要挡掉一批"本来愿意付全价的人"，同时不挡掉"本来不会来的人"。</b></p>
+<h4>二、BAR 体系与价格层级</h4>
+<p>```</p>
+<p>套房 / 行政房   ← 最高层，永远不打折</p>
+<p>豪华房          ← 次高层</p>
+<p>高级房 BAR<a class="rf" href="#n6"><sup>⑥</sup></a>      ← 基准价（600）</p>
+<p>  ├ 会员专享 499    （提前 7 天，不可退）</p>
+<p>  ├ 闪购 399        （提前 14 天，限量 20 间，仅高级房）</p>
+<p>  └ 团队价 520      （合约，需置换测算）</p>
+<p>尾房价<a class="rf" href="#n25"><sup>㉕</sup></a> 480      ← 仅夜审前 3 小时，仅 walk-in/OTA 尾单</p>
+<p>```</p>
+<p class="quote"><b>铁律</b>：<b>低价永远挂在高价房型之下、且在受限渠道里。</b></p>
+<p class="quote">公开渠道里只能看到 BAR<a class="rf" href="#n6"><sup>⑥</sup></a> 和之上的价格。</p>
+<h4>三、打平公式（每次降价前必算）</h4>
+<p>```</p>
+<p>需要出租率涨幅 = 降价幅度 ÷ (1 − 降价幅度)</p>
+<p>降价到 499：16.8% ÷ 83.2% = 20.2%   → 46% × 1.202 = 55.3%（可行）</p>
+<p>降价到 399：33.5% ÷ 66.5% = 50.4%   → 46% × 1.504 = 69.2%（不可行）</p>
+<p>```</p>
+<p class="quote"><b>判定表 · 降价可行性</b></p>
+<p class="quote">| 需要的涨幅 | 结论 |</p>
+<p class="quote">|---|---|</p>
+<p class="quote">| < 15% | 大概率可行，直接做 |</p>
+<p class="quote">| 15%–30% | 必须配栅栏，且限量 |</p>
+<table>
+<tr><td>> 30%</td><td><b>不可行</b>，改做价值包（加早餐/加积分）</td></tr>
+</table>
+<h4>四、价格 vs 价值（不想降 BAR 时的替代方案）</h4>
+<table>
+<tr><td>做法</td><td>实际成本</td><td>客人感知价值</td><td>伤不伤 BAR</td></tr>
+<tr><td>降 BAR 100 元</td><td>100 元</td><td>100 元</td><td><b>伤</b></td></tr>
+<tr><td>送双早</td><td>40 元</td><td>80–120 元</td><td>不伤</td></tr>
+<tr><td>送积分（可兑换）</td><td>20 元</td><td>40–60 元</td><td>不伤</td></tr>
+<tr><td>送延迟退房到 16:00</td><td>近乎 0</td><td>30–50 元</td><td>不伤</td></tr>
+<tr><td>送停车/接驳</td><td>15 元</td><td>40 元</td><td>不伤</td></tr>
+</table>
+<p class="quote"><b>判据</b>：<b>能用价值包<a class="rf" href="#n32"><sup>㉜</sup></a>解决的，不要用降价解决。</b></p>
+<p class="quote">降价是永久性的（会被截图、会被明年谈判引用），价值包<a class="rf" href="#n32"><sup>㉜</sup></a>是一次性的。</p>
+
+</div><div class="srctpl" hidden>
+<h4>一、价格栅栏的四道闸（完整版）</h4>
+<table>
+<tr><td>闸</td><td>常见设置</td><td>挡住的是</td><td>副作用</td></tr>
+<tr><td><b>提前预订</b></td><td>7 / 14 / 21 / 30 天</td><td>临时客</td><td>太小会伤商务客，建议 ≥7 天</td></tr>
+<tr><td><b>不可改退</b></td><td>预付，不改不退</td><td>行程不定的人</td><td>转化率会降，但价保住了</td></tr>
+<tr><td><b>限定渠道</b></td><td>官网会员 / App / 特定银行</td><td>公开比价流量</td><td>需要会员池有量</td></tr>
+<tr><td><b>限定房型/限量</b></td><td>仅高级房，每日 20–40 间</td><td>想低价住好房的人</td><td>保护高价房型的价差</td></tr>
+</table>
+<p class="quote"><b>栅栏组合的原则</b>：<b>每一道闸都要挡掉一批"本来愿意付全价的人"，同时不挡掉"本来不会来的人"。</b></p>
+<h4>二、BAR 体系与价格层级</h4>
+<p>```</p>
+<p>套房 / 行政房   ← 最高层，永远不打折</p>
+<p>豪华房          ← 次高层</p>
+<p>高级房 BAR<a class="rf" href="#n6"><sup>⑥</sup></a>      ← 基准价（600）</p>
+<p>  ├ 会员专享 499    （提前 7 天，不可退）</p>
+<p>  ├ 闪购 399        （提前 14 天，限量 20 间，仅高级房）</p>
+<p>  └ 团队价 520      （合约，需置换测算）</p>
+<p>尾房价<a class="rf" href="#n25"><sup>㉕</sup></a> 480      ← 仅夜审前 3 小时，仅 walk-in/OTA 尾单</p>
+<p>```</p>
+<p class="quote"><b>铁律</b>：<b>低价永远挂在高价房型之下、且在受限渠道里。</b></p>
+<p class="quote">公开渠道里只能看到 BAR<a class="rf" href="#n6"><sup>⑥</sup></a> 和之上的价格。</p>
+<h4>三、打平公式（每次降价前必算）</h4>
+<p>```</p>
+<p>需要出租率涨幅 = 降价幅度 ÷ (1 − 降价幅度)</p>
+<p>降价到 499：16.8% ÷ 83.2% = 20.2%   → 46% × 1.202 = 55.3%（可行）</p>
+<p>降价到 399：33.5% ÷ 66.5% = 50.4%   → 46% × 1.504 = 69.2%（不可行）</p>
+<p>```</p>
+<p class="quote"><b>判定表 · 降价可行性</b></p>
+<p class="quote">| 需要的涨幅 | 结论 |</p>
+<p class="quote">|---|---|</p>
+<p class="quote">| < 15% | 大概率可行，直接做 |</p>
+<p class="quote">| 15%–30% | 必须配栅栏，且限量 |</p>
+<table>
+<tr><td>> 30%</td><td><b>不可行</b>，改做价值包（加早餐/加积分）</td></tr>
+</table>
+<h4>四、价格 vs 价值（不想降 BAR 时的替代方案）</h4>
+<table>
+<tr><td>做法</td><td>实际成本</td><td>客人感知价值</td><td>伤不伤 BAR</td></tr>
+<tr><td>降 BAR 100 元</td><td>100 元</td><td>100 元</td><td><b>伤</b></td></tr>
+<tr><td>送双早</td><td>40 元</td><td>80–120 元</td><td>不伤</td></tr>
+<tr><td>送积分（可兑换）</td><td>20 元</td><td>40–60 元</td><td>不伤</td></tr>
+<tr><td>送延迟退房到 16:00</td><td>近乎 0</td><td>30–50 元</td><td>不伤</td></tr>
+<tr><td>送停车/接驳</td><td>15 元</td><td>40 元</td><td>不伤</td></tr>
+</table>
+<p class="quote"><b>判据</b>：<b>能用价值包<a class="rf" href="#n32"><sup>㉜</sup></a>解决的，不要用降价解决。</b></p>
+<p class="quote">降价是永久性的（会被截图、会被明年谈判引用），价值包<a class="rf" href="#n32"><sup>㉜</sup></a>是一次性的。</p>
+
+</div></section>
+<section class="sl judge" data-i="5" data-k="judge"><h2>同一家酒店 · 不同情境</h2><div class="bd">
+<table>
+<tr><td>情境</td><td>降价</td><td>栅栏</td><td>结果</td></tr>
+<tr><td><b>案例 01</b>：淡季，无栅栏</td><td>600 → 399</td><td>无</td><td>ADR −88，GOP −37 万，丢 1 家协议客</td></tr>
+<tr><td><b>本例</b>：淡季，四道栅栏</td><td>600 → 499/399</td><td>四道</td><td>ADR −22，GOP +9 万，协议客 0 流失</td></tr>
+<tr><td>案例 05：展会周</td><td>600 → 868</td><td>关档 + MLOS</td><td>GOP +13%</td></tr>
+<tr><td>案例 03：平常日尾房</td><td>618 → 480</td><td>限时（21:00 后）+ 限渠道</td><td>不伤次日 BAR</td></tr>
+</table>
+<p class="quote"><b>同一家 300 间房，四次"降价"给出四个答案。</b></p>
+<p class="quote">决定对错的不是降不降，是<b>降给谁、被谁看到、以及它会不会变成明天的挂牌价</b>。</p>
+
+</div><div class="srctpl" hidden>
+<table>
+<tr><td>情境</td><td>降价</td><td>栅栏</td><td>结果</td></tr>
+<tr><td><b>案例 01</b>：淡季，无栅栏</td><td>600 → 399</td><td>无</td><td>ADR −88，GOP −37 万，丢 1 家协议客</td></tr>
+<tr><td><b>本例</b>：淡季，四道栅栏</td><td>600 → 499/399</td><td>四道</td><td>ADR −22，GOP +9 万，协议客 0 流失</td></tr>
+<tr><td>案例 05：展会周</td><td>600 → 868</td><td>关档 + MLOS</td><td>GOP +13%</td></tr>
+<tr><td>案例 03：平常日尾房</td><td>618 → 480</td><td>限时（21:00 后）+ 限渠道</td><td>不伤次日 BAR</td></tr>
+</table>
+<p class="quote"><b>同一家 300 间房，四次"降价"给出四个答案。</b></p>
+<p class="quote">决定对错的不是降不降，是<b>降给谁、被谁看到、以及它会不会变成明天的挂牌价</b>。</p>
+
+</div></section>
+<section class="sl tip" data-i="6" data-k="tip"><h2>课堂填这张表（学生工作纸）</h2><div class="bd">
+<p><b>《价格体系与栅栏配置表》</b>——房型 × 价格层级 × 四道栅栏设置 × 每日限量，一页配齐全年价格结构。</p>
+<ul>
+<li>在线预览：<code>05_房型价差<a class="rf" href="#n30"><sup>㉚</sup></a>与价格体系.xlsx</code></li>
+<li>下载：见站点资料区</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div><div class="srctpl" hidden>
+<p><b>《价格体系与栅栏配置表》</b>——房型 × 价格层级 × 四道栅栏设置 × 每日限量，一页配齐全年价格结构。</p>
+<ul>
+<li>在线预览：<code>05_房型价差<a class="rf" href="#n30"><sup>㉚</sup></a>与价格体系.xlsx</code></li>
+<li>下载：见站点资料区</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div></section>
+<section class="sl case" data-i="7" data-k="case"><h2>配套练习游戏</h2><div class="bd">
+<p><b>《价格栅栏<a class="rf" href="#n7"><sup>⑦</sup></a> · 配置挑战》</b>——给定一个淡季情境，你配置四道栅栏与限量，系统模拟不同客群的反应，看 ADR 与 GOP。</p>
+<ul>
+<li>在线玩：<code>games.html</code>（站点游戏中心）</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div><div class="srctpl" hidden>
+<p><b>《价格栅栏<a class="rf" href="#n7"><sup>⑦</sup></a> · 配置挑战》</b>——给定一个淡季情境，你配置四道栅栏与限量，系统模拟不同客群的反应，看 ADR 与 GOP。</p>
+<ul>
+<li>在线玩：<code>games.html</code>（站点游戏中心）</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div></section>
+<section class="sl sum" data-i="8" data-k="sum"><h2>一句话记住</h2><div class="bd">
+<p class="quote"><b>降价不是把价格调低，是把价格调给本来不会来的人。</b></p>
+<p class="quote">做不到这一点，你不是在增加收入，是在给本来愿意付全价的人打折——而那道折扣会被截图，明年还会被翻出来跟你谈判。</p></div><div class="bkch"></div><div class="srctpl" hidden>
+<p class="quote"><b>降价不是把价格调低，是把价格调给本来不会来的人。</b></p>
+<p class="quote">做不到这一点，你不是在增加收入，是在给本来愿意付全价的人打折——而那道折扣会被截图，明年还会被翻出来跟你谈判。</p></div><div class="bkch"></div></section>
+<section class="sl end" data-i="9" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li>一道不够（容易被绕过），四道是常见配置：提前预订 / 不可改退 / 限定渠道 / 限定房型</li><li>判据：栅栏的数量决定"能拿到低价的人"有多窄，也就决定了 ADR 掉多少。</li><li>OTA 是公开渠道，一旦挂出，所有人可见——包括本来付全价的人</li><li>判据：低价只能出现在"需要身份验证"的渠道。</li><li>用打平公式算：需要出租率涨 50.4% vs 20.2%</li><li>判据：先算打平点，再决定幅度；不要先定幅度再祈祷。</li><li>要。越便宜的条件越苛刻（499 提前 7 天 / 399 提前 14 天且限量 20 间）</li><li>判据：层级本身就是筛选器，让不同支付意愿的人自己走到对应那一层。</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 10 屏）</div><a href="#p0" data-i="0">01　案例 06 · 399 还是 599</a><a href="#p1" data-i="1">02　情境</a><a href="#p2" data-i="2">03　情境</a><a href="#p3" data-i="3">04　决策点拆解</a><a href="#p4" data-i="4">05　知识提炼</a><a href="#p5" data-i="5">06　同一家酒店 · 不同情境</a><a href="#p6" data-i="6">07　课堂填这张表（学生工作纸）</a><a href="#p7" data-i="7">08　配套练习游戏</a><a href="#p8" data-i="8">09　一句话记住</a><a href="#p9" data-i="9">10　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 案例对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=10, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  b.style.fontSize='';
+  var n=0;
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>

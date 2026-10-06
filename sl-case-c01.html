@@ -1,0 +1,391 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>案例 01 · 一场"全员降价"的代价</title><style>"
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+
+.sl.dp{background:#fff}
+.sl.dp .dp{background:#f7fafc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.sum{background:#0f2a4a}
+.sl.sum h2{color:#ffd479}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='slides-case.html'">← 案例课件</button>
+  <span class="pt">案例教材 · 投屏课件</span>
+  <span class="tt">案例 01 · 一场"全员降价"的代价</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 12</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">案例教材 · 投屏课件</div><h1>案例 01 · 一场"全员降价"的代价</h1><div class="meta">杭州滨江云璟酒店 · 第 0 篇 ｜ 共 12 屏</div><div class="promise-b">&lt;b&gt;引子&lt;/b&gt;：出租率跌到 45%，总经理说"先降价填满再说"。两周后房间是填满了，钱却少了——问题出在哪？</div></section>
+<section class="sl story" data-i="1" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>十一月第二个周一早上，杭州滨江云璟酒店的晨会上，周总把报表往桌上一推。</p><p>"45%。"他用手指敲着那个数字，"三百间房，晚上空着一百六十多间。客房部今天只排了十二个保洁。你们说怎么办？"</p><p>会议室里没人先说话。淡季来得比去年早——滨江的展会季在十月底就结束了，写字楼里的差旅预算也卡得紧，B 店上周已经开始放 520 的特价。</p><p>"要不……"赵敏先开口，"我们也放个特价？OTA 上挂 399，先把曝光拉起来。"</p><p>"399？"苏晴抬头，"我们 BAR<a class="rf" href="#n6"><sup>⑥</sup></a> 是 600。"</p><p>"就是因为 600 才没人订。"</p><p>周总看向林岚："你算过没有，降到 399 能多卖多少？"</p><p>林岚把笔记本转过来，屏幕上是一张她昨晚做的测算表。</p><p>"我按去年十一月的数据算过：现在 OCC 45%、ADR 600，RevPAR<a class="rf" href="#n3"><sup>③</sup></a> 是 270。如果 ADR 降到 399，降幅 33.5%；按我们对价格弹性的估计，出租率大概能涨到 62%，涨幅 37.8%。"</p><p>她顿了一下："<b>收入变动 = 1.378 × 0.665 − 1 = −8.4%。</b>"</p></div><div class="srctpl" hidden><p>十一月第二个周一早上，杭州滨江云璟酒店的晨会上，周总把报表往桌上一推。</p><p>"45%。"他用手指敲着那个数字，"三百间房，晚上空着一百六十多间。客房部今天只排了十二个保洁。你们说怎么办？"</p><p>会议室里没人先说话。淡季来得比去年早——滨江的展会季在十月底就结束了，写字楼里的差旅预算也卡得紧，B 店上周已经开始放 520 的特价。</p><p>"要不……"赵敏先开口，"我们也放个特价？OTA 上挂 399，先把曝光拉起来。"</p><p>"399？"苏晴抬头，"我们 BAR<a class="rf" href="#n6"><sup>⑥</sup></a> 是 600。"</p><p>"就是因为 600 才没人订。"</p><p>周总看向林岚："你算过没有，降到 399 能多卖多少？"</p><p>林岚把笔记本转过来，屏幕上是一张她昨晚做的测算表。</p><p>"我按去年十一月的数据算过：现在 OCC 45%、ADR 600，RevPAR<a class="rf" href="#n3"><sup>③</sup></a> 是 270。如果 ADR 降到 399，降幅 33.5%；按我们对价格弹性的估计，出租率大概能涨到 62%，涨幅 37.8%。"</p><p>她顿了一下："<b>收入变动 = 1.378 × 0.665 − 1 = −8.4%。</b>"</p></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>"什么意思？"周总皱眉。</p><p>"意思是房间多卖了三成，总收入反而少八个点。"林岚把公式写在白板上，"<b>因为降价的幅度（33.5%）大于出租率能涨回来的幅度（24.7% 的净增）。</b>要打平，出租率得涨到 67% 以上，也就是多卖六十六间——淡季的商务需求根本没有这么多。"</p><p>"可空着也是空着。"周总说，"一间房空一晚，收入就是零。多卖一间，至少收 399，扣掉洗涤易耗也就 95 块成本，净赚三百。"</p><p>这句话会议室里好几个人点头。林岚知道这是最要命的一个误解——听起来完全正确，错在只算了单间。</p><p>"周总，单间看是赚的。"她说，"但<b>这三百多的收入，是把本可以卖 600 的房间用 399 卖掉换来的</b>。"</p><p>"哪有那么多本可以卖 600 的？"</p><p>"协议公司和会员。"林岚调出客源表，"我们 42% 是商务散客，10% 是协议公司。这些人现在付 600，是因为他们必须来、有预算、不比价。一旦公开的 BAR<a class="rf" href="#n6"><sup>⑥</sup></a> 变成 399，他们会问：为什么我付 600？"</p><p>郑昊接话："协议价是签了合同的，不能随便改。"</p></div><div class="srctpl" hidden><p>"什么意思？"周总皱眉。</p><p>"意思是房间多卖了三成，总收入反而少八个点。"林岚把公式写在白板上，"<b>因为降价的幅度（33.5%）大于出租率能涨回来的幅度（24.7% 的净增）。</b>要打平，出租率得涨到 67% 以上，也就是多卖六十六间——淡季的商务需求根本没有这么多。"</p><p>"可空着也是空着。"周总说，"一间房空一晚，收入就是零。多卖一间，至少收 399，扣掉洗涤易耗也就 95 块成本，净赚三百。"</p><p>这句话会议室里好几个人点头。林岚知道这是最要命的一个误解——听起来完全正确，错在只算了单间。</p><p>"周总，单间看是赚的。"她说，"但<b>这三百多的收入，是把本可以卖 600 的房间用 399 卖掉换来的</b>。"</p><p>"哪有那么多本可以卖 600 的？"</p><p>"协议公司和会员。"林岚调出客源表，"我们 42% 是商务散客，10% 是协议公司。这些人现在付 600，是因为他们必须来、有预算、不比价。一旦公开的 BAR<a class="rf" href="#n6"><sup>⑥</sup></a> 变成 399，他们会问：为什么我付 600？"</p><p>郑昊接话："协议价是签了合同的，不能随便改。"</p></div></section>
+<section class="sl story" data-i="3" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>"合同能续签，也能不续。"林岚说，"明年谈的时候，对方拿着 399 的截图来问你，你怎么答？"</p><p>周总沉默了几秒。"那你说怎么办，就这么空着？"</p><p>"我的建议是：<b>要降就降给本来不会来的人。</b>"</p><p>林岚画出三条栅栏："提前七天订、不可取消、仅限会员渠道。这三条加起来，让只对价格敏感的人拿得到 399，让本来要付 600 的人——临时订、要改期、走公司流程——根本碰不到这个价。"</p><p>"能做到吗？"</p><p>"技术上能。OTA 上挂会员专享价<a class="rf" href="#n31"><sup>㉛</sup></a>，官网做登录可见，前台不给walk-in 客人这个价。"</p><p>周总看了一圈，最后说："先试两周。就按 399 放，不用你那三条栅栏，太麻烦了。先看看数字。"</p><p>林岚没再争。她把那张测算表存进了共享盘，文件名写着"11月降价测算（未采用栅栏方案）"。</p><p><b>两周后。</b></p><p>出租率确实上去了：63%。周总在群里发了个"👍"。</p><p>但第十天的下午，老陈拿着一份协议公司的邮件来找林岚。</p><p>"你看这个。"邮件是本地一家科技公司行政发来的，"他们说在官网看到 399 的价格，问为什么他们公司协议价还是 580，要求按 399 结算，否则明年不续签。"</p></div><div class="srctpl" hidden><p>"合同能续签，也能不续。"林岚说，"明年谈的时候，对方拿着 399 的截图来问你，你怎么答？"</p><p>周总沉默了几秒。"那你说怎么办，就这么空着？"</p><p>"我的建议是：<b>要降就降给本来不会来的人。</b>"</p><p>林岚画出三条栅栏："提前七天订、不可取消、仅限会员渠道。这三条加起来，让只对价格敏感的人拿得到 399，让本来要付 600 的人——临时订、要改期、走公司流程——根本碰不到这个价。"</p><p>"能做到吗？"</p><p>"技术上能。OTA 上挂会员专享价<a class="rf" href="#n31"><sup>㉛</sup></a>，官网做登录可见，前台不给walk-in 客人这个价。"</p><p>周总看了一圈，最后说："先试两周。就按 399 放，不用你那三条栅栏，太麻烦了。先看看数字。"</p><p>林岚没再争。她把那张测算表存进了共享盘，文件名写着"11月降价测算（未采用栅栏方案）"。</p><p><b>两周后。</b></p><p>出租率确实上去了：63%。周总在群里发了个"👍"。</p><p>但第十天的下午，老陈拿着一份协议公司的邮件来找林岚。</p><p>"你看这个。"邮件是本地一家科技公司行政发来的，"他们说在官网看到 399 的价格，问为什么他们公司协议价还是 580，要求按 399 结算，否则明年不续签。"</p></div></section>
+<section class="sl story" data-i="4" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>"这家一年多少间夜？"</p><p>"一千二左右。"</p><p>林岚算了一下：一千二间夜 × 181 元差价 = <b>21.7 万</b>。</p><p>同一天，赵敏带来第二个消息：餐饮收入没涨。399 引来的客人大多是本地短住，不进中餐厅，早餐之外几乎没有消费。而去年十一月，客房客人带来的餐饮人均是 78 元。</p><p>第三个数字在月底出来：全月 OCC 58%（比去年 +9 个点），ADR 512（比去年 −88），<b>RevPAR<a class="rf" href="#n3"><sup>③</sup></a> 297——比去年的 324 少了 27 元</b>。</p><p>更糟的是 GOP。因为降价带来的间夜多了 1740 间，变动成本<a class="rf" href="#n24"><sup>㉔</sup></a>多了 16.5 万，而房费收入少了 21 万。<b>GOP 同比少了 37 万。</b></p><p>周总把林岚叫进办公室，那张测算表打印出来放在桌上。</p><p>"你算对了。"他说，"从头到尾都对。"</p><p>"我唯一没算到的，"林岚说，"是 399 会扩散到协议客。我以为只是 OTA 上的散客。"</p><p>"为什么扩散了？"</p><p>"因为没有栅栏。"林岚说，"<b>价格一旦公开，就没有'只给某一类人'这回事。</b>399 挂在官网首页，所有人都能看到，包括本来愿意付 600 的人。"</p></div><div class="srctpl" hidden><p>"这家一年多少间夜？"</p><p>"一千二左右。"</p><p>林岚算了一下：一千二间夜 × 181 元差价 = <b>21.7 万</b>。</p><p>同一天，赵敏带来第二个消息：餐饮收入没涨。399 引来的客人大多是本地短住，不进中餐厅，早餐之外几乎没有消费。而去年十一月，客房客人带来的餐饮人均是 78 元。</p><p>第三个数字在月底出来：全月 OCC 58%（比去年 +9 个点），ADR 512（比去年 −88），<b>RevPAR<a class="rf" href="#n3"><sup>③</sup></a> 297——比去年的 324 少了 27 元</b>。</p><p>更糟的是 GOP。因为降价带来的间夜多了 1740 间，变动成本<a class="rf" href="#n24"><sup>㉔</sup></a>多了 16.5 万，而房费收入少了 21 万。<b>GOP 同比少了 37 万。</b></p><p>周总把林岚叫进办公室，那张测算表打印出来放在桌上。</p><p>"你算对了。"他说，"从头到尾都对。"</p><p>"我唯一没算到的，"林岚说，"是 399 会扩散到协议客。我以为只是 OTA 上的散客。"</p><p>"为什么扩散了？"</p><p>"因为没有栅栏。"林岚说，"<b>价格一旦公开，就没有'只给某一类人'这回事。</b>399 挂在官网首页，所有人都能看到，包括本来愿意付 600 的人。"</p></div></section>
+<section class="sl dp" data-i="5" data-k="dp"><h2>决策点 · 你会怎么选</h2><div class="bd">
+<p>这个故事里有四个决策点，每一个都能单独拿出来讲。</p>
+<p><b>决策点一：要不要降价？</b></p>
+<ul>
+<li>选项 A：不降，守住 600，接受 45% 的出租率</li>
+<li>选项 B：降到 399，全员可订（周总选了这个）</li>
+<li>选项 C：降到 399，但配三条栅栏（林岚建议，未采纳）</li>
+<li><b>判据</b>：降价的收益 = 新增间夜 × 新价，损失 = 原可高价售出的间夜 × 差价。前者大于后者才降。</li>
+</ul>
+<p><b>决策点二：用什么价格？</b></p>
+<ul>
+<li>399 不是拍脑袋定的，是对标 E 店 520、C 店 560 之后定的</li>
+<li><b>但错在</b>：对标的是"竞争对手的价格"，没有对标"自己的客源结构"</li>
+<li><b>判据</b>：价格要跟着自己的客源分层走，不是跟着对手的挂牌价走。</li>
+</ul>
+<p><b>决策点三：能不能只降给一部分人？</b></p>
+<ul>
+<li>可以，靠栅栏：提前订、不可取消、特定渠道、特定身份</li>
+<li><b>栅栏的本质不是限制，是筛选</b>——把价格敏感的人筛出来单独给价</li>
+</ul>
+<p><b>决策点四：看哪个指标判断成败？</b></p>
+<ul>
+<li>周总看 OCC（45% → 63%，"成功"）</li>
+<li>报表看 RevPAR（324 → 297，"失败"）</li>
+<li>真正的账看 GOPPAR<a class="rf" href="#n16"><sup>⑯</sup></a>（少 37 万，"失败得更彻底"）</li>
+<li><b>判据</b>：OCC 是过程指标，RevPAR 是收入指标，<b>GOPPAR<a class="rf" href="#n16"><sup>⑯</sup></a> 才是经营指标</b>。</li>
+</ul>
+
+</div><div class="srctpl" hidden>
+<p>这个故事里有四个决策点，每一个都能单独拿出来讲。</p>
+<p><b>决策点一：要不要降价？</b></p>
+<ul>
+<li>选项 A：不降，守住 600，接受 45% 的出租率</li>
+<li>选项 B：降到 399，全员可订（周总选了这个）</li>
+<li>选项 C：降到 399，但配三条栅栏（林岚建议，未采纳）</li>
+<li><b>判据</b>：降价的收益 = 新增间夜 × 新价，损失 = 原可高价售出的间夜 × 差价。前者大于后者才降。</li>
+</ul>
+<p><b>决策点二：用什么价格？</b></p>
+<ul>
+<li>399 不是拍脑袋定的，是对标 E 店 520、C 店 560 之后定的</li>
+<li><b>但错在</b>：对标的是"竞争对手的价格"，没有对标"自己的客源结构"</li>
+<li><b>判据</b>：价格要跟着自己的客源分层走，不是跟着对手的挂牌价走。</li>
+</ul>
+<p><b>决策点三：能不能只降给一部分人？</b></p>
+<ul>
+<li>可以，靠栅栏：提前订、不可取消、特定渠道、特定身份</li>
+<li><b>栅栏的本质不是限制，是筛选</b>——把价格敏感的人筛出来单独给价</li>
+</ul>
+<p><b>决策点四：看哪个指标判断成败？</b></p>
+<ul>
+<li>周总看 OCC（45% → 63%，"成功"）</li>
+<li>报表看 RevPAR（324 → 297，"失败"）</li>
+<li>真正的账看 GOPPAR<a class="rf" href="#n16"><sup>⑯</sup></a>（少 37 万，"失败得更彻底"）</li>
+<li><b>判据</b>：OCC 是过程指标，RevPAR 是收入指标，<b>GOPPAR<a class="rf" href="#n16"><sup>⑯</sup></a> 才是经营指标</b>。</li>
+</ul>
+
+</div></section>
+<section class="sl fml" data-i="6" data-k="fml"><h2>知识提炼</h2><div class="bd">
+<h4>一、三个指标的口径（分母别搞错）</h4>
+<table>
+<tr><td>指标</td><td>公式</td><td>分母</td><td>本店基线</td></tr>
+<tr><td>OCC 出租率</td><td>已售房晚 ÷ <b>可售房晚</b></td><td>可售房晚（不是总房晚）</td><td>68%</td></tr>
+<tr><td>ADR 平均房价</td><td>客房收入 ÷ <b>已售房晚</b></td><td>已售房晚（不是可售房晚）</td><td>620 元</td></tr>
+<tr><td>RevPAR</td><td>客房收入 ÷ <b>可售房晚</b> = OCC × ADR</td><td>可售房晚</td><td>422 元</td></tr>
+</table>
+<p class="quote"><b>口径铁律</b>：OCC 和 RevPAR 的分母是<b>可售房晚<a class="rf" href="#n4"><sup>④</sup></a></b>，ADR 的分母是<b>已售房晚</b>。</p>
+<p class="quote">三个指标里有两个分母相同，只有 ADR 不同——这是最容易记混、也最容易算错的地方。</p>
+<p class="quote">装修房、自用房、免费房都不算"可售"。</p>
+<h4>二、降价划不划算：一个算式</h4>
+<p>```</p>
+<p>收入变动 = (1 + 出租率变动%) × (1 + 房价变动%) − 1</p>
+<p>```</p>
+<p>本例：(1 + 37.8%) × (1 − 33.5%) − 1 = 1.378 × 0.665 − 1 = <b>−8.4%</b></p>
+<p><b>打平的条件</b>：出租率涨幅 > 降价幅度 ÷ (1 − 降价幅度)</p>
+<p>本例：33.5% ÷ 66.5% = <b>50.4%</b>——出租率要从 45% 涨到 67.7% 才不亏。</p>
+<p class="quote"><b>判定表 · 降价前先算这一步</b></p>
+<p class="quote">| 问自己 | 答案 | 结论 |</p>
+<p class="quote">|---|---|---|</p>
+<p class="quote">| 降价幅度是多少？ | 33.5% | |</p>
+<p class="quote">| 需要出租率涨多少才打平？ | 50.4% | |</p>
+<p class="quote">| 这个涨幅现实吗？ | 淡季不可能 | <b>不降</b> |</p>
+<p class="quote">| 有没有办法只降给新增客源？ | 有（栅栏） | <b>降，但要设栅栏</b> |</p>
+<h4>三、价格栅栏的四道闸</h4>
+<table>
+<tr><td>栅栏</td><td>作用</td><td>挡住谁</td></tr>
+<tr><td>提前预订（如 7 天）</td><td>挡住临时客</td><td>商务临时出差的人</td></tr>
+<tr><td>不可取消 / 不可改期</td><td>挡住行程不确定的人</td><td>需要灵活改期的商旅客</td></tr>
+<tr><td>限定渠道（会员/官网）</td><td>挡住公开渠道</td><td>走 OTA 比价的客人</td></tr>
+<tr><td>限定房型（如仅高级房）</td><td>保护高价房型</td><td>想低价住套房的人</td></tr>
+</table>
+<p class="quote"><b>一句话</b>：栅栏不是把客人往外赶，是<b>让"愿意付高价的人找不到低价"</b>。</p>
+<h4>四、三层指标，看哪层决定成败</h4>
+<table>
+<tr><td>层级</td><td>指标</td><td>本例变化</td><td>含义</td></tr>
+<tr><td>过程</td><td>OCC</td><td>45% → 63% ↑</td><td>房间卖出去了</td></tr>
+<tr><td>收入</td><td>RevPAR</td><td>324 → 297 ↓</td><td>每间可售房收入降了</td></tr>
+<tr><td>经营</td><td><b>GOPPAR</b></td><td>−37 万 ↓↓</td><td>真正赚的钱少了</td></tr>
+</table>
+<p class="quote"><b>为什么 RevPAR 还不够</b>：RevPAR 只看客房收入，不看成本。</p>
+<p class="quote">多卖 1740 间，变动成本<a class="rf" href="#n24"><sup>㉔</sup></a>多了 16.5 万；RevPAR 少了 27 元 × 300 间 × 30 天 = 24.3 万。</p>
+<p class="quote"><b>RevPAR 下降 + 成本上升 = GOP 双重受损。</b></p>
+
+</div><div class="srctpl" hidden>
+<h4>一、三个指标的口径（分母别搞错）</h4>
+<table>
+<tr><td>指标</td><td>公式</td><td>分母</td><td>本店基线</td></tr>
+<tr><td>OCC 出租率</td><td>已售房晚 ÷ <b>可售房晚</b></td><td>可售房晚（不是总房晚）</td><td>68%</td></tr>
+<tr><td>ADR 平均房价</td><td>客房收入 ÷ <b>已售房晚</b></td><td>已售房晚（不是可售房晚）</td><td>620 元</td></tr>
+<tr><td>RevPAR</td><td>客房收入 ÷ <b>可售房晚</b> = OCC × ADR</td><td>可售房晚</td><td>422 元</td></tr>
+</table>
+<p class="quote"><b>口径铁律</b>：OCC 和 RevPAR 的分母是<b>可售房晚<a class="rf" href="#n4"><sup>④</sup></a></b>，ADR 的分母是<b>已售房晚</b>。</p>
+<p class="quote">三个指标里有两个分母相同，只有 ADR 不同——这是最容易记混、也最容易算错的地方。</p>
+<p class="quote">装修房、自用房、免费房都不算"可售"。</p>
+<h4>二、降价划不划算：一个算式</h4>
+<p>```</p>
+<p>收入变动 = (1 + 出租率变动%) × (1 + 房价变动%) − 1</p>
+<p>```</p>
+<p>本例：(1 + 37.8%) × (1 − 33.5%) − 1 = 1.378 × 0.665 − 1 = <b>−8.4%</b></p>
+<p><b>打平的条件</b>：出租率涨幅 > 降价幅度 ÷ (1 − 降价幅度)</p>
+<p>本例：33.5% ÷ 66.5% = <b>50.4%</b>——出租率要从 45% 涨到 67.7% 才不亏。</p>
+<p class="quote"><b>判定表 · 降价前先算这一步</b></p>
+<p class="quote">| 问自己 | 答案 | 结论 |</p>
+<p class="quote">|---|---|---|</p>
+<p class="quote">| 降价幅度是多少？ | 33.5% | |</p>
+<p class="quote">| 需要出租率涨多少才打平？ | 50.4% | |</p>
+<p class="quote">| 这个涨幅现实吗？ | 淡季不可能 | <b>不降</b> |</p>
+<p class="quote">| 有没有办法只降给新增客源？ | 有（栅栏） | <b>降，但要设栅栏</b> |</p>
+<h4>三、价格栅栏的四道闸</h4>
+<table>
+<tr><td>栅栏</td><td>作用</td><td>挡住谁</td></tr>
+<tr><td>提前预订（如 7 天）</td><td>挡住临时客</td><td>商务临时出差的人</td></tr>
+<tr><td>不可取消 / 不可改期</td><td>挡住行程不确定的人</td><td>需要灵活改期的商旅客</td></tr>
+<tr><td>限定渠道（会员/官网）</td><td>挡住公开渠道</td><td>走 OTA 比价的客人</td></tr>
+<tr><td>限定房型（如仅高级房）</td><td>保护高价房型</td><td>想低价住套房的人</td></tr>
+</table>
+<p class="quote"><b>一句话</b>：栅栏不是把客人往外赶，是<b>让"愿意付高价的人找不到低价"</b>。</p>
+<h4>四、三层指标，看哪层决定成败</h4>
+<table>
+<tr><td>层级</td><td>指标</td><td>本例变化</td><td>含义</td></tr>
+<tr><td>过程</td><td>OCC</td><td>45% → 63% ↑</td><td>房间卖出去了</td></tr>
+<tr><td>收入</td><td>RevPAR</td><td>324 → 297 ↓</td><td>每间可售房收入降了</td></tr>
+<tr><td>经营</td><td><b>GOPPAR</b></td><td>−37 万 ↓↓</td><td>真正赚的钱少了</td></tr>
+</table>
+<p class="quote"><b>为什么 RevPAR 还不够</b>：RevPAR 只看客房收入，不看成本。</p>
+<p class="quote">多卖 1740 间，变动成本<a class="rf" href="#n24"><sup>㉔</sup></a>多了 16.5 万；RevPAR 少了 27 元 × 300 间 × 30 天 = 24.3 万。</p>
+<p class="quote"><b>RevPAR 下降 + 成本上升 = GOP 双重受损。</b></p>
+
+</div></section>
+<section class="sl judge" data-i="7" data-k="judge"><h2>同一家酒店 · 不同情境</h2><div class="bd">
+<p>本店在不同情境下的"降价"结论完全不同：</p>
+<table>
+<tr><td>情境</td><td>出租率</td><td>需求弹性</td><td>降价结论</td></tr>
+<tr><td><b>本例</b>：淡季、无展会</td><td>45%</td><td>低（没那么多潜在客）</td><td>❌ 不该全员降，该设栅栏</td></tr>
+<tr><td>展会周（案例 05）</td><td>90%+</td><td>极低（不愁客）</td><td>❌ 不但不降，还要提价</td></tr>
+<tr><td>竞品降价（案例 09）</td><td>65%</td><td>中</td><td>⚠️ 跟不跟要看 ARI 与自身位置</td></tr>
+<tr><td>会员专享（案例 10）</td><td>68%</td><td>分层</td><td>✅ 可以降，但只给特定细分</td></tr>
+</table>
+<p class="quote"><b>同一家 300 间房的酒店，同样是"降到 399"，在四种情境下有三个不同答案。</b></p>
+<p class="quote">这就是"物理条件相同、市场情境不同"的意义——<b>让你比的是策略，不是条件。</b></p>
+
+</div><div class="srctpl" hidden>
+<p>本店在不同情境下的"降价"结论完全不同：</p>
+<table>
+<tr><td>情境</td><td>出租率</td><td>需求弹性</td><td>降价结论</td></tr>
+<tr><td><b>本例</b>：淡季、无展会</td><td>45%</td><td>低（没那么多潜在客）</td><td>❌ 不该全员降，该设栅栏</td></tr>
+<tr><td>展会周（案例 05）</td><td>90%+</td><td>极低（不愁客）</td><td>❌ 不但不降，还要提价</td></tr>
+<tr><td>竞品降价（案例 09）</td><td>65%</td><td>中</td><td>⚠️ 跟不跟要看 ARI 与自身位置</td></tr>
+<tr><td>会员专享（案例 10）</td><td>68%</td><td>分层</td><td>✅ 可以降，但只给特定细分</td></tr>
+</table>
+<p class="quote"><b>同一家 300 间房的酒店，同样是"降到 399"，在四种情境下有三个不同答案。</b></p>
+<p class="quote">这就是"物理条件相同、市场情境不同"的意义——<b>让你比的是策略，不是条件。</b></p>
+
+</div></section>
+<section class="sl tip" data-i="8" data-k="tip"><h2>课堂填这张表（学生工作纸）</h2><div class="bd">
+<p><b>《降价决策测算表》</b>——输入降价幅度与预估出租率，自动算出收入变动、打平点、GOP 影响。</p>
+<ul>
+<li>在线预览：<code>04_调价台账<a class="rf" href="#n34"><sup>㉟</sup></a>.xlsx</code>（根目录可下载）</li>
+<li>下载：见站点资料区</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+<p class="quote">表内字段：原 ADR / 新 ADR / 降幅 / 预估 OCC 涨幅 / 收入变动 / 打平所需涨幅 / 变动成本增量 / GOP 影响 / 栅栏设置</p>
+
+</div><div class="srctpl" hidden>
+<p><b>《降价决策测算表》</b>——输入降价幅度与预估出租率，自动算出收入变动、打平点、GOP 影响。</p>
+<ul>
+<li>在线预览：<code>04_调价台账<a class="rf" href="#n34"><sup>㉟</sup></a>.xlsx</code>（根目录可下载）</li>
+<li>下载：见站点资料区</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+<p class="quote">表内字段：原 ADR / 新 ADR / 降幅 / 预估 OCC 涨幅 / 收入变动 / 打平所需涨幅 / 变动成本增量 / GOP 影响 / 栅栏设置</p>
+
+</div></section>
+<section class="sl case" data-i="9" data-k="case"><h2>配套练习游戏</h2><div class="bd">
+<p><b>《定价决策 · 卡牌对战》</b>——拿到一手市场牌（淡季、竞品降价、展会、团队询价），你出价格牌，系统算收入变动，看谁 30 天赚得多。</p>
+<ul>
+<li>在线玩：<code>games.html</code>（站点游戏中心）</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div><div class="srctpl" hidden>
+<p><b>《定价决策 · 卡牌对战》</b>——拿到一手市场牌（淡季、竞品降价、展会、团队询价），你出价格牌，系统算收入变动，看谁 30 天赚得多。</p>
+<ul>
+<li>在线玩：<code>games.html</code>（站点游戏中心）</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div></section>
+<section class="sl sum" data-i="10" data-k="sum"><h2>一句话记住</h2><div class="bd">
+<p class="quote"><b>降价不是把价格调低，是把价格调给"本来不会来的人"。</b></p>
+<p class="quote">做不到这一点，你不是在增加收入，是在给本来愿意付全价的人打折。</p></div><div class="bkch"></div><div class="srctpl" hidden>
+<p class="quote"><b>降价不是把价格调低，是把价格调给"本来不会来的人"。</b></p>
+<p class="quote">做不到这一点，你不是在增加收入，是在给本来愿意付全价的人打折。</p></div><div class="bkch"></div></section>
+<section class="sl end" data-i="11" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li>选项 A：不降，守住 600，接受 45% 的出租率</li><li>选项 B：降到 399，全员可订（周总选了这个）</li><li>选项 C：降到 399，但配三条栅栏（林岚建议，未采纳）</li><li>判据：降价的收益 = 新增间夜 × 新价，损失 = 原可高价售出的间夜 × 差价。前者大于后者才降。</li><li>399 不是拍脑袋定的，是对标 E 店 520、C 店 560 之后定的</li><li>但错在：对标的是"竞争对手的价格"，没有对标"自己的客源结构"</li><li>判据：价格要跟着自己的客源分层走，不是跟着对手的挂牌价走。</li><li>可以，靠栅栏：提前订、不可取消、特定渠道、特定身份</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 12 屏）</div><a href="#p0" data-i="0">01　案例 01 · 一场"全员降价"的代价</a><a href="#p1" data-i="1">02　情境</a><a href="#p2" data-i="2">03　情境</a><a href="#p3" data-i="3">04　情境</a><a href="#p4" data-i="4">05　情境</a><a href="#p5" data-i="5">06　决策点拆解</a><a href="#p6" data-i="6">07　知识提炼</a><a href="#p7" data-i="7">08　同一家酒店 · 不同情境</a><a href="#p8" data-i="8">09　课堂填这张表（学生工作纸）</a><a href="#p9" data-i="9">10　配套练习游戏</a><a href="#p10" data-i="10">11　一句话记住</a><a href="#p11" data-i="11">12　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 案例对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=12, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  b.style.fontSize='';
+  var n=0;
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>

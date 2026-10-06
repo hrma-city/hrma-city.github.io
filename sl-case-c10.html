@@ -1,0 +1,381 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>案例 10 · 三类客人，三种价格</title><style>"
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+
+.sl.dp{background:#fff}
+.sl.dp .dp{background:#f7fafc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.sum{background:#0f2a4a}
+.sl.sum h2{color:#ffd479}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='slides-case.html'">← 案例课件</button>
+  <span class="pt">案例教材 · 投屏课件</span>
+  <span class="tt">案例 10 · 三类客人，三种价格</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 10</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">案例教材 · 投屏课件</div><h1>案例 10 · 三类客人，三种价格</h1><div class="meta">杭州滨江云璟酒店 · 第 0 篇 ｜ 共 10 屏</div><div class="promise-b">&lt;b&gt;引子&lt;/b&gt;：同一间高级房，同一天，三个人愿意付三种价钱。能不能让每个人付他愿意付的那个数？</div></section>
+<section class="sl story" data-i="1" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>六月的一个平常周三，云璟酒店的前台和官网在同一天收到三个订单，都是高级房：</p><p>当天高级房卖了 118 间，空了 32 间。</p><p>赵敏看着这张表，问林岚一个问题："<b>李女士和陈同学明明想订，为什么没订？他们能付 450 和 380，我们卖 613，结果一间没卖出去——这不就是白白空着 32 间吗？</b>"</p><p>"这正是我要讲的事。"林岚说，"<b>问题不是我们卖贵了，是我们只有一种价格。</b>"</p><p><b>林岚做的第一件事：给客人画像。</b></p><p>她把过去 12 个月所有订单按四个维度打标：</p><p>"看出规律了吗？"林岚说，"<b>愿意付高价的人，通常订得晚、行程不确定、走公司渠道；愿意付低价的人，通常订得早、行程确定、自己掏钱。</b>"</p><p>"这两类人的区别，不在'谁更有钱'，在<b>提前期和灵活性</b>。"</p><p><b>第二件事：按这个规律搭价格层级。</b></p><p>林岚画了一张表：</p><p>赵敏盯着这张表："<b>同一个房型，六种价格，这不乱吗？客人发现了会不会投诉？</b>"</p><p>"<b>不会，因为每一层都要'过闸'。</b>"林岚说，"提前 21 天的客人，没法用'当天订'的借口要 613；当天来的商务客，也不可能提前 21 天订。"</p></div><div class="srctpl" hidden><p>六月的一个平常周三，云璟酒店的前台和官网在同一天收到三个订单，都是高级房：</p><p>当天高级房卖了 118 间，空了 32 间。</p><p>赵敏看着这张表，问林岚一个问题："<b>李女士和陈同学明明想订，为什么没订？他们能付 450 和 380，我们卖 613，结果一间没卖出去——这不就是白白空着 32 间吗？</b>"</p><p>"这正是我要讲的事。"林岚说，"<b>问题不是我们卖贵了，是我们只有一种价格。</b>"</p><p><b>林岚做的第一件事：给客人画像。</b></p><p>她把过去 12 个月所有订单按四个维度打标：</p><p>"看出规律了吗？"林岚说，"<b>愿意付高价的人，通常订得晚、行程不确定、走公司渠道；愿意付低价的人，通常订得早、行程确定、自己掏钱。</b>"</p><p>"这两类人的区别，不在'谁更有钱'，在<b>提前期和灵活性</b>。"</p><p><b>第二件事：按这个规律搭价格层级。</b></p><p>林岚画了一张表：</p><p>赵敏盯着这张表："<b>同一个房型，六种价格，这不乱吗？客人发现了会不会投诉？</b>"</p><p>"<b>不会，因为每一层都要'过闸'。</b>"林岚说，"提前 21 天的客人，没法用'当天订'的借口要 613；当天来的商务客，也不可能提前 21 天订。"</p></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>"<b>栅栏的本质是：让客人用'自己的不方便'换低价。</b>"</p><p><b>第三件事：限量与房型错开。</b></p><p><b>执行两个月后，同一个周三的数字：</b></p><p>"ADR 掉了 29 块，RevPAR<a class="rf" href="#n3"><sup>③</sup></a> 涨了 12%。"林岚在会上说，"<b>因为我们卖掉了原本空着的 22 间——这 22 间的净价是 429 或 499，都远高于 95 块的变动成本。</b>"</p><p>赵敏补了一句她自己的发现："<b>而且这 22 间里，有 14 间是以前从 OTA 流失掉的客人。现在他们从官网订，我们省了佣金。</b>"</p></div><div class="srctpl" hidden><p>"<b>栅栏的本质是：让客人用'自己的不方便'换低价。</b>"</p><p><b>第三件事：限量与房型错开。</b></p><p><b>执行两个月后，同一个周三的数字：</b></p><p>"ADR 掉了 29 块，RevPAR<a class="rf" href="#n3"><sup>③</sup></a> 涨了 12%。"林岚在会上说，"<b>因为我们卖掉了原本空着的 22 间——这 22 间的净价是 429 或 499，都远高于 95 块的变动成本。</b>"</p><p>赵敏补了一句她自己的发现："<b>而且这 22 间里，有 14 间是以前从 OTA 流失掉的客人。现在他们从官网订，我们省了佣金。</b>"</p></div></section>
+<section class="sl dp" data-i="3" data-k="dp"><h2>决策点 · 你会怎么选</h2><div class="bd">
+<p><b>决策点一：同房不同价，会不会出问题？</b></p>
+<ul>
+<li>不会，<b>前提是每一层都有栅栏</b></li>
+<li><b>判据</b>：<b>没有栅栏的差价 = 乱价；有栅栏的差价 = 细分定价。</b></li>
+</ul>
+<p><b>决策点二：低价层要不要限量？</b></p>
+<ul>
+<li>要。本例：早鸟 20 间、会员 40 间、学生 10 间</li>
+<li><b>判据</b>：<b>限量的目的是防止"本可高价卖的房被低价占掉"。</b></li>
+</ul>
+<p><b>决策点三：高价房型参不参加促销？</b></p>
+<ul>
+<li><b>不参加</b>。豪华/行政/套只在 BAR<a class="rf" href="#n6"><sup>⑥</sup></a> 及以上</li>
+<li><b>判据</b>：<b>高价房型是价格体系的顶梁柱，降价从这里开始会一路塌下来。</b></li>
+</ul>
+<p><b>决策点四：怎么判断客人属于哪一层？</b></p>
+<ul>
+<li>不要猜，看四个维度：<b>提前期 / 渠道 / 身份 / 取消行为</b></li>
+<li><b>判据</b>：<b>用行为特征划分，不用人口统计划分</b>（不是"年轻人便宜"，是"提前 21 天且不可退的便宜"）。</li>
+</ul>
+
+</div><div class="srctpl" hidden>
+<p><b>决策点一：同房不同价，会不会出问题？</b></p>
+<ul>
+<li>不会，<b>前提是每一层都有栅栏</b></li>
+<li><b>判据</b>：<b>没有栅栏的差价 = 乱价；有栅栏的差价 = 细分定价。</b></li>
+</ul>
+<p><b>决策点二：低价层要不要限量？</b></p>
+<ul>
+<li>要。本例：早鸟 20 间、会员 40 间、学生 10 间</li>
+<li><b>判据</b>：<b>限量的目的是防止"本可高价卖的房被低价占掉"。</b></li>
+</ul>
+<p><b>决策点三：高价房型参不参加促销？</b></p>
+<ul>
+<li><b>不参加</b>。豪华/行政/套只在 BAR<a class="rf" href="#n6"><sup>⑥</sup></a> 及以上</li>
+<li><b>判据</b>：<b>高价房型是价格体系的顶梁柱，降价从这里开始会一路塌下来。</b></li>
+</ul>
+<p><b>决策点四：怎么判断客人属于哪一层？</b></p>
+<ul>
+<li>不要猜，看四个维度：<b>提前期 / 渠道 / 身份 / 取消行为</b></li>
+<li><b>判据</b>：<b>用行为特征划分，不用人口统计划分</b>（不是"年轻人便宜"，是"提前 21 天且不可退的便宜"）。</li>
+</ul>
+
+</div></section>
+<section class="sl fml" data-i="4" data-k="fml"><h2>知识提炼</h2><div class="bd">
+<h4>一、细分的四个可用维度（按可靠度排序）</h4>
+<table>
+<tr><td>维度</td><td>为什么可靠</td><td>对应栅栏</td></tr>
+<tr><td><b>提前期</b></td><td>提前期与支付意愿强相关（越临时越贵）</td><td>提前 7/14/21 天</td></tr>
+<tr><td><b>取消灵活性</b></td><td>愿意接受不可退的人，价格敏感</td><td>不可取消、预付</td></tr>
+<tr><td><b>渠道/身份</b></td><td>可控、可验证</td><td>会员登录、学生证、协议号</td></tr>
+<tr><td><b>连住长度</b></td><td>长住客单价低但总贡献高</td><td>连住 5 晚起</td></tr>
+</table>
+<p class="quote"><b>不推荐的维度</b>：年龄、性别、地域。</p>
+<p class="quote"><b>原因</b>：既不可验证，也容易引发公平性质疑。</p>
+<p class="quote"><b>用"行为"分，不用"身份"分。</b></p>
+<h4>二、价格体系六层（Rate Fence 体系）</h4>
+<p>```</p>
+<p>套房/行政   1,080–1,880   不参加任何促销</p>
+<p>豪华房        780          不参加任何促销</p>
+<p>─────────────────────────────────────</p>
+<p>高级房 BAR<a class="rf" href="#n6"><sup>⑥</sup></a>    613          所有人可见（公开锚点）</p>
+<p>  协议价      580          签约公司</p>
+<p>  会员专享    499          提前 7 天 + 会员 + 不可退</p>
+<p>  早鸟闪购    429          提前 21 天 + 限量 20 + 不可退</p>
+<p>  学生/长住   380          学生证 + 连住 5 晚起</p>
+<p>─────────────────────────────────────</p>
+<p>尾房价<a class="rf" href="#n25"><sup>㉕</sup></a>        480          夜审前 3 小时 + 仅 walk-in/OTA</p>
+<p>团队价        520          10 间起 + 合约 + 置换测算</p>
+<p>```</p>
+<p class="quote"><b>铁律一</b>：<b>BAR 是唯一的公开锚点</b>，其他层级都要"过闸"才能拿到。</p>
+<p class="quote"><b>铁律二</b>：<b>越便宜的条件越苛刻</b>——价格与条件成反比。</p>
+<p class="quote"><b>铁律三</b>：<b>高价房型永不促销。</b></p>
+<h4>三、限量怎么定（一个小算式）</h4>
+<p>```</p>
+<p>限量 = 预计该层级需求量 × 0.8（留 20% 观察空间）</p>
+<p>```</p>
+<p>本例：</p>
+<ul>
+<li>早鸟：历史数据显示提前 21 天以上的订单约 25 间 → 限量 <b>20 间</b></li>
+<li>会员：会员池活跃 8,900 × 转化率 1.8% ≈ 160 间夜 → 限量 <b>40 间/天</b>足够</li>
+</ul>
+<p class="quote"><b>判定表 · 限量调整</b></p>
+<p class="quote">| 信号 | 动作 |</p>
+<p class="quote">|---|---|</p>
+<p class="quote">| 该层级 3 天内售罄 | 上调 20% |</p>
+<p class="quote">| 该层级一周卖出不到 30% | 下调 20% 或放宽一道闸 |</p>
+<p class="quote">| 高档房型被挤占 | 立刻收紧所有低层限量 |</p>
+<h4>四、细分定价的三条自检</h4>
+<p>1. <b>每一层都有闸吗？</b>（没有闸的低价 = 乱价）</p>
+<p>2. <b>高价房型有没有被拖下水？</b>（套房/行政不能参加）</p>
+<p>3. <b>BAR 有没有动？</b>（动了就会变成明年的谈判锚点）</p>
+
+</div><div class="srctpl" hidden>
+<h4>一、细分的四个可用维度（按可靠度排序）</h4>
+<table>
+<tr><td>维度</td><td>为什么可靠</td><td>对应栅栏</td></tr>
+<tr><td><b>提前期</b></td><td>提前期与支付意愿强相关（越临时越贵）</td><td>提前 7/14/21 天</td></tr>
+<tr><td><b>取消灵活性</b></td><td>愿意接受不可退的人，价格敏感</td><td>不可取消、预付</td></tr>
+<tr><td><b>渠道/身份</b></td><td>可控、可验证</td><td>会员登录、学生证、协议号</td></tr>
+<tr><td><b>连住长度</b></td><td>长住客单价低但总贡献高</td><td>连住 5 晚起</td></tr>
+</table>
+<p class="quote"><b>不推荐的维度</b>：年龄、性别、地域。</p>
+<p class="quote"><b>原因</b>：既不可验证，也容易引发公平性质疑。</p>
+<p class="quote"><b>用"行为"分，不用"身份"分。</b></p>
+<h4>二、价格体系六层（Rate Fence 体系）</h4>
+<p>```</p>
+<p>套房/行政   1,080–1,880   不参加任何促销</p>
+<p>豪华房        780          不参加任何促销</p>
+<p>─────────────────────────────────────</p>
+<p>高级房 BAR<a class="rf" href="#n6"><sup>⑥</sup></a>    613          所有人可见（公开锚点）</p>
+<p>  协议价      580          签约公司</p>
+<p>  会员专享    499          提前 7 天 + 会员 + 不可退</p>
+<p>  早鸟闪购    429          提前 21 天 + 限量 20 + 不可退</p>
+<p>  学生/长住   380          学生证 + 连住 5 晚起</p>
+<p>─────────────────────────────────────</p>
+<p>尾房价<a class="rf" href="#n25"><sup>㉕</sup></a>        480          夜审前 3 小时 + 仅 walk-in/OTA</p>
+<p>团队价        520          10 间起 + 合约 + 置换测算</p>
+<p>```</p>
+<p class="quote"><b>铁律一</b>：<b>BAR 是唯一的公开锚点</b>，其他层级都要"过闸"才能拿到。</p>
+<p class="quote"><b>铁律二</b>：<b>越便宜的条件越苛刻</b>——价格与条件成反比。</p>
+<p class="quote"><b>铁律三</b>：<b>高价房型永不促销。</b></p>
+<h4>三、限量怎么定（一个小算式）</h4>
+<p>```</p>
+<p>限量 = 预计该层级需求量 × 0.8（留 20% 观察空间）</p>
+<p>```</p>
+<p>本例：</p>
+<ul>
+<li>早鸟：历史数据显示提前 21 天以上的订单约 25 间 → 限量 <b>20 间</b></li>
+<li>会员：会员池活跃 8,900 × 转化率 1.8% ≈ 160 间夜 → 限量 <b>40 间/天</b>足够</li>
+</ul>
+<p class="quote"><b>判定表 · 限量调整</b></p>
+<p class="quote">| 信号 | 动作 |</p>
+<p class="quote">|---|---|</p>
+<p class="quote">| 该层级 3 天内售罄 | 上调 20% |</p>
+<p class="quote">| 该层级一周卖出不到 30% | 下调 20% 或放宽一道闸 |</p>
+<p class="quote">| 高档房型被挤占 | 立刻收紧所有低层限量 |</p>
+<h4>四、细分定价的三条自检</h4>
+<p>1. <b>每一层都有闸吗？</b>（没有闸的低价 = 乱价）</p>
+<p>2. <b>高价房型有没有被拖下水？</b>（套房/行政不能参加）</p>
+<p>3. <b>BAR 有没有动？</b>（动了就会变成明年的谈判锚点）</p>
+
+</div></section>
+<section class="sl judge" data-i="5" data-k="judge"><h2>同一家酒店 · 不同情境</h2><div class="bd">
+<table>
+<tr><td>情境</td><td>细分策略</td></tr>
+<tr><td><b>本例</b>：平常日</td><td>六层全开，各层限量</td></tr>
+<tr><td>展会周（案例 05）</td><td><b>只开 BAR 及以上</b>，所有低价层关闭</td></tr>
+<tr><td>淡季（案例 06）</td><td>会员/早鸟层放宽限量</td></tr>
+<tr><td>尾房（案例 03）</td><td>只用尾房价，其他层不动</td></tr>
+</table>
+<p class="quote"><b>同一家酒店、同一间高级房，四种情境下开放的价格层级完全不同。</b></p>
+<p class="quote">这就是为什么不能用"一个价格打天下"——<b>价格体系是随情境开合的闸门组。</b></p>
+
+</div><div class="srctpl" hidden>
+<table>
+<tr><td>情境</td><td>细分策略</td></tr>
+<tr><td><b>本例</b>：平常日</td><td>六层全开，各层限量</td></tr>
+<tr><td>展会周（案例 05）</td><td><b>只开 BAR 及以上</b>，所有低价层关闭</td></tr>
+<tr><td>淡季（案例 06）</td><td>会员/早鸟层放宽限量</td></tr>
+<tr><td>尾房（案例 03）</td><td>只用尾房价，其他层不动</td></tr>
+</table>
+<p class="quote"><b>同一家酒店、同一间高级房，四种情境下开放的价格层级完全不同。</b></p>
+<p class="quote">这就是为什么不能用"一个价格打天下"——<b>价格体系是随情境开合的闸门组。</b></p>
+
+</div></section>
+<section class="sl tip" data-i="6" data-k="tip"><h2>课堂填这张表（学生工作纸）</h2><div class="bd">
+<p><b>《价格体系配置表》</b>——房型 × 六层价格 × 栅栏设置 × 每日限量 × 开放情境，一页配齐全年。</p>
+<ul>
+<li>在线预览：<code>05_房型价差<a class="rf" href="#n30"><sup>㉚</sup></a>与价格体系.xlsx</code></li>
+<li>下载：见站点资料区</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div><div class="srctpl" hidden>
+<p><b>《价格体系配置表》</b>——房型 × 六层价格 × 栅栏设置 × 每日限量 × 开放情境，一页配齐全年。</p>
+<ul>
+<li>在线预览：<code>05_房型价差<a class="rf" href="#n30"><sup>㉚</sup></a>与价格体系.xlsx</code></li>
+<li>下载：见站点资料区</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div></section>
+<section class="sl case" data-i="7" data-k="case"><h2>配套练习游戏</h2><div class="bd">
+<p><b>《细分定价 · 客人匹配》</b>——给你 15 个客人画像（提前期/渠道/身份/预算），把他们配到正确的价格层，看你能收多少。</p>
+<ul>
+<li>在线玩：<code>games.html</code>（站点游戏中心）</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div><div class="srctpl" hidden>
+<p><b>《细分定价 · 客人匹配》</b>——给你 15 个客人画像（提前期/渠道/身份/预算），把他们配到正确的价格层，看你能收多少。</p>
+<ul>
+<li>在线玩：<code>games.html</code>（站点游戏中心）</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div></section>
+<section class="sl sum" data-i="8" data-k="sum"><h2>一句话记住</h2><div class="bd">
+<p class="quote"><b>客人不是按"有钱没钱"分，是按"订得多早、能不能改、从哪儿来"分。</b></p>
+<p class="quote">用行为设栅栏，让每个人用"自己的不方便"换低价——这样 BAR 不动，空房也能卖掉。</p></div><div class="bkch"></div><div class="srctpl" hidden>
+<p class="quote"><b>客人不是按"有钱没钱"分，是按"订得多早、能不能改、从哪儿来"分。</b></p>
+<p class="quote">用行为设栅栏，让每个人用"自己的不方便"换低价——这样 BAR 不动，空房也能卖掉。</p></div><div class="bkch"></div></section>
+<section class="sl end" data-i="9" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li>不会，前提是每一层都有栅栏</li><li>判据：没有栅栏的差价 = 乱价；有栅栏的差价 = 细分定价。</li><li>要。本例：早鸟 20 间、会员 40 间、学生 10 间</li><li>判据：限量的目的是防止"本可高价卖的房被低价占掉"。</li><li>不参加。豪华/行政/套只在 BAR⑥ 及以上</li><li>判据：高价房型是价格体系的顶梁柱，降价从这里开始会一路塌下来。</li><li>不要猜，看四个维度：提前期 / 渠道 / 身份 / 取消行为</li><li>判据：用行为特征划分，不用人口统计划分（不是"年轻人便宜"，是"提前 21 天且不可退的便宜"）。</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 10 屏）</div><a href="#p0" data-i="0">01　案例 10 · 三类客人，三种价格</a><a href="#p1" data-i="1">02　情境</a><a href="#p2" data-i="2">03　情境</a><a href="#p3" data-i="3">04　决策点拆解</a><a href="#p4" data-i="4">05　知识提炼</a><a href="#p5" data-i="5">06　同一家酒店 · 不同情境</a><a href="#p6" data-i="6">07　课堂填这张表（学生工作纸）</a><a href="#p7" data-i="7">08　配套练习游戏</a><a href="#p8" data-i="8">09　一句话记住</a><a href="#p9" data-i="9">10　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 案例对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=10, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  b.style.fontSize='';
+  var n=0;
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>

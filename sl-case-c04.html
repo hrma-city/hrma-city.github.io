@@ -1,0 +1,374 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>案例 04 · 月度例会上的沉默</title><style>"
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+
+.sl.dp{background:#fff}
+.sl.dp .dp{background:#f7fafc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.sum{background:#0f2a4a}
+.sl.sum h2{color:#ffd479}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='slides-case.html'">← 案例课件</button>
+  <span class="pt">案例教材 · 投屏课件</span>
+  <span class="tt">案例 04 · 月度例会上的沉默</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 11</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">案例教材 · 投屏课件</div><h1>案例 04 · 月度例会上的沉默</h1><div class="meta">杭州滨江云璟酒店 · 第 0 篇 ｜ 共 11 屏</div><div class="promise-b">&lt;b&gt;引子&lt;/b&gt;：RevPAR&lt;a class="rf" href="#n3"&gt;&lt;sup&gt;③&lt;/sup&gt;&lt;/a&gt; 达标了，GOP 没达标。会议室里没人说话——因为报表上只写了前一半。</div></section>
+<section class="sl story" data-i="1" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>十二月第一个周一，云璟酒店的月度经营分析会。</p><p>小马把 PPT 翻到第二页，上面一个绿色的大字：<b>RevPAR<a class="rf" href="#n3"><sup>③</sup></a> 435，同比 +3.1%，完成预算 102%。</b></p><p>"不错。"周总点头，"上个月那件事"（他看了林岚一眼）"算是补回来了。"</p><p>会议室里气氛松下来。郑昊开始讲下个月的团队意向，赵敏汇报 OTA 的曝光量涨了 18%。</p><p>PPT 翻到第五页。小马的声音低了一点：</p><p>"<b>GOP …… 286 万，同比 −5.4%，完成预算 94%。</b>"</p><p>会议室安静了三秒。</p><p>周总把笔放下："RevPAR 涨了三个点，GOP 掉五个点？这两个数怎么会往反方向走？"</p><p>小马翻回前一页："指标都是达标的，就是……"</p><p>"就是什么？"</p><p>"就是不知道差在哪。"小马说，"我这个报表只有 RevPAR 和 OCC、ADR。"</p><p>林岚举手："我做了另一版。能不能放？"</p><p>林岚的 PPT 只有三页。</p><p><b>第一页：把 RevPAR 的变动拆成两半。</b></p><p>"上月 RevPAR 从 422 到 435，涨了 13 元。这 13 元里——"</p></div><div class="srctpl" hidden><p>十二月第一个周一，云璟酒店的月度经营分析会。</p><p>小马把 PPT 翻到第二页，上面一个绿色的大字：<b>RevPAR<a class="rf" href="#n3"><sup>③</sup></a> 435，同比 +3.1%，完成预算 102%。</b></p><p>"不错。"周总点头，"上个月那件事"（他看了林岚一眼）"算是补回来了。"</p><p>会议室里气氛松下来。郑昊开始讲下个月的团队意向，赵敏汇报 OTA 的曝光量涨了 18%。</p><p>PPT 翻到第五页。小马的声音低了一点：</p><p>"<b>GOP …… 286 万，同比 −5.4%，完成预算 94%。</b>"</p><p>会议室安静了三秒。</p><p>周总把笔放下："RevPAR 涨了三个点，GOP 掉五个点？这两个数怎么会往反方向走？"</p><p>小马翻回前一页："指标都是达标的，就是……"</p><p>"就是什么？"</p><p>"就是不知道差在哪。"小马说，"我这个报表只有 RevPAR 和 OCC、ADR。"</p><p>林岚举手："我做了另一版。能不能放？"</p><p>林岚的 PPT 只有三页。</p><p><b>第一页：把 RevPAR 的变动拆成两半。</b></p><p>"上月 RevPAR 从 422 到 435，涨了 13 元。这 13 元里——"</p></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>她列出算式：</p><p>"所以 RevPAR 涨的这 13 块，全靠<b>多卖了房</b>，不是卖贵了。房价其实是跌了 7 块。"</p><p><b>第二页：多卖的房是从哪来的。</b></p><p>"多卖的 670 间，全部来自 OTA。"林岚说，"<b>这些房每间的净价是 460，比会员/官网的 613 少了 153。</b>"</p><p>她算出总额：670 × 153 = <b>10.3 万</b>。</p><p>"RevPAR 涨了 13 元 × 300 间 × 30 天 = 11.7 万。但渠道结构恶化吃掉了 10.3 万——<b>几乎抵消了 RevPAR 的全部增量。</b>"</p><p><b>第三页：那 GOP 为什么还跌 5%？</b></p><p>"还有两块。"林岚说。</p><p>"一是<b>变动成本<a class="rf" href="#n24"><sup>㉔</sup></a></b>。多卖 670 间，成本多了 670 × 95 = 6.4 万。"</p><p>"二是<b>餐饮</b>。去年这 670 间如果是协议客和会员，餐饮人均 78 元；OTA 客大多是本地短住，餐饮人均只有 31 元。差 47 元 × 约 900 人次 = <b>4.2 万</b>。"</p><p>"加起来：10.3 + 6.4 + 4.2 = <b>20.9 万</b>。RevPAR 增量 11.7 万减去 20.9 万 = <b>−9.2 万</b>，再算上固定成本上升的部分，就是报表上那个 −5.4%。"</p></div><div class="srctpl" hidden><p>她列出算式：</p><p>"所以 RevPAR 涨的这 13 块，全靠<b>多卖了房</b>，不是卖贵了。房价其实是跌了 7 块。"</p><p><b>第二页：多卖的房是从哪来的。</b></p><p>"多卖的 670 间，全部来自 OTA。"林岚说，"<b>这些房每间的净价是 460，比会员/官网的 613 少了 153。</b>"</p><p>她算出总额：670 × 153 = <b>10.3 万</b>。</p><p>"RevPAR 涨了 13 元 × 300 间 × 30 天 = 11.7 万。但渠道结构恶化吃掉了 10.3 万——<b>几乎抵消了 RevPAR 的全部增量。</b>"</p><p><b>第三页：那 GOP 为什么还跌 5%？</b></p><p>"还有两块。"林岚说。</p><p>"一是<b>变动成本<a class="rf" href="#n24"><sup>㉔</sup></a></b>。多卖 670 间，成本多了 670 × 95 = 6.4 万。"</p><p>"二是<b>餐饮</b>。去年这 670 间如果是协议客和会员，餐饮人均 78 元；OTA 客大多是本地短住，餐饮人均只有 31 元。差 47 元 × 约 900 人次 = <b>4.2 万</b>。"</p><p>"加起来：10.3 + 6.4 + 4.2 = <b>20.9 万</b>。RevPAR 增量 11.7 万减去 20.9 万 = <b>−9.2 万</b>，再算上固定成本上升的部分，就是报表上那个 −5.4%。"</p></div></section>
+<section class="sl story" data-i="3" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>会议室里还是没人说话。</p><p>周总先开口："OTA 为什么涨了这么多？"</p><p>赵敏举手："我上个月把 OTA 的曝光位买满了，因为……因为十一月那次降价把 OTA 的排名带起来了，我想趁热。"</p><p>"你买了多少？"</p><p>"渠道费用多了 3.8 万。"</p><p>林岚把这一项也记上："那就再减 3.8 万。"</p><p><b>散会前，周总说了三句话。</b></p><p>"第一，以后月度会，不许只报 RevPAR。<b>RevPAR 达标、GOP 没达标，等于没达标。</b>"</p><p>"第二，林岚，你这套拆法，写进报表模板。每个月都要有：量差、价差、渠道结构、餐饮联动。"</p><p>"第三，赵敏，OTA 不是不能做，是<b>要做在淡季的增量上，不是做在旺季的替换上</b>。你买曝光买来的客人，有多少是本来会从官网订的？"</p><p>赵敏答不上来。</p><p>林岚替她解了围，也把最要命的数字说了出来："<b>我查过：OTA 涨的这 670 间里，同期官网跌了 60 间、协议跌了 40 间。大部分确实是增量，不是替换。所以问题不在 OTA 本身，在我们给 OTA 的价格太低，把整体价格体系往下拽了。</b>"</p></div><div class="srctpl" hidden><p>会议室里还是没人说话。</p><p>周总先开口："OTA 为什么涨了这么多？"</p><p>赵敏举手："我上个月把 OTA 的曝光位买满了，因为……因为十一月那次降价把 OTA 的排名带起来了，我想趁热。"</p><p>"你买了多少？"</p><p>"渠道费用多了 3.8 万。"</p><p>林岚把这一项也记上："那就再减 3.8 万。"</p><p><b>散会前，周总说了三句话。</b></p><p>"第一，以后月度会，不许只报 RevPAR。<b>RevPAR 达标、GOP 没达标，等于没达标。</b>"</p><p>"第二，林岚，你这套拆法，写进报表模板。每个月都要有：量差、价差、渠道结构、餐饮联动。"</p><p>"第三，赵敏，OTA 不是不能做，是<b>要做在淡季的增量上，不是做在旺季的替换上</b>。你买曝光买来的客人，有多少是本来会从官网订的？"</p><p>赵敏答不上来。</p><p>林岚替她解了围，也把最要命的数字说了出来："<b>我查过：OTA 涨的这 670 间里，同期官网跌了 60 间、协议跌了 40 间。大部分确实是增量，不是替换。所以问题不在 OTA 本身，在我们给 OTA 的价格太低，把整体价格体系往下拽了。</b>"</p></div></section>
+<section class="sl dp" data-i="4" data-k="dp"><h2>决策点 · 你会怎么选</h2><div class="bd">
+<p><b>决策点一：为什么 RevPAR 达标不能算达标？</b></p>
+<ul>
+<li>RevPAR 只看客房收入 ÷ 可售房晚<a class="rf" href="#n4"><sup>④</sup></a>，<b>不看成本、不看渠道成本、不看餐饮联动</b></li>
+<li><b>判据</b>：<b>GOPPAR<a class="rf" href="#n16"><sup>⑯</sup></a> 才是经营指标</b>。RevPAR 涨、GOPPAR 跌，是"用利润换出租率"。</li>
+</ul>
+<p><b>决策点二：RevPAR 变了，怎么知道是谁的功劳？</b></p>
+<ul>
+<li>用<b>量差价差<a class="rf" href="#n17"><sup>⑰</sup></a>归因</b>：量差 = ΔOCC × 去年 ADR；价差 = ΔADR × 今年 OCC</li>
+<li><b>判据</b>：<b>涨在量上，说明是靠多卖；涨在价上，说明是靠卖贵。两种增长的质量完全不同。</b></li>
+</ul>
+<p><b>决策点三：渠道结构要不要管？</b></p>
+<ul>
+<li>要。<b>净 RevPAR（NRevPAR<a class="rf" href="#n15"><sup>⑮</sup></a>）= 收入扣掉渠道成本后的每间可售房贡献</b></li>
+<li><b>判据</b>：<b>同样卖出 100 间，走 OTA 和走官网，对 GOP 的贡献差 25% 以上。</b></li>
+</ul>
+<p><b>决策点四：OTA 该不该投？</b></p>
+<ul>
+<li>该投，但要看<b>增量 vs 替换</b></li>
+<li><b>判据</b>：<b>能带来新增客源的渠道才值得投；只是把本来会来的客人换了个入口，等于白送佣金。</b></li>
+</ul>
+
+</div><div class="srctpl" hidden>
+<p><b>决策点一：为什么 RevPAR 达标不能算达标？</b></p>
+<ul>
+<li>RevPAR 只看客房收入 ÷ 可售房晚<a class="rf" href="#n4"><sup>④</sup></a>，<b>不看成本、不看渠道成本、不看餐饮联动</b></li>
+<li><b>判据</b>：<b>GOPPAR<a class="rf" href="#n16"><sup>⑯</sup></a> 才是经营指标</b>。RevPAR 涨、GOPPAR 跌，是"用利润换出租率"。</li>
+</ul>
+<p><b>决策点二：RevPAR 变了，怎么知道是谁的功劳？</b></p>
+<ul>
+<li>用<b>量差价差<a class="rf" href="#n17"><sup>⑰</sup></a>归因</b>：量差 = ΔOCC × 去年 ADR；价差 = ΔADR × 今年 OCC</li>
+<li><b>判据</b>：<b>涨在量上，说明是靠多卖；涨在价上，说明是靠卖贵。两种增长的质量完全不同。</b></li>
+</ul>
+<p><b>决策点三：渠道结构要不要管？</b></p>
+<ul>
+<li>要。<b>净 RevPAR（NRevPAR<a class="rf" href="#n15"><sup>⑮</sup></a>）= 收入扣掉渠道成本后的每间可售房贡献</b></li>
+<li><b>判据</b>：<b>同样卖出 100 间，走 OTA 和走官网，对 GOP 的贡献差 25% 以上。</b></li>
+</ul>
+<p><b>决策点四：OTA 该不该投？</b></p>
+<ul>
+<li>该投，但要看<b>增量 vs 替换</b></li>
+<li><b>判据</b>：<b>能带来新增客源的渠道才值得投；只是把本来会来的客人换了个入口，等于白送佣金。</b></li>
+</ul>
+
+</div></section>
+<section class="sl fml" data-i="5" data-k="fml"><h2>知识提炼</h2><div class="bd">
+<h4>一、量差价差归因（一眼看出增长的质量）</h4>
+<p>```</p>
+<p>RevPAR 变动 = 量差贡献 + 价差贡献 +（交互项）</p>
+<p>量差贡献 = (OCC_今年 − OCC_去年) × ADR_去年</p>
+<p>价差贡献 = (ADR_今年 − ADR_去年) × OCC_今年</p>
+<p>```</p>
+<p>本例：</p>
+<ul>
+<li>量差 = 3% × 620 = <b>+18.6</b></li>
+<li>价差 = (−7) × 71% = <b>−5.0</b></li>
+<li><b>结论：增长全靠量，价格是负贡献</b></li>
+</ul>
+<p class="quote"><b>判定表 · 增长质量</b></p>
+<p class="quote">| 量差 | 价差 | 结论 |</p>
+<p class="quote">|---|---|---|</p>
+<p class="quote">| + | + | 健康增长（量价齐升） |</p>
+<p class="quote">| + | − | <b>靠降价换量</b>，看 GOP 是否跟得上 |</p>
+<p class="quote">| − | + | <b>靠提价守利润</b>，看 OCC 会不会继续跌 |</p>
+<p class="quote">| − | − | 危险，立即查市场与竞品 |</p>
+<h4>二、三层利润指标（别停在 RevPAR）</h4>
+<table>
+<tr><td>指标</td><td>公式</td><td>本例</td><td>说明</td></tr>
+<tr><td>RevPAR</td><td>客房收入 ÷ 可售房晚</td><td>435（+3.1%）</td><td>收入层</td></tr>
+<tr><td><b>NRevPAR</b></td><td>(客房收入 − 渠道成本) ÷ 可售房晚</td><td><b>402（−1.5%）</b></td><td>净收入层</td></tr>
+<tr><td><b>GOPPAR</b></td><td>部门毛利 ÷ 可售房晚</td><td><b>318（−5.4%）</b></td><td>经营层</td></tr>
+</table>
+<p class="quote"><b>三层会打架</b>：RevPAR 涨、NRevPAR<a class="rf" href="#n15"><sup>⑮</sup></a> 平、GOPPAR 跌。</p>
+<p class="quote"><b>看最底下那层。</b></p>
+<h4>三、渠道贡献度：算净价，不算挂牌价</h4>
+<table>
+<tr><td>渠道</td><td>挂牌价</td><td>佣金/返点</td><td><b>净价</b></td><td>餐饮联动</td></tr>
+<tr><td>会员/官网</td><td>613</td><td>0（或积分成本约 12）</td><td><b>601</b></td><td>高</td></tr>
+<tr><td>协议公司</td><td>580</td><td>0</td><td><b>580</b></td><td>高</td></tr>
+<tr><td>会议团队</td><td>520</td><td>0（含餐另计）</td><td><b>520</b></td><td>高（宴会）</td></tr>
+<tr><td>OTA</td><td>613</td><td>25% = 153</td><td><b>460</b></td><td>低</td></tr>
+<tr><td>上门</td><td>613</td><td>0</td><td><b>613</b></td><td>中</td></tr>
+</table>
+<p class="quote"><b>渠道排序不是看谁的价高，是看"净价 + 联动消费 − 变动成本<a class="rf" href="#n24"><sup>㉔</sup></a>"之后的贡献。</b></p>
+<h4>四、复盘四问（每月固定问这四句）</h4>
+<p>1. <b>RevPAR 变了，是量还是价？</b>（量差价差<a class="rf" href="#n17"><sup>⑰</sup></a>归因）</p>
+<p>2. <b>渠道结构变了吗？</b>（各渠道间夜与净价）</p>
+<p>3. <b>餐饮联动跟上了吗？</b>（客房客人的人均餐饮）</p>
+<p>4. <b>投出去的费用带回增量了吗？</b>（增量 vs 替换）</p>
+
+</div><div class="srctpl" hidden>
+<h4>一、量差价差归因（一眼看出增长的质量）</h4>
+<p>```</p>
+<p>RevPAR 变动 = 量差贡献 + 价差贡献 +（交互项）</p>
+<p>量差贡献 = (OCC_今年 − OCC_去年) × ADR_去年</p>
+<p>价差贡献 = (ADR_今年 − ADR_去年) × OCC_今年</p>
+<p>```</p>
+<p>本例：</p>
+<ul>
+<li>量差 = 3% × 620 = <b>+18.6</b></li>
+<li>价差 = (−7) × 71% = <b>−5.0</b></li>
+<li><b>结论：增长全靠量，价格是负贡献</b></li>
+</ul>
+<p class="quote"><b>判定表 · 增长质量</b></p>
+<p class="quote">| 量差 | 价差 | 结论 |</p>
+<p class="quote">|---|---|---|</p>
+<p class="quote">| + | + | 健康增长（量价齐升） |</p>
+<p class="quote">| + | − | <b>靠降价换量</b>，看 GOP 是否跟得上 |</p>
+<p class="quote">| − | + | <b>靠提价守利润</b>，看 OCC 会不会继续跌 |</p>
+<p class="quote">| − | − | 危险，立即查市场与竞品 |</p>
+<h4>二、三层利润指标（别停在 RevPAR）</h4>
+<table>
+<tr><td>指标</td><td>公式</td><td>本例</td><td>说明</td></tr>
+<tr><td>RevPAR</td><td>客房收入 ÷ 可售房晚</td><td>435（+3.1%）</td><td>收入层</td></tr>
+<tr><td><b>NRevPAR</b></td><td>(客房收入 − 渠道成本) ÷ 可售房晚</td><td><b>402（−1.5%）</b></td><td>净收入层</td></tr>
+<tr><td><b>GOPPAR</b></td><td>部门毛利 ÷ 可售房晚</td><td><b>318（−5.4%）</b></td><td>经营层</td></tr>
+</table>
+<p class="quote"><b>三层会打架</b>：RevPAR 涨、NRevPAR<a class="rf" href="#n15"><sup>⑮</sup></a> 平、GOPPAR 跌。</p>
+<p class="quote"><b>看最底下那层。</b></p>
+<h4>三、渠道贡献度：算净价，不算挂牌价</h4>
+<table>
+<tr><td>渠道</td><td>挂牌价</td><td>佣金/返点</td><td><b>净价</b></td><td>餐饮联动</td></tr>
+<tr><td>会员/官网</td><td>613</td><td>0（或积分成本约 12）</td><td><b>601</b></td><td>高</td></tr>
+<tr><td>协议公司</td><td>580</td><td>0</td><td><b>580</b></td><td>高</td></tr>
+<tr><td>会议团队</td><td>520</td><td>0（含餐另计）</td><td><b>520</b></td><td>高（宴会）</td></tr>
+<tr><td>OTA</td><td>613</td><td>25% = 153</td><td><b>460</b></td><td>低</td></tr>
+<tr><td>上门</td><td>613</td><td>0</td><td><b>613</b></td><td>中</td></tr>
+</table>
+<p class="quote"><b>渠道排序不是看谁的价高，是看"净价 + 联动消费 − 变动成本<a class="rf" href="#n24"><sup>㉔</sup></a>"之后的贡献。</b></p>
+<h4>四、复盘四问（每月固定问这四句）</h4>
+<p>1. <b>RevPAR 变了，是量还是价？</b>（量差价差<a class="rf" href="#n17"><sup>⑰</sup></a>归因）</p>
+<p>2. <b>渠道结构变了吗？</b>（各渠道间夜与净价）</p>
+<p>3. <b>餐饮联动跟上了吗？</b>（客房客人的人均餐饮）</p>
+<p>4. <b>投出去的费用带回增量了吗？</b>（增量 vs 替换）</p>
+
+</div></section>
+<section class="sl judge" data-i="6" data-k="judge"><h2>同一家酒店 · 不同情境</h2><div class="bd">
+<table>
+<tr><td>情境</td><td>RevPAR</td><td>GOPPAR</td><td>归因结论</td></tr>
+<tr><td><b>本例</b>：11 月后回暖</td><td>+3.1%</td><td>−5.4%</td><td>靠 OTA 换量，质量差</td></tr>
+<tr><td>案例 01 全员降价</td><td>−8.4%</td><td>−11%</td><td>降价幅度超过弹性</td></tr>
+<tr><td>展会周（案例 05）</td><td>+26%</td><td>+31%</td><td>量价齐升，健康</td></tr>
+<tr><td>带栅栏降价（案例 06）</td><td>+20%</td><td>+9%</td><td>增量来自新客源，健康</td></tr>
+</table>
+<p class="quote"><b>同样是 RevPAR 上涨，一个是靠渠道堆量（本例），一个是靠情境红利（案例 05）。</b></p>
+<p class="quote">只有归因之后，才知道该复制哪一个、该停掉哪一个。</p>
+
+</div><div class="srctpl" hidden>
+<table>
+<tr><td>情境</td><td>RevPAR</td><td>GOPPAR</td><td>归因结论</td></tr>
+<tr><td><b>本例</b>：11 月后回暖</td><td>+3.1%</td><td>−5.4%</td><td>靠 OTA 换量，质量差</td></tr>
+<tr><td>案例 01 全员降价</td><td>−8.4%</td><td>−11%</td><td>降价幅度超过弹性</td></tr>
+<tr><td>展会周（案例 05）</td><td>+26%</td><td>+31%</td><td>量价齐升，健康</td></tr>
+<tr><td>带栅栏降价（案例 06）</td><td>+20%</td><td>+9%</td><td>增量来自新客源，健康</td></tr>
+</table>
+<p class="quote"><b>同样是 RevPAR 上涨，一个是靠渠道堆量（本例），一个是靠情境红利（案例 05）。</b></p>
+<p class="quote">只有归因之后，才知道该复制哪一个、该停掉哪一个。</p>
+
+</div></section>
+<section class="sl tip" data-i="7" data-k="tip"><h2>课堂填这张表（学生工作纸）</h2><div class="bd">
+<p><b>《月度复盘归因表》</b>——量差 / 价差 / 渠道结构 / 餐饮联动 / 费用增量，五块一页纸。</p>
+<ul>
+<li>在线预览：<code>07_周报月报模板.xlsx</code></li>
+<li>下载：见站点资料区</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div><div class="srctpl" hidden>
+<p><b>《月度复盘归因表》</b>——量差 / 价差 / 渠道结构 / 餐饮联动 / 费用增量，五块一页纸。</p>
+<ul>
+<li>在线预览：<code>07_周报月报模板.xlsx</code></li>
+<li>下载：见站点资料区</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div></section>
+<section class="sl case" data-i="8" data-k="case"><h2>配套练习游戏</h2><div class="bd">
+<p><b>《量差价差 · 归因闯关》</b>——给你 12 组月度数据，判断每组增长是"量"还是"价"，并预测 GOP 走向。</p>
+<ul>
+<li>在线玩：<code>games.html</code>（站点游戏中心）</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div><div class="srctpl" hidden>
+<p><b>《量差价差 · 归因闯关》</b>——给你 12 组月度数据，判断每组增长是"量"还是"价"，并预测 GOP 走向。</p>
+<ul>
+<li>在线玩：<code>games.html</code>（站点游戏中心）</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div></section>
+<section class="sl sum" data-i="9" data-k="sum"><h2>一句话记住</h2><div class="bd">
+<p class="quote"><b>RevPAR 涨了不代表赚了。</b></p>
+<p class="quote">先拆成量和价，再看渠道净价<a class="rf" href="#n18"><sup>⑱</sup></a>和餐饮联动——三层看完，才知道这个月到底做得好不好。</p></div><div class="bkch"></div><div class="srctpl" hidden>
+<p class="quote"><b>RevPAR 涨了不代表赚了。</b></p>
+<p class="quote">先拆成量和价，再看渠道净价<a class="rf" href="#n18"><sup>⑱</sup></a>和餐饮联动——三层看完，才知道这个月到底做得好不好。</p></div><div class="bkch"></div></section>
+<section class="sl end" data-i="10" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li>RevPAR 只看客房收入 ÷ 可售房晚④，不看成本、不看渠道成本、不看餐饮联动</li><li>判据：GOPPAR⑯ 才是经营指标。RevPAR 涨、GOPPAR 跌，是"用利润换出租率"。</li><li>用量差价差⑰归因：量差 = ΔOCC × 去年 ADR；价差 = ΔADR × 今年 OCC</li><li>判据：涨在量上，说明是靠多卖；涨在价上，说明是靠卖贵。两种增长的质量完全不同。</li><li>要。净 RevPAR（NRevPAR⑮）= 收入扣掉渠道成本后的每间可售房贡献</li><li>判据：同样卖出 100 间，走 OTA 和走官网，对 GOP 的贡献差 25% 以上。</li><li>该投，但要看增量 vs 替换</li><li>判据：能带来新增客源的渠道才值得投；只是把本来会来的客人换了个入口，等于白送佣金。</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 11 屏）</div><a href="#p0" data-i="0">01　案例 04 · 月度例会上的沉默</a><a href="#p1" data-i="1">02　情境</a><a href="#p2" data-i="2">03　情境</a><a href="#p3" data-i="3">04　情境</a><a href="#p4" data-i="4">05　决策点拆解</a><a href="#p5" data-i="5">06　知识提炼</a><a href="#p6" data-i="6">07　同一家酒店 · 不同情境</a><a href="#p7" data-i="7">08　课堂填这张表（学生工作纸）</a><a href="#p8" data-i="8">09　配套练习游戏</a><a href="#p9" data-i="9">10　一句话记住</a><a href="#p10" data-i="10">11　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 案例对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=11, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  b.style.fontSize='';
+  var n=0;
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>

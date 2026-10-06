@@ -1,0 +1,375 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>案例 07 · 团队和散客，留给谁</title><style>"
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+
+.sl.dp{background:#fff}
+.sl.dp .dp{background:#f7fafc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.sum{background:#0f2a4a}
+.sl.sum h2{color:#ffd479}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='slides-case.html'">← 案例课件</button>
+  <span class="pt">案例教材 · 投屏课件</span>
+  <span class="tt">案例 07 · 团队和散客，留给谁</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 12</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">案例教材 · 投屏课件</div><h1>案例 07 · 团队和散客，留给谁</h1><div class="meta">杭州滨江云璟酒店 · 第 0 篇 ｜ 共 12 屏</div><div class="promise-b">&lt;b&gt;引子&lt;/b&gt;：120 间的团队单摆在桌上，散客还在涨。这 300 间房，到底该给谁留多少？</div></section>
+<section class="sl story" data-i="1" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>四月十八日，周三，离入住还有 20 天。</p><p>郑昊把一张团队询价单放在林岚桌上：<b>某行业协会年会，120 间/晚，连住 2 晚，报价 560，要豪华房 40 间、高级房 80 间。</b></p><p>"协会的，连续两年在我们这儿办。"郑昊说，"他们预算卡得死，560 是上限。"</p><p>林岚先没看这单，她先打开在手表：</p><p>"现在在手 180，离 20 天。"林岚说，"按去年同窗口的 Pickup 速度，最终大概能到 <b>240–260</b>。"</p><p>"那还剩 40–60 间空。"郑昊说，"正好放我们这 120 间里的一部分。"</p><p>"不是这么算的。"林岚把表转过来，"<b>在手 180 里，散客 150。按 Pickup 增速，散客最终能到 190–210。这 190–210 间是我们要保护的。</b>"</p><p>她在白板上写下：</p><p>```</p><p>总房量（可售）        291 间</p><p>预测散客需求          200 间（取中值，留一点余地）</p><p>─────────────────────────────</p><p>保护位<a class="rf" href="#n9"><sup>⑨</sup></a>（留给散客）    200 间</p><p>低价可售上限<a class="rf" href="#n10"><sup>⑩</sup></a>          291 − 200 = 91 间</p></div><div class="srctpl" hidden><p>四月十八日，周三，离入住还有 20 天。</p><p>郑昊把一张团队询价单放在林岚桌上：<b>某行业协会年会，120 间/晚，连住 2 晚，报价 560，要豪华房 40 间、高级房 80 间。</b></p><p>"协会的，连续两年在我们这儿办。"郑昊说，"他们预算卡得死，560 是上限。"</p><p>林岚先没看这单，她先打开在手表：</p><p>"现在在手 180，离 20 天。"林岚说，"按去年同窗口的 Pickup 速度，最终大概能到 <b>240–260</b>。"</p><p>"那还剩 40–60 间空。"郑昊说，"正好放我们这 120 间里的一部分。"</p><p>"不是这么算的。"林岚把表转过来，"<b>在手 180 里，散客 150。按 Pickup 增速，散客最终能到 190–210。这 190–210 间是我们要保护的。</b>"</p><p>她在白板上写下：</p><p>```</p><p>总房量（可售）        291 间</p><p>预测散客需求          200 间（取中值，留一点余地）</p><p>─────────────────────────────</p><p>保护位<a class="rf" href="#n9"><sup>⑨</sup></a>（留给散客）    200 间</p><p>低价可售上限<a class="rf" href="#n10"><sup>⑩</sup></a>          291 − 200 = 91 间</p></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>```</p><p>"<b>团队的 120 间超过了 91 的上限。</b>"</p><p>郑昊皱眉："那接 91 间？"</p><p>"接 91 间是最满的算法，但不留缓冲。"林岚说，"我建议 <b>先接 80 间</b>，留 11 间的观察空间。如果两周后 Pickup 变慢，散客预测掉到 170，我们再放开到 110。<b>库存分配不是一次定死，是随着预测滚动调整。</b>"</p><p>"可客户要确定的数。"</p><p>"那就给 80 的确定数 + 20 的'两周后确认'。"林岚说，"<b>客户要的是'你别临时变卦'，不是'你一次性给满'。</b>"</p><p>郑昊想了想，同意了。</p><p><b>两周后（离入住 6 天），Pickup 加速了。</b></p><p>散客从 150 涨到 183，比预期更快。林岚重算预测：</p><p>```</p><p>按近 14 日增速外推 → 最终散客约 215 间</p><p>保护位<a class="rf" href="#n9"><sup>⑨</sup></a>上调：200 → 215</p><p>低价可售上限<a class="rf" href="#n10"><sup>⑩</sup></a>：91 → 76</p><p>```</p><p>郑昊这时又来了："协会想再加 20 间，现在总共 100，行不行？"</p><p>"不行。"林岚说，"<b>上限从 91 降到了 76，现在团队已经放了 80，超了 4 间。</b>"</p></div><div class="srctpl" hidden><p>```</p><p>"<b>团队的 120 间超过了 91 的上限。</b>"</p><p>郑昊皱眉："那接 91 间？"</p><p>"接 91 间是最满的算法，但不留缓冲。"林岚说，"我建议 <b>先接 80 间</b>，留 11 间的观察空间。如果两周后 Pickup 变慢，散客预测掉到 170，我们再放开到 110。<b>库存分配不是一次定死，是随着预测滚动调整。</b>"</p><p>"可客户要确定的数。"</p><p>"那就给 80 的确定数 + 20 的'两周后确认'。"林岚说，"<b>客户要的是'你别临时变卦'，不是'你一次性给满'。</b>"</p><p>郑昊想了想，同意了。</p><p><b>两周后（离入住 6 天），Pickup 加速了。</b></p><p>散客从 150 涨到 183，比预期更快。林岚重算预测：</p><p>```</p><p>按近 14 日增速外推 → 最终散客约 215 间</p><p>保护位<a class="rf" href="#n9"><sup>⑨</sup></a>上调：200 → 215</p><p>低价可售上限<a class="rf" href="#n10"><sup>⑩</sup></a>：91 → 76</p><p>```</p><p>郑昊这时又来了："协会想再加 20 间，现在总共 100，行不行？"</p><p>"不行。"林岚说，"<b>上限从 91 降到了 76，现在团队已经放了 80，超了 4 间。</b>"</p></div></section>
+<section class="sl story" data-i="3" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>"超了？"</p><p>"是我两周前定的 80，现在按新预测应该收到 76。"林岚说，"这 4 间我不动了——已经签了。但<b>再加 20 间等于把散客挤掉 20 间，散客价 640，团队价 560，每间亏 80，20 间两晚 = 3,200 元。</b>"</p><p>"才三千二。"</p><p>"三千二是这一单的账。"林岚说，"<b>但你要看到：我们保护散客不只是为了这 80 块差价。散客里有 30% 是协议公司和会员，他们这次订不到房，下次就去 B 店了。</b>"</p><p>郑昊没再争。</p><p><b>入住前两天，最后一轮调整。</b></p><p>散客在手到了 205（预测最终 218），团队 80 间已锁。</p><p>林岚做了三件事：</p><p>1. <b>把豪华房的团队份额从 40 间压到 25 间</b>——豪华房散客价 780，团队只给 560，差价 220。把 15 间豪华房挪给散客，多赚 15 × 220 × 2 晚 = <b>6,600 元</b></p><p>2. <b>给高级房设最短住期<a class="rf" href="#n11"><sup>⑪</sup></a> 2 晚</b>——挡掉只住一晚的散客，让 2 晚的团队和散客都能住满</p><p>3. <b>关掉高级房 560 以下的所有档位</b>——防止临期低价从 OTA 漏进来</p></div><div class="srctpl" hidden><p>"超了？"</p><p>"是我两周前定的 80，现在按新预测应该收到 76。"林岚说，"这 4 间我不动了——已经签了。但<b>再加 20 间等于把散客挤掉 20 间，散客价 640，团队价 560，每间亏 80，20 间两晚 = 3,200 元。</b>"</p><p>"才三千二。"</p><p>"三千二是这一单的账。"林岚说，"<b>但你要看到：我们保护散客不只是为了这 80 块差价。散客里有 30% 是协议公司和会员，他们这次订不到房，下次就去 B 店了。</b>"</p><p>郑昊没再争。</p><p><b>入住前两天，最后一轮调整。</b></p><p>散客在手到了 205（预测最终 218），团队 80 间已锁。</p><p>林岚做了三件事：</p><p>1. <b>把豪华房的团队份额从 40 间压到 25 间</b>——豪华房散客价 780，团队只给 560，差价 220。把 15 间豪华房挪给散客，多赚 15 × 220 × 2 晚 = <b>6,600 元</b></p><p>2. <b>给高级房设最短住期<a class="rf" href="#n11"><sup>⑪</sup></a> 2 晚</b>——挡掉只住一晚的散客，让 2 晚的团队和散客都能住满</p><p>3. <b>关掉高级房 560 以下的所有档位</b>——防止临期低价从 OTA 漏进来</p></div></section>
+<section class="sl story" data-i="4" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p><b>最终 4/18 的结果：</b></p><p>OCC 98.6%，ADR 669，RevPAR<a class="rf" href="#n3"><sup>③</sup></a> 660——<b>比去年同期（OCC 94%、ADR 621、RevPAR 584）涨了 13%。</b></p><p>郑昊看着最后那张表说了一句："协会那 20 间，幸亏没加。"</p></div><div class="srctpl" hidden><p><b>最终 4/18 的结果：</b></p><p>OCC 98.6%，ADR 669，RevPAR<a class="rf" href="#n3"><sup>③</sup></a> 660——<b>比去年同期（OCC 94%、ADR 621、RevPAR 584）涨了 13%。</b></p><p>郑昊看着最后那张表说了一句："协会那 20 间，幸亏没加。"</p></div></section>
+<section class="sl dp" data-i="5" data-k="dp"><h2>决策点 · 你会怎么选</h2><div class="bd">
+<p><b>决策点一：团队能接多少，上限怎么定？</b></p>
+<ul>
+<li>上限 = 可售房量 − 保护位（预测散客需求）</li>
+<li><b>判据</b>：<b>先算出"留给高价客多少"，剩下的才是低价可售的量。不是反过来。</b></li>
+</ul>
+<p><b>决策点二：保护位要不要留缓冲？</b></p>
+<ul>
+<li>要。本例预测 200，实际接 80（上限 91，留 11 缓冲）</li>
+<li><b>判据</b>：<b>预测有误差，库存分配要滚动，别一次用满。</b></li>
+</ul>
+<p><b>决策点三：两周后 Pickup 变了，要不要改？</b></p>
+<ul>
+<li>要。<b>保护位随预测上调/下调</b></li>
+<li><b>判据</b>：<b>保护位是动态的，不是签了合同就一成不变。</b></li>
+</ul>
+<p><b>决策点四：房型怎么分？</b></p>
+<ul>
+<li>高价房型（豪华/行政/套）尽量留给散客</li>
+<li><b>判据</b>：<b>按房型的差价排序，差价越大的房型越要保护。</b></li>
+</ul>
+
+</div><div class="srctpl" hidden>
+<p><b>决策点一：团队能接多少，上限怎么定？</b></p>
+<ul>
+<li>上限 = 可售房量 − 保护位（预测散客需求）</li>
+<li><b>判据</b>：<b>先算出"留给高价客多少"，剩下的才是低价可售的量。不是反过来。</b></li>
+</ul>
+<p><b>决策点二：保护位要不要留缓冲？</b></p>
+<ul>
+<li>要。本例预测 200，实际接 80（上限 91，留 11 缓冲）</li>
+<li><b>判据</b>：<b>预测有误差，库存分配要滚动，别一次用满。</b></li>
+</ul>
+<p><b>决策点三：两周后 Pickup 变了，要不要改？</b></p>
+<ul>
+<li>要。<b>保护位随预测上调/下调</b></li>
+<li><b>判据</b>：<b>保护位是动态的，不是签了合同就一成不变。</b></li>
+</ul>
+<p><b>决策点四：房型怎么分？</b></p>
+<ul>
+<li>高价房型（豪华/行政/套）尽量留给散客</li>
+<li><b>判据</b>：<b>按房型的差价排序，差价越大的房型越要保护。</b></li>
+</ul>
+
+</div></section>
+<section class="sl fml" data-i="6" data-k="fml"><h2>知识提炼</h2><div class="bd">
+<h4>一、保护位与低价售卖上限（两个核心算式）</h4>
+<p>```</p>
+<p>保护位（Protection Level）= 预测的高价需求 × 安全系数（1.0–1.15）</p>
+<p>低价可售上限 = 可售房量 − 保护位</p>
+<p>```</p>
+<p>本例：</p>
+<ul>
+<li>预测散客 200 × 1.0 = <b>200</b>（保护位）</li>
+<li>低价可售上限 = 291 − 200 = <b>91 间</b></li>
+</ul>
+<p class="quote"><b>判定表 · 安全系数怎么取</b></p>
+<p class="quote">| 情况 | 系数 | 理由 |</p>
+<p class="quote">|---|---|---|</p>
+<p class="quote">| 预测稳定（历史规律强） | 1.00 | 不需要额外缓冲 |</p>
+<p class="quote">| 预测波动（新客源/新事件） | 1.10–1.15 | 宁可少卖低价 |</p>
+<p class="quote">| 高价需求溢价极大 | 1.15 | 错放一间代价太高 |</p>
+<h4>二、库存分配五步（每天/每周做一遍）</h4>
+<p>```</p>
+<p>① 预测高价需求（散客）→ 按房型拆开</p>
+<p>② 设保护位 = 预测 × 安全系数</p>
+<p>③ 算低价可售上限 = 可售房 − 保护位</p>
+<p>④ 按房型分配（高价房型优先留给高价客）</p>
+<p>⑤ 随 Pickup 滚动调整（每周至少一次）</p>
+<p>```</p>
+<p class="quote"><b>顺序不能反</b>：先保护 → 再放开。</p>
+<p class="quote">反过来（先放低价、卖不动再保护）就是"卖完才发现卖便宜了"。</p>
+<h4>三、房型差价决定保护优先级</h4>
+<table>
+<tr><td>房型</td><td>散客价</td><td>团队价</td><td>差价</td><td>保护优先级</td></tr>
+<tr><td>套房</td><td>1,880</td><td>1,100</td><td><b>780</b></td><td>★★★★★</td></tr>
+<tr><td>行政房</td><td>1,080</td><td>780</td><td>300</td><td>★★★★</td></tr>
+<tr><td>豪华房</td><td>780</td><td>560</td><td><b>220</b></td><td>★★★</td></tr>
+<tr><td>高级房</td><td>640</td><td>560</td><td>80</td><td>★★</td></tr>
+</table>
+<p class="quote"><b>差价越大的房型，越不能放给团队。</b></p>
+<p class="quote">本例把豪华房团队份额从 40 压到 25，多赚 6,600 元——<b>就是靠这张表。</b></p>
+<h4>四、保护位的三个常见错误</h4>
+<table>
+<tr><td>错误</td><td>后果</td><td>正确做法</td></tr>
+<tr><td>一次定死，不滚动</td><td>Pickup 变化后来不及</td><td>每周至少调整一次</td></tr>
+<tr><td>只保护总房量，不保护房型</td><td>套房被团队占掉</td><td><b>按房型分别设保护位</b></td></tr>
+<tr><td>用满上限，不留缓冲</td><td>预测偏低时被动</td><td>留 10%–15% 观察空间</td></tr>
+</table>
+
+</div><div class="srctpl" hidden>
+<h4>一、保护位与低价售卖上限（两个核心算式）</h4>
+<p>```</p>
+<p>保护位（Protection Level）= 预测的高价需求 × 安全系数（1.0–1.15）</p>
+<p>低价可售上限 = 可售房量 − 保护位</p>
+<p>```</p>
+<p>本例：</p>
+<ul>
+<li>预测散客 200 × 1.0 = <b>200</b>（保护位）</li>
+<li>低价可售上限 = 291 − 200 = <b>91 间</b></li>
+</ul>
+<p class="quote"><b>判定表 · 安全系数怎么取</b></p>
+<p class="quote">| 情况 | 系数 | 理由 |</p>
+<p class="quote">|---|---|---|</p>
+<p class="quote">| 预测稳定（历史规律强） | 1.00 | 不需要额外缓冲 |</p>
+<p class="quote">| 预测波动（新客源/新事件） | 1.10–1.15 | 宁可少卖低价 |</p>
+<p class="quote">| 高价需求溢价极大 | 1.15 | 错放一间代价太高 |</p>
+<h4>二、库存分配五步（每天/每周做一遍）</h4>
+<p>```</p>
+<p>① 预测高价需求（散客）→ 按房型拆开</p>
+<p>② 设保护位 = 预测 × 安全系数</p>
+<p>③ 算低价可售上限 = 可售房 − 保护位</p>
+<p>④ 按房型分配（高价房型优先留给高价客）</p>
+<p>⑤ 随 Pickup 滚动调整（每周至少一次）</p>
+<p>```</p>
+<p class="quote"><b>顺序不能反</b>：先保护 → 再放开。</p>
+<p class="quote">反过来（先放低价、卖不动再保护）就是"卖完才发现卖便宜了"。</p>
+<h4>三、房型差价决定保护优先级</h4>
+<table>
+<tr><td>房型</td><td>散客价</td><td>团队价</td><td>差价</td><td>保护优先级</td></tr>
+<tr><td>套房</td><td>1,880</td><td>1,100</td><td><b>780</b></td><td>★★★★★</td></tr>
+<tr><td>行政房</td><td>1,080</td><td>780</td><td>300</td><td>★★★★</td></tr>
+<tr><td>豪华房</td><td>780</td><td>560</td><td><b>220</b></td><td>★★★</td></tr>
+<tr><td>高级房</td><td>640</td><td>560</td><td>80</td><td>★★</td></tr>
+</table>
+<p class="quote"><b>差价越大的房型，越不能放给团队。</b></p>
+<p class="quote">本例把豪华房团队份额从 40 压到 25，多赚 6,600 元——<b>就是靠这张表。</b></p>
+<h4>四、保护位的三个常见错误</h4>
+<table>
+<tr><td>错误</td><td>后果</td><td>正确做法</td></tr>
+<tr><td>一次定死，不滚动</td><td>Pickup 变化后来不及</td><td>每周至少调整一次</td></tr>
+<tr><td>只保护总房量，不保护房型</td><td>套房被团队占掉</td><td><b>按房型分别设保护位</b></td></tr>
+<tr><td>用满上限，不留缓冲</td><td>预测偏低时被动</td><td>留 10%–15% 观察空间</td></tr>
+</table>
+
+</div></section>
+<section class="sl judge" data-i="7" data-k="judge"><h2>同一家酒店 · 不同情境</h2><div class="bd">
+<table>
+<tr><td>情境</td><td>预测散客</td><td>保护位</td><td>团队可接</td></tr>
+<tr><td><b>本例</b>：临界旺日</td><td>200–215</td><td>200 → 215</td><td>80（后收到 76）</td></tr>
+<tr><td>展会周（案例 05）</td><td>280+</td><td>满房</td><td><b>只接周三日</b>（分天算）</td></tr>
+<tr><td>淡季（案例 06）</td><td>60–80</td><td>80</td><td>可放宽到 150+</td></tr>
+<tr><td>平常日（案例 03）</td><td>180</td><td>180</td><td>净收益 > 0 就接</td></tr>
+</table>
+<p class="quote"><b>同样是 120 间的团队询价，四种情境给出四个上限。</b></p>
+<p class="quote">决定上限的不是这单本身，是<b>同一天散客能卖多少、卖什么价</b>。</p>
+
+</div><div class="srctpl" hidden>
+<table>
+<tr><td>情境</td><td>预测散客</td><td>保护位</td><td>团队可接</td></tr>
+<tr><td><b>本例</b>：临界旺日</td><td>200–215</td><td>200 → 215</td><td>80（后收到 76）</td></tr>
+<tr><td>展会周（案例 05）</td><td>280+</td><td>满房</td><td><b>只接周三日</b>（分天算）</td></tr>
+<tr><td>淡季（案例 06）</td><td>60–80</td><td>80</td><td>可放宽到 150+</td></tr>
+<tr><td>平常日（案例 03）</td><td>180</td><td>180</td><td>净收益 > 0 就接</td></tr>
+</table>
+<p class="quote"><b>同样是 120 间的团队询价，四种情境给出四个上限。</b></p>
+<p class="quote">决定上限的不是这单本身，是<b>同一天散客能卖多少、卖什么价</b>。</p>
+
+</div></section>
+<section class="sl tip" data-i="8" data-k="tip"><h2>课堂填这张表（学生工作纸）</h2><div class="bd">
+<p><b>《库存分配与保护位表》</b>——按房型列出：可售 / 预测高价需求 / 保护位 / 低价可售上限 / 已接团队 / 余额，每周滚动更新。</p>
+<ul>
+<li>在线预览：<code>05_房型价差<a class="rf" href="#n30"><sup>㉚</sup></a>与价格体系.xlsx</code></li>
+<li>下载：见站点资料区</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div><div class="srctpl" hidden>
+<p><b>《库存分配与保护位表》</b>——按房型列出：可售 / 预测高价需求 / 保护位 / 低价可售上限 / 已接团队 / 余额，每周滚动更新。</p>
+<ul>
+<li>在线预览：<code>05_房型价差<a class="rf" href="#n30"><sup>㉚</sup></a>与价格体系.xlsx</code></li>
+<li>下载：见站点资料区</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div></section>
+<section class="sl case" data-i="9" data-k="case"><h2>配套练习游戏</h2><div class="bd">
+<p><b>《保护位 · 库存决策》</b>——给你 10 个日期的散客预测与团队询价，决定接多少、留多少，系统按实际 Pickup 结算成绩。</p>
+<ul>
+<li>在线玩：<code>games.html</code>（站点游戏中心）</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div><div class="srctpl" hidden>
+<p><b>《保护位 · 库存决策》</b>——给你 10 个日期的散客预测与团队询价，决定接多少、留多少，系统按实际 Pickup 结算成绩。</p>
+<ul>
+<li>在线玩：<code>games.html</code>（站点游戏中心）</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div></section>
+<section class="sl sum" data-i="10" data-k="sum"><h2>一句话记住</h2><div class="bd">
+<p class="quote"><b>先算留给高价客多少，剩下的才是可以便宜卖的量。</b></p>
+<p class="quote">反过来做——先把低价放出去、卖不动再保护——就是"卖完才发现卖便宜了"。</p></div><div class="bkch"></div><div class="srctpl" hidden>
+<p class="quote"><b>先算留给高价客多少，剩下的才是可以便宜卖的量。</b></p>
+<p class="quote">反过来做——先把低价放出去、卖不动再保护——就是"卖完才发现卖便宜了"。</p></div><div class="bkch"></div></section>
+<section class="sl end" data-i="11" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li>上限 = 可售房量 − 保护位（预测散客需求）</li><li>判据：先算出"留给高价客多少"，剩下的才是低价可售的量。不是反过来。</li><li>要。本例预测 200，实际接 80（上限 91，留 11 缓冲）</li><li>判据：预测有误差，库存分配要滚动，别一次用满。</li><li>要。保护位随预测上调/下调</li><li>判据：保护位是动态的，不是签了合同就一成不变。</li><li>高价房型（豪华/行政/套）尽量留给散客</li><li>判据：按房型的差价排序，差价越大的房型越要保护。</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 12 屏）</div><a href="#p0" data-i="0">01　案例 07 · 团队和散客，留给谁</a><a href="#p1" data-i="1">02　情境</a><a href="#p2" data-i="2">03　情境</a><a href="#p3" data-i="3">04　情境</a><a href="#p4" data-i="4">05　情境</a><a href="#p5" data-i="5">06　决策点拆解</a><a href="#p6" data-i="6">07　知识提炼</a><a href="#p7" data-i="7">08　同一家酒店 · 不同情境</a><a href="#p8" data-i="8">09　课堂填这张表（学生工作纸）</a><a href="#p9" data-i="9">10　配套练习游戏</a><a href="#p10" data-i="10">11　一句话记住</a><a href="#p11" data-i="11">12　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 案例对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=12, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  b.style.fontSize='';
+  var n=0;
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>

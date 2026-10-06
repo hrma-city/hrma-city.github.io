@@ -1,0 +1,390 @@
+<head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>案例 13 · 前厅和收益的战争</title><style>"
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 40px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85;color:#243141}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .55em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:52px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:17px;color:#bcd9f2;margin-bottom:26px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:23px;color:#fff;line-height:1.75;max-width:80%}
+.sl.cover .keys{position:absolute;bottom:26px;left:40px;color:#8fb6d8;font-size:14px}
+.sl.task{background:#f6f9fc}
+.sl.task h2,.sl.judge h2,.sl.case .ct,.sl.tip h2,.sl.sum h2{color:#0f2a4a}
+.sl.case{background:#fff}
+.sl.case .ct{font-size:26px;font-weight:800;margin:0 0 16px;color:#0f2a4a}
+.sl.case .cq{background:#f2f7fc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case .ca{display:none;background:#eef8f2;border:2px solid #a9dcc0;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.case.showans .ca{display:block;animation:fi .25s ease}
+.sl.case.showans .cq{opacity:.45}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nextq{margin-top:18px;color:#66809b;font-size:16px;letter-spacing:1px}
+.back{margin-top:14px;background:#eef4fa;color:#0f2a4a;border:1px solid #c3d6e8;border-radius:10px;padding:9px 16px;font-size:15px;cursor:pointer;font-family:inherit}
+.sl.fml{background:#0f2a4a}
+.sl.fml h2{color:#8fd0f5;font-size:22px;letter-spacing:2px}
+.sl.fml .fn{color:#cfe0f5;font-size:18px;margin-bottom:10px}
+.sl.fml .fe{font-size:40px;line-height:1.6;color:#fff;font-weight:700;background:rgba(255,255,255,.07);border-radius:16px;padding:26px 30px;border:2px solid #2f6f9e}
+.sl.fml .ex{color:#a9c2dc;font-size:18px;margin-top:14px}
+.sl.judge{background:#fff}
+.sl.judge .jt{font-size:24px;font-weight:800;color:#0f2a4a;margin-bottom:12px}
+.sl.judge table{width:100%;border-collapse:collapse;font-size:17px}
+.sl.judge td,.sl.judge th{border:1px solid #c9d8e6;padding:9px 12px;vertical-align:top;line-height:1.65}
+.sl.judge tr:nth-child(even){background:#f5f9fd}
+.sl.judge td:first-child{width:26%;font-weight:600;background:#eef4fa}
+.sl.tip{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.tip h2{color:#8a5d10}
+.sl.sum{background:#fff}
+.sl.sum h2{color:#1d6fb8}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:20px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.oneul li.fml-i{color:#ffd479;font-weight:600}
+.sl.note{background:#fff}
+.sl.story{background:#fbfcfe}
+.sl.story .swho{display:inline-block;background:#0f2a4a;color:#fff;border-radius:20px;padding:5px 16px;font-size:16px;margin-bottom:12px}
+.sl.story p{color:#2b3a4c}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
+#ov.on{display:block}
+#ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
+#ov .box h3{margin:0 0 14px;color:#0f2a4a;font-size:20px}
+#ov .cl{position:sticky;top:0;float:right;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#ov,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
+}
+
+.sl.dp{background:#fff}
+.sl.dp .dp{background:#f7fafc;border:2px solid #d3e3f2;border-radius:14px;padding:20px 24px;font-size:22px;line-height:1.9}
+.sl.sum{background:#0f2a4a}
+.sl.sum h2{color:#ffd479}
+</style></head>
+<body>
+<div id="bar">
+  <button onclick="location.href='slides-case.html'">← 案例课件</button>
+  <span class="pt">案例教材 · 投屏课件</span>
+  <span class="tt">案例 13 · 前厅和收益的战争</span>
+  <span class="sp"></span>
+  <button onclick="T()">本章目录</button>
+  <button onclick="SP()">全屏 F</button>
+  <button onclick="PR()">打印 / PDF P</button>
+  <button onclick="OV()">备课原文 D</button>
+  <span class="pg" id="pg">0 / 11</span>
+</div>
+<div id="stage"><section class="sl cover" data-i="0" data-k="cover"><div class="kk">案例教材 · 投屏课件</div><h1>案例 13 · 前厅和收益的战争</h1><div class="meta">杭州滨江云璟酒店 · 第 0 篇 ｜ 共 11 屏</div><div class="promise-b">&lt;b&gt;引子&lt;/b&gt;：满房那晚，前台为了安抚站在大堂的客人，放了 15 间八折房。第二天，3 位已预订的客人到店无房。</div></section>
+<section class="sl story" data-i="1" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>九月的一个周四，展会刚结束的第二天，云璟酒店 <b>OCC 预报 98%</b>。</p><p>晚上 19:40，前台。苏晴面对三个 walk-in 客人——一家三口，从外地来，没有预订，站在大堂里。</p><p>"我们今晚真的没房了。"苏晴说。</p><p>"可是网上还显示有房。"客人指着手机。</p><p>苏晴看了一眼系统：<b>OTA 上还挂着 4 间高级房</b>（那是林岚留给"最后一小时"的库存，还没关）。</p><p>她犹豫了十秒，做了决定：<b>放 15 间（把团队预留的 No-show 释放出来的房 + 那 4 间 OTA 房），按 BAR<a class="rf" href="#n6"><sup>⑥</sup></a> 八折 490 卖。</b></p><p>理由很实在："客人站在你面前，带着孩子，你能赶他走吗？"</p><p><b>这是第一个错误。</b></p><p><b>第二个错误发生在 22:10。</b></p><p>夜审前，实际到店的情况出来：</p><p>三位客人中有一位是协议公司的年度会议客人，前台只能把他送到隔壁 C 店，并承担一晚房费差价。</p><p>第二天早会，林岚把两张表摊在桌上。</p><p><b>表一：昨晚 ADR 被打掉的账。</b></p><p>"一千一，不算多。"林岚说。</p><p><b>表二：超售<a class="rf" href="#n20"><sup>⑳</sup></a>与客诉的账。</b></p><p>"七千六。"林岚说，"<b>而且这个差评是长期的。</b>"</p></div><div class="srctpl" hidden><p>九月的一个周四，展会刚结束的第二天，云璟酒店 <b>OCC 预报 98%</b>。</p><p>晚上 19:40，前台。苏晴面对三个 walk-in 客人——一家三口，从外地来，没有预订，站在大堂里。</p><p>"我们今晚真的没房了。"苏晴说。</p><p>"可是网上还显示有房。"客人指着手机。</p><p>苏晴看了一眼系统：<b>OTA 上还挂着 4 间高级房</b>（那是林岚留给"最后一小时"的库存，还没关）。</p><p>她犹豫了十秒，做了决定：<b>放 15 间（把团队预留的 No-show 释放出来的房 + 那 4 间 OTA 房），按 BAR<a class="rf" href="#n6"><sup>⑥</sup></a> 八折 490 卖。</b></p><p>理由很实在："客人站在你面前，带着孩子，你能赶他走吗？"</p><p><b>这是第一个错误。</b></p><p><b>第二个错误发生在 22:10。</b></p><p>夜审前，实际到店的情况出来：</p><p>三位客人中有一位是协议公司的年度会议客人，前台只能把他送到隔壁 C 店，并承担一晚房费差价。</p><p>第二天早会，林岚把两张表摊在桌上。</p><p><b>表一：昨晚 ADR 被打掉的账。</b></p><p>"一千一，不算多。"林岚说。</p><p><b>表二：超售<a class="rf" href="#n20"><sup>⑳</sup></a>与客诉的账。</b></p><p>"七千六。"林岚说，"<b>而且这个差评是长期的。</b>"</p></div></section>
+<section class="sl story" data-i="2" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>苏晴不服："我放那 15 间，是因为没人管。你在下班前没给前台任何指令，我只能自己判断。"</p><p><b>这句话让会议室安静了。</b></p><p>林岚承认："<b>这是我的问题。我没有给前台一个明确的'最后一小时'规则。</b>"</p><p>周总最后说了三句话，定了三件事。</p><p><b>第一件事：写一张《前台授权表》。</b></p><p>"<b>核心就一条：前台永远不创造新价格，只执行已有价格。</b>"</p><p><b>第二件事：做超售三步法。</b></p><p>林岚给前台和预订部做了张表：</p><p>```</p><p>超售三步法：</p><p>① 算 No-show<a class="rf" href="#n21"><sup>㉑</sup></a> 率 = 近 8 周同类型日的平均 No-show 间数</p><p>② 定超售量 = No-show 预估值 × 60%（保守系数）</p><p>③ 准备兜底 = 提前锁定 2 家周边酒店 + 明确补偿标准</p><p>```</p><p>本店数据：</p><p>"昨晚预估 No-show 20 间，实际只有 8 间——<b>因为那天 OTA 现付的比例比平时低，全是预付和协议客。</b>"林岚说，"<b>No-show 率不是固定值，按当天的客源结构算。</b>"</p><p><b>第三件事：每天 16:00 开"房态十分钟"。</b></p><p>参会：前厅经理（苏晴）+ 收益（林岚/小马）+ 预订主管（老陈）</p></div><div class="srctpl" hidden><p>苏晴不服："我放那 15 间，是因为没人管。你在下班前没给前台任何指令，我只能自己判断。"</p><p><b>这句话让会议室安静了。</b></p><p>林岚承认："<b>这是我的问题。我没有给前台一个明确的'最后一小时'规则。</b>"</p><p>周总最后说了三句话，定了三件事。</p><p><b>第一件事：写一张《前台授权表》。</b></p><p>"<b>核心就一条：前台永远不创造新价格，只执行已有价格。</b>"</p><p><b>第二件事：做超售三步法。</b></p><p>林岚给前台和预订部做了张表：</p><p>```</p><p>超售三步法：</p><p>① 算 No-show<a class="rf" href="#n21"><sup>㉑</sup></a> 率 = 近 8 周同类型日的平均 No-show 间数</p><p>② 定超售量 = No-show 预估值 × 60%（保守系数）</p><p>③ 准备兜底 = 提前锁定 2 家周边酒店 + 明确补偿标准</p><p>```</p><p>本店数据：</p><p>"昨晚预估 No-show 20 间，实际只有 8 间——<b>因为那天 OTA 现付的比例比平时低，全是预付和协议客。</b>"林岚说，"<b>No-show 率不是固定值，按当天的客源结构算。</b>"</p><p><b>第三件事：每天 16:00 开"房态十分钟"。</b></p><p>参会：前厅经理（苏晴）+ 收益（林岚/小马）+ 预订主管（老陈）</p></div></section>
+<section class="sl story" data-i="3" data-k="story"><h2>情境：这一夜到底发生了什么</h2><div class="bd"><p>"<b>这个会的目的不是讨论，是对齐。</b>"周总说，"<b>前厅要知道今晚的房该怎么卖，收益要知道前台遇到了什么。</b>"</p><p><b>执行两个月后的变化：</b></p><p>苏晴在两个月后说了句实话："<b>以前我不是想乱来，是没人告诉我边界在哪。现在表上写死了，我反而轻松——客人问价，我指着表说'这是我们的价'，不用自己扛。</b>"</p></div><div class="srctpl" hidden><p>"<b>这个会的目的不是讨论，是对齐。</b>"周总说，"<b>前厅要知道今晚的房该怎么卖，收益要知道前台遇到了什么。</b>"</p><p><b>执行两个月后的变化：</b></p><p>苏晴在两个月后说了句实话："<b>以前我不是想乱来，是没人告诉我边界在哪。现在表上写死了，我反而轻松——客人问价，我指着表说'这是我们的价'，不用自己扛。</b>"</p></div></section>
+<section class="sl dp" data-i="4" data-k="dp"><h2>决策点 · 你会怎么选</h2><div class="bd">
+<p><b>决策点一：客人站在面前，能不能破例放低价？</b></p>
+<ul>
+<li>不能。<b>可以走"会员现场注册价"（已有价格），但不能创造新价格</b></li>
+<li><b>判据</b>：<b>前台永远不创造价格，只执行价格。破例一次，全年都要补。</b></li>
+</ul>
+<p><b>决策点二：满房了还超售，对不对？</b></p>
+<ul>
+<li>对，但要<b>按三步法</b>，不是拍脑袋</li>
+<li><b>判据</b>：<b>超售量 = 当天客源结构算出的 No-show 预估值 × 0.6，且必须有兜底。</b></li>
+</ul>
+<p><b>决策点三：No-show 率怎么取？</b></p>
+<ul>
+<li>不是历史平均值，<b>是按当天客源结构加权</b></li>
+<li><b>判据</b>：<b>OTA 现付 12%、协议 5%、OTA 预付 2%、团队 1%——结构不同，预估值完全不同。</b></li>
+</ul>
+<p><b>决策点四：前厅和收益的矛盾，靠什么解决？</b></p>
+<ul>
+<li>靠<b>固定的每日对齐会 + 写死的授权表</b></li>
+<li><b>判据</b>：<b>冲突的根源通常是"没人说清楚边界"，不是"谁不配合"。</b></li>
+</ul>
+
+</div><div class="srctpl" hidden>
+<p><b>决策点一：客人站在面前，能不能破例放低价？</b></p>
+<ul>
+<li>不能。<b>可以走"会员现场注册价"（已有价格），但不能创造新价格</b></li>
+<li><b>判据</b>：<b>前台永远不创造价格，只执行价格。破例一次，全年都要补。</b></li>
+</ul>
+<p><b>决策点二：满房了还超售，对不对？</b></p>
+<ul>
+<li>对，但要<b>按三步法</b>，不是拍脑袋</li>
+<li><b>判据</b>：<b>超售量 = 当天客源结构算出的 No-show 预估值 × 0.6，且必须有兜底。</b></li>
+</ul>
+<p><b>决策点三：No-show 率怎么取？</b></p>
+<ul>
+<li>不是历史平均值，<b>是按当天客源结构加权</b></li>
+<li><b>判据</b>：<b>OTA 现付 12%、协议 5%、OTA 预付 2%、团队 1%——结构不同，预估值完全不同。</b></li>
+</ul>
+<p><b>决策点四：前厅和收益的矛盾，靠什么解决？</b></p>
+<ul>
+<li>靠<b>固定的每日对齐会 + 写死的授权表</b></li>
+<li><b>判据</b>：<b>冲突的根源通常是"没人说清楚边界"，不是"谁不配合"。</b></li>
+</ul>
+
+</div></section>
+<section class="sl fml" data-i="5" data-k="fml"><h2>知识提炼</h2><div class="bd">
+<h4>一、前台价格授权三原则</h4>
+<table>
+<tr><td>原则</td><td>说明</td></tr>
+<tr><td><b>不创造价格</b></td><td>只执行已有的价格层级（BAR / 会员价 / 尾房价）</td></tr>
+<tr><td><b>不口头承诺</b></td><td>任何价格都要在 PMS 里有对应代码</td></tr>
+<tr><td><b>不越权放房</b></td><td>满房后只能推荐周边，不能"想办法腾一间"</td></tr>
+</table>
+<p class="quote"><b>常用替代方案（不用降价也能留住 walk-in）</b>：</p>
+<p class="quote">① 现场注册会员享 8.5 折（价是已有的）</p>
+<p class="quote">② 送早餐/延迟退房（价值包<a class="rf" href="#n32"><sup>㉜</sup></a>，不伤 BAR）</p>
+<p class="quote">③ 推荐周边酒店 + 帮叫车（成本 30 元，口碑反而好）</p>
+<h4>二、超售三步法</h4>
+<p>```</p>
+<p>① No-show 预估 = Σ(各渠道在手 × 该渠道 No-show 率)</p>
+<p>② 超售量 = No-show 预估 × 保守系数（0.5–0.7）</p>
+<p>③ 兜底 = 2 家协议周边酒店 + 明确补偿标准（房费 + 交通 + 次日升级）</p>
+<p>```</p>
+<p>本店渠道 No-show 率（季度更新）：</p>
+<table>
+<tr><td>渠道</td><td>No-show 率</td><td>超售时的权重</td></tr>
+<tr><td>OTA 预付</td><td>2%</td><td>几乎不产生 No-show</td></tr>
+<tr><td>OTA 现付</td><td><b>12%</b></td><td>主要来源</td></tr>
+<tr><td>协议公司</td><td>5%</td><td>中等</td></tr>
+<tr><td>官网预付</td><td>3%</td><td>低</td></tr>
+<tr><td>团队</td><td>1%</td><td>忽略</td></tr>
+</table>
+<p class="quote"><b>判定表 · 超售系数</b></p>
+<p class="quote">| 情况 | 系数 |</p>
+<p class="quote">|---|---|</p>
+<p class="quote">| 周边无可替代酒店 | <b>不超售</b> |</p>
+<p class="quote">| 有 2 家以上协议酒店 | 0.7 |</p>
+<p class="quote">| 旺季、周边也满 | 0.5 |</p>
+<p class="quote">| 首次做超售 | 0.3（试水） |</p>
+<h4>三、客诉成本（比想象中贵）</h4>
+<table>
+<tr><td>成本项</td><td>显性</td><td>隐性</td></tr>
+<tr><td>外送房费</td><td>520/间</td><td></td></tr>
+<tr><td>交通与补偿</td><td>200–500</td><td></td></tr>
+<tr><td>OTA 差评</td><td></td><td><b>影响后续 30–90 天转化</b></td></tr>
+<tr><td>协议客流失</td><td></td><td><b>年 1,200 间夜</b>（见案例 01）</td></tr>
+<tr><td>团队口碑</td><td></td><td>影响下一个大单</td></tr>
+</table>
+<p class="quote"><b>一次"到店无房"的真实成本，通常是直接支出的 3–5 倍。</b></p>
+<h4>四、跨部门对齐：16:00 房态十分钟</h4>
+<table>
+<tr><td>角色</td><td>要带什么来</td><td>要带走什么</td></tr>
+<tr><td>收益</td><td>今晚预报 OCC、剩余库存、价格口径</td><td>前台的实操反馈</td></tr>
+<tr><td>前厅</td><td>昨夜异常、当前房态问题</td><td>今晚的卖法与超售量</td></tr>
+<tr><td>预订</td><td>明日在手、未确认订单</td><td>需要跟进的订单</td></tr>
+</table>
+<p class="quote"><b>会议纪律</b>：10 分钟，站着开，只对齐不讨论，问题会后单独谈。</p>
+
+</div><div class="srctpl" hidden>
+<h4>一、前台价格授权三原则</h4>
+<table>
+<tr><td>原则</td><td>说明</td></tr>
+<tr><td><b>不创造价格</b></td><td>只执行已有的价格层级（BAR / 会员价 / 尾房价）</td></tr>
+<tr><td><b>不口头承诺</b></td><td>任何价格都要在 PMS 里有对应代码</td></tr>
+<tr><td><b>不越权放房</b></td><td>满房后只能推荐周边，不能"想办法腾一间"</td></tr>
+</table>
+<p class="quote"><b>常用替代方案（不用降价也能留住 walk-in）</b>：</p>
+<p class="quote">① 现场注册会员享 8.5 折（价是已有的）</p>
+<p class="quote">② 送早餐/延迟退房（价值包<a class="rf" href="#n32"><sup>㉜</sup></a>，不伤 BAR）</p>
+<p class="quote">③ 推荐周边酒店 + 帮叫车（成本 30 元，口碑反而好）</p>
+<h4>二、超售三步法</h4>
+<p>```</p>
+<p>① No-show 预估 = Σ(各渠道在手 × 该渠道 No-show 率)</p>
+<p>② 超售量 = No-show 预估 × 保守系数（0.5–0.7）</p>
+<p>③ 兜底 = 2 家协议周边酒店 + 明确补偿标准（房费 + 交通 + 次日升级）</p>
+<p>```</p>
+<p>本店渠道 No-show 率（季度更新）：</p>
+<table>
+<tr><td>渠道</td><td>No-show 率</td><td>超售时的权重</td></tr>
+<tr><td>OTA 预付</td><td>2%</td><td>几乎不产生 No-show</td></tr>
+<tr><td>OTA 现付</td><td><b>12%</b></td><td>主要来源</td></tr>
+<tr><td>协议公司</td><td>5%</td><td>中等</td></tr>
+<tr><td>官网预付</td><td>3%</td><td>低</td></tr>
+<tr><td>团队</td><td>1%</td><td>忽略</td></tr>
+</table>
+<p class="quote"><b>判定表 · 超售系数</b></p>
+<p class="quote">| 情况 | 系数 |</p>
+<p class="quote">|---|---|</p>
+<p class="quote">| 周边无可替代酒店 | <b>不超售</b> |</p>
+<p class="quote">| 有 2 家以上协议酒店 | 0.7 |</p>
+<p class="quote">| 旺季、周边也满 | 0.5 |</p>
+<p class="quote">| 首次做超售 | 0.3（试水） |</p>
+<h4>三、客诉成本（比想象中贵）</h4>
+<table>
+<tr><td>成本项</td><td>显性</td><td>隐性</td></tr>
+<tr><td>外送房费</td><td>520/间</td><td></td></tr>
+<tr><td>交通与补偿</td><td>200–500</td><td></td></tr>
+<tr><td>OTA 差评</td><td></td><td><b>影响后续 30–90 天转化</b></td></tr>
+<tr><td>协议客流失</td><td></td><td><b>年 1,200 间夜</b>（见案例 01）</td></tr>
+<tr><td>团队口碑</td><td></td><td>影响下一个大单</td></tr>
+</table>
+<p class="quote"><b>一次"到店无房"的真实成本，通常是直接支出的 3–5 倍。</b></p>
+<h4>四、跨部门对齐：16:00 房态十分钟</h4>
+<table>
+<tr><td>角色</td><td>要带什么来</td><td>要带走什么</td></tr>
+<tr><td>收益</td><td>今晚预报 OCC、剩余库存、价格口径</td><td>前台的实操反馈</td></tr>
+<tr><td>前厅</td><td>昨夜异常、当前房态问题</td><td>今晚的卖法与超售量</td></tr>
+<tr><td>预订</td><td>明日在手、未确认订单</td><td>需要跟进的订单</td></tr>
+</table>
+<p class="quote"><b>会议纪律</b>：10 分钟，站着开，只对齐不讨论，问题会后单独谈。</p>
+
+</div></section>
+<section class="sl judge" data-i="6" data-k="judge"><h2>同一家酒店 · 不同情境</h2><div class="bd">
+<table>
+<tr><td>情境</td><td>前台授权</td><td>超售</td></tr>
+<tr><td><b>本例</b>：满房夜</td><td>只报 BAR 及以上，满房后推荐周边</td><td>按三步法，系数 0.6</td></tr>
+<tr><td>展会周（案例 05）</td><td>全价，不议价</td><td><b>不超售</b>（周边也满）</td></tr>
+<tr><td>淡季（案例 06）</td><td>可推会员现场注册价</td><td>不超售（有房）</td></tr>
+<tr><td>尾房（案例 03）</td><td>21:00 后按系统尾房价</td><td>不涉及</td></tr>
+</table>
+<p class="quote"><b>同一家酒店的前台，四种情境下的"能做什么"完全不同。</b></p>
+<p class="quote">这就是为什么授权必须<b>写死成表</b>——靠临场判断，一定会出错。</p>
+
+</div><div class="srctpl" hidden>
+<table>
+<tr><td>情境</td><td>前台授权</td><td>超售</td></tr>
+<tr><td><b>本例</b>：满房夜</td><td>只报 BAR 及以上，满房后推荐周边</td><td>按三步法，系数 0.6</td></tr>
+<tr><td>展会周（案例 05）</td><td>全价，不议价</td><td><b>不超售</b>（周边也满）</td></tr>
+<tr><td>淡季（案例 06）</td><td>可推会员现场注册价</td><td>不超售（有房）</td></tr>
+<tr><td>尾房（案例 03）</td><td>21:00 后按系统尾房价</td><td>不涉及</td></tr>
+</table>
+<p class="quote"><b>同一家酒店的前台，四种情境下的"能做什么"完全不同。</b></p>
+<p class="quote">这就是为什么授权必须<b>写死成表</b>——靠临场判断，一定会出错。</p>
+
+</div></section>
+<section class="sl tip" data-i="7" data-k="tip"><h2>课堂填这张表（学生工作纸）</h2><div class="bd">
+<p><b>《前台授权与超售执行表》</b>——情形 / 可做什么 / 需要谁批 / No-show 率 / 超售量 / 兜底酒店，一页贴在前台。</p>
+<ul>
+<li>在线预览：<code>08_超额预订计算器.xlsx</code></li>
+<li>下载：见站点资料区</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div><div class="srctpl" hidden>
+<p><b>《前台授权与超售执行表》</b>——情形 / 可做什么 / 需要谁批 / No-show 率 / 超售量 / 兜底酒店，一页贴在前台。</p>
+<ul>
+<li>在线预览：<code>08_超额预订计算器.xlsx</code></li>
+<li>下载：见站点资料区</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div></section>
+<section class="sl case" data-i="8" data-k="case"><h2>配套练习游戏</h2><div class="bd">
+<p><b>《满房夜 · 前台决策》</b>——给你 20 分钟现场情境（walk-in、超售、客诉、OTA 房态），每个决策都影响 ADR 与口碑分。</p>
+<ul>
+<li>在线玩：<code>games.html</code>（站点游戏中心）</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div><div class="srctpl" hidden>
+<p><b>《满房夜 · 前台决策》</b>——给你 20 分钟现场情境（walk-in、超售、客诉、OTA 房态），每个决策都影响 ADR 与口碑分。</p>
+<ul>
+<li>在线玩：<code>games.html</code>（站点游戏中心）</li>
+</ul>
+<div class="qrbox"><div class="qrtitle">二维码</div><div class="qrempty">（待放置）</div></div>
+
+</div></section>
+<section class="sl sum" data-i="9" data-k="sum"><h2>一句话记住</h2><div class="bd">
+<p class="quote"><b>前台永远不创造价格，只执行价格。</b></p>
+<p class="quote">破例一次，后面全年都要补；而真正解决跨部门冲突的，不是开会讲道理，是一张写死边界的表。</p></div><div class="bkch"></div><div class="srctpl" hidden>
+<p class="quote"><b>前台永远不创造价格，只执行价格。</b></p>
+<p class="quote">破例一次，后面全年都要补；而真正解决跨部门冲突的，不是开会讲道理，是一张写死边界的表。</p></div><div class="bkch"></div></section>
+<section class="sl end" data-i="10" data-k="end"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li>不能。可以走"会员现场注册价"（已有价格），但不能创造新价格</li><li>判据：前台永远不创造价格，只执行价格。破例一次，全年都要补。</li><li>对，但要按三步法，不是拍脑袋</li><li>判据：超售量 = 当天客源结构算出的 No-show 预估值 × 0.6，且必须有兜底。</li><li>不是历史平均值，是按当天客源结构加权</li><li>判据：OTA 现付 12%、协议 5%、OTA 预付 2%、团队 1%——结构不同，预估值完全不同。</li><li>靠固定的每日对齐会 + 写死的授权表</li><li>判据：冲突的根源通常是"没人说清楚边界"，不是"谁不配合"。</li></ul></div></div></section></div>
+<div class="sw">
+  <button onclick="go(-1)">← 上一屏</button>
+  <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
+  <button onclick="go(1)">下一屏 →</button>
+</div>
+<div id="toc"><div class="th">本节目录（共 11 屏）</div><a href="#p0" data-i="0">01　案例 13 · 前厅和收益的战争</a><a href="#p1" data-i="1">02　情境</a><a href="#p2" data-i="2">03　情境</a><a href="#p3" data-i="3">04　情境</a><a href="#p4" data-i="4">05　决策点拆解</a><a href="#p5" data-i="5">06　知识提炼</a><a href="#p6" data-i="6">07　同一家酒店 · 不同情境</a><a href="#p7" data-i="7">08　课堂填这张表（学生工作纸）</a><a href="#p8" data-i="8">09　配套练习游戏</a><a href="#p9" data-i="9">10　一句话记住</a><a href="#p10" data-i="10">11　一页带走</a></div>
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 案例对应段落</h3><div id="ovc"></div></div></div>
+<div id="hint"></div>
+<script>
+var N=11, cur=0;
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));paint();}
+function paint(){
+  var ss=document.querySelectorAll('.sl'), i;
+  for(i=0;i<ss.length;i++){
+    var kk=ss[i].getAttribute('data-k')||'';
+    ss[i].className=(i===cur?('sl on '+kk):('sl '+kk));
+  }
+  document.getElementById('pg').textContent=(cur+1)+' / '+N;
+  var as=document.querySelectorAll('#toc a');
+  for(var j=0;j<as.length;j++){ if(j===cur){as[j].classList.add('cur');}else{as[j].classList.remove('cur');} }
+  try{location.hash='p'+(cur+1);}catch(e){}
+  fit();
+}
+function fit(){
+  var s=document.querySelectorAll('.sl')[cur], b=s.querySelector('.bd');
+  if(!b)return;
+  b.style.fontSize='';
+  var n=0;
+  while(b.scrollHeight>b.clientHeight+6 && n<9){ b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)-2)+'px'; n++; }
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('#ov')||e.target.closest('#toc'))return;
+  if(e.target.closest('button'))return;
+  var st=document.getElementById('stage');
+  var r=st.getBoundingClientRect();
+  var x=(e.clientX-r.left)/r.width;
+  go(x>0.82?1:(x<0.18?-1:0));
+});
+function T(){document.getElementById('toc').classList.toggle('on');}
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+function OV(){
+  var o=document.getElementById('ov');
+  if(o.classList.contains('on')){o.classList.remove('on');return;}
+  var s=document.querySelectorAll('.sl')[cur], t=s.querySelector('.srctpl');
+  document.getElementById('ovc').innerHTML = t?t.innerHTML:'';
+  o.classList.add('on');
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(1);}
+  else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(-1);}
+  else if(k==='Home'){cur=0;paint();}
+  else if(k==='End'){cur=N-1;paint();}
+  else if(k==='f'||k==='F'){SP();}
+  else if(k==='p'||k==='P'){PR();}
+  else if(k==='d'||k==='D'){OV();}
+  else if(k==='Escape'){document.getElementById('toc').classList.remove('on');document.getElementById('ov').classList.remove('on');}
+});
+window.addEventListener('hashchange',function(){
+  var m=location.hash.match(/^#p(\d+)$/);
+  if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<N&&i!==cur){cur=i;paint();}}
+});
+var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
+cur=Math.max(0,Math.min(N-1,cur));
+paint();
+</script>
+</body>
