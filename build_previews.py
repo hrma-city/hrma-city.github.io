@@ -254,9 +254,14 @@ def main():
     print("pycel:", "yes" if HAVE_PYCEL else "no (formula cells show formula text)")
 
 def write_html(out, title, tabs, sheets, note):
+    # 预渲染预览文件位于 assets/previews/，相对站点根需回退一级
+    GATE = ('<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">'
+            '<script>window.HRMA_PREFIX="";</script>'
+            '<script src="../auth-config.js"></script>'
+            '<script src="../assets/js/access-gate.js?v=v11"></script>')
     html = ("<!doctype html><html lang=\"zh\"><head><meta charset=\"utf-8\">"
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
-            "<title>%s</title>%s</head><body>" % (_html.escape(title), CSS))
+            "%s<title>%s</title>%s</head><body>" % (GATE, _html.escape(title), CSS))
     html += '<div class="hd"><span class="t">%s</span><span class="tabs">%s</span></div>' % (_html.escape(title), tabs)
     html += '<div class="wrap">' + "".join(sheets) + "</div>"
     html += '<div class="foot">%s · 在线预览，可直接查看；如需编辑请用“下载”按钮获取原文件。</div>' % _html.escape(note)
