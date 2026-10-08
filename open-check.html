@@ -355,9 +355,8 @@ document.getElementById('go').onclick = function(){
     + '<button class="btn2" id="cp">复制诊断报告</button> '
     + '<button class="btn2" id="ml">用邮件客户端发送</button>'
     + '<pre class="rep" id="repbox">' + rep.replace(/</g, '&lt;') + '</pre>'
-    + '<div class="contact"><b>联系方式（请把下面的占位替换成你自己的）：</b><br>'
-    + '微信：<span style="color:#a32d2d">YOUR_WECHAT_ID</span><br>'
-    + '邮箱：<span style="color:#a32d2d">your@email.com</span><br>'
+    + '<div class="contact"><b>把诊断发到这个邮箱，我回你带章节清单的完整版：</b><br>'
+    + '<span style="color:#a32d2d;font-size:15px">rm-community@qq.com</span><br>'
     + '<span style="font-size:12.5px;color:#8b98a8">'
     + '把报告复制出来，用微信或邮件发过去，会收到带章节清单的完整版诊断。</span></div>'
     + '</div></div>';
@@ -382,7 +381,7 @@ document.getElementById('go').onclick = function(){
     if (!m){ alert('先填邮箱，再点这个按钮。'); return; }
     var t = window.__rep.replace('（未填）', m);
     t = t.replace(/联系邮箱：.*/, '联系邮箱：' + m);
-    location.href = 'mailto:your@email.com?subject='
+    location.href = 'mailto:rm-community@qq.com?subject='
       + encodeURIComponent('开课可行性诊断（' + ch + ' 章方案申请）')
       + '&body=' + encodeURIComponent(t);
   };
