@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+</script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>教师线投屏课件 · 按课时选择</title><style>*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f2a4a;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:40}
+#bar .tt{font-size:16px;font-weight:700;letter-spacing:.2px}
+#bar .pt{font-size:13px;color:#9fc0e0}
+#bar .sp{flex:1}
+#bar .pg{font-size:13px;color:#cfe0f5;min-width:78px;text-align:center}
+#bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer;font-family:inherit}
+#bar button:hover{background:#1d6fb8}
+#stage{position:fixed;inset:52px 0 58px 0;display:flex;align-items:center;justify-content:center}
+.sl{display:none;width:100%;height:100%;padding:26px 44px 18px;overflow:hidden;position:relative}
+.sl.on{display:flex;flex-direction:column}
+.sl h2{font-size:30px;margin:0 0 14px;color:#0f2a4a;letter-spacing:.5px;line-height:1.35}
+.sl h2 .no{color:#1d6fb8;margin-right:10px}
+.bd{flex:1;overflow:hidden;font-size:21px;line-height:1.85}
+.bd ul{padding-left:1.25em;margin:0}
+.bd ul li{margin:0 0 .6em}
+.bd p{margin:0 0 .7em}
+.sl.cover{background:linear-gradient(135deg,#0f2a4a 0%,#123f66 55%,#0d5a86 100%);justify-content:center;align-items:flex-start}
+.sl.cover .kk{font-size:15px;letter-spacing:4px;color:#8fd0f5;text-transform:uppercase}
+.sl.cover h1{font-size:50px;color:#fff;margin:14px 0 6px;line-height:1.28;font-weight:800;max-width:22em}
+.sl.cover .meta{font-size:18px;color:#bcd9f2;margin-bottom:22px}
+.sl.cover .promise-b{background:rgba(255,255,255,.1);border-left:6px solid #ffd479;padding:18px 22px;font-size:22px;color:#fff;line-height:1.75;max-width:82%}
+.sl.cover .keys{position:absolute;bottom:26px;left:44px;color:#8fb6d8;font-size:14px}
+.sl.overview{background:#0c1f36;overflow:auto}
+.sl.overview h2{color:#8fd0f5;font-size:24px}
+.sl.overview .tbl{width:100%;border-collapse:collapse;font-size:15.5px;color:#dbe9f5}
+.sl.overview .tbl th{background:#123f66;color:#fff;text-align:left;padding:8px 10px;position:sticky;top:0}
+.sl.overview .tbl td{border-top:1px solid #1d3c5c;padding:7px 10px;vertical-align:top}
+.sl.overview .tbl tr:nth-child(even){background:#0e2742}
+.sl.overview .tbl .mg{color:#ffd479;font-weight:700;text-align:right;white-space:nowrap}
+.sl.overview .tbl .pt{color:#8fd0f5;font-weight:700}
+.sl.overview .sum{margin-top:14px;font-size:17px;color:#cfe0f5}
+.sl.ch{background:linear-gradient(135deg,#0f2a4a,#0d5a86);justify-content:center;align-items:flex-start}
+.sl.ch .kk{font-size:14px;letter-spacing:3px;color:#8fd0f5}
+.sl.ch h1{font-size:44px;color:#fff;margin:12px 0 6px;line-height:1.3;font-weight:800;max-width:20em}
+.sl.ch .badge{display:inline-block;background:#ffd479;color:#3a2a05;font-size:14px;font-weight:700;border-radius:20px;padding:5px 14px;margin-top:10px}
+.sl.ch .min{display:inline-block;background:rgba(255,255,255,.14);color:#fff;font-size:14px;border-radius:20px;padding:5px 14px;margin:10px 0 0 10px}
+.sl.ch .loc{margin-top:18px;color:#bcd9f2;font-size:16px}
+.sl.goal{background:#fff}
+.sl.goal h2,.sl.keys h2,.sl.act h2,.sl.err h2,.sl.res h2{color:#0f2a4a}
+.sl.goal .bd,.sl.keys .bd,.sl.act .bd,.sl.err .bd,.sl.res .bd{color:#243141}
+.sl.keys{background:#f6f9fc}
+.sl.act{background:#eef8f2;border-left:10px solid #2f9e6a}
+.sl.act h2{color:#1d7a4f}
+.sl.err{background:#fff8e8;border-left:10px solid #e0a53c}
+.sl.err h2{color:#8a5d10}
+.sl.res{background:#fff}
+.sl.res .links{list-style:none;padding:0;margin:0}
+.sl.res .links li{margin:0 0 .6em;font-size:19px}
+.sl.res .links a{color:#1d6fb8;font-weight:600;text-decoration:none;border-bottom:1px solid #bcd9f2}
+.sl.res .links a:hover{color:#0d5a86}
+.sl.res .conn{margin-top:14px;background:#eef4fa;border-left:5px solid #1d6fb8;padding:12px 16px;font-size:18px;color:#243141;border-radius:8px}
+.sl.end{background:linear-gradient(135deg,#0f2a4a,#0d5a86)}
+.sl.end h2{color:#8fd0f5}
+.oneul{columns:2;column-gap:44px;list-style:none;padding:0;margin:0}
+.oneul li{color:#e4eef7;font-size:19px;margin:0 0 .7em;line-height:1.7;break-inside:avoid;padding-left:1em;border-left:4px solid #3d7fae}
+.sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
+.sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.sw button:hover{background:#1d6fb8}
+#toc{position:fixed;top:52px;right:0;bottom:58px;width:340px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
+#toc.on{display:block}
+#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
+#toc a{display:block;color:#d6e5f3;padding:8px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
+#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+#hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
+@media print{
+ html,body{overflow:visible;height:auto;background:#fff}
+ #bar,#sw,#toc,#hint{display:none!important}
+ .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
+ .sl.cover,.sl.ch,.sl.overview,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bd,.sl.cover h1,.sl.ch h1{color:#000}
+}.wrap{max-width:1040px;margin:0 auto;padding:30px 28px;overflow:auto;height:100%}.lead{margin-bottom:22px}.lead .kk{font-size:13px;letter-spacing:3px;color:#8fd0f5}.lead h1{font-size:34px;color:#fff;margin:8px 0 10px}.lead p{font-size:17px;color:#cfe0f5;line-height:1.8;max-width:60em}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:8px 0 22px}.card{background:#0f2a4a;border:1px solid #1d3c5c;border-radius:14px;padding:20px 18px;display:flex;flex-direction:column}.card .cn{font-size:26px;font-weight:800;color:#fff}.card .cs{font-size:15px;color:#8fd0f5;margin:4px 0 10px}.card .cm{font-size:16px;color:#cfe0f5;margin-bottom:8px}.card .cp{font-size:13.5px;color:#9fc0e0;line-height:1.6;flex:1}.card .btn{display:block;text-align:center;margin-top:14px;background:#1d6fb8;color:#fff;text-decoration:none;border-radius:10px;padding:11px 0;font-weight:700;font-size:16px}.card .btn:hover{background:#0d5a86}.note{background:rgba(255,255,255,.06);border-left:5px solid #e8b84b;padding:14px 18px;border-radius:8px;font-size:15px;color:#cfe0f5;line-height:1.8}@media(max-width:860px){.grid{grid-template-columns:1fr}}</style></head><body><div id="bar"><button onclick="location.href='study-teach.html'">← 教师线</button><span class="tt">教师线投屏课件 · 按课时选择</span><span class="sp"></span><button onclick="SP()">全屏 F</button><button onclick="PR()">打印 P</button></div><div id="stage"><div class="wrap"><div class="lead"><div class="kk">教师线 · 投屏课件</div><h1>按课时选一套投屏课件</h1><p>同一门课，不同院校课时不同。我们按 <b>16 / 32 / 48 学时</b> 做了三套，章节与排时都已排好。您只需按本校课时挑一套，照着讲即可——每章都给了「本讲目标 / 讲解重点 / 课堂活动 / 易错答疑 / 配套资源」。</p></div><div class="grid"><div class="card"><div class="cn">16 学时</div><div class="cs">核心骨架版 · 建立完整认知</div><div class="cm">共 14 章 ｜ 约 672 分钟</div><div class="cp">认知篇 4 章 ｜ 决策篇 8 章 ｜ 运营篇 1 章 ｜ 组织篇 1 章</div><a class="btn" href="sl-teach-16.html">打开这套投屏 →</a></div><div class="card"><div class="cn">32 学时</div><div class="cs">标准课程版 · 核心+重要</div><div class="cm">共 26 章 ｜ 约 1436 分钟</div><div class="cp">认知篇 4 章 ｜ 决策篇 12 章 ｜ 运营篇 8 章 ｜ 组织篇 2 章</div><a class="btn" href="sl-teach-32.html">打开这套投屏 →</a></div><div class="card"><div class="cn">48 学时</div><div class="cs">完整课程版 · 全 32 章</div><div class="cm">共 32 章 ｜ 约 2160 分钟</div><div class="cp">认知篇 4 章 ｜ 决策篇 12 章 ｜ 运营篇 8 章 ｜ 组织篇 4 章 ｜ 延伸篇 4 章</div><a class="btn" href="sl-teach-48.html">打开这套投屏 →</a></div></div><div class="note">说明：16 学时覆盖<b>核心骨架</b>（认知+关键决策+每日流程+成本底线）；32 学时加<b>重要</b>章（套餐/超售/团队/运营支撑/组织）；48 学时含<b>全 32 章</b>（再加系统、淡旺季、餐饮、会议、跨行业、误区）。所有版本均挂访问门，仅授权教师可见。</div></div></div><div id="hint"></div><script>
+function SP(){ if(document.fullscreenElement){document.exitFullscreen();} else {document.documentElement.requestFullscreen();} }
+function PR(){window.print();}
+document.addEventListener('keydown',function(e){var k=e.key;if(k==='f'||k==='F'){SP();}else if(k==='p'||k==='P'){PR();}});
+</script></body></html>
