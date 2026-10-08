@@ -5,6 +5,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v11"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -139,6 +140,22 @@ function openCh(n,auto){
     for(var i=0;i<BOOK.length;i++) if(BOOK[i].n===n&&i+1<BOOK.length){openCh(BOOK[i+1].n);break}});
   if(typeof auto==='number'&&auto>=0&&auto<ls.length) openSt(n,ls[auto].id);
 }
+function resBox(n){
+  var EX={2:['ex01','练习01 指标与对标'],3:['ex01','练习01 指标与对标'],
+    5:['ex02','练习02 需求预测与在手'],17:['ex02','练习02 需求预测与在手'],18:['ex02','练习02 需求预测与在手'],19:['ex02','练习02 需求预测与在手'],20:['ex02','练习02 需求预测与在手'],
+    4:['ex03','练习03 定价与价格栅栏'],6:['ex03','练习03 定价与价格栅栏'],7:['ex03','练习03 定价与价格栅栏'],22:['ex03','练习03 定价与价格栅栏'],
+    9:['ex04','练习04 库存与保护位'],11:['ex04','练习04 库存与保护位'],12:['ex04','练习04 库存与保护位'],
+    8:['ex05','练习05 渠道与净价'],13:['ex05','练习05 渠道与净价'],
+    21:['ex06','练习06 报表归因与预算'],23:['ex06','练习06 报表归因与预算']};
+  var EXF={ex01:'练习01_指标与对标.xlsx',ex02:'练习02_需求预测与在手.xlsx',ex03:'练习03_定价与价格栅栏.xlsx',ex04:'练习04_库存与保护位.xlsx',ex05:'练习05_渠道与净价.xlsx',ex06:'练习06_报表归因与预算.xlsx'};
+  var e=EX[n];
+  var h='<div style="margin-top:14px;padding:12px 14px;background:#fff7e6;border-left:5px solid #e0a73c;border-radius:8px;font-size:14px;line-height:2">'
+    +'📊 <b>教学数据工坊</b>：<a href="teach-data.html" target="_blank">模拟数据库 + 6 套练习模板 + 8 套工具模板</a><br>'
+    +'🔎 <b>报表预览中心</b>：<a href="report-preview.html" target="_blank">在线预览全部报表（无需下载）</a>';
+  if(e){ h+='<br>📥 <b>本章配套练习</b>：<a href="templates/'+EXF[e[0]]+'" target="_blank">'+e[1]+'（下载 Excel）</a>　·　<a href="teach-data.html" target="_blank">在数据工坊中预览</a>'; }
+  h+='</div>';
+  return h;
+}
 function openSt(n,sid){
   var c=chOf(n),ls=liveSt(c),idx=-1;
   for(var i=0;i<ls.length;i++) if(ls[i].id===sid) idx=i;
@@ -148,7 +165,7 @@ function openSt(n,sid){
   dots(c,n,idx);
   var h='<div class="panel"><h2>'+(idx+1)+'. '+s.name+'</h2>'
    +(s.desc?'<p class="sub">'+s.desc+' ｜ 约 '+s.min+' 分钟</p>':'')
-   +'<div class="in">'+s.html+'</div><div class="nav">'
+   +'<div class="in">'+s.html+'</div>'+resBox(n)+'<div class="nav">'
    +'<button id="pv"'+(idx===0?' disabled':'')+'>← 上一站</button>'
    +(isDone(n,sid)?'<button id="nx" class="prim">'+(idx<tot-1?'下一站 →':'回到本节 →')+'</button>'
                   :'<button id="mk" class="prim">标记学完，继续 →</button>')
