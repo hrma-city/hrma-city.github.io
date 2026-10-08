@@ -149,12 +149,18 @@ function render(){
       var cls=(picked===0?'best':(picked===1?'ok':'bad'));
       var tag=(picked===0?'✓ 这是更好的选择':(picked===1?'△ 可以，但还有更好的':'✗ 这个选择要小心'));
       h+='<div class="res '+cls+'"><div class="tag">'+tag+'</div>'+esc(o[2])+'</div>';
-      if(picked!==0){
-        h+='<div class="lesson"><b>更好的选择是：</b>'+esc(q.opts[0][0])+'　—　'+esc(q.opts[0][2])+'</div>';
+      h+='<div class="lesson" style="background:#fff;border-style:dashed;padding:12px 15px">'
+        +'<div style="font-weight:800;color:#1B3A5C;margin-bottom:7px;font-size:13.5px">另外两个选项</div>';
+      for(var k2=0;k2<q.opts.length;k2++){
+        if(k2===picked)continue;
+        var lb=(k2===0?'A':(k2===1?'B':'C'));
+        var hd=(k2===0)
+          ? '<b style="color:#1a7a45">'+lb+'（更好的选择）：</b>'
+          : '<b>'+lb+'：</b>';
+        h+='<div style="margin:7px 0">'+hd+esc(q.opts[k2][0])+'<br>'
+          +'<span style="color:#5a6b7c">'+esc(q.opts[k2][2])+'</span></div>';
       }
-      if(q.opts.length>2&&q.opts[2]&&picked!==2){
-        h+='<div class="lesson" style="background:#fff;border-style:dashed"><b>C：</b>'+esc(q.opts[2][2])+'</div>';
-      }
+      h+='</div>';
       h+='<div class="row"><button class="btn" onclick="cont()">'+(st.q+1<l.qs.length?'下一题 →':'看本关讲解 →')+'</button>'
         +'<span class="sub">本题得分 +'+(picked===0?10:(picked===1?6:3))+'</span></div>';
     }
