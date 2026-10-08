@@ -42,7 +42,7 @@ button{font:inherit;background:#1d6fb8;color:#fff;border:0;border-radius:8px;pad
 <body>
 <div class="wrap">
   <h1>定位：服务器到底返回了什么</h1>
-  <p class="lead">这一页会自动跑三项检测，<strong>不用你点任何按钮</strong>。看完最上面那一行大字，把结果告诉我即可。</p>
+  <p class="lead">这一页会自动跑三项检测，<strong>不用您点任何按钮</strong>。看完最上面那一行大字，把结果告诉我即可。</p>
 
   <div class="big mid" id="head">正在检测…（约 10 秒）</div>
 
@@ -91,7 +91,7 @@ function probe(path, slot){
     var r=o.r, txt=o.txt;
     var tm=/<title[^>]*>([\s\S]{0,120}?)<\/title>/i.exec(txt);
     var title=tm?tm[1].replace(/\s+/g,' ').trim():'(没有 title 标签)';
-    var isHome=/RMC收益管理社区<\/title>/i.test(txt) || /选一个入口|按你要做的事/.test(txt);
+    var isHome=/RMC收益管理社区<\/title>/i.test(txt) || /选一个入口|按您要做的事/.test(txt);
     var isM01=/M01/.test(txt)&&/收益管理的语言/.test(txt);
     var verdict = isM01? st('g','正确：拿到了 M01 模块页')
                 : isHome? st('r','拿到的是首页（服务器返回错页）')
@@ -131,11 +131,11 @@ function run(){
     if(!OUT.length){ head.className='big mid'; head.textContent='还没拿到结果，请点下面「重新检测」'; return; }
     if(bad.length===0){
       head.className='big ok';
-      head.textContent='结论：三个页面都取对了 —— 你的网络能正常拿到内容页。那问题出在浏览器跳转/缓存环节，点下面的「重新检测」再试一次，或把结果发我。';
+      head.textContent='结论：三个页面都取对了 —— 您的网络能正常拿到内容页。那问题出在浏览器跳转/缓存环节，点下面的「重新检测」再试一次，或把结果发我。';
     } else {
       head.className='big no';
       head.textContent='结论：有问题 —— '+bad.length+' 个页面服务器返回的不是内容页。'
-        +'这说明你这边网络/代理把地址换成了首页，不是浏览器缓存。请把下面结果发我。';
+        +'这说明您这边网络/代理把地址换成了首页，不是浏览器缓存。请把下面结果发我。';
     }
   }, 9000);
 }

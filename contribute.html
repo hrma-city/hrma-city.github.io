@@ -39,7 +39,7 @@
   <h1 class="cm-section-title" style="font-size:28px">上报一个月度数据点</h1>
   <p class="bm-intro">
     除上海外，绝大多数城市不公开月度 ADR / 出租率。要补齐城市级月度基准，只能靠大家一起报。
-    你报一条，就能换回一整个城市的基准线。
+    您报一条，就能换回一整个城市的基准线。
   </p>
 
   <div class="bcal">
@@ -74,7 +74,7 @@
     <p class="cm-hint" style="margin:0 0 16px;line-height:1.75">
       STR 报告只收三要素——<b>可用房晚 Supply</b>、<b>已售房晚 Demand</b>、<b>客房收入 Revenue</b>；
       出租率、ADR、RevPAR 由系统自动派生，杜绝口径不自洽。提交后与同城同档市场均值比对，
-      直接得出你的 <b>MPI（份额）/ ARI（溢价）/ RGI（综合收益）</b> 三大指数。
+      直接得出您的 <b>MPI（份额）/ ARI（溢价）/ RGI（综合收益）</b> 三大指数。
     </p>
 
     <form class="cm-form" id="strForm">
@@ -216,7 +216,7 @@
     <div class="cm-eyebrow">我的 STR 样本</div>
     <h3 style="margin:4px 0 10px">我提交的 STR 标准数据</h3>
     <div id="myStrBox"><p class="cm-hint">加载中…</p></div>
-    <p class="cm-hint" style="margin-top:10px">仅你本人可见；删除后不会再计入同城同档的市场均值。</p>
+    <p class="cm-hint" style="margin-top:10px">仅您本人可见；删除后不会再计入同城同档的市场均值。</p>
   </div>
 
   <!-- 池子覆盖 -->
@@ -225,7 +225,7 @@
     <h3 style="margin:4px 0 10px">哪些城市与档次已经有数据</h3>
     <div id="coverBox"><p class="cm-hint">加载中…</p></div>
     <p class="cm-hint" style="margin-top:10px">
-      「可出指数」= 该组合样本已满 3 条；其余为待补充。欢迎你来补上所在城市与档次的第一个数据点。
+      「可出指数」= 该组合样本已满 3 条；其余为待补充。欢迎您来补上所在城市与档次的第一个数据点。
     </p>
   </div>
 
@@ -234,7 +234,7 @@
     <div class="cm-eyebrow">邀请共建</div>
     <h3 style="margin:4px 0 10px">拉同行一起报，基准才有用</h3>
     <p class="cm-hint" style="line-height:1.75">
-      共建池的价值取决于样本密度。把下面这段文案发到你的行业群，一人一条，很快就能凑齐你所在城市与档次的基准线。
+      共建池的价值取决于样本密度。把下面这段文案发到您的行业群，一人一条，很快就能凑齐您所在城市与档次的基准线。
     </p>
     <div class="bcal" id="inviteText" style="margin-top:10px;white-space:pre-wrap"></div>
     <div style="margin-top:10px">
@@ -401,13 +401,13 @@
   /* 与市场均值对比，得出 MPI / ARI / RGI */
   async function loadIndex(sb, city, seg, month, myOcc, myAdr, myRevpar){
     if(!iBox) return;
-    iBox.innerHTML='<p class="cm-hint">正在计算你的市场指数…</p>';
+    iBox.innerHTML='<p class="cm-hint">正在计算您的市场指数…</p>';
     var res=await sb.rpc('str_benchmark_flex',{p_city:city,p_segment:seg,p_month:month});
     var row=(res.data&&res.data[0])||{match_level:'insufficient',sample_count:0};
     var n=row.sample_count||0, lvl=row.match_level||'insufficient';
     var LVLNAME={exact:'同城 · 同档次 · 同月（精确）',city_segment_12m:'同城 · 同档次 · 近 12 个月',city_all_12m:'同城 · 全档次 · 近 12 个月'};
     if(lvl==='insufficient'||!row.occ){
-      iBox.innerHTML='<div class="bcal"><b>你的数据已入库。</b>当前「'+city+' · '+seg+'」可参考样本 '+n+' 条；'
+      iBox.innerHTML='<div class="bcal"><b>您的数据已入库。</b>当前「'+city+' · '+seg+'」可参考样本 '+n+' 条；'
         +'按 <b>k-匿名</b> 约定需满 3 条才公开聚合值，暂不能给出指数。'
         +'用下方「邀请共建」把同城同行拉进来，样本够了即可看到完整的 MPI / ARI / RGI 对比。</div>';
       return;
@@ -425,19 +425,19 @@
         +'<div style="font-size:12px;color:var(--ink-3,#7B8794)">'+(good?'跑赢市场':'跑输市场')+'（100 = 持平）</div></div>';
     }
     function delta(a,b){ var d=a-b; return (d>=0?'+':'')+f2(d); }
-    iBox.innerHTML='<div class="cm-eyebrow" style="margin-top:10px">你的 STR 指数 · 对比 '+city+' / '+seg+' / '+month.slice(0,7)+'</div>'
+    iBox.innerHTML='<div class="cm-eyebrow" style="margin-top:10px">您的 STR 指数 · 对比 '+city+' / '+seg+' / '+month.slice(0,7)+'</div>'
       +'<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">'
       +pill('MPI','份额（出租率）',mpi)+pill('ARI','溢价（ADR）',ari)+pill('RGI','综合（RevPAR）',rgi)
       +'</div>'
-      +'<table class="btable" style="margin-top:12px"><thead><tr><th>指标</th><th>你的数值</th><th>市场均值（'+n+' 家）</th><th>差距</th></tr></thead><tbody>'
+      +'<table class="btable" style="margin-top:12px"><thead><tr><th>指标</th><th>您的数值</th><th>市场均值（'+n+' 家）</th><th>差距</th></tr></thead><tbody>'
       +'<tr><td>出租率</td><td class="bv">'+f1(myOcc)+'%</td><td>'+f1(mOcc)+'%</td><td>'+(delta(myOcc,mOcc))+' pt</td></tr>'
       +'<tr><td>ADR</td><td class="bv">¥'+f2(myAdr)+'</td><td>¥'+f2(mAdr)+'</td><td>¥'+delta(myAdr,mAdr)+'</td></tr>'
       +'<tr><td>RevPAR</td><td class="bv">¥'+f2(myRevpar)+'</td><td>¥'+f2(mRev)+'</td><td>¥'+delta(myRevpar,mRev)+'</td></tr>'
       +'</tbody></table>'
       +'<p class="cm-hint" style="margin-top:8px"><b>诊断：</b>RGI = MPI × ARI。'
-      +(rgi>=100?'你整体跑赢市场，可继续巩固优势。'
-        :(ari>=100?'你的价格并不低，但份额不足（MPI 偏低）——优先补量：曝光、转化、口碑与渠道覆盖。'
-                  :'你的份额不错，但价格偏低（ARI 偏低）——优先提价与客源结构优化。'))
+      +(rgi>=100?'您整体跑赢市场，可继续巩固优势。'
+        :(ari>=100?'您的价格并不低，但份额不足（MPI 偏低）——优先补量：曝光、转化、口碑与渠道覆盖。'
+                  :'您的份额不错，但价格偏低（ARI 偏低）——优先提价与客源结构优化。'))
       +'</p>';
   }
 
@@ -489,11 +489,11 @@
     if(!sb){ myStrBox.innerHTML='<p class="cm-hint">组件加载中，请刷新</p>'; return; }
     var sess=await sb.auth.getSession();
     var user=(sess&&sess.data&&sess.data.session)?sess.data.session.user:null;
-    if(!user){ myStrBox.innerHTML='<p class="cm-hint">请先 <a href="access.html">登录</a> 查看你上报的样本。</p>'; return; }
+    if(!user){ myStrBox.innerHTML='<p class="cm-hint">请先 <a href="access.html">登录</a> 查看您上报的样本。</p>'; return; }
     var r=await sb.from('str_samples').select('*').eq('user_id',user.id).order('month',{ascending:false});
     if(r.error){ myStrBox.innerHTML='<p class="cm-hint">加载失败：'+E(r.error.message)+'</p>'; return; }
     var rows=r.data||[];
-    if(!rows.length){ myStrBox.innerHTML='<p class="co-empty">你还没有上报 STR 样本，填上面的模板即可。</p>'; return; }
+    if(!rows.length){ myStrBox.innerHTML='<p class="co-empty">您还没有上报 STR 样本，填上面的模板即可。</p>'; return; }
     var h='<table class="btable"><thead><tr><th>城市</th><th>档次</th><th>月份</th><th>出租率</th><th>ADR</th><th>RevPAR</th><th>操作</th></tr></thead><tbody>';
     rows.forEach(function(s){
       h+='<tr><td>'+E(s.city)+'</td><td>'+E(s.segment)+'</td><td>'+mY(s.month)+'</td>'
@@ -544,10 +544,10 @@
       btnCopy=document.getElementById('btnCopyInvite'),
       inviteHint=document.getElementById('inviteHint');
   var INVITE='【共建酒店收益基准池 · RMC收益管理社区】\n'
-    +'我们正搭建全国城市月度收益基准池：你每月报一条（城市 + 档次 + 可用房晚/已售房晚/客房收入），'
-    +'就能换回同城的匿名基准线和你的 MPI / ARI / RGI 指数对比。\n'
+    +'我们正搭建全国城市月度收益基准池：您每月报一条（城市 + 档次 + 可用房晚/已售房晚/客房收入），'
+    +'就能换回同城的匿名基准线和您的 MPI / ARI / RGI 指数对比。\n'
     +'全程脱敏、不暴露任何单店数据，样本满 3 条才出聚合值。\n'
-    +'来补上你所在城市与档次的第一个数据点 👉 https://hrma-city.github.io/contribute.html';
+    +'来补上您所在城市与档次的第一个数据点 👉 https://hrma-city.github.io/contribute.html';
   if(inviteText) inviteText.textContent=INVITE;
   if(btnCopy){
     btnCopy.addEventListener('click', async function(){

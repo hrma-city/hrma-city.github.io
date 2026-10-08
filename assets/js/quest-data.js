@@ -17,7 +17,7 @@ window.RMCQuestData = {
       stages: [
         {
           step: "认识生意",
-          role: "你刚入职一家 200 间房的城市商务酒店，老板问你：收益管理到底管什么？",
+          role: "您刚入职一家 200 间房的城市商务酒店，老板问您：收益管理到底管什么？",
           ask: "收益管理能发挥作用，最根本的前提是什么？",
           choices: [
             { id: "a", label: "只要把房价定得够高，就能多赚钱", ok: false,
@@ -43,8 +43,8 @@ window.RMCQuestData = {
         },
         {
           step: "开盘准备",
-          role: "你是一家 200 间房酒店的值班经理，早班开盘。",
-          ask: "开盘第一件事，你先做哪个？",
+          role: "您是一家 200 间房酒店的值班经理，早班开盘。",
+          ask: "开盘第一件事，您先做哪个？",
           choices: [
             { id: "a", label: "把昨夜剩余空房全部挂低价甩卖，先填满再说", ok: false,
               hint: "未确认可售库存就降价，会把本可卖高价的房贱卖，还容易超售。开盘应先摸清底数。" },
@@ -69,7 +69,7 @@ window.RMCQuestData = {
         },
         {
           step: "变动成本",
-          role: "销售想接一个 ¥300/间的团队，问你能不能接。",
+          role: "销售想接一个 ¥300/间的团队，问您能不能接。",
           ask: "判断'能不能接'，第一步必须知道什么？",
           choices: [
             { id: "a", label: "只要比 0 高就接，有总比空着强", ok: false,
@@ -82,7 +82,7 @@ window.RMCQuestData = {
         },
         {
           step: "市场细分",
-          role: "你的酒店同时有商务客、旅游客、协议公司和团队。",
+          role: "您的酒店同时有商务客、旅游客、协议公司和团队。",
           ask: "为什么必须把客人'分群'？",
           choices: [
             { id: "a", label: "分群没用，统一价最省事", ok: false,
@@ -95,7 +95,7 @@ window.RMCQuestData = {
         },
         {
           step: "价格体系",
-          role: "你在搭建酒店的房价体系。",
+          role: "您在搭建酒店的房价体系。",
           ask: "BAR（最优弹性房价）的作用是什么？",
           choices: [
             { id: "a", label: "就是全年最低价，越低越好", ok: false,
@@ -108,7 +108,7 @@ window.RMCQuestData = {
         },
         {
           step: "需求预测",
-          role: "开盘完成，你要把今天的定价定下来。",
+          role: "开盘完成，您要把今天的定价定下来。",
           ask: "怎么判断今天该定高价还是低价？",
           choices: [
             { id: "a", label: "凭感觉，今天天气好应该人多就定高价", ok: false,
@@ -121,8 +121,8 @@ window.RMCQuestData = {
         },
         {
           step: "预订曲线",
-          role: "你在看未来 30 天的预订进度（pick-up）。",
-          ask: "pick-up 真正能帮你做什么？",
+          role: "您在看未来 30 天的预订进度（pick-up）。",
+          ask: "pick-up 真正能帮您做什么？",
           choices: [
             { id: "a", label: "只能看已经订了多少间", ok: false,
               hint: "pick-up 的价值在于和历史节奏对比，提前发现偏快或偏慢。" },
@@ -135,13 +135,13 @@ window.RMCQuestData = {
         {
           step: "渠道分配",
           role: "基准价定了，订单该从哪来？",
-          ask: "OTA（携程/美团）和官网直订，你怎么配比？",
+          ask: "OTA（携程/美团）和官网直订，您怎么配比？",
           choices: [
             { id: "a", label: "全压 OTA，流量大不用自己操心", ok: false,
               hint: "OTA 佣金 10–15%，全压等于把利润让给平台，且客户资产不在自己手里。" },
             { id: "b", label: "以直订（官网/会员/企业协议）为主保留利润池，OTA 作补充高峰泄洪，并给直订专属权益", ok: true },
             { id: "c", label: "直订和 OTA 完全同价同库存，无所谓", ok: false,
-              hint: "同价会让直订毫无优势，客人永远走 OTA，你永远付佣金。" }
+              hint: "同价会让直订毫无优势，客人永远走 OTA，您永远付佣金。" }
           ],
           why: "渠道管理的本质是把高利润订单留给低成本渠道。直订零/低佣金，应作为利润池重点经营；OTA 用于补高峰与拉新，配比随淡旺动态调整。"
         },
@@ -160,7 +160,7 @@ window.RMCQuestData = {
         },
         {
           step: "日报监控",
-          role: "营业结束，你要看今天的成绩单。",
+          role: "营业结束，您要看今天的成绩单。",
           ask: "最该盯哪个信号来判断收益做得好不好？",
           choices: [
             { id: "a", label: "只看入住了多少间房", ok: false,
@@ -173,7 +173,7 @@ window.RMCQuestData = {
         },
         {
           step: "周度复盘",
-          role: "一周结束，你要做复盘。",
+          role: "一周结束，您要做复盘。",
           ask: "复盘最重要的是什么？",
           choices: [
             { id: "a", label: "只看 RevPAR 涨没涨", ok: false,
@@ -186,7 +186,7 @@ window.RMCQuestData = {
         },
         {
           step: "系统协同",
-          role: "你发现预测总是和实际差很多。",
+          role: "您发现预测总是和实际差很多。",
           ask: "问题最可能出在哪？",
           choices: [
             { id: "a", label: "预测模型不行，赶紧换算法", ok: false,
@@ -210,25 +210,25 @@ window.RMCQuestData = {
       stages: [
         {
           step: "竞争集",
-          role: "你升任收益经理，要为酒店建立竞争集。",
+          role: "您升任收益经理，要为酒店建立竞争集。",
           ask: "选哪几家做对标最合理？",
           choices: [
             { id: "a", label: "全市星级最高的几家豪华酒店", ok: false,
               hint: "客群与价位错位，对标没有意义。" },
             { id: "b", label: "位置相近、档次相当、客群重叠的 4–6 家", ok: true },
             { id: "c", label: "只盯价格最低的那一家", ok: false,
-              hint: "最低价者未必是你的真实竞争者，可能根本不同定位。" }
+              hint: "最低价者未必是您的真实竞争者，可能根本不同定位。" }
           ],
           why: "竞争集不是'谁名气大'，而是'客人实际会在它们之间比价切换'的酒店群。对标选对了，价格战才打在点上。"
         },
         {
           step: "STR报告",
-          role: "你拿到一份 STR 报告，看到 MPI / ARI / RGI 三个指数。",
+          role: "您拿到一份 STR 报告，看到 MPI / ARI / RGI 三个指数。",
           ask: "这三个指数分别衡量什么？",
           choices: [
             { id: "a", label: "都差不多，随便看一个就行", ok: false,
               hint: "三个指数量的是完全不同的维度，混着看会误判病因。" },
-            { id: "b", label: "MPI=你的出租率÷市场；ARI=你的ADR÷市场；RGI=你的RevPAR÷市场（均×100），分别看份额、溢价与综合收益", ok: true },
+            { id: "b", label: "MPI=您的出租率÷市场；ARI=您的ADR÷市场；RGI=您的RevPAR÷市场（均×100），分别看份额、溢价与综合收益", ok: true },
             { id: "c", label: "只看 RGI 就够了", ok: false,
               hint: "RGI 低于 100 时，必须靠 MPI 和 ARI 才能判断是'量不够'还是'价不够'。" }
           ],
@@ -236,7 +236,7 @@ window.RMCQuestData = {
         },
         {
           step: "指数诊断",
-          role: "你的 RGI = 88（跑输市场），但 ARI = 115（价格高于市场）。",
+          role: "您的 RGI = 88（跑输市场），但 ARI = 115（价格高于市场）。",
           ask: "问题到底出在哪？",
           choices: [
             { id: "a", label: "价格太高了，赶紧降价", ok: false,
@@ -249,8 +249,8 @@ window.RMCQuestData = {
         },
         {
           step: "需求弹性",
-          role: "竞品突然全线下调 8%，你的酒店定位中端、可替代性强。",
-          ask: "你怎么动价？",
+          role: "竞品突然全线下调 8%，您的酒店定位中端、可替代性强。",
+          ask: "您怎么动价？",
           choices: [
             { id: "a", label: "纹丝不动，坚持品牌不降价", ok: false,
               hint: "可替代性强却不跟，客人直接流向竞品。" },
@@ -314,7 +314,7 @@ window.RMCQuestData = {
         },
         {
           step: "渠道优化",
-          role: "OTA 占你订单 60%、佣金 15%，利润被大幅吃掉。",
+          role: "OTA 占您订单 60%、佣金 15%，利润被大幅吃掉。",
           ask: "怎么优化渠道结构？",
           choices: [
             { id: "a", label: "全面下架 OTA", ok: false,
@@ -328,7 +328,7 @@ window.RMCQuestData = {
         {
           step: "房型升级",
           role: "高级房还空着，标准房已经卖完了。",
-          ask: "你怎么处理？",
+          ask: "您怎么处理？",
           choices: [
             { id: "a", label: "让客人免费升级，提升满意度", ok: false,
               hint: "完全免费升级会损失应得收益，应设计为有价升级。" },
@@ -353,7 +353,7 @@ window.RMCQuestData = {
         },
         {
           step: "竞争反应",
-          role: "竞品降价，而你判断自身差异化较强（位置与品牌占优）。",
+          role: "竞品降价，而您判断自身差异化较强（位置与品牌占优）。",
           ask: "怎么做？",
           choices: [
             { id: "a", label: "立刻跟降到同一水平", ok: false,
@@ -362,11 +362,11 @@ window.RMCQuestData = {
             { id: "c", label: "反其道涨价彰显定位", ok: false,
               hint: "竞品降价期贸然涨价，会流失比平时更多的客人。" }
           ],
-          why: "竞品降价不等于你必须跟。先看自身可替代性：差异化强可守价、打价值战；可替代强才适度跟。分层应对才能既守住 RevPAR 又护住价格体系。"
+          why: "竞品降价不等于您必须跟。先看自身可替代性：差异化强可守价、打价值战；可替代强才适度跟。分层应对才能既守住 RevPAR 又护住价格体系。"
         },
         {
           step: "预测修正",
-          role: "距入住还有 14 天，你的预测是 80% 出租率，但实际预订进度明显落后。",
+          role: "距入住还有 14 天，您的预测是 80% 出租率，但实际预订进度明显落后。",
           ask: "怎么做？",
           choices: [
             { id: "a", label: "坚持原预测不变", ok: false,
@@ -379,7 +379,7 @@ window.RMCQuestData = {
         },
         {
           step: "收益会议",
-          role: "你要为酒店建立收益管理机制。",
+          role: "您要为酒店建立收益管理机制。",
           ask: "最关键的是什么？",
           choices: [
             { id: "a", label: "收益经理一个人做决策就行", ok: false,
@@ -403,7 +403,7 @@ window.RMCQuestData = {
       stages: [
         {
           step: "场景研判",
-          role: "城市将办大型展会，你负责旗下酒店 + 周边餐厅 + 景区的联合收益。",
+          role: "城市将办大型展会，您负责旗下酒店 + 周边餐厅 + 景区的联合收益。",
           ask: "第一步研判什么？",
           choices: [
             { id: "a", label: "直接全场涨价一倍", ok: false,
@@ -416,7 +416,7 @@ window.RMCQuestData = {
         },
         {
           step: "容量规划",
-          role: "你管的一家热门景区，节假日爆满、体验崩塌、投诉激增。",
+          role: "您管的一家热门景区，节假日爆满、体验崩塌、投诉激增。",
           ask: "容量怎么管？",
           choices: [
             { id: "a", label: "来多少放多少，满负荷赚最多", ok: false,
@@ -429,7 +429,7 @@ window.RMCQuestData = {
         },
         {
           step: "收益保卫战",
-          role: "竞品在展会期发动价格战，你的酒店定位偏高端。",
+          role: "竞品在展会期发动价格战，您的酒店定位偏高端。",
           ask: "怎么守住收益？",
           choices: [
             { id: "a", label: "立刻全面跟降到同一水平", ok: false,
@@ -442,7 +442,7 @@ window.RMCQuestData = {
         },
         {
           step: "跨渠道协同",
-          role: "你要把酒店、餐厅、景区票打包成'展会通票'。",
+          role: "您要把酒店、餐厅、景区票打包成'展会通票'。",
           ask: "渠道与定价怎么协同？",
           choices: [
             { id: "a", label: "各渠道各定价，通票只是简单相加打折", ok: false,
@@ -468,7 +468,7 @@ window.RMCQuestData = {
         },
         {
           step: "航空收益",
-          role: "你接手一家航空公司某条航线的舱位管理。",
+          role: "您接手一家航空公司某条航线的舱位管理。",
           ask: "航司收益管理的核心抓手是什么？",
           choices: [
             { id: "a", label: "只卖全价票", ok: false,
@@ -481,7 +481,7 @@ window.RMCQuestData = {
         },
         {
           step: "餐饮收益",
-          role: "你管理一家热门餐厅：晚市排队，午市大量空位。",
+          role: "您管理一家热门餐厅：晚市排队，午市大量空位。",
           ask: "怎么提升总收益？",
           choices: [
             { id: "a", label: "延长排队，反正有人来", ok: false,
@@ -507,7 +507,7 @@ window.RMCQuestData = {
         },
         {
           step: "娱乐影院",
-          role: "你负责一家影院的排片与票价。",
+          role: "您负责一家影院的排片与票价。",
           ask: "怎么最大化收益？",
           choices: [
             { id: "a", label: "热门片全排最高价场次", ok: false,
@@ -520,7 +520,7 @@ window.RMCQuestData = {
         },
         {
           step: "剧院演出",
-          role: "你运营一场演出，票分多个档位与区位。",
+          role: "您运营一场演出，票分多个档位与区位。",
           ask: "定价与销售节奏怎么定？",
           choices: [
             { id: "a", label: "开票即全部放出，早买早得", ok: false,
@@ -546,7 +546,7 @@ window.RMCQuestData = {
         },
         {
           step: "集团治理",
-          role: "你负责集团旗下 20 家门店的收益管理。",
+          role: "您负责集团旗下 20 家门店的收益管理。",
           ask: "集团层面该管什么？",
           choices: [
             { id: "a", label: "逐店下达价格指令", ok: false,
@@ -572,8 +572,8 @@ window.RMCQuestData = {
         },
         {
           step: "战略伦理",
-          role: "旺季你可以把房价翻三倍，但担心舆论反弹与长期客户流失。",
-          ask: "你怎么决策？",
+          role: "旺季您可以把房价翻三倍，但担心舆论反弹与长期客户流失。",
+          ask: "您怎么决策？",
           choices: [
             { id: "a", label: "能赚就赚，市场说了算", ok: false,
               hint: "极端定价短期收益高，但会引发舆论反噬与长期客户流失。" },

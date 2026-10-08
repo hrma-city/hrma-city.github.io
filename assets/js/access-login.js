@@ -35,7 +35,7 @@
      也能把哈希直接当凭证塞进 localStorage 冒充管理员。
      现在管理员密码只存在于站长自己浏览器的账号表里，源码不含任何秘密。
 
-     首次设置密码：打开 reset-me.html，用恢复码设一个只有你知道的密码。
+     首次设置密码：打开 reset-me.html，用恢复码设一个只有您知道的密码。
      恢复码是 128 位随机值，其哈希公开是安全的（无法爆破）。 */
 
   var KEY_SESSION = 'hrma_session_v2';
@@ -308,7 +308,7 @@
     if (/Failed to fetch|NetworkError|ERR_CONNECTION|ERR_NETWORK|ERR_NAME|Load failed|timeout/i.test(m)) {
       return '连不上云端账号库（Supabase）：' + m.slice(0, 80)
         + '。请确认 Supabase 项目没有暂停/被删除，且本机网络可访问 supabase.co。'
-        + '若只是你自己要用、不给外人开号，把 auth-config.js 里的 HRMA_AUTH_MODE 改回 \'local\' 即可继续用。';
+        + '若只是您自己要用、不给外人开号，把 auth-config.js 里的 HRMA_AUTH_MODE 改回 \'local\' 即可继续用。';
     }
     return '云端账号库返回错误：' + m.slice(0, 140);
   }
@@ -407,7 +407,7 @@
       /* 漏洞②修复：管理员密码不允许在此重设，否则等于没有密码 */
       if (email === ADMIN_EMAIL) {
         say('管理员密码不能在这里重置（否则任何人都能改掉它）。'
-          + '请用你设置的管理员密码登录；确实忘了请在 reset-me.html 按提示恢复。', 'bad');
+          + '请用您设置的管理员密码登录；确实忘了请在 reset-me.html 按提示恢复。', 'bad');
         return;
       }
 

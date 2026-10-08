@@ -65,7 +65,7 @@
     <div id="msg" class="msg"></div>
     <div class="note">
       <b>当前身份：</b><span id="who">—</span><br>
-      · 密码只保存在<b>你这台设备的浏览器</b>里（SHA-256 哈希，不是明文）。<br>
+      · 密码只保存在<b>您这台设备的浏览器</b>里（SHA-256 哈希，不是明文）。<br>
       · 换设备或清除浏览器数据后，需要重新设置密码。<br>
       · <a href="index.html">返回首页</a>
     </div>
@@ -99,7 +99,7 @@
     if(!db||!db.users){ say('本机没有账号表，无法修改。请先退出后重新登录一次。','bad'); $('btn').disabled=false; return; }
 
     var u=db.users.filter(function(x){return x.email===s.email;})[0];
-    if(!u){ say('本机账号表里找不到你的记录。','bad'); $('btn').disabled=false; return; }
+    if(!u){ say('本机账号表里找不到您的记录。','bad'); $('btn').disabled=false; return; }
 
     window.HRMA_GATE_API.sha256(oldPw).then(function(hOld){
       var stored=u.pw||u.password;

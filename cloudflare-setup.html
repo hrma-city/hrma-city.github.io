@@ -50,8 +50,8 @@
 <body>
 <div class="wrap">
 
-<h1>把 HRMA 站点变成「只有你能进」</h1>
-<div class="sub">方案：Cloudflare Pages 托管 + Cloudflare Access 登录 · 全程免费 · <b>第一次做请预留 30–60 分钟</b>（含注册账号与邮箱验证）· 我已把坑填好，分 3 段做完</div><div class="warn" style="margin-top:14px"><b>先把话说在前面，别指望 15 分钟就搞定。</b><br>· <b>我不能保证一次成功</b>。Cloudflare 的界面每年都在改，如果某一步的名字对不上，说明是我这份手册过时了，不是你的问题。<br>· <b>最坏情况不会丢资料</b>：代码在 GitHub 仓库里，任何时候都能重新发布。<br>· <b>顺序很重要</b>：先把新地址验证能用，<b>最后</b>才关 GitHub Pages。中途失败老地址照旧，风险为零。<br>· 真正省时间的地方：我已经把文件都备好了，你只是照着点，不用配置任何代码。</div>
+<h1>把 HRMA 站点变成「只有您能进」</h1>
+<div class="sub">方案：Cloudflare Pages 托管 + Cloudflare Access 登录 · 全程免费 · <b>第一次做请预留 30–60 分钟</b>（含注册账号与邮箱验证）· 我已把坑填好，分 3 段做完</div><div class="warn" style="margin-top:14px"><b>先把话说在前面，别指望 15 分钟就搞定。</b><br>· <b>我不能保证一次成功</b>。Cloudflare 的界面每年都在改，如果某一步的名字对不上，说明是我这份手册过时了，不是您的问题。<br>· <b>最坏情况不会丢资料</b>：代码在 GitHub 仓库里，任何时候都能重新发布。<br>· <b>顺序很重要</b>：先把新地址验证能用，<b>最后</b>才关 GitHub Pages。中途失败老地址照旧，风险为零。<br>· 真正省时间的地方：我已经把文件都备好了，您只是照着点，不用配置任何代码。</div>
 
 <div class="callout">
 <b>为什么必须这么做。</b>现在这个站是 GitHub Pages，纯静态、无服务器。挂在页面上的 JavaScript 访问门只能管「页面」，管不到
@@ -62,12 +62,12 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 <div class="callout danger">
 <b>做之前先知道两件事。</b><br>
 ① Cloudflare 是境外服务，<b>pages.dev 在国内访问可能比现在慢、偶尔不稳</b>。<br>
-② 换域名之后，你在这台电脑上保存的登录状态不会跟着过去（浏览器按域名隔离）。<b>到了新站点还要再用一次恢复码进站</b>——不过那只要 10 秒，见第 4 段。
+② 换域名之后，您在这台电脑上保存的登录状态不会跟着过去（浏览器按域名隔离）。<b>到了新站点还要再用一次恢复码进站</b>——不过那只要 10 秒，见第 4 段。
 </div>
 
 <h2 style="color:#b3261e">第 0 段 · 迁移前，先确认老地址进得去（<b>必须做</b>）</h2>
 <div class="note">这一段<b>在注册 Cloudflare 之前</b>做。原因：等 Access 一开，老地址就会被一起锁住，
-万一那时才发现进不去，你就两头都没得用了。</div>
+万一那时才发现进不去，您就两头都没得用了。</div>
 <div class="step"><div class="num">0</div><div class="body">
 <p>用<b>无痕窗口</b>（Mac 上 <span class="path">Command + Shift + N</span>）打开老地址：</p>
 <p><span class="path">https://hrma-city.github.io/access.html</span></p>
@@ -76,7 +76,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 <p>点 <b>「用恢复码进站」</b> → 应该自动跳到首页，能正常浏览。</p>
 <p>✓ 能进去，说明迁移前的底子是对的，可以放心往下做。</p>
 <p>✗ 进不去：先到 <span class="path">https://hrma-city.github.io/reset-me.html</span> 再填一次上面这个恢复码、设个新密码，
-页面会自动带你进首页。<b>进了再说下一步。</b></p>
+页面会自动带您进首页。<b>进了再说下一步。</b></p>
 </div></div>
 <p class="tip">这一步只要一次就好。之后这台电脑会一直记住登录状态，不用来回填。</p>
 
@@ -85,7 +85,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 <div class="step"><div class="num">1</div><div class="body">
 <div class="t">打开 cloudflare.com，注册一个账号</div>
 <div class="d">用 <span class="path">3984557428@qq.com</span> 注册。注册流程里通常要填手机号，<b>中国大陆手机号可以</b>，收个短信验证码就行。<br>
-注册完会让你选套餐，<b>直接选 free 免费版</b>，别选付费。
+注册完会让您选套餐，<b>直接选 free 免费版</b>，别选付费。
 </div></div></div>
 
 <div class="step"><div class="num">2</div><div class="body">
@@ -105,7 +105,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 <div class="t">填写构建配置</div>
 <table>
 <tr><th style="width:34%">字段</th><th>填什么</th></tr>
-<tr><td>Project name（项目名）</td><td>随便起，比如 <span class="fill">hrma-private</span>。<b>这个就是你的新网址</b>：hrma-private.pages.dev</td></tr>
+<tr><td>Project name（项目名）</td><td>随便起，比如 <span class="fill">hrma-private</span>。<b>这个就是您的新网址</b>：hrma-private.pages.dev</td></tr>
 <tr><td>Production branch</td><td><span class="fill">main</span></td></tr>
 <tr><td>Framework preset</td><td>选 <span class="fill">None</span>（不是 Next、不是 Astro）</td></tr>
 <tr><td>Build commands</td><td><b>留空</b>，不要填任何命令</td></tr>
@@ -115,8 +115,8 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 </div></div></div>
 
 <div class="step"><div class="num">5</div><div class="body">
-<div class="t">记下你的新网址</div>
-<div class="d">形如 <span class="path">https://hrma-private.pages.dev</span>。这就是以后你访问自己站点的新地址，<b>先复制到备忘录</b>。
+<div class="t">记下您的新网址</div>
+<div class="d">形如 <span class="path">https://hrma-private.pages.dev</span>。这就是以后您访问自己站点的新地址，<b>先复制到备忘录</b>。
 </div></div></div>
 
 <div class="step"><div class="num">6</div><div class="body">
@@ -139,7 +139,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 填：
 <ul>
 <li><b>Application name</b>：HRMA 私有站</li>
-<li><b>Application domain / Subdomain</b>：点 <span class="path">Select domain</span>，在列表里挑你的 <span class="path">hrma-private.pages.dev</span></li>
+<li><b>Application domain / Subdomain</b>：点 <span class="path">Select domain</span>，在列表里挑您的 <span class="path">hrma-private.pages.dev</span></li>
 </ul>
 <div>点 <span class="path">Next</span>。</div>
 </div></div></div>
@@ -178,7 +178,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 <li>把某个 zip 的直连地址贴到无痕窗口 → 同样进不去（<b>这一步过了，文件才算真锁住</b>）</li>
 <li><b>迁移后第一次进新网址，要过两道关</b>，这是正常的，别慌：
   <ol>
-    <li><b>第一道：Cloudflare Access</b> —— 填你的邮箱 <span class="path">3984557428@qq.com</span>，
+    <li><b>第一道：Cloudflare Access</b> —— 填您的邮箱 <span class="path">3984557428@qq.com</span>，
         收一个一次性验证码（进 QQ 邮箱「垃圾箱」里找找），填进去。之后这台电脑会一直记住，不再问。</li>
     <li><b>第二道：站内恢复码通道</b> —— <b>换了网址，登录状态不会跟过来</b>
         （浏览器按网址分开存，两个域名互不相通）。所以到了新网址还得用一次恢复码：
@@ -195,7 +195,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 
 <h2>万一出问题</h2>
 <div class="callout">
-<b>收不到验证码邮件：</b>先翻垃圾箱；再试一次；还不行就去 <span class="path">Access → Settings → Authentication → Login methods</span> 改成 <b>GitHub 登录</b>或<b>Google 登录</b>，重做第 9～11 步。告诉我，我给你那两条路径的具体步骤。<br><br>
+<b>收不到验证码邮件：</b>先翻垃圾箱；再试一次；还不行就去 <span class="path">Access → Settings → Authentication → Login methods</span> 改成 <b>GitHub 登录</b>或<b>Google 登录</b>，重做第 9～11 步。告诉我，我给您那两条路径的具体步骤。<br><br>
 <b>Cloudflare 注册要手机号但收不到短信：</b>换一个运营商，或用 voice-code 语音验证码。<br><br>
 <b>pages.dev 打开太慢：</b>Cloudflare Pages 也支持绑自己的域名（<span class="path">Custom domains</span>）。买个便宜的境外域名（.xyz / .top 一年几十块）绑上去就行，不需要国内备案。<br><br>
 <b>实在做不下去：</b>老地址只要没关 GitHub Pages 就还能用，第 6 步不做就没有任何损失，随时可以喊我。

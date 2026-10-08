@@ -36,7 +36,7 @@
 <main class="site-main co-wrap">
 
   <div class="cm-eyebrow">结算与支付 · Checkout</div>
-  <h1 class="cm-section-title" style="font-size:26px">完成你的订单</h1>
+  <h1 class="cm-section-title" style="font-size:26px">完成您的订单</h1>
 
   <!-- 当前订单 -->
   <div class="co-box" id="orderBox"><p class="cm-hint">加载中…</p></div>
@@ -76,7 +76,7 @@
 
   function payCfg(){ return window.HRMA_PAY||{}; }
 
-  // 当前登录用户的邮箱（写进邮件正文，便于你核对会员身份）
+  // 当前登录用户的邮箱（写进邮件正文，便于您核对会员身份）
   async function myEmail(){
     try{
       if(window.HRMAuth && window.HRMAuth.session){
@@ -131,11 +131,11 @@
     var em=await myEmail();
     if(btn){ btn.disabled=false; btn.textContent='发邮件通知我们'; }
     var subject='付款方式咨询 · '+kind+' · ¥'+amount;
-    var body='你好，\n\n我在 RMC收益管理社区下了单，想了解付款方式。\n\n'
+    var body='您好，\n\n我在 RMC收益管理社区下了单，想了解付款方式。\n\n'
       +'订单号：'+o.id+'\n'
       +'项目：'+kind+(o.ref_id?(' / '+o.ref_id):'')+'\n'
       +'金额：¥'+amount+'\n'
-      +'我的注册邮箱：'+(em||'（请填写你的注册邮箱）')+'\n\n'
+      +'我的注册邮箱：'+(em||'（请填写您的注册邮箱）')+'\n\n'
       +'请告知付款方式，谢谢！';
     window.location.href='mailto:'+to
       +'?subject='+encodeURIComponent(subject)

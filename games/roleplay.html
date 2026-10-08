@@ -18,7 +18,7 @@
 <script src="../assets/js/access-gate.js?v=v11"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>角色扮演 · 收益经理的一天 · 收益管理游戏</title>
-<meta name="description" content="可玩的角色扮演经营情景模拟：你扮演收益经理，在超售、团队询价、竞对降价、客人投诉、尾单甩卖等真实情境里做决策，四个仪表此消彼长，每步都标注依据法典哪张表。">
+<meta name="description" content="可玩的角色扮演经营情景模拟：您扮演收益经理，在超售、团队询价、竞对降价、客人投诉、尾单甩卖等真实情境里做决策，四个仪表此消彼长，每步都标注依据法典哪张表。">
 <link rel="stylesheet" href="../assets/css/main.css">
 <link rel="stylesheet" href="../assets/css/site.css">
 <link rel="stylesheet" href="../assets/css/community.css">
@@ -80,13 +80,13 @@
     <div class="cm-eyebrow">角色扮演 · 模拟</div>
     <h1 style="font-size:25px;font-weight:800;color:var(--navy);margin:0 0 6px">收益经理的一天（可玩版）</h1>
     <p style="font-size:14px;color:var(--ink-2);line-height:1.8;margin:0 0 4px">
-      你是杭州滨江云璟酒店（320 间房）的<b>收益经理</b>。今天周五、明天会议旺季。事情会一件件找上门，
-      你只管选——<b>四个仪表此消彼长</b>：收益、客人、业主、团队。任何一个见底就难收场，全部拉满的人几乎不存在。
-      每步都告诉你依据《操作法典》哪张表。
+      您是杭州滨江云璟酒店（320 间房）的<b>收益经理</b>。今天周五、明天会议旺季。事情会一件件找上门，
+      您只管选——<b>四个仪表此消彼长</b>：收益、客人、业主、团队。任何一个见底就难收场，全部拉满的人几乎不存在。
+      每步都告诉您依据《操作法典》哪张表。
     </p>
 
     <div class="rp-rolebar">
-      <span style="font-size:13px;color:var(--ink-3)">你扮演：</span>
+      <span style="font-size:13px;color:var(--ink-3)">您扮演：</span>
       <button class="rp-role on" data-role="rm">收益经理（主玩）</button>
       <button class="rp-role" data-role="fd" disabled style="opacity:.5">前台（NPC）</button>
       <button class="rp-role" data-role="guest" disabled style="opacity:.5">客人（NPC）</button>
@@ -119,7 +119,7 @@
   var $=function(id){return document.getElementById(id);};
   // 情境图：每个节点一组选择，d 为四仪表增量，next 为下一节点 id，"END" 表示结局
   var NODES={
-    start:{who:"08:00 · 早会",txt:"销售总监甩给你一份周末预测：明天会议旺季，今天周五晚已满房 96%。他问你『今天基调怎么定？』",step:"情境 1 / 7",
+    start:{who:"08:00 · 早会",txt:"销售总监甩给您一份周末预测：明天会议旺季，今天周五晚已满房 96%。他问您『今天基调怎么定？』",step:"情境 1 / 7",
       choices:[
         {t:"<b>先看价格弹性再定</b>：调取近 4 周同档日型数据，确认提价空间后动手",d:{rev:3,guest:1,owner:2,team:2},next:"ob",fb:"稳。先有数据再动手，避免拍脑袋。对应《法典》表 A（价格弹性与出租率）与表 N（周度／月度节奏）。",tab:"表A · 表N"},
         {t:"<b>直接把今天 BAR 顶到上限 +20%</b>：满房了还怕卖不掉？",d:{rev:6,guest:-4,owner:4,team:-1},next:"ob",fb:"敢提价是本事，但满房日硬顶价可能把最后一小撮价格敏感客推给竞对，且前台后续难卖。对应表 A 上限规则。",tab:"表A"},
@@ -137,13 +137,13 @@
         {t:"<b>全接，单价好谈</b>：40 间到手再说",d:{rev:-5,guest:1,owner:1,team:1},next:"ota",fb:"今天已 90%，低价接大团会挤掉高价散客，单位收益反而降。表 G 会提示『置换损失』。",tab:"表G"},
         {t:"<b>一口回绝</b>：满房日不接团队",d:{rev:2,guest:1,owner:-2,team:0},next:"ota",fb:"满房日拒低价团没错，但完全不接可能伤销售关系、丢长期会议客。表 G 建议『能置换就接一部分』。",tab:"表G"}
       ]},
-    ota:{who:"14:00 · 竞对弹窗",txt:"收益系统提示：隔壁竞品把今晚同档房降价 12%。你的直销占比 35%。怎么应对？",step:"情境 4 / 7",
+    ota:{who:"14:00 · 竞对弹窗",txt:"收益系统提示：隔壁竞品把今晚同档房降价 12%。您的直销占比 35%。怎么应对？",step:"情境 4 / 7",
       choices:[
         {t:"<b>守价 + 推直订</b>：用会员价/官网权益承接价格敏感客，不全盘跟降",d:{rev:1,guest:2,owner:1,team:2},next:"complaint",fb:"理智。表 H（渠道策略）讲『直订优先』——跟降伤价且养 OTA 依赖；用直订权益留住客更划算。",tab:"表H"},
         {t:"<b>全面跟降 12%</b>：不能让竞对抢走",d:{rev:-4,guest:2,owner:-3,team:0},next:"complaint",fb:"价跟了，量未必回得来，还把行业价格带拉低、佣金更贵。表 H 通常不建议满盘跟。",tab:"表H"},
         {t:"<b>只对 OTA 渠道降</b>：直销不降",d:{rev:-1,guest:2,owner:-1,team:0},next:"complaint",fb:"折中但治标；长期会训练客人只认 OTA 低价。表 H 强调『直订占比』是护城河。",tab:"表H"}
       ]},
-    complaint:{who:"15:40 · 客诉升级",txt:"今早被 walk 的那位保证订房客人，在朋友圈发了长文投诉，并@了酒店官号。前台已安抚。你要不要出面？",step:"情境 5 / 7",
+    complaint:{who:"15:40 · 客诉升级",txt:"今早被 walk 的那位保证订房客人，在朋友圈发了长文投诉，并@了酒店官号。前台已安抚。您要不要出面？",step:"情境 5 / 7",
       choices:[
         {t:"<b>亲自致歉 + 实质补偿</b>：升级房型券 + 公开诚恳回应（不甩锅）",d:{rev:-2,guest:6,owner:0,team:1},next:"tail",fb:"对。表 M 的服务补救原则：客人见底时，真诚补救能把口碑拉回甚至更高。掩盖只会更糟。",tab:"表M"},
         {t:"<b>让前台处理，自己不露面</b>：小事",d:{rev:0,guest:-4,owner:0,team:-2},next:"tail",fb:"客人仪表已低还躲，舆情易扩大。表 M 建议『高层在关键时刻出面』。",tab:"表M"},
@@ -155,7 +155,7 @@
         {t:"<b>公开大幅甩卖</b>：全场 5 折",d:{rev:-2,guest:3,owner:-2,team:0},next:"report",fb:"尾单清了但公开破价会拉低品牌价格带、伤明天会议日。表 H 强调『尾单要隔离渠道』。",tab:"表H"},
         {t:"<b>留着，明天也许能卖</b>：不降",d:{rev:-3,guest:0,owner:-2,team:0},next:"report",fb:"易逝库存不过夜。留到明天大概率仍是空房，白丢收入。表 H 的尾单逻辑就是『今夜不定就归零』。",tab:"表H"}
       ]},
-    report:{who:"18:30 · 收益例会",txt:"你要向业主汇报今日收益。数据：RevPAR 略高于基准，但客人满意度因上午 walk 事件下滑。怎么讲？",step:"情境 7 / 7",
+    report:{who:"18:30 · 收益例会",txt:"您要向业主汇报今日收益。数据：RevPAR 略高于基准，但客人满意度因上午 walk 事件下滑。怎么讲？",step:"情境 7 / 7",
       choices:[
         {t:"<b>如实讲 + 改进</b>：亮 RevPAR 与净利，坦承 walk 事件并已补救，给下周表 E 复核动作",d:{rev:2,guest:2,owner:3,team:3},next:"END",fb:"专业。表 N（周度／月度节奏）要求用统一指标讲清取舍，不藏问题、给对策。业主最怕『只报喜』。",tab:"表N"},
         {t:"<b>只报 RevPAR 新高</b>：不提客诉",d:{rev:1,guest:-3,owner:2,team:-2},next:"END",fb:"短期好看，隐瞒服务隐患会在复盘中爆雷，且团队仪表受损。表 N 主张透明。",tab:"表N"},
@@ -213,7 +213,7 @@
     var low=["rev","guest","owner","team"].filter(function(k){return G[k]<=15;});
     var tone=low.length?"no":(G.rev>=55&&G.owner>=55?"ok":"part");
     fb.className="rp-fb show "+tone;
-    fb.innerHTML='<div class="fb-t">你的选择</div>'+c.fb+
+    fb.innerHTML='<div class="fb-t">您的选择</div>'+c.fb+
       '<div class="rp-deltas">'+deltaHtml(c.d)+'</div>'+
       (low.length?'<div style="margin-top:8px;color:var(--danger)">⚠️ 注意：'+low.map(function(k){return GMETA[k].l;}).join("、")+' 已见底，再伤就难收场。</div>':'')+
       '<span class="fb-tab">依据 '+c.tab+'</span>';
@@ -242,13 +242,13 @@
       desc="收益与业主双赢，客人、团队没拖后腿。这是教科书追求的『综合贡献最大化』（表 K）——不是把单一指标拉满，而是让四端都站得住。继续用表 A/E/G/H/J 这套组合拳。";
     } else if(maxK==="guest"){
       em="😊"; badge="客人至上型";
-      desc="你把客人满意度守得最高，口碑资产厚。但要小心：若收益/业主偏低，长期业主会质疑回报。下次可在满房日更敢提价（表 A）、团队置换更精（表 G）。";
+      desc="您把客人满意度守得最高，口碑资产厚。但要小心：若收益/业主偏低，长期业主会质疑回报。下次可在满房日更敢提价（表 A）、团队置换更精（表 G）。";
     } else if(maxK==="owner"){
       em="💼"; badge="业主宠儿型";
-      desc="业主仪表最高，短期最讨喜。但别为了业主牺牲客人与团队太久——表 N 例会的透明汇报能帮你平衡长期关系。";
+      desc="业主仪表最高，短期最讨喜。但别为了业主牺牲客人与团队太久——表 N 例会的透明汇报能帮您平衡长期关系。";
     } else if(maxK==="team"){
       em="🤝"; badge="团队凝聚型";
-      desc="团队仪表最高，执行最顺。收益管理落地靠前台/销售配合，你这点做得好。补强可在数据驱动决策（表 A/J）上再狠一点。";
+      desc="团队仪表最高，执行最顺。收益管理落地靠前台/销售配合，您这点做得好。补强可在数据驱动决策（表 A/J）上再狠一点。";
     } else {
       em="📊"; badge="平衡经营型";
       desc="四端都没崩、也没特别突出——这是新手最稳的结局。下一步目标：在守住底线的同时，把收益/业主推过 70（表 A 提价、表 G 置换、表 H 尾单清仓）。";

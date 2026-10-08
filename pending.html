@@ -54,7 +54,7 @@
 <div class="card">
   <div class="hd">
     <h1>申请状态</h1>
-    <div class="sub">这里显示你提交的访问申请当前处于哪一步。</div>
+    <div class="sub">这里显示您提交的访问申请当前处于哪一步。</div>
   </div>
   <div class="bd">
     <div class="ic info" id="ic">ℹ</div>
@@ -146,9 +146,9 @@
     var email = String((s && s.email) || '').toLowerCase();
     if (!email) {
       render('info', '还没有申请记录',
-        '你没有进行中的访问申请。填一次申请表单即可开通账号。',
+        '您没有进行中的访问申请。填一次申请表单即可开通账号。',
         null,
-        '本站现在跑在<b>本地模式</b>：申请记录与审核名单都保存在<b>你打开网站的那台设备的浏览器</b>里，不会上传到任何服务器。',
+        '本站现在跑在<b>本地模式</b>：申请记录与审核名单都保存在<b>您打开网站的那台设备的浏览器</b>里，不会上传到任何服务器。',
         [['去提交申请', 'register.html?next=' + encodeURIComponent(nextTarget()), 'pri'],
          ['用恢复码进站（站长）', 'access.html', 'gh']]);
       return;
@@ -161,7 +161,7 @@
       /* 有会话但账号表里没这个人：最常见是「清过缓存 / 换过设备 / 别人在自己电脑注册的」。
          以前这种情况会显示「状态未知」，用户只能干等。这里给出明确出口。 */
       render('info', '本机没有这个账号的记录',
-        '你这台设备的浏览器里，没有 <b>' + esc(email) + '</b> 的申请记录。'
+        '您这台设备的浏览器里，没有 <b>' + esc(email) + '</b> 的申请记录。'
         + '最常见的原因是：申请是在<b>另一台设备</b>上提交的，或者在别的设备上清过浏览器数据。',
         null,
         '本地模式下，申请记录<b>只保存在提交时用的那台设备</b>上，换设备不跟着走。',
@@ -179,7 +179,7 @@
 
     if (rec.status === 'approved') {
       render('ok', '已通过，正在进入…',
-        '管理员已经通过了 <b>' + esc(rec.email) + '</b> 的访问申请。正在带你进去，如果没有自动跳转请手动点下面的按钮。',
+        '管理员已经通过了 <b>' + esc(rec.email) + '</b> 的访问申请。正在带您进去，如果没有自动跳转请手动点下面的按钮。',
         rows, null,
         [['进入本站', nextTarget(), 'pri'],
          ['返回首页', 'index.html', 'gh']]);
@@ -189,7 +189,7 @@
 
     if (rec.status === 'rejected') {
       render('no', '申请未通过',
-        '管理员没有通过 <b>' + esc(rec.email) + '</b> 的访问申请。你可以重新提交一份申请，管理员会在后台看到。',
+        '管理员没有通过 <b>' + esc(rec.email) + '</b> 的访问申请。您可以重新提交一份申请，管理员会在后台看到。',
         rows,
         '如果想说明情况，可以直接邮件联系社区。',
         [['重新提交申请', 'register.html?next=' + encodeURIComponent(nextTarget()), 'pri'],
@@ -203,11 +203,11 @@
       '我们已收到 <b>' + esc(rec.email) + '</b>（' + esc(rec.name || '未填姓名') + '）的访问申请，当前状态：<b>待审核</b>。',
       rows,
       isAdminSelf
-        ? '你用的是管理员邮箱：请到审核后台点「通过」，通过后本页会自动放行。'
+        ? '您用的是管理员邮箱：请到审核后台点「通过」，通过后本页会自动放行。'
         : '<b>当前是本地模式，管理员只能在「提交申请的那台设备」上审核通过。</b>'
           + '请先登录管理员账号，打开 <b>admin-approve.html</b>（访问审核后台），在「待审核」里点通过；'
           + '通过后再回到本页（或重新登录）即可进入。'
-          + '如果想让申请人在他自己电脑上也能提交、你也能在他那台设备上审核，需要先接入云端账号库。',
+          + '如果想让申请人在他自己电脑上也能提交、您也能在他那台设备上审核，需要先接入云端账号库。',
       [['去审核后台（管理员）', 'admin-approve.html', 'pri'],
        ['重新提交申请', 'register.html?next=' + encodeURIComponent(nextTarget()), 'sec'],
        ['返回首页', 'index.html', 'gh']]);
@@ -241,7 +241,7 @@
         var st = p ? String(p.status || 'pending') : 'noprofile';
         if (st === 'approved') { location.replace(nextTarget()); return; }
         if (st === 'rejected') {
-          render('no', '申请未通过', '很抱歉，你的访问申请未通过审核。', null, p && p.note ? esc(p.note) : null,
+          render('no', '申请未通过', '很抱歉，您的访问申请未通过审核。', null, p && p.note ? esc(p.note) : null,
             [['重新提交申请', 'register.html', 'pri'], ['联系社区', 'mailto:rm-community@qq.com', 'gh']]);
           return;
         }
@@ -250,14 +250,14 @@
              401、网络抖动、刚注册未落库都会走到这里。别把它说成「注册失败」，
              那会让申请人白白再注册一次，把真的申请记录顶掉。 */
           render('info', '暂时读不到申请记录',
-            '云端没能返回你的申请状态。这多数是网络或权限临时问题，<b>不代表申请失败</b>。'
+            '云端没能返回您的申请状态。这多数是网络或权限临时问题，<b>不代表申请失败</b>。'
             + '请先刷新重试；仍然看不到，再考虑重新提交（重新提交前建议先联系管理员确认）。',
             null, null,
             [['刷新重试', location.pathname, 'pri'],
              ['重新提交申请', 'register.html', 'sec']]);
           return;
         }
-        render('wait', '待验证邮箱', '你的账号已注册，正在等待邮箱验证与管理审核。确认邮件查收后即可登录。',
+        render('wait', '待验证邮箱', '您的账号已注册，正在等待邮箱验证与管理审核。确认邮件查收后即可登录。',
           [['邮箱', s.email]], null,
           [[s.email === ADMIN ? '去审核后台' : '返回首页', s.email === ADMIN ? 'admin-approve.html' : 'index.html', 'pri']]);
       })

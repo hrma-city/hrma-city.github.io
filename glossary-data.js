@@ -65,7 +65,7 @@ window.GJP_GLOSSARY = [
   { k:"最短住期（MinLOS）", a:["MinLOS","minlos","最短住期","最小住期","连住","最少住"], def:"【Minimum Length of Stay，缩写 MinLOS】要求客人最少住几晚。需求强时设 2–3 晚，可以过滤掉「只住一晚还想拿低价」的客人，把房留给住得久、价值更高的需求；需求弱时要取消，否则会挡住客人。" },
   { k:"升档 / 免费升级（Upgrade）", a:["升档","升级","upgrade","Upgrade","免费升级","房型升级"], def:"【Upgrade】把客人免费安排到更高等级的房型。常用于三种情况：低价房型售罄、会员权益、以及服务补救（如 Walk 或投诉后）。升级要优先给高价值客人和会员，不能随便给，否则高价房会卖不出去。" },
   { k:"团队 / 团体（Group）", a:["团队","团体","group","Group","团房","会议团"], def:"【Group】一次性预订较多房间的客源（常见 10 间以上），如会议团、旅游团、企业差旅。团队价通常低于散客，判断能不能接要看置换分析：算清楚它挤掉了多少本可散卖的房间。" },
-  { k:"协议价（Corporate / Negotiated Rate）", a:["协议价","公司价","协议客","corporate rate","negotiated rate","大客户价"], def:"【Negotiated Rate】与企业客户约定的长期房价，通常打折（如 BAR 的 7 折）换取稳定的量。风险在于价格刚性：合同里必须写有效期与保量条款，否则市场涨了你也涨不了，ADR 会被长期锁死。" },
+  { k:"协议价（Corporate / Negotiated Rate）", a:["协议价","公司价","协议客","corporate rate","negotiated rate","大客户价"], def:"【Negotiated Rate】与企业客户约定的长期房价，通常打折（如 BAR 的 7 折）换取稳定的量。风险在于价格刚性：合同里必须写有效期与保量条款，否则市场涨了您也涨不了，ADR 会被长期锁死。" },
   { k:"保证订房（Guaranteed Reservation）", a:["保证订房","担保订房","guaranteed","担保","预付房"], def:"【Guaranteed Reservation】用信用卡或预付担保的预订，客人不来也会收费。它是履约义务最强的一类订单——超售扣减时要从不保证的订单开始，保证订房优先保留；walk 掉保证订房最容易引发公开投诉。" },
   { k:"预付价 / 提前付费（Advance Purchase / Prepay）", a:["预付","预付价","advance purchase","prepay","不可取消价"], def:"【Advance Purchase】提前付款、通常不可取消或退改的房价，比可取消价低。对酒店的价值是锁定收入、大幅降低 No-show；对客人的价值是便宜。提高预付占比是降低 No-show 最有效的手段之一。" },
   { k:"取消政策（Cancellation Policy）", a:["取消政策","退改","cancellation policy","免费取消","扣费规则"], def:"【Cancellation Policy】客人取消预订时是否收费、提前多久免费的规定。它直接决定取消率与 No-show 率，是超售计算的输入参数之一。宽松政策提高转化但推高 No-show，严格政策反之。" },
