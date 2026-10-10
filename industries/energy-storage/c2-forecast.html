@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="../../";</script>
+<meta charset="UTF-8">
+<script src="../../assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="../../auth-config.js"></script>
+<script src="../../assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C2 需求预测 · 储能专业课 · RMC收益管理社区</title>
+<meta name="description" content="储能收益管理专业课 C2 需求预测。">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/community.css">
+<style>.lst { padding-left:20px; }
+.lst li { font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }
+.qz { border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }
+.qz-q { font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }
+.qz-o { display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }
+.qz-o:hover { border-color:var(--navy-3); background:#F6F9FC; }
+.qz-o.ok { border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }
+.qz-o.no { border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }
+.qz-why { display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }
+.qz-why.on { display:block; }
+</style>
+</head>
+<body data-auth="protected">
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 储能专业课</a>
+  <div class="cm-eyebrow" style="margin-top:14px">储能专业课 · C2</div>
+  <h1 class="cm-section-title" style="font-size:28px">需求预测</h1>
+  <p class="cm-section-lead">储能的「需求」不是客户订单，而是「每个时段值不值得充、值不值得放」——预测对象是日前电价曲线（峰谷时段划分与价差幅度）、新能源出力与负荷曲线、以及电网的辅助服务调用需求。它是一年前就要做、一天前要定、一刻钟还要改的高频预测。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心要点</div>
+    <h2 class="cm-section-title">四条要记住的</h2>
+    <ol class="lst"><li><b>分层预测，各管一件事。</b>年度/季度级服务循环预算分配、检修窗口安排与租赁合同谈判；日前（D-1）级服务申报充放曲线与报价；日内（15 分钟 / 小时级）服务滚动修正与偏差控制；实时级服务辅助服务指令响应。</li><li><b>数据来源要成体系。</b>电力交易中心日前与实时出清价（含分时节点电价）、系统负荷预测、光伏与风电出力预测、电网调度指令与辅助服务需求、气象数据（温度、辐照、风速）、机组检修与线路检修计划、电价机制与补贴政策文件、历史 SOC 与执行偏差记录。</li><li><b>事件驱动是主要误差源。</b>峰谷时段划分与分时电价目录调整、迎峰度夏与度冬的极端负荷、新能源大发导致的午间价格塌陷（鸭子曲线）、节假日负荷骤降、电网故障与调频需求激增、现货市场负电价、临近场站的集中投产带来的报价踩踏。</li><li><b>误差代价高度不对称。</b>高估价差→充了电放不出去或放电时段价格低于充电成本，白白消耗循环还倒贴效率损失；低估价差→错过全年最好的几十个窗口；辅助服务需求预测偏差→中标后无法履约，直接产生考核罚款并影响后续准入。</li></ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">要点对照</div>
+    <h2 class="cm-section-title">核心指标一览</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>定义 / 公式</th><th>说明</th></tr></thead>
+      <tbody><tr><td>日峰谷价差</td><td>日最高价时段均价 − 日最低价时段均价（元 / kWh）</td><td>套利收入的分子，需按工作日 / 周末 / 节假日分桶</td></tr><tr><td>价差时段时长</td><td>价差超过净收益门槛的连续时段小时数</td><td>与功率-容量配比共同决定当日可捕获电量</td></tr><tr><td>电价预测偏差</td><td>|预测价 − 实际出清价| ÷ 实际出清价（按小时统计）</td><td>决定充放曲线申报的保守或激进程度</td></tr><tr><td>新能源出力预测偏差</td><td>|预测出力 − 实际出力| ÷ 装机容量</td><td>光伏大发时段价格塌陷的主要来源</td></tr><tr><td>负荷预测偏差</td><td>|预测负荷 − 实际负荷| ÷ 实际负荷</td><td>极端天气日偏差可达 5% 以上，直接改变峰谷形态</td></tr><tr><td>辅助服务调用频次</td><td>调频 / 备用被调用次数与累计里程（次 / 日、MW·h）</td><td>决定要为辅助服务预留多少功率与 SOC 空间</td></tr></tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">这个行业容易踩的坑</h2>
+    <ul class="lst"><li>用历史均价推未来价差——峰谷价差的分布是右偏的，全年一半以上的收益来自几十个极端日，用均值排计划必然在关键时刻没有额度。</li><li>只看日前价不看实时偏差——日前计划排得漂亮，实时价格反转后按计划执行就变成高价充低价放。</li><li>忽略鸭子曲线——午间光伏大发把价格打到谷底，传统「午高峰」经验完全失效，按旧经验排的充电时段反而踩在最贵的位置。</li><li>忽略 SOC 与功率约束对「可捕获量」的削减——预测出一个 4 小时的高价窗口，但 2 小时系统只能放 2 小时，按 4 小时申报必然偏差。</li></ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题</h2>
+    <div class="qz"><div class="qz-q">第 1 题　储能运行计划中，日前预测与日内滚动修正的关系应该是？</div><button class="qz-o" data-i="0" data-k="1">A. 日前计划一经申报即严格执行，不再修改</button><button class="qz-o" data-i="1" data-k="1">B. 日前定大方向与容量分配，日内按实时价格与 SOC 实际状态滚动修正，并控制偏差考核</button><button class="qz-o" data-i="2" data-k="1">C. 只做日内预测，无需日前申报</button><button class="qz-o" data-i="3" data-k="1">D. 以月度均价为准做统一策略，不做小时级预测</button><div class="qz-why" id="why1"><b>解析 ·</b> 电力市场要求日前申报（用于市场出清与电网安全校核），但实时价格与新能源出力会显著偏离日前预测，若机械执行会出现「计划放电时段实际是低价」的倒挂。正确做法是日前锁定大方向（今天放不放、放多少循环额度），日内按实时价格、实际 SOC 与功率可用状态滚动修正，同时把修正幅度控制在偏差考核容忍范围内。只做日内无法参与日前市场，用月度均价则完全抓不住小时级价差。</div></div><div class="qz"><div class="qz-q">第 2 题　某日光伏大发导致午间 10:00–14:00 现货价格接近零、部分时段为负。对储能站的正确应对是？</div><button class="qz-o" data-i="0" data-k="2">A. 按常规策略在午间放电，因为历史上午间是负荷高峰</button><button class="qz-o" data-i="1" data-k="2">B. 把充电时段从夜间谷段调整到午间低价段，并把放电额度留给傍晚爬坡时段</button><button class="qz-o" data-i="2" data-k="2">C. 停机不参与，避免风险</button><button class="qz-o" data-i="3" data-k="2">D. 全天提高充放次数以摊薄成本</button><div class="qz-why" id="why2"><b>解析 ·</b> 新能源大比例接入后负荷曲线演化为鸭子曲线：午间光伏大发压低甚至打负价格，真正的价格尖峰移到日落后的爬坡时段（17:00–21:00）。储能应把充电窗口前移到午间低价段，把有限的放电额度留给傍晚尖峰，这就是「峰谷价差捕获率」的来源。按历史经验在午间放电会踩在最低价，停机则完全放弃套利，盲目增加次数会透支循环额度且违背度电净收益门槛。</div></div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>对应通用内核：</b>K01 需求预测 · K02 动态定价 · K03 库存控制 · K04 渠道管理　|　<b>行业：</b><a href="../../energy-storage.html">储能详解</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="index.html">储能全部课程</a>
+      <a class="cm-btn cm-btn-ghost" href="../../core.html">学通用内核</a>
+      <a class="cm-btn cm-btn-ghost" href="../../calc-templates.html#energy-storage">储能收益测算模板</a>
+    </div>
+    <div class="cm-btns" style="margin-top:10px"><a class="cm-btn cm-btn-ghost" href="c1-metrics.html">← C1 指标体系</a><a class="cm-btn cm-btn-ghost" href="c3-pricing.html">C3 动态定价 →</a></div>
+  </section>
+</main>
+<script src="../../assets/js/app.js"></script>
+<script>
+(function(){
+  var ANS = [1, 1];
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = parseInt(btn.getAttribute('data-k'), 10);
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === ANS[k-1]) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>

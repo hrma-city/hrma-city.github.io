@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<meta charset="utf-8">
+<script src="assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>场景化锻炼 · 渠道净价与配额（不靠系统）</title>
+<style>
+  :root{--navy:#0f2a4a;--navy2:#12365c;--gold:#e8b84b;--gold2:#c99a3f;--ink:#1d2433;--mut:#8a94a6;--line:#e3e8f0;--ok:#1f9d6b;--bad:#d8503e;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#eef2f7;color:var(--ink);line-height:1.7;}
+  .top{background:var(--navy);color:#fff;padding:22px 24px;}
+  .top h1{margin:0;font-size:20px;}
+  .top p{margin:6px 0 0;color:#cdd9e8;font-size:13px;}
+  .wrap{max-width:860px;margin:0 auto;padding:22px 18px 60px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0;box-shadow:0 2px 10px rgba(15,42,74,.05);}
+  .tag{display:inline-block;background:var(--gold);color:#3a2c08;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:10px;}
+  h2{font-size:17px;margin:0 0 10px;color:var(--navy2);}
+  .data{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0;}
+  .cell{background:#f4f7fb;border:1px solid var(--line);border-radius:8px;padding:10px 12px;}
+  .cell b{display:block;font-size:18px;color:var(--navy);}
+  .cell span{font-size:12px;color:var(--mut);}
+  .opts{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
+  button.opt{appearance:none;border:1px solid var(--navy2);background:#fff;color:var(--navy2);font-size:15px;font-weight:600;padding:12px 18px;border-radius:10px;cursor:pointer;transition:.15s;flex:1;min-width:120px;}
+  button.opt:hover{background:var(--navy2);color:#fff;}
+  button.opt:disabled{opacity:.5;cursor:not-allowed;}
+  .result{display:none;margin-top:8px;}
+  .verdict{border-left:4px solid var(--navy2);background:#f7faff;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px;}
+  .verdict.ok{border-color:var(--ok);background:#f1faf5;}
+  .verdict.warn{border-color:var(--gold2);background:#fdfaf0;}
+  .verdict.bad{border-color:var(--bad);background:#fdf1ef;}
+  .formula{background:#0f2a4a;color:#e8eef7;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:12px 16px;border-radius:8px;overflow-x:auto;white-space:pre;}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:center;}
+  th{background:#f4f7fb;color:var(--navy2);}
+  .reveal{font-size:14px;}
+  .btn2{appearance:none;border:none;background:var(--gold);color:#3a2c08;font-weight:700;padding:10px 20px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .note{font-size:12px;color:var(--mut);margin-top:10px;}
+  a.back{color:var(--navy2);font-size:13px;text-decoration:none;}
+  a.back:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>场景化锻炼 · 渠道净价与配额</h1>
+  <p>纯浏览器运行 · 不联网 · 不装系统 · 适配课堂投屏 ｜ 数据取自「杭州滨江云璟酒店」脱敏数据集</p>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <span class="tag">渠道管理</span>
+    <h2>OTA 说还能再给量，直销也在涨。这一天的 100 间夜，怎么分？</h2>
+    <p>渠道不是"谁卖得多给谁"。要按净价排序，并给低价渠道定配额——否则它挤掉的是直销的高净价客。</p>
+    <div class="data">
+      <div class="cell"><b>¥620</b><span>挂牌价</span></div>
+      <div class="cell"><b>18%</b><span>OTA 佣金率</span></div>
+      <div class="cell"><b>¥507</b><span>OTA 净价（620×0.82）</span></div>
+      <div class="cell"><b>¥615</b><span>直销净价</span></div>
+      <div class="cell"><b>60</b><span>直销单日承接上限（间夜）</span></div>
+      <div class="cell"><b>100</b><span>本日可售间夜</span></div>
+    </div>
+    <p class="reveal" id="actual"></p>
+    <h2 style="margin-top:18px;">第一步：您怎么分配这一天？</h2>
+    <div class="opts" id="opts">
+      <button class="opt" data-v="1" onclick="pick(1)">全给 OTA（100 间）</button>
+      <button class="opt" data-v="2" onclick="pick(2)">直销优先，余量给 OTA</button>
+      <button class="opt" data-v="3" onclick="pick(3)">只做直销，不挂 OTA</button>
+      <button class="opt" data-v="4" onclick="pick(4)">OTA 提价到 ¥680 再放量</button>
+    </div>
+  </div>
+
+  <div class="card result" id="result">
+    <h2>决策结果核算</h2>
+    <div class="formula" id="calc"></div>
+    <div id="verdicts"></div>
+    <h2 style="margin-top:18px;">对照 · 渠道净价 · 配额</h2>
+    <div class="verdict"><b>① 算净价：</b>净价＝挂牌价 ×（1 − 佣金）− 其他渠道成本。本例 OTA ¥507 vs 直销 ¥615，差 ¥108。</div>
+    <div class="verdict"><b>② 按净价排序：</b>直销净价最高，优先投；直销承接有上限（60 间）。</div>
+    <div class="verdict"><b>③ 定配额：</b>直销吃满后，剩余量才给 OTA——这就是配额的经济依据。</div>
+    <p class="note">这节课要学生明白：<b>净价差 ¥108 就是配额的理由。直销优先、OTA 定额度，不是"厚此薄彼"，是把有限库存给净价更高的客源。</b></p>
+    <div style="margin-top:16px;"><button class="btn2" onclick="location.reload()">再来一次</button>
+    <a class="back" style="margin-left:16px;" href="teach.html">← 返回课堂现场</a></div>
+  </div>
+
+  <div class="card">
+    <h2>讲师出题提示</h2>
+    <p>追问一句："如果直销只能接 60 间，剩下 40 间你给不给 OTA？"——答案是要给，因为空置的机会成本 0 元低于 OTA 净价 507。</p>
+  </div>
+</div>
+
+<script>
+  function R(v){
+    var OTA=507, DIR=615, CAP=60, TOT=100, VC=95;
+    var d,o,rev,note;
+    if(v===1){ d=0; o=TOT; note='全给 OTA'; }
+    else if(v===2){ d=Math.min(CAP,TOT); o=TOT-d; note='直销吃满 '+CAP+'，余量给 OTA'; }
+    else if(v===3){ d=Math.min(CAP,TOT); o=0; note='只做直销，'+ (TOT-d) +' 间空置'; }
+    else { d=Math.min(CAP,TOT); o=Math.round((TOT-d)*0.75); note='OTA 提价到 ¥680（净 ¥558），量掉 25%'; }
+    var otaNet=(v===4)? Math.round(680*0.82) : OTA;
+    rev=d*DIR+o*otaNet;
+    var contrib=d*(DIR-VC)+o*(otaNet-VC);
+    var rows=[['分配方案',note],['直销间夜',d+' 间 × ¥'+DIR],['OTA 间夜',o+' 间 × ¥'+otaNet],
+      ['渠道净收入','¥'+rev.toFixed(0)],['减变动成本后贡献','¥'+contrib.toFixed(0)]];
+    var best=Math.min(CAP,TOT)*DIR+(TOT-Math.min(CAP,TOT))*OTA;
+    var vd=[];
+    if(v===2) vd.push(['ok','<b>最优解。</b>直销吃满上限 60 间，剩余 40 间给 OTA——空置的机会成本是 0，低于 OTA 净价 ¥507，所以余量该给。']);
+    else if(v===1) vd.push(['bad','全给 OTA 少赚 ¥'+(best-rev).toFixed(0)+'。净价差 ¥108 × 本可直销的 60 间，就是代价。']);
+    else if(v===3) vd.push(['bad','直销只能接 60 间，硬不挂 OTA 等于白白空置 40 间，贡献少 ¥'+(best-contrib).toFixed(0)+'。']);
+    else vd.push(['warn','提价能抬高 OTA 净价到 ¥558，但量掉 25%，总收入反而低于"直销优先+余量给 OTA"。']);
+    return {rows:rows, v:vd};
+  }
+  function pick(v){
+    var bs=document.querySelectorAll('#opts .opt');
+    for(var i=0;i<bs.length;i++){ bs[i].disabled=true; }
+    var r=R(v);
+    var t='';
+    for(var i=0;i<r.rows.length;i++){ t+=r.rows[i][0]+'：'+r.rows[i][1]+'\n'; }
+    document.getElementById('calc').textContent=t;
+    var vh='';
+    for(var i=0;i<r.v.length;i++){ vh+='<div class="verdict '+r.v[i][0]+'">'+r.v[i][1]+'</div>'; }
+    document.getElementById('verdicts').innerHTML=vh;
+    document.getElementById('result').style.display='block';
+    document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  var ACT="";
+  if(ACT){ document.getElementById('actual').innerHTML='<b>'+ACT+'</b>'; }
+</script>
+</body>
+</html>

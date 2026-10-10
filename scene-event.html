@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<meta charset="utf-8">
+<script src="assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>场景化锻炼 · 事件日定价（不靠系统）</title>
+<style>
+  :root{--navy:#0f2a4a;--navy2:#12365c;--gold:#e8b84b;--gold2:#c99a3f;--ink:#1d2433;--mut:#8a94a6;--line:#e3e8f0;--ok:#1f9d6b;--bad:#d8503e;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#eef2f7;color:var(--ink);line-height:1.7;}
+  .top{background:var(--navy);color:#fff;padding:22px 24px;}
+  .top h1{margin:0;font-size:20px;}
+  .top p{margin:6px 0 0;color:#cdd9e8;font-size:13px;}
+  .wrap{max-width:860px;margin:0 auto;padding:22px 18px 60px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0;box-shadow:0 2px 10px rgba(15,42,74,.05);}
+  .tag{display:inline-block;background:var(--gold);color:#3a2c08;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:10px;}
+  h2{font-size:17px;margin:0 0 10px;color:var(--navy2);}
+  .data{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0;}
+  .cell{background:#f4f7fb;border:1px solid var(--line);border-radius:8px;padding:10px 12px;}
+  .cell b{display:block;font-size:18px;color:var(--navy);}
+  .cell span{font-size:12px;color:var(--mut);}
+  .opts{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
+  button.opt{appearance:none;border:1px solid var(--navy2);background:#fff;color:var(--navy2);font-size:15px;font-weight:600;padding:12px 18px;border-radius:10px;cursor:pointer;transition:.15s;flex:1;min-width:120px;}
+  button.opt:hover{background:var(--navy2);color:#fff;}
+  button.opt:disabled{opacity:.5;cursor:not-allowed;}
+  .result{display:none;margin-top:8px;}
+  .verdict{border-left:4px solid var(--navy2);background:#f7faff;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px;}
+  .verdict.ok{border-color:var(--ok);background:#f1faf5;}
+  .verdict.warn{border-color:var(--gold2);background:#fdfaf0;}
+  .verdict.bad{border-color:var(--bad);background:#fdf1ef;}
+  .formula{background:#0f2a4a;color:#e8eef7;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:12px 16px;border-radius:8px;overflow-x:auto;white-space:pre;}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:center;}
+  th{background:#f4f7fb;color:var(--navy2);}
+  .reveal{font-size:14px;}
+  .btn2{appearance:none;border:none;background:var(--gold);color:#3a2c08;font-weight:700;padding:10px 20px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .note{font-size:12px;color:var(--mut);margin-top:10px;}
+  a.back{color:var(--navy2);font-size:13px;text-decoration:none;}
+  a.back:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>场景化锻炼 · 事件日定价</h1>
+  <p>纯浏览器运行 · 不联网 · 不装系统 · 适配课堂投屏 ｜ 数据取自「杭州滨江云璟酒店」脱敏数据集</p>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <span class="tag">事件日历</span>
+    <h2>三周后有一场大型展会（已确定），竞品已把价格挂到 ¥880–950。本店怎么办？</h2>
+    <p>确定性高的事件日要提前锁价并配住期限制；不确定的才保留弹性。临近再按实际 pickup 调整。</p>
+    <div class="data">
+      <div class="cell"><b>3 天</b><span>展期</span></div>
+      <div class="cell"><b>900</b><span>展期可售间夜（300×3）</span></div>
+      <div class="cell"><b>96%</b><span>历史同期 OCC</span></div>
+      <div class="cell"><b>¥620</b><span>当前挂牌</span></div>
+      <div class="cell"><b>¥880–950</b><span>竞品已挂价格</span></div>
+    </div>
+    <p class="reveal" id="actual"></p>
+    <h2 style="margin-top:18px;">第一步：您怎么布这个局？</h2>
+    <div class="opts" id="opts">
+      <button class="opt" data-v="1" onclick="pick(1)">按兵不动，维持 ¥620</button>
+      <button class="opt" data-v="2" onclick="pick(2)">提前锁 ¥780</button>
+      <button class="opt" data-v="3" onclick="pick(3)">提前锁 ¥880＋最少住 2 晚</button>
+      <button class="opt" data-v="4" onclick="pick(4)">临期再看情况定</button>
+    </div>
+  </div>
+
+  <div class="card result" id="result">
+    <h2>决策结果核算</h2>
+    <div class="formula" id="calc"></div>
+    <div id="verdicts"></div>
+    <h2 style="margin-top:18px;">对照 · 事件日历 · 提前锁价</h2>
+    <div class="verdict"><b>① 标日期与确定度：</b>把展会逐条列出并注明确定程度，确定性高的才提前锁价。</div>
+    <div class="verdict"><b>② 提前设价格档与住期限制：</b>锁价 + MinLOS，并提前与渠道谈配额。</div>
+    <div class="verdict"><b>③ 临近按 pickup 调整：</b>不要一次定死；事件结束后需求骤降，要提前安排填谷。</div>
+    <p class="note">这节课要学生明白：<b>事件日的钱是"提前"赚的，不是"当天"赚的。确定性高的日子不提前锁价，就是把利润留在桌上。</b></p>
+    <div style="margin-top:16px;"><button class="btn2" onclick="location.reload()">再来一次</button>
+    <a class="back" style="margin-left:16px;" href="teach.html">← 返回课堂现场</a></div>
+  </div>
+
+  <div class="card">
+    <h2>讲师出题提示</h2>
+    <p>让学生注意"展期结束后的第二天"——事件日需求骤降，必须提前安排填谷，否则前三天赚的被后两天吐回去。</p>
+  </div>
+</div>
+
+<script>
+  function R(v){
+    var ROOMS=300, DAYS=3, TOT=ROOMS*DAYS, VC=95;
+    var price={1:620,2:780,3:880,4:700}[v];
+    var occ={1:0.96,2:0.92,3:0.90,4:0.88}[v];
+    var sold=Math.round(TOT*occ);
+    var rev=sold*price, contrib=sold*(price-VC);
+    var notes={1:'维持 ¥620 不锁',2:'提前锁 ¥780',3:'提前锁 ¥880＋MinLOS 2 晚',4:'临期再看（届时只能挂 ¥700）'};
+    var rows=[['策略',notes[v]],['锁价','¥'+price],['展期 OCC',(occ*100).toFixed(0)+'%'],
+      ['售出间夜',sold+' 间'],['客房收入','¥'+rev.toFixed(0)],
+      ['总边际贡献','¥'+contrib.toFixed(0)]];
+    var best=TOT*0.90*(880-VC);
+    var vd=[];
+    if(v===3) vd.push(['ok','<b>最优。</b>确定性高的事件日提前锁价并配 MinLOS，收入最高；竞品已挂 880–950，说明市场接受这个价位。']);
+    else if(v===2) vd.push(['warn','锁了价但偏保守，少赚 ¥'+(best-contrib).toFixed(0)+'。竞品都在 880 以上，本店没理由只挂 780。']);
+    else if(v===4) vd.push(['bad','临期才动，既锁不到好价又要临时抢量，只拿到 ¥'+contrib.toFixed(0)+'。']);
+    else vd.push(['bad','维持 ¥620 是把利润留在桌上：市场愿意付 880，本店却按平日价卖，少赚 ¥'+(best-contrib).toFixed(0)+'。']);
+    return {rows:rows, v:vd};
+  }
+  function pick(v){
+    var bs=document.querySelectorAll('#opts .opt');
+    for(var i=0;i<bs.length;i++){ bs[i].disabled=true; }
+    var r=R(v);
+    var t='';
+    for(var i=0;i<r.rows.length;i++){ t+=r.rows[i][0]+'：'+r.rows[i][1]+'\n'; }
+    document.getElementById('calc').textContent=t;
+    var vh='';
+    for(var i=0;i<r.v.length;i++){ vh+='<div class="verdict '+r.v[i][0]+'">'+r.v[i][1]+'</div>'; }
+    document.getElementById('verdicts').innerHTML=vh;
+    document.getElementById('result').style.display='block';
+    document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  var ACT="";
+  if(ACT){ document.getElementById('actual').innerHTML='<b>'+ACT+'</b>'; }
+</script>
+</body>
+</html>

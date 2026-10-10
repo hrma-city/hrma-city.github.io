@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<meta charset="utf-8">
+<script src="assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>场景化锻炼 · 团队置换（接不接）（不靠系统）</title>
+<style>
+  :root{--navy:#0f2a4a;--navy2:#12365c;--gold:#e8b84b;--gold2:#c99a3f;--ink:#1d2433;--mut:#8a94a6;--line:#e3e8f0;--ok:#1f9d6b;--bad:#d8503e;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#eef2f7;color:var(--ink);line-height:1.7;}
+  .top{background:var(--navy);color:#fff;padding:22px 24px;}
+  .top h1{margin:0;font-size:20px;}
+  .top p{margin:6px 0 0;color:#cdd9e8;font-size:13px;}
+  .wrap{max-width:860px;margin:0 auto;padding:22px 18px 60px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0;box-shadow:0 2px 10px rgba(15,42,74,.05);}
+  .tag{display:inline-block;background:var(--gold);color:#3a2c08;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:10px;}
+  h2{font-size:17px;margin:0 0 10px;color:var(--navy2);}
+  .data{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0;}
+  .cell{background:#f4f7fb;border:1px solid var(--line);border-radius:8px;padding:10px 12px;}
+  .cell b{display:block;font-size:18px;color:var(--navy);}
+  .cell span{font-size:12px;color:var(--mut);}
+  .opts{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
+  button.opt{appearance:none;border:1px solid var(--navy2);background:#fff;color:var(--navy2);font-size:15px;font-weight:600;padding:12px 18px;border-radius:10px;cursor:pointer;transition:.15s;flex:1;min-width:120px;}
+  button.opt:hover{background:var(--navy2);color:#fff;}
+  button.opt:disabled{opacity:.5;cursor:not-allowed;}
+  .result{display:none;margin-top:8px;}
+  .verdict{border-left:4px solid var(--navy2);background:#f7faff;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px;}
+  .verdict.ok{border-color:var(--ok);background:#f1faf5;}
+  .verdict.warn{border-color:var(--gold2);background:#fdfaf0;}
+  .verdict.bad{border-color:var(--bad);background:#fdf1ef;}
+  .formula{background:#0f2a4a;color:#e8eef7;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:12px 16px;border-radius:8px;overflow-x:auto;white-space:pre;}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:center;}
+  th{background:#f4f7fb;color:var(--navy2);}
+  .reveal{font-size:14px;}
+  .btn2{appearance:none;border:none;background:var(--gold);color:#3a2c08;font-weight:700;padding:10px 20px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .note{font-size:12px;color:var(--mut);margin-top:10px;}
+  a.back{color:var(--navy2);font-size:13px;text-decoration:none;}
+  a.back:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>场景化锻炼 · 团队置换（接不接）</h1>
+  <p>纯浏览器运行 · 不联网 · 不装系统 · 适配课堂投屏 ｜ 数据取自「杭州滨江云璟酒店」脱敏数据集</p>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <span class="tag">置换分析</span>
+    <h2>销售拿来一个 120 间夜的团队询价，报价 ¥480。接，还是不接？</h2>
+    <p>团队不是"量大就该接"。要先算它挤掉了多少散客——这就是置换分析。</p>
+    <div class="data">
+      <div class="cell"><b>120</b><span>团队需求间夜</span></div>
+      <div class="cell"><b>¥480</b><span>团队报价</span></div>
+      <div class="cell"><b>¥680</b><span>散客 ADR</span></div>
+      <div class="cell"><b>¥95</b><span>每间夜变动成本</span></div>
+      <div class="cell"><b>0.85</b><span>散客被置换比例</span></div>
+      <div class="cell"><b>¥8,000</b><span>宴会餐饮等附加收益</span></div>
+    </div>
+    <p class="reveal" id="actual"></p>
+    <h2 style="margin-top:18px;">第一步：您的报价底线定在多少？</h2>
+    <div class="opts" id="opts">
+      <button class="opt" data-v="480" onclick="pick(480)">¥480 就接</button>
+      <button class="opt" data-v="520" onclick="pick(520)">¥520 接</button>
+      <button class="opt" data-v="526" onclick="pick(526)">¥526 接</button>
+      <button class="opt" data-v="560" onclick="pick(560)">¥560 接</button>
+    </div>
+  </div>
+
+  <div class="card result" id="result">
+    <h2>决策结果核算</h2>
+    <div class="formula" id="calc"></div>
+    <div id="verdicts"></div>
+    <h2 style="margin-top:18px;">对照 · 置换分析 · 临界报价</h2>
+    <div class="verdict"><b>① 算被置换散客的净贡献：</b>120 × 0.85 ×（680 − 95）= ¥59,670。</div>
+    <div class="verdict"><b>② 算团队净贡献：</b>120 ×（报价 − 95）。</div>
+    <div class="verdict"><b>③ 求临界报价：</b>（59,670 − 8,000 附加）÷ 120 + 95 = <b>¥525.6 ≈ ¥526</b>。低于这个数就不接，按这个数去谈。</div>
+    <p class="note">这节课要学生明白：<b>团队的底线不是"不低于成本"，而是"不低于被它挤掉的散客净贡献减去附加收益"——这个数算出来，谈判就有底。</b></p>
+    <div style="margin-top:16px;"><button class="btn2" onclick="location.reload()">再来一次</button>
+    <a class="back" style="margin-left:16px;" href="teach.html">← 返回课堂现场</a></div>
+  </div>
+
+  <div class="card">
+    <h2>讲师出题提示</h2>
+    <p>让学生先凭直觉选（多数会选 480），再算临界报价 526，形成记忆点。附加收益 8,000 是谈判筹码，要单独列出来谈。</p>
+  </div>
+</div>
+
+<script>
+  function R(v){
+    var N=120, DISP=0.85, ADRt=680, VC=95, EXTRA=8000;
+    var lost=N*DISP*(ADRt-VC);          // 被置换散客净贡献 59670
+    var team=N*(v-VC);                  // 团队净贡献
+    var net=team+EXTRA-lost;            // 计入附加收益后的净额
+    var crit=(lost-EXTRA)/N+VC;
+    var rows=[['团队报价','¥'+v],['团队净贡献','¥'+team.toFixed(0)],
+      ['＋附加收益','¥'+EXTRA.toFixed(0)],['被置换散客净贡献','－¥'+lost.toFixed(0)],
+      ['净额（正=可接）',(net>=0?'+':'')+'¥'+net.toFixed(0)],
+      ['临界报价','¥'+crit.toFixed(1)]];
+    var vd=[];
+    if(v>=560) vd.push(['ok','<b>可接，且谈到了好价钱。</b>净额 +¥'+net.toFixed(0)+'，临界报价 ¥'+crit.toFixed(1)+'，您的报价高出临界 '+(v-crit).toFixed(1)+' 元。']);
+    else if(v===526) vd.push(['warn','正好压在临界线上——不赚不亏。这是谈判底线，不是目标价；往上每多 10 元都是纯利润。']);
+    else if(v===520) vd.push(['bad','低于临界报价，净额 －¥'+Math.abs(net).toFixed(0)+'。接了就是替散客买单。']);
+    else vd.push(['bad','¥480 是最常见的直觉答案，也是亏得最多的：净额 －¥'+Math.abs(net).toFixed(0)+'。低于 ¥'+crit.toFixed(1)+' 一律不接。']);
+    return {rows:rows, v:vd};
+  }
+  function pick(v){
+    var bs=document.querySelectorAll('#opts .opt');
+    for(var i=0;i<bs.length;i++){ bs[i].disabled=true; }
+    var r=R(v);
+    var t='';
+    for(var i=0;i<r.rows.length;i++){ t+=r.rows[i][0]+'：'+r.rows[i][1]+'\n'; }
+    document.getElementById('calc').textContent=t;
+    var vh='';
+    for(var i=0;i<r.v.length;i++){ vh+='<div class="verdict '+r.v[i][0]+'">'+r.v[i][1]+'</div>'; }
+    document.getElementById('verdicts').innerHTML=vh;
+    document.getElementById('result').style.display='block';
+    document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  var ACT="";
+  if(ACT){ document.getElementById('actual').innerHTML='<b>'+ACT+'</b>'; }
+</script>
+</body>
+</html>

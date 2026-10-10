@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="../../";</script>
+<meta charset="UTF-8">
+<script src="../../assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="../../auth-config.js"></script>
+<script src="../../assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C4 库存控制 · 仓储专业课 · RMC收益管理社区</title>
+<meta name="description" content="仓储收益管理专业课 C4 库存控制。">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/community.css">
+<style>.lst { padding-left:20px; }
+.lst li { font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }
+.qz { border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }
+.qz-q { font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }
+.qz-o { display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }
+.qz-o:hover { border-color:var(--navy-3); background:#F6F9FC; }
+.qz-o.ok { border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }
+.qz-o.no { border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }
+.qz-why { display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }
+.qz-why.on { display:block; }
+</style>
+</head>
+<body data-auth="protected">
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 仓储专业课</a>
+  <div class="cm-eyebrow" style="margin-top:14px">仓储专业课 · C4</div>
+  <h1 class="cm-section-title" style="font-size:28px">库存控制</h1>
+  <p class="cm-section-lead">仓库的库存控制不是管客户的货，而是管自己的产能——货架、地面、月台、分拣线和人力都是有限库存，而它们被消耗的速度取决于客户的货怎么流动。核心矛盾永远是同一个：淡季时想把仓位全部长租出去换确定性，旺季时又发现没有仓位留给高价的溢出需求。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心要点</div>
+    <h2 class="cm-section-title">四条要记住的</h2>
+    <ol class="lst"><li><b>按流转速度分区，而不是按客户分区。</b>快进快出区（A 类 SKU，靠近月台与分拣区，存储天数 <15 天）、常规存储区（B 类，15–45 天）、慢流转区（C 类，高位货架深处，>45 天并触发阶梯加价）、越库区 Cross-dock（不入库直接分拨）、退货与暂存区。黄金库位（离分拣区最近的低位货架）只能给周转最快的货。</li><li><b>保护位与预留：旺季前必须为高价溢出需求留仓。</b>把可售库位天切成三块：长约锁定区（不超过 60–70%）、现货短租区（20–30%）、战略保护位（10%，供大促与关键客户应急）。保护位平时可以短租，但合同必须写入可召回条款与召回提前期（如 7 天），否则旺季一样拿不回来。</li><li><b>用平均存储天数做接单闸门。</b>新客户报价必须绑定承诺存储天数与 SKU 结构：承诺存储天数 >60 天或轻抛货占比 >30% 的货，要么收阶梯溢价，要么拒单。接单前先算清「这个客户会吃掉多少库位天、带来多少操作费」，而不是先接了再算。</li><li><b>超容预案与外仓成本必须前置定价。</b>提前与 2–3 家外仓谈好峰值可用库位与临时价格，明确转运成本、履约时效损失与责任归属；超容时优先溢出慢流转库存而不是快流转货——快流转货溢出去会立刻带来履约超时与分拣成本翻倍。</li></ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">要点对照</div>
+    <h2 class="cm-section-title">核心指标一览</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>定义 / 公式</th><th>说明</th></tr></thead>
+      <tbody><tr><td>快进快出区</td><td>A 类 SKU，存储天数 &lt;15 天，靠近月台与分拣区</td><td>黄金库位只能给快流转货，给慢流转货等于把优质产能便宜卖掉</td></tr><tr><td>常规存储区</td><td>B 类 SKU，15–45 天，中层货架</td><td>长约客户的主力区，按保底库位天管理</td></tr><tr><td>慢流转区</td><td>C 类 SKU，&gt;45 天，高位货架深处并触发阶梯加价</td><td>既是缓冲区，也是清仓清单的来源</td></tr><tr><td>越库区 Cross-dock</td><td>不入库直接分拨，停留 &lt;24 小时</td><td>大促与生鲜快消的核心吞吐手段，被当存储用即失效</td></tr><tr><td>战略保护位</td><td>可售库位天的 10%，供大促与关键客户应急，可召回</td><td>保护位不留，旺季高价需求只能拒单或租高价外仓</td></tr><tr><td>外仓溢出预案</td><td>预先锁定 2–3 家外仓的峰值库位与临时价，明确转运成本与时效损失</td><td>外仓成本必须算进报价，否则旺季卖得越多亏得越多</td></tr></tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">这个行业容易踩的坑</h2>
+    <ul class="lst"><li>大促前不留保护位——旺季高价溢出需求无处安放，只能眼睁睁拒单或临时租高价外仓。</li><li>把黄金库位给了长租慢流转客户——快流转货被迫放到远端，分拣行走距离与单件成本直接上升。</li><li>越库区被客户当长期存储用——吞吐通道被堵死，大促时整个仓的周转能力塌方。</li><li>超容时优先溢出快流转货——快流转货在外仓履约，转运与二次分拣成本翻倍且极易超时违约，应优先溢出慢流转库存。</li></ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题</h2>
+    <div class="qz"><div class="qz-q">第 1 题　为什么仓位分区要按流转速度（A/B/C 类）划分，而不是按客户划分？</div><button class="qz-o" data-i="0" data-k="1">A. 因为按客户划分系统会更复杂</button><button class="qz-o" data-i="1" data-k="1">B. 因为收益来自周转——黄金库位给快流转货才能最大化每个库位天的操作费与周转次数，按客户划分会让慢流转货占用最优产能</button><button class="qz-o" data-i="2" data-k="1">C. 因为客户不同意按自己名字分区</button><button class="qz-o" data-i="3" data-k="1">D. 因为行业通行做法就是按 ABC 分类</button><div class="qz-why" id="why1"><b>解析 ·</b> 库位天的价值由周转次数决定：靠近月台与分拣区的黄金库位给快流转货，一年能周转十几次，每次都带来出入库与分拣的操作费；同样的位置放了慢流转货，一年只赚两三次周转却长期占位。按客户划分等于把位置这一稀缺资源按关系分配，而不是按产出分配，RevPAD 必然受损。</div></div><div class="qz"><div class="qz-q">第 2 题　大促前仓库超容，必须把一部分货溢出到外仓。优先溢出哪一类库存？</div><button class="qz-o" data-i="0" data-k="2">A. 优先溢出快流转货，因为它们很快就会出库</button><button class="qz-o" data-i="1" data-k="2">B. 优先溢出慢流转库存，快流转货必须留在主仓靠近分拣区的位置</button><button class="qz-o" data-i="2" data-k="2">C. 随机溢出，只要腾出空间即可</button><button class="qz-o" data-i="3" data-k="2">D. 优先溢出体积最大的货</button><div class="qz-why" id="why2"><b>解析 ·</b> 快流转货一旦放到外仓，每一单都要增加转运与二次分拣，履约时效立刻恶化，超时违约与店铺评分损失远大于外仓租金；而慢流转库存本来就在主仓深处、出库频率低，外溢的边际成本最小。同时慢流转货外溢还能配合超期阶梯加价推动客户清仓，属于库存与收益的双重改善。</div></div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>对应通用内核：</b>K01 需求预测 · K02 动态定价 · K03 库存控制 · K04 渠道管理　|　<b>行业：</b><a href="../../warehousing.html">仓储详解</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="index.html">仓储全部课程</a>
+      <a class="cm-btn cm-btn-ghost" href="../../core.html">学通用内核</a>
+      <a class="cm-btn cm-btn-ghost" href="../../calc-templates.html#warehousing">仓储收益测算模板</a>
+    </div>
+    <div class="cm-btns" style="margin-top:10px"><a class="cm-btn cm-btn-ghost" href="c3-pricing.html">← C3 动态定价</a><a class="cm-btn cm-btn-ghost" href="c5-channel.html">C5 渠道与竞争 →</a></div>
+  </section>
+</main>
+<script src="../../assets/js/app.js"></script>
+<script>
+(function(){
+  var ANS = [1, 1];
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = parseInt(btn.getAttribute('data-k'), 10);
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === ANS[k-1]) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>

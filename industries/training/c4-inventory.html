@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="../../";</script>
+<meta charset="UTF-8">
+<script src="../../assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="../../auth-config.js"></script>
+<script src="../../assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C4 库存控制 · 培训教育专业课 · RMC收益管理社区</title>
+<meta name="description" content="培训教育收益管理专业课 C4 库存控制。">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/community.css">
+<style>.lst { padding-left:20px; }
+.lst li { font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }
+.qz { border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }
+.qz-q { font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }
+.qz-o { display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }
+.qz-o:hover { border-color:var(--navy-3); background:#F6F9FC; }
+.qz-o.ok { border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }
+.qz-o.no { border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }
+.qz-why { display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }
+.qz-why.on { display:block; }
+</style>
+</head>
+<body data-auth="protected">
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 培训教育专业课</a>
+  <div class="cm-eyebrow" style="margin-top:14px">培训教育专业课 · C4</div>
+  <h1 class="cm-section-title" style="font-size:28px">库存控制</h1>
+  <p class="cm-section-lead">培训的「库存」是席位·期，同时受三重约束：教室·时段（场地容量与档期）、讲师·课时（师资产能）、最低开班人数（开班阈值）。它和酒店房晚最大的不同是——一期席位的价值在开课那一刻归零，而且因为存在开班阈值，库存可能整块消失，不是「打折卖掉」而是「根本不存在」。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心要点</div>
+    <h2 class="cm-section-title">四条要记住的</h2>
+    <ol class="lst"><li><b>席位分区：按渠道边际价值分配，而非先到先得。</b>把一期席位切成公开席位、团报席位、企业包班席位、老学员保留席位、候补池五块，各块有独立配额与释放规则；高价值的团报与企业席位不能等到公开席位卖完才想起来留。同时要保护「讲师·课时」这一稀缺产能——设定讲师日授课上限、课程之间的备课转场间隔与备份讲师池，否则旺季看到候补池里有需求也加不了班。</li><li><b>候补队列：按价值排序而非按登记时间排序。</b>排序键应为「支付意愿（能接受的价格档）× 补位转化率 × 到课率」，在开课前 T-7 / T-3 / T-1 三个时点分批释放，且每批释放量要小于实际缺口，留出二次退课的缓冲。</li><li><b>最低开班人数与并班：每期必须有明确的决策日。</b>在开课前 T-14（长线课 T-30）设决策点，低于阈值则按「并班 → 延期 → 转线上 → 取消」的固定顺序处置，并在决策日当天通知到每一个已报名学员，避免临时宣布取消。</li><li><b>退改管控：转让优先于退款。</b>阶梯规则为开课前 30 天全额退、7 天退 50%、3 天内不退但可更名转让；转让保住了席位收入，退款则把已售库存重新变回待售库存，且越晚越难补。</li></ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">要点对照</div>
+    <h2 class="cm-section-title">核心指标一览</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>定义 / 公式</th><th>说明</th></tr></thead>
+      <tbody><tr><td>席位分区配额</td><td>公开 / 团报 / 企业包班 / 老学员 / 候补池 的席位占比与释放触发条件</td><td>按渠道边际价值分配，避免高价值需求来时无席可留</td></tr><tr><td>候补释放节奏</td><td>T-7 / T-3 / T-1 三个时点的释放比例与排序规则</td><td>排序按支付意愿×转化率×到课率，每批留出二次退课缓冲</td></tr><tr><td>最低开班人数决策点</td><td>决策日（T-14 或 T-30）与未达标时的处置顺序（并班→延期→转线上→取消）</td><td>没有决策点就会拖到开课前一天才宣布取消</td></tr><tr><td>退改阶梯</td><td>T-30 全退 / T-7 退 50% / T-3 内不退但可更名转让</td><td>转让保住席位收入，退款把已售库存退回待售</td></tr><tr><td>讲师课时上限</td><td>讲师日授课上限、课程间隔、备份讲师覆盖率</td><td>师资是硬瓶颈，锁死即无法在旺季加开班</td></tr><tr><td>教室时段利用率</td><td>已排课时段 ÷ 可租可用时段（按校区、时段分看）</td><td>黄金时段（周末/晚间）应与平日区别定价</td></tr></tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">这个行业容易踩的坑</h2>
+    <ul class="lst"><li>没有决策点，硬撑到开课前一天才宣布取消——学员已订机票酒店，退款之外还要赔差旅，口碑损失远超课程利润。</li><li>候补池先到先得——真正高支付意愿的企业客户排在免费登记的个人学员后面，补位率和收入双输。</li><li>退课即退款，不引导转让——开课前 3 天的退款几乎必然变成空座，而更名转让可以零成本保住这一席位。</li><li>讲师排满导致旺季无法加开班——看到候补池里有 40 个需求却加不了班，产能瓶颈其实在师资而不在教室。</li></ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题</h2>
+    <div class="qz"><div class="qz-q">第 1 题　某期课程开课前 5 天，实报 22 人，最低开班人数 25 人，候补池 11 人。最优先的动作是？</div><button class="qz-o" data-i="0" data-k="1">A. 立即宣布取消并全额退款</button><button class="qz-o" data-i="1" data-k="1">B. 按价值排序激活候补池分批补位，同时在决策日准备并班方案</button><button class="qz-o" data-i="2" data-k="1">C. 大幅公开降价以快速招满</button><button class="qz-o" data-i="3" data-k="1">D. 把最低开班人数下调到 22 人强行开班</button><div class="qz-why" id="why1"><b>解析 ·</b> 缺口只有 3 人而候补池有 11 人，属于「可挽救」区间，应先按支付意愿×转化率×到课率排序激活候补分批补位（留出二次退课缓冲），同时按决策日规则准备并班预案作为兜底。立即取消损失了几乎到手的收入与学员信任；公开降价会破坏价格体系并伤害已付费学员；临时下调开班线会让成本结构失控（讲师与教室固定成本按 25 人摊，22 人即为亏损开班）。</div></div><div class="qz"><div class="qz-q">第 2 题　关于退改规则的设计，下列哪一项最符合收益管理原则？</div><button class="qz-o" data-i="0" data-k="2">A. 任何时间均可无条件全额退款，最大化学员满意度</button><button class="qz-o" data-i="1" data-k="2">B. 阶梯退改：越临近开课退款比例越低，但全程允许更名转让</button><button class="qz-o" data-i="2" data-k="2">C. 一律不退，保护机构收入</button><button class="qz-o" data-i="3" data-k="2">D. 仅允许在开课前 30 天以上退款，之后既不退款也不允许转让</button><div class="qz-why" id="why2"><b>解析 ·</b> 退改规则的目标是「最小化已售库存回流」：越临近开课，退回的席位越难二次售出，因此退款比例应递减；但更名转让不产生空座，是零成本的库存保全手段，应全程开放。无条件全退会把大量临近开课的席位打回待售状态；一律不退损害长期口碑与复购；禁止转让则把本来可以保住的席位白白丢掉。</div></div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>对应通用内核：</b>K01 需求预测 · K02 动态定价 · K03 库存控制 · K04 渠道管理　|　<b>行业：</b><a href="../../training.html">培训教育详解</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="index.html">培训教育全部课程</a>
+      <a class="cm-btn cm-btn-ghost" href="../../core.html">学通用内核</a>
+      <a class="cm-btn cm-btn-ghost" href="../../calc-templates.html#training">培训教育收益测算模板</a>
+    </div>
+    <div class="cm-btns" style="margin-top:10px"><a class="cm-btn cm-btn-ghost" href="c3-pricing.html">← C3 动态定价</a><a class="cm-btn cm-btn-ghost" href="c5-channel.html">C5 渠道与竞争 →</a></div>
+  </section>
+</main>
+<script src="../../assets/js/app.js"></script>
+<script>
+(function(){
+  var ANS = [1, 1];
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = parseInt(btn.getAttribute('data-k'), 10);
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === ANS[k-1]) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>

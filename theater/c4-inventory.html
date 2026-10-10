@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="../";</script>
+<meta charset="UTF-8">
+<script src="../assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="../auth-config.js"></script>
+<script src="../assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C4 库存控制 · 剧院演出专业课 · RMC收益管理社区</title>
+<meta name="description" content="剧院演出收益管理专业课 C4 库存控制。">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/community.css">
+<style>.lst { padding-left:20px; }
+.lst li { font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }
+.qz { border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }
+.qz-q { font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }
+.qz-o { display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }
+.qz-o:hover { border-color:var(--navy-3); background:#F6F9FC; }
+.qz-o.ok { border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }
+.qz-o.no { border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }
+.qz-why { display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }
+.qz-why.on { display:block; }
+</style>
+</head>
+<body data-auth="protected">
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 剧院演出专业课</a>
+  <div class="cm-eyebrow" style="margin-top:14px">剧院演出专业课 · C4</div>
+  <h1 class="cm-section-title" style="font-size:28px">库存控制</h1>
+  <p class="cm-section-lead">剧院库存的核心矛盾是「座位不可储存 + 位置价值不均 + 团体与散客抢座」。控的不是总量，而是分票档、分渠道、分批次的可售座配额。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心要点</div>
+    <h2 class="cm-section-title">四条要记住的</h2>
+    <ol class="lst"><li><b>先切可售座，再切配额。</b>可售座 = 总座位 − 视线受阻位 − 工作票与演职人员票 − 技术占用位；再按票档切分配额，低价档通常占 15%–25%。</li><li><b>团体与包场设保护位上限。</b>团体包场占比建议不超过可售座 30%，且必须提前 14–30 天锁定，逾期释放回散客池；包场优先安排在低价区与边角区。</li><li><b>低价档限量并分批次释放。</b>特惠档按 30%／40%／30% 三批释放，前一批售罄才放下一批，避免开场前一次性放完导致高价档无人问津。</li><li><b>退改与防黄牛机制。</b>实名购票 + 单账号限购 4–6 张 + 退票收取 10%–30% 手续费且实时回补可售库存 + 开演前 24 小时关闭退改 + 异常批量下单实时风控拦截。</li></ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">要点对照</div>
+    <h2 class="cm-section-title">核心指标一览</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>定义 / 公式</th><th>说明</th></tr></thead>
+      <tbody><tr><td>可售座</td><td>总座位 − 视线受阻位 − 工作票 − 技术占用位</td><td>所有率指标的分母，开票前必须固化</td></tr><tr><td>低价档配额占比</td><td>低价档座位数 ÷ 可售座位数</td><td>15%–25%，超出会稀释平均票价</td></tr><tr><td>团体包场上限</td><td>包场与团体座位数 ÷ 可售座位数</td><td>不超过 30%，且 T-14 逾期释放</td></tr><tr><td>批次释放比例</td><td>第 1／2／3 批特惠票占低价档比例</td><td>30% / 40% / 30%，前批售罄才放下一批</td></tr><tr><td>退票手续费率</td><td>退票费 ÷ 票款</td><td>10%–30%，且退票座位实时回补为可售</td></tr><tr><td>单账号限购张数</td><td>每场次每账号可购票数</td><td>4–6 张，超量触发风控审核</td></tr></tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">这个行业容易踩的坑</h2>
+    <ul class="lst"><li>团体包场来者不拒——包场占到 60%，散客无票可买，而包场单价通常只有正价六折。</li><li>低价档一次性全放——开演前三天只剩高价票，价格敏感客群直接流失到竞品。</li><li>退票不回补库存——已退座位在系统里仍显示售罄，白白损失二次销售机会。</li><li>不设限购与实名——黄牛批量囤票，剧院高价档卖不动，二级市场却在溢价转卖。</li></ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题</h2>
+    <div class="qz"><div class="qz-q">第 1 题　某场演出可售座 1000 个，已锁团体包场 600 个，散客池只剩 400 个且其中低价档 100 个。这个配额结构最大的问题是什么？</div><button class="qz-o" data-i="0" data-k="1">A. 低价档太少，应该增加到 300 个</button><button class="qz-o" data-i="1" data-k="1">B. 团体包场占比 60% 远超 30% 上限，挤占了散客高价库存，且包场单价通常只有正价六折</button><button class="qz-o" data-i="2" data-k="1">C. 可售座算错了，应该按剧场总座位算</button><button class="qz-o" data-i="3" data-k="1">D. 没有问题，包场能提前锁定收入</button><div class="qz-why" id="why1"><b>解析 ·</b> 团体包场是典型的批发渠道，单价通常只有正价六折左右，且往往占用连续好座。占到可售座 60% 意味着散客只能买到剩下的边角位，正价散客需求被挤出，RevPAS 被系统性拉低。合理做法是设 30% 上限并要求提前 14–30 天锁定、逾期释放回散客池，同时把包场安排在低价区与边角区。</div></div><div class="qz"><div class="qz-q">第 2 题　关于退票处理，下列做法正确的是哪一项？</div><button class="qz-o" data-i="0" data-k="2">A. 为防止黄牛，退票座位直接作废不再销售</button><button class="qz-o" data-i="1" data-k="2">B. 收取 10%–30% 手续费后，将座位实时回补为可售库存继续销售</button><button class="qz-o" data-i="2" data-k="2">C. 退票全额退款且不加任何限制，以提升购票意愿</button><button class="qz-o" data-i="3" data-k="2">D. 退票只在开演后统一处理</button><div class="qz-why" id="why2"><b>解析 ·</b> 剧院座位开场即作废，退掉的座位如果不回补，就是纯粹的收入损失；但完全无成本退票又会给黄牛与囤票行为留出空间，也会放大临近开演的库存波动。收取 10%–30% 手续费既抬高了囤票成本，又让座位能及时回到可售池二次销售，同时手续费本身也是一笔补偿性收入。</div></div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>对应通用内核：</b>K01 需求预测 · K02 动态定价 · K03 库存控制 · K04 渠道管理　|　<b>行业：</b><a href="../theater.html">剧院演出详解</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="index.html">剧院演出全部课程</a>
+      <a class="cm-btn cm-btn-ghost" href="../core.html">学通用内核</a>
+      <a class="cm-btn cm-btn-ghost" href="../calc-templates.html#theater">剧院演出收益测算模板</a>
+    </div>
+    <div class="cm-btns" style="margin-top:10px"><a class="cm-btn cm-btn-ghost" href="c3-pricing.html">← C3 动态定价</a><a class="cm-btn cm-btn-ghost" href="c5-channel.html">C5 渠道与竞争 →</a></div>
+  </section>
+</main>
+<script src="../assets/js/app.js"></script>
+<script>
+(function(){
+  var ANS = [1, 1];
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = parseInt(btn.getAttribute('data-k'), 10);
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === ANS[k-1]) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>

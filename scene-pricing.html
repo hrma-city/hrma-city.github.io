@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<meta charset="utf-8">
+<script src="assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>场景化锻炼 · 涨价决策（不靠系统）</title>
+<style>
+  :root{--navy:#0f2a4a;--navy2:#12365c;--gold:#e8b84b;--gold2:#c99a3f;--ink:#1d2433;--mut:#8a94a6;--line:#e3e8f0;--ok:#1f9d6b;--bad:#d8503e;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#eef2f7;color:var(--ink);line-height:1.7;}
+  .top{background:var(--navy);color:#fff;padding:22px 24px;}
+  .top h1{margin:0;font-size:20px;}
+  .top p{margin:6px 0 0;color:#cdd9e8;font-size:13px;}
+  .wrap{max-width:860px;margin:0 auto;padding:22px 18px 60px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0;box-shadow:0 2px 10px rgba(15,42,74,.05);}
+  .tag{display:inline-block;background:var(--gold);color:#3a2c08;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:10px;}
+  h2{font-size:17px;margin:0 0 10px;color:var(--navy2);}
+  .data{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0;}
+  .cell{background:#f4f7fb;border:1px solid var(--line);border-radius:8px;padding:10px 12px;}
+  .cell b{display:block;font-size:18px;color:var(--navy);}
+  .cell span{font-size:12px;color:var(--mut);}
+  .opts{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
+  button.opt{appearance:none;border:1px solid var(--navy2);background:#fff;color:var(--navy2);font-size:15px;font-weight:600;padding:12px 18px;border-radius:10px;cursor:pointer;transition:.15s;flex:1;min-width:120px;}
+  button.opt:hover{background:var(--navy2);color:#fff;}
+  button.opt:disabled{opacity:.5;cursor:not-allowed;}
+  .result{display:none;margin-top:8px;}
+  .verdict{border-left:4px solid var(--navy2);background:#f7faff;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px;}
+  .verdict.ok{border-color:var(--ok);background:#f1faf5;}
+  .verdict.warn{border-color:var(--gold2);background:#fdfaf0;}
+  .verdict.bad{border-color:var(--bad);background:#fdf1ef;}
+  .formula{background:#0f2a4a;color:#e8eef7;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:12px 16px;border-radius:8px;overflow-x:auto;white-space:pre;}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:center;}
+  th{background:#f4f7fb;color:var(--navy2);}
+  .reveal{font-size:14px;}
+  .btn2{appearance:none;border:none;background:var(--gold);color:#3a2c08;font-weight:700;padding:10px 20px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .note{font-size:12px;color:var(--mut);margin-top:10px;}
+  a.back{color:var(--navy2);font-size:13px;text-decoration:none;}
+  a.back:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>场景化锻炼 · 涨价决策</h1>
+  <p>纯浏览器运行 · 不联网 · 不装系统 · 适配课堂投屏 ｜ 数据取自「杭州滨江云璟酒店」脱敏数据集</p>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <span class="tag">动态定价</span>
+    <h2>周五上午，pickup 明显超前，竞品群普遍上调——今天要不要涨价？涨多少？</h2>
+    <p>您是当日收益官。桌上没有 RMS，只有一张日报和一张判定表（三看法则）。请基于以下信息决策：</p>
+    <div class="data">
+      <div class="cell"><b>¥620</b><span>当前 ADR</span></div>
+      <div class="cell"><b>68%</b><span>当前在手 OCC</span></div>
+      <div class="cell"><b>+18%</b><span>近三日 pickup（超前）</span></div>
+      <div class="cell"><b>¥720</b><span>竞品群 ADR（昨日）</span></div>
+      <div class="cell"><b>0.91</b><span>本店 RGI（&lt;1 落后）</span></div>
+    </div>
+    <p class="reveal" id="actual"></p>
+    <h2 style="margin-top:18px;">第一步：您决定涨多少？</h2>
+    <div class="opts" id="opts">
+      <button class="opt" data-v="0" onclick="pick(0)">不涨（0%）</button>
+      <button class="opt" data-v="5" onclick="pick(5)">涨 5%</button>
+      <button class="opt" data-v="10" onclick="pick(10)">涨 10%</button>
+      <button class="opt" data-v="15" onclick="pick(15)">涨 15%</button>
+    </div>
+  </div>
+
+  <div class="card result" id="result">
+    <h2>决策结果核算</h2>
+    <div class="formula" id="calc"></div>
+    <div id="verdicts"></div>
+    <h2 style="margin-top:18px;">对照 · 三看法则（一看进度 · 二看竞品 · 三看弹性）</h2>
+    <div class="verdict"><b>① 看进度：</b>pickup 超前 18%，需求不弱，有涨价空间。</div>
+    <div class="verdict"><b>② 看竞品：</b>竞品群已到 720，本店 620、RGI 0.91，价格位置偏低。</div>
+    <div class="verdict"><b>③ 看弹性：</b>弹性随涨幅抬升（0.5→0.8），涨到某一点后量损会吃掉涨幅——所以不是越涨越好。</div>
+    <p class="note">这节课要学生明白：<b>涨价不是拍脑袋，是「进度 + 竞品 + 弹性」三条同时成立才动；且存在最优涨幅，涨过头 RevPAR 反降。</b></p>
+    <div style="margin-top:16px;"><button class="btn2" onclick="location.reload()">再来一次</button>
+    <a class="back" style="margin-left:16px;" href="teach.html">← 返回课堂现场</a></div>
+  </div>
+
+  <div class="card">
+    <h2>讲师出题提示</h2>
+    <p>把「涨 15%」算给学生看：RevPAR 反而低于不动。这正是"只追房价"的典型翻车——系统若只给建议价不校验弹性，人会一路涨到亏。</p>
+  </div>
+</div>
+
+<script>
+  function R(v){
+    var ADR0=620, OCC0=0.68;
+    var elast=0.5+0.02*v;
+    var loss=elast*v/100;
+    var ADR=ADR0*(1+v/100);
+    var OCC=OCC0*(1-loss);
+    var RP=ADR*OCC, RP0=ADR0*OCC0;
+    var bE=0.5+0.02*10, bL=bE*10/100, bRP=620*1.1*0.68*(1-bL);
+    var rows=[['涨幅',v+'%'],['需求弹性（绝对值）',elast.toFixed(2)],['预计量损',(loss*100).toFixed(1)+'%'],
+      ['新 ADR','¥'+ADR.toFixed(0)],['新 OCC',(OCC*100).toFixed(1)+'%'],
+      ['新 RevPAR','¥'+RP.toFixed(1)],['基准 RevPAR（不涨）','¥'+RP0.toFixed(1)],
+      ['与基准之差',(RP-RP0>=0?'+':'')+(RP-RP0).toFixed(1)+' 元']];
+    var vd=[];
+    if(v===10) vd.push(['ok','<b>这就是三看算出来的点。</b>进度、竞品、弹性三条同时成立；涨到 10% RevPAR 到顶（¥'+bRP.toFixed(1)+'），再涨弹性抬升、量损吃掉涨幅。']);
+    else if(v===5) vd.push(['warn','方向对了但偏保守。理论上还有约 '+(bRP-RP).toFixed(1)+' 元 RevPAR 没吃到——但守住客户关系时也说得通。']);
+    else if(v===15) vd.push(['bad','涨过头。弹性升到 '+elast.toFixed(2)+'，量损 '+(loss*100).toFixed(1)+'%，RevPAR ¥'+RP.toFixed(1)+' 已低于不涨的 ¥'+RP0.toFixed(1)+'。']);
+    else vd.push(['bad','该涨没涨。三条信号全指向涨，不动等于把确定的 ¥'+(bRP-RP0).toFixed(1)+' RevPAR 让出去。']);
+    return {rows:rows, v:vd};
+  }
+  function pick(v){
+    var bs=document.querySelectorAll('#opts .opt');
+    for(var i=0;i<bs.length;i++){ bs[i].disabled=true; }
+    var r=R(v);
+    var t='';
+    for(var i=0;i<r.rows.length;i++){ t+=r.rows[i][0]+'：'+r.rows[i][1]+'\n'; }
+    document.getElementById('calc').textContent=t;
+    var vh='';
+    for(var i=0;i<r.v.length;i++){ vh+='<div class="verdict '+r.v[i][0]+'">'+r.v[i][1]+'</div>'; }
+    document.getElementById('verdicts').innerHTML=vh;
+    document.getElementById('result').style.display='block';
+    document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  var ACT="";
+  if(ACT){ document.getElementById('actual').innerHTML='<b>'+ACT+'</b>'; }
+</script>
+</body>
+</html>

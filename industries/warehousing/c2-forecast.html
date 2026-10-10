@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="../../";</script>
+<meta charset="UTF-8">
+<script src="../../assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="../../auth-config.js"></script>
+<script src="../../assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C2 需求预测 · 仓储专业课 · RMC收益管理社区</title>
+<meta name="description" content="仓储收益管理专业课 C2 需求预测。">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/community.css">
+<style>.lst { padding-left:20px; }
+.lst li { font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }
+.qz { border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }
+.qz-q { font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }
+.qz-o { display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }
+.qz-o:hover { border-color:var(--navy-3); background:#F6F9FC; }
+.qz-o.ok { border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }
+.qz-o.no { border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }
+.qz-why { display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }
+.qz-why.on { display:block; }
+</style>
+</head>
+<body data-auth="protected">
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 仓储专业课</a>
+  <div class="cm-eyebrow" style="margin-top:14px">仓储专业课 · C2</div>
+  <h1 class="cm-section-title" style="font-size:28px">需求预测</h1>
+  <p class="cm-section-lead">仓储的需求不是「有多少货要存」，而是两件必须分开预测的事：未来每个时点会有多少库位天被占用（决定仓位能不能卖出去、卖多少钱），以及会有多少订单行与出库件数需要履约（决定要配多少人、多少叉车、多少月台）。两者的驱动因素完全不同——仓位需求跟着客户的生产与备货节奏走，履约需求跟着促销与流量走。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心要点</div>
+    <h2 class="cm-section-title">四条要记住的</h2>
+    <ol class="lst"><li><b>四个提前期，各管一件事。</b>年度与季度（提前 3–12 个月）用于仓库租约谈判、扩容与自动化设备投资；月度（提前 4–8 周）用于仓位预留、长短期合约配比与人力编制；周与日（提前 1–2 周）用于排班、月台预约与外仓预案；小时级用于大促期间的波次排产与临时工调度。</li><li><b>数据来源必须跨出仓库。</b>仓内数据（历史入库 / 出库 / 在库结构与账龄、SKU 件型与 ABC 分类、月台与叉车稼动率）只是一半，另一半在客户那里：客户销售计划与促销日历、生产排产、船期与到港预报、平台大促报名量、预售定金数据。拿不到客户侧数据，预测只能做到月度精度。</li><li><b>事件驱动是主要误差源。</b>电商节（618 预热、双11 预售与两波爆发、双12、年货节）、开学季与换季上新、春节前工厂停工与节后集中到货、直播带货的单日爆量、海关通关节奏变化、周边竞品仓降价引发的转仓。</li><li><b>误差代价不对称，必须输出区间并绑定预案。</b>低估入库量 → 爆仓、拒收或临时租外仓（成本可达常态 2–3 倍且触发履约超时违约）；低估出库量 → 人力不足、发货超时、客户店铺评分下降；高估 → 空置与人力的双重浪费。因此预测要给出上限 / 基准 / 下限三档，并对应绑定外仓额度与临时工预案。</li></ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">要点对照</div>
+    <h2 class="cm-section-title">核心指标一览</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>定义 / 公式</th><th>说明</th></tr></thead>
+      <tbody><tr><td>入库量预测</td><td>按日到货托盘数、件数、车型台次</td><td>决定库位消耗速度与月台、卸货人力排班</td></tr><tr><td>出库量与订单碎片度</td><td>按日出库件数、订单行数；订单行数 ÷ 出库件数</td><td>决定分拣人力与波次设计，碎片度越高单件成本越高</td></tr><tr><td>平均存储天数预测</td><td>预计在库库位·天 ÷ 预计入库量</td><td>决定仓位还能接多少新客户，是接单与否的硬约束</td></tr><tr><td>SKU 结构与件型分布</td><td>快流转 SKU 占比；整托 / 半托 / 散件比例；轻抛货占比</td><td>同等的库位天，结构不同收入可差 40% 以上</td></tr><tr><td>大促峰值系数</td><td>峰值日在库量与出库量 ÷ 平日日均</td><td>双11 出库峰值可达平日 3–5 倍，入库峰值提前 7–15 天到达</td></tr><tr><td>预测误差与区间覆盖率</td><td>|实际 − 预测| ÷ 预测；实际落入预测区间的比例</td><td>误差必须按档考核，而不是只看平均偏差</td></tr></tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">这个行业容易踩的坑</h2>
+    <ul class="lst"><li>只按历史均值外推——忽略客户促销日历与平台大促节奏，双11 前两周必然爆仓。</li><li>只信客户的口头承诺量——客户报的量普遍虚高（怕拿不到仓位）或虚低（怕被涨价），必须与其历史实际到货 / 出货比对后打折使用。</li><li>只预测总量不预测结构——出库件数对了但订单碎片度翻倍，分拣人力直接崩掉。</li><li>把大促峰值当成常态去扩容——按峰值配的仓与人，在剩下的十一个月里全是固定成本。</li></ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题</h2>
+    <div class="qz"><div class="qz-q">第 1 题　为什么仓储需求预测必须把「入库量」和「出库量」分成两条线分别预测？</div><button class="qz-o" data-i="0" data-k="1">A. 因为两者由不同部门统计，口径天然不同</button><button class="qz-o" data-i="1" data-k="1">B. 因为入库量决定库位天消耗与仓位能不能卖，出库量决定人力、月台与履约能力，两者的驱动因素完全不同</button><button class="qz-o" data-i="2" data-k="1">C. 因为客户只关心出库量</button><button class="qz-o" data-i="3" data-k="1">D. 因为仓库系统只能分别取数</button><div class="qz-why" id="why1"><b>解析 ·</b> 入库量跟的是客户的生产与备货节奏（决定库位天被占用多少、还能不能接新客户），出库量跟的是促销与流量（决定要多少人、多少月台、能不能按时发货）。大促期间两者还不同步——入库峰值通常提前 7–15 天到达，出库峰值在爆发当天，混成一条线预测必然在其中一个环节失控。</div></div><div class="qz"><div class="qz-q">第 2 题　某客户为双11 报的备货量比其历史同期实际到货高出 60%。预测环节的正确做法是？</div><button class="qz-o" data-i="0" data-k="2">A. 直接按客户报的量预留仓位，避免得罪客户</button><button class="qz-o" data-i="1" data-k="2">B. 以其历史实际到货为基准做区间预测，按上限准备外仓与临时工预案，同时在合同中约定超量附加费</button><button class="qz-o" data-i="2" data-k="2">C. 按报数量的八折预留，不再做任何预案</button><button class="qz-o" data-i="3" data-k="2">D. 拒收超出部分的货物</button><div class="qz-why" id="why2"><b>解析 ·</b> 客户的报量是谈判数字而不是预测值，必须与其历史实际履约数据比对后修正。正确做法有三层：以历史实际为基准给出上限 / 基准 / 下限三档、按上限预置外仓与临时工等弹性资源（弹性成本远低于爆仓成本）、用超量附加费条款让客户在报量时说实话。直接按报量预留会把旺季仓位锁死，简单打折则没有任何兜底。</div></div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>对应通用内核：</b>K01 需求预测 · K02 动态定价 · K03 库存控制 · K04 渠道管理　|　<b>行业：</b><a href="../../warehousing.html">仓储详解</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="index.html">仓储全部课程</a>
+      <a class="cm-btn cm-btn-ghost" href="../../core.html">学通用内核</a>
+      <a class="cm-btn cm-btn-ghost" href="../../calc-templates.html#warehousing">仓储收益测算模板</a>
+    </div>
+    <div class="cm-btns" style="margin-top:10px"><a class="cm-btn cm-btn-ghost" href="c1-metrics.html">← C1 指标体系</a><a class="cm-btn cm-btn-ghost" href="c3-pricing.html">C3 动态定价 →</a></div>
+  </section>
+</main>
+<script src="../../assets/js/app.js"></script>
+<script>
+(function(){
+  var ANS = [1, 1];
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = parseInt(btn.getAttribute('data-k'), 10);
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === ANS[k-1]) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>

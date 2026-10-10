@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="../../";</script>
+<meta charset="UTF-8">
+<script src="../../assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="../../auth-config.js"></script>
+<script src="../../assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C2 需求预测 · 充电服务专业课 · RMC收益管理社区</title>
+<meta name="description" content="充电服务收益管理专业课 C2 需求预测。">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/community.css">
+<style>.lst { padding-left:20px; }
+.lst li { font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }
+.qz { border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }
+.qz-q { font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }
+.qz-o { display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }
+.qz-o:hover { border-color:var(--navy-3); background:#F6F9FC; }
+.qz-o.ok { border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }
+.qz-o.no { border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }
+.qz-why { display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }
+.qz-why.on { display:block; }
+</style>
+</head>
+<body data-auth="protected">
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 充电服务专业课</a>
+  <div class="cm-eyebrow" style="margin-top:14px">充电服务专业课 · C2</div>
+  <h1 class="cm-section-title" style="font-size:28px">需求预测</h1>
+  <p class="cm-section-lead">充电的需求是「车流 × 补能意愿」的乘积，预测对象不是日充电量，而是「每个站点、每个小时的车次到达率与平均充电时长」。同一条曲线在一周内会呈现完全不同的形状：工作日早晚是通勤补能，周末跟着商圈营业时间走，节假日高速服务区则是数倍的极端尖峰。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心要点</div>
+    <h2 class="cm-section-title">四条要记住的</h2>
+    <ol class="lst"><li><b>分层预测，各管一件事。</b>小时级（0–24 小时）服务排班、分时定价与占位管理；日级（1–7 天）服务峰谷引导与巡检安排；节假日专项（春节、国庆）服务人员与应急保障；季度级服务站点扩容、变压器容量申报与场地续约谈判。</li><li><b>数据来源要成体系。</b>历史订单（车次、桩位、起止时间、充电量、SOC 区间）、排队与占位记录、周边 POI 与道路车流、天气与温度（低温电耗升高）、油价与电价、网约车与物流车队排班、导航平台引流位次。</li><li><b>事件驱动是主要误差源。</b>节假日出行高峰（高速服务区可达平日 3–5 倍）、商圈与景区营业时段、网约车交接班与夜间集中补能、电商大促带来的物流车增量、寒潮与高温导致电耗上升、新站开业的分流与竞站降价的虹吸。</li><li><b>误差代价不对称，要按小时看尖峰。</b>低估造成排队与弃单（用户直接用脚投票，且会记住这次体验），高估造成变压器容量与车位闲置；因此重点不是日总量误差，而是小时级尖峰的命中率与节假日系数的准确性。</li></ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">要点对照</div>
+    <h2 class="cm-section-title">核心指标一览</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>定义 / 公式</th><th>说明</th></tr></thead>
+      <tbody><tr><td>小时车次到达率</td><td>每小时进场车次 ÷ 在线可用桩位数</td><td>排队、需量电费与人员排班全部发生在小时级</td></tr><tr><td>平均充电时长</td><td>有效充电时长 ÷ 车次（按功率段与车型分桶）</td><td>决定周转率，是桩时供给能力的分母</td></tr><tr><td>平均单车充电量</td><td>总充电量 ÷ 有效车次（kWh / 车次）</td><td>结合度电服务费估算单车服务收入</td></tr><tr><td>节假日系数</td><td>节假日日均车次 ÷ 平日日均车次</td><td>高速服务区 3–5，景区站 2–3，社区站可能低于 1</td></tr><tr><td>排队率与弃单率</td><td>排队车次 ÷ 到达车次；排队超时离开车次 ÷ 到达车次</td><td>预测不准的直接体感出口，也是扩容依据</td></tr><tr><td>占位时长</td><td>插枪到拔枪时长 − 有效充电时长</td><td>预测有效供给时必须扣掉的产能损失</td></tr></tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">这个行业容易踩的坑</h2>
+    <ul class="lst"><li>用日总量做预测——掩盖小时级尖峰，而排队、需量电费、人员排班全都在小时级发生。</li><li>节假日一律套用同一个系数——高速站、景区站、社区站的曲线形状完全不同，甚至方向相反。</li><li>忽略站点类型差异统一建模——目的地站（商场、写字楼）、高速站、社区站、车队专用站的需求机理各不相同。</li><li>把占位车次计入有效需求——导致扩容决策虚高，投了钱却换不来收入。</li></ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题</h2>
+    <div class="qz"><div class="qz-q">第 1 题　为什么充电需求预测必须做到小时级，而不是做到日级就够？</div><button class="qz-o" data-i="0" data-k="1">A. 因为用户按小时付费</button><button class="qz-o" data-i="1" data-k="1">B. 因为排队、变压器需量电费与人员排班都在小时级发生，日总量会掩盖尖峰</button><button class="qz-o" data-i="2" data-k="1">C. 因为电价每天变动</button><button class="qz-o" data-i="3" data-k="1">D. 因为平台要求按小时上报数据</button><div class="qz-why" id="why1"><b>解析 ·</b> 桩时是不可储存产能，供给能力在每个小时都是定值，需求却高度不均：早晚通勤与夜间网约车补能会形成几小时的极端尖峰，日均值把这些尖峰完全抹平。按日均值配置，会出现「全天平均很闲、高峰排长队」的典型错配；同时变压器需量电费按最大负荷计费，一个小时的尖峰就能拉高整月电费。所以预测的最小粒度必须对齐决策粒度——小时级。</div></div><div class="qz"><div class="qz-q">第 2 题　国庆期间，某运营商对旗下所有站点统一套用「节假日系数 3.0」做预测。这个做法的主要问题是？</div><button class="qz-o" data-i="0" data-k="2">A. 系数取值偏低，应该统一用 5.0</button><button class="qz-o" data-i="1" data-k="2">B. 不同类型站点需求机理不同，高速站会暴涨、社区站可能反而下降，统一系数必然失真</button><button class="qz-o" data-i="2" data-k="2">C. 节假日无法预测，不该做专项预测</button><button class="qz-o" data-i="3" data-k="2">D. 系数应该按天而不是按假期计算</button><div class="qz-why" id="why2"><b>解析 ·</b> 节假日对不同站点的影响方向都可能相反：高速服务区因长途出行暴涨（3–5 倍），景区与商圈站随客流上升（2–3 倍），而社区站、写字楼站因居民返乡与放假可能跌到平日 0.5 倍以下。统一系数会让高速站备货不足、社区站资源空转。正确做法是按站点类型建立各自的节假日系数，并结合天气、路况与预售数据做二次修正。</div></div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>对应通用内核：</b>K01 需求预测 · K02 动态定价 · K03 库存控制 · K04 渠道管理　|　<b>行业：</b><a href="../../charging.html">充电服务详解</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="index.html">充电服务全部课程</a>
+      <a class="cm-btn cm-btn-ghost" href="../../core.html">学通用内核</a>
+      <a class="cm-btn cm-btn-ghost" href="../../calc-templates.html#charging">充电服务收益测算模板</a>
+    </div>
+    <div class="cm-btns" style="margin-top:10px"><a class="cm-btn cm-btn-ghost" href="c1-metrics.html">← C1 指标体系</a><a class="cm-btn cm-btn-ghost" href="c3-pricing.html">C3 动态定价 →</a></div>
+  </section>
+</main>
+<script src="../../assets/js/app.js"></script>
+<script>
+(function(){
+  var ANS = [1, 1];
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = parseInt(btn.getAttribute('data-k'), 10);
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === ANS[k-1]) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>

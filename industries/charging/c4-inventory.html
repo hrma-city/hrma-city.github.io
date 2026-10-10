@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="../../";</script>
+<meta charset="UTF-8">
+<script src="../../assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="../../auth-config.js"></script>
+<script src="../../assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C4 库存控制 · 充电服务专业课 · RMC收益管理社区</title>
+<meta name="description" content="充电服务收益管理专业课 C4 库存控制。">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/community.css">
+<style>.lst { padding-left:20px; }
+.lst li { font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }
+.qz { border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }
+.qz-q { font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }
+.qz-o { display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }
+.qz-o:hover { border-color:var(--navy-3); background:#F6F9FC; }
+.qz-o.ok { border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }
+.qz-o.no { border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }
+.qz-why { display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }
+.qz-why.on { display:block; }
+</style>
+</head>
+<body data-auth="protected">
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 充电服务专业课</a>
+  <div class="cm-eyebrow" style="margin-top:14px">充电服务专业课 · C4</div>
+  <h1 class="cm-section-title" style="font-size:28px">库存控制</h1>
+  <p class="cm-section-lead">充电的库存是「每个站点、每个时段的可用桩·时」，但真正的约束常常不是桩数，而是变压器容量、车位数量与功率分配。库存控制要解决三件事：把桩时卖给高价值车次、别让占位吞掉周转、在排队与流失之间找到平衡点。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心要点</div>
+    <h2 class="cm-section-title">四条要记住的</h2>
+    <ol class="lst"><li><b>分区与专属位。</b>按功率段（超充 / 快充 / 慢充）分区，按客户类型设专属位（车队专用位、会员位、出租与公交位），并留少量应急预留位；分区比例随各功率段的单桩时收入与需求结构动态调整，不是一次性画死的。</li><li><b>功率动态分配与需量管理。</b>多枪共用功率柜时，按车辆 SOC 与需求动态分配功率（低 SOC 优先、接近满电降功率）；同时监控整站负荷占变压器容量比例，避免同时满功率触发需量电费跳档，这是充电业态特有的「库存约束」。</li><li><b>占位治理是周转的第一生产力。</b>超时占位费 + 车位地锁或挡车器 + 充满提醒 + 高峰时段巡检劝离 + 燃油车占位联动物业；占位率必须进日报，因为它直接把桩时变成零产出。</li><li><b>排队、预约与 SOC 限制。</b>排队叫号与预计等待展示；预约锁位必须配超时释放（预约后 N 分钟未到自动释放）；高速站在节假日可设 SOC 上限（充至 80%–90% 主动结束），用「电量」换「周转」；桩时不可储存，超卖即排队，放弃率破阈值就停止接单。</li></ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">要点对照</div>
+    <h2 class="cm-section-title">核心指标一览</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>定义 / 公式</th><th>说明</th></tr></thead>
+      <tbody><tr><td>可用桩·时</td><td>在线可用桩位数 × 营业小时（扣除故障、检修与占位）</td><td>库存的真实上限，比「装机桩数」小得多</td></tr><tr><td>占位率</td><td>占位桩时 ÷ 插枪桩时</td><td>看起来满、实际零产出的头号指标</td></tr><tr><td>单桩日周转率</td><td>日均有效充电车次 ÷ 桩位数</td><td>与占位率一起决定桩时的变现效率</td></tr><tr><td>功率段桩时占比</td><td>超充 / 快充 / 慢充 桩时 ÷ 总桩时</td><td>结构决定单位产能的收入天花板</td></tr><tr><td>排队放弃率</td><td>排队超时离开车次 ÷ 到达车次</td><td>排队治理的止损线，破阈值即启动疏导</td></tr><tr><td>需量电量利用率</td><td>峰值负荷 ÷ 变压器容量</td><td>超过阈值会触发需量电费跳档，是隐形容量约束</td></tr></tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">这个行业容易踩的坑</h2>
+    <ul class="lst"><li>只看在线率不看可用率——故障枪、功率降额、车位被占都让「在线」不等于「可用」。</li><li>占位不管——桩时看似满负荷，实际有效充电时间可能不到一半，收入与利用率严重背离。</li><li>功率柜固定分配——多枪同时充时全部降速，用户体验崩塌，周转率随之下降。</li><li>预约锁位无释放机制——预约了不来的车位空着，现场有需求的车排着队，两头损失。</li></ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题</h2>
+    <div class="qz"><div class="qz-q">第 1 题　某站点 20 根桩全部在线，但高峰期仍大量排队。从库存控制角度，首先应该排查什么？</div><button class="qz-o" data-i="0" data-k="1">A. 立即新增桩位</button><button class="qz-o" data-i="1" data-k="1">B. 可用率与占位率：故障枪、功率降额、被占车位，以及充满不走吃掉的有效桩时</button><button class="qz-o" data-i="2" data-k="1">C. 提高服务费减少需求</button><button class="qz-o" data-i="3" data-k="1">D. 延长营业时间</button><div class="qz-why" id="why1"><b>解析 ·</b> 「在线」不等于「可用」。故障枪未修复、功率柜降额、车位被燃油车或充满不走的车占用，都会让名义 20 根桩的实际可用产能远低于此；同时占位会把有效充电时长压缩到插枪时长的很小一部分。先算清可用桩·时与占位率，往往不用投资就能释放出可观的产能。直接扩容是在产能没用满时的过度投资；提价只是压抑需求，不一定是最优解。</div></div><div class="qz"><div class="qz-q">第 2 题　节假日期间高速服务区站点，为提升通行能力设置「充至 80% 自动结束」的策略，其收益管理原理是？</div><button class="qz-o" data-i="0" data-k="2">A. 省电，降低购电成本</button><button class="qz-o" data-i="1" data-k="2">B. 用单车电量的小幅下降，换取桩时周转次数的大幅提升，从而提高单桩时收入总量</button><button class="qz-o" data-i="2" data-k="2">C. 为了延长电池寿命</button><button class="qz-o" data-i="3" data-k="2">D. 为了减少变压器负荷</button><div class="qz-why" id="why2"><b>解析 ·</b> 充电后期（SOC 80% 以上）充电功率显著下降，占用桩时的时间很长但充入电量很少，单位桩时的产出极低。在需求远超供给的高速服务区，这一段桩时的机会成本极高。主动在 80%–90% 结束充电，牺牲的是少量电量收入，换来的是周转次数明显上升，总服务车次与总单桩时收入反而更高。削峰与电池寿命是附带好处，不是主要收益逻辑。</div></div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>对应通用内核：</b>K01 需求预测 · K02 动态定价 · K03 库存控制 · K04 渠道管理　|　<b>行业：</b><a href="../../charging.html">充电服务详解</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="index.html">充电服务全部课程</a>
+      <a class="cm-btn cm-btn-ghost" href="../../core.html">学通用内核</a>
+      <a class="cm-btn cm-btn-ghost" href="../../calc-templates.html#charging">充电服务收益测算模板</a>
+    </div>
+    <div class="cm-btns" style="margin-top:10px"><a class="cm-btn cm-btn-ghost" href="c3-pricing.html">← C3 动态定价</a><a class="cm-btn cm-btn-ghost" href="c5-channel.html">C5 渠道与竞争 →</a></div>
+  </section>
+</main>
+<script src="../../assets/js/app.js"></script>
+<script>
+(function(){
+  var ANS = [1, 1];
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = parseInt(btn.getAttribute('data-k'), 10);
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === ANS[k-1]) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>

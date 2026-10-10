@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="../../";</script>
+<meta charset="UTF-8">
+<script src="../../assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="../../auth-config.js"></script>
+<script src="../../assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C2 需求预测 · 云算力专业课 · RMC收益管理社区</title>
+<meta name="description" content="云算力收益管理专业课 C2 需求预测。">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/community.css">
+<style>.lst { padding-left:20px; }
+.lst li { font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }
+.qz { border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }
+.qz-q { font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }
+.qz-o { display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }
+.qz-o:hover { border-color:var(--navy-3); background:#F6F9FC; }
+.qz-o.ok { border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }
+.qz-o.no { border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }
+.qz-why { display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }
+.qz-why.on { display:block; }
+</style>
+</head>
+<body data-auth="protected">
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 云算力专业课</a>
+  <div class="cm-eyebrow" style="margin-top:14px">云算力专业课 · C2</div>
+  <h1 class="cm-section-title" style="font-size:28px">需求预测</h1>
+  <p class="cm-section-lead">云算力的预测对象不是「这个月卖多少卡时」，而是「未来 2 小时、24 小时、7 天、30 天各时间窗里，什么卡型、多大并发、多长周期的作业会到达」。因为卡时不可储存，且大模型训练往往一次性索要几十上百张同拓扑卡，预测错卡型结构比预测错总量更致命。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心要点</div>
+    <h2 class="cm-section-title">四条要记住的</h2>
+    <ol class="lst"><li><b>分层预测，四个时间窗各管一件事。</b>实时（分钟–2 小时）用排队队列与在跑作业外推，服务调度；短期（24–72 小时）驱动分时定价与抢占池上限；中期（7–30 天）驱动容量分区与承诺审批；长期（季度）驱动采购、机房扩容与长租定价。</li><li><b>关键驱动变量要固定成清单。</b>大模型训练窗口（预训练 / SFT / 对齐）、推理日活与大促流量、论文与产品发布周期、卡型迁移节奏（H 系到国产卡）、客户预算年末冲量、电价峰谷与机房投产计划、补贴与算力券发放节奏。</li><li><b>事件驱动是主要误差源。</b>大模型训练窗口是阶跃式需求（一次吃掉数百卡数周），节假日与电商大促是推理尖峰，开学季与结题季是科研尖峰，必须用事件日历显式建模，而不是靠历史均值外推。</li><li><b>用分位数预测，不用单点预测。</b>少备卡的代价是排队与永久流失，多备卡的代价是闲置折旧，两者不对称；应同时输出 P50（基线调度）与 P90（容量预留与应急采购），并给出按卡型成本加权的误差指标。</li></ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">要点对照</div>
+    <h2 class="cm-section-title">核心指标一览</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>定义 / 公式</th><th>说明</th></tr></thead>
+      <tbody><tr><td>作业到达率</td><td>单位时间提交的作业数，按卡型 × 卡数分桶统计</td><td>总量预测没用，训练与推理的卡数分桶完全不同</td></tr><tr><td>卡型需求结构</td><td>各卡型需求卡时 ÷ 总需求卡时</td><td>结构错配比总量错配更致命，直接导致排队</td></tr><tr><td>在手承诺消耗</td><td>已售承诺卡时 ÷ 承诺总卡时（类比 on-book 与 pickup）</td><td>承诺消耗速度是中期容量分区的核心输入</td></tr><tr><td>训练窗口日历</td><td>客户已申报的大模型训练起止时间与规模</td><td>阶跃式需求，必须显式建模而非均值外推</td></tr><tr><td>推理流量曲线</td><td>按小时统计的请求量 / 日活曲线，含节假日系数</td><td>决定分时定价与抢占池上限</td></tr><tr><td>排队时长 P50 / P95 与放弃率</td><td>排队时长分位数；放弃率 = 排队超时取消作业数 ÷ 提交作业数</td><td>预测偏差的最终体感出口，也是校准信号</td></tr></tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">这个行业容易踩的坑</h2>
+    <ul class="lst"><li>用月度总卡时做预测——掩盖小时级尖峰，而排队、电力需量与调度冲突全部发生在小时级。</li><li>只预测卡时总量不预测卡型与拓扑结构——结果是有闲置卡、客户还在排队。</li><li>把承诺需求重复计入自由需求——同一批卡算了两遍需求，导致过度采购。</li><li>用历史均值外推——忽略大模型训练窗口这类阶跃变化，一到旺季预测全线失守。</li></ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题</h2>
+    <div class="qz"><div class="qz-q">第 1 题　云算力需求预测中，为什么必须做分位数预测（P50 / P90）而不是单点预测？</div><button class="qz-o" data-i="0" data-k="1">A. 因为客户要求报价时给出区间</button><button class="qz-o" data-i="1" data-k="1">B. 因为少备卡（排队流失）与多备卡（闲置折旧）的代价不对称，需要分别支撑调度基线与容量预留</button><button class="qz-o" data-i="2" data-k="1">C. 因为 GPU 卡时是可储存库存，需要用区间管理损耗</button><button class="qz-o" data-i="3" data-k="1">D. 因为单点预测在数学上无法计算</button><div class="qz-why" id="why1"><b>解析 ·</b> 卡时不可储存，预测偏差的两个方向代价完全不同：低估造成排队、客户流失与口碑损伤，高估造成折旧与电力空耗。因此 P50 用于日常调度与抢占池设置，P90 用于容量预留、应急采购与承诺审批上限，两套数字服务两类决策。GPU 卡时恰恰是典型的不可储存产能，说它可储存是概念错误。</div></div><div class="qz"><div class="qz-q">第 2 题　某智算中心预测下月总卡时需求充足，但客户排队 P95 仍在恶化。最可能的原因是？</div><button class="qz-o" data-i="0" data-k="2">A. 总量预测偏低，需要再采购一批卡</button><button class="qz-o" data-i="1" data-k="2">B. 卡型与拓扑结构预测错配，有闲置卡但拼不出客户需要的同拓扑整柜</button><button class="qz-o" data-i="2" data-k="2">C. 抢占式实例定价过高</button><button class="qz-o" data-i="3" data-k="2">D. 客户预算不足导致下单慢</button><div class="qz-why" id="why2"><b>解析 ·</b> 总量对而排队恶化，是典型的结构错配：大模型训练要求同机同域、NVLink/RDMA 拓扑一致、显存规格一致，集群虽然空闲卡很多，却被打散成无法拼装的碎片。正确动作是做拓扑感知装箱、碎片整理与卡型结构预测，而不是继续盲目扩容——扩容只会把碎片变得更大。</div></div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>对应通用内核：</b>K01 需求预测 · K02 动态定价 · K03 库存控制 · K04 渠道管理　|　<b>行业：</b><a href="../../cloud-compute.html">云算力详解</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="index.html">云算力全部课程</a>
+      <a class="cm-btn cm-btn-ghost" href="../../core.html">学通用内核</a>
+      <a class="cm-btn cm-btn-ghost" href="../../calc-templates.html#cloud-compute">云算力收益测算模板</a>
+    </div>
+    <div class="cm-btns" style="margin-top:10px"><a class="cm-btn cm-btn-ghost" href="c1-metrics.html">← C1 指标体系</a><a class="cm-btn cm-btn-ghost" href="c3-pricing.html">C3 动态定价 →</a></div>
+  </section>
+</main>
+<script src="../../assets/js/app.js"></script>
+<script>
+(function(){
+  var ANS = [1, 1];
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = parseInt(btn.getAttribute('data-k'), 10);
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === ANS[k-1]) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>

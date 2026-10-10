@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="../../";</script>
+<meta charset="UTF-8">
+<script src="../../assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="../../auth-config.js"></script>
+<script src="../../assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C4 库存控制 · 云算力专业课 · RMC收益管理社区</title>
+<meta name="description" content="云算力收益管理专业课 C4 库存控制。">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/community.css">
+<style>.lst { padding-left:20px; }
+.lst li { font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }
+.qz { border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }
+.qz-q { font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }
+.qz-o { display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }
+.qz-o:hover { border-color:var(--navy-3); background:#F6F9FC; }
+.qz-o.ok { border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }
+.qz-o.no { border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }
+.qz-why { display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }
+.qz-why.on { display:block; }
+</style>
+</head>
+<body data-auth="protected">
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 云算力专业课</a>
+  <div class="cm-eyebrow" style="margin-top:14px">云算力专业课 · C4</div>
+  <h1 class="cm-section-title" style="font-size:28px">库存控制</h1>
+  <p class="cm-section-lead">云算力的库存是「未来每个时间窗、每种卡型的可用卡时」。它的特殊之处是同一批物理卡可以用三种身份卖出：预留（承诺）、按需（即时）、抢占（可中断）；而且大作业要求「同时拿到 N 张同拓扑卡」。所以库存控制的核心是分区、配额与碎片治理，而不是简单地开关某类实例。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心要点</div>
+    <h2 class="cm-section-title">四条要记住的</h2>
+    <ol class="lst"><li><b>三池分区，比例随在手承诺动态调整。</b>预留池（已售承诺，不可动）、按需池（高价即时需求，重中之重）、抢占池（可中断填充，设上限）；预留池随承诺消耗自动扩缩，按需池设保护位，抢占池只吃剩余产能。</li><li><b>按需保护位与门槛价。</b>为高价值按需客户保留保护卡时，只有在实现单价高于门槛价时才释放给抢占与低折扣长租；保护位不是固定值，而是随在手承诺、排队 P95 与预测需求每天重算。</li><li><b>配额与回收，防长期空占。</b>按客户 / 项目设卡时配额上限，防止单一作业吃满集群；配套心跳检测、预约后超时未启动自动回收、空转（分配但未计算）超时释放，做到配额能发也能收。</li><li><b>碎片治理与超卖边界。</b>用拓扑感知调度（同机同域、NVLink/RDMA 一致）与装箱算法降低碎片率；显存绝对不可超卖，算力可分时复用但必须设排队上限与预计等待时长，放弃率超阈值即停止接单。</li></ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">要点对照</div>
+    <h2 class="cm-section-title">核心指标一览</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>定义 / 公式</th><th>说明</th></tr></thead>
+      <tbody><tr><td>三池占比</td><td>预留池 / 按需池 / 抢占池 卡时 ÷ 总可用卡时</td><td>分区是库存控制的主开关，比例每天随承诺与预测重算</td></tr><tr><td>按需保护位</td><td>为高价即时需求保留的卡时数，随门槛价动态调整</td><td>防止低价业务把旺季产能提前吃光</td></tr><tr><td>抢占池上限</td><td>抢占式可占用卡时上限 ÷ 空闲卡时</td><td>避免抢占挤占按需转化，也避免抢占无卡可抢</td></tr><tr><td>配额回收率</td><td>超时未启动 / 空转被回收的卡时 ÷ 已分配卡时</td><td>配额能发也要能收，回收率过低说明空转严重</td></tr><tr><td>排队时长 P95 与放弃率</td><td>排队时长分位数；放弃率 = 排队超时取消作业数 ÷ 提交作业数</td><td>超卖的止损线，放弃率破阈值即收紧接单</td></tr><tr><td>碎片率</td><td>因拓扑 / 显存不匹配无法分配的空闲卡时 ÷ 总空闲卡时</td><td>看着有卡却排不上队的根因，靠装箱与迁移治理</td></tr></tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">这个行业容易踩的坑</h2>
+    <ul class="lst"><li>抢占池开得过大挤压按需——空闲卡被低价抢占填满，高价值客户来了反而排队。</li><li>分配即占用，作业空转不释放——分配后等数据、等参数、等人确认，卡被占着不算，双重损失。</li><li>只看总量不看拓扑与显存匹配——报表显示有 200 张空闲卡，客户要 64 卡同域训练却一张都拼不出来。</li><li>配额只发不收——大客户拿到配额后长期低强度使用，其余客户在排队，产能被名义占用锁死。</li></ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题</h2>
+    <div class="qz"><div class="qz-q">第 1 题　某云厂商为提升利用率，把 60% 的空闲卡时划入抢占池。最可能出现的后果是？</div><button class="qz-o" data-i="0" data-k="1">A. 利用率与单卡时收入同步提升</button><button class="qz-o" data-i="1" data-k="1">B. 利用率提升但单卡时收入下降，且高价值按需客户排队恶化甚至流失</button><button class="qz-o" data-i="2" data-k="1">C. 对按需客户没有影响，因为两类客户互不重叠</button><button class="qz-o" data-i="3" data-k="1">D. 抢占池会自动调节，不存在副作用</button><div class="qz-why" id="why1"><b>解析 ·</b> 抢占池的本质是把「未来可能被高价需求买走的产能」提前以低价卖掉。占比过高时，利用率确实上升，但实现单价被稀释，且当按需客户（尤其是不可延迟的推理与赶deadline的训练）到达时无卡可用，只能排队或转向竞品。抢占池应设上限并动态收缩——排队 P95 与在手承诺上升时，应主动把产能从抢占池划回按需池。</div></div><div class="qz"><div class="qz-q">第 2 题　关于云算力的「超卖」，下列说法正确的是？</div><button class="qz-o" data-i="0" data-k="2">A. 卡时与酒店房晚一样，可以按取消率放心超卖</button><button class="qz-o" data-i="1" data-k="2">B. 显存不可超卖，算力可分时复用，但必须设排队上限与放弃率止损线</button><button class="qz-o" data-i="2" data-k="2">C. 抢占式不属于超卖，因为它不占用真实产能</button><button class="qz-o" data-i="3" data-k="2">D. 只要客户同意排队，超卖比例可以无限放大</button><div class="qz-why" id="why2"><b>解析 ·</b> 算力库存有两类约束：显存是硬约束，超卖会直接导致作业 OOM 崩溃，绝对不能超；算力（SM 时间片）可以分时复用，相当于一种可控超卖，但代价是排队与延迟。因此可行做法是对算力做有界超卖——用排队时长 P95 与放弃率作为止损线，一旦突破就停止接单或回收抢占池。取消率超卖是酒店的玩法，云算力没有取消率这个概念，抢占式恰恰是可中断超卖的实现形式。</div></div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>对应通用内核：</b>K01 需求预测 · K02 动态定价 · K03 库存控制 · K04 渠道管理　|　<b>行业：</b><a href="../../cloud-compute.html">云算力详解</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="index.html">云算力全部课程</a>
+      <a class="cm-btn cm-btn-ghost" href="../../core.html">学通用内核</a>
+      <a class="cm-btn cm-btn-ghost" href="../../calc-templates.html#cloud-compute">云算力收益测算模板</a>
+    </div>
+    <div class="cm-btns" style="margin-top:10px"><a class="cm-btn cm-btn-ghost" href="c3-pricing.html">← C3 动态定价</a><a class="cm-btn cm-btn-ghost" href="c5-channel.html">C5 渠道与竞争 →</a></div>
+  </section>
+</main>
+<script src="../../assets/js/app.js"></script>
+<script>
+(function(){
+  var ANS = [1, 1];
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = parseInt(btn.getAttribute('data-k'), 10);
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === ANS[k-1]) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>

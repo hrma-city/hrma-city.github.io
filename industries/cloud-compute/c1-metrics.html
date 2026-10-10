@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="../../";</script>
+<meta charset="UTF-8">
+<script src="../../assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="../../auth-config.js"></script>
+<script src="../../assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C1 指标体系 · 云算力专业课 · RMC收益管理社区</title>
+<meta name="description" content="云算力收益管理专业课 C1 指标体系。">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/community.css">
+<style>.lst { padding-left:20px; }
+.lst li { font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }
+.qz { border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }
+.qz-q { font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }
+.qz-o { display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }
+.qz-o:hover { border-color:var(--navy-3); background:#F6F9FC; }
+.qz-o.ok { border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }
+.qz-o.no { border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }
+.qz-why { display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }
+.qz-why.on { display:block; }
+</style>
+</head>
+<body data-auth="protected">
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 云算力专业课</a>
+  <div class="cm-eyebrow" style="margin-top:14px">云算力专业课 · C1</div>
+  <h1 class="cm-section-title" style="font-size:28px">指标体系</h1>
+  <p class="cm-section-lead">云算力的产能单位是「GPU卡·时」，与酒店房晚最大的差别是——它可切分、可抢占、可跨机拼装，但几乎不可储存：今天空闲的卡时不会在明天变成两倍的卡时，空转一小时的损失永远找不回来。同时同一张卡可以按整机、按单卡、按 vGPU 切片出售，口径不同，「利用率」三个字的含义完全不同。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心要点</div>
+    <h2 class="cm-section-title">四条要记住的</h2>
+    <ol class="lst"><li><b>单卡时收入 RevPAGH = 算力收入 ÷ 可用 GPU 卡·时。</b>云算力版 RevPAR，把「卖了多少」和「卖多贵」压成一个数，是衡量集群真实产出的核心指标；分子只计算力服务收入，不含存储与网络溢价，分母是物理可用卡时而非已售出卡时。</li><li><b>GPU 利用率 = 有效占用卡时 ÷ 可用卡时。</b>必须用 SM 利用率或算力吞吐做校核：分配出去 100% 但 SM 利用率只有 40%，是典型的「分而不算」，会把闲置伪装成满载。</li><li><b>实现单价 = 算力收入 ÷ 计费卡时。</b>云算力版 ADR，必须按按需／抢占／预留三类业务分别拆解，一个混合均价会掩盖抢占占比上升导致的价格稀释。</li><li><b>闲置率 = （可用卡时 − 计费卡时）÷ 可用卡时。</b>闲置不是零成本，折旧、电力、机房与运维照常发生；同时要单独看碎片率——因拓扑或显存不匹配而分配不出去的卡时，是「看得见却卖不掉」的闲置。</li></ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">要点对照</div>
+    <h2 class="cm-section-title">核心指标一览</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>定义 / 公式</th><th>说明</th></tr></thead>
+      <tbody><tr><td>RevPAGH 单卡时收入</td><td>算力收入 ÷ 可用 GPU 卡·时</td><td>云算力版 RevPAR，同时受利用率与实现单价两个杠杆影响</td></tr><tr><td>GPU 利用率</td><td>有效占用卡时 ÷ 可用卡时（以 SM 利用率 / 算力吞吐校核）</td><td>分而不算是最常见的虚高来源</td></tr><tr><td>实现单价</td><td>算力收入 ÷ 计费卡时</td><td>云算力版 ADR，必须按按需 / 抢占 / 预留分拆看</td></tr><tr><td>抢占式占比</td><td>抢占式实例卡时 ÷ 总售出卡时</td><td>占比过高会稀释整体单价，过低则闲置上升</td></tr><tr><td>长租承诺占比</td><td>预留 / 承诺实例卡时 ÷ 总可用卡时</td><td>太高锁死旺季产能，太低则收入确定性不足</td></tr><tr><td>闲置率与碎片率</td><td>闲置率 =（可用卡时 − 计费卡时）÷ 可用卡时；碎片率 = 因拓扑 / 显存不匹配无法分配的空闲卡时 ÷ 空闲卡时</td><td>闲置是损失，碎片是卖不掉的闲置，治理手段不同</td></tr></tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">这个行业容易踩的坑</h2>
+    <ul class="lst"><li>只看分配率不看 SM 利用率——卡分配出去了但作业在等数据、等参数或单卡 batch 太小，报表满载实际空转。</li><li>只看利用率不看单位收益——用三年长租五折把集群填满，利用率 95% 而 RevPAGH 只有同行一半。</li><li>把长租承诺收入一次性计入当期——应按卡时履约进度摊销，否则当期收入与产能消耗不匹配。</li><li>把闲置当成零成本——折旧、电力、机房与带宽是刚性支出，闲置卡时的真实损失是「单卡时毛利 × 闲置卡时」。</li></ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题</h2>
+    <div class="qz"><div class="qz-q">第 1 题　云算力业态里，对应酒店 RevPAR 的等价核心指标是哪一个？</div><button class="qz-o" data-i="0" data-k="1">A. GPU 利用率 = 有效占用卡时 ÷ 可用卡时</button><button class="qz-o" data-i="1" data-k="1">B. 实现单价 = 算力收入 ÷ 计费卡时</button><button class="qz-o" data-i="2" data-k="1">C. 单卡时收入 RevPAGH = 算力收入 ÷ 可用 GPU 卡·时</button><button class="qz-o" data-i="3" data-k="1">D. 排队时长 P95</button><div class="qz-why" id="why1"><b>解析 ·</b> RevPAR 的本质是「单位可售产能创造的平均收入」，酒店的可售产能是可售房晚，云算力的可售产能是可用 GPU 卡·时，所以等价指标是算力收入 ÷ 可用卡·时。实现单价只是价格维度（相当于 ADR），利用率只是数量维度（相当于 OCC），只有单卡时收入把两个杠杆压成一个数；排队时长是服务指标，不直接反映产出。</div></div><div class="qz"><div class="qz-q">第 2 题　某集群报表显示 GPU 分配率 98%，但 SM 利用率长期只有 35%。以下判断最合理的是？</div><button class="qz-o" data-i="0" data-k="2">A. 产能已接近饱和，应立即涨价</button><button class="qz-o" data-i="1" data-k="2">B. 集群处于「分而不算」状态，真实有效算力被严重高估，应先查作业空转与 batch 效率</button><button class="qz-o" data-i="2" data-k="2">C. 说明抢占式实例占比过高</button><button class="qz-o" data-i="3" data-k="2">D. 说明该集群卡型落后，必须马上换卡</button><div class="qz-why" id="why2"><b>解析 ·</b> 分配率衡量的是「卡有没有被占住」，SM 利用率衡量的是「卡有没有在算」。两者背离 60 个百分点，典型原因是作业在等数据加载、等参数同步、单卡 batch 过小、或分配后迟迟未启动。此时涨价只会把客户推向竞品，正确动作是先做空转治理（数据预取、检查点优化、超时回收），把有效算力释放出来，再看是否真有产能缺口。</div></div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>对应通用内核：</b>K01 需求预测 · K02 动态定价 · K03 库存控制 · K04 渠道管理　|　<b>行业：</b><a href="../../cloud-compute.html">云算力详解</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="index.html">云算力全部课程</a>
+      <a class="cm-btn cm-btn-ghost" href="../../core.html">学通用内核</a>
+      <a class="cm-btn cm-btn-ghost" href="../../calc-templates.html#cloud-compute">云算力收益测算模板</a>
+    </div>
+    <div class="cm-btns" style="margin-top:10px"><a class="cm-btn cm-btn-ghost" href="c2-forecast.html">C2 需求预测 →</a></div>
+  </section>
+</main>
+<script src="../../assets/js/app.js"></script>
+<script>
+(function(){
+  var ANS = [2, 1];
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = parseInt(btn.getAttribute('data-k'), 10);
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === ANS[k-1]) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>

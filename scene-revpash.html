@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<meta charset="utf-8">
+<script src="assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>场景化锻炼 · 餐饮 RevPASH（不靠系统）</title>
+<style>
+  :root{--navy:#0f2a4a;--navy2:#12365c;--gold:#e8b84b;--gold2:#c99a3f;--ink:#1d2433;--mut:#8a94a6;--line:#e3e8f0;--ok:#1f9d6b;--bad:#d8503e;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#eef2f7;color:var(--ink);line-height:1.7;}
+  .top{background:var(--navy);color:#fff;padding:22px 24px;}
+  .top h1{margin:0;font-size:20px;}
+  .top p{margin:6px 0 0;color:#cdd9e8;font-size:13px;}
+  .wrap{max-width:860px;margin:0 auto;padding:22px 18px 60px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0;box-shadow:0 2px 10px rgba(15,42,74,.05);}
+  .tag{display:inline-block;background:var(--gold);color:#3a2c08;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:10px;}
+  h2{font-size:17px;margin:0 0 10px;color:var(--navy2);}
+  .data{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0;}
+  .cell{background:#f4f7fb;border:1px solid var(--line);border-radius:8px;padding:10px 12px;}
+  .cell b{display:block;font-size:18px;color:var(--navy);}
+  .cell span{font-size:12px;color:var(--mut);}
+  .opts{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
+  button.opt{appearance:none;border:1px solid var(--navy2);background:#fff;color:var(--navy2);font-size:15px;font-weight:600;padding:12px 18px;border-radius:10px;cursor:pointer;transition:.15s;flex:1;min-width:120px;}
+  button.opt:hover{background:var(--navy2);color:#fff;}
+  button.opt:disabled{opacity:.5;cursor:not-allowed;}
+  .result{display:none;margin-top:8px;}
+  .verdict{border-left:4px solid var(--navy2);background:#f7faff;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px;}
+  .verdict.ok{border-color:var(--ok);background:#f1faf5;}
+  .verdict.warn{border-color:var(--gold2);background:#fdfaf0;}
+  .verdict.bad{border-color:var(--bad);background:#fdf1ef;}
+  .formula{background:#0f2a4a;color:#e8eef7;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:12px 16px;border-radius:8px;overflow-x:auto;white-space:pre;}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:center;}
+  th{background:#f4f7fb;color:var(--navy2);}
+  .reveal{font-size:14px;}
+  .btn2{appearance:none;border:none;background:var(--gold);color:#3a2c08;font-weight:700;padding:10px 20px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .note{font-size:12px;color:var(--mut);margin-top:10px;}
+  a.back{color:var(--navy2);font-size:13px;text-decoration:none;}
+  a.back:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>场景化锻炼 · 餐饮 RevPASH</h1>
+  <p>纯浏览器运行 · 不联网 · 不装系统 · 适配课堂投屏 ｜ 数据取自「杭州滨江云璟酒店」脱敏数据集</p>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <span class="tag">跨行业延伸</span>
+    <h2>餐厅 120 个座位、晚餐时段 3 小时。要提升 RevPASH，从哪儿下手？</h2>
+    <p>RevPASH（每可用座位每小时收入）把翻台率与人单合成一个数。它和 RevPAR 的逻辑完全一致：容量 × 利用率 × 单价。</p>
+    <div class="data">
+      <div class="cell"><b>120</b><span>座位数</span></div>
+      <div class="cell"><b>180 分钟</b><span>晚餐时段</span></div>
+      <div class="cell"><b>¥158</b><span>人均消费</span></div>
+      <div class="cell"><b>95 分钟</b><span>平均用餐时长</span></div>
+      <div class="cell"><b>¥1.89</b><span>当前翻台率</span></div>
+    </div>
+    <p class="reveal" id="actual"></p>
+    <h2 style="margin-top:18px;">第一步：您优先做哪个动作？</h2>
+    <div class="opts" id="opts">
+      <button class="opt" data-v="1" onclick="pick(1)">不控制，维持现状</button>
+      <button class="opt" data-v="2" onclick="pick(2)">控制用餐时长到 75 分钟</button>
+      <button class="opt" data-v="3" onclick="pick(3)">控制时长＋引导点单结构</button>
+      <button class="opt" data-v="4" onclick="pick(4)">只做时段定价（下午茶错峰）</button>
+    </div>
+  </div>
+
+  <div class="card result" id="result">
+    <h2>决策结果核算</h2>
+    <div class="formula" id="calc"></div>
+    <div id="verdicts"></div>
+    <h2 style="margin-top:18px;">对照 · RevPASH · 三条提升路径</h2>
+    <div class="verdict"><b>① 控制用餐时长：</b>翻台率 = 时段 ÷ 用餐时长，时长从 95→75 分钟，翻台 1.89→2.40。</div>
+    <div class="verdict"><b>② 引导点单结构：</b>人单从 ¥158 提到 ¥183，不动时长也能提收入。</div>
+    <div class="verdict"><b>③ 做时段定价：</b>下午茶与晚市错峰，把闲置时段的容量也变现。</div>
+    <p class="note">这节课要学生明白：<b>RevPASH ＝ 容量 × 利用率 × 单价，和 RevPAR 完全同构。三条路径可以叠加，但先做成本最低的那条（控时长）。</b></p>
+    <div style="margin-top:16px;"><button class="btn2" onclick="location.reload()">再来一次</button>
+    <a class="back" style="margin-left:16px;" href="teach.html">← 返回课堂现场</a></div>
+  </div>
+
+  <div class="card">
+    <h2>讲师出题提示</h2>
+    <p>跨行业迁移的关键提问："酒店的 OCC/ADR/RevPAR，在餐厅里分别对应什么？"——答对了，这一整章就通了。</p>
+  </div>
+</div>
+
+<script>
+  function R(v){
+    var SEAT=120, MIN=180, VC_RATE=0.42;
+    var dur={1:95,2:75,3:75,4:95}[v];
+    var spend={1:158,2:158,3:183,4:158}[v];
+    var extra={1:0,2:0,3:0,4:0.12}[v];   // 时段定价带来的额外时段利用率
+    var turns=MIN/dur;
+    var covers=Math.round(SEAT*turns*(1+extra));
+    var rev=covers*spend;
+    var hours=MIN/60;
+    var revpash=rev/(SEAT*hours);
+    var cm=rev*(1-VC_RATE);
+    var rows=[['动作',{1:'维持现状',2:'控时长到 75 分钟',3:'控时长＋引导点单',4:'只做时段定价'}[v]],
+      ['平均用餐时长',dur+' 分钟'],['翻台率',turns.toFixed(2)+' 次'],
+      ['人均消费','¥'+spend],['总客流',covers+' 人'],
+      ['时段收入','¥'+rev.toFixed(0)],
+      ['RevPASH（每座位每小时）','¥'+revpash.toFixed(1)],
+      ['边际贡献（成本率 42%）','¥'+cm.toFixed(0)]];
+    var vd=[];
+    if(v===3) vd.push(['ok','<b>最优。</b>控时长（翻台 1.89→'+turns.toFixed(2)+'）叠加引导点单（人单 ¥158→¥183），RevPASH 达 ¥'+revpash.toFixed(1)+'，两条路径同时生效。']);
+    else if(v===2) vd.push(['warn','控时长是最便宜的那条路，RevPASH 提到 ¥'+revpash.toFixed(1)+'。但只做这一条，点单结构还有空间没吃。']);
+    else if(v===4) vd.push(['warn','时段定价能把闲置时段变现（+12% 客流），但没解决晚市本身的翻台问题，RevPASH ¥'+revpash.toFixed(1)+'。']);
+    else vd.push(['bad','维持现状等于接受 ¥'+revpash.toFixed(1)+' 的 RevPASH。用餐时长是餐饮业最容易被忽视的"库存"。']);
+    return {rows:rows, v:vd};
+  }
+  function pick(v){
+    var bs=document.querySelectorAll('#opts .opt');
+    for(var i=0;i<bs.length;i++){ bs[i].disabled=true; }
+    var r=R(v);
+    var t='';
+    for(var i=0;i<r.rows.length;i++){ t+=r.rows[i][0]+'：'+r.rows[i][1]+'\n'; }
+    document.getElementById('calc').textContent=t;
+    var vh='';
+    for(var i=0;i<r.v.length;i++){ vh+='<div class="verdict '+r.v[i][0]+'">'+r.v[i][1]+'</div>'; }
+    document.getElementById('verdicts').innerHTML=vh;
+    document.getElementById('result').style.display='block';
+    document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  var ACT="";
+  if(ACT){ document.getElementById('actual').innerHTML='<b>'+ACT+'</b>'; }
+</script>
+</body>
+</html>

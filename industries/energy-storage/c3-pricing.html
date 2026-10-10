@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="../../";</script>
+<meta charset="UTF-8">
+<script src="../../assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="../../auth-config.js"></script>
+<script src="../../assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C3 动态定价 · 储能专业课 · RMC收益管理社区</title>
+<meta name="description" content="储能收益管理专业课 C3 动态定价。">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/community.css">
+<style>.lst { padding-left:20px; }
+.lst li { font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }
+.qz { border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }
+.qz-q { font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }
+.qz-o { display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }
+.qz-o:hover { border-color:var(--navy-3); background:#F6F9FC; }
+.qz-o.ok { border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }
+.qz-o.no { border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }
+.qz-why { display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }
+.qz-why.on { display:block; }
+</style>
+</head>
+<body data-auth="protected">
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 储能专业课</a>
+  <div class="cm-eyebrow" style="margin-top:14px">储能专业课 · C3</div>
+  <h1 class="cm-section-title" style="font-size:28px">动态定价</h1>
+  <p class="cm-section-lead">储能的「定价」不是给客户报价，而是在不同用途之间分配同一份容量：自营峰谷套利、辅助服务（调频 / 备用）、容量租赁、工商业需量管理。同一 MWh 容量在不同用途上的单位收益可以差数倍，而且它们互相挤占——留给调频的功率与 SOC 空间，就不能再拿去套利。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心要点</div>
+    <h2 class="cm-section-title">四条要记住的</h2>
+    <ol class="lst"><li><b>峰谷套利与分时报价：收益由「价差 × 往返效率」决定，不是由价差单独决定。</b>实际收益 = 放电量 × 放电价 −（放电量 ÷ RTE）× 充电价；因此要先把「充电价上限」和「放电价下限」写成两条可自动执行的规则，按小时申报充放曲线，低于度电净收益门槛的窗口自动放弃，避免人工盯盘带来的情绪化操作。</li><li><b>容量租赁 vs 自营套利：用机会成本比较。</b>租赁拿到稳定的年租金（元 / kW·年 或 元 / kWh·年）、零市场风险和更低的循环消耗，代价是放弃价差上行；自营则相反。判据是「租赁年租金 ÷ 年可用放电量」是否高于自营的长期平均度电净收益。</li><li><b>辅助服务补偿：卖的是功率与响应速度。</b>调频按里程与性能补偿，备用按容量补偿；参与辅助服务要预留功率与 SOC 空间，会挤占套利容量，因此要做明确的容量切分（例如 30% 容量给调频、70% 给套利），并定期按补偿价格重算这个比例。</li><li><b>工商业储能还要算需量管理收益。</b>按最大需量计费的用户，用储能削峰可以把月度最大需量降下来，这部分节省是确定性最高的收益，应在套利之外单独计量。</li></ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">要点对照</div>
+    <h2 class="cm-section-title">核心指标一览</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>定义 / 公式</th><th>说明</th></tr></thead>
+      <tbody><tr><td>峰谷价差门槛</td><td>衰减成本 + 运维成本 + 效率损失对应的最小价差（元 / kWh）</td><td>低于门槛的窗口应放弃运行，而不是照常充放</td></tr><tr><td>度电净收益门槛</td><td>参与任何市场前要求的最低元 / kWh 净收益</td><td>三种用途统一比较的硬约束</td></tr><tr><td>容量租赁年租金</td><td>年租金 ÷ 年可用放电量（折算为元 / kWh）</td><td>折算后与自营套利净收益直接可比</td></tr><tr><td>调频里程补偿</td><td>调频补偿收入 ÷ 调频里程（元 / MW）</td><td>决定为调频预留多少功率与 SOC 空间</td></tr><tr><td>循环机会成本</td><td>本次循环占用的寿命额度 × 高价值时段的期望净收益</td><td>淡季吃小价差前必须计入的隐性成本</td></tr><tr><td>需量管理收益</td><td>（削峰前最大需量 − 削峰后最大需量）× 需量电价 × 12</td><td>工商业用户确定性最高的收益来源</td></tr></tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">这个行业容易踩的坑</h2>
+    <ul class="lst"><li>只看价差绝对值不算效率与衰减——做出「价差为正但净收益为负」的决策，还以为自己在赚钱。</li><li>容量长期锁死在低价租赁合同——签了 5 年固定租金后现货市场价差翻倍，眼看着上行收益全归承租方。</li><li>辅助服务与套利抢容量却不切分——调频调用频繁时套利计划放不出电，两边都做不好还背上考核。</li><li>用名义容量算收益——忽略放电深度（DOD）限制与 SOC 运行窗口，实际可用电量只有额定的 80%–90%。</li></ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题</h2>
+    <div class="qz"><div class="qz-q">第 1 题　某储能站可签一份 5 年期容量租赁合同，年租金折算到每度放电为 0.13 元 / kWh；自营套利过去两年平均度电净收益 0.16 元 / kWh，但波动很大（月度最低 0.04 元）。合理的决策思路是？</div><button class="qz-o" data-i="0" data-k="1">A. 一定选自营，因为平均值更高</button><button class="qz-o" data-i="1" data-k="1">B. 一定选租赁，因为波动太大</button><button class="qz-o" data-i="2" data-k="1">C. 比较租赁折算价与自营的「扣减循环消耗后」的长期期望净收益，并按风险承受能力做部分切分（如部分容量租赁、部分自营）</button><button class="qz-o" data-i="3" data-k="1">D. 全部停机，等市场成熟</button><div class="qz-why" id="why1"><b>解析 ·</b> 租赁与自营的比较必须统一到「元 / kWh 净收益」同一口径，并计入风险：自营的 0.16 元是平均值且月度最低只有 0.04 元，还要承担循环消耗与偏差考核风险；租赁的 0.13 元是确定的且循环消耗由承租方承担。二者差距并不大，因此最优解通常不是二选一，而是按容量切分——用一部分容量锁定确定性现金流覆盖固定成本，另一部分保留自营以捕获价差上行。仅看均值选自营或仅看波动选租赁，都是把连续决策做成了二元决策。</div></div><div class="qz"><div class="qz-q">第 2 题　关于辅助服务与峰谷套利的关系，正确的处理方式是？</div><button class="qz-o" data-i="0" data-k="2">A. 优先套利，辅助服务只在套利无机会时参与</button><button class="qz-o" data-i="1" data-k="2">B. 优先辅助服务，因为补偿价格高</button><button class="qz-o" data-i="2" data-k="2">C. 按补偿价格与套利净收益动态切分功率与 SOC 空间，并明确各自的容量配额</button><button class="qz-o" data-i="3" data-k="2">D. 两者可同时吃满，无需分配</button><div class="qz-why" id="why2"><b>解析 ·</b> 辅助服务与套利共用同一份功率与 SOC 空间：参与调频需要留出上下调节的裕度，这部分容量无法同时用于满功率放电套利。因此必须按「调频里程补偿」与「套利净收益」的动态对比来切分配额，并定期重算。固定优先某一方会在价格关系反转时损失收益，而认为两者可同时吃满则会在实际运行中因容量不足而放不出承诺电量，触发考核。</div></div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>对应通用内核：</b>K01 需求预测 · K02 动态定价 · K03 库存控制 · K04 渠道管理　|　<b>行业：</b><a href="../../energy-storage.html">储能详解</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="index.html">储能全部课程</a>
+      <a class="cm-btn cm-btn-ghost" href="../../core.html">学通用内核</a>
+      <a class="cm-btn cm-btn-ghost" href="../../calc-templates.html#energy-storage">储能收益测算模板</a>
+    </div>
+    <div class="cm-btns" style="margin-top:10px"><a class="cm-btn cm-btn-ghost" href="c2-forecast.html">← C2 需求预测</a><a class="cm-btn cm-btn-ghost" href="c4-inventory.html">C4 库存控制 →</a></div>
+  </section>
+</main>
+<script src="../../assets/js/app.js"></script>
+<script>
+(function(){
+  var ANS = [2, 2];
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = parseInt(btn.getAttribute('data-k'), 10);
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === ANS[k-1]) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>

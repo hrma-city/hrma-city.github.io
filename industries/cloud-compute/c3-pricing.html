@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="../../";</script>
+<meta charset="UTF-8">
+<script src="../../assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="../../auth-config.js"></script>
+<script src="../../assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C3 动态定价 · 云算力专业课 · RMC收益管理社区</title>
+<meta name="description" content="云算力收益管理专业课 C3 动态定价。">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/community.css">
+<style>.lst { padding-left:20px; }
+.lst li { font-size:13.5px; line-height:1.85; color:var(--ink-2); margin-bottom:8px; }
+.qz { border:1px solid var(--line-2); border-radius:10px; padding:18px 20px; margin-bottom:14px; background:var(--white); }
+.qz-q { font-size:15px; font-weight:600; color:var(--navy); line-height:1.7; margin-bottom:12px; }
+.qz-o { display:block; width:100%; text-align:left; padding:11px 14px; margin-bottom:8px;
+  border:1px solid var(--line-2); border-radius:8px; background:var(--white); cursor:pointer;
+  font-family:inherit; font-size:13.5px; color:var(--ink); line-height:1.6; transition:.15s; }
+.qz-o:hover { border-color:var(--navy-3); background:#F6F9FC; }
+.qz-o.ok { border-color:var(--teal); background:var(--teal-soft); color:var(--teal); }
+.qz-o.no { border-color:var(--danger); background:var(--danger-soft); color:var(--danger); }
+.qz-why { display:none; margin-top:10px; padding:12px 14px; border-left:3px solid var(--gold);
+  background:#FDFAF4; font-size:13px; line-height:1.8; color:var(--ink); }
+.qz-why.on { display:block; }
+</style>
+</head>
+<body data-auth="protected">
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <a href="index.html" style="font-size:13px;color:var(--ink-3);text-decoration:none">← 云算力专业课</a>
+  <div class="cm-eyebrow" style="margin-top:14px">云算力专业课 · C3</div>
+  <h1 class="cm-section-title" style="font-size:28px">动态定价</h1>
+  <p class="cm-section-lead">云算力的价格不是单一挂牌价，而是一张「承诺程度 × 时间 × 卡型」的三维价目表：承诺越长、可中断性越强、时段越冷，价格越低。定价要解决的不是「卖多少钱」，而是「用什么价格，把多少产能换成多长期的确定性」，并且始终守住单卡时变动成本的地板。</p>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">核心要点</div>
+    <h2 class="cm-section-title">四条要记住的</h2>
+    <ol class="lst"><li><b>四类价格档位，对应四种确定性。</b>按需价（小时级、随时可得、最贵）、抢占式价（可中断、常见折扣 60%–90%）、预留价（1 年 / 3 年承诺折扣）、整机柜长租阶梯价（按卡数与时长阶梯递增折扣）；四者构成完整的价格栅栏。</li><li><b>分时与峰谷：用价格引导时间。</b>算力需求有昼夜与周中周末节律，电价也有峰谷；夜间与周末给训练类作业谷段折扣，把可延迟算力引导到低谷，既降购电成本又平滑集群负载。</li><li><b>抢占式定价的本质是卖「中断风险」。</b>价格下限是短期边际成本（主要是电力与带宽），上限是被抢占客户愿意承受的中断概率折价；必须配套中断分级（提前通知时长）、检查点工具与补偿规则，否则便宜价钱换来的是客户流失。</li><li><b>弹性判断要分类测，不要拍脑袋。</b>训练类需求价格弹性低但时间弹性高（宁愿挪时间不愿加价），推理类弹性中等且对稳定性敏感，开发者与个人用户弹性最高；用分客户类型的量价回归与 A/B 实验测弹性，并对每档价格设成本地板审批线。</li></ol>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">要点对照</div>
+    <h2 class="cm-section-title">核心指标一览</h2>
+    <div style="overflow-x:auto">
+    <table class="cm-table">
+      <thead><tr><th>指标</th><th>定义 / 公式</th><th>说明</th></tr></thead>
+      <tbody><tr><td>按需价</td><td>基准挂牌价（元 / 卡·时）</td><td>整个价格体系的锚，其余档位都以它为折扣基准</td></tr><tr><td>抢占式折扣率</td><td>1 − 抢占价 ÷ 按需价（常见 60%–90%）</td><td>折扣越深越要配套中断分级与检查点，否则流失</td></tr><tr><td>承诺折扣阶梯</td><td>1 年 / 3 年 / 整机柜包销对应折扣率</td><td>换确定性的价格，必须有占比上限与最低折扣线</td></tr><tr><td>分时系数</td><td>高峰 / 平段 / 低谷系数，跟随电力峰谷与需求曲线</td><td>目的是把可延迟算力挪到低谷，不是单纯降价</td></tr><tr><td>单卡时边际贡献</td><td>实现单价 − 单卡时变动成本（电力、带宽、运维）</td><td>所有折扣审批的价格地板，跌破即亏损</td></tr><tr><td>价格弹性</td><td>需求量变动 % ÷ 价格变动 %（按客户类型分别测）</td><td>训练、推理、开发者三类弹性差异极大</td></tr></tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">常见错误</div>
+    <h2 class="cm-section-title">这个行业容易踩的坑</h2>
+    <ul class="lst"><li>抢占式实例随意中断大作业——没有分级通知和检查点机制，客户算完白算，第二次就走了。</li><li>长租折扣过深锁死产能——三年五折签掉 70% 卡时，旺季来临时无卡可卖、无价可提。</li><li>只降抢占价抢量导致客户降级——本可买按需的客户转向抢占，收入被自己吃掉（自我蚕食）。</li><li>峰谷价差没用足——只做价格不做引导，训练作业仍全堆在高峰，谷段依旧空转。</li></ul>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">自测</div>
+    <h2 class="cm-section-title">两道题</h2>
+    <div class="qz"><div class="qz-q">第 1 题　给大模型训练客户设计价格时，最符合收益管理原理的做法是？</div><button class="qz-o" data-i="0" data-k="1">A. 一律给最深折扣换取长期绑定</button><button class="qz-o" data-i="1" data-k="1">B. 利用其「价格弹性低、时间弹性高」的特点，用时间阶梯价引导到低谷时段，同时保留高价即时档</button><button class="qz-o" data-i="2" data-k="1">C. 只报按需价，不做任何折扣</button><button class="qz-o" data-i="3" data-k="1">D. 按客户预算反推报价，能收多少收多少</button><div class="qz-why" id="why1"><b>解析 ·</b> 训练类作业对单价相对不敏感（算力成本占模型价值比例低），但对「什么时候能拿到卡」高度灵活——只要能排上，愿意挪到夜间或周末。因此收益最大化的做法是用时间阶梯价把这部分可延迟需求引导到低谷，同时保留按需高价档服务不可延迟的刚需与推理客户，形成价格栅栏。一律深折扣会锁死产能，只报按需价则浪费了谷段产能。</div></div><div class="qz"><div class="qz-q">第 2 题　抢占式实例的价格下限应该如何确定？</div><button class="qz-o" data-i="0" data-k="2">A. 由竞争对手的抢占价决定</button><button class="qz-o" data-i="1" data-k="2">B. 由客户愿意支付的最高价决定</button><button class="qz-o" data-i="2" data-k="2">C. 以单卡时短期边际成本（主要是电力与带宽）为地板，再叠加中断概率的风险折价</button><button class="qz-o" data-i="3" data-k="2">D. 按需价的一半，行业惯例</button><div class="qz-why" id="why2"><b>解析 ·</b> 抢占式卖的是「随时可能被收回的产能」，其理论下限是短期边际成本——卡已经开机，多跑一小时只增加电力、带宽与少量运维，折旧与机房是沉没成本。低于边际成本卖就是纯粹亏损。在此基础上，中断概率越高、通知越短，客户要求的风险折价越大，价格应相应下浮。竞品价格与「对半砍」都只是参考，不能替代成本地板。</div></div>
+  </section>
+
+  <section class="cm-section">
+    <div class="cm-eyebrow">关联</div>
+    <p class="cm-section-lead" style="margin-bottom:14px">
+      <b>对应通用内核：</b>K01 需求预测 · K02 动态定价 · K03 库存控制 · K04 渠道管理　|　<b>行业：</b><a href="../../cloud-compute.html">云算力详解</a>
+    </p>
+    <div class="cm-btns">
+      <a class="cm-btn cm-btn-primary" href="index.html">云算力全部课程</a>
+      <a class="cm-btn cm-btn-ghost" href="../../core.html">学通用内核</a>
+      <a class="cm-btn cm-btn-ghost" href="../../calc-templates.html#cloud-compute">云算力收益测算模板</a>
+    </div>
+    <div class="cm-btns" style="margin-top:10px"><a class="cm-btn cm-btn-ghost" href="c2-forecast.html">← C2 需求预测</a><a class="cm-btn cm-btn-ghost" href="c4-inventory.html">C4 库存控制 →</a></div>
+  </section>
+</main>
+<script src="../../assets/js/app.js"></script>
+<script>
+(function(){
+  var ANS = [1, 2];
+  document.querySelectorAll('.qz-o').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.qz');
+      var k = parseInt(btn.getAttribute('data-k'), 10);
+      var picked = parseInt(btn.getAttribute('data-i'), 10);
+      box.querySelectorAll('.qz-o').forEach(function(b, j){
+        b.disabled = true;
+        if (j === ANS[k-1]) b.classList.add('ok');
+        else if (j === picked) b.classList.add('no');
+      });
+      var why = document.getElementById('why' + k);
+      if (why) why.classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>

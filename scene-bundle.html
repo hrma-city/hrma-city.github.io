@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<meta charset="utf-8">
+<script src="assets/js/site-nav.js?v=v11"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v11"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>场景化锻炼 · 套餐设计（不靠系统）</title>
+<style>
+  :root{--navy:#0f2a4a;--navy2:#12365c;--gold:#e8b84b;--gold2:#c99a3f;--ink:#1d2433;--mut:#8a94a6;--line:#e3e8f0;--ok:#1f9d6b;--bad:#d8503e;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#eef2f7;color:var(--ink);line-height:1.7;}
+  .top{background:var(--navy);color:#fff;padding:22px 24px;}
+  .top h1{margin:0;font-size:20px;}
+  .top p{margin:6px 0 0;color:#cdd9e8;font-size:13px;}
+  .wrap{max-width:860px;margin:0 auto;padding:22px 18px 60px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0;box-shadow:0 2px 10px rgba(15,42,74,.05);}
+  .tag{display:inline-block;background:var(--gold);color:#3a2c08;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:10px;}
+  h2{font-size:17px;margin:0 0 10px;color:var(--navy2);}
+  .data{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0;}
+  .cell{background:#f4f7fb;border:1px solid var(--line);border-radius:8px;padding:10px 12px;}
+  .cell b{display:block;font-size:18px;color:var(--navy);}
+  .cell span{font-size:12px;color:var(--mut);}
+  .opts{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
+  button.opt{appearance:none;border:1px solid var(--navy2);background:#fff;color:var(--navy2);font-size:15px;font-weight:600;padding:12px 18px;border-radius:10px;cursor:pointer;transition:.15s;flex:1;min-width:120px;}
+  button.opt:hover{background:var(--navy2);color:#fff;}
+  button.opt:disabled{opacity:.5;cursor:not-allowed;}
+  .result{display:none;margin-top:8px;}
+  .verdict{border-left:4px solid var(--navy2);background:#f7faff;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px;}
+  .verdict.ok{border-color:var(--ok);background:#f1faf5;}
+  .verdict.warn{border-color:var(--gold2);background:#fdfaf0;}
+  .verdict.bad{border-color:var(--bad);background:#fdf1ef;}
+  .formula{background:#0f2a4a;color:#e8eef7;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:12px 16px;border-radius:8px;overflow-x:auto;white-space:pre;}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:center;}
+  th{background:#f4f7fb;color:var(--navy2);}
+  .reveal{font-size:14px;}
+  .btn2{appearance:none;border:none;background:var(--gold);color:#3a2c08;font-weight:700;padding:10px 20px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .note{font-size:12px;color:var(--mut);margin-top:10px;}
+  a.back{color:var(--navy2);font-size:13px;text-decoration:none;}
+  a.back:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>场景化锻炼 · 套餐设计</h1>
+  <p>纯浏览器运行 · 不联网 · 不装系统 · 适配课堂投屏 ｜ 数据取自「杭州滨江云璟酒店」脱敏数据集</p>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <span class="tag">套餐与锚定</span>
+    <h2>要不要推"客房＋早餐＋行政酒廊"套餐？定多少钱？</h2>
+    <p>套餐价必须低于单买之和、高于纯房价，且先算清边际成本。成本低而感知价值高的项目优先放进套餐。</p>
+    <div class="data">
+      <div class="cell"><b>¥620</b><span>纯房价</span></div>
+      <div class="cell"><b>¥88 / ¥25</b><span>早餐 售价 / 成本</span></div>
+      <div class="cell"><b>¥128 / ¥40</b><span>酒廊 售价 / 成本</span></div>
+      <div class="cell"><b>¥836</b><span>单买之和</span></div>
+      <div class="cell"><b>¥160</b><span>套餐变动成本合计</span></div>
+    </div>
+    <p class="reveal" id="actual"></p>
+    <h2 style="margin-top:18px;">第一步：套餐定多少？</h2>
+    <div class="opts" id="opts">
+      <button class="opt" data-v="680" onclick="pick(680)">¥680</button>
+      <button class="opt" data-v="720" onclick="pick(720)">¥720</button>
+      <button class="opt" data-v="760" onclick="pick(760)">¥760</button>
+      <button class="opt" data-v="800" onclick="pick(800)">¥800</button>
+    </div>
+  </div>
+
+  <div class="card result" id="result">
+    <h2>决策结果核算</h2>
+    <div class="formula" id="calc"></div>
+    <div id="verdicts"></div>
+    <h2 style="margin-top:18px;">对照 · 套餐 · 三条件</h2>
+    <div class="verdict"><b>① 低于单买之和：</b>¥836，否则客人不如单买。</div>
+    <div class="verdict"><b>② 高于纯房价：</b>¥620，否则不如直接卖房（还要倒贴成本）。</div>
+    <div class="verdict"><b>③ 高于套餐成本：</b>¥160，且要设限制条件，避免挤占高价值散客。</div>
+    <p class="note">这节课要学生明白：<b>套餐的三条线是"单买之和 &gt; 套餐价 &gt; 纯房价 &gt; 套餐成本"。先算边际成本再定价，别把利润最高的那块送掉。</b></p>
+    <div style="margin-top:16px;"><button class="btn2" onclick="location.reload()">再来一次</button>
+    <a class="back" style="margin-left:16px;" href="teach.html">← 返回课堂现场</a></div>
+  </div>
+
+  <div class="card">
+    <h2>讲师出题提示</h2>
+    <p>追问："为什么早餐和酒廊适合放进套餐？"——附加成本低而感知价值高。反之，成本高而感知低的项目不要放。</p>
+  </div>
+</div>
+
+<script>
+  function R(v){
+    var ROOM=620, SUM=836, COST=160, ROOMCM=ROOM-95;
+    var cm=v-COST;
+    var delta=cm-ROOMCM;
+    var rows=[['套餐价','¥'+v],['单买之和','¥'+SUM],['套餐折扣感','省 ¥'+(SUM-v)],
+      ['套餐变动成本','¥'+COST],['套餐边际贡献','¥'+cm],
+      ['纯房边际贡献','¥'+ROOMCM],['每间夜增量',(delta>=0?'+':'')+'¥'+delta]];
+    var vd=[];
+    if(v===760) vd.push(['ok','<b>最优。</b>低于单买之和（省 ¥'+ (SUM-v) +'，客人感到划算）、高于纯房价与成本，每间夜多赚 ¥'+delta+'。']);
+    else if(v===800) vd.push(['warn','还能赚更多（+¥'+delta+'），但省得少（¥'+(SUM-v)+'），转化会掉——套餐的吸引力来自可感知的折扣。']);
+    else if(v===720) vd.push(['warn','能卖动，但每间夜只多赚 ¥'+delta+'，没有把附加项目的感知价值变现到位。']);
+    else vd.push(['bad','¥680 只比纯房价高 ¥60，却要承担 ¥160 的成本——增量 ¥'+delta+'，几乎白送早餐和酒廊。']);
+    return {rows:rows, v:vd};
+  }
+  function pick(v){
+    var bs=document.querySelectorAll('#opts .opt');
+    for(var i=0;i<bs.length;i++){ bs[i].disabled=true; }
+    var r=R(v);
+    var t='';
+    for(var i=0;i<r.rows.length;i++){ t+=r.rows[i][0]+'：'+r.rows[i][1]+'\n'; }
+    document.getElementById('calc').textContent=t;
+    var vh='';
+    for(var i=0;i<r.v.length;i++){ vh+='<div class="verdict '+r.v[i][0]+'">'+r.v[i][1]+'</div>'; }
+    document.getElementById('verdicts').innerHTML=vh;
+    document.getElementById('result').style.display='block';
+    document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  var ACT="";
+  if(ACT){ document.getElementById('actual').innerHTML='<b>'+ACT+'</b>'; }
+</script>
+</body>
+</html>
