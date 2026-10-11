@@ -1,7 +1,10 @@
-/* HRMA 全站统一导航栏 v11（2026-10-10 重构）
-   目标：① 全站只有这一套顶栏（删掉各页自带的 CSS <header>）② 一致的四入口 + 资料库 + 社区
-   ③ 内置「搜资料」框，直达 resources.html 检索 ④ 次级页面收进「更多」下拉，避免顶栏过载
-   用法：页面里引入 <script src="assets/js/site-nav.js?v=v11"></script>
+/* HRMA 全站统一导航栏 v12（2026-10-09 重构为「身份制」）
+   设计依据：用户要求以「角色身份」划分内容板块，做成以身份划分内容的社区。
+   主栏 = 身份入口（首页选身份 / 酒店人 / 教师 / 学生）+ 社区 + 资料库；
+   次级页（行业矩阵 / 认证体系 / 操作法典 / 关于学院 / 联系我们）收进「更多」。
+   保留：① 全站唯一顶栏（不再有各页自带 CSS <header>）② 搜资料框直达 resources.html
+   ③ M01–M14 模块条（酒店人线性轨道）④ 管理员后台入口。
+   用法：页面里引入 <script src="assets/js/site-nav.js?v=v12"></script>
    前缀从脚本自身 src 反推，根页 = ''，深层页自动得到 '../' */
 (function () {
   var P = (function () {
@@ -13,23 +16,21 @@
     return '';
   })();
 
-  /* 主入口：常驻顶栏，覆盖绝大多数访问路径 */
+  /* 主入口：以「身份」为主轴，覆盖绝大多数访问路径 */
   var MAIN = [
     ['index.html', '首页'],
-    ['learn.html', '学'],
-    ['practice.html', '练'],
-    ['teach.html', '教'],
-    ['use.html', '用'],
-    ['resources.html', '资料库'],
-    ['community.html', '社区']
+    ['hotelier.html', '酒店人'],
+    ['teacher.html', '教师'],
+    ['student.html', '学生'],
+    ['community.html', '社区'],
+    ['resources.html', '资料库']
   ];
   /* 次级页面：收进「更多」，既保持顶栏清爽，又不让任何页面变成孤岛 */
   var MORE = [
-    ['about.html', '关于学院'],
-    ['curriculum.html', '课程体系'],
+    ['industries.html', '行业矩阵'],
+    ['cert.html', '认证体系'],
     ['codex.html', '操作法典'],
-    ['exam.html', '认证演练'],
-    ['playbook.html', '教具与案例'],
+    ['about.html', '关于学院'],
     ['contact.html', '联系我们']
   ];
   var ADMIN_EMAIL = '3984557428@qq.com';
@@ -82,7 +83,7 @@
     + '</div>';
   bar += '</nav>';
 
-  /* ---- 模块条：M01–M14 线性轨道 ---- */
+  /* ---- 模块条：M01–M14 线性轨道（酒店人路径）---- */
   var mm = here.match(new RegExp(STU));
   var mbar = '';
   if (mm) {
@@ -93,7 +94,7 @@
       dots += '<a href="' + P + nm + '" style="' + a(i === cur ? 'background:#e8b84b;color:#3a2a05;font-weight:700'
         : (i < cur ? 'color:#9fd0ff' : AOFF)) + '">M' + (i < 10 ? '0' + i : i) + '</a>';
     }
-    var prev = cur > 1 ? 'm' + (cur - 1 < 10 ? '0' + (cur - 1) : cur - 1) + '.html' : 'learn-path.html';
+    var prev = cur > 1 ? 'm' + (cur - 1 < 10 ? '0' + (cur - 1) : cur - 1) + '.html' : 'hotelier.html';
     var next = cur < 14 ? 'm' + (cur + 1 < 10 ? '0' + (cur + 1) : cur + 1) + '.html' : 'wb.html';
     mbar = '<div style="position:sticky;top:46px;z-index:9998;background:#123a5c;'
       + 'border-bottom:1px solid #1d3a5c;padding:6px 12px;display:flex;gap:4px;align-items:center;'
@@ -104,7 +105,7 @@
   } else if (here === 'wb.html') {
     mbar = '<div style="position:sticky;top:46px;z-index:9998;background:#123a5c;'
       + 'border-bottom:1px solid #1d3a5c;padding:7px 12px;font-family:' + F + ';font-size:13.5px">'
-      + '<a href="' + P + 'learn-path.html" style="color:#cfe0f5;text-decoration:none">← 回到酒店人路径</a>'
+      + '<a href="' + P + 'hotelier.html" style="color:#cfe0f5;text-decoration:none">← 回到酒店人路径</a>'
       + '<span style="color:#8fb4dd;margin-left:10px">认证演练题库</span>'
       + '<a href="' + P + 'm14.html" style="color:#cfe0f5;text-decoration:none;margin-left:10px">M14 →</a>'
       + '</div>';
