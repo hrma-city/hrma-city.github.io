@@ -464,7 +464,7 @@
   /* ---------- 全站 UX 增强：左侧目录 / 名词解释 / 表格预览 ---------- */
   function injectGlobalUX() {
     var css = document.createElement("link");
-    css.rel = "stylesheet"; css.href = href("assets/css/global-ux.css");
+    css.rel = "stylesheet"; css.href = href("assets/css/global-ux.css?v=v2");
     document.head.appendChild(css);
     var seq = [href("glossary-data.js"), href("gejijipo-data.js"), href("assets/previews-map.js"), href("assets/js/global-ux.js")];
     var i = 0;

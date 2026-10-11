@@ -38,6 +38,21 @@
 .ux-toggle-row{display:flex;align-items:center;justify-content:space-between;gap:8px;
   margin-top:6px;padding:10px 9px;border-top:1px dashed var(--line,#E2E8F0);}
 .ux-toggle-row span{font-size:13px;color:var(--ink,#1E293B);}
+/* 目录注入左侧导航（navy 侧栏）时，原文案深色会隐形——统一提亮 */
+.sidebar .ux-brand{color:#fff}
+.sidebar .ux-sec > .ux-h{color:rgba(255,255,255,.5)}
+.sidebar .ux-part > .ux-ph{color:rgba(255,255,255,.92)}
+.sidebar .ux-part .ux-ep{color:rgba(255,255,255,.82)}
+.sidebar .ux-part .ux-ep.on{background:var(--gold-soft,#FBF1DD);color:var(--navy,#1B3A5C)}
+.sidebar .ux-toggle-row span{color:rgba(255,255,255,.85)}
+.sidebar .ux-note{color:rgba(255,255,255,.55)}
+/* 名词高亮落在深色（navy）容器上时：继承白色文字即可见；
+   默认规则已改为 color:inherit，以下按容器统一提亮下划线，并修正 hover 配色 */
+.game-hud .gterm,.site-footer .gterm,.an-out .gterm,.cb-tab .gterm,
+.case-tag .gterm,[class*="navy"] .gterm{color:#fff;border-bottom-color:rgba(255,255,255,.55)}
+.game-hud .gterm:hover,.site-footer .gterm:hover,.an-out .gterm:hover,
+.cb-tab .gterm:hover,.case-tag .gterm:hover,[class*="navy"] .gterm:hover{
+  background:var(--gold-soft,#FBF1DD);color:var(--navy,#1B3A5C)}
 .ux-sw{appearance:none;width:42px;height:24px;border-radius:13px;border:0;background:var(--line-2,#CBD5E1);
   position:relative;cursor:pointer;transition:background .15s;flex:0 0 42px;}
 .ux-sw:after{content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;
@@ -52,7 +67,7 @@
 .ux-mask.show{opacity:1;pointer-events:auto;}
 
 /* ---------- 名词解释：高亮 ---------- */
-.gterm{color:var(--navy,#1B3A5C);border-bottom:1px dashed var(--gold,#B8860B);
+.gterm{color:inherit;border-bottom:1px dashed var(--gold,#B8860B);
   cursor:help;background:none;padding:0 1px;}
 .gterm:hover{background:var(--gold-soft,#FBF1DD);}
 

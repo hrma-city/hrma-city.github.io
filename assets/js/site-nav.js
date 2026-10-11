@@ -1,11 +1,10 @@
-/* HRMA 全站统一导航栏 v12（2026-10-09 重构为「身份制」）
-   设计依据：用户要求以「角色身份」划分内容板块，做成以身份划分内容的社区。
-   主栏 = 身份入口（首页选身份 / 酒店人 / 教师 / 学生）+ 社区 + 资料库；
-   次级页（行业矩阵 / 认证体系 / 操作法典 / 关于学院 / 联系我们）收进「更多」。
-   保留：① 全站唯一顶栏（不再有各页自带 CSS <header>）② 搜资料框直达 resources.html
-   ③ M01–M14 模块条（酒店人线性轨道）④ 管理员后台入口。
-   用法：页面里引入 <script src="assets/js/site-nav.js?v=v12"></script>
-   前缀从脚本自身 src 反推，根页 = ''，深层页自动得到 '../' */
+/* HRMA 全站统一导航栏 v13（2026-10-11）
+   在 v12 身份制基础上增加：
+   ①「更多 ▾」加入「全站导览」(tour.html)，一次看清所有板块/系列/行业课/工具；
+   ② 内容页顶部「面包屑」(首页 › 板块 › 当前)，点击任一级即可退回上一步/上上步；
+   ③ 顺序内容(口袋书/主题系列/通用内核/模块)在面包屑处提供「上一页/下一页」，进退自如。
+   保留 v12：唯一顶栏、搜资料框、M01–M14 模块条、管理员入口、← 返回上一页。
+   用法：页面里引入 <script src="assets/js/site-nav.js?v=v13"></script> */
 (function () {
   var P = (function () {
     var ss = document.getElementsByTagName('script');
@@ -27,6 +26,7 @@
   ];
   /* 次级页面：收进「更多」，既保持顶栏清爽，又不让任何页面变成孤岛 */
   var MORE = [
+    ['tour.html', '全站导览'],
     ['industries.html', '行业矩阵'],
     ['cert.html', '认证体系'],
     ['codex.html', '操作法典'],
@@ -44,7 +44,7 @@
     isAdmin = !!(s && String(s.email).toLowerCase() === ADMIN_EMAIL);
   } catch (e) { isAdmin = false; }
 
-  var F = '-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif';
+  var F = "-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif";
   function a(css) {
     return 'display:inline-flex;align-items:center;height:32px;padding:0 11px;font-size:13.5px;line-height:1;'
       + 'white-space:nowrap;text-decoration:none;border-radius:8px;font-family:' + F + ';' + css;
@@ -99,6 +99,7 @@
     mbar = '<div style="position:sticky;top:46px;z-index:9998;background:#123a5c;'
       + 'border-bottom:1px solid #1d3a5c;padding:6px 12px;display:flex;gap:4px;align-items:center;'
       + 'flex-wrap:wrap;font-family:' + F + '">'
+      + '<a href="' + P + 'index.html" style="' + a('color:#cfe0f5;margin-right:4px') + '">首页</a>'
       + '<span style="color:#8fb4dd;font-size:12.5px;margin-right:4px">酒店人路径</span>'
       + '<a href="' + P + prev + '" style="' + a('color:#cfe0f5') + '">← 上</a>' + dots
       + '<a href="' + P + next + '" style="' + a('color:#cfe0f5') + '">下 →</a></div>';
@@ -111,9 +112,66 @@
       + '</div>';
   }
 
+  /* ---- 面包屑：层级返回 + 顺序内容上下页 ---- */
+  var TOP = ['index.html', 'hotelier.html', 'teacher.html', 'student.html', 'community.html',
+    'resources.html', 'industries.html', 'cert.html', 'codex.html', 'about.html', 'contact.html', 'tour.html'];
+
+  function sectionParent() {
+    if (/^m\d\d\.html$|^courses\/|^pocket-no|^theme-no|^no\d|^series\/|^core\/|^k0/.test(here)) return { url: 'hotelier.html', label: '酒店人' };
+    if (/^industries\/|industries-[a-z-]+\.html$|[a-z-]*-index\.html$/.test(here)) return { url: 'industries.html', label: '行业矩阵' };
+    if (/^exam\/|^cert|wb\.html|quiz\.html|quest\.html|game-quiz/.test(here)) return { url: 'cert.html', label: '认证体系' };
+    if (/^codex/.test(here)) return { url: 'codex.html', label: '操作法典' };
+    if (/^games\/|^sim\.html|^reigns\.html|^pipeline\.html|^duty\.html|^arena\.html|^level\.html|^classroom\.html|^flow-quest\.html|^games-cases\.html|^game-/.test(here)) return { url: 'games.html', label: '游戏化教具' };
+    if (/^community\/|^board\.html|^leaderboard\.html|^community-cases\.html/.test(here)) return { url: 'community.html', label: '社区' };
+    if (/^books\/|^textbook|series-textbook|books-textbook|glossary\.html|^guide\.html|series-16|series-topics|pocket-32/.test(here)) return { url: 'resources.html', label: '资料库' };
+    if (/^benchmark/.test(here)) return { url: 'benchmark.html', label: '基准数据' };
+    if (/report|series\/tools|preview\.html$/.test(here)) return { url: 'report-preview.html', label: '报表工具' };
+    if (/^teacher|slides?|teach|micro|open-course|^ai-|coach/.test(here)) return { url: 'teacher.html', label: '教师' };
+    if (/^student|^learn|^study|roleplay|^cases/.test(here)) return { url: 'student.html', label: '学生' };
+    return { url: 'resources.html', label: '资料库' };
+  }
+
+  function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+  function seqNav() {
+    var r, base = null, n = 0, tot = 0, fmt = null;
+    if ((r = here.match(/^pocket-no(\d+)\.html$/))) { base = 'pocket-no'; n = +r[1]; tot = 32; fmt = function (i) { return 'pocket-no' + pad2(i) + '.html'; }; }
+    else if ((r = here.match(/^(?:theme-)?no(\d+)\.html$/))) { base = 'theme-no'; n = +r[1]; tot = 16; fmt = function (i) { return 'theme-no' + pad2(i) + '.html'; }; }
+    else if ((r = here.match(/^m(\d\d)\.html$/))) { base = 'm'; n = +r[1]; tot = 14; fmt = function (i) { return 'm' + pad2(i) + '.html'; }; }
+    else if ((r = here.match(/^k0?(\d+)-/))) { base = 'k'; n = +r[1]; tot = 6; fmt = function (i) { return 'k' + pad2(i) + '-forecast.html'; }; }
+    if (!base) return '';
+    var prev = n > 1 ? fmt(n - 1) : null, nx = n < tot ? fmt(n + 1) : null;
+    var b = '';
+    if (prev) b += '<a href="' + P + prev + '" style="' + a('color:#2f6fb0') + '">← 上一页</a>';
+    else b += '<span style="color:#7b8794">← 上一页</span>';
+    if (nx) b += '<a href="' + P + nx + '" style="' + a('color:#2f6fb0;margin-left:10px') + '">下一页 →</a>';
+    else b += '<span style="color:#7b8794;margin-left:10px">下一页 →</span>';
+    return b;
+  }
+
+  var crumbsBar = '';
+  if (TOP.indexOf(here) < 0 && !mm && here !== 'wb.html') {
+    var par = sectionParent();
+    var parts = ['<a href="' + P + 'index.html" style="color:#2f6fb0;text-decoration:none">首页</a>'];
+    if (par) parts.push('<a href="' + P + par.url + '" style="color:#2f6fb0;text-decoration:none">' + par.label + '</a>');
+    var curTitle = (document.title || here).replace(/\s*[·•].*$/, '').slice(0, 24);
+    parts.push('<span style="color:#5a6b7d">' + curTitle + '</span>');
+    var sep = ' <span style="color:#8a97a5">›</span> ';
+    var sn = seqNav();
+    crumbsBar = '<div style="background:#eef3f8;border-bottom:1px solid #dbe5ef;padding:6px 12px;'
+      + 'font-size:13px;font-family:' + F + ';display:flex;gap:10px;align-items:center;flex-wrap:wrap">'
+      + '<span>' + parts.join(sep) + '</span>'
+      + (sn ? '<span style="margin-left:auto">' + sn + '</span>' : '')
+      + '</div>';
+  }
+
   function mount() {
     if (!document.body || document.getElementById('hrmaNav')) return;
-    document.body.insertAdjacentHTML('afterbegin', bar + mbar);
+    /* 隐藏旧版静态顶栏（152 页残留的 <header class="site-nav">，其链接配色
+       是给浅底设计的、压在深底上不可见；全站顶栏只保留本脚本注入的一条） */
+    var kill = document.createElement('style');
+    kill.textContent = 'header.site-nav{display:none!important}';
+    document.head.appendChild(kill);
+    document.body.insertAdjacentHTML('afterbegin', bar + mbar + crumbsBar);
     var b = document.getElementById('hrmaBack');
     if (b) b.addEventListener('click', function () {
       try { if (history.length > 1) history.back(); else location.href = P + 'index.html'; }
