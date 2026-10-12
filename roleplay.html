@@ -19,6 +19,11 @@
 <style>
   .rp-wrap{max-width:880px;margin:0 auto}
   .rp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:14px;margin:16px 0}
+  .rp-grp{grid-column:1/-1;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin:10px 0 0;padding:12px 15px;background:linear-gradient(90deg,var(--navy) 0%,transparent 100%);border-left:4px solid var(--navy);border-radius:10px}
+  .rp-grp:first-child{margin-top:0}
+  .rp-gt{font-size:15px;font-weight:800;color:var(--navy)}
+  .rp-gn{font-size:11.5px;font-weight:700;color:#fff;background:var(--navy);padding:2px 9px;border-radius:20px}
+  .rp-gd{font-size:12.5px;color:var(--ink-2);width:100%;line-height:1.7;margin-top:2px}
   .rp-card{display:block;text-align:left;background:var(--white);border:1px solid var(--line-2);border-radius:12px;padding:15px 16px;cursor:pointer;font-family:inherit;color:var(--ink);transition:.14s}
   .rp-card:hover{border-color:var(--navy);background:var(--bg-2);transform:translateY(-2px)}
   .rp-card .rc-it{font-size:12px;color:var(--gold-2);font-weight:700;letter-spacing:.4px}
@@ -130,12 +135,32 @@
     $("stage").style.display="none";
     $("backWrap").style.display="none";
     var h="";
+    /* 业态分组：酒店住宿类 / 其他业态类。
+       「住宿」开头 + review（通用·复盘本质是酒店收益经理向业主汇报）归酒店组。 */
+    var GROUPS=[
+      {t:"🏨 酒店住宿类",
+       d:"客房、宴会、协议客、会员、升级房、团队暂存、装修停业、取消潮、危机应对等酒店场景",
+       ids:[]},
+      {t:"🏭 其他业态类",
+       d:"餐饮、景区、剧场、航空，以及充电站、仓储、算力、储能、广告媒体、体育赛事、职业培训等收益管理外拓业态",
+       ids:[]}
+    ];
     SCEN.forEach(function(s,idx){
-      h+='<button class="rp-card" data-idx="'+idx+'">'+
-        '<div class="rc-it">'+s.industry+'</div>'+
-        '<div class="rc-t">'+s.title+'</div>'+
-        '<div class="rc-r">您扮演：'+s.role+'</div>'+
-        '<div class="rc-go">开始情景 →</div></button>';
+      var hotel = (s.industry.indexOf("住宿")===0) || s.id==="review";
+      GROUPS[hotel?0:1].ids.push(idx);
+    });
+    GROUPS.forEach(function(g){
+      if(!g.ids.length) return;
+      h+='<div class="rp-grp"><span class="rp-gt">'+g.t+'</span><span class="rp-gn">'+g.ids.length+' 个情景</span>'+
+         '<div class="rp-gd">'+g.d+'</div></div>';
+      g.ids.forEach(function(idx){
+        var s=SCEN[idx];
+        h+='<button class="rp-card" data-idx="'+idx+'">'+
+          '<div class="rc-it">'+s.industry+'</div>'+
+          '<div class="rc-t">'+s.title+'</div>'+
+          '<div class="rc-r">您扮演：'+s.role+'</div>'+
+          '<div class="rc-go">开始情景 →</div></button>';
+      });
     });
     $("picker").innerHTML=h;
     Array.prototype.forEach.call($("picker").querySelectorAll(".rp-card"),function(b){
