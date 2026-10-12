@@ -18,6 +18,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v11"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -153,14 +154,25 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 </div></div></div>
 
 <div class="step"><div class="num">9</div><div class="body">
-<div class="t">加一条「只允许我一个邮箱」的规则</div>
+<div class="t">加一条「放行白名单邮箱」的规则</div>
 <div class="d">默认会有一条 <span class="path">Default</span> 策略，<b>点它右边的 Edit（铅笔图标）</b>，改成：
 <ul>
-<li><b>Policy name</b>：仅站长</li>
+<li><b>Policy name</b>：仅白名单可进</li>
 <li><b>Action</b>：Allow（允许）</li>
-<li>在 <b>Include</b>（包含）那里点 <span class="path">+ Add include</span> → 选 <span class="path">Email addresses</span> → 填 <span class="path">3984557428@qq.com</span> → 点 <span class="path">Apply</span></li>
+<li>在 <b>Include</b>（包含）那里点 <span class="path">+ Add include</span> → 选 <span class="path">Email addresses</span> → 先填 <span class="path">3984557428@qq.com</span>（您自己）→ 点 <span class="path">Apply</span></li>
 </ul>
+⚠️ <b>这就是「审核」的落点</b>：Cloudflare Access 没有独立注册 UI，所谓「他人注册经您审核」= 您把对方邮箱加进这个 Include 列表。不在列表里的邮箱，连登录框都过不去。<b>现在先只放您自己，第 9b 步讲怎么加别人。</b>
 点 <span class="path">Next</span>。
+</div></div></div>
+
+<div class="step"><div class="num">9b</div><div class="body">
+<div class="t">以后放行「审核通过的人」</div>
+<div class="d">有人想进 → 他先通过<b>站外</b>渠道找您申请（微信 / 邮件 / 您公开的 contact 页留邮箱，见下方「他人如何申请」）→ 您判断无误后：
+<ul>
+<li>回到 <span class="path">Zero Trust → Access → Applications → HRMA 私有站 → Policies</span></li>
+<li>编辑「仅白名单可进」这条 → <span class="path">Include → + Add include → Email addresses</span> → 填对方邮箱 → <span class="path">Apply</span></li>
+</ul>
+加完即刻生效，对方下次用那个邮箱 + 验证码就能进。<b>拒绝谁 = 不把他加进列表</b>，无需额外操作。
 </div></div></div>
 
 <div class="step"><div class="num">10</div><div class="body">
@@ -178,6 +190,17 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 <div class="d">浏览器访问 <span class="path">https://hrma-private.pages.dev</span> → 会出现 Cloudflare 的登录框 → 输入 <span class="path">3984557428@qq.com</span> → Cloudflare 发一个 6 位数字验证码到这个邮箱 → 填进去 → 进入。<br>
 <b>验证码发出来一般 10 秒内到，如果 2 分钟没到，翻一下垃圾箱</b>（CF 的邮件经常被 QQ 邮箱判垃圾）。
 </div></div></div>
+
+<h2>他人如何申请进站（审核入口）</h2>
+<div class="callout">
+<b>Cloudflare Access 本身没有「注册申请页」</b>——不在白名单的人会被直接拦在登录框外，连申请都填不了。所以「申请」要走站外：
+<ul class="chk">
+<li><b>最省事</b>：把您的微信 / 公开邮箱（如 rm-community@qq.com）告诉对方，他发来邮箱您就加白名单。</li>
+<li><b>想留个公开入口</b>：用站外的表单工具（如腾讯文档收集表、Google Form）做一个「申请访问」表，链接放您微信签名 / 公众号。表只收集邮箱，不泄露任何站点内容。</li>
+<li><b>不要</b>在 Cloudflare 后面放一个公开申请页——那页本身会被 Access 拦住，自相矛盾。</li>
+</ul>
+审核标准您自己定（例如：只放院校老师 / 已购陪跑的客户）。加白名单 = 通过；不加 = 拒绝。
+</div>
 
 <h2>收尾 · 确认做对了</h2>
 <ul class="chk">
