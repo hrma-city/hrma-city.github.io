@@ -10,7 +10,7 @@
 <script src="assets/js/access-gate.js?v=v11"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>角色扮演 · 收益经理经营情景模拟 · 收益管理游戏</title>
-<meta name="description" content="可玩的角色扮演经营情景模拟：扮演收益经理，在超售、团队询价、竞对降价、客人投诉等真实情境里做决策。12 个跨业态精致情景，四个仪表此消彼长，每步标注依据法典哪张表。">
+<meta name="description" content="可玩的角色扮演经营情景模拟：扮演收益经理，在超售、团队询价、竞对降价、客人投诉等真实情境里做决策。32 个跨业态精致情景（酒店住宿类 21 个 + 其他业态类 11 个），四个仪表此消彼长，每步标注依据法典哪张表。">
 <link rel="stylesheet" href="assets/css/main.css">
 <link rel="stylesheet" href="assets/css/site.css">
 <link rel="stylesheet" href="assets/css/community.css">
@@ -76,6 +76,10 @@
       任何一个见底就难收场，全部拉满的人几乎不存在。每步都告诉您依据《操作法典》哪张表。先选一个情景开始。
     </p>
     <p style="font-size:13px;margin:0 0 2px"><a href="roleplay-cases.html" style="color:var(--navy);font-weight:700">📄 每个情景都配有案例文章 + 视频脚本 →</a></p>
+    <p style="font-size:12.5px;color:var(--ink-3);margin:8px 0 0;line-height:1.7">
+      共 <b id="scenCount">—</b> 个情景，按业态分两组陈列：<b>🏨 酒店住宿类</b>（客房 / 宴会 / 协议客 / 会员 / 危机应对等）与
+      <b>🏭 其他业态类</b>（餐饮 / 景区 / 剧场 / 航空 / 充电 / 仓储 / 算力 / 储能 / 媒体 / 赛事 / 培训）。
+    </p>
 
     <div id="picker" class="rp-grid"></div>
 
@@ -163,6 +167,7 @@
       });
     });
     $("picker").innerHTML=h;
+    var cnt=$("scenCount"); if(cnt) cnt.textContent=SCEN.length;
     Array.prototype.forEach.call($("picker").querySelectorAll(".rp-card"),function(b){
       b.onclick=function(){startScenario(parseInt(b.getAttribute("data-idx"),10));};
     });
