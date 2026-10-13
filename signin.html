@@ -5,108 +5,121 @@
 <title>登录</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-<script>window.HRMA_PREFIX="";</script>
-<script src="auth-config.js?v=fix20261013c"></script>
 <style>
-  :root{ --navy:#0f2a4a; --blue:#1d6fb8; --gold:#e8b84b; --ink:#1a2733; --mute:#5b6a7d; }
-  *{box-sizing:border-box;}
-  html,body{height:100%;}
-  body{ margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
-        background:linear-gradient(160deg,#0f2a4a 0%,#163a63 55%,#1d6fb8 100%);
-        font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
-        color:#fff; padding:24px; }
-  .card{ width:100%; max-width:380px; background:#fff; border-radius:14px;
-         box-shadow:0 20px 60px rgba(0,0,0,.28); overflow:hidden; }
-  .bd{ padding:32px 28px 28px; }
-  label{ display:block; font-size:14px; color:var(--ink); margin-bottom:8px; font-weight:600; }
-  input{ width:100%; padding:12px 14px; font-size:15px; border:1px solid #d6dde6;
-         border-radius:8px; outline:none; margin-bottom:16px; }
-  input:focus{ border-color:var(--blue); box-shadow:0 0 0 3px rgba(29,111,184,.12); }
-  button{ width:100%; padding:12px; font-size:15px; font-weight:700;
-          background:var(--gold); color:var(--navy); border:1px solid var(--gold);
-          border-radius:8px; cursor:pointer; }
-  button:hover{ filter:brightness(1.05); }
-  button:disabled{ opacity:.6; cursor:default; }
-  .msg{ min-height:18px; margin-top:4px; font-size:13px; }
-  .msg.ok{ color:#1a7f4b; } .msg.bad{ color:#c0392b; }
+  *{box-sizing:border-box}html,body{margin:0;height:100%}
+  body{display:flex;align-items:center;justify-content:center;background:#0f172a;font-family:system-ui,"PingFang SC","Microsoft YaHei",sans-serif}
+  .box{width:min(360px,90vw);background:#111a2e;border:1px solid #243049;border-radius:14px;padding:26px 22px;box-shadow:0 12px 40px rgba(0,0,0,.45)}
+  input{width:100%;height:46px;margin:9px 0;padding:0 14px;background:#0b1220;color:#e6edf7;border:1px solid #2a3852;border-radius:9px;font-size:15px;outline:none}
+  input:focus{border-color:#3b82f6}
+  button{width:100%;height:46px;margin-top:12px;background:#2563eb;color:#fff;border:0;border-radius:9px;font-size:16px;font-weight:600;cursor:pointer}
+  button:disabled{opacity:.6;cursor:default}
+  .msg{margin-top:12px;min-height:20px;font-size:14px;text-align:center}
+  .msg.bad{color:#f87171}.msg.ok{color:#4ade80}
 </style>
 </head>
 <body>
-<div class="card">
-  <div class="bd">
-    <label for="email">邮箱</label>
-    <input id="email" type="email" placeholder="邮箱" autocomplete="username">
-    <label for="password">密码</label>
-    <input id="password" type="password" placeholder="密码" autocomplete="current-password">
+  <div class="box">
+    <input id="email" type="email" autocomplete="username" placeholder="邮箱" aria-label="邮箱">
+    <input id="password" type="password" autocomplete="current-password" placeholder="密码" aria-label="密码">
     <button id="btn">登录</button>
     <div id="msg" class="msg"></div>
   </div>
-</div>
 
-<!-- 站长恢复码通道：保留功能但完全隐藏，仅通过 ?rc= 深链静默进站，门口不暴露任何文字 -->
-<div id="rcBox" style="display:none" aria-hidden="true">
-  <input id="rcIn" type="text">
-  <button id="rcBtn" type="button"></button>
-</div>
+<script>
+(function () {
+  'use strict';
+  /* ★ 全部内联：不依赖任何外部 JS，避免浏览器缓存旧版 auth-config / access-login
+     导致哈希对不上而登录失败。哈希是密码的 SHA-256（强密码，无法反推）。 */
+  var ADMIN_EMAIL = '3984557428@qq.com';
+  var ADMIN_PW_HASH = 'f8d4f00ade4fac6f8474569be361054cb95008313161f5216c231be27b884085';
+  var RC_HASH = 'ff83ba05f7c0fc44b710a828ca5ba85ad8dcfaf1fed1dc4592803b100b07e9c0';
 
-<script src="assets/js/rc-hash.js?v=fix20261013c"></script>
-<script src="assets/js/access-login.js?v=fix20261013c"></script>
-<script>
-/* ?next= 透传 + 旧登录态失效清理（仅在 needpw=1 时给一行必要提示） */
-(function(){
-  var m = location.search.match(/[?&]next=([^&]*)/);
-  if (m) { window.__HRMA_NEXT = decodeURIComponent(m[1]); }
-  var msgEl = document.getElementById('msg');
-  if (/[?&]needpw=1/.test(location.search) && msgEl) {
-    try {
-      ['hrma_session_v2','hrma_gate_v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(e){} });
-    } catch (e) {}
-    msgEl.textContent = '登录状态已失效，请重新输入邮箱和密码。';
-    msgEl.className = 'msg bad';
-    try { history.replaceState(null, '', location.pathname); } catch (e) {}
+  var $ = function (id) { return document.getElementById(id); };
+  var emailEl = $('email'), pwEl = $('password'), btn = $('btn'), msg = $('msg');
+
+  function qs(n) {
+    var m = location.search.match(new RegExp('[?&]' + n + '=([^&]*)'));
+    if (!m) return '';
+    try { return decodeURIComponent(m[1]); } catch (e) { return ''; }
   }
-})();
-</script>
-<script>
-/* 恢复码深链：?rc=<恢复码>&to=<页面> 自动校验并静默进站。
-   直接在本页就地处理，不做 ?auto=1 自我替换，避免整页反复重载造成闪烁。 */
-(function(){
-  function qs(n){ var m=location.search.match(new RegExp('[?&]'+n+'=([^&]*)')); return m?decodeURIComponent(m[1]):''; }
-  var rc = qs('rc'); if (!rc) return;
-  var to = qs('to') || 'index.html';
-  var ADMIN = '3984557428@qq.com', KEY_USERS = 'hrma_users_local', KEY_SESSION = 'hrma_session_v2', KEY_RC = 'hrma_rc_hash';
-  function normRC(s){
-    s = String(s || '');
-    try { s = s.replace(/[\uff01-\uff5e]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xfee0); }); } catch (e) {}
-    s = s.replace(/[\s\u00a0\ufeff\r\n\t]/g, '');
-    s = s.replace(/^(恢复码|管理员恢复码|recovery\s*code?)[\s:：=、]*/i, '');
-    return s.toUpperCase();
+  function say(t, kind) { msg.textContent = t || ''; msg.className = 'msg' + (kind ? ' ' + kind : ''); }
+  function safeTarget(t) {
+    if (!t) return 'index.html';
+    if (/^https?:/i.test(t) || t.charAt(0) === '/' || t.indexOf('..') >= 0) return 'index.html';
+    return t;
   }
-  function sha256Hex(str){
+
+  /* 浏览器原生 SHA-256（UTF-8 字节），与 Python/Node 计算一致 */
+  function sha256(str) {
     if (window.crypto && window.crypto.subtle && window.TextEncoder) {
       return window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(str))
-        .then(function(buf){ return Array.prototype.map.call(new Uint8Array(buf), function(b){ return ('0'+b.toString(16)).slice(-2); }).join(''); });
+        .then(function (buf) {
+          return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+            return ('0' + b.toString(16)).slice(-2);
+          }).join('');
+        });
     }
-    var h = 5381, s = 'hrma$3$' + str; for (var i=0;i<s.length;i++){ h = ((h<<5)+h+s.charCodeAt(i)) >>> 0; }
+    /* 极老浏览器兜底（强度弱，仅防崩） */
+    var h = 5381, s = 'hrma$3$' + str;
+    for (var i = 0; i < s.length; i++) { h = ((h << 5) + h + s.charCodeAt(i)) >>> 0; }
     return Promise.resolve('fb$' + h.toString(16) + '.' + s.length);
   }
-  var rcHash; try { rcHash = localStorage.getItem(KEY_RC); } catch (e) {}
-  if (!rcHash) return;            /* 本机未存过恢复码哈希（换设备/未初始化），安静留在登录页 */
-  sha256Hex('hrma-rc|' + normRC(rc)).then(function(h){
-    if (h !== rcHash) return;     /* 恢复码不符，安静留在登录页，不给任何提示 */
-    var db; try { db = JSON.parse(localStorage.getItem(KEY_USERS) || 'null'); } catch (e) {}
-    if (!db || typeof db !== 'object' || Array.isArray(db)) db = { users: [], approved: [] };
+
+  /* 門守卫要求：会话 pwRef 必须与本机账号表里的密码哈希一致。
+     所以登录时务必「同时写账号表 + 会话」，二者用同一个哈希。 */
+  function grant(hash) {
+    var db = { users: [], approved: [] };
+    try { db = JSON.parse(localStorage.getItem('hrma_users_local') || 'null') || db; } catch (e) {}
     if (!Array.isArray(db.users)) db.users = [];
-    var u = db.users.filter(function(x){ return x && typeof x === 'object' && x.email === ADMIN; })[0];
-    if (!u) { u = { email: ADMIN, name: '站长', status: 'approved' }; db.users.push(u); }
     if (!Array.isArray(db.approved)) db.approved = [];
-    if (db.approved.indexOf(ADMIN) < 0) db.approved.push(ADMIN);
-    if (!u.pw) u.pw = '直通' + Date.now() + Math.random().toString(36).slice(2, 10);
+    var u = db.users.filter(function (x) { return x.email === ADMIN_EMAIL; })[0];
+    if (!u) { u = { email: ADMIN_EMAIL, name: '站长' }; db.users.push(u); }
+    u.pw = hash; u.status = 'approved';
     try { delete u.password; } catch (e) {}
-    try { localStorage.setItem(KEY_USERS, JSON.stringify(db)); } catch (e) {}
-    var sess = { email: ADMIN, name: '站长', status: 'approved', pwRef: u.pw, issuedAt: new Date().toISOString(), autoIssued: true };
-    try { localStorage.setItem(KEY_SESSION, JSON.stringify(sess)); } catch (e) {}
-    try { location.replace(to); } catch (e) { try { location.href = to; } catch (e2) {} }
+    if (db.approved.indexOf(ADMIN_EMAIL) < 0) db.approved.push(ADMIN_EMAIL);
+    try { localStorage.setItem('hrma_users_local', JSON.stringify(db)); } catch (e) {}
+    var s = {
+      email: ADMIN_EMAIL, name: '站长', status: 'approved',
+      pwRef: hash, issuedAt: Date.now(), verifiedAt: Date.now()
+    };
+    try { localStorage.setItem('hrma_session_v2', JSON.stringify(s)); } catch (e) {}
+    location.replace(safeTarget(qs('to') || 'index.html'));
+  }
+
+  /* —— 恢复码深链（备用通道，不暴露任何界面文字） —— */
+  var rc = qs('rc');
+  if (rc) {
+    sha256(rc.trim()).then(function (h) {
+      if (h === RC_HASH) grant(h);
+      else say('恢复码无效。', 'bad');
+    });
+    return;
+  }
+
+  /* —— 邮箱 + 密码登录 —— */
+  btn.addEventListener('click', function () {
+    var email = String(emailEl.value || '').trim().toLowerCase();
+    var pw = String(pwEl.value || '').replace(/^\s+|\s+$/g, '');
+    if (!email || !pw) { say('请填写邮箱和密码。', 'bad'); return; }
+    btn.disabled = true; btn.textContent = '验证中…'; say('');
+    sha256(pw).then(function (h) {
+      if (email === ADMIN_EMAIL && h === ADMIN_PW_HASH) {
+        say('验证通过，正在进入…', 'ok');
+        setTimeout(function () { grant(h); }, 300);
+        return;
+      }
+      btn.disabled = false; btn.textContent = '登录';
+      if (window.console && console.info) console.info('[HRMA login] fail: badpw');
+      say('邮箱或密码不对。', 'bad');
+    }).catch(function (e) {
+      btn.disabled = false; btn.textContent = '登录';
+      if (window.console && console.error) console.error('[HRMA login]', e);
+      say('登录失败，请稍后重试。', 'bad');
+    });
+  });
+  [emailEl, pwEl].forEach(function (el) {
+    if (!el) return;
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter' && btn) btn.click(); });
   });
 })();
 </script>
