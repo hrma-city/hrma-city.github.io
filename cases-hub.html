@@ -142,6 +142,23 @@ input[type=text]{flex:1;min-width:200px}
 .wz-qt{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px}
 .wz-qb{font-size:13.5px;line-height:1.7;color:#1f2a37;margin:0 0 8px}
 .wz-q .opt{margin-bottom:5px}
+/* ---- 站内练习/真题「点进去」卡片与面板 ---- */
+.zcard{cursor:pointer;transition:border-color .15s, box-shadow .15s}
+.zcard:hover{border-color:#9dbdd8}
+.zcard.on{border-color:#1d6fb8;box-shadow:0 0 0 2px rgba(29,111,184,.14)}
+.zcard h3{cursor:pointer}
+.zpanel{display:none;margin:4px 0 8px}
+.zpanel.open{display:block}
+.zpanel .wz-h{display:none}
+.zpanel .wz-body{display:block;padding:12px 0 2px}
+/* ---- 解析框可收起 ---- */
+.exp-h{display:flex;justify-content:space-between;align-items:center;gap:8px;
+  cursor:pointer;font-weight:700;user-select:none}
+.exp .wz-arrow{display:inline-block;transition:.2s;margin-left:6px}
+.exp.open .exp-h .wz-arrow{transform:rotate(180deg)}
+.exp-b{display:none}
+.exp.open .exp-b{display:block}
+.exp .why{margin-top:6px}
 .station{background:#fff;border:1px solid #e3e8ef;border-radius:12px;margin:16px 0;overflow:hidden}
 .station.cur{border-color:#e8b84b;box-shadow:0 3px 16px rgba(232,184,75,.18)}
 .station.done{opacity:.92}
@@ -246,20 +263,22 @@ function rwbSave(o){ try { localStorage.setItem(WBKEY, JSON.stringify(o)); } cat
 var rwbProg = rwbLoad();
 function rwbKey(it, idx){ return it.m + '-' + idx; }
 function rwbZoneHtml(s){
-  if (!s.lv || !WB || !WB.items) return '';
+  if ((!s.lv && !s.pp) || !WB || !WB.items) return '';
   var mods = {};
   WB.items.forEach(function(it, idx){
     if (!it.m) return;
-    var lv = (WB.modules && WB.modules[it.m]) ? WB.modules[it.m].lv : '';
-    if (lv !== s.lv) return;
+    if (s.lv) {
+      var lv = (WB.modules && WB.modules[it.m]) ? WB.modules[it.m].lv : '';
+      if (lv !== s.lv) return;
+    }
     (mods[it.m] = mods[it.m] || []).push({it: it, idx: idx});
   });
   var keys = Object.keys(mods);
   if (!keys.length) return '';
   var total = 0;
   keys.forEach(function(k){ total += mods[k].length; });
-  var h = '<div class="wbzone"><div class="wz-h wz-fold" data-wbfold="1">模块练习 · ' + s.lv
-    + ' 共 ' + total + ' 题<span class="wz-arrow">▾</span>'
+  var h = '<div class="wbzone"><div class="wz-h wz-fold" data-wbfold="1">模块练习 · '
+    + (s.lv ? resc(s.lv) : '全部') + ' 共 ' + total + ' 题<span class="wz-arrow">▾</span>'
     + '<span class="wz-tip">机判题型在线判分；计算题看答案与解析后自评。做过一遍的题会记住状态。</span></div>'
     + '<div class="wz-body">';
   keys.forEach(function(mk){
@@ -318,9 +337,9 @@ function rwbBind(){
       rwbProg[key] = ok ? 1 : 0;
       rwbSave(rwbProg);
       var box = document.getElementById('wze_' + key);
-      box.className = 'exp ' + (ok ? 'ok' : 'bad');
-      box.innerHTML = (ok ? '✓ 答对了。' : '✗ 正确答案：<b>' + resc(it.opts[it.a]) + '</b>')
-        + '<div class="why">' + resc(it.why || '') + '</div>';
+      expFill(box, ok ? 'ok' : 'bad',
+        ok ? '✓ 答对了' : '✗ 正确答案：' + resc(it.opts[it.a]),
+        '<div class="why">' + resc(it.why || '') + '</div>');
       Array.prototype.forEach.call(document.querySelectorAll('input[name="wz_' + key + '"]'), function(r){
         r.disabled = true;
         var v = (+r.value), lab = document.getElementById('wzo_' + key + '_' + v);
@@ -337,8 +356,14 @@ function rwbBind(){
       WB.items.forEach(function(x, i){ if (rwbKey(x, i) === key) it = x; });
       var box = document.getElementById('wze_' + key);
       if (!it || !box) return;
-      box.className = 'exp ok';
-      box.innerHTML = '<b>参考答案与解析</b><div class="why">' + resc(it.why || '') + '</div>';
+      if (box.getAttribute('data-filled') !== '1') {
+        expFill(box, 'ok', '参考答案与解析', '<div class="why">' + resc(it.why || '') + '</div>');
+        box.setAttribute('data-filled', '1');
+        b.textContent = '收起答案与解析';
+      } else {
+        var open = box.classList.toggle('open');
+        b.textContent = open ? '收起答案与解析' : '看答案与解析';
+      }
     });
   });
   Array.prototype.forEach.call(document.querySelectorAll('[data-wself]'), function(b){
@@ -360,7 +385,7 @@ function rwbRefreshCounts(){
     var list = mod.querySelectorAll('.wz-q'), done = 0;
     Array.prototype.forEach.call(list, function(q){ if (rwbProg[q.getAttribute('data-k')]) done++; });
     var c = mod.querySelector('.wz-cnt');
-    if (c) c.textContent = done + ' / ' + list.length;
+    if (c) c.innerHTML = done + ' / ' + list.length + ' 题<span class="wz-arrow">▾</span>';
   });
 }
 
@@ -382,15 +407,29 @@ function rquizHtml(s, i){
         : '全部答对才算通过这一站。答错会给出正确答案与解析，改完可以再交。') + '</p>';
   s.quiz.forEach(function(q, qi){
     var nm = 'q_' + s.id + '_' + qi;
+    var pk = (rec.picks && typeof rec.picks[qi] === 'number') ? rec.picks[qi] : -1;
+    var answered = (pk >= 0), okp = answered && pk === q.a;
     h += '<div class="qitem" id="qi_' + s.id + '_' + qi + '">'
       + '<p class="qt"><span class="qn">' + (qi + 1) + '.</span>' + resc(q.q) + '</p>';
     q.opts.forEach(function(o, oi){
-      var checked = (rec.picks && rec.picks[qi] === oi) ? ' checked' : '';
-      h += '<label class="opt' + (checked ? ' sel' : '') + '" id="op_' + s.id + '_' + qi + '_' + oi + '">'
+      var checked = (pk === oi) ? ' checked' : '';
+      var cls = 'opt' + (checked ? ' sel' : '')
+        + (answered && oi === q.a ? ' right' : '')
+        + (answered && checked && !okp ? ' wrong' : '');
+      h += '<label class="' + cls + '" id="op_' + s.id + '_' + qi + '_' + oi + '">'
         + '<input type="radio" name="' + nm + '" value="' + oi + '"' + checked + '>'
         + '<span>' + resc(o) + '</span></label>';
     });
-    h += '<div class="exp" id="exp_' + s.id + '_' + qi + '"></div></div>';
+    /* 提交后引擎会重渲染整个路线视图——这里必须按已存答案恢复解析，
+        否则用户刚看到的判分与解析会被冲掉（反馈丢失）。
+        注意：外层就是 .exp 容器，这里直接输出头部+主体，别再嵌一层。 */
+    h += '<div class="exp' + (answered ? ' ' + (okp ? 'ok' : 'bad') + ' open' : '')
+      + '" id="exp_' + s.id + '_' + qi + '">'
+      + (answered
+          ? '<div class="exp-h"><span class="exp-t">' + (okp ? '✓ 答对了' : '✗ 正确答案：' + resc(q.opts[q.a])) + '<span class="wz-arrow">▾</span></span></div>'
+            + '<div class="exp-b"><div class="why">' + resc(q.why) + '</div></div>'
+          : '')
+      + '</div></div>';
   });
   h += '<div class="qfoot"><button class="st-btn" data-sub="' + s.id + '">'
     + (passed ? '再测一次' : '提交考核') + '</button>'
@@ -421,9 +460,9 @@ function rbindQuiz(){
         var ok = (oi === q.a);
         if (ok) correct++;
         var box = document.getElementById('exp_' + sid + '_' + qi);
-        box.className = 'exp ' + (ok ? 'ok' : 'bad');
-        box.innerHTML = (ok ? '✓ 答对了。' : '✗ 正确答案：<b>' + resc(q.opts[q.a]) + '</b>')
-          + '<div class="why">' + resc(q.why) + '</div>';
+        expFill(box, ok ? 'ok' : 'bad',
+          ok ? '✓ 答对了' : '✗ 正确答案：' + resc(q.opts[q.a]),
+          '<div class="why">' + resc(q.why) + '</div>');
         Array.prototype.forEach.call(
           document.querySelectorAll('input[name="q_' + sid + '_' + qi + '"]'), function(r){
             r.disabled = true;
@@ -463,6 +502,7 @@ function rbindQuiz(){
   });
   rwbBind();
   rpBind();
+  rbindZones();
 }
 
 /* ---- 三级真题卷 · 在线考核（L1/L2/L3 各级站末尾各嵌该级一卷；第五站嵌三级全套）-----
@@ -547,11 +587,9 @@ function rpBind(){
       var oi = sel ? (+sel.value) : -1, ok = (oi === it.a);
       rpProg[key] = ok ? 1 : 0; rpSave(rpProg);
       var box = qbox.querySelector('.exp');
-      if (box) {
-        box.className = 'exp ' + (ok ? 'ok' : 'bad');
-        box.innerHTML = (ok ? '✓ 答对了。' : '✗ 正确答案：<b>' + resc(it.opts[it.a]) + '</b>')
-          + '<div class="why">' + resc(it.why || '') + '</div>';
-      }
+      if (box) expFill(box, ok ? 'ok' : 'bad',
+        ok ? '✓ 答对了' : '✗ 正确答案：' + resc(it.opts[it.a]),
+        '<div class="why">' + resc(it.why || '') + '</div>');
       Array.prototype.forEach.call(qbox.querySelectorAll('input[name="rpq_' + raw + '"]'), function(r){
         r.disabled = true;
         var v = (+r.value), lab = qbox.querySelector('#rpo_' + raw + '_' + v);
@@ -570,9 +608,15 @@ function rpBind(){
       var kp = key.split('-'), lv = kp[0], si = +kp[1], qi = +kp[2];
       var it = PAPERS.levels[lv].secs[si].items[qi];
       var box = qbox.querySelector('.exp');
-      if (box) {
-        box.className = 'exp ok';
-        box.innerHTML = '<b>参考答案与评分标准</b><div class="why">' + resc(it.why || it.ans || '') + '</div>';
+      if (!box) return;
+      if (box.getAttribute('data-filled') !== '1') {
+        expFill(box, 'ok', '参考答案与评分标准',
+          '<div class="why">' + resc(it.why || it.ans || '') + '</div>');
+        box.setAttribute('data-filled', '1');
+        b.textContent = '收起参考答案';
+      } else {
+        var open = box.classList.toggle('open');
+        b.textContent = open ? '收起参考答案' : '看参考答案与评分标准';
       }
     });
   });
@@ -620,6 +664,66 @@ function rpRefresh(){
   });
 }
 
+/* ---- 站内「点进去」卡片：模块练习 / 真题考核做成卡片墙的第 6、7 张，
+      点卡片才在下方展开做题区；不在站里平铺，路线页保持清爽。 ---- */
+function rzoneCards(s){
+  var h = '', wbTotal = 0, ppTotal = 0, ppMeta = '';
+  var wantAll = (s.pp === 'all');
+  if (WB && WB.items && (s.lv || wantAll)) {
+    WB.items.forEach(function(it){
+      if (!it.m) return;
+      if (s.lv) {
+        var m = (WB.modules && WB.modules[it.m]) ? WB.modules[it.m] : null;
+        if (!m || m.lv !== s.lv) return;
+      }
+      wbTotal++;
+    });
+  }
+  if (PAPERS && PAPERS.levels && (s.lv || wantAll)) {
+    var lvs = wantAll ? ['L1', 'L2', 'L3'] : [s.lv];
+    lvs.forEach(function(lv){
+      var p = PAPERS.levels[lv];
+      if (!p) return;
+      p.secs.forEach(function(x){ ppTotal += x.items.length; });
+    });
+    if (wantAll) ppMeta = '三级全套 · L1 90 分 / L2 120 分 / L3 150 分钟';
+    else if (PAPERS.levels[s.lv]) ppMeta = PAPERS.levels[s.lv].minutes + ' 分钟 · 满分 100 · ≥' + PAPERS.levels[s.lv].passing + ' 通过';
+  }
+  if (wbTotal) h += '<article class="card zcard" data-z="wb_' + s.id + '" data-st="' + s.id + '">'
+    + '<h3>模块练习' + (s.lv ? ' · ' + resc(s.lv) : ' · 全部模块') + '</h3>'
+    + '<div class="pills"><span class="pill fm">' + wbTotal + ' 题</span><span class="pill">在线判分</span></div>'
+    + '<p>按模块分组：判断/单选点选即判分；计算与情景题对照解析自评。做过一遍会记住状态。</p></article>';
+  if (ppTotal) h += '<article class="card zcard" data-z="pp_' + s.id + '" data-st="' + s.id + '">'
+    + '<h3>真题考核' + (s.lv ? ' · ' + resc(s.lv) + ' 结业考试卷' : ' · 三级全套') + '</h3>'
+    + '<div class="pills"><span class="pill fm">' + ppTotal + ' 题</span><span class="pill">' + resc(ppMeta) + '</span></div>'
+    + '<p>按题型分区作答：机判题在线判分；作答题写完对照参考答案与评分标准自评，可随时收起。</p></article>';
+  return h;
+}
+function rzonePanels(s){
+  var h = '';
+  if (WB && WB.items && (s.lv || s.pp === 'all'))
+    h += '<div class="zpanel" id="wb_' + s.id + '" data-st="' + s.id + '">' + rwbZoneHtml(s) + '</div>';
+  if (PAPERS && PAPERS.levels && (s.lv || s.pp === 'all'))
+    h += '<div class="zpanel" id="pp_' + s.id + '" data-st="' + s.id + '">' + rpPaperHtml(s) + '</div>';
+  return h;
+}
+function rbindZones(){
+  Array.prototype.forEach.call(document.querySelectorAll('.zcard'), function(c){
+    c.addEventListener('click', function(){
+      var pid = c.getAttribute('data-z'), st = c.getAttribute('data-st');
+      var panel = document.getElementById(pid);
+      if (!panel) return;
+      var wasOpen = panel.classList.contains('open');
+      Array.prototype.forEach.call(document.querySelectorAll('.zpanel[data-st="' + st + '"]'), function(p){ p.classList.remove('open'); });
+      Array.prototype.forEach.call(document.querySelectorAll('.zcard[data-st="' + st + '"]'), function(x){ x.classList.remove('on'); });
+      if (!wasOpen) {
+        panel.classList.add('open'); c.classList.add('on');
+        if (panel.scrollIntoView) panel.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }
+    });
+  });
+}
+
 function rrenderPath(){
   var html = '', dn = rdoneN();
   ST.forEach(function(s, i){
@@ -638,10 +742,9 @@ function rrenderPath(){
       + (stt === 'done' ? ' · 已完成' : (stt === 'cur' ? ' · 当前站' : ' · 未到')) + '</div></div></div>'
       + '<div class="st-b">'
       + '<div class="st-how"><b>怎么学：</b>' + resc(s.how) + '</div>'
-      + '<div class="st-items">' + items + '</div>'
-      + rwbZoneHtml(s)
+      + '<div class="st-items">' + items + rzoneCards(s) + '</div>'
+      + rzonePanels(s)
       + rquizHtml(s, i)
-      + rpPaperHtml(s)
       + '</div></section>';
   });
   document.getElementById('pathview').innerHTML = html;
@@ -650,6 +753,26 @@ function rrenderPath(){
     + '</b> 站 · 还剩 <b>' + (ST.length - dn) + '</b> 站'
     + (dn === ST.length ? ' · 全部走完，可以去自由浏览里查漏了' : '');
   rbindQuiz();
+}
+
+/* ---- 解析框：头部可点击收起/展开（全局委托一次，动态生成的解析也生效）---- */
+function expFillStr(cls, headTxt, bodyHtml){
+  return '<div class="exp ' + cls + ' open">'
+    + '<div class="exp-h"><span class="exp-t">' + headTxt + '</span><span class="wz-arrow">▾</span></div>'
+    + '<div class="exp-b">' + bodyHtml + '</div></div>';
+}
+function expFill(box, cls, headTxt, bodyHtml){
+  box.className = 'exp ' + cls;
+  box.innerHTML = '<div class="exp-h"><span class="exp-t">' + headTxt + '</span><span class="wz-arrow">▾</span></div>'
+    + '<div class="exp-b">' + bodyHtml + '</div>';
+  box.classList.add('open');
+}
+if (!window.__hrmaExpDeleg) {
+  window.__hrmaExpDeleg = true;
+  document.addEventListener('click', function(e){
+    var hd = e.target && e.target.closest ? e.target.closest('.exp-h') : null;
+    if (hd) hd.parentNode.classList.toggle('open');
+  });
 }
 
 (function(){
