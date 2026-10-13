@@ -290,7 +290,7 @@ function rwbBind(){
   Array.prototype.forEach.call(document.querySelectorAll('[data-wbfold]'), function(fh){
     fh.addEventListener('click', function(){ fh.parentNode.classList.toggle('open'); });
   });
-  Array.prototype.forEach.call(document.querySelectorAll('.wz-mh'), function(mh){
+  Array.prototype.forEach.call(document.querySelectorAll('.wz-mh:not([data-psec])'), function(mh){
     mh.addEventListener('click', function(){
       mh.parentNode.classList.toggle('open');
     });
@@ -453,9 +453,11 @@ function rbindQuiz(){
   rpBind();
 }
 
-/* ---- 三级真题卷 · 在线考核（放在 L1/L2/L3 各级站最后）-----
+/* ---- 三级真题卷 · 在线考核（L1/L2/L3 各级站末尾各嵌该级一卷；第五站嵌三级全套）-----
    机判题型（判断/单选）在线判分；作答题（填空/计算/查表/情景/决策/案例）留作答区，
-   可看参考答案与评分标准后自评。进度记本机。 */
+   可看参考答案与评分标准后自评。进度记本机（按「级-区-题」共享，各级站与第五站互通）。
+   折叠两层：外层「真题考核」整卷折叠，内层按题型分区折叠。
+   ⚠ ID 一律带站点前缀（sid），避免同一张卷在两个站里渲染出重复 ID。 */
 function rpLoad(){ try { return JSON.parse(localStorage.getItem(PKEY) || '{}') || {}; } catch(e){ return {}; } }
 function rpSave(o){ try { localStorage.setItem(PKEY, JSON.stringify(o)); } catch(e){} }
 var rpProg = rpLoad();
@@ -465,46 +467,57 @@ function rpItem(it){
   var typeName = it.t === 'judge' ? '判断' : (it.t === 'choice' ? '单选' : '作答');
   return '<span class="pill fm">' + typeName + '</span><span class="pill">' + resc(it.score) + ' 分</span>';
 }
-function rpSecHtml(lv, si, sec){
-  var h = '<div class="wz-mod" id="rps_' + lv + '_' + si + '"><div class="wz-mh" data-psec="' + lv + '-' + si + '">'
+function rpSecHtml(sid, lv, si, sec){
+  var h = '<div class="wz-mod" id="rps_' + sid + '_' + lv + '_' + si + '" data-lv="' + lv + '" data-si="' + si + '">'
+    + '<div class="wz-mh" data-psec="' + sid + '_' + lv + '_' + si + '">'
     + '<span class="wz-mt">' + resc(sec.name) + '</span>'
     + '<span class="wz-cnt">共 ' + sec.score + ' 分<span class="wz-arrow">▾</span></span></div><div class="wz-list">';
   sec.items.forEach(function(it, qi){
     var key = rpKey(lv, si, qi), st = rpProg[key];
-    h += '<div class="wz-q" id="rp_' + key + '" data-k="' + key + '">'
+    h += '<div class="wz-q" id="rp_' + sid + '_' + key + '" data-k="' + key + '">'
       + '<div class="wz-qt">' + rpItem(it)
-      + (st === 1 ? '<span class="pill" style="background:#eef8f1;color:#1d5c39">已答对</span>'
-         : (st === 0 ? '<span class="pill" style="background:#fdefee;color:#8e2b20">答错</span>'
-         : (st === 'self-ok' ? '<span class="pill" style="background:#eef8f1;color:#1d5c39">自评通过</span>' : '')))
+      + '<span class="pill wz-st" style="' + rpStStyle(st) + '">' + rpStTxt(st) + '</span>'
       + '</div><div class="wz-qb">' + (qi + 1) + '. ' + resc(it.q) + '</div>';
     if (it.t === 'judge' || it.t === 'choice') {
       it.opts.forEach(function(op, oi){
-        h += '<label class="opt" id="rpo_' + key + '_' + oi + '"><input type="radio" name="rp_' + key + '" value="' + oi + '"><span>' + resc(op) + '</span></label>';
+        h += '<label class="opt" id="rpo_' + sid + '_' + key + '_' + oi + '">'
+          + '<input type="radio" name="rpq_' + sid + '_' + key + '" value="' + oi + '"><span>' + resc(op) + '</span></label>';
       });
-      h += '<div class="qfoot"><button class="st-btn" data-psub="' + key + '">提交</button>'
-        + '<span class="qres" id="rpr_' + key + '"></span></div>';
+      h += '<div class="qfoot"><button class="st-btn" data-psub="' + sid + '_' + key + '">提交</button>'
+        + '<span class="qres" id="rpr_' + sid + '_' + key + '"></span></div>';
     } else {
-      h += '<div class="qfoot"><textarea class="rp-ta" id="rpt_' + key + '" rows="3" placeholder="在这里写你的作答…">'
+      h += '<div class="qfoot"><textarea class="rp-ta" data-ta="' + sid + '_' + key + '" rows="3" placeholder="在这里写你的作答…">'
         + resc(rpProg['txt_' + key] || '') + '</textarea></div>'
-        + '<div class="qfoot"><button class="st-btn" data-pshow="' + key + '">看参考答案与评分标准</button>'
-        + '<button class="st-btn ghost" data-pself="' + key + '" data-v="self-ok">我答好了</button>'
-        + '<button class="st-btn ghost" data-pself="' + key + '" data-v="self-no">没答好</button></div>';
+        + '<div class="qfoot"><button class="st-btn" data-pshow="' + sid + '_' + key + '">看参考答案与评分标准</button>'
+        + '<button class="st-btn ghost" data-pself="' + sid + '_' + key + '" data-v="self-ok">我答好了</button>'
+        + '<button class="st-btn ghost" data-pself="' + sid + '_' + key + '" data-v="self-no">没答好</button></div>';
     }
-    h += '<div class="exp" id="rpe_' + key + '"></div></div>';
+    h += '<div class="exp" id="rpe_' + sid + '_' + key + '"></div></div>';
   });
   return h + '</div></div>';
 }
 function rpPaperHtml(s){
-  if (!s.lv) return '';
-  var p = rpPaperOf(s.lv);
-  if (!p) return '';
-  var tot = 0;
-  p.secs.forEach(function(x){ tot += x.items.length; });
-  var h = '<div class="wbzone"><div class="wz-h">真题考核 · ' + resc(s.lv) + ' 结业考试卷'
-    + '<span class="wz-tip">' + p.minutes + ' 分钟 · 满分 100 · ≥' + p.passing + ' 通过 · 共 ' + tot + ' 题</span></div>'
-    + '<p class="qs">机判题型（判断/单选）在线判分；作答题写答案后对照「参考答案与评分标准」自评。按题型分区，点开一区做一区。</p>';
-  p.secs.forEach(function(sec, si){ h += rpSecHtml(s.lv, si, sec); });
-  return h + '</div>';
+  var lvs = [];
+  if (s.pp === 'all') lvs = ['L1', 'L2', 'L3'];
+  else if (s.lv) lvs = [s.lv];
+  if (!lvs.length) return '';
+  var tag = (s.pp === 'all') ? '真题模拟考试' : '真题考核';
+  var h = '';
+  lvs.forEach(function(lv){
+    var p = rpPaperOf(lv);
+    if (!p) return;
+    var sid = s.id + '_' + lv, tot = 0;
+    p.secs.forEach(function(x){ tot += x.items.length; });
+    h += '<div class="wbzone" id="rpz_' + sid + '">'
+      + '<div class="wz-h wz-fold" data-wbfold="1">' + tag + ' · ' + resc(lv) + ' 结业考试卷<span class="wz-arrow">▾</span>'
+      + '<span class="wz-tip">' + p.minutes + ' 分钟 · 满分 100 · ≥' + p.passing + ' 通过 · 共 ' + tot + ' 题</span></div>'
+      + '<div class="wz-body">'
+      + '<p class="qs">机判题型（判断/单选）在线判分；作答题写答案后对照「参考答案与评分标准」自评。'
+      + '按题型分区折叠，点开一区做一区；做过的题记住状态，进度与各级站共享。</p>';
+    p.secs.forEach(function(sec, si){ h += rpSecHtml(sid, lv, si, sec); });
+    h += '</div></div>';
+  });
+  return h;
 }
 function rpBind(){
   Array.prototype.forEach.call(document.querySelectorAll('[data-psec]'), function(mh){
@@ -512,63 +525,84 @@ function rpBind(){
   });
   Array.prototype.forEach.call(document.querySelectorAll('[data-psub]'), function(b){
     b.addEventListener('click', function(){
-      var key = b.getAttribute('data-psub');
-      var parts = key.split('-'), lv = parts[0], si = +parts[1], qi = +parts[2];
+      var qbox = b.closest ? b.closest('.wz-q') : null;
+      if (!qbox) return;
+      var raw = b.getAttribute('data-psub');           // 仅用于定位 radio 的 name
+      var key = qbox.getAttribute('data-k');           // 进度 key = 'Lv-si-qi'
+      var kp = key.split('-'), lv = kp[0], si = +kp[1], qi = +kp[2];
       var it = PAPERS.levels[lv].secs[si].items[qi];
-      var sel = document.querySelector('input[name="rp_' + key + '"]:checked');
+      var sel = qbox.querySelector('input[name="rpq_' + raw + '"]:checked');
       var oi = sel ? (+sel.value) : -1, ok = (oi === it.a);
       rpProg[key] = ok ? 1 : 0; rpSave(rpProg);
-      var box = document.getElementById('rpe_' + key);
-      box.className = 'exp ' + (ok ? 'ok' : 'bad');
-      box.innerHTML = (ok ? '✓ 答对了。' : '✗ 正确答案：<b>' + resc(it.opts[it.a]) + '</b>')
-        + '<div class="why">' + resc(it.why || '') + '</div>';
-      Array.prototype.forEach.call(document.querySelectorAll('input[name="rp_' + key + '"]'), function(r){
+      var box = qbox.querySelector('.exp');
+      if (box) {
+        box.className = 'exp ' + (ok ? 'ok' : 'bad');
+        box.innerHTML = (ok ? '✓ 答对了。' : '✗ 正确答案：<b>' + resc(it.opts[it.a]) + '</b>')
+          + '<div class="why">' + resc(it.why || '') + '</div>';
+      }
+      Array.prototype.forEach.call(qbox.querySelectorAll('input[name="rpq_' + raw + '"]'), function(r){
         r.disabled = true;
-        var v = (+r.value), lab = document.getElementById('rpo_' + key + '_' + v);
+        var v = (+r.value), lab = qbox.querySelector('#rpo_' + raw + '_' + v);
         if (lab) { if (v === it.a) lab.classList.add('right'); else if (r.checked) lab.classList.add('wrong'); }
       });
-      var rs = document.getElementById('rpr_' + key);
+      var rs = qbox.querySelector('.qres');
       if (rs) { rs.className = 'qres ' + (ok ? 'ok' : 'bad'); rs.textContent = ok ? '已答对' : '答错了，看解析'; }
       rpRefresh();
     });
   });
   Array.prototype.forEach.call(document.querySelectorAll('[data-pshow]'), function(b){
     b.addEventListener('click', function(){
-      var key = b.getAttribute('data-pshow');
-      var parts = key.split('-'), lv = parts[0], si = +parts[1], qi = +parts[2];
+      var qbox = b.closest ? b.closest('.wz-q') : null;
+      if (!qbox) return;
+      var key = qbox.getAttribute('data-k');
+      var kp = key.split('-'), lv = kp[0], si = +kp[1], qi = +kp[2];
       var it = PAPERS.levels[lv].secs[si].items[qi];
-      var box = document.getElementById('rpe_' + key);
-      box.className = 'exp ok';
-      box.innerHTML = '<b>参考答案与评分标准</b><div class="why">' + resc(it.why || it.ans || '') + '</div>';
+      var box = qbox.querySelector('.exp');
+      if (box) {
+        box.className = 'exp ok';
+        box.innerHTML = '<b>参考答案与评分标准</b><div class="why">' + resc(it.why || it.ans || '') + '</div>';
+      }
     });
   });
   Array.prototype.forEach.call(document.querySelectorAll('[data-pself]'), function(b){
     b.addEventListener('click', function(){
-      var key = b.getAttribute('data-pself'), v = b.getAttribute('data-v');
-      rpProg[key] = v; rpSave(rpProg); rpRefresh();
+      var qbox = b.closest ? b.closest('.wz-q') : null;
+      if (!qbox) return;
+      rpProg[qbox.getAttribute('data-k')] = b.getAttribute('data-v');
+      rpSave(rpProg); rpRefresh();
     });
   });
   Array.prototype.forEach.call(document.querySelectorAll('.rp-ta'), function(ta){
     ta.addEventListener('input', function(){
-      var key = ta.id.replace('rpt_', '');
-      rpProg['txt_' + key] = ta.value; rpSave(rpProg);
-    });
-  });
-  Array.prototype.forEach.call(document.querySelectorAll('#pathview .opt'), function(l){
-    l.addEventListener('click', function(){
-      var r = l.querySelector('input'); if (!r || r.disabled) return;
-      Array.prototype.forEach.call(l.parentNode.querySelectorAll('.opt'), function(x){ x.classList.remove('sel'); });
-      l.classList.add('sel');
+      var qbox = ta.closest ? ta.closest('.wz-q') : null;
+      if (!qbox) return;
+      rpProg['txt_' + qbox.getAttribute('data-k')] = ta.value; rpSave(rpProg);
     });
   });
 }
+function rpStTxt(st){
+  if (st === 1) return '已答对';
+  if (st === 0) return '答错';
+  if (st === 'self-ok') return '自评通过';
+  return '';
+}
+function rpStStyle(st){
+  if (st === 1 || st === 'self-ok') return 'background:#eef8f1;color:#1d5c39';
+  if (st === 0) return 'background:#fdefee;color:#8e2b20';
+  return '';
+}
 function rpRefresh(){
-  Array.prototype.forEach.call(document.querySelectorAll('[id^="rps_"]'), function(mod){
-    var m = mod.id.match(/^rps_(L\d)_(\d+)$/);
-    if (!m) return;
-    var lv = m[1], si = +m[2], sec = PAPERS.levels[lv].secs[si];
+  Array.prototype.forEach.call(document.querySelectorAll('.wz-mod[data-lv]'), function(mod){
+    var lv = mod.getAttribute('data-lv'), si = +mod.getAttribute('data-si');
+    var sec = PAPERS.levels[lv] && PAPERS.levels[lv].secs[si];
+    if (!sec) return;
     var done = 0;
-    sec.items.forEach(function(it, qi){ if (rpProg[rpKey(lv, si, qi)]) done++; });
+    Array.prototype.forEach.call(mod.querySelectorAll('.wz-q'), function(q){
+      var k = q.getAttribute('data-k'), st = rpProg[k];
+      if (st) done++;
+      var pill = q.querySelector('.wz-st');   // 跨站同步：另一站作答后这里也亮
+      if (pill) { pill.textContent = rpStTxt(st); pill.setAttribute('style', rpStStyle(st)); }
+    });
     var c = mod.querySelector('.wz-cnt');
     if (c) c.innerHTML = '已完成 ' + done + ' / ' + sec.items.length + ' 题<span class="wz-arrow">▾</span>';
   });
