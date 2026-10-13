@@ -24,7 +24,7 @@
     ['theory.html', '理论'],
     ['cases-hub.html', '案例'],
     ['games-hub.html', '游戏'],
-    ['training.html', '培训认证'],
+    ['training.html', '教培'],
     ['resources.html', '资料库']
   ];
   /* 次级页面：收进「更多」。原身份门户（酒店人/教师/学生/社区）降到这里，
