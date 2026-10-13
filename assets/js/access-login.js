@@ -55,20 +55,7 @@
   function say(t, kind) {
     msg.textContent = t || '';
     msg.className = 'msg' + (kind ? ' ' + kind : '');
-    /* 密码失败时把恢复码框闪一下并把光标送过去。
-       站长本地模式最常见的卡点就是「没设过密码 / 账号表被清空」，
-       与其让他反复猜密码，不如立刻把他推到唯一可行的入口上。 */
-    if (kind === 'bad') {
-      var box = document.getElementById('rcBox');
-      if (box) {
-        box.classList.remove('hit'); void box.offsetWidth; box.classList.add('hit');
-        try { box.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {}
-        setTimeout(function () {
-          var ri = document.getElementById('rcIn');
-          if (ri && document.activeElement !== ri) ri.focus();
-        }, 350);
-      }
-    }
+    /* 门口不放任何提示性文字：失败只给一句通用话，不提恢复码/设备/重设流程 */
   }
   /* 注意：register.html 复用本模块，它的按钮文案是「提交申请…」而不是「登录并进入」。
      所以把初始文案记进 data-lbl，busy(false) 时还原，否则注册页按钮会被改成「登录并进入」。 */
@@ -155,10 +142,22 @@
 
   function loginLocal(email, pw) {
     var db = seedAdmin();
+    var isAdmin = String(email).toLowerCase() === ADMIN_EMAIL;
+    var adminHash = String(window.HRMA_ADMIN_PW_HASH || '');
     var u = db.users.filter(function (x) { return x.email === email; })[0];
-    if (!u) return Promise.resolve({ error: 'noaccount' });
-    var stored = u.pw || u.password;
     return sha256Hex(pw).then(function (h) {
+      /* 本机没有该账号：管理员可用「配置里的密码哈希」直接开户进站
+         （20 位随机强密码，哈希公开无法爆破；陌生人猜不出密码就进不来） */
+      if (!u) {
+        if (!(isAdmin && adminHash && h === adminHash)) return { error: 'noaccount' };
+        u = { email: email, name: '站长', status: 'approved', pw: h };
+        db.users.push(u);
+        if (!Array.isArray(db.approved)) db.approved = [];
+        if (db.approved.indexOf(email) < 0) db.approved.push(email);
+        localSet(db);
+        return { user: { email: email, name: '站长', status: 'approved', issuedAt: Date.now() }, pwHash: h };
+      }
+      var stored = u.pw || u.password;
       /* 兼容三种历史存储格式，校验通过后一律升级为 SHA-256：
          1) SHA-256（当前）
          2) v2 老哈希 djb2（早期 reset-me 页面写入的）
@@ -167,8 +166,21 @@
       var ok = (stored === h);
       if (!ok && stored === legacyHash(pw)) ok = true;
       if (!ok && stored === pw) ok = true;
+      /* 管理员兜底：本机账号表的密码丢了/换了设备/被清空时，
+         用配置里的管理员密码哈希校验，通过则就地重建本机账号 */
+      if (!ok && isAdmin && adminHash && h === adminHash) {
+        ok = true;
+        stored = h;
+        u.pw = h;
+        u.status = 'approved';
+        try { delete u.password; } catch (e) {}
+        if (!Array.isArray(db.approved)) db.approved = [];
+        if (db.approved.indexOf(email) < 0) db.approved.push(email);
+        localSet(db);
+      }
       if (!ok) return { error: 'badpw' };
       if (stored !== h) { u.pw = h; try { delete u.password; } catch (e) {} localSet(db); }
+      if (isAdmin) u.status = 'approved';
       return { user: { email: u.email, name: u.name, status: u.status, issuedAt: Date.now() }, pwHash: h };
     });
   }
@@ -355,33 +367,18 @@
       job.then(function (res) {
         busy(false);
         if (res.error) {
-          if (res.error === 'noaccount') say('这个邮箱在「这台设备的浏览器」里还没有账号，'
-            + '所以密码对不上。若要进入本站，请把恢复码贴到上面「用恢复码进站」的框里。', 'bad');
-          else if (res.error === 'badpw') {
-            /* 站长本机常常压根没设过密码，只看到「密码不对」会永远卡住。
-               这里直接指路到恢复码通道，别让他再猜密码。 */
-            var _mail = '';
-            try { _mail = String((document.getElementById('email') || {}).value || ''); } catch (e) {}
-            var _isAdminTry = String(_mail).trim().toLowerCase() === '3984557428@qq.com';
-            say(_isAdminTry
-              ? '密码不对。站长本人不用记密码：把恢复码贴到上面「用恢复码进站」的输入框里，'
-                + '点一下就进站了；如果想换一个密码，去 reset-me.html 用恢复码重设。'
-              : '密码不对。忘记密码请到 reset-me.html 用恢复码重设。', 'bad');
-          }
-          else say('登录失败：' + res.error, 'bad');
+          /* 门口不泄露任何细节：不提恢复码、不提设备、不提重设流程。
+             具体原因只写进控制台，供排查用。 */
+          if (window.console && console.info) console.info('[HRMA login] fail:', res.error);
+          say('邮箱或密码不对。', 'bad');
           return;
         }
         say('验证通过，正在进入…', 'ok');
         setTimeout(function () { enter(res.user, res.pwHash); }, 350);
       }).catch(function (e) {
         busy(false);
-        /* ⚠️ 这里不是网络问题——本地模式不联网。
-           之前一律显示"网络异常"，把真实异常（账号表结构损坏等）全掩盖了。
-           现在直接显示错误名与消息，并给出一条可执行的兜底路径。 */
-        var msgTxt = e && e.message ? e.message : String(e);
-        say('登录出错：' + msgTxt
-          + '　若反复出现，请用恢复码在 reset-me.html 重设密码（会清空本机账号表）。', 'bad');
         if (window.console && console.error) console.error('[HRMA login]', e);
+        say('登录失败，请稍后重试。', 'bad');
       });
     });
   }

@@ -2,59 +2,18 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
+<title></title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-<title>正在前往登录页 · RMC 收益管理社区</title>
-<link rel="canonical" href="access.html">
-<style>
-  :root{ --navy:#0f2a4a; --blue:#1d6fb8; --gold:#e8b84b; }
-  *{ box-sizing:border-box; }
-  body{ margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
-        background:linear-gradient(160deg,#0f2a4a 0%,#163a63 55%,#1d6fb8 100%);
-        font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif; }
-  .box{ background:#fff; border-radius:14px; padding:38px 34px; max-width:440px; width:100%;
-        box-shadow:0 20px 60px rgba(0,0,0,.28); text-align:center; }
-  .spin{ width:26px; height:26px; margin:0 auto 16px; border-radius:50%;
-         border:3px solid #e3e8ef; border-top-color:var(--blue); animation:sp 1s linear infinite; }
-  @keyframes sp{ to{ transform:rotate(360deg); } }
-  h1{ font-size:18px; color:var(--navy); margin:0 0 8px; }
-  p{ font-size:13.5px; color:#5b6a7d; line-height:1.85; margin:0; }
-  a.btn{ display:inline-block; margin-top:20px; padding:12px 28px; background:var(--gold);
-         color:var(--navy); text-decoration:none; font-weight:700; border-radius:8px; }
-</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"login","item":"https://hrma-city.github.io/login.html"}]}</script>
-</head>
-<body>
-<div class="box">
-  <div class="spin"></div>
-  <h1>正在前往登录页…</h1>
-  <p>登录功能已统一到同一个页面（<b>access.html</b>）。<br>
-     站长本人请用页面顶部的<b>恢复码</b>进站，不需要密码。</p>
-  <a class="btn" id="go" href="access.html">立即前往登录页</a>
-</div>
 <script>
-/* ⚠️ 这个文件从 2026-10-03 起只是一个「旧登录页地址」的兼容入口。
-   原因：站内曾同时存在两套登录（access.html 用 access-login.js + 恢复码通道；
-   login.html 用旧的 auth.js + demo-backend.js，没有恢复码、且旧逻辑已损坏），
-   导致站长「在登录页输密码一直提示不正确」——他进的是这套旧页。
-   现在统一：所有 login.html?redirect=xxx 都自动转到 access.html?next=xxx，
-   两个参数名都兼容。 */
-(function () {
-  function q(n) {
-    var m = location.search.match(new RegExp('[?&]' + n + '=([^&]*)'));
-    if (!m) return '';
-    try { return decodeURIComponent(m[1]); } catch (e) { return ''; }
-  }
-  var target = q('next') || q('redirect') || '';
-  /* 只接受站内相对路径，防止被拼到站外地址 */
-  if (target && (target.indexOf('//') === 0 || target.indexOf('http') === 0)) target = '';
-  var to = 'access.html' + (target ? '?next=' + encodeURIComponent(target) : '');
-  document.getElementById('go').href = to;
-  try { location.replace(to); } catch (e) { location.href = to; }
+(function(){
+  var m=location.search.match(/[?&]next=([^&]*)/);
+  var t='';
+  try{ t=m?decodeURIComponent(m[1]):''; }catch(e){}
+  if(/^https?:/i.test(t)||t.charAt(0)==='/'||t.indexOf('..')>=0) t='';
+  location.replace('signin.html'+(t?('?next='+encodeURIComponent(t)):''));
 })();
 </script>
-<script src="assets/js/site-nav.js?v=v14"></script>
-  </body>
+</head>
+<body></body>
 </html>
