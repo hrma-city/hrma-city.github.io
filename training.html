@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <title>培训认证馆 · RMC收益管理社区</title>
-<meta name="description" content="教学资料给上课的人，认证考核给考证的人，两队分开">
+<meta name="description" content="四站路线：开课准备 → 备课取材 → 上课交付 → 考核认证">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f5f7fa;color:#1f2a37;
@@ -88,7 +88,31 @@ input[type=text]{flex:1;min-width:200px}
 .rbar{flex:1;height:8px;background:#e6ecf3;border-radius:99px;overflow:hidden}
 .rbar i{display:block;height:100%;background:linear-gradient(90deg,#2a7d4f,#e8b84b);border-radius:99px;transition:.4s}
 .rreset{background:none;border:0;color:#98a6b6;font-size:12px;cursor:pointer;text-decoration:underline;font-family:inherit}
-/* ---- 站点卡片 ---- */
+/* ---- 站点考核（在线答题）---- */
+.qz{border:1px solid #d9e3ee;border-radius:10px;padding:13px 14px;margin-bottom:13px;background:#fcfdff}
+.qz .qh{font-size:13px;font-weight:800;color:#0f2a4a;margin:0 0 4px;letter-spacing:.5px}
+.qz .qs{font-size:12.5px;color:#8394a8;margin:0 0 11px}
+.qitem{margin:0 0 13px;padding-bottom:12px;border-bottom:1px dashed #e3e8ef}
+.qitem:last-of-type{border-bottom:0;padding-bottom:0;margin-bottom:9px}
+.qitem .qt{font-size:14px;line-height:1.65;color:#1f2a37;margin:0 0 8px;font-weight:600}
+.qitem .qt .qn{color:#1d6fb8;font-weight:800;margin-right:5px}
+.opt{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;line-height:1.55;color:#33465c;
+  padding:6px 9px;border:1px solid #e3e8ef;border-radius:8px;margin-bottom:6px;cursor:pointer;
+  background:#fff;transition:.15s}
+.opt:hover{border-color:#9dc0e4;background:#f7fafd}
+.opt input{margin-top:3px}
+.opt.sel{border-color:#1d6fb8;background:#eef5fc}
+.opt.right{border-color:#2a7d4f;background:#eef8f1;color:#1d5c39}
+.opt.wrong{border-color:#c0392b;background:#fdefee;color:#8e2b20}
+.exp{display:none;margin:8px 0 2px;border-radius:8px;padding:10px 12px;font-size:13.5px;line-height:1.75}
+.exp.ok{display:block;background:#eef8f1;border:1px solid #bfe3cc;color:#1d5c39}
+.exp.bad{display:block;background:#fdefee;border:1px solid #f2c4bd;color:#8e2b20}
+.exp .why{margin-top:6px;color:#43536a;border-top:1px dashed rgba(0,0,0,.12);padding-top:6px}
+.qfoot{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.qres{font-size:13.5px;font-weight:800}
+.qres.ok{color:#2a7d4f}.qres.bad{color:#c0392b}
+.st-passed{display:inline-block;background:#2a7d4f;color:#fff;font-size:12px;font-weight:700;
+  border-radius:5px;padding:2px 8px;margin-left:8px}
 .station{background:#fff;border:1px solid #e3e8ef;border-radius:12px;margin:16px 0;overflow:hidden}
 .station.cur{border-color:#e8b84b;box-shadow:0 3px 16px rgba(232,184,75,.18)}
 .station.done{opacity:.92}
@@ -125,16 +149,195 @@ input[type=text]{flex:1;min-width:200px}
 <script src="assets/js/site-nav.js?v=v17"></script>
 </head>
 <body>
-<div class="hero"><div class="wrap" style="padding-bottom:0"><a class="back" href="index.html">← 回陈列首页</a><h1>培训认证馆 · 教学资料 / 认证考核</h1><p>要备课、开课、做课程建设 → 翻<b style="color:#ffd97a">教学资料</b>；要考证、验收学习成果（含入行训练营结业） → 翻<b style="color:#ffd97a">认证考核</b>。</p><div class="cnt">共 <b>38</b> 项资源，分 <b>2</b> 队 <b>6</b> 类</div></div></div>
-<div class="wrap">
-<div class="bar"><input type="text" id="q" placeholder="搜资源名，如：教案 / 课件 / 微课 / 题库 / 结业…"></div><div class="meta" id="cnt"></div>
-<div id="secs"></div>
+<div class="hero"><div class="wrap" style="padding-bottom:0"><a class="back" href="index.html">← 回陈列首页</a><h1>培训认证馆 · 四站路线</h1><p>从判断这门课能不能开，到备资料、上讲台、做考核认证——四站走完，一门课就能落地。每站末尾有考核，全对才算走过。</p><div class="cnt">共 <b>4</b> 站 · <b>12</b> 道考核题 · 覆盖 <b>38</b> 项资源</div></div></div>
+<div class="rmap"><div class="rt">完整路线图 · 点任一站可直达 · 考核全对才计入进度</div><div class="rtrack" id="rtrack"><div class="rnode" data-i="0" id="rn-t1"><div class="rline"></div><div class="dot">1</div><div class="nm">开课准备</div></div><div class="rnode" data-i="1" id="rn-t2"><div class="rline"></div><div class="dot">2</div><div class="nm">备课取材</div></div><div class="rnode" data-i="2" id="rn-t3"><div class="rline"></div><div class="dot">3</div><div class="nm">上课交付</div></div><div class="rnode" data-i="3" id="rn-t4"><div class="rline"></div><div class="dot">4</div><div class="nm">考核与认证</div></div></div><div class="rprog"><span id="rtxt">路线进度 0 / 4</span><div class="rbar"><i id="rfill" style="width:0%"></i></div><button class="rreset" id="rreset">重新开始</button></div></div>
+<div class="viewtab"><button id="tab-path" class="on">按路线学</button><button id="tab-free">自由浏览</button></div>
+<div class="meta" id="rcnt"></div>
+<div id="pathview"></div>
+<div id="freeview" style="display:none"><div class="bar"><input type="text" id="q" placeholder="搜资源名，如：教案 / 课件 / 微课 / 题库 / 结业…"></div><div id="secs"></div></div>
+
+<script>
+/* ===== 路线 + 在线考核引擎（四馆共用）=====
+   站点完成条件 = 本站考核全对（不是"看过了"）。 */
+var HALL = 'training', ST = [{"id":"t1","n":"开课准备","hrs":"2–3 小时","goal":"判断这门课能不能开、按什么标准开、缺什么","how":"先用自检表过一遍现状（课时、师资、数据、案例是否齐），再对照课程标准看差距，最后用 AI 校验器检查你自己写的教案初稿。","items":[{"u":"selfcheck.html","n":"开课自检表","k":["入口","先做这个"],"d":"开课前逐项自查，缺什么一目了然。"},{"u":"course-standard.html","n":"课程标准","k":["标准"],"d":"可直接用于课程申报与专业建设的标准文本。"},{"u":"course-ruler.html","n":"课程标尺设计","k":["评价"],"d":"课程达成度怎么量、怎么评。"},{"u":"ai-verifier.html","n":"AI 教案校验器","k":["工具"],"d":"检查教案缺项与常见硬伤。"}],"quiz":[{"t":"choice","q":"开课准备阶段第一件该做的事是？","opts":["先写教案","用自检表核对自己学校现有条件（课时/师资/数据/案例）的缺口","先买教材","先招生"],"a":1,"why":"没有缺口清单，后面的备课都是盲人摸象。自检表的价值就是让你在动手前知道要补什么、能借什么、可以砍什么。"},{"t":"judge","q":"课程标准只是申报材料，对实际上课没用。","opts":["对","错"],"a":1,"why":"错。课程标准规定了你这一学期要交付什么、学生结业时应该会什么——它是教案的总纲，也是答辩和评估时对方要看的文件。"},{"t":"choice","q":"课程标尺解决的是什么问题？","opts":["学生怎么打分","这门课的达成度怎么量、怎么评，让「学会了」可判定","老师怎么排课","教材怎么选"],"a":1,"why":"没有标尺，「学生学会了」就只是感觉。标尺把达成度变成可核对的条目——这也是认证体系能成立的地基。"}]},{"id":"t2","n":"备课取材","hrs":"4–6 小时","goal":"把 32 章内容排进你的课时，备齐数据、案例与练习","how":"先看教案总纲排模块，再用开课教案完整版逐章备，接着用数据工坊准备学生要算的数据集，最后按学时选投屏课件。","items":[{"u":"book-teach.html","n":"开课教案完整版（32 章）","k":["主材"],"d":"32 章逐章教案主书：讲什么、怎么讲、板书怎么排。"},{"u":"study-teach.html","n":"逐章备课与上课","k":["执行"],"d":"备课与课堂现场执行版，比教案更贴课堂。"},{"u":"teach-data.html","n":"教学数据工坊","k":["数据"],"d":"云璟模拟数据库 + 练习模板，让学生手上有真数据可算。"},{"u":"slides-teach.html","n":"按学时选课件","k":["课件"],"d":"按 16/32/48 学时选适用课件包。"}],"quiz":[{"t":"choice","q":"课时比 32 章少很多时，最该先砍什么？","opts":["砍掉练习环节，多讲内容","按标尺保核心模块，砍延伸章节，练习不能砍","砍掉考核","砍掉数据环节"],"a":1,"why":"内容可以取舍，「学生亲手算过」不能砍——那是达成度的来源。按标尺保核心、砍延伸，是压缩课时的正解。"},{"t":"judge","q":"数据工坊只是给学生练手，教师自己不需要先算一遍。","opts":["对","错"],"a":1,"why":"错。教师必须先跑一遍数据和答案，否则课堂上学生对不上数时你无法判断是谁错了。数据课最怕老师自己没算过。"},{"t":"choice","q":"投屏课件按学时选 16/32/48 三套，选型的依据是？","opts":["哪套文件小","本学期实际课时与培养目标","学生喜好","随机选"],"a":1,"why":"课时的多少决定内容密度：16 学时用紧凑版保核心，48 学时才有空间放综合情境和对抗演练。按实际课时选，别按文件大小选。"}]},{"id":"t3","n":"上课交付","hrs":"一个学期","goal":"把备好的内容在课堂上有效交付，并留下可复用的痕迹","how":"上课用投屏课件与微课放映版，案例课用案例教案与配套课件，练习与对战用课堂竞赛，课后用微课脚本补漏。","items":[{"u":"slides.html","n":"教材投屏课件 · 32 章","k":["课件"],"d":"每章一份，投屏即用。"},{"u":"teach-case.html","n":"案例教材配套教案册","k":["案例"],"d":"14 篇案例各自的配套教案。"},{"u":"classroom.html","n":"课堂分组经营竞赛","k":["互动"],"d":"多组同市场出价，按累计净利润排名，投屏可见。"},{"u":"micro-course-scripts.html","n":"32 节微课脚本","k":["补充"],"d":"学生课前预习与课后补漏用。"}],"quiz":[{"t":"choice","q":"案例课最有效的讲法是？","opts":["直接讲结论","先让学生表态决策，再拆解判据，最后提炼知识点","只放课件","让学生自己看"],"a":1,"why":"案例课的价值在「先有立场、再看判据」：学生先猜，再被数据说服，知识才留得住。直接讲结论等于把案例用成了例子。"},{"t":"judge","q":"课堂竞赛只是活跃气氛，不计入达成度。","opts":["对","错"],"a":1,"why":"错。竞赛的排名、决策记录、复盘质量都是达成度证据，正好接上课程标尺——把竞赛结果纳入评价，比一次期末考更连续。"},{"t":"choice","q":"微课脚本在这条路线里最合适的用法是？","opts":["替代课堂","学生课前预习与课后补漏，把课堂时间留给练习与讨论","存档不用","当教材卖"],"a":1,"why":"微课解决的是「讲一遍」的效率，课堂的稀缺时间该留给「练一遍」和「辩一遍」。分工清楚，达成度才上得去。"}]},{"id":"t4","n":"考核与认证","hrs":"持续","goal":"让学习成果可判定，并知道学生/自己到达了哪一级","how":"用题库按模块组卷，用自测和闯关持续采集数据，最后对照认证标准判定 L1/L2/L3 准备度，补齐缺口。","items":[{"u":"cert.html","n":"资格认证 · 三级收益管理师","k":["体系"],"d":"L1 助理 / L2 收益管理师 / L3 高级的条件与路径。"},{"u":"wb.html","n":"演练题库 · 237 题","k":["组卷"],"d":"按 M01–M14 组织，可按三级能力标准筛题。"},{"u":"cert-hub.html","n":"认证准备度","k":["判定"],"d":"汇总训练营、闯关、自测数据，自动判定准备度与缺口。"},{"u":"camp-assess.html","n":"考核与结业标准","k":["结业"],"d":"训练营结业怎么评，附评分量规与答辩要求。"}],"quiz":[{"t":"choice","q":"判定学生是否达到 L2，最可靠的依据是？","opts":["期末一张卷","题库按模块分组卷 + 实战案例 + 游戏达标数据的组合","出勤率","自我感觉"],"a":1,"why":"L2 是「能独立做决策」，单一试卷测不出来。要模块题测知识、案例测应用、游戏数据测实操——三者齐了才判得准。"},{"t":"judge","q":"认证准备度是自动判定的，教师不需要介入。","opts":["对","错"],"a":1,"why":"错。准备度页给的是数据与缺口清单，最终判定要教师结合课堂观察与案例表现。数据是输入，判断是人做的。"},{"t":"choice","q":"评分量规在结业考核里的作用是？","opts":["给分更方便","把「做得好不好」拆成可核对的维度，减少主观分","卡通过率","凑材料"],"a":1,"why":"量规把评分从感觉变成条目：决策依据、数据使用、复盘深度各占多少分。学生知道怎么得分，你也知道为什么扣分。"}]}], RKEY = 'hrma_' + HALL + '_path_v1';
+function rload(){ try { return JSON.parse(localStorage.getItem(RKEY) || '{}') || {}; } catch(e){ return {}; } }
+function rsave(o){ try { localStorage.setItem(RKEY, JSON.stringify(o)); } catch(e){} }
+var rprog = rload();
+if (!Array.isArray(rprog.done)) rprog.done = [];
+if (!rprog.quiz) rprog.quiz = {};
+function resc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function rpassed(i){ return !!(rprog.quiz[ST[i].id] && rprog.quiz[ST[i].id].passed); }
+function rstate(i){
+  if (rpassed(i)) return 'done';
+  for (var k = 0; k < ST.length; k++) if (!rpassed(k)) return (k === i) ? 'cur' : 'lock';
+  return 'lock';
+}
+function rdoneN(){ var n=0; for (var i=0;i<ST.length;i++) if (rpassed(i)) n++; return n; }
+
+function rdrawMap(){
+  var html = '';
+  ST.forEach(function(s, i){
+    var st = rstate(i), lineCls = (st === 'done') ? 'rline pass' : 'rline';
+    var mark = (st === 'done') ? '✓' : (i + 1);
+    html += '<div class="rnode ' + st + '" data-i="' + i + '" id="rn-' + s.id + '">'
+      + '<div class="' + lineCls + '"></div>'
+      + '<div class="dot">' + mark + '</div><div class="nm">' + resc(s.n) + '</div></div>';
+  });
+  var t = document.getElementById('rtrack');
+  if (t) t.innerHTML = html;
+  var dn = rdoneN();
+  var tx = document.getElementById('rtxt');
+  if (tx) tx.innerHTML = '路线进度 <b>' + dn + ' / ' + ST.length + '</b>';
+  var fl = document.getElementById('rfill');
+  if (fl) fl.style.width = (dn / ST.length * 100) + '%';
+  Array.prototype.forEach.call(document.querySelectorAll('.rnode'), function(nd){
+    nd.addEventListener('click', function(){
+      var tp = document.getElementById('tab-path'); if (tp) tp.click();
+      var el = document.getElementById('st-' + ST[+nd.getAttribute('data-i')].id);
+      if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+}
+
+function rquizHtml(s, i){
+  var passed = rpassed(i), rec = rprog.quiz[s.id] || {};
+  var h = '<div class="qz"><div class="qh">本站考核 · ' + s.quiz.length + ' 题</div>'
+    + '<p class="qs">' + (passed
+        ? '已通过（' + rec.score + '）。这一站计入路线进度。'
+        : '全部答对才算通过这一站。答错会给出正确答案与解析，改完可以再交。') + '</p>';
+  s.quiz.forEach(function(q, qi){
+    var nm = 'q_' + s.id + '_' + qi;
+    h += '<div class="qitem" id="qi_' + s.id + '_' + qi + '">'
+      + '<p class="qt"><span class="qn">' + (qi + 1) + '.</span>' + resc(q.q) + '</p>';
+    q.opts.forEach(function(o, oi){
+      var checked = (rec.picks && rec.picks[qi] === oi) ? ' checked' : '';
+      h += '<label class="opt' + (checked ? ' sel' : '') + '" id="op_' + s.id + '_' + qi + '_' + oi + '">'
+        + '<input type="radio" name="' + nm + '" value="' + oi + '"' + checked + '>'
+        + '<span>' + resc(o) + '</span></label>';
+    });
+    h += '<div class="exp" id="exp_' + s.id + '_' + qi + '"></div></div>';
+  });
+  h += '<div class="qfoot"><button class="st-btn" data-sub="' + s.id + '">'
+    + (passed ? '再测一次' : '提交考核') + '</button>'
+    + '<span class="qres" id="qres_' + s.id + '"></span></div></div>';
+  return h;
+}
+
+function rbindQuiz(){
+  Array.prototype.forEach.call(document.querySelectorAll('[data-sub]'), function(b){
+    b.addEventListener('click', function(){
+      var sid = b.getAttribute('data-sub');
+      var si = 0; for (var i = 0; i < ST.length; i++) if (ST[i].id === sid) si = i;
+      var st = ST[si], correct = 0, picks = [];
+      st.quiz.forEach(function(q, qi){
+        var sel = document.querySelector('input[name="q_' + sid + '_' + qi + '"]:checked');
+        var oi = sel ? (+sel.value) : -1;
+        picks.push(oi);
+        var ok = (oi === q.a);
+        if (ok) correct++;
+        var box = document.getElementById('exp_' + sid + '_' + qi);
+        box.className = 'exp ' + (ok ? 'ok' : 'bad');
+        box.innerHTML = (ok ? '✓ 答对了。' : '✗ 正确答案：<b>' + resc(q.opts[q.a]) + '</b>')
+          + '<div class="why">' + resc(q.why) + '</div>';
+        Array.prototype.forEach.call(
+          document.querySelectorAll('input[name="q_' + sid + '_' + qi + '"]'), function(r){
+            r.disabled = true;
+            var v = (+r.value), lab = document.getElementById('op_' + sid + '_' + qi + '_' + v);
+            if (lab) {
+              if (v === q.a) lab.classList.add('right');
+              else if (r.checked) lab.classList.add('wrong');
+            }
+          });
+      });
+      var all = (correct === st.quiz.length);
+      if (!rprog.quiz) rprog.quiz = {};
+      rprog.quiz[sid] = {passed: all, score: correct + '/' + st.quiz.length, picks: picks};
+      if (all && rprog.done.indexOf(sid) < 0) rprog.done.push(sid);
+      rsave(rprog);
+      var rs = document.getElementById('qres_' + sid);
+      if (rs) {
+        rs.className = 'qres ' + (all ? 'ok' : 'bad');
+        rs.innerHTML = all ? ('本站通过 ' + correct + '/' + st.quiz.length + '，已计入路线进度')
+                          : ('答对 ' + correct + '/' + st.quiz.length + '，看解析后改答案再交');
+      }
+      rdrawMap();
+      rrenderPath();
+      if (all) {
+        var nx = document.getElementById('st-' + (ST[si + 1] ? ST[si + 1].id : ST[si].id));
+        if (nx) setTimeout(function(){ nx.scrollIntoView({behavior:'smooth', block:'start'}); }, 150);
+      }
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.opt'), function(l){
+    l.addEventListener('click', function(){
+      var r = l.querySelector('input'); if (!r || r.disabled) return;
+      Array.prototype.forEach.call(
+        l.parentNode.querySelectorAll('.opt'), function(x){ x.classList.remove('sel'); });
+      l.classList.add('sel');
+    });
+  });
+}
+
+function rrenderPath(){
+  var html = '', dn = rdoneN();
+  ST.forEach(function(s, i){
+    var stt = rstate(i);
+    var items = s.items.map(function(it){
+      var ps = (it.k||[]).map(function(k){ return '<span class="pill">' + resc(k) + '</span>'; }).join('');
+      return '<article class="card"><h3><a href="' + resc(it.u) + '">' + resc(it.n) + '</a></h3>'
+        + '<div class="pills">' + ps + '</div><p>' + resc(it.d) + '</p></article>';
+    }).join('');
+    html += '<section class="station ' + stt + '" id="st-' + s.id + '">'
+      + '<div class="st-h"><div class="st-no">' + (stt === 'done' ? '✓' : (i + 1)) + '</div>'
+      + '<div class="st-t"><h3>第 ' + (i + 1) + ' 站 · ' + resc(s.n)
+      + (stt === 'done' ? '<span class="st-passed">已通过</span>' : '') + '</h3>'
+      + '<p class="goal">学完这一站，你应该能：' + resc(s.goal) + '。</p>'
+      + '<div class="hrs">约 ' + resc(s.hrs)
+      + (stt === 'done' ? ' · 已完成' : (stt === 'cur' ? ' · 当前站' : ' · 未到')) + '</div></div></div>'
+      + '<div class="st-b">'
+      + '<div class="st-how"><b>怎么学：</b>' + resc(s.how) + '</div>'
+      + '<div class="st-items">' + items + '</div>'
+      + rquizHtml(s, i)
+      + '</div></section>';
+  });
+  document.getElementById('pathview').innerHTML = html;
+  var rc = document.getElementById('rcnt');
+  if (rc) rc.innerHTML = '共 <b>' + ST.length + '</b> 站 · 已通过 <b>' + dn
+    + '</b> 站 · 还剩 <b>' + (ST.length - dn) + '</b> 站'
+    + (dn === ST.length ? ' · 全部走完，可以去自由浏览里查漏了' : '');
+  rbindQuiz();
+}
+
+(function(){
+  var tp = document.getElementById('tab-path'), tf = document.getElementById('tab-free');
+  if (tp) tp.addEventListener('click', function(){
+    tp.classList.add('on'); if (tf) tf.classList.remove('on');
+    document.getElementById('pathview').style.display = '';
+    document.getElementById('freeview').style.display = 'none';
+    rrenderPath();
+  });
+  if (tf) tf.addEventListener('click', function(){
+    tf.classList.add('on'); if (tp) tp.classList.remove('on');
+    document.getElementById('pathview').style.display = 'none';
+    document.getElementById('freeview').style.display = '';
+    if (typeof renderFree === 'function') renderFree();
+  });
+  var rr = document.getElementById('rreset');
+  if (rr) rr.addEventListener('click', function(){
+    if (!confirm('清空所有站的考核记录，从第 1 站重新开始？')) return;
+    rprog = {done: [], quiz: {}}; rsave(rprog); rrenderPath(); rdrawMap();
+  });
+})();
+
+rrenderPath(); rdrawMap();
+</script>
 
 <script>
 var T = {"教学资料":{"c":"b3600a","sd":"给要开课、要上课的人","subs":[{"name":"备课","items":[{"u":"teach.html","n":"教学入口 · 打开就能上课","k":["入口"],"d":"教师总入口，第一次来从这里进。"},{"u":"book-teach.html","n":"开课教案完整版（32 章）","k":["教案","备课"],"d":"32 章逐章教案主书，讲什么、怎么讲、板书怎么排。"},{"u":"study-teach.html","n":"逐章备课与上课","k":["教案","上课"],"d":"备课与课堂现场执行版，比教案更贴课堂。"},{"u":"teach-case.html","n":"案例教材配套教案册","k":["教案","案例"],"d":"14 篇教学案例各自的配套教案。"},{"u":"teach-data.html","n":"教学数据工坊","k":["数据","练习"],"d":"云璟模拟数据库 + 练习模板，让学生手上有真数据可算。"},{"u":"curriculum.html","n":"教案总纲 · 14 模块","k":["教案"],"d":"M01–M14 十四个模块的详细教案。"},{"u":"selfcheck.html","n":"开课自检表","k":["自检"],"d":"开课前逐项自查，缺什么一目了然。"},{"u":"ai-verifier.html","n":"AI 教案校验器","k":["工具","质检"],"d":"把写好的教案丢进去，检查缺项与常见硬伤。"}]},{"name":"课件与微课","items":[{"u":"slides.html","n":"教材投屏课件 · 32 章","k":["课件","投屏"],"d":"32 章教材配的投屏课件总索引。"},{"u":"slides-teach.html","n":"按学时选课件","k":["课件","学时"],"d":"按课时多少选适用课件包。"},{"u":"sl-teach-16.html","n":"投屏课件 · 16 学时","k":["课件","短课"],"d":"课时紧张时的 16 学时版课件。"},{"u":"sl-teach-32.html","n":"投屏课件 · 32 学时","k":["课件"],"d":"标准 32 学时版课件。"},{"u":"sl-teach-48.html","n":"投屏课件 · 48 学时","k":["课件","长课"],"d":"课时充足的 48 学时版课件。"},{"u":"slides-case.html","n":"案例投屏课件 · 14 篇","k":["课件","案例"],"d":"案例教材 14 篇的投屏课件。"},{"u":"slides-outline.html","n":"32 章课件大纲","k":["大纲"],"d":"课件大纲，改课时、挑章节前先看这份。"},{"u":"micro-course.html","n":"院校版微课方案","k":["微课","方案"],"d":"六模块 + 学练战证的微课整体方案。"},{"u":"micro-course-scripts.html","n":"32 节微课脚本","k":["微课","脚本"],"d":"32 节微课逐节脚本，可直接照着录。"},{"u":"micro-player.html","n":"微课放映版 · 32 节","k":["微课","放映"],"d":"带分镜与旁白的放映版，可直接播放给学生。"},{"u":"micro-major.html","n":"微专业方案 · 96 学时","k":["微专业"],"d":"《酒店与旅游业收益管理》微专业整体方案。"}]},{"name":"专业建设与授权","items":[{"u":"course-standard.html","n":"课程标准","k":["标准","申报"],"d":"可直接用于课程申报与专业建设的课程标准文本。"},{"u":"course-ruler.html","n":"课程标尺设计","k":["评价","标尺"],"d":"课程达成度怎么量、怎么评。"},{"u":"license-course.html","n":"授权课程包设计","k":["授权","商务"],"d":"做成可认证版权课的设计方案。"},{"u":"quality-manual.html","n":"授权课程包 · 质量手册","k":["授权","质量"],"d":"授权课的质量标准与交付要求。"},{"u":"teacher-training.html","n":"师资培训包","k":["师资","培训"],"d":"两天师资培训课程与考核，可录播。"}]}]},"认证考核":{"c":"a02c4a","sd":"给要考证、要验收的人","subs":[{"name":"认证体系","items":[{"u":"cert.html","n":"资格认证 · 三级收益管理师","k":["认证","入口"],"d":"认证主入口：L1 助理 / L2 收益管理师 / L3 高级，各自的条件与路径。"},{"u":"certification.html","n":"考核认证标准","k":["标准"],"d":"考核怎么组织、怎么判分的标准文本。"},{"u":"cert-hub.html","n":"学习履历与认证准备度","k":["进度","自评"],"d":"汇总训练营、闯关、打卡、自测数据，自动判定 L1–L3 的准备度与缺口。"},{"u":"exam.html","n":"考核与题库目录","k":["题库","目录"],"d":"所有题库的总目录。"},{"u":"quiz.html","n":"在线考核","k":["考核"],"d":"在线答题入口。"},{"u":"quest.html","n":"考级认证 · 决策闯关","k":["考级","闯关"],"d":"以闯关形式进行的考级。"}]},{"name":"题库与自测","items":[{"u":"exam-book.html","n":"习题集 · 138 题含答案","k":["题库","解析"],"d":"90 题流程篇 + 48 题案例篇，每题带答案解析。"},{"u":"wb.html","n":"演练题库 · 237 题","k":["题库","分级"],"d":"按 M01–M14 组织，可按三级能力达成标准与难度筛题。"},{"u":"flow-quest.html","n":"流程闯关 · 90 关","k":["题库","流程"],"d":"流程篇 90 题的闯关版，带错题本。"},{"u":"case-quiz.html","n":"案例自测 · 48 题","k":["题库","案例"],"d":"案例篇 48 题自测。"},{"u":"case-check.html","n":"案例配套自测 · 42 题","k":["题库","案例"],"d":"对应 14 篇教学案例的自测题。"},{"u":"coll-modules.html","n":"认证模块全集 M01–M14","k":["模块"],"d":"十四个认证模块的目录索引。"}]},{"name":"入行训练营","items":[{"u":"camp-rm.html","n":"入行实操训练营 · 总览","k":["训练营"],"d":"12 周四个阶段 12 个实操任务的总览。"},{"u":"camp-assess.html","n":"考核与结业标准","k":["结业","量规"],"d":"训练营结业怎么评，附评分量规与答辩要求。"}]}]}}, ORD = ["备课", "课件与微课", "专业建设与授权", "认证体系", "题库与自测", "入行训练营"];
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
-function render(){
+function renderFree(){
   var q = document.getElementById('q').value.trim(), n = 0, html = '';
   Object.keys(T).forEach(function(name){
     var blocks = '', cnt = 0;
@@ -159,11 +362,10 @@ function render(){
       + '　<span style="font-size:14px;color:#5b6a7d;font-weight:400">' + cnt + ' 项</span></h2>'
       + '<p class="sd">' + esc(T[name].sd) + '</p>' + blocks + '</section>';
   });
-  document.getElementById('cnt').innerHTML = '显示 <b>' + n + '</b> 项';
   document.getElementById('secs').innerHTML = html || '<div class="empty">没有匹配的资源。</div>';
 }
-document.getElementById('q').addEventListener('input', render);
-render();
+document.getElementById('q').addEventListener('input', renderFree);
+renderFree();
 </script>
 <div class="foot">RMC收益管理社区<br>找不到想要的？用顶栏搜索，或进资料库翻全站 504 项资源</div>
 </div>

@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <title>游戏馆 · RMC收益管理社区</title>
-<meta name="description" content="按想练的能力挑游戏：动态定价、超售、置换、渠道、竞争…">
+<meta name="description" content="四站路线：单场景练手 → 流程与日常 → 综合经营 → 对抗与验收">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f5f7fa;color:#1f2a37;
@@ -88,7 +88,31 @@ input[type=text]{flex:1;min-width:200px}
 .rbar{flex:1;height:8px;background:#e6ecf3;border-radius:99px;overflow:hidden}
 .rbar i{display:block;height:100%;background:linear-gradient(90deg,#2a7d4f,#e8b84b);border-radius:99px;transition:.4s}
 .rreset{background:none;border:0;color:#98a6b6;font-size:12px;cursor:pointer;text-decoration:underline;font-family:inherit}
-/* ---- 站点卡片 ---- */
+/* ---- 站点考核（在线答题）---- */
+.qz{border:1px solid #d9e3ee;border-radius:10px;padding:13px 14px;margin-bottom:13px;background:#fcfdff}
+.qz .qh{font-size:13px;font-weight:800;color:#0f2a4a;margin:0 0 4px;letter-spacing:.5px}
+.qz .qs{font-size:12.5px;color:#8394a8;margin:0 0 11px}
+.qitem{margin:0 0 13px;padding-bottom:12px;border-bottom:1px dashed #e3e8ef}
+.qitem:last-of-type{border-bottom:0;padding-bottom:0;margin-bottom:9px}
+.qitem .qt{font-size:14px;line-height:1.65;color:#1f2a37;margin:0 0 8px;font-weight:600}
+.qitem .qt .qn{color:#1d6fb8;font-weight:800;margin-right:5px}
+.opt{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;line-height:1.55;color:#33465c;
+  padding:6px 9px;border:1px solid #e3e8ef;border-radius:8px;margin-bottom:6px;cursor:pointer;
+  background:#fff;transition:.15s}
+.opt:hover{border-color:#9dc0e4;background:#f7fafd}
+.opt input{margin-top:3px}
+.opt.sel{border-color:#1d6fb8;background:#eef5fc}
+.opt.right{border-color:#2a7d4f;background:#eef8f1;color:#1d5c39}
+.opt.wrong{border-color:#c0392b;background:#fdefee;color:#8e2b20}
+.exp{display:none;margin:8px 0 2px;border-radius:8px;padding:10px 12px;font-size:13.5px;line-height:1.75}
+.exp.ok{display:block;background:#eef8f1;border:1px solid #bfe3cc;color:#1d5c39}
+.exp.bad{display:block;background:#fdefee;border:1px solid #f2c4bd;color:#8e2b20}
+.exp .why{margin-top:6px;color:#43536a;border-top:1px dashed rgba(0,0,0,.12);padding-top:6px}
+.qfoot{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.qres{font-size:13.5px;font-weight:800}
+.qres.ok{color:#2a7d4f}.qres.bad{color:#c0392b}
+.st-passed{display:inline-block;background:#2a7d4f;color:#fff;font-size:12px;font-weight:700;
+  border-radius:5px;padding:2px 8px;margin-left:8px}
 .station{background:#fff;border:1px solid #e3e8ef;border-radius:12px;margin:16px 0;overflow:hidden}
 .station.cur{border-color:#e8b84b;box-shadow:0 3px 16px rgba(232,184,75,.18)}
 .station.done{opacity:.92}
@@ -125,15 +149,198 @@ input[type=text]{flex:1;min-width:200px}
 <script src="assets/js/site-nav.js?v=v17"></script>
 </head>
 <body>
-<div class="hero"><div class="wrap" style="padding-bottom:0"><a class="back" href="index.html">← 回陈列首页</a><h1>游戏馆 · 想练哪一项能力</h1><p>说你想练什么：动态定价手感不好？搞不清团队置换？超售总怕爆仓？选一个能力标签，底下就是练它的那几个。单个场景决策 5 分钟一题，成体系模拟 30–60 分钟一轮。</p><div class="cnt">共 <b>25</b> 个玩法 · 覆盖 <b>17</b> 项能力</div></div></div>
-<div class="wrap">
-<div class="bar"><input type="text" id="q" placeholder="搜游戏名或说明，如：卡牌 / 对战 / 团队…"><select id="fm"><option value="">全部玩法形式</option><option value="单场景决策">单场景决策</option><option value="卡牌">卡牌</option><option value="单人模拟">单人模拟</option><option value="流程模拟">流程模拟</option><option value="叙事">叙事</option><option value="题库闯关">题库闯关</option><option value="关卡挑战">关卡挑战</option><option value="情景模拟">情景模拟</option><option value="联机对战">联机对战</option><option value="分组投屏">分组投屏</option><option value="抢答竞赛">抢答竞赛</option><option value="章节通关">章节通关</option><option value="索引">索引</option></select><select id="lv"><option value="">全部难度</option><option value="入门">入门</option><option value="进阶">进阶</option><option value="挑战">挑战</option></select><button class="chip" id="reset">清空条件</button></div>
+<div class="hero"><div class="wrap" style="padding-bottom:0"><a class="back" href="index.html">← 回陈列首页</a><h1>游戏馆 · 四站路线</h1><p>从 5 分钟的单场景，到 30 天的连续经营，再到有对手的对抗——难度一站一站往上走。每站末尾有考核，全对才算走过。</p><div class="cnt">共 <b>4</b> 站 · <b>12</b> 道考核题 · <b>25</b> 个玩法</div></div></div>
+<div class="rmap"><div class="rt">完整路线图 · 点任一站可直达 · 考核全对才计入进度</div><div class="rtrack" id="rtrack"><div class="rnode" data-i="0" id="rn-g1"><div class="rline"></div><div class="dot">1</div><div class="nm">单场景练手</div></div><div class="rnode" data-i="1" id="rn-g2"><div class="rline"></div><div class="dot">2</div><div class="nm">流程与日常</div></div><div class="rnode" data-i="2" id="rn-g3"><div class="rline"></div><div class="dot">3</div><div class="nm">综合经营</div></div><div class="rnode" data-i="3" id="rn-g4"><div class="rline"></div><div class="dot">4</div><div class="nm">对抗与验收</div></div></div><div class="rprog"><span id="rtxt">路线进度 0 / 4</span><div class="rbar"><i id="rfill" style="width:0%"></i></div><button class="rreset" id="rreset">重新开始</button></div></div>
+<div class="viewtab"><button id="tab-path" class="on">按路线学</button><button id="tab-free">自由浏览</button></div>
+<div class="meta" id="rcnt"></div>
+<div id="pathview"></div>
+<div id="freeview" style="display:none"><div class="bar"><input type="text" id="q" placeholder="搜游戏名或说明，如：卡牌 / 对战 / 团队…"><select id="fm"><option value="">全部玩法形式</option><option value="单场景决策">单场景决策</option><option value="卡牌">卡牌</option><option value="单人模拟">单人模拟</option><option value="流程模拟">流程模拟</option><option value="叙事">叙事</option><option value="题库闯关">题库闯关</option><option value="关卡挑战">关卡挑战</option><option value="情景模拟">情景模拟</option><option value="联机对战">联机对战</option><option value="分组投屏">分组投屏</option><option value="抢答竞赛">抢答竞赛</option><option value="章节通关">章节通关</option><option value="索引">索引</option></select><select id="lv"><option value="">全部难度</option><option value="入门">入门</option><option value="进阶">进阶</option><option value="挑战">挑战</option></select><button class="chip" id="reset">清空条件</button></div>
 <div class="grp"><div class="gl">我想练的能力（点一个标签）</div><div class="chiprow" id="skrow"><span class="chip" data-v="动态定价">动态定价</span><span class="chip" data-v="超额预订">超额预订</span><span class="chip" data-v="置换分析">置换分析</span><span class="chip" data-v="渠道管理">渠道管理</span><span class="chip" data-v="库存限制">库存限制</span><span class="chip" data-v="房型与升级">房型与升级</span><span class="chip" data-v="团队与会议">团队与会议</span><span class="chip" data-v="需求预测">需求预测</span><span class="chip" data-v="促销与折扣">促销与折扣</span><span class="chip" data-v="打包与套餐">打包与套餐</span><span class="chip" data-v="竞争应对">竞争应对</span><span class="chip" data-v="指标体系">指标体系</span><span class="chip" data-v="危机与补救">危机与补救</span><span class="chip" data-v="餐饮RevPASH">餐饮RevPASH</span><span class="chip" data-v="跨业态">跨业态</span><span class="chip" data-v="综合权衡">综合权衡</span><span class="chip" data-v="流程执行">流程执行</span></div></div>
 <div class="meta" id="cnt"></div>
 <div class="grid" id="list"></div>
+</div>
+
+<script>
+/* ===== 路线 + 在线考核引擎（四馆共用）=====
+   站点完成条件 = 本站考核全对（不是"看过了"）。 */
+var HALL = 'games', ST = [{"id":"g1","n":"单场景练手","hrs":"每个 5 分钟","goal":"把单个决策（涨价、超售、置换……）在 5 分钟里完整做一次","how":"13 个单场景各练一项能力，先从你工作中最常卡住的那个开始。一个场景一道题，做完看反馈——反馈里写着你这一步依据的是操作法典哪张表。","items":[{"u":"coll-scenes.html","n":"场景锻炼全集 · 13 个情境","k":["入口","从这里挑"],"d":"13 个单场景的总索引，不确定从哪练起先来这里。"},{"u":"scene-pricing.html","n":"涨价决策","k":["动态定价"],"d":"该不该涨、涨多少。"},{"u":"scene-displacement.html","n":"团队置换（接不接）","k":["置换分析"],"d":"大团队压过来，接还是不接。"},{"u":"game-oversell.html","n":"超售决策","k":["超额预订"],"d":"超售超多少、爆仓了怎么赔。"}],"quiz":[{"t":"choice","q":"单场景游戏里你选「跟到 399，守住出租率」，系统判你错。最可能的原因是什么？","opts":["系统随机判错","跟价后 RevPAR 掉了，而且引来的是价格敏感客，会挤走高价协议客","出租率不重要","跟价一定对"],"a":1,"why":"单场景的判据是 RevPAR 不是 OCC。跟到 399 换来的是本来住别处的价格敏感客，却挤走了付 620 的协议客——这类反馈就是让你建立「看综合收益」的条件反射。"},{"t":"judge","q":"单场景游戏每个只有 5 分钟，所以只适合随便玩玩，学不到东西。","opts":["对","错"],"a":1,"why":"错。5 分钟恰好覆盖「读题—决策—看判据」的完整闭环，而且每题都标了所依据的法典表号。它的定位是高频重复练手感，不是系统学原理。"},{"t":"choice","q":"一晚上连做三个单场景都错了，最有效的下一步是？","opts":["换更简单的游戏","回操作法典翻对应那张判定表，再回来重做","放弃游戏去读书","责怪题目设计"],"a":1,"why":"错题是指路牌。每个场景的反馈都指向一张法典表——回去把那张表的条件看一遍，再重做同一题，比换题有效得多。"}]},{"id":"g2","n":"流程与日常","hrs":"15–30 分钟","goal":"把收益经理一天/一段流程该做的事按顺序走完","how":"先玩「一日流水线」建立工作节律，再进「值班叙事」练突发事件下的取舍顺序，最后用 90 关流程闯关把 30 个子步骤全部过一遍。","items":[{"u":"pipeline.html","n":"一日流水线","k":["流程","日常"],"d":"按收益经理一天的真实顺序走：看数→判断→调价→记录。"},{"u":"duty.html","n":"值班叙事","k":["流程","应急"],"d":"值班这一天状况不断：投诉、系统故障、临时团队。"},{"u":"flow-quest.html","n":"流程闯关 · 90 关","k":["流程","题库"],"d":"90 道题覆盖 30 个子步骤，带错题本与打卡。"},{"u":"level.html","n":"决策闯关 · 14 关","k":["关卡","法典"],"d":"14 关逐关对应一张判定表，通关等于把法典用了一遍。"}],"quiz":[{"t":"choice","q":"「一日流水线」里最合理的动作顺序是？","opts":["先调价 → 再看数 → 最后记录","先看数（进度/竞对/库存）→ 判断 → 调价 → 记录","先记录 → 再看数 → 调价","先开会 → 再看数"],"a":1,"why":"收益决策是数据驱动的：没有当天的进度、竞对、库存三张底牌，调价就是拍脑袋。记录放在最后，是为了让明天的复盘有据可查。"},{"t":"judge","q":"值班时突发事件太多，等闲下来再补记录也行。","opts":["对","错"],"a":1,"why":"错。应急处理的决策与理由恰恰最该当场记——事后补一定会失真，而复盘靠的就是这些原始记录。"},{"t":"choice","q":"90 关流程闯关的错题本，最值得你看的是什么？","opts":["错了多少道的总数","反复错的那几个子步骤，说明流程理解有缺口","别人错了几道","通关用了多长时间"],"a":1,"why":"错题本的价值在「反复错」：同一个子步骤错两次以上，说明那一步的输入/动作/交付物你没建立起来，回去补流程细化那一段。"}]},{"id":"g3","n":"综合经营","hrs":"30–60 分钟","goal":"在连续多天的经营里，同时管好价格、库存、超售和促销","how":"先玩「经营模拟 30 天」体验连续决策的复利效应，再上「决策闯关 14 关」把法典用一遍，最后用「云璟一年 32 章通关」做一次完整验收。","items":[{"u":"sim.html","n":"经营模拟 30 天","k":["模拟","综合"],"d":"连开 30 天，每天自己定价，看 OCC/ADR/RevPAR 怎么被自己的决策推着走。"},{"u":"level.html","n":"决策闯关 · 14 关","k":["关卡"],"d":"逐关对应法典表，系统检验单项决策。"},{"u":"game-rm.html","n":"云璟一年 · 32 章通关","k":["验收","116 题"],"d":"跟着云璟走完一年，5 次综合小考。"},{"u":"reigns.html","n":"卡牌版","k":["卡牌","权衡"],"d":"四只仪表此消彼长，任一爆表就下台。"}],"quiz":[{"t":"choice","q":"30 天模拟里第 10 天你发现 RevPAR 连续三天下滑，最该先查什么？","opts":["赶紧降价","回看这三天的决策记录：是降价引起的，还是外部需求变了","换一款游戏","加大促销力度"],"a":1,"why":"连续下滑先归因再动手：如果是自己前几天的降价把价格体系打穿了，该做的是收回价格；如果是市场变了，才轮到调整动作。模拟器给的历史记录就是干这个用的。"},{"t":"judge","q":"「卡牌版」里只要 RevPAR 一只仪表高，就能一直当下去。","opts":["对","错"],"a":1,"why":"错。四只仪表（收益/客人/业主/团队）任一爆表就下台。只保收益会崩客人体验和团队承受力——这就是真实岗位的约束。"},{"t":"choice","q":"「云璟一年」通关游戏最像真实工作中的什么？","opts":["一次考试","一整年的经营：有淡旺季、有事件日、有综合小考","一场抽奖","一次值班"],"a":1,"why":"它把一年的节奏压进游戏：淡旺季怎么备、事件日怎么定、预算怎么拆。走完一遍，等于把七站理论在时间维度上过了一遍。"}]},{"id":"g4","n":"对抗与验收","hrs":"20–60 分钟","goal":"在有对手、有队友的环境里做决策，并接受排名检验","how":"先两人对战练竞争反应，再进课堂分组赛体验多方博弈，最后用「云璟一年」的成绩和理论馆七站的完成度，给自己做一次总验收。","items":[{"u":"arena.html","n":"联机对战","k":["对战","竞争"],"d":"两人或两组同市场对抗，也有协作模式。"},{"u":"classroom.html","n":"课堂分组经营竞赛","k":["分组","投屏"],"d":"多组同市场出价，按累计净利润排名。"},{"u":"game-quiz.html","n":"知识抢答","k":["抢答","热身"],"d":"比谁判断得快，适合课前热身。"},{"u":"cert-hub.html","n":"学习履历与认证准备度","k":["验收","自评"],"d":"汇总游戏与学习数据，判定 L1–L3 准备度。"}],"quiz":[{"t":"choice","q":"对战里对手突然大幅降价，你最该先做的事是？","opts":["立刻跟到同价","判断它降的是哪个渠道、是不是需求侧信号，再决定动作","直接加量冲量","退出这局"],"a":1,"why":"和单场景同一个方法论：先判断「渠道促销」还是「全面降价」，再看自己的弹性。对抗环境只是把这个判断压缩到更短时间里完成。"},{"t":"judge","q":"分组竞赛里排名靠后，说明这套方法没用。","opts":["对","错"],"a":1,"why":"错。排名受运气、市场波动、对手策略影响。要看的是你的决策记录有没有可复用的正确模式——复盘质量比名次更能预测真实水平。"},{"t":"choice","q":"想检验自己是否达到 L2（收益管理师）水平，最靠谱的做法是？","opts":["游戏通关数多就一定够","去认证准备度页汇总学习履历与考核数据，看缺口","自评感觉良好","等公司评定"],"a":1,"why":"认证准备度页会把训练营、闯关、自测的数据汇总起来，对照 L1–L3 标准给出缺口清单——比自我感觉可靠得多。"}]}], RKEY = 'hrma_' + HALL + '_path_v1';
+function rload(){ try { return JSON.parse(localStorage.getItem(RKEY) || '{}') || {}; } catch(e){ return {}; } }
+function rsave(o){ try { localStorage.setItem(RKEY, JSON.stringify(o)); } catch(e){} }
+var rprog = rload();
+if (!Array.isArray(rprog.done)) rprog.done = [];
+if (!rprog.quiz) rprog.quiz = {};
+function resc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function rpassed(i){ return !!(rprog.quiz[ST[i].id] && rprog.quiz[ST[i].id].passed); }
+function rstate(i){
+  if (rpassed(i)) return 'done';
+  for (var k = 0; k < ST.length; k++) if (!rpassed(k)) return (k === i) ? 'cur' : 'lock';
+  return 'lock';
+}
+function rdoneN(){ var n=0; for (var i=0;i<ST.length;i++) if (rpassed(i)) n++; return n; }
+
+function rdrawMap(){
+  var html = '';
+  ST.forEach(function(s, i){
+    var st = rstate(i), lineCls = (st === 'done') ? 'rline pass' : 'rline';
+    var mark = (st === 'done') ? '✓' : (i + 1);
+    html += '<div class="rnode ' + st + '" data-i="' + i + '" id="rn-' + s.id + '">'
+      + '<div class="' + lineCls + '"></div>'
+      + '<div class="dot">' + mark + '</div><div class="nm">' + resc(s.n) + '</div></div>';
+  });
+  var t = document.getElementById('rtrack');
+  if (t) t.innerHTML = html;
+  var dn = rdoneN();
+  var tx = document.getElementById('rtxt');
+  if (tx) tx.innerHTML = '路线进度 <b>' + dn + ' / ' + ST.length + '</b>';
+  var fl = document.getElementById('rfill');
+  if (fl) fl.style.width = (dn / ST.length * 100) + '%';
+  Array.prototype.forEach.call(document.querySelectorAll('.rnode'), function(nd){
+    nd.addEventListener('click', function(){
+      var tp = document.getElementById('tab-path'); if (tp) tp.click();
+      var el = document.getElementById('st-' + ST[+nd.getAttribute('data-i')].id);
+      if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+}
+
+function rquizHtml(s, i){
+  var passed = rpassed(i), rec = rprog.quiz[s.id] || {};
+  var h = '<div class="qz"><div class="qh">本站考核 · ' + s.quiz.length + ' 题</div>'
+    + '<p class="qs">' + (passed
+        ? '已通过（' + rec.score + '）。这一站计入路线进度。'
+        : '全部答对才算通过这一站。答错会给出正确答案与解析，改完可以再交。') + '</p>';
+  s.quiz.forEach(function(q, qi){
+    var nm = 'q_' + s.id + '_' + qi;
+    h += '<div class="qitem" id="qi_' + s.id + '_' + qi + '">'
+      + '<p class="qt"><span class="qn">' + (qi + 1) + '.</span>' + resc(q.q) + '</p>';
+    q.opts.forEach(function(o, oi){
+      var checked = (rec.picks && rec.picks[qi] === oi) ? ' checked' : '';
+      h += '<label class="opt' + (checked ? ' sel' : '') + '" id="op_' + s.id + '_' + qi + '_' + oi + '">'
+        + '<input type="radio" name="' + nm + '" value="' + oi + '"' + checked + '>'
+        + '<span>' + resc(o) + '</span></label>';
+    });
+    h += '<div class="exp" id="exp_' + s.id + '_' + qi + '"></div></div>';
+  });
+  h += '<div class="qfoot"><button class="st-btn" data-sub="' + s.id + '">'
+    + (passed ? '再测一次' : '提交考核') + '</button>'
+    + '<span class="qres" id="qres_' + s.id + '"></span></div></div>';
+  return h;
+}
+
+function rbindQuiz(){
+  Array.prototype.forEach.call(document.querySelectorAll('[data-sub]'), function(b){
+    b.addEventListener('click', function(){
+      var sid = b.getAttribute('data-sub');
+      var si = 0; for (var i = 0; i < ST.length; i++) if (ST[i].id === sid) si = i;
+      var st = ST[si], correct = 0, picks = [];
+      st.quiz.forEach(function(q, qi){
+        var sel = document.querySelector('input[name="q_' + sid + '_' + qi + '"]:checked');
+        var oi = sel ? (+sel.value) : -1;
+        picks.push(oi);
+        var ok = (oi === q.a);
+        if (ok) correct++;
+        var box = document.getElementById('exp_' + sid + '_' + qi);
+        box.className = 'exp ' + (ok ? 'ok' : 'bad');
+        box.innerHTML = (ok ? '✓ 答对了。' : '✗ 正确答案：<b>' + resc(q.opts[q.a]) + '</b>')
+          + '<div class="why">' + resc(q.why) + '</div>';
+        Array.prototype.forEach.call(
+          document.querySelectorAll('input[name="q_' + sid + '_' + qi + '"]'), function(r){
+            r.disabled = true;
+            var v = (+r.value), lab = document.getElementById('op_' + sid + '_' + qi + '_' + v);
+            if (lab) {
+              if (v === q.a) lab.classList.add('right');
+              else if (r.checked) lab.classList.add('wrong');
+            }
+          });
+      });
+      var all = (correct === st.quiz.length);
+      if (!rprog.quiz) rprog.quiz = {};
+      rprog.quiz[sid] = {passed: all, score: correct + '/' + st.quiz.length, picks: picks};
+      if (all && rprog.done.indexOf(sid) < 0) rprog.done.push(sid);
+      rsave(rprog);
+      var rs = document.getElementById('qres_' + sid);
+      if (rs) {
+        rs.className = 'qres ' + (all ? 'ok' : 'bad');
+        rs.innerHTML = all ? ('本站通过 ' + correct + '/' + st.quiz.length + '，已计入路线进度')
+                          : ('答对 ' + correct + '/' + st.quiz.length + '，看解析后改答案再交');
+      }
+      rdrawMap();
+      rrenderPath();
+      if (all) {
+        var nx = document.getElementById('st-' + (ST[si + 1] ? ST[si + 1].id : ST[si].id));
+        if (nx) setTimeout(function(){ nx.scrollIntoView({behavior:'smooth', block:'start'}); }, 150);
+      }
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.opt'), function(l){
+    l.addEventListener('click', function(){
+      var r = l.querySelector('input'); if (!r || r.disabled) return;
+      Array.prototype.forEach.call(
+        l.parentNode.querySelectorAll('.opt'), function(x){ x.classList.remove('sel'); });
+      l.classList.add('sel');
+    });
+  });
+}
+
+function rrenderPath(){
+  var html = '', dn = rdoneN();
+  ST.forEach(function(s, i){
+    var stt = rstate(i);
+    var items = s.items.map(function(it){
+      var ps = (it.k||[]).map(function(k){ return '<span class="pill">' + resc(k) + '</span>'; }).join('');
+      return '<article class="card"><h3><a href="' + resc(it.u) + '">' + resc(it.n) + '</a></h3>'
+        + '<div class="pills">' + ps + '</div><p>' + resc(it.d) + '</p></article>';
+    }).join('');
+    html += '<section class="station ' + stt + '" id="st-' + s.id + '">'
+      + '<div class="st-h"><div class="st-no">' + (stt === 'done' ? '✓' : (i + 1)) + '</div>'
+      + '<div class="st-t"><h3>第 ' + (i + 1) + ' 站 · ' + resc(s.n)
+      + (stt === 'done' ? '<span class="st-passed">已通过</span>' : '') + '</h3>'
+      + '<p class="goal">学完这一站，你应该能：' + resc(s.goal) + '。</p>'
+      + '<div class="hrs">约 ' + resc(s.hrs)
+      + (stt === 'done' ? ' · 已完成' : (stt === 'cur' ? ' · 当前站' : ' · 未到')) + '</div></div></div>'
+      + '<div class="st-b">'
+      + '<div class="st-how"><b>怎么学：</b>' + resc(s.how) + '</div>'
+      + '<div class="st-items">' + items + '</div>'
+      + rquizHtml(s, i)
+      + '</div></section>';
+  });
+  document.getElementById('pathview').innerHTML = html;
+  var rc = document.getElementById('rcnt');
+  if (rc) rc.innerHTML = '共 <b>' + ST.length + '</b> 站 · 已通过 <b>' + dn
+    + '</b> 站 · 还剩 <b>' + (ST.length - dn) + '</b> 站'
+    + (dn === ST.length ? ' · 全部走完，可以去自由浏览里查漏了' : '');
+  rbindQuiz();
+}
+
+(function(){
+  var tp = document.getElementById('tab-path'), tf = document.getElementById('tab-free');
+  if (tp) tp.addEventListener('click', function(){
+    tp.classList.add('on'); if (tf) tf.classList.remove('on');
+    document.getElementById('pathview').style.display = '';
+    document.getElementById('freeview').style.display = 'none';
+    rrenderPath();
+  });
+  if (tf) tf.addEventListener('click', function(){
+    tf.classList.add('on'); if (tp) tp.classList.remove('on');
+    document.getElementById('pathview').style.display = 'none';
+    document.getElementById('freeview').style.display = '';
+    if (typeof renderFree === 'function') renderFree();
+  });
+  var rr = document.getElementById('rreset');
+  if (rr) rr.addEventListener('click', function(){
+    if (!confirm('清空所有站的考核记录，从第 1 站重新开始？')) return;
+    rprog = {done: [], quiz: {}}; rsave(rprog); rrenderPath(); rdrawMap();
+  });
+})();
+
+rrenderPath(); rdrawMap();
+</script>
 
 <script>
 var IT = [{"n":"涨价决策","u":"scene-pricing.html","d":"一个场景一道题：该不该涨、涨多少。适合刚接触动态定价时建立手感。","sk":["动态定价"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"Pickup 落后怎么救","u":"scene-pickup.html","d":"预订进度落后于去年同期，是放价、加渠道还是再等等？练看板读数和纠偏时机。","sk":["需求预测"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"最短住期 MinLOS","u":"scene-minlos.html","d":"要不要设 MinLOS、设几晚。练限制条件与收入的取舍，以及用完多久该撤。","sk":["库存限制"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"客源保护位","u":"scene-protect.html","d":"给高价值客源留多少房、什么时候放出来。练库存分配与置换测算。","sk":["库存限制","置换分析"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"房型价差与房型开关","u":"scene-roomtype.html","d":"房型价差拉开还是收窄、哪个房型要关。练房型结构与升级销售。","sk":["房型与升级","库存限制"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"竞品降价跟不跟","u":"scene-compset.html","d":"对手先降价了，跟不跟、跟多少、要不要只跟 OTA。练竞争判断与价格体系保护。","sk":["竞争应对"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"折扣与促销","u":"scene-discount.html","d":"折扣打给谁、打多久、会不会伤害公开价。练促销的边界与回收。","sk":["促销与折扣"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"渠道净价与配额","u":"scene-channel.html","d":"各渠道怎么配额、净价怎么算才不亏。练渠道组合与佣金意识。","sk":["渠道管理"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"团队置换（接不接）","u":"scene-displacement.html","d":"一笔大团队压过来，接还是不接。练置换测算——被挤走的散客值多少钱。","sk":["置换分析","团队与会议"],"fm":"单场景决策","tm":"5 分钟","lv":"挑战"},{"n":"事件日定价","u":"scene-event.html","d":"演出/赛事当天怎么定价、提前多久收口。练事件日需求曲线的识别。","sk":["动态定价","需求预测"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"套餐设计","u":"scene-bundle.html","d":"房+X 怎么组合、价格锚点怎么放。练套餐设计与不降价的增值打法。","sk":["打包与套餐"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"餐饮 RevPASH","u":"scene-revpash.html","d":"翻台率与时段经营。练餐饮收益与客房思路的差异。","sk":["餐饮RevPASH"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"超售决策","u":"game-oversell.html","d":"超售超多少、爆仓了怎么赔。练超额预订的风险边界。","sk":["超额预订"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"卡牌版","u":"reigns.html","d":"四张仪表此消彼长，任一爆表就下台。练「不能只看 RevPAR」的整体权衡意识。","sk":["综合权衡","指标体系"],"fm":"卡牌","tm":"10 分钟","lv":"入门"},{"n":"经营模拟 30 天","u":"sim.html","d":"连开 30 天，每天自己定价，看 OCC/ADR/RevPAR 怎么被自己的决策推着走。","sk":["动态定价","超额预订","促销与折扣","综合权衡"],"fm":"单人模拟","tm":"30–45 分钟","lv":"进阶"},{"n":"一日流水线","u":"pipeline.html","d":"按收益经理一天的真实顺序走一遍：看数→判断→调价→记录。练日常工作节律。","sk":["流程执行","需求预测"],"fm":"流程模拟","tm":"15 分钟","lv":"入门"},{"n":"值班叙事","u":"duty.html","d":"值班这一天状况不断：投诉、系统故障、临时团队。练突发事件下的取舍顺序。","sk":["危机与补救","流程执行"],"fm":"叙事","tm":"15 分钟","lv":"进阶"},{"n":"流程闯关 · 90 关","u":"flow-quest.html","d":"90 道题覆盖 30 个子步骤，教学+挑战双模式，带错题本与打卡。","sk":["流程执行","指标体系"],"fm":"题库闯关","tm":"30 分钟","lv":"入门"},{"n":"决策闯关 · 14 关","u":"level.html","d":"14 关逐关对应操作法典的一张判定表，通关等于把 15 张表都用过一遍。","sk":["综合权衡","动态定价","库存限制","竞争应对","房型与升级","团队与会议","超额预订","危机与补救"],"fm":"关卡挑战","tm":"30 分钟","lv":"进阶"},{"n":"角色扮演 · 32 情景","u":"roleplay.html","d":"住宿 21 个 + 其他业态 11 个真实经营情景，四只仪表同时计分，每步给出所依据的法典表号。","sk":["综合权衡","危机与补救","竞争应对","跨业态","团队与会议"],"fm":"情景模拟","tm":"10–15 分钟/关","lv":"进阶"},{"n":"联机对战","u":"arena.html","d":"两人或两组同市场对抗，也有协作模式。练竞争意识与跨角色沟通。","sk":["竞争应对","综合权衡"],"fm":"联机对战","tm":"20 分钟","lv":"挑战"},{"n":"课堂分组经营竞赛","u":"classroom.html","d":"多组同市场出价，按累计净利润排名，投屏可见。适合一次课打完一轮。","sk":["竞争应对","动态定价"],"fm":"分组投屏","tm":"45–60 分钟","lv":"进阶"},{"n":"知识抢答","u":"game-quiz.html","d":"比谁判断得快。适合课前热身或课后收口。","sk":["指标体系","综合权衡"],"fm":"抢答竞赛","tm":"15 分钟","lv":"入门"},{"n":"云璟一年 · 32 章通关","u":"game-rm.html","d":"跟着云璟酒店走完一年，32 章 116 题，5 次综合小考。学完教材后用这套验收最合适。","sk":["综合权衡","指标体系","流程执行"],"fm":"章节通关","tm":"60 分钟 +","lv":"挑战"},{"n":"场景锻炼全集","u":"coll-scenes.html","d":"13 个单场景锻炼的总索引，不确定从哪练起可以先从这里挑。","sk":["综合权衡"],"fm":"索引","tm":"—","lv":"入门"}], sel = null;
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function match(it, q, fm, lv, sk){
   if (sk && (it.sk||[]).indexOf(sk) < 0) return false;
   if (fm && it.fm !== fm) return false;
@@ -144,15 +351,13 @@ function match(it, q, fm, lv, sk){
   }
   return true;
 }
-function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){
-  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function card(it){
   var ps = '<span class="pill sk">' + esc(it.lv) + '</span><span class="pill fm">' + esc(it.fm) + '</span><span class="pill tm">' + esc(it.tm) + '</span>';
   (it.sk||[]).forEach(function(x){ ps += '<span class="pill">' + esc(x) + '</span>'; });
   return '<article class="card"><h3><a href="' + esc(it.u) + '">' + esc(it.n) + '</a></h3>'
     + '<div class="pills">' + ps + '</div><p>' + esc(it.d) + '</p></article>';
 }
-function render(){
+function renderFree(){
   var q=document.getElementById('q').value.trim(), fm=document.getElementById('fm').value, lv=document.getElementById('lv').value;
   var cur = IT.filter(function(it){ return match(it,q,fm,lv,sel); });
   document.getElementById('cnt').innerHTML = '命中 <b>' + cur.length + '</b> 个' + (sel?('　（能力：'+sel+'）'):'');
@@ -165,16 +370,16 @@ document.getElementById('skrow').addEventListener('click', function(e){
   var v = t.getAttribute('data-v');
   if (sel === v) { sel = null; document.querySelectorAll('#skrow .chip').forEach(function(c){c.classList.remove('on');}); }
   else { document.querySelectorAll('#skrow .chip').forEach(function(c){c.classList.remove('on');}); t.classList.add('on'); sel = v; }
-  render();
+  renderFree();
 });
-document.getElementById('q').addEventListener('input', render);
-document.getElementById('fm').addEventListener('change', render);
-document.getElementById('lv').addEventListener('change', render);
+document.getElementById('q').addEventListener('input', renderFree);
+document.getElementById('fm').addEventListener('change', renderFree);
+document.getElementById('lv').addEventListener('change', renderFree);
 document.getElementById('reset').addEventListener('click', function(){
   document.getElementById('q').value=''; document.getElementById('fm').value=''; document.getElementById('lv').value='';
-  sel=null; document.querySelectorAll('#skrow .chip').forEach(function(c){c.classList.remove('on');}); render();
+  sel=null; document.querySelectorAll('#skrow .chip').forEach(function(c){c.classList.remove('on');}); renderFree();
 });
-render();
+renderFree();
 </script>
 <div class="foot">RMC收益管理社区<br>找不到想要的？用顶栏搜索，或进资料库翻全站 504 项资源</div>
 </div>
