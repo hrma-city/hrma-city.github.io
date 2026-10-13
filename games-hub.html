@@ -63,6 +63,64 @@ input[type=text]{flex:1;min-width:200px}
 .foot{margin-top:34px;font-size:12.5px;color:#8394a8;text-align:center;line-height:1.8}
 .tip{background:#fff8e8;border:1px solid #ecd9a8;color:#7a5a12;border-radius:8px;
   padding:9px 13px;font-size:13px;line-height:1.7;margin:14px 0 0}
+
+/* ---- 路线图 ---- */
+.rmap{margin:18px 0 6px;background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:18px 16px 14px}
+.rmap .rt{font-size:13px;color:#5b6a7d;margin:0 0 14px;font-weight:700;letter-spacing:.5px}
+.rtrack{display:flex;align-items:flex-start;gap:0;overflow-x:auto;padding-bottom:6px}
+.rnode{flex:1;min-width:104px;text-align:center;position:relative;cursor:pointer}
+.rnode .dot{width:30px;height:30px;border-radius:50%;margin:0 auto 7px;display:flex;align-items:center;
+  justify-content:center;font-size:13px;font-weight:800;background:#e6ecf3;color:#8394a8;
+  border:2px solid #d4dee8;transition:.2s;position:relative;z-index:2}
+.rnode .nm{font-size:12.5px;color:#5b6a7d;line-height:1.35}
+.rnode.done .dot{background:#2a7d4f;border-color:#2a7d4f;color:#fff}
+.rnode.done .nm{color:#2a7d4f;font-weight:700}
+.rnode.cur .dot{background:#e8b84b;border-color:#b98a1e;color:#3a2a05;
+  box-shadow:0 0 0 5px rgba(232,184,75,.25);animation:pulse 2s infinite}
+.rnode.cur .nm{color:#0f2a4a;font-weight:800}
+.rnode.lock .dot{background:#f2f5f8;color:#b3bfcc}
+.rnode.lock .nm{color:#a9b6c4}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 5px rgba(232,184,75,.25)}50%{box-shadow:0 0 0 9px rgba(232,184,75,.12)}}
+.rline{position:absolute;top:15px;left:50%;width:100%;height:3px;background:#e6ecf3;z-index:1}
+.rnode:last-child .rline{display:none}
+.rline.pass{background:#2a7d4f}
+.rprog{margin:14px 0 0;display:flex;align-items:center;gap:10px;font-size:13px;color:#43536a}
+.rbar{flex:1;height:8px;background:#e6ecf3;border-radius:99px;overflow:hidden}
+.rbar i{display:block;height:100%;background:linear-gradient(90deg,#2a7d4f,#e8b84b);border-radius:99px;transition:.4s}
+.rreset{background:none;border:0;color:#98a6b6;font-size:12px;cursor:pointer;text-decoration:underline;font-family:inherit}
+/* ---- 站点卡片 ---- */
+.station{background:#fff;border:1px solid #e3e8ef;border-radius:12px;margin:16px 0;overflow:hidden}
+.station.cur{border-color:#e8b84b;box-shadow:0 3px 16px rgba(232,184,75,.18)}
+.station.done{opacity:.92}
+.st-h{padding:15px 18px 13px;background:linear-gradient(180deg,#fbfcfe,#f6f8fb);border-bottom:1px solid #e9eef4;
+  display:flex;gap:13px;align-items:flex-start}
+.st-no{flex:0 0 auto;width:38px;height:38px;border-radius:10px;background:#0f2a4a;color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
+.station.done .st-no{background:#2a7d4f}
+.station.cur .st-no{background:#e8b84b;color:#3a2a05}
+.st-t{flex:1;min-width:0}
+.st-t h3{margin:0 0 3px;font-size:17px;color:#0f2a4a}
+.st-t .goal{margin:0;font-size:13.5px;color:#43536a;line-height:1.6}
+.st-t .hrs{font-size:12px;color:#98a6b6;margin-top:3px}
+.st-b{padding:14px 18px 16px}
+.st-how{margin:0 0 13px;background:#f4f8fd;border-left:3px solid #1d6fb8;border-radius:0 8px 8px 0;
+  padding:10px 13px;font-size:13.5px;line-height:1.75;color:#2c3e50}
+.st-how b{color:#0f2a4a}
+.st-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:13px}
+.st-check{border:1px dashed #cfd8e3;border-radius:9px;padding:11px 13px;margin-bottom:13px}
+.st-check .ct{font-size:12.5px;font-weight:800;color:#5b6a7d;margin:0 0 7px;letter-spacing:.5px}
+.st-check label{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:#33465c;
+  line-height:1.55;padding:4px 0;cursor:pointer}
+.st-check input{margin-top:3px}
+.st-btn{background:#1d6fb8;color:#fff;border:0;border-radius:8px;padding:9px 18px;font-size:13.5px;
+  cursor:pointer;font-family:inherit;font-weight:700}
+.st-btn:hover{background:#185a96}
+.st-btn.ghost{background:#eef3f9;color:#1d6fb8}
+.st-done-tip{font-size:13px;color:#2a7d4f;font-weight:700;margin-left:10px}
+.viewtab{display:inline-flex;background:#e6ecf3;border-radius:9px;padding:3px;gap:3px;margin:14px 0 4px}
+.viewtab button{border:0;background:none;padding:7px 15px;border-radius:7px;font-size:13.5px;cursor:pointer;
+  color:#5b6a7d;font-family:inherit;font-weight:600}
+.viewtab button.on{background:#fff;color:#0f2a4a;box-shadow:0 1px 3px rgba(15,42,74,.12)}
 </style>
 <script src="assets/js/site-nav.js?v=v17"></script>
 </head>
