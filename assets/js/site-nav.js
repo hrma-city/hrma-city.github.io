@@ -4,7 +4,7 @@
    ② 内容页顶部「面包屑」(首页 › 板块 › 当前)，点击任一级即可退回上一步/上上步；
    ③ 顺序内容(口袋书/主题系列/通用内核/模块)在面包屑处提供「上一页/下一页」，进退自如。
    保留 v12：唯一顶栏、搜资料框、M01–M14 模块条、管理员入口、← 返回上一页。
-   用法：页面里引入 <script src="assets/js/site-nav.js?v=v13"></script> */
+   用法：页面里引入 <script src="assets/js/site-nav.js?v=v15"></script> */
 (function () {
   var P = (function () {
     var ss = document.getElementsByTagName('script');
@@ -38,13 +38,15 @@
 
   var file = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   var here = file.replace(/^\/?/, '');
-  var isAdmin = false;
+  var isAdmin = false, acct = '', loggedIn = false;
   try {
     var s = JSON.parse(localStorage.getItem('hrma_session_v2') || 'null');
+    if (s && s.status === 'approved') { loggedIn = true; acct = s.email || s.name || '已登录'; }
     isAdmin = !!(s && String(s.email).toLowerCase() === ADMIN_EMAIL);
   } catch (e) { isAdmin = false; }
 
   var F = "-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif";
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function a(css) {
     return 'display:inline-flex;align-items:center;height:32px;padding:0 11px;font-size:13.5px;line-height:1;'
       + 'white-space:nowrap;text-decoration:none;border-radius:8px;font-family:' + F + ';' + css;
@@ -72,6 +74,14 @@
     + 'style="border:0;outline:0;background:transparent;color:#fff;font-size:13px;width:120px;font-family:' + F + '" '
     + 'onkeydown="if(event.key===\'Enter\'){var v=this.value.trim();location.href=\'' + P + 'resources.html?q=\'+encodeURIComponent(v);}">'
     + '</form>';
+
+  /* 已登录态：显示账号名 + 退出（仅登录后的用户可见；访客被门挡住看不到） */
+  if (loggedIn) {
+    bar += '<span id="hrmaAcct" style="display:inline-flex;align-items:center;gap:7px;margin-left:8px">'
+      + '<span style="color:#cfe0f5;font-size:13px">' + esc(acct) + '</span>'
+      + '<a href="javascript:void(0)" id="hrmaLogout" title="退出登录" style="' + a('color:#ffd9d9;background:#5a2331;border:1px solid #7d3142') + '">退出</a>'
+      + '</span>';
+  }
 
   /* 更多下拉 */
   var moreHtml = '';
@@ -184,6 +194,13 @@
       mp.style.display = (mp.style.display === 'none' || !mp.style.display) ? 'block' : 'none';
     });
     document.addEventListener('click', function () { if (mp) mp.style.display = 'none'; });
+    var lo = document.getElementById('hrmaLogout');
+    if (lo) lo.addEventListener('click', function (e) {
+      e.preventDefault();
+      try { localStorage.removeItem('hrma_session_v2'); } catch (err) {}
+      /* 退出后跳回登录门；?t=v5 与 signin.html 部署参数一致，门页重新部署时同步修改 */
+      location.replace(P + 'signin.html?t=v5');
+    });
   }
   if (document.body) mount();
   else document.addEventListener('DOMContentLoaded', mount);
