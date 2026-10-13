@@ -118,10 +118,17 @@ input[type=text]{flex:1;min-width:200px}
 .wz-h{font-size:13.5px;font-weight:800;color:#0f2a4a;margin:0 0 10px;display:flex;
   align-items:baseline;gap:10px;flex-wrap:wrap}
 .wz-tip{font-size:12px;color:#8394a8;font-weight:400}
-.wz-mod{margin:0 0 12px}
-.wz-mh{font-size:13.5px;font-weight:700;color:#1d6fb8;margin:0 0 7px;
-  display:flex;justify-content:space-between;align-items:baseline}
-.wz-cnt{font-size:12px;color:#8394a8;font-weight:600}
+.wz-mod{margin:0 0 10px;border:1px solid #e3e8ef;border-radius:9px;background:#fff;overflow:hidden}
+.wz-mh{font-size:13.5px;font-weight:700;color:#0f2a4a;padding:9px 12px;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  background:#f4f8fd;user-select:none}
+.wz-mh:hover{background:#eaf1f9}
+.wz-mt{flex:1;min-width:0}
+.wz-cnt{font-size:12px;color:#5b6a7d;font-weight:600;white-space:nowrap}
+.wz-arrow{display:inline-block;margin-left:6px;transition:.2s;color:#8394a8}
+.wz-mod.open .wz-arrow{transform:rotate(180deg)}
+.wz-list{display:none;padding:10px 12px 4px}
+.wz-mod.open .wz-list{display:block}
 .wz-q{border:1px solid #e3e8ef;border-radius:9px;padding:10px 12px;margin-bottom:8px;background:#fff}
 .wz-qt{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px}
 .wz-qb{font-size:13.5px;line-height:1.7;color:#1f2a37;margin:0 0 8px}
@@ -159,7 +166,7 @@ input[type=text]{flex:1;min-width:200px}
   color:#5b6a7d;font-family:inherit;font-weight:600}
 .viewtab button.on{background:#fff;color:#0f2a4a;box-shadow:0 1px 3px rgba(15,42,74,.12)}
 </style>
-<script src="assets/js/site-nav.js?v=v17"></script>
+<script src="assets/js/site-nav.js?v=v19"></script>
 </head>
 <body>
 <div class="hero"><div class="wrap" style="padding-bottom:0"><a class="back" href="index.html">← 回陈列首页</a><h1>理论馆 · 七站路线</h1><p>按收益管理的学习规律排了七站，从看懂指标到会复盘汇报。顺着走，不用猜下一站读什么；每一站末尾有考核，全对才算走过。</p><div class="cnt">共 <b>7</b> 站 · <b>21</b> 道考核题 · 约 <b>14–19</b> 小时 · 主线是主教材 32 章，每站告诉你读哪几章</div></div></div>
@@ -240,8 +247,10 @@ function rwbZoneHtml(s){
     var arr = mods[mk], mn = (WB.modules && WB.modules[mk]) ? WB.modules[mk].n : mk;
     var done = 0;
     arr.forEach(function(o){ if (rwbProg[rwbKey(o.it, o.idx)]) done++; });
-    h += '<div class="wz-mod"><div class="wz-mh">' + resc(mk) + ' ' + resc(mn)
-      + '<span class="wz-cnt">' + done + ' / ' + arr.length + '</span></div><div class="wz-list">';
+    h += '<div class="wz-mod" id="wzm_' + mk + '"><div class="wz-mh" data-mod="' + mk + '">'
+      + '<span class="wz-mt">' + resc(mk) + ' ' + resc(mn) + '</span>'
+      + '<span class="wz-cnt">' + done + ' / ' + arr.length + ' 题'
+      + '<span class="wz-arrow">▾</span></span></div><div class="wz-list">';
     arr.forEach(function(o){
       var it = o.it, idx = o.idx, key = rwbKey(it, idx);
       var st = rwbProg[key];
@@ -270,6 +279,11 @@ function rwbZoneHtml(s){
   return h + '</div>';
 }
 function rwbBind(){
+  Array.prototype.forEach.call(document.querySelectorAll('.wz-mh'), function(mh){
+    mh.addEventListener('click', function(){
+      mh.parentNode.classList.toggle('open');
+    });
+  });
   Array.prototype.forEach.call(document.querySelectorAll('[data-wsub]'), function(b){
     b.addEventListener('click', function(){
       var key = b.getAttribute('data-wsub');
