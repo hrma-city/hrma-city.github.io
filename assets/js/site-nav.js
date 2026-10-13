@@ -64,7 +64,7 @@
     + 'border-bottom:1px solid #1d3a5c;padding:7px 12px;display:flex;gap:6px;align-items:center;'
     + 'flex-wrap:wrap;font-family:' + F + '">';
   bar += '<a href="javascript:void(0)" id="hrmaBack" title="返回上一页" style="' + a('color:#e8b84b;font-weight:700;margin-right:2px') + '">←</a>';
-  bar += '<a href="' + P + 'index.html" style="' + a('color:#fff;font-weight:800;margin-right:6px;font-size:14.5px') + '">RMC<span style="color:#e8b84b">收益管理</span></a>';
+  bar += '<a href="' + P + 'index.html" style="' + a('color:#fff;font-weight:800;margin-right:6px;font-size:14.5px') + '">RMC<span style="color:#e8b84b">收益管理</span>社区</a>';
   MAIN.forEach(function (n) { bar += link(n); });
 
   /* 搜索框：直达资料库检索 */
