@@ -43,6 +43,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -142,9 +143,9 @@ document.getElementById('wbBtn').addEventListener('click', function(e){
   var box=document.getElementById('wbReader'), fil=document.getElementById('wbFilter');
   if(!box.classList.contains('hide')){ box.classList.add('hide'); fil.classList.add('hide'); return; }
   box.classList.remove('hide'); fil.classList.remove('hide');
-  box.innerHTML='<div class="meta">正在取 251 道题…</div>';
+  box.innerHTML='<div class="meta">正在取 237 道题…</div>';
   box.scrollIntoView({behavior:'smooth',block:'start'});
-  fetch('workbook.html?inpage='+Date.now(),{cache:'no-store'})
+  fetch('exam/workbook.html?inpage='+Date.now(),{cache:'no-store'})
   .then(function(r){ return r.text().then(function(t){ return {ok:r.ok,t:t}; }); })
   .then(function(o){
     var d=document.createElement('div');
