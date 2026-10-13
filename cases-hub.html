@@ -113,6 +113,10 @@ input[type=text]{flex:1;min-width:200px}
 .qres.ok{color:#2a7d4f}.qres.bad{color:#c0392b}
 .st-passed{display:inline-block;background:#2a7d4f;color:#fff;font-size:12px;font-weight:700;
   border-radius:5px;padding:2px 8px;margin-left:8px}
+.st-next{margin-top:14px;padding-top:12px;border-top:1px dashed #dde5ee;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.st-btn.nx{background:#1d6fb8;color:#fff;font-weight:700;padding:9px 18px}
+.st-btn.nx:hover{background:#155a99}
 /* ---- 模块在线练习区（培训馆）---- */
 .wbzone{border:1px solid #d9e3ee;border-radius:10px;margin-bottom:13px;background:#fbfcfe;overflow:hidden}
 .wz-h{font-size:13.5px;font-weight:800;color:#0f2a4a;padding:11px 14px;display:flex;
@@ -363,15 +367,14 @@ function rwbRefreshCounts(){
 function rquizHtml(s, i){
   var passed = rpassed(i), rec = rprog.quiz[s.id] || {};
   if (!s.quiz || !s.quiz.length) {
-    /* 导读站：不出计分题。读完点「我已了解」即计入进度——
-         考题不堆在导读站，按 L1/L2/L3 分别放在对应站。 */
-    return '<div class="qz"><div class="qh">本站导读</div>'
-      + '<p class="qs">这一站不带计分题：先把体系与标准读一遍，知道每一级怎么考、怎么算过。'
-      + '考核题在后面 L1 / L2 / L3 各站，练题也在各级站的模块练习区。</p>'
-      + '<div class="qfoot"><button class="st-btn' + (passed ? ' ghost' : '') + '" data-read="' + s.id + '">'
-      + (passed ? '撤销' : '我已了解，继续') + '</button>'
+    /* 无题站不放任何说明块（描述易与实际内容脱节）。
+       只放一个「进入下一站」按钮：点了把本站计入进度，并滑到下一站。最后一站不放。 */
+    var nx = ST[i + 1];
+    if (!nx) return '';
+    return '<div class="st-next"><button class="st-btn nx" data-next="' + i + '">'
+      + '进入下一站：' + resc(nx.n) + ' →</button>'
       + '<span class="qres' + (passed ? ' ok' : '') + '" id="qres_' + s.id + '">'
-      + (passed ? '已读毕，计入路线进度' : '') + '</span></div></div>';
+      + (passed ? '本站已完成' : '') + '</span></div>';
   }
   var h = '<div class="qz"><div class="qh">本站考核 · ' + s.quiz.length + ' 题</div>'
     + '<p class="qs">' + (passed
@@ -396,12 +399,14 @@ function rquizHtml(s, i){
 }
 
 function rbindQuiz(){
-  Array.prototype.forEach.call(document.querySelectorAll('[data-read]'), function(b){
+  Array.prototype.forEach.call(document.querySelectorAll('[data-next]'), function(b){
     b.addEventListener('click', function(){
-      var sid = b.getAttribute('data-read');
-      if (rpassed(sid)) { delete rprog.quiz[sid]; }
-      else { rprog.quiz[sid] = {passed: true, score: '导读', picks: []}; }
-      rsave(rprog); rdrawMap(); rrenderPath();
+      var i = +b.getAttribute('data-next'), cur = ST[i], nx = ST[i + 1];
+      if (!cur || !nx) return;
+      if (!rpassed(i)) { rprog.quiz[cur.id] = {passed: true, score: '已读', picks: []}; rsave(rprog); }
+      rdrawMap(); rrenderPath();
+      var el = document.getElementById('st-' + nx.id);
+      if (el && el.scrollIntoView) el.scrollIntoView({behavior: 'smooth', block: 'start'});
     });
   });
   Array.prototype.forEach.call(document.querySelectorAll('[data-sub]'), function(b){
