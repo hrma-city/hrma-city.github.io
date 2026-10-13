@@ -27,7 +27,7 @@ window.HRMA_AUTH_MODE = 'local';
 /* 管理员密码哈希（SHA-256）。只存哈希不存明文——20 位随机强密码，无法从哈希反推。
    明文只存在站长本机 hrma/_private_files/管理员密码.txt。
    作用：管理员邮箱 + 此密码，可在任意设备的登录门直接进站，不依赖恢复码。 */
-window.HRMA_ADMIN_PW_HASH = "86917671c095a10ba1b7417e340757bf057cdd1682fecf439cd498c80e5680cf";
+window.HRMA_ADMIN_PW_HASH = "f8d4f00ade4fac6f8474569be361054cb95008313161f5216c231be27b884085";
 
 window.HRMA_SUPABASE = {
   // 例： "https://abcdefghijklmnop.supabase.co"

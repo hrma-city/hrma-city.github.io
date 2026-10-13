@@ -350,7 +350,9 @@
   if (btn) {
     btn.addEventListener('click', function () {
       var email = String(emailEl.value || '').trim().toLowerCase();
-      var pw = String(pwEl.value || '');
+      /* ⚠️ 密码只去首尾空白：从文件/聊天窗口复制密码时常带上不可见的换行或空格，
+         哈希就完全对不上，表现为「明明密码对了却提示不对」。中间的空格不动（可能是刻意输入）。 */
+      var pw = String(pwEl.value || '').replace(/^\s+|\s+$/g, '');
       if (!email || !pw) { say('请填写邮箱和密码。', 'bad'); return; }
       if (pw.length < 6) { say('密码至少 6 位。', 'bad'); return; }
       busy(true); say('');
