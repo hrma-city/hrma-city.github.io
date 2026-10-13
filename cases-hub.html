@@ -114,10 +114,15 @@ input[type=text]{flex:1;min-width:200px}
 .st-passed{display:inline-block;background:#2a7d4f;color:#fff;font-size:12px;font-weight:700;
   border-radius:5px;padding:2px 8px;margin-left:8px}
 /* ---- 模块在线练习区（培训馆）---- */
-.wbzone{border:1px solid #d9e3ee;border-radius:10px;padding:12px 14px;margin-bottom:13px;background:#fbfcfe}
-.wz-h{font-size:13.5px;font-weight:800;color:#0f2a4a;margin:0 0 10px;display:flex;
-  align-items:baseline;gap:10px;flex-wrap:wrap}
-.wz-tip{font-size:12px;color:#8394a8;font-weight:400}
+.wbzone{border:1px solid #d9e3ee;border-radius:10px;margin-bottom:13px;background:#fbfcfe;overflow:hidden}
+.wz-h{font-size:13.5px;font-weight:800;color:#0f2a4a;padding:11px 14px;display:flex;
+  align-items:baseline;gap:10px;flex-wrap:wrap;background:#eef4fa;margin:0}
+.wz-h.wz-fold{cursor:pointer;user-select:none}
+.wz-h.wz-fold:hover{background:#e4eef8}
+.wz-tip{font-size:12px;color:#8394a8;font-weight:400;flex-basis:100%}
+.wz-body{display:none;padding:12px 14px 4px}
+.wbzone.open .wz-body{display:block}
+.wbzone.open > .wz-h .wz-arrow{transform:rotate(180deg)}
 .wz-mod{margin:0 0 10px;border:1px solid #e3e8ef;border-radius:9px;background:#fff;overflow:hidden}
 .wz-mh{font-size:13.5px;font-weight:700;color:#0f2a4a;padding:9px 12px;cursor:pointer;
   display:flex;justify-content:space-between;align-items:center;gap:8px;
@@ -188,6 +193,7 @@ input[type=text]{flex:1;min-width:200px}
    站点完成条件 = 本站考核全对（不是"看过了"）。 */
 var HALL = 'cases', ST = [{"id":"c1","n":"看懂一个概念在真实里长什么样","hrs":"40 分钟","goal":"把抽象概念放回具体情境，知道它在真实决策里出现在哪一步","how":"先读 3–5 条概念案例，每条问自己：这个概念如果不成立，故事里的决策会怎么变？读完再回理论馆对应章节，理解会深一层。","items":[{"u":"cases-hub.html","n":"案例馆 · 筛选「概念」卷","k":["入口"],"d":"在案例馆把卷别选「概念」，按你的业态再筛一遍。"},{"u":"book-case.html","n":"教学案例主书 · 14 篇","k":["系统"],"d":"每篇都按【案例】【决策点拆解】【知识提炼】统一结构写。"},{"u":"case-check.html","n":"配套自测 · 42 题","k":["自测"],"d":"读完 14 篇立刻自测。"}],"quiz":[{"t":"choice","q":"读「出租率 90% 那天，总经理在会上表扬了所有人」这条案例，作者真正想让你记住的一点是？","opts":["出租率高要表扬","OCC 是手段不是目的，这 13 个点是用 57 块 RevPAR 换的","前厅很辛苦","竞品降价要跟"],"a":1,"why":"这条案例的全部张力就在「热闹」与「收益」的落差：出租率 91% 是结果，RevPAR 跌 57 元才是代价。读案例要先找那个反差点。"},{"t":"judge","q":"案例读一遍知道结论就行了，不用回理论馆对照。","opts":["对","错"],"a":1,"why":"错。案例是理论的应用样本：读完回去对照教材那一章，你才会发现「原来这个判断用的是表 A」。案例与理论互相锚定，记忆才留得住。"},{"t":"choice","q":"读概念案例时最该自问的问题是？","opts":["这个故事发生在哪家酒店","如果去掉这个概念的约束，故事里的决策会怎么变","案例有多长","作者是谁"],"a":1,"why":"这是检验你是否真懂一个概念的最快问法：能说出「没有它世界会怎样」，说明你理解的是机制，不是结论。"}]},{"id":"c2","n":"方法案例","hrs":"50 分钟","goal":"掌握可复用的方法：预测怎么做、净价怎么算、置换怎么比","how":"筛选「方法」卷，专挑你岗位最常用的三个方法深读。每条案例都把方法步骤抄一遍，换成你酒店的数字再算一次。","items":[{"u":"cases-hub.html","n":"案例馆 · 筛选「方法」卷","k":["入口"],"d":"40 条方法案例，覆盖预测、净价、置换、预算等。"},{"u":"formulas.html","n":"公式手册 · 32 个公式","k":["工具"],"d":"方法背后的算法与适用边界。"},{"u":"case-work.html","n":"案例教材学生工作纸","k":["动手"],"d":"把案例数字填进工作纸，亲手算。"}],"quiz":[{"t":"choice","q":"学一个方法案例最有效的方式是？","opts":["看懂步骤就行","把案例的数字换成自己酒店的，重算一遍","收藏起来以后看","只看结论部分"],"a":1,"why":"方法学到手的分界线是「能不能换数字重算」。用别人的案例算对只说明你看懂了，用自己的数字算对才说明你会了。"},{"t":"judge","q":"方法案例给出的步骤在任何酒店都能直接照搬。","opts":["对","错"],"a":1,"why":"错。方法成立有前提条件（数据粒度、客源结构、系统能力）。案例里通常会写边界，读的时候要连前提一起读走。"},{"t":"choice","q":"工作纸在这条路线里的作用是什么？","opts":["增加作业负担","强制你把案例数字亲手算一遍，暴露「看懂了但不会算」","给老师检查","凑页数"],"a":1,"why":"看和做是两回事。工作纸把「看懂了」变成「算得出」——填不出来的那一格，就是你真正的缺口。"}]},{"id":"c3","n":"流程案例","hrs":"50 分钟","goal":"看一条完整流程在真实酒店里怎么跑，卡点常出现在哪","how":"筛选「流程」卷，重点看每日/每周/每月的节奏安排。对照流程细化的 30 个子步骤，标出案例里哪一步最容易出事。","items":[{"u":"cases-hub.html","n":"案例馆 · 筛选「流程」卷","k":["入口"],"d":"32 条流程案例，从日流程到预算季。"},{"u":"process-detail.html","n":"流程细化 · 30 个子步骤","k":["对照"],"d":"拿案例和这张表逐步对照。"},{"u":"guide.html","n":"实战手册（岗位版）","k":["岗位"],"d":"同一套流程在岗位视角下的样子。"}],"quiz":[{"t":"choice","q":"流程案例里出现最频繁的卡点是哪类？","opts":["系统太贵","某一步的输入没准备好（数据、口径、责任人）就往下走","员工不加班","老板不重视"],"a":1,"why":"流程断点几乎都毁在「上一步的交付物没到位」：预测没有净价口径、例会没有决策记录。读流程案例时专门盯这一步。"},{"t":"judge","q":"流程案例看一遍就能照着自己酒店跑起来。","opts":["对","错"],"a":1,"why":"错。流程落地要先解决口径和责任人在自己酒店对应谁、对应哪张表。先画自己的版本，再和案例对差异。"},{"t":"choice","q":"把案例流程搬回自己酒店，第一步该做什么？","opts":["直接全套上线","先核对自己酒店的数据口径与责任分工","买系统","招人"],"a":1,"why":"流程是骨架，口径和人是血肉。同样的 30 步，数据口径不一致就会算出两个答案——先把这两个对齐，再谈跑流程。"}]},{"id":"c4","n":"策略案例","hrs":"1 小时","goal":"看完整的策略选择：什么时候攻、什么时候守、让不让","how":"筛选「策略」卷，优先读和你业态相同、处境相近的。每条案例用一句话概括作者的策略，再问「换个处境这个策略还成立吗」。","items":[{"u":"cases-hub.html","n":"案例馆 · 筛选「策略」卷","k":["入口"],"d":"42 条策略案例，攻防兼备。"},{"u":"codex.html","n":"操作法典 · 15 张判定表","k":["工具"],"d":"策略背后的条件判断，全部可查。"},{"u":"scene-compset.html","n":"场景锻炼 · 竞品降价跟不跟","k":["练手"],"d":"把刚读的策略亲手决一次。"}],"quiz":[{"t":"choice","q":"同一份「竞品降价」的策略，在旺季和淡季都适用吗？","opts":["完全适用","不适用——旺季可守价，淡季要评估弹性，条件不同决策不同","只跟降价幅度有关","跟季节无关"],"a":1,"why":"策略的成立依赖处境条件：旺季需求托底，守价损失有限；淡季没有需求缓冲，跟价的杀伤更大。这就是判定表存在的意义。"},{"t":"judge","q":"策略案例读得越多，决策水平越高。","opts":["对","错"],"a":1,"why":"错。数量不产生能力，「每条案例都能说出它的适用条件」才产生能力。十条读过且能复述条件，胜过一百篇划过。"},{"t":"choice","q":"读完一条策略案例，最有价值的动作是？","opts":["收藏","用一句话写下「这个策略在什么条件下成立」","转发给同事","划过去看下一条"],"a":1,"why":"策略的精华是适用条件。把条件写下来，你才真正拥有了这条策略；不写条件，你记住的只是一个故事。"}]},{"id":"c5","n":"综合情境","hrs":"1.5 小时","goal":"在多目标、多约束的真实局面里做完整决策","how":"筛选「综合情境」卷，也可直接读角色扮演的 32 个情景——那里四只仪表同时计分。读完每个情境，写下你的决策和依据的表号，再和反馈对照。","items":[{"u":"cases-hub.html","n":"案例馆 · 筛选「综合情境」卷","k":["入口"],"d":"34 条综合情境案例。"},{"u":"roleplay-cases.html","n":"情境文稿 · 32 篇","k":["沉浸"],"d":"带角色对话的完整情境，四仪表同时计分。"},{"u":"book-set.html","n":"案例合订本","k":["全集"],"d":"14 篇教学案例 + 22 条情境案例合集。"}],"quiz":[{"t":"choice","q":"综合情境和前面几站案例最大的区别是？","opts":["篇幅更长","要同时权衡收益、客人、业主、团队多个目标","作者不同","行业不同"],"a":1,"why":"前面几站基本是单目标最优，综合情境考的是约束下的取舍——这正是真实岗位每天面对的局面。"},{"t":"judge","q":"综合情境只要算出收益最大的方案就是最优解。","opts":["对","错"],"a":1,"why":"错。收益最大但把客人体验和团队承受力压垮，方案不可持续。四只仪表同时看，任何一只爆表都出局。"},{"t":"choice","q":"角色扮演每个选项都标了「依据法典表 X」，这个设计的用意是？","opts":["显得专业","让你的每个决策都能回溯到方法，而不是凭感觉","凑字数","方便检索"],"a":1,"why":"可回溯是专业和感觉的分界线。知道自己的决策依据是哪张表的哪个条件，下次遇到相似局面才能复用。"}]}], RKEY = 'hrma_' + HALL + '_path_v1';
 var WB = {}, WBKEY = 'hrma_wb_progress_v1';   /* 培训馆：认证演练题库（按模块在线练习）*/
+var PAPERS = {}, PKEY = 'hrma_paper_progress_v1';  /* 培训馆：三级真题卷（按级在线考核）*/
 function rload(){ try { return JSON.parse(localStorage.getItem(RKEY) || '{}') || {}; } catch(e){ return {}; } }
 function rsave(o){ try { localStorage.setItem(RKEY, JSON.stringify(o)); } catch(e){} }
 var rprog = rload();
@@ -248,8 +254,10 @@ function rwbZoneHtml(s){
   if (!keys.length) return '';
   var total = 0;
   keys.forEach(function(k){ total += mods[k].length; });
-  var h = '<div class="wbzone"><div class="wz-h">模块练习 · ' + s.lv + ' 共 ' + total + ' 题'
-    + '<span class="wz-tip">机判题型在线判分；计算题看答案与解析后自评。做过一遍的题会记住状态。</span></div>';
+  var h = '<div class="wbzone"><div class="wz-h wz-fold" data-wbfold="1">模块练习 · ' + s.lv
+    + ' 共 ' + total + ' 题<span class="wz-arrow">▾</span>'
+    + '<span class="wz-tip">机判题型在线判分；计算题看答案与解析后自评。做过一遍的题会记住状态。</span></div>'
+    + '<div class="wz-body">';
   keys.forEach(function(mk){
     var arr = mods[mk], mn = (WB.modules && WB.modules[mk]) ? WB.modules[mk].n : mk;
     var done = 0;
@@ -283,9 +291,12 @@ function rwbZoneHtml(s){
     });
     h += '</div></div>';
   });
-  return h + '</div>';
+  return h + '</div></div>';
 }
 function rwbBind(){
+  Array.prototype.forEach.call(document.querySelectorAll('[data-wbfold]'), function(fh){
+    fh.addEventListener('click', function(){ fh.parentNode.classList.toggle('open'); });
+  });
   Array.prototype.forEach.call(document.querySelectorAll('.wz-mh'), function(mh){
     mh.addEventListener('click', function(){
       mh.parentNode.classList.toggle('open');
@@ -446,6 +457,128 @@ function rbindQuiz(){
     });
   });
   rwbBind();
+  rpBind();
+}
+
+/* ---- 三级真题卷 · 在线考核（放在 L1/L2/L3 各级站最后）-----
+   机判题型（判断/单选）在线判分；作答题（填空/计算/查表/情景/决策/案例）留作答区，
+   可看参考答案与评分标准后自评。进度记本机。 */
+function rpLoad(){ try { return JSON.parse(localStorage.getItem(PKEY) || '{}') || {}; } catch(e){ return {}; } }
+function rpSave(o){ try { localStorage.setItem(PKEY, JSON.stringify(o)); } catch(e){} }
+var rpProg = rpLoad();
+function rpKey(lv, si, qi){ return lv + '-' + si + '-' + qi; }
+function rpPaperOf(lv){ return (PAPERS && PAPERS.levels && PAPERS.levels[lv]) || null; }
+function rpItem(it){
+  var typeName = it.t === 'judge' ? '判断' : (it.t === 'choice' ? '单选' : '作答');
+  return '<span class="pill fm">' + typeName + '</span><span class="pill">' + resc(it.score) + ' 分</span>';
+}
+function rpSecHtml(lv, si, sec){
+  var h = '<div class="wz-mod" id="rps_' + lv + '_' + si + '"><div class="wz-mh" data-psec="' + lv + '-' + si + '">'
+    + '<span class="wz-mt">' + resc(sec.name) + '</span>'
+    + '<span class="wz-cnt">共 ' + sec.score + ' 分<span class="wz-arrow">▾</span></span></div><div class="wz-list">';
+  sec.items.forEach(function(it, qi){
+    var key = rpKey(lv, si, qi), st = rpProg[key];
+    h += '<div class="wz-q" id="rp_' + key + '" data-k="' + key + '">'
+      + '<div class="wz-qt">' + rpItem(it)
+      + (st === 1 ? '<span class="pill" style="background:#eef8f1;color:#1d5c39">已答对</span>'
+         : (st === 0 ? '<span class="pill" style="background:#fdefee;color:#8e2b20">答错</span>'
+         : (st === 'self-ok' ? '<span class="pill" style="background:#eef8f1;color:#1d5c39">自评通过</span>' : '')))
+      + '</div><div class="wz-qb">' + (qi + 1) + '. ' + resc(it.q) + '</div>';
+    if (it.t === 'judge' || it.t === 'choice') {
+      it.opts.forEach(function(op, oi){
+        h += '<label class="opt" id="rpo_' + key + '_' + oi + '"><input type="radio" name="rp_' + key + '" value="' + oi + '"><span>' + resc(op) + '</span></label>';
+      });
+      h += '<div class="qfoot"><button class="st-btn" data-psub="' + key + '">提交</button>'
+        + '<span class="qres" id="rpr_' + key + '"></span></div>';
+    } else {
+      h += '<div class="qfoot"><textarea class="rp-ta" id="rpt_' + key + '" rows="3" placeholder="在这里写你的作答…">'
+        + resc(rpProg['txt_' + key] || '') + '</textarea></div>'
+        + '<div class="qfoot"><button class="st-btn" data-pshow="' + key + '">看参考答案与评分标准</button>'
+        + '<button class="st-btn ghost" data-pself="' + key + '" data-v="self-ok">我答好了</button>'
+        + '<button class="st-btn ghost" data-pself="' + key + '" data-v="self-no">没答好</button></div>';
+    }
+    h += '<div class="exp" id="rpe_' + key + '"></div></div>';
+  });
+  return h + '</div></div>';
+}
+function rpPaperHtml(s){
+  if (!s.lv) return '';
+  var p = rpPaperOf(s.lv);
+  if (!p) return '';
+  var tot = 0;
+  p.secs.forEach(function(x){ tot += x.items.length; });
+  var h = '<div class="wbzone"><div class="wz-h">真题考核 · ' + resc(s.lv) + ' 结业考试卷'
+    + '<span class="wz-tip">' + p.minutes + ' 分钟 · 满分 100 · ≥' + p.passing + ' 通过 · 共 ' + tot + ' 题</span></div>'
+    + '<p class="qs">机判题型（判断/单选）在线判分；作答题写答案后对照「参考答案与评分标准」自评。按题型分区，点开一区做一区。</p>';
+  p.secs.forEach(function(sec, si){ h += rpSecHtml(s.lv, si, sec); });
+  return h + '</div>';
+}
+function rpBind(){
+  Array.prototype.forEach.call(document.querySelectorAll('[data-psec]'), function(mh){
+    mh.addEventListener('click', function(){ mh.parentNode.classList.toggle('open'); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-psub]'), function(b){
+    b.addEventListener('click', function(){
+      var key = b.getAttribute('data-psub');
+      var parts = key.split('-'), lv = parts[0], si = +parts[1], qi = +parts[2];
+      var it = PAPERS.levels[lv].secs[si].items[qi];
+      var sel = document.querySelector('input[name="rp_' + key + '"]:checked');
+      var oi = sel ? (+sel.value) : -1, ok = (oi === it.a);
+      rpProg[key] = ok ? 1 : 0; rpSave(rpProg);
+      var box = document.getElementById('rpe_' + key);
+      box.className = 'exp ' + (ok ? 'ok' : 'bad');
+      box.innerHTML = (ok ? '✓ 答对了。' : '✗ 正确答案：<b>' + resc(it.opts[it.a]) + '</b>')
+        + '<div class="why">' + resc(it.why || '') + '</div>';
+      Array.prototype.forEach.call(document.querySelectorAll('input[name="rp_' + key + '"]'), function(r){
+        r.disabled = true;
+        var v = (+r.value), lab = document.getElementById('rpo_' + key + '_' + v);
+        if (lab) { if (v === it.a) lab.classList.add('right'); else if (r.checked) lab.classList.add('wrong'); }
+      });
+      var rs = document.getElementById('rpr_' + key);
+      if (rs) { rs.className = 'qres ' + (ok ? 'ok' : 'bad'); rs.textContent = ok ? '已答对' : '答错了，看解析'; }
+      rpRefresh();
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-pshow]'), function(b){
+    b.addEventListener('click', function(){
+      var key = b.getAttribute('data-pshow');
+      var parts = key.split('-'), lv = parts[0], si = +parts[1], qi = +parts[2];
+      var it = PAPERS.levels[lv].secs[si].items[qi];
+      var box = document.getElementById('rpe_' + key);
+      box.className = 'exp ok';
+      box.innerHTML = '<b>参考答案与评分标准</b><div class="why">' + resc(it.why || it.ans || '') + '</div>';
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-pself]'), function(b){
+    b.addEventListener('click', function(){
+      var key = b.getAttribute('data-pself'), v = b.getAttribute('data-v');
+      rpProg[key] = v; rpSave(rpProg); rpRefresh();
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.rp-ta'), function(ta){
+    ta.addEventListener('input', function(){
+      var key = ta.id.replace('rpt_', '');
+      rpProg['txt_' + key] = ta.value; rpSave(rpProg);
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('#pathview .opt'), function(l){
+    l.addEventListener('click', function(){
+      var r = l.querySelector('input'); if (!r || r.disabled) return;
+      Array.prototype.forEach.call(l.parentNode.querySelectorAll('.opt'), function(x){ x.classList.remove('sel'); });
+      l.classList.add('sel');
+    });
+  });
+}
+function rpRefresh(){
+  Array.prototype.forEach.call(document.querySelectorAll('[id^="rps_"]'), function(mod){
+    var m = mod.id.match(/^rps_(L\d)_(\d+)$/);
+    if (!m) return;
+    var lv = m[1], si = +m[2], sec = PAPERS.levels[lv].secs[si];
+    var done = 0;
+    sec.items.forEach(function(it, qi){ if (rpProg[rpKey(lv, si, qi)]) done++; });
+    var c = mod.querySelector('.wz-cnt');
+    if (c) c.innerHTML = '已完成 ' + done + ' / ' + sec.items.length + ' 题<span class="wz-arrow">▾</span>';
+  });
 }
 
 function rrenderPath(){
@@ -469,6 +602,7 @@ function rrenderPath(){
       + '<div class="st-items">' + items + '</div>'
       + rwbZoneHtml(s)
       + rquizHtml(s, i)
+      + rpaperHtml(s)
       + '</div></section>';
   });
   document.getElementById('pathview').innerHTML = html;
