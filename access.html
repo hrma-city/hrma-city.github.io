@@ -46,19 +46,46 @@
     if (/^https?:/i.test(t) || t.charAt(0) === '/' || t.indexOf('..') >= 0) return 'index.html';
     return t;
   }
-  function sha256(str) {
-    if (window.crypto && window.crypto.subtle && window.TextEncoder) {
-      return window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(str))
-        .then(function (buf) {
-          return Array.prototype.map.call(new Uint8Array(buf), function (b) {
-            return ('0' + b.toString(16)).slice(-2);
-          }).join('');
-        });
+  function sha256Sync(str) {
+    function rightRotate(value, amount) { return (value >>> amount) | (value << (32 - amount)); }
+    var mathPow = Math.pow, maxWord = mathPow(2, 32);
+    var result = '', words = [];
+    var asciiBitLength = str.length * 8;
+    var hash = sha256Sync.h = sha256Sync.h || [], k = sha256Sync.k = sha256Sync.k || [];
+    var primeCounter = k.length, isComposite = {};
+    for (var candidate = 2; primeCounter < 64; candidate++) {
+      if (!isComposite[candidate]) {
+        for (var i2 = 0; i2 < 313; i2 += candidate) isComposite[i2] = candidate;
+        hash[primeCounter] = (mathPow(candidate, .5) * maxWord) | 0;
+        k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+      }
     }
-    var h = 5381, s = 'hrma$3$' + str;
-    for (var i = 0; i < s.length; i++) { h = ((h << 5) + h + s.charCodeAt(i)) >>> 0; }
-    return Promise.resolve('fb$' + h.toString(16) + '.' + s.length);
+    str += '\x80';
+    while (str.length % 64 - 56) str += '\x00';
+    for (var i3 = 0; i3 < str.length; i3++) {
+      var j = str.charCodeAt(i3);
+      if (j >> 8) return '';
+      words[i3 >> 2] |= j << ((3 - i3) % 4) * 8;
+    }
+    words[words.length] = (asciiBitLength / maxWord) | 0;
+    words[words.length] = asciiBitLength;
+    for (var jj = 0; jj < words.length;) {
+      var w = words.slice(jj, jj += 16), oldHash = hash, h2 = hash.slice(0, 8);
+      for (var i4 = 0; i4 < 64; i4++) {
+        var w15 = w[i4 - 15], w2 = w[i4 - 2];
+        var a = h2[0], e = h2[4];
+        var temp1 = h2[7] + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25)) + ((e & h2[5]) ^ (~e & h2[6])) + k[i4] + (w[i4] = (i4 < 16) ? w[i4] : (w[i4 - 16] + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3)) + w[i4 - 7] + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))) | 0);
+        var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) + ((a & h2[1]) ^ (a & h2[2]) ^ (h2[1] & h2[2]));
+        h2 = [(temp1 + temp2) | 0].concat(h2);
+        h2[4] = (h2[4] + temp1) | 0;
+      }
+      for (var i5 = 0; i5 < 8; i5++) h2[i5] = (h2[i5] + oldHash[i5]) | 0;
+      hash = h2;
+    }
+    for (var i6 = 0; i6 < 8; i6++) result += (hash[i6] >>> 0).toString(16).padStart(8, '0');
+    return result;
   }
+  function sha256(str) { return Promise.resolve(sha256Sync(str)); }
   function grant(hash) {
     var db = { users: [], approved: [] };
     try { db = JSON.parse(localStorage.getItem('hrma_users_local') || 'null') || db; } catch (e) {}
@@ -79,7 +106,7 @@
   }
   var rc = qs('rc');
   if (rc) {
-    sha256(rc.trim()).then(function (h) {
+    sha256('hrma-rc|' + rc.trim()).then(function (h) {
       if (h === RC_HASH) grant(h);
       else say('恢复码无效。', 'bad');
     });
