@@ -143,7 +143,11 @@ input[type=text]{flex:1;min-width:200px}
 .wz-qb{font-size:13.5px;line-height:1.7;color:#1f2a37;margin:0 0 8px}
 .wz-q .opt{margin-bottom:5px}
 /* ---- 站内练习/真题「点进去」卡片与面板 ---- */
-.zcard{cursor:pointer;transition:border-color .15s, box-shadow .15s}
+.zcard{cursor:pointer;transition:border-color .15s, box-shadow .15s, transform .15s;
+  text-decoration:none;color:inherit;display:block}
+.zcard:hover{transform:translateY(-2px)}
+.zcard .zgo{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;color:#1d6fb8}
+.exp.hideall{display:none!important}
 .zcard:hover{border-color:#9dbdd8}
 .zcard.on{border-color:#1d6fb8;box-shadow:0 0 0 2px rgba(29,111,184,.14)}
 .zcard h3{cursor:pointer}
@@ -352,9 +356,11 @@ function rwbBind(){
       if (box.getAttribute('data-filled') !== '1') {
         expFill(box, 'ok', '参考答案与解析', '<div class="why">' + resc(it.why || '') + '</div>');
         box.setAttribute('data-filled', '1');
+        box.classList.remove('hideall');
         b.textContent = '收起答案与解析';
       } else {
         var open = box.classList.toggle('open');
+        box.classList.toggle('hideall', !open);
         b.textContent = open ? '收起答案与解析' : '看答案与解析';
       }
     });
@@ -495,7 +501,6 @@ function rbindQuiz(){
   });
   rwbBind();
   rpBind();
-  rbindZones();
 }
 
 /* ---- 三级真题卷 · 在线考核（L1/L2/L3 各级站末尾各嵌该级一卷；第五站嵌三级全套）-----
@@ -606,9 +611,11 @@ function rpBind(){
         expFill(box, 'ok', '参考答案与评分标准',
           '<div class="why">' + resc(it.why || it.ans || '') + '</div>');
         box.setAttribute('data-filled', '1');
+        box.classList.remove('hideall');
         b.textContent = '收起参考答案';
       } else {
         var open = box.classList.toggle('open');
+        box.classList.toggle('hideall', !open);   /* 收起＝整块消失，不露头部 */
         b.textContent = open ? '收起参考答案' : '看参考答案与评分标准';
       }
     });
@@ -682,14 +689,17 @@ function rzoneCards(s){
     if (wantAll) ppMeta = '三级全套 · L1 90 分 / L2 120 分 / L3 150 分钟';
     else if (PAPERS.levels[s.lv]) ppMeta = PAPERS.levels[s.lv].minutes + ' 分钟 · 满分 100 · ≥' + PAPERS.levels[s.lv].passing + ' 通过';
   }
-  if (wbTotal) h += '<article class="card zcard" data-z="wb_' + s.id + '" data-st="' + s.id + '">'
+  var q = s.lv ? ('?lv=' + s.lv) : '';
+  if (wbTotal) h += '<a class="card zcard" href="practice.html' + q + '#wb">'
     + '<h3>模块练习' + (s.lv ? ' · ' + resc(s.lv) : ' · 全部模块') + '</h3>'
     + '<div class="pills"><span class="pill fm">' + wbTotal + ' 题</span><span class="pill">在线判分</span></div>'
-    + '<p>按模块分组：判断/单选点选即判分；计算与情景题对照解析自评。做过一遍会记住状态。</p></article>';
-  if (ppTotal) h += '<article class="card zcard" data-z="pp_' + s.id + '" data-st="' + s.id + '">'
+    + '<p>按模块分组：判断/单选点选即判分；计算与情景题对照解析自评。做过一遍会记住状态。</p>'
+    + '<span class="zgo">进入练习场 →</span></a>';
+  if (ppTotal) h += '<a class="card zcard" href="practice.html' + q + '#pp">'
     + '<h3>真题考核' + (s.lv ? ' · ' + resc(s.lv) + ' 结业考试卷' : ' · 三级全套') + '</h3>'
     + '<div class="pills"><span class="pill fm">' + ppTotal + ' 题</span><span class="pill">' + resc(ppMeta) + '</span></div>'
-    + '<p>按题型分区作答：机判题在线判分；作答题写完对照参考答案与评分标准自评，可随时收起。</p></article>';
+    + '<p>按题型分区作答：机判题在线判分；作答题写完对照参考答案与评分标准自评，可随时收起。</p>'
+    + '<span class="zgo">进入考场 →</span></a>';
   return h;
 }
 function rzonePanels(s){
@@ -736,7 +746,6 @@ function rrenderPath(){
       + '<div class="st-b">'
       + '<div class="st-how"><b>怎么学：</b>' + resc(s.how) + '</div>'
       + '<div class="st-items">' + items + rzoneCards(s) + '</div>'
-      + rzonePanels(s)
       + rquizHtml(s, i)
       + '</div></section>';
   });

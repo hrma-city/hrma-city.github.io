@@ -143,7 +143,11 @@ input[type=text]{flex:1;min-width:200px}
 .wz-qb{font-size:13.5px;line-height:1.7;color:#1f2a37;margin:0 0 8px}
 .wz-q .opt{margin-bottom:5px}
 /* ---- 站内练习/真题「点进去」卡片与面板 ---- */
-.zcard{cursor:pointer;transition:border-color .15s, box-shadow .15s}
+.zcard{cursor:pointer;transition:border-color .15s, box-shadow .15s, transform .15s;
+  text-decoration:none;color:inherit;display:block}
+.zcard:hover{transform:translateY(-2px)}
+.zcard .zgo{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;color:#1d6fb8}
+.exp.hideall{display:none!important}
 .zcard:hover{border-color:#9dbdd8}
 .zcard.on{border-color:#1d6fb8;box-shadow:0 0 0 2px rgba(29,111,184,.14)}
 .zcard h3{cursor:pointer}
@@ -195,12 +199,12 @@ input[type=text]{flex:1;min-width:200px}
 <script src="assets/js/site-nav.js?v=v19"></script>
 </head>
 <body>
-<div class="hero"><div class="wrap" style="padding-bottom:0"><a class="back" href="index.html">← 回陈列首页</a><h1>游戏馆 · 四站路线</h1><p>从 5 分钟的单场景，到 30 天的连续经营，再到有对手的对抗——难度一站一站往上走。每站末尾有考核，全对才算走过。</p><div class="cnt">共 <b>4</b> 站 · <b>12</b> 道考核题 · <b>25</b> 个玩法</div></div></div>
+<div class="hero"><div class="wrap" style="padding-bottom:0"><a class="back" href="index.html">← 回陈列首页</a><h1>游戏馆 · 四站路线</h1><p>从 5 分钟的单场景，到 30 天的连续经营，再到有对手的对抗——难度一站一站往上走。每站末尾有考核，全对才算走过。</p><div class="cnt">共 <b>4</b> 站 · <b>12</b> 道考核题 · <b>27</b> 个玩法</div></div></div>
 <div class="rmap"><div class="rt">完整路线图 · 点任一站可直达 · 考核全对才计入进度</div><div class="rtrack" id="rtrack"><div class="rnode" data-i="0" id="rn-g1"><div class="rline"></div><div class="dot">1</div><div class="nm">单场景练手</div></div><div class="rnode" data-i="1" id="rn-g2"><div class="rline"></div><div class="dot">2</div><div class="nm">流程与日常</div></div><div class="rnode" data-i="2" id="rn-g3"><div class="rline"></div><div class="dot">3</div><div class="nm">综合经营</div></div><div class="rnode" data-i="3" id="rn-g4"><div class="rline"></div><div class="dot">4</div><div class="nm">对抗与验收</div></div></div><div class="rprog"><span id="rtxt">路线进度 0 / 4</span><div class="rbar"><i id="rfill" style="width:0%"></i></div><button class="rreset" id="rreset">重新开始</button></div></div>
 <div class="viewtab"><button id="tab-path" class="on">按路线学</button><button id="tab-free">自由浏览</button></div>
 <div class="meta" id="rcnt"></div>
 <div id="pathview"></div>
-<div id="freeview" style="display:none"><div class="bar"><input type="text" id="q" placeholder="搜游戏名或说明，如：卡牌 / 对战 / 团队…"><select id="fm"><option value="">全部玩法形式</option><option value="单场景决策">单场景决策</option><option value="卡牌">卡牌</option><option value="单人模拟">单人模拟</option><option value="流程模拟">流程模拟</option><option value="叙事">叙事</option><option value="题库闯关">题库闯关</option><option value="关卡挑战">关卡挑战</option><option value="情景模拟">情景模拟</option><option value="联机对战">联机对战</option><option value="分组投屏">分组投屏</option><option value="抢答竞赛">抢答竞赛</option><option value="章节通关">章节通关</option><option value="索引">索引</option></select><select id="lv"><option value="">全部难度</option><option value="入门">入门</option><option value="进阶">进阶</option><option value="挑战">挑战</option></select><button class="chip" id="reset">清空条件</button></div>
+<div id="freeview" style="display:none"><div class="bar"><input type="text" id="q" placeholder="搜游戏名或说明，如：卡牌 / 对战 / 团队…"><select id="fm"><option value="">全部玩法形式</option><option value="经营模拟">经营模拟</option><option value="闯关登山">闯关登山</option><option value="单场景决策">单场景决策</option><option value="卡牌">卡牌</option><option value="单人模拟">单人模拟</option><option value="流程模拟">流程模拟</option><option value="叙事">叙事</option><option value="题库闯关">题库闯关</option><option value="关卡挑战">关卡挑战</option><option value="情景模拟">情景模拟</option><option value="联机对战">联机对战</option><option value="分组投屏">分组投屏</option><option value="抢答竞赛">抢答竞赛</option><option value="章节通关">章节通关</option><option value="索引">索引</option></select><select id="lv"><option value="">全部难度</option><option value="入门">入门</option><option value="进阶">进阶</option><option value="挑战">挑战</option></select><button class="chip" id="reset">清空条件</button></div>
 <div class="grp"><div class="gl">我想练的能力（点一个标签）</div><div class="chiprow" id="skrow"><span class="chip" data-v="动态定价">动态定价</span><span class="chip" data-v="超额预订">超额预订</span><span class="chip" data-v="置换分析">置换分析</span><span class="chip" data-v="渠道管理">渠道管理</span><span class="chip" data-v="库存限制">库存限制</span><span class="chip" data-v="房型与升级">房型与升级</span><span class="chip" data-v="团队与会议">团队与会议</span><span class="chip" data-v="需求预测">需求预测</span><span class="chip" data-v="促销与折扣">促销与折扣</span><span class="chip" data-v="打包与套餐">打包与套餐</span><span class="chip" data-v="竞争应对">竞争应对</span><span class="chip" data-v="指标体系">指标体系</span><span class="chip" data-v="危机与补救">危机与补救</span><span class="chip" data-v="餐饮RevPASH">餐饮RevPASH</span><span class="chip" data-v="跨业态">跨业态</span><span class="chip" data-v="综合权衡">综合权衡</span><span class="chip" data-v="流程执行">流程执行</span></div></div>
 <div class="meta" id="cnt"></div>
 <div class="grid" id="list"></div>
@@ -356,9 +360,11 @@ function rwbBind(){
       if (box.getAttribute('data-filled') !== '1') {
         expFill(box, 'ok', '参考答案与解析', '<div class="why">' + resc(it.why || '') + '</div>');
         box.setAttribute('data-filled', '1');
+        box.classList.remove('hideall');
         b.textContent = '收起答案与解析';
       } else {
         var open = box.classList.toggle('open');
+        box.classList.toggle('hideall', !open);
         b.textContent = open ? '收起答案与解析' : '看答案与解析';
       }
     });
@@ -499,7 +505,6 @@ function rbindQuiz(){
   });
   rwbBind();
   rpBind();
-  rbindZones();
 }
 
 /* ---- 三级真题卷 · 在线考核（L1/L2/L3 各级站末尾各嵌该级一卷；第五站嵌三级全套）-----
@@ -610,9 +615,11 @@ function rpBind(){
         expFill(box, 'ok', '参考答案与评分标准',
           '<div class="why">' + resc(it.why || it.ans || '') + '</div>');
         box.setAttribute('data-filled', '1');
+        box.classList.remove('hideall');
         b.textContent = '收起参考答案';
       } else {
         var open = box.classList.toggle('open');
+        box.classList.toggle('hideall', !open);   /* 收起＝整块消失，不露头部 */
         b.textContent = open ? '收起参考答案' : '看参考答案与评分标准';
       }
     });
@@ -686,14 +693,17 @@ function rzoneCards(s){
     if (wantAll) ppMeta = '三级全套 · L1 90 分 / L2 120 分 / L3 150 分钟';
     else if (PAPERS.levels[s.lv]) ppMeta = PAPERS.levels[s.lv].minutes + ' 分钟 · 满分 100 · ≥' + PAPERS.levels[s.lv].passing + ' 通过';
   }
-  if (wbTotal) h += '<article class="card zcard" data-z="wb_' + s.id + '" data-st="' + s.id + '">'
+  var q = s.lv ? ('?lv=' + s.lv) : '';
+  if (wbTotal) h += '<a class="card zcard" href="practice.html' + q + '#wb">'
     + '<h3>模块练习' + (s.lv ? ' · ' + resc(s.lv) : ' · 全部模块') + '</h3>'
     + '<div class="pills"><span class="pill fm">' + wbTotal + ' 题</span><span class="pill">在线判分</span></div>'
-    + '<p>按模块分组：判断/单选点选即判分；计算与情景题对照解析自评。做过一遍会记住状态。</p></article>';
-  if (ppTotal) h += '<article class="card zcard" data-z="pp_' + s.id + '" data-st="' + s.id + '">'
+    + '<p>按模块分组：判断/单选点选即判分；计算与情景题对照解析自评。做过一遍会记住状态。</p>'
+    + '<span class="zgo">进入练习场 →</span></a>';
+  if (ppTotal) h += '<a class="card zcard" href="practice.html' + q + '#pp">'
     + '<h3>真题考核' + (s.lv ? ' · ' + resc(s.lv) + ' 结业考试卷' : ' · 三级全套') + '</h3>'
     + '<div class="pills"><span class="pill fm">' + ppTotal + ' 题</span><span class="pill">' + resc(ppMeta) + '</span></div>'
-    + '<p>按题型分区作答：机判题在线判分；作答题写完对照参考答案与评分标准自评，可随时收起。</p></article>';
+    + '<p>按题型分区作答：机判题在线判分；作答题写完对照参考答案与评分标准自评，可随时收起。</p>'
+    + '<span class="zgo">进入考场 →</span></a>';
   return h;
 }
 function rzonePanels(s){
@@ -740,7 +750,6 @@ function rrenderPath(){
       + '<div class="st-b">'
       + '<div class="st-how"><b>怎么学：</b>' + resc(s.how) + '</div>'
       + '<div class="st-items">' + items + rzoneCards(s) + '</div>'
-      + rzonePanels(s)
       + rquizHtml(s, i)
       + '</div></section>';
   });
@@ -797,7 +806,7 @@ rrenderPath(); rdrawMap();
 </script>
 
 <script>
-var IT = [{"n":"涨价决策","u":"scene-pricing.html","d":"一个场景一道题：该不该涨、涨多少。适合刚接触动态定价时建立手感。","sk":["动态定价"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"Pickup 落后怎么救","u":"scene-pickup.html","d":"预订进度落后于去年同期，是放价、加渠道还是再等等？练看板读数和纠偏时机。","sk":["需求预测"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"最短住期 MinLOS","u":"scene-minlos.html","d":"要不要设 MinLOS、设几晚。练限制条件与收入的取舍，以及用完多久该撤。","sk":["库存限制"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"客源保护位","u":"scene-protect.html","d":"给高价值客源留多少房、什么时候放出来。练库存分配与置换测算。","sk":["库存限制","置换分析"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"房型价差与房型开关","u":"scene-roomtype.html","d":"房型价差拉开还是收窄、哪个房型要关。练房型结构与升级销售。","sk":["房型与升级","库存限制"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"竞品降价跟不跟","u":"scene-compset.html","d":"对手先降价了，跟不跟、跟多少、要不要只跟 OTA。练竞争判断与价格体系保护。","sk":["竞争应对"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"折扣与促销","u":"scene-discount.html","d":"折扣打给谁、打多久、会不会伤害公开价。练促销的边界与回收。","sk":["促销与折扣"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"渠道净价与配额","u":"scene-channel.html","d":"各渠道怎么配额、净价怎么算才不亏。练渠道组合与佣金意识。","sk":["渠道管理"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"团队置换（接不接）","u":"scene-displacement.html","d":"一笔大团队压过来，接还是不接。练置换测算——被挤走的散客值多少钱。","sk":["置换分析","团队与会议"],"fm":"单场景决策","tm":"5 分钟","lv":"挑战"},{"n":"事件日定价","u":"scene-event.html","d":"演出/赛事当天怎么定价、提前多久收口。练事件日需求曲线的识别。","sk":["动态定价","需求预测"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"套餐设计","u":"scene-bundle.html","d":"房+X 怎么组合、价格锚点怎么放。练套餐设计与不降价的增值打法。","sk":["打包与套餐"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"餐饮 RevPASH","u":"scene-revpash.html","d":"翻台率与时段经营。练餐饮收益与客房思路的差异。","sk":["餐饮RevPASH"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"超售决策","u":"game-oversell.html","d":"超售超多少、爆仓了怎么赔。练超额预订的风险边界。","sk":["超额预订"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"卡牌版","u":"reigns.html","d":"四张仪表此消彼长，任一爆表就下台。练「不能只看 RevPAR」的整体权衡意识。","sk":["综合权衡","指标体系"],"fm":"卡牌","tm":"10 分钟","lv":"入门"},{"n":"经营模拟 30 天","u":"sim.html","d":"连开 30 天，每天自己定价，看 OCC/ADR/RevPAR 怎么被自己的决策推着走。","sk":["动态定价","超额预订","促销与折扣","综合权衡"],"fm":"单人模拟","tm":"30–45 分钟","lv":"进阶"},{"n":"一日流水线","u":"pipeline.html","d":"按收益经理一天的真实顺序走一遍：看数→判断→调价→记录。练日常工作节律。","sk":["流程执行","需求预测"],"fm":"流程模拟","tm":"15 分钟","lv":"入门"},{"n":"值班叙事","u":"duty.html","d":"值班这一天状况不断：投诉、系统故障、临时团队。练突发事件下的取舍顺序。","sk":["危机与补救","流程执行"],"fm":"叙事","tm":"15 分钟","lv":"进阶"},{"n":"流程闯关 · 90 关","u":"flow-quest.html","d":"90 道题覆盖 30 个子步骤，教学+挑战双模式，带错题本与打卡。","sk":["流程执行","指标体系"],"fm":"题库闯关","tm":"30 分钟","lv":"入门"},{"n":"决策闯关 · 14 关","u":"level.html","d":"14 关逐关对应操作法典的一张判定表，通关等于把 15 张表都用过一遍。","sk":["综合权衡","动态定价","库存限制","竞争应对","房型与升级","团队与会议","超额预订","危机与补救"],"fm":"关卡挑战","tm":"30 分钟","lv":"进阶"},{"n":"角色扮演 · 32 情景","u":"roleplay.html","d":"住宿 21 个 + 其他业态 11 个真实经营情景，四只仪表同时计分，每步给出所依据的法典表号。","sk":["综合权衡","危机与补救","竞争应对","跨业态","团队与会议"],"fm":"情景模拟","tm":"10–15 分钟/关","lv":"进阶"},{"n":"联机对战","u":"arena.html","d":"两人或两组同市场对抗，也有协作模式。练竞争意识与跨角色沟通。","sk":["竞争应对","综合权衡"],"fm":"联机对战","tm":"20 分钟","lv":"挑战"},{"n":"课堂分组经营竞赛","u":"classroom.html","d":"多组同市场出价，按累计净利润排名，投屏可见。适合一次课打完一轮。","sk":["竞争应对","动态定价"],"fm":"分组投屏","tm":"45–60 分钟","lv":"进阶"},{"n":"知识抢答","u":"game-quiz.html","d":"比谁判断得快。适合课前热身或课后收口。","sk":["指标体系","综合权衡"],"fm":"抢答竞赛","tm":"15 分钟","lv":"入门"},{"n":"云璟一年 · 32 章通关","u":"game-rm.html","d":"跟着云璟酒店走完一年，32 章 116 题，5 次综合小考。学完教材后用这套验收最合适。","sk":["综合权衡","指标体系","流程执行"],"fm":"章节通关","tm":"60 分钟 +","lv":"挑战"},{"n":"场景锻炼全集","u":"coll-scenes.html","d":"13 个单场景锻炼的总索引，不确定从哪练起可以先从这里挑。","sk":["综合权衡"],"fm":"索引","tm":"—","lv":"入门"}], sel = null;
+var IT = [{"n":"收益经理的一年 · 沙盘","u":"sandbox.html","d":"自选酒店经营 12 个月：看事件牌、读需求温度计，逐月定价、设 MinLOS、赌超售、开关促销——市场真实回应你，年底和基准对手算总账，评收益大师。","sk":["动态定价","库存限制","需求预测","竞争应对","综合权衡"],"fm":"经营模拟","tm":"30–40 分钟","lv":"进阶"},{"n":"登顶之路 · 认证小步闯关","u":"quest.html","d":"三级认证课程的游戏模式：253 小步从山脚到山顶，一步只做一件事——看一条小贴士、答一道小题、收一句解析。连对攒经验，错题进复习口袋，进度替你记着。","sk":["综合权衡","流程执行"],"fm":"闯关登山","tm":"随时 · 每步 1 分钟","lv":"入门"},{"n":"涨价决策","u":"scene-pricing.html","d":"一个场景一道题：该不该涨、涨多少。适合刚接触动态定价时建立手感。","sk":["动态定价"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"Pickup 落后怎么救","u":"scene-pickup.html","d":"预订进度落后于去年同期，是放价、加渠道还是再等等？练看板读数和纠偏时机。","sk":["需求预测"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"最短住期 MinLOS","u":"scene-minlos.html","d":"要不要设 MinLOS、设几晚。练限制条件与收入的取舍，以及用完多久该撤。","sk":["库存限制"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"客源保护位","u":"scene-protect.html","d":"给高价值客源留多少房、什么时候放出来。练库存分配与置换测算。","sk":["库存限制","置换分析"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"房型价差与房型开关","u":"scene-roomtype.html","d":"房型价差拉开还是收窄、哪个房型要关。练房型结构与升级销售。","sk":["房型与升级","库存限制"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"竞品降价跟不跟","u":"scene-compset.html","d":"对手先降价了，跟不跟、跟多少、要不要只跟 OTA。练竞争判断与价格体系保护。","sk":["竞争应对"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"折扣与促销","u":"scene-discount.html","d":"折扣打给谁、打多久、会不会伤害公开价。练促销的边界与回收。","sk":["促销与折扣"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"渠道净价与配额","u":"scene-channel.html","d":"各渠道怎么配额、净价怎么算才不亏。练渠道组合与佣金意识。","sk":["渠道管理"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"团队置换（接不接）","u":"scene-displacement.html","d":"一笔大团队压过来，接还是不接。练置换测算——被挤走的散客值多少钱。","sk":["置换分析","团队与会议"],"fm":"单场景决策","tm":"5 分钟","lv":"挑战"},{"n":"事件日定价","u":"scene-event.html","d":"演出/赛事当天怎么定价、提前多久收口。练事件日需求曲线的识别。","sk":["动态定价","需求预测"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"套餐设计","u":"scene-bundle.html","d":"房+X 怎么组合、价格锚点怎么放。练套餐设计与不降价的增值打法。","sk":["打包与套餐"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"餐饮 RevPASH","u":"scene-revpash.html","d":"翻台率与时段经营。练餐饮收益与客房思路的差异。","sk":["餐饮RevPASH"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"超售决策","u":"game-oversell.html","d":"超售超多少、爆仓了怎么赔。练超额预订的风险边界。","sk":["超额预订"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"卡牌版","u":"reigns.html","d":"四张仪表此消彼长，任一爆表就下台。练「不能只看 RevPAR」的整体权衡意识。","sk":["综合权衡","指标体系"],"fm":"卡牌","tm":"10 分钟","lv":"入门"},{"n":"经营模拟 30 天","u":"sim.html","d":"连开 30 天，每天自己定价，看 OCC/ADR/RevPAR 怎么被自己的决策推着走。","sk":["动态定价","超额预订","促销与折扣","综合权衡"],"fm":"单人模拟","tm":"30–45 分钟","lv":"进阶"},{"n":"一日流水线","u":"pipeline.html","d":"按收益经理一天的真实顺序走一遍：看数→判断→调价→记录。练日常工作节律。","sk":["流程执行","需求预测"],"fm":"流程模拟","tm":"15 分钟","lv":"入门"},{"n":"值班叙事","u":"duty.html","d":"值班这一天状况不断：投诉、系统故障、临时团队。练突发事件下的取舍顺序。","sk":["危机与补救","流程执行"],"fm":"叙事","tm":"15 分钟","lv":"进阶"},{"n":"流程闯关 · 90 关","u":"flow-quest.html","d":"90 道题覆盖 30 个子步骤，教学+挑战双模式，带错题本与打卡。","sk":["流程执行","指标体系"],"fm":"题库闯关","tm":"30 分钟","lv":"入门"},{"n":"决策闯关 · 14 关","u":"level.html","d":"14 关逐关对应操作法典的一张判定表，通关等于把 15 张表都用过一遍。","sk":["综合权衡","动态定价","库存限制","竞争应对","房型与升级","团队与会议","超额预订","危机与补救"],"fm":"关卡挑战","tm":"30 分钟","lv":"进阶"},{"n":"角色扮演 · 32 情景","u":"roleplay.html","d":"住宿 21 个 + 其他业态 11 个真实经营情景，四只仪表同时计分，每步给出所依据的法典表号。","sk":["综合权衡","危机与补救","竞争应对","跨业态","团队与会议"],"fm":"情景模拟","tm":"10–15 分钟/关","lv":"进阶"},{"n":"联机对战","u":"arena.html","d":"两人或两组同市场对抗，也有协作模式。练竞争意识与跨角色沟通。","sk":["竞争应对","综合权衡"],"fm":"联机对战","tm":"20 分钟","lv":"挑战"},{"n":"课堂分组经营竞赛","u":"classroom.html","d":"多组同市场出价，按累计净利润排名，投屏可见。适合一次课打完一轮。","sk":["竞争应对","动态定价"],"fm":"分组投屏","tm":"45–60 分钟","lv":"进阶"},{"n":"知识抢答","u":"game-quiz.html","d":"比谁判断得快。适合课前热身或课后收口。","sk":["指标体系","综合权衡"],"fm":"抢答竞赛","tm":"15 分钟","lv":"入门"},{"n":"云璟一年 · 32 章通关","u":"game-rm.html","d":"跟着云璟酒店走完一年，32 章 116 题，5 次综合小考。学完教材后用这套验收最合适。","sk":["综合权衡","指标体系","流程执行"],"fm":"章节通关","tm":"60 分钟 +","lv":"挑战"},{"n":"场景锻炼全集","u":"coll-scenes.html","d":"13 个单场景锻炼的总索引，不确定从哪练起可以先从这里挑。","sk":["综合权衡"],"fm":"索引","tm":"—","lv":"入门"}], sel = null;
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function match(it, q, fm, lv, sk){
