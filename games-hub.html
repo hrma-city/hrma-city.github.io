@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>游戏馆 · RMC收益管理社区</title>
+<meta name="description" content="按想练的能力挑游戏：动态定价、超售、置换、渠道、竞争…">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fa;color:#1f2a37;
+  font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px 60px}
+.hero{background:linear-gradient(160deg,#0f2a4a,#16406e 65%,#1d6fb8);color:#fff;padding:30px 16px 26px}
+.hero h1{margin:0 0 8px;font-size:26px;letter-spacing:.5px}
+.hero p{margin:0;opacity:.9;font-size:15px;line-height:1.65;max-width:900px}
+.hero .cnt{margin-top:12px;font-size:13px;opacity:.85}
+.back{color:#cfe0f5;font-size:13px;text-decoration:none}
+.bar{margin:18px 0 10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input[type=text],select{border:1px solid #cfd8e3;border-radius:8px;padding:8px 10px;
+  font-size:14px;font-family:inherit;background:#fff;color:#1f2a37}
+input[type=text]{flex:1;min-width:200px}
+.grp{margin:0 0 12px}
+.grp .gl{font-size:12px;color:#5b6a7d;margin:0 0 5px;font-weight:700;letter-spacing:.5px}
+.chiprow{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid #cfd8e3;background:#fff;color:#33465c;border-radius:999px;
+  padding:5px 11px;font-size:13px;cursor:pointer;user-select:none;transition:.15s}
+.chip:hover{border-color:#1d6fb8;color:#1d6fb8}
+.chip.on{background:#1d6fb8;border-color:#1d6fb8;color:#fff}
+.chip.off{opacity:.42;cursor:not-allowed}
+.chip.off:hover{border-color:#cfd8e3;color:#33465c}
+.chip i{font-style:normal;opacity:.6;font-size:11.5px;margin-left:1px}
+.chip.on i{opacity:.9}
+.meta{font-size:13px;color:#5b6a7d;margin-bottom:12px}
+.meta b{color:#1d6fb8}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.card{background:#fff;border:1px solid #e3e8ef;border-radius:10px;padding:13px 15px;
+  box-shadow:0 1px 3px rgba(15,42,74,.05)}
+.card h3{margin:0 0 7px;font-size:15px;line-height:1.45}
+.card h3 a{color:#0f2a4a;text-decoration:none}
+.card h3 a:hover{color:#1d6fb8}
+.card p{margin:0 0 9px;font-size:13.5px;line-height:1.7;color:#43536a}
+.pills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.pill{font-size:11.5px;border-radius:4px;padding:2px 7px;background:#eef3f9;color:#3c5670}
+.pill{background:#eef3f9;color:#3c5670}
+.pill.sk{background:#eaf4ee;color:#2a7d4f}
+.pill.fm{background:#f6f0e6;color:#96702a}
+.pill.lv{background:#f3ecf8;color:#6a3fa0}
+.pill.tm{background:#eef3f9;color:#5b6a7d}
+.sec{margin:26px 0 0}
+.sec h2{margin:0 0 4px;font-size:19px;padding:6px 0 6px 11px;border-left:5px solid}
+.sec .sd{margin:0 0 12px;font-size:13.5px;color:#5b6a7d;padding-left:16px}
+.grpblk{margin:14px 0 0}
+.grpblk h4{margin:0 0 8px;font-size:14.5px;color:#0f2a4a;padding-left:2px}
+.more{display:block;margin:16px auto 0;background:#1d6fb8;color:#fff;border:0;
+  border-radius:8px;padding:10px 22px;font-size:14px;cursor:pointer;font-family:inherit}
+.more:hover{background:#185a96}
+.empty{text-align:center;color:#5b6a7d;padding:40px 0;font-size:14px}
+.foot{margin-top:34px;font-size:12.5px;color:#8394a8;text-align:center;line-height:1.8}
+.tip{background:#fff8e8;border:1px solid #ecd9a8;color:#7a5a12;border-radius:8px;
+  padding:9px 13px;font-size:13px;line-height:1.7;margin:14px 0 0}
+</style>
+<script src="assets/js/site-nav.js?v=v17"></script>
+</head>
+<body>
+<div class="hero"><div class="wrap" style="padding-bottom:0"><a class="back" href="index.html">← 回陈列首页</a><h1>游戏馆 · 想练哪一项能力</h1><p>不用按身份挑——直接说你想练什么：动态定价手感不好？搞不清团队置换？超售总怕爆仓？选一个能力标签，底下就是练它的那几个。单个场景决策 5 分钟一题，成体系模拟 30–60 分钟一轮。</p><div class="cnt">共 <b>25</b> 个玩法 · 覆盖 <b>17</b> 项能力</div></div></div>
+<div class="wrap">
+<div class="bar"><input type="text" id="q" placeholder="搜游戏名或说明，如：卡牌 / 对战 / 团队…"><select id="fm"><option value="">全部玩法形式</option><option value="单场景决策">单场景决策</option><option value="卡牌">卡牌</option><option value="单人模拟">单人模拟</option><option value="流程模拟">流程模拟</option><option value="叙事">叙事</option><option value="题库闯关">题库闯关</option><option value="关卡挑战">关卡挑战</option><option value="情景模拟">情景模拟</option><option value="联机对战">联机对战</option><option value="分组投屏">分组投屏</option><option value="抢答竞赛">抢答竞赛</option><option value="章节通关">章节通关</option><option value="索引">索引</option></select><select id="lv"><option value="">全部难度</option><option value="入门">入门</option><option value="进阶">进阶</option><option value="挑战">挑战</option></select><button class="chip" id="reset">清空条件</button></div>
+<div class="grp"><div class="gl">我想练的能力（点一个标签）</div><div class="chiprow" id="skrow"><span class="chip" data-v="动态定价">动态定价</span><span class="chip" data-v="超额预订">超额预订</span><span class="chip" data-v="置换分析">置换分析</span><span class="chip" data-v="渠道管理">渠道管理</span><span class="chip" data-v="库存限制">库存限制</span><span class="chip" data-v="房型与升级">房型与升级</span><span class="chip" data-v="团队与会议">团队与会议</span><span class="chip" data-v="需求预测">需求预测</span><span class="chip" data-v="促销与折扣">促销与折扣</span><span class="chip" data-v="打包与套餐">打包与套餐</span><span class="chip" data-v="竞争应对">竞争应对</span><span class="chip" data-v="指标体系">指标体系</span><span class="chip" data-v="危机与补救">危机与补救</span><span class="chip" data-v="餐饮RevPASH">餐饮RevPASH</span><span class="chip" data-v="跨业态">跨业态</span><span class="chip" data-v="综合权衡">综合权衡</span><span class="chip" data-v="流程执行">流程执行</span></div></div>
+<div class="meta" id="cnt"></div>
+<div class="grid" id="list"></div>
+
+<script>
+var IT = [{"n":"涨价决策","u":"scene-pricing.html","d":"一个场景一道题：该不该涨、涨多少。适合刚接触动态定价时建立手感。","sk":["动态定价"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"Pickup 落后怎么救","u":"scene-pickup.html","d":"预订进度落后于去年同期，是放价、加渠道还是再等等？练看板读数和纠偏时机。","sk":["需求预测"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"最短住期 MinLOS","u":"scene-minlos.html","d":"要不要设 MinLOS、设几晚。练限制条件与收入的取舍，以及用完多久该撤。","sk":["库存限制"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"客源保护位","u":"scene-protect.html","d":"给高价值客源留多少房、什么时候放出来。练库存分配与置换测算。","sk":["库存限制","置换分析"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"房型价差与房型开关","u":"scene-roomtype.html","d":"房型价差拉开还是收窄、哪个房型要关。练房型结构与升级销售。","sk":["房型与升级","库存限制"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"竞品降价跟不跟","u":"scene-compset.html","d":"对手先降价了，跟不跟、跟多少、要不要只跟 OTA。练竞争判断与价格体系保护。","sk":["竞争应对"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"折扣与促销","u":"scene-discount.html","d":"折扣打给谁、打多久、会不会伤害公开价。练促销的边界与回收。","sk":["促销与折扣"],"fm":"单场景决策","tm":"5 分钟","lv":"入门"},{"n":"渠道净价与配额","u":"scene-channel.html","d":"各渠道怎么配额、净价怎么算才不亏。练渠道组合与佣金意识。","sk":["渠道管理"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"团队置换（接不接）","u":"scene-displacement.html","d":"一笔大团队压过来，接还是不接。练置换测算——被挤走的散客值多少钱。","sk":["置换分析","团队与会议"],"fm":"单场景决策","tm":"5 分钟","lv":"挑战"},{"n":"事件日定价","u":"scene-event.html","d":"演出/赛事当天怎么定价、提前多久收口。练事件日需求曲线的识别。","sk":["动态定价","需求预测"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"套餐设计","u":"scene-bundle.html","d":"房+X 怎么组合、价格锚点怎么放。练套餐设计与不降价的增值打法。","sk":["打包与套餐"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"餐饮 RevPASH","u":"scene-revpash.html","d":"翻台率与时段经营。练餐饮收益与客房思路的差异。","sk":["餐饮RevPASH"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"超售决策","u":"game-oversell.html","d":"超售超多少、爆仓了怎么赔。练超额预订的风险边界。","sk":["超额预订"],"fm":"单场景决策","tm":"5 分钟","lv":"进阶"},{"n":"卡牌版","u":"reigns.html","d":"四张仪表此消彼长，任一爆表就下台。练「不能只看 RevPAR」的整体权衡意识。","sk":["综合权衡","指标体系"],"fm":"卡牌","tm":"10 分钟","lv":"入门"},{"n":"经营模拟 30 天","u":"sim.html","d":"连开 30 天，每天自己定价，看 OCC/ADR/RevPAR 怎么被自己的决策推着走。","sk":["动态定价","超额预订","促销与折扣","综合权衡"],"fm":"单人模拟","tm":"30–45 分钟","lv":"进阶"},{"n":"一日流水线","u":"pipeline.html","d":"按收益经理一天的真实顺序走一遍：看数→判断→调价→记录。练日常工作节律。","sk":["流程执行","需求预测"],"fm":"流程模拟","tm":"15 分钟","lv":"入门"},{"n":"值班叙事","u":"duty.html","d":"值班这一天状况不断：投诉、系统故障、临时团队。练突发事件下的取舍顺序。","sk":["危机与补救","流程执行"],"fm":"叙事","tm":"15 分钟","lv":"进阶"},{"n":"流程闯关 · 90 关","u":"flow-quest.html","d":"90 道题覆盖 30 个子步骤，教学+挑战双模式，带错题本与打卡。","sk":["流程执行","指标体系"],"fm":"题库闯关","tm":"30 分钟","lv":"入门"},{"n":"决策闯关 · 14 关","u":"level.html","d":"14 关逐关对应操作法典的一张判定表，通关等于把 15 张表都用过一遍。","sk":["综合权衡","动态定价","库存限制","竞争应对","房型与升级","团队与会议","超额预订","危机与补救"],"fm":"关卡挑战","tm":"30 分钟","lv":"进阶"},{"n":"角色扮演 · 32 情景","u":"roleplay.html","d":"住宿 21 个 + 其他业态 11 个真实经营情景，四只仪表同时计分，每步给出所依据的法典表号。","sk":["综合权衡","危机与补救","竞争应对","跨业态","团队与会议"],"fm":"情景模拟","tm":"10–15 分钟/关","lv":"进阶"},{"n":"联机对战","u":"arena.html","d":"两人或两组同市场对抗，也有协作模式。练竞争意识与跨角色沟通。","sk":["竞争应对","综合权衡"],"fm":"联机对战","tm":"20 分钟","lv":"挑战"},{"n":"课堂分组经营竞赛","u":"classroom.html","d":"多组同市场出价，按累计净利润排名，投屏可见。适合一次课打完一轮。","sk":["竞争应对","动态定价"],"fm":"分组投屏","tm":"45–60 分钟","lv":"进阶"},{"n":"知识抢答","u":"game-quiz.html","d":"比谁判断得快。适合课前热身或课后收口。","sk":["指标体系","综合权衡"],"fm":"抢答竞赛","tm":"15 分钟","lv":"入门"},{"n":"云璟一年 · 32 章通关","u":"game-rm.html","d":"跟着云璟酒店走完一年，32 章 116 题，5 次综合小考。学完教材后用这套验收最合适。","sk":["综合权衡","指标体系","流程执行"],"fm":"章节通关","tm":"60 分钟 +","lv":"挑战"},{"n":"场景锻炼全集","u":"coll-scenes.html","d":"13 个单场景锻炼的总索引，不确定从哪练起可以先从这里挑。","sk":["综合权衡"],"fm":"索引","tm":"—","lv":"入门"}], sel = null;
+function match(it, q, fm, lv, sk){
+  if (sk && (it.sk||[]).indexOf(sk) < 0) return false;
+  if (fm && it.fm !== fm) return false;
+  if (lv && it.lv !== lv) return false;
+  if (q){
+    var pool = (it.n+' '+(it.d||'')+' '+(it.sk||[]).join(' ')+' '+it.fm).toLowerCase();
+    if (pool.indexOf(q.toLowerCase()) < 0) return false;
+  }
+  return true;
+}
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function card(it){
+  var ps = '<span class="pill sk">' + esc(it.lv) + '</span><span class="pill fm">' + esc(it.fm) + '</span><span class="pill tm">' + esc(it.tm) + '</span>';
+  (it.sk||[]).forEach(function(x){ ps += '<span class="pill">' + esc(x) + '</span>'; });
+  return '<article class="card"><h3><a href="' + esc(it.u) + '">' + esc(it.n) + '</a></h3>'
+    + '<div class="pills">' + ps + '</div><p>' + esc(it.d) + '</p></article>';
+}
+function render(){
+  var q=document.getElementById('q').value.trim(), fm=document.getElementById('fm').value, lv=document.getElementById('lv').value;
+  var cur = IT.filter(function(it){ return match(it,q,fm,lv,sel); });
+  document.getElementById('cnt').innerHTML = '命中 <b>' + cur.length + '</b> 个' + (sel?('　（能力：'+sel+'）'):'');
+  document.getElementById('list').innerHTML = cur.map(card).join('')
+    || '<div class="empty" style="grid-column:1/-1">没有符合条件的游戏，换个能力标签试试。</div>';
+}
+document.getElementById('skrow').addEventListener('click', function(e){
+  var t = e.target.closest ? e.target.closest('.chip') : null;
+  if (!t) return;
+  var v = t.getAttribute('data-v');
+  if (sel === v) { sel = null; document.querySelectorAll('#skrow .chip').forEach(function(c){c.classList.remove('on');}); }
+  else { document.querySelectorAll('#skrow .chip').forEach(function(c){c.classList.remove('on');}); t.classList.add('on'); sel = v; }
+  render();
+});
+document.getElementById('q').addEventListener('input', render);
+document.getElementById('fm').addEventListener('change', render);
+document.getElementById('lv').addEventListener('change', render);
+document.getElementById('reset').addEventListener('click', function(){
+  document.getElementById('q').value=''; document.getElementById('fm').value=''; document.getElementById('lv').value='';
+  sel=null; document.querySelectorAll('#skrow .chip').forEach(function(c){c.classList.remove('on');}); render();
+});
+render();
+</script>
+<div class="foot">RMC收益管理社区 · 按内容取材总索引 · cat20261013a<br>找不到想要的？用顶栏搜索，或进资料库翻全站 504 项资源</div>
+</div>
+</body>
+</html>
