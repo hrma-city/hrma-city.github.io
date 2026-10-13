@@ -2,15 +2,15 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<script>window.HRMA_PREFIX="";</script>
-<script src="auth-config.js"></script>
-<script src="assets/js/access-gate.js"></script>
+<title>登录</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-<title>登录</title>
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=fix20261013"></script>
 <style>
   :root{ --navy:#0f2a4a; --blue:#1d6fb8; --gold:#e8b84b; --ink:#1a2733; --mute:#5b6a7d; }
   *{box-sizing:border-box;}
+  html,body{height:100%;}
   body{ margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
         background:linear-gradient(160deg,#0f2a4a 0%,#163a63 55%,#1d6fb8 100%);
         font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
@@ -49,8 +49,8 @@
   <button id="rcBtn" type="button"></button>
 </div>
 
-<script src="assets/js/rc-hash.js?v=10"></script>
-<script src="assets/js/access-login.js?v=v13"></script>
+<script src="assets/js/rc-hash.js?v=fix20261013"></script>
+<script src="assets/js/access-login.js?v=fix20261013"></script>
 <script>
 /* ?next= 透传 + 旧登录态失效清理（仅在 needpw=1 时给一行必要提示） */
 (function(){
@@ -68,32 +68,45 @@
 })();
 </script>
 <script>
-/* 恢复码深链：?rc=<恢复码>&to=<页面> 自动校验并静默进站，不在门口显示任何文字 */
+/* 恢复码深链：?rc=<恢复码>&to=<页面> 自动校验并静默进站。
+   直接在本页就地处理，不做 ?auto=1 自我替换，避免整页反复重载造成闪烁。 */
 (function(){
   function qs(n){ var m=location.search.match(new RegExp('[?&]'+n+'=([^&]*)')); return m?decodeURIComponent(m[1]):''; }
-  var rc=qs('rc'), to=qs('to'); if(!rc) return;
-  if(!qs('auto')){ location.replace('access.html?next='+encodeURIComponent(to||'index.html')+'&rc='+encodeURIComponent(rc)+'&auto=1'); return; }
-  function normRC(s){ s=String(s||''); try{ s=s.replace(/[\uff01-\uff5e]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-0xfee0);}); }catch(e){} s=s.replace(/[\s\u00a0\ufeff\r\n\t]/g,''); s=s.replace(/^(恢复码|管理员恢复码|recovery\s*code?)[\s:：=、]*/i,''); return s.toUpperCase(); }
-  var ADMIN='3984557428@qq.com', KEY_USERS='hrma_users_local', KEY_SESSION='hrma_session_v2', KEY_RC='hrma_rc_hash';
-  function sha256Hex(str){ if(window.crypto&&window.crypto.subtle&&window.TextEncoder){ return window.crypto.subtle.digest('SHA-256',new TextEncoder().encode(str)).then(function(buf){return Array.prototype.map.call(new Uint8Array(buf),function(b){return ('0'+b.toString(16)).slice(-2);}).join('');}); } var h=5381,s='hrma$3$'+str; for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))>>>0;} return Promise.resolve('fb$'+h.toString(16)+'.'+s.length); }
-  var rcHash; try{ rcHash=localStorage.getItem(KEY_RC); }catch(e){}
-  if(!rcHash) return;
-  sha256Hex('hrma-rc|'+normRC(rc)).then(function(h){
-    if(h!==rcHash) return;
-    var db; try{ db=JSON.parse(localStorage.getItem(KEY_USERS)||'null'); }catch(e){}
-    if(!db||typeof db!=='object'||Array.isArray(db)) db={users:[],approved:[]};
-    if(!Array.isArray(db.users)) db.users=[];
-    var u=db.users.filter(function(x){return x&&typeof x==='object'&&x.email===ADMIN;})[0];
-    if(!u){ u={email:ADMIN,name:'站长',status:'approved'}; db.users.push(u); }
-    if(!Array.isArray(db.approved)) db.approved=[];
-    if(db.approved.indexOf(ADMIN)<0) db.approved.push(ADMIN);
-    if(!u.pw) u.pw='直通'+Date.now()+Math.random().toString(36).slice(2,10);
-    try{ delete u.password; }catch(e){}
-    try{ localStorage.setItem(KEY_USERS,JSON.stringify(db)); }catch(e){}
-    var sess={ email:ADMIN, name:'站长', status:'approved', pwRef:u.pw, issuedAt:new Date().toISOString(), autoIssued:true };
-    try{ localStorage.setItem(KEY_SESSION, JSON.stringify(sess)); }catch(e){}
-    var nx=to||'index.html';
-    try{ location.replace(nx); }catch(e){ try{ location.href=nx; }catch(e2){} }
+  var rc = qs('rc'); if (!rc) return;
+  var to = qs('to') || 'index.html';
+  var ADMIN = '3984557428@qq.com', KEY_USERS = 'hrma_users_local', KEY_SESSION = 'hrma_session_v2', KEY_RC = 'hrma_rc_hash';
+  function normRC(s){
+    s = String(s || '');
+    try { s = s.replace(/[\uff01-\uff5e]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xfee0); }); } catch (e) {}
+    s = s.replace(/[\s\u00a0\ufeff\r\n\t]/g, '');
+    s = s.replace(/^(恢复码|管理员恢复码|recovery\s*code?)[\s:：=、]*/i, '');
+    return s.toUpperCase();
+  }
+  function sha256Hex(str){
+    if (window.crypto && window.crypto.subtle && window.TextEncoder) {
+      return window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(str))
+        .then(function(buf){ return Array.prototype.map.call(new Uint8Array(buf), function(b){ return ('0'+b.toString(16)).slice(-2); }).join(''); });
+    }
+    var h = 5381, s = 'hrma$3$' + str; for (var i=0;i<s.length;i++){ h = ((h<<5)+h+s.charCodeAt(i)) >>> 0; }
+    return Promise.resolve('fb$' + h.toString(16) + '.' + s.length);
+  }
+  var rcHash; try { rcHash = localStorage.getItem(KEY_RC); } catch (e) {}
+  if (!rcHash) return;
+  sha256Hex('hrma-rc|' + normRC(rc)).then(function(h){
+    if (h !== rcHash) return;
+    var db; try { db = JSON.parse(localStorage.getItem(KEY_USERS) || 'null'); } catch (e) {}
+    if (!db || typeof db !== 'object' || Array.isArray(db)) db = { users: [], approved: [] };
+    if (!Array.isArray(db.users)) db.users = [];
+    var u = db.users.filter(function(x){ return x && typeof x === 'object' && x.email === ADMIN; })[0];
+    if (!u) { u = { email: ADMIN, name: '站长', status: 'approved' }; db.users.push(u); }
+    if (!Array.isArray(db.approved)) db.approved = [];
+    if (db.approved.indexOf(ADMIN) < 0) db.approved.push(ADMIN);
+    if (!u.pw) u.pw = '直通' + Date.now() + Math.random().toString(36).slice(2, 10);
+    try { delete u.password; } catch (e) {}
+    try { localStorage.setItem(KEY_USERS, JSON.stringify(db)); } catch (e) {}
+    var sess = { email: ADMIN, name: '站长', status: 'approved', pwRef: u.pw, issuedAt: new Date().toISOString(), autoIssued: true };
+    try { localStorage.setItem(KEY_SESSION, JSON.stringify(sess)); } catch (e) {}
+    try { location.replace(to); } catch (e) { try { location.href = to; } catch (e2) {} }
   });
 })();
 </script>
