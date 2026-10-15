@@ -81,6 +81,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -91,6 +92,28 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"操作法典","item":"https://hrma-city.github.io/codex.html"}]}</script>
 <link rel="stylesheet" href="assets/css/auth.css">
 <link rel="stylesheet" href="assets/css/notify.css">
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
 </head>
 <body data-page="codex" data-auth="protected">
 <div class="layout">
@@ -155,7 +178,7 @@
 <div class="codex-block" data-codex-block data-cat="price" id="table-a">
   <div class="codex-head">
     <span class="badge-codex">表 A</span>
-    <h3>每日价格调整判定表</h3>
+    <h3 id="toc-1">每日价格调整判定表</h3>
     <span class="pill pill-red">最常用</span>
   </div>
   <p class="codex-desc">
@@ -227,7 +250,7 @@
 <div class="codex-block" data-codex-block data-cat="inventory" id="table-b">
   <div class="codex-head">
     <span class="badge-codex">表 B</span>
-    <h3>库存与限制条件配置表</h3>
+    <h3 id="toc-2">库存与限制条件配置表</h3>
     <span class="pill pill-teal">与表 A 配套使用</span>
   </div>
   <p class="codex-desc">
@@ -276,7 +299,7 @@
 <div class="codex-block" data-codex-block data-cat="compete" id="table-c">
   <div class="codex-head">
     <span class="badge-codex">表 C</span>
-    <h3>价格指数（ARI）判定表</h3>
+    <h3 id="toc-3">价格指数（ARI）判定表</h3>
   </div>
   <p class="codex-desc">
     <b>ARI = 本店 ADR ÷ 竞争组合加权 ADR × 100</b>。回答一个问题：<b>我卖得比隔壁贵还是便宜？</b>
@@ -323,7 +346,7 @@
 <div class="codex-block" data-codex-block data-cat="compete" id="table-d">
   <div class="codex-head">
     <span class="badge-codex">表 D</span>
-    <h3>市场渗透指数（MPI）判定表</h3>
+    <h3 id="toc-4">市场渗透指数（MPI）判定表</h3>
     <span class="pill">偏诊断，少出动作</span>
   </div>
   <p class="codex-desc">
@@ -370,7 +393,7 @@
 <div class="codex-block" data-codex-block data-cat="inventory" id="table-e">
   <div class="codex-head">
     <span class="badge-codex">表 E</span>
-    <h3>超额预订标准表</h3>
+    <h3 id="toc-5">超额预订标准表</h3>
     <span class="pill pill-amber">高风险动作</span>
   </div>
   <p class="codex-desc">
@@ -436,7 +459,7 @@
 <div class="codex-block" data-codex-block data-cat="price" id="table-f">
   <div class="codex-head">
     <span class="badge-codex">表 F</span>
-    <h3>房型价差阶梯表</h3>
+    <h3 id="toc-6">房型价差阶梯表</h3>
   </div>
   <p class="codex-desc">
     以<b>高级房 BAR 为基准 100</b>。设定一次，全房型价格自动生成。
@@ -484,7 +507,7 @@
 <div class="codex-block" data-codex-block data-cat="customer" id="table-g">
   <div class="codex-head">
     <span class="badge-codex">表 G</span>
-    <h3>团队／协议询价接受判定表</h3>
+    <h3 id="toc-7">团队／协议询价接受判定表</h3>
     <span class="pill pill-amber">置换分析简化版</span>
   </div>
   <p class="codex-desc">
@@ -550,7 +573,7 @@
 <div class="codex-block" data-codex-block data-cat="channel" id="table-h">
   <div class="codex-head">
     <span class="badge-codex">表 H</span>
-    <h3>渠道开关判定表</h3>
+    <h3 id="toc-8">渠道开关判定表</h3>
   </div>
   <p class="codex-desc">
     按目标日预测 OCC 决定各渠道的开关状态。<b>核心原则：房好卖的时候关掉贵渠道，房难卖的时候全开。</b>
@@ -618,7 +641,7 @@
 <div class="codex-block" data-codex-block data-cat="rhythm" id="table-i">
   <div class="codex-head">
     <span class="badge-codex">表 I</span>
-    <h3>预订窗口分档监控表</h3>
+    <h3 id="toc-9">预订窗口分档监控表</h3>
   </div>
   <p class="codex-desc">
     不同提前天数的日期，<b>监控频率和触发阈值都不一样</b>。
@@ -656,7 +679,7 @@
 <div class="codex-block" data-codex-block data-cat="inventory" id="table-j">
   <div class="codex-head">
     <span class="badge-codex">表 J</span>
-    <h3>免费升级规则表</h3>
+    <h3 id="toc-10">免费升级规则表</h3>
   </div>
   <p class="codex-desc">
     <b>三种触发场景</b>：① 超售需要腾房；② 目标日高档房预测空置 &gt; 20%；③ 会员权益兑现。
@@ -687,7 +710,7 @@
 <div class="codex-block" data-codex-block data-cat="customer" id="table-k">
   <div class="codex-head">
     <span class="badge-codex">表 K</span>
-    <h3>会议／宴会综合收益联动表</h3>
+    <h3 id="toc-11">会议／宴会综合收益联动表</h3>
     <span class="pill pill-navy">全服务酒店专属</span>
   </div>
   <p class="codex-desc">
@@ -733,7 +756,7 @@
 <div class="codex-block" data-codex-block data-cat="emergency" id="table-l">
   <div class="codex-head">
     <span class="badge-codex">表 L</span>
-    <h3>异常事件应急判定表</h3>
+    <h3 id="toc-12">异常事件应急判定表</h3>
     <span class="pill pill-red">优先级最高</span>
   </div>
   <p class="codex-desc">
@@ -804,7 +827,7 @@
 <div class="codex-block" data-codex-block data-cat="rhythm" id="table-m">
   <div class="codex-head">
     <span class="badge-codex">表 M</span>
-    <h3>每日收益操作流水线（时间表）</h3>
+    <h3 id="toc-13">每日收益操作流水线（时间表）</h3>
     <span class="pill pill-red">L1 核心</span>
   </div>
   <p class="codex-desc">
@@ -866,7 +889,7 @@
 <div class="codex-block" data-codex-block data-cat="rhythm" id="table-n">
   <div class="codex-head">
     <span class="badge-codex">表 N</span>
-    <h3>周度／月度节奏表</h3>
+    <h3 id="toc-14">周度／月度节奏表</h3>
   </div>
   <p class="codex-desc">除了每天做的事，还有哪些事必须<b>按周、按月、按季度</b>做。漏掉任何一项，体系就会出现漏洞。</p>
 
@@ -896,7 +919,7 @@
 <div class="codex-block" data-codex-block data-cat="emergency rhythm" id="table-o">
   <div class="codex-head">
     <span class="badge-codex">表 O</span>
-    <h3>决策优先级与冲突仲裁表</h3>
+    <h3 id="toc-15">决策优先级与冲突仲裁表</h3>
     <span class="pill pill-red">不纠结的终极保障</span>
   </div>
   <p class="codex-desc">
@@ -948,7 +971,7 @@
 <div class="codex-block" data-codex-block data-cat="price rhythm" id="table-cal">
   <div class="codex-head">
     <span class="badge-codex">附</span>
-    <h3>需求等级日历（D1–D4）</h3>
+    <h3 id="toc-16">需求等级日历（D1–D4）</h3>
   </div>
   <p class="codex-desc">
     一年 365 天先分成四档，每档对应不同的价格系数和目标 OCC。
@@ -1018,5 +1041,40 @@
 <script src="auth.js?v=2"></script>
 <script>window.HRMA_PREFIX="";</script>
 <script src="assets/js/notify.js"></script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1" class="lv3">每日价格调整判定表</a>
+<a href="#toc-2" class="lv3">库存与限制条件配置表</a>
+<a href="#toc-3" class="lv3">价格指数（ARI）判定表</a>
+<a href="#toc-4" class="lv3">市场渗透指数（MPI）判定表</a>
+<a href="#toc-5" class="lv3">超额预订标准表</a>
+<a href="#toc-6" class="lv3">房型价差阶梯表</a>
+<a href="#toc-7" class="lv3">团队／协议询价接受判定表</a>
+<a href="#toc-8" class="lv3">渠道开关判定表</a>
+<a href="#toc-9" class="lv3">预订窗口分档监控表</a>
+<a href="#toc-10" class="lv3">免费升级规则表</a>
+<a href="#toc-11" class="lv3">会议／宴会综合收益联动表</a>
+<a href="#toc-12" class="lv3">异常事件应急判定表</a>
+<a href="#toc-13" class="lv3">每日收益操作流水线（时间表）</a>
+<a href="#toc-14" class="lv3">周度／月度节奏表</a>
+<a href="#toc-15" class="lv3">决策优先级与冲突仲裁表</a>
+<a href="#toc-16" class="lv3">需求等级日历（D1–D4）</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
 </body>
 </html>

@@ -83,6 +83,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -122,6 +123,28 @@ li{margin:6px 0}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"security","item":"https://hrma-city.github.io/security.html"}]}</script>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
 </head>
 <body>
 <header><div class="in">
@@ -130,7 +153,7 @@ li{margin:6px 0}
 </div></header>
 <div class="wrap">
 
-<h2>一、先讲结论</h2>
+<h2 id="toc-1">一、先讲结论</h2>
 <div class="warn">
   <b>GitHub Pages 是纯静态托管，没有服务器，所以它做不了真正的登录鉴权。</b><br>
   现在装上的访问门是<b>浏览器端检查</b>：能挡住搜索引擎、随手点开链接的人、地址被转发扩散；
@@ -139,7 +162,7 @@ li{margin:6px 0}
 </div>
 <p>下面把「现在已经做了什么」「挡得住什么」「还差什么」逐条列清，方便您判断要不要继续投入。</p>
 
-<h2>二、已经做完的四件事</h2>
+<h2 id="toc-2">二、已经做完的四件事</h2>
 <table>
 <tr><th>措施</th><th>覆盖范围</th><th>状态</th></tr>
 <tr><td>全站访问门（邮箱白名单）</td><td>326 个页面，只有 <code>3984557428@qq.com</code> 能进入</td><td><span class="tag t-ok">已上线</span></td></tr>
@@ -149,13 +172,13 @@ li{margin:6px 0}
 </table>
 
 <div class="box">
-<h3>robots.txt 这次是「策略反转」，您要知道为什么</h3>
+<h3 id="toc-3">robots.txt 这次是「策略反转」，您要知道为什么</h3>
 <p>原来的 robots.txt 写的是<b>全面放行</b>所有 AI 爬虫（GPTBot、ClaudeBot、Perplexity、百度等），目的是让 AI 搜到并引用您的内容，提升曝光。</p>
 <p>但现在的实际情况是：站点上放着您的<b>教材全文（508KB）、15 张判定表 PDF、讲师版 PPT、报价策略、定价模型</b>——这些是私有资产。原来那份配置等于把它们主动送去给 AI 训练。</p>
 <p><b>所以已改为全站禁止抓取。</b>如果将来您想重新做公开引流，必须先想清楚：哪些页面可以公开，哪些必须留在门后。两件事不能同时要。</p>
 </div>
 
-<h2>三、这层门到底挡得住什么</h2>
+<h2 id="toc-4">三、这层门到底挡得住什么</h2>
 <table>
 <tr><th>场景</th><th>挡得住吗</th><th>说明</th></tr>
 <tr><td>搜索引擎收录您的教材全文</td><td><span class="tag t-ok">挡得住</span></td><td>robots + noindex 双保险</td></tr>
@@ -167,7 +190,7 @@ li{margin:6px 0}
 <tr><td>直接下载 zip / pptx / pdf 成品</td><td><span class="tag t-no">挡不住</span></td><td>门只管页面，管不到文件本身</td></tr>
 </table>
 
-<h2>四、还差什么：38 个成品文件仍是敞开的</h2>
+<h2 id="toc-5">四、还差什么：38 个成品文件仍是敞开的</h2>
 <p>访问门管页面，管不到直接下载的文件。目前全站有 <b>38 个可直接下载的成品</b>，只要有人猜到地址就能拿走，合计约 3.0MB。最值钱的几个：</p>
 <table>
 <tr><th>文件</th><th>体积</th><th>风险</th></tr>
@@ -185,10 +208,10 @@ li{margin:6px 0}
 目前维持原状未撤，等您决定。
 </div>
 
-<h2>五、如果您要真正的加密级保护</h2>
+<h2 id="toc-6">五、如果您要真正的加密级保护</h2>
 <p>这需要把站点迁到<b>有服务器</b>的平台，由服务器在返回内容之前先验身份。三条路：</p>
 
-<h3>路线 A · Cloudflare Access（免费，推荐先试）</h3>
+<h3 id="toc-7">路线 A · Cloudflare Access（免费，推荐先试）</h3>
 <p>Cloudflare 的「零信任」网关，可以直接保护 <code>*.pages.dev</code> 域名，不需要买域名。配置大概 20 分钟：</p>
 <ol>
 <li>注册 Cloudflare 账号（免费）</li>
@@ -203,7 +226,7 @@ li{margin:6px 0}
 <b>适合</b>：资料以「自己查阅 + 少量熟人」为主，且能接受访问偶尔不稳。
 </div>
 
-<h3>路线 B · 腾讯云（国内最稳，但要备案）</h3>
+<h3 id="toc-8">路线 B · 腾讯云（国内最稳，但要备案）</h3>
 <p>项目里已经备好了 <code>deploy_tcb.sh</code>（CloudBase 静态托管）和 <code>国内可用性与备案方案.md</code>。国内访问速度是所有方案里最好的，但需要：买域名 → 提交 ICP 备案（10–20 天）→ 开通环境 → 上传。</p>
 <div class="box">
 <b>优点</b>：国内访问快、稳定，微信里打开体验好。<br>
@@ -211,7 +234,7 @@ li{margin:6px 0}
 <b>适合</b>：确定要长期公开运营、且主要客户在国内。
 </div>
 
-<h3>路线 C · 只保护最值钱的（最省事的折中）</h3>
+<h3 id="toc-9">路线 C · 只保护最值钱的（最省事的折中）</h3>
 <p>接受站点页面继续公开，但把<b>教材全文、书系、PPT、判定表 PDF</b>这四类撤出公开仓库，只在您需要时从本地取用或用带密码的压缩包单独发。</p>
 <div class="good">
 <b>优点</b>：今天就能做完，几乎零成本，立刻堵住最大的漏洞（整包被人拿走）。<br>
@@ -219,14 +242,14 @@ li{margin:6px 0}
 <b>适合</b>：您现在还没到需要公开站点引流的阶段——<b>按您当前进度（尚无第一个学校案例），这其实是最匹配的选择。</b>
 </div>
 
-<h2>六、我的建议</h2>
+<h2 id="toc-10">六、我的建议</h2>
 <div class="box">
 <p><b>先做路线 C，把四个高危成品撤下来。</b>理由：它今天就能做完，能立刻堵住「整包被拿走」这个最大风险，而且不动您的页面结构。</p>
 <p><b>暂时不要为了登录去迁 Cloudflare。</b>您的站点现在几乎没有外部流量（还没有第一个学校案例），迁移带来的访问不稳定风险大于收益。等您真有了客户、站点开始被人访问，再上 Cloudflare Access，那时它的价值才显现。</p>
 <p><b>等真到了要长期公开卖课的那天，再走路线 B 备案 + 国内托管。</b>那时访问速度才会真正影响成交。</p>
 </div>
 
-<h2>七、日常操作备忘</h2>
+<h2 id="toc-11">七、日常操作备忘</h2>
 <table>
 <tr><th>要做的事</th><th>怎么做</th></tr>
 <tr><td>改完内容重新上线</td><td><code>cd hrma &amp;&amp; zsh sync_gh.sh "说明"</code></td></tr>
@@ -243,5 +266,35 @@ RMC 收益管理社区 · 内部技术说明 · 2026-10-02<br>
 </div>
 
 </div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">一、先讲结论</a>
+<a href="#toc-2">二、已经做完的四件事</a>
+<a href="#toc-3" class="lv3">robots.txt 这次是「策略反转」，您要知道为什么</a>
+<a href="#toc-4">三、这层门到底挡得住什么</a>
+<a href="#toc-5">四、还差什么：38 个成品文件仍是敞开的</a>
+<a href="#toc-6">五、如果您要真正的加密级保护</a>
+<a href="#toc-7" class="lv3">路线 A · Cloudflare Access（免费，推荐先试）</a>
+<a href="#toc-8" class="lv3">路线 B · 腾讯云（国内最稳，但要备案）</a>
+<a href="#toc-9" class="lv3">路线 C · 只保护最值钱的（最省事的折中）</a>
+<a href="#toc-10">六、我的建议</a>
+<a href="#toc-11">七、日常操作备忘</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
 </body>
 </html>

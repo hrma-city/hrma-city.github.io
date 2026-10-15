@@ -81,6 +81,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -105,6 +106,28 @@
 .flow-rule{background:var(--bg-2,#F2F0EB);border-radius:8px;padding:12px 16px;margin:16px 0;font-size:14px;line-height:1.8}
 .flow-rule b{color:#9a6b2f}
 @media print{.site-nav,.site-footer,.cm-btns{display:none!important}.flow{border:2px solid #333}.flow-time{background:#333!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
 </style>
 </head>
 <body data-auth="public">
@@ -139,7 +162,7 @@
     <div class="flow-row">
       <div class="flow-time">07:30</div>
       <div class="flow-body">
-        <h3>取数</h3>
+        <h3 id="toc-1">取数</h3>
         <p>拉昨日实际：OCC、ADR、RevPAR；拉今明两日当前预订与 Pickup；拉未来 7/14/30 天预订进度。</p>
         <span class="chk">✅ 输出：日报三数 + 未来预订曲线　<b>对照表：指标基线</b></span>
       </div>
@@ -147,7 +170,7 @@
     <div class="flow-row">
       <div class="flow-time">08:10</div>
       <div class="flow-body">
-        <h3>比价</h3>
+        <h3 id="toc-2">比价</h3>
         <p>看竞争集今明两日价格，算自己的 ARI/MPI。判断是否"贵得没道理"（ARI 高 + MPI 低才需跟价）。</p>
         <span class="chk">✅ 输出：竞争对标结论　<b>对照表：C 价格指数 / D 份额指数</b></span>
       </div>
@@ -155,7 +178,7 @@
     <div class="flow-row">
       <div class="flow-time">08:30</div>
       <div class="flow-body">
-        <h3>查表</h3>
+        <h3 id="toc-3">查表</h3>
         <p>按"OCC × Pickup"双因子落入矩阵，读出应执行动作与价档；按 No-show 率读超售额度；按保护水平读各价档开关。</p>
         <span class="chk">✅ 输出：今日价档 + 超售数 + 限制条件　<b>对照表：A 价格调整 / B 库存 / E 超售</b></span>
       </div>
@@ -163,7 +186,7 @@
     <div class="flow-row">
       <div class="flow-time">09:10</div>
       <div class="flow-body">
-        <h3>执行</h3>
+        <h3 id="toc-4">执行</h3>
         <p>在系统/PMS 落地：调价档、设超售、开关限制（MLOS/提前订/不可退）。同步渠道（保持 Rate Parity）。</p>
         <span class="chk">✅ 输出：系统已生效 + 渠道已同步　<b>对照表：F 渠道一致性</b></span>
       </div>
@@ -171,7 +194,7 @@
     <div class="flow-row">
       <div class="flow-time">14:00</div>
       <div class="flow-body">
-        <h3>复盘</h3>
+        <h3 id="toc-5">复盘</h3>
         <p>看上午 Pickup 是否如预期；若有大团/竞品突变/天气事件，触发例外流程（不走常规表，升级收益总监）。</p>
         <span class="chk">✅ 输出：例外记录 + 明日预判　<b>对照表：G 例外仲裁</b></span>
       </div>
@@ -179,7 +202,7 @@
     <div class="flow-row">
       <div class="flow-time">17:30</div>
       <div class="flow-body">
-        <h3>收尾</h3>
+        <h3 id="toc-6">收尾</h3>
         <p>更新滚动预测；记录今日偏差（实际 vs 表建议）；周度汇总进 pace 报表与月度收益例会。</p>
         <span class="chk">✅ 输出：滚动预测 + 周/月 pace　<b>对照表：指标基线 / pace</b></span>
       </div>
@@ -220,5 +243,30 @@
 (function(){var t=document.getElementById('snToggle'),l=document.getElementById('snLinks');if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();
 </script>
 <script src="assets/js/app.js?v=v2"></script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1" class="lv3">取数</a>
+<a href="#toc-2" class="lv3">比价</a>
+<a href="#toc-3" class="lv3">查表</a>
+<a href="#toc-4" class="lv3">执行</a>
+<a href="#toc-5" class="lv3">复盘</a>
+<a href="#toc-6" class="lv3">收尾</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
 </body>
 </html>

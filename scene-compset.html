@@ -71,6 +71,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -112,6 +113,28 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"scene-compset","item":"https://hrma-city.github.io/scene-compset.html"}]}</script>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
 </head>
 <body>
 <div class="top">
@@ -122,7 +145,7 @@
 
   <div class="card">
     <span class="tag">竞争应对</span>
-    <h2>竞品 B 昨夜把挂牌从 680 直降到 560。销售问："我们跟不跟？"</h2>
+    <h2 id="toc-1">竞品 B 昨夜把挂牌从 680 直降到 560。销售问："我们跟不跟？"</h2>
     <p>先别急着跟。跟价的本质是「用价格换量」，必须先算清楚：降价后要多卖多少间才能持平。</p>
     <div class="data">
       <div class="cell"><b>¥620</b><span>本店 ADR</span></div>
@@ -132,7 +155,7 @@
       <div class="cell"><b>+12%</b><span>本店 pickup（仍超前）</span></div>
     </div>
     <p class="reveal" id="actual"></p>
-    <h2 style="margin-top:18px;">第一步：您决定怎么应对？</h2>
+    <h2 id="toc-2" style="margin-top:18px;">第一步：您决定怎么应对？</h2>
     <div class="opts" id="opts">
       <button class="opt" data-v="560" onclick="pick(560)">跟降到 ¥560</button>
       <button class="opt" data-v="590" onclick="pick(590)">跟降到 ¥590</button>
@@ -142,10 +165,10 @@
   </div>
 
   <div class="card result" id="result">
-    <h2>决策结果核算</h2>
+    <h2 id="toc-3">决策结果核算</h2>
     <div class="formula" id="calc"></div>
     <div id="verdicts"></div>
-    <h2 style="margin-top:18px;">对照 · 表 C · 不盲目跟价</h2>
+    <h2 id="toc-4" style="margin-top:18px;">对照 · 表 C · 不盲目跟价</h2>
     <div class="verdict"><b>① 先算临界增量：</b>降价后每间夜少收的钱 ÷（新价 − 变动成本）= 必须多卖的间数。</div>
     <div class="verdict"><b>② 再问市场给不给：</b>把临界增量换算成 OCC 个百分点，和历史弹性下的真实 pickup 比。</div>
     <div class="verdict"><b>③ 给不了就不跟：</b>用含早、房型升级等非价格手段补偿，而不是直接砍价。</div>
@@ -155,7 +178,7 @@
   </div>
 
   <div class="card">
-    <h2>讲师出题提示</h2>
+    <h2 id="toc-5">讲师出题提示</h2>
     <p>让学生自己算 ¥560 的临界增量（26 间 ≈ OCC +8.8pp），再对照历史 pickup 根本给不了。这就是"降价靠感觉"的反面教材。</p>
   </div>
 </div>
@@ -197,6 +220,30 @@
   }
   var ACT="";
   if(ACT){ document.getElementById('actual').innerHTML='<b>'+ACT+'</b>'; }
+</script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">竞品 B 昨夜把挂牌从 680 直降到 560。销售问：&quot;我们跟不跟？&quot;</a>
+<a href="#toc-2">第一步：您决定怎么应对？</a>
+<a href="#toc-3">决策结果核算</a>
+<a href="#toc-4">对照 · 表 C · 不盲目跟价</a>
+<a href="#toc-5">讲师出题提示</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
 </script>
 </body>
 </html>

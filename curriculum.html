@@ -81,6 +81,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -91,6 +92,28 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"课程大纲","item":"https://hrma-city.github.io/curriculum.html"}]}</script>
 <link rel="stylesheet" href="assets/css/auth.css">
 <link rel="stylesheet" href="assets/css/notify.css">
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
 </head>
 <body data-page="curriculum" data-auth="protected">
 <div class="layout">
@@ -273,7 +296,7 @@
   </ul>
 </div>
 
-<h3>L1 结业考核</h3>
+<h3 id="toc-1">L1 结业考核</h3>
 <div class="score-box">
   <div class="sb-head"><span class="sb-name">笔试</span><span class="sb-score">100 分制 · ≥80 通过</span></div>
   <div class="sb-bar"><div class="sb-fill" style="width:80%"></div></div>
@@ -361,7 +384,7 @@
   </ul>
 </div>
 
-<h3>L2 结业考核</h3>
+<h3 id="toc-2">L2 结业考核</h3>
 <div class="score-box">
   <div class="sb-head"><span class="sb-name">笔试</span><span class="sb-score">100 分制 · ≥80 通过 · 120 分钟</span></div>
   <div class="sb-bar"><div class="sb-fill" style="width:80%"></div></div>
@@ -448,7 +471,7 @@
   </ul>
 </div>
 
-<h3>L3 结业考核</h3>
+<h3 id="toc-3">L3 结业考核</h3>
 <div class="score-box">
   <div class="sb-head"><span class="sb-name">笔试</span><span class="sb-score">100 分制 · ≥80 通过 · 150 分钟</span></div>
   <div class="sb-bar"><div class="sb-fill" style="width:80%"></div></div>
@@ -493,7 +516,7 @@
   </table>
 </div>
 
-<h3>判定表默写要求（累计制，上一级的表下一级仍要会）</h3>
+<h3 id="toc-4">判定表默写要求（累计制，上一级的表下一级仍要会）</h3>
 <div class="tbl-wrap">
   <table class="tbl">
     <thead><tr><th>等级</th><th>必须默写的表</th><th class="mid">数量</th></tr></thead>
@@ -606,5 +629,36 @@
 <script src="auth.js?v=2"></script>
 <script>window.HRMA_PREFIX="";</script>
 <script src="assets/js/notify.js"></script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#how">一、这套教案怎么读</a>
+<a href="#rhythm">二、固定教学节奏：每课时 90 分钟</a>
+<a href="#path">三、三条授课路径</a>
+<a href="#l1">四、L1 收益执行专员 · 16 课时</a>
+<a href="#toc-1" class="lv3">L1 结业考核</a>
+<a href="#l2">五、L2 收益管理主管 · 32 课时</a>
+<a href="#toc-2" class="lv3">L2 结业考核</a>
+<a href="#l3">六、L3 收益管理经理 · 32 课时</a>
+<a href="#toc-3" class="lv3">L3 结业考核</a>
+<a href="#assess">七、考核总表</a>
+<a href="#toc-4" class="lv3">判定表默写要求（累计制，上一级的表下一级仍要会）</a>
+<a href="#faq">八、讲师常见问题</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
 </body>
 </html>

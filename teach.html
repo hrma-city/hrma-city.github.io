@@ -27,6 +27,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -220,6 +221,28 @@ input[type=text]{flex:1;min-width:200px}
 .viewtab button.on{background:#fff;color:#0f2a4a;box-shadow:0 1px 3px rgba(15,42,74,.12)}
 </style>
 <script src="assets/js/site-nav.js?v=v19"></script>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
 </head>
 <body>
 <div class="hero"><div class="wrap" style="padding-bottom:0"><a class="back" href="index.html">← 回陈列首页</a><h1>教学馆 · 开一门课的四步</h1><p>给要把收益管理开成一门课的教师：先判断能不能开，再把 32 章备进你的课时，然后上讲台，最后把考核组织起来。四站走完，一门课就能落地。每站末尾有考核，全对才算走过。</p><div class="cnt">共 <b>4</b> 站 · <b>12</b> 道考核题 · 覆盖 <b>0</b> 项教学资源</div></div></div>
@@ -714,12 +737,12 @@ function rzoneCards(s){
   }
   var q = s.lv ? ('?lv=' + s.lv) : '';
   if (wbTotal) h += '<a class="card zcard" href="practice.html' + q + '#wb">'
-    + '<h3>模块练习' + (s.lv ? ' · ' + resc(s.lv) : ' · 全部模块') + '</h3>'
+    + '<h3 id="toc-1">模块练习' + (s.lv ? ' · ' + resc(s.lv) : ' · 全部模块') + '</h3>'
     + '<div class="pills"><span class="pill fm">' + wbTotal + ' 题</span><span class="pill">在线判分</span></div>'
     + '<p>按模块分组：判断/单选点选即判分；计算与情景题对照解析自评。做过一遍会记住状态。</p>'
     + '<span class="zgo">进入练习场 →</span></a>';
   if (ppTotal) h += '<a class="card zcard" href="practice.html' + q + '#pp">'
-    + '<h3>真题考核' + (s.lv ? ' · ' + resc(s.lv) + ' 结业考试卷' : ' · 三级全套') + '</h3>'
+    + '<h3 id="toc-2">真题考核' + (s.lv ? ' · ' + resc(s.lv) + ' 结业考试卷' : ' · 三级全套') + '</h3>'
     + '<div class="pills"><span class="pill fm">' + ppTotal + ' 题</span><span class="pill">' + resc(ppMeta) + '</span></div>'
     + '<p>按题型分区作答：机判题在线判分；作答题写完对照参考答案与评分标准自评，可随时收起。</p>'
     + '<span class="zgo">进入考场 →</span></a>';
@@ -756,12 +779,12 @@ function rrenderPath(){
     var stt = rstate(i);
     var items = s.items.map(function(it){
       var ps = (it.k||[]).map(function(k){ return '<span class="pill">' + resc(k) + '</span>'; }).join('');
-      return '<article class="card"><h3><a href="' + resc(it.u) + '">' + resc(it.n) + '</a></h3>'
+      return '<article class="card"><h3 id="toc-3"><a href="' + resc(it.u) + '">' + resc(it.n) + '</a></h3>'
         + '<div class="pills">' + ps + '</div><p>' + resc(it.d) + '</p></article>';
     }).join('');
     html += '<section class="station ' + stt + '" id="st-' + s.id + '">'
       + '<div class="st-h"><div class="st-no">' + (stt === 'done' ? '✓' : (i + 1)) + '</div>'
-      + '<div class="st-t"><h3>第 ' + (i + 1) + ' 站 · ' + resc(s.n)
+      + '<div class="st-t"><h3 id="toc-4">第 ' + (i + 1) + ' 站 · ' + resc(s.n)
       + (stt === 'done' ? '<span class="st-passed">已通过</span>' : '') + '</h3>'
       + '<p class="goal">学完这一站，你应该能：' + resc(s.goal) + '。</p>'
       + '<div class="hrs">约 ' + resc(s.hrs)
@@ -843,13 +866,13 @@ function renderFree(){
       blocks += '<div class="grpblk"><h4>' + esc(sub.name) + '</h4><div class="grid">'
         + items.map(function(it){
             var ps = (it.k||[]).map(function(k){ return '<span class="pill">' + esc(k) + '</span>'; }).join('');
-            return '<article class="card"><h3><a href="' + esc(it.u) + '">' + esc(it.n) + '</a></h3>'
+            return '<article class="card"><h3 id="toc-5"><a href="' + esc(it.u) + '">' + esc(it.n) + '</a></h3>'
               + '<div class="pills">' + ps + '</div><p>' + esc(it.d) + '</p></article>';
           }).join('') + '</div></div>';
     });
     if (!cnt) return;
     n += cnt;
-    html += '<section class="sec"><h2 style="border-color:#' + T[name].c + '">' + esc(name)
+    html += '<section class="sec"><h2 id="toc-6" style="border-color:#' + T[name].c + '">' + esc(name)
       + '　<span style="font-size:14px;color:#5b6a7d;font-weight:400">' + cnt + ' 项</span></h2>'
       + '<p class="sd">' + esc(T[name].sd) + '</p>' + blocks + '</section>';
   });
@@ -860,5 +883,30 @@ renderFree();
 </script>
 <div class="foot">RMC收益管理社区<br>找不到想要的？用顶栏搜索，或进资料库翻全站 504 项资源</div>
 </div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1" class="lv3">模块练习&#x27; + (s.lv ? &#x27; · &#x27; + resc(s.lv) : &#x27; · 全部模块&#x27;) + &#x27;</a>
+<a href="#toc-2" class="lv3">真题考核&#x27; + (s.lv ? &#x27; · &#x27; + resc(s.lv) + &#x27; 结业考试卷&#x27; : &#x27; · 三级全套&#x27;) + &#x27;</a>
+<a href="#toc-3" class="lv3">&#x27; + resc(it.n) + &#x27;</a>
+<a href="#toc-4" class="lv3">第 &#x27; + (i + 1) + &#x27; 站 · &#x27; + resc(s.n) + (stt === &#x27;done&#x27; ? &#x27;已通过&#x27; : &#x27;&#x27;) + &#x27;</a>
+<a href="#toc-5" class="lv3">&#x27; + esc(it.n) + &#x27;</a>
+<a href="#toc-6">&#x27; + esc(name) + &#x27; &#x27; + cnt + &#x27; 项</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
 </body>
 </html>

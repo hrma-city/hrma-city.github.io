@@ -82,6 +82,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -118,6 +119,28 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"cloudflare-setup","item":"https://hrma-city.github.io/cloudflare-setup.html"}]}</script>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -137,7 +160,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 ② 换域名之后，您在这台电脑上保存的登录状态不会跟着过去（浏览器按域名隔离）。<b>到了新站点还要再用一次恢复码进站</b>——不过那只要 10 秒，见第 4 段。
 </div>
 
-<h2 style="color:#b3261e">第 0 段 · 迁移前，先确认老地址进得去（<b>必须做</b>）</h2>
+<h2 id="toc-1" style="color:#b3261e">第 0 段 · 迁移前，先确认老地址进得去（<b>必须做</b>）</h2>
 <div class="note">这一段<b>在注册 Cloudflare 之前</b>做。原因：等 Access 一开，老地址就会被一起锁住，
 万一那时才发现进不去，您就两头都没得用了。</div>
 <div class="step"><div class="num">0</div><div class="body">
@@ -152,7 +175,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 </div></div>
 <p class="tip">这一步只要一次就好。之后这台电脑会一直记住登录状态，不用来回填。</p>
 
-<h2>第 1 段 · 注册 Cloudflare（约 3 分钟）</h2>
+<h2 id="toc-2">第 1 段 · 注册 Cloudflare（约 3 分钟）</h2>
 
 <div class="step"><div class="num">1</div><div class="body">
 <div class="t">打开 cloudflare.com，注册一个账号</div>
@@ -171,7 +194,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 仓库列表里选 <span class="path">hrma-city / hrma-city.github.io</span>，点 <span class="path">Begin setup</span>。
 </div></div></div>
 
-<h2>第 2 段 · 部署到 Cloudflare Pages（约 2 分钟）</h2>
+<h2 id="toc-3">第 2 段 · 部署到 Cloudflare Pages（约 2 分钟）</h2>
 
 <div class="step"><div class="num">4</div><div class="body">
 <div class="t">填写构建配置</div>
@@ -198,7 +221,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 改完 <span class="path">hrma-city.github.io</span> 会变成 404，不再对外可访问。<br><b>关错了怎么办</b>：把 Source 改回 <span class="path">Deploy from a branch</span>、分支选 <span class="path">main</span>、目录选 <span class="path">/ (root)</span>，等 1 分钟站点就回来了。资料不会丢，代码一直在仓库里。
 </div></div></div>
 
-<h2>第 3 段 · 开 Cloudflare Access（约 8 分钟）</h2>
+<h2 id="toc-4">第 3 段 · 开 Cloudflare Access（约 8 分钟）</h2>
 
 <div class="step"><div class="num">7</div><div class="body">
 <div class="t">进入 Zero Trust 控制台</div>
@@ -254,7 +277,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 <b>验证码发出来一般 10 秒内到，如果 2 分钟没到，翻一下垃圾箱</b>（CF 的邮件经常被 QQ 邮箱判垃圾）。
 </div></div></div>
 
-<h2>他人如何申请进站（审核入口）</h2>
+<h2 id="toc-5">他人如何申请进站（审核入口）</h2>
 <div class="callout">
 <b>Cloudflare Access 本身没有「注册申请页」</b>——不在白名单的人会被直接拦在登录框外，连申请都填不了。所以「申请」要走站外：
 <ul class="chk">
@@ -265,7 +288,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 审核标准您自己定（例如：只放院校老师 / 已购陪跑的客户）。加白名单 = 通过；不加 = 拒绝。
 </div>
 
-<h2>收尾 · 确认做对了</h2>
+<h2 id="toc-6">收尾 · 确认做对了</h2>
 <ul class="chk">
 <li>新网址能进去，页面和原来一模一样（内容、下载按钮都在）</li>
 <li>在<b>另一个浏览器 / 无痕窗口</b>里打开新网址 → 应该被 Cloudflare 拦在登录页，进不去</li>
@@ -287,7 +310,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 <li>以后更新内容，还照旧跑 <span class="path">sync_gh.sh</span>，推到 GitHub 之后 Cloudflare 会自动重新部署，不用手动上传</li>
 </ul>
 
-<h2>万一出问题</h2>
+<h2 id="toc-7">万一出问题</h2>
 <div class="callout">
 <b>收不到验证码邮件：</b>先翻垃圾箱；再试一次；还不行就去 <span class="path">Access → Settings → Authentication → Login methods</span> 改成 <b>GitHub 登录</b>或<b>Google 登录</b>，重做第 9～11 步。告诉我，我给您那两条路径的具体步骤。<br><br>
 <b>Cloudflare 注册要手机号但收不到短信：</b>换一个运营商，或用 voice-code 语音验证码。<br><br>
@@ -302,5 +325,31 @@ HRMA 站点私有化 · 全程免费（Cloudflare 免费版 Access 不限用户�
 
 </div>
 <script src="assets/js/site-nav.js?v=v19"></script>
-  </body>
+  
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">第 0 段 · 迁移前，先确认老地址进得去（必须做）</a>
+<a href="#toc-2">第 1 段 · 注册 Cloudflare（约 3 分钟）</a>
+<a href="#toc-3">第 2 段 · 部署到 Cloudflare Pages（约 2 分钟）</a>
+<a href="#toc-4">第 3 段 · 开 Cloudflare Access（约 8 分钟）</a>
+<a href="#toc-5">他人如何申请进站（审核入口）</a>
+<a href="#toc-6">收尾 · 确认做对了</a>
+<a href="#toc-7">万一出问题</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
 </html>

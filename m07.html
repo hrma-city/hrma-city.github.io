@@ -81,6 +81,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -91,6 +92,28 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"courses","item":"https://hrma-city.github.io/m07.html"},{"@type":"ListItem","position":3,"name":"m07-inventory","item":"https://hrma-city.github.io/m07.html"}]}</script>
 <link rel="stylesheet" href="assets/css/auth.css">
 <link rel="stylesheet" href="assets/css/notify.css">
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
 </head>
 <body data-page="m07" data-auth="protected">
 <div class="layout">
@@ -242,7 +265,7 @@
     </table>
   </div>
 
-  <h3>2.1 定行规则（与表 A 完全一致，不许另创）</h3>
+  <h3 id="toc-1">2.1 定行规则（与表 A 完全一致，不许另创）</h3>
 
   <div class="callout callout-danger">
     <span class="co-t">表 B 有 5 行，不是 4 行。「90–95%」是独立的一行</span>
@@ -258,7 +281,7 @@
     X &lt; 70.0% →「&lt;70%」行</p>
   </div>
 
-  <h3>2.2 逐行逐列展开</h3>
+  <h3 id="toc-2">2.2 逐行逐列展开</h3>
 
   <div class="tbl-wrap">
     <table class="tbl">
@@ -313,7 +336,7 @@
     想不清楚这个不等式，就不要设。</p>
   </div>
 
-  <h3>3.1 MinLOS（最少住期 · Minimum Length of Stay）</h3>
+  <h3 id="toc-3">3.1 MinLOS（最少住期 · Minimum Length of Stay）</h3>
 
   <div class="kv">
     <div class="kv-row"><div class="kv-k">定义</div><div class="kv-v">对某一入住日，只接受连住 ≥ N 晚的预订。选 1 晚的客人在前台/OTA 上<b>看不到可售</b></div></div>
@@ -330,7 +353,7 @@
     ③ <b>D1 峰值日的 MinLOS = 3 晚只在「≥95%」行出现</b>；「90–95%」行是 2 晚，即使该日是 D1 也不变——因为 90–95% 行专门写了「2 晚」，而「≥95%」行写的是「2 晚（D1 峰值日 3 晚）」。</p>
   </div>
 
-  <h3>3.2 MaxLOS（最多住期 · Maximum Length of Stay）</h3>
+  <h3 id="toc-4">3.2 MaxLOS（最多住期 · Maximum Length of Stay）</h3>
 
   <div class="kv">
     <div class="kv-row"><div class="kv-k">定义</div><div class="kv-v">对某一入住日，只接受连住 ≤ N 晚的预订。超过 N 晚的预订被拒绝</div></div>
@@ -346,7 +369,7 @@
     启用与撤除都必须写进《调价台账》，触发表编号填「<b>表 B</b>」，并在备注第二段写明启用依据。<b>不得凭口头要求设置。</b></p>
   </div>
 
-  <h3>3.3 CTA（不可入住 · Closed to Arrival）</h3>
+  <h3 id="toc-5">3.3 CTA（不可入住 · Closed to Arrival）</h3>
 
   <div class="kv">
     <div class="kv-row"><div class="kv-k">定义</div><div class="kv-v">该日不接受<b>新到店</b>的预订，但已在住的客人可以延续入住跨过这一天</div></div>
@@ -356,7 +379,7 @@
     <div class="kv-row"><div class="kv-k">怎么撤</div><div class="kv-v">关闭 CTA 开关 → <b>换到预订界面视角试订：选该日为入住日、住 1 晚，必须能订成功</b> → 截图存证 → 台账登记（动作类型「撤 CTA」）</div></div>
   </div>
 
-  <h3>3.4 CTD（不可离店 · Closed to Departure）</h3>
+  <h3 id="toc-6">3.4 CTD（不可离店 · Closed to Departure）</h3>
 
   <div class="kv">
     <div class="kv-row"><div class="kv-k">定义</div><div class="kv-v">不允许客人在该日离店（退房）</div></div>
@@ -374,7 +397,7 @@
     典型组合（国庆 10 月 1–5 日）：10/1 设 CTA（防止单日客）＋ MinLOS 3 晚；10/5 设 CTD（防止客人在峰值最后一天退房造成 10/6 空档）。<b>两个都要在假期结束后第一时间撤除。</b></p>
   </div>
 
-  <h3>3.5 Stop Sell（停售 / 关房 · Close-out）</h3>
+  <h3 id="toc-7">3.5 Stop Sell（停售 / 关房 · Close-out）</h3>
 
   <div class="kv">
     <div class="kv-row"><div class="kv-k">定义</div><div class="kv-v">某房型 / 某价格代码 / 某渠道在某日<b>完全不可售</b>，与库存余量无关</div></div>
@@ -384,7 +407,7 @@
     <div class="kv-row"><div class="kv-k">怎么撤</div><div class="kv-v">本店侧 + 渠道侧<b>两层都撤</b> → <b>等待渠道缓存刷新</b>（不同渠道刷新周期不同）→ 从前台视角复查确实可订 → 若仍不可订，联系渠道经理处理 → 台账登记（动作类型「Stop Sell 关」）</div></div>
   </div>
 
-  <h3>3.6 五种限制条件速查卡</h3>
+  <h3 id="toc-8">3.6 五种限制条件速查卡</h3>
 
   <div class="tbl-wrap">
     <table class="tbl">
@@ -411,13 +434,13 @@
 
   <p>三起事故的共同点：<b>设置动作做得很规范，撤除动作完全没有流程。</b>本节就是来解决这个问题的。</p>
 
-  <h3>4.1 根本原因：限制条件有「生效日」但没有「到期日」</h3>
+  <h3 id="toc-9">4.1 根本原因：限制条件有「生效日」但没有「到期日」</h3>
 
   <p>在系统里设置限制条件时，您填的是「从哪天开始」。系统不会问您「到哪天结束」——因为它的设计假设是「您会记得来撤」。<b>而人一定会忘。</b></p>
 
   <p>所以撤除机制的核心不是「提醒自己」，而是<b>把到期日变成一个系统里的字段</b>。</p>
 
-  <h3>4.2 三重保险机制（云璟标准做法）</h3>
+  <h3 id="toc-10">4.2 三重保险机制（云璟标准做法）</h3>
 
   <div class="step"><div class="step-num">1</div><div class="step-body">
     <h4>保险一 · 设置即登记：每一条限制条件都必须进《限制条件存量清单》</h4>
@@ -469,7 +492,7 @@
     </div>
   </div></div>
 
-  <h3>4.3 限制条件撤除五步法（背下来，每次撤除都按这五步走）</h3>
+  <h3 id="toc-11">4.3 限制条件撤除五步法（背下来，每次撤除都按这五步走）</h3>
 
   <div class="step"><div class="step-num">1</div><div class="step-body">
     <h4>查到期日</h4>
@@ -525,7 +548,7 @@
     超售间数 = 可售房量 × 超售率（<b>向下取整</b>）
   </div>
 
-  <h3>第一步：查基准超售率</h3>
+  <h3 id="toc-12">第一步：查基准超售率</h3>
 
   <div class="tbl-wrap">
     <table class="tbl tbl-codex">
@@ -549,7 +572,7 @@
     <b>注意最后两档的跨度不同：</b>20–30% 是 10 个百分点的跨度，&gt;30% 是无上限的。<b>一旦合计值 ≥30%，无论多高都取 10%，且必须 L3 审批</b>——这正是「无上限档必须有人把关」的设计意图。</p>
   </div>
 
-  <h3>第二步：修正系数（连乘）</h3>
+  <h3 id="toc-13">第二步：修正系数（连乘）</h3>
 
   <div class="tbl-wrap">
     <table class="tbl tbl-codex">
@@ -572,7 +595,7 @@
     因为这类日子一旦超售失败，您要送走的是<b>一个高价值客人或一个团队</b>，代价远高于多卖一间房的收益。</p>
   </div>
 
-  <h3>第三步：硬上限（三条同时生效，取最小值）</h3>
+  <h3 id="toc-14">第三步：硬上限（三条同时生效，取最小值）</h3>
 
   <div class="tbl-wrap">
     <table class="tbl tbl-codex">
@@ -596,7 +619,7 @@
     <b>顺序错了结果就错。</b>若先取整再比大小，会得到偏大的结果。</p>
   </div>
 
-  <h3>5.1 什么时候需要查表 E</h3>
+  <h3 id="toc-15">5.1 什么时候需要查表 E</h3>
 
   <div class="callout callout-warn">
     <span class="co-t">表 E 只在表 B 的两行里被调用</span>
@@ -750,7 +773,7 @@
     </div>
   </div>
 
-  <h3>6.1 四案例汇总对照</h3>
+  <h3 id="toc-16">6.1 四案例汇总对照</h3>
 
   <div class="tbl-wrap">
     <table class="tbl">
@@ -767,7 +790,7 @@
 
   <h2 id="s7">七、超售的落地：房型级分配与三项配套准备</h2>
 
-  <h3>7.1 房型级分配（不能只设总数）</h3>
+  <h3 id="toc-17">7.1 房型级分配（不能只设总数）</h3>
 
   <p>超售上限是一个总数，但系统里必须<b>按房型设置</b>。两条分配规则：</p>
 
@@ -824,7 +847,7 @@
     </table>
   </div>
 
-  <h3>7.2 开启超售日的三项配套准备（缺一不可）</h3>
+  <h3 id="toc-18">7.2 开启超售日的三项配套准备（缺一不可）</h3>
 
   <div class="callout callout-danger">
     <span class="co-t">开超售 = 承诺「万一失败我负责」。下面三件必须在落位当天备妥</span>
@@ -833,7 +856,7 @@
     <b>准备 3 · 《升级台账》已准备。</b>超售日大概率触发《法典》表 J 的免费升级（超售需要腾房）。台账表单、L3 审批通道、前厅执行话术必须提前就位，不能等客人站在前台了才临时找人批。</p>
   </div>
 
-  <h3>7.3 《超售日监控表》（超售日 17:00 二次巡检固定动作）</h3>
+  <h3 id="toc-19">7.3 《超售日监控表》（超售日 17:00 二次巡检固定动作）</h3>
 
   <div class="tbl-wrap">
     <table class="tbl">
@@ -888,7 +911,7 @@
     </table>
   </div>
 
-  <h3>8.1 三个触发条件的逐个解释</h3>
+  <h3 id="toc-20">8.1 三个触发条件的逐个解释</h3>
 
   <div class="grid-3">
     <div class="card">
@@ -911,7 +934,7 @@
     </div>
   </div>
 
-  <h3>8.2 四级排序的逐条解释（最容易出错的是第 2 级）</h3>
+  <h3 id="toc-21">8.2 四级排序的逐条解释（最容易出错的是第 2 级）</h3>
 
   <div class="tbl-wrap">
     <table class="tbl">
@@ -956,7 +979,7 @@
     <b>三个触发条件共享这 3 间额度</b>——超售腾房、高档房空置、会员权益，加起来一天最多 3 间套房升级。</p>
   </div>
 
-  <h3>8.3 升级排序实操（一个完整的排序练习）</h3>
+  <h3 id="toc-22">8.3 升级排序实操（一个完整的排序练习）</h3>
 
   <div class="callout callout-do">
     <span class="co-t">场景：某日需腾出 2 间 STD 房，以下 6 位客人竞争升级到 SUP</span>
@@ -1018,7 +1041,7 @@
 
   <h2 id="s10">十、《法典》表 L · 超售过度与《步行客人预案》四步补偿包</h2>
 
-  <h3>10.1 表 L「超售过度」分支原文</h3>
+  <h3 id="toc-23">10.1 表 L「超售过度」分支原文</h3>
 
   <div class="tbl-wrap">
     <table class="tbl tbl-codex">
@@ -1044,7 +1067,7 @@
     <b>提前两小时知道，和让客人站在大堂才知道，是两个完全不同的事故等级。</b></p>
   </div>
 
-  <h3>10.2 《步行客人预案》标准补偿包（四步，按序执行，不许跳步）</h3>
+  <h3 id="toc-24">10.2 《步行客人预案》标准补偿包（四步，按序执行，不许跳步）</h3>
 
   <div class="step"><div class="step-num">1</div><div class="step-body">
     <h4>安排同档或更高档酒店，承担房费差价 + 交通费</h4>
@@ -1094,7 +1117,7 @@
     <b>结论：送走 1 个人的代价（¥593）几乎等于多卖 1 间房的收益（¥680），还没算差评与忠诚会员流失的长期损失。</b>这就是为什么表 E 的三个 ×0.5 与三条硬上限设计得如此保守。</p>
   </div>
 
-  <h3>10.3 事后复盘：重算表 E 参数</h3>
+  <h3 id="toc-25">10.3 事后复盘：重算表 E 参数</h3>
 
   <div class="callout callout-do">
     <span class="co-t">表 L 规定「超售过度」的复盘动作是「重算表 E 参数」，具体做四件事</span>
@@ -1648,5 +1671,66 @@
 <script src="assets/js/notify.js"></script>
 <script>window.HRMA_LEARN_COURSE="m07-inventory";</script>
 <script src="assets/js/learn.js"></script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#s1">一、库存战术的坐标：为什么库存优先于价格</a>
+<a href="#s2">二、《法典》表 B · 库存与限制条件配置表（完整内嵌）</a>
+<a href="#toc-1" class="lv3">2.1 定行规则（与表 A 完全一致，不许另创）</a>
+<a href="#toc-2" class="lv3">2.2 逐行逐列展开</a>
+<a href="#s3">三、五种限制条件逐个讲：MinLOS / MaxLOS / CTA / CTD / Stop Sell</a>
+<a href="#toc-3" class="lv3">3.1 MinLOS（最少住期 · Minimum Length of Stay）</a>
+<a href="#toc-4" class="lv3">3.2 MaxLOS（最多住期 · Maximum Length of Stay）</a>
+<a href="#toc-5" class="lv3">3.3 CTA（不可入住 · Closed to Arrival）</a>
+<a href="#toc-6" class="lv3">3.4 CTD（不可离店 · Closed to Departure）</a>
+<a href="#toc-7" class="lv3">3.5 Stop Sell（停售 / 关房 · Close-out）</a>
+<a href="#toc-8" class="lv3">3.6 五种限制条件速查卡</a>
+<a href="#s4">四、★ 撤除机制：真实工作中最高频的事故</a>
+<a href="#toc-9" class="lv3">4.1 根本原因：限制条件有「生效日」但没有「到期日」</a>
+<a href="#toc-10" class="lv3">4.2 三重保险机制（云璟标准做法）</a>
+<a href="#toc-11" class="lv3">4.3 限制条件撤除五步法（背下来，每次撤除都按这五步走）</a>
+<a href="#s5">五、《法典》表 E · 超额预订标准表（完整内嵌 · 三步法）</a>
+<a href="#toc-12" class="lv3">第一步：查基准超售率</a>
+<a href="#toc-13" class="lv3">第二步：修正系数（连乘）</a>
+<a href="#toc-14" class="lv3">第三步：硬上限（三条同时生效，取最小值）</a>
+<a href="#toc-15" class="lv3">5.1 什么时候需要查表 E</a>
+<a href="#s6">六、四个完整超售计算案例（一步步走完三步法）</a>
+<a href="#toc-16" class="lv3">6.1 四案例汇总对照</a>
+<a href="#s7">七、超售的落地：房型级分配与三项配套准备</a>
+<a href="#toc-17" class="lv3">7.1 房型级分配（不能只设总数）</a>
+<a href="#toc-18" class="lv3">7.2 开启超售日的三项配套准备（缺一不可）</a>
+<a href="#toc-19" class="lv3">7.3 《超售日监控表》（超售日 17:00 二次巡检固定动作）</a>
+<a href="#s8">八、《法典》表 J · 免费升级规则表（完整内嵌）</a>
+<a href="#toc-20" class="lv3">8.1 三个触发条件的逐个解释</a>
+<a href="#toc-21" class="lv3">8.2 四级排序的逐条解释（最容易出错的是第 2 级）</a>
+<a href="#toc-22" class="lv3">8.3 升级排序实操（一个完整的排序练习）</a>
+<a href="#s9">九、《升级台账》与套房升级的 L3 审批</a>
+<a href="#s10">十、《法典》表 L · 超售过度与《步行客人预案》四步补偿包</a>
+<a href="#toc-23" class="lv3">10.1 表 L「超售过度」分支原文</a>
+<a href="#toc-24" class="lv3">10.2 《步行客人预案》标准补偿包（四步，按序执行，不许跳步）</a>
+<a href="#toc-25" class="lv3">10.3 事后复盘：重算表 E 参数</a>
+<a href="#s11">十一、主流系统操作路径映射表</a>
+<a href="#s12">十二、讲师示范 ①：D2 高涨日（表 B 全四列 + 撤除计划）</a>
+<a href="#s13">十三、讲师示范 ②：超售日 → 到店无房 → 启动步行客人预案</a>
+<a href="#s14">十四、学员跟练（6 题）</a>
+<a href="#s15">十五、判定表默写清单</a>
+<a href="#s16">十六、随堂测（5 题）</a>
+<a href="#s17">十七、本模块产出物</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
 </body>
 </html>

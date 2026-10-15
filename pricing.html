@@ -81,6 +81,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -91,6 +92,28 @@
 <link rel="stylesheet" href="assets/css/commerce.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC"],"url":"https://hrma-city.github.io/"}</script>
 <link rel="stylesheet" href="assets/css/notify.css">
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
 </head>
 <body data-auth="public">
 
@@ -114,7 +137,7 @@
   <p class="cm-section-lead">两条通道：<b>院校 / 教师</b>走「师资陪跑」（重点服务方向）；<b>酒店从业者 / 个人</b>走会员与训练营。</p>
 
   <!-- ========== v4 院校 / 教师服务阶梯（主推） ========== -->
-  <h2 class="cm-section-title" style="font-size:21px;margin-top:30px">院校 / 教师：课开不出来，我们陪您开</h2>
+  <h2 id="toc-1" class="cm-section-title" style="font-size:21px;margin-top:30px">院校 / 教师：课开不出来，我们陪您开</h2>
   <p class="cm-section-lead">
     <b>开课的关键不是资料，而是把课真正开出来的能力。</b>教材、大纲、工具包只是陪跑过程中沉淀下来的交付物——
     您真正要买的是确定性：<b>这门课一定开得出来、学生能用、申报能中</b>。
@@ -122,7 +145,7 @@
   <div class="price-grid" style="margin-top:12px">
 
     <div class="price-card">
-      <h3>T1 · 开课即用包</h3>
+      <h3 id="toc-2">T1 · 开课即用包</h3>
       <div class="pc-meta">院校 · 一次性 · 入门套件</div>
       <div class="pc-price">¥1.98万 <small>起 / 校</small></div>
       <ul>
@@ -137,7 +160,7 @@
 
     <div class="price-card featured">
       <div class="pc-tag">★ 核心方案 · 推荐</div>
-      <h3>T2 · 师资陪跑</h3>
+      <h3 id="toc-3">T2 · 师资陪跑</h3>
       <div class="pc-meta">院校 · 咨询式年框</div>
       <div class="pc-price">¥8–25万 <small>/ 年</small></div>
       <ul>
@@ -152,7 +175,7 @@
     </div>
 
     <div class="price-card">
-      <h3>T3 · 生态订阅</h3>
+      <h3 id="toc-4">T3 · 生态订阅</h3>
       <div class="pc-meta">院校 · 年度 · 持续订阅</div>
       <div class="pc-price">¥1–3万 <small>/ 年</small></div>
       <ul>
@@ -173,13 +196,13 @@
   </p>
 
   <!-- ========== 以下为原酒店 / 个人通道 ========== -->
-  <h2 class="cm-section-title" style="font-size:21px;margin-top:38px">酒店从业者 / 个人：会员学习权益</h2>
+  <h2 id="toc-5" class="cm-section-title" style="font-size:21px;margin-top:38px">酒店从业者 / 个人：会员学习权益</h2>
   <p class="cm-section-lead">所有会员都包含完整的通用内核 + 六大行业专业课与三级认证体系。差异在「深度答疑、专家对接、企业内训」这三件事上。</p>
 
   <div class="price-grid">
     <!-- 免费注册会员 -->
     <div class="price-card">
-      <h3>免费注册会员</h3>
+      <h3 id="toc-6">免费注册会员</h3>
       <div class="pc-meta">个人 · 永久免费</div>
       <div class="pc-price">¥0 <small>/ 永久</small></div>
       <ul>
@@ -197,7 +220,7 @@
     <!-- 标准会员 -->
     <div class="price-card featured">
       <div class="pc-tag">最受欢迎</div>
-      <h3>标准会员</h3>
+      <h3 id="toc-7">标准会员</h3>
       <div class="pc-meta">个人 · 年度</div>
       <div class="pc-price">¥299 <small>/ 年</small></div>
       <ul>
@@ -214,7 +237,7 @@
 
     <!-- 企业版 -->
     <div class="price-card">
-      <h3>企业版</h3>
+      <h3 id="toc-8">企业版</h3>
       <div class="pc-meta">团队 · 年度</div>
       <div class="pc-price">¥1999 <small>/ 年</small></div>
       <ul>
@@ -231,7 +254,7 @@
   </div>
 
   <!-- ========== 单项服务 ========== -->
-  <h2 class="cm-section-title" style="font-size:21px;margin-top:34px">单项服务（不买会员也能单买）</h2>
+  <h2 id="toc-9" class="cm-section-title" style="font-size:21px;margin-top:34px">单项服务（不买会员也能单买）</h2>
   <p class="cm-section-lead">会员解决的是「长期学」，这几项解决的是「眼下这一件事」。</p>
   <table style="width:100%;border-collapse:collapse;margin-top:12px;font-size:14px">
     <thead><tr style="background:var(--bg-2)">
@@ -264,12 +287,12 @@
   </table>
 
   <!-- ========== 实操训练营（陪跑型） ========== -->
-  <h2 class="cm-section-title" style="font-size:21px;margin-top:34px">实操训练营（陪跑型，不是听课）</h2>
+  <h2 id="toc-10" class="cm-section-title" style="font-size:21px;margin-top:34px">实操训练营（陪跑型，不是听课）</h2>
   <p class="cm-section-lead">收益管理是门手艺，听课学不会——只能靠「每天做、每天被纠正」练出来。这几项是带您在自己的店里真调价、拿可量化结果的。<br><span style="font-size:13px;color:var(--ink-3)">本节面向<b>酒店从业者</b>；院校教师的方向请走上方 T2 师资陪跑（按月评审 + 咨询式伴随，不是每日打卡）。</span></p>
   <div class="price-grid" style="margin-top:12px">
     <div class="price-card featured">
       <div class="pc-tag">主打</div>
-      <h3>21 天定价实操营</h3>
+      <h3 id="toc-11">21 天定价实操营</h3>
       <div class="pc-meta">收益经理 / 店总 · 21 天</div>
       <div class="pc-price">¥1,980 <small>标准 ¥2,980</small></div>
       <ul>
@@ -282,7 +305,7 @@
       <a class="btn-line" href="camp-pricing.html">查看营期与报名</a>
     </div>
     <div class="price-card">
-      <h3>酒店年度陪跑<span style="font-size:11.5px;color:var(--ink-3);font-weight:600"> · 面向酒店，非院校</span></h3>
+      <h3 id="toc-12">酒店年度陪跑<span style="font-size:11.5px;color:var(--ink-3);font-weight:600"> · 面向酒店，非院校</span></h3>
       <div class="pc-meta">单店 / 小集团 · 年度</div>
       <div class="pc-price">¥30,000 <small>起 / 年</small></div>
       <ul>
@@ -294,7 +317,7 @@
       <a class="btn-line" href="mailto:rm-community@qq.com?subject=年度收益管理陪跑咨询">邮件咨询</a>
     </div>
     <div class="price-card">
-      <h3>师资认证集训营 TTT</h3>
+      <h3 id="toc-13">师资认证集训营 TTT</h3>
       <div class="pc-meta">想转型培训师 / 咨询师</div>
       <div class="pc-price">¥2,980 <small>/ 人</small></div>
       <ul>
@@ -308,10 +331,10 @@
   </div>
 
   <!-- ========== 打包 ========== -->
-  <h2 class="cm-section-title" style="font-size:21px;margin-top:34px">打包购买（比单买划算）</h2>
+  <h2 id="toc-14" class="cm-section-title" style="font-size:21px;margin-top:34px">打包购买（比单买划算）</h2>
   <div class="price-grid" style="margin-top:12px">
     <div class="price-card">
-      <h3>开业护航包</h3>
+      <h3 id="toc-15">开业护航包</h3>
       <div class="pc-meta">新店 / 换团队 · 一次性</div>
       <div class="pc-price">¥1,999 <small>原价 ¥5,000</small></div>
       <ul>
@@ -325,7 +348,7 @@
     </div>
     <div class="price-card featured">
       <div class="pc-tag">最划算</div>
-      <h3>团队成长包</h3>
+      <h3 id="toc-16">团队成长包</h3>
       <div class="pc-meta">单店 / 小集团 · 年度</div>
       <div class="pc-price">¥6,800 <small>/ 年</small></div>
       <ul>
@@ -338,7 +361,7 @@
       <button class="btn-gold" data-plan="growth" data-amount="6800">了解详情</button>
     </div>
     <div class="price-card">
-      <h3>院校 / 机构教学包</h3>
+      <h3 id="toc-17">院校 / 机构教学包</h3>
       <div class="pc-meta">开课方 · 年度</div>
       <div class="pc-price">¥1,999 <small>/ 年</small></div>
       <ul>
@@ -352,7 +375,7 @@
   </div>
 
   <!-- ========== 企业阶梯 ========== -->
-  <h2 class="cm-section-title" style="font-size:21px;margin-top:34px">企业批量：按门店数阶梯</h2>
+  <h2 id="toc-18" class="cm-section-title" style="font-size:21px;margin-top:34px">企业批量：按门店数阶梯</h2>
   <p class="cm-section-lead">集团采购按门店数量阶梯计价，门店越多单店成本越低；5 家起按企业版席位扩展。</p>
   <table style="width:100%;border-collapse:collapse;margin-top:12px;font-size:14px">
     <thead><tr style="background:var(--bg-2)">
@@ -380,12 +403,12 @@
   </p>
 
   <!-- ========== 无主体也能收：C 端平台代收 ========== -->
-  <h2 class="cm-section-title" style="font-size:21px;margin-top:38px">个人也能收：C 端小额走平台代收</h2>
+  <h2 id="toc-19" class="cm-section-title" style="font-size:21px;margin-top:38px">个人也能收：C 端小额走平台代收</h2>
   <p class="cm-section-lead">无公司主体也能合规收款——通过内容 / 社群平台代收付，平台持支付牌照，个人可运营，无需自己接支付资质。</p>
   <div class="price-grid" style="margin-top:12px">
     <div class="price-card featured">
       <div class="pc-tag">C 端首选</div>
-      <h3>知识星球 · 会员社群</h3>
+      <h3 id="toc-20">知识星球 · 会员社群</h3>
       <div class="pc-meta">持续更新 · 问答</div>
       <ul>
         <li>标准 / 企业会员对应社群</li>
@@ -395,7 +418,7 @@
       <a class="btn-gold" href="#" target="_blank" rel="noopener">前往知识星球（待替换）</a>
     </div>
     <div class="price-card">
-      <h3>小报童 · 专栏订阅</h3>
+      <h3 id="toc-21">小报童 · 专栏订阅</h3>
       <div class="pc-meta">图文专栏</div>
       <ul>
         <li>收益管理实战专栏</li>
@@ -405,7 +428,7 @@
       <a class="btn-line" href="#" target="_blank" rel="noopener">前往小报童（待替换）</a>
     </div>
     <div class="price-card">
-      <h3>爱发电 · 赞助支持</h3>
+      <h3 id="toc-22">爱发电 · 赞助支持</h3>
       <div class="pc-meta">自愿赞助</div>
       <ul>
         <li>单次 / 月度赞助</li>
@@ -456,5 +479,46 @@
 </script>
 <script>window.HRMA_PREFIX="";</script>
 <script src="assets/js/notify.js"></script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">院校 / 教师：课开不出来，我们陪您开</a>
+<a href="#toc-2" class="lv3">T1 · 开课即用包</a>
+<a href="#toc-3" class="lv3">T2 · 师资陪跑</a>
+<a href="#toc-4" class="lv3">T3 · 生态订阅</a>
+<a href="#toc-5">酒店从业者 / 个人：会员学习权益</a>
+<a href="#toc-6" class="lv3">免费注册会员</a>
+<a href="#toc-7" class="lv3">标准会员</a>
+<a href="#toc-8" class="lv3">企业版</a>
+<a href="#toc-9">单项服务（不买会员也能单买）</a>
+<a href="#toc-10">实操训练营（陪跑型，不是听课）</a>
+<a href="#toc-11" class="lv3">21 天定价实操营</a>
+<a href="#toc-12" class="lv3">酒店年度陪跑 · 面向酒店，非院校</a>
+<a href="#toc-13" class="lv3">师资认证集训营 TTT</a>
+<a href="#toc-14">打包购买（比单买划算）</a>
+<a href="#toc-15" class="lv3">开业护航包</a>
+<a href="#toc-16" class="lv3">团队成长包</a>
+<a href="#toc-17" class="lv3">院校 / 机构教学包</a>
+<a href="#toc-18">企业批量：按门店数阶梯</a>
+<a href="#toc-19">个人也能收：C 端小额走平台代收</a>
+<a href="#toc-20" class="lv3">知识星球 · 会员社群</a>
+<a href="#toc-21" class="lv3">小报童 · 专栏订阅</a>
+<a href="#toc-22" class="lv3">爱发电 · 赞助支持</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
 </body>
 </html>

@@ -81,6 +81,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -109,6 +110,28 @@
 .bk-toc a{display:block;padding:4px 0;color:var(--ink-2);text-decoration:none;border-bottom:1px dotted var(--line-2)}
 .bk-toc a:hover{color:var(--gold-2)}
 @media(max-width:640px){.bk-toc{columns:1}}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
 </style>
 </head>
 <body data-auth="public">
@@ -143,7 +166,7 @@
     可直接用于课堂。网页版免费阅读，建议配合 <a href="books.html#pocket">纸质口袋本</a> 随查随用。
   </p>
 
-  <h3 style="margin-top:20px">目录</h3>
+  <h3 id="toc-1" style="margin-top:20px">目录</h3>
   <nav class="bk-toc">
     <a href="#c1">第 1 章　收益管理导论</a>
     <a href="#c2">第 2 章　核心指标体系</a>
@@ -161,11 +184,11 @@
 
   <!-- ===== 第1章 ===== -->
   <section class="bk-chapter" id="c1">
-    <h2><span class="bk-num">1</span>收益管理导论</h2>
+    <h2 id="toc-2"><span class="bk-num">1</span>收益管理导论</h2>
     <p><b>收益管理</b>（Revenue Management，又称 Yield Management）的核心只有一句话：
     <b>在正确的时间，把正确的产品，以正确的价格，卖给正确的客户。</b>
     它诞生于航空业（1970 年代美利坚航空），成熟于酒店业，如今已扩散到餐饮、景区、娱乐、货运、电力等一切"产能有限且易逝"的行业。</p>
-    <h3>三个前提（适用条件）</h3>
+    <h3 id="toc-3">三个前提（适用条件）</h3>
     <ul>
       <li><b>存量易逝</b>：今天没卖掉的座位/房间/餐位，午夜归零，无法囤到明天。</li>
       <li><b>可细分市场</b>：同一产品对不同客群价值不同（商务客愿付高价、休闲客价格敏感），可差别定价。</li>
@@ -178,16 +201,16 @@
 
   <!-- ===== 第2章 ===== -->
   <section class="bk-chapter" id="c2">
-    <h2><span class="bk-num">2</span>核心指标体系</h2>
+    <h2 id="toc-4"><span class="bk-num">2</span>核心指标体系</h2>
     <p>住行业以三个指标为基石，其余行业都是它们的变体。务必先吃透这三个，再学变体。</p>
-    <h3>住宿业三指标</h3>
+    <h3 id="toc-5">住宿业三指标</h3>
     <ul>
       <li><b>OCC 出租率</b> = 已售房晚 ÷ 可用房晚 ×100%</li>
       <li><b>ADR 平均房价</b> = 客房收入 ÷ 已售房晚（只看卖出去的）</li>
       <li><b>RevPAR 每间可用房收入</b> = 客房收入 ÷ 可用房晚 = ADR × OCC</li>
     </ul>
     <p>RevPAR 是"量价综合"指标，比单独看 ADR 或 OCC 更公平——提价可能掉量，降价可能起量，只有 RevPAR 能一眼看出谁更赚。</p>
-    <h3>各行业变体（同一思想，不同名字）</h3>
+    <h3 id="toc-6">各行业变体（同一思想，不同名字）</h3>
     <ul>
       <li>餐饮：<b>RevPASH</b>（每餐位每小时收入）= RevPAR 的翻版；<b>翻台率</b>≈ OCC。</li>
       <li>航空：<b>LF 客座率</b>≈ OCC；<b>RASK</b>（每座位公里收入）≈ RevPAR 口径。</li>
@@ -199,9 +222,9 @@
 
   <!-- ===== 第3章 ===== -->
   <section class="bk-chapter" id="c3">
-    <h2><span class="bk-num">3</span>需求预测</h2>
+    <h2 id="toc-7"><span class="bk-num">3</span>需求预测</h2>
     <p>定价与库存决策的前提是"未来会有多少需求"。预测不是算命，是用历史规律 + 当前信号外推。</p>
-    <h3>三个基础工具</h3>
+    <h3 id="toc-8">三个基础工具</h3>
     <ul>
       <li><b>预订曲线（Booking Curve）</b>：历史上每天累积预订量的形状，用于判断"按今天的进度，到期末会满还是会空"。</li>
       <li><b>Pickup 增量</b>：过去一段时间（如 24h/7天）新增的预订量。今天 pickup 远高于同期 → 需求走强，应提价。</li>
@@ -214,9 +237,9 @@
 
   <!-- ===== 第4章 ===== -->
   <section class="bk-chapter" id="c4">
-    <h2><span class="bk-num">4</span>动态定价</h2>
+    <h2 id="toc-9"><span class="bk-num">4</span>动态定价</h2>
     <p>动态定价 = 价格随时间、需求、剩余库存浮动。住宿业最经典的工具是<b>双因子矩阵</b>：以"出租率 OCC"和"Pickup 速度"为两个轴，落到哪个格子，对应哪个价位与动作。</p>
-    <h3>双因子矩阵逻辑</h3>
+    <h3 id="toc-10">双因子矩阵逻辑</h3>
     <ul>
       <li>OCC 高（&gt;85%）+ Pickup 快 → 升价，甚至关掉低价渠道。</li>
       <li>OCC 低（&lt;60%）+ Pickup 慢 → 降价拉量，但幅度受上限约束。</li>
@@ -229,9 +252,9 @@
 
   <!-- ===== 第5章 ===== -->
   <section class="bk-chapter" id="c5">
-    <h2><span class="bk-num">5</span>库存控制</h2>
+    <h2 id="toc-11"><span class="bk-num">5</span>库存控制</h2>
     <p>当需求分高低峰、客群分贵贱，就不能"先来先得"——要把便宜的库存留给后来可能出高价的客人。这就靠<b>容量分配</b>与<b>保护水平</b>。</p>
-    <h3>核心概念</h3>
+    <h3 id="toc-12">核心概念</h3>
     <ul>
       <li><b>保护水平（Protection Level）</b>：为高价客群保留的最低房量。例：300 间中保留 80 间给全价客，折扣房最多卖 220 间。</li>
       <li><b>限制条件（Restrictions）</b>：最低住期（Minimum Length of Stay, MLOS）、提前预订、不可退改——用门槛筛掉低价客，而非直接涨价。</li>
@@ -244,9 +267,9 @@
 
   <!-- ===== 第6章 ===== -->
   <section class="bk-chapter" id="c6">
-    <h2><span class="bk-num">6</span>超售管理</h2>
+    <h2 id="toc-13"><span class="bk-num">6</span>超售管理</h2>
     <p>因为总有人 No-show（订了不来），所以适度多卖一点，反而能拉高实际出租率。超售不是赌博，是<b>期望值计算</b>。</p>
-    <h3>最优超售量</h3>
+    <h3 id="toc-14">最优超售量</h3>
     <p>多卖一间：赚一间房钱；超卖爆了：赔（walk/DB 成本 + 口碑）。最优超售量 = 让"边际收益 = 边际期望赔付"的那个点。</p>
     <ul>
       <li><b>No-show 率</b>：历史订而不来的比例，通常 3%–8%。</li>
@@ -260,9 +283,9 @@
 
   <!-- ===== 第7章 ===== -->
   <section class="bk-chapter" id="c7">
-    <h2><span class="bk-num">7</span>渠道与分销</h2>
+    <h2 id="toc-15"><span class="bk-num">7</span>渠道与分销</h2>
     <p>渠道是触达，也是成本与失控源。决策要在"多卖"与"利润/掌控力"之间权衡。</p>
-    <h3>三个常见坑</h3>
+    <h3 id="toc-16">三个常见坑</h3>
     <ul>
       <li><b>只算名义佣金，不算叠加成本</b>：OTA 15% + 促销补贴 10% → 真实成本 = 1 − 0.85×0.9 = 23.5%，不是 15%。</li>
       <li><b>价格不一致</b>：官网 600、OTA 500，客人发现一次就永久转投 OTA，直销占比再也提不上来（不可逆损失）。</li>
@@ -275,9 +298,9 @@
 
   <!-- ===== 第8章 ===== -->
   <section class="bk-chapter" id="c8">
-    <h2><span class="bk-num">8</span>竞争分析</h2>
+    <h2 id="toc-17"><span class="bk-num">8</span>竞争分析</h2>
     <p>定价不能只看自己，要看相对竞品的位置。两个指数告诉您"该不该跟价"。</p>
-    <h3>ARI / MPI / RGI</h3>
+    <h3 id="toc-18">ARI / MPI / RGI</h3>
     <ul>
       <li><b>ARI 价格指数</b> = 您的 ADR ÷ 竞争组合加权 ADR ×100。&gt;100 比竞品贵。</li>
       <li><b>MPI 份额指数</b> = 您的 OCC ÷ 竞争组合 OCC ×100。&lt;100 在丢份额。</li>
@@ -290,24 +313,24 @@
 
   <!-- ===== 第9-13章 ===== -->
   <section class="bk-chapter" id="c9">
-    <h2><span class="bk-num">9–13</span>分行业专题</h2>
+    <h2 id="toc-19"><span class="bk-num">9–13</span>分行业专题</h2>
     <p>通用内核（预测/定价/库存/渠道/超售）不变，变的是参数与场景。五个行业各讲一章：</p>
-    <h3>住宿业（第 9 章）</h3>
+    <h3 id="toc-20">住宿业（第 9 章）</h3>
     <p>房型嵌套、BAR 价格体系、连住控制、团队房与散客的平衡。最完整的 RM 主场。</p>
-    <h3>餐饮业（第 10 章）</h3>
+    <h3 id="toc-21">餐饮业（第 10 章）</h3>
     <p>翻台率即 OCC，RevPASH 即 RevPAR。核心动作：分时定价（午市/晚市/下午茶）、超售=接受适量等位、套餐提升客单价。</p>
-    <h3>航空业（第 11 章）</h3>
+    <h3 id="toc-22">航空业（第 11 章）</h3>
     <p>舱位控制（嵌套保护水平）、O&D 收益、超售=DB 拒载管理。收益管理的发源地。</p>
-    <h3>景区文旅（第 12 章）</h3>
+    <h3 id="toc-23">景区文旅（第 12 章）</h3>
     <p>承载力即容量，分时预约即库存限制，年卡/套票即客户细分。淡旺季梯度定价是命脉。</p>
-    <h3>娱乐休闲（第 13 章）</h3>
+    <h3 id="toc-24">娱乐休闲（第 13 章）</h3>
     <p>场次即库存、座位即房型，动态调价 + 早鸟/尾票。剧院、演出、乐园通用。</p>
     <div class="bk-ex"><b>行业案例：</b>选一个您熟悉的行业，用"三前提"论证收益管理适用，并列出它的 OCC/ADR/RevPAR 对应叫法。</div>
   </section>
 
   <!-- ===== 第14章 ===== -->
   <section class="bk-chapter" id="c14">
-    <h2><span class="bk-num">14</span>预算与预测</h2>
+    <h2 id="toc-25"><span class="bk-num">14</span>预算与预测</h2>
     <p>年度预算是"目标"，滚动预测是"纠偏"。两者都要落到 RevPAR 与细分市场。</p>
     <ul>
       <li><b>年度预算</b>：按市场细分（商务/休闲/团队/会员）分解 RevPAR 目标，再倒推所需 ADR 与 OCC。</li>
@@ -320,7 +343,7 @@
 
   <!-- ===== 第15章 ===== -->
   <section class="bk-chapter" id="c15">
-    <h2><span class="bk-num">15</span>组织与协同</h2>
+    <h2 id="toc-26"><span class="bk-num">15</span>组织与协同</h2>
     <p>收益管理的最大阻力往往不是技术，是<b>组织冲突</b>：销售要低价拿大单，收益要保护高价库存；前台要满房，收益要控超售。</p>
     <ul>
       <li><b>汇报线</b>：收益管理应直接向总经理或营收总监汇报，而非隶属销售，避免目标被销售业绩绑架。</li>
@@ -332,9 +355,9 @@
 
   <!-- ===== 第16章 ===== -->
   <section class="bk-chapter" id="c16">
-    <h2><span class="bk-num">16</span>系统与未来</h2>
+    <h2 id="toc-27"><span class="bk-num">16</span>系统与未来</h2>
     <p>当规模上来，人工查表不够用，需要系统。但系统是人脑的延伸，不是替代。</p>
-    <h3>RMS 与 AI</h3>
+    <h3 id="toc-28">RMS 与 AI</h3>
     <ul>
       <li><b>RMS（收益管理系统）</b>：自动抓取预订/竞争/历史数据，输出建议价与库存限制。人负责审核与例外处理。</li>
       <li><b>AI 与机器学习</b>：用更细的细分、更准的需求预测，但"黑箱"决策需可解释、可复核。</li>
@@ -371,5 +394,52 @@
 (function(){var t=document.getElementById('snToggle'),l=document.getElementById('snLinks');if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();
 </script>
 <script src="assets/js/app.js?v=v2"></script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1" class="lv3">目录</a>
+<a href="#toc-2">1收益管理导论</a>
+<a href="#toc-3" class="lv3">三个前提（适用条件）</a>
+<a href="#toc-4">2核心指标体系</a>
+<a href="#toc-5" class="lv3">住宿业三指标</a>
+<a href="#toc-6" class="lv3">各行业变体（同一思想，不同名字）</a>
+<a href="#toc-7">3需求预测</a>
+<a href="#toc-8" class="lv3">三个基础工具</a>
+<a href="#toc-9">4动态定价</a>
+<a href="#toc-10" class="lv3">双因子矩阵逻辑</a>
+<a href="#toc-11">5库存控制</a>
+<a href="#toc-12" class="lv3">核心概念</a>
+<a href="#toc-13">6超售管理</a>
+<a href="#toc-14" class="lv3">最优超售量</a>
+<a href="#toc-15">7渠道与分销</a>
+<a href="#toc-16" class="lv3">三个常见坑</a>
+<a href="#toc-17">8竞争分析</a>
+<a href="#toc-18" class="lv3">ARI / MPI / RGI</a>
+<a href="#toc-19">9–13分行业专题</a>
+<a href="#toc-20" class="lv3">住宿业（第 9 章）</a>
+<a href="#toc-21" class="lv3">餐饮业（第 10 章）</a>
+<a href="#toc-22" class="lv3">航空业（第 11 章）</a>
+<a href="#toc-23" class="lv3">景区文旅（第 12 章）</a>
+<a href="#toc-24" class="lv3">娱乐休闲（第 13 章）</a>
+<a href="#toc-25">14预算与预测</a>
+<a href="#toc-26">15组织与协同</a>
+<a href="#toc-27">16系统与未来</a>
+<a href="#toc-28" class="lv3">RMS 与 AI</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
 </body>
 </html>

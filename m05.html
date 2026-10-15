@@ -81,6 +81,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -91,6 +92,28 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"courses","item":"https://hrma-city.github.io/m05.html"},{"@type":"ListItem","position":3,"name":"m05-forecast","item":"https://hrma-city.github.io/m05.html"}]}</script>
 <link rel="stylesheet" href="assets/css/auth.css">
 <link rel="stylesheet" href="assets/css/notify.css">
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
 </head>
 <body data-page="m05" data-auth="protected">
 <div class="layout">
@@ -158,7 +181,7 @@
 
   <p>收益管理所有决策的第一句是「这个日子会卖多少」。这句话必须由数字回答，不能由感觉回答。要回答它，只需要四个概念。四个概念全部来自《SPEC》3.1 术语表，全学院唯一口径，不得另创。</p>
 
-  <h3>1.1 Pickup（预订增量）</h3>
+  <h3 id="toc-1">1.1 Pickup（预订增量）</h3>
 
   <div class="formula">
     <span class="f-label">定义</span>
@@ -174,7 +197,7 @@
     <p>Pickup 必须用<b>同一取数时点</b>对比。今天 17:00 的手数不能减昨天 08:00 的手数——下午本来就会多收订单，减出来的"Pickup"是假的。《法典》表 M 规定取数时点为 07:50（未来 30 天在手 + Pickup）与 17:00（0–3 天窗口二次巡检），同口径对比才能用。</p>
   </div>
 
-  <h3>1.2 Booking Window（预订窗口）</h3>
+  <h3 id="toc-2">1.2 Booking Window（预订窗口）</h3>
 
   <div class="formula">
     <span class="f-label">定义</span>
@@ -184,11 +207,11 @@
 
   <p>预订窗口不是"一个数"，而是一条<b>分档的监控节奏</b>。窗口越近，监控越密；窗口越远，监控越松。《法典》表 I 把 0 天到 60 天以上切成 6 档，每档规定了监控频率、关注指标、落后触发阈值和触发动作。这是本模块最重要的一张表，第四节完整内嵌。</p>
 
-  <h3>1.3 On-the-books（在手预订，OTB）</h3>
+  <h3 id="toc-3">1.3 On-the-books（在手预订，OTB）</h3>
 
   <p>在手预订 = 截至取数时点，某目标日已经确认、未取消的累计预订房晚数。它是<b>已经落袋的事实</b>，不是预测。预测要算的，是"从今天到那天，还会再来多少"。</p>
 
-  <h3>1.4 Remaining Demand（剩余需求，RW）</h3>
+  <h3 id="toc-4">1.4 Remaining Demand（剩余需求，RW）</h3>
 
   <div class="formula">
     <span class="f-label">定义</span>
@@ -204,7 +227,7 @@
     例：RW 154 房晚 ÷ 30 天 → <span class="f-out">日均 5.1 房晚／天</span>
   </div>
 
-  <h3>1.5 四者的关系（一张图记牢）</h3>
+  <h3 id="toc-5">1.5 四者的关系（一张图记牢）</h3>
 
   <div class="flow">
     <div class="flow-item"><div class="fi-t">在手预订 OTB</div><div class="fi-d">已发生的事实<br>例：96 房晚</div></div>
@@ -228,7 +251,7 @@
 
   <p>《Pickup 追踪表》是 L2 收益管理主管的第一件武器。它把"未来每一天"和"距离那一天还有多久"交叉成一张网格，网格里填的是累计在手房晚。建表只需四步。</p>
 
-  <h3>2.1 建表四步</h3>
+  <h3 id="toc-6">2.1 建表四步</h3>
 
   <div class="step">
     <div class="step-num">1</div>
@@ -262,7 +285,7 @@
     </div>
   </div>
 
-  <h3>2.2 表样：云璟酒店 2026-09-20 取数快照</h3>
+  <h3 id="toc-7">2.2 表样：云璟酒店 2026-09-20 取数快照</h3>
 
   <p>下表为杭州滨江云璟酒店《Pickup 追踪表》精简版。取数日 2026-09-20（周日），酒店可售房晚 320。单元格数字＝累计在手房晚；<b>加粗金底单元格＝今天的取数对角线</b>；<code>—</code> 表示该快照尚未发生（未来的取数时点，格子留空）。</p>
 
@@ -302,7 +325,7 @@
     <p>因为行距是不等距的（60→45 差 15 天，7→3 差 4 天，3→1 差 2 天）。今天的取数对角线满足唯一条件：<b>目标日期 − 今天 = 该行的提前天数</b>。顺着这个条件找格子，就得到上面 9 个金底单元格。不要凭"看起来像对角线"去数格子。</p>
   </div>
 
-  <h3>2.3 同期对比表与差值表</h3>
+  <h3 id="toc-8">2.3 同期对比表与差值表</h3>
 
   <p>把去年同期同结构表叠上来，做同位置相减，得到《Pickup 差值表》。这张表直接产出《法典》表 A 要的 Pickup 偏差。</p>
 
@@ -337,7 +360,7 @@
 
   <p>同一张表，三种读法，回答三个不同的问题。学员必须三种都会，且能说出每种读法回答什么问题。</p>
 
-  <h3>3.1 对角读（左下 → 右上）：今天的整体快照</h3>
+  <h3 id="toc-9">3.1 对角读（左下 → 右上）：今天的整体快照</h3>
 
   <p><b>回答的问题</b>：此刻，未来每一天各自收了多少？哪一天落后？</p>
 
@@ -351,7 +374,7 @@
     </div>
   </div>
 
-  <h3>3.2 竖读（同一列从上到下）：单日的预订曲线</h3>
+  <h3 id="toc-10">3.2 竖读（同一列从上到下）：单日的预订曲线</h3>
 
   <p><b>回答的问题</b>：这一天收得<b>快不快</b>？剩下的日子还能不能补上？</p>
 
@@ -384,7 +407,7 @@
     </ul>
   </div>
 
-  <h3>3.3 横读（同一行从左到右）：同窗口的未来横截面</h3>
+  <h3 id="toc-11">3.3 横读（同一行从左到右）：同窗口的未来横截面</h3>
 
   <p><b>回答的问题</b>：在<b>同样的提前期</b>下，未来连续各日哪天是"凹陷日"（收得明显比邻日差）？</p>
 
@@ -403,7 +426,7 @@
     </table>
   </div>
 
-  <h3>3.4 三种读法的作业顺序（固定，不得颠倒）</h3>
+  <h3 id="toc-12">3.4 三种读法的作业顺序（固定，不得颠倒）</h3>
 
   <div class="flow">
     <div class="flow-item"><div class="fi-t">① 对角读</div><div class="fi-d">07:50 取数后先读对角线，圈出所有健康度 &lt;100% 的日子</div></div>
@@ -426,7 +449,7 @@
   <div class="codex-block" data-codex-block data-cat="forecast">
     <div class="codex-head">
       <span class="badge-codex">表 I</span>
-      <h3>预订窗口分档监控表</h3>
+      <h3 id="toc-13">预订窗口分档监控表</h3>
       <span class="pill pill-navy">监控节奏</span>
     </div>
     <p class="codex-desc">输入：目标日的预订窗口（入住日 − 今天）。输出：监控频率、关注指标、落后触发阈值、触发动作。六档覆盖 0 天到 60 天以上。</p>
@@ -448,7 +471,7 @@
     <div class="codex-meta">配套：《法典》表 M（每日收益操作流水线）规定 07:50 抓取未来 30 天在手 + Pickup、17:00 做 0–3 天窗口二次巡检——这两个时点即表 I 第一档「每日 2 次」的落地时点。跨模块引用：落在 8–14 天档且触发时，动作直接转《法典》表 A。</div>
   </div>
 
-  <h3>4.1 表 I 的三条执行细则</h3>
+  <h3 id="toc-14">4.1 表 I 的三条执行细则</h3>
 
   <div class="step">
     <div class="step-num">1</div>
@@ -479,7 +502,7 @@
     </div>
   </div>
 
-  <h3>4.2 表 I 在云璟酒店的落地排期表</h3>
+  <h3 id="toc-15">4.2 表 I 在云璟酒店的落地排期表</h3>
 
   <div class="tbl-wrap">
     <table class="tbl">
@@ -504,7 +527,7 @@
   <div class="codex-block" data-codex-block data-cat="pricing forecast">
     <div class="codex-head">
       <span class="badge-codex">表 A</span>
-      <h3>每日价格调整判定表（双因子矩阵）</h3>
+      <h3 id="toc-16">每日价格调整判定表（双因子矩阵）</h3>
       <span class="pill pill-red">L2 核心</span>
     </div>
     <p class="codex-desc">
@@ -578,7 +601,7 @@
     RW（剩余需求） = 预测总需求 − 今年在手房晚
   </div>
 
-  <h3>6.1 第 ① 步：去年同期实际——取数与清洗</h3>
+  <h3 id="toc-17">6.1 第 ① 步：去年同期实际——取数与清洗</h3>
 
   <div class="tbl-wrap">
     <table class="tbl">
@@ -598,7 +621,7 @@
     <p>农历节日（春节、端午、中秋）不能按公历同月同日对齐，必须按<b>农历同日</b>对齐。闰年 2 月 29 日缺失时，用 2 月 28 日与 3 月 1 日的平均值代替。这两个规则不执行，第 ① 步的基准盘就是错的，后两步再准也没用。</p>
   </div>
 
-  <h3>6.2 第 ② 步：加 Pickup 增量</h3>
+  <h3 id="toc-18">6.2 第 ② 步：加 Pickup 增量</h3>
 
   <p>这一步的逻辑是"加法模型（Additive Pickup）"：假设今年与去年在<b>剩余窗口内</b>的增量速度相同，那么今年最终 = 去年最终 + 今年已经多收（或少收）的部分。</p>
 
@@ -639,7 +662,7 @@
     </ol>
   </div>
 
-  <h3>6.3 第 ③ 步：三项修正（星期几 / 需求等级 / 事件）</h3>
+  <h3 id="toc-19">6.3 第 ③ 步：三项修正（星期几 / 需求等级 / 事件）</h3>
 
   <h4>修正一：星期几修正系数</h4>
 
@@ -736,7 +759,7 @@
 
   <p>以下三例均为<b>提前 30 天</b>（T-30）的预测演练，取数日统一为 2026-09-20，酒店为杭州滨江云璟酒店，可售房晚 320。三例分别代表三种典型场景：<b>平推场景</b>、<b>事件升级场景</b>、<b>双向利空场景</b>。每一例都从原始数据一步步算到最终动作。</p>
 
-  <h3>案例一：平推场景 —— 目标日 2026-10-20（周二）</h3>
+  <h3 id="toc-20">案例一：平推场景 —— 目标日 2026-10-20（周二）</h3>
 
   <div class="card">
     <div class="card-title"><span class="ic">1</span>已知条件</div>
@@ -809,7 +832,7 @@
     <p class="card-note">与预算对比：10 月 OCC 目标 85%（《SPEC》2.5 月度需求基准）＝ 272 房晚，预测 250 房晚 → 缺口 <b>22 房晚</b>。缺口记入《周度收益报告》，由销售部按日均 0.7 房晚／天的追加任务承接。</p>
   </div>
 
-  <h3>案例二：事件升级场景 —— 目标日 2026-10-23（周五）</h3>
+  <h3 id="toc-21">案例二：事件升级场景 —— 目标日 2026-10-23（周五）</h3>
 
   <div class="card">
     <div class="card-title"><span class="ic">2</span>已知条件</div>
@@ -890,7 +913,7 @@
     <b>记录动作</b>：写入《调价台账》，备注栏注明「表 O 仲裁：当日执行表 B（优先级 2），表 A +15% 与表 H 渠道开关顺延至次日」。</p>
   </div>
 
-  <h3>案例三：双向利空场景 —— 目标日 2026-10-18（周日）</h3>
+  <h3 id="toc-22">案例三：双向利空场景 —— 目标日 2026-10-18（周日）</h3>
 
   <div class="card">
     <div class="card-title"><span class="ic">3</span>已知条件</div>
@@ -964,7 +987,7 @@
     <p class="card-note">复盘要点：本例的 −5% 来自表 A，而非来自"竞对开业所以要降价"。很多新人会把两者混为一谈，导致跟价。表 L 对竞对新开业的规定是「制定差异化策略（不盲目跟价）」，请学员牢记。</p>
   </div>
 
-  <h3>三例横向对比</h3>
+  <h3 id="toc-23">三例横向对比</h3>
 
   <div class="tbl-wrap">
     <table class="tbl">
@@ -995,7 +1018,7 @@
 
   <p>预测做完不是结束。每次预测都要在目标日过后被"判卷"，判卷结果决定是否要修正模型参数。这是 L2 与 L1 的分水岭：L1 只看今天要不要调价，L2 要对预测的准确性负责。</p>
 
-  <h3>8.1 预测准确率的定义</h3>
+  <h3 id="toc-24">8.1 预测准确率的定义</h3>
 
   <div class="formula">
     <span class="f-label">公式（本模块唯一口径）</span>
@@ -1009,7 +1032,7 @@
     <p>分母是实际 OCC，不是预测 OCC，也不是可售房晚。用实际 OCC 做分母，高估与低估的惩罚才对称，且不同 OCC 水平的日子之间可以横向比较。</p>
   </div>
 
-  <h3>8.2 合格线（分提前期设定）</h3>
+  <h3 id="toc-25">8.2 合格线（分提前期设定）</h3>
 
   <p>预测提前期越长，越难准，所以合格线分档设定。下表为<b>本学院 L2 考核标准</b>：</p>
 
@@ -1027,7 +1050,7 @@
     </table>
   </div>
 
-  <h3>8.3 偏差分级与追责</h3>
+  <h3 id="toc-26">8.3 偏差分级与追责</h3>
 
   <div class="tbl-wrap">
     <table class="tbl">
@@ -1053,7 +1076,7 @@
     <p style="margin:10px 0 0">举例：10-20 预测 250 房晚、实际 237 房晚，当日实际 ADR ¥700，可售房晚 320 → 高估损失 =（250 − 237）× 700 ÷ 320 = <b>¥28.4</b>（当日 RevPAR 口径的虚高决策损失）。这个数字必须写进《偏差说明》，而不是写一句"预测偏高"。</p>
   </div>
 
-  <h3>8.4 改进四步法（固定动作，不纠结）</h3>
+  <h3 id="toc-27">8.4 改进四步法（固定动作，不纠结）</h3>
 
   <div class="step">
     <div class="step-num">1</div>
@@ -1337,5 +1360,64 @@
 <script src="assets/js/notify.js"></script>
 <script>window.HRMA_LEARN_COURSE="m05-forecast";</script>
 <script src="assets/js/learn.js"></script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#s1">一、预测的四块基石：Pickup / Booking Window / 在手预订 / 剩余需求</a>
+<a href="#toc-1" class="lv3">1.1 Pickup（预订增量）</a>
+<a href="#toc-2" class="lv3">1.2 Booking Window（预订窗口）</a>
+<a href="#toc-3" class="lv3">1.3 On-the-books（在手预订，OTB）</a>
+<a href="#toc-4" class="lv3">1.4 Remaining Demand（剩余需求，RW）</a>
+<a href="#toc-5" class="lv3">1.5 四者的关系（一张图记牢）</a>
+<a href="#s2">二、《Pickup 追踪表》的搭建</a>
+<a href="#toc-6" class="lv3">2.1 建表四步</a>
+<a href="#toc-7" class="lv3">2.2 表样：云璟酒店 2026-09-20 取数快照</a>
+<a href="#toc-8" class="lv3">2.3 同期对比表与差值表</a>
+<a href="#s3">三、《Pickup 追踪表》的三种读法</a>
+<a href="#toc-9" class="lv3">3.1 对角读（左下 → 右上）：今天的整体快照</a>
+<a href="#toc-10" class="lv3">3.2 竖读（同一列从上到下）：单日的预订曲线</a>
+<a href="#toc-11" class="lv3">3.3 横读（同一行从左到右）：同窗口的未来横截面</a>
+<a href="#toc-12" class="lv3">3.4 三种读法的作业顺序（固定，不得颠倒）</a>
+<a href="#s4">四、《法典》表 I：预订窗口分档监控表（完整内嵌）</a>
+<a href="#toc-13" class="lv3">预订窗口分档监控表</a>
+<a href="#toc-14" class="lv3">4.1 表 I 的三条执行细则</a>
+<a href="#toc-15" class="lv3">4.2 表 I 在云璟酒店的落地排期表</a>
+<a href="#s5">五、《法典》表 A：每日价格调整判定表（本模块配套内嵌）</a>
+<a href="#toc-16" class="lv3">每日价格调整判定表（双因子矩阵）</a>
+<a href="#s6">六、预测三步法与修正系数表</a>
+<a href="#toc-17" class="lv3">6.1 第 ① 步：去年同期实际——取数与清洗</a>
+<a href="#toc-18" class="lv3">6.2 第 ② 步：加 Pickup 增量</a>
+<a href="#toc-19" class="lv3">6.3 第 ③ 步：三项修正（星期几 / 需求等级 / 事件）</a>
+<a href="#s7">七、三个完整预测演算案例</a>
+<a href="#toc-20" class="lv3">案例一：平推场景 —— 目标日 2026-10-20（周二）</a>
+<a href="#toc-21" class="lv3">案例二：事件升级场景 —— 目标日 2026-10-23（周五）</a>
+<a href="#toc-22" class="lv3">案例三：双向利空场景 —— 目标日 2026-10-18（周日）</a>
+<a href="#toc-23" class="lv3">三例横向对比</a>
+<a href="#s8">八、预测偏差复盘：准确率、合格线与改进</a>
+<a href="#toc-24" class="lv3">8.1 预测准确率的定义</a>
+<a href="#toc-25" class="lv3">8.2 合格线（分提前期设定）</a>
+<a href="#toc-26" class="lv3">8.3 偏差分级与追责</a>
+<a href="#toc-27" class="lv3">8.4 改进四步法（固定动作，不纠结）</a>
+<a href="#s9">九、讲师示范：完整走一遍四步闭环</a>
+<a href="#s10">十、学员跟练（7 题）</a>
+<a href="#s11">十一、判定表默写清单</a>
+<a href="#s12">十二、随堂测（5 题）</a>
+<a href="#s13">十三、本模块产出物</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
 </body>
 </html>
