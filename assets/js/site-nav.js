@@ -19,19 +19,24 @@
      不再按身份分流：同一份内容常被不同身份重复引用，按身份分只会让每个人
      都要绕一圈才找到。改成直接问你这次要取哪一类材料：
      学理 → 理论馆；看别人怎么应对 → 案例馆；练某项能力 → 游戏馆；要开课 → 教学馆；要考证 → 培训馆。 */
+  /* 2026-10-16 定案（站长）：理论 + 案例 合并为「知识库」——两者在学习路径上连续
+     （学原理 → 看别人怎么做的），分成两馆要来回跳。原两馆页面保留为分区入口，
+     收进「更多」作为退路。新增「上岗馆」= 从学完到上岗这一段路。 */
   var MAIN = [
     ['index.html', '首页'],
-    ['theory.html', '理论'],
-    ['cases-hub.html', '案例'],
+    ['knowledge.html', '知识库'],
     ['games-hub.html', '游戏'],
     ['teach.html', '教学'],
     ['training.html', '培训'],
+    ['growth-hub.html', '上岗'],
     ['resources.html', '资料库']
   ];
   /* 次级页面：收进「更多」。原身份门户（酒店人/教师/学生/社区）降到这里，
      按身份找入口的人仍有退路，但不再占主导航首位。 */
   var MORE = [
     ['tour.html', '全站导览'],
+    ['theory.html', '理论（学理）'],
+    ['cases-hub.html', '案例（看别人怎么做）'],
     ['hotelier.html', '酒店人'],
     ['teacher.html', '教师'],
     ['student.html', '学生'],
@@ -133,9 +138,13 @@
 
   /* ---- 面包屑：层级返回 + 顺序内容上下页 ---- */
   var TOP = ['index.html', 'hotelier.html', 'teacher.html', 'student.html', 'community.html',
-    'resources.html', 'industries.html', 'cert.html', 'codex.html', 'about.html', 'contact.html', 'tour.html'];
+    'resources.html', 'industries.html', 'cert.html', 'codex.html', 'about.html', 'contact.html', 'tour.html',
+    'growth-hub.html', 'knowledge.html'];
 
   function sectionParent() {
+    /* 成长中心：从学完到上岗这一段路（求职 / 入职 / 在岗 / 社区）。
+       ⚠ 必须放在最前面：rm-coach.html 会被下面 "^ai-|coach" 规则误判为「教师」。 */
+    if (/^growth-hub\.html$|^rm-coach|^onboarding-kit|^capstone-portfolio|^interview-kit|^badges\.html$|^daily-drill|^decision-sprint|^workplace-cop|^branch-drama|^membership/.test(here)) return { url: 'growth-hub.html', label: '成长中心' };
     if (/^m\d\d\.html$|^courses\/|^pocket-no|^theme-no|^no\d|^series\/|^core\/|^k0/.test(here)) return { url: 'hotelier.html', label: '酒店人' };
     if (/^industries\/|industries-[a-z-]+\.html$|[a-z-]*-index\.html$/.test(here)) return { url: 'industries.html', label: '行业矩阵' };
     if (/^exam\/|^cert|wb\.html|quiz\.html|quest\.html|game-quiz/.test(here)) return { url: 'cert.html', label: '认证体系' };
