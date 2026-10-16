@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>开课工作台 · 搭一个你这门课的答疑分身</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--gold2:#f5d78e;--ink:#1f2a37;--mut:#5b6a7d;
+  --ok:#2a9d5f;--blue:#3d8bd4;--red:#c0503f;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.82;font-size:15px}
+.wrap{max-width:980px;margin:0 auto;padding:0 22px 90px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:32px 0 28px}
+.hero .wrap{padding-bottom:0}
+.hero .tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);
+  color:var(--gold2);font-size:12.5px;border-radius:999px;padding:3px 13px;margin-bottom:11px}
+.hero h1{font-size:24px;line-height:1.45}
+.hero p{color:#b9d0e6;font-size:14px;margin-top:9px;max-width:820px}
+h2{font-size:19.5px;color:var(--navy);margin:34px 0 6px;padding-left:12px;border-left:4px solid var(--gold)}
+h3{font-size:16px;color:var(--navy);margin:18px 0 5px}
+h4{font-size:14.5px;color:var(--navy2);margin:12px 0 4px}
+.lead{color:var(--mut);font-size:14px;margin:6px 0 14px;padding-left:12px}
+p{margin:8px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:13px 0}
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:12px;overflow:hidden;margin:12px 0}
+th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-size:12.5px}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:#fafcfe}
+.pill{display:inline-block;font-size:11px;border-radius:6px;padding:1px 8px;color:#fff;white-space:nowrap}
+.pill.h{background:var(--ok)}.pill.m{background:var(--blue)}.pill.l{background:var(--gold);color:#3a2c07}
+.pill.g{background:var(--navy2)}
+.quote{border-left:3px solid var(--gold);background:#fffcf2;padding:11px 15px;border-radius:0 10px 10px 0;
+  font-size:13.5px;color:#5b4a12;margin:12px 0}
+.note{background:#eef6f1;border:1px solid #c4e2d0;border-radius:10px;padding:12px 16px;font-size:13.5px;color:#2c6e48;margin:12px 0}
+.warn{background:#fdf1ef;border:1px solid #eecac4;border-radius:12px;padding:12px 16px;font-size:13.5px;color:#8a3a2e;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:14px 0}
+.mini{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+.mini b{display:block;color:var(--navy);font-size:14px;margin-bottom:4px}
+.mini span{font-size:12.5px;color:var(--mut);display:block}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+a{color:var(--navy2)}
+.btn{display:inline-block;background:var(--navy);color:#fff;border:none;border-radius:9px;padding:9px 16px;
+  font-size:13.5px;cursor:pointer;text-decoration:none;margin:4px 6px 4px 0}
+.btn:hover{background:var(--navy2)}
+.btn.g{background:var(--gold);color:#3a2c07}
+.btn.o{background:#fff;color:var(--navy);border:1px solid var(--line)}
+input[type=text],input[type=search],textarea,select{font-family:inherit;font-size:14px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:10px;width:100%;background:#fff;color:var(--ink)}
+textarea{min-height:96px;line-height:1.7}
+label{display:block;font-size:13px;color:var(--navy);margin:10px 0 4px;font-weight:600}
+.foot{text-align:center;color:var(--mut);font-size:12.5px;margin-top:38px;padding-top:18px;border-top:1px solid var(--line)}
+.chk{list-style:none;margin-left:0}
+.chk li{padding-left:26px;position:relative;margin:6px 0}
+.chk li:before{content:"□";position:absolute;left:0;color:var(--gold);font-size:15px}
+.hide{display:none}
+@media print{.hero{background:var(--navy)!important}.noprint{display:none}}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<span class="tag">教师 · 开课工具</span>
+<h1>开课工作台 · 六步搭出你的课程分身</h1>
+<p>把课程名片、口径卡、模块清单、资料入口、高频问题、分身人设六样喂进去，生成一个 24 小时答学生的答疑页。开学第一周发下去，每月按学生提问喂养。</p>
+</div></header>
+<main class="wrap">
+
+<h2 id="toc-1">这是什么：把你这门课，做成一个 24 小时的答疑分身</h2>
+<p class="lead">教师第一次开课最累的，是重复回答学生同样的问题（怎么考、会不会太难、查表查不来）。分身替你答——学生随时问，你去教书。下面六步，把你的课程"喂"给分身；喂完即生成一个学生版答疑页，开学第一周发下去。</p>
+
+<div class="card" style="background:#fff8e6;border-color:#e8cfa0">
+<b>和教练分身的关系：</b><a href="teach-avatar.html">开课答疑分身</a>是教练的方法论（教你怎么开课）；本工作台生成的是<b>你这门课的分身</b>（答学生关于你课程的问题）。一个对内，一个对外——两个都要，课才立得住。
+</div>
+
+<h2 id="toc-2">六步搭建（默认值按云璟商务酒店预填，全部可改）</h2>
+<p class="lead">进度存在本机浏览器，换设备不同步。建议节奏：第 1–2 周搭骨架，第 3–4 周喂内容，第 5 周对学生开放，之后每月按学生实际提问补充。</p>
+
+<div class="card">
+<h3 id="toc-3">① 课程名片</h3>
+<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
+<div><label>课程名称</label><input type="text" id="c-name" value="酒店收益管理"></div>
+<div><label>学时</label><input type="text" id="c-hrs" value="32 学时"></div>
+<div><label>先修要求</label><input type="text" id="c-pre" value="会四则运算与 Excel 求和即可"></div>
+<div><label>考核结构</label><input type="text" id="c-exam" value="过程 30% + 诊断报告 50% + 汇报 20%"></div>
+</div>
+</div>
+
+<div class="card">
+<h3 id="toc-4">② 口径卡（学生问"这个数哪来的"就查这里）</h3>
+<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
+<div><label>房量结构</label><input type="text" id="c-rooms" value="300 间：高级 150 / 豪华 90 / 行政 45 / 套房 15"></div>
+<div><label>客源结构</label><input type="text" id="c-seg" value="商务散客 42% / 会议 24% / OTA 20% / 协议 10% / 会员 4%"></div>
+<div><label>变动成本（元/间夜）</label><input type="text" id="c-cost" value="95"></div>
+<div><label>竞组（房价）</label><input type="text" id="c-comp" value="A 880 / B 680 / C 560 / D 720 / E 520"></div>
+</div>
+<p class="lead" style="margin-top:8px">默认值=教学案例"云璟酒店"口径，与教材、数据工坊完全一致。用你自己学校/合作酒店的数据也行——口径一致比数据真实更重要。</p>
+</div>
+
+<div class="card">
+<h3 id="toc-5">③ 讲什么（勾选本学期实际讲的模块）</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 18px"><label style="font-weight:400;color:var(--ink)"><input type="checkbox" class="mod-c" value="m01" checked> m01　收益管理的语言：指标与计算</label><label style="font-weight:400;color:var(--ink)"><input type="checkbox" class="mod-c" value="m02" checked> m02　系统与数据导航</label><label style="font-weight:400;color:var(--ink)"><input type="checkbox" class="mod-c" value="m03" checked> m03　每日操作流水线</label><label style="font-weight:400;color:var(--ink)"><input type="checkbox" class="mod-c" value="m04" checked> m04　报表与台账</label><label style="font-weight:400;color:var(--ink)"><input type="checkbox" class="mod-c" value="m05" checked> m05　需求预测：Pickup 与预订曲线</label><label style="font-weight:400;color:var(--ink)"><input type="checkbox" class="mod-c" value="m06" checked> m06　价格体系设计：BAR 与价差阶梯</label><label style="font-weight:400;color:var(--ink)"><input type="checkbox" class="mod-c" value="m07" checked> m07　库存与限制条件战术</label><label style="font-weight:400;color:var(--ink)"><input type="checkbox" class="mod-c" value="m08" checked> m08　渠道与分销管理</label><label style="font-weight:400;color:var(--ink)"><input type="checkbox" class="mod-c" value="m09"> m09　竞争监测与市场定位</label><label style="font-weight:400;color:var(--ink)"><input type="checkbox" class="mod-c" value="m10"> m10　客源细分战略</label><label style="font-weight:400;color:var(--ink)"><input type="checkbox" class="mod-c" value="m11"> m11　年度预算与滚动预测</label><label style="font-weight:400;color:var(--ink)"><input type="checkbox" class="mod-c" value="m12"> m12　会议与汇报</label><label style="font-weight:400;color:var(--ink)"><input type="checkbox" class="mod-c" value="m13"> m13　跨部门协同与变革推动</label><label style="font-weight:400;color:var(--ink)"><input type="checkbox" class="mod-c" value="m14"> m14　收益管理系统与自动化</label></div>
+<p class="lead" style="margin-top:8px">默认勾前 8 个模块（一条最小闭环：指标→系统→流水线→台账→预测→价格→库存→渠道）。课时多再往后加。</p>
+</div>
+
+<div class="card">
+<h3 id="toc-6">④ 资料入口（学生去哪找材料）</h3>
+<div class="res-row" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="res-u" value="teach.html" placeholder="页面地址" style="flex:1"><input type="text" class="res-n" value="课程主页（考核与四站路线）" placeholder="显示名" style="flex:1"><button type="button" class="btn o res-del" style="padding:6px 10px;font-size:12px">删</button></div><div class="res-row" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="res-u" value="slides-teach.html" placeholder="页面地址" style="flex:1"><input type="text" class="res-n" value="投屏课件（按学时选）" placeholder="显示名" style="flex:1"><button type="button" class="btn o res-del" style="padding:6px 10px;font-size:12px">删</button></div><div class="res-row" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="res-u" value="teach-data.html" placeholder="页面地址" style="flex:1"><input type="text" class="res-n" value="教学数据工坊（云璟 90 天数据）" placeholder="显示名" style="flex:1"><button type="button" class="btn o res-del" style="padding:6px 10px;font-size:12px">删</button></div><div class="res-row" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="res-u" value="wb.html" placeholder="页面地址" style="flex:1"><input type="text" class="res-n" value="演练题库" placeholder="显示名" style="flex:1"><button type="button" class="btn o res-del" style="padding:6px 10px;font-size:12px">删</button></div><div class="res-row" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="res-u" value="capstone-portfolio.html" placeholder="页面地址" style="flex:1"><input type="text" class="res-n" value="结业作品集与参考样例" placeholder="显示名" style="flex:1"><button type="button" class="btn o res-del" style="padding:6px 10px;font-size:12px">删</button></div><div class="res-row" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="res-u" value="workplace-cases.html" placeholder="页面地址" style="flex:1"><input type="text" class="res-n" value="在岗案例廊" placeholder="显示名" style="flex:1"><button type="button" class="btn o res-del" style="padding:6px 10px;font-size:12px">删</button></div></div>
+<p class="lead" style="margin-top:6px"><button type="button" class="btn o" id="res-add" style="padding:5px 12px;font-size:12.5px">＋ 加一条</button></p>
+</div>
+
+<div class="card">
+<h3 id="toc-7">⑤ 高频问题（分身靠这个答学生）</h3>
+<p class="lead" style="margin-bottom:10px">预填 8 条开课高频；每学期末把学生真问过的补充进来——这就是"喂养"。</p>
+<div id="faq-list"><div class="faq-row" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="faq-q" value="这门课最后怎么考试？" placeholder="问题" style="flex:1"><input type="text" class="faq-a" value="三层：课堂查表与过程表现 30% + 结业《收益诊断报告》50% + 5 分钟&quot;我的建议与依据&quot;汇报 20%。标准答案不重要，说得清依据才重要。" placeholder="答案" style="flex:2"><button type="button" class="btn o faq-del" style="padding:6px 10px;font-size:12px">删</button></div><div class="faq-row" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="faq-q" value="我数学/Excel 不好，能学吗？" placeholder="问题" style="flex:1"><input type="text" class="faq-a" value="能。硬门槛只有一个：会四则运算和 Excel 求和。统计与概率在课内用&quot;够用即止&quot;的方式补，每章先给口诀再给推导。" placeholder="答案" style="flex:2"><button type="button" class="btn o faq-del" style="padding:6px 10px;font-size:12px">删</button></div><div class="faq-row" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="faq-q" value="收益管理和前厅、销售是什么关系？" placeholder="问题" style="flex:1"><input type="text" class="faq-a" value="收益定规则，前厅与销售执行规则；冲突按判定表裁（应急优先、留痕裁决）。课上会用角色扮演演练这场对话。" placeholder="答案" style="flex:2"><button type="button" class="btn o faq-del" style="padding:6px 10px;font-size:12px">删</button></div><div class="faq-row" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="faq-q" value="查表题总查错，怎么办？" placeholder="问题" style="flex:1"><input type="text" class="faq-a" value="记行列含义：横行＝预测出租率，纵列＝进度偏差，交叉处＝当天动作。查完过一遍约束再落。错题追到对应模块页重看，别背答案。" placeholder="答案" style="flex:2"><button type="button" class="btn o faq-del" style="padding:6px 10px;font-size:12px">删</button></div><div class="faq-row" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="faq-q" value="结业作品到底是什么？" placeholder="问题" style="flex:1"><input type="text" class="faq-a" value="一份《收益诊断报告》+ 一份《30 天行动方案》：给你一家酒店的口径数据，你诊断问题、给出动作、说清依据。求职能当作品集，入职能当工作方案。" placeholder="答案" style="flex:2"><button type="button" class="btn o faq-del" style="padding:6px 10px;font-size:12px">删</button></div><div class="faq-row" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="faq-q" value="以后不做酒店，学它有用吗？" placeholder="问题" style="flex:1"><input type="text" class="faq-a" value="这门课教的是&quot;用数据做一个决定，并说清为什么&quot;——任何需要定价、排产、配资源的岗位都收这笔学费。" placeholder="答案" style="flex:2"><button type="button" class="btn o faq-del" style="padding:6px 10px;font-size:12px">删</button></div><div class="faq-row" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="faq-q" value="有证书可以考吗？" placeholder="问题" style="flex:1"><input type="text" class="faq-a" value="有学生认证班（自愿报名，整班组织）。通过率以过程数据为准，不保证&quot;交钱就过&quot;。" placeholder="答案" style="flex:2"><button type="button" class="btn o faq-del" style="padding:6px 10px;font-size:12px">删</button></div><div class="faq-row" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" class="faq-q" value="实验/作业不会交怎么办？" placeholder="问题" style="flex:1"><input type="text" class="faq-a" value="按五段式模板交：背景→卡点→动作→结果→依据。先求完整，再求厚；模板在课程主页与结业作品集页都能拿到。" placeholder="答案" style="flex:2"><button type="button" class="btn o faq-del" style="padding:6px 10px;font-size:12px">删</button></div></div>
+<button type="button" class="btn o" id="faq-add" style="padding:5px 12px;font-size:12.5px">＋ 加一条</button>
+</div>
+
+<div class="card">
+<h3 id="toc-8">⑥ 分身人设（它怎么说话）</h3>
+<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
+<div><label>分身名字</label><input type="text" id="c-ava" value="小益"></div>
+<div><label>语气（一句话）</label><input type="text" id="c-tone" value="直说重点，先给动作再给依据，不绕弯"></div>
+<div><label>兜底话术（答不上来时说什么）</label><input type="text" id="c-fallback" value="这个我记下了，下节课课上统一讲；急的话去提问板发帖，标题写「开课提问」"></div>
+<div><label>转人工路径</label><input type="text" id="c-human" value="每周 office hour 一小时 / 提问板"></div>
+</div>
+</div>
+
+<div style="margin:18px 0">
+<button class="btn" id="gen">生成学生版答疑页 →</button>
+<button class="btn o" id="save">保存到本机</button>
+<button class="btn o" id="load">读取上次保存</button>
+<button class="btn o" id="reset">恢复默认</button>
+<span id="hint" style="font-size:13px;color:#5b6a7d;margin-left:8px"></span>
+</div>
+
+<h2 id="toc-9">学生版答疑页预览（学生看到的样子）</h2>
+<p class="lead">这就是开学第一周发给学生的东西。搜索框 + 高频问答 + 口径速查 + 资料入口 + 兜底话术。</p>
+<div class="card" id="preview" style="border:2px dashed var(--gold)">
+<p style="color:#5b6a7d">点上方「生成学生版答疑页」。</p>
+</div>
+
+<h2 id="toc-10">对学生发布（文案已备好，复制即用）</h2>
+<div class="card">
+<p>把下面这段连同答疑页链接（或打印件）发到班级群/课程平台：</p>
+<textarea id="pub-text" readonly style="min-height:150px"></textarea>
+<div style="margin-top:8px">
+<button class="btn o" id="pub-copy">复制文案</button>
+<button class="btn o" id="pub-print">打印学生版（一页纸）</button>
+</div>
+</div>
+
+<h2 id="toc-11">喂养节奏：分身每个月长一点</h2>
+<div class="card">
+<table>
+<tr><th>时间</th><th>喂什么</th><th>花多久</th></tr>
+<tr><td>第 1–2 周</td><td>六样清单搭骨架（口径卡与模块最重要）</td><td>2–3 小时</td></tr>
+<tr><td>第 3–4 周</td><td>逐章补"目标句"，FAQ 补到 15 条</td><td>每章 10 分钟</td></tr>
+<tr><td>第 5 周</td><td>对学生发布， office hour 口头引导第一次使用</td><td>一次课</td></tr>
+<tr><td>每月</td><td>把本月学生真问过、FAQ 没覆盖的问题补进来；答不动的删掉或改准</td><td>30 分钟</td></tr>
+<tr><td>每学期末</td><td>按提问频次重排 FAQ 顺序，把最高频的置顶</td><td>1 小时</td></tr>
+</table>
+<div class="note"><b>喂养的副产品：</b>一学期下来，FAQ 就是你这门课的"真实问题库"——它同时是你改课件的依据、下届教案的素材、以及教学成果展示里最硬的一块。</div>
+</div>
+
+<div class="quote"><b>边界：</b>分身答的是课程问题，不替代你的办公时间与校内流程；涉密内容（未公开的考核数据、学生个人信息）不要喂进去。</div>
+
+<script>
+var KEY = 'hrma_teach_wb_v1';
+function g(id){return document.getElementById(id);}
+function val(id, d){var e = g(id); return e ? e.value : d;}
+function rows(sel, cls){return Array.prototype.map.call(document.querySelectorAll(sel), function(x){return x.value;}).filter(function(v){return v && v.trim();});}
+function faqPairs(){return Array.prototype.map.call(document.querySelectorAll('.faq-row'), function(r){
+  return [r.querySelector('.faq-q').value.trim(), r.querySelector('.faq-a').value.trim()];}).filter(function(p){return p[0];});}
+function resPairs(){return Array.prototype.map.call(document.querySelectorAll('.res-row'), function(r){
+  return [r.querySelector('.res-u').value.trim(), r.querySelector('.res-n').value.trim()];}).filter(function(p){return p[0];});}
+function mods(){return Array.prototype.map.call(document.querySelectorAll('.mod-c:checked'), function(x){return x.value;});}
+function collect(){
+  return {
+    name: val('c-name','酒店收益管理'), hrs: val('c-hrs','32 学时'), pre: val('c-pre',''),
+    exam: val('c-exam',''), rooms: val('c-rooms',''), seg: val('c-seg',''),
+    cost: val('c-cost','95'), comp: val('c-comp',''), ava: val('c-ava','小益'),
+    tone: val('c-tone',''), fb: val('c-fallback',''), human: val('c-human',''),
+    mods: mods(), faq: faqPairs(), res: resPairs()
+  };
+}
+function esc(s){return String(s).replace(/[&<>]/g,function(m){return m=='&'?'&amp;':m=='<'?'&lt;':'&gt;'})}
+function render(d){
+  var h = '<h3 id="toc-12" style="margin:0 0 4px">' + esc(d.name) + ' · 课程答疑（' + esc(d.ava) + '）</h3>' +
+    '<p style="color:#5b6a7d;font-size:13px;margin:0 0 10px">' + esc(d.hrs) + ' · 先修：' + esc(d.pre) + ' · 考核：' + esc(d.exam) + '</p>' +
+    '<input type="search" id="pv-q" placeholder="搜你的问题，如：考试 / 查表 / 证书……" style="max-width:420px;margin-bottom:10px">' +
+    '<div id="pv-list"></div>' +
+    '<h4 style="margin:14px 0 6px">口径速查（问"这个数哪来的"看这里）</h4>' +
+    '<table style="margin:0"><tr><th>项目</th><th>口径</th></tr>' +
+    '<tr><td>房量结构</td><td>' + esc(d.rooms) + '</td></tr>' +
+    '<tr><td>客源结构</td><td>' + esc(d.seg) + '</td></tr>' +
+    '<tr><td>变动成本</td><td>' + esc(d.cost) + ' 元/间夜</td></tr>' +
+    '<tr><td>竞组房价</td><td>' + esc(d.comp) + '</td></tr></table>' +
+    '<h4 style="margin:14px 0 6px">本学期讲这些模块</h4><p style="font-size:13px">' + d.mods.map(esc).join(' · ') + '</p>' +
+    '<h4 style="margin:14px 0 6px">材料去哪找</h4><p style="font-size:13px">' +
+    d.res.map(function(r){return '<a href="' + esc(r[0]) + '">' + esc(r[1] || r[0]) + '</a>';}).join('　') + '</p>' +
+    '<p style="margin-top:14px;font-size:13px;color:#5b6a7d"><b>' + esc(d.ava) + '的边界：</b>' + esc(d.fb) + '　转人工：' + esc(d.human) + '</p>';
+  g('preview').innerHTML = h;
+  paintPv(d);
+}
+function paintPv(d){
+  var box = document.getElementById('pv-list'); if(!box) return;
+  var k = (document.getElementById('pv-q').value || '').toLowerCase();
+  var list = d.faq.filter(function(f){return !k || (f[0] + ' ' + f[1]).toLowerCase().indexOf(k) >= 0;});
+  box.innerHTML = list.length ? list.map(function(f){
+    return '<details class="card" style="margin:8px 0"><summary><b>' + esc(f[0]) + '</b></summary><p style="margin-top:6px">' + esc(f[1]) + '</p></details>';
+  }).join('') : '<p style="color:#5b6a7d">没搜到。换个词，或按兜底话术转人工。</p>';
+  var q = document.getElementById('pv-q');
+  if(q) q.addEventListener('input', function(){ paintPv(d); });
+}
+g('gen').addEventListener('click', function(){
+  var d = collect();
+  if(!d.faq.length){ g('hint').textContent = 'FAQ 至少要有一条——分身靠它答学生。'; return; }
+  render(d);
+  g('pub-text').value = '同学们好：\n' +
+    '这门课我配了一个"课程答疑分身"（' + d.ava + '），24 小时在线：考试结构、查表方法、材料在哪、口径是哪来的，都可以先问它。\n' +
+    '用法：先自己查 → 按它的"下一步"做 → 仍卡住，带着你做过什么来问我（' + d.human + '）。\n' +
+    '提醒：分身答的是课程问题；涉密的考核数据请不要贴进去。\n' +
+    '——' + d.name + '（' + d.hrs + '）';
+  g('hint').textContent = '已生成。可保存到本机，或复制发布文案发到班级群。';
+});
+g('save').addEventListener('click', function(){
+  try{ localStorage.setItem(KEY, JSON.stringify(collect())); g('hint').textContent = '已保存到本机（换设备不同步）。'; }
+  catch(e){ g('hint').textContent = '保存失败：浏览器存储不可用。'; }
+});
+g('load').addEventListener('click', function(){
+  try{
+    var d = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if(!d){ g('hint').textContent = '本机没有保存记录。'; return; }
+    ['name','hrs','pre','exam','rooms','seg','cost','comp','ava','tone','fb','human'].forEach(function(k){
+      var m = {name:'c-name',hrs:'c-hrs',pre:'c-pre',exam:'c-exam',rooms:'c-rooms',seg:'c-seg',cost:'c-cost',comp:'c-comp',ava:'c-ava',tone:'c-tone',fb:'c-fallback',human:'c-human'};
+      if(g(m[k])) g(m[k]).value = d[k] || '';
+    });
+    d.mods.forEach(function(u){var c = document.querySelector('.mod-c[value="' + u + '"]'); if(c) c.checked = true;});
+    document.querySelectorAll('.mod-c').forEach(function(c){ if(d.mods.indexOf(c.value) < 0) c.checked = false; });
+    var fl = g('faq-list'); fl.innerHTML = '';
+    (d.faq.length ? d.faq : [['','']]).forEach(function(f){ addFaq(f[0], f[1]); });
+    var rl = document.querySelectorAll('.res-row');
+    rl.forEach(function(r, i){ if(d.res[i]){ r.querySelector('.res-u').value = d.res[i][0]; r.querySelector('.res-n').value = d.res[i][1]; } });
+    g('hint').textContent = '已读取。点「生成学生版答疑页」看效果。';
+  }catch(e){ g('hint').textContent = '读取失败。'; }
+});
+g('reset').addEventListener('click', function(){ location.reload(); });
+g('faq-add').addEventListener('click', function(){ addFaq('',''); });
+g('res-add').addEventListener('click', function(){
+  var d = document.createElement('div');
+  d.className = 'res-row'; d.style.cssText = 'display:flex;gap:8px;margin-bottom:8px';
+  d.innerHTML = '<input type="text" class="res-u" placeholder="页面地址" style="flex:1"><input type="text" class="res-n" placeholder="显示名" style="flex:1"><button type="button" class="btn o res-del" style="padding:6px 10px;font-size:12px">删</button>';
+  g('faq-list').parentElement.insertBefore(d, g('faq-list').nextSibling.nextSibling);
+});
+function addFaq(q, a){
+  var d = document.createElement('div');
+  d.className = 'faq-row'; d.style.cssText = 'display:flex;gap:8px;margin-bottom:8px';
+  d.innerHTML = '<input type="text" class="faq-q" placeholder="问题" style="flex:1"><input type="text" class="faq-a" placeholder="答案" style="flex:2"><button type="button" class="btn o faq-del" style="padding:6px 10px;font-size:12px">删</button>';
+  d.querySelector('.faq-q').value = q || ''; d.querySelector('.faq-a').value = a || '';
+  g('faq-list').appendChild(d);
+}
+document.addEventListener('click', function(e){
+  if(e.target.classList && (e.target.classList.contains('faq-del') || e.target.classList.contains('res-del'))){
+    e.target.parentElement.remove();
+  }
+});
+g('pub-copy').addEventListener('click', function(){
+  var t = g('pub-text'); if(!t.value){ g('hint').textContent = '先生成学生版答疑页。'; return; }
+  t.select(); var ok = false; try{ ok = document.execCommand('copy'); }catch(e){}
+  g('hint').textContent = ok ? '文案已复制，去班级群粘贴。' : '文案已全选，按 Ctrl/Cmd + C 复制。';
+});
+g('pub-print').addEventListener('click', function(){
+  var d = collect(); if(!d.faq.length){ g('hint').textContent = '先生成学生版答疑页。'; return; }
+  render(d); window.print();
+});
+</script>
+
+<p style="margin-top:22px"><a class="btn o" href="teach.html">← 返回教师开课主页</a>　<a class="btn o" href="teach-avatar.html">教练开课分身</a></p>
+<div class="foot">数据只存在本机浏览器 · 不替代办公时间与校内流程</div>
+</main>
+<script src="assets/js/site-nav.js?v=v21"></script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">这是什么：把你这门课，做成一个 24 小时的答疑分身</a>
+<a href="#toc-2">六步搭建（默认值按云璟商务酒店预填，全部可改）</a>
+<a href="#toc-3" class="lv3">① 课程名片</a>
+<a href="#toc-4" class="lv3">② 口径卡（学生问&quot;这个数哪来的&quot;就查这里）</a>
+<a href="#toc-5" class="lv3">③ 讲什么（勾选本学期实际讲的模块）</a>
+<a href="#toc-6" class="lv3">④ 资料入口（学生去哪找材料）</a>
+<a href="#toc-7" class="lv3">⑤ 高频问题（分身靠这个答学生）</a>
+<a href="#toc-8" class="lv3">⑥ 分身人设（它怎么说话）</a>
+<a href="#toc-9">学生版答疑页预览（学生看到的样子）</a>
+<a href="#toc-10">对学生发布（文案已备好，复制即用）</a>
+<a href="#toc-11">喂养节奏：分身每个月长一点</a>
+<a href="#toc-12" class="lv3">&#x27; + esc(d.name) + &#x27; · 课程答疑（&#x27; + esc(d.ava) + &#x27;）</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
+</html>
