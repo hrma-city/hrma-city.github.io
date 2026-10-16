@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>开课答疑分身 · 教练的 24 小时数字分身</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--gold2:#f5d78e;--ink:#1f2a37;--mut:#5b6a7d;
+  --ok:#2a9d5f;--blue:#3d8bd4;--red:#c0503f;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.82;font-size:15px}
+.wrap{max-width:980px;margin:0 auto;padding:0 22px 90px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:32px 0 28px}
+.hero .wrap{padding-bottom:0}
+.hero .tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);
+  color:var(--gold2);font-size:12.5px;border-radius:999px;padding:3px 13px;margin-bottom:11px}
+.hero h1{font-size:24px;line-height:1.45}
+.hero p{color:#b9d0e6;font-size:14px;margin-top:9px;max-width:820px}
+h2{font-size:19.5px;color:var(--navy);margin:34px 0 6px;padding-left:12px;border-left:4px solid var(--gold)}
+h3{font-size:16px;color:var(--navy);margin:18px 0 5px}
+h4{font-size:14.5px;color:var(--navy2);margin:12px 0 4px}
+.lead{color:var(--mut);font-size:14px;margin:6px 0 14px;padding-left:12px}
+p{margin:8px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:13px 0}
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:12px;overflow:hidden;margin:12px 0}
+th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-size:12.5px}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:#fafcfe}
+.pill{display:inline-block;font-size:11px;border-radius:6px;padding:1px 8px;color:#fff;white-space:nowrap}
+.pill.h{background:var(--ok)}.pill.m{background:var(--blue)}.pill.l{background:var(--gold);color:#3a2c07}
+.pill.g{background:var(--navy2)}
+.quote{border-left:3px solid var(--gold);background:#fffcf2;padding:11px 15px;border-radius:0 10px 10px 0;
+  font-size:13.5px;color:#5b4a12;margin:12px 0}
+.note{background:#eef6f1;border:1px solid #c4e2d0;border-radius:10px;padding:12px 16px;font-size:13.5px;color:#2c6e48;margin:12px 0}
+.warn{background:#fdf1ef;border:1px solid #eecac4;border-radius:12px;padding:12px 16px;font-size:13.5px;color:#8a3a2e;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:14px 0}
+.mini{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+.mini b{display:block;color:var(--navy);font-size:14px;margin-bottom:4px}
+.mini span{font-size:12.5px;color:var(--mut);display:block}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+a{color:var(--navy2)}
+.btn{display:inline-block;background:var(--navy);color:#fff;border:none;border-radius:9px;padding:9px 16px;
+  font-size:13.5px;cursor:pointer;text-decoration:none;margin:4px 6px 4px 0}
+.btn:hover{background:var(--navy2)}
+.btn.g{background:var(--gold);color:#3a2c07}
+.btn.o{background:#fff;color:var(--navy);border:1px solid var(--line)}
+input[type=text],input[type=search],textarea,select{font-family:inherit;font-size:14px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:10px;width:100%;background:#fff;color:var(--ink)}
+textarea{min-height:96px;line-height:1.7}
+label{display:block;font-size:13px;color:var(--navy);margin:10px 0 4px;font-weight:600}
+.foot{text-align:center;color:var(--mut);font-size:12.5px;margin-top:38px;padding-top:18px;border-top:1px solid var(--line)}
+.chk{list-style:none;margin-left:0}
+.chk li{padding-left:26px;position:relative;margin:6px 0}
+.chk li:before{content:"□";position:absolute;left:0;color:var(--gold);font-size:15px}
+.hide{display:none}
+@media print{.hero{background:var(--navy)!important}.noprint{display:none}}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<span class="tag">教师 · 开课工具</span>
+<h1>开课答疑分身 · 教练的数字分身</h1>
+<p>40 条开课结构化问答：申报、设计、授课、考核、学生、迭代。每条带下一步动作——先自己查，边做边问，仍卡住转人工。</p>
+</div></header>
+<main class="wrap">
+
+<h2 id="toc-1">这是教练的数字分身</h2>
+<p class="lead">把教练过去五年开课辅导的方法论、问答习惯和判断依据，整理成 40 个结构化答案，做成的 24 小时在线的"分身"。它不会累、不会烦、随时回答——但它有边界：答不了的，会告诉你转去哪里。</p>
+
+<div class="card" style="background:#fff8e6;border-color:#e8cfa0">
+<b>为什么是"分身"而不是课程：</b>新课你未必有时间听，但你开课中卡住的那一刻，需要的是<b>现在、就这个问题、给我下一步动作</b>。分身的所有答案都按这个标准写——每条都带"下一步做什么"。
+</div>
+
+<h2 id="toc-2">三步用法</h2>
+<div class="card">
+<ol>
+<li><b>先自己查：</b>选阶段或搜关键词，看答案和下一步动作——80% 的开课问题在这里能直接解决。</li>
+<li><b>边做边问：</b>答案里的"下一步"就是动作；做一步，遇到新问题再回来查。学习不是听完再做，是做的过程中随时问。</li>
+<li><b>仍卡不住转人工：</b>带着你的上下文（第 2 步做了什么、卡在哪）到 <a href="board.html">提问板</a> 发帖，或按六要素格式提问——那才是真人教练出手的地方。</li>
+</ol>
+<div class="note"><b>分身的边界（说在前面）：</b>它基于教练已沉淀的方法论回答，不替代你所在学校的决策流程；涉密内容（未公开的评估、合同）请不要贴进任何提问。</div>
+</div>
+
+<h2 id="toc-3">开课知识库（<span id="cnt">40</span> 条）</h2>
+<p class="lead">点问题铺开答案。按开课的真实顺序排列：申报 → 设计 → 授课 → 考核 → 学生 → 迭代。</p>
+<div class="card">
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px" id="chips"></div>
+<input type="search" id="q" placeholder="搜关键词，如：申报 / 学时 / 考核 / 评教……" style="max-width:420px">
+</div>
+<div id="list"></div>
+
+<h2 id="toc-4">喂养分身：你的问题，就是它的下一课</h2>
+<p class="lead">分身每个月都在长——每次教练做完咨询、上完课、答完提问板，新内容都会喂回去。你也可以直接喂它。</p>
+<div class="card">
+<h3 id="toc-5">提交一个没被收录的问题</h3>
+<label>你的问题（一句话说清卡点）</label>
+<input type="text" id="f-q" placeholder="如：48 学时里库存超售总讲不完，怎么取舍？">
+<label>你的上下文（你已经做了什么、卡在哪一步）</label>
+<textarea id="f-bg" placeholder="如：按 32 学时版讲，第 12 周开始赶进度，学生练习量不够"></textarea>
+<div style="margin-top:12px">
+<button class="btn" id="f-save">生成提问卡</button>
+<button class="btn o" id="f-copy">复制提问卡</button>
+<button class="btn o" id="f-clear">清空</button>
+</div>
+<div id="f-out" class="hide" style="margin-top:12px"></div>
+<div class="note" style="margin-top:12px">提问卡在本机暂存，复制后到 <a href="board.html">提问板</a>发帖（标题以「开课提问」开头）。被收录进分身知识库的问题，会在答案里署名致谢。</div>
+</div>
+
+<div class="quote"><b>给同时在使用教学服务包的教师：</b>分身的 40 条答案是包内共修/陪跑的"公共底稿"——你校的具体情况（课时、学生基础、验收口径）需要在一对一或共修里落地成你校的版本。分身给方法，人给判断。</div>
+
+<script>
+var KB = [{"s": "申报", "q": "开课申报材料怎么写，才能过审？", "a": ["结论先行：第一段就说清\"解决什么问题、凭什么能解决\"——审批人只关心这两件事。", "四块必备：课程定位（服务什么岗位/认证）、内容来源（15 张判定表 + 14 模块，不是拼凑）、师资与数据（用模拟数据库云璟 90 天，证明\"有数据可教\"）、预期成果（学生认证通过率/作品集交付物）。", "附一页纸即可，别写成书。审批人要的是\"这人想清楚了\"，不是\"这人很辛苦\"。"], "u": "teach.html", "ul": "教师开课主页", "act": "按模板写完后，到提问板发一版，标题「申报求批」，同行先挑错再上报。"}, {"s": "申报", "q": "学校只有 16 学时，讲不了 32 章怎么办？", "a": ["不要按比例砍内容——按\"一个完整闭环\"选模块：指标→预测→调价→复盘，讲透一条线胜过八个专题。", "推荐配置：指标与口径 4 学时 + 需求预测 4 学时 + 定价查表 6 学时 + 复盘与汇报 2 学时。", "每章七件套里，\"实验\"和\"口诀\"优先保——这是学生唯一能带走的。"], "u": "slides-teach.html", "ul": "投屏课件（三套学时）", "act": "用投屏课件 16 学时版先跑一学期，把课堂时间记录下来，下学期再扩。"}, {"s": "申报", "q": "没有真实酒店数据，课会不会很虚？", "a": ["用站上模拟数据库：云璟 90 天完整经营数据（OCC/ADR/渠道/竞对/在手），口径与教材完全一致。", "教学的关键不是数据真假，是学生\"用真口径做过一次决策\"——模拟数据 + 真实口径 = 可迁移能力。", "更进一步：让学生交一份《收益诊断报告》当结业作品，比考试更能证明不虚。"], "u": "teach-data.html", "ul": "教学数据工坊", "act": "开学第一周就布置诊断报告任务，用 90 天数据做基线。"}, {"s": "申报", "q": "怎么证明这门课\"有必要开\"？", "a": ["给三个证据：① 岗位招聘 JD 里出现频率（收益经理/收益专员关键词）；② 认证班与教材的完整体系（不是一门孤课）；③ 可验收的学生成果（诊断报告 + 认证通过率）。", "最有力的一条：隔壁院校/同类专业的开课先例——哪怕只是你知道的，也写进\"参照\"。"], "u": "course-standard.html", "ul": "课程标准", "act": "把三条证据写进申报第一页，一页放不下就删内容，别删证据。"}, {"s": "申报", "q": "实验课没有酒店系统，怎么上？", "a": ["用\"查表做决策\"代替\"操作系统\"：给一张每日调价表 + 一组当日数据，让学生查出唯一动作——考的是依据，不是软件。", "站上工具预览（Pace、弹性、置换计算器）可直接当实验环境，浏览器打开就能用。", "实验报告模板已有：背景→卡点→动作→结果→依据，五段式。"], "u": "coll-tools.html", "ul": "工具预览全集（9 个）", "act": "第一次实验用\"表 A 调价\"这一个实验跑通全班，再逐步加。"}, {"s": "申报", "q": "先修课要求怎么写才不吓退学生？", "a": ["只设一条硬门槛：会四则运算和Excel求和。其余（概率、统计）在课内用\"够用即止\"的方式补。", "把\"先修\"写成\"你需要的，课内会教\"——申报文本里这句话能挡掉一半质疑。"], "u": "textbook.html", "ul": "学生教材", "act": "第一课加一张\"先修自查表\"，5 道题自测，不会的告诉学生去哪补。"}, {"s": "设计", "q": "16 / 32 / 48 学时分别怎么分配？", "a": ["16 学时：一条闭环（指标→预测→调价→复盘）。", "32 学时：一条闭环 + 渠道/团队两个专题。", "48 学时：闭环 + 渠道 + 团队 + 库存超售 + 一次完整结业项目。", "共同原则：宁可少一个专题，不可砍掉\"学生自己完整做一遍\"的环节。"], "u": "slides-teach.html", "ul": "投屏课件（三套学时）", "act": "先按 16 学时跑通，再逐年加——加不上的学时说明内容该删。"}, {"s": "设计", "q": "每章\"七件套\"必须每章都做齐吗？", "a": ["不必一次做齐。优先级：学习目标 > 案例导入 > 口诀 > 练习 > 思维导图 > 实验 > 二维码。", "第一次开课：七件套里的\"实验\"和\"练习\"别省——这是学生动起来的唯二抓手。", "思维导图和二维码可以第二届补，教案是迭代出来的，不是憋出来的。"], "u": "coll-slides.html", "ul": "投屏课件全集（32 章）", "act": "用现成投屏课件顶第一轮，把省下的时间全部投给学生作业批改。"}, {"s": "设计", "q": "考核怎么设计，才能证明学生\"会了\"？", "a": ["三层：过程（课堂查表演练，占 30%）+ 结果（结业诊断报告，占 50%）+ 表达（5 分钟汇报\"我的建议与依据\"，占 20%）。", "诊断报告用量规评分：依据正确性/留痕完整性/经营解释/可执行性四维——看依据，不看文采。", "防\"蒙对\"：汇报环节追问\"为什么用这张表\"，答不出的高分也压下来。"], "u": "capstone-portfolio.html", "ul": "结业作品集", "act": "第一轮考核先只用四维量规中的\"依据正确性\"一维，别贪多。"}, {"s": "设计", "q": "学生基础差异大，怎么分层？", "a": ["同一任务，两档数据：标准版（口径齐全）+ 精简版（只有三个数）——差生交雏形，强者交完整版。", "汇报环节让基础弱的学生讲\"我查了哪张表\"，强的讲\"我怎么裁冲突\"——各有各的台阶。", "别用同一张卷子考所有人，那是考老师不是考学生。"], "u": "capstone-portfolio.html", "ul": "结业作品集", "act": "把精简版样例直接发给学生当低保底，完成即及格。"}, {"s": "设计", "q": "思政融入怎么加才不生硬？", "a": ["收益管理天然有三个思政点：价格诚信（不宰客、价格一致性红线）、数据真实（不篡改基线）、契约精神（超售赔付、团队取消条款）。", "融入方式：案例复盘时追问一句\"这个动作对客人意味着什么\"，比单独讲一节课有效十倍。", "切忌另起一章讲思政——那是给检查看的，不是给学生学的。"], "u": "cases-book.html", "ul": "酒店收益管理案例集", "act": "在超售和渠道倒挂两个案例的复盘课里各埋一个问题，先试一学期。"}, {"s": "授课", "q": "第一节课讲什么，才能镇住学生？", "a": ["不讲概念，先做一个决策：抛一个真实场景（周三 OCC62%、Pickup 落后 12%），让全班投票\"涨/降/不动\"，然后带他们查表找唯一答案。", "第一节课的KPI只有一个：让学生相信\"这门课能让我做出一个决定\"。", "最后 10 分钟再讲课程结构、考核与作品集要求。"], "u": "ep02.html", "ul": "星期三的下午（表A调价）", "act": "直接照剧院第 2 集的流程上一遍，那是现成的课堂剧本。"}, {"s": "授课", "q": "学生说\"听不懂\"，怎么救？", "a": ["先查是哪个环节断的：公式断→回例题；口径断→画一张指标关系图；场景断→换他自己住的酒店举例。", "口诀是急救包：每章一句，先背再用，比反复讲原理管用。", "允许学生\"先会用、后懂为什么\"——判定表的原设计就是给新手用的。"], "u": "pocket-32.html", "ul": "口袋书全集（32册）", "act": "把对应口袋书章节当课前预习发下去，课堂只讲查表。"}, {"s": "授课", "q": "课堂互动除了提问还有什么？", "a": ["三个低成本互动：① 角色扮演（收益经理 vs 销售，现成 32 情景）；② 分组 PK 查表速度；③ 错例找茬（给一份错误台账，让学生挑）。", "互动的时间账：每 20 分钟必须有一个动作，纯讲超过 20 分钟，后半节就还给你了。"], "u": "roleplay.html", "ul": "角色扮演", "act": "第一轮只用 3 个情景（团队压价/渠道倒挂/超售），跑通再扩。"}, {"s": "授课", "q": "学生将来又不做收益，为什么要学？", "a": ["第一节课就回答：这门课教的是\"用数据做一个决定，并说清为什么\"——这是任何岗位都收的学费。", "给三个出口：酒店收益岗、任何需要定价决策的岗位、以及\"把复杂问题拆成可执行动作\"的通用能力。", "记住：学生问的不是\"有什么用\"，是\"跟我有什么关系\"——用他们住的酒店讲，别用财报讲。"], "u": "learn-path.html", "ul": "学习路径总览", "act": "把学习路径图放进第一节课课件，让学生看见出口再上路。"}, {"s": "授课", "q": "课堂上被学生问倒怎么办？", "a": ["标准答案：\"这个问题我不知道，我们查一下。\"当着全班查判定表/知识库——这本身就是最好的教学示范。", "课后 24 小时内到提问板发帖求解，把答案带回课堂——学生记住的是\"老师怎么处理不会\"，不是\"老师什么都会\"。", "永远别现场编。一个编造的答案，毁掉的是整门课的可信度。"], "u": "board.html", "ul": "提问板", "act": "按六要素格式发帖：背景/卡点/试过什么/卡在哪/要什么/是否紧急。"}, {"s": "考核", "q": "题库 253 题怎么用才不变成刷题课？", "a": ["题库是体检工具不是教材：每章结束后当堂测 5 题，当堂对答案讲依据——10 分钟，不占用正课。", "错题回炉：错的题追到对应模块页重看，再错第二次的进\"重点关照名单\"。", "认证班/考证导向的班级才需要系统刷题，普通教学班当堂测足够。"], "u": "wb.html", "ul": "演练题库", "act": "第一次用只抽 L1 题（78 题）当堂测，建立信心再上加度。"}, {"s": "考核", "q": "组卷怎么保证覆盖面？", "a": ["按判定表映射组卷：15 张表每张至少 2 题，学生错了能立刻定位到\"哪张表没掌握\"。", "难度配比建议 L1:L2:L3 = 5:3:2，保证及格率的同时有区分度。", "每届考完记录各表正确率，下一届弱项表加练——卷子是一届一届改好的。"], "u": "badges.html", "ul": "能力徽章", "act": "把正确率低的表对应到徽章体系，给学生一张\"还差哪\"的地图。"}, {"s": "考核", "q": "结业作品怎么防抄袭和代做？", "a": ["三招：① 每人用自己班的真实/指定不同数据集（云璟 90 天数据按学号切分窗口）；② 课堂当场讲\"你的依据\"，讲不出的高分无效；③ 台账样本必须带时间戳与修改痕迹。", "防抄的关键是\"数据一人一份 + 现场讲依据\"，比查重软件管用。"], "u": "capstone-portfolio.html", "ul": "结业作品集", "act": "第一轮先做\"数据按学号切分\"这一招，成本最低。"}, {"s": "考核", "q": "成绩结构怎么设，学生才服？", "a": ["公开权重：过程 30%（课堂查表）+ 作品 50%（诊断报告）+ 表达 20%（5 分钟汇报）。", "提前给量规：开学第一周发四维量规，让学生知道\"努力方向\"而不是\"猜老师喜好\"。", "补考只补作品分，过程分不补——课堂参与没有\"补考\"这个概念。"], "u": "capstone-portfolio.html", "ul": "结业作品集", "act": "量规直接贴进课程大纲，别只发在班级群。"}, {"s": "学生", "q": "学生说\"这门课没用，找不到工作\"，怎么回应？", "a": ["不给鸡汤，给路径：收益管理是少数\"在校就能做出完整作品\"的方向——诊断报告就是求职证据。", "把往届学生的诊断报告（脱敏）给他们看，比讲一百句\"很有用\"都实在。", "承认现实：单上一门课不保证 offer，但\"带着作品去面试\"的人，通过率不一样。"], "u": "interview-kit.html", "ul": "面试助攻包", "act": "期末作业加一项：把诊断报告改成一页纸求职版。"}, {"s": "学生", "q": "怎么带学生做实习对接？", "a": ["用校企直通模板：把学生已完成内容（判定表/作品集）整理成一页，到提问板发「校企对接」帖。", "给用人方的信息要具体：城市、可实习时间、已完成什么、能干什么——模糊的需求换不来真实的岗位。", "内推不承诺结果，只提供真实信息——这句话一开始就要说清楚。"], "u": "workplace-cop.html", "ul": "在岗实践社区", "act": "先带一个班试流程，跑通了再复制到其他班。"}, {"s": "学生", "q": "学生基础弱，作品集交不出来怎么办？", "a": ["给低保底：精简版样例（只有 OCC/ADR/竞组三个数）——交雏形即及格，完成即胜利。", "分组时强弱搭配，汇报环节让弱者讲\"我查了哪张表\"——人人有台阶。", "记住第一学期的目标：让每个人完整走过一次，不是让每个人做到最好。"], "u": "capstone-portfolio.html", "ul": "结业作品集", "act": "开学第三周就发精简版样例，别等到期末。"}, {"s": "学生", "q": "想办个学生社团/兴趣小组，怎么起步？", "a": ["从一个轻活动开始：每周一次\"案例找茬会\"（30 分钟，一份错误案例，分组挑错）。", "承接课程副产品：把每届最好的诊断报告做成社团的\"内部案例库\"。", "社团的命脉是节奏不是规模——一个月一次稳定活动，胜过一次盛大启动。"], "u": "daily-drill.html", "ul": "每日一问", "act": "把每日一问当社团的日常打卡素材，零成本启动。"}, {"s": "迭代", "q": "一个学期下来，怎么复盘这门课？", "a": ["看四个数：学生作品量规均分、各判定表正确率、课堂查表演练完成率、学生汇报通过率。", "问三个问题：哪一章学生听不懂（内容问题）/ 哪个环节学生不动（设计问题）/ 哪次课你讲砸了（状态问题）。", "每学期只改三处——改多了等于没改。"], "u": "selfcheck.html", "ul": "自检表", "act": "考完试一周内做复盘，趁记忆还热；超过一个月就只剩感觉了。"}, {"s": "迭代", "q": "教材和课件什么时候该更新？", "a": ["两个触发条件：判定表体系变了（跟平台走），或连续两届学生同一处听不懂（内容表达问题）。", "平时只攒不改：把问题记进\"问题清单\"，假期集中处理——教学中改教材是最分心的做法。"], "u": "slides-teach.html", "ul": "投屏课件（三套学时）", "act": "建一个\"问题清单\"文档，一学期只打开两次（期中/期末）。"}, {"s": "迭代", "q": "学生评教分数低，怎么办？", "a": ["先分型：给分低（严格但公允，坚持+提前说清规则）还是教得差（内容或表达问题，改）。", "给分低的解法：第一周公开量规与权重，期末用数据说话（作品均分/通过率）——严格是会被时间证明的。", "教得差的解法：找具体章节，看是内容问题还是节奏问题，一学期只改一门最差的课。"], "u": "teach.html", "ul": "教师开课主页", "act": "把评教原文按\"内容/节奏/给分\"三类剪贴分类，别凭印象改。"}, {"s": "迭代", "q": "一个人备课太孤独，能找谁？", "a": ["站内教师同行社群（999 会员档）：联合备课、互相看大纲、共享样卷。", "更轻的做法：把教案发到提问板求批，标题「教案求批」——总有人比你更挑剔。", "每学期约一次跨校交流，看别人的课堂记录，比读十篇教学论文管用。"], "u": "membership.html", "ul": "社区会员", "act": "先发起一次\"互相看大纲\"，两个人就能开始。"}, {"s": "迭代", "q": "想把开课经验变成个人品牌，从哪开始？", "a": ["最小动作：把每届最有代表性的学生作品（脱敏）+ 你的复盘，写成一篇\"这一届我改了什么\"。", "渠道不是起点，作品才是：先有连续三届的迭代记录，再谈对外发声。", "记住顺序：课立住 → 作品攒下 → 方法论成型 → 才轮到个人品牌。跳步的都会回去补课。"], "u": "capstone-portfolio.html", "ul": "结业作品集", "act": "第一届结束就写第一篇\"我改了什么\"，300 字就够。"}, {"s": "申报", "q": "跨院系合作开课（如与数学/计算机合开），怎么谈？", "a": ["谈分工不谈感情：你出业务场景与判定表，对方出工具方法（统计/数据处理）——各自贡献自己最硬的资产。", "先在现有课里加 2 学时\"对方内容试讲\"，有学生好评再谈正式合开——试讲是成本最低的尽调。", "合开课的考核以你方为主，否则结业作品会散架。"], "u": "micro-major.html", "ul": "微专业方案（96学时）", "act": "先邀对方来听一节课你的课，让对方看见学生层次再谈。"}, {"s": "申报", "q": "学校要求\"一课一案\"，教案要写到多细？", "a": ["写到\"另一个老师拿着能上课\"的程度即可：每节的目标、开场问题、查表动作、练习、收尾口诀。", "别写逐字稿——那是录课用的，不是备课用的。逐字稿会锁死你课堂上的判断。", "把七件套当教案骨架，比从零写教案省一半时间。"], "u": "series-textbook.html", "ul": "开课手册（系列教材）", "act": "第一版教案只写\"目标+开场问题+练习\"三样，上完一课补一样。"}, {"s": "申报", "q": "教材选用：用平台教材还是自编？", "a": ["验证过再定：第一学期用平台教材跑一遍，同时记录\"学生卡在哪\"——这些卡点就是你自编的素材。", "自编教材的最大风险是\"只有你懂\"：换老师就断层。平台教材的价值恰是\"别人也能教\"。", "混合方案最常见：主干用平台教材，把你校案例自编成补充包。"], "u": "textbook.html", "ul": "学生教材", "act": "第一学期每周记三条\"学生卡点\"，期末就攒出补充包骨架。"}, {"s": "设计", "q": "实验报告怎么批，才不改到崩溃？", "a": ["用五段式模板（背景/卡点/动作/结果/依据）批，只批两处：依据选对没有、结果算对没有——别批文采。", "分批策略：第一次全批（立规矩），之后每组抽批 1/3（保底线），期末全批（算成绩）。", "给学生互评机会：用量规同桌互批一次，比你批三遍都管用——他们立刻知道\"依据\"长什么样。"], "u": "capstone-portfolio.html", "ul": "结业作品集", "act": "把量规四维打印成一页纸随实验发下去，批改时只打勾写编号。"}, {"s": "设计", "q": "线上/混合式教学怎么设计？", "a": ["把\"查表做决策\"设计成可异步完成的动作：发数据+表→学生交动作→下节课对答案讲依据。", "线上部分只做两件事：看微课（32 节现成）+ 交作业；讨论与纠错必须回到课堂或直播。", "别把正课搬成录播——录播的完课率会教你做人。"], "u": "micro-player.html", "ul": "微课放映版（32节）", "act": "第一轮混合只用\"课前看微课+课堂做决策\"一个模式，跑通再扩。"}, {"s": "授课", "q": "讲案例时，学生只想知道\"正确答案\"怎么办？", "a": ["不急着给答案：先让全班投票，再分组找依据，最后才亮\"表上的唯一动作\"。", "把案例的\"卡点\"当主角讲——学生要的是\"我当时也会懵\"的共鸣，不是标准答案。", "记住：案例课的目标是让学生敢在没有标准答案的场景里动手，不是记住一个答案。"], "u": "branch-drama.html", "ul": "分支互动剧", "act": "用分支互动剧当课堂案例：每个结局现场亮，讨论\"如果重来一次\"。"}, {"s": "授课", "q": "课堂时间总不够用，怎么砍？", "a": ["砍\"讲\"，保\"练\"：每章先定学生必须完成的动作（查表/演算/汇报），再倒推你该讲几分钟。", "口诀和练习是雷打不动的；历史沿革、名家观点、软件操作细节是第一批该砍的。", "时间账：一节 45 分钟的课，学生动手少于 15 分钟就是讲多了。"], "u": "daily-flow.html", "ul": "每日流水线", "act": "备课本上先写\"学生这节课做什么\"，再写\"我讲什么\"。"}, {"s": "考核", "q": "认证班（学生考证）怎么组织？", "a": ["定位：给学有余力的学生一个外部凭证，不是第二课堂——组织成本高，先小范围试点一个班。", "流程三件套：统一报名（教师收齐）→ 集中辅导（用题库 L1-L2）→ 统一测评；证书与通过率进培养方案佐证。", "规模建议：每届先做一个班（30 人内），跑通流程再扩大——认证的口碑建立在通过率上。"], "u": "cert.html", "ul": "资格认证", "act": "先找 10 个学有余力的学生试点一期，用通过率说话再推。"}, {"s": "学生", "q": "学生上课抬头率低，先改什么？", "a": ["先改开场：每节课用一个真实决策场景开场（数据+两难），讲完全班投票——开场决定抬头率。", "再改站位：多走到教室中后部讲，多在学生做练习时走到桌边——物理距离就是注意力距离。", "别先改内容：内容问题一个学期只暴露一两次，开场和节奏问题是每周都在发生的。"], "u": "ep02.html", "ul": "星期三的下午（表A调价）", "act": "下一节课就换一个\"周三下午\"式开场，先试一次看抬头率。"}, {"s": "学生", "q": "学生问\"女生/文科生适合做收益吗\"，怎么答？", "a": ["用事实答：收益岗的核心能力是数据敏感+跨部门沟通+说清依据，与性别和专业背景无关。", "给出路径图：从预订/前台/运营岗转入收益岗的案例，比\"适合不适合\"的争论有力。", "课堂上注意平衡：角色扮演分组时刻意让不同背景的学生都当过\"收益经理\"。"], "u": "roleplay.html", "ul": "角色扮演", "act": "在 32 情景里挑 3 个分组演，确保每个学生都轮过一次拍板角色。"}, {"s": "迭代", "q": "怎么知道学生真的\"学会了\"而不是\"背会了\"？", "a": ["终极测试：给一个没讲过的场景，让学生自己选表、查表、说依据——三件事都做对才算会。", "次要信号：学生开始主动问\"这种情况用哪张表\"——从\"答案是什么\"到\"用哪张表\"，就是学会了。", "一学期测两次（期中/期末），两次的差距就是你的教学成果。"], "u": "badges.html", "ul": "能力徽章", "act": "用徽章体系当期中测评：让未点亮的徽章告诉学生\"还差哪\"。"}];
+var STAGES = ["申报", "设计", "授课", "考核", "学生", "迭代"];
+var cur = '';
+var chips = document.getElementById('chips');
+STAGES.forEach(function(s){
+  var b = document.createElement('button');
+  b.className = 'btn o'; b.style.padding = '5px 12px'; b.style.fontSize = '13px';
+  b.textContent = s + '（' + KB.filter(function(k){return k.s === s}).length + '）';
+  b.addEventListener('click', function(){ cur = (cur === s) ? '' : s; paint(); });
+  b.setAttribute('data-s', s);
+  chips.appendChild(b);
+});
+function esc(s){return String(s).replace(/[&<>]/g,function(m){return m=='&'?'&amp;':m=='<'?'&lt;':'&gt;'})}
+function paint(){
+  var k = document.getElementById('q').value.trim().toLowerCase();
+  Array.prototype.forEach.call(chips.children, function(b){
+    b.className = 'btn' + (b.getAttribute('data-s') === cur ? '' : ' o');
+  });
+  var list = KB.filter(function(it){
+    if(cur && it.s !== cur) return false;
+    if(!k) return true;
+    return (it.q + ' ' + it.a.join(' ') + ' ' + it.s + ' ' + it.ul).toLowerCase().indexOf(k) >= 0;
+  });
+  document.getElementById('cnt').textContent = list.length;
+  var box = document.getElementById('list'); box.innerHTML = '';
+  if(!list.length){ box.innerHTML = '<div class="warn">没有匹配的问题。换个词，或直接把问题喂给分身（下方表单）。</div>'; return; }
+  list.forEach(function(it, i){
+    var d = document.createElement('details');
+    d.className = 'card';
+    var a = it.a.map(function(p){return '<li>' + esc(p) + '</li>'}).join('');
+    d.innerHTML = '<summary><span class="pill g">' + esc(it.s) + '</span>　<b>' + esc(it.q) + '</b></summary>' +
+      '<ol style="margin-top:8px">' + a + '</ol>' +
+      '<p style="margin-top:8px"><b>下一步：</b>' + esc(it.act) + '</p>' +
+      '<p style="margin-top:6px"><a class="btn o" href="' + it.u + '" style="padding:4px 10px;font-size:12.5px">看依据：' + esc(it.ul) + '</a></p>';
+    box.appendChild(d);
+  });
+}
+document.getElementById('q').addEventListener('input', paint);
+paint();
+
+var KEY = 'hrma_teach_avatar_v1';
+function g(id){return document.getElementById(id);}
+g('f-save').addEventListener('click', function(){
+  var q = g('f-q').value.trim(), bg = g('f-bg').value.trim();
+  if(!q || !bg){ g('f-out').className = 'warn';
+    g('f-out').innerHTML = '<b>还差一点：</b>问题和上下文都是必填的——没有上下文，教练没法判断你卡在哪。'; return; }
+  try{ localStorage.setItem(KEY, JSON.stringify({q: q, bg: bg})); }catch(e){}
+  var txt = '【开课提问】' + q + '\n上下文：' + bg + '\n（已查过分身知识库，未找到答案）';
+  g('f-out').className = 'note';
+  g('f-out').innerHTML = '<b>提问卡已生成（本机暂存）：</b><br><textarea readonly style="min-height:110px;margin-top:8px">' +
+    txt.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</textarea>';
+});
+g('f-copy').addEventListener('click', function(){
+  var o = g('f-out');
+  if(o.className === 'hide' || !o.textContent){ o.className = 'warn'; o.innerHTML = '<b>先点「生成提问卡」。</b>'; return; }
+  var ta = o.querySelector('textarea');
+  if(ta){ ta.select(); var ok = false; try{ ok = document.execCommand('copy'); }catch(e){}
+    o.className = 'note';
+    o.innerHTML = '<b>' + (ok ? '已复制。' : '文本已全选，按 Ctrl/Cmd + C 复制。') + '</b>到 <a href="board.html">提问板</a>发帖，标题保持「开课提问」开头。' + o.innerHTML; }
+});
+g('f-clear').addEventListener('click', function(){
+  g('f-q').value = ''; g('f-bg').value = '';
+  g('f-out').className = 'hide'; g('f-out').innerHTML = '';
+  try{ localStorage.removeItem(KEY); }catch(e){}
+});
+(function(){ try{
+  var d = JSON.parse(localStorage.getItem(KEY) || 'null');
+  if(d){ g('f-q').value = d.q || ''; g('f-bg').value = d.bg || ''; }
+}catch(e){} })();
+</script>
+
+<p style="margin-top:22px"><a class="btn o" href="teach.html">← 返回教师开课主页</a>　<a class="btn o" href="growth-hub.html">成长中心</a></p>
+<div class="foot">基于教练已沉淀方法论 · 不替代校内决策流程</div>
+</main>
+<script src="assets/js/site-nav.js?v=v21"></script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">这是教练的数字分身</a>
+<a href="#toc-2">三步用法</a>
+<a href="#toc-3">开课知识库（40 条）</a>
+<a href="#toc-4">喂养分身：你的问题，就是它的下一课</a>
+<a href="#toc-5" class="lv3">提交一个没被收录的问题</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
+</html>
