@@ -72,6 +72,7 @@
 </script>
 </script>
 </script>
+</script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
 <link rel="stylesheet" href="assets/css/main.css">
@@ -127,7 +128,7 @@ mark{background:#fff2b8;color:inherit;padding:0 1px;border-radius:2px}
       <span class="cnt" id="cnt"></span>
     </div>
   </div>
-  <div class="chips" id="chips"><button class="chip" data-cat="教材与图书" style="--c:#0f2a4a">教材与图书 <span class="cn">30</span></button><button class="chip" data-cat="学生·学习路径" style="--c:#1d6fb8">学生·学习路径 <span class="cn">6</span></button><button class="chip" data-cat="微课·备课" style="--c:#2E8B7A">微课·备课 <span class="cn">4</span></button><button class="chip" data-cat="教师·开课" style="--c:#b3600a">教师·开课 <span class="cn">21</span></button><button class="chip" data-cat="游戏·演练" style="--c:#7a3fb0">游戏·演练 <span class="cn">17</span></button><button class="chip" data-cat="报表·工具·模板" style="--c:#2a7d4f">报表·工具·模板 <span class="cn">22</span></button><button class="chip" data-cat="认证·考评" style="--c:#a02c4a">认证·考评 <span class="cn">12</span></button><button class="chip" data-cat="训练营·入行" style="--c:#8e44ad">训练营·入行 <span class="cn">8</span></button><button class="chip" data-cat="案例·教具" style="--c:#c0392b">案例·教具 <span class="cn">19</span></button><button class="chip" data-cat="行业矩阵" style="--c:#0e7c86">行业矩阵 <span class="cn">24</span></button><button class="chip" data-cat="社区·运营" style="--c:#5a4ba0">社区·运营 <span class="cn">10</span></button><button class="chip" data-cat="资源下载" style="--c:#6b4f2a">资源下载 <span class="cn">11</span></button><button class="chip" data-cat="其他" style="--c:#5b6a7d">其他 <span class="cn">15</span></button></div>
+  <div class="chips" id="chips"></div>
   <div id="results"></div>
 </div>
 <script>
@@ -188,6 +189,18 @@ chips.addEventListener('click', function(e){
   Array.prototype.forEach.call(chips.children, function(x){ x.classList.toggle('on', x.getAttribute('data-cat')===activeCat); });
   render();
 });
+
+// 分类标签由 CATS 动态生成（计数取自 DATA），新增分类/条目无需再手改标签栏
+function buildChips(){
+  var htmlStr = '';
+  CATS.forEach(function(c){
+    var n = DATA.filter(function(it){return it.cat===c.name;}).length;
+    if(!n) return;
+    htmlStr += '<button class="chip" data-cat="'+esc(c.name)+'" style="--c:'+c.color+'">'+esc(c.name)+' <span class="cn">'+n+'</span></button>';
+  });
+  chips.innerHTML = htmlStr;
+}
+buildChips();
 
 // 支持 ?q= 从顶栏搜索框带入
 var m = location.search.match(/[?&]q=([^&]*)/);
