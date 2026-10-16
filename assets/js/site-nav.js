@@ -144,7 +144,7 @@
   function sectionParent() {
     /* 成长中心：从学完到上岗这一段路（求职 / 入职 / 在岗 / 社区）。
        ⚠ 必须放在最前面：rm-coach.html 会被下面 "^ai-|coach" 规则误判为「教师」。 */
-    if (/^growth-hub\.html$|^rm-coach|^onboarding-kit|^capstone-portfolio|^interview-kit|^badges\.html$|^daily-drill|^decision-sprint|^workplace-cop|^branch-drama|^membership/.test(here)) return { url: 'growth-hub.html', label: '成长中心' };
+    if (/^growth-hub\.html$|^rm-coach|^onboarding-kit|^capstone-portfolio|^interview-kit|^badges\.html$|^daily-drill|^decision-sprint|^workplace-|^branch-drama|^membership/.test(here)) return { url: 'growth-hub.html', label: '成长中心' };
     if (/^m\d\d\.html$|^courses\/|^pocket-no|^theme-no|^no\d|^series\/|^core\/|^k0/.test(here)) return { url: 'hotelier.html', label: '酒店人' };
     if (/^industries\/|industries-[a-z-]+\.html$|[a-z-]*-index\.html$/.test(here)) return { url: 'industries.html', label: '行业矩阵' };
     if (/^exam\/|^cert|wb\.html|quiz\.html|quest\.html|game-quiz/.test(here)) return { url: 'cert.html', label: '认证体系' };
