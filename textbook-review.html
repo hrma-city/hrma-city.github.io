@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>教材优化复盘 · 写书先行路线（2026-10-17）</title>
+<style>
+:root{--navy:#0f2a4a;--gold:#e8b84b;--ink:#1f2a37;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb;
+  --red:#b3423a;--green:#1d6b4c}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.85;font-size:14.6px}
+.wrap{max-width:940px;margin:0 auto;padding:0 20px 70px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:30px 0 26px}
+.hero .wrap{padding-bottom:0}
+.tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);
+  color:#f5d78e;font-size:12.5px;border-radius:999px;padding:3px 12px;margin-bottom:10px}
+.hero h1{font-size:23px;line-height:1.45}
+.hero p{color:#b9d0e6;font-size:13.6px;margin-top:9px;max-width:790px}
+h2{font-size:18.5px;color:var(--navy);margin:34px 0 8px;padding-left:12px;border-left:4px solid var(--gold)}
+.sd{color:var(--mut);font-size:13px;margin:0 0 12px 16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:15px 19px;margin-bottom:11px}
+table{width:100%;border-collapse:collapse;font-size:13.2px;background:#fff;border-radius:12px;overflow:hidden;margin:8px 0}
+th{background:var(--navy);color:#fff;text-align:left;padding:9px 11px;font-size:12.4px}
+td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.has td{color:#1a1a1a}
+.no td:first-child{color:var(--red);font-weight:700}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+summary{cursor:pointer;padding:13px 18px;font-weight:700;font-size:14.6px;color:var(--navy);
+  list-style:none;display:flex;gap:9px;align-items:flex-start}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸";color:var(--gold);font-weight:800;flex-shrink:0}
+details[open] summary::before{content:"▾"}
+details[open] summary{border-bottom:1px solid var(--line)}
+.dbody{padding:14px 19px 16px}
+.pill{display:inline-block;font-size:11.6px;border-radius:6px;padding:2px 8px;margin-right:7px;
+  background:#fdecec;color:var(--red);font-weight:800;vertical-align:1px}
+.pill.p1{background:#fff6e6;color:#8a5a00}
+.pill.p2{background:#eef3f9;color:#3a5b80}
+.kv{margin:8px 0}
+.kv b{color:var(--navy)}
+.mea{background:#fffcf2;border-left:3px solid var(--gold);border-radius:0 10px 10px 0;
+  padding:11px 15px;font-size:13.4px;color:#5b4a12;margin:11px 0}
+.risk{background:#fdf1ef;border:1px solid #eecac4;border-radius:11px;padding:11px 15px;font-size:13.4px;color:var(--red)}
+.ok{background:#eef6f1;border:1px solid #c4e2d0;border-radius:11px;padding:11px 15px;font-size:13.4px;color:var(--green)}
+.big{border:2px solid var(--gold);background:#fffdf6;border-radius:13px;padding:17px 20px;margin-top:16px}
+.big .t{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:6px}
+code{background:#eef2f7;border-radius:5px;padding:1px 6px;font-size:12.6px}
+.foot{color:var(--mut);font-size:12px;text-align:center;margin-top:32px;border-top:1px solid var(--line);padding-top:14px}
+ul{margin:6px 0 6px 20px;font-size:13.6px}
+li{margin:4px 0}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <span class="tag">内部复盘 · 2026-10-17 · 全部数据为实测 · 不对外</span>
+  <h1>教材优化复盘：走"写书先行"路线，<br>现在的教材到底要改什么</h1>
+  <p>先把一句话放在最前面：<b>你不是要再写一本书，你是要把已经写完的那本书收编、补齐、挂上 ISBN。</b>
+  下面所有建议都基于当日实测的字数、构件、制度要求，而不是印象。</p>
+</div></header>
+
+<main class="wrap">
+
+<div class="card" style="border-left:4px solid var(--gold)">
+  <b>三句话结论</b>
+  <ul style="margin-top:6px">
+    <li><b>书早就写完了</b>：<code>textbook.html</code> 五篇三十二章，11.2 万字 ≈ 249 页；而 10-15 那份名为"全稿"的新稿只有 2.27 万字 ≈ 50 页，还带着跨版本编号错乱。<b>继续写新稿是纯亏能耗。</b></li>
+    <li><b>胜负手不在正文，在教学件</b>：制度明文要求"开课前应备：大纲、PPT、教案、思政案例、教学日历"，且必须落实课程思政、优先选用规划教材/新形态教材。我们正文很强，这几件几乎全是 0。</li>
+    <li><b>背书靠"采用事实"，不靠"书出版了"</b>：出版周期 12–18 个月，等不起；应该先出<b>自出版讲义版立即拿去用</b>，同步投出版社走正式 ISBN 与规划教材申报。</li>
+  </ul>
+</div>
+
+<h2 id="toc-1">01 新路线下，这本书要同时干三件事</h2>
+<p class="sd">路线已定：写书背书 → 吸引教师慕名而来 → 一对一咨询 → 小班 → 大班 → 录播 → 教材+社区 → 逐步退居幕后。</p>
+<table>
+<tr><th style="width:120px">身份</th><th>要求</th><th style="width:190px">达标标志</th></tr>
+<tr><td><b>① 信任凭据</b></td><td>要能被查证、能被写进别人的材料里（评职称、课程申报、专业建设）</td><td>有 ISBN；最好是正式出版社＋规划教材/新形态教材身份</td></tr>
+<tr><td><b>② 招生磁铁</b></td><td>教师拿到就能开课，而不是"写得好但用不上"</td><td>开课申报包＋32 章课件＋教案＋思政案例＋试卷，成套到手</td></tr>
+<tr><td><b>③ 内容母本</b></td><td>后面小班/大班/录播/社区/认证全部从这里长出来</td><td>每章体例统一可切片：一节课、一条视频、一次社群话题都能直接取</td></tr>
+</table>
+<div class="mea"><b>这三条决定了一件事：</b>教材的优化方向不是"写得更深"，而是<b>改造成"可被采用的产品"</b>。下面每一条都按这个标准判。</div>
+
+<h2 id="toc-2">02 现状实测：五个教材资产，只有一个是稿子</h2>
+<p class="sd">数据为 2026-10-17 实测（中文字数，按 450 字/页估算）。</p>
+<table>
+<tr><th style="width:270px">资产</th><th style="width:110px">结构</th><th style="width:80px">字数</th><th style="width:70px">≈页</th><th>判定</th></tr>
+<tr class="has"><td><code>textbook.html</code>《从原理到决策》</td><td>五篇三十二章</td><td><b>112,358</b></td><td><b>249</b></td><td>✅ <b>唯一真正的书稿 —— 建议锁定为正典</b></td></tr>
+<tr class="has"><td><code>textbook-teacher.html</code></td><td>32 章教学装</td><td>22,997</td><td>51</td><td>✅ 已有"怎么讲/课堂活动/易错点/怎么判分"，<b>最硬的采用资产</b></td></tr>
+<tr class="has"><td><code>pocket-32.html</code>（口袋书 32 册）</td><td>32 册</td><td>33,375</td><td>74</td><td>✅ 学生端预习件已成套</td></tr>
+<tr class="has"><td><code>sl-ch01..32</code>（32 章投屏课件）</td><td>32 页</td><td>每页 6,900–8,800 字</td><td>—</td><td>✅ <b>PPT 事实上已存在</b>（34 个链接全部有效），缺的是打包成下载件</td></tr>
+<tr class="no"><td><code>outputs/新版教材-学生用书-全稿.html</code></td><td>6 篇 21 章</td><td>22,726</td><td>50</td><td>⚠ 名为"全稿"实为素材堆；<b>编号错乱不可出版</b></td></tr>
+</table>
+<div class="risk"><b>编号错乱的实据（不是挑剔，是出版级硬伤）：</b>
+第 7 章节号写成 17.1–17.3；第 8 章写成 7.1–7.4；第 9 章写成 8.1–8.4；第 10 章与第 12 章<b>同为 10.1–10.3</b>；
+第 11 章 9.1–9.3；第 13 章 16.1–16.4；第 14 章 15.x；第 15 章 11.x；第 16 章 12.x；第 17 章 13.x；第 18 章 14.x；<b>第 21 章一个节都没有（空壳）</b>。
+这是三个版本代号混在一处的痕迹，交给出版社前必须清理——<b>也正说明它不该成为新正典。</b></div>
+
+<h3 id="toc-3" style="font-size:15px;color:var(--navy);margin:18px 0 6px">正典 <code>textbook.html</code> 的构件：哪些有了，哪些是 0</h3>
+<table>
+<tr><th style="width:150px">已有（强）</th><th>次数</th><th style="width:150px">缺失（弱）</th><th>次数</th></tr>
+<tr class="has"><td>案例</td><td>201</td><td class="" style="font-weight:700;color:var(--red)">学习目标 / 教学目标</td><td style="color:var(--red);font-weight:700">0</td></tr>
+<tr class="has"><td>判定表引用</td><td>199</td><td style="font-weight:700;color:var(--red)">课程思政</td><td style="color:var(--red);font-weight:700">0</td></tr>
+<tr class="has"><td>练习</td><td>77</td><td style="font-weight:700;color:var(--red)">思维导图</td><td style="color:var(--red);font-weight:700">0</td></tr>
+<tr class="has"><td>本章小结（每章都有）</td><td>32</td><td style="font-weight:700;color:var(--red)">实验 / 实训</td><td style="color:var(--red);font-weight:700">0</td></tr>
+<tr class="has"><td>延伸 / 附录 / 本篇回顾</td><td>24 / 17 / 10</td><td style="font-weight:700;color:var(--red)">资源二维码</td><td style="color:var(--red);font-weight:700">0</td></tr>
+<tr class="has"><td>自测 / 作业 / 术语</td><td>7 / 6 / 5</td><td style="font-weight:700;color:var(--red)">课文插图</td><td style="color:var(--red);font-weight:700">0 张</td></tr>
+<tr class="has"><td>口诀</td><td><b style="color:#8a5a00">仅 1 处</b></td><td style="font-weight:700;color:#8a5a00">教学日历 / 教案 / 大纲 / 申报包</td><td style="color:#8a5a00;font-weight:700">未见</td></tr>
+</table>
+<div class="mea"><b>读法：</b>这是一本<b>"读物型"的强稿</b>——案例、判定表、练习都不缺，
+但<b>"教具型"的零度缺失</b>：没有目标、没有思政、没图、没有实验、没有资源入口。
+前者让读者说"写得好"，后者才让老师说"我拿它开课"——<b>而采用，只由后者决定。</b></div>
+
+<h2 id="toc-4">03 P0 · 现在就必须改的四件事</h2>
+
+<details>
+<summary><span class="pill">P0</span>① 收编：冻结 21 章新稿，锁定 32 章正典</summary>
+<div class="dbody">
+<div class="kv"><b>现状：</b>五个教材资产并行；最新"全稿"只有 50 页且编号错乱。</div>
+<div class="kv"><b>问题：</b>继续往下写，等于同时养两本书；而<b>全站生态都建在 32 章这个编号上</b>——32 个投屏课件、32 册口袋书、32 章教学装、363 题题库、站上 199 处判定表引用。<b>换结构等于把这些全部作废。</b></div>
+<div class="kv"><b>改成什么：</b>
+<ul>
+<li>把 <code>outputs/新版教材-学生用书-全稿.html</code> <b>改标签为"素材堆 · 非书稿"</b>，防止以后误当正稿；</li>
+<li>把它里面<b>真正新增的 5 块内容</b>并入 32 章正典，作为新增/重构章：中国渠道生态（直播与买断）、连锁与中央预订、非标住宿与长住、危机场景、AI 工具；</li>
+<li>其余内容丢弃或与正典对应章合并。</li>
+</ul></div>
+<div class="ok"><b>对路线的意义：</b>把"写一本新书"降级成"修订一本已有的书"——<b>能耗降一个数量级</b>。这条路线的全部前提是低能耗，这一条如果做错，后面全部崩。</div>
+</div>
+</details>
+
+<details>
+<summary><span class="pill">P0</span>② 政策件：补"开课前应备"的那几份文件</summary>
+<div class="dbody">
+<div class="kv"><b>外部证据（各高校教务规范性文件口径）：</b>
+<ul>
+<li>教材选用实行<b>三级管理机制</b>，凡选必审，经拟选评价、同行专家评价、院部核准、教学指导委员会审定并公示；</li>
+<li><b>优先选用</b>：国家和省级规划教材、精品教材、获奖教材、教指委推荐教材、国家级出版社近三年新教材、<b>应用型和新形态教材</b>；</li>
+<li>"适宜教学"必须<b>落实课程思政建设要求</b>；</li>
+<li>开课前应备齐：<b>课程大纲、PPT、教案、课程思政教学案例、教学日历</b>；</li>
+<li>题库量参照要求：每理论学分不少于 100 题（我们已有 363 题，量够，缺的是按学分组织）。</li>
+</ul></div>
+<div class="kv"><b>现状：</b>大纲/教案/思政案例/教学日历四项在主教材里<b>一次都没出现</b>；思政 0 处。</div>
+<div class="kv"><b>改成什么：</b>做一份<b>《开课申报包》</b>：教学大纲（含思政目标）、课程简介、新课申请表、教学进度表/教学日历、教案首页模板、每章 1–2 个思政融入点。32 章课件已存在，只需打包成下载件（PPT/PDF）。</div>
+<div class="ok"><b>对路线的意义：</b>教师卡在<b>校内申报流程</b>上，不在"要不要开"。你把这几件递过去，就是替他清掉了唯一的路障——<b>这是从"读者"变成"咨询客户"的转化点。</b></div>
+</div>
+</details>
+
+<details>
+<summary><span class="pill">P0</span>③ 体例：把"每章七件套"补全，并配图</summary>
+<div class="dbody">
+<div class="kv"><b>现状：</b>案例、练习、小结已齐；<b>学习目标、思政点、实验、二维码、思维导图全为 0；口诀只有 1 处；插图 0 张。</b></div>
+<div class="kv"><b>问题：</b>纯文字稿既不符合新形态教材的"数字化资源入口"要求，也让学生没有抓手；
+缺少学习目标，教师无法把章节<b>映射回教学大纲的目标项</b>——而这正是审核环节要看的对应关系。</div>
+<div class="kv"><b>改成什么：</b>每章统一体例：<b>学习目标（可考核）→ 导入案例 → 正文含 2–4 张编号图 → 口诀一句 → 练习 → 实训/实验 → 资源二维码（链到站上对应构件）</b>；第八件可加"怎么问 AI"。先把 32 章的目标与思政点补齐，图可以分批。</div>
+<div class="ok"><b>对路线的意义：</b>七件套每一样都是后续产品的<b>天然切片单元</b>——导入案例＝一条短视频脚本，实训＝小班剧本，练习＝社群打卡，判定表＝认证题库。<b>补体例这一步，是在同时为录播课和大班备料。</b></div>
+</div>
+</details>
+
+<details>
+<summary><span class="pill">P0</span>④ 出版身份：双轨并行，先拿得到信任，再拿 ISBN</summary>
+<div class="dbody">
+<div class="kv"><b>问题：</b>正式出版周期 12–18 个月，而你现在就需要背书；同时"国家级出版社近三年出版"是优先选用条件之一，自印讲义进不了这个清单。</div>
+<div class="kv"><b>改成什么（双轨）：</b>
+<ul>
+<li><b>近轨·立刻可用</b>：把 32 章正典＋教学装＋数据集装订成<b>自出版讲义版</b>（可自费拿 ISBN 或用内部讲义形式），印少量样书，用于<b>送给第一批教师试用与申报</b>——先把"采用事实"跑出来；</li>
+<li><b>远轨·正式背书</b>：同步准备选题策划与前三章样章投递出版社，目标身份是<b>正式 ISBN＋争取列入规划教材/新形态教材</b>；供货与重印条款在合同里写死。</li>
+</ul></div>
+<div class="risk"><b>最尖锐的一句：</b>信任的真正来源<b>不是"出了一本书"，而是"有几所学校在用"</b>。
+迄今<b>零采用事实</b>——这是比任何排版问题都大的短板。<b>先把 1–3 位教师真用一轮，比再写三万字有用得多。</b>这几位，正好就是你要做的一对一咨询对象。</div>
+</div>
+</details>
+
+<h2 id="toc-5">04 P1 · 内容增补与方法论防线</h2>
+<details>
+<summary><span class="pill p1">P1</span>内容：把已识别的硬缺口并进正典（含学生最关心的一章）</summary>
+<div class="dbody">
+<p>此前已识别出行业新兴做法的覆盖缺口。<b>21 章素材堆里已有一半半成品，正好用作原料</b>：</p>
+<table>
+<tr><th style="width:170px">待补内容</th><th style="width:70px">来源</th><th>为什么要有</th></tr>
+<tr><td>连锁与中央预订（总部定价，门店做什么）</td><td>素材堆 19 章</td><td>毕业生最大去向是连锁有限服务；只讲单体全服务，与多数人的岗位对不上</td></tr>
+<tr><td>中国渠道生态（平台差异/买断/直播预售）</td><td>素材堆 10 章</td><td>近三年最大变量：直播价与 BAR 冲突、库存隔离、事后价格治理</td></tr>
+<tr><td>非标住宿与长住</td><td>素材堆 13 章</td><td>无标准房型、无历史同期条件下的收益方法；国内存量巨大</td></tr>
+<tr><td>危机与极端场景</td><td>素材堆 21 章</td><td>疫情后必备：取消政策、价格处理、闭店情形</td></tr>
+<tr><td><b>职业发展与岗位准备</b></td><td>未写</td><td><b>学生最关心的一章</b>：招聘 JD 拆解、薪幅区间、晋升路径、面试常问——也是这门课"有没有用"的直接答案</td></tr>
+<tr><td>Excel 实操与看板搭建</td><td>未写</td><td>多数院校没有 RMS，只能用 Excel 跑完整套动作</td></tr>
+</table>
+</div>
+</details>
+<details>
+<summary><span class="pill p1">P1</span>方法论防线：给判定表一个"正名"的章节</summary>
+<div class="dbody">
+<div class="kv"><b>风险：</b>15 张判定表是自建体系，行业里没有这套表。被问到"哪来的这套标准？谁认？"时，这是最脆弱的地方。</div>
+<div class="kv"><b>改成什么：</b>在绪论里补一节《本教材的方法论定位》——明确判定表是<b>教学脚手架</b>（把资深从业者脑中的隐性判断显性化、可训练、可考核，如同财务的借贷框架），
+并给出<b>"到岗后怎么把表翻译成企业自己的口径与系统参数"的迁移方法</b>。</div>
+<div class="ok"><b>对路线的意义：</b>有了这一节，质疑反过来成为你专业度的证明；没有这一节，任何一个同行提问都可能让整本书失去权威感——而这本书的核心价值就是权威。</div>
+</div>
+</details>
+
+<h2 id="toc-6">05 P2 · 教学适配与反馈回路</h2>
+<details>
+<summary><span class="pill p2">P2</span>学时弹性、学段差异、零基础通道、前修衔接</summary>
+<div class="dbody">
+<ul>
+<li><b>学时弹性</b>：给出 16 / 32 / 48 学时三种配置（按"一条完整闭环"选，不按比例砍）；先把三种方案表写进附录。</li>
+<li><b>学段差异</b>：高职 / 应用型本科 / 研究生的深度分层，目前只有学时差异。</li>
+<li><b>零数学基础通道</b>：酒店旅游专业相当比例是文科背景，补"先修自查表＋够用即止"的补救模块。</li>
+<li><b>与其他课程边界</b>：与前厅、营销、财务、数据分析的内容分工说明（直接抄给教师当申报材料）。</li>
+<li><b>学生端支持</b>：术语卡、公式卡、口袋速查、错题指引——多数已散落在站上，需索引回收。</li>
+</ul>
+</div>
+</details>
+<details>
+<summary><span class="pill p2">P2</span>让教材可被证伪：缩短反馈回路</summary>
+<div class="dbody">
+<p>闭门造车的解药不是更努力地写，是<b>缩短反馈回路</b>：</p>
+<ul>
+<li>每章留"教学反馈位"，教师用完直接标"好用/用不上/要改什么"，我们回收；</li>
+<li>数据集带版本号（如云璟 v2026.1），让"案例过期"变成可修复的常规动作；</li>
+<li><b>采用事实公开</b>：哪几所学校在用、用了几学期、学生反馈如何——这三个数字比任何自述都有说服力。</li>
+</ul>
+</div>
+</details>
+
+<h2 id="toc-7">06 这本书怎么一路支撑到"退居幕后"</h2>
+<table>
+<tr><th style="width:130px">阶段</th><th>书和设备在里面扮演什么</th><th style="width:150px">直接可用的既有资产</th></tr>
+<tr><td><b>一对一咨询</b></td><td>书＝敲门砖与议程表；咨询围绕"你这一门课怎么排"展开</td><td>32 章教学装、三种学时方案</td></tr>
+<tr><td><b>小班</b></td><td>用"课堂活动＋实验"当剧本，学费＝训练营模式</td><td>教学装里的活动设计、12 个实训游戏</td></tr>
+<tr><td><b>大班</b></td><td>投屏课件＋判定表即课程包，边际成本趋零</td><td>sl-ch01..32、32 张判定表印刷版</td></tr>
+<tr><td><b>录播课</b></td><td>按章切片：导入案例＋口诀＋练习＝一条视频</td><td>每章案例 201 处、ep 剧集脚本</td></tr>
+<tr><td><b>教材＋社区</b></td><td>书销量＋社区会员；此时你已不必到场</td><td>363 题库、口袋书 32 册、社区答疑</td></tr>
+<tr><td><b>退居幕后</b></td><td>留存下来的是判定表、数据口径、题库与七件套——<b>它们替你站着</b></td><td>—</td></tr>
+</table>
+<div class="mea"><b>贯穿全程的一条：</b>每一阶段的原料都是<b>同一份内容的不同形态</b>。
+所以现在补体例、补教学件，不是为出版而出版——<b>是在给后五个阶段备料。</b></div>
+
+<div class="big">
+  <div class="t">今天唯一要做的一件事（只有一件）</div>
+  <p style="font-size:14.4px;color:#3a2a00">
+    <b>把 <code>outputs/新版教材-学生用书-全稿.html</code> 重命名并标注为「素材堆 · 非书稿」</b>，同时在纸上写下它里面<b>真正新增的 5 块内容</b>，
+    标出每块准备并入 32 章正典的<b>哪一章</b>（新增或重构）。<br>
+    <span style="color:#6a5220">不要写正文、不要排版、不要做封面。做完这一步，"到底要写出来哪本书"这个问题就结束了，剩下的是往已有稿子里倒素材。</span>
+  </p>
+</div>
+
+<div class="foot">教材优化复盘 · 内部稿 · 2026-10-17 · 数据为当日实测，含竞品与自评，不对外</div>
+</main>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">01 新路线下，这本书要同时干三件事</a>
+<a href="#toc-2">02 现状实测：五个教材资产，只有一个是稿子</a>
+<a href="#toc-3" class="lv3">正典 textbook.html 的构件：哪些有了，哪些是 0</a>
+<a href="#toc-4">03 P0 · 现在就必须改的四件事</a>
+<a href="#toc-5">04 P1 · 内容增补与方法论防线</a>
+<a href="#toc-6">05 P2 · 教学适配与反馈回路</a>
+<a href="#toc-7">06 这本书怎么一路支撑到&quot;退居幕后&quot;</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
+</html>
