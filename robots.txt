@@ -1,65 +1,46 @@
 # robots.txt - RMC收益管理社区
-# 策略：全面放行搜索引擎与 AI 爬虫，以提升 GEO（生成式引擎优化）可见度
+# 策略（2026-10-18 修正）：全站不公开 —— 禁止所有搜索引擎与 AI 爬虫抓取与索引
+# 背景：此前为 GEO 可见度设为全面放行，与"所有内容一律不公开"的要求冲突，已改回禁止。
 
 User-agent: *
-Allow: /
-Disallow: /assets/js/
+Disallow: /
 
-# OpenAI ChatGPT 爬虫
-User-agent: GPTBot
-Allow: /
-
-# OpenAI 搜索爬虫
-User-agent: OAI-SearchBot
-Allow: /
-
-# ChatGPT 用户访问
-User-agent: ChatGPT-User
-Allow: /
-
-# Perplexity 爬虫
-User-agent: PerplexityBot
-Allow: /
-
-# Perplexity 用户访问
-User-agent: Perplexity-User
-Allow: /
-
-# Anthropic Claude 爬虫
-User-agent: ClaudeBot
-Allow: /
-
-# Claude 用户访问
-User-agent: Claude-User
-Allow: /
-
-# Google Gemini / AI 训练
-User-agent: Google-Extended
-Allow: /
-
-# Apple AI
-User-agent: Applebot-Extended
-Allow: /
-
-# Microsoft Bing
-User-agent: Bingbot
-Allow: /
-
-# 字节跳动
-User-agent: Bytespider
-Allow: /
-
-# 百度
+# 主流搜索
 User-agent: Baiduspider
-Allow: /
+Disallow: /
+User-agent: Bingbot
+Disallow: /
+User-agent: Bytespider
+Disallow: /
+User-agent: Sogou web spider
+Disallow: /
+User-agent: 360Spider
+Disallow: /
 
-# DuckDuckGo AI
+# AI 抓取与训练
+User-agent: GPTBot
+Disallow: /
+User-agent: OAI-SearchBot
+Disallow: /
+User-agent: ChatGPT-User
+Disallow: /
+User-agent: ClaudeBot
+Disallow: /
+User-agent: Claude-User
+Disallow: /
+User-agent: Google-Extended
+Disallow: /
+User-agent: Applebot-Extended
+Disallow: /
+User-agent: PerplexityBot
+Disallow: /
+User-agent: Perplexity-User
+Disallow: /
 User-agent: DuckAssistBot
-Allow: /
-
-# Common Crawl
+Disallow: /
 User-agent: CCBot
-Allow: /
+Disallow: /
 
-Sitemap: https://hrma-city.github.io/sitemap.xml
-Sitemap: https://hrma-city.github.io/llms.txt
+# 直接抓取类
+User-agent: ia_archiver
+Disallow: /
