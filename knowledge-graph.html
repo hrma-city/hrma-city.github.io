@@ -11,18 +11,19 @@
   body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#f5f8fb}
   header{background:linear-gradient(135deg,#0f2a4a,#1d6fb8);color:#fff;padding:18px 22px}
   header h1{margin:0;font-size:19px;font-weight:700}
-  header p{margin:6px 0 0;font-size:13px;opacity:.86;line-height:1.7;max-width:880px}
+  header p{margin:6px 0 0;font-size:13px;opacity:.86;line-height:1.7;max-width:920px}
   .wrap{display:flex;height:calc(100vh - 132px);min-height:520px}
-  .side{width:300px;flex:none;border-right:1px solid var(--line);background:#fff;overflow-y:auto;padding:14px}
+  .side{width:312px;flex:none;border-right:1px solid var(--line);background:#fff;overflow-y:auto;padding:14px}
   .graph{flex:1;position:relative;overflow:hidden;background:
-     radial-gradient(circle at 50% 42%,#ffffff 0%,#eef3f8 70%,#e6edf4 100%)}
+     radial-gradient(circle at 50% 30%,#ffffff 0%,#eef3f8 70%,#e6edf4 100%)}
   svg{width:100%;height:100%;display:block}
   .legend{font-size:12px;color:var(--ink2);line-height:1.9}
   .legend .row{display:flex;align-items:center;gap:7px;margin:3px 0}
-  .dot{width:12px;height:12px;border-radius:50%;flex:none}
-  .d-ch{background:var(--blue)}.d-tb{background:var(--gold)}.d-lv{background:var(--green)}.d-cn{background:var(--gray)}
-  .lt{display:inline-block;width:22px;border-top:2px solid var(--gold)}
-  .lr{display:inline-block;width:22px;border-top:2px dashed var(--gray)}
+  .sw{width:14px;height:10px;border-radius:3px;flex:none}
+  .sw.stage{background:var(--navy)}.sw.tb{background:var(--gold)}.sw.lv{background:var(--green)}.sw.cn{background:#aab4bf}.sw.ch{background:var(--blue)}
+  .lt{display:inline-block;width:22px;border-top:2px solid #d9a72e}
+  .lr{display:inline-block;width:22px;border-top:2px dashed #b9c2cb}
+  .lf{display:inline-block;width:22px;border-top:2px solid #9db4cc}
   .panel{font-size:13px;line-height:1.8;color:var(--ink)}
   .panel h3{margin:0 0 8px;font-size:15px;color:var(--navy)}
   .tag{display:inline-block;background:#eef4fa;color:var(--blue);border-radius:4px;padding:1px 8px;font-size:11.5px;margin:2px 4px 2px 0}
@@ -33,171 +34,277 @@
   .conn .ci{font-size:12.5px;color:var(--ink2);padding:2px 0;cursor:pointer}
   .conn .ci:hover{color:var(--blue);text-decoration:underline}
   .btn{display:inline-block;margin-top:10px;background:var(--navy);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:13px;cursor:pointer;text-decoration:none}
+  .btn.small{background:#fff;color:var(--navy);border:1px solid var(--navy);padding:4px 10px;font-size:12px;margin:0}
+  .btn.small:hover{background:#eef4fa}
+  .navrow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 2px;align-items:center}
+  .crumbs{margin:8px 0 0;font-size:11.5px;color:var(--ink2);line-height:2}
+  .crumbs .cp{display:inline-block;background:#f1f5f9;border:1px solid var(--line);border-radius:10px;padding:0 8px;margin:2px 4px 2px 0;cursor:pointer}
+  .crumbs .cp:hover{border-color:var(--blue);color:var(--blue)}
+  .crumbs .cp.cur{background:var(--navy);color:#fff;border-color:var(--navy);cursor:default}
   .ctrls{margin:10px 0 6px}
   .ctrls input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:6px;font-size:13px}
   .ctrls .filt{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
   .filt button{font-size:11.5px;border:1px solid var(--line);background:#fff;color:var(--ink2);border-radius:14px;padding:3px 10px;cursor:pointer}
   .filt button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
-  .tip{position:absolute;pointer-events:none;background:#0f2a4a;color:#fff;font-size:12px;padding:5px 9px;border-radius:5px;opacity:0;transition:opacity .12s;max-width:220px;z-index:9}
+  .tip{position:absolute;pointer-events:none;background:#0f2a4a;color:#fff;font-size:12px;padding:5px 9px;border-radius:5px;opacity:0;transition:opacity .12s;max-width:240px;z-index:9}
   .meta{font-size:12px;color:var(--ink2);margin-top:10px;background:#f3f7fb;border-radius:8px;padding:9px 11px;line-height:1.9}
   .note{font-size:12px;color:#9a6a12;background:#fbf2dd;border-radius:8px;padding:9px 11px;line-height:1.85;margin-top:10px}
   text{font-family:inherit;pointer-events:none;user-select:none}
-  .nlabel{font-size:10.5px;fill:var(--ink)}
-  .nlabel.t{font-size:9.5px;fill:#9a6a12;font-weight:700}
+  .pillText{font-size:10px;fill:#fff;font-weight:600}
+  .pillText.dark{fill:#3a2a00}
+  .stageSub{font-size:9.5px;fill:#c8d6e4}
 </style></head>
 <body>
 <header>
-  <h1>收益管理知识图谱</h1>
-  <p>把「<b>32 章教材 · 15 张判定表 · 17 个决策杠杆 · 22 个核心概念 · 302 个真实案例</b>」连成一张可点击的全局图。
-  点击任意节点查看它连着什么、跳到原文。边分两类：<b style="color:#f0c060">金色实线＝源码边</b>（直接来自操作法典/案例库），
-  <b style="color:#cfd6dd">灰色虚线＝主题边</b>（按内容主题对齐的推导），做到表里一致、不吹牛皮。</p>
+  <h1>收益管理知识图谱 · 按底层逻辑流程排布</h1>
+  <p>主轴＝收益管理的底层逻辑循环：<b>①看数与对标 → ②预测与计划 → ③定价 → ④库存与渠道 → ⑤客源与团队 → ⑥执行与复盘</b>，复盘回到下一天的看数——循环往复。
+  每列自上而下分三层：<b>阶段 → 判定表（金）→ 决策杠杆（绿）→ 概念（灰）/ 教材章节（蓝）</b>，材料映射挂在流程之下。
+  点击任意节点看关联、跳原文；<b>点过的路径记录在「浏览轨迹」，可一步一步退回，也可一键回到初始</b>，不用刷新页面。</p>
 </header>
 <div class="wrap">
   <aside class="side">
     <div class="ctrls">
       <input id="search" placeholder="搜索节点（章/表/杠杆/概念）" autocomplete="off">
       <div class="filt" id="filt">
+        <button data-t="stage" class="on">流程</button>
         <button data-t="chapter" class="on">章节</button>
         <button data-t="table" class="on">判定表</button>
         <button data-t="lever" class="on">杠杆</button>
         <button data-t="concept" class="on">概念</button>
       </div>
     </div>
-    <div class="panel" id="panel"><h3>怎么用这张图</h3>
-      <p>这是整套收益管理知识体系的骨架。<b>判定表是核心</b>——所有决策最终落到「查表→执行」。</p>
-      <p>· 点 <b>判定表</b>：看它和哪些表联动（金线＝源码关联），跳操作法典。<br>
-         · 点 <b>章节</b>：看这章练哪几张表，跳教材。<br>
-         · 点 <b>杠杆</b>：看这个决策主题下有多少真实案例，跳案例库。<br>
-         · 点 <b>概念</b>：看它出现在哪些决策主题。</p>
+    <div class="panel" id="panel"><h3>怎么读这张图</h3>
+      <p><b>自左向右＝流程</b>：看数对标 → 预测计划 → 定价 → 库存渠道 → 客源团队 → 执行复盘，复盘回到下一天的看数——这就是收益管理的底层循环。</p>
+      <p><b>每列自上而下＝层级</b>：阶段（深蓝）→ 判定表（金）→ 决策杠杆（绿）→ 概念（灰）/ 教材章节（蓝）。材料挂在流程之下，先懂流程，再找材料。</p>
+      <p>· 点 <b>阶段</b>：整列点亮，看这一步都有什么。<br>
+         · 点 <b>判定表</b>：看源码联动表，跳操作法典。<br>
+         · 点 <b>章节/概念</b>：看它挂在流程哪一环。<br>
+         · <b>浏览轨迹</b>在左下：可一步一步退回，可一键回到初始，不用刷新。</p>
       <div class="legend">
-        <div class="row"><span class="dot d-ch"></span>章节（蓝，按篇着色）</div>
-        <div class="row"><span class="dot d-tb"></span>判定表（金）</div>
-        <div class="row"><span class="dot d-lv"></span>决策杠杆（绿）</div>
-        <div class="row"><span class="dot d-cn"></span>核心概念（灰）</div>
+        <div class="row"><span class="sw stage"></span>流程阶段（主轴）</div>
+        <div class="row"><span class="sw tb"></span>判定表</div>
+        <div class="row"><span class="sw lv"></span>决策杠杆</div>
+        <div class="row"><span class="sw cn"></span>核心概念</div>
+        <div class="row"><span class="sw ch"></span>教材章节</div>
+        <div class="row"><span class="lf"></span>层级边（阶段→表）</div>
         <div class="row"><span class="lt"></span>源码边（来自源文件）</div>
         <div class="row"><span class="lr"></span>主题边（推导对齐）</div>
       </div>
-      <div class="note">透明声明：本图「章节→判定表」「判定表→杠杆」「概念→杠杆」为按教材与案例内容的<b>主题对齐推导</b>（灰虚线），并非源文件逐字标注；表↔表与杠杆→案例数为<b>源文件实算</b>（金实线）。</div>
-      <div class="meta" id="meta"></div>
-    </div>
+      <div class="note">透明声明：「章节→判定表」「判定表→杠杆」「概念→杠杆」「阶段归属」为按教材与案例内容的<b>主题对齐推导</b>；表↔表关联与杠杆→案例数为<b>源文件实算</b>（金实线）。</div>
+      <div class="meta" id="meta"></div></div>
+    <div class="crumbs" id="crumbs"></div>
   </aside>
   <div class="graph"><svg id="svg"></svg><div class="tip" id="tip"></div></div>
 </div>
 <script>
-var DATA={"nodes": [{"id": "tbA", "label": "表A", "type": "table", "group": "判定表", "title": "每日价格调整判定表", "link": "codex.html", "x": 750.0, "y": 340.0}, {"id": "tbB", "label": "表B", "type": "table", "group": "判定表", "title": "库存与限制条件配置表", "link": "codex.html", "x": 821.2, "y": 351.7}, {"id": "tbC", "label": "表C", "type": "table", "group": "判定表", "title": "价格指数（ARI）判定表", "link": "codex.html", "x": 880.1, "y": 384.7}, {"id": "tbD", "label": "表D", "type": "table", "group": "判定表", "title": "市场渗透指数（MPI）判定表", "link": "codex.html", "x": 916.4, "y": 433.3}, {"id": "tbE", "label": "表E", "type": "table", "group": "判定表", "title": "超额预订标准表", "link": "codex.html", "x": 924.0, "y": 489.1}, {"id": "tbF", "label": "表F", "type": "table", "group": "判定表", "title": "房型价差与全房型价格表", "link": "codex.html", "x": 901.6, "y": 542.5}, {"id": "tbG", "label": "表G", "type": "table", "group": "判定表", "title": "团队／协议询价接受判定表", "link": "codex.html", "x": 852.9, "y": 584.2}, {"id": "tbH", "label": "表H", "type": "table", "group": "判定表", "title": "渠道开关判定表", "link": "codex.html", "x": 786.4, "y": 607.0}, {"id": "tbI", "label": "表I", "type": "table", "group": "判定表", "title": "预订窗口分档监控表", "link": "codex.html", "x": 713.6, "y": 607.0}, {"id": "tbJ", "label": "表J", "type": "table", "group": "判定表", "title": "免费升级规则表", "link": "codex.html", "x": 647.1, "y": 584.2}, {"id": "tbK", "label": "表K", "type": "table", "group": "判定表", "title": "会议／宴会综合收益联动表", "link": "codex.html", "x": 598.4, "y": 542.5}, {"id": "tbL", "label": "表L", "type": "table", "group": "判定表", "title": "异常事件应急判定表", "link": "codex.html", "x": 576.0, "y": 489.1}, {"id": "tbM", "label": "表M", "type": "table", "group": "判定表", "title": "每日收益操作流水线（时间表）", "link": "codex.html", "x": 583.6, "y": 433.3}, {"id": "tbN", "label": "表N", "type": "table", "group": "判定表", "title": "周度／月度节奏表", "link": "codex.html", "x": 619.9, "y": 384.7}, {"id": "tbO", "label": "表O", "type": "table", "group": "判定表", "title": "决策优先级与冲突仲裁表", "link": "codex.html", "x": 678.8, "y": 351.7}, {"id": "ch01", "label": "收益管理是什么：一句话与底层逻辑", "type": "chapter", "group": "认知篇", "link": "textbook-merged.html#ch01", "title": "收益管理是什么：一句话与底层逻辑", "x": 194.6, "y": 715.0}, {"id": "ch02", "label": "三个核心指标：OCC、ADR、RevPAR", "type": "chapter", "group": "认知篇", "link": "textbook-merged.html#ch02", "title": "三个核心指标：OCC、ADR、RevPAR", "x": 132.8, "y": 640.3}, {"id": "ch03", "label": "竞争三件套：MPI、ARI、RGI", "type": "chapter", "group": "认知篇", "link": "textbook-merged.html#ch03", "title": "竞争三件套：MPI、ARI、RGI", "x": 94.8, "y": 559.3}, {"id": "ch04", "label": "价格弹性：降多少价能换多少量", "type": "chapter", "group": "认知篇", "link": "textbook-merged.html#ch04", "title": "价格弹性：降多少价能换多少量", "x": 82.0, "y": 475.0}, {"id": "ch05", "label": "什么时候涨价", "type": "chapter", "group": "决策篇·定价", "link": "textbook-merged.html#ch05", "title": "什么时候涨价", "x": 750.0, "y": 43.0}, {"id": "ch06", "label": "竞品降价：跟还是不跟", "type": "chapter", "group": "决策篇·定价", "link": "textbook-merged.html#ch06", "title": "竞品降价：跟还是不跟", "x": 1367.2, "y": 309.7}, {"id": "ch07", "label": "折扣与促销：什么时候该让", "type": "chapter", "group": "决策篇·定价", "link": "textbook-merged.html#ch07", "title": "折扣与促销：什么时候该让", "x": 880.3, "y": 51.3}, {"id": "ch08", "label": "套餐与锚定：让客人觉得划算", "type": "chapter", "group": "决策篇·定价", "link": "textbook-merged.html#ch08", "title": "套餐与锚定：让客人觉得划算", "x": 1005.6, "y": 75.9}, {"id": "ch09", "label": "房型价差：差价定多少才合理", "type": "chapter", "group": "决策篇·库存", "link": "textbook-merged.html#ch09", "title": "房型价差：差价定多少才合理", "x": 1418.0, "y": 475.0}, {"id": "ch10", "label": "最短住期 MinLOS：用条件把客群分开", "type": "chapter", "group": "决策篇·库存", "link": "textbook-merged.html#ch10", "title": "最短住期 MinLOS：用条件把客群分开", "x": 1222.3, "y": 169.5}, {"id": "ch11", "label": "超额预订：卖出去的比有的多", "type": "chapter", "group": "决策篇·库存", "link": "textbook-merged.html#ch11", "title": "超额预订：卖出去的比有的多", "x": 1405.2, "y": 390.7}, {"id": "ch12", "label": "库存分配与保护位：给谁留多少房", "type": "chapter", "group": "决策篇·库存", "link": "textbook-merged.html#ch12", "title": "库存分配与保护位：给谁留多少房", "x": 1305.4, "y": 235.0}, {"id": "ch13", "label": "渠道净价：到手多少钱才算数", "type": "chapter", "group": "决策篇·客源渠道", "link": "textbook-merged.html#ch13", "title": "渠道净价：到手多少钱才算数", "x": 1121.1, "y": 834.2}, {"id": "ch14", "label": "客源细分：把客人分成几堆来卖", "type": "chapter", "group": "决策篇·客源渠道", "link": "textbook-merged.html#ch14", "title": "客源细分：把客人分成几堆来卖", "x": 1367.2, "y": 640.3}, {"id": "ch15", "label": "团队置换：这个团该不该接", "type": "chapter", "group": "决策篇·客源渠道", "link": "textbook-merged.html#ch15", "title": "团队置换：这个团该不该接", "x": 1305.4, "y": 715.0}, {"id": "ch16", "label": "直销与会员：把客人变成自己的", "type": "chapter", "group": "决策篇·客源渠道", "link": "textbook-merged.html#ch16", "title": "直销与会员：把客人变成自己的", "x": 1222.3, "y": 780.5}, {"id": "ch17", "label": "运营全景：从年到日的节奏", "type": "chapter", "group": "运营篇·节奏", "link": "textbook-merged.html#ch17", "title": "运营全景：从年到日的节奏", "x": 619.7, "y": 898.7}, {"id": "ch18", "label": "每日实操流程：一天具体做什么", "type": "chapter", "group": "运营篇·节奏", "link": "textbook-merged.html#ch18", "title": "每日实操流程：一天具体做什么", "x": 494.4, "y": 874.1}, {"id": "ch19", "label": "执行标准与收益例会", "type": "chapter", "group": "运营篇·节奏", "link": "textbook-merged.html#ch19", "title": "执行标准与收益例会", "x": 378.9, "y": 834.2}, {"id": "ch20", "label": "预测与需求日历", "type": "chapter", "group": "运营篇·计划支撑", "link": "textbook-merged.html#ch20", "title": "预测与需求日历", "x": 880.3, "y": 898.7}, {"id": "ch21", "label": "年度预算：把一年拆到每天", "type": "chapter", "group": "运营篇·计划支撑", "link": "textbook-merged.html#ch21", "title": "年度预算：把一年拆到每天", "x": 277.7, "y": 780.5}, {"id": "ch22", "label": "价格体系 BAR：所有价格的锚", "type": "chapter", "group": "运营篇·计划支撑", "link": "textbook-merged.html#ch22", "title": "价格体系 BAR：所有价格的锚", "x": 1121.1, "y": 115.8}, {"id": "ch23", "label": "报表体系：每天该看哪几张表", "type": "chapter", "group": "运营篇·计划支撑", "link": "textbook-merged.html#ch23", "title": "报表体系：每天该看哪几张表", "x": 94.8, "y": 390.7}, {"id": "ch24", "label": "OTA 与点评：评分就是价格", "type": "chapter", "group": "运营篇·计划支撑", "link": "textbook-merged.html#ch24", "title": "OTA 与点评：评分就是价格", "x": 1005.6, "y": 874.1}, {"id": "ch25", "label": "岗位与组织：谁来干这件事", "type": "chapter", "group": "组织篇", "link": "textbook-merged.html#ch25", "title": "岗位与组织：谁来干这件事", "x": 132.8, "y": 309.7}, {"id": "ch26", "label": "成本与利润：降价的底线在哪", "type": "chapter", "group": "组织篇", "link": "textbook-merged.html#ch26", "title": "成本与利润：降价的底线在哪", "x": 194.6, "y": 235.0}, {"id": "ch27", "label": "系统与数据：工具能替您做什么", "type": "chapter", "group": "组织篇", "link": "textbook-merged.html#ch27", "title": "系统与数据：工具能替您做什么", "x": 277.7, "y": 169.5}, {"id": "ch28", "label": "淡旺季与事件日：一年里最容易赚的钱", "type": "chapter", "group": "组织篇", "link": "textbook-merged.html#ch28", "title": "淡旺季与事件日：一年里最容易赚的钱", "x": 378.9, "y": 115.8}, {"id": "ch29", "label": "餐饮收益：RevPASH 与翻台", "type": "chapter", "group": "延伸篇", "link": "textbook-merged.html#ch29", "title": "餐饮收益：RevPASH 与翻台", "x": 1405.2, "y": 559.3}, {"id": "ch30", "label": "会议宴会：不只算房，算总贡献", "type": "chapter", "group": "延伸篇", "link": "textbook-merged.html#ch30", "title": "会议宴会：不只算房，算总贡献", "x": 750.0, "y": 907.0}, {"id": "ch31", "label": "其他业态与跨行业参数", "type": "chapter", "group": "延伸篇", "link": "textbook-merged.html#ch31", "title": "其他业态与跨行业参数", "x": 494.4, "y": 75.9}, {"id": "ch32", "label": "常见误区：30 个坑，别再踩", "type": "chapter", "group": "延伸篇", "link": "textbook-merged.html#ch32", "title": "常见误区：30 个坑，别再踩", "x": 619.7, "y": 51.3}, {"id": "lv动态定价", "label": "动态定价", "type": "lever", "group": "杠杆", "count": 170, "link": "cases-hub.html", "x": 750.0, "y": 203.0}, {"id": "lv超额预订", "label": "超额预订", "type": "lever", "group": "杠杆", "count": 41, "link": "cases-hub.html", "x": 1072.3, "y": 353.8}, {"id": "lv置换分析", "label": "置换分析", "type": "lever", "group": "杠杆", "count": 40, "link": "cases-hub.html", "x": 462.7, "y": 638.9}, {"id": "lv渠道管理", "label": "渠道管理", "type": "lever", "group": "杠杆", "count": 147, "link": "cases-hub.html", "x": 1037.3, "y": 638.9}, {"id": "lv库存限制", "label": "库存限制", "type": "lever", "group": "杠杆", "count": 84, "link": "cases-hub.html", "x": 880.0, "y": 221.4}, {"id": "lv房型与升级", "label": "房型与升级", "type": "lever", "group": "杠杆", "count": 67, "link": "cases-hub.html", "x": 1108.5, "y": 449.9}, {"id": "lv团队与会议", "label": "团队与会议", "type": "lever", "group": "杠杆", "count": 105, "link": "cases-hub.html", "x": 1096.3, "y": 549.4}, {"id": "lv需求预测", "label": "需求预测", "type": "lever", "group": "杠杆", "count": 85, "link": "cases-hub.html", "x": 939.5, "y": 706.3}, {"id": "lv促销与折扣", "label": "促销与折扣", "type": "lever", "group": "杠杆", "count": 65, "link": "cases-hub.html", "x": 403.7, "y": 549.4}, {"id": "lv打包与套餐", "label": "打包与套餐", "type": "lever", "group": "杠杆", "count": 44, "link": "cases-hub.html", "x": 391.5, "y": 449.9}, {"id": "lv竞争应对", "label": "竞争应对", "type": "lever", "group": "杠杆", "count": 83, "link": "cases-hub.html", "x": 992.5, "y": 274.0}, {"id": "lv会员与协议", "label": "会员与协议", "type": "lever", "group": "杠杆", "count": 98, "link": "cases-hub.html", "x": 427.7, "y": 353.8}, {"id": "lv指标体系", "label": "指标体系", "type": "lever", "group": "杠杆", "count": 205, "link": "cases-hub.html", "x": 683.9, "y": 742.4}, {"id": "lv危机与补救", "label": "危机与补救", "type": "lever", "group": "杠杆", "count": 57, "link": "cases-hub.html", "x": 816.1, "y": 742.4}, {"id": "lv餐饮RevPASH", "label": "餐饮RevPASH", "type": "lever", "group": "杠杆", "count": 4, "link": "cases-hub.html", "x": 507.5, "y": 274.0}, {"id": "lv跨业态", "label": "跨业态", "type": "lever", "group": "杠杆", "count": 20, "link": "cases-hub.html", "x": 620.0, "y": 221.4}, {"id": "lv综合", "label": "综合", "type": "lever", "group": "杠杆", "count": 0, "link": "cases-hub.html", "x": 560.5, "y": 706.3}, {"id": "cnOCC 出租率", "label": "OCC 出租率", "type": "concept", "group": "概念", "count": 3, "levers": ["会员与协议", "促销与折扣", "动态定价", "团队与会议", "房型与升级", "指标体系", "渠道管理", "竞争应对", "置换分析"], "link": "codex.html?q=OCC 出租率", "x": 750.0, "y": 93.0}, {"id": "cnADR 平均房价", "label": "ADR 平均房价", "type": "concept", "group": "概念", "count": 3, "levers": ["动态定价", "团队与会议", "库存限制", "房型与升级", "指标体系", "渠道管理", "竞争应对"], "link": "codex.html?q=ADR 平均房价", "x": 899.3, "y": 108.5}, {"id": "cnRevPAR", "label": "RevPAR", "type": "concept", "group": "概念", "count": 3, "levers": ["会员与协议", "促销与折扣", "动态定价", "危机与补救", "团队与会议", "指标体系", "渠道管理"], "link": "codex.html?q=RevPAR", "x": 1036.5, "y": 153.6}, {"id": "cn预订进度 Pace", "label": "预订进度 Pace", "type": "concept", "group": "概念", "count": 3, "levers": ["促销与折扣", "动态定价", "团队与会议", "库存限制", "指标体系", "竞争应对", "需求预测"], "link": "codex.html?q=预订进度 Pace", "x": 1150.5, "y": 224.8}, {"id": "cnRGI 收入指数", "label": "RGI 收入指数", "type": "concept", "group": "概念", "count": 2, "levers": ["会员与协议", "团队与会议", "指标体系", "渠道管理", "竞争应对", "置换分析"], "link": "codex.html?q=RGI 收入指数", "x": 267.9, "y": 316.3}, {"id": "cnALOS 平均住店时长", "label": "ALOS 平均住店时长", "type": "concept", "group": "概念", "count": 2, "levers": ["会员与协议", "动态定价", "库存限制", "指标体系", "竞争应对", "置换分析", "需求预测"], "link": "codex.html?q=ALOS 平均住店时长", "x": 1232.1, "y": 316.3}, {"id": "cn变动成本", "label": "变动成本", "type": "concept", "group": "概念", "count": 2, "levers": ["会员与协议", "促销与折扣", "动态定价", "危机与补救", "库存限制", "房型与升级", "指标体系", "渠道管理", "竞争应对", "置换分析"], "link": "codex.html?q=变动成本", "x": 1274.6, "y": 420.6}, {"id": "cn预订窗口 Booking Window", "label": "预订窗口 Booking Window", "type": "concept", "group": "概念", "count": 2, "levers": ["促销与折扣", "动态定价", "团队与会议", "库存限制", "指标体系", "渠道管理", "竞争应对"], "link": "codex.html?q=预订窗口 Booking Window", "x": 1274.6, "y": 529.4}, {"id": "cnPickup 预订增速", "label": "Pickup 预订增速", "type": "concept", "group": "概念", "count": 2, "levers": ["会员与协议", "动态定价", "指标体系", "渠道管理", "超额预订", "需求预测"], "link": "codex.html?q=Pickup 预订增速", "x": 1232.1, "y": 633.7}, {"id": "cnNo-show 未到店", "label": "No-show 未到店", "type": "concept", "group": "概念", "count": 2, "levers": ["会员与协议", "促销与折扣", "危机与补救", "指标体系", "渠道管理", "超额预订", "需求预测"], "link": "codex.html?q=No-show 未到店", "x": 463.5, "y": 153.6}, {"id": "cn需求日历", "label": "需求日历", "type": "concept", "group": "概念", "count": 2, "levers": ["促销与折扣", "动态定价", "团队与会议", "指标体系"], "link": "codex.html?q=需求日历", "x": 1150.5, "y": 725.2}, {"id": "cn保护位 Protection", "label": "保护位 Protection", "type": "concept", "group": "概念", "count": 2, "levers": ["动态定价", "团队与会议", "库存限制", "渠道管理", "竞争应对", "置换分析", "需求预测"], "link": "codex.html?q=保护位 Protection", "x": 1036.5, "y": 796.4}, {"id": "cnCTA / CTD 开关房", "label": "CTA / CTD 开关房", "type": "concept", "group": "概念", "count": 2, "levers": ["促销与折扣", "动态定价", "库存限制", "房型与升级", "指标体系", "渠道管理", "需求预测"], "link": "codex.html?q=CTA / CTD 开关房", "x": 899.3, "y": 841.5}, {"id": "cn超售 Overbooking", "label": "超售 Overbooking", "type": "concept", "group": "概念", "count": 2, "levers": ["动态定价", "危机与补救", "库存限制", "房型与升级", "指标体系", "渠道管理", "竞争应对", "超额预订", "需求预测"], "link": "codex.html?q=超售 Overbooking", "x": 750.0, "y": 857.0}, {"id": "cn每日收益流程", "label": "每日收益流程", "type": "concept", "group": "概念", "count": 2, "levers": ["促销与折扣", "动态定价", "危机与补救", "团队与会议", "库存限制", "房型与升级", "指标体系", "渠道管理", "竞争应对", "需求预测"], "link": "codex.html?q=每日收益流程", "x": 600.7, "y": 841.5}, {"id": "cn奢华酒店", "label": "奢华酒店", "type": "concept", "group": "概念", "count": 2, "levers": ["会员与协议", "动态定价", "危机与补救", "团队与会议", "库存限制", "房型与升级", "打包与套餐", "指标体系", "渠道管理"], "link": "codex.html?q=奢华酒店", "x": 463.5, "y": 796.4}, {"id": "cn度假酒店", "label": "度假酒店", "type": "concept", "group": "概念", "count": 2, "levers": ["动态定价", "团队与会议", "打包与套餐", "指标体系"], "link": "codex.html?q=度假酒店", "x": 349.5, "y": 725.2}, {"id": "cn精品民宿", "label": "精品民宿", "type": "concept", "group": "概念", "count": 2, "levers": ["促销与折扣", "危机与补救", "指标体系", "渠道管理", "竞争应对", "跨业态", "需求预测"], "link": "codex.html?q=精品民宿", "x": 349.5, "y": 224.8}, {"id": "cn服务式公寓", "label": "服务式公寓", "type": "concept", "group": "概念", "count": 2, "levers": ["促销与折扣", "动态定价", "房型与升级", "指标体系", "渠道管理", "跨业态"], "link": "codex.html?q=服务式公寓", "x": 267.9, "y": 633.7}, {"id": "cn机场酒店", "label": "机场酒店", "type": "concept", "group": "概念", "count": 2, "levers": ["会员与协议", "动态定价", "危机与补救", "库存限制", "指标体系", "渠道管理", "跨业态"], "link": "codex.html?q=机场酒店", "x": 225.4, "y": 529.4}, {"id": "cn景区酒店", "label": "景区酒店", "type": "concept", "group": "概念", "count": 2, "levers": ["动态定价", "危机与补救", "团队与会议", "打包与套餐", "指标体系", "跨业态"], "link": "codex.html?q=景区酒店", "x": 225.4, "y": 420.6}, {"id": "cn会议型酒店", "label": "会议型酒店", "type": "concept", "group": "概念", "count": 2, "levers": ["团队与会议", "指标体系", "置换分析"], "link": "codex.html?q=会议型酒店", "x": 600.7, "y": 108.5}], "edges": [{"s": "tbA", "t": "tbB", "k": "src"}, {"s": "tbA", "t": "tbO", "k": "src"}, {"s": "tbB", "t": "tbE", "k": "src"}, {"s": "tbB", "t": "tbA", "k": "src"}, {"s": "tbC", "t": "tbD", "k": "src"}, {"s": "tbC", "t": "tbO", "k": "src"}, {"s": "tbD", "t": "tbC", "k": "src"}, {"s": "tbD", "t": "tbO", "k": "src"}, {"s": "tbE", "t": "tbB", "k": "src"}, {"s": "tbE", "t": "tbL", "k": "src"}, {"s": "tbG", "t": "tbK", "k": "src"}, {"s": "tbH", "t": "tbO", "k": "src"}, {"s": "tbJ", "t": "tbE", "k": "src"}, {"s": "tbK", "t": "tbG", "k": "src"}, {"s": "tbL", "t": "tbE", "k": "src"}, {"s": "tbL", "t": "tbO", "k": "src"}, {"s": "tbM", "t": "tbA", "k": "src"}, {"s": "ch05", "t": "tbA", "k": "topic"}, {"s": "ch06", "t": "tbC", "k": "topic"}, {"s": "ch06", "t": "tbD", "k": "topic"}, {"s": "ch07", "t": "tbA", "k": "topic"}, {"s": "ch08", "t": "tbA", "k": "topic"}, {"s": "ch09", "t": "tbF", "k": "topic"}, {"s": "ch10", "t": "tbB", "k": "topic"}, {"s": "ch11", "t": "tbE", "k": "topic"}, {"s": "ch12", "t": "tbB", "k": "topic"}, {"s": "ch13", "t": "tbH", "k": "topic"}, {"s": "ch14", "t": "tbG", "k": "topic"}, {"s": "ch15", "t": "tbG", "k": "topic"}, {"s": "ch16", "t": "tbG", "k": "topic"}, {"s": "ch17", "t": "tbM", "k": "topic"}, {"s": "ch17", "t": "tbN", "k": "topic"}, {"s": "ch18", "t": "tbM", "k": "topic"}, {"s": "ch19", "t": "tbM", "k": "topic"}, {"s": "ch20", "t": "tbI", "k": "topic"}, {"s": "ch21", "t": "tbN", "k": "topic"}, {"s": "ch22", "t": "tbA", "k": "topic"}, {"s": "ch24", "t": "tbH", "k": "topic"}, {"s": "ch30", "t": "tbK", "k": "topic"}, {"s": "ch29", "t": "tbF", "k": "topic"}, {"s": "tbA", "t": "lv动态定价", "k": "topic"}, {"s": "tbB", "t": "lv库存限制", "k": "topic"}, {"s": "tbC", "t": "lv竞争应对", "k": "topic"}, {"s": "tbD", "t": "lv竞争应对", "k": "topic"}, {"s": "tbE", "t": "lv超额预订", "k": "topic"}, {"s": "tbF", "t": "lv房型与升级", "k": "topic"}, {"s": "tbG", "t": "lv团队与会议", "k": "topic"}, {"s": "tbH", "t": "lv渠道管理", "k": "topic"}, {"s": "tbI", "t": "lv需求预测", "k": "topic"}, {"s": "tbJ", "t": "lv房型与升级", "k": "topic"}, {"s": "tbK", "t": "lv团队与会议", "k": "topic"}, {"s": "tbL", "t": "lv危机与补救", "k": "topic"}, {"s": "tbM", "t": "lv指标体系", "k": "topic"}, {"s": "tbN", "t": "lv综合", "k": "topic"}, {"s": "tbO", "t": "lv综合", "k": "topic"}, {"s": "lv动态定价", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv促销与折扣", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv会员与协议", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv竞争应对", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv团队与会议", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv渠道管理", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv置换分析", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv房型与升级", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv指标体系", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv动态定价", "t": "cnADR 平均房价", "k": "topic"}, {"s": "lv竞争应对", "t": "cnADR 平均房价", "k": "topic"}, {"s": "lv团队与会议", "t": "cnADR 平均房价", "k": "topic"}, {"s": "lv渠道管理", "t": "cnADR 平均房价", "k": "topic"}, {"s": "lv房型与升级", "t": "cnADR 平均房价", "k": "topic"}, {"s": "lv库存限制", "t": "cnADR 平均房价", "k": "topic"}, {"s": "lv指标体系", "t": "cnADR 平均房价", "k": "topic"}, {"s": "lv动态定价", "t": "cnRevPAR", "k": "topic"}, {"s": "lv促销与折扣", "t": "cnRevPAR", "k": "topic"}, {"s": "lv会员与协议", "t": "cnRevPAR", "k": "topic"}, {"s": "lv团队与会议", "t": "cnRevPAR", "k": "topic"}, {"s": "lv渠道管理", "t": "cnRevPAR", "k": "topic"}, {"s": "lv危机与补救", "t": "cnRevPAR", "k": "topic"}, {"s": "lv指标体系", "t": "cnRevPAR", "k": "topic"}, {"s": "lv动态定价", "t": "cn预订进度 Pace", "k": "topic"}, {"s": "lv促销与折扣", "t": "cn预订进度 Pace", "k": "topic"}, {"s": "lv竞争应对", "t": "cn预订进度 Pace", "k": "topic"}, {"s": "lv团队与会议", "t": "cn预订进度 Pace", "k": "topic"}, {"s": "lv需求预测", "t": "cn预订进度 Pace", "k": "topic"}, {"s": "lv库存限制", "t": "cn预订进度 Pace", "k": "topic"}, {"s": "lv指标体系", "t": "cn预订进度 Pace", "k": "topic"}, {"s": "lv会员与协议", "t": "cnRGI 收入指数", "k": "topic"}, {"s": "lv竞争应对", "t": "cnRGI 收入指数", "k": "topic"}, {"s": "lv团队与会议", "t": "cnRGI 收入指数", "k": "topic"}, {"s": "lv渠道管理", "t": "cnRGI 收入指数", "k": "topic"}, {"s": "lv置换分析", "t": "cnRGI 收入指数", "k": "topic"}, {"s": "lv指标体系", "t": "cnRGI 收入指数", "k": "topic"}, {"s": "lv动态定价", "t": "cnALOS 平均住店时长", "k": "topic"}, {"s": "lv会员与协议", "t": "cnALOS 平均住店时长", "k": "topic"}, {"s": "lv竞争应对", "t": "cnALOS 平均住店时长", "k": "topic"}, {"s": "lv置换分析", "t": "cnALOS 平均住店时长", "k": "topic"}, {"s": "lv需求预测", "t": "cnALOS 平均住店时长", "k": "topic"}, {"s": "lv库存限制", "t": "cnALOS 平均住店时长", "k": "topic"}, {"s": "lv指标体系", "t": "cnALOS 平均住店时长", "k": "topic"}, {"s": "lv危机与补救", "t": "cn变动成本", "k": "topic"}, {"s": "lv动态定价", "t": "cn变动成本", "k": "topic"}, {"s": "lv促销与折扣", "t": "cn变动成本", "k": "topic"}, {"s": "lv会员与协议", "t": "cn变动成本", "k": "topic"}, {"s": "lv竞争应对", "t": "cn变动成本", "k": "topic"}, {"s": "lv渠道管理", "t": "cn变动成本", "k": "topic"}, {"s": "lv置换分析", "t": "cn变动成本", "k": "topic"}, {"s": "lv房型与升级", "t": "cn变动成本", "k": "topic"}, {"s": "lv库存限制", "t": "cn变动成本", "k": "topic"}, {"s": "lv指标体系", "t": "cn变动成本", "k": "topic"}, {"s": "lv动态定价", "t": "cn预订窗口 Booking Window", "k": "topic"}, {"s": "lv促销与折扣", "t": "cn预订窗口 Booking Window", "k": "topic"}, {"s": "lv竞争应对", "t": "cn预订窗口 Booking Window", "k": "topic"}, {"s": "lv团队与会议", "t": "cn预订窗口 Booking Window", "k": "topic"}, {"s": "lv渠道管理", "t": "cn预订窗口 Booking Window", "k": "topic"}, {"s": "lv库存限制", "t": "cn预订窗口 Booking Window", "k": "topic"}, {"s": "lv指标体系", "t": "cn预订窗口 Booking Window", "k": "topic"}, {"s": "lv动态定价", "t": "cnPickup 预订增速", "k": "topic"}, {"s": "lv超额预订", "t": "cnPickup 预订增速", "k": "topic"}, {"s": "lv会员与协议", "t": "cnPickup 预订增速", "k": "topic"}, {"s": "lv渠道管理", "t": "cnPickup 预订增速", "k": "topic"}, {"s": "lv需求预测", "t": "cnPickup 预订增速", "k": "topic"}, {"s": "lv指标体系", "t": "cnPickup 预订增速", "k": "topic"}, {"s": "lv危机与补救", "t": "cnNo-show 未到店", "k": "topic"}, {"s": "lv超额预订", "t": "cnNo-show 未到店", "k": "topic"}, {"s": "lv促销与折扣", "t": "cnNo-show 未到店", "k": "topic"}, {"s": "lv会员与协议", "t": "cnNo-show 未到店", "k": "topic"}, {"s": "lv渠道管理", "t": "cnNo-show 未到店", "k": "topic"}, {"s": "lv需求预测", "t": "cnNo-show 未到店", "k": "topic"}, {"s": "lv指标体系", "t": "cnNo-show 未到店", "k": "topic"}, {"s": "lv团队与会议", "t": "cn需求日历", "k": "topic"}, {"s": "lv促销与折扣", "t": "cn需求日历", "k": "topic"}, {"s": "lv动态定价", "t": "cn需求日历", "k": "topic"}, {"s": "lv指标体系", "t": "cn需求日历", "k": "topic"}, {"s": "lv动态定价", "t": "cn保护位 Protection", "k": "topic"}, {"s": "lv竞争应对", "t": "cn保护位 Protection", "k": "topic"}, {"s": "lv团队与会议", "t": "cn保护位 Protection", "k": "topic"}, {"s": "lv渠道管理", "t": "cn保护位 Protection", "k": "topic"}, {"s": "lv置换分析", "t": "cn保护位 Protection", "k": "topic"}, {"s": "lv需求预测", "t": "cn保护位 Protection", "k": "topic"}, {"s": "lv库存限制", "t": "cn保护位 Protection", "k": "topic"}, {"s": "lv动态定价", "t": "cnCTA / CTD 开关房", "k": "topic"}, {"s": "lv促销与折扣", "t": "cnCTA / CTD 开关房", "k": "topic"}, {"s": "lv房型与升级", "t": "cnCTA / CTD 开关房", "k": "topic"}, {"s": "lv渠道管理", "t": "cnCTA / CTD 开关房", "k": "topic"}, {"s": "lv需求预测", "t": "cnCTA / CTD 开关房", "k": "topic"}, {"s": "lv库存限制", "t": "cnCTA / CTD 开关房", "k": "topic"}, {"s": "lv指标体系", "t": "cnCTA / CTD 开关房", "k": "topic"}, {"s": "lv危机与补救", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv动态定价", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv超额预订", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv需求预测", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv竞争应对", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv渠道管理", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv房型与升级", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv库存限制", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv指标体系", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv危机与补救", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv动态定价", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv促销与折扣", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv竞争应对", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv团队与会议", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv渠道管理", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv房型与升级", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv需求预测", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv库存限制", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv指标体系", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv危机与补救", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv动态定价", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv会员与协议", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv打包与套餐", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv团队与会议", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv渠道管理", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv房型与升级", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv库存限制", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv指标体系", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv打包与套餐", "t": "cn度假酒店", "k": "topic"}, {"s": "lv团队与会议", "t": "cn度假酒店", "k": "topic"}, {"s": "lv动态定价", "t": "cn度假酒店", "k": "topic"}, {"s": "lv指标体系", "t": "cn度假酒店", "k": "topic"}, {"s": "lv危机与补救", "t": "cn精品民宿", "k": "topic"}, {"s": "lv促销与折扣", "t": "cn精品民宿", "k": "topic"}, {"s": "lv跨业态", "t": "cn精品民宿", "k": "topic"}, {"s": "lv竞争应对", "t": "cn精品民宿", "k": "topic"}, {"s": "lv渠道管理", "t": "cn精品民宿", "k": "topic"}, {"s": "lv需求预测", "t": "cn精品民宿", "k": "topic"}, {"s": "lv指标体系", "t": "cn精品民宿", "k": "topic"}, {"s": "lv动态定价", "t": "cn服务式公寓", "k": "topic"}, {"s": "lv促销与折扣", "t": "cn服务式公寓", "k": "topic"}, {"s": "lv跨业态", "t": "cn服务式公寓", "k": "topic"}, {"s": "lv渠道管理", "t": "cn服务式公寓", "k": "topic"}, {"s": "lv房型与升级", "t": "cn服务式公寓", "k": "topic"}, {"s": "lv指标体系", "t": "cn服务式公寓", "k": "topic"}, {"s": "lv动态定价", "t": "cn机场酒店", "k": "topic"}, {"s": "lv跨业态", "t": "cn机场酒店", "k": "topic"}, {"s": "lv会员与协议", "t": "cn机场酒店", "k": "topic"}, {"s": "lv渠道管理", "t": "cn机场酒店", "k": "topic"}, {"s": "lv危机与补救", "t": "cn机场酒店", "k": "topic"}, {"s": "lv库存限制", "t": "cn机场酒店", "k": "topic"}, {"s": "lv指标体系", "t": "cn机场酒店", "k": "topic"}, {"s": "lv动态定价", "t": "cn景区酒店", "k": "topic"}, {"s": "lv跨业态", "t": "cn景区酒店", "k": "topic"}, {"s": "lv打包与套餐", "t": "cn景区酒店", "k": "topic"}, {"s": "lv团队与会议", "t": "cn景区酒店", "k": "topic"}, {"s": "lv危机与补救", "t": "cn景区酒店", "k": "topic"}, {"s": "lv指标体系", "t": "cn景区酒店", "k": "topic"}, {"s": "lv置换分析", "t": "cn会议型酒店", "k": "topic"}, {"s": "lv团队与会议", "t": "cn会议型酒店", "k": "topic"}, {"s": "lv指标体系", "t": "cn会议型酒店", "k": "topic"}], "meta": {"tables": 15, "chapters": 32, "levers": 17, "concepts": 22, "cases": 302, "edges": 207, "src_edges": 17, "topic_edges": 190}};
+var DATA={"nodes": [{"id": "tbA", "label": "表A 每日价格调整判定表", "type": "table", "group": "判定表", "title": "每日价格调整判定表", "link": "codex.html", "x": 643, "y": 196}, {"id": "tbB", "label": "表B 库存与限制条件配置表", "type": "table", "group": "判定表", "title": "库存与限制条件配置表", "link": "codex.html", "x": 868, "y": 196}, {"id": "tbC", "label": "表C 价格指数（ARI）判定表", "type": "table", "group": "判定表", "title": "价格指数（ARI）判定表", "link": "codex.html", "x": 193, "y": 196}, {"id": "tbD", "label": "表D 市场渗透指数（MPI）判定表", "type": "table", "group": "判定表", "title": "市场渗透指数（MPI）判定表", "link": "codex.html", "x": 193, "y": 230}, {"id": "tbE", "label": "表E 超额预订标准表", "type": "table", "group": "判定表", "title": "超额预订标准表", "link": "codex.html", "x": 868, "y": 230}, {"id": "tbF", "label": "表F 房型价差与全房型价格表", "type": "table", "group": "判定表", "title": "房型价差与全房型价格表", "link": "codex.html", "x": 643, "y": 230}, {"id": "tbG", "label": "表G 团队／协议询价接受判定表", "type": "table", "group": "判定表", "title": "团队／协议询价接受判定表", "link": "codex.html", "x": 1093, "y": 196}, {"id": "tbH", "label": "表H 渠道开关判定表", "type": "table", "group": "判定表", "title": "渠道开关判定表", "link": "codex.html", "x": 868, "y": 264}, {"id": "tbI", "label": "表I 预订窗口分档监控表", "type": "table", "group": "判定表", "title": "预订窗口分档监控表", "link": "codex.html", "x": 418, "y": 196}, {"id": "tbJ", "label": "表J 免费升级规则表", "type": "table", "group": "判定表", "title": "免费升级规则表", "link": "codex.html", "x": 868, "y": 298}, {"id": "tbK", "label": "表K 会议／宴会综合收益联动表", "type": "table", "group": "判定表", "title": "会议／宴会综合收益联动表", "link": "codex.html", "x": 1093, "y": 230}, {"id": "tbL", "label": "表L 异常事件应急判定表", "type": "table", "group": "判定表", "title": "异常事件应急判定表", "link": "codex.html", "x": 1318, "y": 264}, {"id": "tbM", "label": "表M 每日收益操作流水线（时间表）", "type": "table", "group": "判定表", "title": "每日收益操作流水线（时间表）", "link": "codex.html", "x": 1318, "y": 196}, {"id": "tbN", "label": "表N 周度／月度节奏表", "type": "table", "group": "判定表", "title": "周度／月度节奏表", "link": "codex.html", "x": 1318, "y": 230}, {"id": "tbO", "label": "表O 决策优先级与冲突仲裁表", "type": "table", "group": "判定表", "title": "决策优先级与冲突仲裁表", "link": "codex.html", "x": 1318, "y": 298}, {"id": "ch01", "label": "ch01 收益管理是什么", "type": "chapter", "group": "认知篇", "link": "textbook-merged.html#ch01", "title": "收益管理是什么：一句话与底层逻辑", "full": "收益管理是什么：一句话与底层逻辑", "x": 193, "y": 386}, {"id": "ch02", "label": "ch02 三个核心指标", "type": "chapter", "group": "认知篇", "link": "textbook-merged.html#ch02", "title": "三个核心指标：OCC、ADR、RevPAR", "full": "三个核心指标：OCC、ADR、RevPAR", "x": 193, "y": 416}, {"id": "ch03", "label": "ch03 竞争三件套", "type": "chapter", "group": "认知篇", "link": "textbook-merged.html#ch03", "title": "竞争三件套：MPI、ARI、RGI", "full": "竞争三件套：MPI、ARI、RGI", "x": 193, "y": 446}, {"id": "ch04", "label": "ch04 价格弹性", "type": "chapter", "group": "认知篇", "link": "textbook-merged.html#ch04", "title": "价格弹性：降多少价能换多少量", "full": "价格弹性：降多少价能换多少量", "x": 643, "y": 750}, {"id": "ch05", "label": "ch05 什么时候涨价", "type": "chapter", "group": "决策篇·定价", "link": "textbook-merged.html#ch05", "title": "什么时候涨价", "full": "什么时候涨价", "x": 643, "y": 780}, {"id": "ch06", "label": "ch06 竞品降价", "type": "chapter", "group": "决策篇·定价", "link": "textbook-merged.html#ch06", "title": "竞品降价：跟还是不跟", "full": "竞品降价：跟还是不跟", "x": 643, "y": 810}, {"id": "ch07", "label": "ch07 折扣与促销", "type": "chapter", "group": "决策篇·定价", "link": "textbook-merged.html#ch07", "title": "折扣与促销：什么时候该让", "full": "折扣与促销：什么时候该让", "x": 643, "y": 840}, {"id": "ch08", "label": "ch08 套餐与锚定", "type": "chapter", "group": "决策篇·定价", "link": "textbook-merged.html#ch08", "title": "套餐与锚定：让客人觉得划算", "full": "套餐与锚定：让客人觉得划算", "x": 643, "y": 870}, {"id": "ch09", "label": "ch09 房型价差", "type": "chapter", "group": "决策篇·库存", "link": "textbook-merged.html#ch09", "title": "房型价差：差价定多少才合理", "full": "房型价差：差价定多少才合理", "x": 643, "y": 900}, {"id": "ch10", "label": "ch10 最短住期 MinLOS", "type": "chapter", "group": "决策篇·库存", "link": "textbook-merged.html#ch10", "title": "最短住期 MinLOS：用条件把客群分开", "full": "最短住期 MinLOS：用条件把客群分开", "x": 868, "y": 636}, {"id": "ch11", "label": "ch11 超额预订", "type": "chapter", "group": "决策篇·库存", "link": "textbook-merged.html#ch11", "title": "超额预订：卖出去的比有的多", "full": "超额预订：卖出去的比有的多", "x": 868, "y": 666}, {"id": "ch12", "label": "ch12 库存分配与保护位", "type": "chapter", "group": "决策篇·库存", "link": "textbook-merged.html#ch12", "title": "库存分配与保护位：给谁留多少房", "full": "库存分配与保护位：给谁留多少房", "x": 868, "y": 696}, {"id": "ch13", "label": "ch13 渠道净价", "type": "chapter", "group": "决策篇·客源渠道", "link": "textbook-merged.html#ch13", "title": "渠道净价：到手多少钱才算数", "full": "渠道净价：到手多少钱才算数", "x": 868, "y": 726}, {"id": "ch14", "label": "ch14 客源细分", "type": "chapter", "group": "决策篇·客源渠道", "link": "textbook-merged.html#ch14", "title": "客源细分：把客人分成几堆来卖", "full": "客源细分：把客人分成几堆来卖", "x": 1093, "y": 508}, {"id": "ch15", "label": "ch15 团队置换", "type": "chapter", "group": "决策篇·客源渠道", "link": "textbook-merged.html#ch15", "title": "团队置换：这个团该不该接", "full": "团队置换：这个团该不该接", "x": 1093, "y": 538}, {"id": "ch16", "label": "ch16 直销与会员", "type": "chapter", "group": "决策篇·客源渠道", "link": "textbook-merged.html#ch16", "title": "直销与会员：把客人变成自己的", "full": "直销与会员：把客人变成自己的", "x": 1093, "y": 568}, {"id": "ch17", "label": "ch17 运营全景", "type": "chapter", "group": "运营篇·节奏", "link": "textbook-merged.html#ch17", "title": "运营全景：从年到日的节奏", "full": "运营全景：从年到日的节奏", "x": 1318, "y": 392}, {"id": "ch18", "label": "ch18 每日实操流程", "type": "chapter", "group": "运营篇·节奏", "link": "textbook-merged.html#ch18", "title": "每日实操流程：一天具体做什么", "full": "每日实操流程：一天具体做什么", "x": 1318, "y": 422}, {"id": "ch19", "label": "ch19 执行标准与收益例会", "type": "chapter", "group": "运营篇·节奏", "link": "textbook-merged.html#ch19", "title": "执行标准与收益例会", "full": "执行标准与收益例会", "x": 1318, "y": 452}, {"id": "ch20", "label": "ch20 预测与需求日历", "type": "chapter", "group": "运营篇·计划支撑", "link": "textbook-merged.html#ch20", "title": "预测与需求日历", "full": "预测与需求日历", "x": 418, "y": 290}, {"id": "ch21", "label": "ch21 年度预算", "type": "chapter", "group": "运营篇·计划支撑", "link": "textbook-merged.html#ch21", "title": "年度预算：把一年拆到每天", "full": "年度预算：把一年拆到每天", "x": 418, "y": 320}, {"id": "ch22", "label": "ch22 价格体系 BAR", "type": "chapter", "group": "运营篇·计划支撑", "link": "textbook-merged.html#ch22", "title": "价格体系 BAR：所有价格的锚", "full": "价格体系 BAR：所有价格的锚", "x": 643, "y": 930}, {"id": "ch23", "label": "ch23 报表体系", "type": "chapter", "group": "运营篇·计划支撑", "link": "textbook-merged.html#ch23", "title": "报表体系：每天该看哪几张表", "full": "报表体系：每天该看哪几张表", "x": 193, "y": 476}, {"id": "ch24", "label": "ch24 OTA 与点评", "type": "chapter", "group": "运营篇·计划支撑", "link": "textbook-merged.html#ch24", "title": "OTA 与点评：评分就是价格", "full": "OTA 与点评：评分就是价格", "x": 868, "y": 756}, {"id": "ch25", "label": "ch25 岗位与组织", "type": "chapter", "group": "组织篇", "link": "textbook-merged.html#ch25", "title": "岗位与组织：谁来干这件事", "full": "岗位与组织：谁来干这件事", "x": 1543, "y": 320}, {"id": "ch26", "label": "ch26 成本与利润", "type": "chapter", "group": "组织篇", "link": "textbook-merged.html#ch26", "title": "成本与利润：降价的底线在哪", "full": "成本与利润：降价的底线在哪", "x": 643, "y": 960}, {"id": "ch27", "label": "ch27 系统与数据", "type": "chapter", "group": "组织篇", "link": "textbook-merged.html#ch27", "title": "系统与数据：工具能替您做什么", "full": "系统与数据：工具能替您做什么", "x": 193, "y": 506}, {"id": "ch28", "label": "ch28 淡旺季与事件日", "type": "chapter", "group": "组织篇", "link": "textbook-merged.html#ch28", "title": "淡旺季与事件日：一年里最容易赚的钱", "full": "淡旺季与事件日：一年里最容易赚的钱", "x": 418, "y": 350}, {"id": "ch29", "label": "ch29 餐饮收益", "type": "chapter", "group": "延伸篇", "link": "textbook-merged.html#ch29", "title": "餐饮收益：RevPASH 与翻台", "full": "餐饮收益：RevPASH 与翻台", "x": 1543, "y": 350}, {"id": "ch30", "label": "ch30 会议宴会", "type": "chapter", "group": "延伸篇", "link": "textbook-merged.html#ch30", "title": "会议宴会：不只算房，算总贡献", "full": "会议宴会：不只算房，算总贡献", "x": 1093, "y": 598}, {"id": "ch31", "label": "ch31 其他业态与跨行业参数", "type": "chapter", "group": "延伸篇", "link": "textbook-merged.html#ch31", "title": "其他业态与跨行业参数", "full": "其他业态与跨行业参数", "x": 1543, "y": 380}, {"id": "ch32", "label": "ch32 常见误区", "type": "chapter", "group": "延伸篇", "link": "textbook-merged.html#ch32", "title": "常见误区：30 个坑，别再踩", "full": "常见误区：30 个坑，别再踩", "x": 1543, "y": 410}, {"id": "lv动态定价", "label": "动态定价", "type": "lever", "group": "杠杆", "count": 170, "link": "cases-hub.html", "x": 643, "y": 272}, {"id": "lv超额预订", "label": "超额预订", "type": "lever", "group": "杠杆", "count": 41, "link": "cases-hub.html", "x": 868, "y": 372}, {"id": "lv置换分析", "label": "置换分析", "type": "lever", "group": "杠杆", "count": 40, "link": "cases-hub.html", "x": 1093, "y": 336}, {"id": "lv渠道管理", "label": "渠道管理", "type": "lever", "group": "杠杆", "count": 147, "link": "cases-hub.html", "x": 868, "y": 404}, {"id": "lv库存限制", "label": "库存限制", "type": "lever", "group": "杠杆", "count": 84, "link": "cases-hub.html", "x": 868, "y": 340}, {"id": "lv房型与升级", "label": "房型与升级", "type": "lever", "group": "杠杆", "count": 67, "link": "cases-hub.html", "x": 643, "y": 368}, {"id": "lv团队与会议", "label": "团队与会议", "type": "lever", "group": "杠杆", "count": 105, "link": "cases-hub.html", "x": 1093, "y": 272}, {"id": "lv需求预测", "label": "需求预测", "type": "lever", "group": "杠杆", "count": 85, "link": "cases-hub.html", "x": 418, "y": 238}, {"id": "lv促销与折扣", "label": "促销与折扣", "type": "lever", "group": "杠杆", "count": 65, "link": "cases-hub.html", "x": 643, "y": 304}, {"id": "lv打包与套餐", "label": "打包与套餐", "type": "lever", "group": "杠杆", "count": 44, "link": "cases-hub.html", "x": 643, "y": 336}, {"id": "lv竞争应对", "label": "竞争应对", "type": "lever", "group": "杠杆", "count": 83, "link": "cases-hub.html", "x": 193, "y": 304}, {"id": "lv会员与协议", "label": "会员与协议", "type": "lever", "group": "杠杆", "count": 98, "link": "cases-hub.html", "x": 1093, "y": 304}, {"id": "lv指标体系", "label": "指标体系", "type": "lever", "group": "杠杆", "count": 205, "link": "cases-hub.html", "x": 193, "y": 272}, {"id": "lv危机与补救", "label": "危机与补救", "type": "lever", "group": "杠杆", "count": 57, "link": "cases-hub.html", "x": 1318, "y": 340}, {"id": "lv餐饮RevPASH", "label": "餐饮RevPASH", "type": "lever", "group": "杠杆", "count": 4, "link": "cases-hub.html", "x": 1543, "y": 236}, {"id": "lv跨业态", "label": "跨业态", "type": "lever", "group": "杠杆", "count": 20, "link": "cases-hub.html", "x": 1543, "y": 204}, {"id": "lv综合", "label": "综合", "type": "lever", "group": "杠杆", "count": 0, "link": "cases-hub.html", "x": 1543, "y": 268}, {"id": "cnOCC 出租率", "label": "OCC 出租率", "type": "concept", "group": "概念", "count": 3, "levers": ["会员与协议", "促销与折扣", "动态定价", "团队与会议", "房型与升级", "指标体系", "渠道管理", "竞争应对", "置换分析"], "link": "codex.html?q=OCC 出租率", "x": 643, "y": 410}, {"id": "cnADR 平均房价", "label": "ADR 平均房价", "type": "concept", "group": "概念", "count": 3, "levers": ["动态定价", "团队与会议", "库存限制", "房型与升级", "指标体系", "渠道管理", "竞争应对"], "link": "codex.html?q=ADR 平均房价", "x": 643, "y": 440}, {"id": "cnRevPAR", "label": "RevPAR", "type": "concept", "group": "概念", "count": 3, "levers": ["会员与协议", "促销与折扣", "动态定价", "危机与补救", "团队与会议", "指标体系", "渠道管理"], "link": "codex.html?q=RevPAR", "x": 1093, "y": 378}, {"id": "cn预订进度 Pace", "label": "预订进度 Pace", "type": "concept", "group": "概念", "count": 3, "levers": ["促销与折扣", "动态定价", "团队与会议", "库存限制", "指标体系", "竞争应对", "需求预测"], "link": "codex.html?q=预订进度 Pace", "x": 643, "y": 470}, {"id": "cnRGI 收入指数", "label": "RGI 收入指数", "type": "concept", "group": "概念", "count": 2, "levers": ["会员与协议", "团队与会议", "指标体系", "渠道管理", "竞争应对", "置换分析"], "link": "codex.html?q=RGI 收入指数", "x": 193, "y": 346}, {"id": "cnALOS 平均住店时长", "label": "ALOS 平均住店时长", "type": "concept", "group": "概念", "count": 2, "levers": ["会员与协议", "动态定价", "库存限制", "指标体系", "竞争应对", "置换分析", "需求预测"], "link": "codex.html?q=ALOS 平均住店时长", "x": 868, "y": 446}, {"id": "cn变动成本", "label": "变动成本", "type": "concept", "group": "概念", "count": 2, "levers": ["会员与协议", "促销与折扣", "动态定价", "危机与补救", "库存限制", "房型与升级", "指标体系", "渠道管理", "竞争应对", "置换分析"], "link": "codex.html?q=变动成本", "x": 643, "y": 500}, {"id": "cn预订窗口 Booking Window", "label": "预订窗口 Booking Window", "type": "concept", "group": "概念", "count": 2, "levers": ["促销与折扣", "动态定价", "团队与会议", "库存限制", "指标体系", "渠道管理", "竞争应对"], "link": "codex.html?q=预订窗口 Booking Window", "x": 868, "y": 476}, {"id": "cnPickup 预订增速", "label": "Pickup 预订增速", "type": "concept", "group": "概念", "count": 2, "levers": ["会员与协议", "动态定价", "指标体系", "渠道管理", "超额预订", "需求预测"], "link": "codex.html?q=Pickup 预订增速", "x": 868, "y": 506}, {"id": "cnNo-show 未到店", "label": "No-show 未到店", "type": "concept", "group": "概念", "count": 2, "levers": ["会员与协议", "促销与折扣", "危机与补救", "指标体系", "渠道管理", "超额预订", "需求预测"], "link": "codex.html?q=No-show 未到店", "x": 868, "y": 536}, {"id": "cn需求日历", "label": "需求日历", "type": "concept", "group": "概念", "count": 2, "levers": ["促销与折扣", "动态定价", "团队与会议", "指标体系"], "link": "codex.html?q=需求日历", "x": 643, "y": 530}, {"id": "cn保护位 Protection", "label": "保护位 Protection", "type": "concept", "group": "概念", "count": 2, "levers": ["动态定价", "团队与会议", "库存限制", "渠道管理", "竞争应对", "置换分析", "需求预测"], "link": "codex.html?q=保护位 Protection", "x": 1093, "y": 408}, {"id": "cnCTA / CTD 开关房", "label": "CTA / CTD 开关房", "type": "concept", "group": "概念", "count": 2, "levers": ["促销与折扣", "动态定价", "库存限制", "房型与升级", "指标体系", "渠道管理", "需求预测"], "link": "codex.html?q=CTA / CTD 开关房", "x": 643, "y": 560}, {"id": "cn超售 Overbooking", "label": "超售 Overbooking", "type": "concept", "group": "概念", "count": 2, "levers": ["动态定价", "危机与补救", "库存限制", "房型与升级", "指标体系", "渠道管理", "竞争应对", "超额预订", "需求预测"], "link": "codex.html?q=超售 Overbooking", "x": 868, "y": 566}, {"id": "cn每日收益流程", "label": "每日收益流程", "type": "concept", "group": "概念", "count": 2, "levers": ["促销与折扣", "动态定价", "危机与补救", "团队与会议", "库存限制", "房型与升级", "指标体系", "渠道管理", "竞争应对", "需求预测"], "link": "codex.html?q=每日收益流程", "x": 1093, "y": 438}, {"id": "cn奢华酒店", "label": "奢华酒店", "type": "concept", "group": "概念", "count": 2, "levers": ["会员与协议", "动态定价", "危机与补救", "团队与会议", "库存限制", "房型与升级", "打包与套餐", "指标体系", "渠道管理"], "link": "codex.html?q=奢华酒店", "x": 643, "y": 590}, {"id": "cn度假酒店", "label": "度假酒店", "type": "concept", "group": "概念", "count": 2, "levers": ["动态定价", "团队与会议", "打包与套餐", "指标体系"], "link": "codex.html?q=度假酒店", "x": 643, "y": 620}, {"id": "cn精品民宿", "label": "精品民宿", "type": "concept", "group": "概念", "count": 2, "levers": ["促销与折扣", "危机与补救", "指标体系", "渠道管理", "竞争应对", "跨业态", "需求预测"], "link": "codex.html?q=精品民宿", "x": 868, "y": 596}, {"id": "cn服务式公寓", "label": "服务式公寓", "type": "concept", "group": "概念", "count": 2, "levers": ["促销与折扣", "动态定价", "房型与升级", "指标体系", "渠道管理", "跨业态"], "link": "codex.html?q=服务式公寓", "x": 643, "y": 650}, {"id": "cn机场酒店", "label": "机场酒店", "type": "concept", "group": "概念", "count": 2, "levers": ["会员与协议", "动态定价", "危机与补救", "库存限制", "指标体系", "渠道管理", "跨业态"], "link": "codex.html?q=机场酒店", "x": 643, "y": 680}, {"id": "cn景区酒店", "label": "景区酒店", "type": "concept", "group": "概念", "count": 2, "levers": ["动态定价", "危机与补救", "团队与会议", "打包与套餐", "指标体系", "跨业态"], "link": "codex.html?q=景区酒店", "x": 643, "y": 710}, {"id": "cn会议型酒店", "label": "会议型酒店", "type": "concept", "group": "概念", "count": 2, "levers": ["团队与会议", "指标体系", "置换分析"], "link": "codex.html?q=会议型酒店", "x": 1093, "y": 468}, {"id": "st1", "label": "① 看数与对标", "type": "stage", "group": "流程", "sub": "先看清自己在哪儿", "x": 193, "y": 118}, {"id": "st2", "label": "② 预测与计划", "type": "stage", "group": "流程", "sub": "未来会怎样", "x": 418, "y": 118}, {"id": "st3", "label": "③ 定价", "type": "stage", "group": "流程", "sub": "该卖多少钱", "x": 643, "y": 118}, {"id": "st4", "label": "④ 库存与渠道", "type": "stage", "group": "流程", "sub": "房给谁、从哪卖", "x": 868, "y": 118}, {"id": "st5", "label": "⑤ 客源与团队", "type": "stage", "group": "流程", "sub": "接什么客", "x": 1093, "y": 118}, {"id": "st6", "label": "⑥ 执行与复盘", "type": "stage", "group": "流程", "sub": "落到动作、循环", "x": 1318, "y": 118}, {"id": "st7", "label": "⑦ 基础与延伸", "type": "stage", "group": "流程", "sub": "支撑与扩展", "x": 1543, "y": 118}], "edges": [{"s": "tbA", "t": "tbB", "k": "src"}, {"s": "tbA", "t": "tbO", "k": "src"}, {"s": "tbB", "t": "tbE", "k": "src"}, {"s": "tbB", "t": "tbA", "k": "src"}, {"s": "tbC", "t": "tbD", "k": "src"}, {"s": "tbC", "t": "tbO", "k": "src"}, {"s": "tbD", "t": "tbC", "k": "src"}, {"s": "tbD", "t": "tbO", "k": "src"}, {"s": "tbE", "t": "tbB", "k": "src"}, {"s": "tbE", "t": "tbL", "k": "src"}, {"s": "tbG", "t": "tbK", "k": "src"}, {"s": "tbH", "t": "tbO", "k": "src"}, {"s": "tbJ", "t": "tbE", "k": "src"}, {"s": "tbK", "t": "tbG", "k": "src"}, {"s": "tbL", "t": "tbE", "k": "src"}, {"s": "tbL", "t": "tbO", "k": "src"}, {"s": "tbM", "t": "tbA", "k": "src"}, {"s": "ch05", "t": "tbA", "k": "topic"}, {"s": "ch06", "t": "tbC", "k": "topic"}, {"s": "ch06", "t": "tbD", "k": "topic"}, {"s": "ch07", "t": "tbA", "k": "topic"}, {"s": "ch08", "t": "tbA", "k": "topic"}, {"s": "ch09", "t": "tbF", "k": "topic"}, {"s": "ch10", "t": "tbB", "k": "topic"}, {"s": "ch11", "t": "tbE", "k": "topic"}, {"s": "ch12", "t": "tbB", "k": "topic"}, {"s": "ch13", "t": "tbH", "k": "topic"}, {"s": "ch14", "t": "tbG", "k": "topic"}, {"s": "ch15", "t": "tbG", "k": "topic"}, {"s": "ch16", "t": "tbG", "k": "topic"}, {"s": "ch17", "t": "tbM", "k": "topic"}, {"s": "ch17", "t": "tbN", "k": "topic"}, {"s": "ch18", "t": "tbM", "k": "topic"}, {"s": "ch19", "t": "tbM", "k": "topic"}, {"s": "ch20", "t": "tbI", "k": "topic"}, {"s": "ch21", "t": "tbN", "k": "topic"}, {"s": "ch22", "t": "tbA", "k": "topic"}, {"s": "ch24", "t": "tbH", "k": "topic"}, {"s": "ch30", "t": "tbK", "k": "topic"}, {"s": "ch29", "t": "tbF", "k": "topic"}, {"s": "tbA", "t": "lv动态定价", "k": "topic"}, {"s": "tbB", "t": "lv库存限制", "k": "topic"}, {"s": "tbC", "t": "lv竞争应对", "k": "topic"}, {"s": "tbD", "t": "lv竞争应对", "k": "topic"}, {"s": "tbE", "t": "lv超额预订", "k": "topic"}, {"s": "tbF", "t": "lv房型与升级", "k": "topic"}, {"s": "tbG", "t": "lv团队与会议", "k": "topic"}, {"s": "tbH", "t": "lv渠道管理", "k": "topic"}, {"s": "tbI", "t": "lv需求预测", "k": "topic"}, {"s": "tbJ", "t": "lv房型与升级", "k": "topic"}, {"s": "tbK", "t": "lv团队与会议", "k": "topic"}, {"s": "tbL", "t": "lv危机与补救", "k": "topic"}, {"s": "tbM", "t": "lv指标体系", "k": "topic"}, {"s": "tbN", "t": "lv综合", "k": "topic"}, {"s": "tbO", "t": "lv综合", "k": "topic"}, {"s": "lv会员与协议", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv促销与折扣", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv房型与升级", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv竞争应对", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv渠道管理", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv指标体系", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv动态定价", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv团队与会议", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv置换分析", "t": "cnOCC 出租率", "k": "topic"}, {"s": "lv房型与升级", "t": "cnADR 平均房价", "k": "topic"}, {"s": "lv竞争应对", "t": "cnADR 平均房价", "k": "topic"}, {"s": "lv渠道管理", "t": "cnADR 平均房价", "k": "topic"}, {"s": "lv指标体系", "t": "cnADR 平均房价", "k": "topic"}, {"s": "lv动态定价", "t": "cnADR 平均房价", "k": "topic"}, {"s": "lv团队与会议", "t": "cnADR 平均房价", "k": "topic"}, {"s": "lv库存限制", "t": "cnADR 平均房价", "k": "topic"}, {"s": "lv会员与协议", "t": "cnRevPAR", "k": "topic"}, {"s": "lv促销与折扣", "t": "cnRevPAR", "k": "topic"}, {"s": "lv渠道管理", "t": "cnRevPAR", "k": "topic"}, {"s": "lv危机与补救", "t": "cnRevPAR", "k": "topic"}, {"s": "lv指标体系", "t": "cnRevPAR", "k": "topic"}, {"s": "lv动态定价", "t": "cnRevPAR", "k": "topic"}, {"s": "lv团队与会议", "t": "cnRevPAR", "k": "topic"}, {"s": "lv促销与折扣", "t": "cn预订进度 Pace", "k": "topic"}, {"s": "lv竞争应对", "t": "cn预订进度 Pace", "k": "topic"}, {"s": "lv需求预测", "t": "cn预订进度 Pace", "k": "topic"}, {"s": "lv指标体系", "t": "cn预订进度 Pace", "k": "topic"}, {"s": "lv动态定价", "t": "cn预订进度 Pace", "k": "topic"}, {"s": "lv团队与会议", "t": "cn预订进度 Pace", "k": "topic"}, {"s": "lv库存限制", "t": "cn预订进度 Pace", "k": "topic"}, {"s": "lv会员与协议", "t": "cnRGI 收入指数", "k": "topic"}, {"s": "lv竞争应对", "t": "cnRGI 收入指数", "k": "topic"}, {"s": "lv渠道管理", "t": "cnRGI 收入指数", "k": "topic"}, {"s": "lv指标体系", "t": "cnRGI 收入指数", "k": "topic"}, {"s": "lv团队与会议", "t": "cnRGI 收入指数", "k": "topic"}, {"s": "lv置换分析", "t": "cnRGI 收入指数", "k": "topic"}, {"s": "lv会员与协议", "t": "cnALOS 平均住店时长", "k": "topic"}, {"s": "lv竞争应对", "t": "cnALOS 平均住店时长", "k": "topic"}, {"s": "lv需求预测", "t": "cnALOS 平均住店时长", "k": "topic"}, {"s": "lv指标体系", "t": "cnALOS 平均住店时长", "k": "topic"}, {"s": "lv动态定价", "t": "cnALOS 平均住店时长", "k": "topic"}, {"s": "lv置换分析", "t": "cnALOS 平均住店时长", "k": "topic"}, {"s": "lv库存限制", "t": "cnALOS 平均住店时长", "k": "topic"}, {"s": "lv会员与协议", "t": "cn变动成本", "k": "topic"}, {"s": "lv促销与折扣", "t": "cn变动成本", "k": "topic"}, {"s": "lv房型与升级", "t": "cn变动成本", "k": "topic"}, {"s": "lv竞争应对", "t": "cn变动成本", "k": "topic"}, {"s": "lv渠道管理", "t": "cn变动成本", "k": "topic"}, {"s": "lv危机与补救", "t": "cn变动成本", "k": "topic"}, {"s": "lv指标体系", "t": "cn变动成本", "k": "topic"}, {"s": "lv动态定价", "t": "cn变动成本", "k": "topic"}, {"s": "lv置换分析", "t": "cn变动成本", "k": "topic"}, {"s": "lv库存限制", "t": "cn变动成本", "k": "topic"}, {"s": "lv促销与折扣", "t": "cn预订窗口 Booking Window", "k": "topic"}, {"s": "lv竞争应对", "t": "cn预订窗口 Booking Window", "k": "topic"}, {"s": "lv渠道管理", "t": "cn预订窗口 Booking Window", "k": "topic"}, {"s": "lv指标体系", "t": "cn预订窗口 Booking Window", "k": "topic"}, {"s": "lv动态定价", "t": "cn预订窗口 Booking Window", "k": "topic"}, {"s": "lv团队与会议", "t": "cn预订窗口 Booking Window", "k": "topic"}, {"s": "lv库存限制", "t": "cn预订窗口 Booking Window", "k": "topic"}, {"s": "lv会员与协议", "t": "cnPickup 预订增速", "k": "topic"}, {"s": "lv需求预测", "t": "cnPickup 预订增速", "k": "topic"}, {"s": "lv渠道管理", "t": "cnPickup 预订增速", "k": "topic"}, {"s": "lv指标体系", "t": "cnPickup 预订增速", "k": "topic"}, {"s": "lv动态定价", "t": "cnPickup 预订增速", "k": "topic"}, {"s": "lv超额预订", "t": "cnPickup 预订增速", "k": "topic"}, {"s": "lv会员与协议", "t": "cnNo-show 未到店", "k": "topic"}, {"s": "lv促销与折扣", "t": "cnNo-show 未到店", "k": "topic"}, {"s": "lv需求预测", "t": "cnNo-show 未到店", "k": "topic"}, {"s": "lv渠道管理", "t": "cnNo-show 未到店", "k": "topic"}, {"s": "lv危机与补救", "t": "cnNo-show 未到店", "k": "topic"}, {"s": "lv指标体系", "t": "cnNo-show 未到店", "k": "topic"}, {"s": "lv超额预订", "t": "cnNo-show 未到店", "k": "topic"}, {"s": "lv指标体系", "t": "cn需求日历", "k": "topic"}, {"s": "lv动态定价", "t": "cn需求日历", "k": "topic"}, {"s": "lv促销与折扣", "t": "cn需求日历", "k": "topic"}, {"s": "lv团队与会议", "t": "cn需求日历", "k": "topic"}, {"s": "lv竞争应对", "t": "cn保护位 Protection", "k": "topic"}, {"s": "lv需求预测", "t": "cn保护位 Protection", "k": "topic"}, {"s": "lv渠道管理", "t": "cn保护位 Protection", "k": "topic"}, {"s": "lv动态定价", "t": "cn保护位 Protection", "k": "topic"}, {"s": "lv团队与会议", "t": "cn保护位 Protection", "k": "topic"}, {"s": "lv置换分析", "t": "cn保护位 Protection", "k": "topic"}, {"s": "lv库存限制", "t": "cn保护位 Protection", "k": "topic"}, {"s": "lv促销与折扣", "t": "cnCTA / CTD 开关房", "k": "topic"}, {"s": "lv房型与升级", "t": "cnCTA / CTD 开关房", "k": "topic"}, {"s": "lv需求预测", "t": "cnCTA / CTD 开关房", "k": "topic"}, {"s": "lv渠道管理", "t": "cnCTA / CTD 开关房", "k": "topic"}, {"s": "lv指标体系", "t": "cnCTA / CTD 开关房", "k": "topic"}, {"s": "lv动态定价", "t": "cnCTA / CTD 开关房", "k": "topic"}, {"s": "lv库存限制", "t": "cnCTA / CTD 开关房", "k": "topic"}, {"s": "lv房型与升级", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv竞争应对", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv需求预测", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv渠道管理", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv危机与补救", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv指标体系", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv超额预订", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv动态定价", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv库存限制", "t": "cn超售 Overbooking", "k": "topic"}, {"s": "lv促销与折扣", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv房型与升级", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv竞争应对", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv需求预测", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv渠道管理", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv危机与补救", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv指标体系", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv动态定价", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv团队与会议", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv库存限制", "t": "cn每日收益流程", "k": "topic"}, {"s": "lv会员与协议", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv房型与升级", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv渠道管理", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv危机与补救", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv指标体系", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv动态定价", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv团队与会议", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv库存限制", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv打包与套餐", "t": "cn奢华酒店", "k": "topic"}, {"s": "lv指标体系", "t": "cn度假酒店", "k": "topic"}, {"s": "lv动态定价", "t": "cn度假酒店", "k": "topic"}, {"s": "lv团队与会议", "t": "cn度假酒店", "k": "topic"}, {"s": "lv打包与套餐", "t": "cn度假酒店", "k": "topic"}, {"s": "lv促销与折扣", "t": "cn精品民宿", "k": "topic"}, {"s": "lv竞争应对", "t": "cn精品民宿", "k": "topic"}, {"s": "lv需求预测", "t": "cn精品民宿", "k": "topic"}, {"s": "lv渠道管理", "t": "cn精品民宿", "k": "topic"}, {"s": "lv危机与补救", "t": "cn精品民宿", "k": "topic"}, {"s": "lv指标体系", "t": "cn精品民宿", "k": "topic"}, {"s": "lv跨业态", "t": "cn精品民宿", "k": "topic"}, {"s": "lv促销与折扣", "t": "cn服务式公寓", "k": "topic"}, {"s": "lv房型与升级", "t": "cn服务式公寓", "k": "topic"}, {"s": "lv渠道管理", "t": "cn服务式公寓", "k": "topic"}, {"s": "lv指标体系", "t": "cn服务式公寓", "k": "topic"}, {"s": "lv跨业态", "t": "cn服务式公寓", "k": "topic"}, {"s": "lv动态定价", "t": "cn服务式公寓", "k": "topic"}, {"s": "lv会员与协议", "t": "cn机场酒店", "k": "topic"}, {"s": "lv渠道管理", "t": "cn机场酒店", "k": "topic"}, {"s": "lv危机与补救", "t": "cn机场酒店", "k": "topic"}, {"s": "lv指标体系", "t": "cn机场酒店", "k": "topic"}, {"s": "lv跨业态", "t": "cn机场酒店", "k": "topic"}, {"s": "lv动态定价", "t": "cn机场酒店", "k": "topic"}, {"s": "lv库存限制", "t": "cn机场酒店", "k": "topic"}, {"s": "lv危机与补救", "t": "cn景区酒店", "k": "topic"}, {"s": "lv指标体系", "t": "cn景区酒店", "k": "topic"}, {"s": "lv跨业态", "t": "cn景区酒店", "k": "topic"}, {"s": "lv动态定价", "t": "cn景区酒店", "k": "topic"}, {"s": "lv团队与会议", "t": "cn景区酒店", "k": "topic"}, {"s": "lv打包与套餐", "t": "cn景区酒店", "k": "topic"}, {"s": "lv指标体系", "t": "cn会议型酒店", "k": "topic"}, {"s": "lv置换分析", "t": "cn会议型酒店", "k": "topic"}, {"s": "lv团队与会议", "t": "cn会议型酒店", "k": "topic"}, {"s": "st1", "t": "tbC", "k": "flow"}, {"s": "st1", "t": "tbD", "k": "flow"}, {"s": "st2", "t": "tbI", "k": "flow"}, {"s": "st3", "t": "tbA", "k": "flow"}, {"s": "st3", "t": "tbF", "k": "flow"}, {"s": "st4", "t": "tbB", "k": "flow"}, {"s": "st4", "t": "tbE", "k": "flow"}, {"s": "st4", "t": "tbH", "k": "flow"}, {"s": "st4", "t": "tbJ", "k": "flow"}, {"s": "st5", "t": "tbG", "k": "flow"}, {"s": "st5", "t": "tbK", "k": "flow"}, {"s": "st6", "t": "tbM", "k": "flow"}, {"s": "st6", "t": "tbN", "k": "flow"}, {"s": "st6", "t": "tbL", "k": "flow"}, {"s": "st6", "t": "tbO", "k": "flow"}], "stages": [{"id": "st1", "name": "① 看数与对标", "sub": "先看清自己在哪儿", "members": ["tbC", "tbD", "lv指标体系", "lv竞争应对", "cnRGI 收入指数", "ch01", "ch02", "ch03", "ch23", "ch27"]}, {"id": "st2", "name": "② 预测与计划", "sub": "未来会怎样", "members": ["tbI", "lv需求预测", "ch20", "ch21", "ch28"]}, {"id": "st3", "name": "③ 定价", "sub": "该卖多少钱", "members": ["tbA", "tbF", "lv动态定价", "lv促销与折扣", "lv打包与套餐", "lv房型与升级", "cnOCC 出租率", "cnADR 平均房价", "cn预订进度 Pace", "cn变动成本", "cn需求日历", "cnCTA / CTD 开关房", "cn奢华酒店", "cn度假酒店", "cn服务式公寓", "cn机场酒店", "cn景区酒店", "ch04", "ch05", "ch06", "ch07", "ch08", "ch09", "ch22", "ch26"]}, {"id": "st4", "name": "④ 库存与渠道", "sub": "房给谁、从哪卖", "members": ["tbB", "tbE", "tbH", "tbJ", "lv库存限制", "lv超额预订", "lv渠道管理", "cnALOS 平均住店时长", "cn预订窗口 Booking Window", "cnPickup 预订增速", "cnNo-show 未到店", "cn超售 Overbooking", "cn精品民宿", "ch10", "ch11", "ch12", "ch13", "ch24"]}, {"id": "st5", "name": "⑤ 客源与团队", "sub": "接什么客", "members": ["tbG", "tbK", "lv团队与会议", "lv会员与协议", "lv置换分析", "cnRevPAR", "cn保护位 Protection", "cn每日收益流程", "cn会议型酒店", "ch14", "ch15", "ch16", "ch30"]}, {"id": "st6", "name": "⑥ 执行与复盘", "sub": "落到动作、循环", "members": ["tbM", "tbN", "tbL", "tbO", "lv危机与补救", "ch17", "ch18", "ch19"]}, {"id": "st7", "name": "⑦ 基础与延伸", "sub": "支撑与扩展", "members": ["lv跨业态", "lv餐饮RevPASH", "lv综合", "ch25", "ch29", "ch31", "ch32"]}], "meta": {"tables": 15, "chapters": 32, "levers": 17, "concepts": 22, "cases": 302, "edges": 222, "src_edges": 17, "topic_edges": 190, "flow_edges": 15}};
 var SVG=document.getElementById('svg'),TIP=document.getElementById('tip');
 var NS='http://www.w3.org/2000/svg';
-// 坐标在生成器里已算好（同心椭圆环），这里只渲染：固定 viewBox，自动缩放适配
-SVG.setAttribute('viewBox','0 0 1500 950');
+SVG.setAttribute('viewBox','0 0 1720 1080');
 SVG.setAttribute('preserveAspectRatio','xMidYMid meet');
-var COLOR={chapter:'#1d6fb8',table:'#c8932a',lever:'#2e8b57',concept:'#7a8794'};
-// 篇配色
+var COLOR={chapter:'#1d6fb8',table:'#c8932a',lever:'#2e8b57',concept:'#8b98a5',stage:'#0f2a4a'};
 var PARTCOLOR={'认知篇':'#1d6fb8','决策篇·定价':'#2e6fb0','决策篇·库存':'#3a8fce','决策篇·客源渠道':'#5aa0d8',
  '运营篇·节奏':'#2e8b57','运营篇·计划支撑':'#46a06a','组织篇':'#c8932a','延伸篇':'#b06a2e'};
 function nodeColor(n){if(n.type==='chapter')return PARTCOLOR[n.group]||COLOR.chapter;return COLOR[n.type];}
-var R={chapter:7,table:10,lever:9,concept:5};
+var PILLSZ={stage:[176,46],table:[168,28],lever:[168,28],concept:[168,26],chapter:[188,28]};
 var nodes=DATA.nodes.map(function(n){return {id:n.id,type:n.type,group:n.group,n:n,x:n.x,y:n.y};});
 var byId={}; nodes.forEach(function(p){byId[p.id]=p;});
+var STAGE={}; DATA.stages.forEach(function(s){STAGE[s.id]=s;});
 // 邻接
 var adj={}; nodes.forEach(function(p){adj[p.id]=[];});
 DATA.edges.forEach(function(e){ if(byId[e.s]&&byId[e.t]){adj[e.s].push({t:e.t,k:e.k});adj[e.t].push({t:e.s,k:e.k});}});
 var edgeEls=[],nodeEls={};
+var ARROW='M0,0 L8,4 L0,8 Z';
 function buildSVG(){
   SVG.innerHTML=''; edgeEls=[]; nodeEls={};
-  // edges first（坐标来自生成器布局，一次性画定）
+  var defs=document.createElementNS(NS,'defs');
+  var mk=document.createElementNS(NS,'marker');
+  mk.setAttribute('id','arr');mk.setAttribute('markerWidth','8');mk.setAttribute('markerHeight','8');
+  mk.setAttribute('refX','7');mk.setAttribute('refY','4');mk.setAttribute('orient','auto');
+  var pth=document.createElementNS(NS,'path');pth.setAttribute('d',ARROW);pth.setAttribute('fill','#5b7f9e');
+  mk.appendChild(pth);defs.appendChild(mk);
+  var mk2=document.createElementNS(NS,'marker');
+  mk2.setAttribute('id','arrg');mk2.setAttribute('markerWidth','8');mk2.setAttribute('markerHeight','8');
+  mk2.setAttribute('refX','7');mk2.setAttribute('refY','4');mk2.setAttribute('orient','auto');
+  var pth2=document.createElementNS(NS,'path');pth2.setAttribute('d',ARROW);pth2.setAttribute('fill','#7a8794');
+  mk2.appendChild(pth2);defs.appendChild(mk2);
+  SVG.appendChild(defs);
+  // edges（画在节点下层）
   DATA.edges.forEach(function(e){
     if(!byId[e.s]||!byId[e.t])return;
     var a=byId[e.s],b=byId[e.t];
     var ln=document.createElementNS(NS,'line');
-    ln.setAttribute('x1',a.x);ln.setAttribute('y1',a.y);
-    ln.setAttribute('x2',b.x);ln.setAttribute('y2',b.y);
-    ln.setAttribute('stroke', e.k==='src'?'#d9a72e':'#c4ccd4');
-    ln.setAttribute('stroke-width', e.k==='src'?1.6:1);
-    ln.setAttribute('stroke-dasharray', e.k==='src'?'0':'4 3');
-    ln.setAttribute('opacity','0.5');
+    var sameCol=Math.abs(a.x-b.x)<8;
+    var y1=a.y,y2=b.y;
+    if(sameCol&&y2>y1){y1=a.y+13;y2=b.y-13;}
+    ln.setAttribute('x1',a.x);ln.setAttribute('y1',y1);
+    ln.setAttribute('x2',b.x);ln.setAttribute('y2',y2);
+    var st=e.k==='src'?['#d9a72e','1.6','0']:(e.k==='flow'?['#9db4cc','1.4','0']:['#c4ccd4','1','4 3']);
+    ln.setAttribute('stroke',st[0]);ln.setAttribute('stroke-width',st[1]);
+    if(st[2])ln.setAttribute('stroke-dasharray',st[2]);
+    ln.setAttribute('opacity','0.55');
     ln.dataset.s=e.s; ln.dataset.t=e.t; ln.dataset.k=e.k;
     SVG.appendChild(ln); edgeEls.push(ln);
   });
-  // nodes
+  // 流程箭头（阶段头之间）＋复盘回流
+  for(var i=0;i<5;i++){
+    var a=byId['st'+(i+1)],b=byId['st'+(i+2)];
+    var ln=document.createElementNS(NS,'line');
+    ln.setAttribute('x1',a.x+90);ln.setAttribute('y1',a.y);
+    ln.setAttribute('x2',b.x-94);ln.setAttribute('y2',b.y);
+    ln.setAttribute('stroke','#5b7f9e');ln.setAttribute('stroke-width','2.2');
+    ln.setAttribute('marker-end','url(#arr)');
+    SVG.appendChild(ln);
+  }
+  var s6=byId['st6'],s1=byId['st1'];
+  var lp=document.createElementNS(NS,'path');
+  lp.setAttribute('d','M'+s6.x+','+(s6.y-26)+' V40 H'+s1.x+' V'+(s1.y-30));
+  lp.setAttribute('fill','none');lp.setAttribute('stroke','#7a8794');
+  lp.setAttribute('stroke-width','1.6');lp.setAttribute('stroke-dasharray','5 4');
+  lp.setAttribute('marker-end','url(#arrg)');
+  SVG.appendChild(lp);
+  var lb=document.createElementNS(NS,'text');
+  lb.setAttribute('x',(s6.x+s1.x)/2);lb.setAttribute('y','32');
+  lb.setAttribute('text-anchor','middle');lb.setAttribute('font-size','10.5');
+  lb.setAttribute('fill','#7a8794');lb.textContent='复盘反馈 · 回到下一天的看数（循环）';
+  SVG.appendChild(lb);
+  // nodes（药丸形）
   nodes.forEach(function(p){
+    var sz=PILLSZ[p.type];
     var g=document.createElementNS(NS,'g'); g.style.cursor='pointer';
     g.dataset.id=p.id;
     g.setAttribute('transform','translate('+p.x+','+p.y+')');
-    var c=document.createElementNS(NS,'circle');
-    c.setAttribute('r',R[p.type]); c.setAttribute('fill',nodeColor(p.n));
-    c.setAttribute('stroke','#fff'); c.setAttribute('stroke-width','1.5');
-    g.appendChild(c);
+    var r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',-sz[0]/2);r.setAttribute('y',-sz[1]/2);
+    r.setAttribute('width',sz[0]);r.setAttribute('height',sz[1]);
+    r.setAttribute('rx',p.type==='stage'?10:13);
+    r.setAttribute('fill',nodeColor(p.n));
+    r.setAttribute('stroke','#fff');r.setAttribute('stroke-width','1.2');
+    g.appendChild(r);
     var t=document.createElementNS(NS,'text');
-    t.setAttribute('class','nlabel'+(p.type==='table'?' t':''));
+    t.setAttribute('class','pillText'+(p.type==='table'?' dark':''));
     t.setAttribute('text-anchor','middle');
-    t.setAttribute('dy', R[p.type]+9);
-    t.textContent = p.type==='table'? p.id.replace('tb','表') : (p.n.label.length>8? p.n.label.slice(0,8):p.n.label);
+    t.setAttribute('dy',p.type==='stage'?-2:4);
+    var lab=p.n.label;
+    var maxLen=p.type==='stage'?12:(p.type==='chapter'?13:12);
+    if(lab.length>maxLen)lab=lab.slice(0,maxLen-1)+'…';
+    t.textContent=lab;
     g.appendChild(t);
+    if(p.type==='stage'){
+      var t2=document.createElementNS(NS,'text');
+      t2.setAttribute('class','stageSub');t2.setAttribute('text-anchor','middle');t2.setAttribute('dy','14');
+      t2.textContent=p.n.sub;g.appendChild(t2);
+    }
     g.addEventListener('mouseenter',function(ev){showTip(ev,p);});
     g.addEventListener('mousemove',function(ev){moveTip(ev);});
     g.addEventListener('mouseleave',hideTip);
-    g.addEventListener('click',function(){select(p);});
+    g.addEventListener('click',function(){select(p,true);});
     SVG.appendChild(g); nodeEls[p.id]=g;
   });
 }
 // tooltip
-function showTip(ev,p){var n=p.n;var sub={chapter:'章节',table:'判定表',lever:'决策杠杆',concept:'核心概念'}[p.type];
+function showTip(ev,p){var n=p.n;var sub={chapter:'教材章节 · '+n.group,table:'判定表',lever:'决策杠杆',concept:'核心概念',stage:'流程阶段'}[p.type];
   var extra=''; if(p.type==='lever')extra=' · '+n.count+' 例'; if(p.type==='concept')extra=' · '+n.count+' 例';
-  TIP.innerHTML='<b>'+n.label+'</b><br>'+sub+extra; TIP.style.opacity='1'; moveTip(ev);}
+  TIP.innerHTML='<b>'+(n.full||n.label)+'</b><br>'+sub+extra; TIP.style.opacity='1'; moveTip(ev);}
 function moveTip(ev){var r=SVG.getBoundingClientRect();TIP.style.left=(ev.clientX-r.left+12)+'px';TIP.style.top=(ev.clientY-r.top+12)+'px';}
 function hideTip(){TIP.style.opacity='0';}
-// 选择节点
-var selected=null;
-function select(p){
+// ── 浏览轨迹：点过的节点逐步记录，可退回、可跳转、可重置（无需刷新） ──
+var hist=[], selected=null;
+function select(p,push){
+  if(selected&&push&&selected!==p.id){hist.push(selected);}
   selected=p.id;
-  // 高亮邻接
-  var keep={}; keep[p.id]=1; adj[p.id].forEach(function(o){keep[o.t]=1;});
-  for(var id in nodeEls){
-    var g=nodeEls[id]; if(keep[id]){g.style.opacity='1';} else {g.style.opacity='0.12';}
-  }
+  var keep={};
+  if(p.type==='stage'){keep[p.id]=1;(STAGE[p.id].members||[]).forEach(function(m){if(byId[m])keep[m]=1;});}
+  else{keep[p.id]=1;adj[p.id].forEach(function(o){keep[o.t]=1;});}
+  for(var id in nodeEls){nodeEls[id].style.opacity=keep[id]?'1':'0.12';}
   edgeEls.forEach(function(ln){
-    if(ln.dataset.s===p.id||ln.dataset.t===p.id){ln.setAttribute('opacity','0.95'); ln.setAttribute('stroke-width',ln.dataset.k==='src'?2.6:1.8);}
+    if(keep[ln.dataset.s]&&keep[ln.dataset.t]){ln.setAttribute('opacity','0.95');ln.setAttribute('stroke-width',ln.dataset.k==='src'?2.6:(ln.dataset.k==='flow'?2.2:1.8));}
     else ln.setAttribute('opacity','0.05');
   });
-  renderPanel(p);
+  renderPanel(p);renderCrumbs();
 }
+function goBack(){
+  if(!hist.length)return;
+  var prev=hist.pop();
+  selected=null;            // 防止 goBack 的 select 再入轨迹
+  select(byId[prev],false);
+}
+function jumpTo(id){
+  var i=hist.indexOf(id);
+  if(i>=0)hist=hist.slice(0,i);   // 截断后续
+  selected=null;select(byId[id],false);
+}
+function resetView(){
+  hist=[];selected=null;
+  for(var id in nodeEls)nodeEls[id].style.opacity='1';
+  edgeEls.forEach(function(ln){ln.setAttribute('opacity','0.55');ln.setAttribute('stroke-width',ln.dataset.k==='src'?1.6:(ln.dataset.k==='flow'?1.4:1));});
+  document.getElementById('panel').innerHTML=DEFAULT_PANEL;bindPanel();renderCrumbs();
+}
+function renderCrumbs(){
+  var c=document.getElementById('crumbs');
+  var html='<b>浏览轨迹</b>（点任意一步跳回）：<br>';
+  hist.forEach(function(id,i){html+='<span class="cp" data-id="'+id+'">'+escLbl(byId[id].n.label)+'</span> → ';});
+  if(selected)html+='<span class="cp cur">'+escLbl(byId[selected].n.label)+'</span>';
+  if(!hist.length&&!selected)html+='（尚未点击）';
+  html+='<br>';
+  if(hist.length)html+='<button class="btn small" id="backBtn">← 上一步</button> ';
+  html+='<button class="btn small" id="resetBtn">回到初始</button>';
+  c.innerHTML=html;
+  var bb=document.getElementById('backBtn');if(bb)bb.addEventListener('click',goBack);
+  document.getElementById('resetBtn').addEventListener('click',resetView);
+  Array.prototype.forEach.call(c.querySelectorAll('.cp[data-id]'),function(el){
+    el.addEventListener('click',function(){jumpTo(el.dataset.id);});
+  });
+}
+function escLbl(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function renderPanel(p){
   var n=p.n, panel=document.getElementById('panel');
-  var typeName={chapter:'章节（'+n.group+'）',table:'判定表',lever:'决策杠杆',concept:'核心概念'}[p.type];
-  var html='<h3>'+n.label+'</h3><div class="tag">'+typeName+'</div>';
-  if(p.type==='chapter'){
-    html+='<div style="margin-top:8px">'+n.title+'</div>';
-    var tbls=adj[p.id].filter(function(o){return byId[o.t].type==='table';}).map(function(o){return byId[o.t].n.label.replace('表','表');});
-    if(tbls.length) html+='<div class="conn"><b>练这几张表：</b><br>'+tbls.map(function(t){return '<span class="tag y">'+t+'</span>';}).join('')+'</div>';
+  var typeName={chapter:'教材章节（'+n.group+'）',table:'判定表',lever:'决策杠杆',concept:'核心概念',stage:'流程阶段'}[p.type];
+  var html='<h3>'+escLbl(n.full||n.label)+'</h3><div class="tag">'+typeName+'</div>';
+  if(p.type==='stage'){
+    html+='<div style="margin-top:8px">'+escLbl(n.sub)+'。本阶段把「看什么表、做什么决定」固定下来，是流程中的一环。</div>';
+    var tbls=STAGE[p.id].members.filter(function(m){return byId[m]&&byId[m].type==='table';});
+    var lvs=STAGE[p.id].members.filter(function(m){return byId[m]&&byId[m].type==='lever';});
+    var chs=STAGE[p.id].members.filter(function(m){return byId[m]&&byId[m].type==='chapter';});
+    if(tbls.length)html+='<div class="conn"><b>本阶段判定表：</b><br>'+tbls.map(function(m){return '<span class="tag y">'+escLbl(byId[m].n.label)+'</span>';}).join('')+'</div>';
+    if(lvs.length)html+='<div class="conn"><b>本阶段决策杠杆：</b><br>'+lvs.map(function(m){return '<span class="tag g">'+escLbl(byId[m].n.label)+'</span>';}).join('')+'</div>';
+    if(chs.length)html+='<div class="conn"><b>对应教材章节：</b><br>'+chs.map(function(m){return '<span class="tag">'+escLbl(byId[m].n.label)+'</span>';}).join('')+'</div>';
+  } else if(p.type==='chapter'){
+    html+='<div style="margin-top:8px">'+escLbl(n.title)+'</div>';
+    var tbls=adj[p.id].filter(function(o){return byId[o.t].type==='table';}).map(function(o){return byId[o.t];});
+    if(tbls.length) html+='<div class="conn"><b>练这几张表：</b><br>'+tbls.map(function(m){return '<span class="tag y">'+escLbl(m.n.label)+'</span>';}).join('')+'</div>';
+    var stg=null;DATA.stages.forEach(function(s){if(s.members.indexOf(p.id)>=0)stg=s;});
+    if(stg)html+='<div class="conn"><b>在流程中的位置：</b> <span class="tag">'+escLbl(stg.name)+'</span></div>';
   } else if(p.type==='table'){
-    html+='<div style="margin-top:8px"><b>'+n.title+'</b></div>';
+    html+='<div style="margin-top:8px"><b>'+escLbl(n.title)+'</b></div>';
     var rel=adj[p.id].filter(function(o){return o.k==='src'&&byId[o.t].type==='table';}).map(function(o){return byId[o.t].id.replace('tb','表');});
-    if(rel.length) html+='<div class="conn"><b>源码联动表：</b><br>'+rel.map(function(t){return '<span class="tag y">'+t+'</span>';}).join('')+' <span style="font-size:11px;color:#9a6a12">（金线·操作法典标注）</span></div>';
+    if(rel.length) html+='<div class="conn"><b>源码联动表：</b><br>'+rel.map(function(t){return '<span class="tag y">表'+t+'</span>';}).join('')+' <span style="font-size:11px;color:#9a6a12">（金线·操作法典标注）</span></div>';
     var lv=adj[p.id].filter(function(o){return byId[o.t].type==='lever';}).map(function(o){return byId[o.t].n.label;});
-    if(lv.length) html+='<div class="conn"><b>归属决策主题：</b><br>'+lv.map(function(t){return '<span class="tag g">'+t+'</span>';}).join('')+'</div>';
+    if(lv.length) html+='<div class="conn"><b>归属决策主题：</b><br>'+lv.map(function(t){return '<span class="tag g">'+escLbl(t)+'</span>';}).join('')+'</div>';
   } else if(p.type==='lever'){
     html+='<div style="margin-top:8px">真实案例 <b>'+n.count+'</b> 例（来自案例库）</div>';
     var cons=adj[p.id].filter(function(o){return byId[o.t].type==='concept';}).map(function(o){return byId[o.t];});
-    if(cons.length) html+='<div class="conn"><b>涉及核心概念：</b><br>'+cons.slice(0,10).map(function(o){return '<span class="tag k">'+o.n.label+'</span>';}).join('')+'</div>';
+    if(cons.length) html+='<div class="conn"><b>涉及核心概念：</b><br>'+cons.slice(0,10).map(function(o){return '<span class="tag k">'+escLbl(o.n.label)+'</span>';}).join('')+'</div>';
   } else {
     html+='<div style="margin-top:8px">出现于 <b>'+n.count+'</b> 个案例</div>';
-    if(n.levers&&n.levers.length) html+='<div class="conn"><b>决策主题：</b><br>'+n.levers.map(function(t){return '<span class="tag g">'+t+'</span>';}).join('')+'</div>';
+    if(n.levers&&n.levers.length) html+='<div class="conn"><b>决策主题：</b><br>'+n.levers.map(function(t){return '<span class="tag g">'+escLbl(t)+'</span>';}).join('')+'</div>';
   }
-  // 邻接可点击列表
-  var list=adj[p.id].map(function(o){var q=byId[o.t];return '<div class="ci" data-go="'+q.id+'">'+q.n.label+' <span style="color:#bcc;">'+(o.k==='src'?'·源':'·主题')+'</span></div>';}).join('');
-  if(list) html+='<div class="conn"><b>相连节点（点可跳转高亮）：</b><br>'+list+'</div>';
-  html+='<a class="btn" href="'+n.link+'" target="_blank" rel="noopener">打开原文 →</a>';
+  var list=adj[p.id].map(function(o){var q=byId[o.t];return '<div class="ci" data-go="'+q.id+'">'+escLbl(q.n.label)+' <span style="color:#bcc;">'+(o.k==='src'?'·源':(o.k==='flow'?'·层':'·主题'))+'</span></div>';}).join('');
+  if(list) html+='<div class="conn"><b>相连节点（点可跳转，自动记入轨迹）：</b><br>'+list+'</div>';
+  html+='<div class="navrow"><a class="btn" href="'+n.link+'" target="_blank" rel="noopener">打开原文 →</a></div>';
   panel.innerHTML=html;
-  Array.prototype.forEach.call(panel.querySelectorAll('.ci'),function(el){el.addEventListener('click',function(){select(byId[el.dataset.go]);});});
+  Array.prototype.forEach.call(panel.querySelectorAll('.ci'),function(el){el.addEventListener('click',function(){select(byId[el.dataset.go],true);});});
 }
+var DEFAULT_PANEL=document.getElementById('panel').innerHTML;
+function bindPanel(){}
 // 搜索
 document.getElementById('search').addEventListener('input',function(){
   var q=this.value.trim(); if(!q)return;
-  var hit=nodes.filter(function(p){return p.n.label.indexOf(q)>=0;});
-  if(hit.length){select(hit[0]);}
+  var hit=nodes.filter(function(p){return (p.n.full||p.n.label).indexOf(q)>=0;});
+  if(hit.length){select(hit[0],true);}
 });
 // 过滤
-var vis={chapter:1,table:1,lever:1,concept:1};
+var vis={stage:1,chapter:1,table:1,lever:1,concept:1};
 document.getElementById('filt').addEventListener('click',function(ev){
   var b=ev.target; if(b.tagName!=='BUTTON')return;
   var t=b.dataset.t; vis[t]=vis[t]?0:1; b.classList.toggle('on',!!vis[t]);
@@ -205,12 +312,9 @@ document.getElementById('filt').addEventListener('click',function(ev){
   edgeEls.forEach(function(ln){var a=byId[ln.dataset.s],b=byId[ln.dataset.t];ln.style.display=(vis[a.type]&&vis[b.type])?'':'none';});
 });
 // meta
-document.getElementById('meta').innerHTML=
- '节点 '+nodes.length+' · 边 '+DATA.edges.length+
- '（<span style="color:#9a6a12">源 '+DATA.meta.src_edges+'</span> / 推 '+DATA.meta.topic_edges+'）<br>'+
- '教材 '+DATA.meta.chapters+' 章 · 判定表 '+DATA.meta.tables+' 张 · 杠杆 '+DATA.meta.levers+
- ' · 概念 '+DATA.meta.concepts+' · 案例 '+DATA.meta.cases+' 例';
-// 启动：静态渲染（无物理模拟，坐标已由生成器算好）
+document.getElementById('panel').insertAdjacentHTML('afterend','');
+renderCrumbs();
+// 启动：静态渲染（坐标已由生成器按「流程主轴 + 分层列」算好）
 buildSVG();
 </script>
 </body></html>
