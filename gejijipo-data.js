@@ -34,7 +34,7 @@ var ILLU = {
       '<rect x="40" y="120" width="8" height="120" rx="4" fill="'+C.gold+'"/>'+
       txt(360,178,t,30,C.navy,800)+
       txt(360,212,sub||'',16,C.ink2,400)+
-      txt(360,300,'各个击破 · 1 分钟讲清一个概念',13,C.gold,600)
+      txt(360,300,'各个击破 · 微课堂：讲清一个概念',13,C.gold,600)
     );
   },
   /* 大数字指标卡 */
@@ -206,7 +206,7 @@ var ILLU = {
       '<circle cx="320" cy="180" r="6" fill="'+C.navy+'"/>'+
       '<line x1="320" y1="180" x2="320" y2="116" stroke="'+C.navy+'" stroke-width="5" stroke-linecap="round"/>'+
       '<line x1="320" y1="180" x2="368" y2="180" stroke="'+C.gold+'" stroke-width="5" stroke-linecap="round"/>'+
-      txt(320,310,text||'1 分钟，讲清一个概念',16,C.navy,700)
+      txt(320,310,text||'微课堂，讲清一个概念',16,C.navy,700)
     );
   }
 };
