@@ -75,6 +75,10 @@
       并按 L1 / L2 / L3 三级的门槛逐条比对，告诉你<b>已经够了什么、还差什么</b>；
       另有「岗位胜任对照」——会查表、会算账、会留痕、能带会、能汇报，五项胜任力能否支撑你独立上岗。
     </p>
+    <p style="margin:12px 0 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <button id="btnDemo" onclick="toggleDemo()" style="appearance:none;border:1px solid var(--navy);background:#fff;color:var(--navy);font-weight:600;font-size:13.5px;padding:8px 16px;border-radius:9px;cursor:pointer">查看示例效果</button>
+      <span style="font-size:12.5px;color:var(--ink-3)">没练过也能先看看：一份「练满全项」的记录长什么样、能得出什么结论（示例不会写进你的浏览器）</span>
+    </p>
 
     <div class="ch-note">
       <b>先说清楚边界</b>：本站是静态站，没有账号体系，所以这份履历<b>只存在你这台设备的浏览器里</b>——
@@ -105,34 +109,52 @@
   function today(){ var d=new Date(); return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
   function esc(t){return String(t==null?"":t).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
 
-  // ---------- 采集 ----------
-  var camp = load(K_CAMP, {}) || {};
-  var campN = Object.keys(camp).filter(function(k){ return camp[k]; }).length;
+  // ---------- 采集（包成函数，便于示例模式重取真实数据） ----------
+  var campN=0,fN=0,fBest=0,fAvg=0,dakaN=0,dakaStreak=0,fw=[],cN=0,cBest=0,cdN=0,cw=[],dgDone=false,any=0;
+  function collect(){
+    var camp = load(K_CAMP, {}) || {};
+    campN = Object.keys(camp).filter(function(k){ return camp[k]; }).length;
 
-  var fb = load(K_FB, []) || [];
-  var fBest = 0, fAvg = 0, fN = fb.length;
-  fb.forEach(function(r){ if((r.s||0)>fBest) fBest=r.s||0; });
-  if(fN) fAvg = Math.round(fb.reduce(function(a,b){return a+(b.s||0);},0)/fN);
+    var fb = load(K_FB, []) || [];
+    fBest = 0; fAvg = 0; fN = fb.length;
+    fb.forEach(function(r){ if((r.s||0)>fBest) fBest=r.s||0; });
+    if(fN) fAvg = Math.round(fb.reduce(function(a,b){return a+(b.s||0);},0)/fN);
 
-  var fd = load(K_FD, null);
-  var dakaN = (fd && fd.done)? Object.keys(fd.done).length : 0;
-  var dakaStreak = (fd && fd.streak) || 0;
+    var fd = load(K_FD, null);
+    dakaN = (fd && fd.done)? Object.keys(fd.done).length : 0;
+    dakaStreak = (fd && fd.streak) || 0;
 
-  var fw = load(K_FW, []) || [];
+    fw = load(K_FW, []) || [];
 
-  var ce = load(K_CE, []) || [];
-  var cBest = 0, cN = ce.length;
-  ce.forEach(function(r){ if((r.s||0)>cBest) cBest=r.s||0; });
-  var cdN = load(K_CD, 0) || 0;
-  var cw = load(K_CW, []) || [];
+    var ce = load(K_CE, []) || [];
+    cBest = 0; cN = ce.length;
+    ce.forEach(function(r){ if((r.s||0)>cBest) cBest=r.s||0; });
+    cdN = load(K_CD, 0) || 0;
+    cw = load(K_CW, []) || [];
 
-  var dg = load(K_DG, null);
-  var dgDone = !!(dg && Object.keys(dg).length);
+    var dg = load(K_DG, null);
+    dgDone = !!(dg && Object.keys(dg).length);
 
-  var any = campN || fN || dakaN || cdN || dgDone;
+    any = campN || fN || dakaN || cdN || dgDone;
+  }
+  collect();
 
-  // ---------- 五项指标 ----------
-  var ITEMS = [
+  // ---------- 示例模式（只看不写，帮新访客一眼看懂这页的价值） ----------
+  var DEMO = false;
+  function applyDemo(on){
+    if(!on){ collect(); return; }
+    campN=7; fN=3; fBest=285; fAvg=278; dakaN=10; dakaStreak=10;
+    fw=[]; cN=2; cBest=215; cdN=5; cw=[]; dgDone=true; any=1;
+  }
+  function toggleDemo(){
+    DEMO = !DEMO; applyDemo(DEMO); render();
+    var b = $("btnDemo"); if(b) b.textContent = DEMO? "← 返回我的真实记录" : "查看示例效果";
+    var tip = $("demoTip"); if(tip) tip.style.display = DEMO? "block" : "none";
+  }
+
+  // ---------- 五项指标（每次 render 现算，避免烤死初始值） ----------
+  var ITEMS;
+  function buildITEMS(){ return [
     { t:"7 天训练营", n:"入门路径，打卡 " + campN + " / 7 天",
       p: Math.round(campN/7*100),
       d: campN===7? "已完成全部 7 天。" : ("还剩 " + (7-campN) + " 天，每天约 15 分钟。"),
@@ -157,10 +179,12 @@
                 "把自家上月的 OCC / ADR / 竞对数据填进去，会得到一份可导出的诊断报告。",
       go:"diagnose.html", goT:"去自检 →" }
   ];
+  }
 
-  // ---------- 三级准备度 ----------
+  // ---------- 三级准备度（每次 render 现算） ----------
   function li(ok, txt){ return '<li class="'+(ok?"done":"todo")+'">'+(ok?"✓ ":"○ ")+txt+'</li>'; }
-  var LV = [
+  var LV;
+  function buildLV(){ return [
     { lv:"L1", nm:"助理收益管理师",
       need:[
         { ok: campN>=5, t:"7 天训练营完成 5 天以上（当前 " + campN + " 天）" },
@@ -183,12 +207,14 @@
         { ok: (fw.length + cw.length)<=3, t:"错题本基本清空（当前流程 " + fw.length + " 题 + 案例 " + cw.length + " 题）" }
       ] }
   ];
+  }
 
-  // ---------- 岗位胜任对照（与认证准备度并行的第二个维度） ----------
+  // ---------- 岗位胜任对照（与认证准备度并行的第二个维度，每次 render 现算） ----------
   // 认证准备度回答"学过什么"；岗位胜任回答"能不能独立干活"。
   // 五项胜任力来自《收益管理经理工作 SOP》八大职责的归纳，证据全部取自本机学习记录。
   function jli(ok, txt){ return '<li class="'+(ok?"done":"todo")+'">'+(ok?"✓ ":"○ ")+txt+'</li>'; }
-  var JOB = [
+  var JOB;
+  function buildJOB(){ return [
     { k:"会查表", lv:"上岗", d:"遇到事能翻开对应判定表读出唯一动作，不凭感觉。",
       ok: fN>=1 && cdN>=1,
       t:"流程闯关有成绩 + 案例自测 1 组以上（当前 " + fN + " 次 / " + cdN + " 组）",
@@ -210,6 +236,7 @@
       t:"案例自测 5 组以上且最佳 ≥ 200 分（当前 " + cdN + " 组 / " + cBest + " 分）",
       go:"onepager-logic.html", goT:"方法论一页纸 →" }
   ];
+  }
   function jobOf(name){ for(var i=0;i<JOB.length;i++) if(JOB[i].k===name) return JOB[i]; return null; }
   var JOB_TIERS = [
     { nm:"可上岗（副班/助理）", keys:["会查表","会算账"] },
@@ -219,7 +246,7 @@
 
   function recordText(){
     var L=[];
-    L.push("RMC收益管理社区 · 学习履历");
+    L.push("RMC收益管理社区 · 学习履历" + (DEMO? "（示例数据）" : ""));
     L.push("生成日期：" + today());
     L.push("");
     L.push("【一、完成情况】");
@@ -247,15 +274,21 @@
   }
 
   function render(){
+    ITEMS=buildITEMS(); LV=buildLV(); JOB=buildJOB();
     var box=$("chBody");
-    if(!any){
-      box.innerHTML='<div class="ch-item"><div class="ch-empty">'+
-        '这台设备还没有学习记录。<br>先从 <a class="ch-go" href="camp7.html">7 天训练营</a> 开始，'+
-        '或去 <a class="ch-go" href="study.html">自学系统</a> 看看完整路径。<br><br>'+
-        '<span style="font-size:12.5px">（记录只存在本机浏览器，换个设备就看不到了。）</span></div></div>';
-      return;
-    }
     var html="";
+
+    if(DEMO){
+      html+='<div class="ch-note" id="demoTip" style="display:block;border-color:#FAC775;background:#FDF6E7">'+
+        '<b>正在看示例效果</b>：下面是一份「练满全项」的示范记录，用来看懂这页能给出什么结论。'+
+        '这些数字不是你的，也不会写进你的浏览器。</div>';
+    } else if(!any){
+      html+='<div class="ch-note" id="demoTip" style="display:block">'+
+        '<b>这台设备还没有学习记录</b>——所以下面是「全空」的样子。<br>'+
+        '别急着走：这一页真正的价值是那张<b>岗位胜任路线图</b>（往下拉到底），它告诉你练什么、练到什么程度能上岗；'+
+        '每完成一项练习，上面就会亮一格。想先看看「练满之后长什么样」，点右侧 '+
+        '<a href="javascript:void(0)" onclick="toggleDemo()" style="color:var(--gold)">查看示例效果</a>。</div>';
+    }
 
     // KPI
     html+='<div class="ch-kpis">'+
@@ -353,6 +386,9 @@
     catch(e){ btn.textContent="复制失败，请手动选中"; }
     document.body.removeChild(ta);
   }
+
+  // 暴露给内联 onclick 与测试脚本（IIFE 内函数默认不在 window 上）
+  window.toggleDemo = toggleDemo;
 
   render();
 })();
