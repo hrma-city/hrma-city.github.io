@@ -78,6 +78,7 @@ body{margin:0;background:#f5f7fa;color:#1f2a37;
 </div>
 <div class="wrap">
 
+  <div id="fatalBar" style="display:none;background:#c0392b;color:#fff;padding:10px 14px;border-radius:8px;font-size:13px;margin:12px 0"></div>
   <div class="meta" id="totalLine"></div>
 
   <!-- 场景选择 -->
@@ -88,6 +89,7 @@ body{margin:0;background:#f5f7fa;color:#1f2a37;
 
   <!-- 演练 -->
   <div class="game" id="game">
+    <div class="btnrow" style="margin:0 0 6px"><button class="btn ghost" id="gTopBack">← 回场景列表</button></div>
     <div class="plabel" id="gLabel"></div>
     <div class="pbar"><i id="gFill" style="width:0%"></i></div>
     <div class="ctx" id="gCtx"></div>
@@ -97,6 +99,7 @@ body{margin:0;background:#f5f7fa;color:#1f2a37;
 
   <!-- 结算 -->
   <div class="result" id="result">
+    <div class="btnrow" style="margin:0 0 6px"><button class="btn ghost" id="rTopBack">← 回场景列表</button></div>
     <div class="sc" id="rScore"></div>
     <h3 id="rTitle"></h3>
     <p id="rSum"></p>
@@ -113,6 +116,8 @@ body{margin:0;background:#f5f7fa;color:#1f2a37;
 </div>
 <script>
 (function(){
+function fatal(e){var b=document.getElementById('fatalBar');if(b){b.style.display='block';b.textContent='页面脚本出错：'+(e&&e.message?e.message:e)+'——请截图报给站长。';}}
+try{
 var DATA=[
 {id:"s1",name:"旺季涨价会",tag:"旺季 · D1 峰值日",color:"#b0563a",
  ctx:"9 月 28 日，云栖大会注册日前一天（D1 峰值日）。320 间房，预测 OCC 95.3%，pickup 领先 10.4%。《操作法典》表 A 的结论唯一且明确：BAR 680 → ↑20% = 816，且 D1 调价须 L3（您本人）审批。今天的例会，就是把涨价排下去。",
@@ -233,7 +238,7 @@ var menu=document.getElementById('menu'),game=document.getElementById('game'),re
 var cur=null,ri=0,score=0,answers=[];
 function stars(sc){return sc>=10?'优秀主持':(sc>=7?'合格':'需重开')}
 function renderMenu(){
-  game.style.display='none';result.style.display='none';menu.style.display='';
+  game.style.display='none';result.style.display='none';menu.style.display='block';
   var rec=loadRec(),tot=0,max=0,done=0;
   DATA.forEach(function(s){max+=s.rounds.length*3;if(rec[s.id]!=null){tot+=rec[s.id];done++}});
   document.getElementById('totalLine').innerHTML='已通关 <b>'+done+' / '+DATA.length+'</b> 场景 · 累计最佳 <b>'+tot+' / '+max+'</b> 分（成绩存本机）';
@@ -248,7 +253,7 @@ function renderMenu(){
 }
 function start(s){
   cur=s;ri=0;score=0;answers=[];
-  menu.style.display='none';result.style.display='none';game.style.display='';
+  menu.style.display='none';result.style.display='none';game.style.display='block';
   document.getElementById('gCtx').innerHTML='<div class="ct">场景 · '+esc(s.name)+'</div>'+esc(s.ctx);
   nextRound();
 }
@@ -286,7 +291,7 @@ function finish(){
   document.getElementById('gFill').style.width='100%';
   var rec=loadRec();
   if(rec[cur.id]==null||score>rec[cur.id]){rec[cur.id]=score;saveRec(rec)}
-  game.style.display='none';result.style.display='';
+  game.style.display='none';result.style.display='block';
   document.getElementById('rScore').innerHTML=score+'<small> / '+(cur.rounds.length*3)+' · '+stars(score)+'</small>';
   document.getElementById('rTitle').textContent='场景 · '+cur.name;
   document.getElementById('rSum').textContent=score>=10?'您把会开成了决策会：有依据、有 owner、有裁决。':(score>=7?'基本合格，但有几个回合靠的是直觉而不是判定表——复盘里标出来的是您的失分点。':'本场跑偏较多。建议回手册重读「五种跑偏」后重开。');
@@ -294,9 +299,12 @@ function finish(){
   cur.recap.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li)});
 }
 document.getElementById('gQuit').addEventListener('click',renderMenu);
+document.getElementById('gTopBack').addEventListener('click',renderMenu);
+document.getElementById('rTopBack').addEventListener('click',renderMenu);
 document.getElementById('rRetry').addEventListener('click',function(){start(cur)});
 document.getElementById('rMenu').addEventListener('click',renderMenu);
 renderMenu();
+}catch(e){fatal(e);}
 })();
 </script>
 </body>
