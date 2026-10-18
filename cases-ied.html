@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>产教融合案例库 · RMC收益管理社区</title>
+<meta name="description" content="真实企业案例 × 教学化改造：云璟主案例 + 4 家脱敏企业，10 个教学案例对接 15 张判定表与 OBE 能力域。">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fa;color:#1f2a37;
+  font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px 60px}
+.hero{background:linear-gradient(160deg,#0f2a4a,#16406e 65%,#1d6fb8);color:#fff;padding:30px 16px 26px}
+.hero h1{margin:0 0 8px;font-size:26px;letter-spacing:.5px}
+.hero p{margin:0;opacity:.9;font-size:15px;line-height:1.7;max-width:920px}
+.hero .cnt{margin-top:12px;font-size:13px;opacity:.85}
+.back{color:#cfe0f5;font-size:13px;text-decoration:none}
+.metrics{display:flex;gap:14px;flex-wrap:wrap;margin:18px 0 6px}
+.metric{flex:1;min-width:150px;background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:16px 18px;box-shadow:0 1px 3px rgba(15,42,74,.05)}
+.metric .n{font-size:26px;font-weight:800;color:#1d6fb8;line-height:1}
+.metric .l{font-size:13px;color:#5b6a7d;margin-top:6px}
+.sec{margin:30px 0 0}
+.sec h2{margin:0 0 4px;font-size:20px;padding:6px 0 6px 11px;border-left:5px solid #1d6fb8;color:#0f2a4a}
+.sec .sd{margin:0 0 14px;font-size:13.5px;color:#5b6a7d;padding-left:16px}
+.entmap{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.ent{background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:14px 15px 16px;position:relative;box-shadow:0 1px 3px rgba(15,42,74,.05)}
+.ent h3{margin:24px 0 4px;font-size:15px;line-height:1.4;color:#0f2a4a}
+.ent .ent-seg{font-size:12px;color:#5b6a7d;margin-bottom:8px}
+.ent p{margin:0;font-size:12.5px;line-height:1.65;color:#43536a}
+.ent-role{position:absolute;top:0;right:0;color:#fff;font-size:11px;padding:3px 9px;border-bottom-left-radius:8px}
+.bar{margin:18px 0 10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input[type=text],select{border:1px solid #cfd8e3;border-radius:8px;padding:8px 10px;font-size:14px;font-family:inherit;background:#fff;color:#1f2a37}
+input[type=text]{flex:1;min-width:200px}
+.grp{margin:0 0 10px}
+.grp .gl{font-size:12px;color:#5b6a7d;margin:0 0 5px;font-weight:700;letter-spacing:.5px}
+.chiprow{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid #cfd8e3;background:#fff;color:#33465c;border-radius:999px;padding:5px 11px;font-size:13px;cursor:pointer;user-select:none;transition:.15s}
+.chip:hover{border-color:#1d6fb8;color:#1d6fb8}
+.chip.on{background:#1d6fb8;border-color:#1d6fb8;color:#fff}
+.chip i{font-style:normal;opacity:.6;font-size:11.5px;margin-left:3px}
+.chip.on i{opacity:.9}
+.meta{font-size:13px;color:#5b6a7d;margin-bottom:12px}
+.meta b{color:#1d6fb8}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.card{background:#fff;border:1px solid #e3e8ef;border-radius:10px;padding:13px 15px;box-shadow:0 1px 3px rgba(15,42,74,.05)}
+.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px}
+.ent-badge{color:#fff;font-size:12px;padding:3px 9px;border-radius:6px}
+.ct{margin:0 0 9px;font-size:15px;line-height:1.45}
+.ct a{color:#0f2a4a;text-decoration:none}
+.ct a:hover{color:#1d6fb8}
+.pills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px}
+.pill{font-size:11.5px;border-radius:4px;padding:2px 7px;background:#eef3f9;color:#3c5670}
+.pill.sk{background:#eaf4ee;color:#2a7d4f}
+.pill.tm{background:#f6f0e6;color:#96702a}
+.pill.lv{background:#f3ecf8;color:#6a3fa0}
+.more{display:block;margin:8px auto 0;background:#1d6fb8;color:#fff;border:0;border-radius:8px;padding:8px 18px;font-size:13px;cursor:pointer;font-family:inherit}
+.more:hover{background:#185a96}
+.more-sm{width:100%}
+.detail{display:none;margin-top:10px;border-top:1px dashed #d4dcea;padding-top:10px}
+.card.open .detail{display:block}
+.card.open .more{background:#5b6a7d}
+.dsec{margin:0 0 10px}
+.dsec .dt{display:inline-block;font-size:11.5px;font-weight:700;color:#1d6fb8;background:#eaf1f9;border-radius:4px;padding:2px 8px;margin-bottom:5px}
+.dsec p{margin:0;font-size:13px;line-height:1.7;color:#33465c}
+.dsec p.chap{font-weight:700;color:#0f2a4a}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.dgrid{grid-template-columns:1fr}}
+.tbl{width:100%;border-collapse:collapse;background:#fff;font-size:13px;margin-top:6px}
+.tbl th,.tbl td{border:1px solid #e3e8ef;padding:8px 10px;text-align:left;vertical-align:top}
+.tbl th{background:#eef3f9;color:#0f2a4a}
+.note{background:#fff;border:1px solid #e3e8ef;border-left:5px solid #2e8b57;border-radius:8px;padding:14px 16px;font-size:13.5px;line-height:1.7;color:#33465c;margin-top:8px}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <a class="back" href="cases-hub.html">← 返回案例馆</a>
+  <h1>产教融合案例库 · 真实企业案例 × 教学化改造</h1>
+  <p>把一线真实运营案例，按“教学目标 → 章节主题 → 判定表 → 实训任务 → 考核点”五步教学化改造，可直接进课堂、进实训、进考核。云璟酒店为主案例，另含 4 家脱敏企业，覆盖高端 / 中端 / 单体 / 连锁多业态。</p>
+  <div class="cnt">门内资源 · 对标“十五五”产教融合真实案例硬指标</div>
+</div>
+<div class="wrap">
+
+  <div class="metrics">
+    <div class="metric"><div class="n">10</div><div class="l">真实教学案例（≥10，达标）</div></div>
+    <div class="metric"><div class="n">5</div><div class="l">真实企业（云璟主案例 + 4 家脱敏）</div></div>
+    <div class="metric"><div class="n">15</div><div class="l">张判定表全接入（表 A–O）</div></div>
+    <div class="metric"><div class="n">6</div><div class="l">大维度 × OBE 能力域映射</div></div>
+  </div>
+
+  <div class="sec">
+    <h2 id="toc-1">企业图谱</h2>
+    <div class="sd">主案例与脱敏企业，覆盖五星全服务 / 高端度假 / 中端连锁 / 单体精品 / 经济型连锁。</div>
+    <div class="entmap">
+    <div class="ent" style="border-top:4px solid #1d6fb8">
+      <div class="ent-role" style="background:#1d6fb8">主案例</div>
+      <h3 id="toc-2">云璟酒店（杭州滨江）</h3>
+      <div class="ent-seg">五星全服务</div>
+      <p>320 间全服务酒店，竞品 A–E 五家环绕。本库 6 个真实案例均出自其收益经理林岚的复盘记录，覆盖指标、定价、渠道、周期、置换全链路。</p>
+    </div>
+    <div class="ent" style="border-top:4px solid #9a6b1f">
+      <div class="ent-role" style="background:#9a6b1f">脱敏企业</div>
+      <h3 id="toc-3">澜庭·温泉度假</h3>
+      <div class="ent-seg">高端 / 温泉度假</div>
+      <p>北方山岳景区 142 间客房，平日 ADR 1880、周末 2680。旺季超售与套房阶梯释放是核心矛盾。</p>
+    </div>
+    <div class="ent" style="border-top:4px solid #2e8b57">
+      <div class="ent-role" style="background:#2e8b57">脱敏企业</div>
+      <h3 id="toc-4">栖悦酒店</h3>
+      <div class="ent-seg">中端 / 有限服务连锁</div>
+      <p>60 家门店中型连锁，标准间门市价 359。会员价与 OTA 牌价倒挂、门店私改牌价是典型连锁治理问题。</p>
+    </div>
+    <div class="ent" style="border-top:4px solid #7a4fa0">
+      <div class="ent-role" style="background:#7a4fa0">脱敏企业</div>
+      <h3 id="toc-5">老城厢精品酒店</h3>
+      <div class="ent-seg">单体 / 精品设计</div>
+      <p>城市老城区 28 间精品酒店，创始人自管收益。OTA 依赖度过高、直订与打包自救是单体生存样本。</p>
+    </div>
+    <div class="ent" style="border-top:4px solid #b0563a">
+      <div class="ent-role" style="background:#b0563a">脱敏企业</div>
+      <h3 id="toc-6">悦行·商旅</h3>
+      <div class="ent-seg">经济型 / 连锁</div>
+      <p>200+ 门店经济型连锁，标准间 199。高出租率掩盖低毛利，长包房占死库存是典型成本陷阱。</p>
+    </div></div>
+  </div>
+
+  <div class="sec">
+    <h2 id="toc-7">案例清单</h2>
+    <div class="sd">按企业、维度、难度筛选；点“展开教学映射”查看教学目标 / 章节 / 判定表 / 实训 / 考核。</div>
+    <div class="bar">
+      <input type="text" id="q" placeholder="搜索案例标题或知识点…">
+    </div>
+    <div class="grp"><div class="gl">企业</div><div class="chiprow" id="f-ent"><span class="chip" data-f="ent" data-v="yunjing">云璟酒店<i>主案例</i></span><span class="chip" data-f="ent" data-v="lanting">澜庭·温泉度假<i>脱敏企业</i></span><span class="chip" data-f="ent" data-v="qiyue">栖悦酒店<i>脱敏企业</i></span><span class="chip" data-f="ent" data-v="laocheng">老城厢精品酒店<i>脱敏企业</i></span><span class="chip" data-f="ent" data-v="yuexing">悦行·商旅<i>脱敏企业</i></span></div></div>
+    <div class="grp"><div class="gl">维度</div><div class="chiprow" id="f-dim"><span class="chip" data-f="dim" data-v="方法">方法</span><span class="chip" data-f="dim" data-v="概念">概念</span><span class="chip" data-f="dim" data-v="流程">流程</span><span class="chip" data-f="dim" data-v="策略">策略</span><span class="chip" data-f="dim" data-v="综合情境">综合情境</span></div></div>
+    <div class="grp"><div class="gl">难度</div><div class="chiprow" id="f-lv"><span class="chip" data-f="lv" data-v="入门">入门</span><span class="chip" data-f="lv" data-v="进阶">进阶</span><span class="chip" data-f="lv" data-v="挑战">挑战</span></div></div>
+    <div class="meta">共 <b id="cnt">10</b> 个案例</div>
+    <div class="grid" id="list">
+    <div class="card" data-ent="yunjing" data-dim="概念" data-lv="入门">
+      <div class="card-top">
+        <span class="ent-badge" style="background:#1d6fb8">云璟酒店</span>
+        <span class="pill lv">难度 入门</span>
+      </div>
+      <h3 id="toc-8" class="ct"><a href="javascript:void(0)">出租率 90% 那天，总经理在会上表扬了所有人，但没人敢报收入</a></h3>
+      <div class="pills"><span class="pill">概念</span><span class="pill tm">表A 每日价格调整判定表</span> <span class="pill tm">表B 库存与限制条件配置表</span> <span class="pill tm">表O 决策优先级与冲突仲裁表</span></div>
+      <button class="more more-sm" type="button">展开教学映射 ▾</button>
+      
+      <div class="detail">
+        <div class="dsec"><span class="dt">案例全文</span><p>杭州滨江云璟酒店 320 间房。七月某个周三，出租率做到 91%，创年内新高。周总在早会表扬前厅：“大家辛苦了。”收益经理林岚没说话——那天 ADR 只有 486 元，比上月同期低 132 元。原因：前一天竞品 C（汉庭）降到 399，销售总监郑昊怕跑了客人，把协议价从 620 放到 480，结果 84 间空房一夜之间全填满了——填进来的全是原本住汉庭的客人。林岚调出数据：RevPAR 442 元，反而比上周同期（OCC 78%、ADR 640、RevPAR 499）低了 57 元。她只说了一句：“这 13 个点的出租率，是用 57 块 RevPAR 换的。”</p></div>
+        <div class="dgrid">
+          <div class="dsec"><span class="dt">教学目标</span><p>建立“出租率 ≠ 收入”的底层直觉：能读出 OCC/ADR/RevPAR 三者此消彼长，识别“虚假繁荣”式满房。</p></div>
+          <div class="dsec"><span class="dt">实训任务</span><p>给一组某日数据（可售 320、售出 291、收入 14.1 万），让学生算出 OCC、ADR、RevPAR，并判断“这算好日子吗”并说明理由。</p></div>
+        </div>
+        <div class="dsec"><span class="dt">对应章节主题</span><p class="chap">指标体系 · 价格与库存联动</p></div>
+        <div class="dsec"><span class="dt">关联判定表</span><div class="pills"><span class="pill tm">表A 每日价格调整判定表</span> <span class="pill tm">表B 库存与限制条件配置表</span> <span class="pill tm">表O 决策优先级与冲突仲裁表</span></div></div>
+        <div class="dsec"><span class="dt">核心知识点</span><div class="pills"><span class="pill sk">OCC 出租率</span> <span class="pill sk">ADR 平均房价</span> <span class="pill sk">RevPAR</span></div></div>
+        <div class="dsec"><span class="dt">考核点</span><p>① 三指标计算正确；② 能指出“高 OCC 低 ADR”的结构问题；③ 用一句业务语言陈述结论。</p></div>
+      </div>
+    </div>
+    <div class="card" data-ent="yunjing" data-dim="概念" data-lv="入门">
+      <div class="card-top">
+        <span class="ent-badge" style="background:#1d6fb8">云璟酒店</span>
+        <span class="pill lv">难度 入门</span>
+      </div>
+      <h3 id="toc-9" class="ct"><a href="javascript:void(0)">ADR 涨了 40 块，收入却少了 1.9 万</a></h3>
+      <div class="pills"><span class="pill">概念</span><span class="pill tm">表A 每日价格调整判定表</span> <span class="pill tm">表F 房型价差阶梯表</span></div>
+      <button class="more more-sm" type="button">展开教学映射 ▾</button>
+      
+      <div class="detail">
+        <div class="dsec"><span class="dt">案例全文</span><p>云璟三月 ADR 从 618 涨到 658，销售部报喜。林岚拉出全月账：收入反而比二月少 1.9 万。拆开看：涨价集中在周末（周五周六从 720 涨到 880，涨了 22%），但周末出租率从 88% 掉到 71%——掉了 17 个点，17 个点 × 320 间 × 2 天 × 7 个周末 ≈ 760 间夜没了。多收的 160 元 × 卖掉的房，补不回 760 间夜 × 618 元的损失。</p></div>
+        <div class="dgrid">
+          <div class="dsec"><span class="dt">教学目标</span><p>理解需求价格弹性：在弹性区间内涨价会损失间夜量，未必增收；学会用“涨价损益平衡”判断调价是否划算。</p></div>
+          <div class="dsec"><span class="dt">实训任务</span><p>给定周末基准 ADR 720、OCC 88%、可售 320、弹性系数，要求学生算出“涨到 880 后 OCC 降到多少会得不偿失”，画出损益平衡线。</p></div>
+        </div>
+        <div class="dsec"><span class="dt">对应章节主题</span><p class="chap">动态定价 · 需求价格弹性</p></div>
+        <div class="dsec"><span class="dt">关联判定表</span><div class="pills"><span class="pill tm">表A 每日价格调整判定表</span> <span class="pill tm">表F 房型价差阶梯表</span></div></div>
+        <div class="dsec"><span class="dt">核心知识点</span><div class="pills"><span class="pill sk">ADR 平均房价</span> <span class="pill sk">需求价格弹性</span> <span class="pill sk">RevPAR</span></div></div>
+        <div class="dsec"><span class="dt">考核点</span><p>① 弹性逻辑表述正确；② 能算出临界 OCC；③ 结论落到“该不该涨、涨多少”。</p></div>
+      </div>
+    </div>
+    <div class="card" data-ent="yunjing" data-dim="概念" data-lv="入门">
+      <div class="card-top">
+        <span class="ent-badge" style="background:#1d6fb8">云璟酒店</span>
+        <span class="pill lv">难度 入门</span>
+      </div>
+      <h3 id="toc-10" class="ct"><a href="javascript:void(0)">我们 RevPAR 涨了 8%，但市场份额在掉</a></h3>
+      <div class="pills"><span class="pill">概念</span><span class="pill tm">表C 价格指数(ARI)判定表</span> <span class="pill tm">表D 市场渗透指数(MPI)判定表</span></div>
+      <button class="more more-sm" type="button">展开教学映射 ▾</button>
+      
+      <div class="detail">
+        <div class="dsec"><span class="dt">案例全文</span><p>云璟二季度 RevPAR 同比 +8%，周总很满意。林岚把竞争组合（A/B/C/D/E 五家）拉出来一算：RGI 从 103 掉到 97。意思是：市场整体 RevPAR 涨了 15%，我们只涨 8% —— 不是我们做得好，是市场太好，我们还跑输了大盘。她把这张表放在例会第一页，标题写：“涨得比市场慢，就是退步。”</p></div>
+        <div class="dgrid">
+          <div class="dsec"><span class="dt">教学目标</span><p>区分“绝对增长”与“相对市场表现”：会用 MPI/RGI 判断自己是在领跑还是被大盘带着走。</p></div>
+          <div class="dsec"><span class="dt">实训任务</span><p>给出 5 家竞品与本店的 RevPAR 与可售房量，计算本店 MPI 与 RGI，并写出“跑赢/跑输大盘”的判断。</p></div>
+        </div>
+        <div class="dsec"><span class="dt">对应章节主题</span><p class="chap">竞争对标 · RGI/MPI 指数</p></div>
+        <div class="dsec"><span class="dt">关联判定表</span><div class="pills"><span class="pill tm">表C 价格指数(ARI)判定表</span> <span class="pill tm">表D 市场渗透指数(MPI)判定表</span></div></div>
+        <div class="dsec"><span class="dt">核心知识点</span><div class="pills"><span class="pill sk">RGI 收入指数</span> <span class="pill sk">MPI 市场渗透指数</span> <span class="pill sk">竞争对标</span></div></div>
+        <div class="dsec"><span class="dt">考核点</span><p>① MPI/RGI 公式正确；② 能解释“+8% 却退步”的悖论；③ 给出竞争动作建议。</p></div>
+      </div>
+    </div>
+    <div class="card" data-ent="yunjing" data-dim="概念" data-lv="入门">
+      <div class="card-top">
+        <span class="ent-badge" style="background:#1d6fb8">云璟酒店</span>
+        <span class="pill lv">难度 入门</span>
+      </div>
+      <h3 id="toc-11" class="ct"><a href="javascript:void(0)">OTA 卖了 40% 的房，RevPAR 好看，到手的钱少了 23 万</a></h3>
+      <div class="pills"><span class="pill">概念</span><span class="pill tm">表H 渠道开关判定表</span></div>
+      <button class="more more-sm" type="button">展开教学映射 ▾</button>
+      
+      <div class="detail">
+        <div class="dsec"><span class="dt">案例全文</span><p>云璟某月 RevPAR 445（达成预算），但林岚的 NRevPAR 只有 348。差 97 元全是渠道成本：当月 OTA 占比 40%（佣金 15%）、协议 18%（返佣 8%）、直销 30%、会员 12%（积分成本 3%）。加权渠道成本率 21.8%。445 × (1 − 21.8%) = 348。她做了件让郑昊不舒服的事：把 OTA 限供房量从 120 间压到 85 间，当月 OTA 占比降到 31%，RevPAR 掉到 431（少 14），但 NRevPAR 涨到 356（多 8）。</p></div>
+        <div class="dgrid">
+          <div class="dsec"><span class="dt">教学目标</span><p>建立“毛收入 ≠ 到手收入”的意识：会用 NRevPAR 评估渠道结构，理解限供 OTA 可能“少卖但多赚”。</p></div>
+          <div class="dsec"><span class="dt">实训任务</span><p>给出各渠道占比与佣金率，让学生计算加权渠道成本率与 NRevPAR，并模拟“压 OTA 10 间”后的净收入变化。</p></div>
+        </div>
+        <div class="dsec"><span class="dt">对应章节主题</span><p class="chap">渠道管理 · 净收入视角</p></div>
+        <div class="dsec"><span class="dt">关联判定表</span><div class="pills"><span class="pill tm">表H 渠道开关判定表</span></div></div>
+        <div class="dsec"><span class="dt">核心知识点</span><div class="pills"><span class="pill sk">NRevPAR 净RevPAR</span> <span class="pill sk">渠道成本</span> <span class="pill sk">直销占比</span></div></div>
+        <div class="dsec"><span class="dt">考核点</span><p>① 渠道成本率计算正确；② 能解释 RevPAR 降但 NRevPAR 升；③ 给出渠道结构调整建议。</p></div>
+      </div>
+    </div>
+    <div class="card" data-ent="yunjing" data-dim="综合情境" data-lv="挑战">
+      <div class="card-top">
+        <span class="ent-badge" style="background:#1d6fb8">云璟酒店</span>
+        <span class="pill lv">难度 挑战</span>
+      </div>
+      <h3 id="toc-12" class="ct"><a href="javascript:void(0)">全年 RevPAR 达标，但旺季没赚够、淡季亏太多</a></h3>
+      <div class="pills"><span class="pill">综合情境</span><span class="pill tm">表A 每日价格调整判定表</span> <span class="pill tm">表N 周度/月度节奏表</span></div>
+      <button class="more more-sm" type="button">展开教学映射 ▾</button>
+      
+      <div class="detail">
+        <div class="dsec"><span class="dt">案例全文</span><p>云璟年度 RevPAR 422，达成预算的 100.5%。但林岚的复盘报告里写着“结构失衡”：旺季（9–11 月）RevPAR 512，比预算低 38（少赚 11.7 万）；淡季（1–2 月）RevPAR 310，比预算高 12（多赚 3.1 万，但绝对值太低）。原因是旺季不敢涨价（怕投诉），淡季降价降得太狠（把价格体系打乱了）。她给下一年的动作只有两条：旺季提前 60 天锁价、淡季降价不低于变动成本线。</p></div>
+        <div class="dgrid">
+          <div class="dsec"><span class="dt">教学目标</span><p>理解“年度达标 ≠ 各期健康”：会用周期节奏表拆分淡旺，懂得旺季该进取、淡季有底线。</p></div>
+          <div class="dsec"><span class="dt">实训任务</span><p>给出 12 个月预算与实际 RevPAR，让学生标出“旺季少赚/淡季乱降”的月份，并拟定次年锁价与底线规则。</p></div>
+        </div>
+        <div class="dsec"><span class="dt">对应章节主题</span><p class="chap">周期与预测 · 旺季锁价/淡季底线</p></div>
+        <div class="dsec"><span class="dt">关联判定表</span><div class="pills"><span class="pill tm">表A 每日价格调整判定表</span> <span class="pill tm">表N 周度/月度节奏表</span></div></div>
+        <div class="dsec"><span class="dt">核心知识点</span><div class="pills"><span class="pill sk">周期管理</span> <span class="pill sk">预算分解</span> <span class="pill sk">变动成本线</span></div></div>
+        <div class="dsec"><span class="dt">考核点</span><p>① 能识别结构性失衡；② 两条动作（提前锁价/成本底线）表述到位；③ 不把“年度达标”当终点。</p></div>
+      </div>
+    </div>
+    <div class="card" data-ent="yunjing" data-dim="策略" data-lv="挑战">
+      <div class="card-top">
+        <span class="ent-badge" style="background:#1d6fb8">云璟酒店</span>
+        <span class="pill lv">难度 挑战</span>
+      </div>
+      <h3 id="toc-13" class="ct"><a href="javascript:void(0)">长住客把 OCC 顶到 85%，但收益经理想赶走他们</a></h3>
+      <div class="pills"><span class="pill">策略</span><span class="pill tm">表G 团队/协议询价接受判定表</span> <span class="pill tm">表B 库存与限制条件配置表</span> <span class="pill tm">表E 超额预订标准表</span></div>
+      <button class="more more-sm" type="button">展开教学映射 ▾</button>
+      
+      <div class="detail">
+        <div class="dsec"><span class="dt">案例全文</span><p>云璟有 12 间被长住客占着（平均住 28 天，协议价 380，比散客 620 低 240）。好处：OCC 稳定 +3.8 个点、几乎不用打扫、取消率 0。坏处：这 12 间在旺季（ADR 880）时没法拿出来卖，一年中有 47 天是“高需日”，12 间 × 47 天 × (880−380) = 28.2 万的置换损失。林岚的做法不是赶走，而是签“旺季可剔除”条款：合同里写明每年 47 个高需日长住价上浮至 720，或提前 14 天通知退 4 间。最后谈成上浮价，长住客留住了，旺季也拿回了 60% 的价差。</p></div>
+        <div class="dgrid">
+          <div class="dsec"><span class="dt">教学目标</span><p>会用置换思维看“稳定客源 vs 高价散客”：能计量置换损失，并设计“可剔除条款”而非简单赶客。</p></div>
+          <div class="dsec"><span class="dt">实训任务</span><p>给出长住间数、长住价、散客价、高需日天数，计算年置换损失，并设计一种“保客又保价”的合同条款。</p></div>
+        </div>
+        <div class="dsec"><span class="dt">对应章节主题</span><p class="chap">置换分析 · 长住与高需日博弈</p></div>
+        <div class="dsec"><span class="dt">关联判定表</span><div class="pills"><span class="pill tm">表G 团队/协议询价接受判定表</span> <span class="pill tm">表B 库存与限制条件配置表</span> <span class="pill tm">表E 超额预订标准表</span></div></div>
+        <div class="dsec"><span class="dt">核心知识点</span><div class="pills"><span class="pill sk">置换分析</span> <span class="pill sk">ALOS 平均住店时长</span> <span class="pill sk">库存限制</span></div></div>
+        <div class="dsec"><span class="dt">考核点</span><p>① 置换损失量化正确；② 条款设计兼顾双方；③ 说明“不赶客”的业务逻辑。</p></div>
+      </div>
+    </div>
+    <div class="card" data-ent="lanting" data-dim="策略" data-lv="进阶">
+      <div class="card-top">
+        <span class="ent-badge" style="background:#9a6b1f">澜庭·温泉度假</span>
+        <span class="pill lv">难度 进阶</span>
+      </div>
+      <h3 id="toc-14" class="ct"><a href="javascript:void(0)">旺季限供 + 超售双刃：142 间房的黄金周博弈</a></h3>
+      <div class="pills"><span class="pill">策略</span><span class="pill tm">表E 超额预订标准表</span> <span class="pill tm">表A 每日价格调整判定表</span></div>
+      <button class="more more-sm" type="button">展开教学映射 ▾</button>
+      
+      <div class="detail">
+        <div class="dsec"><span class="dt">案例全文</span><p>澜庭温泉度假位于某北方山岳景区，142 间客房，平日 ADR 1880、周末 2680。十一黄金周前 20 天，预售已到 OCC 96%，但收益总监发现：① 高价套房（4800）还剩 11 间没动；② 大量客人在“取消免费期”内占着房没付定金。她做了两件事：对已占未付的 23 间启动“超售缓冲”（按历史取消率 18% 多接 4 间同档），同时对剩余套房做“阶梯释放”——黄金周前 10 天若仍未售出，逐日降价至 3800 兜底，绝不空置。结果黄金周 OCC 99.2%、ADR 2510，套房零空置。</p></div>
+        <div class="dgrid">
+          <div class="dsec"><span class="dt">教学目标</span><p>在高端度假场景下平衡“超售风险”与“空置损失”：会算超售缓冲量、设计阶梯释放节奏。</p></div>
+          <div class="dsec"><span class="dt">实训任务</span><p>给出可售房、在手未付、历史取消率、套房底价，让学生计算安全超售间数与阶梯降价触发点。</p></div>
+        </div>
+        <div class="dsec"><span class="dt">对应章节主题</span><p class="chap">超额预订 · 高端度假旺季策略</p></div>
+        <div class="dsec"><span class="dt">关联判定表</span><div class="pills"><span class="pill tm">表E 超额预订标准表</span> <span class="pill tm">表A 每日价格调整判定表</span></div></div>
+        <div class="dsec"><span class="dt">核心知识点</span><div class="pills"><span class="pill sk">超额预订</span> <span class="pill sk">动态定价</span> <span class="pill sk">库存释放</span></div></div>
+        <div class="dsec"><span class="dt">考核点</span><p>① 超售量基于取消率而非拍脑袋；② 阶梯释放有触发条件；③ 能说明“零空置”的代价与边界。</p></div>
+      </div>
+    </div>
+    <div class="card" data-ent="qiyue" data-dim="流程" data-lv="进阶">
+      <div class="card-top">
+        <span class="ent-badge" style="background:#2e8b57">栖悦酒店</span>
+        <span class="pill lv">难度 进阶</span>
+      </div>
+      <h3 id="toc-15" class="ct"><a href="javascript:void(0)">会员价与门市价倒挂：60 家连锁的价格体系失守</a></h3>
+      <div class="pills"><span class="pill">流程</span><span class="pill tm">表F 房型价差阶梯表</span> <span class="pill tm">表H 渠道开关判定表</span></div>
+      <button class="more more-sm" type="button">展开教学映射 ▾</button>
+      
+      <div class="detail">
+        <div class="dsec"><span class="dt">案例全文</span><p>栖悦是中型连锁，标准间门市价 359。集团推会员卡：会员价 299，且 App 自动发“本周特惠 279”。问题来了：前台常遇到客人说“携程上才 309，你们官网会员还贵”。收益中台核查：① 会员价 299 与 OTA 牌价 309 倒挂不明显，但 App 特惠 279 比协议企业价 320 还低，企业客户开始绕道 App；② 门店为冲出租率，私自给散客“会员体验价” 285，价格体系七零八落。集团用表 F（房型价差阶梯）+ 表 H（渠道开关）重定铁律：会员价永远 ≤ OTA 牌价且 ≥ 协议价；门店无权改牌价，只能开“限时促销码”并报备。</p></div>
+        <div class="dgrid">
+          <div class="dsec"><span class="dt">教学目标</span><p>理解连锁价格体系的“锚定规则”：会员/OTA/协议/门店四价不能互相踩线，门店权限必须收口。</p></div>
+          <div class="dsec"><span class="dt">实训任务</span><p>给出四价现状（门市359/会员299/OTA309/协议320/App279），让学生排定合规价格阶梯并写一条“门店禁改牌价”的执行规则。</p></div>
+        </div>
+        <div class="dsec"><span class="dt">对应章节主题</span><p class="chap">价格体系 · 连锁一致性治理</p></div>
+        <div class="dsec"><span class="dt">关联判定表</span><div class="pills"><span class="pill tm">表F 房型价差阶梯表</span> <span class="pill tm">表H 渠道开关判定表</span></div></div>
+        <div class="dsec"><span class="dt">核心知识点</span><div class="pills"><span class="pill sk">价格体系</span> <span class="pill sk">渠道一致性</span> <span class="pill sk">门店治理</span></div></div>
+        <div class="dsec"><span class="dt">考核点</span><p>① 四价排序合规；② 能指出 App 特惠击穿协议价的危害；③ 给出可落地的门店管控动作。</p></div>
+      </div>
+    </div>
+    <div class="card" data-ent="laocheng" data-dim="方法" data-lv="进阶">
+      <div class="card-top">
+        <span class="ent-badge" style="background:#7a4fa0">老城厢精品酒店</span>
+        <span class="pill lv">难度 进阶</span>
+      </div>
+      <h3 id="toc-16" class="ct"><a href="javascript:void(0)">OTA 依赖度 65% 的陷阱：28 间单体的自救</a></h3>
+      <div class="pills"><span class="pill">方法</span><span class="pill tm">表H 渠道开关判定表</span> <span class="pill tm">表C 价格指数(ARI)判定表</span></div>
+      <button class="more more-sm" type="button">展开教学映射 ▾</button>
+      
+      <div class="detail">
+        <div class="dsec"><span class="dt">案例全文</span><p>老城厢是城市老城区 28 间精品酒店，创始人自己管收益。OTA 占比一度到 65%，佣金 15% 吃掉了大半利润。创始人做了三件事：① 上“官网直订送手冲咖啡+延迟退房”，把直订占比从 18% 拉到 41%（OTA 限供，保留 30 间保底库存给 OTA，其余优先直订）；② 用表 C（ARI）发现自己 ADR 比同商圈精品高 12%，但点评分也高 0.3，于是维持溢价、把预算花在内容而非降价；③ 与附近两家独立餐厅做“住宿+晚餐”打包，打包客 ADR 提升 22% 且零佣金。一年下来 NRevPAR 从 410 涨到 523。</p></div>
+        <div class="dgrid">
+          <div class="dsec"><span class="dt">教学目标</span><p>在单体酒店无集团赋能下，用“限供 OTA + 直订权益 + 打包”三招提升净收入，而非盲目降价。</p></div>
+          <div class="dsec"><span class="dt">实训任务</span><p>给出 OTA 占比 65%、佣金 15%、直订权益成本，让学生测算“直订+10 个点”对 NRevPAR 的影响，并设计一项打包产品。</p></div>
+        </div>
+        <div class="dsec"><span class="dt">对应章节主题</span><p class="chap">渠道管理 · 单体直订与打包</p></div>
+        <div class="dsec"><span class="dt">关联判定表</span><div class="pills"><span class="pill tm">表H 渠道开关判定表</span> <span class="pill tm">表C 价格指数(ARI)判定表</span></div></div>
+        <div class="dsec"><span class="dt">核心知识点</span><div class="pills"><span class="pill sk">渠道自救</span> <span class="pill sk">ARI 溢价</span> <span class="pill sk">打包套餐</span></div></div>
+        <div class="dsec"><span class="dt">考核点</span><p>① 限供逻辑清楚；② 用 ARI 支撑溢价而非降价；③ 打包产品设计有零佣金意识。</p></div>
+      </div>
+    </div>
+    <div class="card" data-ent="yuexing" data-dim="综合情境" data-lv="挑战">
+      <div class="card-top">
+        <span class="ent-badge" style="background:#b0563a">悦行·商旅</span>
+        <span class="pill lv">难度 挑战</span>
+      </div>
+      <h3 id="toc-17" class="ct"><a href="javascript:void(0)">出租率 95% 但 GOP 为负：经济型的成本陷阱</a></h3>
+      <div class="pills"><span class="pill">综合情境</span><span class="pill tm">表A 每日价格调整判定表</span> <span class="pill tm">表M 每日收益操作流水线(时间表)</span></div>
+      <button class="more more-sm" type="button">展开教学映射 ▾</button>
+      
+      <div class="detail">
+        <div class="dsec"><span class="dt">案例全文</span><p>悦行是经济型连锁，标准间 199。某门店店长汇报：“这个月出租率 95%，创纪录！”但区域收益经理一看 GOP（经营毛利）是负的。拆因：① 为冲出租率，店长把 60 间给了“长包房”协议价 129（远低于 199），且长包房不滚动、占死库存；② 经济型变动成本约 55 元/间夜，129 的长包房毛利仅 74 元，而散客 199 毛利 144 元——用一半房换 low-margin 客流；③ Cleaning 频次因长包房降低，但公区能耗没降。收益经理用表 A（每日价格）+ 表 M（每日流水线）重排：长包房比例锁死 ≤15%，余房全部走动态散客价，GOP 当周转正。</p></div>
+        <div class="dgrid">
+          <div class="dsec"><span class="dt">教学目标</span><p>破除“高出租率 = 好”的迷思：会用 GOP/变动成本审视出租率质量，懂得给低毛利客源设上限。</p></div>
+          <div class="dsec"><span class="dt">实训任务</span><p>给出可售、长包房数、长包价、散客价、变动成本，计算两类房毛利与门店 GOP，并给出长包房占比上限建议。</p></div>
+        </div>
+        <div class="dsec"><span class="dt">对应章节主题</span><p class="chap">指标体系 · 成本视角下的出租率</p></div>
+        <div class="dsec"><span class="dt">关联判定表</span><div class="pills"><span class="pill tm">表A 每日价格调整判定表</span> <span class="pill tm">表M 每日收益操作流水线(时间表)</span></div></div>
+        <div class="dsec"><span class="dt">核心知识点</span><div class="pills"><span class="pill sk">GOP 经营毛利</span> <span class="pill sk">变动成本</span> <span class="pill sk">长包房占比</span></div></div>
+        <div class="dsec"><span class="dt">考核点</span><p>① GOP 口径正确；② 能指出“95% 出租率却亏”的根因；③ 长包房上限有量化依据。</p></div>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="sec">
+    <h2 id="toc-18">OBE 能力域 / HSMAI CRME 映射</h2>
+    <div class="sd">案例库对接成果导向教育（OBE）能力域与国际注册收益管理师（HSMAI CRME）知识域。</div>
+    <table class="tbl">
+      <thead><tr><th>能力域</th><th>HSMAI CRME 知识域</th><th>对应案例</th></tr></thead>
+      <tbody><tr><td>数据分析与指标</td><td>HSMAI CRME · Data Analysis</td><td>指标体系、RGI/MPI、NRevPAR（案1/3/4/10）</td></tr><tr><td>定价策略</td><td>HSMAI CRME · Pricing</td><td>动态定价、价格弹性、价格体系（案2/6/8）</td></tr><tr><td>渠道与分销</td><td>HSMAI CRME · Distribution</td><td>渠道成本、直订自救、渠道开关（案4/8/9）</td></tr><tr><td>库存与置换优化</td><td>HSMAI CRME · Inventory &amp; Revenue Optimization</td><td>超售、长住置换、库存限制（案6/7）</td></tr><tr><td>需求预测与周期</td><td>HSMAI CRME · Demand Generation</td><td>淡旺节奏、预算分解（案5）</td></tr><tr><td>流程与治理</td><td>OBE 能力域 · 执行纪律</td><td>门店管控、每日流水线（案8/10）</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="sec">
+    <h2 id="toc-19">“十五五”产教融合指标说明</h2>
+    <div class="note">
+      本案例库满足产教融合型课程对“真实企业案例”的硬指标：① 真实案例数量 ≥ 10（当前 10 个）；
+      ② 主案例为真实运营企业（云璟酒店），辅以 4 家脱敏处理的真实业态样本（高端 / 中端 / 单体 / 连锁）；
+      ③ 每个案例均完成“教学化改造”——明确教学目标、对接教材章节与 15 张判定表、配套实训任务与考核点；
+      ④ 对接 OBE 能力域与 HSMAI CRME 国际框架，可直接用于课程标准、实训指导书与考核方案。
+    </div>
+  </div>
+
+</div>
+<script>
+(function(){
+  var sel={ent:new Set(),dim:new Set(),lv:new Set()};
+  function applyFilter(){
+    var q=(document.getElementById('q').value||'').trim().toLowerCase();
+    var cards=document.querySelectorAll('#list .card');
+    var n=0;
+    cards.forEach(function(c){
+      var ok=true;
+      if(sel.ent.size&&!sel.ent.has(c.dataset.ent))ok=false;
+      if(sel.dim.size&&!sel.dim.has(c.dataset.dim))ok=false;
+      if(sel.lv.size&&!sel.lv.has(c.dataset.lv))ok=false;
+      if(q){
+        var t=c.textContent.toLowerCase();
+        if(t.indexOf(q)<0)ok=false;
+      }
+      c.style.display=ok?'':'none';
+      if(ok)n++;
+    });
+    document.getElementById('cnt').textContent=n;
+  }
+  document.querySelectorAll('.chip').forEach(function(ch){
+    ch.addEventListener('click',function(){
+      var f=ch.dataset.f,v=ch.dataset.v;
+      if(sel[f].has(v)){sel[f].delete(v);ch.classList.remove('on');}
+      else{sel[f].add(v);ch.classList.add('on');}
+      applyFilter();
+    });
+  });
+  document.getElementById('q').addEventListener('input',applyFilter);
+  document.querySelectorAll('#list .more').forEach(function(b){
+    b.addEventListener('click',function(){
+      var card=b.closest('.card');
+      card.classList.toggle('open');
+      b.textContent=card.classList.contains('open')?'收起教学映射 ▴':'展开教学映射 ▾';
+    });
+  });
+})();
+</script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">企业图谱</a>
+<a href="#toc-2" class="lv3">云璟酒店（杭州滨江）</a>
+<a href="#toc-3" class="lv3">澜庭·温泉度假</a>
+<a href="#toc-4" class="lv3">栖悦酒店</a>
+<a href="#toc-5" class="lv3">老城厢精品酒店</a>
+<a href="#toc-6" class="lv3">悦行·商旅</a>
+<a href="#toc-7">案例清单</a>
+<a href="#toc-8" class="lv3">出租率 90% 那天，总经理在会上表扬了所有人，但没人敢报收入</a>
+<a href="#toc-9" class="lv3">ADR 涨了 40 块，收入却少了 1.9 万</a>
+<a href="#toc-10" class="lv3">我们 RevPAR 涨了 8%，但市场份额在掉</a>
+<a href="#toc-11" class="lv3">OTA 卖了 40% 的房，RevPAR 好看，到手的钱少了 23 万</a>
+<a href="#toc-12" class="lv3">全年 RevPAR 达标，但旺季没赚够、淡季亏太多</a>
+<a href="#toc-13" class="lv3">长住客把 OCC 顶到 85%，但收益经理想赶走他们</a>
+<a href="#toc-14" class="lv3">旺季限供 + 超售双刃：142 间房的黄金周博弈</a>
+<a href="#toc-15" class="lv3">会员价与门市价倒挂：60 家连锁的价格体系失守</a>
+<a href="#toc-16" class="lv3">OTA 依赖度 65% 的陷阱：28 间单体的自救</a>
+<a href="#toc-17" class="lv3">出租率 95% 但 GOP 为负：经济型的成本陷阱</a>
+<a href="#toc-18">OBE 能力域 / HSMAI CRME 映射</a>
+<a href="#toc-19">“十五五”产教融合指标说明</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
+</html>
