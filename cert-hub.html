@@ -342,6 +342,36 @@
     });
     html+='</div>';
 
+    // OBE 能力域 · HSMAI CRME 映射（显式，供课程标准/考核方案引用）
+    html+='<h2 style="font-size:19px;color:var(--navy);margin:24px 0 12px">OBE 能力域 · HSMAI CRME 知识域映射</h2>';
+    html+='<p style="font-size:13px;color:var(--ink-2);line-height:1.8;margin:0 0 12px">'+
+      '五项胜任力按成果导向教育（OBE）能力域归类，并标注与国际收益管理师知识体系（HSMAI CRME）的对应关系，'+
+      '供课程标准、实训指导书与考核方案直接引用。<b style="font-weight:400">映射为课程设计参考，不代表 HSMAI 官方认证或承诺。</b></p>';
+    var OBE=[
+      ["会查表","专业知识应用 · 决策执行","库存与产能管理 / 收益决策标准","90 题流程闯关 ≥240 分"],
+      ["会算账","数据分析能力","定价 / 绩效与收益分析","收益健康自检 + 计算模板实操"],
+      ["会留痕","复盘与持续改进","绩效与收益分析","调价台账留痕记录"],
+      ["能带会","沟通协作 · 组织领导","跨部门收益领导力","例会手册 + 模拟主持 5 场景"],
+      ["能汇报","管理沟通 · 结果导向","收益领导力 / 对上沟通","汇报一页纸 + 案例自测 ≥200 分"]
+    ];
+    html+='<table style="width:100%;border-collapse:collapse;font-size:13px;background:#fff">'+
+      '<tr>'+["胜任力","OBE 能力域","HSMAI CRME 知识域（对应）","佐证来源"].map(function(h){
+        return '<th style="border:1px solid #e3e8ef;background:#f2f6fa;color:var(--navy);padding:7px 10px;text-align:left">'+h+'</th>';}).join('')+'</tr>'+
+      OBE.map(function(r){
+        var j=jobOf(r[0]);
+        return '<tr>'+r.map(function(c,i){
+          return '<td style="border:1px solid #e3e8ef;padding:7px 10px;'+(i===0?'font-weight:700;color:var(--navy);':'color:#43536a;')+'">'+esc(c)+
+            (i===0&&j?' <span style="font-size:11px;color:'+(j.ok?"#2a7d4f":"#b0563a")+'">（'+(j.ok?"已具备":"待补齐")+'）</span>':'')+'</td>';}).join('')+'</tr>';
+      }).join('')+'</table>';
+
+    // 下一步：个性化路径 + AI 教练
+    html+='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:16px 0 4px">'+
+      '<div class="ch-item" style="margin:0"><div class="h"><span class="t">下一步学什么</span></div>'+
+      '<div class="ch-det">按本机练习进度判断当前水平，给出 3 个具体到页面的下一步。　<a class="ch-go" data-go="path.html">测一测 →</a></div></div>'+
+      '<div class="ch-item" style="margin:0"><div class="h"><span class="t">RM 学长 · 随身教练</span></div>'+
+      '<div class="ch-det">卡在哪一句话问出来，在课程资料里找答案并给依据：学生版教怎么学，在岗版告诉怎么做。　<a class="ch-go" data-go="rm-coach.html">问一句 →</a></div></div>'+
+      '</div>';
+
     // 履历
     html+='<h2 style="font-size:19px;color:var(--navy);margin:24px 0 12px">生成学习履历</h2>'+
       '<div class="ch-res"><div class="h">可复制 / 可打印的学习记录（不是证书）</div>'+
