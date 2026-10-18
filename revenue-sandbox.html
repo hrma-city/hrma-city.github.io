@@ -39,7 +39,10 @@ header.top p b{color:#fff}
  box-shadow:0 2px 12px rgba(0,0,0,.06);padding:22px 26px 26px;margin:18px 0}
 .card h2{font-size:18px;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:10px}
 .card h2 .tag{font-size:12px;background:var(--navy);color:#fff;border-radius:4px;padding:2px 8px;letter-spacing:1px}
-.note{font-size:13px;color:var(--mut);margin:6px 0 16px;line-height:1.75}
+.note{font-size:13px;color:var(--mut);margin:6px 0 14px;line-height:1.75}
+.decision{font-size:13px;color:#4a3f2a;background:#f6efdd;border:1px solid #e5d5ac;
+ border-radius:6px;padding:8px 12px;line-height:1.7}
+.decision b{color:#8a6410}
 .sec-l{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:2px;margin:14px 0 8px;
  display:flex;align-items:center;gap:8px}
 .sec-l::after{content:"";flex:1;height:1px;background:var(--line)}
@@ -54,6 +57,8 @@ button{font-family:var(--hei);font-size:14px;border-radius:6px;padding:9px 18px;
 .btn-go:hover{background:#a3781f}
 .btn-reset{background:#fff;color:var(--mut);border-color:var(--line)}
 .btn-reset:hover{color:var(--ink);border-color:var(--mut)}
+.btn-copy{background:#eef2f8;color:#1d4e7e;border-color:#c2d4e8}
+.btn-copy:hover{background:#dde8f5}
 .out{margin-top:16px;background:#f4f1ea;border:1px solid var(--line);border-radius:7px;padding:14px 16px;display:none}
 .out.show{display:block}
 .out .row{display:flex;justify-content:space-between;align-items:baseline;
@@ -83,8 +88,9 @@ footer{margin-top:26px;font-size:12.5px;color:var(--mut);text-align:center;line-
 <h1>收益管理可运行推演沙盘</h1>
 <div class="sub">线上数字资源 · 只填基本盘，推算交给系统</div>
 <p>判定表与模板给的是<b>规则和结论</b>；沙盘给你的是<b>过程与市况</b>：你只填门店的基本盘（房量、在手、预测、价格），
-被置换间夜、保护位、超售额度这些加工项全部由系统推算，并把每一步摊开给你看。
-点上方<b>情景按钮</b>切换淡季、平季、旺季——观察同一个决定在不同市况下结论相反，这是沙盘与静态模板最大的不同。
+被置换间夜、边际贡献、超售额度这些加工项全部由系统推算，并把每一步摊开给你看。
+口径与站内<a href="https://hrma-city.github.io/tools.html" style="color:#e8d5a8">在线工具箱</a>的置换分析、超额预订测算一致（含餐饮贡献、Walk 成本、风险偏好、硬上限）；
+工具箱保存你的日常数据，本沙盘则用「淡季 · 平季 · 旺季」情景按钮切换市况，观察同一个决定在不同日子结论相反。
 数据沿用书中「云璟酒店」脱敏设定（杭州滨江、300 间房），也可替换为你的真实数据。所有计算在浏览器本地完成，不上传任何信息。</p>
 </header>
 
@@ -113,6 +119,7 @@ footer{margin-top:26px;font-size:12.5px;color:var(--mut);text-align:center;line-
 <div class="actions">
 <button class="btn-go" onclick="calcRev()">演算</button>
 <button class="btn-reset" onclick="applyScen(cur)">回到情景</button>
+<button class="btn-copy" onclick="copyOut('r_out')">复制结果</button>
 </div>
 <div class="warn" id="r_warn">已卖间夜数不能超过可售客房数，且需大于 0。</div>
 <div class="out" id="r_out">
@@ -124,11 +131,12 @@ footer{margin-top:26px;font-size:12.5px;color:var(--mut);text-align:center;line-
 <div class="formula">口径：RevPAR = OCC × ADR。降价前先算打平量：需多卖的间数 = 降价损失 ÷ 单间边际贡献。淡季看 RevPAR 别只看出租率——低价满房可能不如高价六成。</div>
 </section>
 
-<!-- 推演二：置换 -->
+<!-- 推演二：置换分析 -->
 <section class="card">
 <h2><span class="tag">推演二</span>团队置换分析与接团判定</h2>
-<div class="note">对应「客源细分战略」「库存与限制条件」等章。<b>被置换的散客间夜数不由你填</b>——那是置换分析里最关键的一步推算，
-交给系统：由散客在手与预测需求，算出接团前还剩多少空房，团队超出空余的部分才挤掉散客。</div>
+<div class="decision"><b>决策方法：</b>净贡献 ＝ 团队总贡献 − 被挤掉散客贡献；&gt;0 接受，&lt;0 拒绝。判断一笔低价/团队业务会不会挤掉更高价散客，比净贡献，不比单价。</div>
+<div class="note">对应「客源细分战略」「库存与限制条件」等章。<b>被挤掉的散客房晚不由你填</b>——那是置换分析里最关键的一步推算，交给系统：
+由散客在手与预测需求，算出接团前还剩多少空房，团队超出空余的部分才挤掉散客。两边都含餐饮贡献，按净贡献比大小。</div>
 <div class="sec-l">基本盘（当天库存与询价）</div>
 <div class="grid">
 <div class="field"><label>可售客房数 N（间）</label><input id="d_n" type="number" min="0" value="300"></div>
@@ -139,61 +147,94 @@ footer{margin-top:26px;font-size:12.5px;color:var(--mut);text-align:center;line-
 <div class="field"><label>团队询价间夜 GN（间）</label><input id="d_gn" type="number" min="0" value="120"></div>
 <div class="field"><label>团队报价·毛价（元/间夜）</label><input id="d_gp" type="number" min="0" value="480"></div>
 <div class="field"><label>团队佣金率（%，无填 0）</label><input id="d_comm" type="number" min="0" value="0"></div>
-<div class="field"><label>团队附加贡献（元，餐饮会议等）</label><input id="d_add" type="number" min="0" value="4000"></div>
+<div class="field"><label>散客餐饮贡献（元/间夜）</label><input id="d_fbt" type="number" min="0" value="80"></div>
+<div class="field"><label>团队餐饮贡献（元/间夜）</label><input id="d_fbg" type="number" min="0" value="120"></div>
 </div>
 <div class="actions">
 <button class="btn-go" onclick="calcDisp()">演算</button>
 <button class="btn-reset" onclick="applyScen(cur)">回到情景</button>
+<button class="btn-copy" onclick="copyOut('d_out')">复制结果</button>
 </div>
-<div class="warn" id="d_warn">间夜数不能为负，散客在手不能超过总房量。</div>
+<div class="warn" id="d_warn">间夜数不能为负，散客在手不能超过总房量，团队间夜需大于 0。</div>
 <div class="out" id="d_out">
 <div class="row"><span class="k">散客预期售出 T<i>＝ min（N，在手 + 预测）</i></span><span class="v" id="d_t"></span></div>
 <div class="row"><span class="k">接团前空余房量<i>＝ N − T</i></span><span class="v" id="d_spare"></span></div>
-<div class="row"><span class="k">无需置换可容纳团队<i>＝ min（GN，空余）</i></span><span class="v" id="d_free"></span></div>
-<div class="row hot"><span class="k">被置换散客间夜 DN<i>＝ GN − 可容纳 ← 关键推算</i></span><span class="v" id="d_dn"></span></div>
-<div class="row"><span class="k">团队净价<i>＝ 毛价 ×（1 − 佣金率）</i></span><span class="v" id="d_netgp"></span></div>
-<div class="row"><span class="k">团队总贡献<i>＝（净价 − VC）× GN ＋ 附加贡献</i></span><span class="v" id="d_tc"></span></div>
-<div class="row"><span class="k">置换成本<i>＝（散客净价 − VC）× DN</i></span><span class="v" id="d_dc"></span></div>
-<div class="row"><span class="k">接团净增贡献<i>＝ 团队总贡献 − 置换成本</i></span><span class="v" id="d_net"></span></div>
-<div class="row"><span class="k">最低可接受净价<i>＝（置换成本 − 附加）÷ GN ＋ VC</i></span><span class="v" id="d_floor"></span></div>
+<div class="row hot"><span class="k">被挤掉散客房晚 DN<i>＝ max（0，T −（N − GN））← 关键推算</i></span><span class="v" id="d_dn"></span></div>
+<div class="row"><span class="k">散客边际贡献/间夜<i>＝（DADR − VC）＋ 散客餐饮贡献</i></span><span class="v" id="d_ct"></span></div>
+<div class="row"><span class="k">团队边际贡献/间夜<i>＝（团队净价 − VC）＋ 团队餐饮贡献</i></span><span class="v" id="d_cg"></span></div>
+<div class="row"><span class="k">团队总贡献<i>＝ GN × 团队边际贡献</i></span><span class="v" id="d_tc"></span></div>
+<div class="row"><span class="k">散客损失贡献<i>＝ DN × 散客边际贡献</i></span><span class="v" id="d_dc"></span></div>
+<div class="row"><span class="k">净贡献<i>＝ 团队总贡献 − 散客损失贡献</i></span><span class="v" id="d_net"></span></div>
+<div class="row"><span class="k">团队盈亏平衡最低价<i>＝（VC − 团队餐饮）＋ DN ÷ GN × 散客边际贡献</i></span><span class="v" id="d_floor"></span></div>
 <div class="verdict neu" id="d_v">—</div>
 </div>
-<div class="formula">判定：团队总贡献 ≥ 置换成本才建议接；置换成本是被放弃的散客贡献，不是团队本身的成本。低于最低可接受价的报价，先还价或砍间数，不当场答应。</div>
+<div class="formula">判定：净贡献 &gt; 0 才接；被挤掉的散客贡献是放弃的机会成本，不是团队本身的成本。低于盈亏平衡价的报价，先还价或砍间数，不当场答应。</div>
 </section>
 
 <!-- 推演三：保护位 -->
 <section class="card">
-<h2><span class="tag">推演三</span>保护位与超售额度</h2>
-<div class="note">对应「库存与限制条件」「超售」等章。给多少保护位、能开放多少低价房、能超售几间，都由系统从在手与预测推出来。</div>
-<div class="sec-l">基本盘（客源结构与流失参数）</div>
+<h2><span class="tag">推演三</span>保护位与库存配置</h2>
+<div class="note">对应「库存与限制条件」等章。给多少保护位、能开放多少低价房，都由系统从在手与预测推出来。</div>
+<div class="sec-l">基本盘（客源结构）</div>
 <div class="grid">
 <div class="field"><label>总房量 N（间）</label><input id="p_n" type="number" min="0" value="300"></div>
 <div class="field"><label>高价值在手已订（间夜）</label><input id="p_hh0" type="number" min="0" value="40"></div>
 <div class="field"><label>高价值预测需求（间夜）</label><input id="p_hh1" type="number" min="0" value="130"></div>
 <div class="field"><label>低价值预测需求（间夜）</label><input id="p_lh" type="number" min="0" value="150"></div>
-<div class="field"><label>取消率（%）</label><input id="p_cx" type="number" min="0" value="5"></div>
-<div class="field"><label>No-show 率（%）</label><input id="p_ns" type="number" min="0" value="3"></div>
-<div class="field"><label>超售硬上限（% 总房量）</label><input id="p_cap" type="number" min="0" value="8"></div>
 </div>
 <div class="actions">
 <button class="btn-go" onclick="calcProt()">演算</button>
 <button class="btn-reset" onclick="applyScen(cur)">回到情景</button>
+<button class="btn-copy" onclick="copyOut('p_out')">复制结果</button>
 </div>
-<div class="warn" id="p_warn">客源在手不能超过总房量，比率需为非负。</div>
+<div class="warn" id="p_warn">客源在手不能超过总房量。</div>
 <div class="out" id="p_out">
 <div class="row"><span class="k">高价值剩余需求<i>＝ max（0，预测 − 在手）</i></span><span class="v" id="p_rem"></span></div>
 <div class="row hot"><span class="k">建议保护位 PL<i>＝ 高价值剩余需求 ← 系统推算</i></span><span class="v" id="p_pl"></span></div>
 <div class="row"><span class="k">可开放给低价值<i>＝ N − 高价值在手 − PL</i></span><span class="v" id="p_open"></span></div>
-<div class="row"><span class="k">预计到店流失<i>＝ N ×（取消率 ＋ No-show 率）</i></span><span class="v" id="p_loss"></span></div>
-<div class="row"><span class="k">建议超售额度<i>＝ min（流失，N × 硬上限）</i></span><span class="v" id="p_osn"></span></div>
 <div class="verdict neu" id="p_v">—</div>
 </div>
-<div class="formula">判定：保护位至少顶住高价值剩余需求；超售仅用于对冲取消与 No-show，过硬上限即停——宁可少一间，不做到店无房。</div>
+<div class="formula">判定：保护位至少顶住高价值剩余需求；超售另见推演四，仅用于对冲取消与 No-show，过硬上限即停——宁可少一间，不做到店无房。</div>
+</section>
+
+<!-- 推演四：超额预订 -->
+<section class="card">
+<h2><span class="tag">推演四</span>超额预订测算</h2>
+<div class="decision"><b>决策方法：</b>建议超售 ≈ MIN（（No-show + 取消）× 预订量 × 风险偏好，房量 × 硬上限）；比较 Walk 成本与拒绝超售的空房损失定档。</div>
+<div class="note">对应「超售」等章。满房日还能多接多少预订：用历史未到店 + 取消的余量填补空房，同时控制被 Walk 的风险与成本。
+超售量基于<b>已售预订量</b>推算，不是总房量——没人订过的日子没有回填余量。</div>
+<div class="sec-l">基本盘（预订结构与风险参数）</div>
+<div class="grid">
+<div class="field"><label>可售房数 R（间）</label><input id="o_r" type="number" min="0" value="300"></div>
+<div class="field"><label>当前已售房晚 S（间夜）</label><input id="o_s" type="number" min="0" value="270"></div>
+<div class="field"><label>历史 No-show 率（%）</label><input id="o_ns" type="number" min="0" value="4"></div>
+<div class="field"><label>历史取消率（%）</label><input id="o_cx" type="number" min="0" value="6"></div>
+<div class="field"><label>每间 Walk 成本（元）</label><input id="o_walk" type="number" min="0" value="400"></div>
+<div class="field"><label>平均房价 ADR（元）</label><input id="o_adr" type="number" min="0" value="620"></div>
+<div class="field"><label>风险偏好（0.7 / 1 / 1.3）</label><input id="o_pref" type="number" min="0" step="0.1" value="1"></div>
+<div class="field"><label>超售硬上限（占房量 %）</label><input id="o_cap" type="number" min="0" value="15"></div>
+</div>
+<div class="actions">
+<button class="btn-go" onclick="calcOb()">演算</button>
+<button class="btn-reset" onclick="applyScen(cur)">回到情景</button>
+<button class="btn-copy" onclick="copyOut('o_out')">复制结果</button>
+</div>
+<div class="warn" id="o_warn">已售不能超过可售房数，风险偏好需为正。</div>
+<div class="out" id="o_out">
+<div class="row"><span class="k">预期可回填房晚<i>＝ S ×（No-show率 + 取消率）</i></span><span class="v" id="o_refill"></span></div>
+<div class="row hot"><span class="k">建议超售（标准档）<i>＝ min（回填 × 风险偏好，R × 硬上限）</i></span><span class="v" id="o_sug"></span></div>
+<div class="row"><span class="k">三档建议<i>保守 0.7 × ／ 标准 1 × ／ 激进 1.3 ×</i></span><span class="v" id="o_three"></span></div>
+<div class="row"><span class="k">预期 Walk 数<i>＝ max（0，超售 − 回填）</i></span><span class="v" id="o_walkn"></span></div>
+<div class="row"><span class="k">期望 Walk 成本<i>＝ Walk 数 × 每间 Walk 成本</i></span><span class="v" id="o_walkcost"></span></div>
+<div class="row"><span class="k">拒绝超售的空房损失<i>＝ max（0，R − S − 超售）× ADR</i></span><span class="v" id="o_empty"></span></div>
+<div class="verdict neu" id="o_v">—</div>
+</div>
+<div class="formula">判定：Walk 成本 &lt; 空房损失才值得超售；硬上限是红线，任何档位都不越过。风险偏好只是系数，红线不随偏好放大。</div>
 </section>
 
 <footer>
-本页为教学用数字资源，计算口径与书中判定表（表 G 团队置换矩阵 · 表 K 团队底线 · 表 E 超售三步法）一致；数据为脱敏模拟，不指向任何真实企业。<br>
-配套：成书版教材「实验数据表」各章 · 院校专区七件套判定表 · 模板《练习04_库存与保护位.xlsx》。
+本页为教学用数字资源，计算口径与站内在线工具箱（tools.html）及书中判定表（表 B 库存与限制条件 · 表 E 超售 · 表 G 团队置换矩阵 · 表 K 团队底线）一致；数据为脱敏模拟，不指向任何真实企业。<br>
+配套：<a href="https://hrma-city.github.io/tools.html" style="color:#1d6fb8">在线工具箱</a>（自动保存你的日常数据）· 成书版教材「实验数据表」各章 · 院校专区七件套判定表 · 模板《练习04_库存与保护位.xlsx》。
 </footer>
 </div>
 
@@ -204,21 +245,30 @@ function pct(x){return fmt(x*100,1)+'%';}
 function show(id){document.getElementById(id).classList.add('show');}
 function hide(id){document.getElementById(id).classList.remove('show');}
 function setv(id,v){document.getElementById(id).value=v;}
+function copyOut(id){
+ var t=document.getElementById(id).innerText;
+ if(navigator.clipboard&&navigator.clipboard.writeText){
+   navigator.clipboard.writeText(t).then(function(){},function(){});
+ }
+}
 
 /* 市况情景：同一家庭店，三个日子。只放基本盘，加工项全部由各推演函数现算 */
 var SCEN={
- low:{note:'<b>云璟 · 淡季周二</b>：散客需求弱（在手+预测仅 120），空房多——团队多半是纯增量，贴近变动成本也可以接。',
+ low:{note:'<b>云璟 · 淡季周二</b>：散客需求弱（在手+预测仅 120），空房多——团队多半是纯增量，贴近变动成本也可以接；超售回填量也小。',
   r:{n:300,s:120,rev:62400,vc:11400},
-  d:{n:300,th:60,tf:60,dadr:520,vc:95,gn:120,gp:480,comm:0,add:4000},
-  p:{n:300,hh0:20,hh1:80,lh:100,cx:3,ns:2,cap:8}},
+  d:{n:300,th:60,tf:60,dadr:520,vc:95,gn:120,gp:480,comm:0,fbt:80,fbg:120},
+  p:{n:300,hh0:20,hh1:80,lh:100},
+  o:{r:300,s:150,ns:3,cx:3,walk:300,adr:520,pref:1,cap:15}},
  mid:{note:'<b>云璟 · 平季周四</b>：散客需求中等（在手+预测 210，空余 90）——120 间的团队要挤掉 30 间夜散客，边际情况必须算清。',
   r:{n:300,s:204,rev:126480,vc:19380},
-  d:{n:300,th:90,tf:120,dadr:620,vc:95,gn:120,gp:480,comm:0,add:4000},
-  p:{n:300,hh0:40,hh1:130,lh:150,cx:5,ns:3,cap:8}},
- high:{note:'<b>云璟 · 旺季周六</b>：散客需求 330 超过 300 间房——接 120 间团队就要挤掉 120 间夜高价散客，同一份报价结论反转。',
+  d:{n:300,th:90,tf:120,dadr:620,vc:95,gn:120,gp:480,comm:0,fbt:80,fbg:120},
+  p:{n:300,hh0:40,hh1:130,lh:150},
+  o:{r:300,s:270,ns:4,cx:6,walk:400,adr:620,pref:1,cap:15}},
+ high:{note:'<b>云璟 · 旺季周六</b>：散客需求 330 超过 300 间房——接 120 间团队就要挤掉 120 间夜高价散客，同一份报价结论反转；满房日超售也最有得算。',
   r:{n:300,s:294,rev:229320,vc:27930},
-  d:{n:300,th:180,tf:150,dadr:780,vc:95,gn:120,gp:480,comm:0,add:4000},
-  p:{n:300,hh0:90,hh1:200,lh:180,cx:4,ns:2,cap:8}}
+  d:{n:300,th:180,tf:150,dadr:780,vc:95,gn:120,gp:480,comm:0,fbt:80,fbg:120},
+  p:{n:300,hh0:90,hh1:200,lh:180},
+  o:{r:300,s:300,ns:5,cx:8,walk:500,adr:780,pref:1,cap:15}}
 };
 var cur='mid';
 function applyScen(s){
@@ -227,10 +277,11 @@ function applyScen(s){
  document.querySelectorAll('.scen-b').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-s')===s);});
  document.getElementById('scen_note').innerHTML=c.note;
  ['n','s','rev','vc'].forEach(function(k){setv('r_'+k,c.r[k]);});
- ['n','th','tf','dadr','vc','gn','gp','comm','add'].forEach(function(k){setv('d_'+k,c.d[k]);});
- ['n','hh0','hh1','lh','cx','ns','cap'].forEach(function(k){setv('p_'+k,c.p[k]);});
- hide('r_out');hide('r_warn');hide('d_out');hide('d_warn');hide('p_out');hide('p_warn');
- calcRev();calcDisp();calcProt();
+ ['n','th','tf','dadr','vc','gn','gp','comm','fbt','fbg'].forEach(function(k){setv('d_'+k,c.d[k]);});
+ ['n','hh0','hh1','lh'].forEach(function(k){setv('p_'+k,c.p[k]);});
+ ['r','s','ns','cx','walk','adr','pref','cap'].forEach(function(k){setv('o_'+k,c.o[k]);});
+ hide('r_out');hide('r_warn');hide('d_out');hide('d_warn');hide('p_out');hide('p_warn');hide('o_out');hide('o_warn');
+ calcRev();calcDisp();calcProt();calcOb();
 }
 
 /* 推演一：RevPAR（基本盘 N/S/R/VC → 系统算三率） */
@@ -245,48 +296,47 @@ function calcRev(){
  else{document.getElementById('r_goppar').textContent='—（未填变动成本）';}
 }
 
-/* 推演二：置换（被置换间夜 DN 由系统从在手/预测推算，不由用户填） */
+/* 推演二：置换分析（被挤掉散客房晚 DN 由系统从在手/预测推算，不由用户填；口径对齐工具箱：含餐饮贡献） */
 function calcDisp(){
  var N=num('d_n'),TH=num('d_th'),TF=num('d_tf'),DADR=num('d_dadr'),VC=num('d_vc'),
-     GN=num('d_gn'),GP=num('d_gp'),COMM=num('d_comm'),ADD=num('d_add');
- if(!(N>0)||TH<0||TF<0||GN<0||TH>N){show('d_warn');hide('d_out');return;}
+     GN=num('d_gn'),GP=num('d_gp'),COMM=num('d_comm'),FBT=num('d_fbt'),FBG=num('d_fbg');
+ if(!(N>0)||TH<0||TF<0||!(GN>0)||TH>N){show('d_warn');hide('d_out');return;}
  hide('d_warn');show('d_out');
- var T=Math.min(N,TH+TF), spare=N-T, free=Math.min(GN,spare), DN=GN-free;
- var ngp=GP*(1-(isFinite(COMM)?COMM:0)/100);
- var tc=(ngp-VC)*GN+(isFinite(ADD)?ADD:0);
- var dc=(DADR-VC)*DN, net=tc-dc;
- var floorNet=GN>0?((dc-(isFinite(ADD)?ADD:0))/GN+VC):NaN;
- var commRate=(isFinite(COMM)?COMM:0)/100;
- var floorGross=floorNet/(1-commRate);
+ var comm=isFinite(COMM)?COMM:0, fbt=isFinite(FBT)?FBT:0, fbg=isFinite(FBG)?FBG:0;
+ var T=Math.min(N,TH+TF), spare=N-T, DN=Math.max(0,T-(N-GN));
+ var Ct=(DADR-VC)+fbt;                       /* 散客边际贡献/间夜 */
+ var Cg=(GP*(1-comm/100)-VC)+fbg;            /* 团队边际贡献/间夜 */
+ var grpTot=GN*Cg, transLoss=DN*Ct, net=grpTot-transLoss;
+ var minG=VC-fbg+(DN/GN)*Ct;                 /* 团队盈亏平衡最低价（净价口径） */
+ var minGross=minG/(1-comm/100);
  document.getElementById('d_t').textContent=T+' 间夜';
  document.getElementById('d_spare').textContent=spare+' 间夜';
- document.getElementById('d_free').textContent=free+' 间夜';
  document.getElementById('d_dn').textContent=DN+' 间夜';
- document.getElementById('d_netgp').textContent='¥'+fmt(ngp,1);
- document.getElementById('d_tc').textContent='¥'+fmt(tc,0);
- document.getElementById('d_dc').textContent='¥'+fmt(dc,0);
+ document.getElementById('d_ct').textContent='¥'+fmt(Ct,1);
+ document.getElementById('d_cg').textContent='¥'+fmt(Cg,1);
+ document.getElementById('d_tc').textContent='¥'+fmt(grpTot,0);
+ document.getElementById('d_dc').textContent='¥'+fmt(transLoss,0);
  document.getElementById('d_net').textContent=(net>=0?'+':'-')+'¥'+fmt(Math.abs(net),0);
- document.getElementById('d_floor').textContent='¥'+fmt(floorNet,1)+'（对应毛价 ¥'+fmt(floorGross,1)+'）';
+ if(DN===0){
+   document.getElementById('d_floor').textContent='无置换：贴近变动成本即可';
+ }else{
+   document.getElementById('d_floor').textContent='¥'+fmt(minG,1)+'（对应毛价 ¥'+fmt(minGross,1)+'）';
+ }
  var v=document.getElementById('d_v');
- if(DN===0&&net>=0){v.className='verdict ok';v.textContent='建议接团：不挤掉任何散客，纯增量';}
- else if(net>=0){v.className='verdict ok';v.textContent='建议接团：总贡献盖过置换成本（净增 '+fmt(net,0)+' 元）';}
- else{v.className='verdict no';v.textContent='不建议接团：置换成本超过团队贡献。报价低于 ¥'+fmt(floorGross,1)+'/间夜（毛价）就不接，先还价或砍间数';}
+ if(DN===0&&net>=0){v.className='verdict ok';v.textContent='接受团队 ✓：不挤掉任何散客，纯增量（净贡献 '+fmt(net,0)+' 元）';}
+ else if(net>=0){v.className='verdict ok';v.textContent='接受团队 ✓：净贡献为正（+'+fmt(net,0)+' 元）';}
+ else{v.className='verdict no';v.textContent='拒绝团队 ✗：净贡献为负。报价低于 ¥'+fmt(minGross,1)+'/间夜（毛价）就不接，先还价或砍间数';}
 }
 
-/* 推演三：保护位与超售（PL、开放量、超售额度均由系统推算） */
+/* 推演三：保护位（PL、开放量由系统推算） */
 function calcProt(){
- var N=num('p_n'),HH0=num('p_hh0'),HH1=num('p_hh1'),LH=num('p_lh'),
-     CX=num('p_cx'),NS=num('p_ns'),CAP=num('p_cap');
- if(!(N>0)||HH0<0||HH0>N||!(CX>=0)||!(NS>=0)||!(CAP>=0)){show('p_warn');hide('p_out');return;}
+ var N=num('p_n'),HH0=num('p_hh0'),HH1=num('p_hh1'),LH=num('p_lh');
+ if(!(N>0)||HH0<0||HH0>N){show('p_warn');hide('p_out');return;}
  hide('p_warn');show('p_out');
  var rem=Math.max(0,HH1-HH0), pl=rem, open=Math.max(0,N-HH0-pl);
- var lossRate=(CX+NS)/100, loss=N*lossRate;
- var osn=Math.min(Math.round(loss),Math.round(N*CAP/100));
  document.getElementById('p_rem').textContent=rem+' 间夜';
  document.getElementById('p_pl').textContent=pl+' 间夜';
  document.getElementById('p_open').textContent=open+' 间夜';
- document.getElementById('p_loss').textContent=fmt(loss,1)+' 间夜';
- document.getElementById('p_osn').textContent=osn+' 间';
  var v=document.getElementById('p_v');
  if(HH1>=N){v.className='verdict neu';v.textContent='高价值需求即满房量：保护位顶满，低价值基本无房可放';}
  else if(LH>open){v.className='verdict no';v.textContent='低价值预测 '+fmt(LH,0)+' 超出开放量 '+open+'：缺房时段优先保高价值，低价值需求会被拒绝';}
@@ -294,10 +344,38 @@ function calcProt(){
  else{v.className='verdict ok';v.textContent='开放量与低价值需求基本持平：按 '+pl+' 间夜保护位执行';}
 }
 
+/* 推演四：超额预订（口径对齐工具箱：预订量基数 + Walk 成本 + 风险偏好 + 硬上限） */
+function calcOb(){
+ var R=num('o_r'),S=num('o_s'),NS=num('o_ns'),CX=num('o_cx'),
+     WALK=num('o_walk'),ADR=num('o_adr'),PREF=num('o_pref'),CAP=num('o_cap');
+ if(!(R>0)||!(S>=0)||S>R||!(PREF>0)){show('o_warn');hide('o_out');return;}
+ hide('o_warn');show('o_out');
+ var ns=isFinite(NS)?NS:0, cx=isFinite(CX)?CX:0, walk=isFinite(WALK)?WALK:0,
+     adr=isFinite(ADR)?ADR:0, cap=isFinite(CAP)?CAP:0, pref=PREF;
+ var refill=S*(ns+cx)/100;                    /* 预期可回填房晚 */
+ var capN=R*cap/100;                          /* 硬上限间数 */
+ var sug=Math.min(refill*pref, capN);         /* 建议超售（标准档） */
+ var walkN=Math.max(0, sug-refill);           /* 预期 Walk 数 */
+ var walkCost=walkN*walk;
+ var emptyLoss=Math.max(0, R-S-sug)*adr;      /* 拒绝超售的空房损失 */
+ var three='保守 '+fmt(Math.min(refill*0.7,capN),0)+' / 标准 '+fmt(sug,0)+' / 激进 '+fmt(Math.min(refill*1.3,capN),0);
+ document.getElementById('o_refill').textContent=fmt(refill,1)+' 间夜';
+ document.getElementById('o_sug').textContent=fmt(sug,0)+' 间';
+ document.getElementById('o_three').textContent=three;
+ document.getElementById('o_walkn').textContent=fmt(walkN,0)+' 人';
+ document.getElementById('o_walkcost').textContent='¥'+fmt(walkCost,0);
+ document.getElementById('o_empty').textContent='¥'+fmt(emptyLoss,0);
+ var v=document.getElementById('o_v');
+ if(walkN===0){v.className='verdict ok';v.textContent='建议按标准档超售 ✓ 无 Walk 风险';}
+ else if(walkCost<emptyLoss){v.className='verdict ok';v.textContent='建议超售 ✓ 收益更大（Walk 成本 < 空房损失）';}
+ else{v.className='verdict no';v.textContent='谨慎：可降低超售档 ✗ Walk 成本偏高';}
+}
+
 /* 实时演算：输入即出 */
 ['r_n','r_s','r_rev','r_vc'].forEach(function(i){document.getElementById(i).addEventListener('input',calcRev);});
-['d_n','d_th','d_tf','d_dadr','d_vc','d_gn','d_gp','d_comm','d_add'].forEach(function(i){document.getElementById(i).addEventListener('input',calcDisp);});
-['p_n','p_hh0','p_hh1','p_lh','p_cx','p_ns','p_cap'].forEach(function(i){document.getElementById(i).addEventListener('input',calcProt);});
+['d_n','d_th','d_tf','d_dadr','d_vc','d_gn','d_gp','d_comm','d_fbt','d_fbg'].forEach(function(i){document.getElementById(i).addEventListener('input',calcDisp);});
+['p_n','p_hh0','p_hh1','p_lh'].forEach(function(i){document.getElementById(i).addEventListener('input',calcProt);});
+['o_r','o_s','o_ns','o_cx','o_walk','o_adr','o_pref','o_cap'].forEach(function(i){document.getElementById(i).addEventListener('input',calcOb);});
 /* 首屏默认情景：平季周四 */
 applyScen('mid');
 </script>
