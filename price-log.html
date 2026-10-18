@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>调价台账练习器 · 会留痕训练 · HRMA</title>
+<style>
+:root{--navy:#1f3a5f;--ink:#1a1a1a;--ink2:#555;--line:#e3e3e3;--bg:#f6f7f9;--ok:#2e7d32;--warn:#ef6c00}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.65}
+.wrap{max-width:880px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:23px;color:var(--navy);margin:0 0 6px}
+.sub{color:var(--ink2);font-size:14px;margin:0 0 16px}
+.note{background:#eef3f8;border-left:4px solid var(--navy);padding:11px 14px;border-radius:6px;font-size:13.5px;margin:0 0 18px}
+.note b{color:var(--navy)}
+form{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;margin:0 0 18px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 14px}
+.fld{display:flex;flex-direction:column;font-size:13px}
+.fld label{color:var(--ink2);margin-bottom:3px}
+.fld input,.fld select,.fld textarea{font-size:14px;padding:7px 9px;border:1px solid var(--line);border-radius:7px;font-family:inherit}
+.fld.full{grid-column:1/-1}
+.fld textarea{resize:vertical;min-height:46px}
+.req{color:#c0392b}
+.bar{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
+button{font-size:14px;border:none;border-radius:8px;padding:9px 16px;cursor:pointer;font-family:inherit}
+.btn-add{background:var(--navy);color:#fff}
+.btn-add:hover{background:#16304f}
+.btn-export{background:#fff;color:var(--navy);border:1px solid var(--navy)}
+.count{font-size:13px;color:var(--ink2)}
+.list{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.list .row{border-bottom:1px solid var(--line);padding:10px 14px;font-size:13.5px}
+.list .row:last-child{border-bottom:none}
+.list .row .meta{color:var(--ink2);font-size:12.5px;margin-bottom:3px}
+.list .row .why{color:var(--ink)}
+.list .row .del{float:right;color:#c0392b;background:none;border:none;font-size:12.5px;cursor:pointer;padding:2px 4px}
+.empty{color:var(--ink2);font-size:14px;padding:20px;text-align:center}
+.foot{margin-top:26px;font-size:13px;color:var(--ink2);border-top:1px solid var(--line);padding-top:12px}
+.foot a{color:var(--navy)}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.wrap{padding:16px 12px 60px}}
+</style></head><body>
+<div class="wrap">
+<h1>调价台账练习器</h1>
+<p class="sub">岗位胜任「会留痕」匹配素材 · 每次调价都按 13 个必填字段记一笔，存本机、可导出。练的是「留痕纪律」，不是算对一笔账。</p>
+<div class="note">
+<b>为什么需要它。</b> 收益岗位最容易翻车的不是算错，而是「调了价却说不清为什么、凭什么、影响了多少」。行业里这张《调价台账》有 13 个必填字段，审计、复盘、交接都靠它。
+本工具纯本地存储（localStorage），不上传，关掉浏览器仍在；可一键导出 JSON 交作业或留档。
+</div>
+
+<form id="f">
+  <div class="grid">
+    <div class="fld"><label>① 日期时间 <span class="req">*</span></label><input id="ts" type="datetime-local" required></div>
+    <div class="fld"><label>② 操作人 <span class="req">*</span></label><input id="who" placeholder="如：张明" required></div>
+    <div class="fld"><label>③ 渠道 <span class="req">*</span></label>
+      <select id="ch"><option>PMS</option><option>RMS</option><option>OTA</option><option>会员直订</option><option>协议</option><option>前台</option><option>团队</option></select></div>
+    <div class="fld"><label>④ 房型 <span class="req">*</span></label><input id="rt" placeholder="高级/豪华/行政/套房" required></div>
+    <div class="fld"><label>⑤ 原价（元）</label><input id="old" type="number" placeholder="620"></div>
+    <div class="fld"><label>⑥ 新价（元）</label><input id="new" type="number" placeholder="640"></div>
+    <div class="fld"><label>⑦ 调整方向</label>
+      <select id="dir"><option>涨</option><option>降</option><option>不变</option></select></div>
+    <div class="fld"><label>⑧ 调整原因</label>
+      <select id="why"><option>竞品异动</option><option>出租率信号</option><option>活动/事件日</option><option>库存保护</option><option>接团队/会议</option><option>成本/底线</option><option>其他</option></select></div>
+    <div class="fld"><label>⑨ 触发依据（查哪张表/什么数）</label><input id="ref" placeholder="如表A OCC82% / 竞品B 700"></div>
+    <div class="fld"><label>⑩ 预期影响（间夜/收入）</label><input id="exp" placeholder="如：+8 间夜 / +1600 元"></div>
+    <div class="fld"><label>⑪ 审批人</label><input id="appr" placeholder="店总/收益总监"></div>
+    <div class="fld"><label>⑫ 实际结果（事后回填）</label><input id="act" placeholder="如：实售 +6 间夜"></div>
+    <div class="fld full"><label>⑬ 备注</label><textarea id="note" placeholder="特殊说明、例外处理等"></textarea></div>
+  </div>
+  <div class="bar">
+    <button type="submit" class="btn-add">记一笔</button>
+    <button type="button" class="btn-export" id="expBtn">导出 JSON</button>
+    <span class="count" id="cnt">已记 0 笔</span>
+  </div>
+</form>
+
+<div class="list" id="list"><div class="empty">还没有记录。先在上面记一笔，体会「留痕」的字段纪律。</div></div>
+
+<div class="foot">
+<p><b>配套：</b> <a href="codex.html">操作法典（15 张判定表）</a> · <a href="revenue-sandbox.html">云璟收益沙盘</a>（会算账） · <a href="rm-sop.html">收益经理工作 SOP</a>（能带会） · <a href="onepager-logic.html">一页纸方法论</a>（能汇报） · <a href="flow-quest.html">流程闯关</a>（闯关） · <a href="daily-drill.html">每日一问</a>（打卡）。</p>
+<p>云璟练手口径：杭州滨江 300 间，基准 OCC 68% / ADR 620 / RevPAR 422 / 单间变动成本 95；竞品挂牌 ADR A880 B680 C560 D720 E520。</p>
+</div>
+</div>
+<script>
+var KEY='hrma_pricelog_v1';
+var f=document.getElementById('f'), list=document.getElementById('list'), cnt=document.getElementById('cnt');
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return[];}}
+function save(a){localStorage.setItem(KEY,JSON.stringify(a));}
+function esc(s){return (s||'').replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function render(){
+  var a=load();cnt.textContent='已记 '+a.length+' 笔';
+  if(!a.length){list.innerHTML='<div class="empty">还没有记录。先在上面记一笔，体会「留痕」的字段纪律。</div>';return;}
+  list.innerHTML=a.slice().reverse().map(function(r,i){
+    var real=a.length-1-i;
+    return '<div class="row"><button class="del" data-i="'+real+'">删除</button>'+
+      '<div class="meta">'+esc(r.ts)+' · '+esc(r.who)+' · '+esc(r.ch)+' · '+esc(r.rt)+' · '+esc(r.dir)+
+      ' · '+esc(r.old)+'→'+esc(r.new)+' 元</div>'+
+      '<div class="why">原因：'+esc(r.why)+'（'+esc(r.ref)+'）｜预期：'+esc(r.exp)+'｜审批：'+esc(r.appr)+'｜实际：'+esc(r.act)+
+      (r.note?'｜备注：'+esc(r.note):'')+'</div></div>';
+  }).join('');
+  list.querySelectorAll('.del').forEach(function(b){b.onclick=function(){var a=load();a.splice(+b.dataset.i,1);save(a);render();};});
+}
+f.onsubmit=function(e){
+  e.preventDefault();
+  var r={ts:document.getElementById('ts').value,who:document.getElementById('who').value,ch:document.getElementById('ch').value,
+    rt:document.getElementById('rt').value,old:document.getElementById('old').value,new:document.getElementById('new').value,
+    dir:document.getElementById('dir').value,why:document.getElementById('why').value,ref:document.getElementById('ref').value,
+    exp:document.getElementById('exp').value,appr:document.getElementById('appr').value,act:document.getElementById('act').value,
+    note:document.getElementById('note').value};
+  var a=load();a.push(r);save(a);render();f.reset();
+  // 重置后补回默认时间
+  document.getElementById('ts').value=new Date().toISOString().slice(0,16);
+};
+document.getElementById('expBtn').onclick=function(){
+  var a=load();var blob=new Blob([JSON.stringify(a,null,2)],{type:'application/json'});
+  var u=URL.createObjectURL(blob);var x=document.createElement('a');x.href=u;x.download='调价台账练习.json';x.click();URL.revokeObjectURL(u);
+};
+// 初始默认时间
+document.getElementById('ts').value=new Date().toISOString().slice(0,16);
+render();
+</script>
+</body></html>

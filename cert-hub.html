@@ -2,7 +2,6 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <script>window.HRMA_PREFIX="";</script>
 <script src="auth-config.js?v=gate20261013"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
@@ -58,7 +57,7 @@
   @media print{.noprint{display:none}body{padding:0}}
 </style>
 </head>
-<body>
+<body data-auth="public">
 <header class="site-nav"><div class="sn-inner">
   <a class="sn-logo" href="index.html"><span class="gem">收</span><span>RMC收益管理社区</span></a>
   <nav class="sn-links" id="snLinks"></nav>
@@ -163,11 +162,11 @@
       p: fN? Math.min(100, Math.round(fBest/300*100)) : 0,
       d: fN? ("平均 " + fAvg + " 分。满分 300，达到 240 分说明流程判定已相当熟练。") :
              "教学模式不计分；用<b>挑战模式</b>完整做一套 30 关以上才会有记录。",
-      go:"games/flow-quest.html", goT:"去闯关 →" },
+      go:"flow-quest.html", goT:"去闯关 →" },
     { t:"10 天打卡", n:(dakaN? ("已打卡 " + dakaN + " / 10 天，连续 " + dakaStreak + " 天") : "还没开始"),
       p: Math.round(dakaN/10*100),
       d: dakaN===10? "10 天全部完成。" : (dakaN? ("继续坚持，连续天数 " + dakaStreak + "。") : "每天 3 关，约 5 分钟。"),
-      go:"games/flow-quest.html", goT:"去打卡 →" },
+      go:"flow-quest.html", goT:"去打卡 →" },
     { t:"47 题案例自测", n:(cdN? ("完成 " + cdN + " 组" + (cN? ("，最佳 " + cBest + " 分") : "")) : "还没有练习记录"),
       p: cdN? Math.min(100, Math.round(cdN/5*100)) : 0,
       d: cdN? (cN? ("挑战模式最佳 " + cBest + " 分。") : "教学模式不计分；切到挑战模式可记录成绩。") :
@@ -226,7 +225,7 @@
     { k:"会留痕", lv:"独立当值", d:"每次调价有依据、有记录、有复盘——三个月后回看得懂自己。",
       ok: dakaN>=5 && (fw.length+cw.length)<=5,
       t:"10 天打卡完成 5 天以上，错题本剩 5 题以内（当前 " + dakaN + " 天 / " + (fw.length+cw.length) + " 题）",
-      go:"games/flow-quest.html", goT:"去打卡 →" },
+      go:"price-log.html", goT:"练台账 →" },
     { k:"能带会", lv:"带团队", d:"能主持收益例会，按 SOP 把销售、前厅、预订部的动作排下去。",
       ok: dakaN>=10 && fBest>=240,
       t:"打卡全部完成 + 流程闯关 ≥ 240 分（当前 " + dakaN + " 天 / " + fBest + " 分）",
