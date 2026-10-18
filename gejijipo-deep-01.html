@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>各个击破 · 深读系列 第1册《置换分析》 | RMC收益管理社区</title>
+<style>
+:root{
+  --ink:#1f1f1f; --soft:#555; --line:#d9d2c4; --accent:#8a1f1f; --paper:#fbf8f1;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:"Songti SC","STSong","SimSun","Noto Serif CJK SC","Source Han Serif SC",serif;
+  color:var(--ink); background:#e9e4d8; line-height:1.85; font-size:15.5px;
+}
+/* 顶部常驻导航：屏幕可见，打印隐藏 */
+.topnav{
+  position:sticky; top:0; z-index:20; display:flex; justify-content:space-between;
+  align-items:center; gap:10px; background:#2a1414; color:#f3e9d6;
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  font-size:13px; padding:9px 16px; letter-spacing:.4px;
+}
+.topnav a{color:#ffe9a8; text-decoration:none; white-space:nowrap;}
+.topnav a:hover{text-decoration:underline;}
+.topnav .t{color:#f3e9d6; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.topnav .hint{color:#e7c98f; font-size:12px;}
+.page{
+  max-width:780px; margin:22px auto; background:var(--paper);
+  padding:46px 52px; box-shadow:0 4px 22px rgba(0,0,0,.18); border-radius:3px;
+}
+.cover{
+  min-height:74vh; display:flex; flex-direction:column; justify-content:center;
+  align-items:center; text-align:center; border:1px solid var(--line); padding:40px 24px;
+  border-radius:4px; background:linear-gradient(160deg,#fbf8f1,#f3ecdd);
+}
+.cover .emblem{width:150px; height:150px; margin-bottom:18px;}
+.cover .series{font-family:-apple-system,"PingFang SC",sans-serif; color:var(--accent);
+  letter-spacing:6px; font-size:14px; margin-bottom:20px;}
+.cover .bookno{font-family:-apple-system,"PingFang SC",sans-serif; color:var(--soft);
+  letter-spacing:3px; font-size:13px; margin-bottom:14px;}
+.cover .booktitle{font-size:44px; margin:0 0 18px; letter-spacing:4px; color:#2a1414;}
+.cover .claim{font-size:18px; color:var(--soft); font-style:italic; margin-bottom:26px;}
+.cover .brand{font-family:-apple-system,"PingFang SC",sans-serif; font-size:13px;
+  color:#9a8f78; letter-spacing:2px;}
+/* 册内目录 */
+.intoc{background:#f3ecdd; border:1px solid var(--line); border-radius:6px;
+  padding:14px 22px; margin:16px 0 8px;}
+.intoc h2.chapter{margin:0 0 8px; border:none; padding:0; font-size:17px;}
+.intoc ol{columns:2; column-gap:26px; font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  font-size:13.5px; margin:0; padding-left:20px;}
+.intoc li{margin:4px 0;}
+.intoc a{color:#5a3a1a; text-decoration:none;}
+.intoc a:hover{color:var(--accent); text-decoration:underline;}
+h2.chapter{font-size:21px; margin:34px 0 12px; padding-bottom:6px;
+  border-bottom:2px solid var(--accent); color:#2a1414; letter-spacing:1px;}
+h3{font-size:17px; margin:22px 0 8px; color:#3a2018;}
+h4{font-size:15.5px; margin:16px 0 6px; color:var(--accent);}
+p{margin:9px 0;}
+b{color:#2a1414;}
+.tablewrap{overflow-x:auto; margin:12px 0;}
+table.case,table.summary{border-collapse:collapse; width:100%; font-size:13.5px;
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+table.case th,table.case td,table.summary th,table.summary td{
+  border:1px solid var(--line); padding:6px 9px; text-align:center;}
+table.case th,table.summary th{background:#f0e7d4; color:#5a3a1a; font-weight:600;}
+table.case td:first-child,table.summary td:first-child{text-align:left; font-weight:600;}
+.formula{background:#f3ecdd; border-left:4px solid var(--accent); padding:10px 14px;
+  margin:12px 0; font-family:"SFMono-Regular",Consolas,monospace; font-size:14px;
+  white-space:pre-wrap; line-height:1.7;}
+.critical{background:#fbeee0; border:1px dashed var(--accent); padding:9px 12px;
+  margin:10px 0; font-size:14px; border-radius:3px;}
+.note{color:var(--soft); font-size:14px;}
+.summary-cap{font-family:-apple-system,sans-serif; font-size:13px; color:var(--soft);
+  margin:6px 0 0;}
+ul,ol{margin:8px 0; padding-left:22px;}
+li{margin:5px 0;}
+.foot{margin-top:26px; padding-top:10px; border-top:1px solid var(--line);
+  font-family:-apple-system,sans-serif; font-size:12px; color:#9a8f78; text-align:center;}
+/* 底部上下册导航：屏幕可见，打印隐藏 */
+.botnav{display:flex; justify-content:space-between; gap:8px; margin-top:24px;
+  padding-top:14px; border-top:1px solid var(--line);
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; font-size:13px;}
+.botnav a{color:var(--accent); text-decoration:none; padding:7px 14px;
+  border:1px solid var(--line); border-radius:5px; background:#f3ecdd; white-space:nowrap;}
+.botnav a:hover{background:#e9dcc2;}
+.botnav .disabled{color:#b9b0a0; border-color:#e3dccd; background:#faf6ee; cursor:default;}
+.toc{font-family:-apple-system,sans-serif;}
+.toc ol{columns:2; column-gap:30px;}
+@media print{
+  @page{ size:A5 portrait; margin:15mm 13mm; }
+  body{background:#fff; font-size:11pt;}
+  /* 屏幕上才需要的导航全部隐藏，不占 PDF 篇幅 */
+  .topnav,.botnav,.screenbar{display:none;}
+  .page{box-shadow:none; margin:0; max-width:none; padding:0; border-radius:0; background:#fff;}
+  h2.chapter{break-after:avoid;}
+  h3,h4{break-after:avoid;}
+  table.case,table.summary,.formula,.critical,.case-block{break-inside:avoid;}
+  .cover{break-after:page; min-height:0; height:100%;}
+  a{color:inherit; text-decoration:none;}
+}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<div class="topnav"><a href="gejijipo-deep.html" target="_top">← 返回总目录</a><span class="t">第 1 册 · 《置换分析》</span><span class="hint">RMC收益管理社区 · 门内教学资源</span></div>
+<div class="page">
+<section class="cover" style="background:linear-gradient(160deg,#fbf8f1,#8a1f1f14);"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="封面插画"><circle cx="60" cy="60" r="46" fill="#f3ecdd" stroke="#8a1f1f" stroke-width="2"/><path d="M34 52 H78" stroke="#8a1f1f" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M70 42 L84 52 L70 62" stroke="#8a1f1f" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M86 70 H42" stroke="#8a1f1f" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M50 60 L36 70 L50 80" stroke="#8a1f1f" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="series" style="color:#8a1f1f;">酒 店 收 益 管 理 口 袋 书</div><div class="bookno">第 1 册</div><h1 class="booktitle">置换分析</h1><div class="claim">接，还是不接？算清那笔看不见的账</div><div class="brand">一册讲透一个核心概念</div></section>
+<section class="intoc"><h2 id="toc-1" class="chapter">本册目录</h2><ol><li><a href="#ch1">第一章 什么是置换分析</a></li><li><a href="#ch2">第二章 生活中的置换分析</a></li><li><a href="#ch3">第三章 酒店实操案例（9 个）</a></li><li><a href="#ch4">第四章 怎么上手做置换分析（五步法）</a></li><li><a href="#ch5">第五章 三个常见误区</a></li><li><a href="#ch6">结语</a></li><li><a href="#ch7">思考题</a></li></ol></section>
+
+<h2 id="toc-2">开篇的话</h2>
+<p>周二下午，收益经理小林收到两个请求：旅行社王总来电「有个 200 间夜的团，房价 320，要不要？」；销售总监走过来说「本月散客很旺，这几天 680 的房都快卖光了」。小林要是只看「320 × 200 = 64,000 元进账」，大概率会接。可他心里犯嘀咕：这 200 间房一旦给团，那些愿意出 680 的散客不就没房了吗？这「没卖出去的差价」，就是<b>置换分析（Displacement Analysis）</b>要算的那笔账。</p>
+
+<h2 class="chapter" id="ch1">第一章 什么是置换分析</h2>
+<h3 id="toc-3">1.1 一句话定义</h3>
+<p><b>置换分析</b>：在你决定把有限资源（客房、餐位、人手、停车场）分配给某一笔业务时，测算这笔业务<b>挤掉的其他业务能带来的利润</b>，并比较两者谁更划算。关键词只有三个：<b>资源有限、此消彼长、比大小</b>。</p>
+<h3 id="toc-4">1.2 核心思想：机会成本</h3>
+<p>经济学里有个词叫「机会成本」——你选了 A，就放弃了 B 能带来的收益。置换分析就是把机会成本<b>算成钱</b>。</p>
+<h3 id="toc-5">1.3 最容易算错的地方：把「总收入」当「利润」</h3>
+<p>新手常犯一个错：团费 6.4 万 &gt; 散客少卖的损失 0，所以接！错。因为团费 6.4 万是<b>收入</b>不是<b>利润</b>；散客少卖的也不是「损失 0」，而是「少赚了本可到手的<b>利润</b>」。置换分析比的是<b>边际贡献（利润）</b>，不是收入。</p>
+<h3 id="toc-6">1.4 核心公式</h3>
+<div class="formula">边际贡献 = 收入 − 可变成本
+置换成本 = 被置换业务的边际贡献
+接受条件：新业务的边际贡献 &gt; 置换成本</div>
+<p class="note">可变成本（VC）：随业务量直接变动的成本，如布草、一次性用品、能耗、OTA 佣金、食材。固定成本（房租、折旧）接不接都发生，<b>不参与比较</b>。记忆口诀：「看贡献，不算收；比置换，才清醒。」</p>
+
+<h2 class="chapter" id="ch2">第二章 生活中的置换分析</h2>
+<h3 id="toc-7">场景一：周末的一个下午</h3><p>你只有周六下午空闲。接私活赚 800 元就用掉整个下午；陪家人去公园心情舒畅，但本可接的 800 元私活就黄了。「陪家人」的真实成本不是 0，而是你放弃的那 800 元。快乐值超过 800 就选陪家人，否则接活。</p>
+<h3 id="toc-8">场景二：小区里的车位</h3><p>邻居出 30 元临停，表哥说「免费停一晚」。但表哥停车会占掉车位，导致你没法把车位以 50 元租给访客——「免费」的代价是 50 元。给表哥停，反而亏 20 元。</p>
+<h3 id="toc-9">场景三：奶茶店的最后一点珍珠</h3><p>珍珠只够做 10 杯。做珍珠奶茶每杯赚 6 元共 60 元；也能做 5 杯珍珠波波牛乳每杯赚 12 元共 60 元。但若波波牛乳还能叠小料多赚 3 元/杯，则 5×15=75 元 &gt; 60 元。同样一勺珍珠，给高边际贡献的产品才值。</p>
+<h3 id="toc-10">场景四：演唱会的门票</h3><p>你有一张内场票，自己去看估值 500 元。朋友出 800 元买。卖不卖？只要 800 &gt; 500 就卖——但得先把「自己看的快乐」当成成本算进去。</p>
+
+<h2 class="chapter" id="ch3">第三章 酒店实操案例（9 个）</h2>
+<p class="note">统一假设：可变成本仅含随业务变动部分；固定成本不参与比较。</p>
+
+<h3 id="toc-11">业态一：城市商务酒店</h3>
+<h4>案例 1　低价旅行团 vs 高价散客（客房）</h4>
+<table class="case"><tr><th>项目</th><th>旅行社团队</th><th>被置换散客</th></tr>
+<tr><td>量</td><td>200 间夜</td><td>150 间夜</td></tr>
+<tr><td>房价 / 可变成本</td><td>¥320 / ¥60</td><td>¥680 / ¥60</td></tr>
+<tr><td>边际贡献</td><td><b>¥52,000</b></td><td><b>¥93,000</b></td></tr></table>
+<p><b>置换成本 = ¥93,000</b>。团队贡献 ¥52,000 &lt; 置换成本 → <b>不接。</b></p>
+<p class="critical">临界值：200×(P−60) &gt; 93,000，得 <b>P &gt; ¥525</b>。除非王总把房价提到 525 以上，否则是赔本赚吆喝。</p>
+
+<h4>案例 2　长住客折扣 vs 短期高价客（客房）</h4>
+<table class="case"><tr><th>项目</th><th>长住客（30 天）</th><th>被置换散客</th></tr>
+<tr><td>量</td><td>30 间夜</td><td>30×85%≈25.5 间夜</td></tr>
+<tr><td>房价 / 可变成本</td><td>¥400 / ¥60</td><td>¥550 / ¥60</td></tr>
+<tr><td>边际贡献</td><td><b>¥10,200</b></td><td><b>¥12,495</b></td></tr></table>
+<p>长住贡献 ¥10,200 &lt; 置换成本 ¥12,495 → <b>不接，或要求提价。</b></p>
+<p class="critical">临界值：30×(P−60) &gt; 12,495 → <b>P &gt; ¥476.5</b>。长住价低于 477 就不如放给散客（稳定与省心是「非财务收益」，可单列权衡）。</p>
+
+<h4>案例 3　餐厅低价团餐 vs 散客零点（餐饮）</h4>
+<table class="case"><tr><th>项目</th><th>旅行团餐</th><th>被置换散客</th></tr>
+<tr><td>量</td><td>80 人</td><td>40 人</td></tr>
+<tr><td>人均 / 可变成本</td><td>¥80 / ¥35</td><td>¥180 / ¥65</td></tr>
+<tr><td>边际贡献</td><td><b>¥3,600</b></td><td><b>¥4,600</b></td></tr></table>
+<p>团餐贡献 ¥3,600 &lt; 置换成本 ¥4,600 → <b>不接。</b></p>
+<p class="critical">临界值：80×(P−35) &gt; 4,600 → <b>P &gt; ¥92.5</b>。团餐人均低于 93 元就不如留位给零点。</p>
+
+<h3 id="toc-12">业态二：度假酒店</h3>
+<h4>案例 4　旅行团包房 vs 自由行亲子客（客房）</h4>
+<table class="case"><tr><th>项目</th><th>旅行团</th><th>被置换自由行客</th></tr>
+<tr><td>量</td><td>150 间夜</td><td>120 间夜</td></tr>
+<tr><td>房价 / 可变成本</td><td>¥480 / ¥90</td><td>¥880 / ¥90</td></tr>
+<tr><td>边际贡献</td><td><b>¥58,500</b></td><td><b>¥94,800</b></td></tr></table>
+<p>团贡献 ¥58,500 &lt; 置换成本 ¥94,800 → <b>不接。</b></p>
+<p class="critical">临界值：150×(P−90) &gt; 94,800 → <b>P &gt; ¥722</b>。度假酒店自由行客溢价极高，低价团几乎永远接亏。</p>
+
+<h4>案例 5　婚礼宴会 vs 高端散客（餐饮）✅ 接的案例</h4>
+<table class="case"><tr><th>项目</th><th>婚礼宴席</th><th>被置换高端散客</th></tr>
+<tr><td>量</td><td>15 桌</td><td>50 人</td></tr>
+<tr><td>单价 / 可变成本</td><td>¥2,800/桌 / ¥1,300</td><td>¥580/人 / ¥210</td></tr>
+<tr><td>边际贡献</td><td><b>¥22,500</b></td><td><b>¥18,500</b></td></tr></table>
+<p>婚礼贡献 ¥22,500 &gt; 置换成本 ¥18,500 → <b>接。✅</b></p>
+<p class="critical">临界值：15×(P−1,300) &gt; 18,500 → <b>P &gt; ¥2,533</b>。桌价高于 2,533 就稳赚。这是「该接」的典型。</p>
+
+<h4>案例 6　会员免费房券兑换 vs 付费预订（客房）</h4>
+<table class="case"><tr><th>项目</th><th>会员免费兑换</th><th>被置换付费客</th></tr>
+<tr><td>量</td><td>1 间夜</td><td>1 间夜</td></tr>
+<tr><td>房价 / 可变成本</td><td>¥0 / ¥90</td><td>¥760 / ¥90</td></tr>
+<tr><td>边际贡献</td><td><b>−¥90</b></td><td><b>¥670</b></td></tr></table>
+<p>免费房贡献 −¥90，置换成本 ¥670 → <b>旺季/高峰绝不兑。</b></p>
+<p class="note">免费房是<b>会员营销投入</b>，不能纯按 RM 算。正确做法：设<b>出租率门槛</b>（如预测 &lt; 60% 才允许兑换），把免费房当作淡季填充的营销成本，而非高峰期让利。</p>
+
+<h3 id="toc-13">业态三：机场 / 中转酒店</h3>
+<h4>案例 7　航空机组协议价 vs 延误散客高价（客房）</h4>
+<table class="case"><tr><th>项目</th><th>航空机组</th><th>被置换延误散客</th></tr>
+<tr><td>量</td><td>20 间</td><td>25 间</td></tr>
+<tr><td>房价 / 可变成本</td><td>¥350 / ¥55</td><td>¥620 / ¥55</td></tr>
+<tr><td>边际贡献</td><td><b>¥5,900</b></td><td><b>¥14,125</b></td></tr></table>
+<p>单日看，机组贡献 ¥5,900 &lt; 置换成本 ¥14,125 → <b>单日不接。</b>但机组是<b>全年稳定协议量</b>，延误散客「看天吃饭」。应把机组当「保底量」，用<b>全年期望</b>而非单日比大小。本例提示：置换分析要加「稳定性维度」。</p>
+
+<h4>案例 8　OTA 低价预售 vs 当日高价 walk-in（客房）</h4>
+<table class="case"><tr><th>项目</th><th>OTA 预售</th><th>被置换 walk-in</th></tr>
+<tr><td>量</td><td>50 间</td><td>45 间</td></tr>
+<tr><td>房价 / 可变成本</td><td>¥380 / ¥112（佣金15%+¥55）</td><td>¥650 / ¥55</td></tr>
+<tr><td>边际贡献</td><td><b>¥13,400</b></td><td><b>¥26,775</b></td></tr></table>
+<p>预售贡献 ¥13,400 &lt; 置换成本 ¥26,775 → <b>不预售后打折。</b></p>
+<p class="critical">临界值：50×(0.85P−55) &gt; 26,775 → <b>P &gt; ¥695</b>。预售要卖到 695 才值，几乎等于 walk-in 价——别为「确定性」把价格打穿。预售只在预测出租率偏低时启用。</p>
+
+<h4>案例 9　「停车+房」套餐 vs 单纯客房（客房+空间）</h4>
+<table class="case"><tr><th>项目</th><th>停车+房套餐</th><th>被置换单纯客房</th></tr>
+<tr><td>量</td><td>30 间</td><td>35 间</td></tr>
+<tr><td>房价 / 可变成本</td><td>¥420 / ¥100（房¥60+停车机会成本¥40）</td><td>¥560 / ¥60</td></tr>
+<tr><td>边际贡献</td><td><b>¥9,600</b></td><td><b>¥17,500</b></td></tr></table>
+<p>套餐贡献 ¥9,600 &lt; 置换成本 ¥17,500 → <b>不接（除非拉新）。</b></p>
+<p class="critical">临界值：30×(P−100) &gt; 17,500 → <b>P &gt; ¥683</b>。套餐价低于 683 不划算；若目的是获取新客群，把「拉新价值」单列再决定。</p>
+
+<h3 id="toc-14">本章小结</h3>
+<table class="summary"><tr><th>案例</th><th>业态</th><th>场景</th><th>结论</th></tr>
+<tr><td>1</td><td>商务</td><td>团 vs 散客</td><td>不接（临界¥525）</td></tr>
+<tr><td>2</td><td>商务</td><td>长住 vs 短住</td><td>不接（临界¥477）</td></tr>
+<tr><td>3</td><td>商务</td><td>团餐 vs 零点</td><td>不接（临界¥93）</td></tr>
+<tr><td>4</td><td>度假</td><td>团 vs 自由行</td><td>不接（临界¥722）</td></tr>
+<tr><td>5</td><td>度假</td><td>婚礼 vs 散客</td><td>接 ✅</td></tr>
+<tr><td>6</td><td>度假</td><td>免费房 vs 付费</td><td>高峰不兑</td></tr>
+<tr><td>7</td><td>机场</td><td>机组 vs 延误客</td><td>看全年稳定性</td></tr>
+<tr><td>8</td><td>机场</td><td>预售 vs walk-in</td><td>不预售后打折</td></tr>
+<tr><td>9</td><td>机场</td><td>套餐 vs 单房</td><td>不接（临界¥683）</td></tr></table>
+<p class="summary-cap">规律：凡「低价量」置换「高价量」，先算临界值；凡涉及稳定性/拉新/会员，把「非财务收益」单列后再比。</p>
+
+<h2 class="chapter" id="ch4">第四章 怎么上手做置换分析（五步法）</h2>
+<p><b>第 1 步 锁定稀缺资源</b>：客房？餐位？停车场/人手？一次只比一种。<br>
+<b>第 2 步 算新业务边际贡献</b>：收入 − 可变成本（含佣金、食材、能耗、机会成本）。<br>
+<b>第 3 步 估算被置换量</b>：凭历史与预测，估「若不给 A，能卖给 B 多少」。最考验经验。<br>
+<b>第 4 步 算置换成本</b> = 被置换业务边际贡献。<br>
+<b>第 5 步 比大小 + 算临界值</b>：新贡献 &gt; 置换成本则接；并算出对方出到多少才接，谈判用得上。</p>
+<div class="formula">速查模板（可抄走）
+资源：______________
+新业务：量___ 单价___ 可变成本___ → 贡献 = ______
+被置换：量___ 单价___ 可变成本___ → 置换成本 = ______
+决策：贡献 ___ 置换成本 → 接 / 不接
+临界值：新业务单价需 &gt; ______ 才接
+非财务因素（稳定性/拉新/会员）：________________</div>
+
+<h2 class="chapter" id="ch5">第五章 三个常见误区</h2>
+<p><b>误区一：只看收入，不算贡献。</b>320 的团进账多，扣成本再减被挤掉散客利润，可能净亏。永远比<b>贡献</b>。<br>
+<b>误区二：把固定成本拉进来比。</b>房租、折旧接不接都发生，放进比较只扰乱判断。置换分析只动<b>可变成本</b>。<br>
+<b>误区三：忽略「非财务收益」。</b>机组稳定、套餐拉新、免费房维系会员不是利润但是资产。正确做法：先比贡献，再把非财务收益单列权衡。</p>
+
+<h2 class="chapter" id="ch6">结语</h2>
+<p>置换分析不是教你「拒绝生意」，而是教你<b>把资源给最值钱的那笔</b>。下回有人问「这单接不接」，别急着看报价——先问自己：「我因此，把谁推走了？他值多少钱？」</p>
+
+<h2 class="chapter" id="ch7">思考题</h2>
+<ol>
+<li>你酒店昨天接了个低价会议占满 80 间房。请用五步法算算它置换掉了多少散客利润？（找历史同期散客房价与出租率。）</li>
+<li>案例 7 的机组协议，若按「全年 200 晚、每晚 20 间」重算，结论会变吗？变在哪？</li>
+<li>你酒店还有哪些「看不见的置换」正在发生？（餐位、停车场、甚至员工时间。）</li>
+</ol>
+
+<div class="foot">各个击破 · 深读系列 · 第 1 册《置换分析》 · 一册讲透一个核心概念 · RMC收益管理社区（门内教学资源）</div>
+<div class="botnav"><span class="disabled">← 上一册</span><a href="gejijipo-deep.html" target="_top">返回总目录</a><a href="gejijipo-deep-02.html">下一册 →</a></div>
+</div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">本册目录</a>
+<a href="#toc-2">开篇的话</a>
+<a href="#ch1">第一章 什么是置换分析</a>
+<a href="#toc-3" class="lv3">1.1 一句话定义</a>
+<a href="#toc-4" class="lv3">1.2 核心思想：机会成本</a>
+<a href="#toc-5" class="lv3">1.3 最容易算错的地方：把「总收入」当「利润」</a>
+<a href="#toc-6" class="lv3">1.4 核心公式</a>
+<a href="#ch2">第二章 生活中的置换分析</a>
+<a href="#toc-7" class="lv3">场景一：周末的一个下午</a>
+<a href="#toc-8" class="lv3">场景二：小区里的车位</a>
+<a href="#toc-9" class="lv3">场景三：奶茶店的最后一点珍珠</a>
+<a href="#toc-10" class="lv3">场景四：演唱会的门票</a>
+<a href="#ch3">第三章 酒店实操案例（9 个）</a>
+<a href="#toc-11" class="lv3">业态一：城市商务酒店</a>
+<a href="#toc-12" class="lv3">业态二：度假酒店</a>
+<a href="#toc-13" class="lv3">业态三：机场 / 中转酒店</a>
+<a href="#toc-14" class="lv3">本章小结</a>
+<a href="#ch4">第四章 怎么上手做置换分析（五步法）</a>
+<a href="#ch5">第五章 三个常见误区</a>
+<a href="#ch6">结语</a>
+<a href="#ch7">思考题</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
+</html>

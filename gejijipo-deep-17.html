@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>各个击破 · 深读系列 第17册《数据驱动决策》 | RMC收益管理社区</title>
+<style>
+:root{
+  --ink:#1f1f1f; --soft:#555; --line:#d9d2c4; --accent:#8a1f1f; --paper:#fbf8f1;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:"Songti SC","STSong","SimSun","Noto Serif CJK SC","Source Han Serif SC",serif;
+  color:var(--ink); background:#e9e4d8; line-height:1.85; font-size:15.5px;
+}
+/* 顶部常驻导航：屏幕可见，打印隐藏 */
+.topnav{
+  position:sticky; top:0; z-index:20; display:flex; justify-content:space-between;
+  align-items:center; gap:10px; background:#2a1414; color:#f3e9d6;
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  font-size:13px; padding:9px 16px; letter-spacing:.4px;
+}
+.topnav a{color:#ffe9a8; text-decoration:none; white-space:nowrap;}
+.topnav a:hover{text-decoration:underline;}
+.topnav .t{color:#f3e9d6; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.topnav .hint{color:#e7c98f; font-size:12px;}
+.page{
+  max-width:780px; margin:22px auto; background:var(--paper);
+  padding:46px 52px; box-shadow:0 4px 22px rgba(0,0,0,.18); border-radius:3px;
+}
+.cover{
+  min-height:74vh; display:flex; flex-direction:column; justify-content:center;
+  align-items:center; text-align:center; border:1px solid var(--line); padding:40px 24px;
+  border-radius:4px; background:linear-gradient(160deg,#fbf8f1,#f3ecdd);
+}
+.cover .emblem{width:150px; height:150px; margin-bottom:18px;}
+.cover .series{font-family:-apple-system,"PingFang SC",sans-serif; color:var(--accent);
+  letter-spacing:6px; font-size:14px; margin-bottom:20px;}
+.cover .bookno{font-family:-apple-system,"PingFang SC",sans-serif; color:var(--soft);
+  letter-spacing:3px; font-size:13px; margin-bottom:14px;}
+.cover .booktitle{font-size:44px; margin:0 0 18px; letter-spacing:4px; color:#2a1414;}
+.cover .claim{font-size:18px; color:var(--soft); font-style:italic; margin-bottom:26px;}
+.cover .brand{font-family:-apple-system,"PingFang SC",sans-serif; font-size:13px;
+  color:#9a8f78; letter-spacing:2px;}
+/* 册内目录 */
+.intoc{background:#f3ecdd; border:1px solid var(--line); border-radius:6px;
+  padding:14px 22px; margin:16px 0 8px;}
+.intoc h2.chapter{margin:0 0 8px; border:none; padding:0; font-size:17px;}
+.intoc ol{columns:2; column-gap:26px; font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  font-size:13.5px; margin:0; padding-left:20px;}
+.intoc li{margin:4px 0;}
+.intoc a{color:#5a3a1a; text-decoration:none;}
+.intoc a:hover{color:var(--accent); text-decoration:underline;}
+h2.chapter{font-size:21px; margin:34px 0 12px; padding-bottom:6px;
+  border-bottom:2px solid var(--accent); color:#2a1414; letter-spacing:1px;}
+h3{font-size:17px; margin:22px 0 8px; color:#3a2018;}
+h4{font-size:15.5px; margin:16px 0 6px; color:var(--accent);}
+p{margin:9px 0;}
+b{color:#2a1414;}
+.tablewrap{overflow-x:auto; margin:12px 0;}
+table.case,table.summary{border-collapse:collapse; width:100%; font-size:13.5px;
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+table.case th,table.case td,table.summary th,table.summary td{
+  border:1px solid var(--line); padding:6px 9px; text-align:center;}
+table.case th,table.summary th{background:#f0e7d4; color:#5a3a1a; font-weight:600;}
+table.case td:first-child,table.summary td:first-child{text-align:left; font-weight:600;}
+.formula{background:#f3ecdd; border-left:4px solid var(--accent); padding:10px 14px;
+  margin:12px 0; font-family:"SFMono-Regular",Consolas,monospace; font-size:14px;
+  white-space:pre-wrap; line-height:1.7;}
+.critical{background:#fbeee0; border:1px dashed var(--accent); padding:9px 12px;
+  margin:10px 0; font-size:14px; border-radius:3px;}
+.note{color:var(--soft); font-size:14px;}
+.summary-cap{font-family:-apple-system,sans-serif; font-size:13px; color:var(--soft);
+  margin:6px 0 0;}
+ul,ol{margin:8px 0; padding-left:22px;}
+li{margin:5px 0;}
+.foot{margin-top:26px; padding-top:10px; border-top:1px solid var(--line);
+  font-family:-apple-system,sans-serif; font-size:12px; color:#9a8f78; text-align:center;}
+/* 底部上下册导航：屏幕可见，打印隐藏 */
+.botnav{display:flex; justify-content:space-between; gap:8px; margin-top:24px;
+  padding-top:14px; border-top:1px solid var(--line);
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; font-size:13px;}
+.botnav a{color:var(--accent); text-decoration:none; padding:7px 14px;
+  border:1px solid var(--line); border-radius:5px; background:#f3ecdd; white-space:nowrap;}
+.botnav a:hover{background:#e9dcc2;}
+.botnav .disabled{color:#b9b0a0; border-color:#e3dccd; background:#faf6ee; cursor:default;}
+.toc{font-family:-apple-system,sans-serif;}
+.toc ol{columns:2; column-gap:30px;}
+@media print{
+  @page{ size:A5 portrait; margin:15mm 13mm; }
+  body{background:#fff; font-size:11pt;}
+  /* 屏幕上才需要的导航全部隐藏，不占 PDF 篇幅 */
+  .topnav,.botnav,.screenbar{display:none;}
+  .page{box-shadow:none; margin:0; max-width:none; padding:0; border-radius:0; background:#fff;}
+  h2.chapter{break-after:avoid;}
+  h3,h4{break-after:avoid;}
+  table.case,table.summary,.formula,.critical,.case-block{break-inside:avoid;}
+  .cover{break-after:page; min-height:0; height:100%;}
+  a{color:inherit; text-decoration:none;}
+}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<div class="topnav"><a href="gejijipo-deep.html" target="_top">← 返回总目录</a><span class="t">第 17 册 · 《数据驱动决策》</span><span class="hint">RMC收益管理社区 · 门内教学资源</span></div>
+<div class="page">
+<section class="cover" style="background:linear-gradient(160deg,#fbf8f1,#4f8a2f14);"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="封面插画"><circle cx="50" cy="54" r="22" fill="none" stroke="#4f8a2f" stroke-width="3"/><path d="M50 32 V26 M50 82 V76 M28 54 H22 M78 54 H72 M34 38 L30 34 M70 70 L66 66 M66 38 L70 34 M34 70 L30 66" stroke="#4f8a2f" stroke-width="3" stroke-linecap="round"/><rect x="74" y="56" width="7" height="22" fill="#4f8a2f"/><rect x="84" y="46" width="7" height="32" fill="#4f8a2f" opacity=".6"/></svg><div class="series" style="color:#4f8a2f;">酒 店 收 益 管 理 口 袋 书</div><div class="bookno">第 17 册</div><h1 class="booktitle">数据驱动决策</h1><div class="claim">让数字替你说话</div><div class="brand">一册讲透一个核心概念</div></section>
+<section class="intoc"><h2 id="toc-1" class="chapter">本册目录</h2><ol><li><a href="#ch1">第一章 什么是数据驱动决策</a></li><li><a href="#ch2">第二章 生活中的数据驱动</a></li><li><a href="#ch3">第三章 酒店实操案例（9 个）</a></li><li><a href="#ch4">第四章 上手五步法</a></li><li><a href="#ch5">第五章 三个常见误区</a></li><li><a href="#ch6">结语</a></li><li><a href="#ch7">思考题</a></li></ol></section>
+
+<h2 id="toc-2">开篇的话</h2>
+<p>「我觉得这周能满」「大概差不多吧」——收益管理最怕这两个词。从「我觉得」到「数据显示」，中间差的就是<b>数据驱动决策</b>。</p>
+
+<h2 class="chapter" id="ch1">第一章 什么是数据驱动决策</h2>
+<h3 id="toc-3">1.1 一句话定义</h3>
+<p><b>数据驱动决策</b>：用历史、实时与对标数据替代直觉，做定价、存量、预测等收益动作，并对结果复盘迭代，形成「假设—动作—验证」闭环。</p>
+<h3 id="toc-4">1.2 三类数据</h3>
+<ul>
+<li><b>历史</b>：去年同期、近 4 周、各细分表现。</li>
+<li><b>实时</b>：Pace、房态、渠道、竞品（第11/16册）。</li>
+<li><b>外部</b>：展会、天气、航班、赛事信号。</li>
+</ul>
+<h3 id="toc-5">1.3 决策闭环</h3>
+<div class="formula">提假设 → 定动作 → 看结果(MAPE/Index) → 复盘校准 → 再假设
+例：假设「降价填淡日」→ 执行 → 看贡献&出租率 → 校准弹性</div>
+<h3 id="toc-6">1.4 最容易错的地方</h3>
+<p>有报表无决策（数据睡觉）；或数据质量差（口径乱）就敢下结论。</p>
+
+<h2 class="chapter" id="ch2">第二章 生活中的数据驱动</h2>
+<h3 id="toc-7">场景一：运动手环</h3><p>看心率/睡眠数据调整训练，不凭感觉。</p>
+<h3 id="toc-8">场景二：导航</h3><p>实时拥堵数据选路线，比「我记得近」靠谱。</p>
+<h3 id="toc-9">场景三：股票软件</h3><p>看 PE/成交量决策，而非小道消息。</p>
+<h3 id="toc-10">场景四：体检报告</h3><p>指标异常才干预，避免盲目进补。</p>
+
+<h2 class="chapter" id="ch3">第三章 酒店实操案例（9 个）</h2>
+
+<h3 id="toc-11">业态一：城市商务酒店</h3>
+<h4>案例 1　用 Pace 数据定价</h4>
+<table class="case"><tr><th>数据</th><th>动作</th></tr>
+<tr><td>Pace 138%超前</td><td>关低价涨散客</td></tr>
+<tr><td>Pace 64%滞后</td><td>开促销降</td></tr></table>
+<p>数据直接驱动动作（第11册）。</p>
+
+<h4>案例 2　A/B 测价</h4>
+<p>随机两晚分别¥680/¥780，测需求弹性。数据显示 E≈0.27（缺乏弹性）→ <b>常态用¥780</b>。</p>
+
+<h4>案例 3　细分数据召回</h4>
+<p>RFM 数据识别沉睡金主 200 人，召回券 ROI 1:8。<b>用数据精准运营</b>（第7册）。</p>
+
+<h3 id="toc-12">业态二：度假酒店</h3>
+<h4>案例 4　天气数据联动</h4>
+<table class="case"><tr><th>信号</th><th>数据预测出租</th><th>动作</th></tr>
+<tr><td>晴天</td><td>85%</td><td>维持</td></tr>
+<tr><td>台风</td><td>40%</td><td>降价开预售</td></tr></table>
+<p>外部数据驱动降价（第3册）。</p>
+
+<h4>案例 5　历史同期对标</h4>
+<p>拉三年同期，识别「每年国庆后 3 天必淡」，提前排套餐填。</p>
+
+<h4>案例 6　渠道数据优化</h4>
+<p>数据显示 OTA 占比 45%、净贡献低，会员仅 18%。<b>数据驱动提会员降 OTA</b>（第8册）。</p>
+
+<h3 id="toc-13">业态三：机场 / 中转酒店</h3>
+<h4>案例 7　航班数据实时调</h4>
+<table class="case"><tr><th>数据</th><th>动作</th></tr>
+<tr><td>延误预警</td><td>关预付、涨</td></tr>
+<tr><td>正常</td><td>守价</td></tr></table>
+<p>实时数据驱动（第7/16册）。</p>
+
+<h4>案例 8　no-show 数据分池</h4>
+<p>数据分夜型算 no-show（散客7%/团队8%/连住1%），据此分池超售（第5册）。</p>
+
+<h4>案例 9　仪表盘看板</h4>
+<p>建「收益驾驶舱」：RevPAR/Index/Pace/各渠净贡献一屏看，<b>每天 10 分钟决策</b>，不翻十张表。</p>
+
+<h3 id="toc-14">本章小结</h3>
+<table class="summary"><tr><th>案例</th><th>业态</th><th>数据</th><th>决策</th></tr>
+<tr><td>1</td><td>商务</td><td>Pace</td><td>涨跌</td></tr>
+<tr><td>2</td><td>商务</td><td>A/B价</td><td>定常价</td></tr>
+<tr><td>3</td><td>商务</td><td>RFM</td><td>召回</td></tr>
+<tr><td>4</td><td>度假</td><td>天气</td><td>降价</td></tr>
+<tr><td>5</td><td>度假</td><td>历史</td><td>排套餐</td></tr>
+<tr><td>6</td><td>度假</td><td>渠道</td><td>调结构</td></tr>
+<tr><td>7</td><td>机场</td><td>航班</td><td>实时调</td></tr>
+<tr><td>8</td><td>机场</td><td>no-show</td><td>分池超</td></tr>
+<tr><td>9</td><td>机场</td><td>看板</td><td>日决策</td></tr></table>
+
+<h2 class="chapter" id="ch4">第四章 上手五步法</h2>
+<p><b>1 收数据</b>：PMS/RMS 拉全、接外部信号。<b>2 建看板</b>：关键指标一屏。<b>3 下假设</b>：每个动作先写「我认为会怎样」。<b>4 执行+验证</b>：看 MAPE/Index/贡献。<b>5 复盘</b>：对了固化、错了校准。</p>
+<div class="formula">数据驱动三不：
+不凭「我觉得」拍板
+不堆报表不行动
+不用脏数据下结论</div>
+
+<h2 class="chapter" id="ch5">第五章 三个常见误区</h2>
+<p><b>误区一：有表无决策。</b>仪表盘很漂亮，却没人按它动。<br>
+<b>误区二：数据质量差就敢用。</b>口径乱、漏字段，结论必错。<br>
+<b>误区三：过度分析。</b>抠 1% 精度耽误了行动窗口。</p>
+
+<h2 class="chapter" id="ch6">结语</h2>
+<p>数据驱动不是「买套系统」，而是「换种习惯」——把「我觉得」换成「数据显示」。当数字开始替你说话，收益决策才有底气。</p>
+
+<h2 class="chapter" id="ch7">思考题</h2>
+<ol>
+<li>你现在的收益决策，多少靠数据、多少靠感觉？</li>
+<li>有没有「堆了一堆报表却没用上」的情况？卡在哪？</li>
+<li>如果建一个每日看板，你最想一眼看到哪三个数？</li>
+</ol>
+
+<div class="foot">各个击破 · 深读系列 · 第 17 册《数据驱动决策》 · 一册讲透一个核心概念 · RMC收益管理社区（门内教学资源）</div>
+<div class="botnav"><a href="gejijipo-deep-16.html">← 上一册</a><a href="gejijipo-deep.html" target="_top">返回总目录</a><a href="gejijipo-deep-18.html">下一册 →</a></div>
+</div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">本册目录</a>
+<a href="#toc-2">开篇的话</a>
+<a href="#ch1">第一章 什么是数据驱动决策</a>
+<a href="#toc-3" class="lv3">1.1 一句话定义</a>
+<a href="#toc-4" class="lv3">1.2 三类数据</a>
+<a href="#toc-5" class="lv3">1.3 决策闭环</a>
+<a href="#toc-6" class="lv3">1.4 最容易错的地方</a>
+<a href="#ch2">第二章 生活中的数据驱动</a>
+<a href="#toc-7" class="lv3">场景一：运动手环</a>
+<a href="#toc-8" class="lv3">场景二：导航</a>
+<a href="#toc-9" class="lv3">场景三：股票软件</a>
+<a href="#toc-10" class="lv3">场景四：体检报告</a>
+<a href="#ch3">第三章 酒店实操案例（9 个）</a>
+<a href="#toc-11" class="lv3">业态一：城市商务酒店</a>
+<a href="#toc-12" class="lv3">业态二：度假酒店</a>
+<a href="#toc-13" class="lv3">业态三：机场 / 中转酒店</a>
+<a href="#toc-14" class="lv3">本章小结</a>
+<a href="#ch4">第四章 上手五步法</a>
+<a href="#ch5">第五章 三个常见误区</a>
+<a href="#ch6">结语</a>
+<a href="#ch7">思考题</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>各个击破 · 深读系列 第4册《动态定价》 | RMC收益管理社区</title>
+<style>
+:root{
+  --ink:#1f1f1f; --soft:#555; --line:#d9d2c4; --accent:#8a1f1f; --paper:#fbf8f1;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:"Songti SC","STSong","SimSun","Noto Serif CJK SC","Source Han Serif SC",serif;
+  color:var(--ink); background:#e9e4d8; line-height:1.85; font-size:15.5px;
+}
+/* 顶部常驻导航：屏幕可见，打印隐藏 */
+.topnav{
+  position:sticky; top:0; z-index:20; display:flex; justify-content:space-between;
+  align-items:center; gap:10px; background:#2a1414; color:#f3e9d6;
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  font-size:13px; padding:9px 16px; letter-spacing:.4px;
+}
+.topnav a{color:#ffe9a8; text-decoration:none; white-space:nowrap;}
+.topnav a:hover{text-decoration:underline;}
+.topnav .t{color:#f3e9d6; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.topnav .hint{color:#e7c98f; font-size:12px;}
+.page{
+  max-width:780px; margin:22px auto; background:var(--paper);
+  padding:46px 52px; box-shadow:0 4px 22px rgba(0,0,0,.18); border-radius:3px;
+}
+.cover{
+  min-height:74vh; display:flex; flex-direction:column; justify-content:center;
+  align-items:center; text-align:center; border:1px solid var(--line); padding:40px 24px;
+  border-radius:4px; background:linear-gradient(160deg,#fbf8f1,#f3ecdd);
+}
+.cover .emblem{width:150px; height:150px; margin-bottom:18px;}
+.cover .series{font-family:-apple-system,"PingFang SC",sans-serif; color:var(--accent);
+  letter-spacing:6px; font-size:14px; margin-bottom:20px;}
+.cover .bookno{font-family:-apple-system,"PingFang SC",sans-serif; color:var(--soft);
+  letter-spacing:3px; font-size:13px; margin-bottom:14px;}
+.cover .booktitle{font-size:44px; margin:0 0 18px; letter-spacing:4px; color:#2a1414;}
+.cover .claim{font-size:18px; color:var(--soft); font-style:italic; margin-bottom:26px;}
+.cover .brand{font-family:-apple-system,"PingFang SC",sans-serif; font-size:13px;
+  color:#9a8f78; letter-spacing:2px;}
+/* 册内目录 */
+.intoc{background:#f3ecdd; border:1px solid var(--line); border-radius:6px;
+  padding:14px 22px; margin:16px 0 8px;}
+.intoc h2.chapter{margin:0 0 8px; border:none; padding:0; font-size:17px;}
+.intoc ol{columns:2; column-gap:26px; font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  font-size:13.5px; margin:0; padding-left:20px;}
+.intoc li{margin:4px 0;}
+.intoc a{color:#5a3a1a; text-decoration:none;}
+.intoc a:hover{color:var(--accent); text-decoration:underline;}
+h2.chapter{font-size:21px; margin:34px 0 12px; padding-bottom:6px;
+  border-bottom:2px solid var(--accent); color:#2a1414; letter-spacing:1px;}
+h3{font-size:17px; margin:22px 0 8px; color:#3a2018;}
+h4{font-size:15.5px; margin:16px 0 6px; color:var(--accent);}
+p{margin:9px 0;}
+b{color:#2a1414;}
+.tablewrap{overflow-x:auto; margin:12px 0;}
+table.case,table.summary{border-collapse:collapse; width:100%; font-size:13.5px;
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+table.case th,table.case td,table.summary th,table.summary td{
+  border:1px solid var(--line); padding:6px 9px; text-align:center;}
+table.case th,table.summary th{background:#f0e7d4; color:#5a3a1a; font-weight:600;}
+table.case td:first-child,table.summary td:first-child{text-align:left; font-weight:600;}
+.formula{background:#f3ecdd; border-left:4px solid var(--accent); padding:10px 14px;
+  margin:12px 0; font-family:"SFMono-Regular",Consolas,monospace; font-size:14px;
+  white-space:pre-wrap; line-height:1.7;}
+.critical{background:#fbeee0; border:1px dashed var(--accent); padding:9px 12px;
+  margin:10px 0; font-size:14px; border-radius:3px;}
+.note{color:var(--soft); font-size:14px;}
+.summary-cap{font-family:-apple-system,sans-serif; font-size:13px; color:var(--soft);
+  margin:6px 0 0;}
+ul,ol{margin:8px 0; padding-left:22px;}
+li{margin:5px 0;}
+.foot{margin-top:26px; padding-top:10px; border-top:1px solid var(--line);
+  font-family:-apple-system,sans-serif; font-size:12px; color:#9a8f78; text-align:center;}
+/* 底部上下册导航：屏幕可见，打印隐藏 */
+.botnav{display:flex; justify-content:space-between; gap:8px; margin-top:24px;
+  padding-top:14px; border-top:1px solid var(--line);
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; font-size:13px;}
+.botnav a{color:var(--accent); text-decoration:none; padding:7px 14px;
+  border:1px solid var(--line); border-radius:5px; background:#f3ecdd; white-space:nowrap;}
+.botnav a:hover{background:#e9dcc2;}
+.botnav .disabled{color:#b9b0a0; border-color:#e3dccd; background:#faf6ee; cursor:default;}
+.toc{font-family:-apple-system,sans-serif;}
+.toc ol{columns:2; column-gap:30px;}
+@media print{
+  @page{ size:A5 portrait; margin:15mm 13mm; }
+  body{background:#fff; font-size:11pt;}
+  /* 屏幕上才需要的导航全部隐藏，不占 PDF 篇幅 */
+  .topnav,.botnav,.screenbar{display:none;}
+  .page{box-shadow:none; margin:0; max-width:none; padding:0; border-radius:0; background:#fff;}
+  h2.chapter{break-after:avoid;}
+  h3,h4{break-after:avoid;}
+  table.case,table.summary,.formula,.critical,.case-block{break-inside:avoid;}
+  .cover{break-after:page; min-height:0; height:100%;}
+  a{color:inherit; text-decoration:none;}
+}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<div class="topnav"><a href="gejijipo-deep.html" target="_top">← 返回总目录</a><span class="t">第 4 册 · 《动态定价》</span><span class="hint">RMC收益管理社区 · 门内教学资源</span></div>
+<div class="page">
+<section class="cover" style="background:linear-gradient(160deg,#fbf8f1,#2f7d4f14);"><svg class="emblem" viewBox="0 0 120 120" role="img" aria-label="封面插画"><path d="M40 36 H74 L86 48 L86 86 H40 Z" fill="none" stroke="#2f7d4f" stroke-width="3" stroke-linejoin="round"/><circle cx="52" cy="52" r="4" fill="#2f7d4f"/><path d="M58 70 H80" stroke="#2f7d4f" stroke-width="4" stroke-linecap="round"/><path d="M86 86 L96 96" stroke="#2f7d4f" stroke-width="3"/><path d="M66 36 L66 22" stroke="#2f7d4f" stroke-width="3"/></svg><div class="series" style="color:#2f7d4f;">酒 店 收 益 管 理 口 袋 书</div><div class="bookno">第 4 册</div><h1 class="booktitle">动态定价</h1><div class="claim">价格，为什么要天天变</div><div class="brand">一册讲透一个核心概念</div></section>
+<section class="intoc"><h2 id="toc-1" class="chapter">本册目录</h2><ol><li><a href="#ch1">第一章 什么是动态定价</a></li><li><a href="#ch2">第二章 生活中的动态定价</a></li><li><a href="#ch3">第三章 酒店实操案例（9 个）</a></li><li><a href="#ch4">第四章 上手五步法</a></li><li><a href="#ch5">第五章 三个常见误区</a></li><li><a href="#ch6">结语</a></li><li><a href="#ch7">思考题</a></li></ol></section>
+
+<h2 id="toc-2">开篇的话</h2>
+<p>「你们家房价怎么一天一个样？」客人吐槽的背后，正是收益管理的核心武器：<b>动态定价</b>。它不是随便涨价，而是让价格在供需的天平上，始终停在该停的位置。</p>
+
+<h2 class="chapter" id="ch1">第一章 什么是动态定价</h2>
+<h3 id="toc-3">1.1 一句话定义</h3>
+<p><b>动态定价</b>：根据实时供需、库存余量、预订进度与竞品价格，在一天甚至一小时内调整价格，使每间房卖在当下最优价。底层是 <b>BAR（Best Available Rate，最优可售房价）</b> 体系。</p>
+<h3 id="toc-4">1.2 价格阶梯与门槛价</h3>
+<p>设多档价格（如 ¥450/¥560/¥680/¥880），随库存收紧依次关闭低档、开放高档；同时设<b>门槛价</b>（地板价，低于它宁空不卖，保护价值）。</p>
+<h3 id="toc-5">1.3 与弹性的关系</h3>
+<div class="formula">价格弹性 E = 需求量变动% ÷ 价格变动%
+|E| &gt; 1（富有弹性）：降价能多卖、增收
+|E| &lt; 1（缺乏弹性）：涨价不怎么少卖、增收</div>
+<h3 id="toc-6">1.4 最容易错的地方</h3>
+<p>把「动态」做成「天天小涨几分钱」扰民；或一味降价清库存，把价值做穿。</p>
+
+<h2 class="chapter" id="ch2">第二章 生活中的动态定价</h2>
+<h3 id="toc-7">场景一：滴滴高峰溢价</h3><p>雨天溢价 1.5 倍，供需失衡时价自动上浮——典型动态定价。</p>
+<h3 id="toc-8">场景二：机票越早越便宜</h3><p>提前买折扣大，临期全价。库存+时间双维度定价。</p>
+<h3 id="toc-9">场景三：菜场收摊降价</h3><p>晚上 8 点蔬菜半价，清库存防损耗。酒店「临期空房」同理。</p>
+<h3 id="toc-10">场景四：电影院非黄金场便宜</h3><p>早场/工作日便宜，填满低效时段。</p>
+
+<h2 class="chapter" id="ch3">第三章 酒店实操案例（9 个）</h2>
+
+<h3 id="toc-11">业态一：城市商务酒店</h3>
+<h4>案例 1　周二淡日降价填充</h4>
+<table class="case"><tr><th>方案</th><th>高价¥680</th><th>降到¥520</th></tr>
+<tr><td>预测出租率</td><td>55%</td><td>82%</td></tr>
+<tr><td>可售100间贡献</td><td>¥34,540</td><td><b>¥37,960</b></td></tr></table>
+<p>降价后多卖 27 间，总贡献更高 → <b>淡日应降价</b>（弹性足）。</p>
+
+<h4>案例 2　周三旺日涨价</h4>
+<p>周三高价需求旺，¥680 已订 90/100。提价到 ¥820，仅少 3 间，贡献从 ¥62,000 升到 <b>¥68,460</b>。缺乏弹性 → <b>该涨。</b></p>
+
+<h4>案例 3　临期空房甩卖</h4>
+<p>入住前 1 天剩 20 间未售。按门槛价¥350 甩（VC¥60），贡献¥5,800 &gt; 空房¥0。<b>临期空房，低于门槛价也卖</b>（边际思维）。</p>
+
+<h3 id="toc-12">业态二：度假酒店</h3>
+<h4>案例 4　晴周末阶梯涨价</h4>
+<table class="case"><tr><th>进度</th><th>开放档</th><th>动作</th></tr>
+<tr><td>订出40%</td><td>¥880</td><td>维持</td></tr>
+<tr><td>订出70%</td><td>¥1,080</td><td>关¥880</td></tr>
+<tr><td>订出90%</td><td>¥1,280</td><td>关¥1,080</td></tr></table>
+<p>随进度关低档、开高档，<b>阶梯涨价</b>吃满溢价。</p>
+
+<h4>案例 5　雨天临期降价</h4>
+<p>暴雨致当日预订骤减，剩 50% 空房。从¥980 降到¥620，多卖 30 间，贡献反超。弹性在恶劣天气放大 → <b>敢降。</b></p>
+
+<h4>案例 6　套餐价随房态浮动</h4>
+<p>「房+晚宴」套餐基础¥1,280。满房日套餐涨到¥1,580（房溢价传导）；淡日降到¥980 引流。<b>套餐价跟房态走。</b></p>
+
+<h3 id="toc-13">业态三：机场 / 中转酒店</h3>
+<h4>案例 7　延误实时溢价</h4>
+<table class="case"><tr><th>信号</th><th>价</th><th>出租</th></tr>
+<tr><td>正常</td><td>¥520</td><td>70%</td></tr>
+<tr><td>大面积延误</td><td>¥820</td><td>100%</td></tr></table>
+<p>延误时需求陡增，<b>实时溢价</b>，且关掉预付低价（见第2册）。</p>
+
+<h4>案例 8　红眼中转特价</h4>
+<p>凌晨 0-6 点房最难卖，设特价¥299 填深夜段，贡献¥239/间 &gt; 空。低效时段单独定价。</p>
+
+<h4>案例 9　预付价 vs 当日价双轨</h4>
+<p>预付锁定¥420（早鸟），当日 walk-in ¥650。两档并存，<b>用预付保底、用当日吃溢价</b>，互不冲突。</p>
+
+<h3 id="toc-14">本章小结</h3>
+<table class="summary"><tr><th>案例</th><th>业态</th><th>动作</th><th>依据</th></tr>
+<tr><td>1</td><td>商务</td><td>淡日降价</td><td>弹性足</td></tr>
+<tr><td>2</td><td>商务</td><td>旺日涨价</td><td>缺乏弹性</td></tr>
+<tr><td>3</td><td>商务</td><td>临期甩卖</td><td>边际&gt;0</td></tr>
+<tr><td>4</td><td>度假</td><td>阶梯涨</td><td>进度驱动</td></tr>
+<tr><td>5</td><td>度假</td><td>雨天降</td><td>弹性放大</td></tr>
+<tr><td>6</td><td>度假</td><td>套餐浮动</td><td>跟房态</td></tr>
+<tr><td>7</td><td>机场</td><td>延误溢价</td><td>实时信号</td></tr>
+<tr><td>8</td><td>机场</td><td>红眼特价</td><td>低效段</td></tr>
+<tr><td>9</td><td>机场</td><td>双轨价</td><td>保底+溢价</td></tr></table>
+
+<h2 class="chapter" id="ch4">第四章 上手五步法</h2>
+<p><b>1 设档与门槛</b>：先定价格阶梯和地板价。<b>2 盯进度</b>：按预订进度开关档。<b>3 看竞品</b>：竞品涨我不盲跟，竞品降我守价值。<b>4 分时段</b>：低效时段单独低价。<b>5 守纪律</b>：变动有依据，不天天微调扰客。</p>
+<div class="formula">定价纪律：
+涨有「需求证据」（进度/竞品/事件）
+降有「库存证据」（空房/临期）
+无证据不调，避免价格噪声</div>
+
+<h2 class="chapter" id="ch5">第五章 三个常见误区</h2>
+<p><b>误区一：动态=频繁微调。</b>无依据的每日小调只伤客信、乱体系。<br>
+<b>误区二：一味降价清库存。</b>跌破门槛价等于免费送价值，应设地板。<br>
+<b>误区三：只看自己不看竞品。</b>竞品全涨你独降，白白丢溢价；竞品全降你硬挺，白白空房。</p>
+
+<h2 class="chapter" id="ch6">结语</h2>
+<p>动态定价不是「变着法涨价」，而是让价格<b>忠实反映价值</b>。供需说了算，数据做裁判。</p>
+
+<h2 class="chapter" id="ch7">思考题</h2>
+<ol>
+<li>你酒店当前有几档价？有没有设门槛价（地板价）？</li>
+<li>找一个「该涨没涨」和一个「该降没降」的日期，各说明依据。</li>
+<li>竞品连续降价时，你如何判断是否跟？</li>
+</ol>
+
+<div class="foot">各个击破 · 深读系列 · 第 4 册《动态定价》 · 一册讲透一个核心概念</div>
+<div class="botnav"><a href="gejijipo-deep-03.html">← 上一册</a><a href="gejijipo-deep.html" target="_top">返回总目录</a><a href="gejijipo-deep-05.html">下一册 →</a></div>
+</div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">本册目录</a>
+<a href="#toc-2">开篇的话</a>
+<a href="#ch1">第一章 什么是动态定价</a>
+<a href="#toc-3" class="lv3">1.1 一句话定义</a>
+<a href="#toc-4" class="lv3">1.2 价格阶梯与门槛价</a>
+<a href="#toc-5" class="lv3">1.3 与弹性的关系</a>
+<a href="#toc-6" class="lv3">1.4 最容易错的地方</a>
+<a href="#ch2">第二章 生活中的动态定价</a>
+<a href="#toc-7" class="lv3">场景一：滴滴高峰溢价</a>
+<a href="#toc-8" class="lv3">场景二：机票越早越便宜</a>
+<a href="#toc-9" class="lv3">场景三：菜场收摊降价</a>
+<a href="#toc-10" class="lv3">场景四：电影院非黄金场便宜</a>
+<a href="#ch3">第三章 酒店实操案例（9 个）</a>
+<a href="#toc-11" class="lv3">业态一：城市商务酒店</a>
+<a href="#toc-12" class="lv3">业态二：度假酒店</a>
+<a href="#toc-13" class="lv3">业态三：机场 / 中转酒店</a>
+<a href="#toc-14" class="lv3">本章小结</a>
+<a href="#ch4">第四章 上手五步法</a>
+<a href="#ch5">第五章 三个常见误区</a>
+<a href="#ch6">结语</a>
+<a href="#ch7">思考题</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
+</html>

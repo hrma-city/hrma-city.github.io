@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>各个击破 · 深读系列 · 总目录 | RMC收益管理社区</title>
+<style>
+:root{
+  --ink:#1f1f1f; --soft:#555; --line:#d9d2c4; --accent:#8a1f1f; --paper:#fbf8f1;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:"Songti SC","STSong","SimSun","Noto Serif CJK SC","Source Han Serif SC",serif;
+  color:var(--ink); background:#e9e4d8; line-height:1.85; font-size:15.5px;
+}
+/* 顶部常驻导航：屏幕可见，打印隐藏 */
+.topnav{
+  position:sticky; top:0; z-index:20; display:flex; justify-content:space-between;
+  align-items:center; gap:10px; background:#2a1414; color:#f3e9d6;
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  font-size:13px; padding:9px 16px; letter-spacing:.4px;
+}
+.topnav a{color:#ffe9a8; text-decoration:none; white-space:nowrap;}
+.topnav a:hover{text-decoration:underline;}
+.topnav .t{color:#f3e9d6; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.topnav .hint{color:#e7c98f; font-size:12px;}
+.page{
+  max-width:780px; margin:22px auto; background:var(--paper);
+  padding:46px 52px; box-shadow:0 4px 22px rgba(0,0,0,.18); border-radius:3px;
+}
+.cover{
+  min-height:74vh; display:flex; flex-direction:column; justify-content:center;
+  align-items:center; text-align:center; border:1px solid var(--line); padding:40px 24px;
+  border-radius:4px; background:linear-gradient(160deg,#fbf8f1,#f3ecdd);
+}
+.cover .emblem{width:150px; height:150px; margin-bottom:18px;}
+.cover .series{font-family:-apple-system,"PingFang SC",sans-serif; color:var(--accent);
+  letter-spacing:6px; font-size:14px; margin-bottom:20px;}
+.cover .bookno{font-family:-apple-system,"PingFang SC",sans-serif; color:var(--soft);
+  letter-spacing:3px; font-size:13px; margin-bottom:14px;}
+.cover .booktitle{font-size:44px; margin:0 0 18px; letter-spacing:4px; color:#2a1414;}
+.cover .claim{font-size:18px; color:var(--soft); font-style:italic; margin-bottom:26px;}
+.cover .brand{font-family:-apple-system,"PingFang SC",sans-serif; font-size:13px;
+  color:#9a8f78; letter-spacing:2px;}
+/* 册内目录 */
+.intoc{background:#f3ecdd; border:1px solid var(--line); border-radius:6px;
+  padding:14px 22px; margin:16px 0 8px;}
+.intoc h2.chapter{margin:0 0 8px; border:none; padding:0; font-size:17px;}
+.intoc ol{columns:2; column-gap:26px; font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  font-size:13.5px; margin:0; padding-left:20px;}
+.intoc li{margin:4px 0;}
+.intoc a{color:#5a3a1a; text-decoration:none;}
+.intoc a:hover{color:var(--accent); text-decoration:underline;}
+h2.chapter{font-size:21px; margin:34px 0 12px; padding-bottom:6px;
+  border-bottom:2px solid var(--accent); color:#2a1414; letter-spacing:1px;}
+h3{font-size:17px; margin:22px 0 8px; color:#3a2018;}
+h4{font-size:15.5px; margin:16px 0 6px; color:var(--accent);}
+p{margin:9px 0;}
+b{color:#2a1414;}
+.tablewrap{overflow-x:auto; margin:12px 0;}
+table.case,table.summary{border-collapse:collapse; width:100%; font-size:13.5px;
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+table.case th,table.case td,table.summary th,table.summary td{
+  border:1px solid var(--line); padding:6px 9px; text-align:center;}
+table.case th,table.summary th{background:#f0e7d4; color:#5a3a1a; font-weight:600;}
+table.case td:first-child,table.summary td:first-child{text-align:left; font-weight:600;}
+.formula{background:#f3ecdd; border-left:4px solid var(--accent); padding:10px 14px;
+  margin:12px 0; font-family:"SFMono-Regular",Consolas,monospace; font-size:14px;
+  white-space:pre-wrap; line-height:1.7;}
+.critical{background:#fbeee0; border:1px dashed var(--accent); padding:9px 12px;
+  margin:10px 0; font-size:14px; border-radius:3px;}
+.note{color:var(--soft); font-size:14px;}
+.summary-cap{font-family:-apple-system,sans-serif; font-size:13px; color:var(--soft);
+  margin:6px 0 0;}
+ul,ol{margin:8px 0; padding-left:22px;}
+li{margin:5px 0;}
+.foot{margin-top:26px; padding-top:10px; border-top:1px solid var(--line);
+  font-family:-apple-system,sans-serif; font-size:12px; color:#9a8f78; text-align:center;}
+/* 底部上下册导航：屏幕可见，打印隐藏 */
+.botnav{display:flex; justify-content:space-between; gap:8px; margin-top:24px;
+  padding-top:14px; border-top:1px solid var(--line);
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; font-size:13px;}
+.botnav a{color:var(--accent); text-decoration:none; padding:7px 14px;
+  border:1px solid var(--line); border-radius:5px; background:#f3ecdd; white-space:nowrap;}
+.botnav a:hover{background:#e9dcc2;}
+.botnav .disabled{color:#b9b0a0; border-color:#e3dccd; background:#faf6ee; cursor:default;}
+.toc{font-family:-apple-system,sans-serif;}
+.toc ol{columns:2; column-gap:30px;}
+@media print{
+  @page{ size:A5 portrait; margin:15mm 13mm; }
+  body{background:#fff; font-size:11pt;}
+  /* 屏幕上才需要的导航全部隐藏，不占 PDF 篇幅 */
+  .topnav,.botnav,.screenbar{display:none;}
+  .page{box-shadow:none; margin:0; max-width:none; padding:0; border-radius:0; background:#fff;}
+  h2.chapter{break-after:avoid;}
+  h3,h4{break-after:avoid;}
+  table.case,table.summary,.formula,.critical,.case-block{break-inside:avoid;}
+  .cover{break-after:page; min-height:0; height:100%;}
+  a{color:inherit; text-decoration:none;}
+}
+</style></head>
+<body>
+<div class="topnav"><a href="gejijipo-deep.html">← 返回在线阅读</a><span class="t">酒 店 收 益 管 理 口 袋 书 · 总目录</span><span class="hint">RMC收益管理社区 · 门内教学资源</span></div>
+<div class="page">
+<section class="cover">
+  <div class="series">各 个 击 破 · 深 读 系 列</div>
+  <div class="bookno">全 18 册 · 一册一概念</div>
+  <h1 class="booktitle">系列总目录</h1>
+  <div class="claim">把模糊的经验，变成可查的标准</div>
+  <div class="brand">2026-10-18 版</div>
+</section>
+<h2 class="chapter">全套书目</h2>
+<div class="toc"><ol>
+<li><a href="gejijipo-deep-01.html">第 1 册 · 《置换分析》</a> — 接，还是不接？算清那笔看不见的账</li>
+<li><a href="gejijipo-deep-02.html">第 2 册 · 《存量控制》</a> — 把对的价格，卖给对的人</li>
+<li><a href="gejijipo-deep-03.html">第 3 册 · 《需求预测》</a> — 明天会有多少客人来？</li>
+<li><a href="gejijipo-deep-04.html">第 4 册 · 《动态定价》</a> — 价格，为什么要天天变</li>
+<li><a href="gejijipo-deep-05.html">第 5 册 · 《超售》</a> — 多卖几间，才不亏在空房</li>
+<li><a href="gejijipo-deep-06.html">第 6 册 · 《价格弹性》</a> — 降价，真的能多卖吗</li>
+<li><a href="gejijipo-deep-07.html">第 7 册 · 《市场细分》</a> — 谁，才是你的金主</li>
+<li><a href="gejijipo-deep-08.html">第 8 册 · 《渠道管理》</a> — 流量从哪来，利润去哪了</li>
+<li><a href="gejijipo-deep-09.html">第 9 册 · 《停留时间控制》</a> — 住几晚，最赚钱</li>
+<li><a href="gejijipo-deep-10.html">第 10 册 · 《团队管理》</a> — 大团来了，怎么接才不亏</li>
+<li><a href="gejijipo-deep-11.html">第 11 册 · 《预订进度》</a> — 卖太快，还是太慢</li>
+<li><a href="gejijipo-deep-12.html">第 12 册 · 《RevPAR与竞争指数》</a> — 你比对手，强在哪</li>
+<li><a href="gejijipo-deep-13.html">第 13 册 · 《餐饮收益管理》</a> — 餐桌，也是黄金位</li>
+<li><a href="gejijipo-deep-14.html">第 14 册 · 《宴会收益管理》</a> — 一场婚礼，怎么赚最多</li>
+<li><a href="gejijipo-deep-15.html">第 15 册 · 《总成本收益管理》</a> — 别只盯着客房</li>
+<li><a href="gejijipo-deep-16.html">第 16 册 · 《竞品雷达》</a> — 读懂隔壁，在干什么</li>
+<li><a href="gejijipo-deep-17.html">第 17 册 · 《数据驱动决策》</a> — 让数字替你说话</li>
+<li><a href="gejijipo-deep-18.html">第 18 册 · 《收益文化》</a> — 全员，都是收益官</li>
+</ol></div>
+<h2 class="chapter">怎么读 / 怎么用</h2>
+<p>每册结构统一：<b>开篇 → 概念 → 生活场景 → 酒店实操案例（3 业态 × 3 场景，共 9 例，附数字与临界值）→ 上手法 → 常见误区 → 思考题</b>。</p>
+<p>进入任意一册后，页面<b>顶部有「← 返回总目录」</b>，册内开头有<b>「本册目录」</b>可点击直达章节，册末有<b>「上一册 / 返回 / 下一册」</b>。可顺序读，也可按岗位取用：前厅看《存量控制》《超售》《停留时间控制》；销售看《渠道管理》《团队管理》《市场细分》；店总看《需求预测》《动态定价》《总成本收益管理》。</p>
+<p>成册：打开任意一册 → 浏览器菜单 <b>打印 → 目标「另存为 PDF」→ 纸张 A5 → 勾选「背景图形」</b>；或直接用同名的 <b>bookNN.pdf</b>。</p>
+<p style="font-size:13px;color:#5a5a5a;margin:10px 0">配套：1 分钟口袋书 32 册见 <a href="gejijipo.html" style="color:#8a1f1f">各个击破 · 1 分钟系列</a>；判定表与工具见 <a href="codex.html" style="color:#8a1f1f">操作法典</a> 与 <a href="tools.html" style="color:#8a1f1f">在线工具箱</a>。</p>
+<div class="foot">各个击破 · 深读系列 · 系列总目录 ｜ RMC收益管理社区（门内教学资源）</div>
+</div></body></html>

@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <title>酒店经营游戏 · 定价大师 / 超售博弈 / 客户匹配 / 收益经理的一天 | RMC收益管理社区</title>
+  <link rel="stylesheet" href="assets/revenue-game/css/style.css">
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+
+  <!-- ===== 顶部导航 ===== -->
+  <nav id="topNav" class="top-nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-icon">🏨</span>
+        <span class="logo-text">RevPAR<em>大师</em></span>
+      </a>
+      <div class="nav-links">
+        <a href="#roadmap" data-nav>学习路线</a>
+        <a href="#concept-revpar" data-nav>概念课堂</a>
+        <a href="#game-pricing" data-nav>实战游戏</a>
+        <a href="#dashboard" data-nav>成绩仪表盘</a>
+      </div>
+      <div class="nav-progress">
+        <div class="nav-progress-track">
+          <div class="nav-progress-fill" id="navProgressFill"></div>
+        </div>
+        <span class="nav-progress-label" id="navProgressLabel">0%</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero 首屏 ===== -->
+  <section id="hero" class="hero">
+    <div class="hero-bg">
+      <div class="hero-stars"></div>
+      <div class="hotel-building">
+        <div class="hotel-roof"></div>
+        <div class="hotel-floors" id="hotelFloors"></div>
+        <div class="hotel-ground"></div>
+      </div>
+      <div class="hero-glow"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">酒店收益管理 · 互动教学</div>
+      <h1 class="hero-title">
+        <span class="title-line">用动画理解概念</span>
+        <span class="title-line title-accent">用游戏掌握操作</span>
+      </h1>
+      <p class="hero-subtitle">
+        从 RevPAR 到动态定价，从市场细分到超售博弈——
+        在沉浸式场景中学会酒店收益管理的核心思维。
+      </p>
+      <div class="hero-actions">
+        <a href="#roadmap" class="btn btn-primary btn-lg">开始学习之旅</a>
+        <a href="#game-pricing" class="btn btn-ghost btn-lg">直接玩游戏 →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="stat-num">6</span>
+          <span class="stat-label">概念动画</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num">3</span>
+          <span class="stat-label">实战游戏</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">可重玩</span>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>向下滚动</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ===== 学习路线图 ===== -->
+  <section id="roadmap" class="roadmap-section section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">学习路线</span>
+        <h2 id="toc-1" class="section-title">先学概念，再练实战</h2>
+        <p class="section-desc">每个概念动画后紧接对应的实战游戏，学完即用、用中巩固。</p>
+      </div>
+      <div class="roadmap">
+        <div class="roadmap-line"></div>
+        <div class="roadmap-item" data-module="concept-revpar">
+          <div class="roadmap-node">1</div>
+          <div class="roadmap-card">
+            <span class="roadmap-type">概念</span>
+            <h3 id="toc-2">三大核心指标</h3>
+            <p>RevPAR · ADR · 入住率</p>
+          </div>
+        </div>
+        <div class="roadmap-item" data-module="concept-tradeoff">
+          <div class="roadmap-node">2</div>
+          <div class="roadmap-card">
+            <span class="roadmap-type">概念</span>
+            <h3 id="toc-3">定价权衡</h3>
+            <p>高价低入住 vs 低价高入住</p>
+          </div>
+        </div>
+        <div class="roadmap-item" data-module="concept-dynamic">
+          <div class="roadmap-node">3</div>
+          <div class="roadmap-card">
+            <span class="roadmap-type">概念</span>
+            <h3 id="toc-4">动态定价</h3>
+            <p>随需求波动的价格策略</p>
+          </div>
+        </div>
+        <div class="roadmap-item" data-module="concept-segmentation">
+          <div class="roadmap-node">4</div>
+          <div class="roadmap-card">
+            <span class="roadmap-type">概念</span>
+            <h3 id="toc-5">市场细分</h3>
+            <p>商务客 vs 休闲客 vs 团队</p>
+          </div>
+        </div>
+        <div class="roadmap-item" data-module="game-pricing">
+          <div class="roadmap-node">5</div>
+          <div class="roadmap-card highlight">
+            <span class="roadmap-type game">游戏</span>
+            <h3 id="toc-6">定价大师</h3>
+            <p>10轮真实场景定价挑战</p>
+          </div>
+        </div>
+        <div class="roadmap-item" data-module="concept-overbooking">
+          <div class="roadmap-node">6</div>
+          <div class="roadmap-card">
+            <span class="roadmap-type">概念</span>
+            <h3 id="toc-7">超售策略</h3>
+            <p>No-show 与超售博弈</p>
+          </div>
+        </div>
+        <div class="roadmap-item" data-module="game-overbooking">
+          <div class="roadmap-node">7</div>
+          <div class="roadmap-card highlight">
+            <span class="roadmap-type game">游戏</span>
+            <h3 id="toc-8">超售博弈</h3>
+            <p>平衡风险与收益</p>
+          </div>
+        </div>
+        <div class="roadmap-item" data-module="game-segmentation">
+          <div class="roadmap-node">8</div>
+          <div class="roadmap-card highlight">
+            <span class="roadmap-type game">游戏</span>
+            <h3 id="toc-9">客户匹配</h3>
+            <p>精准分配客房资源</p>
+          </div>
+        </div>
+        <div class="roadmap-item" data-module="game-dayinlife">
+          <div class="roadmap-node">9</div>
+          <div class="roadmap-card highlight">
+            <span class="roadmap-type game">游戏</span>
+            <h3 id="toc-10">🌟 收益经理的一天</h3>
+            <p>完整SOP实操体验</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 概念1: 三大核心指标 ===== -->
+  <section id="concept-revpar" class="concept-section section" data-concept="revpar">
+    <div class="container">
+      <div class="concept-layout">
+        <div class="concept-text">
+          <span class="section-tag">概念 01</span>
+          <h2 id="toc-11" class="section-title">酒店收益管理的三个字母</h2>
+          <div class="concept-body">
+            <p>酒店每天要回答一个问题：<strong>今晚的房间该卖多少钱？</strong> 要回答它，先认识三个核心指标。</p>
+            <div class="metric-cards">
+              <div class="metric-card" id="metric-adr">
+                <div class="metric-icon">💰</div>
+                <div class="metric-info">
+                  <span class="metric-abbr">ADR</span>
+                  <span class="metric-name">平均房价</span>
+                  <span class="metric-formula">客房总收入 ÷ 售出客房数</span>
+                </div>
+              </div>
+              <div class="metric-card" id="metric-occ">
+                <div class="metric-icon">🛏️</div>
+                <div class="metric-info">
+                  <span class="metric-abbr">OCC</span>
+                  <span class="metric-name">入住率</span>
+                  <span class="metric-formula">售出客房数 ÷ 可售客房数</span>
+                </div>
+              </div>
+              <div class="metric-card metric-card-star" id="metric-revpar">
+                <div class="metric-icon">⭐</div>
+                <div class="metric-info">
+                  <span class="metric-abbr">RevPAR</span>
+                  <span class="metric-name">每可售房收入</span>
+                  <span class="metric-formula">ADR × OCC</span>
+                </div>
+              </div>
+            </div>
+            <p class="concept-note">RevPAR 是收益管理的"终极指标"——它同时衡量了<strong>价格</strong>和<strong>销量</strong>两个维度。提高 RevPAR 有两条路：涨房价 or 填满房。</p>
+          </div>
+        </div>
+        <div class="concept-visual">
+          <div class="formula-visual" id="formulaVisual">
+            <div class="formula-bubble formula-adr" id="fvaAdr">
+              <span class="fb-label">ADR</span>
+              <span class="fb-value">¥680</span>
+            </div>
+            <div class="formula-symbol">×</div>
+            <div class="formula-bubble formula-occ" id="fvaOcc">
+              <span class="fb-label">OCC</span>
+              <span class="fb-value">75%</span>
+            </div>
+            <div class="formula-symbol">=</div>
+            <div class="formula-bubble formula-revpar" id="fvaRevpar">
+              <span class="fb-label">RevPAR</span>
+              <span class="fb-value">¥510</span>
+            </div>
+          </div>
+          <div class="formula-controls">
+            <label>拖动调整 ADR <span id="adrDisplay">680</span> 元</label>
+            <input type="range" id="adrSlider" min="200" max="1200" value="680" step="10">
+            <label>拖动调整 OCC <span id="occDisplay">75</span>%</label>
+            <input type="range" id="occSlider" min="20" max="100" value="75" step="1">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 概念2: 定价权衡 ===== -->
+  <section id="concept-tradeoff" class="concept-section section alt-bg" data-concept="tradeoff">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">概念 02</span>
+        <h2 id="toc-12" class="section-title">高价低入住 还是 低价高入住？</h2>
+        <p class="section-desc">这是收益管理的永恒命题。关键在于找到让 RevPAR 最大的"甜蜜点"。</p>
+      </div>
+      <div class="tradeoff-visual">
+        <canvas id="tradeoffCanvas" width="720" height="400"></canvas>
+        <div class="tradeoff-legend">
+          <div class="legend-item"><span class="dot dot-blue"></span> 入住率（随价格下降而上升）</div>
+          <div class="legend-item"><span class="dot dot-gold"></span> ADR（即你设定的房价）</div>
+          <div class="legend-item"><span class="dot dot-red"></span> RevPAR（二者的乘积）</div>
+        </div>
+        <div class="tradeoff-hint" id="tradeoffHint">
+          👆 点击曲线上的任意位置，查看不同定价下的三项指标变化
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 概念3: 动态定价 ===== -->
+  <section id="concept-dynamic" class="concept-section section" data-concept="dynamic">
+    <div class="container">
+      <div class="concept-layout reverse">
+        <div class="concept-text">
+          <span class="section-tag">概念 03</span>
+          <h2 id="toc-13" class="section-title">价格不是定一次，而是每天都在变</h2>
+          <div class="concept-body">
+            <p>动态定价的核心：<strong>需求高时涨价，需求低时降价</strong>。就像机票一样，同一个房型在不同日期的价格可以差出两三倍。</p>
+            <ul class="concept-list">
+              <li><span class="list-icon">📈</span> <strong>旺季 / 大型活动</strong>：需求远超供给，大胆提价</li>
+              <li><span class="list-icon">📊</span> <strong>平季 / 工作日</strong>：需求平稳，按竞争对手微调</li>
+              <li><span class="list-icon">📉</span> <strong>淡季 / 周末</strong>：需求不足，降价填房或推套餐</li>
+            </ul>
+            <p class="concept-note">右边的需求曲线会随你切换场景而变化。注意观察：<strong>同样 ¥600 的价格，在不同需求场景下的入住率完全不同。</strong></p>
+          </div>
+        </div>
+        <div class="concept-visual">
+          <div class="dynamic-demo" id="dynamicDemo">
+            <div class="demo-tabs">
+              <button class="demo-tab active" data-scenario="peak">旺季旺季</button>
+              <button class="demo-tab" data-scenario="normal">平季工作日</button>
+              <button class="demo-tab" data-scenario="low">淡季周末</button>
+            </div>
+            <canvas id="demandCanvas" width="420" height="320"></canvas>
+            <div class="demo-readout" id="demoReadout">
+              <div class="readout-item"><span>当前价格</span><strong id="rdPrice">¥600</strong></div>
+              <div class="readout-item"><span>预计入住率</span><strong id="rdOcc">82%</strong></div>
+              <div class="readout-item"><span>预计 RevPAR</span><strong id="rdRevpar">¥492</strong></div>
+            </div>
+            <div class="demo-slider">
+              <label>调价试试：<span id="dynPriceLabel">600</span> 元</label>
+              <input type="range" id="dynPriceSlider" min="200" max="2000" value="600" step="50">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 概念4: 市场细分 ===== -->
+  <section id="concept-segmentation" class="concept-section section alt-bg" data-concept="segmentation">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">概念 04</span>
+        <h2 id="toc-14" class="section-title">不同客人，不同价格，同一间房</h2>
+        <p class="section-desc">市场细分让你在不降低公开房价的前提下，用不同渠道和费率捕获每一类客人的最大支付意愿。</p>
+      </div>
+      <div class="segmentation-grid">
+        <div class="seg-card" id="segBusiness">
+          <div class="seg-header">
+            <span class="seg-emoji">💼</span>
+            <h3 id="toc-15">商务客</h3>
+          </div>
+          <div class="seg-traits">
+            <div class="seg-trait"><span class="trait-label">价格敏感度</span><div class="trait-bar"><div class="trait-fill" style="width:25%"></div></div><span class="trait-val">低</span></div>
+            <div class="seg-trait"><span class="trait-label">提前预订</span><div class="trait-bar"><div class="trait-fill" style="width:30%"></div></div><span class="trait-val">短</span></div>
+            <div class="seg-trait"><span class="trait-label">入住时长</span><div class="trait-bar"><div class="trait-fill" style="width:35%"></div></div><span class="trait-val">1-2晚</span></div>
+            <div class="seg-trait"><span class="trait-label">取消概率</span><div class="trait-bar"><div class="trait-fill" style="width:30%"></div></div><span class="trait-val">低</span></div>
+          </div>
+          <div class="seg-strategy">策略：高 BAR 价，工作日主力客源</div>
+        </div>
+        <div class="seg-card" id="segLeisure">
+          <div class="seg-header">
+            <span class="seg-emoji">🏖️</span>
+            <h3 id="toc-16">休闲客</h3>
+          </div>
+          <div class="seg-traits">
+            <div class="seg-trait"><span class="trait-label">价格敏感度</span><div class="trait-bar"><div class="trait-fill" style="width:80%"></div></div><span class="trait-val">高</span></div>
+            <div class="seg-trait"><span class="trait-label">提前预订</span><div class="trait-bar"><div class="trait-fill" style="width:80%"></div></div><span class="trait-val">长</span></div>
+            <div class="seg-trait"><span class="trait-label">入住时长</span><div class="trait-bar"><div class="trait-fill" style="width:75%"></div></div><span class="trait-val">2-4晚</span></div>
+            <div class="seg-trait"><span class="trait-label">取消概率</span><div class="trait-bar"><div class="trait-fill" style="width:50%"></div></div><span class="trait-val">中</span></div>
+          </div>
+          <div class="seg-strategy">策略：提前预订折扣，周末主力客源</div>
+        </div>
+        <div class="seg-card" id="segGroup">
+          <div class="seg-header">
+            <span class="seg-emoji">👥</span>
+            <h3 id="toc-17">团队客</h3>
+          </div>
+          <div class="seg-traits">
+            <div class="seg-trait"><span class="trait-label">价格敏感度</span><div class="trait-bar"><div class="trait-fill" style="width:65%"></div></div><span class="trait-val">中高</span></div>
+            <div class="seg-trait"><span class="trait-label">提前预订</span><div class="trait-bar"><div class="trait-fill" style="width:90%"></div></div><span class="trait-val">很长</span></div>
+            <div class="seg-trait"><span class="trait-label">入住时长</span><div class="trait-bar"><div class="trait-fill" style="width:50%"></div></div><span class="trait-val">多变</span></div>
+            <div class="seg-trait"><span class="trait-label">取消概率</span><div class="trait-bar"><div class="trait-fill" style="width:40%"></div></div><span class="trait-val">中低</span></div>
+          </div>
+          <div class="seg-strategy">策略：协议价量大从优，提前锁定库存</div>
+        </div>
+      </div>
+      <div class="seg-insight">
+        <div class="insight-icon">💡</div>
+        <p>同一间标准房，公开价（BAR）¥880，商务协议价 ¥760，提前14天预订 ¥620，团队价 ¥520——<strong>每个人付的价格不同，但酒店总收入最高</strong>。这就是价格歧视在酒店业的优雅应用。</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 游戏1: 定价大师 ===== -->
+  <section id="game-pricing" class="game-section section" data-game="pricing">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag game-tag">实战游戏 01</span>
+        <h2 id="toc-18" class="section-title">定价大师</h2>
+        <p class="section-desc">你是酒店收益经理。每轮根据市场情报设定当晚房价，系统自动计算入住率与 RevPAR。10 轮结束，看你的总 RevPAR 能否超越竞品酒店。</p>
+      </div>
+
+      <!-- 游戏开始界面 -->
+      <div class="game-stage" id="pricingStageStart">
+        <div class="game-intro-card">
+          <div class="game-intro-icon">🎯</div>
+          <h3 id="toc-19">定价大师挑战</h3>
+          <div class="game-rules">
+            <div class="rule-item"><span class="rule-num">1</span> 每轮你会看到一个市场场景（季节、活动、竞品价等）</div>
+            <div class="rule-item"><span class="rule-num">2</span> 设定你酒店的当晚房价（¥200 ~ ¥2000）</div>
+            <div class="rule-item"><span class="rule-num">3</span> 系统根据需求弹性自动计算入住率</div>
+            <div class="rule-item"><span class="rule-num">4</span> 目标：10轮总 RevPAR 超越竞品酒店</div>
+          </div>
+          <button class="btn btn-primary btn-lg" id="pricingStartBtn">开始挑战</button>
+        </div>
+      </div>
+
+      <!-- 游戏进行界面 -->
+      <div class="game-stage hidden" id="pricingStagePlay">
+        <div class="pricing-game-layout">
+          <!-- 左：场景信息 -->
+          <div class="pg-left">
+            <div class="pg-round-info">
+              <span class="pg-round">第 <strong id="pgRoundNum">1</strong> / 10 轮</span>
+              <div class="pg-round-dots" id="pgRoundDots"></div>
+            </div>
+            <div class="pg-scene-card" id="pgSceneCard">
+              <div class="pg-scene-icon" id="pgSceneIcon">📅</div>
+              <div class="pg-scene-body">
+                <h3 id="pgSceneTitle">场景标题</h3>
+                <p id="pgSceneDesc">场景描述</p>
+                <div class="pg-scene-tags" id="pgSceneTags"></div>
+              </div>
+            </div>
+            <div class="pg-intel">
+              <div class="intel-item">
+                <span class="intel-label">竞品房价</span>
+                <span class="intel-value" id="pgCompPrice">¥---</span>
+              </div>
+              <div class="intel-item">
+                <span class="intel-label">市场需求</span>
+                <span class="intel-value" id="pgDemandLevel">---</span>
+              </div>
+              <div class="intel-item">
+                <span class="intel-label">可售客房</span>
+                <span class="intel-value">200 间</span>
+              </div>
+            </div>
+          </div>
+          <!-- 右：定价控制 -->
+          <div class="pg-right">
+            <div class="pg-price-control">
+              <label class="pg-price-label">设定今晚房价</label>
+              <div class="pg-price-display" id="pgPriceDisplay">¥800</div>
+              <input type="range" id="pgPriceSlider" min="200" max="2000" value="800" step="10">
+              <div class="pg-price-range"><span>¥200</span><span>¥2000</span></div>
+            </div>
+            <button class="btn btn-primary btn-lg btn-block" id="pgSubmitBtn">确认定价</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 结果展示界面 -->
+      <div class="game-stage hidden" id="pricingStageResult">
+        <div class="pg-result-card">
+          <h3 id="pgResultTitle">本轮结果</h3>
+          <div class="pg-result-metrics">
+            <div class="result-metric">
+              <span class="rm-label">你的房价</span>
+              <span class="rm-value" id="rmPrice">¥800</span>
+            </div>
+            <div class="result-metric">
+              <span class="rm-label">入住率</span>
+              <span class="rm-value" id="rmOcc">75%</span>
+            </div>
+            <div class="result-metric highlight">
+              <span class="rm-label">你的 RevPAR</span>
+              <span class="rm-value" id="rmRevpar">¥600</span>
+            </div>
+            <div class="result-metric">
+              <span class="rm-label">竞品 RevPAR</span>
+              <span class="rm-value" id="rmCompRevpar">¥550</span>
+            </div>
+          </div>
+          <div class="pg-result-comment" id="pgResultComment"></div>
+          <div id="pgResultDetail"></div>
+          <div class="pg-room-visual" id="pgRoomVisual"></div>
+          <button class="btn btn-primary btn-lg" id="pgNextBtn">下一轮 →</button>
+        </div>
+      </div>
+
+      <!-- 最终结算界面 -->
+      <div class="game-stage hidden" id="pricingStageFinal">
+        <div class="pg-final-card">
+          <div class="final-trophy" id="finalTrophy">🏆</div>
+          <h3 id="finalTitle">挑战完成！</h3>
+          <div class="final-comparison">
+            <div class="final-side you">
+              <span class="fs-label">你的总 RevPAR</span>
+              <span class="fs-value" id="finalYourRevpar">¥0</span>
+            </div>
+            <div class="final-vs">VS</div>
+            <div class="final-side comp">
+              <span class="fs-label">竞品总 RevPAR</span>
+              <span class="fs-value" id="finalCompRevpar">¥0</span>
+            </div>
+          </div>
+          <div class="final-rank" id="finalRank"></div>
+          <div class="final-chart">
+            <canvas id="finalChartCanvas" width="680" height="220"></canvas>
+          </div>
+          <div class="final-actions">
+            <button class="btn btn-primary btn-lg" id="pgRestartBtn">再玩一次</button>
+            <a href="#concept-overbooking" class="btn btn-ghost btn-lg">继续学习 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 概念5: 超售策略 ===== -->
+  <section id="concept-overbooking" class="concept-section section alt-bg" data-concept="overbooking">
+    <div class="container">
+      <div class="concept-layout">
+        <div class="concept-text">
+          <span class="section-tag">概念 05</span>
+          <h2 id="toc-20" class="section-title">空房是成本，超售是博弈</h2>
+          <div class="concept-body">
+            <p>每天都有客人订了房却不来（No-show）。如果酒店只按实际房量接单，就会有房间空着过夜——<strong>这是永久损失的收入</strong>。</p>
+            <p>超售（Overbooking）就是<strong>接受比实际房量更多的预订</strong>，用来抵消 No-show 带来的空房。但超售过多，客人到了没房住（Walking），要赔偿并损害品牌。</p>
+            <div class="overbook-balance">
+              <div class="ob-side ob-risk">
+                <span class="ob-icon">📉</span>
+                <span class="ob-title">超售不足</span>
+                <span class="ob-desc">No-show 空房 = 收入损失</span>
+              </div>
+              <div class="ob-vs">⚖️</div>
+              <div class="ob-side ob-risk">
+                <span class="ob-icon">😵</span>
+                <span class="ob-title">超售过多</span>
+                <span class="ob-desc">Walking 客人 = 赔偿+口碑损失</span>
+              </div>
+            </div>
+            <p class="concept-note">关键公式：最优超售数 ≈ 平均 No-show 数。用历史 No-show 率 × 预订数，算出合理的超售缓冲。</p>
+          </div>
+        </div>
+        <div class="concept-visual">
+          <div class="overbook-demo">
+            <h4>超售模拟器</h4>
+            <div class="ob-demo-controls">
+              <label>酒店房间数：<strong>100 间</strong></label>
+              <label>历史 No-show 率：<span id="obNoshowRate">8</span>%</label>
+              <label>接受预订数：<span id="obBookings">108</span> 间</label>
+              <input type="range" id="obBookingsSlider" min="100" max="130" value="108" step="1">
+            </div>
+            <button class="btn btn-primary" id="obSimulateBtn">模拟一晚</button>
+            <div class="ob-demo-result hidden" id="obDemoResult">
+              <div class="ob-result-row"><span>📋 实际到店</span><strong id="obArrivals">100</strong></div>
+              <div class="ob-result-row"><span>🚶 No-show</span><strong id="obNoshow">8</strong></div>
+              <div class="ob-result-row"><span>🛏️ 入住房数</span><strong id="obCheckedin">100</strong></div>
+              <div class="ob-result-row" id="obWalkoutRow"><span>😮 Walked 客人</span><strong id="obWalkout">0</strong></div>
+              <div class="ob-result-row revenue"><span>💰 净收入</span><strong id="obRevenue">¥0</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 游戏2: 超售博弈 ===== -->
+  <section id="game-overbooking" class="game-section section" data-game="overbooking">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag game-tag">实战游戏 02</span>
+        <h2 id="toc-21" class="section-title">超售博弈</h2>
+        <p class="section-desc">5 个晚上的超售决策。每晚你决定接受多少预订，然后看 No-show 的骰子如何落下。收益与风险，全在你手里。</p>
+      </div>
+
+      <div class="game-stage" id="obGameStart">
+        <div class="game-intro-card">
+          <div class="game-intro-icon">🎲</div>
+          <h3 id="toc-22">超售博弈挑战</h3>
+          <div class="game-rules">
+            <div class="rule-item"><span class="rule-num">1</span> 你的酒店有 100 间房，每晚房价 ¥500</div>
+            <div class="rule-item"><span class="rule-num">2</span> 每轮选择接受 100~130 份预订</div>
+            <div class="rule-item"><span class="rule-num">3</span> 系统随机模拟 No-show（概率因场景而异）</div>
+            <div class="rule-item"><span class="rule-num">4</span> 超售到店→每位赔偿 ¥800（含安置费+口碑损失）</div>
+            <div class="rule-item"><span class="rule-num">5</span> 5 轮累计净收入越高越好</div>
+          </div>
+          <button class="btn btn-primary btn-lg" id="obGameStartBtn">开始博弈</button>
+        </div>
+      </div>
+
+      <div class="game-stage hidden" id="obGamePlay">
+        <div class="ob-game-layout">
+          <div class="obg-left">
+            <div class="pg-round-info">
+              <span class="pg-round">第 <strong id="obgRoundNum">1</strong> / 5 晚</span>
+            </div>
+            <div class="pg-scene-card">
+              <div class="pg-scene-icon" id="obgSceneIcon">🌙</div>
+              <div class="pg-scene-body">
+                <h3 id="obgSceneTitle">今晚场景</h3>
+                <p id="obgSceneDesc">场景描述</p>
+                <div class="obg-noshow-hint">历史 No-show 率：<strong id="obgNoshowHint">~8%</strong></div>
+              </div>
+            </div>
+            <div class="obg-history" id="obgHistory">
+              <h4>历史记录</h4>
+              <div class="obg-history-list" id="obgHistoryList"></div>
+            </div>
+          </div>
+          <div class="obg-right">
+            <div class="pg-price-control">
+              <label class="pg-price-label">今晚接受预订数</label>
+              <div class="pg-price-display" id="obgBookingsDisplay">108</div>
+              <input type="range" id="obgBookingsSlider2" min="100" max="130" value="108" step="1">
+              <div class="pg-price-range"><span>100（不超售）</span><span>130（超售30%）</span></div>
+            </div>
+            <button class="btn btn-primary btn-lg btn-block" id="obgRollBtn">开今晚的门 🎲</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-stage hidden" id="obGameResult">
+        <div class="obg-result-card">
+          <h3 id="obgResultTitle">今晚结算</h3>
+          <div class="obg-anim-area" id="obgAnimArea"></div>
+          <div class="pg-result-metrics">
+            <div class="result-metric"><span class="rm-label">接受预订</span><span class="rm-value" id="obgRmBookings">108</span></div>
+            <div class="result-metric"><span class="rm-label">实际到店</span><span class="rm-value" id="obgRmArrivals">100</span></div>
+            <div class="result-metric"><span class="rm-label">入住房数</span><span class="rm-value" id="obgRmCheckedin">100</span></div>
+            <div class="result-metric" id="obgRmWalkoutMetric"><span class="rm-label">Walked 客人</span><span class="rm-value" id="obgRmWalkout">0</span></div>
+            <div class="result-metric highlight"><span class="rm-label">今晚净收入</span><span class="rm-value" id="obgRmRevenue">¥0</span></div>
+          </div>
+          <button class="btn btn-primary btn-lg" id="obgNextBtn">下一晚 →</button>
+        </div>
+      </div>
+
+      <div class="game-stage hidden" id="obGameFinal">
+        <div class="pg-final-card">
+          <div class="final-trophy" id="obgFinalTrophy">🏆</div>
+          <h3 id="obgFinalTitle">5晚结算</h3>
+          <div class="final-comparison">
+            <div class="final-side you">
+              <span class="fs-label">你的总净收入</span>
+              <span class="fs-value" id="obgFinalRevenue">¥0</span>
+            </div>
+            <div class="final-vs">vs</div>
+            <div class="final-side comp">
+              <span class="fs-label">不超售总收入</span>
+              <span class="fs-value" id="obgFinalBaseline">¥0</span>
+            </div>
+          </div>
+          <div class="final-rank" id="obgFinalRank"></div>
+          <div class="final-actions">
+            <button class="btn btn-primary btn-lg" id="obgRestartBtn">再来一局</button>
+            <a href="#game-segmentation" class="btn btn-ghost btn-lg">下一个游戏 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 游戏3: 客户匹配 ===== -->
+  <section id="game-segmentation" class="game-section section alt-bg" data-game="segmentation">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag game-tag">实战游戏 03</span>
+        <h2 id="toc-23" class="section-title">客户匹配大师</h2>
+        <p class="section-desc">客人鱼贯而至，你需要在 60 秒内把他们分配到正确的费率渠道。分配越准、收益越高。考验你对市场细分的反应速度。</p>
+      </div>
+
+      <div class="game-stage" id="segGameStart">
+        <div class="game-intro-card">
+          <div class="game-intro-icon">🧩</div>
+          <h3 id="toc-24">客户匹配挑战</h3>
+          <div class="game-rules">
+            <div class="rule-item"><span class="rule-num">1</span> 屏幕上会出现一位客人的特征描述</div>
+            <div class="rule-item"><span class="rule-num">2</span> 点击正确的费率渠道将他分配进去</div>
+            <div class="rule-item"><span class="rule-num">3</span> BAR（公开价） / 商务协议 / 提前预订 / 团队价</div>
+            <div class="rule-item"><span class="rule-num">4</span> 60秒内尽可能多匹配，正确得分、错误扣分</div>
+          </div>
+          <button class="btn btn-primary btn-lg" id="segGameStartBtn">开始匹配</button>
+        </div>
+      </div>
+
+      <div class="game-stage hidden" id="segGamePlay">
+        <div class="seg-game-layout">
+          <div class="seg-game-hud">
+            <div class="hud-item"><span>得分</span><strong id="segScore">0</strong></div>
+            <div class="hud-item"><span>连击</span><strong id="segCombo">0</strong></div>
+            <div class="hud-item"><span>剩余时间</span><strong id="segTimer">60s</strong></div>
+          </div>
+          <div class="seg-customer-area" id="segCustomerArea">
+            <div class="seg-customer-card" id="segCustomerCard">
+              <div class="seg-customer-icon" id="segCustIcon">💼</div>
+              <div class="seg-customer-info">
+                <h4 id="segCustName">张先生</h4>
+                <p id="segCustDesc">特征描述</p>
+              </div>
+            </div>
+          </div>
+          <div class="seg-channels">
+            <button class="seg-channel" data-channel="bar">
+              <span class="ch-icon">🏷️</span>
+              <span class="ch-name">BAR 公开价</span>
+              <span class="ch-price">¥880</span>
+            </button>
+            <button class="seg-channel" data-channel="corporate">
+              <span class="ch-icon">💼</span>
+              <span class="ch-name">商务协议价</span>
+              <span class="ch-price">¥760</span>
+            </button>
+            <button class="seg-channel" data-channel="advance">
+              <span class="ch-icon">📅</span>
+              <span class="ch-name">提前预订价</span>
+              <span class="ch-price">¥620</span>
+            </button>
+            <button class="seg-channel" data-channel="group">
+              <span class="ch-icon">👥</span>
+              <span class="ch-name">团队价</span>
+              <span class="ch-price">¥520</span>
+            </button>
+          </div>
+          <div class="seg-feedback" id="segFeedback"></div>
+        </div>
+      </div>
+
+      <div class="game-stage hidden" id="segGameFinal">
+        <div class="pg-final-card">
+          <div class="final-trophy" id="segFinalTrophy">🏆</div>
+          <h3 id="segFinalTitle">时间到！</h3>
+          <div class="seg-final-stats">
+            <div class="seg-fs-item"><span>总得分</span><strong id="segFinalScore">0</strong></div>
+            <div class="seg-fs-item"><span>正确匹配</span><strong id="segFinalCorrect">0</strong></div>
+            <div class="seg-fs-item"><span>错误匹配</span><strong id="segFinalWrong">0</strong></div>
+            <div class="seg-fs-item"><span>最高连击</span><strong id="segFinalCombo">0</strong></div>
+          </div>
+          <div class="final-rank" id="segFinalRank"></div>
+          <div class="final-actions">
+            <button class="btn btn-primary btn-lg" id="segRestartBtn">再来一局</button>
+            <a href="#dashboard" class="btn btn-ghost btn-lg">查看总成绩 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 游戏4: 收益经理的一天 ===== -->
+  <section id="game-dayinlife" class="game-section section" data-game="dayinlife">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag game-tag">实战游戏 04</span>
+        <h2 id="toc-25" class="section-title">收益经理的一天 · 引导式流程</h2>
+        <p class="section-desc">系统一步步引导你完成收益经理一天中的每一个工作环节。每个步骤告诉你"请你做什么"，你选择操作，看到结果，继续下一步。走完整天，就掌握了全部工作流程。</p>
+      </div>
+
+      <!-- 开始界面 -->
+      <div class="game-stage" id="dilStageStart">
+        <div class="game-intro-card">
+          <div class="game-intro-icon">🌅</div>
+          <h3 id="toc-26">收益经理的一天</h3>
+          <p style="color:var(--text-light);margin-bottom:24px;">你将扮演云际酒店（300间房）的收益经理，从早上7:00到下午5:30，完成一天中的全部工作流程。</p>
+          <div class="dil-intro-timeline">
+            <div class="dil-tl-phase"><span class="phase-tag phase-daily">🌅 07:00</span><span>晨会准备 · 查看数据、整理汇报</span></div>
+            <div class="dil-tl-phase"><span class="phase-tag phase-daily">👥 07:30</span><span>晨会 · 汇报业绩、记录信息</span></div>
+            <div class="dil-tl-phase"><span class="phase-tag phase-daily">💰 08:00</span><span>价格审核 · BAR调整、竞品分析</span></div>
+            <div class="dil-tl-phase"><span class="phase-tag phase-daily">📋 09:00</span><span>预订审查 · Pickup、库存管控</span></div>
+            <div class="dil-tl-phase"><span class="phase-tag phase-daily">🌐 10:00</span><span>渠道管理 · OTA优化、Rate Parity</span></div>
+            <div class="dil-tl-phase"><span class="phase-tag phase-daily">🤝 11:00</span><span>团队询价 · 置换分析、报价</span></div>
+            <div class="dil-tl-phase"><span class="phase-tag phase-daily">🔮 13:00</span><span>预测更新 · 建模、参数校准</span></div>
+            <div class="dil-tl-phase"><span class="phase-tag phase-daily">🎯 14:00</span><span>策略调整 · LOS管控、超售</span></div>
+            <div class="dil-tl-phase"><span class="phase-tag phase-daily">🗣️ 15:00</span><span>跨部门沟通 · 销售与前厅协同</span></div>
+            <div class="dil-tl-phase"><span class="phase-tag phase-daily">📊 16:00</span><span>报告复盘 · 日报、决策复盘</span></div>
+            <div class="dil-tl-phase"><span class="phase-tag phase-daily">🌇 17:00</span><span>收尾 · 最终核查、明日规划</span></div>
+          </div>
+          <div class="game-rules">
+            <div class="rule-item"><span class="rule-num">1</span> 系统会提示你每一步要做什么——"请打开PMS""请查看竞品价格"等</div>
+            <div class="rule-item"><span class="rule-num">2</span> 每步提供2-3个操作选项，点击任一选项即可完成该步骤</div>
+            <div class="rule-item"><span class="rule-num">3</span> 看到操作结果后，点"继续"进入下一步，直到走完整天</div>
+            <div class="rule-item"><span class="rule-num">4</span> 没有对错评分——重点是跟着走完，自然掌握全流程</div>
+          </div>
+          <button class="btn btn-primary btn-lg" id="dilStartBtn">开始一天的工作 🌅</button>
+        </div>
+      </div>
+
+      <!-- 游戏进行 — 引导式操作 -->
+      <div class="game-stage hidden" id="dilStagePlay">
+        <div class="dil-game-layout">
+          <!-- 进度条 -->
+          <div class="dil-progress-bar">
+            <div class="dil-progress-fill" id="dilProgressFill" style="width:0%"></div>
+          </div>
+
+          <!-- 环节信息栏 -->
+          <div class="dil-phase-bar">
+            <span class="dil-phase-icon-lg" id="dilPhaseIcon">🌅</span>
+            <div class="dil-phase-info">
+              <div class="dil-phase-name-row">
+                <span class="dil-phase-name" id="dilPhaseTitle">晨会准备</span>
+                <span class="dil-phase-time" id="dilPhaseTime">07:00</span>
+              </div>
+              <div class="dil-phase-meta">
+                <span id="dilStepCounter">第 1 步 / 共 3 步</span>
+                <span class="dil-meta-sep">·</span>
+                <span id="dilGlobalCounter">进度 1 / 27</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 引导提示语 -->
+          <div class="dil-instruction-card">
+            <div class="dil-instruction-icon">📖</div>
+            <div class="dil-instruction-text" id="dilInstruction">请打开PMS系统，查看昨日经营数据</div>
+          </div>
+
+          <!-- 数据上下文 -->
+          <div class="dil-context-line hidden" id="dilContext"></div>
+
+          <!-- 操作选项 -->
+          <div class="dil-actions-label">请选择操作：</div>
+          <div class="dil-actions" id="dilActions"></div>
+
+          <!-- 操作结果 -->
+          <div class="dil-result-area hidden" id="dilResult"></div>
+
+          <!-- 继续按钮 -->
+          <button class="btn btn-primary btn-lg dil-continue-btn hidden" id="dilContinueBtn" onclick="Games.DayInTheLife.nextStep()">继续 →</button>
+        </div>
+      </div>
+
+      <!-- 完成界面 -->
+      <div class="game-stage hidden" id="dilStageFinal">
+        <div class="pg-final-card">
+          <div class="final-trophy">🎉</div>
+          <h3 id="toc-27">一天工作完成！</h3>
+          <p style="color:var(--text-light);margin-bottom:24px;">你跟随引导完成了收益经理一天的全部工作流程。</p>
+          <div class="dil-final-phases" id="dilFinalPhases"></div>
+          <div class="dil-final-note">
+            <p>你完成了 <strong>12 个工作环节、27 个操作步骤</strong>，涵盖了收益经理从晨会到收尾的完整一天。</p>
+            <p>每个环节都是真实工作中的必修项——数据分析、定价、渠道、预测、策略、沟通、报告——跟着走一遍就自然掌握了。</p>
+          </div>
+          <div class="final-actions">
+            <button class="btn btn-primary btn-lg" id="dilRestartBtn">再来一天</button>
+            <a href="#dashboard" class="btn btn-ghost btn-lg">查看总成绩 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 成绩仪表盘 ===== -->
+  <section id="dashboard" class="dashboard-section section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">成绩仪表盘</span>
+        <h2 id="toc-28" class="section-title">你的学习成就</h2>
+        <p class="section-desc">完成游戏后这里会显示你的成绩。概念模块完成后会自动打勾。</p>
+      </div>
+      <div class="dashboard-grid">
+        <div class="dash-card" id="dashConcept1">
+          <div class="dash-icon">📚</div>
+          <div class="dash-info">
+            <span class="dash-name">概念学习</span>
+            <span class="dash-status" id="dashConceptStatus">0 / 5 已学</span>
+          </div>
+          <div class="dash-progress"><div class="dash-progress-fill" id="dashConceptFill" style="width:0%"></div></div>
+        </div>
+        <div class="dash-card" id="dashGame1">
+          <div class="dash-icon">🎯</div>
+          <div class="dash-info">
+            <span class="dash-name">定价大师</span>
+            <span class="dash-status" id="dashPricingStatus">未挑战</span>
+          </div>
+          <div class="dash-best" id="dashPricingBest">最佳 RevPAR: ---</div>
+        </div>
+        <div class="dash-card" id="dashGame2">
+          <div class="dash-icon">🎲</div>
+          <div class="dash-info">
+            <span class="dash-name">超售博弈</span>
+            <span class="dash-status" id="dashOverbookingStatus">未挑战</span>
+          </div>
+          <div class="dash-best" id="dashOverbookingBest">最佳净收入: ---</div>
+        </div>
+        <div class="dash-card" id="dashGame3">
+          <div class="dash-icon">🧩</div>
+          <div class="dash-info">
+            <span class="dash-name">客户匹配</span>
+            <span class="dash-status" id="dashSegStatus">未挑战</span>
+          </div>
+          <div class="dash-best" id="dashSegBest">最佳得分: ---</div>
+        </div>
+        <div class="dash-card" id="dashGame4">
+          <div class="dash-icon">🌅</div>
+          <div class="dash-info">
+            <span class="dash-name">收益经理的一天</span>
+            <span class="dash-status" id="dashDilStatus">未挑战</span>
+          </div>
+          <div class="dash-best" id="dashDilBest">得分: ---</div>
+        </div>
+      </div>
+      <div class="completion-badge hidden" id="completionBadge">
+        <div class="cb-trophy">🎓</div>
+        <h3 id="toc-29">恭喜！你已完成全部课程</h3>
+        <p>你已经掌握了酒店收益管理的核心概念和操作技能。</p>
+        <div class="cb-medal" id="cbMedal"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">🏨 RevPAR大师</div>
+        <p>酒店收益管理互动教学 · 用动画理解概念，用游戏掌握操作</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 浮动提示 -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="assets/revenue-game/js/data.js"></script>
+  <script src="assets/revenue-game/js/dil-data.js"></script>
+  <script src="assets/revenue-game/js/concepts.js"></script>
+  <script src="assets/revenue-game/js/games.js"></script>
+  <script src="assets/revenue-game/js/app.js"></script>
+<div style="max-width:1080px;margin:0 auto 40px;padding:0 18px"><div style="background:#f4f1ea;border:1px solid #ddd8ce;border-radius:8px;padding:14px 18px;font-size:13px;color:#5a5347;line-height:1.9"><b style="color:#0f2a4a">站内配套：</b><a href="rm-sop.html" style="color:#1d6fb8;text-decoration:none">收益管理经理工作 SOP</a>（「收益经理的一天」即本游戏第 4 关，规则全文在那里）· <a href="game-oversell.html" style="color:#1d6fb8;text-decoration:none">超售决策演练</a> · <a href="revenue-sandbox.html" style="color:#1d6fb8;text-decoration:none">可运行推演沙盘</a> · <a href="games.html" style="color:#1d6fb8;text-decoration:none">游戏馆</a><br>本页为门内教学资源；数据为脱敏模拟，计算在浏览器本地完成。</div></div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">先学概念，再练实战</a>
+<a href="#toc-2" class="lv3">三大核心指标</a>
+<a href="#toc-3" class="lv3">定价权衡</a>
+<a href="#toc-4" class="lv3">动态定价</a>
+<a href="#toc-5" class="lv3">市场细分</a>
+<a href="#toc-6" class="lv3">定价大师</a>
+<a href="#toc-7" class="lv3">超售策略</a>
+<a href="#toc-8" class="lv3">超售博弈</a>
+<a href="#toc-9" class="lv3">客户匹配</a>
+<a href="#toc-10" class="lv3">🌟 收益经理的一天</a>
+<a href="#toc-11">酒店收益管理的三个字母</a>
+<a href="#toc-12">高价低入住 还是 低价高入住？</a>
+<a href="#toc-13">价格不是定一次，而是每天都在变</a>
+<a href="#toc-14">不同客人，不同价格，同一间房</a>
+<a href="#toc-15" class="lv3">商务客</a>
+<a href="#toc-16" class="lv3">休闲客</a>
+<a href="#toc-17" class="lv3">团队客</a>
+<a href="#toc-18">定价大师</a>
+<a href="#toc-19" class="lv3">定价大师挑战</a>
+<a href="#pgSceneTitle" class="lv3">场景标题</a>
+<a href="#pgResultTitle" class="lv3">本轮结果</a>
+<a href="#finalTitle" class="lv3">挑战完成！</a>
+<a href="#toc-20">空房是成本，超售是博弈</a>
+<a href="#toc-21">超售博弈</a>
+<a href="#toc-22" class="lv3">超售博弈挑战</a>
+<a href="#obgSceneTitle" class="lv3">今晚场景</a>
+<a href="#obgResultTitle" class="lv3">今晚结算</a>
+<a href="#obgFinalTitle" class="lv3">5晚结算</a>
+<a href="#toc-23">客户匹配大师</a>
+<a href="#toc-24" class="lv3">客户匹配挑战</a>
+<a href="#segFinalTitle" class="lv3">时间到！</a>
+<a href="#toc-25">收益经理的一天 · 引导式流程</a>
+<a href="#toc-26" class="lv3">收益经理的一天</a>
+<a href="#toc-27" class="lv3">一天工作完成！</a>
+<a href="#toc-28">你的学习成就</a>
+<a href="#toc-29" class="lv3">恭喜！你已完成全部课程</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
+</html>
