@@ -43,11 +43,13 @@ header.top p b{color:#fff}
 .decision{font-size:13px;color:#4a3f2a;background:#f6efdd;border:1px solid #e5d5ac;
  border-radius:6px;padding:8px 12px;line-height:1.7}
 .decision b{color:#8a6410}
-.sec-l{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:2px;margin:14px 0 8px;
+.sec-l{font-size:12.5px;font-weight:700;color:var(--gold);letter-spacing:2px;margin:16px 0 8px;
  display:flex;align-items:center;gap:8px}
+.sec-l:first-child{margin-top:0}
 .sec-l::after{content:"";flex:1;height:1px;background:var(--line)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 16px}
 .field label{display:block;font-size:12.8px;color:#4a443b;margin-bottom:5px;font-weight:600}
+.field label small{font-weight:400;color:var(--mut);font-size:11.5px}
 .field input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:6px;
  font-size:15px;font-family:var(--hei);background:#fff;color:var(--ink)}
 .field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(184,137,43,.18)}
@@ -61,8 +63,11 @@ button{font-family:var(--hei);font-size:14px;border-radius:6px;padding:9px 18px;
 .btn-copy:hover{background:#dde8f5}
 .out{margin-top:16px;background:#f4f1ea;border:1px solid var(--line);border-radius:7px;padding:14px 16px;display:none}
 .out.show{display:block}
+.out .grp{font-size:12.5px;font-weight:700;color:#8a6410;letter-spacing:2px;
+ margin:14px 0 4px;padding-bottom:3px;border-bottom:1px solid var(--line)}
+.out .grp:first-child{margin-top:0}
 .out .row{display:flex;justify-content:space-between;align-items:baseline;
- border-bottom:1px dashed var(--line);padding:7px 0;font-size:14px}
+ border-bottom:1px dashed var(--line);padding:6px 0;font-size:14px}
 .out .row:last-child{border-bottom:none}
 .out .row .k{color:#4a443b}
 .out .row .k i{font-style:normal;color:var(--mut);font-size:12.5px;margin-left:6px}
@@ -87,9 +92,9 @@ footer{margin-top:26px;font-size:12.5px;color:var(--mut);text-align:center;line-
 <header class="top">
 <h1>收益管理可运行推演沙盘</h1>
 <div class="sub">线上数字资源 · 只填基本盘，推算交给系统</div>
-<p>判定表与模板给的是<b>规则和结论</b>；沙盘给你的是<b>过程与市况</b>：你只填门店的基本盘（房量、在手、预测、价格），
-被置换间夜、边际贡献、超售额度这些加工项全部由系统推算，并把每一步摊开给你看。
-口径与站内<a href="https://hrma-city.github.io/tools.html" style="color:#e8d5a8">在线工具箱</a>的置换分析、超额预订测算一致（含餐饮贡献、Walk 成本、风险偏好、硬上限）；
+<p>判定表与模板给的是<b>规则和结论</b>；沙盘给你的是<b>过程与市况</b>：你只填门店的基本盘（房量、在手、预测、价格、参与率），
+被挤掉间夜、餐饮与其他贡献、边际贡献、超售额度这些加工项全部由系统推算，并把每一步摊开给你看。
+口径与站内<a href="https://hrma-city.github.io/tools.html" style="color:#e8d5a8">在线工具箱</a>及《置换分析》Excel 模板一致（含比例法）；
 工具箱保存你的日常数据，本沙盘则用「淡季 · 平季 · 旺季」情景按钮切换市况，观察同一个决定在不同日子结论相反。
 数据沿用书中「云璟酒店」脱敏设定（杭州滨江、300 间房），也可替换为你的真实数据。所有计算在浏览器本地完成，不上传任何信息。</p>
 </header>
@@ -123,6 +128,7 @@ footer{margin-top:26px;font-size:12.5px;color:var(--mut);text-align:center;line-
 </div>
 <div class="warn" id="r_warn">已卖间夜数不能超过可售客房数，且需大于 0。</div>
 <div class="out" id="r_out">
+<div class="grp">系统推算</div>
 <div class="row"><span class="k">出租率 OCC<i>＝ S ÷ N</i></span><span class="v" id="r_occ"></span></div>
 <div class="row"><span class="k">平均房价 ADR<i>＝ R ÷ S</i></span><span class="v" id="r_adr"></span></div>
 <div class="row"><span class="k">每间可售房收入 RevPAR<i>＝ R ÷ N ＝ OCC × ADR</i></span><span class="v" id="r_revpar"></span></div>
@@ -135,20 +141,33 @@ footer{margin-top:26px;font-size:12.5px;color:var(--mut);text-align:center;line-
 <section class="card">
 <h2><span class="tag">推演二</span>团队置换分析与接团判定</h2>
 <div class="decision"><b>决策方法：</b>净贡献 ＝ 团队总贡献 − 被挤掉散客贡献；&gt;0 接受，&lt;0 拒绝。判断一笔低价/团队业务会不会挤掉更高价散客，比净贡献，不比单价。</div>
-<div class="note">对应「客源细分战略」「库存与限制条件」等章。<b>被挤掉的散客房晚不由你填</b>——那是置换分析里最关键的一步推算，交给系统：
-由散客在手与预测需求，算出接团前还剩多少空房，团队超出空余的部分才挤掉散客。两边都含餐饮贡献，按净贡献比大小。</div>
-<div class="sec-l">基本盘（当天库存与询价）</div>
+<div class="note">对应「客源细分战略」「库存与限制条件」等章。<b>被挤掉的散客房晚不由你填</b>——那是置换分析里最关键的一步推算，交给系统：由散客在手与预测需求，算出接团前还剩多少空房，团队超出空余的部分才挤掉散客。
+<b>餐饮与其他收入贡献也不用手填结果</b>——只填参与率和人均净贡献，系统按「参与率 × 人均净贡献」推出每间夜贡献，再加上其他收入贡献，按净贡献比大小。</div>
+<div class="sec-l">基本盘 · 库存与需求</div>
 <div class="grid">
 <div class="field"><label>可售客房数 N（间）</label><input id="d_n" type="number" min="0" value="300"></div>
 <div class="field"><label>散客在手已订（间夜）</label><input id="d_th" type="number" min="0" value="90"></div>
 <div class="field"><label>散客预测还会卖（间夜）</label><input id="d_tf" type="number" min="0" value="120"></div>
+<div class="field"><label>团队询价间夜 GN（间）</label><input id="d_gn" type="number" min="0" value="120"></div>
+</div>
+<div class="sec-l">基本盘 · 价格与成本</div>
+<div class="grid">
 <div class="field"><label>散客净价 DADR（元/间夜）</label><input id="d_dadr" type="number" min="0" value="620"></div>
 <div class="field"><label>单间变动成本 VC（元/间夜）</label><input id="d_vc" type="number" min="0" value="95"></div>
-<div class="field"><label>团队询价间夜 GN（间）</label><input id="d_gn" type="number" min="0" value="120"></div>
 <div class="field"><label>团队报价·毛价（元/间夜）</label><input id="d_gp" type="number" min="0" value="480"></div>
 <div class="field"><label>团队佣金率（%，无填 0）</label><input id="d_comm" type="number" min="0" value="0"></div>
-<div class="field"><label>散客餐饮贡献（元/间夜）</label><input id="d_fbt" type="number" min="0" value="80"></div>
-<div class="field"><label>团队餐饮贡献（元/间夜）</label><input id="d_fbg" type="number" min="0" value="120"></div>
+</div>
+<div class="sec-l">基本盘 · 餐饮贡献原料<small style="font-weight:400;color:var(--mut);letter-spacing:0">（系统按 参与率 × 人均净贡献 推算每间夜餐饮贡献）</small></div>
+<div class="grid">
+<div class="field"><label>散客餐饮参与率（%）</label><input id="d_fbr_t" type="number" min="0" value="40"></div>
+<div class="field"><label>散客人均餐饮净贡献（元/人次）</label><input id="d_fbp_t" type="number" min="0" value="200"></div>
+<div class="field"><label>团队餐饮参与率（%）<small>包餐/会议餐比例</small></label><input id="d_fbr_g" type="number" min="0" value="100"></div>
+<div class="field"><label>团队人均餐饮净贡献（元/人次）</label><input id="d_fbp_g" type="number" min="0" value="120"></div>
+</div>
+<div class="sec-l">基本盘 · 其他收入贡献（元/间夜，净额）</div>
+<div class="grid">
+<div class="field"><label>散客其他贡献<small>停车/洗衣/迷你吧</small></label><input id="d_ot" type="number" min="0" value="15"></div>
+<div class="field"><label>团队会议及其他贡献<small>场地等分摊</small></label><input id="d_og" type="number" min="0" value="45"></div>
 </div>
 <div class="actions">
 <button class="btn-go" onclick="calcDisp()">演算</button>
@@ -157,18 +176,23 @@ footer{margin-top:26px;font-size:12.5px;color:var(--mut);text-align:center;line-
 </div>
 <div class="warn" id="d_warn">间夜数不能为负，散客在手不能超过总房量，团队间夜需大于 0。</div>
 <div class="out" id="d_out">
+<div class="grp">系统推算 · 库存</div>
 <div class="row"><span class="k">散客预期售出 T<i>＝ min（N，在手 + 预测）</i></span><span class="v" id="d_t"></span></div>
 <div class="row"><span class="k">接团前空余房量<i>＝ N − T</i></span><span class="v" id="d_spare"></span></div>
-<div class="row hot"><span class="k">被挤掉散客房晚 DN<i>＝ max（0，T −（N − GN））← 关键推算</i></span><span class="v" id="d_dn"></span></div>
-<div class="row"><span class="k">散客边际贡献/间夜<i>＝（DADR − VC）＋ 散客餐饮贡献</i></span><span class="v" id="d_ct"></span></div>
-<div class="row"><span class="k">团队边际贡献/间夜<i>＝（团队净价 − VC）＋ 团队餐饮贡献</i></span><span class="v" id="d_cg"></span></div>
+<div class="row hot"><span class="k">被挤掉散客房晚 DN<i>＝ max（0，T −（N − GN））</i></span><span class="v" id="d_dn"></span></div>
+<div class="grp">系统推算 · 每间夜贡献</div>
+<div class="row"><span class="k">散客餐饮贡献<i>＝ 参与率 × 人均净贡献</i></span><span class="v" id="d_fbt"></span></div>
+<div class="row"><span class="k">团队餐饮贡献<i>＝ 参与率 × 人均净贡献</i></span><span class="v" id="d_fbg"></span></div>
+<div class="row"><span class="k">散客边际贡献<i>＝（DADR − VC）＋ 餐饮 ＋ 其他</i></span><span class="v" id="d_ct"></span></div>
+<div class="row"><span class="k">团队边际贡献<i>＝（团队净价 − VC）＋ 餐饮 ＋ 会议其他</i></span><span class="v" id="d_cg"></span></div>
+<div class="grp">决策</div>
 <div class="row"><span class="k">团队总贡献<i>＝ GN × 团队边际贡献</i></span><span class="v" id="d_tc"></span></div>
 <div class="row"><span class="k">散客损失贡献<i>＝ DN × 散客边际贡献</i></span><span class="v" id="d_dc"></span></div>
-<div class="row"><span class="k">净贡献<i>＝ 团队总贡献 − 散客损失贡献</i></span><span class="v" id="d_net"></span></div>
-<div class="row"><span class="k">团队盈亏平衡最低价<i>＝（VC − 团队餐饮）＋ DN ÷ GN × 散客边际贡献</i></span><span class="v" id="d_floor"></span></div>
+<div class="row hot"><span class="k">净贡献<i>＝ 团队总贡献 − 散客损失贡献</i></span><span class="v" id="d_net"></span></div>
+<div class="row"><span class="k">团队盈亏平衡最低价<i>净价口径，可据此还价</i></span><span class="v" id="d_floor"></span></div>
 <div class="verdict neu" id="d_v">—</div>
 </div>
-<div class="formula">判定：净贡献 &gt; 0 才接；被挤掉的散客贡献是放弃的机会成本，不是团队本身的成本。低于盈亏平衡价的报价，先还价或砍间数，不当场答应。</div>
+<div class="formula">判定：净贡献 &gt; 0 才接；被挤掉的散客贡献是放弃的机会成本，不是团队本身的成本。<b>比例法参考</b>（需求远超房量、团队之间也互相挤时）：总未满足需求 <span id="d_gap"></span>；比例法置换量 <span id="d_prop"></span> 间夜，按它重算净贡献 <span id="d_alt"></span>。</div>
 </section>
 
 <!-- 推演三：保护位 -->
@@ -189,8 +213,9 @@ footer{margin-top:26px;font-size:12.5px;color:var(--mut);text-align:center;line-
 </div>
 <div class="warn" id="p_warn">客源在手不能超过总房量。</div>
 <div class="out" id="p_out">
+<div class="grp">系统推算</div>
 <div class="row"><span class="k">高价值剩余需求<i>＝ max（0，预测 − 在手）</i></span><span class="v" id="p_rem"></span></div>
-<div class="row hot"><span class="k">建议保护位 PL<i>＝ 高价值剩余需求 ← 系统推算</i></span><span class="v" id="p_pl"></span></div>
+<div class="row hot"><span class="k">建议保护位 PL<i>＝ 高价值剩余需求</i></span><span class="v" id="p_pl"></span></div>
 <div class="row"><span class="k">可开放给低价值<i>＝ N − 高价值在手 − PL</i></span><span class="v" id="p_open"></span></div>
 <div class="verdict neu" id="p_v">—</div>
 </div>
@@ -221,6 +246,7 @@ footer{margin-top:26px;font-size:12.5px;color:var(--mut);text-align:center;line-
 </div>
 <div class="warn" id="o_warn">已售不能超过可售房数，风险偏好需为正。</div>
 <div class="out" id="o_out">
+<div class="grp">系统推算</div>
 <div class="row"><span class="k">预期可回填房晚<i>＝ S ×（No-show率 + 取消率）</i></span><span class="v" id="o_refill"></span></div>
 <div class="row hot"><span class="k">建议超售（标准档）<i>＝ min（回填 × 风险偏好，R × 硬上限）</i></span><span class="v" id="o_sug"></span></div>
 <div class="row"><span class="k">三档建议<i>保守 0.7 × ／ 标准 1 × ／ 激进 1.3 ×</i></span><span class="v" id="o_three"></span></div>
@@ -233,7 +259,7 @@ footer{margin-top:26px;font-size:12.5px;color:var(--mut);text-align:center;line-
 </section>
 
 <footer>
-本页为教学用数字资源，计算口径与站内在线工具箱（tools.html）及书中判定表（表 B 库存与限制条件 · 表 E 超售 · 表 G 团队置换矩阵 · 表 K 团队底线）一致；数据为脱敏模拟，不指向任何真实企业。<br>
+本页为教学用数字资源，计算口径与站内在线工具箱（tools.html）、《置换分析》Excel 模板（含比例法）及书中判定表（表 B 库存与限制条件 · 表 E 超售 · 表 G 团队置换矩阵 · 表 K 团队底线）一致；数据为脱敏模拟，不指向任何真实企业。<br>
 配套：<a href="https://hrma-city.github.io/tools.html" style="color:#1d6fb8">在线工具箱</a>（自动保存你的日常数据）· 成书版教材「实验数据表」各章 · 院校专区七件套判定表 · 模板《练习04_库存与保护位.xlsx》。
 </footer>
 </div>
@@ -256,17 +282,17 @@ function copyOut(id){
 var SCEN={
  low:{note:'<b>云璟 · 淡季周二</b>：散客需求弱（在手+预测仅 120），空房多——团队多半是纯增量，贴近变动成本也可以接；超售回填量也小。',
   r:{n:300,s:120,rev:62400,vc:11400},
-  d:{n:300,th:60,tf:60,dadr:520,vc:95,gn:120,gp:480,comm:0,fbt:80,fbg:120},
+  d:{n:300,th:60,tf:60,dadr:520,vc:95,gn:120,gp:480,comm:0,fbr_t:40,fbp_t:200,fbr_g:100,fbp_g:120,ot:15,og:45},
   p:{n:300,hh0:20,hh1:80,lh:100},
   o:{r:300,s:150,ns:3,cx:3,walk:300,adr:520,pref:1,cap:15}},
  mid:{note:'<b>云璟 · 平季周四</b>：散客需求中等（在手+预测 210，空余 90）——120 间的团队要挤掉 30 间夜散客，边际情况必须算清。',
   r:{n:300,s:204,rev:126480,vc:19380},
-  d:{n:300,th:90,tf:120,dadr:620,vc:95,gn:120,gp:480,comm:0,fbt:80,fbg:120},
+  d:{n:300,th:90,tf:120,dadr:620,vc:95,gn:120,gp:480,comm:0,fbr_t:40,fbp_t:200,fbr_g:100,fbp_g:120,ot:15,og:45},
   p:{n:300,hh0:40,hh1:130,lh:150},
   o:{r:300,s:270,ns:4,cx:6,walk:400,adr:620,pref:1,cap:15}},
  high:{note:'<b>云璟 · 旺季周六</b>：散客需求 330 超过 300 间房——接 120 间团队就要挤掉 120 间夜高价散客，同一份报价结论反转；满房日超售也最有得算。',
   r:{n:300,s:294,rev:229320,vc:27930},
-  d:{n:300,th:180,tf:150,dadr:780,vc:95,gn:120,gp:480,comm:0,fbt:80,fbg:120},
+  d:{n:300,th:180,tf:150,dadr:780,vc:95,gn:120,gp:480,comm:0,fbr_t:40,fbp_t:200,fbr_g:100,fbp_g:120,ot:15,og:45},
   p:{n:300,hh0:90,hh1:200,lh:180},
   o:{r:300,s:300,ns:5,cx:8,walk:500,adr:780,pref:1,cap:15}}
 };
@@ -277,7 +303,7 @@ function applyScen(s){
  document.querySelectorAll('.scen-b').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-s')===s);});
  document.getElementById('scen_note').innerHTML=c.note;
  ['n','s','rev','vc'].forEach(function(k){setv('r_'+k,c.r[k]);});
- ['n','th','tf','dadr','vc','gn','gp','comm','fbt','fbg'].forEach(function(k){setv('d_'+k,c.d[k]);});
+ ['n','th','tf','gn','dadr','vc','gp','comm','fbr_t','fbp_t','fbr_g','fbp_g','ot','og'].forEach(function(k){setv('d_'+k,c.d[k]);});
  ['n','hh0','hh1','lh'].forEach(function(k){setv('p_'+k,c.p[k]);});
  ['r','s','ns','cx','walk','adr','pref','cap'].forEach(function(k){setv('o_'+k,c.o[k]);});
  hide('r_out');hide('r_warn');hide('d_out');hide('d_warn');hide('p_out');hide('p_warn');hide('o_out');hide('o_warn');
@@ -296,22 +322,36 @@ function calcRev(){
  else{document.getElementById('r_goppar').textContent='—（未填变动成本）';}
 }
 
-/* 推演二：置换分析（被挤掉散客房晚 DN 由系统从在手/预测推算，不由用户填；口径对齐工具箱：含餐饮贡献） */
+/* 推演二：置换分析（口径 1:1 还原《置换分析》Excel 模板）
+   ① 库存推算：T=min(N,在手+预测)；DN=max(0,T−(N−GN))——被挤掉间夜不由用户填
+   ② 贡献推算：F&B=参与率×人均净贡献（系统算，不让初学者填结果）；边际贡献=(净价−VC)+餐饮+其他
+   ③ 决策：净贡献=GN×Cg−DN×Ct；盈亏平衡最低价=VC−F&Bg−其他g+(DN/GN)×Ct
+   ④ 比例法（需求远超房量时参考）：未满足需求=max(0,T+GN−N)；比例法置换=未满足×T/(T+GN) */
 function calcDisp(){
- var N=num('d_n'),TH=num('d_th'),TF=num('d_tf'),DADR=num('d_dadr'),VC=num('d_vc'),
-     GN=num('d_gn'),GP=num('d_gp'),COMM=num('d_comm'),FBT=num('d_fbt'),FBG=num('d_fbg');
+ var N=num('d_n'),TH=num('d_th'),TF=num('d_tf'),GN=num('d_gn'),
+     DADR=num('d_dadr'),VC=num('d_vc'),GP=num('d_gp'),COMM=num('d_comm'),
+     R_T=num('d_fbr_t'),P_T=num('d_fbp_t'),R_G=num('d_fbr_g'),P_G=num('d_fbp_g'),
+     OT=num('d_ot'),OG=num('d_og');
  if(!(N>0)||TH<0||TF<0||!(GN>0)||TH>N){show('d_warn');hide('d_out');return;}
  hide('d_warn');show('d_out');
- var comm=isFinite(COMM)?COMM:0, fbt=isFinite(FBT)?FBT:0, fbg=isFinite(FBG)?FBG:0;
+ var comm=isFinite(COMM)?COMM:0, rt=isFinite(R_T)?R_T:0, pt=isFinite(P_T)?P_T:0,
+     rg=isFinite(R_G)?R_G:0, pg=isFinite(P_G)?P_G:0,
+     ot=isFinite(OT)?OT:0, og=isFinite(OG)?OG:0;
  var T=Math.min(N,TH+TF), spare=N-T, DN=Math.max(0,T-(N-GN));
- var Ct=(DADR-VC)+fbt;                       /* 散客边际贡献/间夜 */
- var Cg=(GP*(1-comm/100)-VC)+fbg;            /* 团队边际贡献/间夜 */
+ var fbt=rt/100*pt, fbg=rg/100*pg;                 /* 餐饮贡献/间夜：系统推算 */
+ var Ct=(DADR-VC)+fbt+ot;                          /* 散客边际贡献/间夜 */
+ var Cg=(GP*(1-comm/100)-VC)+fbg+og;               /* 团队边际贡献/间夜 */
  var grpTot=GN*Cg, transLoss=DN*Ct, net=grpTot-transLoss;
- var minG=VC-fbg+(DN/GN)*Ct;                 /* 团队盈亏平衡最低价（净价口径） */
- var minGross=minG/(1-comm/100);
+ var minNet=VC-fbg-og+(DN/GN)*Ct;                  /* 盈亏平衡最低价（净价口径） */
+ var minGross=minNet/(1-comm/100);
+ var gap=Math.max(0,(T+GN)-N);                     /* 比例法：总未满足需求 */
+ var prop=(T+GN)>0?gap*T/(T+GN):0;                 /* 比例法：置换量 */
+ var altNet=grpTot-prop*Ct;                        /* 比例法：净贡献 */
  document.getElementById('d_t').textContent=T+' 间夜';
  document.getElementById('d_spare').textContent=spare+' 间夜';
  document.getElementById('d_dn').textContent=DN+' 间夜';
+ document.getElementById('d_fbt').textContent='¥'+fmt(fbt,1)+'（'+fmt(rt,0)+'% × ¥'+fmt(pt,0)+'）';
+ document.getElementById('d_fbg').textContent='¥'+fmt(fbg,1)+'（'+fmt(rg,0)+'% × ¥'+fmt(pg,0)+'）';
  document.getElementById('d_ct').textContent='¥'+fmt(Ct,1);
  document.getElementById('d_cg').textContent='¥'+fmt(Cg,1);
  document.getElementById('d_tc').textContent='¥'+fmt(grpTot,0);
@@ -320,12 +360,15 @@ function calcDisp(){
  if(DN===0){
    document.getElementById('d_floor').textContent='无置换：贴近变动成本即可';
  }else{
-   document.getElementById('d_floor').textContent='¥'+fmt(minG,1)+'（对应毛价 ¥'+fmt(minGross,1)+'）';
+   document.getElementById('d_floor').textContent='¥'+fmt(minNet,1)+'（对应毛价 ¥'+fmt(minGross,1)+'）';
  }
  var v=document.getElementById('d_v');
  if(DN===0&&net>=0){v.className='verdict ok';v.textContent='接受团队 ✓：不挤掉任何散客，纯增量（净贡献 '+fmt(net,0)+' 元）';}
  else if(net>=0){v.className='verdict ok';v.textContent='接受团队 ✓：净贡献为正（+'+fmt(net,0)+' 元）';}
  else{v.className='verdict no';v.textContent='拒绝团队 ✗：净贡献为负。报价低于 ¥'+fmt(minGross,1)+'/间夜（毛价）就不接，先还价或砍间数';}
+ document.getElementById('d_gap').textContent=fmt(gap,0)+' 间夜';
+ document.getElementById('d_prop').textContent=fmt(prop,1);
+ document.getElementById('d_alt').textContent=(altNet>=0?'+':'-')+'¥'+fmt(Math.abs(altNet),0);
 }
 
 /* 推演三：保护位（PL、开放量由系统推算） */
@@ -373,7 +416,7 @@ function calcOb(){
 
 /* 实时演算：输入即出 */
 ['r_n','r_s','r_rev','r_vc'].forEach(function(i){document.getElementById(i).addEventListener('input',calcRev);});
-['d_n','d_th','d_tf','d_dadr','d_vc','d_gn','d_gp','d_comm','d_fbt','d_fbg'].forEach(function(i){document.getElementById(i).addEventListener('input',calcDisp);});
+['d_n','d_th','d_tf','d_gn','d_dadr','d_vc','d_gp','d_comm','d_fbr_t','d_fbp_t','d_fbr_g','d_fbp_g','d_ot','d_og'].forEach(function(i){document.getElementById(i).addEventListener('input',calcDisp);});
 ['p_n','p_hh0','p_hh1','p_lh'].forEach(function(i){document.getElementById(i).addEventListener('input',calcProt);});
 ['o_r','o_s','o_ns','o_cx','o_walk','o_adr','o_pref','o_cap'].forEach(function(i){document.getElementById(i).addEventListener('input',calcOb);});
 /* 首屏默认情景：平季周四 */
