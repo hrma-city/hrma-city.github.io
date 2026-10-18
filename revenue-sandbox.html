@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <script>window.HRMA_PREFIX="";</script>
-<script src="auth-config.js?v=gate20261013"></script>
 </script>
 <script src="auth-config.js"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
@@ -16,21 +15,35 @@
  --hei:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#efece7;font-family:var(--hei);color:var(--ink);line-height:1.85;font-size:15px}
-.wrap{max-width:940px;margin:0 auto;padding:34px 20px 70px}
+.wrap{max-width:960px;margin:0 auto;padding:34px 20px 70px}
 header.top{background:linear-gradient(160deg,#0f2a4a,#1d5a94);color:#fff;border-radius:8px;
  padding:30px 30px 26px;box-shadow:0 6px 22px rgba(15,42,74,.3)}
 header.top h1{font-size:25px;letter-spacing:1px;font-weight:800}
 header.top .sub{margin-top:8px;color:var(--gold-l);font-size:14.5px;letter-spacing:1px}
-header.top p{margin-top:12px;font-size:13.6px;color:#d4e1f0;line-height:1.8;max-width:760px}
+header.top p{margin-top:12px;font-size:13.6px;color:#d4e1f0;line-height:1.8;max-width:780px}
+header.top p b{color:#fff}
 .crumb{margin:16px 0 4px;font-size:13px;color:var(--mut)}
 .crumb a{color:#1d6fb8;text-decoration:none}
 .crumb a:hover{text-decoration:underline}
+/* 情景条 */
+.scen{margin:16px 0 6px;background:var(--paper);border:1px solid var(--line);border-radius:7px;
+ padding:14px 18px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.scen .lb{font-size:13.5px;font-weight:700;color:var(--navy);letter-spacing:1px}
+.scen-b{font-size:13.5px;padding:7px 16px;border-radius:6px;border:1px solid var(--line);
+ background:#fff;color:var(--mut);cursor:pointer}
+.scen-b:hover{border-color:var(--gold);color:var(--ink)}
+.scen-b.active{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:700}
+.scen-note{flex-basis:100%;font-size:13px;color:var(--mut);margin-top:2px}
+.scen-note b{color:var(--navy)}
 .card{background:var(--paper);border:1px solid var(--line);border-radius:7px;
  box-shadow:0 2px 12px rgba(0,0,0,.06);padding:22px 26px 26px;margin:18px 0}
 .card h2{font-size:18px;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:10px}
 .card h2 .tag{font-size:12px;background:var(--navy);color:#fff;border-radius:4px;padding:2px 8px;letter-spacing:1px}
 .note{font-size:13px;color:var(--mut);margin:6px 0 16px;line-height:1.75}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px 16px}
+.sec-l{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:2px;margin:14px 0 8px;
+ display:flex;align-items:center;gap:8px}
+.sec-l::after{content:"";flex:1;height:1px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 16px}
 .field label{display:block;font-size:12.8px;color:#4a443b;margin-bottom:5px;font-weight:600}
 .field input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:6px;
  font-size:15px;font-family:var(--hei);background:#fff;color:var(--ink)}
@@ -47,7 +60,11 @@ button{font-family:var(--hei);font-size:14px;border-radius:6px;padding:9px 18px;
  border-bottom:1px dashed var(--line);padding:7px 0;font-size:14px}
 .out .row:last-child{border-bottom:none}
 .out .row .k{color:#4a443b}
-.out .row .v{font-weight:700;color:var(--navy);font-size:16px;font-variant-numeric:tabular-nums}
+.out .row .k i{font-style:normal;color:var(--mut);font-size:12.5px;margin-left:6px}
+.out .row .v{font-weight:700;color:var(--navy);font-size:16px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.out .row.hot{background:#f6efdd;margin:4px -8px;padding:8px 8px;border-radius:5px;border-bottom:none}
+.out .row.hot .k{color:#7a5a12;font-weight:700}
+.out .row.hot .v{color:#8a6410;font-size:17px}
 .out .verdict{margin-top:10px;padding:10px 12px;border-radius:6px;font-size:14.5px;font-weight:700;text-align:center}
 .verdict.ok{background:#e7f3ea;color:#1f7a3d;border:1px solid #b7dcbe}
 .verdict.no{background:#fbeaea;color:#b5302a;border:1px solid #e7bdba}
@@ -57,98 +74,126 @@ button{font-family:var(--hei);font-size:14px;border-radius:6px;padding:9px 18px;
 .formula{margin-top:14px;font-size:13px;color:#5a5347;background:#faf8f3;border:1px dashed var(--line);
  border-radius:6px;padding:10px 12px;line-height:1.75}
 footer{margin-top:26px;font-size:12.5px;color:var(--mut);text-align:center;line-height:1.8}
-@media print{.actions,button{display:none}.out{display:block!important}}
+@media print{.actions,button,.scen-b{display:none}.out{display:block!important}.scen-note{display:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header class="top">
 <h1>收益管理可运行推演沙盘</h1>
-<div class="sub">线上数字资源 · 输入即出结果</div>
-<p>本页是《酒店收益管理：从原理到决策》各章「实验数据表」的线上配套。把纸面动作变成可实时演算的沙盘：
-动态算 RevPAR、置换成本、保护位，呼应高校虚拟仿真教学。数据沿用书中「云璟酒店」脱敏设定（杭州滨江、300 间房），
-也可替换为你的真实数据。所有计算在浏览器本地完成，不上传任何信息。</p>
+<div class="sub">线上数字资源 · 只填基本盘，推算交给系统</div>
+<p>判定表与模板给的是<b>规则和结论</b>；沙盘给你的是<b>过程与市况</b>：你只填门店的基本盘（房量、在手、预测、价格），
+被置换间夜、保护位、超售额度这些加工项全部由系统推算，并把每一步摊开给你看。
+点上方<b>情景按钮</b>切换淡季、平季、旺季——观察同一个决定在不同市况下结论相反，这是沙盘与静态模板最大的不同。
+数据沿用书中「云璟酒店」脱敏设定（杭州滨江、300 间房），也可替换为你的真实数据。所有计算在浏览器本地完成，不上传任何信息。</p>
 </header>
 
 <div class="crumb"><a href="https://hrma-city.github.io/textbook-print.html">成书版教材</a> ＞ 实验数据表 ＞ 可运行推演沙盘</div>
 
-<!-- 模块一：RevPAR -->
+<!-- 情景条：一键切换全盘基础数据 -->
+<div class="scen">
+<span class="lb">市况情景</span>
+<button type="button" class="scen-b" data-s="low" onclick="applyScen('low')">淡季 · 周二</button>
+<button type="button" class="scen-b active" data-s="mid" onclick="applyScen('mid')">平季 · 周四</button>
+<button type="button" class="scen-b" data-s="high" onclick="applyScen('high')">旺季 · 周六</button>
+<div class="scen-note" id="scen_note"></div>
+</div>
+
+<!-- 推演一：RevPAR -->
 <section class="card">
 <h2><span class="tag">推演一</span>RevPAR 与经营三率</h2>
-<div class="note">对应「价格体系设计」「报表与台账」等章。输入房量、销量与收入，实时给出出租率、平均房价、每间可售房收入，
-可选填变动成本得每可售房总利润（GOPPAR）。</div>
+<div class="note">对应「价格体系设计」「报表与台账」等章。只需给出当天卖了多少房、收了多少钱，出租率、平均房价、RevPAR 由系统算出。</div>
+<div class="sec-l">基本盘（当天数据）</div>
 <div class="grid">
-<div class="field"><label>可售客房数 N</label><input id="r_n" type="number" min="0" value="300"></div>
-<div class="field"><label>已售客房数 S</label><input id="r_s" type="number" min="0" value="204"></div>
+<div class="field"><label>可售客房数 N（间）</label><input id="r_n" type="number" min="0" value="300"></div>
+<div class="field"><label>已卖间夜数 S（间）</label><input id="r_s" type="number" min="0" value="204"></div>
 <div class="field"><label>客房收入 R（元）</label><input id="r_rev" type="number" min="0" value="126480"></div>
-<div class="field"><label>客房变动成本 VC（元，选填）</label><input id="r_vc" type="number" min="0" value="19380"></div>
+<div class="field"><label>客房变动成本合计（元，选填）</label><input id="r_vc" type="number" min="0" value="19380"></div>
 </div>
 <div class="actions">
 <button class="btn-go" onclick="calcRev()">演算</button>
-<button class="btn-reset" onclick="resetRev()">重置</button>
+<button class="btn-reset" onclick="applyScen(cur)">回到情景</button>
 </div>
-<div class="warn" id="r_warn">已售客房数不能超过可售客房数，且需大于 0。</div>
+<div class="warn" id="r_warn">已卖间夜数不能超过可售客房数，且需大于 0。</div>
 <div class="out" id="r_out">
-<div class="row"><span class="k">出租率 OCC = S ÷ N</span><span class="v" id="r_occ"></span></div>
-<div class="row"><span class="k">平均房价 ADR = R ÷ S</span><span class="v" id="r_adr"></span></div>
-<div class="row"><span class="k">每间可售房收入 RevPAR = R ÷ N</span><span class="v" id="r_revpar"></span></div>
-<div class="row"><span class="k">每可售房总利润 GOPPAR =（R−VC）÷ N</span><span class="v" id="r_goppar"></span></div>
+<div class="row"><span class="k">出租率 OCC<i>＝ S ÷ N</i></span><span class="v" id="r_occ"></span></div>
+<div class="row"><span class="k">平均房价 ADR<i>＝ R ÷ S</i></span><span class="v" id="r_adr"></span></div>
+<div class="row"><span class="k">每间可售房收入 RevPAR<i>＝ R ÷ N ＝ OCC × ADR</i></span><span class="v" id="r_revpar"></span></div>
+<div class="row"><span class="k">每可售房利润 GOPPAR<i>＝（R − 变动成本）÷ N</i></span><span class="v" id="r_goppar"></span></div>
 </div>
-<div class="formula">口径：RevPAR = OCC × ADR。降价前先算打平量：需多卖的间数 = 降价损失 ÷ 单间边际贡献。</div>
+<div class="formula">口径：RevPAR = OCC × ADR。降价前先算打平量：需多卖的间数 = 降价损失 ÷ 单间边际贡献。淡季看 RevPAR 别只看出租率——低价满房可能不如高价六成。</div>
 </section>
 
-<!-- 模块二：置换成本 -->
+<!-- 推演二：置换 -->
 <section class="card">
-<h2><span class="tag">推演二</span>团队置换成本与接团判定</h2>
-<div class="note">对应「客源细分战略」「库存与限制条件」等章。接一个团队会挤掉未来散客，用总贡献与置换成本比较决定接不接。</div>
+<h2><span class="tag">推演二</span>团队置换分析与接团判定</h2>
+<div class="note">对应「客源细分战略」「库存与限制条件」等章。<b>被置换的散客间夜数不由你填</b>——那是置换分析里最关键的一步推算，
+交给系统：由散客在手与预测需求，算出接团前还剩多少空房，团队超出空余的部分才挤掉散客。</div>
+<div class="sec-l">基本盘（当天库存与询价）</div>
 <div class="grid">
-<div class="field"><label>团队间夜数 GN</label><input id="d_gn" type="number" min="0" value="120"></div>
-<div class="field"><label>团队净价 GP（元/间夜）</label><input id="d_gp" type="number" min="0" value="480"></div>
+<div class="field"><label>可售客房数 N（间）</label><input id="d_n" type="number" min="0" value="300"></div>
+<div class="field"><label>散客在手已订（间夜）</label><input id="d_th" type="number" min="0" value="90"></div>
+<div class="field"><label>散客预测还会卖（间夜）</label><input id="d_tf" type="number" min="0" value="120"></div>
 <div class="field"><label>散客净价 DADR（元/间夜）</label><input id="d_dadr" type="number" min="0" value="620"></div>
 <div class="field"><label>单间变动成本 VC（元/间夜）</label><input id="d_vc" type="number" min="0" value="95"></div>
-<div class="field"><label>预计被置换散客间夜 DN</label><input id="d_dn" type="number" min="0" value="90"></div>
+<div class="field"><label>团队询价间夜 GN（间）</label><input id="d_gn" type="number" min="0" value="120"></div>
+<div class="field"><label>团队报价·毛价（元/间夜）</label><input id="d_gp" type="number" min="0" value="480"></div>
+<div class="field"><label>团队佣金率（%，无填 0）</label><input id="d_comm" type="number" min="0" value="0"></div>
+<div class="field"><label>团队附加贡献（元，餐饮会议等）</label><input id="d_add" type="number" min="0" value="4000"></div>
 </div>
 <div class="actions">
 <button class="btn-go" onclick="calcDisp()">演算</button>
-<button class="btn-reset" onclick="resetDisp()">重置</button>
+<button class="btn-reset" onclick="applyScen(cur)">回到情景</button>
 </div>
-<div class="warn" id="d_warn">净价需不低于变动成本，否则单间即亏。</div>
+<div class="warn" id="d_warn">间夜数不能为负，散客在手不能超过总房量。</div>
 <div class="out" id="d_out">
-<div class="row"><span class="k">团队总贡献 =（GP−VC）× GN</span><span class="v" id="d_tc"></span></div>
-<div class="row"><span class="k">置换成本 =（DADR−VC）× DN</span><span class="v" id="d_dc"></span></div>
-<div class="row"><span class="k">接团净增贡献 = 团队总贡献 − 置换成本</span><span class="v" id="d_net"></span></div>
+<div class="row"><span class="k">散客预期售出 T<i>＝ min（N，在手 + 预测）</i></span><span class="v" id="d_t"></span></div>
+<div class="row"><span class="k">接团前空余房量<i>＝ N − T</i></span><span class="v" id="d_spare"></span></div>
+<div class="row"><span class="k">无需置换可容纳团队<i>＝ min（GN，空余）</i></span><span class="v" id="d_free"></span></div>
+<div class="row hot"><span class="k">被置换散客间夜 DN<i>＝ GN − 可容纳 ← 关键推算</i></span><span class="v" id="d_dn"></span></div>
+<div class="row"><span class="k">团队净价<i>＝ 毛价 ×（1 − 佣金率）</i></span><span class="v" id="d_netgp"></span></div>
+<div class="row"><span class="k">团队总贡献<i>＝（净价 − VC）× GN ＋ 附加贡献</i></span><span class="v" id="d_tc"></span></div>
+<div class="row"><span class="k">置换成本<i>＝（散客净价 − VC）× DN</i></span><span class="v" id="d_dc"></span></div>
+<div class="row"><span class="k">接团净增贡献<i>＝ 团队总贡献 − 置换成本</i></span><span class="v" id="d_net"></span></div>
+<div class="row"><span class="k">最低可接受净价<i>＝（置换成本 − 附加）÷ GN ＋ VC</i></span><span class="v" id="d_floor"></span></div>
 <div class="verdict neu" id="d_v">—</div>
 </div>
-<div class="formula">判定：团队总贡献 ≥ 置换成本才建议接；置换成本是被放弃的散客贡献，不是团队本身的成本。</div>
+<div class="formula">判定：团队总贡献 ≥ 置换成本才建议接；置换成本是被放弃的散客贡献，不是团队本身的成本。低于最低可接受价的报价，先还价或砍间数，不当场答应。</div>
 </section>
 
-<!-- 模块三：保护位 -->
+<!-- 推演三：保护位 -->
 <section class="card">
 <h2><span class="tag">推演三</span>保护位与超售额度</h2>
-<div class="note">对应「库存与限制条件」「超售」等章。为高价值客源预留保护位，再用超售对冲取消与 No-show。</div>
+<div class="note">对应「库存与限制条件」「超售」等章。给多少保护位、能开放多少低价房、能超售几间，都由系统从在手与预测推出来。</div>
+<div class="sec-l">基本盘（客源结构与流失参数）</div>
 <div class="grid">
-<div class="field"><label>总房量 N</label><input id="p_n" type="number" min="0" value="300"></div>
-<div class="field"><label>高价值客源预测需求 HH（间夜）</label><input id="p_hh" type="number" min="0" value="150"></div>
-<div class="field"><label>低价值客源预测需求 LH（间夜）</label><input id="p_lh" type="number" min="0" value="170"></div>
-<div class="field"><label>超售率 os（%，如 3）</label><input id="p_os" type="number" min="0" value="3"></div>
+<div class="field"><label>总房量 N（间）</label><input id="p_n" type="number" min="0" value="300"></div>
+<div class="field"><label>高价值在手已订（间夜）</label><input id="p_hh0" type="number" min="0" value="40"></div>
+<div class="field"><label>高价值预测需求（间夜）</label><input id="p_hh1" type="number" min="0" value="130"></div>
+<div class="field"><label>低价值预测需求（间夜）</label><input id="p_lh" type="number" min="0" value="150"></div>
+<div class="field"><label>取消率（%）</label><input id="p_cx" type="number" min="0" value="5"></div>
+<div class="field"><label>No-show 率（%）</label><input id="p_ns" type="number" min="0" value="3"></div>
+<div class="field"><label>超售硬上限（% 总房量）</label><input id="p_cap" type="number" min="0" value="8"></div>
 </div>
 <div class="actions">
 <button class="btn-go" onclick="calcProt()">演算</button>
-<button class="btn-reset" onclick="resetProt()">重置</button>
+<button class="btn-reset" onclick="applyScen(cur)">回到情景</button>
 </div>
-<div class="warn" id="p_warn">高价值需求不应超过总房量；超售率应为非负。</div>
+<div class="warn" id="p_warn">客源在手不能超过总房量，比率需为非负。</div>
 <div class="out" id="p_out">
-<div class="row"><span class="k">建议保护位 PL ≥ 高价值预测需求</span><span class="v" id="p_pl"></span></div>
-<div class="row"><span class="k">可开放给低价值的房量 = N − PL</span><span class="v" id="p_open"></span></div>
-<div class="row"><span class="k">建议超售数 = round(N × os%)</span><span class="v" id="p_osn"></span></div>
+<div class="row"><span class="k">高价值剩余需求<i>＝ max（0，预测 − 在手）</i></span><span class="v" id="p_rem"></span></div>
+<div class="row hot"><span class="k">建议保护位 PL<i>＝ 高价值剩余需求 ← 系统推算</i></span><span class="v" id="p_pl"></span></div>
+<div class="row"><span class="k">可开放给低价值<i>＝ N − 高价值在手 − PL</i></span><span class="v" id="p_open"></span></div>
+<div class="row"><span class="k">预计到店流失<i>＝ N ×（取消率 ＋ No-show 率）</i></span><span class="v" id="p_loss"></span></div>
+<div class="row"><span class="k">建议超售额度<i>＝ min（流失，N × 硬上限）</i></span><span class="v" id="p_osn"></span></div>
 <div class="verdict neu" id="p_v">—</div>
 </div>
-<div class="formula">保护位至少等于高价值客源预测需求；超售有硬上限（红线），仅用于对冲取消与 No-show，不可用于放大总容量。</div>
+<div class="formula">判定：保护位至少顶住高价值剩余需求；超售仅用于对冲取消与 No-show，过硬上限即停——宁可少一间，不做到店无房。</div>
 </section>
 
 <footer>
-本页为教学用数字资源，计算口径与书中判定表一致；数据为脱敏模拟，不指向任何真实企业。<br>
-配套：成书版教材「实验数据表」各章 · 院校专区七件套判定表。
+本页为教学用数字资源，计算口径与书中判定表（表 G 团队置换矩阵 · 表 K 团队底线 · 表 E 超售三步法）一致；数据为脱敏模拟，不指向任何真实企业。<br>
+配套：成书版教材「实验数据表」各章 · 院校专区七件套判定表 · 模板《练习04_库存与保护位.xlsx》。
 </footer>
 </div>
 
@@ -158,57 +203,103 @@ function fmt(x,d){if(!isFinite(x))return '—';return x.toLocaleString('zh-CN',{
 function pct(x){return fmt(x*100,1)+'%';}
 function show(id){document.getElementById(id).classList.add('show');}
 function hide(id){document.getElementById(id).classList.remove('show');}
+function setv(id,v){document.getElementById(id).value=v;}
 
-/* 推演一：RevPAR */
+/* 市况情景：同一家庭店，三个日子。只放基本盘，加工项全部由各推演函数现算 */
+var SCEN={
+ low:{note:'<b>云璟 · 淡季周二</b>：散客需求弱（在手+预测仅 120），空房多——团队多半是纯增量，贴近变动成本也可以接。',
+  r:{n:300,s:120,rev:62400,vc:11400},
+  d:{n:300,th:60,tf:60,dadr:520,vc:95,gn:120,gp:480,comm:0,add:4000},
+  p:{n:300,hh0:20,hh1:80,lh:100,cx:3,ns:2,cap:8}},
+ mid:{note:'<b>云璟 · 平季周四</b>：散客需求中等（在手+预测 210，空余 90）——120 间的团队要挤掉 30 间夜散客，边际情况必须算清。',
+  r:{n:300,s:204,rev:126480,vc:19380},
+  d:{n:300,th:90,tf:120,dadr:620,vc:95,gn:120,gp:480,comm:0,add:4000},
+  p:{n:300,hh0:40,hh1:130,lh:150,cx:5,ns:3,cap:8}},
+ high:{note:'<b>云璟 · 旺季周六</b>：散客需求 330 超过 300 间房——接 120 间团队就要挤掉 120 间夜高价散客，同一份报价结论反转。',
+  r:{n:300,s:294,rev:229320,vc:27930},
+  d:{n:300,th:180,tf:150,dadr:780,vc:95,gn:120,gp:480,comm:0,add:4000},
+  p:{n:300,hh0:90,hh1:200,lh:180,cx:4,ns:2,cap:8}}
+};
+var cur='mid';
+function applyScen(s){
+ cur=s;
+ var c=SCEN[s];
+ document.querySelectorAll('.scen-b').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-s')===s);});
+ document.getElementById('scen_note').innerHTML=c.note;
+ ['n','s','rev','vc'].forEach(function(k){setv('r_'+k,c.r[k]);});
+ ['n','th','tf','dadr','vc','gn','gp','comm','add'].forEach(function(k){setv('d_'+k,c.d[k]);});
+ ['n','hh0','hh1','lh','cx','ns','cap'].forEach(function(k){setv('p_'+k,c.p[k]);});
+ hide('r_out');hide('r_warn');hide('d_out');hide('d_warn');hide('p_out');hide('p_warn');
+ calcRev();calcDisp();calcProt();
+}
+
+/* 推演一：RevPAR（基本盘 N/S/R/VC → 系统算三率） */
 function calcRev(){
-  var N=num('r_n'),S=num('r_s'),R=num('r_rev'),VC=num('r_vc');
-  if(!(N>0)||!(S>0)||S>N){show('r_warn');hide('r_out');return;}
-  hide('r_warn');show('r_out');
-  var occ=S/N,adr=R/S,revpar=R/N;
-  document.getElementById('r_occ').textContent=pct(occ);
-  document.getElementById('r_adr').textContent='¥'+fmt(adr,1);
-  document.getElementById('r_revpar').textContent='¥'+fmt(revpar,1);
-  if(isFinite(VC)&&VC>=0){document.getElementById('r_goppar').textContent='¥'+fmt((R-VC)/N,1);}
-  else{document.getElementById('r_goppar').textContent='—（未填变动成本）';}
+ var N=num('r_n'),S=num('r_s'),R=num('r_rev'),VC=num('r_vc');
+ if(!(N>0)||!(S>0)||S>N){show('r_warn');hide('r_out');return;}
+ hide('r_warn');show('r_out');
+ document.getElementById('r_occ').textContent=pct(S/N);
+ document.getElementById('r_adr').textContent='¥'+fmt(R/S,1);
+ document.getElementById('r_revpar').textContent='¥'+fmt(R/N,1);
+ if(isFinite(VC)&&VC>=0){document.getElementById('r_goppar').textContent='¥'+fmt((R-VC)/N,1);}
+ else{document.getElementById('r_goppar').textContent='—（未填变动成本）';}
 }
-function resetRev(){['r_n','r_s','r_rev','r_vc'].forEach(function(i){document.getElementById(i).value='';});hide('r_out');hide('r_warn');}
 
-/* 推演二：置换成本 */
+/* 推演二：置换（被置换间夜 DN 由系统从在手/预测推算，不由用户填） */
 function calcDisp(){
-  var GN=num('d_gn'),GP=num('d_gp'),DADR=num('d_dadr'),VC=num('d_vc'),DN=num('d_dn');
-  if(!(GP>=VC)||!(DADR>=VC)){show('d_warn');hide('d_out');return;}
-  hide('d_warn');show('d_out');
-  var tc=(GP-VC)*GN, dc=(DADR-VC)*DN, net=tc-dc;
-  document.getElementById('d_tc').textContent='¥'+fmt(tc,0);
-  document.getElementById('d_dc').textContent='¥'+fmt(dc,0);
-  document.getElementById('d_net').textContent=(net>=0?'+':'')+'¥'+fmt(net,0);
-  var v=document.getElementById('d_v');
-  if(net>=0){v.className='verdict ok';v.textContent='建议接团：净增贡献为正';}
-  else{v.className='verdict no';v.textContent='不建议接团：置换成本超过团队贡献';}
+ var N=num('d_n'),TH=num('d_th'),TF=num('d_tf'),DADR=num('d_dadr'),VC=num('d_vc'),
+     GN=num('d_gn'),GP=num('d_gp'),COMM=num('d_comm'),ADD=num('d_add');
+ if(!(N>0)||TH<0||TF<0||GN<0||TH>N){show('d_warn');hide('d_out');return;}
+ hide('d_warn');show('d_out');
+ var T=Math.min(N,TH+TF), spare=N-T, free=Math.min(GN,spare), DN=GN-free;
+ var ngp=GP*(1-(isFinite(COMM)?COMM:0)/100);
+ var tc=(ngp-VC)*GN+(isFinite(ADD)?ADD:0);
+ var dc=(DADR-VC)*DN, net=tc-dc;
+ var floorNet=GN>0?((dc-(isFinite(ADD)?ADD:0))/GN+VC):NaN;
+ var commRate=(isFinite(COMM)?COMM:0)/100;
+ var floorGross=floorNet/(1-commRate);
+ document.getElementById('d_t').textContent=T+' 间夜';
+ document.getElementById('d_spare').textContent=spare+' 间夜';
+ document.getElementById('d_free').textContent=free+' 间夜';
+ document.getElementById('d_dn').textContent=DN+' 间夜';
+ document.getElementById('d_netgp').textContent='¥'+fmt(ngp,1);
+ document.getElementById('d_tc').textContent='¥'+fmt(tc,0);
+ document.getElementById('d_dc').textContent='¥'+fmt(dc,0);
+ document.getElementById('d_net').textContent=(net>=0?'+':'-')+'¥'+fmt(Math.abs(net),0);
+ document.getElementById('d_floor').textContent='¥'+fmt(floorNet,1)+'（对应毛价 ¥'+fmt(floorGross,1)+'）';
+ var v=document.getElementById('d_v');
+ if(DN===0&&net>=0){v.className='verdict ok';v.textContent='建议接团：不挤掉任何散客，纯增量';}
+ else if(net>=0){v.className='verdict ok';v.textContent='建议接团：总贡献盖过置换成本（净增 '+fmt(net,0)+' 元）';}
+ else{v.className='verdict no';v.textContent='不建议接团：置换成本超过团队贡献。报价低于 ¥'+fmt(floorGross,1)+'/间夜（毛价）就不接，先还价或砍间数';}
 }
-function resetDisp(){['d_gn','d_gp','d_dadr','d_vc','d_dn'].forEach(function(i){document.getElementById(i).value='';});hide('d_out');hide('d_warn');}
 
-/* 推演三：保护位 */
+/* 推演三：保护位与超售（PL、开放量、超售额度均由系统推算） */
 function calcProt(){
-  var N=num('p_n'),HH=num('p_hh'),LH=num('p_lh'),OS=num('p_os');
-  if(!(N>0)||HH>N||!(OS>=0)){show('p_warn');hide('p_out');return;}
-  hide('p_warn');show('p_out');
-  var pl=HH, open=Math.max(0,N-pl), osn=Math.round(N*OS/100);
-  document.getElementById('p_pl').textContent=pl+' 间夜';
-  document.getElementById('p_open').textContent=open+' 间夜';
-  document.getElementById('p_osn').textContent=osn+' 间';
-  var v=document.getElementById('p_v');
-  if(HH>LH){v.className='verdict ok';v.textContent='高价值需求占优：保护位应顶满预测需求';}
-  else{v.className='verdict neu';v.textContent='低价值需求占优：保护位守住高价值底线即可';}
+ var N=num('p_n'),HH0=num('p_hh0'),HH1=num('p_hh1'),LH=num('p_lh'),
+     CX=num('p_cx'),NS=num('p_ns'),CAP=num('p_cap');
+ if(!(N>0)||HH0<0||HH0>N||!(CX>=0)||!(NS>=0)||!(CAP>=0)){show('p_warn');hide('p_out');return;}
+ hide('p_warn');show('p_out');
+ var rem=Math.max(0,HH1-HH0), pl=rem, open=Math.max(0,N-HH0-pl);
+ var lossRate=(CX+NS)/100, loss=N*lossRate;
+ var osn=Math.min(Math.round(loss),Math.round(N*CAP/100));
+ document.getElementById('p_rem').textContent=rem+' 间夜';
+ document.getElementById('p_pl').textContent=pl+' 间夜';
+ document.getElementById('p_open').textContent=open+' 间夜';
+ document.getElementById('p_loss').textContent=fmt(loss,1)+' 间夜';
+ document.getElementById('p_osn').textContent=osn+' 间';
+ var v=document.getElementById('p_v');
+ if(HH1>=N){v.className='verdict neu';v.textContent='高价值需求即满房量：保护位顶满，低价值基本无房可放';}
+ else if(LH>open){v.className='verdict no';v.textContent='低价值预测 '+fmt(LH,0)+' 超出开放量 '+open+'：缺房时段优先保高价值，低价值需求会被拒绝';}
+ else if(LH<open){v.className='verdict neu';v.textContent='开放量大于低价值需求 '+fmt(LH,0)+'：剩余 '+fmt(open-LH,0)+' 间夜注意远期促销填充，别空置';}
+ else{v.className='verdict ok';v.textContent='开放量与低价值需求基本持平：按 '+pl+' 间夜保护位执行';}
 }
-function resetProt(){['p_n','p_hh','p_lh','p_os'].forEach(function(i){document.getElementById(i).value='';});hide('p_out');hide('p_warn');}
 
 /* 实时演算：输入即出 */
 ['r_n','r_s','r_rev','r_vc'].forEach(function(i){document.getElementById(i).addEventListener('input',calcRev);});
-['d_gn','d_gp','d_dadr','d_vc','d_dn'].forEach(function(i){document.getElementById(i).addEventListener('input',calcDisp);});
-['p_n','p_hh','p_lh','p_os'].forEach(function(i){document.getElementById(i).addEventListener('input',calcProt);});
-/* 首屏预填结果 */
-calcRev();calcDisp();calcProt();
+['d_n','d_th','d_tf','d_dadr','d_vc','d_gn','d_gp','d_comm','d_add'].forEach(function(i){document.getElementById(i).addEventListener('input',calcDisp);});
+['p_n','p_hh0','p_hh1','p_lh','p_cx','p_ns','p_cap'].forEach(function(i){document.getElementById(i).addEventListener('input',calcProt);});
+/* 首屏默认情景：平季周四 */
+applyScen('mid');
 </script>
 </body>
 </html>
