@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+</script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>收益管理可运行推演沙盘（线上数字资源）</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#16406e;--gold:#b8892b;--gold-l:#e8d5a8;
+ --paper:#fbf9f5;--ink:#23201c;--mut:#6b6b6b;--line:#ddd8ce;
+ --hei:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#efece7;font-family:var(--hei);color:var(--ink);line-height:1.85;font-size:15px}
+.wrap{max-width:940px;margin:0 auto;padding:34px 20px 70px}
+header.top{background:linear-gradient(160deg,#0f2a4a,#1d5a94);color:#fff;border-radius:8px;
+ padding:30px 30px 26px;box-shadow:0 6px 22px rgba(15,42,74,.3)}
+header.top h1{font-size:25px;letter-spacing:1px;font-weight:800}
+header.top .sub{margin-top:8px;color:var(--gold-l);font-size:14.5px;letter-spacing:1px}
+header.top p{margin-top:12px;font-size:13.6px;color:#d4e1f0;line-height:1.8;max-width:760px}
+.crumb{margin:16px 0 4px;font-size:13px;color:var(--mut)}
+.crumb a{color:#1d6fb8;text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:7px;
+ box-shadow:0 2px 12px rgba(0,0,0,.06);padding:22px 26px 26px;margin:18px 0}
+.card h2{font-size:18px;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:10px}
+.card h2 .tag{font-size:12px;background:var(--navy);color:#fff;border-radius:4px;padding:2px 8px;letter-spacing:1px}
+.note{font-size:13px;color:var(--mut);margin:6px 0 16px;line-height:1.75}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px 16px}
+.field label{display:block;font-size:12.8px;color:#4a443b;margin-bottom:5px;font-weight:600}
+.field input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:6px;
+ font-size:15px;font-family:var(--hei);background:#fff;color:var(--ink)}
+.field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(184,137,43,.18)}
+.actions{margin-top:16px;display:flex;gap:10px;align-items:center}
+button{font-family:var(--hei);font-size:14px;border-radius:6px;padding:9px 18px;cursor:pointer;border:1px solid transparent}
+.btn-go{background:var(--gold);color:#fff;font-weight:700}
+.btn-go:hover{background:#a3781f}
+.btn-reset{background:#fff;color:var(--mut);border-color:var(--line)}
+.btn-reset:hover{color:var(--ink);border-color:var(--mut)}
+.out{margin-top:16px;background:#f4f1ea;border:1px solid var(--line);border-radius:7px;padding:14px 16px;display:none}
+.out.show{display:block}
+.out .row{display:flex;justify-content:space-between;align-items:baseline;
+ border-bottom:1px dashed var(--line);padding:7px 0;font-size:14px}
+.out .row:last-child{border-bottom:none}
+.out .row .k{color:#4a443b}
+.out .row .v{font-weight:700;color:var(--navy);font-size:16px;font-variant-numeric:tabular-nums}
+.out .verdict{margin-top:10px;padding:10px 12px;border-radius:6px;font-size:14.5px;font-weight:700;text-align:center}
+.verdict.ok{background:#e7f3ea;color:#1f7a3d;border:1px solid #b7dcbe}
+.verdict.no{background:#fbeaea;color:#b5302a;border:1px solid #e7bdba}
+.verdict.neu{background:#eef2f8;color:#1d4e7e;border:1px solid #c2d4e8}
+.warn{color:#b5302a;font-size:13px;margin-top:10px;display:none}
+.warn.show{display:block}
+.formula{margin-top:14px;font-size:13px;color:#5a5347;background:#faf8f3;border:1px dashed var(--line);
+ border-radius:6px;padding:10px 12px;line-height:1.75}
+footer{margin-top:26px;font-size:12.5px;color:var(--mut);text-align:center;line-height:1.8}
+@media print{.actions,button{display:none}.out{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<h1>收益管理可运行推演沙盘</h1>
+<div class="sub">线上数字资源 · 输入即出结果</div>
+<p>本页是《酒店收益管理：从原理到决策》各章「实验数据表」的线上配套。把纸面动作变成可实时演算的沙盘：
+动态算 RevPAR、置换成本、保护位，呼应高校虚拟仿真教学。数据沿用书中「云璟酒店」脱敏设定（杭州滨江、300 间房），
+也可替换为你的真实数据。所有计算在浏览器本地完成，不上传任何信息。</p>
+</header>
+
+<div class="crumb"><a href="https://hrma-city.github.io/textbook-print.html">成书版教材</a> ＞ 实验数据表 ＞ 可运行推演沙盘</div>
+
+<!-- 模块一：RevPAR -->
+<section class="card">
+<h2><span class="tag">推演一</span>RevPAR 与经营三率</h2>
+<div class="note">对应「价格体系设计」「报表与台账」等章。输入房量、销量与收入，实时给出出租率、平均房价、每间可售房收入，
+可选填变动成本得每可售房总利润（GOPPAR）。</div>
+<div class="grid">
+<div class="field"><label>可售客房数 N</label><input id="r_n" type="number" min="0" value="300"></div>
+<div class="field"><label>已售客房数 S</label><input id="r_s" type="number" min="0" value="204"></div>
+<div class="field"><label>客房收入 R（元）</label><input id="r_rev" type="number" min="0" value="126480"></div>
+<div class="field"><label>客房变动成本 VC（元，选填）</label><input id="r_vc" type="number" min="0" value="19380"></div>
+</div>
+<div class="actions">
+<button class="btn-go" onclick="calcRev()">演算</button>
+<button class="btn-reset" onclick="resetRev()">重置</button>
+</div>
+<div class="warn" id="r_warn">已售客房数不能超过可售客房数，且需大于 0。</div>
+<div class="out" id="r_out">
+<div class="row"><span class="k">出租率 OCC = S ÷ N</span><span class="v" id="r_occ"></span></div>
+<div class="row"><span class="k">平均房价 ADR = R ÷ S</span><span class="v" id="r_adr"></span></div>
+<div class="row"><span class="k">每间可售房收入 RevPAR = R ÷ N</span><span class="v" id="r_revpar"></span></div>
+<div class="row"><span class="k">每可售房总利润 GOPPAR =（R−VC）÷ N</span><span class="v" id="r_goppar"></span></div>
+</div>
+<div class="formula">口径：RevPAR = OCC × ADR。降价前先算打平量：需多卖的间数 = 降价损失 ÷ 单间边际贡献。</div>
+</section>
+
+<!-- 模块二：置换成本 -->
+<section class="card">
+<h2><span class="tag">推演二</span>团队置换成本与接团判定</h2>
+<div class="note">对应「客源细分战略」「库存与限制条件」等章。接一个团队会挤掉未来散客，用总贡献与置换成本比较决定接不接。</div>
+<div class="grid">
+<div class="field"><label>团队间夜数 GN</label><input id="d_gn" type="number" min="0" value="120"></div>
+<div class="field"><label>团队净价 GP（元/间夜）</label><input id="d_gp" type="number" min="0" value="480"></div>
+<div class="field"><label>散客净价 DADR（元/间夜）</label><input id="d_dadr" type="number" min="0" value="620"></div>
+<div class="field"><label>单间变动成本 VC（元/间夜）</label><input id="d_vc" type="number" min="0" value="95"></div>
+<div class="field"><label>预计被置换散客间夜 DN</label><input id="d_dn" type="number" min="0" value="90"></div>
+</div>
+<div class="actions">
+<button class="btn-go" onclick="calcDisp()">演算</button>
+<button class="btn-reset" onclick="resetDisp()">重置</button>
+</div>
+<div class="warn" id="d_warn">净价需不低于变动成本，否则单间即亏。</div>
+<div class="out" id="d_out">
+<div class="row"><span class="k">团队总贡献 =（GP−VC）× GN</span><span class="v" id="d_tc"></span></div>
+<div class="row"><span class="k">置换成本 =（DADR−VC）× DN</span><span class="v" id="d_dc"></span></div>
+<div class="row"><span class="k">接团净增贡献 = 团队总贡献 − 置换成本</span><span class="v" id="d_net"></span></div>
+<div class="verdict neu" id="d_v">—</div>
+</div>
+<div class="formula">判定：团队总贡献 ≥ 置换成本才建议接；置换成本是被放弃的散客贡献，不是团队本身的成本。</div>
+</section>
+
+<!-- 模块三：保护位 -->
+<section class="card">
+<h2><span class="tag">推演三</span>保护位与超售额度</h2>
+<div class="note">对应「库存与限制条件」「超售」等章。为高价值客源预留保护位，再用超售对冲取消与 No-show。</div>
+<div class="grid">
+<div class="field"><label>总房量 N</label><input id="p_n" type="number" min="0" value="300"></div>
+<div class="field"><label>高价值客源预测需求 HH（间夜）</label><input id="p_hh" type="number" min="0" value="150"></div>
+<div class="field"><label>低价值客源预测需求 LH（间夜）</label><input id="p_lh" type="number" min="0" value="170"></div>
+<div class="field"><label>超售率 os（%，如 3）</label><input id="p_os" type="number" min="0" value="3"></div>
+</div>
+<div class="actions">
+<button class="btn-go" onclick="calcProt()">演算</button>
+<button class="btn-reset" onclick="resetProt()">重置</button>
+</div>
+<div class="warn" id="p_warn">高价值需求不应超过总房量；超售率应为非负。</div>
+<div class="out" id="p_out">
+<div class="row"><span class="k">建议保护位 PL ≥ 高价值预测需求</span><span class="v" id="p_pl"></span></div>
+<div class="row"><span class="k">可开放给低价值的房量 = N − PL</span><span class="v" id="p_open"></span></div>
+<div class="row"><span class="k">建议超售数 = round(N × os%)</span><span class="v" id="p_osn"></span></div>
+<div class="verdict neu" id="p_v">—</div>
+</div>
+<div class="formula">保护位至少等于高价值客源预测需求；超售有硬上限（红线），仅用于对冲取消与 No-show，不可用于放大总容量。</div>
+</section>
+
+<footer>
+本页为教学用数字资源，计算口径与书中判定表一致；数据为脱敏模拟，不指向任何真实企业。<br>
+配套：成书版教材「实验数据表」各章 · 院校专区七件套判定表。
+</footer>
+</div>
+
+<script>
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?NaN:v;}
+function fmt(x,d){if(!isFinite(x))return '—';return x.toLocaleString('zh-CN',{minimumFractionDigits:d,maximumFractionDigits:d});}
+function pct(x){return fmt(x*100,1)+'%';}
+function show(id){document.getElementById(id).classList.add('show');}
+function hide(id){document.getElementById(id).classList.remove('show');}
+
+/* 推演一：RevPAR */
+function calcRev(){
+  var N=num('r_n'),S=num('r_s'),R=num('r_rev'),VC=num('r_vc');
+  if(!(N>0)||!(S>0)||S>N){show('r_warn');hide('r_out');return;}
+  hide('r_warn');show('r_out');
+  var occ=S/N,adr=R/S,revpar=R/N;
+  document.getElementById('r_occ').textContent=pct(occ);
+  document.getElementById('r_adr').textContent='¥'+fmt(adr,1);
+  document.getElementById('r_revpar').textContent='¥'+fmt(revpar,1);
+  if(isFinite(VC)&&VC>=0){document.getElementById('r_goppar').textContent='¥'+fmt((R-VC)/N,1);}
+  else{document.getElementById('r_goppar').textContent='—（未填变动成本）';}
+}
+function resetRev(){['r_n','r_s','r_rev','r_vc'].forEach(function(i){document.getElementById(i).value='';});hide('r_out');hide('r_warn');}
+
+/* 推演二：置换成本 */
+function calcDisp(){
+  var GN=num('d_gn'),GP=num('d_gp'),DADR=num('d_dadr'),VC=num('d_vc'),DN=num('d_dn');
+  if(!(GP>=VC)||!(DADR>=VC)){show('d_warn');hide('d_out');return;}
+  hide('d_warn');show('d_out');
+  var tc=(GP-VC)*GN, dc=(DADR-VC)*DN, net=tc-dc;
+  document.getElementById('d_tc').textContent='¥'+fmt(tc,0);
+  document.getElementById('d_dc').textContent='¥'+fmt(dc,0);
+  document.getElementById('d_net').textContent=(net>=0?'+':'')+'¥'+fmt(net,0);
+  var v=document.getElementById('d_v');
+  if(net>=0){v.className='verdict ok';v.textContent='建议接团：净增贡献为正';}
+  else{v.className='verdict no';v.textContent='不建议接团：置换成本超过团队贡献';}
+}
+function resetDisp(){['d_gn','d_gp','d_dadr','d_vc','d_dn'].forEach(function(i){document.getElementById(i).value='';});hide('d_out');hide('d_warn');}
+
+/* 推演三：保护位 */
+function calcProt(){
+  var N=num('p_n'),HH=num('p_hh'),LH=num('p_lh'),OS=num('p_os');
+  if(!(N>0)||HH>N||!(OS>=0)){show('p_warn');hide('p_out');return;}
+  hide('p_warn');show('p_out');
+  var pl=HH, open=Math.max(0,N-pl), osn=Math.round(N*OS/100);
+  document.getElementById('p_pl').textContent=pl+' 间夜';
+  document.getElementById('p_open').textContent=open+' 间夜';
+  document.getElementById('p_osn').textContent=osn+' 间';
+  var v=document.getElementById('p_v');
+  if(HH>LH){v.className='verdict ok';v.textContent='高价值需求占优：保护位应顶满预测需求';}
+  else{v.className='verdict neu';v.textContent='低价值需求占优：保护位守住高价值底线即可';}
+}
+function resetProt(){['p_n','p_hh','p_lh','p_os'].forEach(function(i){document.getElementById(i).value='';});hide('p_out');hide('p_warn');}
+
+/* 实时演算：输入即出 */
+['r_n','r_s','r_rev','r_vc'].forEach(function(i){document.getElementById(i).addEventListener('input',calcRev);});
+['d_gn','d_gp','d_dadr','d_vc','d_dn'].forEach(function(i){document.getElementById(i).addEventListener('input',calcDisp);});
+['p_n','p_hh','p_lh','p_os'].forEach(function(i){document.getElementById(i).addEventListener('input',calcProt);});
+/* 首屏预填结果 */
+calcRev();calcDisp();calcProt();
+</script>
+</body>
+</html>
