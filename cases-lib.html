@@ -93,6 +93,10 @@ table.ct tr:nth-child(even) td{background:#fafcfe}
 .top-links{margin:14px 0 0;font-size:13px}
 .top-links a{margin-right:14px}
 mark{background:#ffe9a8;padding:0 2px;border-radius:3px}
+.mtag{font-size:11px;font-weight:700;padding:1px 8px;border-radius:11px;margin-left:7px;white-space:nowrap}
+.mtag.s3{background:#1d6fb8;color:#fff}
+.mtag.s2{background:#eaf6f0;color:#17795a;border:1px solid #bfe3d1}
+.mtag.s1{background:#f2f5f8;color:#8494a8}
 @media print{.search,.chips,.bars,header{display:none}.cs-b{display:block!important}}
 </style></head>
 <body>
@@ -456,8 +460,18 @@ function relScore(c){
   if((c.dataset.lev||'').toLowerCase().indexOf(Q)>=0) return 2;
   return 1;
 }
+/* 匹配原因徽标：让用户一眼看出哪些才是「该看的主线案例」 */
+function setBadge(c){
+  var b=c.querySelector('.mtag');
+  if(!b){ b=document.createElement('span'); b.className='mtag'; c.querySelector('.cs-h').appendChild(b); }
+  if(!Q){ b.hidden=true; return; }
+  var s=relScore(c);
+  b.hidden=false; b.className='mtag s'+s;
+  b.textContent = s===3? '★ 标题命中' : (s===2? '◆ 主线(杠杆/概念)' : '· 正文提及');
+}
 function filter(){
   var n=0, list=document.getElementById('list');
+  document.querySelectorAll('#list .cs .mtag').forEach(function(b){b.hidden=true;});
   var cards=[].slice.call(list.querySelectorAll('.cs'));
   cards.forEach(function(c){
     var ok=true;
@@ -483,8 +497,8 @@ function filter(){
   cards.forEach(function(c){ list.appendChild(c); });
   document.getElementById('cnt').textContent='命中 '+n+' / 302 例';
   document.getElementById('none').hidden = n>0;
-  if(Q) document.querySelectorAll('#list .cs').forEach(function(c){
-    if(c.style.display!=='none'){ hl(c.querySelector('.cs-b'), Q); hl(c.querySelector('.cs-h b'), Q); } });
+  document.querySelectorAll('#list .cs').forEach(function(c){
+    if(c.style.display!=='none'){ setBadge(c); hl(c.querySelector('.cs-b'), Q); hl(c.querySelector('.cs-h b'), Q); } });
 }
 document.getElementById('q').addEventListener('input', function(){
   Q=this.value.trim().toLowerCase();
@@ -509,7 +523,7 @@ filter();
   var n=0;document.querySelectorAll('#list .cs').forEach(function(c){if(c.style.display!=='none')n++;});
   var bn=document.getElementById('qbanner');
   if(bn&&n>0){bn.hidden=false;
-    bn.innerHTML='<b>正在看与「'+q+'」相关的案例</b>：共 '+n+' 例，已按相关度排序——<b>排在前面的以「'+q+'」为主线，先看前几例就够用</b>；后面的只是正文里提到。点卡片标题展开正文。<a href="#" onclick="resetAll();document.getElementById('qbanner').hidden=true;return false;">清除检索，浏览全部</a>';}
+    bn.innerHTML='<b>正在看与「'+q+'」相关的案例</b>：共 '+n+' 例，已按相关度排序——<b>排在前面的以「'+q+'」为主线，先看前几例就够用</b>；后面的只是正文里提到。点卡片标题展开正文。<a href="#" onclick="resetAll();document.getElementById(\'qbanner\').hidden=true;return false;">清除检索，浏览全部</a>';}
   var L=document.getElementById('qbanner');if(L)window.scrollTo(0,L.offsetTop-70);}}})();
 </script>
 </body></html>
