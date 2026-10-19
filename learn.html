@@ -11,7 +11,7 @@
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-<title>收益管理·在线学习与自测（五篇三十二章）</title>
+<title>收益管理·在线学习与自测（六篇四十一章）</title>
 <style>
 :root{
   --ink:#152238; --ink2:#3d4c63; --mute:#6b7a90; --line:#dfe6ef;
@@ -137,7 +137,7 @@ details>summary{cursor:pointer;font-size:13.5px;color:var(--navy);font-weight:60
   <div class="hd">
     <div>
       <h1>收益管理 · 在线学习与自测</h1>
-      <div class="sub">五篇三十二章 · 不用看书，在网站里学完并在线考核</div>
+      <div class="sub">六篇四十一章 · 不用看书，在网站里学完并在线考核</div>
     </div>
     <div style="flex:1;min-width:260px;max-width:520px">
       <details style="background:#fff;border:1px solid var(--line,#e3e9f1);border-radius:10px;padding:8px 12px;font-size:13px">
@@ -158,20 +158,20 @@ details>summary{cursor:pointer;font-size:13.5px;color:var(--navy);font-weight:60
       <button id="tJudge">判定表全集</button>
       <button id="tStat">学习记录</button>
     </div>
-    <div class="prog"><span id="pgTxt">0 / 32</span><span class="bar"><i id="pgBar"></i></span></div>
+    <div class="prog"><span id="pgTxt">0 / 41</span><span class="bar"><i id="pgBar"></i></span></div>
     <a class="ghost" href="learn-path.html">← 返回学习路径</a>
   </div>
 </header>
 
 <div class="wrap">
-  <div style="grid-column:1 / -1;margin:0 0 16px;padding:13px 18px;background:#fff6e8;border-left:5px solid #d98324;border-radius:8px;font-size:14px;line-height:1.9"><b>🎮 边玩边学：32 章通关游戏</b><br>不想先啃教材？可以先玩 <a href="game-rm.html"><b>《云璟酒店 · 一年收益经营》</b></a>——148 道题（每章 3 道决策题 + 1 道动手算，另有 5 次综合小考），全程只点按钮，系统引导走完 32 章，最后给通关评级。</div>
+  <div style="grid-column:1 / -1;margin:0 0 16px;padding:13px 18px;background:#fff6e8;border-left:5px solid #d98324;border-radius:8px;font-size:14px;line-height:1.9"><b>🎮 边玩边学：32 章通关游戏</b><br>不想先啃教材？可以先玩 <a href="game-rm.html"><b>《云璟酒店 · 一年收益经营》</b></a>——148 道题（每章 3 道决策题 + 1 道动手算，另有 5 次综合小考），全程只点按钮，系统引导走完五篇 32 章原理主线，最后给通关评级。学完主线别停：<b>第六篇 · 现实篇（33–41 章）</b>就在下面目录最后，讲中国渠道生态、连锁、AI、危机、职业发展与绿色收益。</div>
   <div style="grid-column:1 / -1;margin:0 0 16px;padding:13px 18px;background:#eef4fa;border-left:5px solid #1d6fb8;border-radius:8px;font-size:14px;line-height:1.9"><b>📊 配套数据与练习模板</b><br>学完每章，可用 <a href="teach-data.html">教学数据工坊</a> 的模拟数据库与练习模板动手算：指标对标、需求预测、定价栅栏、库存保护位、渠道净价、报表归因。无需下载也可 <a href="report-preview.html">在线预览</a>。</div>
   <aside id="nav"><h4>正在载入教材…</h4></aside>
   <main id="main"><div class="card"><h2 id="toc-1">正在载入</h2><p class="hint">正在从教材正文抽取章节内容，请稍候。</p></div></main>
 </div>
 <div class="foot">题库由教材正文自动生成（<code>build_textbook_quiz.py</code>），改教材后重跑即可同步更新。教材 PDF 只作翻阅备查。完整题库请见 <a href="quiz-bank.html">题库总览（16 知识域筛选）</a>。</div>
 
-<script src="textbook_quiz.js?v=3"></script>
+<script src="textbook_quiz.js?v=4"></script>
 <script>
 /* ============================================================
    在线学习页：正文与题目都取自 textbook.html 本体
@@ -186,7 +186,8 @@ var PARTS=[
   ['第三篇 · 运营篇 · D 节奏与流程',[17,18,19]],
   ['第三篇 · 运营篇 · E 计划与支撑',[20,21,22,23,24]],
   ['第四篇 · 组织篇',[25,26,27,28]],
-  ['第五篇 · 延伸篇',[29,30,31,32]]
+  ['第五篇 · 延伸篇',[29,30,31,32]],
+  ['第六篇 · 现实篇（33–41 章 · 成书新增）',[33,34,35,36,37,38,39,40,41]]
 ];
 var KEY_L='hrma_learn_v1';      /* 本站自己的学习记录 */
 var KEY_P='hrma_path_done_v1';  /* 与学习路径页共用的「已完成」名单 */
@@ -220,6 +221,23 @@ function loadBook(){
     while(k){ if(k.tagName==='H1'||k.tagName==='H2') break; pre.appendChild(k.cloneNode(true)); k=k.previousElementSibling; }
     CH[0]={no:0,title:'开篇：先看全貌，再学细节',el:pre};
     ORDER.unshift(0);
+    /* 33–41 现实篇：正文在成书全本 textbook-merged.html（details 折叠结构） */
+    return fetch('textbook-merged.html?x='+Date.now()).then(function(r){ return r.text(); }).then(function(t2){
+      var d2=new DOMParser().parseFromString(t2,'text/html');
+      [].slice.call(d2.querySelectorAll('details.chp[id^=mch]')).forEach(function(d){
+        var no=parseInt(d.id.replace('mch',''),10);
+        if(!(no>=33&&no<=41)) return;
+        var sm=d.querySelector('summary');
+        var tt=sm?stripTags(sm.textContent):'';
+        tt=tt.replace(/^第\s*\d+\s*章/,'').replace(/新增/g,'').trim();
+        var body=d.querySelector('.cbody')||d;
+        /* 复制成不带 summary 的容器 */
+        var wrap=d2.createElement('div');
+        [].slice.call(body.childNodes).forEach(function(nd){ wrap.appendChild(d2.importNode(nd,true)); });
+        CH[no]={no:no, title:tt, el:wrap, raw:true};
+        ORDER.push(no);
+      });
+    });
   });
 }
 
@@ -230,7 +248,17 @@ function block(title, inner, cls){
 function renderLearn(n){
   var c=CH[n], st=myState(), isRead=st.read.indexOf(n)>=0;
   var el=c.el;
-  var h='<div class="card"><h2 id="toc-2">'+(n===0?'开篇':'第 '+n+' 章')+'　'+esc(c.title)+'</h2>';
+  var h;
+  if(c.raw){
+    /* 33–41 现实篇：自带完整排版（cbody），直接渲染原始正文 */
+    h='<div class="card"><h2 id="toc-2">第 '+n+' 章　'+esc(c.title)+'</h2>'+el.innerHTML
+      +'<div class="act">'
+      +'<a class="btn ghost" href="textbook-merged.html#mch'+pad2(n)+'" target="_blank">在教材里翻这一章</a>'
+      +'<button class="btn'+(isRead?'':' gold')+'" id="markRead" data-n="'+n+'">'
+      +(isRead?'✓ 本章已学完（点击撤销）':'我学完了，标记本章')+'</button>'
+      +'<span class="hint">学完标记会同步到学习路径页</span></div></div>';
+  } else {
+  h='<div class="card"><h2 id="toc-2">'+(n===0?'开篇':'第 '+n+' 章')+'　'+esc(c.title)+'</h2>';
   var p=el.querySelector('.promise');
   if(p) h+='<div class="goal">学完这章您要能做到：'+esc(stripTags(p.textContent).replace(/^读完这章您能|^读完本章您能/,''))+'</div>';
   h+=block('本章要点', el.querySelectorAll('.pts').length? ptsHtml(el):'');
@@ -268,11 +296,13 @@ function renderLearn(n){
     +'<button class="btn'+(isRead?'':' gold')+'" id="markRead" data-n="'+n+'">'
     +(isRead?'✓ 本章已学完（点击撤销）':'我学完了，标记本章')+'</button>'
     +'<span class="hint">学完标记会同步到学习路径页</span></div></div>';
+  }
 
-  /* 本章速测 */
+  /* 本章速测（1–32 章题来自三源结构块；33–41 章题来自现实篇正文，同源同格式） */
+  var nq=Math.min(5, byCh(n).length);
   h+='<div class="card"><h2 id="toc-3">本章速测</h2><div class="hint" style="margin-bottom:8px">'
-    +'题目全部来自本章正文（要点、判定表、公式、案例），每题都有原文出处。</div>'
-    +'<div id="qBox"></div><div class="act"><button class="btn" id="doQuiz">开始本章速测（5 题）</button>'
+    +'题目全部来自本章正文（要点、判定表、公式、案例、学习目标），每题都有原文出处。</div>'
+    +'<div id="qBox"></div><div class="act"><button class="btn" id="doQuiz">开始本章速测（'+nq+' 题）</button>'
     +'<span id="qzScore"></span></div></div>';
 
   /* 上下章 */
@@ -360,7 +390,7 @@ function renderFinal(){
   var st=myState();
   var last=ls('hrma_final_v1',null);
   var h='<div class="card"><h2 id="toc-4">综合自测（40 题）</h2>'
-    +'<div class="tipbox">从五篇三十二章里每章均匀抽题，覆盖要点定义、判定表、核心公式与案例结论。'
+    +'<div class="tipbox">从六篇四十一章里每章均匀抽题，覆盖要点定义、判定表、核心公式、案例结论与现实篇考点。'
     +'60 分及格。不限次，随便练。</div>';
   if(last){
     h+='<div class="hint" style="margin-bottom:10px">上次成绩：<b>'+last.got+' / '+last.total+'</b>（'+esc(last.at)+'）</div>';
@@ -470,7 +500,7 @@ function renderStat(){
   }).join('');
   var last=ls('hrma_final_v1',null);
   document.getElementById('main').innerHTML='<div class="card"><h2 id="toc-6">学习记录</h2>'
-    +'<div class="tipbox">已学完 <b>'+st.read.length+' / 32</b> 章。综合自测：<b>'
+    +'<div class="tipbox">已学完 <b>'+st.read.length+' / 41</b> 章。综合自测：<b>'
     +(last?(last.got+' / '+last.total):'未参加')+'</b>。记录存在本机浏览器里，换设备不同步。</div>'
     +'<table><tr><td>章</td><td>标题</td><td>学习</td><td>速测</td></tr>'+rows+'</table>'
     +'<div class="act"><button class="btn ghost" id="clr">清空学习记录</button>'
@@ -502,8 +532,8 @@ function renderNav(){
 }
 function renderProg(){
   var st=myState(), n=st.read.filter(function(x){ return x>0; }).length;
-  document.getElementById('pgTxt').textContent=n+' / 32';
-  document.getElementById('pgBar').style.width=(n/32*100)+'%';
+  document.getElementById('pgTxt').textContent=n+' / 41';
+  document.getElementById('pgBar').style.width=(n/41*100)+'%';
 }
 /* 学完的章写进学习路径页共用的完成名单，两边进度一致 */
 function syncPath(){

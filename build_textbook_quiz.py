@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""从 textbook.html 抽取知识点，生成可在线判分的题库 textbook_quiz.js（crm 根目录，learn.html 直接加载）。
+"""从 textbook.html（1–32 章）+ textbook-merged.html（33–41 现实篇）抽取知识点，
+生成可在线判分的题库 textbook_quiz.js（crm 根目录，learn.html 直接加载）。
 规则（只抽教材里明确写过的表述，不自己编知识）：
   1) 术语定义题  ：<b>术语</b>＝定义 / <b>术语</b>——定义
   2) 判定表题    ：本章判定表每行「情形 → 结论」，考"遇到该情形怎么办"
   3) 公式题      ：核心公式块的公式名与式子
+  4) 33–41 章   ：merged 新章无三源结构块，改抽 <b>术语</b>：定义 与「学习目标」分句；
+    素材不足的章（36/38/40/41）由 EXTRA 补人工题（全部依据 merged 正文，题解带出处）。
 干扰项从同章其他条目里取，保证同质、可区分。
 """
 import re, json, os, random
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(BASE, 'textbook.html')
+SRC_MERGED = os.path.join(BASE, 'textbook-merged.html')   # 33–41 章现实篇（成书全本）
 # ⚠️ OUT 必须是 crm 根目录：learn.html 用 <script src="textbook_quiz.js?v=2"> 直接加载；
 # 过去曾指向 data/ 导致线上文件与生成器脱节，已修正。
 OUT = os.path.join(BASE, 'textbook_quiz.js')
@@ -63,6 +67,16 @@ DOMAIN_OF = {
     '29': ['D10'],
     '30': ['D09', 'D10'],
     '31': ['D10'],
+    # 33–41 现实篇（成书新增九章）
+    '33': ['D07'],              # 中国渠道生态
+    '34': ['D07'],              # 连锁与中央预订
+    '35': ['D16'],              # AI 工具做收益分析
+    '36': ['D00'],              # 危机与极端场景（跨域综合）
+    '37': ['D11'],              # 收益岗位与职业发展
+    '38': ['D00'],              # 变革篇五件事（跨域综合）
+    '39': ['D03'],              # 周期与不确定性（需求预测）
+    '40': ['D16'],              # 人工智能与收益管理（科普）
+    '41': ['D10'],              # 绿色收益管理与可持续
 }
 def doms_of(no):
     return DOMAIN_OF.get(no, ['D00'])
@@ -116,6 +130,196 @@ def split_terms(seg):
     for m in re.finditer(r'<b>([^<>]{2,34}?)</b>\s*——\s*([^<]{6,200})', seg):
         add(m.group(1), m.group(2), 1)
     return [(t, v[0]) for t, v in cand.items()]
+
+# ── 33–41 现实篇：人工补题（素材不足的章；全部依据 textbook-merged.html 正文，题解带出处）──
+EXTRA_3341 = {
+    '36': [
+        dict(type='judge', stem='第 36 章：极端场景下的第一动作，永远是"止血"，不是"优化"。',
+             opts=['对', '错'], ans='对',
+             exp='教材第 36 章：先停止自动动作、冻结激进策略、保护可售库存与现金流，再谈恢复。'),
+        dict(type='choice', stem='第 36 章：需求骤停时该不该降价？',
+             opts=['不该——客人不来是因为"不能来"不是"嫌贵"，降价白送利润且破坏恢复期价格体系',
+                   '该——降价总能换来量',
+                   '该——先降 30% 占住市场再涨回来',
+                   '视超售率而定，超售高就降价'],
+             ans='不该——客人不来是因为"不能来"不是"嫌贵"，降价白送利润且破坏恢复期价格体系',
+             exp='教材第 36 章两条原则①：不恐慌降价。降价是"需求弹性问题"的解药，不是"需求消失问题"的解药。'),
+        dict(type='choice', stem='第 36 章：危机期取消政策为什么要主动放宽？',
+             opts=['竞争对手也在放宽；取消变改期，收入只是延后不是消失',
+                   '为了清空库存回笼现金',
+                   '为了提高当期出租率',
+                   '因为系统故障无法执行原政策'],
+             ans='竞争对手也在放宽；取消变改期，收入只是延后不是消失',
+             exp='教材第 36 章 36.2：危机期放宽是为保住客户关系与未来复购；改期让收入延后而非消失。'),
+        dict(type='choice', stem='第 36 章：恢复期最贵的是什么？',
+             opts=['把价格涨回去——降 30% 后价格记忆要 3–6 个月才能修复',
+                   '重新招聘员工',
+                   '赎回低价渠道的库存',
+                   '修补 PMS 系统'],
+             ans='把价格涨回去——降 30% 后价格记忆要 3–6 个月才能修复',
+             exp='教材第 36 章：正确动作是用权益换（改期、储值、升级），不用价格换。'),
+    ],
+    '38': [
+        dict(type='choice', stem='第 38 章：算法化时代，收益经理的角色位移到哪三个地方？',
+             opts=['定规则、看异常、担责任',
+                   '调价、报表、排房',
+                   '预测、比价、执行',
+                   '采购、谈判、培训'],
+             ans='定规则、看异常、担责任',
+             exp='教材第 38 章 38.1：人从"调价的"变成"管调价系统的"，位移到定规则/看异常/担责任。'),
+        dict(type='choice', stem='第 38 章：全域化之后，宴会与餐厅的收益判据分别是什么？',
+             opts=['宴会看总贡献（客房+餐饮+场地+附加）；餐厅看 RevPASH（每座位时收入）',
+                   '宴会看房价；餐厅看出翻台率',
+                   '宴会看出租率；餐厅看客单价',
+                   '都看 RevPAR'],
+             ans='宴会看总贡献（客房+餐饮+场地+附加）；餐厅看 RevPASH（每座位时收入）',
+             exp='教材第 38 章 38.2：跨业态看同一问题——库存会不会过期、边际成本低不低、需求能不能预测。'),
+        dict(type='choice', stem='第 38 章：成熟市场与不成熟市场里，收益岗位的分水岭是什么？',
+             opts=['汇报能力——能把"进度落后 4%"翻译成"少赚 18 万、原因是 OTA 让利 3%、下月收窄促销"',
+                   '会不会用 RMS 系统',
+                   '学历与证书',
+                   '英语水平'],
+             ans='汇报能力——能把"进度落后 4%"翻译成"少赚 18 万、原因是 OTA 让利 3%、下月收窄促销"',
+             exp='教材第 38 章 38.3：分水岭不是技术，是汇报能力；翻译得出来是利润中心，翻译不出来是成本中心。'),
+        dict(type='choice', stem='第 38 章：渠道透明化后，从"规矩"升级为"生死线"的两个动作是？',
+             opts=['净价思维与价格一致性',
+                   '超售与升档',
+                   '团队与协议价',
+                   '促销与会员积分'],
+             ans='净价思维与价格一致性',
+             exp='教材第 38 章 38.4：客人扫码即比价，净价思维（看到手价）与价格一致性（直销不得高于最低 OTA）成为生死线。'),
+    ],
+    '40': [
+        dict(type='choice', stem='第 40 章：AI 在收益管理里做的事，本质是哪三件事的自动化？',
+             opts=['预测、定价、优化',
+                   '记账、对账、开票',
+                   '排班、采购、维修',
+                   '获客、留客、复购'],
+             ans='预测、定价、优化',
+             exp='教材第 40 章：收益管理的人工智能应用，本质是预测、定价、优化三件事的自动化。'),
+        dict(type='choice', stem='第 40 章：成熟的动态定价与预测系统对 RevPAR 的边际贡献约是多少？',
+             opts=['5%–8%，是"放大器"不是"引擎"',
+                   '30% 以上，用系统就能起死回生',
+                   '1% 以下，基本没用',
+                   '与酒店规模成正比，无固定区间'],
+             ans='5%–8%，是"放大器"不是"引擎"',
+             exp='教材第 40 章：行业通行口径下，边际贡献通常在 5%–8% 区间——锦上添花，不是起死回生。'),
+        dict(type='choice', stem='第 40 章：AI 不能替代、必须由人掌握的三件事是？',
+             opts=['设定边界、识别异常、对业主解释',
+                   '清数据、跑模型、出报表',
+                   '订价、订房、订餐',
+                   '招聘、排班、考核'],
+             ans='设定边界、识别异常、对业主解释',
+             exp='教材第 40 章：一个无法解释的决定，在酒店这种重信任的行业里落不了地。'),
+        dict(type='judge', stem='第 40 章：这轮 AI 替代会先从一线操作岗开始，坐办公室的专业岗靠后。',
+             opts=['对', '错'], ans='错',
+             exp='教材第 40 章：顺序与直觉相反——先被追平的是"会算数的"专业岗，因为 AI 进步最快的是有标准答案、对错能马上验算的环节。'),
+        dict(type='choice', stem='第 40 章：用 AI 的三条纪律是？',
+             opts=['脏数据先清后喂；建议不等于指令（不可逆动作要人批）；留痕可溯',
+                   '多买系统、多招人、多开会',
+                   '全自动、全托管、全信任',
+                   '先上系统、再补数据、后建流程'],
+             ans='脏数据先清后喂；建议不等于指令（不可逆动作要人批）；留痕可溯',
+             exp='教材第 40 章：算法给建议，判定表做校验与兜底，不可逆动作必须人工批准。'),
+    ],
+    '41': [
+        dict(type='choice', stem='第 41 章：可持续给收益管理带来的两个新变量是？',
+             opts=['成本侧抬高打平量；需求侧提供差异化卖点',
+                   '涨价空间变大；能耗归零',
+                   '出租率上升；房价下降',
+                   '佣金减免；税负降低'],
+             ans='成本侧抬高打平量；需求侧提供差异化卖点',
+             exp='教材第 41 章：能源/水/洗涤/一次性用品是变动成本，会抬高打平量；绿色认证成为部分客源的筛选条件与差异化卖点。'),
+        dict(type='choice', stem='第 41 章：绿色怎么写进已有判定表？',
+             opts=['在降价底线计入节能降耗带来的变动成本下降；客源细分用"绿色权益包"替代直接降价',
+                   '另建一套绿色判定表，与原表并行',
+                   '所有房型统一加收绿色附加费',
+                   '只做宣传叙事，不动判定表'],
+             ans='在降价底线计入节能降耗带来的变动成本下降；客源细分用"绿色权益包"替代直接降价',
+             exp='教材第 41 章：绿色权益包是"用感知价值换支付意愿"，不是不可逆的降价。'),
+        dict(type='judge', stem='第 41 章：绿色收益的正确顺序是先讲好故事，再算成本。',
+             opts=['对', '错'], ans='错',
+             exp='教材第 41 章三条纪律：先算成本再谈叙事；防漂绿（认证可核验、承诺可兑现）；与定位一致。'),
+    ],
+}
+
+LABELS = ['A', 'B', 'C', 'D']
+
+def _distract(ans, local, pool, k=3):
+    cands = [x for x in local if x != ans]
+    cands.sort(key=lambda x: abs(len(x) - len(ans)))
+    out = cands[:k]
+    if len(out) < k:
+        near = [x for x in pool if x != ans and x not in out]
+        near.sort(key=lambda x: abs(len(x) - len(ans)))
+        out += near[:k - len(out)]
+    return out
+
+def build_3341(hm):
+    """从 textbook-merged.html 抽 33–41 章术语题与学习目标题，返回题目列表。"""
+    qs = []
+    goal_pool = []   # (章号, 目标句) 全书目标池，互为干扰项
+    chapters = []
+    all_def = []     # 全书定义池（跨章兜底干扰项）
+    for n in range(33, 42):
+        i = hm.find('id="mch%d"' % n)
+        if i < 0:
+            continue
+        j = hm.find('id="mch%d"' % (n + 1)) if n < 41 else hm.find('id="appA"', i)
+        if j < 0:
+            j = len(hm)
+        seg = hm[i:j]
+        m = re.search(r'<summary[^>]*>(.*?)</summary>', seg, re.S)
+        title = trim(re.sub(r'^第\s*\d+\s*章', '', clean(m.group(1))).replace('新增', '').strip(), 40) if m else ''
+        no = str(n)
+        # ① 定义句：<b>术语</b>：定义（merged 新章的写法）；排除占位与叙述标签
+        terms = []
+        for tm, df in re.findall(r'<b>([^<>]{3,24})</b>[：:]\s*([^<]{15,130})', seg):
+            tm = re.sub(r'^[①②③④⑤⑥⑦⑧]\s*', '', clean(tm))
+            if tm in ('学习目标', '案例导入', '本章口诀', '学完这章你能', '易错点', '共同规律',
+                      '为什么危机期要放宽', '常规期', '危机期', '恢复期', '思政融入点'):
+                continue
+            df = clean(df)
+            if _ok_def(df) and not df.startswith(('云璟', '教材')):
+                terms.append((tm, df))
+                all_def.append(df)
+        chapters.append(dict(no=no, title=title, terms=terms, goals=[]))
+        # ② 学习目标分句
+        g = re.search(r'学习目标</b>\s*(.*?)</div>', seg, re.S)
+        if g:
+            parts = re.split(r'[①②③④⑤⑥]', clean(g.group(1)))
+            for p in parts:
+                p = p.strip('；;。 ')
+                if len(p) >= 12:
+                    goal_pool.append((no, p))
+                    chapters[-1]['goals'].append(p)
+    for ch in chapters:
+        no, title = ch['no'], ch['title']
+        pool_def = [d for _, d in ch['terms']]
+        for t, d in ch['terms'][:4]:
+            opts = [d] + _distract(d, pool_def, all_def)
+            random.shuffle(opts)
+            qs.append(dict(
+                ch=no, type='def', stem=f'教材第 {int(no)} 章中，「{t}」指的是：',
+                opts=[trim(o, 150) for o in opts], ans=trim(d, 150),
+                exp=f'教材第 {int(no)} 章原文：{t}＝{trim(d, 90)}'))
+        my_goals = ch['goals']
+        for gp in my_goals[:2]:
+            others = [x for n2, x in goal_pool if n2 != no][:3]
+            if len(others) < 3:
+                continue
+            opts = [gp] + others
+            random.shuffle(opts)
+            qs.append(dict(
+                ch=no, type='goal', stem=f'以下哪一项是第 {int(no)} 章「{title}」的学习目标？',
+                opts=[trim(o, 120) for o in opts], ans=trim(gp, 120),
+                exp=f'教材第 {int(no)} 章学习目标原文：{trim(gp, 100)}'))
+        # ③ 人工补题
+        for e in EXTRA_3341.get(no, []):
+            q = dict(ch=no); q.update(e)
+            qs.append(q)
+    return qs
+
 
 def main():
     h = open(SRC, encoding='utf-8').read()
@@ -239,9 +443,22 @@ def main():
     for i, q in enumerate(qs):
         q['id'] = 'q%03d' % (i + 1)
         q['dom'] = doms_of(q['ch'])          # 双体系知识域标签（列表，可多域）
+
+    # ── 33–41 现实篇（成书新增九章）：追加编号，保持 1–32 章原 id 稳定 ──
+    try:
+        hm = open(SRC_MERGED, encoding='utf-8').read()
+    except FileNotFoundError:
+        hm = ''
+    extra = build_3341(hm) if hm else []
+    for k, q in enumerate(extra):
+        q['id'] = 'q%03d' % (len(qs) + k + 1)
+        q['dom'] = doms_of(q['ch'])
+    qs += extra
+    n33 = len(extra)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, 'w', encoding='utf-8') as f:
-        f.write('/* 自动生成，源：textbook.html。生成器：build_textbook_quiz.py（改教材后重跑） */\n')
+        f.write('/* 自动生成，源：textbook.html(1–32) + textbook-merged.html(33–41 现实篇)。'
+                '生成器：build_textbook_quiz.py（改教材后重跑） */\n')
         f.write('window.HRMA_QUIZ=' + json.dumps(qs, ensure_ascii=False) + ';\n')
         # 域→{名称, 覆盖章, 题量} 元信息，供 learn.html 等知识域筛选/掌握图使用
         from collections import Counter, defaultdict
@@ -259,7 +476,7 @@ def main():
     # 汇总
     from collections import Counter
     cnt = Counter(q['ch'] for q in qs)
-    print('题目总数', len(qs), '| 覆盖章数', len(cnt))
+    print('题目总数', len(qs), '| 1–32章', len(qs) - n33, '| 33–41章(现实篇)', n33, '| 覆盖章数', len(cnt))
     print('每章题量：', ' '.join('%s:%d' % (k, cnt[k]) for k in sorted(cnt)))
     print('无题章：', [c['no'] for c in chapters if cnt[c['no']] < 4])
     for c in chapters:
