@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>CRME 知识域闯关 · 对标实训（二）</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fa;color:#1f2a37;line-height:1.8;font-size:14.5px;
+ font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:#1d6fb8;text-decoration:none}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px 70px}
+.hero{background:linear-gradient(160deg,#0f2a4a,#16406e 65%,#1d6fb8);color:#fff;padding:30px 16px 26px}
+.hero .in{max-width:880px;margin:0 auto}
+.hero .back{color:#cfe0f5;font-size:13px}
+.hero h1{margin:6px 0 8px;font-size:25px}
+.hero p{margin:0;opacity:.92;font-size:14px;line-height:1.8}
+.pane{display:none;background:#fff;border:1px solid #e3e8ef;border-radius:14px;padding:22px 24px;margin:18px 0;box-shadow:0 1px 4px rgba(15,42,74,.06)}
+.pane.on{display:block}
+.meta{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#5b6a7d;margin-bottom:10px}
+.dtag{background:#eef4fa;border:1px solid #dbe6f0;color:#0f2a4a;border-radius:20px;padding:2px 12px;font-weight:700;font-size:12px}
+.bar{height:6px;background:#edf1f7;border-radius:4px;overflow:hidden;margin:0 0 14px}
+.bar i{display:block;height:100%;background:#1d6fb8;border-radius:4px;transition:width .3s}
+.q{font-size:16px;color:#0f2a4a;font-weight:700;line-height:1.7;margin:4px 0 14px}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid #dbe6f0;border-radius:10px;padding:11px 14px;margin:9px 0;font-size:14px;color:#1f2a37;cursor:pointer;line-height:1.65;transition:border-color .15s,background .15s}
+.opt:hover{border-color:#1d6fb8;background:#f4f9ff}
+.opt.ok{border-color:#2e7d4f;background:#f0f9f3;color:#1f5c39;font-weight:600}
+.opt.no{border-color:#b0563a;background:#fdf1ee;color:#8a3a22}
+.opt:disabled{cursor:default;opacity:.85}
+.fb{display:none;border-radius:10px;padding:13px 16px;margin:14px 0 4px;font-size:13.5px;line-height:1.8}
+.fb.on{display:block}
+.fb .v{font-weight:800;font-size:14.5px;margin-bottom:4px}
+.fb.good{background:#f0f9f3;border:1px solid #bfe0cb}
+.fb.good .v{color:#1f5c39}
+.fb.bad{background:#fdf1ee;border:1px solid #ecc9bd}
+.fb.bad .v{color:#8a3a22}
+.fb .src{font-size:12px;color:#5b6a7d;margin-top:8px}
+.fb .ours{margin-top:8px;font-size:12.5px}
+.nxt{display:none;margin-top:6px;background:#1d6fb8;color:#fff;border:none;border-radius:9px;padding:10px 26px;font-size:14px;font-weight:700;cursor:pointer}
+.nxt.on{display:inline-block}
+.nxt:hover{background:#16406e}
+.tips{font-size:12.5px;color:#5b6a7d;margin-top:10px}
+h2.r{font-size:20px;color:#0f2a4a;margin:0 0 10px}
+.drow{display:flex;align-items:center;gap:10px;margin:9px 0;font-size:13px}
+.drow .dn{flex:0 0 168px;color:#0f2a4a;font-weight:600}
+.drow .db{flex:1;height:14px;background:#edf1f7;border-radius:4px;overflow:hidden}
+.drow .db i{display:block;height:100%;background:#2e7d4f}
+.drow .db i.mid{background:#b98a2e}
+.drow .db i.low{background:#b0563a}
+.drow .ds{flex:0 0 104px;text-align:right;color:#43536a;font-size:12.5px}
+.drow a{font-size:12px}
+.score{font-size:15px;background:#eef4fa;border:1px solid #dbe6f0;border-radius:10px;padding:12px 16px;margin:12px 0;color:#0f2a4a;line-height:1.8}
+.adv{font-size:13px;color:#43536a;background:#fbfdff;border-left:3px solid #1d6fb8;border-radius:0 10px 10px 0;padding:11px 15px;margin:10px 0}
+.study{font-size:13px;color:#43536a;margin:8px 0}
+.study li{margin:6px 0}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btnrow a,.btnrow button{flex:1;min-width:200px;text-align:center;background:#fff;border:1.5px solid #dbe6f0;border-radius:10px;padding:11px 14px;font-size:13.5px;color:#0f2a4a;font-weight:600;cursor:pointer;text-decoration:none}
+.btnrow a:hover,.btnrow button:hover{border-color:#1d6fb8;background:#f4f9ff}
+@media (max-width:640px){.drow{flex-wrap:wrap}.drow .dn{flex-basis:100%}.drow .ds{flex-basis:auto}}
+</style>
+</head>
+<body>
+
+<div class="hero"><div class="in">
+<a class="back" href="index.html">← 返回首页</a>
+<h1>CRME 知识域闯关</h1>
+<p>对标实训（二）：23 道题，按 HSMAI CRME 的 11 个知识域逐域推进（预测/定价/库存域 3 题——它是考纲权重最高的域）。结算生成「CRME 模拟成绩单」：域掌握度、对标通过线、以及每个薄弱域该回我们哪个模块补学。</p>
+</div></div>
+
+<div class="wrap">
+
+<div class="pane on" id="pStart">
+<h2 class="r">怎么玩</h2>
+<ul class="tight" style="font-size:13.5px;color:#43536a">
+<li>共 <b>23 题</b>，覆盖 CRME 全部 11 个知识域；单选，选完立即给反馈；</li>
+<li>每题反馈含：<b>该域在考纲里的位置</b>＋我们体系的对应模块（点开即补学）；</li>
+<li>结算对标 CRME 通过线（70%，据第三方备考资料），给出域掌握图与补学清单。</li>
+</ul>
+<div class="tips">说明：本闯关依据 HSMAI 官方公布的 CRME 考试范围（11 个主题域）与公开资料编制，用于教学对标体验；非 CRME 官方考题，与正式考试题型、难度无对应关系。</div>
+<div class="btnrow">
+<button id="btnStart">开始闯关（23 题）</button>
+<a href="course-hsmai.html">先看 CRME 体系全解析 →</a>
+</div>
+</div>
+
+<div class="pane" id="pPlay">
+<div class="meta"><span id="pgText">第 1 / 23 题</span><span class="dtag" id="dTag">域</span></div>
+<div class="bar"><i id="pgBar" style="width:0%"></i></div>
+<div class="q" id="qText">题目</div>
+<div id="opts"></div>
+<div class="fb" id="fb"><div class="v" id="fbV"></div><div id="fbB"></div><div class="src" id="fbS"></div><div class="ours" id="fbO"></div></div>
+<button class="nxt" id="btnNext">下一题 →</button>
+</div>
+
+<div class="pane" id="pEnd">
+<h2 class="r">CRME 模拟成绩单</h2>
+<div class="score" id="scoreLine"></div>
+<div id="dRows"></div>
+<div class="adv" id="advLine"></div>
+<div class="study"><b>补学清单（按薄弱域自动生成）：</b><ul id="studyList"></ul></div>
+<div class="btnrow">
+<button id="btnAgain">再闯一次</button>
+<a href="course-hsmai.html">回 CRME 体系解析 →</a>
+<a href="game-cornell.html">去看康奈尔沙盘 →</a>
+</div>
+<div class="tips">说明：本成绩单为对标体验的自评结果，不是 CRME 认证成绩；CRME 正式考试要求以 HSMAI 官方最新说明为准。</div>
+</div>
+
+</div>
+
+<script>
+var DOMAINS = {
+  A:'① 从收益管理到收益战略', B:'② 收益专业者', C:'③ 经济学与收益优化',
+  D:'④ 部门整合', E:'⑤ 理解市场', F:'⑥ 客源细分与最优组合',
+  G:'⑦ 预测、定价与库存控制', H:'⑧ 绩效分析', I:'⑨ 战略分销',
+  J:'⑩ 销售与收益协同', K:'⑪ 新兴要素'
+};
+var DORDER = ['A','B','C','D','E','F','G','H','I','J','K'];
+var DWEIGHT = {A:'约9%',B:'约9%',C:'约9%',D:'约9%',E:'约9%',F:'约9%',G:'约13%（最高）',H:'约10%',I:'约9%',J:'约7%',K:'约7%'};
+var DLINK = {
+  A:['textbook-merged.html#mch29','第 29–31 章 餐饮/会议/跨业态'],
+  B:['textbook-merged.html#mch25','第 25、37 章 岗位与职业发展'],
+  C:['textbook-merged.html#mch04','第 4 章 价格弹性'],
+  D:['m13.html','M13 跨部门协同与变革推动'],
+  E:['m09.html','M09 竞争监测与市场定位'],
+  F:['m10.html','M10 客源细分战略'],
+  G:['m05.html','M05 需求预测＋M06/M07 定价与库存'],
+  H:['m01.html','M01 收益管理的语言：指标与计算'],
+  I:['m08.html','M08 渠道与分销管理'],
+  J:['m13.html','M13 跨部门协同＋第 15 章团队置换'],
+  K:['textbook-merged.html#mch40','第 40 章 AI 时代的收益人']
+};
+var QS = [
+{d:'A', q:'TRevPAR 衡量的是什么？',
+ opts:[
+  {x:'客房收入 ÷ 可售房', ok:false, w:'这是 RevPAR——只算客房。'},
+  {x:'全部营收 ÷ 可售房', ok:true, w:''},
+  {x:'餐饮收入 ÷ 座位数', ok:false, w:'这是餐厅产能视角，不是全酒店视角。'},
+  {x:'经营利润 ÷ 可售房', ok:false, w:'利润口径是 GOPPAR，不是 TRevPAR。'}],
+ a:'TRevPAR（Total RevPAR）是「总收益管理」的标志性指标：把餐饮、会议、停车等全部营收放进「每间可售房」这一个分母里比较。康奈尔与 CRME 都把「从房间收益到全营收战略」当作演进方向。',
+ s:'CRME 域① 从收益管理到收益战略'},
+
+{d:'A', q:'从「战术性定价」走向「收益战略」，核心变化是什么？',
+ opts:[
+  {x:'把定价权全部收回总部', ok:false, w:'集权是手段不是目的，且不解决协同问题。'},
+  {x:'收益目标与全酒店经营目标整合，跨部门协同达成', ok:true, w:''},
+  {x:'全面交给系统自动定价', ok:false, w:'自动化替代不了目标设定与跨部门协同。'},
+  {x:'放弃渠道管理只做直销', ok:false, w:'渠道是收益战略的组成部分，不是被放弃的对象。'}],
+ a:'CRME 教材第 4 版的名字本身就是答案：《从收益管理到收益战略》。战术只管房价，战略管「全酒店的收入目标怎么分解到每个部门、每个细分、每一天」。',
+ s:'CRME 域① 从收益管理到收益战略'},
+
+{d:'B', q:'在一家酒店建设「收益文化」，最关键的成功因素是？',
+ opts:[
+  {x:'购买最贵的收益管理系统', ok:false, w:'工具不改变决策文化，数据不进决策等于白买。'},
+  {x:'高管支持＋跨部门共识＋用数据说话', ok:true, w:''},
+  {x:'收益经理一人说了算', ok:false, w:'单点决策无法落地到销售、前厅、餐饮的日常动作。'},
+  {x:'每月群发一次报表', ok:false, w:'发报表≠用数据决策。'}],
+ a:'域②「收益专业者」讲的就是这件事：收益管理是组织能力不是个人技能——文化、胜任力、情境感知、职业发展都在这个域。我们把它做成了例会手册与模拟主持训练。',
+ s:'CRME 域② 收益专业者'},
+
+{d:'B', q:'收益管理者最核心的能力组合是？',
+ opts:[
+  {x:'只会算数', ok:false, w:'算数是底线，不是全部。'},
+  {x:'商业敏感＋分析能力＋沟通与影响', ok:true, w:''},
+  {x:'只会操作系统', ok:false, w:'系统操作是入门技能。'},
+  {x:'只会谈判', ok:false, w:'谈判是子集。'}],
+ a:'考纲把「专业者」单列为一个域，说明行业认证认为：会算账的收益经理很多，能把决策卖出去、带动组织的很少。后两样恰是我们的训练重点（汇报一页纸、模拟主持 5 场景）。',
+ s:'CRME 域② 收益专业者'},
+
+{d:'C', q:'某酒店价格弹性为 0.8。若 ADR 降价 10%，总收入会？',
+ opts:[
+  {x:'上升，因为住的人多了', ok:false, w:'量只升约 8%，补不上价降 10% 的缺口。'},
+  {x:'下降', ok:true, w:''},
+  {x:'基本不变', ok:false, w:'精确算：0.90×1.08≈0.97，收入约降 3%，并非不变。'},
+  {x:'看季节再定', ok:false, w:'弹性是结构属性，先算账再谈季节。'}],
+ a:'弹性＝需求量变化% ÷ 价格变化%。小于 1 时，降价带来的量增补不上价差——收入下降。这是域③经济学的基础账：供需、弹性、边际成本、机会成本，全都服务「这一刀砍下去值不值」。',
+ s:'CRME 域③ 经济学及其在收益优化中的角色'},
+
+{d:'C', q:'「易腐库存」对酒店客房意味着什么？',
+ opts:[
+  {x:'客房实物会损坏报废', ok:false, w:'客房不会「过期」，但它的销售机会会。'},
+  {x:'今晚卖不掉的客房，其价值当晚永久消失', ok:true, w:''},
+  {x:'可以存到明天再卖', ok:false, w:'昨天的空房永远不会再被卖出。'},
+  {x:'只影响餐饮不涉及客房', ok:false, w:'客房是典型的易腐库存。'}],
+ a:'「相对固定产能＋易腐库存＋时效可变需求」是收益管理成立的三个前提条件。理解「今晚的空房不等于明天的库存」，才会懂为什么超售、为什么末次抛售、为什么需求导向要用 LOS 控制。',
+ s:'CRME 域③ 经济学及其在收益优化中的角色'},
+
+{d:'D', q:'一场规范的收益策略会，应当有哪些部门参加？',
+ opts:[
+  {x:'只有收益管理部', ok:false, w:'没有销售与运营在场，策略落不了地。'},
+  {x:'销售、市场、运营、财务、前厅/预订', ok:true, w:''},
+  {x:'只有总经理', ok:false, w:'一人决策代替不了跨部门信息整合。'},
+  {x:'只有销售部', ok:false, w:'缺了运营与财务，排班与成本账对不上。'}],
+ a:'域④「部门整合」考的就是这场会：收益策略会议是跨职能协作的标准机制，目标是把部门目标对齐到同一张需求日历上。我们的《例会手册》20 篇台词＋模拟主持 5 场景，就是把这个域做成了可训练的资产。',
+ s:'CRME 域④ 部门整合'},
+
+{d:'D', q:'需求预测对运营部门的直接价值是？',
+ opts:[
+  {x:'没有价值', ok:false, w:'预测的外溢价值正是域②课程强调的重点。'},
+  {x:'指导排班与采购计划', ok:true, w:''},
+  {x:'只用于考核收益经理', ok:false, w:'预测不是考核工具。'},
+  {x:'只用于定价', ok:false, w:'定价之外，人力与采购都挂在预测上。'}],
+ a:'康奈尔第 2 门同样讲这一点：forecast 的影响外溢到 staff scheduling 与 purchasing。预测做得好，客房部排班、餐饮采购、礼宾班次全都跟着准——这就是「部门整合」的实证入口。',
+ s:'CRME 域④ 部门整合'},
+
+{d:'E', q:'云璟 RGI＝108，说明什么？',
+ opts:[
+  {x:'房价全城最高', ok:false, w:'RGI 是收入份额，不单看房价。'},
+  {x:'从竞争群赢得了超过份额的收入', ok:true, w:''},
+  {x:'出租率一定最高', ok:false, w:'RGI 不分解到出租率单项。'},
+  {x:'利润全城最高', ok:false, w:'RGI 不含成本与利润。'}],
+ a:'域⑤「理解市场」的工具箱：竞争集分析、市场情报、需求驱动、新供给影响、STAR/STR 报告解读。RGI（RevPAR Index）是其中最基本的相对指标——大于 100 就是赢家。',
+ s:'CRME 域⑤ 理解市场'},
+
+{d:'E', q:'竞争集内新开一家同档次酒店，首先该做什么？',
+ opts:[
+  {x:'立即全面降价保住份额', ok:false, w:'没算清分流结构与成本就降价，是自杀式应战。'},
+  {x:'重估竞争集与需求分流，更新定位与策略', ok:true, w:''},
+  {x:'置之不理', ok:false, w:'新供给会实打实分流需求。'},
+  {x:'立即退出所有 OTA', ok:false, w:'退出渠道解决不了竞争问题。'}],
+ a:'新供给进场＝竞争集与需求曲线同时变化。域⑤要求的动作是「先测量再应战」：新竞争集怎么定、需求往哪分流、我们的定位要不要调——降价只是可能结论之一，不是第一步。',
+ s:'CRME 域⑤ 理解市场'},
+
+{d:'F', q:'「最优业务组合」优化的是？',
+ opts:[
+  {x:'出租率最大化', ok:false, w:'高出租率可能靠低价换来，贡献未必最优。'},
+  {x:'各细分的量价结构与贡献最大化', ok:true, w:''},
+  {x:'只接高价团', ok:false, w:'放弃散客与渠道会让产能空置。'},
+  {x:'只做 OTA 冲量', ok:false, w:'渠道佣金会吞掉贡献。'}],
+ a:'域⑥「客源细分与最优组合」：把客人分成几堆，每堆用什么价格、什么渠道、留多少库存——目标函数是总贡献，不是出租率也不是 ADR 单项。',
+ s:'CRME 域⑥ 客源细分与最优组合'},
+
+{d:'F', q:'忠诚会员体系对收益的核心价值是？',
+ opts:[
+  {x:'只是营销噱头', ok:false, w:'会员是资产不是噱头。'},
+  {x:'降低获客成本、沉淀直接客源与数据', ok:true, w:''},
+  {x:'提高 OTA 佣金谈判力', ok:false, w:'会员与渠道佣金没有直接关系。'},
+  {x:'替代定价决策', ok:false, w:'会员数据服务定价，但不替代定价。'}],
+ a:'直销与会员是把「客人变成自己的」：没有佣金、可反复触达、有历史数据可做个性化。域⑥把忠诚计划与细分盈利性评估放在一起——会员的价值最终要落到「这个细分赚不赚钱」上算。',
+ s:'CRME 域⑥ 客源细分与最优组合'},
+
+{d:'G', q:'某月预订 pace 明显低于去年同期。第一步该做什么？',
+ opts:[
+  {x:'立即全面降价冲量', ok:false, w:'没诊断就降价，可能白扔利润还打乱价格体系。'},
+  {x:'诊断需求变化（细分/渠道/竞争/事件），再定动作', ok:true, w:''},
+  {x:'关房等旺季', ok:false, w:'关房放弃的是当晚收入。'},
+  {x:'什么都不做等自然回升', ok:false, w:'pace 落后往往是结构信号，不是噪音。'}],
+ a:'域⑦是考纲权重最高的域（约 13%）。pace 分析的标准动作是先分解：哪个细分掉了、哪个渠道掉了、竞争集发生了什么、日历上有没有事件变化——诊断先于动作，这是「预测」域的基本纪律。',
+ s:'CRME 域⑦ 预测、定价与库存控制（权重最高）'},
+
+{d:'G', q:'门槛价（hurdle rate）的作用是？',
+ opts:[
+  {x:'保证卖出最高价', ok:false, w:'门槛价是「下限」不是「上限」。'},
+  {x:'低于门槛的价格不开放，保护库存给高价值需求', ok:true, w:''},
+  {x:'限制总销量', ok:false, w:'目的不是限销，是保库存的分配效率。'},
+  {x:'锁定全年价格', ok:false, w:'门槛价随需求每日变。'}],
+ a:'门槛价是库存控制的经典工具：今天这门低价渠道开不开，取决于「同样一间房留给后面的高价值需求值不值」。 hurdle rate 与 LOS 控制、超售一起构成域⑦的库存控制三件套。',
+ s:'CRME 域⑦ 预测、定价与库存控制（权重最高）'},
+
+{d:'G', q:'置换分析（displacement）判断的是？',
+ opts:[
+  {x:'团队房间数够不够', ok:false, w:'房间数是产能问题不是置换问题。'},
+  {x:'接团的增量贡献 vs 置换高价值需求的损失', ok:true, w:''},
+  {x:'佣金高低', ok:false, w:'佣金是渠道成本，不是置换。'},
+  {x:'装修新旧', ok:false, w:'与置换无关。'}],
+ a:'置换分析是域⑦与域⑩的交汇点：一个 30 间的低价团，占掉的可能是能卖 620 的散客库存——但团可能带餐饮会议连带。算清两边，才有「最低可接价」。',
+ s:'CRME 域⑦ 预测、定价与库存控制（权重最高）'},
+
+{d:'H', q:'GOPPAR 的计算口径是？',
+ opts:[
+  {x:'客房收入 ÷ 可售房', ok:false, w:'这是 RevPAR。'},
+  {x:'经营毛利润 ÷ 可售房', ok:true, w:''},
+  {x:'全部营收 ÷ 可售房', ok:false, w:'这是 TRevPAR，不含成本。'},
+  {x:'餐饮收入 ÷ 座位', ok:false, w:'这是餐厅产能口径。'}],
+ a:'域⑧「绩效分析」的指标族：RevPAR、ADR、GOPPAR、TRevPAR、RevPOR＋竞争指数 MPI/ARI/RGI。注意区分：TRevPAR 是总营收口径，GOPPAR 是总利润口径——考纲特意放这两个易混项。',
+ s:'CRME 域⑧ 绩效分析'},
+
+{d:'H', q:'ARI 衡量的是？',
+ opts:[
+  {x:'相对竞争群的出租率表现', ok:false, w:'那是 MPI。'},
+  {x:'相对竞争群的平均房价表现', ok:true, w:''},
+  {x:'相对竞争群的收入表现', ok:false, w:'那是 RGI。'},
+  {x:'利润表现', ok:false, w:'ARI 不含利润。'}],
+ a:'竞争三件套的记忆锚：MPI＝出租率指数（Occupancy），ARI＝房价指数（Rate），RGI＝收入指数（RevPAR）。域⑤的市场解读与域⑧的绩效分析共用这套指标。',
+ s:'CRME 域⑧ 绩效分析'},
+
+{d:'I', q:'「广告牌效应」（billboard effect）指的是？',
+ opts:[
+  {x:'OTA 上的展示带来品牌曝光与直销转化', ok:true, w:''},
+  {x:'线下广告牌涨价', ok:false, w:'与线下广告无关。'},
+  {x:'渠道互相封锁', ok:false, w:'那是渠道冲突。'},
+  {x:'佣金自动下降', ok:false, w:'佣金不会自动降。'}],
+ a:'域⑨「战略分销」的经典概念：客人在 OTA 看到你，然后去官网或电话预订——OTA Listing 本身是一块广告牌。所以渠道决策不能只算佣金，还要算它带来的直销转化。',
+ s:'CRME 域⑨ 战略分销'},
+
+{d:'I', q:'价格一致性（rate parity）在不同渠道间破裂，风险是？',
+ opts:[
+  {x:'没有风险', ok:false, w:'parity 破裂是渠道管理的经典事故源。'},
+  {x:'渠道冲突、佣金损失、品牌与客人信任受损', ok:true, w:''},
+  {x:'只影响直销', ok:false, w:'首先冲击的是高价渠道与合作关系。'},
+  {x:'只影响团队价', ok:false, w:'影响面远超团队。'}],
+ a:'域⑨同时管「营收完整性」（revenue integrity）：价差体系、渠道政策、会员价与公开价的关系，是一个整体。parity 一破，客人学会比价、渠道要求降价、品牌受损——三连击。',
+ s:'CRME 域⑨ 战略分销'},
+
+{d:'J', q:'与企业客户谈年度协议价时，收益职能提供的核心输入是？',
+ opts:[
+  {x:'竞争对手的合同副本', ok:false, w:'商业机密且不可持续。'},
+  {x:'需求日历与置换分析给出的底价与量价权衡', ok:true, w:''},
+  {x:'销售提成比例', ok:false, w:'与价格底线无关。'},
+  {x:'明年的装修预算', ok:false, w:'成本侧参考，不是定价输入。'}],
+ a:'域⑩「销售与收益的相互依存」：销售谈单，收益给弹药——哪些日期这个客户值多少钱、接了他要放弃什么、底价在哪。没有这套输入，协议价谈判就是拍脑袋。',
+ s:'CRME 域⑩ 销售与收益优化的相互依存'},
+
+{d:'J', q:'销售与收益协同的最好机制是？',
+ opts:[
+  {x:'各自为政，年底对账', ok:false, w:'年底对账改不了一整年的决策质量。'},
+  {x:'联合策略会＋共享需求日历与置换口径', ok:true, w:''},
+  {x:'收益审批每一单', ok:false, w:'微观审批累死且治标不治本。'},
+  {x:'只靠销售例会', ok:false, w:'缺收益视角的例会。'}],
+ a:'「相互依存」的落地形态：一张共享的需求日历、一套共同的置换口径、一个联合的策略会。我们的 M13＋例会手册＋模拟主持 5 场景，对应的就是这个域。',
+ s:'CRME 域⑩ 销售与收益优化的相互依存'},
+
+{d:'K', q:'AI/机器学习在收益管理中的正确定位是？',
+ opts:[
+  {x:'完全替代收益经理', ok:false, w:'边界、异常与沟通仍离不开人。'},
+  {x:'承担预测与建议，人定边界、处理异常', ok:true, w:''},
+  {x:'只用来做报表', ok:false, w:'浪费了它的预测与模式识别能力。'},
+  {x:'只用来回复点评', ok:false, w:'那只是声誉管理的一个小应用。'}],
+ a:'域⑪「新兴要素」：AI/ML、大数据、声誉管理、CRM、数字化转型。教材第 40 章「AI 时代的收益人」讲的正是这条边界：AI 拿走了算数，留下的是会定规矩的人——判定表就是规则的形状。',
+ s:'CRME 域⑪ 影响收益战略的新兴要素'},
+
+{d:'K', q:'声誉管理（在线点评）为什么进入收益域？',
+ opts:[
+  {x:'与收益无关，是公关的事', ok:false, w:'评分直接影响转化与价格接受度。'},
+  {x:'评分影响转化率与价格接受度，是需求侧变量', ok:true, w:''},
+  {x:'只是为了营销素材', ok:false, w:'它的作用是需求侧的。'},
+  {x:'只影响团队预订', ok:false, w:'对散客与 OTA 转化影响最大。'}],
+ a:'域⑪把 reputation 列入新兴要素，因为「评分就是价格」：同区位同档次，4.2 分与 4.7 分能撑住的房价不同。我们的第 24 章「OTA 与点评：评分就是价格」与这个域直接对应。',
+ s:'CRME 域⑪ 影响收益战略的新兴要素'}
+];
+
+var idx = 0, score = {}, picked = false;
+function $(id){ return document.getElementById(id); }
+function show(id,on){ $(id).className = on ? 'pane on' : 'pane'; }
+function initScore(){ score = {}; DORDER.forEach(function(d){ score[d]=[0,0]; }); }
+function start(){
+  idx = 0; initScore();
+  show('pStart',false); show('pEnd',false); show('pPlay',true);
+  render();
+}
+function render(){
+  picked = false;
+  var q = QS[idx];
+  $('pgText').textContent = '第 ' + (idx+1) + ' / ' + QS.length + ' 题';
+  $('dTag').textContent = DOMAINS[q.d];
+  $('pgBar').style.width = Math.round(idx/QS.length*100) + '%';
+  $('qText').textContent = q.q;
+  var box = $('opts'); box.innerHTML = '';
+  q.opts.forEach(function(o,i){
+    var b = document.createElement('button');
+    b.className = 'opt'; b.type = 'button';
+    b.textContent = String.fromCharCode(65+i) + '．' + o.x;
+    b.onclick = function(){ pick(i); };
+    box.appendChild(b);
+  });
+  $('fb').className = 'fb'; $('btnNext').className = 'nxt';
+}
+function pick(i){
+  if(picked) return; picked = true;
+  var q = QS[idx], o = q.opts[i];
+  var btns = $('opts').querySelectorAll('.opt');
+  for(var k=0;k<btns.length;k++){
+    btns[k].disabled = true;
+    if(q.opts[k].ok) btns[k].className = 'opt ok';
+  }
+  if(!o.ok) btns[i].className = 'opt no';
+  score[q.d][1]++; if(o.ok) score[q.d][0]++;
+  var fb = $('fb');
+  $('fbV').textContent = o.ok ? '✓ 正确' : '✗ 再想想：' + o.w;
+  $('fbB').textContent = q.a;
+  $('fbS').textContent = q.s + '（考纲权重 ' + DWEIGHT[q.d] + '）';
+  $('fbO').innerHTML = '我们体系对应：<a href="' + DLINK[q.d][0] + '">' + DLINK[q.d][1] + '</a>';
+  fb.className = 'fb on ' + (o.ok ? 'good' : 'bad');
+  $('btnNext').textContent = (idx === QS.length-1) ? '看成绩单 →' : '下一题 →';
+  $('btnNext').className = 'nxt on';
+}
+function next(){
+  if(idx < QS.length-1){ idx++; render(); window.scrollTo(0,0); }
+  else end();
+}
+function end(){
+  show('pPlay',false); show('pEnd',true);
+  var tot = 0, got = 0, rows = '', weak = [];
+  DORDER.forEach(function(d){
+    var g = score[d][0], t = score[d][1]; tot += t; got += g;
+    var pct = t ? Math.round(g/t*100) : 0;
+    var cls = pct >= 80 ? '' : (pct >= 50 ? 'mid' : 'low');
+    if(pct < 100) weak.push({d:d, pct:pct});
+    rows += '<div class="drow"><span class="dn">' + DOMAINS[d] + '</span>' +
+      '<span class="db"><i class="' + cls + '" style="width:' + pct + '%"></i></span>' +
+      '<span class="ds">' + g + '/' + t + ' · <a href="' + DLINK[d][0] + '">补学 →</a></span></div>';
+  });
+  $('dRows').innerHTML = rows;
+  var pctAll = tot ? Math.round(got/tot*100) : 0;
+  $('scoreLine').innerHTML = '自评总分：<b>' + got + ' / ' + tot + '</b>（' + pctAll + '%）· CRME 通过线参考：70%（据第三方备考资料）· ' +
+    (pctAll >= 70 ? '按此自评口径<b>已越过</b>参考线' : '按此自评口径<b>未达</b>参考线，见下方补学清单');
+  var lis = '';
+  if(!weak.length) lis = '<li>全部域满分——可直接进 course-hsmai.html 看「三个缺口」做内容补全。</li>';
+  else weak.forEach(function(x){
+    lis += '<li><a href="' + DLINK[x.d][0] + '">' + DOMAINS[x.d] + '</a>（掌握 ' + x.pct + '%）——回对应模块过一遍，再重闯本题域。</li>';
+  });
+  $('studyList').innerHTML = lis;
+  var adv;
+  if(pctAll >= 90) adv = '掌握度优秀。注意：CRME 是积分制准入＋闭卷考试，本自评只覆盖知识域；域②④⑩这类「组织与人」的域，真正的考场在酒店里。';
+  else if(pctAll >= 70) adv = '主干已过参考线。建议把错题集中的域（尤其权重最高的域⑦）回 module 再过一遍——权重高的域错一题，拉分最多。';
+  else adv = '建议先通读 course-hsmai.html 的 11 域展开，再重闯；若你是从业者，域③⑦⑧（经济、预测定价库存、绩效）优先——它们既是考纲重点，也是日常决策的主战场。';
+  $('advLine').textContent = adv;
+  window.scrollTo(0,0);
+}
+$('btnStart').onclick = start;
+$('btnNext').onclick = next;
+$('btnAgain').onclick = start;
+</script>
+
+</body>
+</html>

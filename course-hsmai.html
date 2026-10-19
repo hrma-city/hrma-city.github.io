@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>HSMAI CRME 认证体系全解析 · 对标课件（二）</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fa;color:#1f2a37;line-height:1.85;font-size:14.5px;
+ font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:#1d6fb8;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:0 18px 70px}
+.hero{background:linear-gradient(160deg,#0f2a4a,#16406e 65%,#1d6fb8);color:#fff;padding:34px 18px 28px}
+.hero .in{max-width:920px;margin:0 auto}
+.hero .back{color:#cfe0f5;font-size:13px}
+.hero h1{margin:6px 0 10px;font-size:26px}
+.hero p{margin:0;opacity:.92;font-size:14.5px;line-height:1.8}
+.hero .tagline{margin-top:12px;font-size:12.5px;opacity:.85}
+h2{font-size:20px;color:#0f2a4a;margin:34px 0 12px;padding-left:12px;border-left:4px solid #1d6fb8}
+h3{font-size:16px;color:#0f2a4a;margin:22px 0 8px}
+p{margin:8px 0}
+.card{background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:16px 20px;margin:14px 0;box-shadow:0 1px 3px rgba(15,42,74,.05)}
+.lead{background:#fff8e6;border:1px solid #ecd9a0;border-radius:12px;padding:14px 18px;margin:16px 0;font-size:14px;color:#5a4a15;line-height:1.9}
+.lead b{color:#0f2a4a}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0;background:#fff}
+th,td{border:1px solid #dde5ee;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#f2f6fa;color:#0f2a4a;font-weight:700}
+tr:nth-child(even) td{background:#fafcfe}
+.note{font-size:12.5px;color:#5b6a7d}
+ul.tight li,ol.tight li{margin:5px 0}
+.sug{border-left:3px solid #1d6fb8;background:#fbfdff;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0}
+.sug .h{font-weight:800;color:#0f2a4a;font-size:14.5px;margin-bottom:4px}
+.sug .row{font-size:13px;color:#43536a;margin:3px 0}
+.sug .row b{color:#0f2a4a}
+.toc{background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:16px 20px;margin:16px 0;box-shadow:0 1px 3px rgba(15,42,74,.05)}
+.toc h2{margin:0 0 4px;font-size:18px;border:none;padding:0}
+.toc .sd{font-size:12px;color:#5b6a7d;margin:0 0 8px}
+.tgrp{margin:8px 0}
+.tgrp>b{display:block;font-size:13px;color:#0f2a4a}
+.tgrp ul{list-style:none;margin:4px 0 0;padding:0}
+.tgrp li{margin:5px 0}
+.tgrp li a{display:block;font-size:12.5px;color:#1d6fb8;background:#eef4fa;border:1px solid #dbe6f0;border-radius:8px;padding:6px 11px;line-height:1.55}
+.tgrp li a:hover{background:#1d6fb8;color:#fff}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.fact{background:#fff;border:1px solid #e3e8ef;border-radius:10px;padding:11px 14px}
+.fact b{display:block;font-size:12.5px;color:#5b6a7d;font-weight:600}
+.fact span{font-size:14px;color:#0f2a4a;font-weight:700;line-height:1.5}
+.domain{border:1px solid #dbe6f0;border-radius:12px;margin:12px 0;overflow:hidden}
+.domain .dh{background:#eef4fa;padding:9px 16px;font-weight:800;color:#0f2a4a;font-size:14.5px}
+.domain .dh small{font-weight:400;color:#5b6a7d;margin-left:8px;font-size:12px}
+.domain .dh .wt{float:right;font-weight:600;font-size:12px;color:#8a6a1f;background:#fdf6e3;border:1px solid #ecd9a0;border-radius:20px;padding:1px 10px}
+.domain .db{padding:10px 16px}
+.domain .db p{margin:5px 0;font-size:13.5px}
+.gap{border-left:3px solid #b0563a;background:#fdf6f3;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0}
+.gap .h{font-weight:800;color:#8a3a22;font-size:14.5px;margin-bottom:4px}
+.gap .row{font-size:13px;color:#5a4038;margin:3px 0}
+.plus{border-left:3px solid #2e7d4f;background:#f4faf6;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0}
+.plus .h{font-weight:800;color:#1f5c39;font-size:14.5px;margin-bottom:4px}
+.plus .row{font-size:13px;color:#33513f;margin:3px 0}
+.xlink{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.xlink a{flex:1;min-width:240px;background:#fff;border:1px solid #dbe6f0;border-radius:10px;padding:12px 16px;font-size:13.5px;color:#0f2a4a;font-weight:600}
+.xlink a small{display:block;font-weight:400;color:#5b6a7d;font-size:12px;margin-top:2px}
+.xlink a:hover{border-color:#1d6fb8;background:#f4f9ff}
+@media (max-width:640px){.facts{grid-template-columns:1fr}.hero h1{font-size:21px}.domain .dh .wt{float:none;display:inline-block;margin-top:4px}}
+</style>
+</head>
+<body>
+
+<div class="hero"><div class="in">
+<a class="back" href="index.html">← 返回首页</a>
+<h1>HSMAI CRME 认证体系全解析</h1>
+<p>对标课件（二）：全球酒店销售营销协会（HSMAI）的 Certified Revenue Management Executive——酒店业在职收益管理者的行业认证。它的 11 个知识域，就是国际行业组织定义的「收益管理从业者应该会什么」的完整清单。</p>
+<div class="tagline">基于公开资料整理（2026-10-19）· 用于教学体系对标 · 门内页 · 非 HSMAI 官方材料</div>
+</div></div>
+
+<div class="wrap">
+
+<div class="toc" id="toc">
+  <h2>目录</h2>
+  <p class="sd">七个部分；第五节是 11 域对照我们体系的覆盖与缺口分析。</p>
+  <div class="tgrp"><b>一、这是什么</b><ul><li><a href="#h1">01 · 关键事实卡</a></li></ul></div>
+  <div class="tgrp"><b>二、认证机制</b><ul><li><a href="#h2">02 · 两段式：积分申请＋考试</a></li></ul></div>
+  <div class="tgrp"><b>三、考试结构</b><ul><li><a href="#h3">03 · 考什么、怎么考</a></li></ul></div>
+  <div class="tgrp"><b>四、11 个知识域</b><ul><li><a href="#h4">04 · 逐域展开</a></li></ul></div>
+  <div class="tgrp"><b>五、对照我们</b><ul><li><a href="#h5">05 · 覆盖、缺口与超出</a></li></ul></div>
+  <div class="tgrp"><b>六、启发</b><ul><li><a href="#h6">06 · 给我们的两条启发</a></li></ul></div>
+  <div class="tgrp"><b>七、来源与互链</b><ul><li><a href="#h7">07 · 资料来源与配套页</a></li></ul></div>
+</div>
+
+<h2 id="h1">一、这是什么</h2>
+<div class="lead"><b>一句话：</b>HSMAI 是全球酒店销售与营销行业协会；CRME 是它面向在职收益管理者的认证——不是教课，而是「证明你会」：用积分制申请（最低 50 分）＋一场基于指定教材的在线考试。它的知识体系写在一本教材里：《Evolving Dynamics: From Revenue Management to Revenue Strategy》第 4 版。</div>
+<div class="facts">
+  <div class="fact"><b>发证机构</b><span>HSMAI（Hospitality Sales &amp; Marketing Association International，全球酒店销售营销协会）</span></div>
+  <div class="fact"><b>认证定位</b><span>收益优化领域的专业资历证明——面向有从业经验的在职者，非入门课</span></div>
+  <div class="fact"><b>指定教材</b><span>《Evolving Dynamics: From Revenue Management to Revenue Strategy》第 4 版（报名费内含）</span></div>
+  <div class="fact"><b>准入方式</b><span>积分制申请（最低 50 分）→ 批准后 12 个月内参加在线考试</span></div>
+  <div class="fact"><b>费用</b><span>会员 $500 / 非会员 $675（含申请、教材、考试）；补考 $45</span></div>
+  <div class="fact"><b>有效期</b><span>3 年一换证（无考试，需 20 积分＋换证费 $150/$200）</span></div>
+  <div class="fact"><b>备考支持</b><span>HSMAI Academy 主题短课＋官方练习题（交互版/可下载版）＋一日复习课（Review Class）</span></div>
+  <div class="fact"><b>资助</b><span>Timothy S.Y. Lam Foundation 奖学金（部分地区）</span></div>
+</div>
+
+<h2 id="h2">二、认证机制：两段式</h2>
+<div class="card">
+<p><b>第一段·积分申请（随时提交，批准约 10 个工作日）：</b>按职业档案打分，最低 50 分。评分项包括——</p>
+<ul class="tight">
+<li>专业从业经历（Professional Experience）</li>
+<li>在岗职责范围（On-the-Job Responsibilities）</li>
+<li>行业协会会员身份</li>
+<li>行业组织领导角色</li>
+<li>发表文章 / 行业会议演讲</li>
+<li>高等教育课程 / 非学术课程进修</li>
+<li>其他认证</li>
+</ul>
+<p><b>第二段·考试：</b>申请批准后 12 个月内任选时间在线考试；超期未考可补交 $45 行政费延考。</p>
+<p class="note">机制读法：CRME 用积分制把「经验＋持续行业产出」写进了准入——这本身就是一个信号：行业组织认为收益管理者是干出来的、持续活跃的，不是考出来的。</p>
+</div>
+
+<h2 id="h3">三、考试结构</h2>
+<table>
+<tr><th style="width:22%">项目</th><th>内容</th></tr>
+<tr><td>依据</td><td>全部题目出自指定教材《Evolving Dynamics》第 4 版（官方口径）</td></tr>
+<tr><td>形式</td><td>在线闭卷多选题；考完当场出分（据第三方备考资料整理：50 题、60 分钟、70% 通过即 35/50；正式要求以 HSMAI 官方最新说明为准）</td></tr>
+<tr><td>权重参考</td><td>据第三方备考资料的主题权重估计：预测/定价/库存控制约 13%、绩效分析约 10%、其余各域约 7–9%——「预测定价库存」与「绩效」是两个重点域</td></tr>
+<tr><td>换证</td><td>每 3 年一次，无需考试；需在换证申请中累积 20 积分（须为首个认证或上次换证之后取得）＋换证费</td></tr>
+</table>
+
+<h2 id="h4">四、11 个知识域逐域展开</h2>
+<p>以下 11 个主题域来自 HSMAI 官方公布的考试范围（基于指定教材目录）。每个域标注：官方主题、学什么、关键术语、我们的对应资产、覆盖度。</p>
+
+<div class="domain"><div class="dh">① From Revenue Management to Revenue Strategy<small>从收益管理到收益战略</small><span class="wt">约 9%</span></div>
+<div class="db">
+<p><b>学什么：</b>从「战术性房间定价」演进到「全营收战略」：总收益管理（把客房之外的所有营收流纳入）、收益战略与整体经营目标整合。</p>
+<p><b>我们的对应：</b>第 29 章（餐饮 RevPASH）、第 30 章（会议宴会算总贡献）、第 31 章（跨业态参数）、第 41 章（绿色两本账）——<b>覆盖</b>；总收益视角散见三章，可整合为一节「总收益管理」。</p>
+</div></div>
+
+<div class="domain"><div class="dh">② The Revenue Professional<small>收益专业者</small><span class="wt">约 9%</span></div>
+<div class="db">
+<p><b>学什么：</b>建设收益文化；专业胜任力模型；情境感知；职业发展路径；收益领导者在组织中的角色。</p>
+<p><b>我们的对应：</b>第 25 章（岗位与组织）、第 37 章（职业发展）、第 19 章（执行标准与例会）＋M12（会议与汇报）＋M13（跨部门协同）＋训练营——<b>完整且强</b>。</p>
+</div></div>
+
+<div class="domain"><div class="dh">③ Economics and its Role in Revenue Optimization<small>经济学及其在收益优化中的角色</small><span class="wt">约 9%</span></div>
+<div class="db">
+<p><b>学什么：</b>供给与需求；价格弹性；易腐库存；边际成本与机会成本；Hubbart Formula（房价推定的经典公式）；宏观经济因素对需求的影响。</p>
+<p><b>我们的对应：</b>第 4 章（价格弹性）、第 26 章（成本与利润）、第 39 章（周期与不确定性）——<b>部分覆盖</b>：Hubbart Formula 未显式进入教材，建议在成本章补一个「从成本推房价」的经典方法节点。</p>
+</div></div>
+
+<div class="domain"><div class="dh">④ Departmental Integration<small>部门整合</small><span class="wt">约 9%</span></div>
+<div class="db">
+<p><b>学什么：</b>与销售、市场、运营、财务的跨职能协作；收益策略会议怎么开；部门目标对齐。</p>
+<p><b>我们的对应：</b>第 19 章（收益例会）＋M13＋《例会手册》20 篇台词＋模拟主持 5 场景＋每日操作流水线——<b>完整且强</b>（这是我们的招牌资产）。</p>
+</div></div>
+
+<div class="domain"><div class="dh">⑤ Understanding the Market<small>理解市场</small><span class="wt">约 9%</span></div>
+<div class="db">
+<p><b>学什么：</b>竞争集分析；市场情报；需求驱动因素；新供给进入的影响；STAR/STR 报告的解读与竞争定位。</p>
+<p><b>我们的对应：</b>第 3 章（MPI/ARI/RGI 竞争三件套）＋M09（竞争监测与市场定位）＋五竞品参数库——<b>完整</b>。</p>
+</div></div>
+
+<div class="domain"><div class="dh">⑥ Segmenting Customers and Utilizing Sources to Target Optimal Mix<small>客源细分与最优组合</small><span class="wt">约 9%</span></div>
+<div class="db">
+<p><b>学什么：</b>客户与需求细分；业务组合优化；忠诚客户计划；细分层面的盈利性评估。</p>
+<p><b>我们的对应：</b>第 14 章（客源细分）＋M10（客源细分战略）＋第 16 章（直销与会员）＋汇报案例特殊场合类——<b>完整</b>。</p>
+</div></div>
+
+<div class="domain"><div class="dh">⑦ Forecasting, Pricing and Inventory Control<small>预测、定价与库存控制</small><span class="wt">约 13%（最高）</span></div>
+<div class="db">
+<p><b>学什么：</b>需求预测方法；预订节奏（pace）分析；动态定价；价格栅栏；门槛价（hurdle rate）；最短住期控制；超售；置换分析（displacement）。</p>
+<p><b>我们的对应：</b>第 5–12 章（涨价/跟价/折扣/锚定/价差/MinLOS/超售/库存保护）＋第 20 章（预测）＋M05/M06/M07＋15 张判定表＋预测实训——<b>完整且强</b>（判定表直接服务此域）。</p>
+</div></div>
+
+<div class="domain"><div class="dh">⑧ Performance Analysis<small>绩效分析</small><span class="wt">约 10%</span></div>
+<div class="db">
+<p><b>学什么：</b>指标体系：RevPAR、ADR、GOPPAR、TRevPAR、RevPOR；竞争指数 MPI/ARI/RGI；贡献边际；数据可视化。</p>
+<p><b>我们的对应：</b>第 2、3 章（核心指标＋竞争三件套）＋M01（收益管理的语言）＋第 23 章（报表体系）＋第 26 章（贡献）——<b>部分覆盖</b>：GOPPAR/TRevPAR/RevPOR 未成「指标族」显式呈现，建议在教材指标章补一节「总收益指标族」。</p>
+</div></div>
+
+<div class="domain"><div class="dh">⑨ Strategic Distribution<small>战略分销</small><span class="wt">约 9%</span></div>
+<div class="db">
+<p><b>学什么：</b>OTA/GDS/直销/元搜索渠道；渠道管理；价格一致性（rate parity）；营收完整性（revenue integrity）；获客成本；广告牌效应（billboard effect）。</p>
+<p><b>我们的对应：</b>第 13 章（渠道净价）、第 16 章（直销会员）、第 24 章（OTA 与点评）、第 33 章（中国渠道生态）＋M08——<b>基本完整</b>；建议在第 33 章补入「广告牌效应」概念节点。</p>
+</div></div>
+
+<div class="domain"><div class="dh">⑩ The Interdependence of Sales &amp; Revenue Optimization<small>销售与收益优化的相互依存</small><span class="wt">约 7%</span></div>
+<div class="db">
+<p><b>学什么：</b>销售与收益的协作；团体业务评估；企业协议价谈判；需求创造；增销（upselling）策略。</p>
+<p><b>我们的对应：</b>第 15 章（团队置换）＋M13＋会议与汇报训练——<b>部分覆盖</b>：企业协议价谈判的谈判方法可深化（我们的置换分析强，谈判流程弱）。</p>
+</div></div>
+
+<div class="domain"><div class="dh">⑪ Emerging Elements Impacting Revenue Strategy<small>影响收益战略的新兴要素</small><span class="wt">约 7%</span></div>
+<div class="db">
+<p><b>学什么：</b>AI 与机器学习；大数据分析；声誉管理；CRM 系统；数字化转型。</p>
+<p><b>我们的对应：</b>第 27 章（系统与数据）、第 35 章（AI 工具做收益分析）、第 38 章（变革五件事）、第 40 章（AI 时代的收益人）、第 24 章（点评＝声誉）＋AI 教学助手——<b>完整且强</b>（我们的差异化亮点）。</p>
+</div></div>
+
+<h2 id="h5">五、对照我们：覆盖、缺口与超出</h2>
+<div class="plus"><div class="h">覆盖结论</div>
+<div class="row">CRME 11 个知识域，我们的体系<b>基本全覆盖</b>——这与 cert-hub 已有的「OBE 能力域 × HSMAI CRME 知识域映射」结论一致，本页是把映射细化到了官方域一级。</div>
+<div class="row">强项域（完整且深度超出）：② 专业者（例会/汇报/职业发展）、④ 部门整合（20 篇台词＋5 场景模拟）、⑦ 预测定价库存（15 张判定表）、⑪ 新兴要素（AI 三章＋助手）。</div>
+<div class="row">超出其框架的方向：中国渠道生态（直播/私域/买断）、连锁与中央预订、危机与极端场景、周期与不确定性、绿色收益、300+ 本土案例、363 题题库、12 个实训游戏。</div></div>
+<div class="gap"><div class="h">三个明确缺口（与复盘报告 P1 清单重叠，建议合并推进）</div>
+<div class="row"><b>1 · Hubbart Formula 未进教材。</b>这是行业经典「从经营成本推定目标房价」的方法，属域③；成本章补一个方法节点即可（半天级）。</div>
+<div class="row"><b>2 · 总收益指标族未成体系。</b>GOPPAR/TRevPAR/RevPOR 散见未显式成节，属域⑧；建议教材指标章补「总收益指标族」一节＋两道计算题。</div>
+<div class="row"><b>3 · 企业协议价谈判可深化。</b>域⑩里我们的置换分析强、谈判流程弱；建议在 M13 或团队章补「协议价谈判：底价怎么算、话怎么谈」。</div></div>
+
+<h2 id="h6">六、给我们的两条启发</h2>
+<div class="sug"><div class="h">1 · 学它的「持续有效」设计</div><div class="row">CRME 每 3 年换证、要求 20 积分（发表、演讲、课程、其他认证）——行业认证认的是持续产出，不是一考定终身。我们的教师认证/学生认证应同构设计持续学分（复训、案例署名、教研产出），这既是质量机制，也是续费机制。</div></div>
+<div class="sug"><div class="h">2 · 「组织与人」占近三成权重</div><div class="row">11 个域里，专业者、部门整合、销售协同三个域都是「组织与人」——国际考纲用权重告诉我们：收益管理教育的近三成是软技能。而这恰是我们做得最重的部分（例会手册、模拟主持、汇报一页纸）。这条可以写进招生文案：<b>「国际认证考纲里最重的三块『人』的能力，我们的训练营是当主力教的。」</b></div></div>
+
+<h2 id="h7">七、资料来源与配套页</h2>
+<div class="card">
+<p><b>资料来源（均为公开页面，2026-10-19 访问）：</b></p>
+<ul class="tight">
+<li>HSMAI Americas 官网 CRME 认证页（americas.hsmai.org）：11 个主题域、两段式机制、费用、换证规则</li>
+<li>HSMAI Academy 课程页（academy.hsmai.org）：复习课与短课体系</li>
+<li>第三方备考资料（open-exam-prep.com）：考试形式与主题权重估计（已在文中标注「据第三方」，正式要求以 HSMAI 官方最新说明为准）</li>
+</ul>
+<p class="note">说明：本页为基于上述公开资料整理的知识体系解析，用于教学体系对标；并非 HSMAI 官方材料，CRME 认证要求与内容以 HSMAI 官方最新公布为准。文中「我们的对应资产」指本项目自有体系（41 章教材、M01–M14、判定表、实训游戏等）。</p>
+</div>
+
+<div class="xlink">
+<a href="course-cornell.html">康奈尔教学体系全解析 →<small>对标课件（一）：5 门课、10 个知识域、教学法与缺口分析</small></a>
+<a href="game-hsmai.html">CRME 知识域闯关 →<small>22 题按 11 域闯关，结算出「模拟成绩单」与补学清单</small></a>
+</div>
+
+</div>
+</body>
+</html>

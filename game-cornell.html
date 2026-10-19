@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>康奈尔知识域决策沙盘 · 对标实训（一）</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fa;color:#1f2a37;line-height:1.8;font-size:14.5px;
+ font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:#1d6fb8;text-decoration:none}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px 70px}
+.hero{background:linear-gradient(160deg,#0f2a4a,#16406e 65%,#1d6fb8);color:#fff;padding:30px 16px 26px}
+.hero .in{max-width:880px;margin:0 auto}
+.hero .back{color:#cfe0f5;font-size:13px}
+.hero h1{margin:6px 0 8px;font-size:25px}
+.hero p{margin:0;opacity:.92;font-size:14px;line-height:1.8}
+.pane{display:none;background:#fff;border:1px solid #e3e8ef;border-radius:14px;padding:22px 24px;margin:18px 0;box-shadow:0 1px 4px rgba(15,42,74,.06)}
+.pane.on{display:block}
+.meta{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#5b6a7d;margin-bottom:10px}
+.dtag{background:#eef4fa;border:1px solid #dbe6f0;color:#0f2a4a;border-radius:20px;padding:2px 12px;font-weight:700;font-size:12px}
+.bar{height:6px;background:#edf1f7;border-radius:4px;overflow:hidden;margin:0 0 14px}
+.bar i{display:block;height:100%;background:#1d6fb8;border-radius:4px;transition:width .3s}
+.q{font-size:16px;color:#0f2a4a;font-weight:700;line-height:1.7;margin:4px 0 14px}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid #dbe6f0;border-radius:10px;padding:11px 14px;margin:9px 0;font-size:14px;color:#1f2a37;cursor:pointer;line-height:1.65;transition:border-color .15s,background .15s}
+.opt:hover{border-color:#1d6fb8;background:#f4f9ff}
+.opt.ok{border-color:#2e7d4f;background:#f0f9f3;color:#1f5c39;font-weight:600}
+.opt.no{border-color:#b0563a;background:#fdf1ee;color:#8a3a22}
+.opt:disabled{cursor:default;opacity:.85}
+.fb{display:none;border-radius:10px;padding:13px 16px;margin:14px 0 4px;font-size:13.5px;line-height:1.8}
+.fb.on{display:block}
+.fb .v{font-weight:800;font-size:14.5px;margin-bottom:4px}
+.fb.good{background:#f0f9f3;border:1px solid #bfe0cb}
+.fb.good .v{color:#1f5c39}
+.fb.bad{background:#fdf1ee;border:1px solid #ecc9bd}
+.fb.bad .v{color:#8a3a22}
+.fb .src{font-size:12px;color:#5b6a7d;margin-top:8px}
+.fb .ours{margin-top:8px;font-size:12.5px}
+.nxt{display:none;margin-top:6px;background:#1d6fb8;color:#fff;border:none;border-radius:9px;padding:10px 26px;font-size:14px;font-weight:700;cursor:pointer}
+.nxt.on{display:inline-block}
+.nxt:hover{background:#16406e}
+.tips{font-size:12.5px;color:#5b6a7d;margin-top:10px}
+h2.r{font-size:20px;color:#0f2a4a;margin:0 0 10px}
+.drow{display:flex;align-items:center;gap:10px;margin:9px 0;font-size:13px}
+.drow .dn{flex:0 0 150px;color:#0f2a4a;font-weight:600}
+.drow .db{flex:1;height:14px;background:#edf1f7;border-radius:4px;overflow:hidden}
+.drow .db i{display:block;height:100%;background:#2e7d4f}
+.drow .db i.mid{background:#b98a2e}
+.drow .db i.low{background:#b0563a}
+.drow .ds{flex:0 0 92px;text-align:right;color:#43536a;font-size:12.5px}
+.drow a{font-size:12px}
+.score{font-size:15px;background:#eef4fa;border:1px solid #dbe6f0;border-radius:10px;padding:12px 16px;margin:12px 0;color:#0f2a4a;line-height:1.8}
+.adv{font-size:13px;color:#43536a;background:#fbfdff;border-left:3px solid #1d6fb8;border-radius:0 10px 10px 0;padding:11px 15px;margin:10px 0}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btnrow a,.btnrow button{flex:1;min-width:200px;text-align:center;background:#fff;border:1.5px solid #dbe6f0;border-radius:10px;padding:11px 14px;font-size:13.5px;color:#0f2a4a;font-weight:600;cursor:pointer;text-decoration:none}
+.btnrow a:hover,.btnrow button:hover{border-color:#1d6fb8;background:#f4f9ff}
+@media (max-width:640px){.drow{flex-wrap:wrap}.drow .dn{flex-basis:100%}.drow .ds{flex-basis:auto}}
+</style>
+</head>
+<body>
+
+<div class="hero"><div class="in">
+<a class="back" href="index.html">← 返回首页</a>
+<h1>康奈尔知识域决策沙盘</h1>
+<p>对标实训（一）：13 个收益决策情境，按康奈尔证书课的 10 个知识域编排。每关给出康奈尔框架下的解法与出处课程；结算页画出你的域掌握图，并指回我们教材的对应章节——「国外标准怎么解」与「我们怎么教」，一关一对照。</p>
+</div></div>
+
+<div class="wrap">
+
+<!-- 开始屏 -->
+<div class="pane on" id="pStart">
+<h2 class="r">怎么玩</h2>
+<ul class="tight" style="font-size:13.5px;color:#43536a">
+<li>共 <b>13 关</b>，每关一个云璟酒店的决策情境，4 个选项；</li>
+<li>选完立即给反馈：正确答案＋<b>康奈尔框架怎么解</b>＋出自哪门课＋我们教材的对应章节；</li>
+<li>不计时、可反复玩；结算给出 10 个知识域的掌握度与补学指向。</li>
+</ul>
+<div class="tips">说明：本沙盘依据康奈尔 eCornell《Hotel Revenue Management》证书课公开的学习成果编制，用于教学对标体验；非康奈尔官方测评。</div>
+<div class="btnrow">
+<button id="btnStart">开始闯关（13 关）</button>
+<a href="course-cornell.html">先看康奈尔体系全解析 →</a>
+</div>
+</div>
+
+<!-- 答题屏 -->
+<div class="pane" id="pPlay">
+<div class="meta"><span id="pgText">第 1 / 13 关</span><span class="dtag" id="dTag">域</span></div>
+<div class="bar"><i id="pgBar" style="width:0%"></i></div>
+<div class="q" id="qText">题目</div>
+<div id="opts"></div>
+<div class="fb" id="fb"><div class="v" id="fbV"></div><div id="fbB"></div><div class="src" id="fbS"></div><div class="ours" id="fbO"></div></div>
+<button class="nxt" id="btnNext">下一关 →</button>
+</div>
+
+<!-- 结算屏 -->
+<div class="pane" id="pEnd">
+<h2 class="r">结算：知识域掌握图</h2>
+<div class="score" id="scoreLine"></div>
+<div id="dRows"></div>
+<div class="adv" id="advLine"></div>
+<div class="btnrow">
+<button id="btnAgain">再玩一次</button>
+<a href="course-cornell.html">回康奈尔体系解析 →</a>
+<a href="course-hsmai.html">去看 HSMAI CRME 版 →</a>
+</div>
+<div class="tips">「指回教材」链接进 textbook-merged.html 对应章（merged 阅读版第 33–41 章为学生版新增章，章节号与源教材一致）。</div>
+</div>
+
+</div>
+
+<script>
+var DOMAINS = {
+  D1:'D1 基础与战略杠杆', D2:'D2 指标与绩效测量', D3:'D3 需求预测',
+  D4:'D4 可用性与时长控制', D5:'D5 定价策略', D6:'D6 价格栅栏',
+  D7:'D7 分销渠道', D8:'D8 超售', D9:'D9 团队业务', D10:'D10 非传统应用'
+};
+var DORDER = ['D1','D2','D3','D4','D5','D6','D7','D8','D9','D10'];
+var DMAP = {
+  D1:'第 1 章 收益管理是什么：一句话与底层逻辑',
+  D2:'第 2、3 章 核心指标与竞争三件套',
+  D3:'第 20 章 预测与需求日历',
+  D4:'第 10、12 章 MinLOS 与库存保护位',
+  D5:'第 4–9、22 章 定价方法与 BAR',
+  D6:'第 10、14、22 章 客群分隔与价差阶梯',
+  D7:'第 13、16、24、33 章 渠道净价与渠道生态',
+  D8:'第 11 章 超额预订',
+  D9:'第 15、30 章 团队置换与会议宴会',
+  D10:'第 29–31、41 章 跨业态与跨行业参数'
+};
+var DMAP_HREF = {
+  D1:'textbook-merged.html#mch01', D2:'textbook-merged.html#mch02', D3:'textbook-merged.html#mch20',
+  D4:'textbook-merged.html#mch10', D5:'textbook-merged.html#mch04', D6:'textbook-merged.html#mch14',
+  D7:'textbook-merged.html#mch13', D8:'textbook-merged.html#mch11', D9:'textbook-merged.html#mch15',
+  D10:'textbook-merged.html#mch29'
+};
+var QS = [
+{d:'D1', q:'周会上业主说：「我们上月出租率 82%，全城最高，为什么利润没涨多少？」康奈尔第 1 门教的思维转换是什么？',
+ opts:[
+  {x:'继续冲出租率，把剩余空房塞满', ok:false, w:'塞满往往靠降价换来，RevPAR 未必涨——这正是「高 OCC 不等于高收入」的陷阱。'},
+  {x:'把考核从 OCC/ADR 切换到 RevPAR，看每间可售房的真实收入', ok:true, w:''},
+  {x:'给 OTA 更大折扣冲预订量', ok:false, w:'折扣冲量会拉低 ADR，RevPAR 可能不升反降。'},
+  {x:'削减早餐与运营成本', ok:false, w:'成本侧不是收益管理的第一杠杆；先看收入侧结构。'}],
+ a:'康奈尔第 1 门的核心就是这次「思维转换」：从占用率＋平均房价，转向 RevPAR——同一个指标同时管住量与价。业主问「为什么没涨」，答案在 RevPAR 及其构成里，不在 OCC 单项冠军里。',
+ s:'出自：Introduction to Hotel Revenue Management（SHA531）'},
+
+{d:'D2', q:'云璟上月 RGI（RevPAR Index）＝108。竞争三件套里这个数说明什么？',
+ opts:[
+  {x:'房价全城最高', ok:false, w:'房价高但量掉，RGI 仍可能低于 100。'},
+  {x:'从竞争群赢回了超过市场份额的收入', ok:true, w:''},
+  {x:'出租率一定高于竞争群', ok:false, w:'RGI 比的是收入份额，不是出租率单项。'},
+  {x:'利润全城最高', ok:false, w:'RGI 只反映收入侧相对表现，不含成本利润。'}],
+ a:'RGI＝本店 RevPAR ÷ 竞争群 RevPAR × 100。大于 100 意味着你从竞争群手里多赢了份额——这是康奈尔绩效测量域的基本功：用相对指标判断「打得好不好」，而不是自说自话。',
+ s:'出自：Introduction to Hotel Revenue Management（SHA531）· 指标与绩效测量'},
+
+{d:'D3', q:'周四还有 10 天到店，在手 50 间；去年同期同日历在手 60 间、最终 80 间。康奈尔第 2 门的预测逻辑是？',
+ opts:[
+  {x:'简单同比打八三折，预测 48 间', ok:false, w:'同比忽略了「预订曲线位置」——你今年在曲线上的位置和去年不同。'},
+  {x:'看预订曲线位置与 pace：去年同期同期也是 60→80（后期拉升 20 间）；若今年曲线形状相似，按 pace 推后期拉升', ok:true, w:''},
+  {x:'直接以上年最终 80 间为预测', ok:false, w:'忽略今年 pace 差异——若今年 pickup 更慢，80 间会高估。'},
+  {x:'不预测，等临近几天再看', ok:false, w:'康奈尔把 forecast 称作收益战略的枢纽：库存、价格、排班都挂在它上面。'}],
+ a:'康奈尔第 2 门教的预测不是拍总数，而是「在预订曲线上找你的位置」：构建 booking curve、解读 pickup、按市场/团体/渠道分层。同比只是起点，pace 与曲线形状才是依据。',
+ s:'出自：Forecasting and Availability Controls（SHA532）'},
+
+{d:'D4', q:'云璟周五周六已满房，周日空 120 间，周一有约 60 间散客需求。康奈尔第 2 门的最短住期逻辑是？',
+ opts:[
+  {x:'周五周六不设限，先把高价日卖穿', ok:false, w:'不设限会把周五的需求「用光」，周日空置损失依旧。'},
+  {x:'周五/周六设 MinLOS 2 晚（或要求跨住周日），把需求导向空置日', ok:true, w:''},
+  {x:'周日免费升房做引流', ok:false, w:'升房不解决「没人订」的问题，还侵蚀价格体系。'},
+  {x:'周日直接关房不卖', ok:false, w:'关房放弃了周日的任何收入可能。'}],
+ a:'LOS 控制的本质是把需求从高需求日导向低需求日：用「最少住几晚」这个条件，让想住周六的客人顺便填上周日。可用性控制（availability controls）保护的正是高需求日的库存。',
+ s:'出自：Forecasting and Availability Controls（SHA532）'},
+
+{d:'D5', q:'云璟做价格测试：ADR 降 5%，需求量升 3%。按康奈尔第 3 门的弹性逻辑，RevPAR 怎么变？',
+ opts:[
+  {x:'涨，因为量多了', ok:false, w:'量的收益（+3%）小于价的损失（−5%），RevPAR 实际下降。'},
+  {x:'降，因为弹性约 0.6 小于 1——价的损失大于量的收益', ok:true, w:''},
+  {x:'基本不变，抵消了', ok:false, w:'精确算：0.95×1.03≈0.98，RevPAR 约降 2%。'},
+  {x:'看哪个渠道卖得多再定', ok:false, w:'渠道是分配问题；降价与否先看总弹性。'}],
+ a:'弹性＝需求量变化%÷价格变化%。小于 1 说明客人对价格不敏感——此时降价是「用贵的房换便宜的房」。康奈尔第 3 门把弹性与最优价格组合、感知公平放在一起教：降价之前先算这笔账。',
+ s:'出自：Pricing Strategy and Distribution Channels（SHA533）'},
+
+{d:'D6', q:'要把商务散客与休闲客分开定价，康奈尔第 3 门教的 rate fence 怎么设？',
+ opts:[
+  {x:'同一个价格，靠销售话术区分', ok:false, w:'没有条件约束的「话术区分」撑不住价格体系。'},
+  {x:'设条件栅栏：提前预订期、取消政策、含早、连住要求——让愿意付高价的人自己选上门', ok:true, w:''},
+  {x:'只保留最高价一档', ok:false, w:'单一价格放弃了对价格不敏感客群的溢价。'},
+  {x:'看客人穿着现场报价', ok:false, w:'同客不同价一旦被感知，公平性立即崩塌。'}],
+ a:'Rate fence＝按客群类型区隔价格的条件墙。要点是「用条件筛，不用身份猜」：提前订、不可取消、不含早换低价；灵活、含早、可取消付高价。栅栏同时服务定价与公平感知。',
+ s:'出自：Pricing Strategy and Distribution Channels（SHA533）'},
+
+{d:'D7', q:'某晚 OTA 报价 620（佣金 15%），直销老客只肯付 580。只看 RevPAR 会选 OTA，康奈尔第 3 门还教你看什么？',
+ opts:[
+  {x:'只看 RevPAR，选 OTA', ok:false, w:'RevPAR 没扣佣金，也没算客户归属。'},
+  {x:'渠道净价与长期客户价值：OTA 到手约 527 且客户不归你；直销 580 全到手且沉淀为会员', ok:true, w:''},
+  {x:'关掉直销只做 OTA', ok:false, w:'把客户资产全部交给渠道，长期获客成本越滚越高。'},
+  {x:'两个渠道都拒绝，留空房', ok:false, w:'空房是易腐库存，不卖即永久损失。'}],
+ a:'渠道管理（channel management）是差别定价与栅栏的维护工具：直销、代理、互联网、不透明渠道各有成本结构与客户归属。康奈尔教的决策是「净价＋客户价值」双算，不是 Gross RevPAR 单算。',
+ s:'出自：Pricing Strategy and Distribution Channels（SHA533）'},
+
+{d:'D8', q:'150 间可售房，历史 no-show 率 6%。康奈尔第 4 门教的超售决策框架是？',
+ opts:[
+  {x:'一律不超售，安全第一', ok:false, w:'不超售＝每晚留 6% 左右的确定性空房损失。'},
+  {x:'按 no-show 率、到店不确定性、无房安置成本权衡超售量（约 6–9 间），并备好安置预案', ok:true, w:''},
+  {x:'超售 30 间，最大化满房', ok:false, w:'到店不确定性会让超额部分集中爆雷。'},
+  {x:'只对团队超售', ok:false, w:'no-show 与取消集中在散客预订，团队另有预测方法。'}],
+ a:'超售不是赌运气，是一组已知量的权衡：no-show 预测、no-show 率、到店不确定性、取消预测、定价政策——目标是「超售成本（安置＋补偿＋声誉）」与「少超售成本（空房）」的平衡点。',
+ s:'出自：Overbooking Practices（SHA534）'},
+
+{d:'D9', q:'超售 9 间全部到店，5 位客人无房可住。康奈尔第 4 门的处置重点是？',
+ opts:[
+  {x:'让客人在大堂排队等消息', ok:false, w:'被动等待会把失误升级成冲突与差评。'},
+  {x:'最小化客户影响：就近同级安置、交通与当晚补偿、离店后跟进，把失误变成关系修复', ok:true, w:''},
+  {x:'只给闹得最响的客人补偿', ok:false, w:'按闹分配制造新的公平性问题。'},
+  {x:'让客人自己找 OTA 处理', ok:false, w:'把关系与声誉一并推出去。'}],
+ a:'「管理与超售相关的客户问题」是第 4 门的明确学习成果：预案先行（附近同级酒店协议）、当晚解决（交通＋补偿）、次日跟进（积分/致歉）。超售的风险管理，一半在事前算量，一半在事后处置。',
+ s:'出自：Overbooking Practices（SHA534）'},
+
+{d:'D10', q:'一个 30 间的团队报价 480/间；同日商散预测可卖 620/间。康奈尔第 4 门的决策方法是？',
+ opts:[
+  {x:'散客单价高，直接拒团', ok:false, w:'团队的餐饮/会议/后续年份价值没进这笔账。'},
+  {x:'置换分析：算团队的增量贡献（含餐饮会议连带）与置换散客的损失，比较后定最低可接价', ok:true, w:''},
+  {x:'来者不拒，先把量做满', ok:false, w:'满房不等于满收，置换损失没人算。'},
+  {x:'让销售自行决定', ok:false, w:'价格底线是收益职能的核心决策，不能外包。'}],
+ a:'康奈尔第 4 门的团队评估用「贡献与置换逻辑」：团队报价要和「这些房卖给散客能赚多少」比，还要算 yieldable / non-yieldable、增量成本（客房消耗、餐饮折让）与连带收益。结论是最低可接价，不是简单比大小。',
+ s:'出自：Overbooking Practices（SHA534）· 团队评估'},
+
+{d:'D3', q:'你连续三个月平均高估需求 8%。康奈尔第 2 门教的下一步是？',
+ opts:[
+  {x:'换更贵的预测系统', ok:false, w:'没诊断误差结构就升级工具，可能只是更贵地错。'},
+  {x:'计算并分析误差（偏高/偏低、集中在哪些细分与星期），据此校准下一轮预测', ok:true, w:''},
+  {x:'所有预测统一乘以 0.92', ok:false, w:'一刀切掩盖结构性问题——也许只有周末高估。'},
+  {x:'以后不做预测，只看在手预订', ok:false, w:'放弃预测＝放弃库存与价格决策的依据。'}],
+ a:'「Calculate error and account for its impact」是第 2 门的明确成果：误差率要算出来、要定位（哪个细分/星期/渠道系统性地偏），然后回到预测模型改进。预测是循环，不是一次性答案。',
+ s:'出自：Forecasting and Availability Controls（SHA532）'},
+
+{d:'D5', q:'旺季前台对常住商务客涨价 15%，且未做任何沟通，复购明显下滑。康奈尔第 3 门提醒的是什么？',
+ opts:[
+  {x:'涨得还不够，应该 20%', ok:false, w:'无沟通的持续涨价会直接损失核心客群。'},
+  {x:'感知公平性：涨价要用栅栏与沟通管理客人的公平感，「有理由的差别」才被接受', ok:true, w:''},
+  {x:'商务客不重要，休闲客才是未来', ok:false, w:'商务散客恰是价格不敏感、复购稳定的高价值细分。'},
+  {x:'只降 OTA 价格来平衡', ok:false, w:'渠道价与老客价双轨处理不好，会引发公平危机。'}],
+ a:'第 3 门把「感知公平」（perceived fairness）列为与弹性并列的主题：客人不是不能接受涨价，而是不能接受「看不出道理」的涨价。用栅栏给出理由（提前期/取消政策/所含服务），并主动沟通，价格才站得住。',
+ s:'出自：Pricing Strategy and Distribution Channels（SHA533）'},
+
+{d:'D10', q:'云璟餐厅 80 个座位，午市上座率 92% 但利润很薄。康奈尔第 5 门教你看什么指标？',
+ opts:[
+  {x:'上座率已经 92%，没问题', ok:false, w:'高上座率可能伴随低客单、长占用、错峰浪费。'},
+  {x:'RevPASH：每可售座时收入＝时段收入 ÷（座席 × 营业小时），看时间与座位的钱赚满没有', ok:true, w:''},
+  {x:'只看翻台率', ok:false, w:'翻台高但客单低，RevPASH 照样上不去。'},
+  {x:'只看客单价', ok:false, w:'客单高但翻台低，座位时间同样在浪费。'}],
+ a:'第 5 门「非传统应用」的餐厅工具就是 RevPASH——把「可售座时」当作易腐库存来经营：配合翻台、用餐时长、台位组合与预订系统调整。这是收益管理从客房迁到餐饮的标准路径，也是「换行业不换逻辑」的样板。',
+ s:'出自：Non-Traditional Applications（SHA535）'}
+];
+
+var idx = 0, score = {}, picked = false;
+function $(id){ return document.getElementById(id); }
+function show(id,on){ $(id).className = on ? 'pane on' : 'pane'; }
+function initScore(){ score = {}; DORDER.forEach(function(d){ score[d]=[0,0]; }); }
+function start(){
+  idx = 0; initScore();
+  show('pStart',false); show('pEnd',false); show('pPlay',true);
+  render();
+}
+function render(){
+  picked = false;
+  var q = QS[idx];
+  $('pgText').textContent = '第 ' + (idx+1) + ' / ' + QS.length + ' 关';
+  $('dTag').textContent = DOMAINS[q.d];
+  $('pgBar').style.width = Math.round(idx/QS.length*100) + '%';
+  $('qText').textContent = q.q;
+  var box = $('opts'); box.innerHTML = '';
+  q.opts.forEach(function(o,i){
+    var b = document.createElement('button');
+    b.className = 'opt'; b.type = 'button';
+    b.textContent = String.fromCharCode(65+i) + '．' + o.x;
+    b.onclick = function(){ pick(i); };
+    box.appendChild(b);
+  });
+  $('fb').className = 'fb'; $('btnNext').className = 'nxt';
+}
+function pick(i){
+  if(picked) return; picked = true;
+  var q = QS[idx], o = q.opts[i];
+  var btns = $('opts').querySelectorAll('.opt');
+  for(var k=0;k<btns.length;k++){
+    btns[k].disabled = true;
+    if(q.opts[k].ok) btns[k].className = 'opt ok';
+  }
+  if(!o.ok) btns[i].className = 'opt no';
+  score[q.d][1]++; if(o.ok) score[q.d][0]++;
+  var fb = $('fb');
+  $('fbV').textContent = o.ok ? '✓ 正确' : '✗ 再想想：' + o.w;
+  $('fbB').textContent = q.a;
+  $('fbS').textContent = q.s;
+  $('fbO').innerHTML = '我们教材对应：<a href="' + DMAP_HREF[q.d] + '">' + DMAP[q.d] + '</a>';
+  fb.className = 'fb on ' + (o.ok ? 'good' : 'bad');
+  $('btnNext').textContent = (idx === QS.length-1) ? '看结算 →' : '下一关 →';
+  $('btnNext').className = 'nxt on';
+}
+function next(){
+  if(idx < QS.length-1){ idx++; render(); window.scrollTo(0,0); }
+  else end();
+}
+function end(){
+  show('pPlay',false); show('pEnd',true);
+  var tot = 0, got = 0, rows = '';
+  DORDER.forEach(function(d){
+    var g = score[d][0], t = score[d][1]; tot += t; got += g;
+    var pct = t ? Math.round(g/t*100) : 0;
+    var cls = pct >= 80 ? '' : (pct >= 50 ? 'mid' : 'low');
+    rows += '<div class="drow"><span class="dn">' + DOMAINS[d] + '</span>' +
+      '<span class="db"><i class="' + cls + '" style="width:' + pct + '%"></i></span>' +
+      '<span class="ds">' + g + '/' + t + ' · <a href="' + DMAP_HREF[d] + '">' + (d==='D10'?'跨业态章':'对应章') + '</a></span></div>';
+  });
+  $('dRows').innerHTML = rows;
+  var pctAll = tot ? Math.round(got/tot*100) : 0;
+  $('scoreLine').innerHTML = '总分：<b>' + got + ' / ' + tot + '</b>（' + pctAll + '%）· 覆盖康奈尔 10 个知识域';
+  var adv;
+  if(pctAll >= 90) adv = '掌握度优秀——你已经能用康奈尔框架处理大部分日常决策。可进 course-cornell.html 看「三个缺口」，把预测误差、感知公平、定位一致性补成自己的课。';
+  else if(pctAll >= 70) adv = '主干扎实。建议回看错题对应的知识域（上方红/黄条），再进对应章节过一遍——错题所在的域，就是你讲课最可能被学生问倒的地方。';
+  else adv = '建议先把 course-cornell.html 的「十个知识域」表通读一遍，再重玩本沙盘——错题集中的域就是优先补学的域。';
+  $('advLine').textContent = adv;
+  window.scrollTo(0,0);
+}
+$('btnStart').onclick = start;
+$('btnNext').onclick = next;
+$('btnAgain').onclick = start;
+</script>
+
+</body>
+</html>
