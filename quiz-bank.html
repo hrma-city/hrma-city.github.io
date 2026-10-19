@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>收益管理·题库总览（363题 · 16知识域）</title>
+<style>
+:root{
+  --ink:#152238; --ink2:#3d4c63; --mute:#6b7a90; --line:#dfe6ef;
+  --navy:#0f2a4a; --blue:#1d6fb8; --gold:#e8b84b; --bg:#f4f7fb; --card:#fff;
+  --ok:#1c7a4a; --okbg:#e7f5ee;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.75 "PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif}
+a{color:var(--blue)}
+h1,h2,h3{line-height:1.4}
+button{font:inherit;cursor:pointer}
+header{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,var(--navy),#173d68);
+  color:#fff;padding:12px 20px;box-shadow:0 2px 12px rgba(15,42,74,.18)}
+.hd{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.hd h1{font-size:18px;margin:0;font-weight:700;letter-spacing:.5px}
+.hd .sub{font-size:12px;opacity:.75}
+main{max-width:1080px;margin:0 auto;padding:18px 20px 60px}
+.bar{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:16px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:13px;color:var(--ink2)}
+.chips button.on{background:var(--navy);color:#fff;border-color:var(--navy);font-weight:700}
+.note{font-size:12.5px;color:var(--mute);margin:8px 0 0}
+details.ch{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+details.ch>summary{cursor:pointer;padding:11px 16px;font-weight:700;font-size:14.5px;list-style:none;display:flex;gap:10px;align-items:center}
+details.ch>summary::-webkit-details-marker{display:none}
+details.ch>summary .n{margin-left:auto;font-size:12px;color:var(--mute);font-weight:400}
+details.ch[open]>summary{border-bottom:1px solid var(--line)}
+.q{padding:12px 16px;border-bottom:1px dashed var(--line)}
+.q:last-child{border-bottom:none}
+.q .t{font-weight:600;margin-bottom:6px}
+.q .tag{display:inline-block;font-size:11px;color:var(--blue);border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-left:6px;vertical-align:1px}
+.q ol{margin:6px 0 8px;padding-left:22px;color:var(--ink2)}
+.q ol li.ok{color:var(--ok);font-weight:700;background:var(--okbg);border-radius:6px;padding:0 6px}
+.q details{margin-top:4px}
+.q details summary{cursor:pointer;font-size:13px;color:var(--blue);list-style:none}
+.q details summary::-webkit-details-marker{display:none}
+.q .exp{font-size:13px;color:var(--mute);margin-top:4px}
+.foot{max-width:1080px;margin:0 auto;padding:0 20px 40px;font-size:12.5px;color:var(--mute)}
+.empty{padding:30px;text-align:center;color:var(--mute)}
+</style>
+</head>
+<body>
+<header><div class="hd">
+  <h1>题库总览</h1><span class="sub">363 题 · 由教材正文自动生成 · 16 知识域 + 兜底</span>
+</div></header>
+<main>
+  <div class="bar">
+    <div class="chips" id="chips"></div>
+    <p class="note">按知识域筛选（对应 16 域矩阵，D00 为跨章综合）。点击章名展开该章题目；每题点击「看答案与解析」核对。题目与 <a href="learn.html">在线学习自测</a> 同源（textbook_quiz.js），改教材重跑生成器即同步。</p>
+  </div>
+  <div id="list"></div>
+</main>
+<div class="foot">题库由 <code>build_textbook_quiz.py</code> 从教材自动生成：术语题、判定表题、公式题三类；覆盖第 1–32 章。</div>
+<script src="textbook_quiz.js?v=3"></script>
+<script>
+(function(){
+  var Q=window.HRMA_QUIZ||[], D=window.HRMA_QUIZ_DOMAINS||{};
+  var cur='ALL';
+  var chips=document.getElementById('chips'), list=document.getElementById('list');
+
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  function renderChips(){
+    var total=Q.length;
+    var h='<button data-d="ALL" class="on">全部 · '+total+'</button>';
+    Object.keys(D).forEach(function(k){
+      var d=D[k];
+      h+='<button data-d="'+k+'">'+k+' '+esc(d.name)+' · '+d.n+'</button>';
+    });
+    chips.innerHTML=h;
+    Array.prototype.forEach.call(chips.querySelectorAll('button'),function(b){
+      b.addEventListener('click',function(){
+        cur=b.getAttribute('data-d');
+        Array.prototype.forEach.call(chips.querySelectorAll('button'),function(x){x.classList.remove('on');});
+        b.classList.add('on');
+        renderList();
+      });
+    });
+  }
+
+  function filtered(){
+    return cur==='ALL'?Q:Q.filter(function(q){return (q.dom||[]).indexOf(cur)>=0;});
+  }
+
+  function renderList(){
+    var qs=filtered();
+    if(!qs.length){list.innerHTML='<div class="empty">该域暂无题目</div>';return;}
+    // 按章分组，章号升序
+    var by={},order=[];
+    qs.forEach(function(q){
+      var c=q.ch||'??';
+      if(!by[c]){by[c]=[];order.push(c);}
+      by[c].push(q);
+    });
+    order.sort();
+    var h='';
+    order.forEach(function(c){
+      var arr=by[c];
+      var no=parseInt(c,10);
+      h+='<details class="ch"><summary>第 '+(isNaN(no)?c:no)+' 章<span class="n">'+arr.length+' 题</span></summary>';
+      arr.forEach(function(q,i){
+        var domTxt=(q.dom||[]).join(' / ');
+        h+='<div class="q"><div class="t">'+(i+1)+'. '+esc(q.stem)+'<span class="tag">'+esc(q.type||'')+(domTxt?' · '+esc(domTxt):'')+'</span></div>';
+        if(q.opts&&q.opts.length){
+          h+='<ol>';
+          q.opts.forEach(function(o){
+            h+='<li'+(o===q.ans?' class="ok"':'')+'>'+esc(o)+'</li>';
+          });
+          h+='</ol>';
+        }
+        h+='<details><summary>看答案与解析</summary>';
+        h+='<div class="exp"><b>答案：</b>'+esc(q.ans||'')+'</div>';
+        if(q.exp)h+='<div class="exp"><b>解析：</b>'+esc(q.exp)+'</div>';
+        h+='</details></div>';
+      });
+      h+='</details>';
+    });
+    list.innerHTML=h;
+  }
+
+  if(!Q.length){
+    list.innerHTML='<div class="empty">题库数据未加载（textbook_quiz.js）</div>';
+    return;
+  }
+  renderChips();
+  renderList();
+})();
+</script>
+<script src="assets/js/site-nav.js?v=v21"></script>
+</body>
+</html>
