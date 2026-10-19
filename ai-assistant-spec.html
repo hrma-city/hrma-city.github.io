@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>AI 教学助手 · 产品规格书（2026-10）</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fa;color:#1f2a37;line-height:1.85;font-size:14.5px;
+ font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:#1d6fb8;text-decoration:none}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px 70px}
+.hero{background:linear-gradient(160deg,#0f2a4a,#16406e 65%,#1d6fb8);color:#fff;padding:34px 18px 28px}
+.hero .in{max-width:900px;margin:0 auto}
+.hero .back{color:#cfe0f5;font-size:13px}
+.hero h1{margin:6px 0 10px;font-size:26px}
+.hero p{margin:0;opacity:.92;font-size:14.5px;line-height:1.8}
+.hero .tagline{margin-top:12px;font-size:12.5px;opacity:.85}
+h2{font-size:20px;color:#0f2a4a;margin:34px 0 12px;padding-left:12px;border-left:4px solid #1d6fb8}
+h3{font-size:16px;color:#0f2a4a;margin:22px 0 8px}
+p{margin:8px 0}
+.card{background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:16px 20px;margin:14px 0;box-shadow:0 1px 3px rgba(15,42,74,.05)}
+.lead{background:#fff8e6;border:1px solid #ecd9a0;border-radius:12px;padding:14px 18px;margin:16px 0;font-size:14px;color:#5a4a15;line-height:1.9}
+.lead b{color:#0f2a4a}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0;background:#fff}
+th,td{border:1px solid #dde5ee;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#f2f6fa;color:#0f2a4a;font-weight:700}
+tr:nth-child(even) td{background:#fafcfe}
+.note{font-size:12.5px;color:#5b6a7d}
+ul.tight li,ol.tight li{margin:5px 0}
+.sug{border-left:3px solid #1d6fb8;background:#fbfdff;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0}
+.sug .h{font-weight:800;color:#0f2a4a;font-size:14.5px;margin-bottom:4px}
+.sug .row{font-size:13px;color:#43536a;margin:3px 0}
+.sug .row b{color:#0f2a4a}
+.toc{background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:16px 20px;margin:16px 0;box-shadow:0 1px 3px rgba(15,42,74,.05)}
+.toc h2{margin:0 0 4px;font-size:18px;border:none;padding:0}
+.toc .sd{font-size:12.5px;color:#5b6a7d;margin:0 0 10px}
+.tgrp{margin:13px 0 0}
+.tgrp>b{display:block;font-size:12.5px;color:#0f2a4a;margin-bottom:3px}
+.tgrp ul{list-style:none;margin:0;padding:0}
+.tgrp li{margin:6px 0}
+.tgrp li a{display:block;font-size:12.5px;color:#1d6fb8;background:#eef4fa;border:1px solid #dbe6f0;border-radius:8px;padding:6px 11px;line-height:1.55}
+.tgrp li a:hover{background:#1d6fb8;color:#fff}
+@media (min-width:1240px){
+  .toc{position:fixed;left:16px;top:58px;width:206px;max-height:calc(100vh - 74px);overflow:auto;z-index:60;margin:0;padding:14px 15px}
+  .toc h2{font-size:15px}
+  .hero .in,.wrap{margin-left:254px;margin-right:24px}
+}
+</style>
+</head>
+<body>
+<div class="hero"><div class="in">
+  <a class="back" href="index.html">← 返回首页</a>
+  <h1>AI 教学助手 · 产品规格书</h1>
+  <p>把 527 页教学资产蒸馏成一个能回答教师备课问题的助手。这是排队项里唯一的重活，所以先出<b>规格书</b>：定位、最小可行版、语料库、实现路径、验收标准——规格定了，施工就是确定的活。</p>
+  <div class="tagline">产品规格 · 2026-10-19 · 门内页面</div>
+</div></div>
+<div class="wrap">
+
+<div class="toc" id="toc">
+  <h2>目录</h2>
+  <p class="sd">五个部分；最小可行版范围在第二部分，是本期唯一要做的。</p>
+  <div class="tgrp"><b>一、定位</b><ul>
+    <li><a href="#a1">01 · 它是什么、给谁、凭什么不同</a></li></ul></div>
+  <div class="tgrp"><b>二、MVP</b><ul>
+    <li><a href="#a2">02 · 最小可行版：答三类问题</a></li>
+    <li><a href="#a3">03 · 不做清单</a></li></ul></div>
+  <div class="tgrp"><b>三、语料</b><ul>
+    <li><a href="#a4">04 · 语料库清单与口径</a></li></ul></div>
+  <div class="tgrp"><b>四、实现</b><ul>
+    <li><a href="#a5">05 · 实现路径与成本</a></li></ul></div>
+  <div class="tgrp"><b>五、验收</b><ul>
+    <li><a href="#a6">06 · 验收标准与上线节奏</a></li></ul></div>
+</div>
+
+<div class="lead"><b>战略理由：</b>Cornell 与 HSMAI 的课程是「课」，我们是「课＋基础设施」；AI 助手是这个差异化的最后一块拼图——它同时是<b>教师的生产工具</b>（备课助手）、<b>招生的钩子</b>（工作坊/训练营赠品）和<b>政策语言</b>（数字文旅大会的「AI＋教育」案例）。</div>
+
+<h2>一、定位</h2>
+
+<h3 id="a1">01 · 它是什么、给谁、凭什么不同</h3>
+<div class="card">
+<table>
+<tr><th style="width:24%">项目</th><th>内容</th></tr>
+<tr><td>一句话</td><td><b>「收益管理备课助手」</b>——教师问备课问题，它用我们的教材与工具内容回答，并给出处（章节/判定表/案例编号）</td></tr>
+<tr><td>给谁</td><td>主：开收益课的高校教师；次：训练营/工作坊学员（作为权益）；再次：学生（错题解析，二期）</td></tr>
+<tr><td>凭什么不同</td><td>通用 AI 答得泛，是因为没有我们的语料——41 章教材＋15 张判定表＋302 案例＋题库，全部带出处回答，这是任何通用模型给不了的</td></tr>
+<tr><td>与知识图谱的关系</td><td>图谱是「人浏览的结构」，助手是「人问答的接口」——共用同一套语料，两种消费方式</td></tr>
+</table>
+</div>
+
+<h2>二、MVP</h2>
+
+<h3 id="a2">02 · 最小可行版：答三类问题</h3>
+<div class="card">
+<table>
+<tr><th style="width:30%">问题类型</th><th>示例</th><th>合格回答长什么样</th></tr>
+<tr><td><b>怎么讲</b>（教学法）</td><td>「价格弹性这一节，学生最容易误解什么？」</td><td>引用教师装对应章的「学生易错点」＋给一个课堂纠错动作</td></tr>
+<tr><td><b>查哪张表</b>（工具）</td><td>「竞品突然降价 30%，我该让学生查哪张表？」</td><td>指出具体判定表编号＋表内判断路径＋对应教材章节</td></tr>
+<tr><td><b>这道题</b>（题库）</td><td>「这道超售题的答案为什么是 B？」</td><td>给答案＋解析＋涉及的知识点（可跳转知识灯）</td></tr>
+</table>
+<p><b>MVP 边界：</b>只答备课相关问题（识别不了就明说）；只基于站内语料（不联网）；每次回答必须带出处（章节/表号/案例编号）——<b>没有出处的回答不算合格</b>。</p>
+</div>
+
+<h3 id="a3">03 · 不做清单（一期明确不做）</h3>
+<div class="card">
+<ul class="tight">
+<li><b>不自动生成教案全文</b>：它给素材与框架，教案必须教师自己写（教学的所有权在教师——这也是我们与「AI 替代教师」叙事划清界限的姿态）。</li>
+<li><b>不替教师判分</b>：评分标准它解释，判定它不碰（评分是教学责任）。</li>
+<li><b>不做多轮闲聊人格化</b>：是工具不是陪伴——减少成本也减少误导。</li>
+<li><b>不接学生端的开放提问</b>：学生端只做「我的错题解析」封闭场景（二期）。</li>
+</ul>
+</div>
+
+<h2>三、语料</h2>
+
+<h3 id="a4">04 · 语料库清单与口径</h3>
+<div class="card">
+<table>
+<tr><th style="width:34%">语料</th><th>形态</th><th>处理</th></tr>
+<tr><td>41 章教材（merged 正典稿）</td><td>HTML→结构化文本</td><td>按章/节/判定表切块，每块带章节编号</td></tr>
+<tr><td>教师装 32 章</td><td>教学目标/怎么讲/易错点/判分</td><td>与正典章对齐挂接</td></tr>
+<tr><td>15 张判定表</td><td>结构化表</td><td>每行一条判断规则，带表号</td></tr>
+<tr><td>302 案例</td><td>案例库</td><td>按维度/业态/难度标签化，带案例编号</td></tr>
+<tr><td>题库（学生 363/酒店人 253/真题 76）</td><td>题目＋答案＋解析</td><td>解析挂知识点</td></tr>
+<tr><td>知识图谱节点</td><td>93 节点关系</td><td>提供「相关问题跳转」</td></tr>
+</table>
+<p><b>口径三条：</b>①语料全部来自站内自有内容，不引入第三方版权内容；②引用必带出处（章节/表号/案例编号），可点击跳转；③语料更新走教材生成器管线——教材改版，助手语料同步改版，不存在「两套内容」。
+
+</p>
+</div>
+
+<h2>四、实现</h2>
+
+<h3 id="a5">05 · 实现路径与成本</h3>
+<div class="card">
+<div class="sug"><div class="h">推荐路径：检索增强（RAG），不微调</div>
+<div class="row"><b>① 内容结构化</b>：教材/判定表/案例/题库切成带元数据的块（章节号、表号、标签）——这一步最重，但是一次性资产，且与知识图谱共用。</div>
+<div class="row"><b>② 检索</b>：用户问题→语义检索 top 若干块（站内已有检索经验可复用）。</div>
+<div class="row"><b>③ 生成</b>：检索块＋问题→模型生成回答，<b>强制附带出处</b>（prompt 约束：只用给定内容，找不到就说找不到）。</div>
+<div class="row"><b>④ 前端</b>：嵌在站内（门内），教师登录可用；回答里的出处可点击跳转到对应章节/判定表/案例。</div></div>
+<p><b>成本账（月）：</b>模型调用按量付费，教师用户量小（百级→千级），月成本在几十到几百元区间；重活在第一步（语料结构化），估 2–3 天工作量，可与教材生成器管线合并做。</p>
+<p><b>平台选型约束：</b>国内可用、稳定、合规；优先与现有站点同栈（纯前端＋接口），不引入需要长期维护的基础设施。</p>
+</div>
+
+<h2>五、验收</h2>
+
+<h3 id="a6">06 · 验收标准与上线节奏</h3>
+<div class="card">
+<p><b>验收四关（不过不开）：</b></p>
+<ol class="tight">
+<li><b>准确关</b>：用 50 道备课高频问题实测，回答带出处的比例 100%，出处正确的比例 ≥95%。</li>
+<li><b>边界关</b>：问 20 个域外问题（如「帮我写入党申请书」），拒答比例 100%——答非所问比拒答更伤信任。</li>
+<li><b>不知道关</b>：问 20 个语料里没有的备课问题，「明确说不知道＋指路（去哪查/问谁）」的比例 ≥90%。</li>
+<li><b>教师关</b>：3 位真实教师试用一周，愿意在备课时打开它——这一关不过，前三个过也没用。</li>
+</ol>
+<p><b>上线节奏：</b>语料结构化（1 周）→ 检索＋生成联调（1 周）→ 四关验收（3 天）→ 小范围开放（训练营学员＋3 位试用教师）→ 全量。全程约 3 周——<b>建议排在工作坊页上线并开始招生之后</b>：先有用例与付费用户，再重投入做助手，顺序不反。</p>
+<p class="note">作为钩子的用法（同步设计）：工作坊/训练营赠「助手三个月使用权」；公众号关注自动回复加一条「回复『助手』看它能干什么」——先有需求信号，再开工。</p>
+</div>
+
+</div>
+</body>
+</html>
