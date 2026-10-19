@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""从 textbook.html 抽取知识点，生成可在线判分的题库 data/textbook_quiz.js
+"""从 textbook.html 抽取知识点，生成可在线判分的题库 textbook_quiz.js（crm 根目录，learn.html 直接加载）。
 规则（只抽教材里明确写过的表述，不自己编知识）：
   1) 术语定义题  ：<b>术语</b>＝定义 / <b>术语</b>——定义
   2) 判定表题    ：本章判定表每行「情形 → 结论」，考"遇到该情形怎么办"
@@ -11,7 +11,61 @@ import re, json, os, random
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(BASE, 'textbook.html')
-OUT = os.path.join(BASE, 'data', 'textbook_quiz.js')
+# ⚠️ OUT 必须是 crm 根目录：learn.html 用 <script src="textbook_quiz.js?v=2"> 直接加载；
+# 过去曾指向 data/ 导致线上文件与生成器脱节，已修正。
+OUT = os.path.join(BASE, 'textbook_quiz.js')
+
+# ── 双体系 16 域 + 兜底（对照 optimize-plan-2026.html 第二节逐域覆盖矩阵）──
+# 域码统一为 D01–D16 + D00（兜底/综合）。章→域映射只引用 textbook.html 现存的 1–32 章；
+# 原方案里的第 33、41 章在本教材不存在，其知识点（广告牌效应/总收益）已并入对应现存章。
+DOMAINS = {
+    'D01': '基础与战略杠杆',
+    'D02': '指标体系与绩效分析',
+    'D03': '需求预测',
+    'D04': '可用性与时长控制',
+    'D05': '定价策略',
+    'D06': '价格栅栏',
+    'D07': '分销渠道与战略分销',
+    'D08': '超售',
+    'D09': '团队业务与销售协同',
+    'D10': '总收益战略与非传统应用',
+    'D11': '收益专业者',
+    'D12': '经济学成本',
+    'D13': '部门整合',
+    'D14': '理解市场',
+    'D15': '客源细分与最优组合',
+    'D16': '新兴要素（AI等）',
+    'D00': '综合与跨域（兜底）',
+}
+# 章号（字符串 '01'..'32'）→ 域码列表。每章≥4题，故单章映射的域也天然≥2题。
+DOMAIN_OF = {
+    '01': ['D01'],
+    '02': ['D02'],
+    '03': ['D02', 'D14'],
+    '04': ['D05', 'D12'],
+    '05': ['D05'], '06': ['D05'], '07': ['D05'], '08': ['D05'], '09': ['D05'],
+    '10': ['D04', 'D06'],
+    '11': ['D08'],
+    '12': ['D04'],
+    '13': ['D07'],
+    '14': ['D06', 'D15'],
+    '15': ['D09'],
+    '16': ['D07', 'D15'],
+    '17': ['D00'], '18': ['D00'], '28': ['D00'], '32': ['D00'],
+    '19': ['D11', 'D13'],
+    '20': ['D03'], '21': ['D03'],
+    '22': ['D05', 'D06'],
+    '23': ['D02'],
+    '24': ['D07', 'D16'],
+    '25': ['D11'],
+    '26': ['D12'],
+    '27': ['D16'],
+    '29': ['D10'],
+    '30': ['D09', 'D10'],
+    '31': ['D10'],
+}
+def doms_of(no):
+    return DOMAIN_OF.get(no, ['D00'])
 
 def clean(s):
     s = re.sub(r'<[^>]+>', '', s)
@@ -184,10 +238,24 @@ def main():
 
     for i, q in enumerate(qs):
         q['id'] = 'q%03d' % (i + 1)
+        q['dom'] = doms_of(q['ch'])          # 双体系知识域标签（列表，可多域）
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, 'w', encoding='utf-8') as f:
         f.write('/* 自动生成，源：textbook.html。生成器：build_textbook_quiz.py（改教材后重跑） */\n')
         f.write('window.HRMA_QUIZ=' + json.dumps(qs, ensure_ascii=False) + ';\n')
+        # 域→{名称, 覆盖章, 题量} 元信息，供 learn.html 等知识域筛选/掌握图使用
+        from collections import Counter, defaultdict
+        dom_ch = defaultdict(set)
+        for k, v in DOMAIN_OF.items():
+            for d in v:
+                dom_ch[d].add(k)
+        dom_n = Counter()
+        for q in qs:
+            for d in q['dom']:
+                dom_n[d] += 1
+        dom_meta = {code: {'name': DOMAINS[code], 'chapters': sorted(dom_ch.get(code, [])),
+                           'n': dom_n.get(code, 0)} for code in DOMAINS}
+        f.write('window.HRMA_QUIZ_DOMAINS=' + json.dumps(dom_meta, ensure_ascii=False) + ';\n')
     # 汇总
     from collections import Counter
     cnt = Counter(q['ch'] for q in qs)
@@ -198,6 +266,14 @@ def main():
         if cnt[c['no']] < 4:
             print('  缺', c['no'], c['title'], 'terms', len(c['terms']), 'rows', len(c['rows']),
                   'fml', len(c['formulas']))
+    # 域覆盖校验：每个知识域≥2题（验收口径：100% 覆盖、每域≥2题）
+    print('--- 域覆盖校验 ---')
+    weak = [code for code in DOMAINS if dom_n.get(code, 0) < 2]
+    for code in DOMAINS:
+        flag = 'OK' if dom_n.get(code, 0) >= 2 else '⚠ <2'
+        print('  %s %s 题量=%d 章=%s %s' % (code, DOMAINS[code], dom_n.get(code, 0),
+                                            ','.join(sorted(dom_ch.get(code, []))) or '-', flag))
+    print('弱覆盖域（<2题）：', weak if weak else '无，全部达标')
 
 if __name__ == '__main__':
     main()
