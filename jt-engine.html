@@ -88,7 +88,7 @@ table.jt-tbl tbody tr.hit{background:#fff0b8}
       <ol class="muted" style="margin:6px 0 0 18px">
         <li>在顶部输入框写一句话，点「匹配判定表」，它会按关键词相似度推荐最相关的 1–3 张表；</li>
         <li>也可以直接在左侧点选任意一张表；</li>
-        <li>进入判定器后，<b>矩阵表</b>（如表 A、G）用两个下拉选「行条件 × 列条件」定位一格；<b>行表</b>点选命中的那一行；<b>步骤表</b>按顺序勾选执行；</li>
+        <li>进入判定器后，按页面提示操作：<b>矩阵表</b>（表 A、G）先选行维度（如「预测 OCC」）、再选列维度（如「Pickup 偏差」），两步定位到交叉格子的动作；<b>行表</b>（表 B/C/E 等）找到符合你情况的那一行点它；<b>步骤表</b>（表 J、M）按顺序执行各步；</li>
         <li>右侧/下方「决策输出」会给出动作、依据公式、易错红线与关联表。</li>
       </ol>
       <p class="muted" style="margin-top:10px">注：此为原型，规则与阈值来自法典 v1.0，落地前须用本店数据校准。未来可由「XX 教练」AI 分身包一层对话门面。</p>
@@ -224,7 +224,10 @@ table.jt-tbl tbody tr.hit{background:#fff0b8}
        "维持"
       ]
      }
-    ]
+    ],
+    "row_axis": "预测 OCC",
+    "col_axis": "Pickup 偏差",
+    "cell_meaning": "价格动作"
    }
   ]
  },
@@ -897,7 +900,10 @@ table.jt-tbl tbody tr.hit{background:#fff0b8}
        "拒绝"
       ]
      }
-    ]
+    ],
+    "row_axis": "比率 R",
+    "col_axis": "预测 OCC",
+    "cell_meaning": "决策"
    }
   ]
  },
@@ -1907,12 +1913,19 @@ function tableHTML(t){
 
 // ---- 矩阵 ----
 function renderMatrix(rec,t){
-  let h='<div class="selrow"><span class="muted">选条件定位一格 →</span>';
-  h+='<select id="selRow"><option value="">— '+esc(t.rows[0]?t.rows[0].label.split(' ')[0]||'行条件':'行条件')+' —</option>';
-  t.rows.forEach((r,i)=>h+='<option value="'+i+'">'+esc(r.label)+'</option>'); h+='</select>';
-  h+='<select id="selCol"><option value="">— 列条件 —</option>';
+  const ra=t.row_axis||'行条件', ca=t.col_axis||'列条件', cm=t.cell_meaning||'动作';
+  const d0=(rec.inputs&&rec.inputs[0])?rec.inputs[0].desc:'';
+  const d1=(rec.inputs&&rec.inputs[1])?rec.inputs[1].desc:'';
+  let h='<p class="sub">这张矩阵表分<b>两步</b>定位：<br>'+
+    '<b>第 1 步 · 选【'+esc(ra)+'】</b>'+(d0?('（'+esc(d0)+'）'):'')+'<br>'+
+    '<b>第 2 步 · 选【'+esc(ca)+'】</b>'+(d1?('（'+esc(d1)+'）'):'')+'<br>'+
+    '两步都选完，就得到交叉格子的<b>'+esc(cm)+'</b>。也可以直接点下方矩阵中的任意一格。</p>';
+  h+='<div class="selrow"><span class="muted">第 1 步 · '+esc(ra)+'：</span>';
+  h+='<select id="selRow"><option value="">— 请选择'+esc(ra)+' —</option>';
+  t.rows.forEach((r,i)=>h+='<option value="'+i+'">'+esc(r.label)+'</option>'); h+='</select></div>';
+  h+='<div class="selrow"><span class="muted">第 2 步 · '+esc(ca)+'：</span>';
+  h+='<select id="selCol"><option value="">— 请选择'+esc(ca)+' —</option>';
   t.cols.forEach((c,i)=>h+='<option value="'+i+'">'+esc(c)+'</option>'); h+='</select></div>';
-  h+='<p class="sub">或直接点下方矩阵中的任意一格。</p>';
   h+=tableHTML(t);
   return h;
 }
@@ -1921,9 +1934,10 @@ function bindMatrix(rec,t){
   const apply=(ri,ci)=>{
     document.querySelectorAll('table.jt-mat td.cell').forEach(x=>x.classList.remove('hit'));
     if(ri==null||ci==null) return;
+    const ra=t.row_axis||'行条件', ca=t.col_axis||'列条件', cm=t.cell_meaning||'动作';
     const cell=document.querySelectorAll('table.jt-mat tbody tr')[ri].querySelectorAll('td.cell')[ci];
     cell.classList.add('hit');
-    showDecision(rec, cell.textContent.trim(), '查表定位：行【'+esc(t.rows[ri].label)+'】 × 列【'+esc(t.cols[ci])+'】');
+    showDecision(rec, cell.textContent.trim(), '第1步【'+ra+'】＝'+t.rows[ri].label+'；第2步【'+ca+'】＝'+t.cols[ci]+'；交叉格子的'+cm+'如上');
   };
   selRow.onchange=()=>apply(selRow.value==='' ? null : +selRow.value, selCol.value==='' ? null : +selCol.value);
   selCol.onchange=()=>apply(selRow.value==='' ? null : +selRow.value, selCol.value==='' ? null : +selCol.value);
@@ -1935,11 +1949,16 @@ function bindMatrix(rec,t){
 }
 // ---- 行表 ----
 function renderList(rec,t){
-  let h='<p class="sub">点选命中你当前情况的那一行，输出对应决策。</p>';
+  const h0=(t.headers&&t.headers[0])||'条件';
+  const hN=(t.headers&&t.headers[t.headers.length-1])||'决策';
+  const d0=(rec.inputs&&rec.inputs[0])?rec.inputs[0].desc:'';
+  let h='<p class="sub">这张表按<b>【'+esc(h0)+'】</b>分档'+(d0?('（'+esc(d0)+'）'):'')+'：<br>在下面找到<b>符合你当前情况的那一行</b>，点该行 → 即输出最后一列<b>【'+esc(hN)+'】</b>的结论。</p>';
   h+=tableHTML(t);
   return h;
 }
 function bindList(rec,t){
+  const h0=(t.headers&&t.headers[0])||'条件';
+  const hN=(t.headers&&t.headers[t.headers.length-1])||'决策';
   document.querySelectorAll('table.jt-tbl tbody tr').forEach(tr=>{
     tr.onclick=()=>{
       document.querySelectorAll('table.jt-tbl tbody tr').forEach(x=>x.classList.remove('hit'));
@@ -1947,23 +1966,23 @@ function bindList(rec,t){
       const cells=[...tr.children].map(x=>x.textContent.trim());
       const decision=cells[cells.length-1];
       let cond = cells.slice(0,-1).join('，');
-      showDecision(rec, decision, (cond?('条件：'+cond+' → '):'')+'决策列取值');
+      showDecision(rec, decision, '该行【'+h0+'】＝'+cond+'；结论取自【'+hN+'】列');
     };
   });
 }
 // ---- 步骤表 ----
 function renderSteps(rec,t){
-  let h='<p class="sub">按序勾选执行（或仅查看步骤），决策即「依次执行下列步骤」。</p><div class="steps">';
+  let h='<p class="sub">这是<b>流程型表</b>，共 '+t.items.length+' 步，必须<b>按顺序</b>从第 1 步做到第 '+t.items.length+' 步。'+(rec.trigger?('适用：'+esc(rec.trigger)):'')+'</p><div class="steps">';
   t.items.forEach((it,i)=>{
-    h+='<label class="step-item" style="display:block;cursor:pointer"><input type="checkbox" class="steps-check"> <span class="step-num">'+esc(it.step)+'</span> '+esc(it.text)+'</label>';
+    h+='<label class="step-item" style="display:block;cursor:pointer"><input type="checkbox" class="steps-check"> <span class="step-num">第'+(i+1)+'步'+(it.step?('（'+esc(it.step)+'）'):'')+'</span> '+esc(it.text)+'</label>';
   });
-  h+='</div><button class="btn ghost" id="stepDone" style="margin-top:10px">确认已按序执行 → 输出决策</button>';
+  h+='</div><button class="btn ghost" id="stepDone" style="margin-top:10px">我已按序执行 → 查看执行要点</button>';
   return h;
 }
 function bindSteps(rec,t){
   $('#stepDone').onclick=()=>{
     const done=[...document.querySelectorAll('.steps-check')].filter(x=>x.checked).length;
-    showDecision(rec, '按序执行本表 '+t.items.length+' 个步骤（已勾选 '+done+'/'+t.items.length+'）', '流程型判定，无单一格子结论');
+    showDecision(rec, '按顺序完成本表全部 '+t.items.length+' 步（已勾选 '+done+'/'+t.items.length+'）', '流程型表：结论=完整走完各步；执行要点见下方依据与红线');
   };
 }
 

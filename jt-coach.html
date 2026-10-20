@@ -176,7 +176,10 @@ a.eng{color:var(--navy)}
        "维持"
       ]
      }
-    ]
+    ],
+    "row_axis": "预测 OCC",
+    "col_axis": "Pickup 偏差",
+    "cell_meaning": "价格动作"
    }
   ]
  },
@@ -849,7 +852,10 @@ a.eng{color:var(--navy)}
        "拒绝"
       ]
      }
-    ]
+    ],
+    "row_axis": "比率 R",
+    "col_axis": "预测 OCC",
+    "cell_meaning": "决策"
    }
   ]
  },
@@ -1854,33 +1860,47 @@ function showDomainTables(dom){
 // ---- 表流程 ----
 function startTableFlow(rec){
   const t=rec.tables[0]||{type:'list',rows:[]};
-  coachSay('好的，这是 <b>'+rec.code+' '+rec.title+'</b> 管的场景（'+rec.domain+'）。'+esc(rec.trigger));
+  coachSay('好的，这是 <b>'+rec.code+' '+rec.title+'</b>（'+rec.domain+'）。适用场景：'+esc(rec.trigger));
   if(t.type==='matrix'){
     state.step=0;
-    coachSay('我们一步步来。先确认<b>行条件</b>：', t.rows.map((r,i)=>({label:trunc(r.label,16), value:String(i)})));
+    const ra=t.row_axis||'行条件', d0=(rec.inputs&&rec.inputs[0])?rec.inputs[0].desc:'';
+    coachSay('查这张表分两步。<br><b>第 1 步 · 看【'+esc(ra)+'】</b>'+(d0?('：'+esc(d0)):'')+'<br>你的情况落在哪一档？点选下面符合的一项：',
+      t.rows.map((r,i)=>({label:ra+' ＝ '+trunc(r.label,14), value:String(i)})));
   } else if(t.type==='steps'){
     state.step=0;
     let ol='<ol>'+t.items.map(it=>'<li><b>'+esc(it.step)+'</b> '+esc(it.text)+'</li>').join('')+'</ol>';
-    coachSay('本表是流程型，按下面顺序执行即可：'+ol, [{label:'我了解了，给出结论', value:'@confirm'}]);
+    coachSay('本表是<b>流程型</b>，共 '+t.items.length+' 步，必须<b>按顺序</b>执行，不能跳步：'+ol, [{label:'我了解了，给出结论', value:'@confirm'}]);
   } else {
     state.step=0;
-    coachSay('你当前属于哪一类情况？', t.rows.map((r,i)=>({label:trunc(r[0],16), value:String(i)})));
+    const h0=(t.headers&&t.headers[0])||'条件';
+    const d0=(rec.inputs&&rec.inputs[0])?rec.inputs[0].desc:'';
+    coachSay('这张表按<b>【'+esc(h0)+'】</b>分档'+(d0?('（'+esc(d0)+'）'):'')+'。<br>对照你的实际情况，点选符合的一行：',
+      t.rows.map((r,i)=>({label:h0+' ＝ '+trunc(r[0],14), value:String(i)})));
   }
 }
 function handleAnswer(idx){
   const rec=byId(state.tableId), t=rec.tables[0];
   if(t.type==='matrix'){
-    if(state.step===0){ state.answers.row=idx; state.step=1; coachSay('再确认<b>列条件</b>：', t.cols.map((c,i)=>({label:trunc(c,16), value:String(i)}))); }
-    else { const col=idx; const cell=t.rows[state.answers.row].cells[col];
-      presentDecision(rec, cell, '行【'+t.rows[state.answers.row].label+'】 × 列【'+t.cols[col]+'】'); }
+    if(state.step===0){
+      state.answers.row=idx; state.step=1;
+      const ca=t.col_axis||'列条件', d1=(rec.inputs&&rec.inputs[1])?rec.inputs[1].desc:'';
+      coachSay('<b>第 2 步 · 再看【'+esc(ca)+'】</b>'+(d1?('：'+esc(d1)):'')+'<br>落在哪一档？点选符合的一项：',
+        t.cols.map((c,i)=>({label:ca+' ＝ '+trunc(c,14), value:String(i)})));
+    } else {
+      const col=idx; const cell=t.rows[state.answers.row].cells[col];
+      const ra=t.row_axis||'行条件', ca=t.col_axis||'列条件', cm=t.cell_meaning||'动作';
+      presentDecision(rec, cell, '第1步【'+ra+'】＝'+t.rows[state.answers.row].label+'；第2步【'+ca+'】＝'+t.cols[col]+'；交叉格子的'+cm+'如上');
+    }
   } else if(t.type==='list'){
+    const h0=(t.headers&&t.headers[0])||'条件';
+    const hN=(t.headers&&t.headers[t.headers.length-1])||'决策';
     const row=t.rows[idx]; const decision=row[row.length-1]; const cond=row.slice(0,-1).join('，');
-    presentDecision(rec, decision, cond?('条件：'+cond):'');
+    presentDecision(rec, decision, '该行【'+h0+'】＝'+cond+'；结论取自【'+hN+'】列');
   }
 }
 function handleConfirm(){
   const rec=byId(state.tableId), t=rec.tables[0];
-  presentDecision(rec, '按序执行本表 '+t.items.length+' 个步骤', '流程型判定，无单一格子结论');
+  presentDecision(rec, '按顺序完整执行本表全部 '+t.items.length+' 步（不可跳步）', '流程型表：结论=完整走完各步；要点见下方依据与红线');
 }
 function presentDecision(rec, decision, note){
   let h='根据 <b>'+rec.code+' '+rec.title+'</b>，我的建议是：<div style="font-size:15px;margin:6px 0"><b>'+esc(decision)+'</b></div>';
@@ -1909,7 +1929,7 @@ function handleUser(text){
   else if(t.type==='list'){ opts = t.rows.map((r,i)=>({i,l:r[0]})); }
   const hit=opts.find(o=> text.includes(o.l.slice(0,2)) || o.l.includes(text.slice(0,2)));
   if(hit){ handleAnswer(hit.i); }
-  else { coachSay('请从下面的选项里选一个，或者把情况说得更具体些：',
+  else { coachSay('请点选下面符合你情况的一项（每项都标了它问的是哪个条件）：',
         (t.type==='matrix'?(state.step===0?t.rows:t.cols):t.rows).map((x,i)=>({label:trunc((t.type==='matrix'?x.label||x:x[0]),16), value:String(i)}))); }
 }
 
