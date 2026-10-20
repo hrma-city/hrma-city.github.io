@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>判定表结构化字段规范 + 样表（JT-01）</title>
+<style>
+  :root{ --ink:#222; --mut:#666; --line:#e3e3e3; --bg:#fff; --soft:#f7f8fa; --acc:#185fa5; --accbg:#eef4fb; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 -apple-system,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;}
+  .wrap{max-width:960px;margin:0 auto;padding:48px 24px 96px;}
+  h1{font-size:24px;font-weight:600;margin:0 0 6px}
+  h2{font-size:19px;font-weight:600;margin:42px 0 14px;padding-left:10px;border-left:4px solid var(--acc)}
+  h3{font-size:16px;font-weight:600;margin:26px 0 10px}
+  .sub{color:var(--mut);margin:0 0 8px}
+  .note{background:var(--accbg);border:1px solid #d4e4f6;border-radius:10px;padding:14px 18px;color:#234;font-size:14px;margin:18px 0 8px}
+  .note b{color:var(--acc)}
+  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:9px 11px;vertical-align:top;text-align:left}
+  th{background:var(--soft);font-weight:600;white-space:nowrap}
+  td code,code{background:#f1f1f3;border-radius:4px;padding:1px 5px;font-size:13px}
+  pre{background:#0f1420;color:#e6edf3;border-radius:10px;padding:18px 20px;overflow:auto;font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .tag{display:inline-block;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:1px 10px;font-size:12px;color:var(--mut);margin:2px 4px 2px 0}
+  .rule{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0;background:var(--soft)}
+  .rule .when{font-weight:600}
+  .rule .dec{color:var(--acc);font-weight:600}
+  .cat li{margin:4px 0}
+  .mut{color:var(--mut)}
+  .pill{display:inline-block;background:var(--acc);color:#fff;border-radius:6px;padding:1px 8px;font-size:12px;font-weight:600}
+  .foot{margin-top:48px;color:var(--mut);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>判定表结构化字段规范 + 样表（JT-01）</h1>
+<p class="sub">收益管理 15 张判定表体系 · AI 引擎母本规范 v0.1</p>
+
+<div class="note">
+<b>用途：</b>这是把 15 张判定表喂给「判定表决策引擎 / XX 教练分身」的<b>统一可机读格式</b>。
+样表取自教材<b>第 1 张判定表</b>「降价前先算这一步」，按下方规范重新结构化，
+同时给出<b>人读视图</b>与<b>机读 JSON</b> 两种形态——JSON 即引擎可直接消费的输入。
+</div>
+
+<h2 id="toc-1">一、统一字段规范</h2>
+<p class="sub">所有判定表按此字段落库；缺省项可空，但 <code>id / title / domain / trigger / inputs / decision_logic / rules / version</code> 为必填。</p>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>必填</th><th>说明</th><th>样例</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td>string</td><td>是</td><td>稳定唯一标识，格式 <code>JT-NN</code>（两位补零）</td><td>JT-01</td></tr>
+<tr><td><code>title</code></td><td>string</td><td>是</td><td>判定表主题（人读标题）</td><td>降价前先算这一步</td></tr>
+<tr><td><code>chapter</code></td><td>string</td><td>是</td><td>所属章/篇，用于教材定位</td><td>第1章·认知与衡量</td></tr>
+<tr><td><code>domain</code></td><td>enum</td><td>是</td><td>业务域：定价 / 预测 / 库存 / 渠道 / 会议 / 综合</td><td>定价</td></tr>
+<tr><td><code>tags</code></td><td>string[]</td><td>否</td><td>检索标签，便于引擎与社区索引</td><td>["降价","打平","栅栏"]</td></tr>
+<tr><td><code>trigger</code></td><td>text</td><td>是</td><td>何时该查这张表（触发场景）</td><td>想用降价冲量提升业绩时</td></tr>
+<tr><td><code>preconditions</code></td><td>text</td><td>否</td><td>查表前需备齐的数据/前提</td><td>已知降价幅度、当前出租率</td></tr>
+<tr><td><code>inputs</code></td><td>object[]</td><td>是</td><td>引擎输入变量：<code>{name, desc, type, unit, range, example}</code></td><td>见样表</td></tr>
+<tr><td><code>derived</code></td><td>object[]</td><td>否</td><td>由输入算出的中间量：<code>{name, formula, desc, example}</code></td><td>打平所需出租率涨幅</td></tr>
+<tr><td><code>decision_logic</code></td><td>text</td><td>是</td><td>怎么读这张表（逐条匹配 / 矩阵查行）</td><td>自顶向下逐条判定，命中即取 then</td></tr>
+<tr><td><code>rules</code></td><td>object[]</td><td>是</td><td>判定规则集：<code>{when, then:{decision, action, rationale}}</code></td><td>见样表</td></tr>
+<tr><td><code>basis</code></td><td>text</td><td>否</td><td>背后的原理 / 公式</td><td>收入变动=(1+量%)(1+价%)−1</td></tr>
+<tr><td><code>pitfalls</code></td><td>text</td><td>否</td><td>反例 / 常见坑</td><td>分母口径错→查错一格</td></tr>
+<tr><td><code>data_needs</code></td><td>string[]</td><td>否</td><td>酒店需喂给引擎的数据项</td><td>["降价幅度%","当前OCC"]</td></tr>
+<tr><td><code>confidence</code></td><td>enum</td><td>否</td><td>置信 / 适用边界：高 / 中 / 条件适用</td><td>高（通用）</td></tr>
+<tr><td><code>related</code></td><td>string[]</td><td>否</td><td>关联判定表 ID</td><td>["JT-05"]</td></tr>
+<tr><td><code>version</code></td><td>string</td><td>是</td><td>规范/内容版本</td><td>v0.1</td></tr>
+</tbody>
+</table>
+
+<h2 id="toc-2">二、样表 JT-01 · 降价前先算这一步</h2>
+<p class="sub">原表出自教材第 1 章（books-set/01-第一篇-认知与衡量.md）。下方为按规范重构后的双视图。</p>
+
+<h3 id="toc-3">人读视图 · 决策规则</h3>
+<p><b>触发：</b>任何想用「降价冲量」来提升业绩的念头出现时。<br>
+<b>决策逻辑：</b>先算打平所需涨幅 → 判断该涨幅当下是否现实 → 现实才考虑降，且必须配栅栏只降给新增客源。</p>
+
+<div class="rule">
+  <div class="when">① 当 打平所需出租率涨幅 &gt; 当前可实现的涨幅（如淡季）</div>
+  <div class="dec">决策：不降</div>
+  <div>动作：维持原价，改用非价格手段（服务/打包）。</div>
+  <div class="mut">依据：降价带来的量增补不回价损，RevPAR 与 GOPPAR 双降。</div>
+</div>
+<div class="rule">
+  <div class="when">② 当 涨幅现实，但无法限定降价对象</div>
+  <div class="dec">决策：不降或慎用</div>
+  <div>动作：避免全量降价。</div>
+  <div class="mut">依据：全量降价会拉低已愿意付高价的客源价格，得不偿失。</div>
+</div>
+<div class="rule">
+  <div class="when">③ 当 涨幅现实，且能用栅栏只降给新增客源</div>
+  <div class="dec">决策：降，但要设栅栏</div>
+  <div>动作：提前预订 / 不可取消 / 限定渠道或房型，分隔新老客源价格。</div>
+  <div class="mut">依据：只让新增价格敏感客享受低价，保护原有高价客。</div>
+</div>
+<div class="rule">
+  <div class="when">④ 当 降价后出租率涨幅 &lt; 打平所需涨幅</div>
+  <div class="dec">决策：不降</div>
+  <div>动作：重新评估，或仅小幅限渠道降价。</div>
+  <div class="mut">依据：未达打平点即亏。</div>
+</div>
+
+<p><b>依据公式：</b><code>收入变动 = (1+出租率变动%) × (1+房价变动%) − 1</code>；打平条件：<code>出租率涨幅 &gt; 降价幅度 ÷ (1−降价幅度)</code>。<br>
+<b>常见坑：</b>分母用错（OCC/RevPAR 分母是「可售房晚」，ADR 是「已售房晚」）会导致整张表查错一格；只看 OCC 不看 GOPPAR 会误判成功。<br>
+<b>需喂数据：</b>拟降价幅度% · 当前出租率% · 历史需求弹性或可达涨幅估算 · 可售房晚口径。</p>
+
+<h3 id="toc-4">机读视图 · JSON（引擎直接消费）</h3>
+<pre><code>{
+  "id": "JT-01",
+  "title": "降价前先算这一步",
+  "chapter": "第1章·认知与衡量",
+  "domain": "定价",
+  "tags": ["降价", "打平", "栅栏", "RevPAR"],
+  "trigger": "任何想用『降价冲量』来提升业绩的念头出现时",
+  "preconditions": "已知拟降价幅度、当前出租率、可用历史数据估算需求弹性",
+  "inputs": [
+    {"name": "discount_pct", "desc": "拟降价幅度", "type": "number", "unit": "%", "range": "0-100", "example": 33.5},
+    {"name": "occ_now", "desc": "当前出租率", "type": "number", "unit": "%", "range": "0-100", "example": 45},
+    {"name": "occ_est_after", "desc": "降价后预计出租率", "type": "number", "unit": "%", "range": "0-100", "example": 67.7}
+  ],
+  "derived": [
+    {"name": "breakeven_occ_gain", "formula": "discount_pct/(1-discount_pct)", "desc": "打平所需出租率涨幅", "example": 50.4}
+  ],
+  "decision_logic": "先算打平所需涨幅；再判断该涨幅在当下是否现实；现实才考虑降，且必须配栅栏只降给新增客源。逐条自上而下判定，命中即取 then。",
+  "rules": [
+    {"when": "打平所需出租率涨幅 > 当前可实现的涨幅（如淡季）",
+     "then": {"decision": "不降", "action": "维持原价，改用非价格手段（服务/打包）", "rationale": "降价带来的量增补不回价损，RevPAR与GOPPAR双降"}},
+    {"when": "涨幅现实，但无法限定降价对象",
+     "then": {"decision": "不降或慎用", "action": "避免全量降价", "rationale": "全量降价会拉低已愿意付高价的客源价格"}},
+    {"when": "涨幅现实，且能用栅栏只降给新增客源",
+     "then": {"decision": "降，但要设栅栏", "action": "提前预订/不可取消/限定渠道或房型，分隔新老客源价格", "rationale": "只让新增价格敏感客享受低价，保护原有高价客"}},
+    {"when": "降价后出租率涨幅 < 打平所需涨幅",
+     "then": {"decision": "不降", "action": "重新评估，或仅小幅限渠道降价", "rationale": "未达打平点即亏"}}
+  ],
+  "basis": "收入变动=(1+出租率变动%)×(1+房价变动%)−1；打平条件：出租率涨幅>降价幅度÷(1−降价幅度)",
+  "pitfalls": "分母用错（OCC/RevPAR分母是『可售房晚』，ADR是『已售房晚』）会导致整张表查错一格；只看OCC不看GOPPAR会误判成功。",
+  "data_needs": ["拟降价幅度%", "当前出租率%", "历史需求弹性或可达涨幅估算", "可售房晚口径"],
+  "confidence": "高（通用，适用绝大多数住宿业态）",
+  "related": ["JT-05"],
+  "version": "v0.1"
+}</code></pre>
+
+<h2 id="toc-5">三、现有判定表清单（取样来源）</h2>
+<p class="sub">自 books-set 钩出 13 张；按章序编号，<span class="pill">JT-01</span> 为本次样表。33–41 章可能另有 2 张，补齐后即「15 张核心集」。</p>
+<ol class="cat">
+  <li><span class="pill">JT-01</span> 降价前先算这一步 — 01-第一篇-认知与衡量.md（样表）</li>
+  <li>JT-02 增长质量 — 01-第一篇-认知与衡量.md</li>
+  <li>JT-03 该看哪个源 — 03-第三篇-预测与计划.md</li>
+  <li>JT-04 团队询价 — 03-第三篇-预测与计划.md</li>
+  <li>JT-05 降价可行性 — 04-第四篇-定价与栅栏.md</li>
+  <li>JT-06 限量调整 — 04-第四篇-定价与栅栏.md</li>
+  <li>JT-07 安全系数怎么取 — 05-第五篇-库存与渠道.md</li>
+  <li>JT-08 渠道投入 — 05-第五篇-库存与渠道.md</li>
+  <li>JT-09 团队接不接 — 06-第六篇-运营与执行.md</li>
+  <li>JT-10 超售系数 — 06-第六篇-运营与执行.md</li>
+  <li>JT-11 档期冲突 — 07-第七篇-会议与综合决策.md</li>
+  <li>JT-12 会议单快速分级 — 07-第七篇-会议与综合决策.md</li>
+  <li class="mut">（+2 张待从 33–41 章补，凑足 15 张核心集）</li>
+</ol>
+
+<div class="foot">
+  本页为判定表 AI 引擎母本规范，含核心 IP，仅限登录后访问。规范版本 v0.1 · 样表基于教材第 1 张判定表重构。
+</div>
+
+</div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>判定表结构化字段规范 + 样表（JT-01）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">一、统一字段规范</a>
+<a href="#toc-2">二、样表 JT-01 · 降价前先算这一步</a>
+<a href="#toc-3" class="lv3">1. 人读视图 · 决策规则</a>
+<a href="#toc-4" class="lv3">2. 机读视图 · JSON（引擎直接消费）</a>
+<a href="#toc-5">三、现有判定表清单（取样来源）</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
+})();
+</script>
+</body>
+</html>
