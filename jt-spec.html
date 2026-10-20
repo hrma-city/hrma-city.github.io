@@ -1,221 +1,5501 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <script>window.HRMA_PREFIX="";</script>
 <script src="auth-config.js?v=gate20261013"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>判定表结构化字段规范 + 样表（JT-01）</title>
+<title>判定表结构化字段规范 + 操作法典 15 张判定表</title>
 <style>
-  :root{ --ink:#222; --mut:#666; --line:#e3e3e3; --bg:#fff; --soft:#f7f8fa; --acc:#185fa5; --accbg:#eef4fb; }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 -apple-system,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;}
-  .wrap{max-width:960px;margin:0 auto;padding:48px 24px 96px;}
-  h1{font-size:24px;font-weight:600;margin:0 0 6px}
-  h2{font-size:19px;font-weight:600;margin:42px 0 14px;padding-left:10px;border-left:4px solid var(--acc)}
-  h3{font-size:16px;font-weight:600;margin:26px 0 10px}
-  .sub{color:var(--mut);margin:0 0 8px}
-  .note{background:var(--accbg);border:1px solid #d4e4f6;border-radius:10px;padding:14px 18px;color:#234;font-size:14px;margin:18px 0 8px}
-  .note b{color:var(--acc)}
-  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
-  th,td{border:1px solid var(--line);padding:9px 11px;vertical-align:top;text-align:left}
-  th{background:var(--soft);font-weight:600;white-space:nowrap}
-  td code,code{background:#f1f1f3;border-radius:4px;padding:1px 5px;font-size:13px}
-  pre{background:#0f1420;color:#e6edf3;border-radius:10px;padding:18px 20px;overflow:auto;font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-  .tag{display:inline-block;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:1px 10px;font-size:12px;color:var(--mut);margin:2px 4px 2px 0}
-  .rule{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0;background:var(--soft)}
-  .rule .when{font-weight:600}
-  .rule .dec{color:var(--acc);font-weight:600}
-  .cat li{margin:4px 0}
-  .mut{color:var(--mut)}
-  .pill{display:inline-block;background:var(--acc);color:#fff;border-radius:6px;padding:1px 8px;font-size:12px;font-weight:600}
-  .foot{margin-top:48px;color:var(--mut);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
-</style>
-
-<style id="rm-toc-style">
-#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
-  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
-  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
-#rm-toc-drawer.open{transform:translateX(0)}
-#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
-  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
-#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
-#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
-#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
-#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
-  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
-#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
-#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
-#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
-  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
-  display:flex;align-items:center;justify-content:center}
-#rm-toc-toggle:hover{background:#1d4e7e}
-@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+:root{--ink:#1f2733;--ink2:#5b6675;--line:#e6e9ef;--bg:#f7f8fa;--navy:#1f3a5f;--teal:#0f8a7e;--red:#d23b3b;--amber:#c77a16;--blue:#2f6fb0;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.7}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:260px;flex:0 0 260px;background:#fff;border-right:1px solid var(--line);padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto}
+.main{flex:1;padding:28px 34px 80px;max-width:1100px}
+h1.page-title{font-size:26px;margin:0 0 6px}
+.lede{color:var(--ink2);margin:0 0 18px}
+.badge{display:inline-block;background:#eef2f7;color:var(--navy);border-radius:20px;padding:2px 12px;font-size:12.5px;margin:2px 4px 2px 0}
+.badge-core{background:#fff4d6;color:#8a5a00}
+.spec-table{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0 26px}
+.spec-table th,.spec-table td{border:1px solid var(--line);padding:7px 10px;vertical-align:top;text-align:left}
+.spec-table th{background:#f0f3f8;width:130px;white-space:nowrap}
+.spec-table code{background:#eef2f7;padding:1px 5px;border-radius:4px;font-size:12.5px}
+.jt-block{border:1px solid var(--line);border-radius:12px;background:#fff;padding:20px 22px;margin:18px 0;scroll-margin-top:70px}
+.jt-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.badge-codex{background:var(--navy);color:#fff;border-radius:8px;padding:3px 10px;font-weight:700;font-size:14px}
+.jt-head h2{font-size:19px;margin:0}
+.pill{display:inline-block;border-radius:14px;padding:1px 9px;font-size:12px;border:1px solid var(--line)}
+.pill-red{background:#fdeaea;color:var(--red);border-color:#f3c9c9}
+.pill-teal{background:#e6f6f3;color:var(--teal);border-color:#bfe9e3}
+.pill-amber{background:#fdf1de;color:var(--amber);border-color:#f0d9ab}
+.pill-navy{background:#eaf0f7;color:var(--navy);border-color:#cdd9e8}
+.jt-desc{color:var(--ink2);margin:8px 0 14px}
+table.jt-mat,table.jt-tbl{border-collapse:collapse;width:100%;font-size:13.5px;margin:10px 0}
+table.jt-mat th,table.jt-mat td,table.jt-tbl th,table.jt-tbl td{border:1px solid var(--line);padding:7px 10px;vertical-align:top;text-align:left}
+table.jt-mat thead th,table.jt-tbl thead th{background:#f0f3f8}
+table.jt-mat th.rowh,table.jt-tbl td:first-child{background:#fafbfc;font-weight:600;white-space:nowrap}
+.callout{border-radius:9px;padding:10px 14px;margin:12px 0;font-size:13.5px;border:1px solid var(--line)}
+.callout .co-t{font-weight:700;display:block;margin-bottom:3px}
+.callout-danger{background:#fdeaea;border-color:#f3c9c9}
+.callout-danger .co-t{color:var(--red)}
+.callout-warn{background:#fdf1de;border-color:#f0d9ab}
+.callout-warn .co-t{color:var(--amber)}
+.callout-gold{background:#fff7e6;border-color:#f0dca6}
+.callout-gold .co-t{color:#8a5a00}
+.callout-key{background:#eaf3fb;border-color:#c7ddf2}
+.callout-key .co-t{color:var(--blue)}
+.callout-do{background:#e9f7ef;border-color:#bfe6cf}
+.callout-do .co-t{color:var(--teal)}
+.meta-rel{color:var(--ink2);font-size:13px;margin-top:8px}
+.json-wrap{margin-top:12px}
+.json-toggle{cursor:pointer;color:var(--blue);font-size:13px;user-select:none;border:1px solid #c7ddf2;background:#eaf3fb;border-radius:6px;padding:3px 12px;display:inline-block}
+pre.json{display:none;background:#0f1722;color:#d6e2f0;padding:14px;border-radius:8px;overflow:auto;font-size:12.5px;line-height:1.5;margin-top:8px}
+pre.json.show{display:block}
+.step-item{border-left:3px solid var(--teal);padding:4px 0 4px 12px;margin:6px 0}
+.step-num{font-weight:700;color:var(--teal)}
+.toc-fixed{position:fixed;top:0;left:0;right:0;height:46px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 18px;z-index:50;font-size:13.5px;gap:6px;flex-wrap:nowrap;overflow-x:auto}
+.toc-fixed b{color:var(--navy)}
+.toc-fixed a{color:var(--ink2);text-decoration:none;white-space:nowrap;padding:2px 6px}
+.toc-fixed a:hover{color:var(--navy);background:#f0f3f8;border-radius:5px}
+.section-title{font-size:21px;margin:30px 0 4px;border-left:4px solid var(--navy);padding-left:10px}
+.sub{color:var(--ink2);font-size:13.5px;margin:0 0 8px}
+ul.clean{margin:6px 0;padding-left:20px}
 </style>
 </head>
-<body>
-<div class="wrap">
+<body data-page="jt-spec">
+<div class="toc-fixed" id="toc"><b>操作法典 15 张判定表</b><a href="#jt-A">表A</a><a href="#jt-B">表B</a><a href="#jt-C">表C</a><a href="#jt-D">表D</a><a href="#jt-E">表E</a><a href="#jt-F">表F</a><a href="#jt-G">表G</a><a href="#jt-H">表H</a><a href="#jt-I">表I</a><a href="#jt-J">表J</a><a href="#jt-K">表K</a><a href="#jt-L">表L</a><a href="#jt-M">表M</a><a href="#jt-N">表N</a><a href="#jt-O">表O</a></div>
+<div class="layout">
 
-<h1>判定表结构化字段规范 + 样表（JT-01）</h1>
-<p class="sub">收益管理 15 张判定表体系 · AI 引擎母本规范 v0.1</p>
+<div class="sidebar">
+  <b style="color:var(--navy)">操作法典 15 张判定表</b>
+  <div style="height:8px"></div>
+  <a href="#spec" style="color:var(--ink2);text-decoration:none;display:block;padding:3px 0">· 统一字段规范</a>
+  <a href="#jt-A">表 A · 每日价格调整判定表</a><a href="#jt-B">表 B · 库存与限制条件配置表</a><a href="#jt-C">表 C · 价格指数（ARI）判定表</a><a href="#jt-D">表 D · 市场渗透指数（MPI）判定表</a><a href="#jt-E">表 E · 超额预订标准表</a><a href="#jt-F">表 F · 房型价差阶梯表</a><a href="#jt-G">表 G · 团队／协议询价接受判定表</a><a href="#jt-H">表 H · 渠道开关判定表</a><a href="#jt-I">表 I · 预订窗口分档监控表</a><a href="#jt-J">表 J · 免费升级规则表</a><a href="#jt-K">表 K · 会议／宴会综合收益联动表</a><a href="#jt-L">表 L · 异常事件应急判定表</a><a href="#jt-M">表 M · 每日收益操作流水线（时间表）</a><a href="#jt-N">表 N · 周度／月度节奏表</a><a href="#jt-O">表 O · 决策优先级与冲突仲裁表</a>
+</div>
+<main class="main">
+<h1 class="page-title">判定表结构化字段规范 + 操作法典 15 张判定表</h1>
+<p class="lede">来源：<b>收益管理操作法典（codex.html，表 A–O 共 15 张）</b>。每张表含人读视图与机读 JSON（折叠），全量数据内嵌于页尾 <code>&lt;script type="application/json"&gt;</code>，判定表引擎可直接 fetch。</p>
 
-<div class="note">
-<b>用途：</b>这是把 15 张判定表喂给「判定表决策引擎 / XX 教练分身」的<b>统一可机读格式</b>。
-样表取自教材<b>第 1 张判定表</b>「降价前先算这一步」，按下方规范重新结构化，
-同时给出<b>人读视图</b>与<b>机读 JSON</b> 两种形态——JSON 即引擎可直接消费的输入。
+<h2 class="section-title" id="spec">一、统一字段规范（机读契约）</h2>
+<p class="sub">15 张表共用同一套字段，JSON 兼容，判定表引擎可直接消费。代码型表（A、G 等）用 <code>tables[].matrix</code> 还原二维矩阵；行表用 <code>tables[].list</code>；步骤/时间线用 <code>tables[].steps</code>。</p>
+<table class="spec-table"><thead><tr><th>字段</th><th>类型</th><th>必填</th><th>说明</th></tr></thead><tbody><tr><td><code>id</code></td><td>string</td><td>是</td><td>稳定唯一标识，法典用 <code>JT-A</code>…<code>JT-O</code>（对应表 A–O）</td></tr><tr><td><code>code</code></td><td>string</td><td>是</td><td>法典内的表编号，如「表 A」</td></tr><tr><td><code>title</code></td><td>string</td><td>是</td><td>判定表中文名</td></tr><tr><td><code>domain</code></td><td>enum</td><td>是</td><td>域：价格 / 库存 / 竞争 / 渠道 / 客户 / 节奏 / 应急</td></tr><tr><td><code>category</code></td><td>string</td><td>否</td><td>源 data-cat（英文），与 domain 对应</td></tr><tr><td><code>tags</code></td><td>array</td><td>否</td><td>检索标签</td></tr><tr><td><code>trigger</code></td><td>string</td><td>是</td><td>何时查这张表（触发条件）</td></tr><tr><td><code>preconditions</code></td><td>string</td><td>否</td><td>查表前必须已知的数据</td></tr><tr><td><code>inputs</code></td><td>array</td><td>是</td><td>输入变量 [{name,desc,type,unit,range,example}]</td></tr><tr><td><code>derived</code></td><td>array</td><td>否</td><td>派生量 [{name,formula,desc,example}]</td></tr><tr><td><code>decision_logic</code></td><td>string</td><td>是</td><td>整体判定思路（一句话）</td></tr><tr><td><code>basis</code></td><td>string</td><td>否</td><td>公式与算法依据、演示算例</td></tr><tr><td><code>pitfalls</code></td><td>string</td><td>否</td><td>执行约束 / 易错点 / 红线</td></tr><tr><td><code>data_needs</code></td><td>array</td><td>否</td><td>需喂给引擎的数据字段名清单</td></tr><tr><td><code>confidence</code></td><td>string</td><td>否</td><td>置信度与适用范围说明</td></tr><tr><td><code>related</code></td><td>array</td><td>否</td><td>关联表 <code>JT-X</code></td></tr><tr><td><code>version</code></td><td>string</td><td>否</td><td>阈值版本，如 v1.0</td></tr><tr><td><code>tables</code></td><td>array</td><td>是</td><td>机读载体：忠实还原法典的判定表面（<code>matrix</code> 二维矩阵 / <code>list</code> 行表 / <code>steps</code> 有序步骤）</td></tr></tbody></table>
+<h2 class="section-title" id="tables">二、操作法典 15 张判定表（A–O）</h2>
+<p class="sub">按法典原序。人读视图忠实还原法典表格；机读 JSON 为统一字段 + tables 载体。</p>
+
+<div class="jt-block" id="jt-A">
+  <div class="jt-head">
+    <span class="badge-codex">表 A</span>
+    <h2>每日价格调整判定表</h2>
+    <span class="pill pill-navy">价格</span>
+  </div>
+  <p class="jt-desc">这是整本法典用得最多的一张表。每天都要用。 两个输入：① 目标日当前预测 OCC（在手房晚 + 预测增量 ÷ 可售房量）； ② Pickup 偏差 =（当前在手房晚 − 去年同期同一提前窗口在手房晚）÷ 去年同期在手房晚 × 100%。</p>
+  <p class="sub"><b>触发：</b>每日 09:10 执行调价前，依据目标日预测 OCC 与 Pickup 偏差确定 BAR 动作　|　<b>决策逻辑：</b>以预测 OCC 为行、Pickup 偏差为列查矩阵得价格动作；与表 B 库存动作配套；受表 O 优先级约束（价格优先级 3）。</p>
+  <table class="jt-mat"><thead><tr><th>行＝预测 OCC 列＝Pickup 偏差 单元格＝价格动作</th><th>落后 &gt;10%</th><th>落后 3–10%</th><th>持平 ±3%</th><th>领先 3–10%</th><th>领先 &gt;10%</th></tr></thead><tbody><tr><th class="rowh">≥ 95%</th><td>维持</td><td>↑5%</td><td>↑10%</td><td>↑15%</td><td>↑20%</td></tr><tr><th class="rowh">85 – 95%</th><td>维持</td><td>↑3%</td><td>↑5%</td><td>↑10%</td><td>↑15%</td></tr><tr><th class="rowh">70 – 85%</th><td>↓5%</td><td>↓3%</td><td>维持</td><td>↑5%</td><td>↑8%</td></tr><tr><th class="rowh">55 – 70%</th><td>↓10%</td><td>↓5%</td><td>↓3%</td><td>维持</td><td>↑3%</td></tr><tr><th class="rowh">40 – 55%</th><td>↓15%</td><td>↓10%</td><td>↓5%</td><td>维持</td><td>维持</td></tr><tr><th class="rowh">&lt; 40%</th><td>↓20%</td><td>↓15%</td><td>↓10%</td><td>↓5%</td><td>维持</td></tr></tbody></table>
+  
+  <p class="meta-rel">关联：JT-B、JT-O　·　置信度：高（通用起点，上岗 3 个月后用本店数据校准）　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-A&quot;,
+ &quot;code&quot;: &quot;表 A&quot;,
+ &quot;title&quot;: &quot;每日价格调整判定表&quot;,
+ &quot;domain&quot;: &quot;价格&quot;,
+ &quot;category&quot;: &quot;price&quot;,
+ &quot;tags&quot;: [
+  &quot;每日调价&quot;,
+  &quot;Pickup&quot;,
+  &quot;OCC&quot;,
+  &quot;BAR&quot;,
+  &quot;峰值日&quot;
+ ],
+ &quot;trigger&quot;: &quot;每日 09:10 执行调价前，依据目标日预测 OCC 与 Pickup 偏差确定 BAR 动作&quot;,
+ &quot;preconditions&quot;: &quot;已知目标日当前预测 OCC、去年同期同一提前窗口在手房晚、预测增量&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;occ_forecast&quot;,
+   &quot;desc&quot;: &quot;目标日预测出租率&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;%&quot;,
+   &quot;range&quot;: &quot;0-100&quot;,
+   &quot;example&quot;: 95.3
+  },
+  {
+   &quot;name&quot;: &quot;pickup_bias&quot;,
+   &quot;desc&quot;: &quot;Pickup 偏差 =(当前在手−去年同期在手)/去年同期在手×100%&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;%&quot;,
+   &quot;range&quot;: &quot;-100~+100&quot;,
+   &quot;example&quot;: 10.4
+  }
+ ],
+ &quot;derived&quot;: [
+  {
+   &quot;name&quot;: &quot;price_action&quot;,
+   &quot;formula&quot;: &quot;查矩阵：行=OCC区间, 列=Pickup偏差区间&quot;,
+   &quot;desc&quot;: &quot;价格动作&quot;,
+   &quot;example&quot;: &quot;↑20%&quot;
+  }
+ ],
+ &quot;decision_logic&quot;: &quot;以预测 OCC 为行、Pickup 偏差为列查矩阵得价格动作；与表 B 库存动作配套；受表 O 优先级约束（价格优先级 3）。&quot;,
+ &quot;basis&quot;: &quot;阈值基于中高端全服务酒店通用起点；OCC 分母=可售房晚。演示：OCC=(265+40)/320=95.3%→≥95%行；Pickup=(265-240)/240=+10.4%→领先&gt;10%列→↑20%；BAR 680×1.20=816。&quot;,
+ &quot;pitfalls&quot;: &quot;单日同方向累计≤20%；24h 内同方向≤2 次；每次≥3%（低于 3% 市场无感知）；调价后 30min 核查 OTA 挂牌价；D1 峰值日须 L3 审批；每次写入《调价台账》注明依据表 A。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;occ_forecast&quot;,
+  &quot;pickup_bias&quot;
+ ],
+ &quot;confidence&quot;: &quot;高（通用起点，上岗 3 个月后用本店数据校准）&quot;,
+ &quot;related&quot;: [
+  &quot;JT-B&quot;,
+  &quot;JT-O&quot;
+ ],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;matrix&quot;,
+   &quot;caption&quot;: &quot;行＝预测 OCC 列＝Pickup 偏差 单元格＝价格动作&quot;,
+   &quot;cols&quot;: [
+    &quot;落后 &gt;10%&quot;,
+    &quot;落后 3–10%&quot;,
+    &quot;持平 ±3%&quot;,
+    &quot;领先 3–10%&quot;,
+    &quot;领先 &gt;10%&quot;
+   ],
+   &quot;rows&quot;: [
+    {
+     &quot;label&quot;: &quot;≥ 95%&quot;,
+     &quot;cells&quot;: [
+      &quot;维持&quot;,
+      &quot;↑5%&quot;,
+      &quot;↑10%&quot;,
+      &quot;↑15%&quot;,
+      &quot;↑20%&quot;
+     ]
+    },
+    {
+     &quot;label&quot;: &quot;85 – 95%&quot;,
+     &quot;cells&quot;: [
+      &quot;维持&quot;,
+      &quot;↑3%&quot;,
+      &quot;↑5%&quot;,
+      &quot;↑10%&quot;,
+      &quot;↑15%&quot;
+     ]
+    },
+    {
+     &quot;label&quot;: &quot;70 – 85%&quot;,
+     &quot;cells&quot;: [
+      &quot;↓5%&quot;,
+      &quot;↓3%&quot;,
+      &quot;维持&quot;,
+      &quot;↑5%&quot;,
+      &quot;↑8%&quot;
+     ]
+    },
+    {
+     &quot;label&quot;: &quot;55 – 70%&quot;,
+     &quot;cells&quot;: [
+      &quot;↓10%&quot;,
+      &quot;↓5%&quot;,
+      &quot;↓3%&quot;,
+      &quot;维持&quot;,
+      &quot;↑3%&quot;
+     ]
+    },
+    {
+     &quot;label&quot;: &quot;40 – 55%&quot;,
+     &quot;cells&quot;: [
+      &quot;↓15%&quot;,
+      &quot;↓10%&quot;,
+      &quot;↓5%&quot;,
+      &quot;维持&quot;,
+      &quot;维持&quot;
+     ]
+    },
+    {
+     &quot;label&quot;: &quot;&lt; 40%&quot;,
+     &quot;cells&quot;: [
+      &quot;↓20%&quot;,
+      &quot;↓15%&quot;,
+      &quot;↓10%&quot;,
+      &quot;↓5%&quot;,
+      &quot;维持&quot;
+     ]
+    }
+   ]
+  }
+ ]
+}</pre>
+  </div>
 </div>
 
-<h2 id="toc-1">一、统一字段规范</h2>
-<p class="sub">所有判定表按此字段落库；缺省项可空，但 <code>id / title / domain / trigger / inputs / decision_logic / rules / version</code> 为必填。</p>
-<table>
-<thead><tr><th>字段</th><th>类型</th><th>必填</th><th>说明</th><th>样例</th></tr></thead>
-<tbody>
-<tr><td><code>id</code></td><td>string</td><td>是</td><td>稳定唯一标识，格式 <code>JT-NN</code>（两位补零）</td><td>JT-01</td></tr>
-<tr><td><code>title</code></td><td>string</td><td>是</td><td>判定表主题（人读标题）</td><td>降价前先算这一步</td></tr>
-<tr><td><code>chapter</code></td><td>string</td><td>是</td><td>所属章/篇，用于教材定位</td><td>第1章·认知与衡量</td></tr>
-<tr><td><code>domain</code></td><td>enum</td><td>是</td><td>业务域：定价 / 预测 / 库存 / 渠道 / 会议 / 综合</td><td>定价</td></tr>
-<tr><td><code>tags</code></td><td>string[]</td><td>否</td><td>检索标签，便于引擎与社区索引</td><td>["降价","打平","栅栏"]</td></tr>
-<tr><td><code>trigger</code></td><td>text</td><td>是</td><td>何时该查这张表（触发场景）</td><td>想用降价冲量提升业绩时</td></tr>
-<tr><td><code>preconditions</code></td><td>text</td><td>否</td><td>查表前需备齐的数据/前提</td><td>已知降价幅度、当前出租率</td></tr>
-<tr><td><code>inputs</code></td><td>object[]</td><td>是</td><td>引擎输入变量：<code>{name, desc, type, unit, range, example}</code></td><td>见样表</td></tr>
-<tr><td><code>derived</code></td><td>object[]</td><td>否</td><td>由输入算出的中间量：<code>{name, formula, desc, example}</code></td><td>打平所需出租率涨幅</td></tr>
-<tr><td><code>decision_logic</code></td><td>text</td><td>是</td><td>怎么读这张表（逐条匹配 / 矩阵查行）</td><td>自顶向下逐条判定，命中即取 then</td></tr>
-<tr><td><code>rules</code></td><td>object[]</td><td>是</td><td>判定规则集：<code>{when, then:{decision, action, rationale}}</code></td><td>见样表</td></tr>
-<tr><td><code>basis</code></td><td>text</td><td>否</td><td>背后的原理 / 公式</td><td>收入变动=(1+量%)(1+价%)−1</td></tr>
-<tr><td><code>pitfalls</code></td><td>text</td><td>否</td><td>反例 / 常见坑</td><td>分母口径错→查错一格</td></tr>
-<tr><td><code>data_needs</code></td><td>string[]</td><td>否</td><td>酒店需喂给引擎的数据项</td><td>["降价幅度%","当前OCC"]</td></tr>
-<tr><td><code>confidence</code></td><td>enum</td><td>否</td><td>置信 / 适用边界：高 / 中 / 条件适用</td><td>高（通用）</td></tr>
-<tr><td><code>related</code></td><td>string[]</td><td>否</td><td>关联判定表 ID</td><td>["JT-05"]</td></tr>
-<tr><td><code>version</code></td><td>string</td><td>是</td><td>规范/内容版本</td><td>v0.1</td></tr>
-</tbody>
-</table>
-
-<h2 id="toc-2">二、样表 JT-01 · 降价前先算这一步</h2>
-<p class="sub">原表出自教材第 1 章（books-set/01-第一篇-认知与衡量.md）。下方为按规范重构后的双视图。</p>
-
-<h3 id="toc-3">人读视图 · 决策规则</h3>
-<p><b>触发：</b>任何想用「降价冲量」来提升业绩的念头出现时。<br>
-<b>决策逻辑：</b>先算打平所需涨幅 → 判断该涨幅当下是否现实 → 现实才考虑降，且必须配栅栏只降给新增客源。</p>
-
-<div class="rule">
-  <div class="when">① 当 打平所需出租率涨幅 &gt; 当前可实现的涨幅（如淡季）</div>
-  <div class="dec">决策：不降</div>
-  <div>动作：维持原价，改用非价格手段（服务/打包）。</div>
-  <div class="mut">依据：降价带来的量增补不回价损，RevPAR 与 GOPPAR 双降。</div>
+<div class="jt-block" id="jt-B">
+  <div class="jt-head">
+    <span class="badge-codex">表 B</span>
+    <h2>库存与限制条件配置表</h2>
+    <span class="pill pill-navy">库存</span>
+  </div>
+  <p class="jt-desc">价格定完之后，立刻配库存。库存动作优先级高于价格动作（见表 O）—— 房量安全永远比多卖 20 块钱重要。输入：目标日预测 OCC。</p>
+  <p class="sub"><b>触发：</b>价格定完后立即配置当日库存限制条件　|　<b>决策逻辑：</b>按预测 OCC 配置 MinLOS / CTA / 低价渠道 Stop Sell / 超额预订；库存动作优先级高于价格（表 O 优先级 2）。</p>
+  <table class="jt-tbl"><thead><tr><th>预测 OCC</th><th>MinLOS 最少住期</th><th>CTA 不可入住</th><th>低价渠道 Stop Sell</th><th>超额预订</th></tr></thead><tbody><tr><td>≥ 95%</td><td>2 晚（D1 峰值日 3 晚）</td><td>启用</td><td>关闭尾房特惠 / 团購 / 批发商</td><td>不超售</td></tr><tr><td>90 – 95%</td><td>2 晚</td><td>仅 D1 日启用</td><td>关闭尾房特惠</td><td>≤ 2 间</td></tr><tr><td>85 – 90%</td><td>1–2 晚（周末 2 晚）</td><td>否</td><td>保留</td><td>按表 E</td></tr><tr><td>70 – 85%</td><td>1 晚</td><td>否</td><td>全开</td><td>按表 E</td></tr><tr><td>&lt; 70%</td><td>不设限</td><td>否</td><td>全开 + 上促销</td><td>不超售</td></tr></tbody></table>
+  
+  <p class="meta-rel">关联：JT-E、JT-A　·　置信度：高　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-B&quot;,
+ &quot;code&quot;: &quot;表 B&quot;,
+ &quot;title&quot;: &quot;库存与限制条件配置表&quot;,
+ &quot;domain&quot;: &quot;库存&quot;,
+ &quot;category&quot;: &quot;inventory&quot;,
+ &quot;tags&quot;: [
+  &quot;库存&quot;,
+  &quot;MinLOS&quot;,
+  &quot;CTA&quot;,
+  &quot;StopSell&quot;,
+  &quot;超售&quot;
+ ],
+ &quot;trigger&quot;: &quot;价格定完后立即配置当日库存限制条件&quot;,
+ &quot;preconditions&quot;: &quot;已知目标日预测 OCC&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;occ_forecast&quot;,
+   &quot;desc&quot;: &quot;目标日预测出租率&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;%&quot;,
+   &quot;range&quot;: &quot;0-100&quot;,
+   &quot;example&quot;: 95
+  }
+ ],
+ &quot;derived&quot;: [],
+ &quot;decision_logic&quot;: &quot;按预测 OCC 配置 MinLOS / CTA / 低价渠道 Stop Sell / 超额预订；库存动作优先级高于价格（表 O 优先级 2）。&quot;,
+ &quot;basis&quot;: &quot;房量安全永远比多卖 20 块钱重要；满房日一过立即撤限制。&quot;,
+ &quot;pitfalls&quot;: &quot;所有限制条件必须设到期自动解除；满房日一过 MinLOS/CTA 要立刻撤，否则次日莫名挡单；每日 09:10 检查前一日限制是否已解除。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;occ_forecast&quot;
+ ],
+ &quot;confidence&quot;: &quot;高&quot;,
+ &quot;related&quot;: [
+  &quot;JT-E&quot;,
+  &quot;JT-A&quot;
+ ],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;按预测 OCC 配置限制条件&quot;,
+   &quot;headers&quot;: [
+    &quot;预测 OCC&quot;,
+    &quot;MinLOS 最少住期&quot;,
+    &quot;CTA 不可入住&quot;,
+    &quot;低价渠道 Stop Sell&quot;,
+    &quot;超额预订&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;≥ 95%&quot;,
+     &quot;2 晚（D1 峰值日 3 晚）&quot;,
+     &quot;启用&quot;,
+     &quot;关闭尾房特惠 / 团購 / 批发商&quot;,
+     &quot;不超售&quot;
+    ],
+    [
+     &quot;90 – 95%&quot;,
+     &quot;2 晚&quot;,
+     &quot;仅 D1 日启用&quot;,
+     &quot;关闭尾房特惠&quot;,
+     &quot;≤ 2 间&quot;
+    ],
+    [
+     &quot;85 – 90%&quot;,
+     &quot;1–2 晚（周末 2 晚）&quot;,
+     &quot;否&quot;,
+     &quot;保留&quot;,
+     &quot;按表 E&quot;
+    ],
+    [
+     &quot;70 – 85%&quot;,
+     &quot;1 晚&quot;,
+     &quot;否&quot;,
+     &quot;全开&quot;,
+     &quot;按表 E&quot;
+    ],
+    [
+     &quot;&lt; 70%&quot;,
+     &quot;不设限&quot;,
+     &quot;否&quot;,
+     &quot;全开 + 上促销&quot;,
+     &quot;不超售&quot;
+    ]
+   ]
+  }
+ ]
+}</pre>
+  </div>
 </div>
-<div class="rule">
-  <div class="when">② 当 涨幅现实，但无法限定降价对象</div>
-  <div class="dec">决策：不降或慎用</div>
-  <div>动作：避免全量降价。</div>
-  <div class="mut">依据：全量降价会拉低已愿意付高价的客源价格，得不偿失。</div>
-</div>
-<div class="rule">
-  <div class="when">③ 当 涨幅现实，且能用栅栏只降给新增客源</div>
-  <div class="dec">决策：降，但要设栅栏</div>
-  <div>动作：提前预订 / 不可取消 / 限定渠道或房型，分隔新老客源价格。</div>
-  <div class="mut">依据：只让新增价格敏感客享受低价，保护原有高价客。</div>
-</div>
-<div class="rule">
-  <div class="when">④ 当 降价后出租率涨幅 &lt; 打平所需涨幅</div>
-  <div class="dec">决策：不降</div>
-  <div>动作：重新评估，或仅小幅限渠道降价。</div>
-  <div class="mut">依据：未达打平点即亏。</div>
+
+<div class="jt-block" id="jt-C">
+  <div class="jt-head">
+    <span class="badge-codex">表 C</span>
+    <h2>价格指数（ARI）判定表</h2>
+    <span class="pill pill-navy">竞争</span>
+  </div>
+  <p class="jt-desc">ARI = 本店 ADR ÷ 竞争组合加权 ADR × 100。回答一个问题：我卖得比隔壁贵还是便宜？ 云璟酒店竞争组合加权均价 ¥680，本店平峰 BAR 也是 ¥680，所以基准 ARI ≈ 100。</p>
+  <p class="sub"><b>触发：</b>评估本店价格相对竞争组合高低时　|　<b>决策逻辑：</b>按 ARI 七档判定，偏高/偏低则调价；不得与表 A 叠加（同日只执行优先级更高者，表 A 优先级 3 &gt; 表 C 优先级 4）。</p>
+  <table class="jt-tbl"><thead><tr><th>ARI</th><th>判定</th><th>动作</th></tr></thead><tbody><tr><td>&gt; 120</td><td>严重偏高</td><td>MPI &lt; 95 → ↓8%；MPI ≥ 95 → 维持并每日盯 Pickup</td></tr><tr><td>110 – 120</td><td>偏高</td><td>RGI &lt; 100 → ↓5%；RGI ≥ 100 → 维持</td></tr><tr><td>103 – 110</td><td>略高</td><td>维持，观察 Pickup</td></tr><tr><td>97 – 103</td><td>健康</td><td>维持</td></tr><tr><td>90 – 97</td><td>略低</td><td>预测 OCC ≥ 80% → ↑3%；否则维持</td></tr><tr><td>80 – 90</td><td>偏低</td><td>↑5%</td></tr><tr><td>&lt; 80</td><td>严重偏低</td><td>↑8%，并核查房型配置与含早策略</td></tr></tbody></table>
+  
+  <p class="meta-rel">关联：JT-D、JT-O　·　置信度：高　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-C&quot;,
+ &quot;code&quot;: &quot;表 C&quot;,
+ &quot;title&quot;: &quot;价格指数（ARI）判定表&quot;,
+ &quot;domain&quot;: &quot;竞争&quot;,
+ &quot;category&quot;: &quot;compete&quot;,
+ &quot;tags&quot;: [
+  &quot;ARI&quot;,
+  &quot;价格指数&quot;,
+  &quot;竞争&quot;,
+  &quot;比价&quot;
+ ],
+ &quot;trigger&quot;: &quot;评估本店价格相对竞争组合高低时&quot;,
+ &quot;preconditions&quot;: &quot;已知本店 ADR 与竞争组合加权 ADR&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;ari&quot;,
+   &quot;desc&quot;: &quot;ARI = 本店ADR ÷ 竞争组合加权ADR × 100&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: 92
+  }
+ ],
+ &quot;derived&quot;: [
+  {
+   &quot;name&quot;: &quot;ari&quot;,
+   &quot;formula&quot;: &quot;本店ADR/竞争组合加权ADR×100&quot;,
+   &quot;desc&quot;: &quot;价格指数&quot;,
+   &quot;example&quot;: 92
+  }
+ ],
+ &quot;decision_logic&quot;: &quot;按 ARI 七档判定，偏高/偏低则调价；不得与表 A 叠加（同日只执行优先级更高者，表 A 优先级 3 &gt; 表 C 优先级 4）。&quot;,
+ &quot;basis&quot;: &quot;ARI=本店ADR÷竞争组合加权ADR×100；比价须五同：同入住日、同房型、同含早、同取消政策、同提前天数。&quot;,
+ &quot;pitfalls&quot;: &quot;ARI 调整每次≤8%、每周≤2 次；不得与表 A 结论叠加；五同比价否则算废数。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;ari&quot;
+ ],
+ &quot;confidence&quot;: &quot;高&quot;,
+ &quot;related&quot;: [
+  &quot;JT-D&quot;,
+  &quot;JT-O&quot;
+ ],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;ARI 七档判定与动作&quot;,
+   &quot;headers&quot;: [
+    &quot;ARI&quot;,
+    &quot;判定&quot;,
+    &quot;动作&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;&gt; 120&quot;,
+     &quot;严重偏高&quot;,
+     &quot;MPI &lt; 95 → ↓8%；MPI ≥ 95 → 维持并每日盯 Pickup&quot;
+    ],
+    [
+     &quot;110 – 120&quot;,
+     &quot;偏高&quot;,
+     &quot;RGI &lt; 100 → ↓5%；RGI ≥ 100 → 维持&quot;
+    ],
+    [
+     &quot;103 – 110&quot;,
+     &quot;略高&quot;,
+     &quot;维持，观察 Pickup&quot;
+    ],
+    [
+     &quot;97 – 103&quot;,
+     &quot;健康&quot;,
+     &quot;维持&quot;
+    ],
+    [
+     &quot;90 – 97&quot;,
+     &quot;略低&quot;,
+     &quot;预测 OCC ≥ 80% → ↑3%；否则维持&quot;
+    ],
+    [
+     &quot;80 – 90&quot;,
+     &quot;偏低&quot;,
+     &quot;↑5%&quot;
+    ],
+    [
+     &quot;&lt; 80&quot;,
+     &quot;严重偏低&quot;,
+     &quot;↑8%，并核查房型配置与含早策略&quot;
+    ]
+   ]
+  }
+ ]
+}</pre>
+  </div>
 </div>
 
-<p><b>依据公式：</b><code>收入变动 = (1+出租率变动%) × (1+房价变动%) − 1</code>；打平条件：<code>出租率涨幅 &gt; 降价幅度 ÷ (1−降价幅度)</code>。<br>
-<b>常见坑：</b>分母用错（OCC/RevPAR 分母是「可售房晚」，ADR 是「已售房晚」）会导致整张表查错一格；只看 OCC 不看 GOPPAR 会误判成功。<br>
-<b>需喂数据：</b>拟降价幅度% · 当前出租率% · 历史需求弹性或可达涨幅估算 · 可售房晚口径。</p>
+<div class="jt-block" id="jt-D">
+  <div class="jt-head">
+    <span class="badge-codex">表 D</span>
+    <h2>市场渗透指数（MPI）判定表</h2>
+    <span class="pill pill-navy">竞争</span>
+  </div>
+  <p class="jt-desc">MPI = 本店 OCC ÷ 竞争组合 OCC × 100。回答一个问题：这条街的客人，我抢到了我该抢的份额吗？ MPI &gt; 100 说明份额领先。</p>
+  <p class="sub"><b>触发：</b>评估本店市场份额是否达标时　|　<b>决策逻辑：</b>按 MPI 五档判定份额；偏诊断少出动作（表 O 优先级最低 6）；与 ARI 配合做三角诊断（MPI×ARI=RGI）。</p>
+  <table class="jt-tbl"><thead><tr><th>MPI</th><th>判定</th><th>动作</th></tr></thead><tbody><tr><td>&gt; 110</td><td>份额领先</td><td>优先提价（走表 C 的提价分支）</td></tr><tr><td>100 – 110</td><td>健康</td><td>维持</td></tr><tr><td>95 – 100</td><td>略弱</td><td>检查 OTA 曝光 / 挂牌 / 点评分；补挂牌</td></tr><tr><td>85 – 95</td><td>落后</td><td>↓5% 或增加 OTA 广告投放</td></tr><tr><td>&lt; 85</td><td>严重落后</td><td>启动《应急方案 L2-E1》：↓10% + 全员直销动员 + 48 小时复盘</td></tr></tbody></table>
+<table class="jt-tbl"><thead><tr><th>情形</th><th>含义</th><th>处方</th></tr></thead><tbody><tr><td>MPI 高 + ARI 高</td><td>卖得又多又贵</td><td>还能再提，试探性 ↑3–5%</td></tr><tr><td>MPI 高 + ARI 低</td><td>靠低价换量</td><td>提价，份额已稳，该收割了</td></tr><tr><td>MPI 低 + ARI 高</td><td>太贵卖不动</td><td>降价或加价值（含早/升级）</td></tr><tr><td>MPI 低 + ARI 低</td><td>又贵不起又卖不动</td><td>产品/口碑出问题，先查点评和渠道曝光</td></tr></tbody></table>
+  <div class="callout callout-gold"><span class='co-t'>三角诊断法：MPI × ARI = RGI</span><div>单独看 MPI 或 ARI 都会误判，两个一起看才能下诊断： 情形含义处方 MPI 高 + ARI 高卖得又多又贵还能再提，试探性 ↑3–5% MPI 高 + ARI 低靠低价换量提价，份额已稳，该收割了 MPI 低 + ARI 高太贵卖不动降价或加价值（含早/升级） MPI 低 + ARI 低又贵不起又卖不动产品/口碑出问题，先查点评和渠道曝光</div></div>
+  <p class="meta-rel">关联：JT-C、JT-O　·　置信度：高　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-D&quot;,
+ &quot;code&quot;: &quot;表 D&quot;,
+ &quot;title&quot;: &quot;市场渗透指数（MPI）判定表&quot;,
+ &quot;domain&quot;: &quot;竞争&quot;,
+ &quot;category&quot;: &quot;compete&quot;,
+ &quot;tags&quot;: [
+  &quot;MPI&quot;,
+  &quot;市场渗透&quot;,
+  &quot;份额&quot;,
+  &quot;三角诊断&quot;
+ ],
+ &quot;trigger&quot;: &quot;评估本店市场份额是否达标时&quot;,
+ &quot;preconditions&quot;: &quot;已知本店 OCC 与竞争组合 OCC&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;mpi&quot;,
+   &quot;desc&quot;: &quot;MPI = 本店OCC ÷ 竞争组合OCC × 100&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: 98
+  }
+ ],
+ &quot;derived&quot;: [
+  {
+   &quot;name&quot;: &quot;mpi&quot;,
+   &quot;formula&quot;: &quot;本店OCC/竞争组合OCC×100&quot;,
+   &quot;desc&quot;: &quot;市场渗透指数&quot;,
+   &quot;example&quot;: 98
+  }
+ ],
+ &quot;decision_logic&quot;: &quot;按 MPI 五档判定份额；偏诊断少出动作（表 O 优先级最低 6）；与 ARI 配合做三角诊断（MPI×ARI=RGI）。&quot;,
+ &quot;basis&quot;: &quot;MPI=本店OCC÷竞争组合OCC×100；三角诊断：MPI高+ARI高=还能提；MPI高+ARI低=该收割提价；MPI低+ARI高=太贵卖不动；MPI低+ARI低=产品/口碑问题。&quot;,
+ &quot;pitfalls&quot;: &quot;单独看 MPI 或 ARI 都会误判，需三角诊断一起看。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;mpi&quot;
+ ],
+ &quot;confidence&quot;: &quot;高&quot;,
+ &quot;related&quot;: [
+  &quot;JT-C&quot;,
+  &quot;JT-O&quot;
+ ],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;MPI 五档判定与动作&quot;,
+   &quot;headers&quot;: [
+    &quot;MPI&quot;,
+    &quot;判定&quot;,
+    &quot;动作&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;&gt; 110&quot;,
+     &quot;份额领先&quot;,
+     &quot;优先提价（走表 C 的提价分支）&quot;
+    ],
+    [
+     &quot;100 – 110&quot;,
+     &quot;健康&quot;,
+     &quot;维持&quot;
+    ],
+    [
+     &quot;95 – 100&quot;,
+     &quot;略弱&quot;,
+     &quot;检查 OTA 曝光 / 挂牌 / 点评分；补挂牌&quot;
+    ],
+    [
+     &quot;85 – 95&quot;,
+     &quot;落后&quot;,
+     &quot;↓5% 或增加 OTA 广告投放&quot;
+    ],
+    [
+     &quot;&lt; 85&quot;,
+     &quot;严重落后&quot;,
+     &quot;启动《应急方案 L2-E1》：↓10% + 全员直销动员 + 48 小时复盘&quot;
+    ]
+   ]
+  },
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;&quot;,
+   &quot;headers&quot;: [
+    &quot;情形&quot;,
+    &quot;含义&quot;,
+    &quot;处方&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;MPI 高 + ARI 高&quot;,
+     &quot;卖得又多又贵&quot;,
+     &quot;还能再提，试探性 ↑3–5%&quot;
+    ],
+    [
+     &quot;MPI 高 + ARI 低&quot;,
+     &quot;靠低价换量&quot;,
+     &quot;提价，份额已稳，该收割了&quot;
+    ],
+    [
+     &quot;MPI 低 + ARI 高&quot;,
+     &quot;太贵卖不动&quot;,
+     &quot;降价或加价值（含早/升级）&quot;
+    ],
+    [
+     &quot;MPI 低 + ARI 低&quot;,
+     &quot;又贵不起又卖不动&quot;,
+     &quot;产品/口碑出问题，先查点评和渠道曝光&quot;
+    ]
+   ]
+  }
+ ]
+}</pre>
+  </div>
+</div>
 
-<h3 id="toc-4">机读视图 · JSON（引擎直接消费）</h3>
-<pre><code>{
-  "id": "JT-01",
-  "title": "降价前先算这一步",
-  "chapter": "第1章·认知与衡量",
-  "domain": "定价",
-  "tags": ["降价", "打平", "栅栏", "RevPAR"],
-  "trigger": "任何想用『降价冲量』来提升业绩的念头出现时",
-  "preconditions": "已知拟降价幅度、当前出租率、可用历史数据估算需求弹性",
+<div class="jt-block" id="jt-E">
+  <div class="jt-head">
+    <span class="badge-codex">表 E</span>
+    <h2>超额预订标准表</h2>
+    <span class="pill pill-navy">库存</span>
+  </div>
+  <p class="jt-desc">超售间数 = 可售房量 × 超售率（向下取整）。三步走：查基准率 → 乘修正系数 → 卡硬上限。</p>
+  <p class="sub"><b>触发：</b>表 B 判定可超售后，计算当日超售间数　|　<b>决策逻辑：</b>三步走：查基准率 → 乘修正系数 → 卡硬上限（≤5% 且 ≤15 间；步行 30min 内无同档备用酒店再减半）。</p>
+  <table class="jt-tbl"><thead><tr><th>No-show + 取消 合计</th><th>基准超售率</th></tr></thead><tbody><tr><td>&lt; 5%</td><td>0%</td></tr><tr><td>5 – 10%</td><td>2%</td></tr><tr><td>10 – 15%</td><td>3%</td></tr><tr><td>15 – 20%</td><td>5%</td></tr><tr><td>20 – 30%</td><td>7%</td></tr><tr><td>&gt; 30%</td><td>10%（需 L3 经理审批）</td></tr></tbody></table>
+  
+  <p class="meta-rel">关联：JT-B、JT-L　·　置信度：高　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-E&quot;,
+ &quot;code&quot;: &quot;表 E&quot;,
+ &quot;title&quot;: &quot;超额预订标准表&quot;,
+ &quot;domain&quot;: &quot;库存&quot;,
+ &quot;category&quot;: &quot;inventory&quot;,
+ &quot;tags&quot;: [
+  &quot;超售&quot;,
+  &quot;No-show&quot;,
+  &quot;硬上限&quot;,
+  &quot;步行预案&quot;
+ ],
+ &quot;trigger&quot;: &quot;表 B 判定可超售后，计算当日超售间数&quot;,
+ &quot;preconditions&quot;: &quot;已知近 30 天 No-show 率、24h 内取消率、可售房量&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;noshow_cancel_rate&quot;,
+   &quot;desc&quot;: &quot;No-show 率 + 24h 取消率 合计&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;%&quot;,
+   &quot;range&quot;: &quot;0-100&quot;,
+   &quot;example&quot;: 15
+  },
+  {
+   &quot;name&quot;: &quot;sellable_rooms&quot;,
+   &quot;desc&quot;: &quot;可售房量&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;间&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: 320
+  },
+  {
+   &quot;name&quot;: &quot;peak_flag&quot;,
+   &quot;desc&quot;: &quot;是否 D1 峰值日 / D2 高涨日&quot;,
+   &quot;type&quot;: &quot;bool&quot;,
+   &quot;unit&quot;: &quot;&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: true
+  },
+  {
+   &quot;name&quot;: &quot;guarantee_ratio&quot;,
+   &quot;desc&quot;: &quot;担保预订（预付/信用卡担保）占比&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;%&quot;,
+   &quot;range&quot;: &quot;0-100&quot;,
+   &quot;example&quot;: 45
+  },
+  {
+   &quot;name&quot;: &quot;group_ratio&quot;,
+   &quot;desc&quot;: &quot;会议团队占当日比&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;%&quot;,
+   &quot;range&quot;: &quot;0-100&quot;,
+   &quot;example&quot;: 0
+  },
+  {
+   &quot;name&quot;: &quot;agreement_ratio&quot;,
+   &quot;desc&quot;: &quot;协议客户集中度&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;%&quot;,
+   &quot;range&quot;: &quot;0-100&quot;,
+   &quot;example&quot;: 0
+  }
+ ],
+ &quot;derived&quot;: [
+  {
+   &quot;name&quot;: &quot;base_rate&quot;,
+   &quot;formula&quot;: &quot;按 No-show+取消 合计查基准率表&quot;,
+   &quot;desc&quot;: &quot;基准超售率&quot;,
+   &quot;example&quot;: &quot;3%&quot;
+  },
+  {
+   &quot;name&quot;: &quot;adjusted_rate&quot;,
+   &quot;formula&quot;: &quot;base_rate × 连乘修正系数&quot;,
+   &quot;desc&quot;: &quot;修正后超售率&quot;,
+   &quot;example&quot;: &quot;1.5%&quot;
+  },
+  {
+   &quot;name&quot;: &quot;oversell_rooms&quot;,
+   &quot;formula&quot;: &quot;floor(sellable_rooms × adjusted_rate)&quot;,
+   &quot;desc&quot;: &quot;超售间数（向下取整）&quot;,
+   &quot;example&quot;: 4
+  }
+ ],
+ &quot;decision_logic&quot;: &quot;三步走：查基准率 → 乘修正系数 → 卡硬上限（≤5% 且 ≤15 间；步行 30min 内无同档备用酒店再减半）。&quot;,
+ &quot;basis&quot;: &quot;超售间数=可售房量×超售率（向下取整）。演示：合计 15%→基准 3%；D1→×0.5=1.5%；320×1.5%=4.8→4 间；硬上限 4≤16 且 ≤15 通过。&quot;,
+ &quot;pitfalls&quot;: &quot;&gt;30% 基准率须 L3 审批；硬上限三条须同时满足；到店无房走表 L《步行客人预案》。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;noshow_cancel_rate&quot;,
+  &quot;sellable_rooms&quot;,
+  &quot;peak_flag&quot;,
+  &quot;guarantee_ratio&quot;,
+  &quot;group_ratio&quot;,
+  &quot;agreement_ratio&quot;
+ ],
+ &quot;confidence&quot;: &quot;高&quot;,
+ &quot;related&quot;: [
+  &quot;JT-B&quot;,
+  &quot;JT-L&quot;
+ ],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;按「近 30 天 No-show 率 + 24 小时内取消率」合计值查表&quot;,
+   &quot;headers&quot;: [
+    &quot;No-show + 取消 合计&quot;,
+    &quot;基准超售率&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;&lt; 5%&quot;,
+     &quot;0%&quot;
+    ],
+    [
+     &quot;5 – 10%&quot;,
+     &quot;2%&quot;
+    ],
+    [
+     &quot;10 – 15%&quot;,
+     &quot;3%&quot;
+    ],
+    [
+     &quot;15 – 20%&quot;,
+     &quot;5%&quot;
+    ],
+    [
+     &quot;20 – 30%&quot;,
+     &quot;7%&quot;
+    ],
+    [
+     &quot;&gt; 30%&quot;,
+     &quot;10%（需 L3 经理审批）&quot;
+    ]
+   ]
+  }
+ ]
+}</pre>
+  </div>
+</div>
+
+<div class="jt-block" id="jt-F">
+  <div class="jt-head">
+    <span class="badge-codex">表 F</span>
+    <h2>房型价差阶梯表</h2>
+    <span class="pill pill-navy">价格</span>
+  </div>
+  <p class="jt-desc">以高级房 BAR 为基准 100。设定一次，全房型价格自动生成。 云璟酒店平峰高级房 BAR = ¥680，则下表右侧为各房型平峰价。</p>
+  <p class="sub"><b>触发：</b>设定或每周校验全房型价格体系时　|　<b>决策逻辑：</b>以高级房 BAR 为基准 100，各房型按系数自动生成；每周一价差校验（相邻 &lt;8% 拉开，&gt;35% 收敛，套房与最高非套房差 &lt;60% 提）。</p>
+  <table class="jt-tbl"><thead><tr><th>房型</th><th>系数</th><th>平峰价</th><th>相对高级房差价</th><th>间数</th></tr></thead><tbody><tr><td>标准房 STD-K / STD-T</td><td>85</td><td>¥580</td><td>−¥100</td><td>120</td></tr><tr><td>高级房 SUP-K / SUP-T</td><td>100</td><td>¥680</td><td>基准</td><td>100</td></tr><tr><td>豪华房 DLX-K</td><td>120</td><td>¥820</td><td>+¥140</td><td>45</td></tr><tr><td>豪华江景房 DLX-V</td><td>140</td><td>¥960</td><td>+¥280</td><td>15</td></tr><tr><td>行政房 EXE-K / EXE-T</td><td>145</td><td>¥990</td><td>+¥310</td><td>30</td></tr><tr><td>商务套房 STE-B</td><td>180</td><td>¥1,280</td><td>+¥600</td><td>8</td></tr><tr><td>行政套房 STE-E</td><td>265</td><td>¥1,880</td><td>+¥1,200</td><td>2</td></tr></tbody></table>
+  
+  <p class="meta-rel">关联：（无）　·　置信度：中（依本店房型结构）　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-F&quot;,
+ &quot;code&quot;: &quot;表 F&quot;,
+ &quot;title&quot;: &quot;房型价差阶梯表&quot;,
+ &quot;domain&quot;: &quot;价格&quot;,
+ &quot;category&quot;: &quot;price&quot;,
+ &quot;tags&quot;: [
+  &quot;房型价差&quot;,
+  &quot;价格体系&quot;,
+  &quot;校验&quot;
+ ],
+ &quot;trigger&quot;: &quot;设定或每周校验全房型价格体系时&quot;,
+ &quot;preconditions&quot;: &quot;已知高级房 BAR（基准 100）&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;base_bar&quot;,
+   &quot;desc&quot;: &quot;高级房 BAR（基准 100）&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;元&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: 680
+  },
+  {
+   &quot;name&quot;: &quot;high_floor&quot;,
+   &quot;desc&quot;: &quot;高楼层附加&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;%&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: 5
+  },
+  {
+   &quot;name&quot;: &quot;view&quot;,
+   &quot;desc&quot;: &quot;江景/特色景观附加&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;%&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: 10
+  },
+  {
+   &quot;name&quot;: &quot;breakfast&quot;,
+   &quot;desc&quot;: &quot;含早附加&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;元/人&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: 68
+  }
+ ],
+ &quot;derived&quot;: [
+  {
+   &quot;name&quot;: &quot;room_price&quot;,
+   &quot;formula&quot;: &quot;base_bar × 系数 + 附加项&quot;,
+   &quot;desc&quot;: &quot;各房型平峰价&quot;,
+   &quot;example&quot;: &quot;豪华房 680×1.20=820&quot;
+  }
+ ],
+ &quot;decision_logic&quot;: &quot;以高级房 BAR 为基准 100，各房型按系数自动生成；每周一价差校验（相邻 &lt;8% 拉开，&gt;35% 收敛，套房与最高非套房差 &lt;60% 提）。&quot;,
+ &quot;basis&quot;: &quot;房型价差系数：标准 85 / 高级 100 / 豪华 120 / 江景 140 / 行政 145 / 商务套 180 / 行政套 265。云璟平峰高级房 BAR=¥680。&quot;,
+ &quot;pitfalls&quot;: &quot;相邻价差 &lt;8% 白送利润（客人直接买贵的）；&gt;35% 中间档卖不动；套房是利润品不能贱卖；大床/双床同价（除非面积或景观确有差）。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;base_bar&quot;,
+  &quot;high_floor&quot;,
+  &quot;view&quot;,
+  &quot;breakfast&quot;
+ ],
+ &quot;confidence&quot;: &quot;中（依本店房型结构）&quot;,
+ &quot;related&quot;: [],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;房型价差系数与平峰价（基准 BAR ¥680）&quot;,
+   &quot;headers&quot;: [
+    &quot;房型&quot;,
+    &quot;系数&quot;,
+    &quot;平峰价&quot;,
+    &quot;相对高级房差价&quot;,
+    &quot;间数&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;标准房 STD-K / STD-T&quot;,
+     &quot;85&quot;,
+     &quot;¥580&quot;,
+     &quot;−¥100&quot;,
+     &quot;120&quot;
+    ],
+    [
+     &quot;高级房 SUP-K / SUP-T&quot;,
+     &quot;100&quot;,
+     &quot;¥680&quot;,
+     &quot;基准&quot;,
+     &quot;100&quot;
+    ],
+    [
+     &quot;豪华房 DLX-K&quot;,
+     &quot;120&quot;,
+     &quot;¥820&quot;,
+     &quot;+¥140&quot;,
+     &quot;45&quot;
+    ],
+    [
+     &quot;豪华江景房 DLX-V&quot;,
+     &quot;140&quot;,
+     &quot;¥960&quot;,
+     &quot;+¥280&quot;,
+     &quot;15&quot;
+    ],
+    [
+     &quot;行政房 EXE-K / EXE-T&quot;,
+     &quot;145&quot;,
+     &quot;¥990&quot;,
+     &quot;+¥310&quot;,
+     &quot;30&quot;
+    ],
+    [
+     &quot;商务套房 STE-B&quot;,
+     &quot;180&quot;,
+     &quot;¥1,280&quot;,
+     &quot;+¥600&quot;,
+     &quot;8&quot;
+    ],
+    [
+     &quot;行政套房 STE-E&quot;,
+     &quot;265&quot;,
+     &quot;¥1,880&quot;,
+     &quot;+¥1,200&quot;,
+     &quot;2&quot;
+    ]
+   ]
+  }
+ ]
+}</pre>
+  </div>
+</div>
+
+<div class="jt-block" id="jt-G">
+  <div class="jt-head">
+    <span class="badge-codex">表 G</span>
+    <h2>团队／协议询价接受判定表</h2>
+    <span class="pill pill-navy">客户</span>
+  </div>
+  <p class="jt-desc">销售拿来一个团队价，接不接？不要凭感觉，查这张表。 两个输入：① 比率 R = 团队报价 ÷ 该日预期散客 ADR；② 该日预测 OCC。</p>
+  <p class="sub"><b>触发：</b>销售提交团队/协议询价，判断是否接受　|　<b>决策逻辑：</b>行=比率 R、列=预测 OCC，查矩阵得接受/上报 L3/拒绝；全服务酒店会议团队算综合贡献可破例。</p>
+  <table class="jt-mat"><thead><tr><th>行＝比率 R 列＝预测 OCC 单元格＝决策</th><th>&lt; 70%</th><th>70 – 85%</th><th>&gt; 85%</th></tr></thead><tbody><tr><th class="rowh">R ≥ 85%</th><td>接受</td><td>接受</td><td>接受（≤10 间）</td></tr><tr><th class="rowh">75% ≤ R &lt; 85%</th><td>接受</td><td>接受（≤20 间）</td><td>上报 L3</td></tr><tr><th class="rowh">65% ≤ R &lt; 75%</th><td>接受（≤30 间）</td><td>上报 L3</td><td>拒绝</td></tr><tr><th class="rowh">55% ≤ R &lt; 65%</th><td>上报 L3</td><td>拒绝</td><td>拒绝</td></tr><tr><th class="rowh">R &lt; 55%</th><td>拒绝</td><td>拒绝</td><td>拒绝</td></tr></tbody></table>
+  
+  <p class="meta-rel">关联：JT-K　·　置信度：高　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-G&quot;,
+ &quot;code&quot;: &quot;表 G&quot;,
+ &quot;title&quot;: &quot;团队／协议询价接受判定表&quot;,
+ &quot;domain&quot;: &quot;客户&quot;,
+ &quot;category&quot;: &quot;customer&quot;,
+ &quot;tags&quot;: [
+  &quot;团队&quot;,
+  &quot;协议&quot;,
+  &quot;询价&quot;,
+  &quot;置换成本&quot;,
+  &quot;综合贡献&quot;
+ ],
+ &quot;trigger&quot;: &quot;销售提交团队/协议询价，判断是否接受&quot;,
+ &quot;preconditions&quot;: &quot;已知团队报价、该日预期散客 ADR、该日预测 OCC&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;ratio_r&quot;,
+   &quot;desc&quot;: &quot;R = 团队报价 ÷ 该日预期散客 ADR&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;%&quot;,
+   &quot;range&quot;: &quot;0-100&quot;,
+   &quot;example&quot;: 80
+  },
+  {
+   &quot;name&quot;: &quot;occ_forecast&quot;,
+   &quot;desc&quot;: &quot;该日预测出租率&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;%&quot;,
+   &quot;range&quot;: &quot;0-100&quot;,
+   &quot;example&quot;: 80
+  }
+ ],
+ &quot;derived&quot;: [
+  {
+   &quot;name&quot;: &quot;decision&quot;,
+   &quot;formula&quot;: &quot;查矩阵：行=R 区间, 列=OCC 区间&quot;,
+   &quot;desc&quot;: &quot;接受/上报L3/拒绝&quot;,
+   &quot;example&quot;: &quot;接受&quot;
+  }
+ ],
+ &quot;decision_logic&quot;: &quot;行=比率 R、列=预测 OCC，查矩阵得接受/上报 L3/拒绝；全服务酒店会议团队算综合贡献可破例。&quot;,
+ &quot;basis&quot;: &quot;置换成本=被挤占房晚×(预期散客ADR−团队价)+被挤占餐饮/其他边际收益；团队收入&gt;置换成本则接。综合贡献≥占用房晚×预期散客ADR×85% 可破例（须 L3 审批）。&quot;,
+ &quot;pitfalls&quot;: &quot;不凭感觉查表；全服务酒店会议团队看综合贡献而非仅 R；R&lt;55% 但综合贡献达标且 L3 审批可接。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;ratio_r&quot;,
+  &quot;occ_forecast&quot;
+ ],
+ &quot;confidence&quot;: &quot;高&quot;,
+ &quot;related&quot;: [
+  &quot;JT-K&quot;
+ ],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;matrix&quot;,
+   &quot;caption&quot;: &quot;行＝比率 R 列＝预测 OCC 单元格＝决策&quot;,
+   &quot;cols&quot;: [
+    &quot;&lt; 70%&quot;,
+    &quot;70 – 85%&quot;,
+    &quot;&gt; 85%&quot;
+   ],
+   &quot;rows&quot;: [
+    {
+     &quot;label&quot;: &quot;R ≥ 85%&quot;,
+     &quot;cells&quot;: [
+      &quot;接受&quot;,
+      &quot;接受&quot;,
+      &quot;接受（≤10 间）&quot;
+     ]
+    },
+    {
+     &quot;label&quot;: &quot;75% ≤ R &lt; 85%&quot;,
+     &quot;cells&quot;: [
+      &quot;接受&quot;,
+      &quot;接受（≤20 间）&quot;,
+      &quot;上报 L3&quot;
+     ]
+    },
+    {
+     &quot;label&quot;: &quot;65% ≤ R &lt; 75%&quot;,
+     &quot;cells&quot;: [
+      &quot;接受（≤30 间）&quot;,
+      &quot;上报 L3&quot;,
+      &quot;拒绝&quot;
+     ]
+    },
+    {
+     &quot;label&quot;: &quot;55% ≤ R &lt; 65%&quot;,
+     &quot;cells&quot;: [
+      &quot;上报 L3&quot;,
+      &quot;拒绝&quot;,
+      &quot;拒绝&quot;
+     ]
+    },
+    {
+     &quot;label&quot;: &quot;R &lt; 55%&quot;,
+     &quot;cells&quot;: [
+      &quot;拒绝&quot;,
+      &quot;拒绝&quot;,
+      &quot;拒绝&quot;
+     ]
+    }
+   ]
+  }
+ ]
+}</pre>
+  </div>
+</div>
+
+<div class="jt-block" id="jt-H">
+  <div class="jt-head">
+    <span class="badge-codex">表 H</span>
+    <h2>渠道开关判定表</h2>
+    <span class="pill pill-navy">渠道</span>
+  </div>
+  <p class="jt-desc">按目标日预测 OCC 决定各渠道的开关状态。核心原则：房好卖的时候关掉贵渠道，房难卖的时候全开。</p>
+  <p class="sub"><b>触发：</b>按目标日预测 OCC 决定各渠道开关状态　|　<b>决策逻辑：</b>房好卖关贵渠道、难卖全开；各渠道按 OCC 档位定开关；用 NRevPAR 看渠道净收益。</p>
+  <table class="jt-tbl"><thead><tr><th>预测 OCC</th><th>OTA 国内</th><th>OTA 国际</th><th>GDS / TMC</th><th>批发商 / 包房</th><th>直销 / 会员</th></tr></thead><tbody><tr><td>≥ 95%</td><td>仅留 1 家产量最高</td><td>关</td><td>关</td><td>关</td><td>全开 + 会员专享价</td></tr><tr><td>90 – 95%</td><td>开 2 家</td><td>关</td><td>开</td><td>关</td><td>全开</td></tr><tr><td>85 – 90%</td><td>开 3 家</td><td>开 1 家</td><td>开</td><td>关</td><td>全开</td></tr><tr><td>70 – 85%</td><td>全开</td><td>全开</td><td>开</td><td>限价开（≤BAR×75%）</td><td>全开 + 早鸟</td></tr><tr><td>55 – 70%</td><td>全开 + 促销</td><td>全开</td><td>开</td><td>开</td><td>全开 + 闪购/套餐</td></tr><tr><td>&lt; 55%</td><td>全开 + 深折</td><td>全开</td><td>开 + 商务套餐</td><td>开 + 打包产品</td><td>全开 + 长住/团購</td></tr></tbody></table>
+<table class="jt-tbl"><thead><tr><th>渠道</th><th>综合成本率</th><th>说明</th></tr></thead><tbody><tr><td>直销（官网/小程序/前台）</td><td>3%</td><td>支付 + 系统</td></tr><tr><td>会员直订</td><td>4%</td><td>含积分成本</td></tr><tr><td>协议公司</td><td>8%</td><td>含返佣、账期成本</td></tr><tr><td>GDS / 商旅 TMC</td><td>13%</td><td></td></tr><tr><td>OTA 国内（携程/美团/飞猪）</td><td>16%</td><td></td></tr><tr><td>OTA 国际（Booking/Agoda）</td><td>18%</td><td></td></tr><tr><td>批发商 / 包房商</td><td>26%</td><td>成本最高，房好卖时第一个关</td></tr></tbody></table>
+  
+  <p class="meta-rel">关联：JT-O　·　置信度：高　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-H&quot;,
+ &quot;code&quot;: &quot;表 H&quot;,
+ &quot;title&quot;: &quot;渠道开关判定表&quot;,
+ &quot;domain&quot;: &quot;渠道&quot;,
+ &quot;category&quot;: &quot;channel&quot;,
+ &quot;tags&quot;: [
+  &quot;渠道&quot;,
+  &quot;OTA&quot;,
+  &quot;价格一致性&quot;,
+  &quot;NRevPAR&quot;,
+  &quot;StopSell&quot;
+ ],
+ &quot;trigger&quot;: &quot;按目标日预测 OCC 决定各渠道开关状态&quot;,
+ &quot;preconditions&quot;: &quot;已知目标日预测 OCC、各渠道综合成本率&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;occ_forecast&quot;,
+   &quot;desc&quot;: &quot;目标日预测出租率&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;%&quot;,
+   &quot;range&quot;: &quot;0-100&quot;,
+   &quot;example&quot;: 95
+  }
+ ],
+ &quot;derived&quot;: [
+  {
+   &quot;name&quot;: &quot;nrevpar&quot;,
+   &quot;formula&quot;: &quot;RevPAR × (1 − 渠道综合成本率)&quot;,
+   &quot;desc&quot;: &quot;净 RevPAR&quot;,
+   &quot;example&quot;: &quot;直销 530×0.97=514 &gt; OTA 600×0.84=504&quot;
+  }
+ ],
+ &quot;decision_logic&quot;: &quot;房好卖关贵渠道、难卖全开；各渠道按 OCC 档位定开关；用 NRevPAR 看渠道净收益。&quot;,
+ &quot;basis&quot;: &quot;NRevPAR=RevPAR×(1−渠道综合成本率)。成本率：直销 3%/会员 4%/协议 8%/GDS 13%/OTA 国内 16%/OTA 国际 18%/批发 26%（最高，房好卖第一个关）。&quot;,
+ &quot;pitfalls&quot;: &quot;价格一致性四条红线：直销价不得高于任一 OTA；会员价仅登录会员可见；批发/包房价为净价不公开；违反应 24h 内整改并记入考核。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;occ_forecast&quot;
+ ],
+ &quot;confidence&quot;: &quot;高&quot;,
+ &quot;related&quot;: [
+  &quot;JT-O&quot;
+ ],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;渠道开关矩阵&quot;,
+   &quot;headers&quot;: [
+    &quot;预测 OCC&quot;,
+    &quot;OTA 国内&quot;,
+    &quot;OTA 国际&quot;,
+    &quot;GDS / TMC&quot;,
+    &quot;批发商 / 包房&quot;,
+    &quot;直销 / 会员&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;≥ 95%&quot;,
+     &quot;仅留 1 家产量最高&quot;,
+     &quot;关&quot;,
+     &quot;关&quot;,
+     &quot;关&quot;,
+     &quot;全开 + 会员专享价&quot;
+    ],
+    [
+     &quot;90 – 95%&quot;,
+     &quot;开 2 家&quot;,
+     &quot;关&quot;,
+     &quot;开&quot;,
+     &quot;关&quot;,
+     &quot;全开&quot;
+    ],
+    [
+     &quot;85 – 90%&quot;,
+     &quot;开 3 家&quot;,
+     &quot;开 1 家&quot;,
+     &quot;开&quot;,
+     &quot;关&quot;,
+     &quot;全开&quot;
+    ],
+    [
+     &quot;70 – 85%&quot;,
+     &quot;全开&quot;,
+     &quot;全开&quot;,
+     &quot;开&quot;,
+     &quot;限价开（≤BAR×75%）&quot;,
+     &quot;全开 + 早鸟&quot;
+    ],
+    [
+     &quot;55 – 70%&quot;,
+     &quot;全开 + 促销&quot;,
+     &quot;全开&quot;,
+     &quot;开&quot;,
+     &quot;开&quot;,
+     &quot;全开 + 闪购/套餐&quot;
+    ],
+    [
+     &quot;&lt; 55%&quot;,
+     &quot;全开 + 深折&quot;,
+     &quot;全开&quot;,
+     &quot;开 + 商务套餐&quot;,
+     &quot;开 + 打包产品&quot;,
+     &quot;全开 + 长住/团購&quot;
+    ]
+   ]
+  },
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;&quot;,
+   &quot;headers&quot;: [
+    &quot;渠道&quot;,
+    &quot;综合成本率&quot;,
+    &quot;说明&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;直销（官网/小程序/前台）&quot;,
+     &quot;3%&quot;,
+     &quot;支付 + 系统&quot;
+    ],
+    [
+     &quot;会员直订&quot;,
+     &quot;4%&quot;,
+     &quot;含积分成本&quot;
+    ],
+    [
+     &quot;协议公司&quot;,
+     &quot;8%&quot;,
+     &quot;含返佣、账期成本&quot;
+    ],
+    [
+     &quot;GDS / 商旅 TMC&quot;,
+     &quot;13%&quot;,
+     &quot;&quot;
+    ],
+    [
+     &quot;OTA 国内（携程/美团/飞猪）&quot;,
+     &quot;16%&quot;,
+     &quot;&quot;
+    ],
+    [
+     &quot;OTA 国际（Booking/Agoda）&quot;,
+     &quot;18%&quot;,
+     &quot;&quot;
+    ],
+    [
+     &quot;批发商 / 包房商&quot;,
+     &quot;26%&quot;,
+     &quot;成本最高，房好卖时第一个关&quot;
+    ]
+   ]
+  }
+ ]
+}</pre>
+  </div>
+</div>
+
+<div class="jt-block" id="jt-I">
+  <div class="jt-head">
+    <span class="badge-codex">表 I</span>
+    <h2>预订窗口分档监控表</h2>
+    <span class="pill pill-navy">节奏</span>
+  </div>
+  <p class="jt-desc">不同提前天数的日期，监控频率和触发阈值都不一样。 越接近入住日，盯得越紧。这是&quot;看数&quot;这一步的具体执行标准。</p>
+  <p class="sub"><b>触发：</b>按提前天数分档监控预订进度　|　<b>决策逻辑：</b>六档窗口（0-3/4-7/8-14/15-30/31-60/&gt;60 天）各有监控频率/关注指标/落后触发阈值/触发动作；越接近入住日盯得越紧。</p>
+  <table class="jt-tbl"><thead><tr><th>窗口</th><th>监控频率</th><th>关注指标</th><th>落后触发阈值</th><th>触发动作</th></tr></thead><tbody><tr><td>0 – 3 天</td><td>每日 2 次（10:00 / 17:00）</td><td>当日 Pickup、临时取消</td><td>OCC &lt; 70%</td><td>上「今日特惠」尾房产品</td></tr><tr><td>4 – 7 天</td><td>每日 1 次</td><td>周内进度</td><td>落后 10%</td><td>启动 48h 闪购</td></tr><tr><td>8 – 14 天</td><td>每日 1 次</td><td>双周在手</td><td>落后 15%</td><td>执行表 A 调价</td></tr><tr><td>15 – 30 天</td><td>每周 2 次</td><td>月度在手</td><td>落后 20%</td><td>策略复盘 + 销售动员</td></tr><tr><td>31 – 60 天</td><td>每周 1 次</td><td>长线在手</td><td>落后 25%</td><td>启动协议客户拜访计划</td></tr><tr><td>&gt; 60 天</td><td>每月 1 次</td><td>大型团队 / 会议在手</td><td>落后 30%</td><td>上报 L3，调整年度策略</td></tr></tbody></table>
+  
+  <p class="meta-rel">关联：（无）　·　置信度：高　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-I&quot;,
+ &quot;code&quot;: &quot;表 I&quot;,
+ &quot;title&quot;: &quot;预订窗口分档监控表&quot;,
+ &quot;domain&quot;: &quot;节奏&quot;,
+ &quot;category&quot;: &quot;rhythm&quot;,
+ &quot;tags&quot;: [
+  &quot;预订窗口&quot;,
+  &quot;Pickup&quot;,
+  &quot;监控&quot;,
+  &quot;提前天数&quot;
+ ],
+ &quot;trigger&quot;: &quot;按提前天数分档监控预订进度&quot;,
+ &quot;preconditions&quot;: &quot;已知日期距入住日的提前天数&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;lead_days&quot;,
+   &quot;desc&quot;: &quot;提前天数（距入住日）&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;天&quot;,
+   &quot;range&quot;: &quot;0-365&quot;,
+   &quot;example&quot;: 8
+  }
+ ],
+ &quot;derived&quot;: [],
+ &quot;decision_logic&quot;: &quot;六档窗口（0-3/4-7/8-14/15-30/31-60/&gt;60 天）各有监控频率/关注指标/落后触发阈值/触发动作；越接近入住日盯得越紧。&quot;,
+ &quot;basis&quot;: &quot;真正赚钱的决策在 15-60 天窗口就做完了；等到只剩 3 天才发现没房只能降价，利润已没。&quot;,
+ &quot;pitfalls&quot;: &quot;只盯近期不盯远期；每天至少花 10 分钟看 15 天以后的在手量。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;lead_days&quot;
+ ],
+ &quot;confidence&quot;: &quot;高&quot;,
+ &quot;related&quot;: [],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;六档预订窗口&quot;,
+   &quot;headers&quot;: [
+    &quot;窗口&quot;,
+    &quot;监控频率&quot;,
+    &quot;关注指标&quot;,
+    &quot;落后触发阈值&quot;,
+    &quot;触发动作&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;0 – 3 天&quot;,
+     &quot;每日 2 次（10:00 / 17:00）&quot;,
+     &quot;当日 Pickup、临时取消&quot;,
+     &quot;OCC &lt; 70%&quot;,
+     &quot;上「今日特惠」尾房产品&quot;
+    ],
+    [
+     &quot;4 – 7 天&quot;,
+     &quot;每日 1 次&quot;,
+     &quot;周内进度&quot;,
+     &quot;落后 10%&quot;,
+     &quot;启动 48h 闪购&quot;
+    ],
+    [
+     &quot;8 – 14 天&quot;,
+     &quot;每日 1 次&quot;,
+     &quot;双周在手&quot;,
+     &quot;落后 15%&quot;,
+     &quot;执行表 A 调价&quot;
+    ],
+    [
+     &quot;15 – 30 天&quot;,
+     &quot;每周 2 次&quot;,
+     &quot;月度在手&quot;,
+     &quot;落后 20%&quot;,
+     &quot;策略复盘 + 销售动员&quot;
+    ],
+    [
+     &quot;31 – 60 天&quot;,
+     &quot;每周 1 次&quot;,
+     &quot;长线在手&quot;,
+     &quot;落后 25%&quot;,
+     &quot;启动协议客户拜访计划&quot;
+    ],
+    [
+     &quot;&gt; 60 天&quot;,
+     &quot;每月 1 次&quot;,
+     &quot;大型团队 / 会议在手&quot;,
+     &quot;落后 30%&quot;,
+     &quot;上报 L3，调整年度策略&quot;
+    ]
+   ]
+  }
+ ]
+}</pre>
+  </div>
+</div>
+
+<div class="jt-block" id="jt-J">
+  <div class="jt-head">
+    <span class="badge-codex">表 J</span>
+    <h2>免费升级规则表</h2>
+    <span class="pill pill-navy">库存</span>
+  </div>
+  <p class="jt-desc">三种触发场景：① 超售需要腾房；② 目标日高档房预测空置 &gt; 20%；③ 会员权益兑现。 升级是成本最低的满意度工具，但必须用规则管住，不能前台想升就升。</p>
+  <p class="sub"><b>触发：</b>超售腾房 / 目标日高档房空置&gt;20% / 会员权益兑现 三种场景需升级时　|　<b>决策逻辑：</b>严格按执行顺序排优先级：①忠诚等级 ②同档内预订价高者 ③同价住期长者 ④仍相同复购多者；每次最多升 1 档。</p>
+  <div class="steps"><div class="step-item"><span class="step-num">1</span> </div><div class="step-item"><span class="step-num">2</span> </div><div class="step-item"><span class="step-num">3</span> </div><div class="step-item"><span class="step-num">4</span> </div></div>
+  
+  <p class="meta-rel">关联：JT-E　·　置信度：高　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-J&quot;,
+ &quot;code&quot;: &quot;表 J&quot;,
+ &quot;title&quot;: &quot;免费升级规则表&quot;,
+ &quot;domain&quot;: &quot;库存&quot;,
+ &quot;category&quot;: &quot;inventory&quot;,
+ &quot;tags&quot;: [
+  &quot;升级&quot;,
+  &quot;会员&quot;,
+  &quot;优先级&quot;,
+  &quot;利润品&quot;
+ ],
+ &quot;trigger&quot;: &quot;超售腾房 / 目标日高档房空置&gt;20% / 会员权益兑现 三种场景需升级时&quot;,
+ &quot;preconditions&quot;: &quot;已知会员等级、预订价、住期、复购次数&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;trigger_scenario&quot;,
+   &quot;desc&quot;: &quot;触发场景（腾房/空置/权益）&quot;,
+   &quot;type&quot;: &quot;enum&quot;,
+   &quot;unit&quot;: &quot;&quot;,
+   &quot;range&quot;: &quot;腾房|空置|权益&quot;,
+   &quot;example&quot;: &quot;空置&quot;
+  },
+  {
+   &quot;name&quot;: &quot;member_level&quot;,
+   &quot;desc&quot;: &quot;忠诚会员等级&quot;,
+   &quot;type&quot;: &quot;enum&quot;,
+   &quot;unit&quot;: &quot;&quot;,
+   &quot;range&quot;: &quot;钻石|铂金|金卡|银卡&quot;,
+   &quot;example&quot;: &quot;金卡&quot;
+  },
+  {
+   &quot;name&quot;: &quot;booking_price&quot;,
+   &quot;desc&quot;: &quot;预订价（同档内高价优先）&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;元&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: 680
+  },
+  {
+   &quot;name&quot;: &quot;stay_nights&quot;,
+   &quot;desc&quot;: &quot;入住天数（同价长者优先）&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;晚&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: 5
+  },
+  {
+   &quot;name&quot;: &quot;repurchase_count&quot;,
+   &quot;desc&quot;: &quot;复购次数（仍相同老客优先）&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;次&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: 12
+  }
+ ],
+ &quot;derived&quot;: [],
+ &quot;decision_logic&quot;: &quot;严格按执行顺序排优先级：①忠诚等级 ②同档内预订价高者 ③同价住期长者 ④仍相同复购多者；每次最多升 1 档。&quot;,
+ &quot;basis&quot;: &quot;升级是成本最低的满意度工具，但必须用规则管住，不能前台想升就升。&quot;,
+ &quot;pitfalls&quot;: &quot;每次最多升 1 档，禁止连跳 2 档（除 L3 特批）；套房升级每日≤3 间且须 L3 审批；每次升级写入《升级台账》注明原因房号等级。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;trigger_scenario&quot;,
+  &quot;member_level&quot;,
+  &quot;booking_price&quot;,
+  &quot;stay_nights&quot;,
+  &quot;repurchase_count&quot;
+ ],
+ &quot;confidence&quot;: &quot;高&quot;,
+ &quot;related&quot;: [
+  &quot;JT-E&quot;
+ ],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;steps&quot;,
+   &quot;items&quot;: [
+    {
+     &quot;step&quot;: &quot;1&quot;,
+     &quot;text&quot;: &quot;&quot;
+    },
+    {
+     &quot;step&quot;: &quot;2&quot;,
+     &quot;text&quot;: &quot;&quot;
+    },
+    {
+     &quot;step&quot;: &quot;3&quot;,
+     &quot;text&quot;: &quot;&quot;
+    },
+    {
+     &quot;step&quot;: &quot;4&quot;,
+     &quot;text&quot;: &quot;&quot;
+    }
+   ]
+  }
+ ]
+}</pre>
+  </div>
+</div>
+
+<div class="jt-block" id="jt-K">
+  <div class="jt-head">
+    <span class="badge-codex">表 K</span>
+    <h2>会议／宴会综合收益联动表</h2>
+    <span class="pill pill-navy">客户</span>
+  </div>
+  <p class="jt-desc">全服务酒店最大的优势：客房亏的钱，可以从餐饮和会场赚回来。 会议团队的价值 = 客房收入 + 餐饮收入 + 会场租金 + 设备/其他。</p>
+  <p class="sub"><b>触发：</b>全服务酒店评估会议/宴会团队是否接受　|　<b>决策逻辑：</b>先问餐饮/宴会承接能力 → 再算综合贡献 → 最后才查表 G 看客房比率；按规模定接受底线。</p>
+  <table class="jt-tbl"><thead><tr><th>规模</th><th>客房需求</th><th>餐饮保底</th><th>接受底线（综合贡献）</th></tr></thead><tbody><tr><td>小型（≤ 30 人）</td><td>≤ 15 间夜</td><td>≥ ¥8,000</td><td>≥ 客房置换成本 × 1.1</td></tr><tr><td>中型（31 – 120 人）</td><td>16 – 60 间夜</td><td>≥ ¥30,000</td><td>≥ 客房置换成本 × 1.0</td></tr><tr><td>大型（121 – 300 人）</td><td>61 – 150 间夜</td><td>≥ ¥80,000</td><td>≥ 客房置换成本 × 0.95</td></tr><tr><td>超大型（&gt; 300 人）</td><td>&gt; 150 间夜</td><td>≥ ¥150,000</td><td>≥ 客房置换成本 × 0.9 + L3/业主审批</td></tr></tbody></table>
+  
+  <p class="meta-rel">关联：JT-G　·　置信度：中（全服务专属）　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-K&quot;,
+ &quot;code&quot;: &quot;表 K&quot;,
+ &quot;title&quot;: &quot;会议／宴会综合收益联动表&quot;,
+ &quot;domain&quot;: &quot;客户&quot;,
+ &quot;category&quot;: &quot;customer&quot;,
+ &quot;tags&quot;: [
+  &quot;会议&quot;,
+  &quot;宴会&quot;,
+  &quot;综合贡献&quot;,
+  &quot;餐饮&quot;,
+  &quot;置换&quot;
+ ],
+ &quot;trigger&quot;: &quot;全服务酒店评估会议/宴会团队是否接受&quot;,
+ &quot;preconditions&quot;: &quot;已知会议规模、客房需求、餐饮保底、客房置换成本&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;meeting_size&quot;,
+   &quot;desc&quot;: &quot;会议规模（人数）&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;人&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: 80
+  },
+  {
+   &quot;name&quot;: &quot;room_nights&quot;,
+   &quot;desc&quot;: &quot;客房需求（间夜）&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;间夜&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: 40
+  },
+  {
+   &quot;name&quot;: &quot;fnb_guarantee&quot;,
+   &quot;desc&quot;: &quot;餐饮保底营业额&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;元&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: 30000
+  },
+  {
+   &quot;name&quot;: &quot;room_displacement_cost&quot;,
+   &quot;desc&quot;: &quot;客房置换成本&quot;,
+   &quot;type&quot;: &quot;number&quot;,
+   &quot;unit&quot;: &quot;元&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: 20000
+  }
+ ],
+ &quot;derived&quot;: [
+  {
+   &quot;name&quot;: &quot;comprehensive_contribution&quot;,
+   &quot;formula&quot;: &quot;客房收入+餐饮收入+会场租金+设备/其他&quot;,
+   &quot;desc&quot;: &quot;综合贡献&quot;,
+   &quot;example&quot;: &quot;≥置换成本×1.0&quot;
+  }
+ ],
+ &quot;decision_logic&quot;: &quot;先问餐饮/宴会承接能力 → 再算综合贡献 → 最后才查表 G 看客房比率；按规模定接受底线。&quot;,
+ &quot;basis&quot;: &quot;综合贡献=客房收入+餐饮收入+会场租金+设备/其他；接受底线=综合贡献≥客房置换成本×系数（小 1.1/中 1.0/大 0.95/超大 0.9+L3 审批）。&quot;,
+ &quot;pitfalls&quot;: &quot;餐饮毛利率&lt;55% 的会议须 L3 审批；勿一上来就用表 G 拒会议，白白丢掉十几万餐饮收入。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;meeting_size&quot;,
+  &quot;room_nights&quot;,
+  &quot;fnb_guarantee&quot;,
+  &quot;room_displacement_cost&quot;
+ ],
+ &quot;confidence&quot;: &quot;中（全服务专属）&quot;,
+ &quot;related&quot;: [
+  &quot;JT-G&quot;
+ ],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;按会议规模的接受底线&quot;,
+   &quot;headers&quot;: [
+    &quot;规模&quot;,
+    &quot;客房需求&quot;,
+    &quot;餐饮保底&quot;,
+    &quot;接受底线（综合贡献）&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;小型（≤ 30 人）&quot;,
+     &quot;≤ 15 间夜&quot;,
+     &quot;≥ ¥8,000&quot;,
+     &quot;≥ 客房置换成本 × 1.1&quot;
+    ],
+    [
+     &quot;中型（31 – 120 人）&quot;,
+     &quot;16 – 60 间夜&quot;,
+     &quot;≥ ¥30,000&quot;,
+     &quot;≥ 客房置换成本 × 1.0&quot;
+    ],
+    [
+     &quot;大型（121 – 300 人）&quot;,
+     &quot;61 – 150 间夜&quot;,
+     &quot;≥ ¥80,000&quot;,
+     &quot;≥ 客房置换成本 × 0.95&quot;
+    ],
+    [
+     &quot;超大型（&gt; 300 人）&quot;,
+     &quot;&gt; 150 间夜&quot;,
+     &quot;≥ ¥150,000&quot;,
+     &quot;≥ 客房置换成本 × 0.9 + L3/业主审批&quot;
+    ]
+   ]
+  }
+ ]
+}</pre>
+  </div>
+</div>
+
+<div class="jt-block" id="jt-L">
+  <div class="jt-head">
+    <span class="badge-codex">表 L</span>
+    <h2>异常事件应急判定表</h2>
+    <span class="pill pill-navy">应急</span>
+  </div>
+  <p class="jt-desc">本表优先级为 1，覆盖其他所有表。一旦触发，立刻按本表执行，不用再查别的。</p>
+  <p class="sub"><b>触发：</b>发生五类异常事件之一（需求暴跌/暴涨/竞对新开/系统故障/超售过度）　|　<b>决策逻辑：</b>本表优先级 1 覆盖一切；按事件类型执行 2h 内动作/24h 动作/复盘；超售过度走《步行客人预案》四步。</p>
+  <table class="jt-tbl"><thead><tr><th>事件类型</th><th>判定信号</th><th>立即动作（2 小时内）</th><th>24 小时内</th><th>复盘</th></tr></thead><tbody><tr><td>需求暴跌（展会取消/恶劣天气/舆情）</td><td>48h Pickup 落后 &gt; 40%</td><td>↓15%、全开渠道、启动直销外呼</td><td>全员销售动员、上团購产品</td><td>事后 7 天复盘报告</td></tr><tr><td>需求暴涨（突发大型活动）</td><td>24h Pickup 领先 &gt; 60%</td><td>↑20%、设 MinLOS 2、关低价渠道</td><td>二次提价 10%、限制团队</td><td>事后复盘，留存为 D1 日历</td></tr><tr><td>竞对新开业</td><td>3km 内新增同档酒店</td><td>采集其价格加入比价表、评估 ARI</td><td>制定差异化策略（不盲目跟价）</td><td>月度跟踪 MPI 变化</td></tr><tr><td>系统故障（PMS/渠道断连）</td><td>渠道无订单 &gt; 2h</td><td>切手动模式、通知渠道经理</td><td>补录订单、核对库存</td><td>故障报告 + 预案更新</td></tr><tr><td>超售过度（到店无房）</td><td>到店无房</td><td>启动《步行客人预案》（见下）</td><td>赔偿结算、客人回访</td><td>重算表 E 参数</td></tr></tbody></table>
+<div class="steps"><div class="step-item"><span class="step-num">1</span> </div><div class="step-item"><span class="step-num">2</span> </div><div class="step-item"><span class="step-num">3</span> </div><div class="step-item"><span class="step-num">4</span> </div></div>
+  <div class="callout callout-danger"><span class='co-t'>《步行客人预案》标准补偿包（按序执行，不得跳步）</span><div>1安排同档或更高档酒店，承担房费差价 + 交通费</div></div>
+  <p class="meta-rel">关联：JT-E、JT-O　·　置信度：高（应急）　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-L&quot;,
+ &quot;code&quot;: &quot;表 L&quot;,
+ &quot;title&quot;: &quot;异常事件应急判定表&quot;,
+ &quot;domain&quot;: &quot;应急&quot;,
+ &quot;category&quot;: &quot;emergency&quot;,
+ &quot;tags&quot;: [
+  &quot;应急&quot;,
+  &quot;异常&quot;,
+  &quot;需求暴跌&quot;,
+  &quot;需求暴涨&quot;,
+  &quot;步行预案&quot;
+ ],
+ &quot;trigger&quot;: &quot;发生五类异常事件之一（需求暴跌/暴涨/竞对新开/系统故障/超售过度）&quot;,
+ &quot;preconditions&quot;: &quot;已知事件类型与判定信号&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;event_type&quot;,
+   &quot;desc&quot;: &quot;异常事件类型&quot;,
+   &quot;type&quot;: &quot;enum&quot;,
+   &quot;unit&quot;: &quot;&quot;,
+   &quot;range&quot;: &quot;需求暴跌|需求暴涨|竞对新开|系统故障|超售过度&quot;,
+   &quot;example&quot;: &quot;需求暴跌&quot;
+  }
+ ],
+ &quot;derived&quot;: [],
+ &quot;decision_logic&quot;: &quot;本表优先级 1 覆盖一切；按事件类型执行 2h 内动作/24h 动作/复盘；超售过度走《步行客人预案》四步。&quot;,
+ &quot;basis&quot;: &quot;五类异常事件标准应对；步行客人预案：①同档/更高档酒店+差价交通费 ②下次免费升 1 档+双早 ③会员额外 5000 积分 ④总经理签名致歉信+值班经理跟进。&quot;,
+ &quot;pitfalls&quot;: &quot;步行客人预案四步按序执行不得跳步；处理得当复购率高于普通客人，处理砸的一条差评长期损失远超一晚房费。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;event_type&quot;
+ ],
+ &quot;confidence&quot;: &quot;高（应急）&quot;,
+ &quot;related&quot;: [
+  &quot;JT-E&quot;,
+  &quot;JT-O&quot;
+ ],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;五类异常事件的标准应对&quot;,
+   &quot;headers&quot;: [
+    &quot;事件类型&quot;,
+    &quot;判定信号&quot;,
+    &quot;立即动作（2 小时内）&quot;,
+    &quot;24 小时内&quot;,
+    &quot;复盘&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;需求暴跌（展会取消/恶劣天气/舆情）&quot;,
+     &quot;48h Pickup 落后 &gt; 40%&quot;,
+     &quot;↓15%、全开渠道、启动直销外呼&quot;,
+     &quot;全员销售动员、上团購产品&quot;,
+     &quot;事后 7 天复盘报告&quot;
+    ],
+    [
+     &quot;需求暴涨（突发大型活动）&quot;,
+     &quot;24h Pickup 领先 &gt; 60%&quot;,
+     &quot;↑20%、设 MinLOS 2、关低价渠道&quot;,
+     &quot;二次提价 10%、限制团队&quot;,
+     &quot;事后复盘，留存为 D1 日历&quot;
+    ],
+    [
+     &quot;竞对新开业&quot;,
+     &quot;3km 内新增同档酒店&quot;,
+     &quot;采集其价格加入比价表、评估 ARI&quot;,
+     &quot;制定差异化策略（不盲目跟价）&quot;,
+     &quot;月度跟踪 MPI 变化&quot;
+    ],
+    [
+     &quot;系统故障（PMS/渠道断连）&quot;,
+     &quot;渠道无订单 &gt; 2h&quot;,
+     &quot;切手动模式、通知渠道经理&quot;,
+     &quot;补录订单、核对库存&quot;,
+     &quot;故障报告 + 预案更新&quot;
+    ],
+    [
+     &quot;超售过度（到店无房）&quot;,
+     &quot;到店无房&quot;,
+     &quot;启动《步行客人预案》（见下）&quot;,
+     &quot;赔偿结算、客人回访&quot;,
+     &quot;重算表 E 参数&quot;
+    ]
+   ]
+  },
+  {
+   &quot;type&quot;: &quot;steps&quot;,
+   &quot;items&quot;: [
+    {
+     &quot;step&quot;: &quot;1&quot;,
+     &quot;text&quot;: &quot;&quot;
+    },
+    {
+     &quot;step&quot;: &quot;2&quot;,
+     &quot;text&quot;: &quot;&quot;
+    },
+    {
+     &quot;step&quot;: &quot;3&quot;,
+     &quot;text&quot;: &quot;&quot;
+    },
+    {
+     &quot;step&quot;: &quot;4&quot;,
+     &quot;text&quot;: &quot;&quot;
+    }
+   ]
+  }
+ ]
+}</pre>
+  </div>
+</div>
+
+<div class="jt-block" id="jt-M">
+  <div class="jt-head">
+    <span class="badge-codex">表 M</span>
+    <h2>每日收益操作流水线（时间表）</h2>
+    <span class="pill pill-navy">节奏</span>
+  </div>
+  <p class="jt-desc">这是 L1 学员必须背下来的东西。每天什么时候做什么、耗时上限多少、产出什么，全部写死。 照着走完一遍，一天的工作就做完了。</p>
+  <p class="sub"><b>触发：</b>L1 每日收益操作流程（07:30–17:00）　|　<b>决策逻辑：</b>严格按时间表九步：抓昨日数据→抓未来30天在手→采竞争5家价→查表A/B/C/H出动作清单→执行调价与库存→价格一致性核查→写台账→晨会→17:00二次巡检；10:30 前完成且每项注明依据表 X。</p>
+  <div class="steps"><div class="step-item"><span class="step-num">07:30</span> </div><div class="step-item"><span class="step-num">07:50</span> </div><div class="step-item"><span class="step-num">08:10</span> </div><div class="step-item"><span class="step-num">08:30</span> </div><div class="step-item"><span class="step-num">09:10</span> </div><div class="step-item"><span class="step-num">09:40</span> </div><div class="step-item"><span class="step-num">09:55</span> </div><div class="step-item"><span class="step-num">10:05</span> </div><div class="step-item"><span class="step-num">17:00</span> </div></div>
+  
+  <p class="meta-rel">关联：JT-A、JT-B、JT-C、JT-H　·　置信度：高　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-M&quot;,
+ &quot;code&quot;: &quot;表 M&quot;,
+ &quot;title&quot;: &quot;每日收益操作流水线（时间表）&quot;,
+ &quot;domain&quot;: &quot;节奏&quot;,
+ &quot;category&quot;: &quot;rhythm&quot;,
+ &quot;tags&quot;: [
+  &quot;流水线&quot;,
+  &quot;时间表&quot;,
+  &quot;L1&quot;,
+  &quot;晨会&quot;,
+  &quot;台账&quot;
+ ],
+ &quot;trigger&quot;: &quot;L1 每日收益操作流程（07:30–17:00）&quot;,
+ &quot;preconditions&quot;: &quot;已知当日为正常工作日&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;schedule_time&quot;,
+   &quot;desc&quot;: &quot;流程时点&quot;,
+   &quot;type&quot;: &quot;time&quot;,
+   &quot;unit&quot;: &quot;&quot;,
+   &quot;range&quot;: &quot;07:30-17:00&quot;,
+   &quot;example&quot;: &quot;08:30&quot;
+  }
+ ],
+ &quot;derived&quot;: [],
+ &quot;decision_logic&quot;: &quot;严格按时间表九步：抓昨日数据→抓未来30天在手→采竞争5家价→查表A/B/C/H出动作清单→执行调价与库存→价格一致性核查→写台账→晨会→17:00二次巡检；10:30 前完成且每项注明依据表 X。&quot;,
+ &quot;basis&quot;: &quot;L1 必须背下来的流程；照着走完一天工作就做完了。&quot;,
+ &quot;pitfalls&quot;: &quot;每项动作须标注『依据表 X』；合格标准=10:30 前完成 + 清单全标注。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;schedule_time&quot;
+ ],
+ &quot;confidence&quot;: &quot;高&quot;,
+ &quot;related&quot;: [
+  &quot;JT-A&quot;,
+  &quot;JT-B&quot;,
+  &quot;JT-C&quot;,
+  &quot;JT-H&quot;
+ ],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;steps&quot;,
+   &quot;items&quot;: [
+    {
+     &quot;step&quot;: &quot;07:30&quot;,
+     &quot;text&quot;: &quot;&quot;
+    },
+    {
+     &quot;step&quot;: &quot;07:50&quot;,
+     &quot;text&quot;: &quot;&quot;
+    },
+    {
+     &quot;step&quot;: &quot;08:10&quot;,
+     &quot;text&quot;: &quot;&quot;
+    },
+    {
+     &quot;step&quot;: &quot;08:30&quot;,
+     &quot;text&quot;: &quot;&quot;
+    },
+    {
+     &quot;step&quot;: &quot;09:10&quot;,
+     &quot;text&quot;: &quot;&quot;
+    },
+    {
+     &quot;step&quot;: &quot;09:40&quot;,
+     &quot;text&quot;: &quot;&quot;
+    },
+    {
+     &quot;step&quot;: &quot;09:55&quot;,
+     &quot;text&quot;: &quot;&quot;
+    },
+    {
+     &quot;step&quot;: &quot;10:05&quot;,
+     &quot;text&quot;: &quot;&quot;
+    },
+    {
+     &quot;step&quot;: &quot;17:00&quot;,
+     &quot;text&quot;: &quot;&quot;
+    }
+   ]
+  }
+ ]
+}</pre>
+  </div>
+</div>
+
+<div class="jt-block" id="jt-N">
+  <div class="jt-head">
+    <span class="badge-codex">表 N</span>
+    <h2>周度／月度节奏表</h2>
+    <span class="pill pill-navy">节奏</span>
+  </div>
+  <p class="jt-desc">除了每天做的事，还有哪些事必须按周、按月、按季度做。漏掉任何一项，体系就会出现漏洞。</p>
+  <p class="sub"><b>触发：</b>周期性（周/月/季/年）收益动作　|　<b>决策逻辑：</b>按周期执行固定动作：周一价差校验/周三深度比价/周五周末作战/月1复盘/月5渠道/月10汇报/季重构/年9预算。</p>
+  <table class="jt-tbl"><thead><tr><th>周期</th><th>动作</th><th>产出物</th></tr></thead><tbody><tr><td>每周一</td><td>房型价差校验（表 F）、未来 8 周预测更新、渠道开关复核（表 H）</td><td>《周度收益报告》</td></tr><tr><td>每周三</td><td>竞争组合深度比价（含套餐 / 含早 / 取消政策）</td><td>比价深度表</td></tr><tr><td>每周五</td><td>下周 D1/D2 日重点盯防、周末策略确认</td><td>《周末作战表》</td></tr><tr><td>每月 1 日</td><td>上月复盘（RGI / MPI / ARI 三维诊断）、滚动预测更新</td><td>《月度收益复盘报告》</td></tr><tr><td>每月 5 日</td><td>客源结构分析、渠道贡献与净 RevPAR 分析</td><td>《客源渠道报告》</td></tr><tr><td>每月 10 日</td><td>业主 / 管理层汇报</td><td>汇报 PPT + 一页纸摘要</td></tr><tr><td>每季度</td><td>竞争组合复核、价格体系重构、协议客户分级</td><td>《季度策略文件》</td></tr><tr><td>每年 9 月</td><td>下年度预算编制</td><td>《年度预算文件》</td></tr></tbody></table>
+  
+  <p class="meta-rel">关联：JT-F　·　置信度：高　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-N&quot;,
+ &quot;code&quot;: &quot;表 N&quot;,
+ &quot;title&quot;: &quot;周度／月度节奏表&quot;,
+ &quot;domain&quot;: &quot;节奏&quot;,
+ &quot;category&quot;: &quot;rhythm&quot;,
+ &quot;tags&quot;: [
+  &quot;节奏&quot;,
+  &quot;周报&quot;,
+  &quot;月报&quot;,
+  &quot;季度&quot;,
+  &quot;预算&quot;
+ ],
+ &quot;trigger&quot;: &quot;周期性（周/月/季/年）收益动作&quot;,
+ &quot;preconditions&quot;: &quot;已知当前周期节点&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;period&quot;,
+   &quot;desc&quot;: &quot;周期节点&quot;,
+   &quot;type&quot;: &quot;enum&quot;,
+   &quot;unit&quot;: &quot;&quot;,
+   &quot;range&quot;: &quot;周一|周三|周五|每月1日|每月5日|每月10日|每季|每年9月&quot;,
+   &quot;example&quot;: &quot;每周一&quot;
+  }
+ ],
+ &quot;derived&quot;: [],
+ &quot;decision_logic&quot;: &quot;按周期执行固定动作：周一价差校验/周三深度比价/周五周末作战/月1复盘/月5渠道/月10汇报/季重构/年9预算。&quot;,
+ &quot;basis&quot;: &quot;漏掉任一项体系就会出现漏洞。&quot;,
+ &quot;pitfalls&quot;: &quot;周期性动作不可漏；每周一必做房型价差校验（表 F）。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;period&quot;
+ ],
+ &quot;confidence&quot;: &quot;高&quot;,
+ &quot;related&quot;: [
+  &quot;JT-F&quot;
+ ],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;周期性动作清单&quot;,
+   &quot;headers&quot;: [
+    &quot;周期&quot;,
+    &quot;动作&quot;,
+    &quot;产出物&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;每周一&quot;,
+     &quot;房型价差校验（表 F）、未来 8 周预测更新、渠道开关复核（表 H）&quot;,
+     &quot;《周度收益报告》&quot;
+    ],
+    [
+     &quot;每周三&quot;,
+     &quot;竞争组合深度比价（含套餐 / 含早 / 取消政策）&quot;,
+     &quot;比价深度表&quot;
+    ],
+    [
+     &quot;每周五&quot;,
+     &quot;下周 D1/D2 日重点盯防、周末策略确认&quot;,
+     &quot;《周末作战表》&quot;
+    ],
+    [
+     &quot;每月 1 日&quot;,
+     &quot;上月复盘（RGI / MPI / ARI 三维诊断）、滚动预测更新&quot;,
+     &quot;《月度收益复盘报告》&quot;
+    ],
+    [
+     &quot;每月 5 日&quot;,
+     &quot;客源结构分析、渠道贡献与净 RevPAR 分析&quot;,
+     &quot;《客源渠道报告》&quot;
+    ],
+    [
+     &quot;每月 10 日&quot;,
+     &quot;业主 / 管理层汇报&quot;,
+     &quot;汇报 PPT + 一页纸摘要&quot;
+    ],
+    [
+     &quot;每季度&quot;,
+     &quot;竞争组合复核、价格体系重构、协议客户分级&quot;,
+     &quot;《季度策略文件》&quot;
+    ],
+    [
+     &quot;每年 9 月&quot;,
+     &quot;下年度预算编制&quot;,
+     &quot;《年度预算文件》&quot;
+    ]
+   ]
+  }
+ ]
+}</pre>
+  </div>
+</div>
+
+<div class="jt-block" id="jt-O">
+  <div class="jt-head">
+    <span class="badge-codex">表 O</span>
+    <h2>决策优先级与冲突仲裁表</h2>
+    <span class="pill pill-navy">应急</span>
+  </div>
+  <p class="jt-desc">当多张表给出不同动作时，严格按本表执行。 有了它，学员永远不会卡住——这是整套&quot;闭眼执行&quot;方法论的最后一块拼图。</p>
+  <p class="sub"><b>触发：</b>多张表给出不同动作时　|　<b>决策逻辑：</b>严格按优先级（1应急L&gt;2库存B&gt;3价格A&gt;4竞争C&gt;5渠道H&gt;6份额D）执行最高那条，其余记入《观察清单》；最高为『维持』则顺延下一优先级。</p>
+  <table class="jt-tbl"><thead><tr><th>优先级</th><th>表</th><th>场景</th></tr></thead><tbody><tr><td>1（最高）</td><td>表 L 应急</td><td>异常事件，覆盖一切</td></tr><tr><td>2</td><td>表 B 库存</td><td>库存安全（超售 / 关房）优先于价格</td></tr><tr><td>3</td><td>表 A 价格</td><td>常规价格调整</td></tr><tr><td>4</td><td>表 C ARI</td><td>竞争定位微调</td></tr><tr><td>5</td><td>表 H 渠道</td><td>渠道开关</td></tr><tr><td>6（最低）</td><td>表 D MPI</td><td>份额诊断，多为分析而非动作</td></tr></tbody></table>
+<table class="jt-tbl"><thead><tr><th>等级</th><th>典型日期</th><th>价格系数（相对平峰 BAR）</th><th>目标 OCC</th></tr></thead><tbody><tr><td>D1 峰值日</td><td>国庆 1–5、五一 1–3、春节初三–初六、滨江动漫节 / 云栖大会 / 国际马拉松等 8–12 天</td><td>150 – 200%</td><td>≥ 95%</td></tr><tr><td>D2 高涨日</td><td>旺季（4–5 月、9–10 月）周五六、展会周边日、暑期周末</td><td>120 – 150%</td><td>88 – 95%</td></tr><tr><td>D3 平峰日</td><td>平季周五六、旺季周日–周四</td><td>95 – 110%</td><td>72 – 85%</td></tr><tr><td>D4 低谷日</td><td>1–2 月淡季（除春节）、7 月上中旬、节后 3–5 天、极端天气日</td><td>70 – 85%</td><td>45 – 65%</td></tr></tbody></table>
+<table class="jt-tbl"><thead><tr><th>月份</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr></thead><tbody><tr><td>OCC</td><td>58%</td><td>62%</td><td>74%</td><td>82%</td><td>84%</td><td>76%</td><td>70%</td><td>78%</td><td>83%</td><td>85%</td><td>78%</td><td>68%</td></tr><tr><td>ADR</td><td>540</td><td>560</td><td>600</td><td>660</td><td>690</td><td>620</td><td>580</td><td>630</td><td>670</td><td>700</td><td>640</td><td>570</td></tr></tbody></table>
+  <div class="callout callout-danger"><span class='co-t'>冲突处理铁律（三条，必须遵守）</span><div>同一天只执行优先级最高的那一条动作，其余记录在《观察清单》。 若最高优先级动作为「维持」，则顺延执行下一优先级。 所有冲突与取舍必须写入《调价台账》备注栏——这是事后复盘的唯一依据。 某日：表 A 说「↓5%」（OCC 62%、Pickup 落后 8%）， 表 C 说「↑5%」（ARI 92，偏低）。 查表 O：表 A 优先级 3 &gt; 表 C 优先级 4 → 执行 ↓5%， 把表 C 的提价建议记入《观察清单》，一周后再看。 为什么？因为当前的病是&quot;卖不动&quot;，不是&quot;卖便宜了&quot;。先解决量的问题，量回来了价自然能提。 关联：全部 15 张表 · 模块 M09 · 案例集 L3 部分 附 需求等级日历（D1–D4） 一年 365 天先分成四档，每档对应不同的价格系数和目标 OCC。 这是全年价格体系的骨架，也是表 F 和表 A 的输入前提。 四档需求等级 等级典型日期价格系数（相对平峰 BAR）目标 OCC D1 峰值日国庆 1–5、五一 1–3、春节初三–初六、滨江动漫节 / 云栖大会 / 国际马拉松等 8–12 天150 – 200%≥ 95% D2 高涨日旺季（4–5 月、9–10 月）周五六、展会周边日、暑期周末120 – 150%88 – 95% D3 平峰日平季周五六、旺季周日–周四95 – 110%72 – 85% D4 低谷日1–2 月淡季（除春节）、7 月上中旬、节后 3–5 天、极端天气日70 – 85%45 – 65% 月度需求基准（云璟酒店） 月份123456789101112 OCC58%62%74%82%84%76%70%78%83%85%78%68% ADR540560600660690620580630670700640570 每年 9 月编预算时，先把下一年 365 天逐日打上 D1–D4 标签（展会、节假日、大型活动要提前查日历）， 形成《年度需求日历》，然后自动套用价格系数生成全年 BAR，再用表 F 展开成全房型价格表。 这个动作一年只做一次，做完一整年的价格骨架就有了。 模板 05「全年价格日历」sheet 就是干这个的。 关联：表 F（房型价差）· 模板 05、06 · 模块 M06、M11 这 15 张表的阈值是基于中高端全服务酒店的通用起点，能让新人第一天就干出 80 分的活。 但学员上岗 3 个月后，必须用自己酒店的真实数据回填校准—— 比如你酒店的 No-show 率跟云璟不一样，表 E 的超售率就要重算； 你的竞争组合均价不是 ¥680，表 C 的绝对值就要平移。 法典的价值在于给了一个可校准的框架，而不是一个永远正确的答案。 ← 返回学院首页 下一步 →教案总纲：14 模块详细教案</div></div>
+  <p class="meta-rel">关联：JT-A、JT-B、JT-C、JT-D、JT-H、JT-L　·　置信度：高（终极保障）　·　版本：v1.0</p>
+  <div class="json-wrap">
+    <span class="json-toggle" onclick="this.nextElementSibling.classList.toggle('show')">▸ 查看机读 JSON（引擎输入）</span>
+    <pre class="json">{
+ &quot;id&quot;: &quot;JT-O&quot;,
+ &quot;code&quot;: &quot;表 O&quot;,
+ &quot;title&quot;: &quot;决策优先级与冲突仲裁表&quot;,
+ &quot;domain&quot;: &quot;应急&quot;,
+ &quot;category&quot;: &quot;emergency rhythm&quot;,
+ &quot;tags&quot;: [
+  &quot;优先级&quot;,
+  &quot;仲裁&quot;,
+  &quot;冲突&quot;,
+  &quot;观察清单&quot;
+ ],
+ &quot;trigger&quot;: &quot;多张表给出不同动作时&quot;,
+ &quot;preconditions&quot;: &quot;已知相互冲突的表及各自动作&quot;,
+ &quot;inputs&quot;: [
+  {
+   &quot;name&quot;: &quot;conflicting_tables&quot;,
+   &quot;desc&quot;: &quot;给出冲突动作的表&quot;,
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;unit&quot;: &quot;&quot;,
+   &quot;range&quot;: &quot;&quot;,
+   &quot;example&quot;: &quot;表A,表C&quot;
+  }
+ ],
+ &quot;derived&quot;: [
+  {
+   &quot;name&quot;: &quot;priority_order&quot;,
+   &quot;formula&quot;: &quot;L(1) &gt; B(2) &gt; A(3) &gt; C(4) &gt; H(5) &gt; D(6)&quot;,
+   &quot;desc&quot;: &quot;优先级从高到低&quot;,
+   &quot;example&quot;: &quot;表A优先于表C&quot;
+  }
+ ],
+ &quot;decision_logic&quot;: &quot;严格按优先级（1应急L&gt;2库存B&gt;3价格A&gt;4竞争C&gt;5渠道H&gt;6份额D）执行最高那条，其余记入《观察清单》；最高为『维持』则顺延下一优先级。&quot;,
+ &quot;basis&quot;: &quot;优先级表覆盖全部 15 张表；有了它学员永远不会卡住。&quot;,
+ &quot;pitfalls&quot;: &quot;同日只执行最高优先级一条；最高为维持则顺延下一优先级；所有冲突与取舍必须写入《调价台账》备注栏。&quot;,
+ &quot;data_needs&quot;: [
+  &quot;conflicting_tables&quot;
+ ],
+ &quot;confidence&quot;: &quot;高（终极保障）&quot;,
+ &quot;related&quot;: [
+  &quot;JT-A&quot;,
+  &quot;JT-B&quot;,
+  &quot;JT-C&quot;,
+  &quot;JT-D&quot;,
+  &quot;JT-H&quot;,
+  &quot;JT-L&quot;
+ ],
+ &quot;version&quot;: &quot;v1.0&quot;,
+ &quot;tables&quot;: [
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;优先级从高到低&quot;,
+   &quot;headers&quot;: [
+    &quot;优先级&quot;,
+    &quot;表&quot;,
+    &quot;场景&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;1（最高）&quot;,
+     &quot;表 L 应急&quot;,
+     &quot;异常事件，覆盖一切&quot;
+    ],
+    [
+     &quot;2&quot;,
+     &quot;表 B 库存&quot;,
+     &quot;库存安全（超售 / 关房）优先于价格&quot;
+    ],
+    [
+     &quot;3&quot;,
+     &quot;表 A 价格&quot;,
+     &quot;常规价格调整&quot;
+    ],
+    [
+     &quot;4&quot;,
+     &quot;表 C ARI&quot;,
+     &quot;竞争定位微调&quot;
+    ],
+    [
+     &quot;5&quot;,
+     &quot;表 H 渠道&quot;,
+     &quot;渠道开关&quot;
+    ],
+    [
+     &quot;6（最低）&quot;,
+     &quot;表 D MPI&quot;,
+     &quot;份额诊断，多为分析而非动作&quot;
+    ]
+   ]
+  },
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;四档需求等级&quot;,
+   &quot;headers&quot;: [
+    &quot;等级&quot;,
+    &quot;典型日期&quot;,
+    &quot;价格系数（相对平峰 BAR）&quot;,
+    &quot;目标 OCC&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;D1 峰值日&quot;,
+     &quot;国庆 1–5、五一 1–3、春节初三–初六、滨江动漫节 / 云栖大会 / 国际马拉松等 8–12 天&quot;,
+     &quot;150 – 200%&quot;,
+     &quot;≥ 95%&quot;
+    ],
+    [
+     &quot;D2 高涨日&quot;,
+     &quot;旺季（4–5 月、9–10 月）周五六、展会周边日、暑期周末&quot;,
+     &quot;120 – 150%&quot;,
+     &quot;88 – 95%&quot;
+    ],
+    [
+     &quot;D3 平峰日&quot;,
+     &quot;平季周五六、旺季周日–周四&quot;,
+     &quot;95 – 110%&quot;,
+     &quot;72 – 85%&quot;
+    ],
+    [
+     &quot;D4 低谷日&quot;,
+     &quot;1–2 月淡季（除春节）、7 月上中旬、节后 3–5 天、极端天气日&quot;,
+     &quot;70 – 85%&quot;,
+     &quot;45 – 65%&quot;
+    ]
+   ]
+  },
+  {
+   &quot;type&quot;: &quot;list&quot;,
+   &quot;caption&quot;: &quot;月度需求基准（云璟酒店）&quot;,
+   &quot;headers&quot;: [
+    &quot;月份&quot;,
+    &quot;1&quot;,
+    &quot;2&quot;,
+    &quot;3&quot;,
+    &quot;4&quot;,
+    &quot;5&quot;,
+    &quot;6&quot;,
+    &quot;7&quot;,
+    &quot;8&quot;,
+    &quot;9&quot;,
+    &quot;10&quot;,
+    &quot;11&quot;,
+    &quot;12&quot;
+   ],
+   &quot;rows&quot;: [
+    [
+     &quot;OCC&quot;,
+     &quot;58%&quot;,
+     &quot;62%&quot;,
+     &quot;74%&quot;,
+     &quot;82%&quot;,
+     &quot;84%&quot;,
+     &quot;76%&quot;,
+     &quot;70%&quot;,
+     &quot;78%&quot;,
+     &quot;83%&quot;,
+     &quot;85%&quot;,
+     &quot;78%&quot;,
+     &quot;68%&quot;
+    ],
+    [
+     &quot;ADR&quot;,
+     &quot;540&quot;,
+     &quot;560&quot;,
+     &quot;600&quot;,
+     &quot;660&quot;,
+     &quot;690&quot;,
+     &quot;620&quot;,
+     &quot;580&quot;,
+     &quot;630&quot;,
+     &quot;670&quot;,
+     &quot;700&quot;,
+     &quot;640&quot;,
+     &quot;570&quot;
+    ]
+   ]
+  }
+ ]
+}</pre>
+  </div>
+</div>
+<h2 class="section-title" id="full">三、全量机读数据（引擎输入）</h2>
+<p class="sub">以下 JSON 数组即 15 张表的完整结构化母本，可整体复制或由引擎 fetch。</p>
+<pre class="json show" id="fulljson">[
+ {
+  &quot;id&quot;: &quot;JT-A&quot;,
+  &quot;code&quot;: &quot;表 A&quot;,
+  &quot;title&quot;: &quot;每日价格调整判定表&quot;,
+  &quot;domain&quot;: &quot;价格&quot;,
+  &quot;category&quot;: &quot;price&quot;,
+  &quot;tags&quot;: [
+   &quot;每日调价&quot;,
+   &quot;Pickup&quot;,
+   &quot;OCC&quot;,
+   &quot;BAR&quot;,
+   &quot;峰值日&quot;
+  ],
+  &quot;trigger&quot;: &quot;每日 09:10 执行调价前，依据目标日预测 OCC 与 Pickup 偏差确定 BAR 动作&quot;,
+  &quot;preconditions&quot;: &quot;已知目标日当前预测 OCC、去年同期同一提前窗口在手房晚、预测增量&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;occ_forecast&quot;,
+    &quot;desc&quot;: &quot;目标日预测出租率&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;%&quot;,
+    &quot;range&quot;: &quot;0-100&quot;,
+    &quot;example&quot;: 95.3
+   },
+   {
+    &quot;name&quot;: &quot;pickup_bias&quot;,
+    &quot;desc&quot;: &quot;Pickup 偏差 =(当前在手−去年同期在手)/去年同期在手×100%&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;%&quot;,
+    &quot;range&quot;: &quot;-100~+100&quot;,
+    &quot;example&quot;: 10.4
+   }
+  ],
+  &quot;derived&quot;: [
+   {
+    &quot;name&quot;: &quot;price_action&quot;,
+    &quot;formula&quot;: &quot;查矩阵：行=OCC区间, 列=Pickup偏差区间&quot;,
+    &quot;desc&quot;: &quot;价格动作&quot;,
+    &quot;example&quot;: &quot;↑20%&quot;
+   }
+  ],
+  &quot;decision_logic&quot;: &quot;以预测 OCC 为行、Pickup 偏差为列查矩阵得价格动作；与表 B 库存动作配套；受表 O 优先级约束（价格优先级 3）。&quot;,
+  &quot;basis&quot;: &quot;阈值基于中高端全服务酒店通用起点；OCC 分母=可售房晚。演示：OCC=(265+40)/320=95.3%→≥95%行；Pickup=(265-240)/240=+10.4%→领先&gt;10%列→↑20%；BAR 680×1.20=816。&quot;,
+  &quot;pitfalls&quot;: &quot;单日同方向累计≤20%；24h 内同方向≤2 次；每次≥3%（低于 3% 市场无感知）；调价后 30min 核查 OTA 挂牌价；D1 峰值日须 L3 审批；每次写入《调价台账》注明依据表 A。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;occ_forecast&quot;,
+   &quot;pickup_bias&quot;
+  ],
+  &quot;confidence&quot;: &quot;高（通用起点，上岗 3 个月后用本店数据校准）&quot;,
+  &quot;related&quot;: [
+   &quot;JT-B&quot;,
+   &quot;JT-O&quot;
+  ],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;matrix&quot;,
+    &quot;caption&quot;: &quot;行＝预测 OCC 列＝Pickup 偏差 单元格＝价格动作&quot;,
+    &quot;cols&quot;: [
+     &quot;落后 &gt;10%&quot;,
+     &quot;落后 3–10%&quot;,
+     &quot;持平 ±3%&quot;,
+     &quot;领先 3–10%&quot;,
+     &quot;领先 &gt;10%&quot;
+    ],
+    &quot;rows&quot;: [
+     {
+      &quot;label&quot;: &quot;≥ 95%&quot;,
+      &quot;cells&quot;: [
+       &quot;维持&quot;,
+       &quot;↑5%&quot;,
+       &quot;↑10%&quot;,
+       &quot;↑15%&quot;,
+       &quot;↑20%&quot;
+      ]
+     },
+     {
+      &quot;label&quot;: &quot;85 – 95%&quot;,
+      &quot;cells&quot;: [
+       &quot;维持&quot;,
+       &quot;↑3%&quot;,
+       &quot;↑5%&quot;,
+       &quot;↑10%&quot;,
+       &quot;↑15%&quot;
+      ]
+     },
+     {
+      &quot;label&quot;: &quot;70 – 85%&quot;,
+      &quot;cells&quot;: [
+       &quot;↓5%&quot;,
+       &quot;↓3%&quot;,
+       &quot;维持&quot;,
+       &quot;↑5%&quot;,
+       &quot;↑8%&quot;
+      ]
+     },
+     {
+      &quot;label&quot;: &quot;55 – 70%&quot;,
+      &quot;cells&quot;: [
+       &quot;↓10%&quot;,
+       &quot;↓5%&quot;,
+       &quot;↓3%&quot;,
+       &quot;维持&quot;,
+       &quot;↑3%&quot;
+      ]
+     },
+     {
+      &quot;label&quot;: &quot;40 – 55%&quot;,
+      &quot;cells&quot;: [
+       &quot;↓15%&quot;,
+       &quot;↓10%&quot;,
+       &quot;↓5%&quot;,
+       &quot;维持&quot;,
+       &quot;维持&quot;
+      ]
+     },
+     {
+      &quot;label&quot;: &quot;&lt; 40%&quot;,
+      &quot;cells&quot;: [
+       &quot;↓20%&quot;,
+       &quot;↓15%&quot;,
+       &quot;↓10%&quot;,
+       &quot;↓5%&quot;,
+       &quot;维持&quot;
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  &quot;id&quot;: &quot;JT-B&quot;,
+  &quot;code&quot;: &quot;表 B&quot;,
+  &quot;title&quot;: &quot;库存与限制条件配置表&quot;,
+  &quot;domain&quot;: &quot;库存&quot;,
+  &quot;category&quot;: &quot;inventory&quot;,
+  &quot;tags&quot;: [
+   &quot;库存&quot;,
+   &quot;MinLOS&quot;,
+   &quot;CTA&quot;,
+   &quot;StopSell&quot;,
+   &quot;超售&quot;
+  ],
+  &quot;trigger&quot;: &quot;价格定完后立即配置当日库存限制条件&quot;,
+  &quot;preconditions&quot;: &quot;已知目标日预测 OCC&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;occ_forecast&quot;,
+    &quot;desc&quot;: &quot;目标日预测出租率&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;%&quot;,
+    &quot;range&quot;: &quot;0-100&quot;,
+    &quot;example&quot;: 95
+   }
+  ],
+  &quot;derived&quot;: [],
+  &quot;decision_logic&quot;: &quot;按预测 OCC 配置 MinLOS / CTA / 低价渠道 Stop Sell / 超额预订；库存动作优先级高于价格（表 O 优先级 2）。&quot;,
+  &quot;basis&quot;: &quot;房量安全永远比多卖 20 块钱重要；满房日一过立即撤限制。&quot;,
+  &quot;pitfalls&quot;: &quot;所有限制条件必须设到期自动解除；满房日一过 MinLOS/CTA 要立刻撤，否则次日莫名挡单；每日 09:10 检查前一日限制是否已解除。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;occ_forecast&quot;
+  ],
+  &quot;confidence&quot;: &quot;高&quot;,
+  &quot;related&quot;: [
+   &quot;JT-E&quot;,
+   &quot;JT-A&quot;
+  ],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;按预测 OCC 配置限制条件&quot;,
+    &quot;headers&quot;: [
+     &quot;预测 OCC&quot;,
+     &quot;MinLOS 最少住期&quot;,
+     &quot;CTA 不可入住&quot;,
+     &quot;低价渠道 Stop Sell&quot;,
+     &quot;超额预订&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;≥ 95%&quot;,
+      &quot;2 晚（D1 峰值日 3 晚）&quot;,
+      &quot;启用&quot;,
+      &quot;关闭尾房特惠 / 团購 / 批发商&quot;,
+      &quot;不超售&quot;
+     ],
+     [
+      &quot;90 – 95%&quot;,
+      &quot;2 晚&quot;,
+      &quot;仅 D1 日启用&quot;,
+      &quot;关闭尾房特惠&quot;,
+      &quot;≤ 2 间&quot;
+     ],
+     [
+      &quot;85 – 90%&quot;,
+      &quot;1–2 晚（周末 2 晚）&quot;,
+      &quot;否&quot;,
+      &quot;保留&quot;,
+      &quot;按表 E&quot;
+     ],
+     [
+      &quot;70 – 85%&quot;,
+      &quot;1 晚&quot;,
+      &quot;否&quot;,
+      &quot;全开&quot;,
+      &quot;按表 E&quot;
+     ],
+     [
+      &quot;&lt; 70%&quot;,
+      &quot;不设限&quot;,
+      &quot;否&quot;,
+      &quot;全开 + 上促销&quot;,
+      &quot;不超售&quot;
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  &quot;id&quot;: &quot;JT-C&quot;,
+  &quot;code&quot;: &quot;表 C&quot;,
+  &quot;title&quot;: &quot;价格指数（ARI）判定表&quot;,
+  &quot;domain&quot;: &quot;竞争&quot;,
+  &quot;category&quot;: &quot;compete&quot;,
+  &quot;tags&quot;: [
+   &quot;ARI&quot;,
+   &quot;价格指数&quot;,
+   &quot;竞争&quot;,
+   &quot;比价&quot;
+  ],
+  &quot;trigger&quot;: &quot;评估本店价格相对竞争组合高低时&quot;,
+  &quot;preconditions&quot;: &quot;已知本店 ADR 与竞争组合加权 ADR&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;ari&quot;,
+    &quot;desc&quot;: &quot;ARI = 本店ADR ÷ 竞争组合加权ADR × 100&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: 92
+   }
+  ],
+  &quot;derived&quot;: [
+   {
+    &quot;name&quot;: &quot;ari&quot;,
+    &quot;formula&quot;: &quot;本店ADR/竞争组合加权ADR×100&quot;,
+    &quot;desc&quot;: &quot;价格指数&quot;,
+    &quot;example&quot;: 92
+   }
+  ],
+  &quot;decision_logic&quot;: &quot;按 ARI 七档判定，偏高/偏低则调价；不得与表 A 叠加（同日只执行优先级更高者，表 A 优先级 3 &gt; 表 C 优先级 4）。&quot;,
+  &quot;basis&quot;: &quot;ARI=本店ADR÷竞争组合加权ADR×100；比价须五同：同入住日、同房型、同含早、同取消政策、同提前天数。&quot;,
+  &quot;pitfalls&quot;: &quot;ARI 调整每次≤8%、每周≤2 次；不得与表 A 结论叠加；五同比价否则算废数。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;ari&quot;
+  ],
+  &quot;confidence&quot;: &quot;高&quot;,
+  &quot;related&quot;: [
+   &quot;JT-D&quot;,
+   &quot;JT-O&quot;
+  ],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;ARI 七档判定与动作&quot;,
+    &quot;headers&quot;: [
+     &quot;ARI&quot;,
+     &quot;判定&quot;,
+     &quot;动作&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;&gt; 120&quot;,
+      &quot;严重偏高&quot;,
+      &quot;MPI &lt; 95 → ↓8%；MPI ≥ 95 → 维持并每日盯 Pickup&quot;
+     ],
+     [
+      &quot;110 – 120&quot;,
+      &quot;偏高&quot;,
+      &quot;RGI &lt; 100 → ↓5%；RGI ≥ 100 → 维持&quot;
+     ],
+     [
+      &quot;103 – 110&quot;,
+      &quot;略高&quot;,
+      &quot;维持，观察 Pickup&quot;
+     ],
+     [
+      &quot;97 – 103&quot;,
+      &quot;健康&quot;,
+      &quot;维持&quot;
+     ],
+     [
+      &quot;90 – 97&quot;,
+      &quot;略低&quot;,
+      &quot;预测 OCC ≥ 80% → ↑3%；否则维持&quot;
+     ],
+     [
+      &quot;80 – 90&quot;,
+      &quot;偏低&quot;,
+      &quot;↑5%&quot;
+     ],
+     [
+      &quot;&lt; 80&quot;,
+      &quot;严重偏低&quot;,
+      &quot;↑8%，并核查房型配置与含早策略&quot;
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  &quot;id&quot;: &quot;JT-D&quot;,
+  &quot;code&quot;: &quot;表 D&quot;,
+  &quot;title&quot;: &quot;市场渗透指数（MPI）判定表&quot;,
+  &quot;domain&quot;: &quot;竞争&quot;,
+  &quot;category&quot;: &quot;compete&quot;,
+  &quot;tags&quot;: [
+   &quot;MPI&quot;,
+   &quot;市场渗透&quot;,
+   &quot;份额&quot;,
+   &quot;三角诊断&quot;
+  ],
+  &quot;trigger&quot;: &quot;评估本店市场份额是否达标时&quot;,
+  &quot;preconditions&quot;: &quot;已知本店 OCC 与竞争组合 OCC&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;mpi&quot;,
+    &quot;desc&quot;: &quot;MPI = 本店OCC ÷ 竞争组合OCC × 100&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: 98
+   }
+  ],
+  &quot;derived&quot;: [
+   {
+    &quot;name&quot;: &quot;mpi&quot;,
+    &quot;formula&quot;: &quot;本店OCC/竞争组合OCC×100&quot;,
+    &quot;desc&quot;: &quot;市场渗透指数&quot;,
+    &quot;example&quot;: 98
+   }
+  ],
+  &quot;decision_logic&quot;: &quot;按 MPI 五档判定份额；偏诊断少出动作（表 O 优先级最低 6）；与 ARI 配合做三角诊断（MPI×ARI=RGI）。&quot;,
+  &quot;basis&quot;: &quot;MPI=本店OCC÷竞争组合OCC×100；三角诊断：MPI高+ARI高=还能提；MPI高+ARI低=该收割提价；MPI低+ARI高=太贵卖不动；MPI低+ARI低=产品/口碑问题。&quot;,
+  &quot;pitfalls&quot;: &quot;单独看 MPI 或 ARI 都会误判，需三角诊断一起看。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;mpi&quot;
+  ],
+  &quot;confidence&quot;: &quot;高&quot;,
+  &quot;related&quot;: [
+   &quot;JT-C&quot;,
+   &quot;JT-O&quot;
+  ],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;MPI 五档判定与动作&quot;,
+    &quot;headers&quot;: [
+     &quot;MPI&quot;,
+     &quot;判定&quot;,
+     &quot;动作&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;&gt; 110&quot;,
+      &quot;份额领先&quot;,
+      &quot;优先提价（走表 C 的提价分支）&quot;
+     ],
+     [
+      &quot;100 – 110&quot;,
+      &quot;健康&quot;,
+      &quot;维持&quot;
+     ],
+     [
+      &quot;95 – 100&quot;,
+      &quot;略弱&quot;,
+      &quot;检查 OTA 曝光 / 挂牌 / 点评分；补挂牌&quot;
+     ],
+     [
+      &quot;85 – 95&quot;,
+      &quot;落后&quot;,
+      &quot;↓5% 或增加 OTA 广告投放&quot;
+     ],
+     [
+      &quot;&lt; 85&quot;,
+      &quot;严重落后&quot;,
+      &quot;启动《应急方案 L2-E1》：↓10% + 全员直销动员 + 48 小时复盘&quot;
+     ]
+    ]
+   },
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;&quot;,
+    &quot;headers&quot;: [
+     &quot;情形&quot;,
+     &quot;含义&quot;,
+     &quot;处方&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;MPI 高 + ARI 高&quot;,
+      &quot;卖得又多又贵&quot;,
+      &quot;还能再提，试探性 ↑3–5%&quot;
+     ],
+     [
+      &quot;MPI 高 + ARI 低&quot;,
+      &quot;靠低价换量&quot;,
+      &quot;提价，份额已稳，该收割了&quot;
+     ],
+     [
+      &quot;MPI 低 + ARI 高&quot;,
+      &quot;太贵卖不动&quot;,
+      &quot;降价或加价值（含早/升级）&quot;
+     ],
+     [
+      &quot;MPI 低 + ARI 低&quot;,
+      &quot;又贵不起又卖不动&quot;,
+      &quot;产品/口碑出问题，先查点评和渠道曝光&quot;
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  &quot;id&quot;: &quot;JT-E&quot;,
+  &quot;code&quot;: &quot;表 E&quot;,
+  &quot;title&quot;: &quot;超额预订标准表&quot;,
+  &quot;domain&quot;: &quot;库存&quot;,
+  &quot;category&quot;: &quot;inventory&quot;,
+  &quot;tags&quot;: [
+   &quot;超售&quot;,
+   &quot;No-show&quot;,
+   &quot;硬上限&quot;,
+   &quot;步行预案&quot;
+  ],
+  &quot;trigger&quot;: &quot;表 B 判定可超售后，计算当日超售间数&quot;,
+  &quot;preconditions&quot;: &quot;已知近 30 天 No-show 率、24h 内取消率、可售房量&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;noshow_cancel_rate&quot;,
+    &quot;desc&quot;: &quot;No-show 率 + 24h 取消率 合计&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;%&quot;,
+    &quot;range&quot;: &quot;0-100&quot;,
+    &quot;example&quot;: 15
+   },
+   {
+    &quot;name&quot;: &quot;sellable_rooms&quot;,
+    &quot;desc&quot;: &quot;可售房量&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;间&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: 320
+   },
+   {
+    &quot;name&quot;: &quot;peak_flag&quot;,
+    &quot;desc&quot;: &quot;是否 D1 峰值日 / D2 高涨日&quot;,
+    &quot;type&quot;: &quot;bool&quot;,
+    &quot;unit&quot;: &quot;&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: true
+   },
+   {
+    &quot;name&quot;: &quot;guarantee_ratio&quot;,
+    &quot;desc&quot;: &quot;担保预订（预付/信用卡担保）占比&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;%&quot;,
+    &quot;range&quot;: &quot;0-100&quot;,
+    &quot;example&quot;: 45
+   },
+   {
+    &quot;name&quot;: &quot;group_ratio&quot;,
+    &quot;desc&quot;: &quot;会议团队占当日比&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;%&quot;,
+    &quot;range&quot;: &quot;0-100&quot;,
+    &quot;example&quot;: 0
+   },
+   {
+    &quot;name&quot;: &quot;agreement_ratio&quot;,
+    &quot;desc&quot;: &quot;协议客户集中度&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;%&quot;,
+    &quot;range&quot;: &quot;0-100&quot;,
+    &quot;example&quot;: 0
+   }
+  ],
+  &quot;derived&quot;: [
+   {
+    &quot;name&quot;: &quot;base_rate&quot;,
+    &quot;formula&quot;: &quot;按 No-show+取消 合计查基准率表&quot;,
+    &quot;desc&quot;: &quot;基准超售率&quot;,
+    &quot;example&quot;: &quot;3%&quot;
+   },
+   {
+    &quot;name&quot;: &quot;adjusted_rate&quot;,
+    &quot;formula&quot;: &quot;base_rate × 连乘修正系数&quot;,
+    &quot;desc&quot;: &quot;修正后超售率&quot;,
+    &quot;example&quot;: &quot;1.5%&quot;
+   },
+   {
+    &quot;name&quot;: &quot;oversell_rooms&quot;,
+    &quot;formula&quot;: &quot;floor(sellable_rooms × adjusted_rate)&quot;,
+    &quot;desc&quot;: &quot;超售间数（向下取整）&quot;,
+    &quot;example&quot;: 4
+   }
+  ],
+  &quot;decision_logic&quot;: &quot;三步走：查基准率 → 乘修正系数 → 卡硬上限（≤5% 且 ≤15 间；步行 30min 内无同档备用酒店再减半）。&quot;,
+  &quot;basis&quot;: &quot;超售间数=可售房量×超售率（向下取整）。演示：合计 15%→基准 3%；D1→×0.5=1.5%；320×1.5%=4.8→4 间；硬上限 4≤16 且 ≤15 通过。&quot;,
+  &quot;pitfalls&quot;: &quot;&gt;30% 基准率须 L3 审批；硬上限三条须同时满足；到店无房走表 L《步行客人预案》。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;noshow_cancel_rate&quot;,
+   &quot;sellable_rooms&quot;,
+   &quot;peak_flag&quot;,
+   &quot;guarantee_ratio&quot;,
+   &quot;group_ratio&quot;,
+   &quot;agreement_ratio&quot;
+  ],
+  &quot;confidence&quot;: &quot;高&quot;,
+  &quot;related&quot;: [
+   &quot;JT-B&quot;,
+   &quot;JT-L&quot;
+  ],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;按「近 30 天 No-show 率 + 24 小时内取消率」合计值查表&quot;,
+    &quot;headers&quot;: [
+     &quot;No-show + 取消 合计&quot;,
+     &quot;基准超售率&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;&lt; 5%&quot;,
+      &quot;0%&quot;
+     ],
+     [
+      &quot;5 – 10%&quot;,
+      &quot;2%&quot;
+     ],
+     [
+      &quot;10 – 15%&quot;,
+      &quot;3%&quot;
+     ],
+     [
+      &quot;15 – 20%&quot;,
+      &quot;5%&quot;
+     ],
+     [
+      &quot;20 – 30%&quot;,
+      &quot;7%&quot;
+     ],
+     [
+      &quot;&gt; 30%&quot;,
+      &quot;10%（需 L3 经理审批）&quot;
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  &quot;id&quot;: &quot;JT-F&quot;,
+  &quot;code&quot;: &quot;表 F&quot;,
+  &quot;title&quot;: &quot;房型价差阶梯表&quot;,
+  &quot;domain&quot;: &quot;价格&quot;,
+  &quot;category&quot;: &quot;price&quot;,
+  &quot;tags&quot;: [
+   &quot;房型价差&quot;,
+   &quot;价格体系&quot;,
+   &quot;校验&quot;
+  ],
+  &quot;trigger&quot;: &quot;设定或每周校验全房型价格体系时&quot;,
+  &quot;preconditions&quot;: &quot;已知高级房 BAR（基准 100）&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;base_bar&quot;,
+    &quot;desc&quot;: &quot;高级房 BAR（基准 100）&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;元&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: 680
+   },
+   {
+    &quot;name&quot;: &quot;high_floor&quot;,
+    &quot;desc&quot;: &quot;高楼层附加&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;%&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: 5
+   },
+   {
+    &quot;name&quot;: &quot;view&quot;,
+    &quot;desc&quot;: &quot;江景/特色景观附加&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;%&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: 10
+   },
+   {
+    &quot;name&quot;: &quot;breakfast&quot;,
+    &quot;desc&quot;: &quot;含早附加&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;元/人&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: 68
+   }
+  ],
+  &quot;derived&quot;: [
+   {
+    &quot;name&quot;: &quot;room_price&quot;,
+    &quot;formula&quot;: &quot;base_bar × 系数 + 附加项&quot;,
+    &quot;desc&quot;: &quot;各房型平峰价&quot;,
+    &quot;example&quot;: &quot;豪华房 680×1.20=820&quot;
+   }
+  ],
+  &quot;decision_logic&quot;: &quot;以高级房 BAR 为基准 100，各房型按系数自动生成；每周一价差校验（相邻 &lt;8% 拉开，&gt;35% 收敛，套房与最高非套房差 &lt;60% 提）。&quot;,
+  &quot;basis&quot;: &quot;房型价差系数：标准 85 / 高级 100 / 豪华 120 / 江景 140 / 行政 145 / 商务套 180 / 行政套 265。云璟平峰高级房 BAR=¥680。&quot;,
+  &quot;pitfalls&quot;: &quot;相邻价差 &lt;8% 白送利润（客人直接买贵的）；&gt;35% 中间档卖不动；套房是利润品不能贱卖；大床/双床同价（除非面积或景观确有差）。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;base_bar&quot;,
+   &quot;high_floor&quot;,
+   &quot;view&quot;,
+   &quot;breakfast&quot;
+  ],
+  &quot;confidence&quot;: &quot;中（依本店房型结构）&quot;,
+  &quot;related&quot;: [],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;房型价差系数与平峰价（基准 BAR ¥680）&quot;,
+    &quot;headers&quot;: [
+     &quot;房型&quot;,
+     &quot;系数&quot;,
+     &quot;平峰价&quot;,
+     &quot;相对高级房差价&quot;,
+     &quot;间数&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;标准房 STD-K / STD-T&quot;,
+      &quot;85&quot;,
+      &quot;¥580&quot;,
+      &quot;−¥100&quot;,
+      &quot;120&quot;
+     ],
+     [
+      &quot;高级房 SUP-K / SUP-T&quot;,
+      &quot;100&quot;,
+      &quot;¥680&quot;,
+      &quot;基准&quot;,
+      &quot;100&quot;
+     ],
+     [
+      &quot;豪华房 DLX-K&quot;,
+      &quot;120&quot;,
+      &quot;¥820&quot;,
+      &quot;+¥140&quot;,
+      &quot;45&quot;
+     ],
+     [
+      &quot;豪华江景房 DLX-V&quot;,
+      &quot;140&quot;,
+      &quot;¥960&quot;,
+      &quot;+¥280&quot;,
+      &quot;15&quot;
+     ],
+     [
+      &quot;行政房 EXE-K / EXE-T&quot;,
+      &quot;145&quot;,
+      &quot;¥990&quot;,
+      &quot;+¥310&quot;,
+      &quot;30&quot;
+     ],
+     [
+      &quot;商务套房 STE-B&quot;,
+      &quot;180&quot;,
+      &quot;¥1,280&quot;,
+      &quot;+¥600&quot;,
+      &quot;8&quot;
+     ],
+     [
+      &quot;行政套房 STE-E&quot;,
+      &quot;265&quot;,
+      &quot;¥1,880&quot;,
+      &quot;+¥1,200&quot;,
+      &quot;2&quot;
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  &quot;id&quot;: &quot;JT-G&quot;,
+  &quot;code&quot;: &quot;表 G&quot;,
+  &quot;title&quot;: &quot;团队／协议询价接受判定表&quot;,
+  &quot;domain&quot;: &quot;客户&quot;,
+  &quot;category&quot;: &quot;customer&quot;,
+  &quot;tags&quot;: [
+   &quot;团队&quot;,
+   &quot;协议&quot;,
+   &quot;询价&quot;,
+   &quot;置换成本&quot;,
+   &quot;综合贡献&quot;
+  ],
+  &quot;trigger&quot;: &quot;销售提交团队/协议询价，判断是否接受&quot;,
+  &quot;preconditions&quot;: &quot;已知团队报价、该日预期散客 ADR、该日预测 OCC&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;ratio_r&quot;,
+    &quot;desc&quot;: &quot;R = 团队报价 ÷ 该日预期散客 ADR&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;%&quot;,
+    &quot;range&quot;: &quot;0-100&quot;,
+    &quot;example&quot;: 80
+   },
+   {
+    &quot;name&quot;: &quot;occ_forecast&quot;,
+    &quot;desc&quot;: &quot;该日预测出租率&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;%&quot;,
+    &quot;range&quot;: &quot;0-100&quot;,
+    &quot;example&quot;: 80
+   }
+  ],
+  &quot;derived&quot;: [
+   {
+    &quot;name&quot;: &quot;decision&quot;,
+    &quot;formula&quot;: &quot;查矩阵：行=R 区间, 列=OCC 区间&quot;,
+    &quot;desc&quot;: &quot;接受/上报L3/拒绝&quot;,
+    &quot;example&quot;: &quot;接受&quot;
+   }
+  ],
+  &quot;decision_logic&quot;: &quot;行=比率 R、列=预测 OCC，查矩阵得接受/上报 L3/拒绝；全服务酒店会议团队算综合贡献可破例。&quot;,
+  &quot;basis&quot;: &quot;置换成本=被挤占房晚×(预期散客ADR−团队价)+被挤占餐饮/其他边际收益；团队收入&gt;置换成本则接。综合贡献≥占用房晚×预期散客ADR×85% 可破例（须 L3 审批）。&quot;,
+  &quot;pitfalls&quot;: &quot;不凭感觉查表；全服务酒店会议团队看综合贡献而非仅 R；R&lt;55% 但综合贡献达标且 L3 审批可接。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;ratio_r&quot;,
+   &quot;occ_forecast&quot;
+  ],
+  &quot;confidence&quot;: &quot;高&quot;,
+  &quot;related&quot;: [
+   &quot;JT-K&quot;
+  ],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;matrix&quot;,
+    &quot;caption&quot;: &quot;行＝比率 R 列＝预测 OCC 单元格＝决策&quot;,
+    &quot;cols&quot;: [
+     &quot;&lt; 70%&quot;,
+     &quot;70 – 85%&quot;,
+     &quot;&gt; 85%&quot;
+    ],
+    &quot;rows&quot;: [
+     {
+      &quot;label&quot;: &quot;R ≥ 85%&quot;,
+      &quot;cells&quot;: [
+       &quot;接受&quot;,
+       &quot;接受&quot;,
+       &quot;接受（≤10 间）&quot;
+      ]
+     },
+     {
+      &quot;label&quot;: &quot;75% ≤ R &lt; 85%&quot;,
+      &quot;cells&quot;: [
+       &quot;接受&quot;,
+       &quot;接受（≤20 间）&quot;,
+       &quot;上报 L3&quot;
+      ]
+     },
+     {
+      &quot;label&quot;: &quot;65% ≤ R &lt; 75%&quot;,
+      &quot;cells&quot;: [
+       &quot;接受（≤30 间）&quot;,
+       &quot;上报 L3&quot;,
+       &quot;拒绝&quot;
+      ]
+     },
+     {
+      &quot;label&quot;: &quot;55% ≤ R &lt; 65%&quot;,
+      &quot;cells&quot;: [
+       &quot;上报 L3&quot;,
+       &quot;拒绝&quot;,
+       &quot;拒绝&quot;
+      ]
+     },
+     {
+      &quot;label&quot;: &quot;R &lt; 55%&quot;,
+      &quot;cells&quot;: [
+       &quot;拒绝&quot;,
+       &quot;拒绝&quot;,
+       &quot;拒绝&quot;
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  &quot;id&quot;: &quot;JT-H&quot;,
+  &quot;code&quot;: &quot;表 H&quot;,
+  &quot;title&quot;: &quot;渠道开关判定表&quot;,
+  &quot;domain&quot;: &quot;渠道&quot;,
+  &quot;category&quot;: &quot;channel&quot;,
+  &quot;tags&quot;: [
+   &quot;渠道&quot;,
+   &quot;OTA&quot;,
+   &quot;价格一致性&quot;,
+   &quot;NRevPAR&quot;,
+   &quot;StopSell&quot;
+  ],
+  &quot;trigger&quot;: &quot;按目标日预测 OCC 决定各渠道开关状态&quot;,
+  &quot;preconditions&quot;: &quot;已知目标日预测 OCC、各渠道综合成本率&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;occ_forecast&quot;,
+    &quot;desc&quot;: &quot;目标日预测出租率&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;%&quot;,
+    &quot;range&quot;: &quot;0-100&quot;,
+    &quot;example&quot;: 95
+   }
+  ],
+  &quot;derived&quot;: [
+   {
+    &quot;name&quot;: &quot;nrevpar&quot;,
+    &quot;formula&quot;: &quot;RevPAR × (1 − 渠道综合成本率)&quot;,
+    &quot;desc&quot;: &quot;净 RevPAR&quot;,
+    &quot;example&quot;: &quot;直销 530×0.97=514 &gt; OTA 600×0.84=504&quot;
+   }
+  ],
+  &quot;decision_logic&quot;: &quot;房好卖关贵渠道、难卖全开；各渠道按 OCC 档位定开关；用 NRevPAR 看渠道净收益。&quot;,
+  &quot;basis&quot;: &quot;NRevPAR=RevPAR×(1−渠道综合成本率)。成本率：直销 3%/会员 4%/协议 8%/GDS 13%/OTA 国内 16%/OTA 国际 18%/批发 26%（最高，房好卖第一个关）。&quot;,
+  &quot;pitfalls&quot;: &quot;价格一致性四条红线：直销价不得高于任一 OTA；会员价仅登录会员可见；批发/包房价为净价不公开；违反应 24h 内整改并记入考核。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;occ_forecast&quot;
+  ],
+  &quot;confidence&quot;: &quot;高&quot;,
+  &quot;related&quot;: [
+   &quot;JT-O&quot;
+  ],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;渠道开关矩阵&quot;,
+    &quot;headers&quot;: [
+     &quot;预测 OCC&quot;,
+     &quot;OTA 国内&quot;,
+     &quot;OTA 国际&quot;,
+     &quot;GDS / TMC&quot;,
+     &quot;批发商 / 包房&quot;,
+     &quot;直销 / 会员&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;≥ 95%&quot;,
+      &quot;仅留 1 家产量最高&quot;,
+      &quot;关&quot;,
+      &quot;关&quot;,
+      &quot;关&quot;,
+      &quot;全开 + 会员专享价&quot;
+     ],
+     [
+      &quot;90 – 95%&quot;,
+      &quot;开 2 家&quot;,
+      &quot;关&quot;,
+      &quot;开&quot;,
+      &quot;关&quot;,
+      &quot;全开&quot;
+     ],
+     [
+      &quot;85 – 90%&quot;,
+      &quot;开 3 家&quot;,
+      &quot;开 1 家&quot;,
+      &quot;开&quot;,
+      &quot;关&quot;,
+      &quot;全开&quot;
+     ],
+     [
+      &quot;70 – 85%&quot;,
+      &quot;全开&quot;,
+      &quot;全开&quot;,
+      &quot;开&quot;,
+      &quot;限价开（≤BAR×75%）&quot;,
+      &quot;全开 + 早鸟&quot;
+     ],
+     [
+      &quot;55 – 70%&quot;,
+      &quot;全开 + 促销&quot;,
+      &quot;全开&quot;,
+      &quot;开&quot;,
+      &quot;开&quot;,
+      &quot;全开 + 闪购/套餐&quot;
+     ],
+     [
+      &quot;&lt; 55%&quot;,
+      &quot;全开 + 深折&quot;,
+      &quot;全开&quot;,
+      &quot;开 + 商务套餐&quot;,
+      &quot;开 + 打包产品&quot;,
+      &quot;全开 + 长住/团購&quot;
+     ]
+    ]
+   },
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;&quot;,
+    &quot;headers&quot;: [
+     &quot;渠道&quot;,
+     &quot;综合成本率&quot;,
+     &quot;说明&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;直销（官网/小程序/前台）&quot;,
+      &quot;3%&quot;,
+      &quot;支付 + 系统&quot;
+     ],
+     [
+      &quot;会员直订&quot;,
+      &quot;4%&quot;,
+      &quot;含积分成本&quot;
+     ],
+     [
+      &quot;协议公司&quot;,
+      &quot;8%&quot;,
+      &quot;含返佣、账期成本&quot;
+     ],
+     [
+      &quot;GDS / 商旅 TMC&quot;,
+      &quot;13%&quot;,
+      &quot;&quot;
+     ],
+     [
+      &quot;OTA 国内（携程/美团/飞猪）&quot;,
+      &quot;16%&quot;,
+      &quot;&quot;
+     ],
+     [
+      &quot;OTA 国际（Booking/Agoda）&quot;,
+      &quot;18%&quot;,
+      &quot;&quot;
+     ],
+     [
+      &quot;批发商 / 包房商&quot;,
+      &quot;26%&quot;,
+      &quot;成本最高，房好卖时第一个关&quot;
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  &quot;id&quot;: &quot;JT-I&quot;,
+  &quot;code&quot;: &quot;表 I&quot;,
+  &quot;title&quot;: &quot;预订窗口分档监控表&quot;,
+  &quot;domain&quot;: &quot;节奏&quot;,
+  &quot;category&quot;: &quot;rhythm&quot;,
+  &quot;tags&quot;: [
+   &quot;预订窗口&quot;,
+   &quot;Pickup&quot;,
+   &quot;监控&quot;,
+   &quot;提前天数&quot;
+  ],
+  &quot;trigger&quot;: &quot;按提前天数分档监控预订进度&quot;,
+  &quot;preconditions&quot;: &quot;已知日期距入住日的提前天数&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;lead_days&quot;,
+    &quot;desc&quot;: &quot;提前天数（距入住日）&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;天&quot;,
+    &quot;range&quot;: &quot;0-365&quot;,
+    &quot;example&quot;: 8
+   }
+  ],
+  &quot;derived&quot;: [],
+  &quot;decision_logic&quot;: &quot;六档窗口（0-3/4-7/8-14/15-30/31-60/&gt;60 天）各有监控频率/关注指标/落后触发阈值/触发动作；越接近入住日盯得越紧。&quot;,
+  &quot;basis&quot;: &quot;真正赚钱的决策在 15-60 天窗口就做完了；等到只剩 3 天才发现没房只能降价，利润已没。&quot;,
+  &quot;pitfalls&quot;: &quot;只盯近期不盯远期；每天至少花 10 分钟看 15 天以后的在手量。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;lead_days&quot;
+  ],
+  &quot;confidence&quot;: &quot;高&quot;,
+  &quot;related&quot;: [],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;六档预订窗口&quot;,
+    &quot;headers&quot;: [
+     &quot;窗口&quot;,
+     &quot;监控频率&quot;,
+     &quot;关注指标&quot;,
+     &quot;落后触发阈值&quot;,
+     &quot;触发动作&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;0 – 3 天&quot;,
+      &quot;每日 2 次（10:00 / 17:00）&quot;,
+      &quot;当日 Pickup、临时取消&quot;,
+      &quot;OCC &lt; 70%&quot;,
+      &quot;上「今日特惠」尾房产品&quot;
+     ],
+     [
+      &quot;4 – 7 天&quot;,
+      &quot;每日 1 次&quot;,
+      &quot;周内进度&quot;,
+      &quot;落后 10%&quot;,
+      &quot;启动 48h 闪购&quot;
+     ],
+     [
+      &quot;8 – 14 天&quot;,
+      &quot;每日 1 次&quot;,
+      &quot;双周在手&quot;,
+      &quot;落后 15%&quot;,
+      &quot;执行表 A 调价&quot;
+     ],
+     [
+      &quot;15 – 30 天&quot;,
+      &quot;每周 2 次&quot;,
+      &quot;月度在手&quot;,
+      &quot;落后 20%&quot;,
+      &quot;策略复盘 + 销售动员&quot;
+     ],
+     [
+      &quot;31 – 60 天&quot;,
+      &quot;每周 1 次&quot;,
+      &quot;长线在手&quot;,
+      &quot;落后 25%&quot;,
+      &quot;启动协议客户拜访计划&quot;
+     ],
+     [
+      &quot;&gt; 60 天&quot;,
+      &quot;每月 1 次&quot;,
+      &quot;大型团队 / 会议在手&quot;,
+      &quot;落后 30%&quot;,
+      &quot;上报 L3，调整年度策略&quot;
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  &quot;id&quot;: &quot;JT-J&quot;,
+  &quot;code&quot;: &quot;表 J&quot;,
+  &quot;title&quot;: &quot;免费升级规则表&quot;,
+  &quot;domain&quot;: &quot;库存&quot;,
+  &quot;category&quot;: &quot;inventory&quot;,
+  &quot;tags&quot;: [
+   &quot;升级&quot;,
+   &quot;会员&quot;,
+   &quot;优先级&quot;,
+   &quot;利润品&quot;
+  ],
+  &quot;trigger&quot;: &quot;超售腾房 / 目标日高档房空置&gt;20% / 会员权益兑现 三种场景需升级时&quot;,
+  &quot;preconditions&quot;: &quot;已知会员等级、预订价、住期、复购次数&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;trigger_scenario&quot;,
+    &quot;desc&quot;: &quot;触发场景（腾房/空置/权益）&quot;,
+    &quot;type&quot;: &quot;enum&quot;,
+    &quot;unit&quot;: &quot;&quot;,
+    &quot;range&quot;: &quot;腾房|空置|权益&quot;,
+    &quot;example&quot;: &quot;空置&quot;
+   },
+   {
+    &quot;name&quot;: &quot;member_level&quot;,
+    &quot;desc&quot;: &quot;忠诚会员等级&quot;,
+    &quot;type&quot;: &quot;enum&quot;,
+    &quot;unit&quot;: &quot;&quot;,
+    &quot;range&quot;: &quot;钻石|铂金|金卡|银卡&quot;,
+    &quot;example&quot;: &quot;金卡&quot;
+   },
+   {
+    &quot;name&quot;: &quot;booking_price&quot;,
+    &quot;desc&quot;: &quot;预订价（同档内高价优先）&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;元&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: 680
+   },
+   {
+    &quot;name&quot;: &quot;stay_nights&quot;,
+    &quot;desc&quot;: &quot;入住天数（同价长者优先）&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;晚&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: 5
+   },
+   {
+    &quot;name&quot;: &quot;repurchase_count&quot;,
+    &quot;desc&quot;: &quot;复购次数（仍相同老客优先）&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;次&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: 12
+   }
+  ],
+  &quot;derived&quot;: [],
+  &quot;decision_logic&quot;: &quot;严格按执行顺序排优先级：①忠诚等级 ②同档内预订价高者 ③同价住期长者 ④仍相同复购多者；每次最多升 1 档。&quot;,
+  &quot;basis&quot;: &quot;升级是成本最低的满意度工具，但必须用规则管住，不能前台想升就升。&quot;,
+  &quot;pitfalls&quot;: &quot;每次最多升 1 档，禁止连跳 2 档（除 L3 特批）；套房升级每日≤3 间且须 L3 审批；每次升级写入《升级台账》注明原因房号等级。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;trigger_scenario&quot;,
+   &quot;member_level&quot;,
+   &quot;booking_price&quot;,
+   &quot;stay_nights&quot;,
+   &quot;repurchase_count&quot;
+  ],
+  &quot;confidence&quot;: &quot;高&quot;,
+  &quot;related&quot;: [
+   &quot;JT-E&quot;
+  ],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;steps&quot;,
+    &quot;items&quot;: [
+     {
+      &quot;step&quot;: &quot;1&quot;,
+      &quot;text&quot;: &quot;&quot;
+     },
+     {
+      &quot;step&quot;: &quot;2&quot;,
+      &quot;text&quot;: &quot;&quot;
+     },
+     {
+      &quot;step&quot;: &quot;3&quot;,
+      &quot;text&quot;: &quot;&quot;
+     },
+     {
+      &quot;step&quot;: &quot;4&quot;,
+      &quot;text&quot;: &quot;&quot;
+     }
+    ]
+   }
+  ]
+ },
+ {
+  &quot;id&quot;: &quot;JT-K&quot;,
+  &quot;code&quot;: &quot;表 K&quot;,
+  &quot;title&quot;: &quot;会议／宴会综合收益联动表&quot;,
+  &quot;domain&quot;: &quot;客户&quot;,
+  &quot;category&quot;: &quot;customer&quot;,
+  &quot;tags&quot;: [
+   &quot;会议&quot;,
+   &quot;宴会&quot;,
+   &quot;综合贡献&quot;,
+   &quot;餐饮&quot;,
+   &quot;置换&quot;
+  ],
+  &quot;trigger&quot;: &quot;全服务酒店评估会议/宴会团队是否接受&quot;,
+  &quot;preconditions&quot;: &quot;已知会议规模、客房需求、餐饮保底、客房置换成本&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;meeting_size&quot;,
+    &quot;desc&quot;: &quot;会议规模（人数）&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;人&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: 80
+   },
+   {
+    &quot;name&quot;: &quot;room_nights&quot;,
+    &quot;desc&quot;: &quot;客房需求（间夜）&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;间夜&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: 40
+   },
+   {
+    &quot;name&quot;: &quot;fnb_guarantee&quot;,
+    &quot;desc&quot;: &quot;餐饮保底营业额&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;元&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: 30000
+   },
+   {
+    &quot;name&quot;: &quot;room_displacement_cost&quot;,
+    &quot;desc&quot;: &quot;客房置换成本&quot;,
+    &quot;type&quot;: &quot;number&quot;,
+    &quot;unit&quot;: &quot;元&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: 20000
+   }
+  ],
+  &quot;derived&quot;: [
+   {
+    &quot;name&quot;: &quot;comprehensive_contribution&quot;,
+    &quot;formula&quot;: &quot;客房收入+餐饮收入+会场租金+设备/其他&quot;,
+    &quot;desc&quot;: &quot;综合贡献&quot;,
+    &quot;example&quot;: &quot;≥置换成本×1.0&quot;
+   }
+  ],
+  &quot;decision_logic&quot;: &quot;先问餐饮/宴会承接能力 → 再算综合贡献 → 最后才查表 G 看客房比率；按规模定接受底线。&quot;,
+  &quot;basis&quot;: &quot;综合贡献=客房收入+餐饮收入+会场租金+设备/其他；接受底线=综合贡献≥客房置换成本×系数（小 1.1/中 1.0/大 0.95/超大 0.9+L3 审批）。&quot;,
+  &quot;pitfalls&quot;: &quot;餐饮毛利率&lt;55% 的会议须 L3 审批；勿一上来就用表 G 拒会议，白白丢掉十几万餐饮收入。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;meeting_size&quot;,
+   &quot;room_nights&quot;,
+   &quot;fnb_guarantee&quot;,
+   &quot;room_displacement_cost&quot;
+  ],
+  &quot;confidence&quot;: &quot;中（全服务专属）&quot;,
+  &quot;related&quot;: [
+   &quot;JT-G&quot;
+  ],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;按会议规模的接受底线&quot;,
+    &quot;headers&quot;: [
+     &quot;规模&quot;,
+     &quot;客房需求&quot;,
+     &quot;餐饮保底&quot;,
+     &quot;接受底线（综合贡献）&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;小型（≤ 30 人）&quot;,
+      &quot;≤ 15 间夜&quot;,
+      &quot;≥ ¥8,000&quot;,
+      &quot;≥ 客房置换成本 × 1.1&quot;
+     ],
+     [
+      &quot;中型（31 – 120 人）&quot;,
+      &quot;16 – 60 间夜&quot;,
+      &quot;≥ ¥30,000&quot;,
+      &quot;≥ 客房置换成本 × 1.0&quot;
+     ],
+     [
+      &quot;大型（121 – 300 人）&quot;,
+      &quot;61 – 150 间夜&quot;,
+      &quot;≥ ¥80,000&quot;,
+      &quot;≥ 客房置换成本 × 0.95&quot;
+     ],
+     [
+      &quot;超大型（&gt; 300 人）&quot;,
+      &quot;&gt; 150 间夜&quot;,
+      &quot;≥ ¥150,000&quot;,
+      &quot;≥ 客房置换成本 × 0.9 + L3/业主审批&quot;
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  &quot;id&quot;: &quot;JT-L&quot;,
+  &quot;code&quot;: &quot;表 L&quot;,
+  &quot;title&quot;: &quot;异常事件应急判定表&quot;,
+  &quot;domain&quot;: &quot;应急&quot;,
+  &quot;category&quot;: &quot;emergency&quot;,
+  &quot;tags&quot;: [
+   &quot;应急&quot;,
+   &quot;异常&quot;,
+   &quot;需求暴跌&quot;,
+   &quot;需求暴涨&quot;,
+   &quot;步行预案&quot;
+  ],
+  &quot;trigger&quot;: &quot;发生五类异常事件之一（需求暴跌/暴涨/竞对新开/系统故障/超售过度）&quot;,
+  &quot;preconditions&quot;: &quot;已知事件类型与判定信号&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;event_type&quot;,
+    &quot;desc&quot;: &quot;异常事件类型&quot;,
+    &quot;type&quot;: &quot;enum&quot;,
+    &quot;unit&quot;: &quot;&quot;,
+    &quot;range&quot;: &quot;需求暴跌|需求暴涨|竞对新开|系统故障|超售过度&quot;,
+    &quot;example&quot;: &quot;需求暴跌&quot;
+   }
+  ],
+  &quot;derived&quot;: [],
+  &quot;decision_logic&quot;: &quot;本表优先级 1 覆盖一切；按事件类型执行 2h 内动作/24h 动作/复盘；超售过度走《步行客人预案》四步。&quot;,
+  &quot;basis&quot;: &quot;五类异常事件标准应对；步行客人预案：①同档/更高档酒店+差价交通费 ②下次免费升 1 档+双早 ③会员额外 5000 积分 ④总经理签名致歉信+值班经理跟进。&quot;,
+  &quot;pitfalls&quot;: &quot;步行客人预案四步按序执行不得跳步；处理得当复购率高于普通客人，处理砸的一条差评长期损失远超一晚房费。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;event_type&quot;
+  ],
+  &quot;confidence&quot;: &quot;高（应急）&quot;,
+  &quot;related&quot;: [
+   &quot;JT-E&quot;,
+   &quot;JT-O&quot;
+  ],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;五类异常事件的标准应对&quot;,
+    &quot;headers&quot;: [
+     &quot;事件类型&quot;,
+     &quot;判定信号&quot;,
+     &quot;立即动作（2 小时内）&quot;,
+     &quot;24 小时内&quot;,
+     &quot;复盘&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;需求暴跌（展会取消/恶劣天气/舆情）&quot;,
+      &quot;48h Pickup 落后 &gt; 40%&quot;,
+      &quot;↓15%、全开渠道、启动直销外呼&quot;,
+      &quot;全员销售动员、上团購产品&quot;,
+      &quot;事后 7 天复盘报告&quot;
+     ],
+     [
+      &quot;需求暴涨（突发大型活动）&quot;,
+      &quot;24h Pickup 领先 &gt; 60%&quot;,
+      &quot;↑20%、设 MinLOS 2、关低价渠道&quot;,
+      &quot;二次提价 10%、限制团队&quot;,
+      &quot;事后复盘，留存为 D1 日历&quot;
+     ],
+     [
+      &quot;竞对新开业&quot;,
+      &quot;3km 内新增同档酒店&quot;,
+      &quot;采集其价格加入比价表、评估 ARI&quot;,
+      &quot;制定差异化策略（不盲目跟价）&quot;,
+      &quot;月度跟踪 MPI 变化&quot;
+     ],
+     [
+      &quot;系统故障（PMS/渠道断连）&quot;,
+      &quot;渠道无订单 &gt; 2h&quot;,
+      &quot;切手动模式、通知渠道经理&quot;,
+      &quot;补录订单、核对库存&quot;,
+      &quot;故障报告 + 预案更新&quot;
+     ],
+     [
+      &quot;超售过度（到店无房）&quot;,
+      &quot;到店无房&quot;,
+      &quot;启动《步行客人预案》（见下）&quot;,
+      &quot;赔偿结算、客人回访&quot;,
+      &quot;重算表 E 参数&quot;
+     ]
+    ]
+   },
+   {
+    &quot;type&quot;: &quot;steps&quot;,
+    &quot;items&quot;: [
+     {
+      &quot;step&quot;: &quot;1&quot;,
+      &quot;text&quot;: &quot;&quot;
+     },
+     {
+      &quot;step&quot;: &quot;2&quot;,
+      &quot;text&quot;: &quot;&quot;
+     },
+     {
+      &quot;step&quot;: &quot;3&quot;,
+      &quot;text&quot;: &quot;&quot;
+     },
+     {
+      &quot;step&quot;: &quot;4&quot;,
+      &quot;text&quot;: &quot;&quot;
+     }
+    ]
+   }
+  ]
+ },
+ {
+  &quot;id&quot;: &quot;JT-M&quot;,
+  &quot;code&quot;: &quot;表 M&quot;,
+  &quot;title&quot;: &quot;每日收益操作流水线（时间表）&quot;,
+  &quot;domain&quot;: &quot;节奏&quot;,
+  &quot;category&quot;: &quot;rhythm&quot;,
+  &quot;tags&quot;: [
+   &quot;流水线&quot;,
+   &quot;时间表&quot;,
+   &quot;L1&quot;,
+   &quot;晨会&quot;,
+   &quot;台账&quot;
+  ],
+  &quot;trigger&quot;: &quot;L1 每日收益操作流程（07:30–17:00）&quot;,
+  &quot;preconditions&quot;: &quot;已知当日为正常工作日&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;schedule_time&quot;,
+    &quot;desc&quot;: &quot;流程时点&quot;,
+    &quot;type&quot;: &quot;time&quot;,
+    &quot;unit&quot;: &quot;&quot;,
+    &quot;range&quot;: &quot;07:30-17:00&quot;,
+    &quot;example&quot;: &quot;08:30&quot;
+   }
+  ],
+  &quot;derived&quot;: [],
+  &quot;decision_logic&quot;: &quot;严格按时间表九步：抓昨日数据→抓未来30天在手→采竞争5家价→查表A/B/C/H出动作清单→执行调价与库存→价格一致性核查→写台账→晨会→17:00二次巡检；10:30 前完成且每项注明依据表 X。&quot;,
+  &quot;basis&quot;: &quot;L1 必须背下来的流程；照着走完一天工作就做完了。&quot;,
+  &quot;pitfalls&quot;: &quot;每项动作须标注『依据表 X』；合格标准=10:30 前完成 + 清单全标注。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;schedule_time&quot;
+  ],
+  &quot;confidence&quot;: &quot;高&quot;,
+  &quot;related&quot;: [
+   &quot;JT-A&quot;,
+   &quot;JT-B&quot;,
+   &quot;JT-C&quot;,
+   &quot;JT-H&quot;
+  ],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;steps&quot;,
+    &quot;items&quot;: [
+     {
+      &quot;step&quot;: &quot;07:30&quot;,
+      &quot;text&quot;: &quot;&quot;
+     },
+     {
+      &quot;step&quot;: &quot;07:50&quot;,
+      &quot;text&quot;: &quot;&quot;
+     },
+     {
+      &quot;step&quot;: &quot;08:10&quot;,
+      &quot;text&quot;: &quot;&quot;
+     },
+     {
+      &quot;step&quot;: &quot;08:30&quot;,
+      &quot;text&quot;: &quot;&quot;
+     },
+     {
+      &quot;step&quot;: &quot;09:10&quot;,
+      &quot;text&quot;: &quot;&quot;
+     },
+     {
+      &quot;step&quot;: &quot;09:40&quot;,
+      &quot;text&quot;: &quot;&quot;
+     },
+     {
+      &quot;step&quot;: &quot;09:55&quot;,
+      &quot;text&quot;: &quot;&quot;
+     },
+     {
+      &quot;step&quot;: &quot;10:05&quot;,
+      &quot;text&quot;: &quot;&quot;
+     },
+     {
+      &quot;step&quot;: &quot;17:00&quot;,
+      &quot;text&quot;: &quot;&quot;
+     }
+    ]
+   }
+  ]
+ },
+ {
+  &quot;id&quot;: &quot;JT-N&quot;,
+  &quot;code&quot;: &quot;表 N&quot;,
+  &quot;title&quot;: &quot;周度／月度节奏表&quot;,
+  &quot;domain&quot;: &quot;节奏&quot;,
+  &quot;category&quot;: &quot;rhythm&quot;,
+  &quot;tags&quot;: [
+   &quot;节奏&quot;,
+   &quot;周报&quot;,
+   &quot;月报&quot;,
+   &quot;季度&quot;,
+   &quot;预算&quot;
+  ],
+  &quot;trigger&quot;: &quot;周期性（周/月/季/年）收益动作&quot;,
+  &quot;preconditions&quot;: &quot;已知当前周期节点&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;period&quot;,
+    &quot;desc&quot;: &quot;周期节点&quot;,
+    &quot;type&quot;: &quot;enum&quot;,
+    &quot;unit&quot;: &quot;&quot;,
+    &quot;range&quot;: &quot;周一|周三|周五|每月1日|每月5日|每月10日|每季|每年9月&quot;,
+    &quot;example&quot;: &quot;每周一&quot;
+   }
+  ],
+  &quot;derived&quot;: [],
+  &quot;decision_logic&quot;: &quot;按周期执行固定动作：周一价差校验/周三深度比价/周五周末作战/月1复盘/月5渠道/月10汇报/季重构/年9预算。&quot;,
+  &quot;basis&quot;: &quot;漏掉任一项体系就会出现漏洞。&quot;,
+  &quot;pitfalls&quot;: &quot;周期性动作不可漏；每周一必做房型价差校验（表 F）。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;period&quot;
+  ],
+  &quot;confidence&quot;: &quot;高&quot;,
+  &quot;related&quot;: [
+   &quot;JT-F&quot;
+  ],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;周期性动作清单&quot;,
+    &quot;headers&quot;: [
+     &quot;周期&quot;,
+     &quot;动作&quot;,
+     &quot;产出物&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;每周一&quot;,
+      &quot;房型价差校验（表 F）、未来 8 周预测更新、渠道开关复核（表 H）&quot;,
+      &quot;《周度收益报告》&quot;
+     ],
+     [
+      &quot;每周三&quot;,
+      &quot;竞争组合深度比价（含套餐 / 含早 / 取消政策）&quot;,
+      &quot;比价深度表&quot;
+     ],
+     [
+      &quot;每周五&quot;,
+      &quot;下周 D1/D2 日重点盯防、周末策略确认&quot;,
+      &quot;《周末作战表》&quot;
+     ],
+     [
+      &quot;每月 1 日&quot;,
+      &quot;上月复盘（RGI / MPI / ARI 三维诊断）、滚动预测更新&quot;,
+      &quot;《月度收益复盘报告》&quot;
+     ],
+     [
+      &quot;每月 5 日&quot;,
+      &quot;客源结构分析、渠道贡献与净 RevPAR 分析&quot;,
+      &quot;《客源渠道报告》&quot;
+     ],
+     [
+      &quot;每月 10 日&quot;,
+      &quot;业主 / 管理层汇报&quot;,
+      &quot;汇报 PPT + 一页纸摘要&quot;
+     ],
+     [
+      &quot;每季度&quot;,
+      &quot;竞争组合复核、价格体系重构、协议客户分级&quot;,
+      &quot;《季度策略文件》&quot;
+     ],
+     [
+      &quot;每年 9 月&quot;,
+      &quot;下年度预算编制&quot;,
+      &quot;《年度预算文件》&quot;
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  &quot;id&quot;: &quot;JT-O&quot;,
+  &quot;code&quot;: &quot;表 O&quot;,
+  &quot;title&quot;: &quot;决策优先级与冲突仲裁表&quot;,
+  &quot;domain&quot;: &quot;应急&quot;,
+  &quot;category&quot;: &quot;emergency rhythm&quot;,
+  &quot;tags&quot;: [
+   &quot;优先级&quot;,
+   &quot;仲裁&quot;,
+   &quot;冲突&quot;,
+   &quot;观察清单&quot;
+  ],
+  &quot;trigger&quot;: &quot;多张表给出不同动作时&quot;,
+  &quot;preconditions&quot;: &quot;已知相互冲突的表及各自动作&quot;,
+  &quot;inputs&quot;: [
+   {
+    &quot;name&quot;: &quot;conflicting_tables&quot;,
+    &quot;desc&quot;: &quot;给出冲突动作的表&quot;,
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;unit&quot;: &quot;&quot;,
+    &quot;range&quot;: &quot;&quot;,
+    &quot;example&quot;: &quot;表A,表C&quot;
+   }
+  ],
+  &quot;derived&quot;: [
+   {
+    &quot;name&quot;: &quot;priority_order&quot;,
+    &quot;formula&quot;: &quot;L(1) &gt; B(2) &gt; A(3) &gt; C(4) &gt; H(5) &gt; D(6)&quot;,
+    &quot;desc&quot;: &quot;优先级从高到低&quot;,
+    &quot;example&quot;: &quot;表A优先于表C&quot;
+   }
+  ],
+  &quot;decision_logic&quot;: &quot;严格按优先级（1应急L&gt;2库存B&gt;3价格A&gt;4竞争C&gt;5渠道H&gt;6份额D）执行最高那条，其余记入《观察清单》；最高为『维持』则顺延下一优先级。&quot;,
+  &quot;basis&quot;: &quot;优先级表覆盖全部 15 张表；有了它学员永远不会卡住。&quot;,
+  &quot;pitfalls&quot;: &quot;同日只执行最高优先级一条；最高为维持则顺延下一优先级；所有冲突与取舍必须写入《调价台账》备注栏。&quot;,
+  &quot;data_needs&quot;: [
+   &quot;conflicting_tables&quot;
+  ],
+  &quot;confidence&quot;: &quot;高（终极保障）&quot;,
+  &quot;related&quot;: [
+   &quot;JT-A&quot;,
+   &quot;JT-B&quot;,
+   &quot;JT-C&quot;,
+   &quot;JT-D&quot;,
+   &quot;JT-H&quot;,
+   &quot;JT-L&quot;
+  ],
+  &quot;version&quot;: &quot;v1.0&quot;,
+  &quot;tables&quot;: [
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;优先级从高到低&quot;,
+    &quot;headers&quot;: [
+     &quot;优先级&quot;,
+     &quot;表&quot;,
+     &quot;场景&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;1（最高）&quot;,
+      &quot;表 L 应急&quot;,
+      &quot;异常事件，覆盖一切&quot;
+     ],
+     [
+      &quot;2&quot;,
+      &quot;表 B 库存&quot;,
+      &quot;库存安全（超售 / 关房）优先于价格&quot;
+     ],
+     [
+      &quot;3&quot;,
+      &quot;表 A 价格&quot;,
+      &quot;常规价格调整&quot;
+     ],
+     [
+      &quot;4&quot;,
+      &quot;表 C ARI&quot;,
+      &quot;竞争定位微调&quot;
+     ],
+     [
+      &quot;5&quot;,
+      &quot;表 H 渠道&quot;,
+      &quot;渠道开关&quot;
+     ],
+     [
+      &quot;6（最低）&quot;,
+      &quot;表 D MPI&quot;,
+      &quot;份额诊断，多为分析而非动作&quot;
+     ]
+    ]
+   },
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;四档需求等级&quot;,
+    &quot;headers&quot;: [
+     &quot;等级&quot;,
+     &quot;典型日期&quot;,
+     &quot;价格系数（相对平峰 BAR）&quot;,
+     &quot;目标 OCC&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;D1 峰值日&quot;,
+      &quot;国庆 1–5、五一 1–3、春节初三–初六、滨江动漫节 / 云栖大会 / 国际马拉松等 8–12 天&quot;,
+      &quot;150 – 200%&quot;,
+      &quot;≥ 95%&quot;
+     ],
+     [
+      &quot;D2 高涨日&quot;,
+      &quot;旺季（4–5 月、9–10 月）周五六、展会周边日、暑期周末&quot;,
+      &quot;120 – 150%&quot;,
+      &quot;88 – 95%&quot;
+     ],
+     [
+      &quot;D3 平峰日&quot;,
+      &quot;平季周五六、旺季周日–周四&quot;,
+      &quot;95 – 110%&quot;,
+      &quot;72 – 85%&quot;
+     ],
+     [
+      &quot;D4 低谷日&quot;,
+      &quot;1–2 月淡季（除春节）、7 月上中旬、节后 3–5 天、极端天气日&quot;,
+      &quot;70 – 85%&quot;,
+      &quot;45 – 65%&quot;
+     ]
+    ]
+   },
+   {
+    &quot;type&quot;: &quot;list&quot;,
+    &quot;caption&quot;: &quot;月度需求基准（云璟酒店）&quot;,
+    &quot;headers&quot;: [
+     &quot;月份&quot;,
+     &quot;1&quot;,
+     &quot;2&quot;,
+     &quot;3&quot;,
+     &quot;4&quot;,
+     &quot;5&quot;,
+     &quot;6&quot;,
+     &quot;7&quot;,
+     &quot;8&quot;,
+     &quot;9&quot;,
+     &quot;10&quot;,
+     &quot;11&quot;,
+     &quot;12&quot;
+    ],
+    &quot;rows&quot;: [
+     [
+      &quot;OCC&quot;,
+      &quot;58%&quot;,
+      &quot;62%&quot;,
+      &quot;74%&quot;,
+      &quot;82%&quot;,
+      &quot;84%&quot;,
+      &quot;76%&quot;,
+      &quot;70%&quot;,
+      &quot;78%&quot;,
+      &quot;83%&quot;,
+      &quot;85%&quot;,
+      &quot;78%&quot;,
+      &quot;68%&quot;
+     ],
+     [
+      &quot;ADR&quot;,
+      &quot;540&quot;,
+      &quot;560&quot;,
+      &quot;600&quot;,
+      &quot;660&quot;,
+      &quot;690&quot;,
+      &quot;620&quot;,
+      &quot;580&quot;,
+      &quot;630&quot;,
+      &quot;670&quot;,
+      &quot;700&quot;,
+      &quot;640&quot;,
+      &quot;570&quot;
+     ]
+    ]
+   }
+  ]
+ }
+]</pre>
+</main>
+</div>
+<script type="application/json" id="jt-data">[
+ {
+  "id": "JT-A",
+  "code": "表 A",
+  "title": "每日价格调整判定表",
+  "domain": "价格",
+  "category": "price",
+  "tags": [
+   "每日调价",
+   "Pickup",
+   "OCC",
+   "BAR",
+   "峰值日"
+  ],
+  "trigger": "每日 09:10 执行调价前，依据目标日预测 OCC 与 Pickup 偏差确定 BAR 动作",
+  "preconditions": "已知目标日当前预测 OCC、去年同期同一提前窗口在手房晚、预测增量",
   "inputs": [
-    {"name": "discount_pct", "desc": "拟降价幅度", "type": "number", "unit": "%", "range": "0-100", "example": 33.5},
-    {"name": "occ_now", "desc": "当前出租率", "type": "number", "unit": "%", "range": "0-100", "example": 45},
-    {"name": "occ_est_after", "desc": "降价后预计出租率", "type": "number", "unit": "%", "range": "0-100", "example": 67.7}
+   {
+    "name": "occ_forecast",
+    "desc": "目标日预测出租率",
+    "type": "number",
+    "unit": "%",
+    "range": "0-100",
+    "example": 95.3
+   },
+   {
+    "name": "pickup_bias",
+    "desc": "Pickup 偏差 =(当前在手−去年同期在手)/去年同期在手×100%",
+    "type": "number",
+    "unit": "%",
+    "range": "-100~+100",
+    "example": 10.4
+   }
   ],
   "derived": [
-    {"name": "breakeven_occ_gain", "formula": "discount_pct/(1-discount_pct)", "desc": "打平所需出租率涨幅", "example": 50.4}
+   {
+    "name": "price_action",
+    "formula": "查矩阵：行=OCC区间, 列=Pickup偏差区间",
+    "desc": "价格动作",
+    "example": "↑20%"
+   }
   ],
-  "decision_logic": "先算打平所需涨幅；再判断该涨幅在当下是否现实；现实才考虑降，且必须配栅栏只降给新增客源。逐条自上而下判定，命中即取 then。",
-  "rules": [
-    {"when": "打平所需出租率涨幅 > 当前可实现的涨幅（如淡季）",
-     "then": {"decision": "不降", "action": "维持原价，改用非价格手段（服务/打包）", "rationale": "降价带来的量增补不回价损，RevPAR与GOPPAR双降"}},
-    {"when": "涨幅现实，但无法限定降价对象",
-     "then": {"decision": "不降或慎用", "action": "避免全量降价", "rationale": "全量降价会拉低已愿意付高价的客源价格"}},
-    {"when": "涨幅现实，且能用栅栏只降给新增客源",
-     "then": {"decision": "降，但要设栅栏", "action": "提前预订/不可取消/限定渠道或房型，分隔新老客源价格", "rationale": "只让新增价格敏感客享受低价，保护原有高价客"}},
-    {"when": "降价后出租率涨幅 < 打平所需涨幅",
-     "then": {"decision": "不降", "action": "重新评估，或仅小幅限渠道降价", "rationale": "未达打平点即亏"}}
+  "decision_logic": "以预测 OCC 为行、Pickup 偏差为列查矩阵得价格动作；与表 B 库存动作配套；受表 O 优先级约束（价格优先级 3）。",
+  "basis": "阈值基于中高端全服务酒店通用起点；OCC 分母=可售房晚。演示：OCC=(265+40)/320=95.3%→≥95%行；Pickup=(265-240)/240=+10.4%→领先>10%列→↑20%；BAR 680×1.20=816。",
+  "pitfalls": "单日同方向累计≤20%；24h 内同方向≤2 次；每次≥3%（低于 3% 市场无感知）；调价后 30min 核查 OTA 挂牌价；D1 峰值日须 L3 审批；每次写入《调价台账》注明依据表 A。",
+  "data_needs": [
+   "occ_forecast",
+   "pickup_bias"
   ],
-  "basis": "收入变动=(1+出租率变动%)×(1+房价变动%)−1；打平条件：出租率涨幅>降价幅度÷(1−降价幅度)",
-  "pitfalls": "分母用错（OCC/RevPAR分母是『可售房晚』，ADR是『已售房晚』）会导致整张表查错一格；只看OCC不看GOPPAR会误判成功。",
-  "data_needs": ["拟降价幅度%", "当前出租率%", "历史需求弹性或可达涨幅估算", "可售房晚口径"],
-  "confidence": "高（通用，适用绝大多数住宿业态）",
-  "related": ["JT-05"],
-  "version": "v0.1"
-}</code></pre>
-
-<h2 id="toc-5">三、现有判定表清单（取样来源）</h2>
-<p class="sub">自 books-set 钩出 13 张；按章序编号，<span class="pill">JT-01</span> 为本次样表。33–41 章可能另有 2 张，补齐后即「15 张核心集」。</p>
-<ol class="cat">
-  <li><span class="pill">JT-01</span> 降价前先算这一步 — 01-第一篇-认知与衡量.md（样表）</li>
-  <li>JT-02 增长质量 — 01-第一篇-认知与衡量.md</li>
-  <li>JT-03 该看哪个源 — 03-第三篇-预测与计划.md</li>
-  <li>JT-04 团队询价 — 03-第三篇-预测与计划.md</li>
-  <li>JT-05 降价可行性 — 04-第四篇-定价与栅栏.md</li>
-  <li>JT-06 限量调整 — 04-第四篇-定价与栅栏.md</li>
-  <li>JT-07 安全系数怎么取 — 05-第五篇-库存与渠道.md</li>
-  <li>JT-08 渠道投入 — 05-第五篇-库存与渠道.md</li>
-  <li>JT-09 团队接不接 — 06-第六篇-运营与执行.md</li>
-  <li>JT-10 超售系数 — 06-第六篇-运营与执行.md</li>
-  <li>JT-11 档期冲突 — 07-第七篇-会议与综合决策.md</li>
-  <li>JT-12 会议单快速分级 — 07-第七篇-会议与综合决策.md</li>
-  <li class="mut">（+2 张待从 33–41 章补，凑足 15 张核心集）</li>
-</ol>
-
-<div class="foot">
-  本页为判定表 AI 引擎母本规范，含核心 IP，仅限登录后访问。规范版本 v0.1 · 样表基于教材第 1 张判定表重构。
-</div>
-
-</div>
-
-<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
-<nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>判定表结构化字段规范 + 样表（JT-01）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">一、统一字段规范</a>
-<a href="#toc-2">二、样表 JT-01 · 降价前先算这一步</a>
-<a href="#toc-3" class="lv3">1. 人读视图 · 决策规则</a>
-<a href="#toc-4" class="lv3">2. 机读视图 · JSON（引擎直接消费）</a>
-<a href="#toc-5">三、现有判定表清单（取样来源）</a></div>
-</nav>
-<script id="rm-toc-script">
-(function(){
-  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
-  if(!d||!t)return;
-  var c=d.querySelector('.toc-close');
-  t.addEventListener('click',function(){d.classList.toggle('open')});
-  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
-  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
-  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
-  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
-    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
-  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-  links.forEach(function(a){a.addEventListener('click',function(){
-    var el=document.getElementById(a.getAttribute('href').slice(1));
-    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
-    d.classList.remove('open');
-  });});
-})();
-</script>
+  "confidence": "高（通用起点，上岗 3 个月后用本店数据校准）",
+  "related": [
+   "JT-B",
+   "JT-O"
+  ],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "matrix",
+    "caption": "行＝预测 OCC 列＝Pickup 偏差 单元格＝价格动作",
+    "cols": [
+     "落后 >10%",
+     "落后 3–10%",
+     "持平 ±3%",
+     "领先 3–10%",
+     "领先 >10%"
+    ],
+    "rows": [
+     {
+      "label": "≥ 95%",
+      "cells": [
+       "维持",
+       "↑5%",
+       "↑10%",
+       "↑15%",
+       "↑20%"
+      ]
+     },
+     {
+      "label": "85 – 95%",
+      "cells": [
+       "维持",
+       "↑3%",
+       "↑5%",
+       "↑10%",
+       "↑15%"
+      ]
+     },
+     {
+      "label": "70 – 85%",
+      "cells": [
+       "↓5%",
+       "↓3%",
+       "维持",
+       "↑5%",
+       "↑8%"
+      ]
+     },
+     {
+      "label": "55 – 70%",
+      "cells": [
+       "↓10%",
+       "↓5%",
+       "↓3%",
+       "维持",
+       "↑3%"
+      ]
+     },
+     {
+      "label": "40 – 55%",
+      "cells": [
+       "↓15%",
+       "↓10%",
+       "↓5%",
+       "维持",
+       "维持"
+      ]
+     },
+     {
+      "label": "< 40%",
+      "cells": [
+       "↓20%",
+       "↓15%",
+       "↓10%",
+       "↓5%",
+       "维持"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "JT-B",
+  "code": "表 B",
+  "title": "库存与限制条件配置表",
+  "domain": "库存",
+  "category": "inventory",
+  "tags": [
+   "库存",
+   "MinLOS",
+   "CTA",
+   "StopSell",
+   "超售"
+  ],
+  "trigger": "价格定完后立即配置当日库存限制条件",
+  "preconditions": "已知目标日预测 OCC",
+  "inputs": [
+   {
+    "name": "occ_forecast",
+    "desc": "目标日预测出租率",
+    "type": "number",
+    "unit": "%",
+    "range": "0-100",
+    "example": 95
+   }
+  ],
+  "derived": [],
+  "decision_logic": "按预测 OCC 配置 MinLOS / CTA / 低价渠道 Stop Sell / 超额预订；库存动作优先级高于价格（表 O 优先级 2）。",
+  "basis": "房量安全永远比多卖 20 块钱重要；满房日一过立即撤限制。",
+  "pitfalls": "所有限制条件必须设到期自动解除；满房日一过 MinLOS/CTA 要立刻撤，否则次日莫名挡单；每日 09:10 检查前一日限制是否已解除。",
+  "data_needs": [
+   "occ_forecast"
+  ],
+  "confidence": "高",
+  "related": [
+   "JT-E",
+   "JT-A"
+  ],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "list",
+    "caption": "按预测 OCC 配置限制条件",
+    "headers": [
+     "预测 OCC",
+     "MinLOS 最少住期",
+     "CTA 不可入住",
+     "低价渠道 Stop Sell",
+     "超额预订"
+    ],
+    "rows": [
+     [
+      "≥ 95%",
+      "2 晚（D1 峰值日 3 晚）",
+      "启用",
+      "关闭尾房特惠 / 团購 / 批发商",
+      "不超售"
+     ],
+     [
+      "90 – 95%",
+      "2 晚",
+      "仅 D1 日启用",
+      "关闭尾房特惠",
+      "≤ 2 间"
+     ],
+     [
+      "85 – 90%",
+      "1–2 晚（周末 2 晚）",
+      "否",
+      "保留",
+      "按表 E"
+     ],
+     [
+      "70 – 85%",
+      "1 晚",
+      "否",
+      "全开",
+      "按表 E"
+     ],
+     [
+      "< 70%",
+      "不设限",
+      "否",
+      "全开 + 上促销",
+      "不超售"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "JT-C",
+  "code": "表 C",
+  "title": "价格指数（ARI）判定表",
+  "domain": "竞争",
+  "category": "compete",
+  "tags": [
+   "ARI",
+   "价格指数",
+   "竞争",
+   "比价"
+  ],
+  "trigger": "评估本店价格相对竞争组合高低时",
+  "preconditions": "已知本店 ADR 与竞争组合加权 ADR",
+  "inputs": [
+   {
+    "name": "ari",
+    "desc": "ARI = 本店ADR ÷ 竞争组合加权ADR × 100",
+    "type": "number",
+    "unit": "",
+    "range": "",
+    "example": 92
+   }
+  ],
+  "derived": [
+   {
+    "name": "ari",
+    "formula": "本店ADR/竞争组合加权ADR×100",
+    "desc": "价格指数",
+    "example": 92
+   }
+  ],
+  "decision_logic": "按 ARI 七档判定，偏高/偏低则调价；不得与表 A 叠加（同日只执行优先级更高者，表 A 优先级 3 > 表 C 优先级 4）。",
+  "basis": "ARI=本店ADR÷竞争组合加权ADR×100；比价须五同：同入住日、同房型、同含早、同取消政策、同提前天数。",
+  "pitfalls": "ARI 调整每次≤8%、每周≤2 次；不得与表 A 结论叠加；五同比价否则算废数。",
+  "data_needs": [
+   "ari"
+  ],
+  "confidence": "高",
+  "related": [
+   "JT-D",
+   "JT-O"
+  ],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "list",
+    "caption": "ARI 七档判定与动作",
+    "headers": [
+     "ARI",
+     "判定",
+     "动作"
+    ],
+    "rows": [
+     [
+      "> 120",
+      "严重偏高",
+      "MPI < 95 → ↓8%；MPI ≥ 95 → 维持并每日盯 Pickup"
+     ],
+     [
+      "110 – 120",
+      "偏高",
+      "RGI < 100 → ↓5%；RGI ≥ 100 → 维持"
+     ],
+     [
+      "103 – 110",
+      "略高",
+      "维持，观察 Pickup"
+     ],
+     [
+      "97 – 103",
+      "健康",
+      "维持"
+     ],
+     [
+      "90 – 97",
+      "略低",
+      "预测 OCC ≥ 80% → ↑3%；否则维持"
+     ],
+     [
+      "80 – 90",
+      "偏低",
+      "↑5%"
+     ],
+     [
+      "< 80",
+      "严重偏低",
+      "↑8%，并核查房型配置与含早策略"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "JT-D",
+  "code": "表 D",
+  "title": "市场渗透指数（MPI）判定表",
+  "domain": "竞争",
+  "category": "compete",
+  "tags": [
+   "MPI",
+   "市场渗透",
+   "份额",
+   "三角诊断"
+  ],
+  "trigger": "评估本店市场份额是否达标时",
+  "preconditions": "已知本店 OCC 与竞争组合 OCC",
+  "inputs": [
+   {
+    "name": "mpi",
+    "desc": "MPI = 本店OCC ÷ 竞争组合OCC × 100",
+    "type": "number",
+    "unit": "",
+    "range": "",
+    "example": 98
+   }
+  ],
+  "derived": [
+   {
+    "name": "mpi",
+    "formula": "本店OCC/竞争组合OCC×100",
+    "desc": "市场渗透指数",
+    "example": 98
+   }
+  ],
+  "decision_logic": "按 MPI 五档判定份额；偏诊断少出动作（表 O 优先级最低 6）；与 ARI 配合做三角诊断（MPI×ARI=RGI）。",
+  "basis": "MPI=本店OCC÷竞争组合OCC×100；三角诊断：MPI高+ARI高=还能提；MPI高+ARI低=该收割提价；MPI低+ARI高=太贵卖不动；MPI低+ARI低=产品/口碑问题。",
+  "pitfalls": "单独看 MPI 或 ARI 都会误判，需三角诊断一起看。",
+  "data_needs": [
+   "mpi"
+  ],
+  "confidence": "高",
+  "related": [
+   "JT-C",
+   "JT-O"
+  ],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "list",
+    "caption": "MPI 五档判定与动作",
+    "headers": [
+     "MPI",
+     "判定",
+     "动作"
+    ],
+    "rows": [
+     [
+      "> 110",
+      "份额领先",
+      "优先提价（走表 C 的提价分支）"
+     ],
+     [
+      "100 – 110",
+      "健康",
+      "维持"
+     ],
+     [
+      "95 – 100",
+      "略弱",
+      "检查 OTA 曝光 / 挂牌 / 点评分；补挂牌"
+     ],
+     [
+      "85 – 95",
+      "落后",
+      "↓5% 或增加 OTA 广告投放"
+     ],
+     [
+      "< 85",
+      "严重落后",
+      "启动《应急方案 L2-E1》：↓10% + 全员直销动员 + 48 小时复盘"
+     ]
+    ]
+   },
+   {
+    "type": "list",
+    "caption": "",
+    "headers": [
+     "情形",
+     "含义",
+     "处方"
+    ],
+    "rows": [
+     [
+      "MPI 高 + ARI 高",
+      "卖得又多又贵",
+      "还能再提，试探性 ↑3–5%"
+     ],
+     [
+      "MPI 高 + ARI 低",
+      "靠低价换量",
+      "提价，份额已稳，该收割了"
+     ],
+     [
+      "MPI 低 + ARI 高",
+      "太贵卖不动",
+      "降价或加价值（含早/升级）"
+     ],
+     [
+      "MPI 低 + ARI 低",
+      "又贵不起又卖不动",
+      "产品/口碑出问题，先查点评和渠道曝光"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "JT-E",
+  "code": "表 E",
+  "title": "超额预订标准表",
+  "domain": "库存",
+  "category": "inventory",
+  "tags": [
+   "超售",
+   "No-show",
+   "硬上限",
+   "步行预案"
+  ],
+  "trigger": "表 B 判定可超售后，计算当日超售间数",
+  "preconditions": "已知近 30 天 No-show 率、24h 内取消率、可售房量",
+  "inputs": [
+   {
+    "name": "noshow_cancel_rate",
+    "desc": "No-show 率 + 24h 取消率 合计",
+    "type": "number",
+    "unit": "%",
+    "range": "0-100",
+    "example": 15
+   },
+   {
+    "name": "sellable_rooms",
+    "desc": "可售房量",
+    "type": "number",
+    "unit": "间",
+    "range": "",
+    "example": 320
+   },
+   {
+    "name": "peak_flag",
+    "desc": "是否 D1 峰值日 / D2 高涨日",
+    "type": "bool",
+    "unit": "",
+    "range": "",
+    "example": true
+   },
+   {
+    "name": "guarantee_ratio",
+    "desc": "担保预订（预付/信用卡担保）占比",
+    "type": "number",
+    "unit": "%",
+    "range": "0-100",
+    "example": 45
+   },
+   {
+    "name": "group_ratio",
+    "desc": "会议团队占当日比",
+    "type": "number",
+    "unit": "%",
+    "range": "0-100",
+    "example": 0
+   },
+   {
+    "name": "agreement_ratio",
+    "desc": "协议客户集中度",
+    "type": "number",
+    "unit": "%",
+    "range": "0-100",
+    "example": 0
+   }
+  ],
+  "derived": [
+   {
+    "name": "base_rate",
+    "formula": "按 No-show+取消 合计查基准率表",
+    "desc": "基准超售率",
+    "example": "3%"
+   },
+   {
+    "name": "adjusted_rate",
+    "formula": "base_rate × 连乘修正系数",
+    "desc": "修正后超售率",
+    "example": "1.5%"
+   },
+   {
+    "name": "oversell_rooms",
+    "formula": "floor(sellable_rooms × adjusted_rate)",
+    "desc": "超售间数（向下取整）",
+    "example": 4
+   }
+  ],
+  "decision_logic": "三步走：查基准率 → 乘修正系数 → 卡硬上限（≤5% 且 ≤15 间；步行 30min 内无同档备用酒店再减半）。",
+  "basis": "超售间数=可售房量×超售率（向下取整）。演示：合计 15%→基准 3%；D1→×0.5=1.5%；320×1.5%=4.8→4 间；硬上限 4≤16 且 ≤15 通过。",
+  "pitfalls": ">30% 基准率须 L3 审批；硬上限三条须同时满足；到店无房走表 L《步行客人预案》。",
+  "data_needs": [
+   "noshow_cancel_rate",
+   "sellable_rooms",
+   "peak_flag",
+   "guarantee_ratio",
+   "group_ratio",
+   "agreement_ratio"
+  ],
+  "confidence": "高",
+  "related": [
+   "JT-B",
+   "JT-L"
+  ],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "list",
+    "caption": "按「近 30 天 No-show 率 + 24 小时内取消率」合计值查表",
+    "headers": [
+     "No-show + 取消 合计",
+     "基准超售率"
+    ],
+    "rows": [
+     [
+      "< 5%",
+      "0%"
+     ],
+     [
+      "5 – 10%",
+      "2%"
+     ],
+     [
+      "10 – 15%",
+      "3%"
+     ],
+     [
+      "15 – 20%",
+      "5%"
+     ],
+     [
+      "20 – 30%",
+      "7%"
+     ],
+     [
+      "> 30%",
+      "10%（需 L3 经理审批）"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "JT-F",
+  "code": "表 F",
+  "title": "房型价差阶梯表",
+  "domain": "价格",
+  "category": "price",
+  "tags": [
+   "房型价差",
+   "价格体系",
+   "校验"
+  ],
+  "trigger": "设定或每周校验全房型价格体系时",
+  "preconditions": "已知高级房 BAR（基准 100）",
+  "inputs": [
+   {
+    "name": "base_bar",
+    "desc": "高级房 BAR（基准 100）",
+    "type": "number",
+    "unit": "元",
+    "range": "",
+    "example": 680
+   },
+   {
+    "name": "high_floor",
+    "desc": "高楼层附加",
+    "type": "number",
+    "unit": "%",
+    "range": "",
+    "example": 5
+   },
+   {
+    "name": "view",
+    "desc": "江景/特色景观附加",
+    "type": "number",
+    "unit": "%",
+    "range": "",
+    "example": 10
+   },
+   {
+    "name": "breakfast",
+    "desc": "含早附加",
+    "type": "number",
+    "unit": "元/人",
+    "range": "",
+    "example": 68
+   }
+  ],
+  "derived": [
+   {
+    "name": "room_price",
+    "formula": "base_bar × 系数 + 附加项",
+    "desc": "各房型平峰价",
+    "example": "豪华房 680×1.20=820"
+   }
+  ],
+  "decision_logic": "以高级房 BAR 为基准 100，各房型按系数自动生成；每周一价差校验（相邻 <8% 拉开，>35% 收敛，套房与最高非套房差 <60% 提）。",
+  "basis": "房型价差系数：标准 85 / 高级 100 / 豪华 120 / 江景 140 / 行政 145 / 商务套 180 / 行政套 265。云璟平峰高级房 BAR=¥680。",
+  "pitfalls": "相邻价差 <8% 白送利润（客人直接买贵的）；>35% 中间档卖不动；套房是利润品不能贱卖；大床/双床同价（除非面积或景观确有差）。",
+  "data_needs": [
+   "base_bar",
+   "high_floor",
+   "view",
+   "breakfast"
+  ],
+  "confidence": "中（依本店房型结构）",
+  "related": [],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "list",
+    "caption": "房型价差系数与平峰价（基准 BAR ¥680）",
+    "headers": [
+     "房型",
+     "系数",
+     "平峰价",
+     "相对高级房差价",
+     "间数"
+    ],
+    "rows": [
+     [
+      "标准房 STD-K / STD-T",
+      "85",
+      "¥580",
+      "−¥100",
+      "120"
+     ],
+     [
+      "高级房 SUP-K / SUP-T",
+      "100",
+      "¥680",
+      "基准",
+      "100"
+     ],
+     [
+      "豪华房 DLX-K",
+      "120",
+      "¥820",
+      "+¥140",
+      "45"
+     ],
+     [
+      "豪华江景房 DLX-V",
+      "140",
+      "¥960",
+      "+¥280",
+      "15"
+     ],
+     [
+      "行政房 EXE-K / EXE-T",
+      "145",
+      "¥990",
+      "+¥310",
+      "30"
+     ],
+     [
+      "商务套房 STE-B",
+      "180",
+      "¥1,280",
+      "+¥600",
+      "8"
+     ],
+     [
+      "行政套房 STE-E",
+      "265",
+      "¥1,880",
+      "+¥1,200",
+      "2"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "JT-G",
+  "code": "表 G",
+  "title": "团队／协议询价接受判定表",
+  "domain": "客户",
+  "category": "customer",
+  "tags": [
+   "团队",
+   "协议",
+   "询价",
+   "置换成本",
+   "综合贡献"
+  ],
+  "trigger": "销售提交团队/协议询价，判断是否接受",
+  "preconditions": "已知团队报价、该日预期散客 ADR、该日预测 OCC",
+  "inputs": [
+   {
+    "name": "ratio_r",
+    "desc": "R = 团队报价 ÷ 该日预期散客 ADR",
+    "type": "number",
+    "unit": "%",
+    "range": "0-100",
+    "example": 80
+   },
+   {
+    "name": "occ_forecast",
+    "desc": "该日预测出租率",
+    "type": "number",
+    "unit": "%",
+    "range": "0-100",
+    "example": 80
+   }
+  ],
+  "derived": [
+   {
+    "name": "decision",
+    "formula": "查矩阵：行=R 区间, 列=OCC 区间",
+    "desc": "接受/上报L3/拒绝",
+    "example": "接受"
+   }
+  ],
+  "decision_logic": "行=比率 R、列=预测 OCC，查矩阵得接受/上报 L3/拒绝；全服务酒店会议团队算综合贡献可破例。",
+  "basis": "置换成本=被挤占房晚×(预期散客ADR−团队价)+被挤占餐饮/其他边际收益；团队收入>置换成本则接。综合贡献≥占用房晚×预期散客ADR×85% 可破例（须 L3 审批）。",
+  "pitfalls": "不凭感觉查表；全服务酒店会议团队看综合贡献而非仅 R；R<55% 但综合贡献达标且 L3 审批可接。",
+  "data_needs": [
+   "ratio_r",
+   "occ_forecast"
+  ],
+  "confidence": "高",
+  "related": [
+   "JT-K"
+  ],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "matrix",
+    "caption": "行＝比率 R 列＝预测 OCC 单元格＝决策",
+    "cols": [
+     "< 70%",
+     "70 – 85%",
+     "> 85%"
+    ],
+    "rows": [
+     {
+      "label": "R ≥ 85%",
+      "cells": [
+       "接受",
+       "接受",
+       "接受（≤10 间）"
+      ]
+     },
+     {
+      "label": "75% ≤ R < 85%",
+      "cells": [
+       "接受",
+       "接受（≤20 间）",
+       "上报 L3"
+      ]
+     },
+     {
+      "label": "65% ≤ R < 75%",
+      "cells": [
+       "接受（≤30 间）",
+       "上报 L3",
+       "拒绝"
+      ]
+     },
+     {
+      "label": "55% ≤ R < 65%",
+      "cells": [
+       "上报 L3",
+       "拒绝",
+       "拒绝"
+      ]
+     },
+     {
+      "label": "R < 55%",
+      "cells": [
+       "拒绝",
+       "拒绝",
+       "拒绝"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "JT-H",
+  "code": "表 H",
+  "title": "渠道开关判定表",
+  "domain": "渠道",
+  "category": "channel",
+  "tags": [
+   "渠道",
+   "OTA",
+   "价格一致性",
+   "NRevPAR",
+   "StopSell"
+  ],
+  "trigger": "按目标日预测 OCC 决定各渠道开关状态",
+  "preconditions": "已知目标日预测 OCC、各渠道综合成本率",
+  "inputs": [
+   {
+    "name": "occ_forecast",
+    "desc": "目标日预测出租率",
+    "type": "number",
+    "unit": "%",
+    "range": "0-100",
+    "example": 95
+   }
+  ],
+  "derived": [
+   {
+    "name": "nrevpar",
+    "formula": "RevPAR × (1 − 渠道综合成本率)",
+    "desc": "净 RevPAR",
+    "example": "直销 530×0.97=514 > OTA 600×0.84=504"
+   }
+  ],
+  "decision_logic": "房好卖关贵渠道、难卖全开；各渠道按 OCC 档位定开关；用 NRevPAR 看渠道净收益。",
+  "basis": "NRevPAR=RevPAR×(1−渠道综合成本率)。成本率：直销 3%/会员 4%/协议 8%/GDS 13%/OTA 国内 16%/OTA 国际 18%/批发 26%（最高，房好卖第一个关）。",
+  "pitfalls": "价格一致性四条红线：直销价不得高于任一 OTA；会员价仅登录会员可见；批发/包房价为净价不公开；违反应 24h 内整改并记入考核。",
+  "data_needs": [
+   "occ_forecast"
+  ],
+  "confidence": "高",
+  "related": [
+   "JT-O"
+  ],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "list",
+    "caption": "渠道开关矩阵",
+    "headers": [
+     "预测 OCC",
+     "OTA 国内",
+     "OTA 国际",
+     "GDS / TMC",
+     "批发商 / 包房",
+     "直销 / 会员"
+    ],
+    "rows": [
+     [
+      "≥ 95%",
+      "仅留 1 家产量最高",
+      "关",
+      "关",
+      "关",
+      "全开 + 会员专享价"
+     ],
+     [
+      "90 – 95%",
+      "开 2 家",
+      "关",
+      "开",
+      "关",
+      "全开"
+     ],
+     [
+      "85 – 90%",
+      "开 3 家",
+      "开 1 家",
+      "开",
+      "关",
+      "全开"
+     ],
+     [
+      "70 – 85%",
+      "全开",
+      "全开",
+      "开",
+      "限价开（≤BAR×75%）",
+      "全开 + 早鸟"
+     ],
+     [
+      "55 – 70%",
+      "全开 + 促销",
+      "全开",
+      "开",
+      "开",
+      "全开 + 闪购/套餐"
+     ],
+     [
+      "< 55%",
+      "全开 + 深折",
+      "全开",
+      "开 + 商务套餐",
+      "开 + 打包产品",
+      "全开 + 长住/团購"
+     ]
+    ]
+   },
+   {
+    "type": "list",
+    "caption": "",
+    "headers": [
+     "渠道",
+     "综合成本率",
+     "说明"
+    ],
+    "rows": [
+     [
+      "直销（官网/小程序/前台）",
+      "3%",
+      "支付 + 系统"
+     ],
+     [
+      "会员直订",
+      "4%",
+      "含积分成本"
+     ],
+     [
+      "协议公司",
+      "8%",
+      "含返佣、账期成本"
+     ],
+     [
+      "GDS / 商旅 TMC",
+      "13%",
+      ""
+     ],
+     [
+      "OTA 国内（携程/美团/飞猪）",
+      "16%",
+      ""
+     ],
+     [
+      "OTA 国际（Booking/Agoda）",
+      "18%",
+      ""
+     ],
+     [
+      "批发商 / 包房商",
+      "26%",
+      "成本最高，房好卖时第一个关"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "JT-I",
+  "code": "表 I",
+  "title": "预订窗口分档监控表",
+  "domain": "节奏",
+  "category": "rhythm",
+  "tags": [
+   "预订窗口",
+   "Pickup",
+   "监控",
+   "提前天数"
+  ],
+  "trigger": "按提前天数分档监控预订进度",
+  "preconditions": "已知日期距入住日的提前天数",
+  "inputs": [
+   {
+    "name": "lead_days",
+    "desc": "提前天数（距入住日）",
+    "type": "number",
+    "unit": "天",
+    "range": "0-365",
+    "example": 8
+   }
+  ],
+  "derived": [],
+  "decision_logic": "六档窗口（0-3/4-7/8-14/15-30/31-60/>60 天）各有监控频率/关注指标/落后触发阈值/触发动作；越接近入住日盯得越紧。",
+  "basis": "真正赚钱的决策在 15-60 天窗口就做完了；等到只剩 3 天才发现没房只能降价，利润已没。",
+  "pitfalls": "只盯近期不盯远期；每天至少花 10 分钟看 15 天以后的在手量。",
+  "data_needs": [
+   "lead_days"
+  ],
+  "confidence": "高",
+  "related": [],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "list",
+    "caption": "六档预订窗口",
+    "headers": [
+     "窗口",
+     "监控频率",
+     "关注指标",
+     "落后触发阈值",
+     "触发动作"
+    ],
+    "rows": [
+     [
+      "0 – 3 天",
+      "每日 2 次（10:00 / 17:00）",
+      "当日 Pickup、临时取消",
+      "OCC < 70%",
+      "上「今日特惠」尾房产品"
+     ],
+     [
+      "4 – 7 天",
+      "每日 1 次",
+      "周内进度",
+      "落后 10%",
+      "启动 48h 闪购"
+     ],
+     [
+      "8 – 14 天",
+      "每日 1 次",
+      "双周在手",
+      "落后 15%",
+      "执行表 A 调价"
+     ],
+     [
+      "15 – 30 天",
+      "每周 2 次",
+      "月度在手",
+      "落后 20%",
+      "策略复盘 + 销售动员"
+     ],
+     [
+      "31 – 60 天",
+      "每周 1 次",
+      "长线在手",
+      "落后 25%",
+      "启动协议客户拜访计划"
+     ],
+     [
+      "> 60 天",
+      "每月 1 次",
+      "大型团队 / 会议在手",
+      "落后 30%",
+      "上报 L3，调整年度策略"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "JT-J",
+  "code": "表 J",
+  "title": "免费升级规则表",
+  "domain": "库存",
+  "category": "inventory",
+  "tags": [
+   "升级",
+   "会员",
+   "优先级",
+   "利润品"
+  ],
+  "trigger": "超售腾房 / 目标日高档房空置>20% / 会员权益兑现 三种场景需升级时",
+  "preconditions": "已知会员等级、预订价、住期、复购次数",
+  "inputs": [
+   {
+    "name": "trigger_scenario",
+    "desc": "触发场景（腾房/空置/权益）",
+    "type": "enum",
+    "unit": "",
+    "range": "腾房|空置|权益",
+    "example": "空置"
+   },
+   {
+    "name": "member_level",
+    "desc": "忠诚会员等级",
+    "type": "enum",
+    "unit": "",
+    "range": "钻石|铂金|金卡|银卡",
+    "example": "金卡"
+   },
+   {
+    "name": "booking_price",
+    "desc": "预订价（同档内高价优先）",
+    "type": "number",
+    "unit": "元",
+    "range": "",
+    "example": 680
+   },
+   {
+    "name": "stay_nights",
+    "desc": "入住天数（同价长者优先）",
+    "type": "number",
+    "unit": "晚",
+    "range": "",
+    "example": 5
+   },
+   {
+    "name": "repurchase_count",
+    "desc": "复购次数（仍相同老客优先）",
+    "type": "number",
+    "unit": "次",
+    "range": "",
+    "example": 12
+   }
+  ],
+  "derived": [],
+  "decision_logic": "严格按执行顺序排优先级：①忠诚等级 ②同档内预订价高者 ③同价住期长者 ④仍相同复购多者；每次最多升 1 档。",
+  "basis": "升级是成本最低的满意度工具，但必须用规则管住，不能前台想升就升。",
+  "pitfalls": "每次最多升 1 档，禁止连跳 2 档（除 L3 特批）；套房升级每日≤3 间且须 L3 审批；每次升级写入《升级台账》注明原因房号等级。",
+  "data_needs": [
+   "trigger_scenario",
+   "member_level",
+   "booking_price",
+   "stay_nights",
+   "repurchase_count"
+  ],
+  "confidence": "高",
+  "related": [
+   "JT-E"
+  ],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "steps",
+    "items": [
+     {
+      "step": "1",
+      "text": ""
+     },
+     {
+      "step": "2",
+      "text": ""
+     },
+     {
+      "step": "3",
+      "text": ""
+     },
+     {
+      "step": "4",
+      "text": ""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "JT-K",
+  "code": "表 K",
+  "title": "会议／宴会综合收益联动表",
+  "domain": "客户",
+  "category": "customer",
+  "tags": [
+   "会议",
+   "宴会",
+   "综合贡献",
+   "餐饮",
+   "置换"
+  ],
+  "trigger": "全服务酒店评估会议/宴会团队是否接受",
+  "preconditions": "已知会议规模、客房需求、餐饮保底、客房置换成本",
+  "inputs": [
+   {
+    "name": "meeting_size",
+    "desc": "会议规模（人数）",
+    "type": "number",
+    "unit": "人",
+    "range": "",
+    "example": 80
+   },
+   {
+    "name": "room_nights",
+    "desc": "客房需求（间夜）",
+    "type": "number",
+    "unit": "间夜",
+    "range": "",
+    "example": 40
+   },
+   {
+    "name": "fnb_guarantee",
+    "desc": "餐饮保底营业额",
+    "type": "number",
+    "unit": "元",
+    "range": "",
+    "example": 30000
+   },
+   {
+    "name": "room_displacement_cost",
+    "desc": "客房置换成本",
+    "type": "number",
+    "unit": "元",
+    "range": "",
+    "example": 20000
+   }
+  ],
+  "derived": [
+   {
+    "name": "comprehensive_contribution",
+    "formula": "客房收入+餐饮收入+会场租金+设备/其他",
+    "desc": "综合贡献",
+    "example": "≥置换成本×1.0"
+   }
+  ],
+  "decision_logic": "先问餐饮/宴会承接能力 → 再算综合贡献 → 最后才查表 G 看客房比率；按规模定接受底线。",
+  "basis": "综合贡献=客房收入+餐饮收入+会场租金+设备/其他；接受底线=综合贡献≥客房置换成本×系数（小 1.1/中 1.0/大 0.95/超大 0.9+L3 审批）。",
+  "pitfalls": "餐饮毛利率<55% 的会议须 L3 审批；勿一上来就用表 G 拒会议，白白丢掉十几万餐饮收入。",
+  "data_needs": [
+   "meeting_size",
+   "room_nights",
+   "fnb_guarantee",
+   "room_displacement_cost"
+  ],
+  "confidence": "中（全服务专属）",
+  "related": [
+   "JT-G"
+  ],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "list",
+    "caption": "按会议规模的接受底线",
+    "headers": [
+     "规模",
+     "客房需求",
+     "餐饮保底",
+     "接受底线（综合贡献）"
+    ],
+    "rows": [
+     [
+      "小型（≤ 30 人）",
+      "≤ 15 间夜",
+      "≥ ¥8,000",
+      "≥ 客房置换成本 × 1.1"
+     ],
+     [
+      "中型（31 – 120 人）",
+      "16 – 60 间夜",
+      "≥ ¥30,000",
+      "≥ 客房置换成本 × 1.0"
+     ],
+     [
+      "大型（121 – 300 人）",
+      "61 – 150 间夜",
+      "≥ ¥80,000",
+      "≥ 客房置换成本 × 0.95"
+     ],
+     [
+      "超大型（> 300 人）",
+      "> 150 间夜",
+      "≥ ¥150,000",
+      "≥ 客房置换成本 × 0.9 + L3/业主审批"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "JT-L",
+  "code": "表 L",
+  "title": "异常事件应急判定表",
+  "domain": "应急",
+  "category": "emergency",
+  "tags": [
+   "应急",
+   "异常",
+   "需求暴跌",
+   "需求暴涨",
+   "步行预案"
+  ],
+  "trigger": "发生五类异常事件之一（需求暴跌/暴涨/竞对新开/系统故障/超售过度）",
+  "preconditions": "已知事件类型与判定信号",
+  "inputs": [
+   {
+    "name": "event_type",
+    "desc": "异常事件类型",
+    "type": "enum",
+    "unit": "",
+    "range": "需求暴跌|需求暴涨|竞对新开|系统故障|超售过度",
+    "example": "需求暴跌"
+   }
+  ],
+  "derived": [],
+  "decision_logic": "本表优先级 1 覆盖一切；按事件类型执行 2h 内动作/24h 动作/复盘；超售过度走《步行客人预案》四步。",
+  "basis": "五类异常事件标准应对；步行客人预案：①同档/更高档酒店+差价交通费 ②下次免费升 1 档+双早 ③会员额外 5000 积分 ④总经理签名致歉信+值班经理跟进。",
+  "pitfalls": "步行客人预案四步按序执行不得跳步；处理得当复购率高于普通客人，处理砸的一条差评长期损失远超一晚房费。",
+  "data_needs": [
+   "event_type"
+  ],
+  "confidence": "高（应急）",
+  "related": [
+   "JT-E",
+   "JT-O"
+  ],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "list",
+    "caption": "五类异常事件的标准应对",
+    "headers": [
+     "事件类型",
+     "判定信号",
+     "立即动作（2 小时内）",
+     "24 小时内",
+     "复盘"
+    ],
+    "rows": [
+     [
+      "需求暴跌（展会取消/恶劣天气/舆情）",
+      "48h Pickup 落后 > 40%",
+      "↓15%、全开渠道、启动直销外呼",
+      "全员销售动员、上团購产品",
+      "事后 7 天复盘报告"
+     ],
+     [
+      "需求暴涨（突发大型活动）",
+      "24h Pickup 领先 > 60%",
+      "↑20%、设 MinLOS 2、关低价渠道",
+      "二次提价 10%、限制团队",
+      "事后复盘，留存为 D1 日历"
+     ],
+     [
+      "竞对新开业",
+      "3km 内新增同档酒店",
+      "采集其价格加入比价表、评估 ARI",
+      "制定差异化策略（不盲目跟价）",
+      "月度跟踪 MPI 变化"
+     ],
+     [
+      "系统故障（PMS/渠道断连）",
+      "渠道无订单 > 2h",
+      "切手动模式、通知渠道经理",
+      "补录订单、核对库存",
+      "故障报告 + 预案更新"
+     ],
+     [
+      "超售过度（到店无房）",
+      "到店无房",
+      "启动《步行客人预案》（见下）",
+      "赔偿结算、客人回访",
+      "重算表 E 参数"
+     ]
+    ]
+   },
+   {
+    "type": "steps",
+    "items": [
+     {
+      "step": "1",
+      "text": ""
+     },
+     {
+      "step": "2",
+      "text": ""
+     },
+     {
+      "step": "3",
+      "text": ""
+     },
+     {
+      "step": "4",
+      "text": ""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "JT-M",
+  "code": "表 M",
+  "title": "每日收益操作流水线（时间表）",
+  "domain": "节奏",
+  "category": "rhythm",
+  "tags": [
+   "流水线",
+   "时间表",
+   "L1",
+   "晨会",
+   "台账"
+  ],
+  "trigger": "L1 每日收益操作流程（07:30–17:00）",
+  "preconditions": "已知当日为正常工作日",
+  "inputs": [
+   {
+    "name": "schedule_time",
+    "desc": "流程时点",
+    "type": "time",
+    "unit": "",
+    "range": "07:30-17:00",
+    "example": "08:30"
+   }
+  ],
+  "derived": [],
+  "decision_logic": "严格按时间表九步：抓昨日数据→抓未来30天在手→采竞争5家价→查表A/B/C/H出动作清单→执行调价与库存→价格一致性核查→写台账→晨会→17:00二次巡检；10:30 前完成且每项注明依据表 X。",
+  "basis": "L1 必须背下来的流程；照着走完一天工作就做完了。",
+  "pitfalls": "每项动作须标注『依据表 X』；合格标准=10:30 前完成 + 清单全标注。",
+  "data_needs": [
+   "schedule_time"
+  ],
+  "confidence": "高",
+  "related": [
+   "JT-A",
+   "JT-B",
+   "JT-C",
+   "JT-H"
+  ],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "steps",
+    "items": [
+     {
+      "step": "07:30",
+      "text": ""
+     },
+     {
+      "step": "07:50",
+      "text": ""
+     },
+     {
+      "step": "08:10",
+      "text": ""
+     },
+     {
+      "step": "08:30",
+      "text": ""
+     },
+     {
+      "step": "09:10",
+      "text": ""
+     },
+     {
+      "step": "09:40",
+      "text": ""
+     },
+     {
+      "step": "09:55",
+      "text": ""
+     },
+     {
+      "step": "10:05",
+      "text": ""
+     },
+     {
+      "step": "17:00",
+      "text": ""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "JT-N",
+  "code": "表 N",
+  "title": "周度／月度节奏表",
+  "domain": "节奏",
+  "category": "rhythm",
+  "tags": [
+   "节奏",
+   "周报",
+   "月报",
+   "季度",
+   "预算"
+  ],
+  "trigger": "周期性（周/月/季/年）收益动作",
+  "preconditions": "已知当前周期节点",
+  "inputs": [
+   {
+    "name": "period",
+    "desc": "周期节点",
+    "type": "enum",
+    "unit": "",
+    "range": "周一|周三|周五|每月1日|每月5日|每月10日|每季|每年9月",
+    "example": "每周一"
+   }
+  ],
+  "derived": [],
+  "decision_logic": "按周期执行固定动作：周一价差校验/周三深度比价/周五周末作战/月1复盘/月5渠道/月10汇报/季重构/年9预算。",
+  "basis": "漏掉任一项体系就会出现漏洞。",
+  "pitfalls": "周期性动作不可漏；每周一必做房型价差校验（表 F）。",
+  "data_needs": [
+   "period"
+  ],
+  "confidence": "高",
+  "related": [
+   "JT-F"
+  ],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "list",
+    "caption": "周期性动作清单",
+    "headers": [
+     "周期",
+     "动作",
+     "产出物"
+    ],
+    "rows": [
+     [
+      "每周一",
+      "房型价差校验（表 F）、未来 8 周预测更新、渠道开关复核（表 H）",
+      "《周度收益报告》"
+     ],
+     [
+      "每周三",
+      "竞争组合深度比价（含套餐 / 含早 / 取消政策）",
+      "比价深度表"
+     ],
+     [
+      "每周五",
+      "下周 D1/D2 日重点盯防、周末策略确认",
+      "《周末作战表》"
+     ],
+     [
+      "每月 1 日",
+      "上月复盘（RGI / MPI / ARI 三维诊断）、滚动预测更新",
+      "《月度收益复盘报告》"
+     ],
+     [
+      "每月 5 日",
+      "客源结构分析、渠道贡献与净 RevPAR 分析",
+      "《客源渠道报告》"
+     ],
+     [
+      "每月 10 日",
+      "业主 / 管理层汇报",
+      "汇报 PPT + 一页纸摘要"
+     ],
+     [
+      "每季度",
+      "竞争组合复核、价格体系重构、协议客户分级",
+      "《季度策略文件》"
+     ],
+     [
+      "每年 9 月",
+      "下年度预算编制",
+      "《年度预算文件》"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "JT-O",
+  "code": "表 O",
+  "title": "决策优先级与冲突仲裁表",
+  "domain": "应急",
+  "category": "emergency rhythm",
+  "tags": [
+   "优先级",
+   "仲裁",
+   "冲突",
+   "观察清单"
+  ],
+  "trigger": "多张表给出不同动作时",
+  "preconditions": "已知相互冲突的表及各自动作",
+  "inputs": [
+   {
+    "name": "conflicting_tables",
+    "desc": "给出冲突动作的表",
+    "type": "list",
+    "unit": "",
+    "range": "",
+    "example": "表A,表C"
+   }
+  ],
+  "derived": [
+   {
+    "name": "priority_order",
+    "formula": "L(1) > B(2) > A(3) > C(4) > H(5) > D(6)",
+    "desc": "优先级从高到低",
+    "example": "表A优先于表C"
+   }
+  ],
+  "decision_logic": "严格按优先级（1应急L>2库存B>3价格A>4竞争C>5渠道H>6份额D）执行最高那条，其余记入《观察清单》；最高为『维持』则顺延下一优先级。",
+  "basis": "优先级表覆盖全部 15 张表；有了它学员永远不会卡住。",
+  "pitfalls": "同日只执行最高优先级一条；最高为维持则顺延下一优先级；所有冲突与取舍必须写入《调价台账》备注栏。",
+  "data_needs": [
+   "conflicting_tables"
+  ],
+  "confidence": "高（终极保障）",
+  "related": [
+   "JT-A",
+   "JT-B",
+   "JT-C",
+   "JT-D",
+   "JT-H",
+   "JT-L"
+  ],
+  "version": "v1.0",
+  "tables": [
+   {
+    "type": "list",
+    "caption": "优先级从高到低",
+    "headers": [
+     "优先级",
+     "表",
+     "场景"
+    ],
+    "rows": [
+     [
+      "1（最高）",
+      "表 L 应急",
+      "异常事件，覆盖一切"
+     ],
+     [
+      "2",
+      "表 B 库存",
+      "库存安全（超售 / 关房）优先于价格"
+     ],
+     [
+      "3",
+      "表 A 价格",
+      "常规价格调整"
+     ],
+     [
+      "4",
+      "表 C ARI",
+      "竞争定位微调"
+     ],
+     [
+      "5",
+      "表 H 渠道",
+      "渠道开关"
+     ],
+     [
+      "6（最低）",
+      "表 D MPI",
+      "份额诊断，多为分析而非动作"
+     ]
+    ]
+   },
+   {
+    "type": "list",
+    "caption": "四档需求等级",
+    "headers": [
+     "等级",
+     "典型日期",
+     "价格系数（相对平峰 BAR）",
+     "目标 OCC"
+    ],
+    "rows": [
+     [
+      "D1 峰值日",
+      "国庆 1–5、五一 1–3、春节初三–初六、滨江动漫节 / 云栖大会 / 国际马拉松等 8–12 天",
+      "150 – 200%",
+      "≥ 95%"
+     ],
+     [
+      "D2 高涨日",
+      "旺季（4–5 月、9–10 月）周五六、展会周边日、暑期周末",
+      "120 – 150%",
+      "88 – 95%"
+     ],
+     [
+      "D3 平峰日",
+      "平季周五六、旺季周日–周四",
+      "95 – 110%",
+      "72 – 85%"
+     ],
+     [
+      "D4 低谷日",
+      "1–2 月淡季（除春节）、7 月上中旬、节后 3–5 天、极端天气日",
+      "70 – 85%",
+      "45 – 65%"
+     ]
+    ]
+   },
+   {
+    "type": "list",
+    "caption": "月度需求基准（云璟酒店）",
+    "headers": [
+     "月份",
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "6",
+     "7",
+     "8",
+     "9",
+     "10",
+     "11",
+     "12"
+    ],
+    "rows": [
+     [
+      "OCC",
+      "58%",
+      "62%",
+      "74%",
+      "82%",
+      "84%",
+      "76%",
+      "70%",
+      "78%",
+      "83%",
+      "85%",
+      "78%",
+      "68%"
+     ],
+     [
+      "ADR",
+      "540",
+      "560",
+      "600",
+      "660",
+      "690",
+      "620",
+      "580",
+      "630",
+      "670",
+      "700",
+      "640",
+      "570"
+     ]
+    ]
+   }
+  ]
+ }
+]</script>
 </body>
 </html>
