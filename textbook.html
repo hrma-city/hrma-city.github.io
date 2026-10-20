@@ -4919,11 +4919,11 @@ RevPASH = 24,000 ÷ (100 × 8) = <b>30 元</b>。<br>
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1" class="lv3">全书结构 · 五篇三十二章</a>
+  <div class="toc-h"><b>酒店收益管理：从原理到决策（学生版 · 五篇框架）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1" class="lv3">1. 全书结构 · 五篇三十二章</a>
 <a href="#toc-2">开篇 · 先看全貌，再学细节</a>
 <a href="#toc-3">第一篇 · 认知篇</a>
-<a href="#toc-4" class="lv3">本质与衡量</a>
+<a href="#toc-4" class="lv3">2. 本质与衡量</a>
 <a href="#ch01">第 1 章收益管理是什么：一句话与底层逻辑</a>
 <a href="#ch02">第 2 章三个核心指标：OCC、ADR、RevPAR</a>
 <a href="#ch03">第 3 章竞争三件套：MPI、ARI、RGI</a>
@@ -4959,14 +4959,14 @@ RevPASH = 24,000 ÷ (100 × 8) = <b>30 元</b>。<br>
 <a href="#ch24">第 24 章OTA 与点评：评分就是价格</a>
 <a href="#toc-14" class="lv3">本篇回顾 · 第三篇 · 运营篇</a>
 <a href="#toc-15">第四篇 · 组织篇</a>
-<a href="#toc-16" class="lv3">组织与支撑</a>
+<a href="#toc-16" class="lv3">3. 组织与支撑</a>
 <a href="#ch25">第 25 章岗位与组织：谁来干这件事</a>
 <a href="#ch26">第 26 章成本与利润：降价的底线在哪</a>
 <a href="#ch27">第 27 章系统与数据：工具能替您做什么</a>
 <a href="#ch28">第 28 章淡旺季与事件日：一年里最容易赚的钱</a>
 <a href="#toc-17" class="lv3">本篇回顾 · 第四篇 · 组织篇</a>
 <a href="#toc-18">第五篇 · 延伸篇</a>
-<a href="#toc-19" class="lv3">迁移与自查</a>
+<a href="#toc-19" class="lv3">4. 迁移与自查</a>
 <a href="#ch29">第 29 章餐饮收益：RevPASH 与翻台</a>
 <a href="#ch30">第 30 章会议宴会：不只算房，算总贡献</a>
 <a href="#ch31">第 31 章其他业态与跨行业参数</a>
@@ -4979,6 +4979,7 @@ RevPASH = 24,000 ÷ (100 × 8) = <b>30 元</b>。<br>
 <a href="#appE" class="lv3">附录 E · 跨篇综合实训（8 个项目）</a>
 <a href="#appF" class="lv3">附录 F · 全书一页纸总览</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -4991,6 +4992,11 @@ RevPASH = 24,000 ÷ (100 × 8) = <b>30 元</b>。<br>
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

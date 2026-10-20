@@ -199,13 +199,14 @@ OTA 占比   = 60% → 32,850 间夜
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">每年付出去的佣金，够再开一家分店的前厅</a>
-<a href="#toc-2">直销的本质不是抢渠道的生意，是留住自己的客人</a>
-<a href="#toc-3">算一遍，您会记一辈子</a>
-<a href="#toc-4">三步上限，别超过三件事</a>
-<a href="#toc-5">直销占比提升十点，一年留下多少</a></div>
+  <div class="toc-h"><b>21 直销与会员：把客人留在自己手里 · HRMA 口袋书</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 每年付出去的佣金，够再开一家分店的前厅</a>
+<a href="#toc-2">2. 直销的本质不是抢渠道的生意，是留住自己的客人</a>
+<a href="#toc-3">3. 算一遍，您会记一辈子</a>
+<a href="#toc-4">4. 三步上限，别超过三件事</a>
+<a href="#toc-5">5. 直销占比提升十点，一年留下多少</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -218,6 +219,11 @@ OTA 占比   = 60% → 32,850 间夜
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

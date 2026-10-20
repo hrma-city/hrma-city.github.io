@@ -201,19 +201,20 @@ RMC 收益管理社区 · 内部技术说明 · 2026-10-02<br>
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>站点防护现状与升级路径 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">一、先讲结论</a>
 <a href="#toc-2">二、已经做完的四件事</a>
-<a href="#toc-3" class="lv3">robots.txt 这次是「策略反转」，您要知道为什么</a>
+<a href="#toc-3" class="lv3">1. robots.txt 这次是「策略反转」，您要知道为什么</a>
 <a href="#toc-4">三、这层门到底挡得住什么</a>
 <a href="#toc-5">四、还差什么：38 个成品文件仍是敞开的</a>
 <a href="#toc-6">五、如果您要真正的加密级保护</a>
-<a href="#toc-7" class="lv3">路线 A · Cloudflare Access（免费，推荐先试）</a>
-<a href="#toc-8" class="lv3">路线 B · 腾讯云（国内最稳，但要备案）</a>
-<a href="#toc-9" class="lv3">路线 C · 只保护最值钱的（最省事的折中）</a>
+<a href="#toc-7" class="lv3">2. 路线 A · Cloudflare Access（免费，推荐先试）</a>
+<a href="#toc-8" class="lv3">3. 路线 B · 腾讯云（国内最稳，但要备案）</a>
+<a href="#toc-9" class="lv3">4. 路线 C · 只保护最值钱的（最省事的折中）</a>
 <a href="#toc-10">六、我的建议</a>
 <a href="#toc-11">七、日常操作备忘</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -226,6 +227,11 @@ RMC 收益管理社区 · 内部技术说明 · 2026-10-02<br>
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

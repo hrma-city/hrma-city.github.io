@@ -120,17 +120,18 @@ ol.steps li{font-size:13.8px;line-height:1.9;color:#1f2a37;margin-bottom:6px}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">这个营解决什么问题</a>
-<a href="#toc-2" class="lv3">不是听课</a>
-<a href="#toc-3" class="lv3">不是背概念</a>
-<a href="#toc-4" class="lv3">是做完 12 个任务</a>
-<a href="#toc-5" class="lv3">是能背指标</a>
-<a href="#toc-6">四阶段 · 从&quot;看得懂&quot;到&quot;定得了&quot;</a>
-<a href="#toc-7">和「7 天免费入门营」的关系</a>
-<a href="#toc-8">怎么开始</a>
-<a href="#toc-9">结业与认证衔接</a></div>
+  <div class="toc-h"><b>入行实操训练营 · 总览 · 酒店收益管理入行实操训练营</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 这个营解决什么问题</a>
+<a href="#toc-2" class="lv3">1.1 不是听课</a>
+<a href="#toc-3" class="lv3">1.2 不是背概念</a>
+<a href="#toc-4" class="lv3">1.3 是做完 12 个任务</a>
+<a href="#toc-5" class="lv3">1.4 是能背指标</a>
+<a href="#toc-6">2. 四阶段 · 从&quot;看得懂&quot;到&quot;定得了&quot;</a>
+<a href="#toc-7">3. 和「7 天免费入门营」的关系</a>
+<a href="#toc-8">4. 怎么开始</a>
+<a href="#toc-9">5. 结业与认证衔接</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -143,6 +144,11 @@ ol.steps li{font-size:13.8px;line-height:1.9;color:#1f2a37;margin-bottom:6px}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

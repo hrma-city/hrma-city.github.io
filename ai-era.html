@@ -251,6 +251,7 @@ AI 没进过课堂。它不知道学生把"保护位"听成"留房不卖"，然�
 <a href="#toc-8">八、话术三处改造（今天就能改）</a>
 <a href="#toc-9">九、一个必须正视的风险</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -263,6 +264,11 @@ AI 没进过课堂。它不知道学生把"保护位"听成"留房不卖"，然�
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

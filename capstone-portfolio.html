@@ -211,17 +211,18 @@ label{display:block;font-size:13px;color:var(--navy);margin:10px 0 4px;font-weig
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">这门课的结业作品：一份能带去上班的诊断报告</a>
-<a href="#toc-2">任务书</a>
-<a href="#toc-3" class="lv3">你拿到的</a>
-<a href="#toc-4" class="lv3">你要交的</a>
-<a href="#toc-5">报告模板（八段）</a>
+  <div class="toc-h"><b>结业作品集 · 收益诊断报告与 30 天行动方案</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 这门课的结业作品：一份能带去上班的诊断报告</a>
+<a href="#toc-2">2. 任务书</a>
+<a href="#toc-3" class="lv3">2.1 你拿到的</a>
+<a href="#toc-4" class="lv3">2.2 你要交的</a>
+<a href="#toc-5">3. 报告模板（八段）</a>
 <a href="#toc-6">30 天行动方案模板</a>
-<a href="#toc-7">参考样例（先看别人怎么做，再动手）</a>
-<a href="#toc-8">评分量规（看依据，不看文采）</a>
-<a href="#toc-9">做完之后</a></div>
+<a href="#toc-7">4. 参考样例（先看别人怎么做，再动手）</a>
+<a href="#toc-8">5. 评分量规（看依据，不看文采）</a>
+<a href="#toc-9">6. 做完之后</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -234,6 +235,11 @@ label{display:block;font-size:13px;color:var(--navy);margin:10px 0 4px;font-weig
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

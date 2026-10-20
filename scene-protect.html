@@ -163,13 +163,14 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">团队要 80 间，可散客 pickup 正猛。剩下的房给谁？</a>
+  <div class="toc-h"><b>场景化锻炼 · 客源保护位（练判断）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 团队要 80 间，可散客 pickup 正猛。剩下的房给谁？</a>
 <a href="#toc-2">第一步：您怎么分配？</a>
-<a href="#toc-3">决策结果核算</a>
-<a href="#toc-4">对照 · 期望价值 · 保护位</a>
-<a href="#toc-5">讲师出题提示</a></div>
+<a href="#toc-3">2. 决策结果核算</a>
+<a href="#toc-4">3. 对照 · 期望价值 · 保护位</a>
+<a href="#toc-5">4. 讲师出题提示</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -182,6 +183,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

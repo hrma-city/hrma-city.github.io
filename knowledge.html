@@ -157,13 +157,14 @@ label{display:block;font-size:13px;color:var(--navy);margin:10px 0 4px;font-weig
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">两种学法，本来是一件事的两半</a>
-<a href="#toc-2" class="lv3">学理 · 系统地弄懂</a>
-<a href="#toc-3" class="lv3">看案例 · 看别人怎么应对</a>
-<a href="#toc-4">什么时候用哪种</a>
-<a href="#toc-5">下一步去哪</a></div>
+  <div class="toc-h"><b>知识库 · 学理与案例</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 两种学法，本来是一件事的两半</a>
+<a href="#toc-2" class="lv3">1.1 学理 · 系统地弄懂</a>
+<a href="#toc-3" class="lv3">1.2 看案例 · 看别人怎么应对</a>
+<a href="#toc-4">2. 什么时候用哪种</a>
+<a href="#toc-5">3. 下一步去哪</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -176,6 +177,11 @@ label{display:block;font-size:13px;color:var(--navy);margin:10px 0 4px;font-weig
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

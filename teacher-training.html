@@ -217,11 +217,11 @@ td.c,th.c{text-align:center}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>师资培训包 · 两天课程与考核（可录播）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">一、培训目标与结业要求</a>
 <a href="#toc-2">二、两天课程表</a>
-<a href="#toc-3" class="lv3">第一天 · 判据与课堂（6 学时）</a>
-<a href="#toc-4" class="lv3">第二天 · 判分与落地（6 学时）</a>
+<a href="#toc-3" class="lv3">1. 第一天 · 判据与课堂（6 学时）</a>
+<a href="#toc-4" class="lv3">2. 第二天 · 判分与落地（6 学时）</a>
 <a href="#toc-5">三、四个模块的详细设计</a>
 <a href="#toc-6" class="lv3">模块 1 · 判定表是什么（60 分钟）</a>
 <a href="#toc-7" class="lv3">模块 3 · 课堂组织四步法（90 分钟）</a>
@@ -233,6 +233,7 @@ td.c,th.c{text-align:center}
 <a href="#toc-13">七、录制建议（让您一次做完，之后零边际成本）</a>
 <a href="#toc-14">八、复审（每 2 年一次，线上 2 学时）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -245,6 +246,11 @@ td.c,th.c{text-align:center}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

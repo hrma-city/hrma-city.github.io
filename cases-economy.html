@@ -190,16 +190,17 @@ document.addEventListener('click',function(e){
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">这一册讲什么</a>
-<a href="#toc-2">本册案例（6 个）</a>
-<a href="#toc-3">县城经济型酒店：¥99 的特价房，是引流还是自杀？</a>
+  <div class="toc-h"><b>经济型酒店 · 收益管理案例分册 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 这一册讲什么</a>
+<a href="#toc-2">2. 本册案例（6 个）</a>
+<a href="#toc-3">3. 县城经济型酒店：¥99 的特价房，是引流还是自杀？</a>
 <a href="#toc-4">120 间中端酒店：把 OTA 从 62% 压到 41%，一年多赚 38 万</a>
-<a href="#toc-5">五一 3 天假：48 小时里改了 9 次价</a>
-<a href="#toc-6">下行期：商旅预算砍 30%，是降价还是换客群？</a>
-<a href="#toc-7">渠道断连 3 小时：以 ¥180 卖出了 47 间 ¥880 的房</a>
-<a href="#toc-8">隔壁新开了家国际品牌：份额被抢走 18%，怎么守？</a></div>
+<a href="#toc-5">4. 五一 3 天假：48 小时里改了 9 次价</a>
+<a href="#toc-6">5. 下行期：商旅预算砍 30%，是降价还是换客群？</a>
+<a href="#toc-7">6. 渠道断连 3 小时：以 ¥180 卖出了 47 间 ¥880 的房</a>
+<a href="#toc-8">7. 隔壁新开了家国际品牌：份额被抢走 18%，怎么守？</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -212,6 +213,11 @@ document.addEventListener('click',function(e){
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

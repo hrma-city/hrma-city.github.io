@@ -219,26 +219,27 @@ h2[id],h3[id],.card[id],.pd{scroll-margin-top:14px}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#sec-why">① 为什么这门课必须做成活页式</a>
-<a href="#sec-catalog">② 三级目录总表</a>
-<a href="#sec-postmap">③ 岗位 — 能力 — 层级 对接表</a>
-<a href="#sec-ideo">④ 思政与职业素养融入点</a>
-<a href="#sec-wo">⑤ 活页工单清单（14 张）</a>
-<a href="#sec-format">⑥ 主流业态适配说明</a>
-<a href="#sec-digital">⑦ 纸数融合与多元形态滚动出版</a>
-<a href="#sec-level">高职本科层次定位与中高本衔接</a>
-<a href="#sec-gksz">岗课赛证融通设计</a>
-<a href="#sec-wuxin">五新融入说明（方法 · 技术 · 工艺 · 标准 · 装备）</a>
-<a href="#sec-ideomap">课程思政映射总表</a>
-<a href="#sec-trial">试用检验与审核机制</a>
-<a href="#sec-rolling">⑧ 滚动出版与更新机制</a>
-<a href="#sec-form">⑨ 选题登记表（可直接填报）</a>
-<a href="#sec-chief">⑩ 三主编架构建议</a>
-<a href="#sec-mail">⑪ 申报邮件正文（可直接复制）</a>
-<a href="#sec-plan">⑫ 编写出版时间计划（建议）</a>
-<a href="#sec-todo">⑬ 本版仍需人工完成的部分（自动化做不到）</a></div>
+  <div class="toc-h"><b>编写说明与申报材料 · 酒店收益管理（高职本科）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#sec-why">1. ① 为什么这门课必须做成活页式</a>
+<a href="#sec-catalog">2. ② 三级目录总表</a>
+<a href="#sec-postmap">3. ③ 岗位 — 能力 — 层级 对接表</a>
+<a href="#sec-ideo">4. ④ 思政与职业素养融入点</a>
+<a href="#sec-wo">5. ⑤ 活页工单清单（14 张）</a>
+<a href="#sec-format">6. ⑥ 主流业态适配说明</a>
+<a href="#sec-digital">7. ⑦ 纸数融合与多元形态滚动出版</a>
+<a href="#sec-level">8. 高职本科层次定位与中高本衔接</a>
+<a href="#sec-gksz">9. 岗课赛证融通设计</a>
+<a href="#sec-wuxin">10. 五新融入说明（方法 · 技术 · 工艺 · 标准 · 装备）</a>
+<a href="#sec-ideomap">11. 课程思政映射总表</a>
+<a href="#sec-trial">12. 试用检验与审核机制</a>
+<a href="#sec-rolling">13. ⑧ 滚动出版与更新机制</a>
+<a href="#sec-form">14. ⑨ 选题登记表（可直接填报）</a>
+<a href="#sec-chief">15. ⑩ 三主编架构建议</a>
+<a href="#sec-mail">16. ⑪ 申报邮件正文（可直接复制）</a>
+<a href="#sec-plan">17. ⑫ 编写出版时间计划（建议）</a>
+<a href="#sec-todo">18. ⑬ 本版仍需人工完成的部分（自动化做不到）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -251,6 +252,11 @@ h2[id],h3[id],.card[id],.pd{scroll-margin-top:14px}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

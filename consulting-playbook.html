@@ -286,24 +286,25 @@ pre.pb-pre{background:#f6f8fa;border:1px solid #e1e5ea;border-radius:10px;paddin
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>师资陪跑 · 12 个月交付执行手册（内部）| RMC</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">一、服务边界（先说清楚，后面不扯皮）</a>
 <a href="#toc-2">二、角色分工</a>
-<a href="#toc-3" class="lv3">你（教学教练）</a>
-<a href="#toc-4" class="lv3">客户对接人（1 名，必须指定）</a>
-<a href="#toc-5" class="lv3">授课教师（1–3 名）</a>
-<a href="#toc-6" class="lv3">院系领导（买单人）</a>
+<a href="#toc-3" class="lv3">1. 你（教学教练）</a>
+<a href="#toc-4" class="lv3">2. 客户对接人（1 名，必须指定）</a>
+<a href="#toc-5" class="lv3">3. 授课教师（1–3 名）</a>
+<a href="#toc-6" class="lv3">4. 院系领导（买单人）</a>
 <a href="#toc-7">三、12 个月执行表（核心）</a>
 <a href="#toc-8">四、每一次评审的标准动作（4 步，永远不变）</a>
 <a href="#toc-9">五、四个里程碑（对领导可交代的验收点）</a>
 <a href="#toc-10">六、异常与风险处理</a>
 <a href="#toc-11">七、你自己的精力预算（这份方案的底线）</a>
 <a href="#toc-12">八、要预先准备好的固定物料（一次做好，年年复用）</a>
-<a href="#toc-13" class="lv3">流程类</a>
-<a href="#toc-14" class="lv3">交付类（站内已有，直接给）</a>
-<a href="#toc-15" class="lv3">《评审意见单》模板（每次直接填这个）</a>
-<a href="#toc-16" class="lv3">配套页面</a></div>
+<a href="#toc-13" class="lv3">5. 流程类</a>
+<a href="#toc-14" class="lv3">6. 交付类（站内已有，直接给）</a>
+<a href="#toc-15" class="lv3">7. 《评审意见单》模板（每次直接填这个）</a>
+<a href="#toc-16" class="lv3">8. 配套页面</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -316,6 +317,11 @@ pre.pb-pre{background:#f6f8fa;border:1px solid #e1e5ea;border-radius:10px;paddin
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

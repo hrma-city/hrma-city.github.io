@@ -224,25 +224,26 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">三个真相：为什么开课不需要收益管理系统</a>
-<a href="#toc-2" class="lv3">收益管理教的是“判断”，不是“操作软件”</a>
-<a href="#toc-3" class="lv3">酒店 RMS / IDeaS 是“酒店运营工具”，不是“教学设备”</a>
-<a href="#toc-4" class="lv3">您缺的不是系统，是“能把判断讲清楚的内容”</a>
-<a href="#toc-5">三道心墙，逐条拆</a>
-<a href="#toc-6">★ 先练判断的七件套工具箱</a>
-<a href="#toc-7" class="lv3">教材 · 体系骨架</a>
-<a href="#toc-8" class="lv3">课件 · 讲师版 PPT（L1/L2/L3）</a>
-<a href="#toc-9" class="lv3">经营数据 · 四套脱敏数据集</a>
-<a href="#toc-10" class="lv3">表格模板 · 62 个可填 xlsx</a>
-<a href="#toc-11" class="lv3">题库 · 章章有自测，级级有默写</a>
-<a href="#toc-12" class="lv3">场景化锻炼游戏 · 超售决策</a>
-<a href="#toc-13" class="lv3">竞赛游戏 · 知识抢答</a>
-<a href="#toc-14">一堂示范课：用工具箱上 15 分钟“超售”</a>
-<a href="#toc-15" class="lv3">先练判断，这节课怎么上</a>
-<a href="#toc-16">等买 RMS vs 先练判断：开一门课的成本</a>
-<a href="#toc-17">想直接拿来开课？领取《开课工具包》</a></div>
+  <div class="toc-h"><b>专题 · 零基础、不上系统，您也能开收益管理课</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 三个真相：为什么开课不需要收益管理系统</a>
+<a href="#toc-2" class="lv3">1.1 收益管理教的是“判断”，不是“操作软件”</a>
+<a href="#toc-3" class="lv3">1.2 酒店 RMS / IDeaS 是“酒店运营工具”，不是“教学设备”</a>
+<a href="#toc-4" class="lv3">1.3 您缺的不是系统，是“能把判断讲清楚的内容”</a>
+<a href="#toc-5">2. 三道心墙，逐条拆</a>
+<a href="#toc-6">3. ★ 先练判断的七件套工具箱</a>
+<a href="#toc-7" class="lv3">3.1 教材 · 体系骨架</a>
+<a href="#toc-8" class="lv3">3.2 课件 · 讲师版 PPT（L1/L2/L3）</a>
+<a href="#toc-9" class="lv3">3.3 经营数据 · 四套脱敏数据集</a>
+<a href="#toc-10" class="lv3">3.4 表格模板 · 62 个可填 xlsx</a>
+<a href="#toc-11" class="lv3">3.5 题库 · 章章有自测，级级有默写</a>
+<a href="#toc-12" class="lv3">3.6 场景化锻炼游戏 · 超售决策</a>
+<a href="#toc-13" class="lv3">3.7 竞赛游戏 · 知识抢答</a>
+<a href="#toc-14">4. 一堂示范课：用工具箱上 15 分钟“超售”</a>
+<a href="#toc-15" class="lv3">4.1 先练判断，这节课怎么上</a>
+<a href="#toc-16">5. 等买 RMS vs 先练判断：开一门课的成本</a>
+<a href="#toc-17">6. 想直接拿来开课？领取《开课工具包》</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -255,6 +256,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

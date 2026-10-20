@@ -283,15 +283,16 @@ li{margin:4px 0}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>教材优化复盘 · 写书先行路线（2026-10-17）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">01 新路线下，这本书要同时干三件事</a>
 <a href="#toc-2">02 现状实测：五个教材资产，只有一个是稿子</a>
-<a href="#toc-3" class="lv3">正典 textbook.html 的构件：哪些有了，哪些是 0</a>
+<a href="#toc-3" class="lv3">1. 正典 textbook.html 的构件：哪些有了，哪些是 0</a>
 <a href="#toc-4">03 P0 · 现在就必须改的四件事</a>
 <a href="#toc-5">04 P1 · 内容增补与方法论防线</a>
 <a href="#toc-6">05 P2 · 教学适配与反馈回路</a>
 <a href="#toc-7">06 这本书怎么一路支撑到&quot;退居幕后&quot;</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -304,6 +305,11 @@ li{margin:4px 0}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

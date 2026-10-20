@@ -564,20 +564,21 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>教案总纲：14 模块详细教案 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#how">一、这套教案怎么读</a>
 <a href="#rhythm">二、固定教学节奏：每课时 90 分钟</a>
 <a href="#path">三、三条授课路径</a>
 <a href="#l1">四、L1 收益执行专员 · 16 课时</a>
-<a href="#toc-1" class="lv3">L1 结业考核</a>
+<a href="#toc-1" class="lv3">1. L1 结业考核</a>
 <a href="#l2">五、L2 收益管理主管 · 32 课时</a>
-<a href="#toc-2" class="lv3">L2 结业考核</a>
+<a href="#toc-2" class="lv3">2. L2 结业考核</a>
 <a href="#l3">六、L3 收益管理经理 · 32 课时</a>
-<a href="#toc-3" class="lv3">L3 结业考核</a>
+<a href="#toc-3" class="lv3">3. L3 结业考核</a>
 <a href="#assess">七、考核总表</a>
-<a href="#toc-4" class="lv3">判定表默写要求（累计制，上一级的表下一级仍要会）</a>
+<a href="#toc-4" class="lv3">4. 判定表默写要求（累计制，上一级的表下一级仍要会）</a>
 <a href="#faq">八、讲师常见问题</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -590,6 +591,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

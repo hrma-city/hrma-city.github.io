@@ -329,36 +329,36 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1" class="lv3">目录</a>
-<a href="#toc-2">1收益管理导论</a>
-<a href="#toc-3" class="lv3">三个前提（适用条件）</a>
-<a href="#toc-4">2核心指标体系</a>
-<a href="#toc-5" class="lv3">住宿业三指标</a>
-<a href="#toc-6" class="lv3">各行业变体（同一思想，不同名字）</a>
-<a href="#toc-7">3需求预测</a>
-<a href="#toc-8" class="lv3">三个基础工具</a>
-<a href="#toc-9">4动态定价</a>
-<a href="#toc-10" class="lv3">双因子矩阵逻辑</a>
-<a href="#toc-11">5库存控制</a>
-<a href="#toc-12" class="lv3">核心概念</a>
-<a href="#toc-13">6超售管理</a>
-<a href="#toc-14" class="lv3">最优超售量</a>
-<a href="#toc-15">7渠道与分销</a>
-<a href="#toc-16" class="lv3">三个常见坑</a>
-<a href="#toc-17">8竞争分析</a>
-<a href="#toc-18" class="lv3">ARI / MPI / RGI</a>
-<a href="#toc-19">9–13分行业专题</a>
-<a href="#toc-20" class="lv3">住宿业（第 9 章）</a>
-<a href="#toc-21" class="lv3">餐饮业（第 10 章）</a>
-<a href="#toc-22" class="lv3">航空业（第 11 章）</a>
-<a href="#toc-23" class="lv3">景区文旅（第 12 章）</a>
-<a href="#toc-24" class="lv3">娱乐休闲（第 13 章）</a>
-<a href="#toc-25">14预算与预测</a>
-<a href="#toc-26">15组织与协同</a>
-<a href="#toc-27">16系统与未来</a>
-<a href="#toc-28" class="lv3">RMS 与 AI</a></div>
+  <div class="toc-h"><b>收益管理教材 · 16 周学期制 · 在线阅读 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-2">1. 1收益管理导论</a>
+<a href="#toc-3" class="lv3">1.1 三个前提（适用条件）</a>
+<a href="#toc-4">2. 2核心指标体系</a>
+<a href="#toc-5" class="lv3">2.1 住宿业三指标</a>
+<a href="#toc-6" class="lv3">2.2 各行业变体（同一思想，不同名字）</a>
+<a href="#toc-7">3. 3需求预测</a>
+<a href="#toc-8" class="lv3">3.1 三个基础工具</a>
+<a href="#toc-9">4. 4动态定价</a>
+<a href="#toc-10" class="lv3">4.1 双因子矩阵逻辑</a>
+<a href="#toc-11">5. 5库存控制</a>
+<a href="#toc-12" class="lv3">5.1 核心概念</a>
+<a href="#toc-13">6. 6超售管理</a>
+<a href="#toc-14" class="lv3">6.1 最优超售量</a>
+<a href="#toc-15">7. 7渠道与分销</a>
+<a href="#toc-16" class="lv3">7.1 三个常见坑</a>
+<a href="#toc-17">8. 8竞争分析</a>
+<a href="#toc-18" class="lv3">8.1 ARI / MPI / RGI</a>
+<a href="#toc-19">9. 9–13分行业专题</a>
+<a href="#toc-20" class="lv3">9.1 住宿业（第 9 章）</a>
+<a href="#toc-21" class="lv3">9.2 餐饮业（第 10 章）</a>
+<a href="#toc-22" class="lv3">9.3 航空业（第 11 章）</a>
+<a href="#toc-23" class="lv3">9.4 景区文旅（第 12 章）</a>
+<a href="#toc-24" class="lv3">9.5 娱乐休闲（第 13 章）</a>
+<a href="#toc-25">10. 14预算与预测</a>
+<a href="#toc-26">11. 15组织与协同</a>
+<a href="#toc-27">12. 16系统与未来</a>
+<a href="#toc-28" class="lv3">12.1 RMS 与 AI</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -371,6 +371,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

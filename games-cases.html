@@ -779,23 +779,24 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">L1 案例（4 个）</a>
-<a href="#toc-2" class="lv3">案例 1 淡季降价：降多少才不亏</a>
-<a href="#toc-3" class="lv3">案例 2 旺季提价：什么时候该收手</a>
-<a href="#toc-4" class="lv3">案例 3 数据打架：先修数还是先查表</a>
-<a href="#toc-5" class="lv3">案例 4 限制条件忘了撤</a>
-<a href="#toc-6">L2 案例（4 个）</a>
-<a href="#toc-7" class="lv3">案例 5 预测严重偏差：展会临时取消</a>
-<a href="#toc-8" class="lv3">案例 6 竞对恶意降价：跟还是不跟</a>
-<a href="#toc-9" class="lv3">案例 7 超售过度：国庆夜的危机</a>
-<a href="#toc-10" class="lv3">案例 8 OTA 依赖：流水涨了利润没涨</a>
-<a href="#toc-11">L3 案例（4 个）</a>
-<a href="#toc-12" class="lv3">案例 9 团队置换：80 间的旅游团</a>
-<a href="#toc-13" class="lv3">案例 10 会议综合收益：客房亏了餐饮补</a>
-<a href="#toc-14" class="lv3">案例 11 新竞对开业：份额被蚕食</a>
-<a href="#toc-15" class="lv3">案例 12 多表冲突：暴雨 + 满房 + 团队询价</a></div>
+  <div class="toc-h"><b>案例分析集（12 个） · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. L1 案例（4 个）</a>
+<a href="#toc-2" class="lv3">1.1 案例 1 淡季降价：降多少才不亏</a>
+<a href="#toc-3" class="lv3">1.2 案例 2 旺季提价：什么时候该收手</a>
+<a href="#toc-4" class="lv3">1.3 案例 3 数据打架：先修数还是先查表</a>
+<a href="#toc-5" class="lv3">1.4 案例 4 限制条件忘了撤</a>
+<a href="#toc-6">2. L2 案例（4 个）</a>
+<a href="#toc-7" class="lv3">2.1 案例 5 预测严重偏差：展会临时取消</a>
+<a href="#toc-8" class="lv3">2.2 案例 6 竞对恶意降价：跟还是不跟</a>
+<a href="#toc-9" class="lv3">2.3 案例 7 超售过度：国庆夜的危机</a>
+<a href="#toc-10" class="lv3">2.4 案例 8 OTA 依赖：流水涨了利润没涨</a>
+<a href="#toc-11">3. L3 案例（4 个）</a>
+<a href="#toc-12" class="lv3">3.1 案例 9 团队置换：80 间的旅游团</a>
+<a href="#toc-13" class="lv3">3.2 案例 10 会议综合收益：客房亏了餐饮补</a>
+<a href="#toc-14" class="lv3">3.3 案例 11 新竞对开业：份额被蚕食</a>
+<a href="#toc-15" class="lv3">3.4 案例 12 多表冲突：暴雨 + 满房 + 团队询价</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -808,6 +809,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

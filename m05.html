@@ -1295,7 +1295,7 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>M05 需求预测：Pickup 与预订曲线 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#s1">一、预测的四块基石：Pickup / Booking Window / 在手预订 / 剩余需求</a>
 <a href="#toc-1" class="lv3">1.1 Pickup（预订增量）</a>
 <a href="#toc-2" class="lv3">1.2 Booking Window（预订窗口）</a>
@@ -1312,20 +1312,20 @@
 <a href="#toc-11" class="lv3">3.3 横读（同一行从左到右）：同窗口的未来横截面</a>
 <a href="#toc-12" class="lv3">3.4 三种读法的作业顺序（固定，不得颠倒）</a>
 <a href="#s4">四、《法典》表 I：预订窗口分档监控表（完整内嵌）</a>
-<a href="#toc-13" class="lv3">预订窗口分档监控表</a>
+<a href="#toc-13" class="lv3">1. 预订窗口分档监控表</a>
 <a href="#toc-14" class="lv3">4.1 表 I 的三条执行细则</a>
 <a href="#toc-15" class="lv3">4.2 表 I 在云璟酒店的落地排期表</a>
 <a href="#s5">五、《法典》表 A：每日价格调整判定表（本模块配套内嵌）</a>
-<a href="#toc-16" class="lv3">每日价格调整判定表（双因子矩阵）</a>
+<a href="#toc-16" class="lv3">2. 每日价格调整判定表（双因子矩阵）</a>
 <a href="#s6">六、预测三步法与修正系数表</a>
 <a href="#toc-17" class="lv3">6.1 第 ① 步：去年同期实际——取数与清洗</a>
 <a href="#toc-18" class="lv3">6.2 第 ② 步：加 Pickup 增量</a>
 <a href="#toc-19" class="lv3">6.3 第 ③ 步：三项修正（星期几 / 需求等级 / 事件）</a>
 <a href="#s7">七、三个完整预测演算案例</a>
-<a href="#toc-20" class="lv3">案例一：平推场景 —— 目标日 2026-10-20（周二）</a>
-<a href="#toc-21" class="lv3">案例二：事件升级场景 —— 目标日 2026-10-23（周五）</a>
-<a href="#toc-22" class="lv3">案例三：双向利空场景 —— 目标日 2026-10-18（周日）</a>
-<a href="#toc-23" class="lv3">三例横向对比</a>
+<a href="#toc-20" class="lv3">3. 案例一：平推场景 —— 目标日 2026-10-20（周二）</a>
+<a href="#toc-21" class="lv3">4. 案例二：事件升级场景 —— 目标日 2026-10-23（周五）</a>
+<a href="#toc-22" class="lv3">5. 案例三：双向利空场景 —— 目标日 2026-10-18（周日）</a>
+<a href="#toc-23" class="lv3">6. 三例横向对比</a>
 <a href="#s8">八、预测偏差复盘：准确率、合格线与改进</a>
 <a href="#toc-24" class="lv3">8.1 预测准确率的定义</a>
 <a href="#toc-25" class="lv3">8.2 合格线（分提前期设定）</a>
@@ -1337,6 +1337,7 @@
 <a href="#s12">十二、随堂测（5 题）</a>
 <a href="#s13">十三、本模块产出物</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -1349,6 +1350,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

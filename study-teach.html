@@ -251,8 +251,8 @@ else if(st.last) openCh(st.last.n); else listBook();
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#crumb">教师线 · 逐章备课与上课</a>
+  <div class="toc-h"><b>教师线 · 逐章备课与上课</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#crumb">1. 教师线 · 逐章备课与上课</a>
 <a href="#toc-1" class="lv3">一、学完这一章，学生能做到什么</a>
 <a href="#toc-2" class="lv3">二、课时安排（3 课时）</a>
 <a href="#toc-3" class="lv3">三、讲这一章要用的公式与定义</a>
@@ -540,10 +540,11 @@ else if(st.last) openCh(st.last.n); else listBook();
 <a href="#toc-285" class="lv3">五、课堂案例（直接用正文里的）</a>
 <a href="#toc-286" class="lv3">六、容易讲错的地方</a>
 <a href="#toc-287" class="lv3">七、作业与测评</a>
-<a href="#toc-225">&#x27;+(idx+1)+&#x27;. &#x27;+s.name+&#x27;</a>
-<a href="#toc-226" class="lv3">导出</a>
-<a href="#toc-227" class="lv3">导入</a></div>
+<a href="#toc-225">2. &#x27;+(idx+1)+&#x27;. &#x27;+s.name+&#x27;</a>
+<a href="#toc-226" class="lv3">2.1 导出</a>
+<a href="#toc-227" class="lv3">2.2 导入</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -556,6 +557,11 @@ else if(st.last) openCh(st.last.n); else listBook();
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

@@ -402,18 +402,19 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">短文：一次讲透一个问题</a>
-<a href="#toc-2">系统读完，建立完整认知</a>
-<a href="#toc-3" class="lv3">收益管理通用内核 在线阅读</a>
-<a href="#toc-4" class="lv3">住宿业收益管理完全手册 在线阅读</a>
-<a href="#toc-5" class="lv3">跨行业收益管理案例集 在线阅读</a>
-<a href="#toc-6">放进口袋，随查随用</a>
-<a href="#toc-7" class="lv3">收益管理 15 张判定表 · 口袋本 PDF 可下载</a>
-<a href="#toc-8" class="lv3">每日操作流水线 · 卡片版 可打印</a>
-<a href="#toc-9" class="lv3">收益管理术语速查手册 在线查阅</a>
-<a href="#toc-10">让高校能直接开课</a></div>
+  <div class="toc-h"><b>书籍专栏 · 文章 · 电子书 · 纸质口袋书 · 院校教材 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 短文：一次讲透一个问题</a>
+<a href="#toc-2">2. 系统读完，建立完整认知</a>
+<a href="#toc-3" class="lv3">2.1 收益管理通用内核 在线阅读</a>
+<a href="#toc-4" class="lv3">2.2 住宿业收益管理完全手册 在线阅读</a>
+<a href="#toc-5" class="lv3">2.3 跨行业收益管理案例集 在线阅读</a>
+<a href="#toc-6">3. 放进口袋，随查随用</a>
+<a href="#toc-7" class="lv3">3.1 收益管理 15 张判定表 · 口袋本 PDF 可下载</a>
+<a href="#toc-8" class="lv3">3.2 每日操作流水线 · 卡片版 可打印</a>
+<a href="#toc-9" class="lv3">3.3 收益管理术语速查手册 在线查阅</a>
+<a href="#toc-10">4. 让高校能直接开课</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -426,6 +427,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

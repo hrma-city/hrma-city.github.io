@@ -234,13 +234,14 @@ a.nolink{color:#1d6fb8;text-decoration:none}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">直接阅读（不跳页）</a>
+  <div class="toc-h"><b>我的学习入口 · RMC 收益管理</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 直接阅读（不跳页）</a>
 <a href="#toc-2">一、学生 · 按教材学（6 篇 41 章）</a>
 <a href="#toc-3">二、酒店人 · 按认证模块走</a>
 <a href="#toc-4">三、教师 · 备课与上课</a>
 <a href="#toc-5">四、资料与工具</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -253,6 +254,11 @@ a.nolink{color:#1d6fb8;text-decoration:none}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

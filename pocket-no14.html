@@ -201,13 +201,14 @@ OTA 客人    流量入口、忠诚度低             → 控库存不控价
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">同样的房，商务客和度假客愿意付的钱完全不同</a>
-<a href="#toc-2">细分的目的，是把价格敏感度不同的人分开</a>
-<a href="#toc-3">算一遍，您会记一辈子</a>
-<a href="#toc-4">三步上限，别超过三件事</a>
-<a href="#toc-5">同一晚，五个细分的真实画像</a></div>
+  <div class="toc-h"><b>14 客源细分：把客人分成几类来定价 · HRMA 口袋书</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 同样的房，商务客和度假客愿意付的钱完全不同</a>
+<a href="#toc-2">2. 细分的目的，是把价格敏感度不同的人分开</a>
+<a href="#toc-3">3. 算一遍，您会记一辈子</a>
+<a href="#toc-4">4. 三步上限，别超过三件事</a>
+<a href="#toc-5">5. 同一晚，五个细分的真实画像</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -220,6 +221,11 @@ OTA 客人    流量入口、忠诚度低             → 控库存不控价
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

@@ -110,25 +110,26 @@ ol.steps li{font-size:13.8px;line-height:1.9;color:#1f2a37;margin-bottom:6px}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">数据集</a>
-<a href="#toc-2">判定表（15 张）</a>
-<a href="#toc-3">场景锻炼（13 个）</a>
-<a href="#toc-4" class="lv3">涨价决策</a>
-<a href="#toc-5" class="lv3">竞品降价跟不跟</a>
-<a href="#toc-6" class="lv3">团队置换</a>
-<a href="#toc-7" class="lv3">渠道净价与配额</a>
-<a href="#toc-8" class="lv3">房型价差与开关</a>
-<a href="#toc-9" class="lv3">最短住期 MinLOS</a>
-<a href="#toc-10" class="lv3">折扣与促销</a>
-<a href="#toc-11" class="lv3">套餐设计</a>
-<a href="#toc-12" class="lv3">Pickup 落后</a>
-<a href="#toc-13" class="lv3">事件日定价</a>
-<a href="#toc-14" class="lv3">客源保护位</a>
-<a href="#toc-15" class="lv3">餐饮 RevPASH</a>
-<a href="#toc-16" class="lv3">超售决策</a>
-<a href="#toc-17">综合演练</a></div>
+  <div class="toc-h"><b>教具与资料清单 · 酒店收益管理入行实操训练营</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 数据集</a>
+<a href="#toc-2">2. 判定表（15 张）</a>
+<a href="#toc-3">3. 场景锻炼（13 个）</a>
+<a href="#toc-4" class="lv3">3.1 涨价决策</a>
+<a href="#toc-5" class="lv3">3.2 竞品降价跟不跟</a>
+<a href="#toc-6" class="lv3">3.3 团队置换</a>
+<a href="#toc-7" class="lv3">3.4 渠道净价与配额</a>
+<a href="#toc-8" class="lv3">3.5 房型价差与开关</a>
+<a href="#toc-9" class="lv3">3.6 最短住期 MinLOS</a>
+<a href="#toc-10" class="lv3">3.7 折扣与促销</a>
+<a href="#toc-11" class="lv3">3.8 套餐设计</a>
+<a href="#toc-12" class="lv3">3.9 Pickup 落后</a>
+<a href="#toc-13" class="lv3">3.10 事件日定价</a>
+<a href="#toc-14" class="lv3">3.11 客源保护位</a>
+<a href="#toc-15" class="lv3">3.12 餐饮 RevPASH</a>
+<a href="#toc-16" class="lv3">3.13 超售决策</a>
+<a href="#toc-17">4. 综合演练</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -141,6 +142,11 @@ ol.steps li{font-size:13.8px;line-height:1.9;color:#1f2a37;margin-bottom:6px}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

@@ -444,27 +444,28 @@ input[type=text]{flex:1;min-width:200px}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">企业图谱</a>
-<a href="#toc-2" class="lv3">云璟酒店（杭州滨江）</a>
-<a href="#toc-3" class="lv3">澜庭·温泉度假</a>
-<a href="#toc-4" class="lv3">栖悦酒店</a>
-<a href="#toc-5" class="lv3">老城厢精品酒店</a>
-<a href="#toc-6" class="lv3">悦行·商旅</a>
-<a href="#toc-7">案例清单</a>
-<a href="#toc-8" class="lv3">出租率 90% 那天，总经理在会上表扬了所有人，但没人敢报收入</a>
-<a href="#toc-9" class="lv3">ADR 涨了 40 块，收入却少了 1.9 万</a>
-<a href="#toc-10" class="lv3">我们 RevPAR 涨了 8%，但市场份额在掉</a>
-<a href="#toc-11" class="lv3">OTA 卖了 40% 的房，RevPAR 好看，到手的钱少了 23 万</a>
-<a href="#toc-12" class="lv3">全年 RevPAR 达标，但旺季没赚够、淡季亏太多</a>
-<a href="#toc-13" class="lv3">长住客把 OCC 顶到 85%，但收益经理想赶走他们</a>
-<a href="#toc-14" class="lv3">旺季限供 + 超售双刃：142 间房的黄金周博弈</a>
-<a href="#toc-15" class="lv3">会员价与门市价倒挂：60 家连锁的价格体系失守</a>
-<a href="#toc-16" class="lv3">OTA 依赖度 65% 的陷阱：28 间单体的自救</a>
-<a href="#toc-17" class="lv3">出租率 95% 但 GOP 为负：经济型的成本陷阱</a>
-<a href="#toc-18">OBE 能力域 / HSMAI CRME 映射</a>
-<a href="#toc-19">“十五五”产教融合指标说明</a></div>
+  <div class="toc-h"><b>产教融合案例库 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 企业图谱</a>
+<a href="#toc-2" class="lv3">1.1 云璟酒店（杭州滨江）</a>
+<a href="#toc-3" class="lv3">1.2 澜庭·温泉度假</a>
+<a href="#toc-4" class="lv3">1.3 栖悦酒店</a>
+<a href="#toc-5" class="lv3">1.4 老城厢精品酒店</a>
+<a href="#toc-6" class="lv3">1.5 悦行·商旅</a>
+<a href="#toc-7">2. 案例清单</a>
+<a href="#toc-8" class="lv3">2.1 出租率 90% 那天，总经理在会上表扬了所有人，但没人敢报收入</a>
+<a href="#toc-9" class="lv3">2.2 ADR 涨了 40 块，收入却少了 1.9 万</a>
+<a href="#toc-10" class="lv3">2.3 我们 RevPAR 涨了 8%，但市场份额在掉</a>
+<a href="#toc-11" class="lv3">2.4 OTA 卖了 40% 的房，RevPAR 好看，到手的钱少了 23 万</a>
+<a href="#toc-12" class="lv3">2.5 全年 RevPAR 达标，但旺季没赚够、淡季亏太多</a>
+<a href="#toc-13" class="lv3">2.6 长住客把 OCC 顶到 85%，但收益经理想赶走他们</a>
+<a href="#toc-14" class="lv3">2.7 旺季限供 + 超售双刃：142 间房的黄金周博弈</a>
+<a href="#toc-15" class="lv3">2.8 会员价与门市价倒挂：60 家连锁的价格体系失守</a>
+<a href="#toc-16" class="lv3">2.9 OTA 依赖度 65% 的陷阱：28 间单体的自救</a>
+<a href="#toc-17" class="lv3">2.10 出租率 95% 但 GOP 为负：经济型的成本陷阱</a>
+<a href="#toc-18">3. OBE 能力域 / HSMAI CRME 映射</a>
+<a href="#toc-19">4. “十五五”产教融合指标说明</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -477,6 +478,11 @@ input[type=text]{flex:1;min-width:200px}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

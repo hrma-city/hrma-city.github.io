@@ -702,14 +702,14 @@ RGI ≈ 79.5% × 108.3% = 86</div>
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>出版社样章包 ·《酒店收益管理：从原理到决策》</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">一、这本书解决什么问题</a>
-<a href="#toc-2" class="lv3">现有教材的五类共性缺口</a>
+<a href="#toc-2" class="lv3">1. 现有教材的五类共性缺口</a>
 <a href="#toc-3">二、定位与读者</a>
-<a href="#toc-4">二·补 作者简介（务必写进选题策划书）</a>
-<a href="#toc-5" class="lv3">建议作者简介（可直接用，方括号处请填写具体信息）</a>
-<a href="#toc-6" class="lv3">为什么这段经历这么重要（三个身份缺一不可）</a>
-<a href="#toc-7" class="lv3">对外表述时的三条纪律</a>
+<a href="#toc-4">1. 二·补 作者简介（务必写进选题策划书）</a>
+<a href="#toc-5" class="lv3">1.1 建议作者简介（可直接用，方括号处请填写具体信息）</a>
+<a href="#toc-6" class="lv3">1.2 为什么这段经历这么重要（三个身份缺一不可）</a>
+<a href="#toc-7" class="lv3">1.3 对外表述时的三条纪律</a>
 <a href="#toc-8">三、七篇结构与完整目录</a>
 <a href="#toc-9">四、体例：每章固定 14 项</a>
 <a href="#toc-10">五、配套资源（作者自有，可随书授权）</a>
@@ -718,15 +718,16 @@ RGI ≈ 79.5% × 108.3% = 86</div>
 <a href="#toc-13">八、为什么这本书有机会被选用</a>
 <a href="#toc-14">九、前三章样章</a>
 <a href="#toc-15">十、怎么用这个包（寄送清单与流程）</a>
-<a href="#toc-16" class="lv3">① 寄送清单</a>
-<a href="#toc-17" class="lv3">② 邮件模板（可直接改）</a>
-<a href="#toc-18" class="lv3">③ 谈判时序（同步做，不额外耗精力）</a>
+<a href="#toc-16" class="lv3">1.4 ① 寄送清单</a>
+<a href="#toc-17" class="lv3">1.5 ② 邮件模板（可直接改）</a>
+<a href="#toc-18" class="lv3">1.6 ③ 谈判时序（同步做，不额外耗精力）</a>
 <a href="#toc-19">第一篇 · 认知篇</a>
-<a href="#toc-20" class="lv3">本质与衡量</a>
+<a href="#toc-20" class="lv3">1.7 本质与衡量</a>
 <a href="#toc-21">第 1 章收益管理是什么：一句话与底层逻辑</a>
 <a href="#toc-22">第 2 章三个核心指标：OCC、ADR、RevPAR</a>
 <a href="#toc-23">第 3 章竞争三件套：MPI、ARI、RGI</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -739,6 +740,11 @@ RGI ≈ 79.5% × 108.3% = 86</div>
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

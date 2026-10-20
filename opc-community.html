@@ -205,22 +205,23 @@ tr:nth-child(even) td{background:#fafcfd}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>酒店收益管理教学 OPC 社区 · 缺口盘点与最小方案</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">一、先说结论：三种社区模型，OPC 只能做第三种</a>
 <a href="#toc-2">二、前提修正：名单在手时，结论会变</a>
-<a href="#toc-3" class="lv3">名单规模决定动作（对号入座）</a>
-<a href="#toc-4" class="lv3">名单的&quot;温度&quot;比数量更重要</a>
+<a href="#toc-3" class="lv3">1. 名单规模决定动作（对号入座）</a>
+<a href="#toc-4" class="lv3">2. 名单的&quot;温度&quot;比数量更重要</a>
 <a href="#toc-5">三、OPC 的精力账：社区年预算 ≤ 80 小时</a>
 <a href="#toc-6">四、缺口清单（分三级）</a>
-<a href="#toc-7" class="lv3">致命 缺了社区根本不存在</a>
-<a href="#toc-8" class="lv3">重要 决定社区能不能自转</a>
-<a href="#toc-9" class="lv3">可选 先别做</a>
+<a href="#toc-7" class="lv3">3. 致命 缺了社区根本不存在</a>
+<a href="#toc-8" class="lv3">4. 重要 决定社区能不能自转</a>
+<a href="#toc-9" class="lv3">5. 可选 先别做</a>
 <a href="#toc-10">五、最小可行社区（MVC）：一年只做 4 件事</a>
 <a href="#toc-11">六、承载形态：不要建平台</a>
 <a href="#toc-12">七、社区不赚钱，它降低的是获客成本</a>
 <a href="#toc-13">八、风险与护栏</a>
 <a href="#toc-14">九、所以，还缺什么（一句话版）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -233,6 +234,11 @@ tr:nth-child(even) td{background:#fafcfd}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

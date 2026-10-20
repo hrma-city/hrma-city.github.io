@@ -883,14 +883,15 @@ renderFree();
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>教学馆 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1" class="lv3">模块练习&#x27; + (s.lv ? &#x27; · &#x27; + resc(s.lv) : &#x27; · 全部模块&#x27;) + &#x27;</a>
-<a href="#toc-2" class="lv3">真题考核&#x27; + (s.lv ? &#x27; · &#x27; + resc(s.lv) + &#x27; 结业考试卷&#x27; : &#x27; · 三级全套&#x27;) + &#x27;</a>
-<a href="#toc-3" class="lv3">&#x27; + resc(it.n) + &#x27;</a>
-<a href="#toc-4" class="lv3">第 &#x27; + (i + 1) + &#x27; 站 · &#x27; + resc(s.n) + (stt === &#x27;done&#x27; ? &#x27;已通过&#x27; : &#x27;&#x27;) + &#x27;</a>
-<a href="#toc-5" class="lv3">&#x27; + esc(it.n) + &#x27;</a>
-<a href="#toc-6">&#x27; + esc(name) + &#x27; &#x27; + cnt + &#x27; 项</a></div>
+<a href="#toc-2" class="lv3">1. 真题考核&#x27; + (s.lv ? &#x27; · &#x27; + resc(s.lv) + &#x27; 结业考试卷&#x27; : &#x27; · 三级全套&#x27;) + &#x27;</a>
+<a href="#toc-3" class="lv3">2. &#x27; + resc(it.n) + &#x27;</a>
+<a href="#toc-4" class="lv3">3. 第 &#x27; + (i + 1) + &#x27; 站 · &#x27; + resc(s.n) + (stt === &#x27;done&#x27; ? &#x27;已通过&#x27; : &#x27;&#x27;) + &#x27;</a>
+<a href="#toc-5" class="lv3">4. &#x27; + esc(it.n) + &#x27;</a>
+<a href="#toc-6">1. &#x27; + esc(name) + &#x27; &#x27; + cnt + &#x27; 项</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -903,6 +904,11 @@ renderFree();
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

@@ -185,13 +185,14 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">开这门课，贵校可能正面对三个难WHY</a>
-<a href="#toc-2">授权包含什么WHAT — 开课所需，一次配齐</a>
-<a href="#toc-3">贵校教师的工作量WORKLOAD — 系主任与任课教师最关心的一项</a>
-<a href="#toc-4">试点条件TERMS</a>
-<a href="#toc-5">时间安排TIMELINE</a></div>
+  <div class="toc-h"><b>酒店管理专业「收益管理」课程建设 · 试点校合作方案</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 开这门课，贵校可能正面对三个难WHY</a>
+<a href="#toc-2">2. 授权包含什么WHAT — 开课所需，一次配齐</a>
+<a href="#toc-3">3. 贵校教师的工作量WORKLOAD — 系主任与任课教师最关心的一项</a>
+<a href="#toc-4">4. 试点条件TERMS</a>
+<a href="#toc-5">5. 时间安排TIMELINE</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -204,6 +205,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

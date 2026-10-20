@@ -319,20 +319,21 @@ g('pub-print').addEventListener('click', function(){
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">这是什么：把你这门课，做成一个 24 小时的答疑分身</a>
-<a href="#toc-2">六步搭建（默认值按云璟商务酒店预填，全部可改）</a>
-<a href="#toc-3" class="lv3">① 课程名片</a>
-<a href="#toc-4" class="lv3">② 口径卡（学生问&quot;这个数哪来的&quot;就查这里）</a>
-<a href="#toc-5" class="lv3">③ 讲什么（勾选本学期实际讲的模块）</a>
-<a href="#toc-6" class="lv3">④ 资料入口（学生去哪找材料）</a>
-<a href="#toc-7" class="lv3">⑤ 高频问题（分身靠这个答学生）</a>
-<a href="#toc-8" class="lv3">⑥ 分身人设（它怎么说话）</a>
-<a href="#toc-9">学生版答疑页预览（学生看到的样子）</a>
-<a href="#toc-10">对学生发布（文案已备好，复制即用）</a>
-<a href="#toc-11">喂养节奏：分身每个月长一点</a>
-<a href="#toc-12" class="lv3">&#x27; + esc(d.name) + &#x27; · 课程答疑（&#x27; + esc(d.ava) + &#x27;）</a></div>
+  <div class="toc-h"><b>开课工作台 · 搭一个你这门课的答疑分身</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 这是什么：把你这门课，做成一个 24 小时的答疑分身</a>
+<a href="#toc-2">2. 六步搭建（默认值按云璟商务酒店预填，全部可改）</a>
+<a href="#toc-3" class="lv3">2.1 ① 课程名片</a>
+<a href="#toc-4" class="lv3">2.2 ② 口径卡（学生问&quot;这个数哪来的&quot;就查这里）</a>
+<a href="#toc-5" class="lv3">2.3 ③ 讲什么（勾选本学期实际讲的模块）</a>
+<a href="#toc-6" class="lv3">2.4 ④ 资料入口（学生去哪找材料）</a>
+<a href="#toc-7" class="lv3">2.5 ⑤ 高频问题（分身靠这个答学生）</a>
+<a href="#toc-8" class="lv3">2.6 ⑥ 分身人设（它怎么说话）</a>
+<a href="#toc-9">3. 学生版答疑页预览（学生看到的样子）</a>
+<a href="#toc-10">4. 对学生发布（文案已备好，复制即用）</a>
+<a href="#toc-11">5. 喂养节奏：分身每个月长一点</a>
+<a href="#toc-12" class="lv3">5.1 &#x27; + esc(d.name) + &#x27; · 课程答疑（&#x27; + esc(d.ava) + &#x27;）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -345,6 +346,11 @@ g('pub-print').addEventListener('click', function(){
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

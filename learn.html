@@ -603,16 +603,17 @@ loadBook().then(function(){
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">正在载入</a>
-<a href="#toc-2">第 &#x27;+n+&#x27; 章 &#x27;+esc(c.title)+&#x27;</a>
-<a href="#toc-2">&#x27;+(n===0?&#x27;开篇&#x27;:&#x27;第 &#x27;+n+&#x27; 章&#x27;)+&#x27; &#x27;+esc(c.title)+&#x27;</a>
-<a href="#toc-3">本章速测</a>
-<a href="#toc-4">综合自测（40 题）</a>
-<a href="#toc-5">判定表全集</a>
-<a href="#toc-6">学习记录</a>
-<a href="#toc-7">载入失败</a></div>
+  <div class="toc-h"><b>收益管理·在线学习与自测（六篇四十一章）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 正在载入</a>
+<a href="#toc-2">2. 第 &#x27;+n+&#x27; 章 &#x27;+esc(c.title)+&#x27;</a>
+<a href="#toc-2">3. &#x27;+(n===0?&#x27;开篇&#x27;:&#x27;第 &#x27;+n+&#x27; 章&#x27;)+&#x27; &#x27;+esc(c.title)+&#x27;</a>
+<a href="#toc-3">4. 本章速测</a>
+<a href="#toc-4">5. 综合自测（40 题）</a>
+<a href="#toc-5">6. 判定表全集</a>
+<a href="#toc-6">7. 学习记录</a>
+<a href="#toc-7">8. 载入失败</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -625,6 +626,11 @@ loadBook().then(function(){
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

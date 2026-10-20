@@ -239,18 +239,19 @@ table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">为什么要单独讲这一册</a>
-<a href="#toc-2">一个单元一个问题</a>
-<a href="#toc-3" class="lv3">核心概念 · 把策略写在日期上，而不是记在脑子里</a>
-<a href="#toc-4" class="lv3">怎么算</a>
-<a href="#toc-5" class="lv3">怎么做</a>
-<a href="#toc-6" class="lv3">真实案例 · 一周日历长什么样</a>
-<a href="#toc-7" class="lv3">核心概念 · 价格日历是提前量，不是事后反应</a>
-<a href="#toc-8" class="lv3">怎么算</a>
-<a href="#toc-9" class="lv3">怎么做</a>
-<a href="#toc-10" class="lv3">真实案例 · 同一个旺季，两种节奏</a></div>
+  <div class="toc-h"><b>04 需求预测 · HRMA 收益管理主题系列</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 为什么要单独讲这一册</a>
+<a href="#toc-2">2. 一个单元一个问题</a>
+<a href="#toc-3" class="lv3">2.1 核心概念 · 把策略写在日期上，而不是记在脑子里</a>
+<a href="#toc-4" class="lv3">2.2 怎么算</a>
+<a href="#toc-5" class="lv3">2.3 怎么做</a>
+<a href="#toc-6" class="lv3">2.4 真实案例 · 一周日历长什么样</a>
+<a href="#toc-7" class="lv3">2.5 核心概念 · 价格日历是提前量，不是事后反应</a>
+<a href="#toc-8" class="lv3">2.6 怎么算</a>
+<a href="#toc-9" class="lv3">2.7 怎么做</a>
+<a href="#toc-10" class="lv3">2.8 真实案例 · 同一个旺季，两种节奏</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -263,6 +264,11 @@ table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

@@ -179,18 +179,19 @@ tr:last-child td{border-bottom:none}tr:nth-child(even) td{background:#fafcfe}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">这门课给你什么</a>
-<a href="#units">六个单元（点开看每个单元）</a>
-<a href="#toc-2" class="lv3">单元 1 · 收益管理是什么 · 酒店为什么离不开它（6 学时（讲 3 + 实训 3））</a>
-<a href="#toc-3" class="lv3">单元 2 · 怎么看未来有没有客 · 需求预测入门（6 学时（讲 3 + 实训 3））</a>
-<a href="#toc-4" class="lv3">单元 3 · 房价怎么定才不亏 · 价格体系（6 学时（讲 3 + 实训 3））</a>
-<a href="#toc-5" class="lv3">单元 4 · 满了怎么办 · 空着怎么填 · 库存与限制条件（6 学时（讲 3 + 实训 3））</a>
-<a href="#toc-6" class="lv3">单元 5 · 渠道怎么选 · 对手怎么看 · 渠道与竞争（6 学时（讲 3 + 实训 3））</a>
-<a href="#toc-7" class="lv3">单元 6 · 一学期下来怎么证明你教对了 · 综合实训与汇报（6 学时（讲 3 + 实训 3））</a>
-<a href="#toc-8">免费版和训练营各覆盖什么</a>
-<a href="#toc-9">常见问题</a></div>
+  <div class="toc-h"><b>轻量版 36 学时免费课 · 收益管理教学教练</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 这门课给你什么</a>
+<a href="#units">2. 六个单元（点开看每个单元）</a>
+<a href="#toc-2" class="lv3">2.1 单元 1 · 收益管理是什么 · 酒店为什么离不开它（6 学时（讲 3 + 实训 3））</a>
+<a href="#toc-3" class="lv3">2.2 单元 2 · 怎么看未来有没有客 · 需求预测入门（6 学时（讲 3 + 实训 3））</a>
+<a href="#toc-4" class="lv3">2.3 单元 3 · 房价怎么定才不亏 · 价格体系（6 学时（讲 3 + 实训 3））</a>
+<a href="#toc-5" class="lv3">2.4 单元 4 · 满了怎么办 · 空着怎么填 · 库存与限制条件（6 学时（讲 3 + 实训 3））</a>
+<a href="#toc-6" class="lv3">2.5 单元 5 · 渠道怎么选 · 对手怎么看 · 渠道与竞争（6 学时（讲 3 + 实训 3））</a>
+<a href="#toc-7" class="lv3">2.6 单元 6 · 一学期下来怎么证明你教对了 · 综合实训与汇报（6 学时（讲 3 + 实训 3））</a>
+<a href="#toc-8">3. 免费版和训练营各覆盖什么</a>
+<a href="#toc-9">4. 常见问题</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -203,6 +204,11 @@ tr:last-child td{border-bottom:none}tr:nth-child(even) td{background:#fafcfe}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

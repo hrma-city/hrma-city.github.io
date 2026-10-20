@@ -284,26 +284,27 @@ RevPASH = 时段总收入 ÷ (座位数 × 营业小时)</pre></figure>
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">为什么要单独讲这一册</a>
-<a href="#toc-2">一个单元一个问题</a>
-<a href="#toc-3" class="lv3">核心概念 · 每一间卖给团队的房，都有一间散客因此住不进来</a>
-<a href="#toc-4" class="lv3">怎么算</a>
-<a href="#toc-5" class="lv3">怎么做</a>
-<a href="#toc-6" class="lv3">真实案例 · 同一个团队，两个季节的两个答案</a>
-<a href="#toc-7" class="lv3">核心概念 · 餐厅卖的是“座位 × 时间”，不是菜</a>
-<a href="#toc-8" class="lv3">怎么算</a>
-<a href="#toc-9" class="lv3">怎么做</a>
-<a href="#toc-10" class="lv3">真实案例 · 提速前与提速后</a>
-<a href="#toc-11" class="lv3">核心概念 · 场地是另一种“过期作废”的库存</a>
-<a href="#toc-12" class="lv3">怎么算</a>
-<a href="#toc-13" class="lv3">怎么做</a>
-<a href="#toc-14" class="lv3">真实案例 · 同一场会议，两种算法</a>
-<a href="#toc-15" class="lv3">核心概念 · 换行业不换逻辑，只换参数</a>
-<a href="#toc-16" class="lv3">怎么算</a>
-<a href="#toc-17" class="lv3">怎么做</a>
-<a href="#toc-18" class="lv3">真实案例 · 三家不同业态的等效指标</a></div>
+  <div class="toc-h"><b>12 置换分析与多业态收益 · HRMA 收益管理主题系列</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 为什么要单独讲这一册</a>
+<a href="#toc-2">2. 一个单元一个问题</a>
+<a href="#toc-3" class="lv3">2.1 核心概念 · 每一间卖给团队的房，都有一间散客因此住不进来</a>
+<a href="#toc-4" class="lv3">2.2 怎么算</a>
+<a href="#toc-5" class="lv3">2.3 怎么做</a>
+<a href="#toc-6" class="lv3">2.4 真实案例 · 同一个团队，两个季节的两个答案</a>
+<a href="#toc-7" class="lv3">2.5 核心概念 · 餐厅卖的是“座位 × 时间”，不是菜</a>
+<a href="#toc-8" class="lv3">2.6 怎么算</a>
+<a href="#toc-9" class="lv3">2.7 怎么做</a>
+<a href="#toc-10" class="lv3">2.8 真实案例 · 提速前与提速后</a>
+<a href="#toc-11" class="lv3">2.9 核心概念 · 场地是另一种“过期作废”的库存</a>
+<a href="#toc-12" class="lv3">2.10 怎么算</a>
+<a href="#toc-13" class="lv3">2.11 怎么做</a>
+<a href="#toc-14" class="lv3">2.12 真实案例 · 同一场会议，两种算法</a>
+<a href="#toc-15" class="lv3">2.13 核心概念 · 换行业不换逻辑，只换参数</a>
+<a href="#toc-16" class="lv3">2.14 怎么算</a>
+<a href="#toc-17" class="lv3">2.15 怎么做</a>
+<a href="#toc-18" class="lv3">2.16 真实案例 · 三家不同业态的等效指标</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -316,6 +317,11 @@ RevPASH = 时段总收入 ÷ (座位数 × 营业小时)</pre></figure>
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

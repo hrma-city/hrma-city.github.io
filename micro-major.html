@@ -191,20 +191,21 @@ td.c,th.c{text-align:center}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>《酒店与旅游业收益管理》微专业方案 · 96 学时</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">一、定位：为什么收益管理适合做微专业</a>
 <a href="#toc-2">二、五门课程设置（96 学时）</a>
 <a href="#toc-3">三、各门课程详述</a>
-<a href="#toc-4" class="lv3">课程 1 · 酒店收益管理（41 学时，核心）</a>
-<a href="#toc-5" class="lv3">课程 2 · 收益数据分析与预测（16 学时）</a>
-<a href="#toc-6" class="lv3">课程 3 · AI 辅助经营决策（16 学时）（新增，踩政策口径）</a>
-<a href="#toc-7" class="lv3">课程 4 · 渠道与数字化营销（16 学时）</a>
-<a href="#toc-8" class="lv3">课程 5 · Capstone 综合实战（16 学时）</a>
+<a href="#toc-4" class="lv3">1. 课程 1 · 酒店收益管理（41 学时，核心）</a>
+<a href="#toc-5" class="lv3">2. 课程 2 · 收益数据分析与预测（16 学时）</a>
+<a href="#toc-6" class="lv3">3. 课程 3 · AI 辅助经营决策（16 学时）（新增，踩政策口径）</a>
+<a href="#toc-7" class="lv3">4. 课程 4 · 渠道与数字化营销（16 学时）</a>
+<a href="#toc-8" class="lv3">5. 课程 5 · Capstone 综合实战（16 学时）</a>
 <a href="#toc-9">四、招生对象与入口</a>
 <a href="#toc-10">五、教学安排</a>
 <a href="#toc-11">六、考核与证书</a>
 <a href="#toc-12">七、实施条件</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -217,6 +218,11 @@ td.c,th.c{text-align:center}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

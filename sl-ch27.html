@@ -442,27 +442,28 @@ paint();
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">本章要您做到</a>
-<a href="#toc-2">情境导入</a>
-<a href="#toc-3">三要点怎么用（各配一例）</a>
-<a href="#toc-4">核心判据（上系统的四个前提）</a>
-<a href="#toc-5">算例 · 上系统的投入产出</a>
-<a href="#toc-6">本章判定表 · 系统怎么用才有效</a>
-<a href="#toc-7">场景：RMS 销售来提案，如何评估</a>
-<a href="#toc-8">常见错误（续）</a>
-<a href="#toc-9">提醒</a>
-<a href="#toc-10">与前后章的联系</a>
-<a href="#toc-11">要点</a>
-<a href="#toc-12">本章小结（5 条，可复述）</a>
-<a href="#toc-13">遇到下面这些情况，直接按&quot;动作&quot;做</a>
-<a href="#toc-14">常见场景速查</a>
-<a href="#toc-15">常见场景速查</a>
-<a href="#toc-16">要点</a>
-<a href="#toc-17">本章小结</a>
-<a href="#toc-18">一页带走</a>
-<a href="#toc-19" class="lv3">备课原文 · 教材对应段落</a></div>
+  <div class="toc-h"><b>第 27 章 系统与数据：工具能替您做什么 · 投屏课件</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 本章要您做到</a>
+<a href="#toc-2">2. 情境导入</a>
+<a href="#toc-3">3. 三要点怎么用（各配一例）</a>
+<a href="#toc-4">4. 核心判据（上系统的四个前提）</a>
+<a href="#toc-5">5. 算例 · 上系统的投入产出</a>
+<a href="#toc-6">6. 本章判定表 · 系统怎么用才有效</a>
+<a href="#toc-7">7. 场景：RMS 销售来提案，如何评估</a>
+<a href="#toc-8">8. 常见错误（续）</a>
+<a href="#toc-9">9. 提醒</a>
+<a href="#toc-10">10. 与前后章的联系</a>
+<a href="#toc-11">11. 要点</a>
+<a href="#toc-12">12. 本章小结（5 条，可复述）</a>
+<a href="#toc-13">13. 遇到下面这些情况，直接按&quot;动作&quot;做</a>
+<a href="#toc-14">14. 常见场景速查</a>
+<a href="#toc-15">15. 常见场景速查</a>
+<a href="#toc-16">16. 要点</a>
+<a href="#toc-17">17. 本章小结</a>
+<a href="#toc-18">18. 一页带走</a>
+<a href="#toc-19" class="lv3">18.1 备课原文 · 教材对应段落</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -475,6 +476,11 @@ paint();
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

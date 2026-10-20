@@ -210,14 +210,15 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1" class="lv3">文旅大盘（2025 全年）</a>
-<a href="#toc-2" class="lv3">六大行业基准</a>
-<a href="#toc-3" class="lv3">餐饮 / 景区 / 娱乐 / 剧院 · 官方总量口径</a>
-<a href="#toc-4" class="lv3">城市级月度基准</a>
-<a href="#toc-5" class="lv3">需要城市级 / 月度级基准？</a>
-<a href="#toc-6" class="lv3">数据来源清单</a></div>
+  <div class="toc-h"><b>行业基准数据中心 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1" class="lv3">1. 文旅大盘（2025 全年）</a>
+<a href="#toc-2" class="lv3">2. 六大行业基准</a>
+<a href="#toc-3" class="lv3">3. 餐饮 / 景区 / 娱乐 / 剧院 · 官方总量口径</a>
+<a href="#toc-4" class="lv3">4. 城市级月度基准</a>
+<a href="#toc-5" class="lv3">5. 需要城市级 / 月度级基准？</a>
+<a href="#toc-6" class="lv3">6. 数据来源清单</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -230,6 +231,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

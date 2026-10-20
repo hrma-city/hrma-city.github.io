@@ -331,26 +331,27 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">MPI 市场渗透指数</a>
-<a href="#toc-2" class="lv3">公式</a>
-<a href="#toc-3" class="lv3">步骤</a>
-<a href="#toc-4" class="lv3">示例</a>
-<a href="#toc-5">ARI 价格指数</a>
-<a href="#toc-6">RGI 综合收益指数</a>
-<a href="#toc-7">TrevPAR 每可售房总收入</a>
-<a href="#toc-8">GOPPAR 每可售房经营毛利</a>
-<a href="#toc-9">NRevPAR 净可售房收入</a>
-<a href="#toc-10">置换分析 Displacement</a>
-<a href="#toc-11">超额预订上限</a>
-<a href="#toc-12">预订进度追踪表（Pick-up）</a>
-<a href="#toc-13">入住率手工预测（Pick-up 法 · 按细分市场）</a>
-<a href="#toc-14">邮轮收益测算（RevPAC · 嵌套舱位 · 早鸟/甩舱）</a>
-<a href="#toc-15">长租公寓收益测算（RevPAU · 续约率杠杆 · 免租期换算）</a>
-<a href="#toc-16">研学营地收益测算（RevPAS · 满营率 · 嵌套营种 · 早鸟/甩舱）</a>
-<a href="#toc-17">租车收益测算（RevPAT · 利用率 · 车型嵌套 · 超售/No-show）</a>
-<a href="#toc-18">医疗号源收益测算（RevPAA · 号源利用率 · 号别嵌套 · 超约/No-show）</a></div>
+  <div class="toc-h"><b>收益管理计算模板 · 各个击破</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. MPI 市场渗透指数</a>
+<a href="#toc-2" class="lv3">1.1 公式</a>
+<a href="#toc-3" class="lv3">1.2 步骤</a>
+<a href="#toc-4" class="lv3">1.3 示例</a>
+<a href="#toc-5">2. ARI 价格指数</a>
+<a href="#toc-6">3. RGI 综合收益指数</a>
+<a href="#toc-7">4. TrevPAR 每可售房总收入</a>
+<a href="#toc-8">5. GOPPAR 每可售房经营毛利</a>
+<a href="#toc-9">6. NRevPAR 净可售房收入</a>
+<a href="#toc-10">7. 置换分析 Displacement</a>
+<a href="#toc-11">8. 超额预订上限</a>
+<a href="#toc-12">9. 预订进度追踪表（Pick-up）</a>
+<a href="#toc-13">10. 入住率手工预测（Pick-up 法 · 按细分市场）</a>
+<a href="#toc-14">11. 邮轮收益测算（RevPAC · 嵌套舱位 · 早鸟/甩舱）</a>
+<a href="#toc-15">12. 长租公寓收益测算（RevPAU · 续约率杠杆 · 免租期换算）</a>
+<a href="#toc-16">13. 研学营地收益测算（RevPAS · 满营率 · 嵌套营种 · 早鸟/甩舱）</a>
+<a href="#toc-17">14. 租车收益测算（RevPAT · 利用率 · 车型嵌套 · 超售/No-show）</a>
+<a href="#toc-18">15. 医疗号源收益测算（RevPAA · 号源利用率 · 号别嵌套 · 超约/No-show）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -363,6 +364,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

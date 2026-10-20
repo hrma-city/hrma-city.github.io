@@ -110,13 +110,14 @@ ol.steps li{font-size:13.8px;line-height:1.9;color:#1f2a37;margin-bottom:6px}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">评分构成</a>
-<a href="#toc-2">评分量规（每项 5 分）</a>
-<a href="#toc-3">结业标准</a>
-<a href="#toc-4">答辩流程</a>
-<a href="#toc-5">结业之后</a></div>
+  <div class="toc-h"><b>考核与结业标准 · 酒店收益管理入行实操训练营</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 评分构成</a>
+<a href="#toc-2">2. 评分量规（每项 5 分）</a>
+<a href="#toc-3">3. 结业标准</a>
+<a href="#toc-4">4. 答辩流程</a>
+<a href="#toc-5">5. 结业之后</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -129,6 +130,11 @@ ol.steps li{font-size:13.8px;line-height:1.9;color:#1f2a37;margin-bottom:6px}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

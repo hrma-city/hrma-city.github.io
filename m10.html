@@ -950,7 +950,7 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>M10 客源细分战略 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#s1">一、客源结构：L3 唯一无法外包的决策</a>
 <a href="#toc-1" class="lv3">1.1 本模块的三个硬约束</a>
 <a href="#s2">二、四维交叉诊断法：产量 × 均价 × 贡献度 × 增长率</a>
@@ -961,21 +961,22 @@
 <a href="#toc-5" class="lv3">3.1 置换成本公式（SPEC 表 G 原文，逐字引用）</a>
 <a href="#toc-6" class="lv3">3.2 比率 R：把一切归一化的唯一输入</a>
 <a href="#s4">四、《法典》表 G：团队／协议询价接受判定表（5×3 矩阵）</a>
-<a href="#toc-7" class="lv3">团队／协议询价接受判定表（置换分析简化版）</a>
+<a href="#toc-7" class="lv3">1. 团队／协议询价接受判定表（置换分析简化版）</a>
 <a href="#toc-8" class="lv3">4.1 表 G 的 5 条使用纪律</a>
 <a href="#s5">五、《法典》表 K：会议／宴会综合收益联动</a>
-<a href="#toc-9" class="lv3">会议／宴会综合收益联动表</a>
+<a href="#toc-9" class="lv3">2. 会议／宴会综合收益联动表</a>
 <a href="#s6">六、客源结构目标设定与 6 个标准打法</a>
 <a href="#toc-10" class="lv3">6.1 目标怎么定才不是拍脑袋</a>
 <a href="#toc-11" class="lv3">6.2 六个标准打法（Standard Plays）</a>
 <a href="#demo">七、讲师示范</a>
-<a href="#toc-12" class="lv3">示范一：接——10 月 16 日会议团队，R = 60%，预测 OCC 78%</a>
-<a href="#toc-13" class="lv3">示范二：拒——10 月 2 日 D1 峰值日，R = 53.3%，预测 OCC 96%</a>
+<a href="#toc-12" class="lv3">3. 示范一：接——10 月 16 日会议团队，R = 60%，预测 OCC 78%</a>
+<a href="#toc-13" class="lv3">4. 示范二：拒——10 月 2 日 D1 峰值日，R = 53.3%，预测 OCC 96%</a>
 <a href="#practice">八、学员跟练（5 题）</a>
 <a href="#recite">九、判定表默写清单</a>
 <a href="#quiz">十、随堂测（5 题）</a>
 <a href="#out">十一、本模块产出物</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -988,6 +989,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

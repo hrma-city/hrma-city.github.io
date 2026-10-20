@@ -163,13 +163,14 @@ if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">关于学院</a>
-<a href="#toc-2" class="lv3">我们解决的问题</a>
-<a href="#toc-3" class="lv3">我们的做法</a>
-<a href="#toc-4" class="lv3">体系的三个特点</a>
-<a href="#toc-5" class="lv3">体系构成</a></div>
+  <div class="toc-h"><b>关于学院 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 关于学院</a>
+<a href="#toc-2" class="lv3">1.1 我们解决的问题</a>
+<a href="#toc-3" class="lv3">1.2 我们的做法</a>
+<a href="#toc-4" class="lv3">1.3 体系的三个特点</a>
+<a href="#toc-5" class="lv3">1.4 体系构成</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -182,6 +183,11 @@ if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

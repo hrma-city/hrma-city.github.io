@@ -576,13 +576,13 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>M13 跨部门协同与变革推动 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#s1">一、六个部门的接口与诉求</a>
 <a href="#s2">二、异议应对库（14 组）</a>
-<a href="#toc-1" class="lv3">销售篇（4 组）</a>
-<a href="#toc-2" class="lv3">前厅篇（2 组）</a>
-<a href="#toc-3" class="lv3">总经理 / 业主篇（4 组）</a>
-<a href="#toc-4" class="lv3">其他部门篇（4 组）</a>
+<a href="#toc-1" class="lv3">1. 销售篇（4 组）</a>
+<a href="#toc-2" class="lv3">2. 前厅篇（2 组）</a>
+<a href="#toc-3" class="lv3">3. 总经理 / 业主篇（4 组）</a>
+<a href="#toc-4" class="lv3">4. 其他部门篇（4 组）</a>
 <a href="#s3">三、推动工具箱</a>
 <a href="#s4">四、变革落地六步</a>
 <a href="#s5">五、八种失败模式</a>
@@ -591,6 +591,7 @@
 <a href="#quiz">八、随堂测（5 题）</a>
 <a href="#memo">九、判定表默写清单</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -603,6 +604,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

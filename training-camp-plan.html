@@ -130,14 +130,15 @@ ol,ul{margin:8px 0 8px 22px}li{margin:5px 0}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">产品阶梯与定价（现行）</a>
-<a href="#toc-2">模型变了什么（相对旧版）</a>
-<a href="#toc-3">为什么免费 36 学时送、训练营 2 万收</a>
-<a href="#toc-4">交付时间账（红线）</a>
-<a href="#toc-5">验收</a>
-<a href="#toc-6">风险与对策</a></div>
+  <div class="toc-h"><b>标准课训练营 · 内部运营方案（新模型）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 产品阶梯与定价（现行）</a>
+<a href="#toc-2">2. 模型变了什么（相对旧版）</a>
+<a href="#toc-3">3. 为什么免费 36 学时送、训练营 2 万收</a>
+<a href="#toc-4">4. 交付时间账（红线）</a>
+<a href="#toc-5">5. 验收</a>
+<a href="#toc-6">6. 风险与对策</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -150,6 +151,11 @@ ol,ul{margin:8px 0 8px 22px}li{margin:5px 0}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

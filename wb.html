@@ -3961,17 +3961,17 @@ body.wb-tm details.ex-a>summary{cursor:default}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>演练题库（237 题） · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#top">一、三级能力达成标准</a>
 <a href="#howto">二、题型、难度与筛选说明</a>
-<a href="#toc-1" class="lv3">使用建议（执行标准，不含模糊词）</a>
+<a href="#toc-1" class="lv3">1. 使用建议（执行标准，不含模糊词）</a>
 <a href="#m01">三、M01 收益管理的语言：指标与计算 L1</a>
 <a href="#m02">四、M02 系统与数据：PMS/RMS/OTA 后台导航 L1</a>
 <a href="#m03">五、M03 每日收益操作流水线 L1</a>
-<a href="#toc-2" class="lv3">表 A 查表题（第 9–23 题，覆盖矩阵前 15 格）</a>
+<a href="#toc-2" class="lv3">2. 表 A 查表题（第 9–23 题，覆盖矩阵前 15 格）</a>
 <a href="#m04">六、M04 报表与台账：让决策可追溯 L1</a>
 <a href="#m05">七、M05 需求预测：Pickup 与预订曲线 L2</a>
-<a href="#toc-3" class="lv3">表 A 查表题（第 11–25 题，覆盖矩阵剩余 15 格）</a>
+<a href="#toc-3" class="lv3">3. 表 A 查表题（第 11–25 题，覆盖矩阵剩余 15 格）</a>
 <a href="#m06">八、M06 价格体系设计：BAR 与价差阶梯 L2</a>
 <a href="#m07">九、M07 库存与限制条件战术 L2</a>
 <a href="#m08">十、M08 渠道与分销管理 L2</a>
@@ -3982,6 +3982,7 @@ body.wb-tm details.ex-a>summary{cursor:default}
 <a href="#m13">十五、M13 跨部门协同与变革推动 L3</a>
 <a href="#m14">十六、M14 收益管理系统与自动化 L3</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -3994,6 +3995,11 @@ body.wb-tm details.ex-a>summary{cursor:default}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

@@ -1432,8 +1432,8 @@ Pickup 偏差 =（当前在手 − 去年同期同一提前窗口在手）÷ 去
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">绪论 · 这本教材怎么用</a>
+  <div class="toc-h"><b>《酒店收益管理》学生用书 · 全稿（七篇 23 章 · 含思维导图/实验数据表/二维码）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 绪论 · 这本教材怎么用</a>
 <a href="#toc-2" class="lv3">0.1 它和你见过的教材有什么不同</a>
 <a href="#toc-3" class="lv3">0.2 最重要的一件事：判定表是什么</a>
 <a href="#toc-4" class="lv3">0.3 到岗之后：怎么把表格翻译成企业的语言</a>
@@ -1554,11 +1554,12 @@ Pickup 偏差 =（当前在手 − 去年同期同一提前窗口在手）÷ 去
 <a href="#toc-119" class="lv3">18.4 渠道透明化：比价从&quot;提前一周&quot;变成&quot;扫码即比&quot;</a>
 <a href="#toc-120" class="lv3">18.5 需求重构：别迷信&quot;历史同期&quot;</a>
 <a href="#toc-121">附录 A · 国际口径（HSMAI 体系）与本书做法对照</a>
-<a href="#toc-122" class="lv3">A.1 一致的部分（可以直接对应）</a>
-<a href="#toc-123" class="lv3">A.2 五个关键差异，以及为什么国内要这么做</a>
-<a href="#toc-124" class="lv3">A.3 术语对照速查</a>
+<a href="#toc-122" class="lv3">1.1 A.1 一致的部分（可以直接对应）</a>
+<a href="#toc-123" class="lv3">1.2 A.2 五个关键差异，以及为什么国内要这么做</a>
+<a href="#toc-124" class="lv3">1.3 A.3 术语对照速查</a>
 <a href="#toc-125">附录 · 常见误区速查（选讲）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -1571,6 +1572,11 @@ Pickup 偏差 =（当前在手 − 去年同期同一提前窗口在手）÷ 去
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

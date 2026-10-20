@@ -63,15 +63,16 @@ footer{margin-top:24px;padding:14px 18px;background:#0f2a4a;color:#9fb3c8;border
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">判定表</a>
-<a href="#toc-2">行业案例</a>
-<a href="#toc-3">分行业参数</a>
-<a href="#toc-4">工具与公式</a>
-<a href="#toc-5">标杆与自测</a>
-<a href="#toc-6">一页纸速查</a>
-<a href="#toc-7">系统课程</a></div>
+  <div class="toc-h"><b>用 · 今天这个价怎么调</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 判定表</a>
+<a href="#toc-2">2. 行业案例</a>
+<a href="#toc-3">3. 分行业参数</a>
+<a href="#toc-4">4. 工具与公式</a>
+<a href="#toc-5">5. 标杆与自测</a>
+<a href="#toc-6">6. 一页纸速查</a>
+<a href="#toc-7">7. 系统课程</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -84,6 +85,11 @@ footer{margin-top:24px;padding:14px 18px;background:#0f2a4a;color:#9fb3c8;border
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

@@ -237,18 +237,19 @@ td b{color:#0f2a4a}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">一次合格例会的 6 条判据</a>
-<a href="#toc-2">会前：数据包与准备</a>
-<a href="#toc-3" class="lv3">数据包（收益经理提前 2 小时发到群里）</a>
-<a href="#toc-4" class="lv3">主持人的会前 30 分钟</a>
-<a href="#toc-5">会中：45 分钟四段议程</a>
-<a href="#toc-6">五方角色分工</a>
-<a href="#toc-7">输出三件套（散会即产出）</a>
-<a href="#toc-8">五种跑偏与纠偏话术</a>
-<a href="#toc-9">会后：24 小时跟进</a>
-<a href="#toc-10">相关材料</a></div>
+  <div class="toc-h"><b>收益例会 · 主持与执行手册 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 一次合格例会的 6 条判据</a>
+<a href="#toc-2">2. 会前：数据包与准备</a>
+<a href="#toc-3" class="lv3">2.1 数据包（收益经理提前 2 小时发到群里）</a>
+<a href="#toc-4" class="lv3">2.2 主持人的会前 30 分钟</a>
+<a href="#toc-5">3. 会中：45 分钟四段议程</a>
+<a href="#toc-6">4. 五方角色分工</a>
+<a href="#toc-7">5. 输出三件套（散会即产出）</a>
+<a href="#toc-8">6. 五种跑偏与纠偏话术</a>
+<a href="#toc-9">7. 会后：24 小时跟进</a>
+<a href="#toc-10">8. 相关材料</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -261,6 +262,11 @@ td b{color:#0f2a4a}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

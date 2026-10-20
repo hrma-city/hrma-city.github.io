@@ -284,13 +284,13 @@ L3 会教：能指出他人错误，并说出对应哪张判定表的哪一行�
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>《酒店收益管理》课程标尺设计</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">一、标尺的三个要件（缺一不成立）</a>
 <a href="#toc-2">二、四个能力维度（考什么）</a>
-<a href="#toc-3" class="lv3">维度 A · 诊断（看懂数字）</a>
-<a href="#toc-4" class="lv3">维度 B · 定价（会定价格）</a>
-<a href="#toc-5" class="lv3">维度 C · 控货（会控库存）</a>
-<a href="#toc-6" class="lv3">维度 D · 运营（能走流程）</a>
+<a href="#toc-3" class="lv3">1. 维度 A · 诊断（看懂数字）</a>
+<a href="#toc-4" class="lv3">2. 维度 B · 定价（会定价格）</a>
+<a href="#toc-5" class="lv3">3. 维度 C · 控货（会控库存）</a>
+<a href="#toc-6" class="lv3">4. 维度 D · 运营（能走流程）</a>
 <a href="#toc-7">三、三个等级：行为化描述（这是标尺的灵魂）</a>
 <a href="#toc-8">四、测量工具组合（怎么测）</a>
 <a href="#toc-9">五、评分规则与锚定样例（不同老师打分要一致）</a>
@@ -301,6 +301,7 @@ L3 会教：能指出他人错误，并说出对应哪张判定表的哪一行�
 <a href="#toc-14">十、冷启动与演进路线</a>
 <a href="#toc-15">十一、为什么这把尺子抄不走</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -313,6 +314,11 @@ L3 会教：能指出他人错误，并说出对应哪张判定表的哪一行�
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

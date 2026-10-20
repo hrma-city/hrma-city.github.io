@@ -143,21 +143,22 @@ ol.steps li{font-size:13.8px;line-height:1.9;color:#1f2a37;margin-bottom:6px}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>实操任务书（12 个任务） · 酒店收益管理入行实操训练营</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">12 个实操任务</a>
-<a href="#toc-2" class="lv3">T1 · 七日日报 阶段一</a>
-<a href="#toc-3" class="lv3">T2 · 指标体检 阶段一</a>
-<a href="#toc-4" class="lv3">T3 · 台账规范 阶段一</a>
-<a href="#toc-5" class="lv3">T4 · 分日预测 阶段二</a>
-<a href="#toc-6" class="lv3">T5 · 调价演练 阶段二</a>
-<a href="#toc-7" class="lv3">T6 · 价格体系 阶段二</a>
-<a href="#toc-8" class="lv3">T7 · 库存方案 阶段三</a>
-<a href="#toc-9" class="lv3">T8 · 渠道配额 阶段三</a>
-<a href="#toc-10" class="lv3">T9 · 超售与应急 阶段三</a>
-<a href="#toc-11" class="lv3">T10 · 团队置换 阶段四</a>
-<a href="#toc-12" class="lv3">T11 · 月度计划 阶段四</a>
-<a href="#toc-13" class="lv3">T12 · 综合答辩 阶段四</a></div>
+<a href="#toc-2" class="lv3">1. T1 · 七日日报 阶段一</a>
+<a href="#toc-3" class="lv3">2. T2 · 指标体检 阶段一</a>
+<a href="#toc-4" class="lv3">3. T3 · 台账规范 阶段一</a>
+<a href="#toc-5" class="lv3">4. T4 · 分日预测 阶段二</a>
+<a href="#toc-6" class="lv3">5. T5 · 调价演练 阶段二</a>
+<a href="#toc-7" class="lv3">6. T6 · 价格体系 阶段二</a>
+<a href="#toc-8" class="lv3">7. T7 · 库存方案 阶段三</a>
+<a href="#toc-9" class="lv3">8. T8 · 渠道配额 阶段三</a>
+<a href="#toc-10" class="lv3">9. T9 · 超售与应急 阶段三</a>
+<a href="#toc-11" class="lv3">10. T10 · 团队置换 阶段四</a>
+<a href="#toc-12" class="lv3">11. T11 · 月度计划 阶段四</a>
+<a href="#toc-13" class="lv3">12. T12 · 综合答辩 阶段四</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -170,6 +171,11 @@ ol.steps li{font-size:13.8px;line-height:1.9;color:#1f2a37;margin-bottom:6px}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

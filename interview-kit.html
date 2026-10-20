@@ -146,17 +146,18 @@ label{display:block;font-size:13px;color:var(--navy);margin:10px 0 4px;font-weig
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">先搞清楚：这个岗位到底要你干什么</a>
-<a href="#toc-2">没有经验怎么写：把&quot;学过&quot;改成&quot;会做&quot;</a>
-<a href="#toc-3">面试题库（30 题）</a>
-<a href="#toc-4" class="lv3">概念类（10 题）</a>
-<a href="#toc-5" class="lv3">情景类（10 题）</a>
-<a href="#toc-6" class="lv3">压力类（5 题）</a>
-<a href="#toc-7" class="lv3">反问类（5 题）</a>
+  <div class="toc-h"><b>面试助攻包 · 从简历到 offer 的最后一段</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 先搞清楚：这个岗位到底要你干什么</a>
+<a href="#toc-2">2. 没有经验怎么写：把&quot;学过&quot;改成&quot;会做&quot;</a>
+<a href="#toc-3">3. 面试题库（30 题）</a>
+<a href="#toc-4" class="lv3">3.1 概念类（10 题）</a>
+<a href="#toc-5" class="lv3">3.2 情景类（10 题）</a>
+<a href="#toc-6" class="lv3">3.3 压力类（5 题）</a>
+<a href="#toc-7" class="lv3">3.4 反问类（5 题）</a>
 <a href="#toc-8">15 分钟模拟面试脚本</a>
-<a href="#toc-9" class="lv3">自评表（每项 0–2 分）</a></div>
+<a href="#toc-9" class="lv3">3.5 自评表（每项 0–2 分）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -169,6 +170,11 @@ label{display:block;font-size:13px;color:var(--navy);margin:10px 0 4px;font-weig
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

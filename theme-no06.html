@@ -263,22 +263,23 @@ OTA 占比   = 60% → 32,850 间夜
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">为什么要单独讲这一册</a>
-<a href="#toc-2">一个单元一个问题</a>
-<a href="#toc-3" class="lv3">核心概念 · 细分的目的，是把价格敏感度不同的人分开</a>
-<a href="#toc-4" class="lv3">怎么算</a>
-<a href="#toc-5" class="lv3">怎么做</a>
-<a href="#toc-6" class="lv3">真实案例 · 同一晚，五个细分的真实画像</a>
-<a href="#toc-7" class="lv3">核心概念 · 直销的本质不是抢渠道的生意，是留住自己的客人</a>
-<a href="#toc-8" class="lv3">怎么算</a>
-<a href="#toc-9" class="lv3">怎么做</a>
-<a href="#toc-10" class="lv3">真实案例 · 直销占比提升十点，一年留下多少</a>
-<a href="#toc-11" class="lv3">核心概念 · 先修转化，再买曝光</a>
-<a href="#toc-12" class="lv3">怎么算</a>
-<a href="#toc-13" class="lv3">怎么做</a>
-<a href="#toc-14" class="lv3">真实案例 · 花钱买曝光 vs 免费修转化</a></div>
+  <div class="toc-h"><b>06 市场细分与客源结构 · HRMA 收益管理主题系列</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 为什么要单独讲这一册</a>
+<a href="#toc-2">2. 一个单元一个问题</a>
+<a href="#toc-3" class="lv3">2.1 核心概念 · 细分的目的，是把价格敏感度不同的人分开</a>
+<a href="#toc-4" class="lv3">2.2 怎么算</a>
+<a href="#toc-5" class="lv3">2.3 怎么做</a>
+<a href="#toc-6" class="lv3">2.4 真实案例 · 同一晚，五个细分的真实画像</a>
+<a href="#toc-7" class="lv3">2.5 核心概念 · 直销的本质不是抢渠道的生意，是留住自己的客人</a>
+<a href="#toc-8" class="lv3">2.6 怎么算</a>
+<a href="#toc-9" class="lv3">2.7 怎么做</a>
+<a href="#toc-10" class="lv3">2.8 真实案例 · 直销占比提升十点，一年留下多少</a>
+<a href="#toc-11" class="lv3">2.9 核心概念 · 先修转化，再买曝光</a>
+<a href="#toc-12" class="lv3">2.10 怎么算</a>
+<a href="#toc-13" class="lv3">2.11 怎么做</a>
+<a href="#toc-14" class="lv3">2.12 真实案例 · 花钱买曝光 vs 免费修转化</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -291,6 +292,11 @@ OTA 占比   = 60% → 32,850 间夜
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

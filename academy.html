@@ -614,32 +614,33 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">通用内核 + 分行业专业课</a>
-<a href="#toc-2">三不原则</a>
-<a href="#toc-3" class="lv3">不猜</a>
-<a href="#toc-4" class="lv3">不算</a>
-<a href="#toc-5" class="lv3">不纠结</a>
-<a href="#toc-6">学员每天只做四件事</a>
-<a href="#toc-7">《收益管理操作法典》</a>
-<a href="#toc-8">三级认证 · 14 个模块 · 80 课时</a>
-<a href="#toc-9" class="lv3">收益执行专员</a>
-<a href="#toc-10" class="lv3">收益管理主管</a>
-<a href="#toc-11" class="lv3">收益管理经理</a>
+  <div class="toc-h"><b>收益管理学院 · 通用内核 + 分行业专业课 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 通用内核 + 分行业专业课</a>
+<a href="#toc-2">2. 三不原则</a>
+<a href="#toc-3" class="lv3">2.1 不猜</a>
+<a href="#toc-4" class="lv3">2.2 不算</a>
+<a href="#toc-5" class="lv3">2.3 不纠结</a>
+<a href="#toc-6">3. 学员每天只做四件事</a>
+<a href="#toc-7">4. 《收益管理操作法典》</a>
+<a href="#toc-8">5. 三级认证 · 14 个模块 · 80 课时</a>
+<a href="#toc-9" class="lv3">5.1 收益执行专员</a>
+<a href="#toc-10" class="lv3">5.2 收益管理主管</a>
+<a href="#toc-11" class="lv3">5.3 收益管理经理</a>
 <a href="#toc-12">14 个教学模块 · 从 M01 到 M14</a>
-<a href="#toc-13" class="lv3">Level 1 · 收益执行专员（M01–M04）</a>
-<a href="#toc-14" class="lv3">Level 2 · 收益管理主管（M05–M09）</a>
-<a href="#toc-15" class="lv3">Level 3 · 收益管理经理（M10–M14）</a>
-<a href="#toc-16">开箱即用的教学物料</a>
-<a href="#toc-17">谁适合用这套体系</a>
-<a href="#toc-18">几个您可能会问的</a>
-<a href="#toc-19">从《操作法典》开始</a>
-<a href="#toc-20">按级别打包购买，省心上手</a>
-<a href="#toc-21" class="lv3">L1 执行包</a>
-<a href="#toc-22" class="lv3">L2 决策包</a>
-<a href="#toc-23" class="lv3">L3 经理包</a>
-<a href="#toc-24" class="lv3">全套解锁</a></div>
+<a href="#toc-13" class="lv3">5.4 Level 1 · 收益执行专员（M01–M04）</a>
+<a href="#toc-14" class="lv3">5.5 Level 2 · 收益管理主管（M05–M09）</a>
+<a href="#toc-15" class="lv3">5.6 Level 3 · 收益管理经理（M10–M14）</a>
+<a href="#toc-16">6. 开箱即用的教学物料</a>
+<a href="#toc-17">7. 谁适合用这套体系</a>
+<a href="#toc-18">8. 几个您可能会问的</a>
+<a href="#toc-19">9. 从《操作法典》开始</a>
+<a href="#toc-20">10. 按级别打包购买，省心上手</a>
+<a href="#toc-21" class="lv3">10.1 L1 执行包</a>
+<a href="#toc-22" class="lv3">10.2 L2 决策包</a>
+<a href="#toc-23" class="lv3">10.3 L3 经理包</a>
+<a href="#toc-24" class="lv3">10.4 全套解锁</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -652,6 +653,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

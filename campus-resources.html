@@ -202,19 +202,20 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">先拆三个前提</a>
-<a href="#toc-2">★ 先练判断的七件套工具箱</a>
-<a href="#toc-3" class="lv3">教材 · 体系骨架</a>
-<a href="#toc-4" class="lv3">课件 · 讲师版 PPT（L1/L2/L3）</a>
-<a href="#toc-5" class="lv3">经营数据 · 四套脱敏数据集</a>
-<a href="#toc-6" class="lv3">表格模板 · 62 个可填 xlsx</a>
-<a href="#toc-7" class="lv3">题库 · 章章有自测，级级有默写</a>
-<a href="#toc-8" class="lv3">场景化锻炼游戏 · 超售决策</a>
-<a href="#toc-9" class="lv3">竞赛游戏 · 知识抢答</a>
-<a href="#toc-10">怎么把七件套拼成一门课</a>
-<a href="#toc-11">想直接拿到这七件套？</a></div>
+  <div class="toc-h"><b>院校专区 · 先练判断，系统才算得准 | HRMA</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 先拆三个前提</a>
+<a href="#toc-2">2. ★ 先练判断的七件套工具箱</a>
+<a href="#toc-3" class="lv3">2.1 教材 · 体系骨架</a>
+<a href="#toc-4" class="lv3">2.2 课件 · 讲师版 PPT（L1/L2/L3）</a>
+<a href="#toc-5" class="lv3">2.3 经营数据 · 四套脱敏数据集</a>
+<a href="#toc-6" class="lv3">2.4 表格模板 · 62 个可填 xlsx</a>
+<a href="#toc-7" class="lv3">2.5 题库 · 章章有自测，级级有默写</a>
+<a href="#toc-8" class="lv3">2.6 场景化锻炼游戏 · 超售决策</a>
+<a href="#toc-9" class="lv3">2.7 竞赛游戏 · 知识抢答</a>
+<a href="#toc-10">3. 怎么把七件套拼成一门课</a>
+<a href="#toc-11">4. 想直接拿到这七件套？</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -227,6 +228,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

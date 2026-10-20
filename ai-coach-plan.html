@@ -182,19 +182,20 @@ ol,ul{margin:8px 0 8px 22px}li{margin:5px 0}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>AI 教学教练 · 一人公司创业与产品调整设计方案（内部）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">一、直播资料里真正值钱的五件事</a>
 <a href="#toc-2">二、HRMA 的一人公司定位：站长 = 唯一 IP</a>
 <a href="#toc-3">三、AI 分身体系：三层，一层比一层离客户近</a>
-<a href="#toc-4" class="lv3">L2 教师分身：具体设计（服务包的灵魂交付物）</a>
+<a href="#toc-4" class="lv3">1. L2 教师分身：具体设计（服务包的灵魂交付物）</a>
 <a href="#toc-5">四、教学法调整：从&quot;听课学会&quot;到&quot;边做边问 AI&quot;</a>
 <a href="#toc-6">五、落地路线图：一次只做一件事</a>
 <a href="#toc-7">六、与她模式的关键差异（别照抄）</a>
 <a href="#toc-8">七、对外发布文案（朋友圈 / 视频号，复制即用）</a>
-<a href="#toc-9" class="lv3">第 1 条 · 立形象（发开课分身）</a>
-<a href="#toc-10" class="lv3">第 2 条 · 给价值（发标准课，不卖课）</a>
-<a href="#toc-11" class="lv3">第 3 条 · 收口（训练营，只发一次）</a></div>
+<a href="#toc-9" class="lv3">2. 第 1 条 · 立形象（发开课分身）</a>
+<a href="#toc-10" class="lv3">3. 第 2 条 · 给价值（发标准课，不卖课）</a>
+<a href="#toc-11" class="lv3">4. 第 3 条 · 收口（训练营，只发一次）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -207,6 +208,11 @@ ol,ul{margin:8px 0 8px 22px}li{margin:5px 0}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

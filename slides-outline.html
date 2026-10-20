@@ -427,7 +427,7 @@ td.tp{width:110px;color:#5a6a80;font-size:12.5px}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>《酒店收益管理》41 章课件大纲</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">第一篇 · 认知篇（第 1–4 章）</a>
 <a href="#toc-2" class="lv3">第 1 章 · 收益管理是什么</a>
 <a href="#toc-3" class="lv3">第 2 章 · 三个核心指标</a>
@@ -478,11 +478,12 @@ td.tp{width:110px;color:#5a6a80;font-size:12.5px}
 <a href="#toc-r39" class="lv3">第 39 章 · 周期与不确定性下的收益管理</a>
 <a href="#toc-r40" class="lv3">第 40 章 · 人工智能与收益管理（科普）</a>
 <a href="#toc-r41" class="lv3">第 41 章 · 绿色收益管理与可持续</a>
-<a href="#toc-40">附 · 32 节微课录制指南</a>
-<a href="#toc-41" class="lv3">录制规格</a>
-<a href="#toc-42" class="lv3">三条必须遵守</a>
-<a href="#toc-43" class="lv3">建议的录制顺序（先做这 9 节，就能支撑完整一轮开课）</a></div>
+<a href="#toc-40">1. 附 · 32 节微课录制指南</a>
+<a href="#toc-41" class="lv3">1.1 录制规格</a>
+<a href="#toc-42" class="lv3">1.2 三条必须遵守</a>
+<a href="#toc-43" class="lv3">1.3 建议的录制顺序（先做这 9 节，就能支撑完整一轮开课）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -495,6 +496,11 @@ td.tp{width:110px;color:#5a6a80;font-size:12.5px}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

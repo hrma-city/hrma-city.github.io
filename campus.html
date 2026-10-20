@@ -481,25 +481,26 @@ document.getElementById("sub").addEventListener("click", function(){
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">先看看，您是不是卡在这几个地方</a>
-<a href="#toc-2">一句话讲清楚：我们到底做什么</a>
-<a href="#toc-3">服务阶梯：越往上，确定性越强</a>
-<a href="#toc-4">师资陪跑，具体怎么跑</a>
-<a href="#toc-5" class="lv3">课程共建陪跑（¥8–12 万）交付清单</a>
-<a href="#toc-6">五维赋能：一门课需要的，我们一次给全</a>
-<a href="#toc-7">给买单人（系主任 / 专业负责人 / 教务处）的价值翻译</a>
-<a href="#toc-8">为什么是我们：五件您不能临时攒出来的东西</a>
-<a href="#toc-9">合作流程：从一次诊断开始</a>
-<a href="#toc-10">常见问题</a>
-<a href="#toc-11">先自己看看：零基础怎么开课</a>
-<a href="#toc-12" class="lv3">① 专题 · 为什么不开系统也能开课</a>
-<a href="#toc-13" class="lv3">② 场景游戏 · 超售决策</a>
-<a href="#toc-14" class="lv3">③ 竞赛游戏 · 知识抢答</a>
-<a href="#toc-15" class="lv3">📦 院校专区 · 七件套工具箱</a>
-<a href="#toc-16" class="lv3">✅ AI 教案校验器（免费）</a>
-<a href="#toc-17">预约一次开课诊断（免费）</a></div>
+  <div class="toc-h"><b>师资陪跑 · 院校合作 | HRMA 酒店收益管理开课解决方案</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 先看看，您是不是卡在这几个地方</a>
+<a href="#toc-2">2. 一句话讲清楚：我们到底做什么</a>
+<a href="#toc-3">3. 服务阶梯：越往上，确定性越强</a>
+<a href="#toc-4">4. 师资陪跑，具体怎么跑</a>
+<a href="#toc-5" class="lv3">4.1 课程共建陪跑（¥8–12 万）交付清单</a>
+<a href="#toc-6">5. 五维赋能：一门课需要的，我们一次给全</a>
+<a href="#toc-7">6. 给买单人（系主任 / 专业负责人 / 教务处）的价值翻译</a>
+<a href="#toc-8">7. 为什么是我们：五件您不能临时攒出来的东西</a>
+<a href="#toc-9">8. 合作流程：从一次诊断开始</a>
+<a href="#toc-10">9. 常见问题</a>
+<a href="#toc-11">10. 先自己看看：零基础怎么开课</a>
+<a href="#toc-12" class="lv3">10.1 ① 专题 · 为什么不开系统也能开课</a>
+<a href="#toc-13" class="lv3">10.2 ② 场景游戏 · 超售决策</a>
+<a href="#toc-14" class="lv3">10.3 ③ 竞赛游戏 · 知识抢答</a>
+<a href="#toc-15" class="lv3">10.4 📦 院校专区 · 七件套工具箱</a>
+<a href="#toc-16" class="lv3">10.5 ✅ AI 教案校验器（免费）</a>
+<a href="#toc-17">11. 预约一次开课诊断（免费）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -512,6 +513,11 @@ document.getElementById("sub").addEventListener("click", function(){
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

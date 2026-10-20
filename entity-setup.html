@@ -247,6 +247,7 @@ RMC收益管理社区 ｜ 只写判定表，不写观点文 ｜ rm-community@qq.
 <a href="#toc-7" class="lv3">七、三个坑（踩中任意一个，这单就黄）</a>
 <a href="#toc-8" class="lv3">八、五天时间线（照着走，别再拖）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -259,6 +260,11 @@ RMC收益管理社区 ｜ 只写判定表，不写观点文 ｜ rm-community@qq.
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

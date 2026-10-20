@@ -1044,28 +1044,29 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1" class="lv3">每日价格调整判定表</a>
-<a href="#toc-2" class="lv3">库存与限制条件配置表</a>
-<a href="#toc-3" class="lv3">价格指数（ARI）判定表</a>
-<a href="#toc-4" class="lv3">市场渗透指数（MPI）判定表</a>
-<a href="#toc-5" class="lv3">超额预订标准表</a>
-<a href="#toc-6" class="lv3">房型价差阶梯表</a>
-<a href="#toc-7" class="lv3">团队／协议询价接受判定表</a>
-<a href="#toc-8" class="lv3">渠道开关判定表</a>
-<a href="#toc-9" class="lv3">预订窗口分档监控表</a>
-<a href="#toc-10" class="lv3">免费升级规则表</a>
-<a href="#toc-11" class="lv3">会议／宴会综合收益联动表</a>
-<a href="#toc-12" class="lv3">异常事件应急判定表</a>
-<a href="#toc-13" class="lv3">每日收益操作流水线（时间表）</a>
-<a href="#toc-14" class="lv3">周度／月度节奏表</a>
-<a href="#toc-15" class="lv3">决策优先级与冲突仲裁表</a>
-<a href="#toc-16" class="lv3">需求等级日历（D1–D4）</a>
-<a href="#toc-17">新手三件套：致命错误 · 价格速查 · 检查清单</a>
+  <div class="toc-h"><b>收益管理操作法典（15 张判定表） · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1" class="lv3">1. 每日价格调整判定表</a>
+<a href="#toc-2" class="lv3">2. 库存与限制条件配置表</a>
+<a href="#toc-3" class="lv3">3. 价格指数（ARI）判定表</a>
+<a href="#toc-4" class="lv3">4. 市场渗透指数（MPI）判定表</a>
+<a href="#toc-5" class="lv3">5. 超额预订标准表</a>
+<a href="#toc-6" class="lv3">6. 房型价差阶梯表</a>
+<a href="#toc-7" class="lv3">7. 团队／协议询价接受判定表</a>
+<a href="#toc-8" class="lv3">8. 渠道开关判定表</a>
+<a href="#toc-9" class="lv3">9. 预订窗口分档监控表</a>
+<a href="#toc-10" class="lv3">10. 免费升级规则表</a>
+<a href="#toc-11" class="lv3">11. 会议／宴会综合收益联动表</a>
+<a href="#toc-12" class="lv3">12. 异常事件应急判定表</a>
+<a href="#toc-13" class="lv3">13. 每日收益操作流水线（时间表）</a>
+<a href="#toc-14" class="lv3">14. 周度／月度节奏表</a>
+<a href="#toc-15" class="lv3">15. 决策优先级与冲突仲裁表</a>
+<a href="#toc-16" class="lv3">16. 需求等级日历（D1–D4）</a>
+<a href="#toc-17">1. 新手三件套：致命错误 · 价格速查 · 检查清单</a>
 <a href="#toc-18" class="lv3">一、新手最易犯的 5 个致命错误</a>
 <a href="#toc-19" class="lv3">二、价格调整速查表</a>
 <a href="#toc-20" class="lv3">三、每日 / 每周 / 每月检查清单</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -1078,6 +1079,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

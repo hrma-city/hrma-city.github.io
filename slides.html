@@ -78,16 +78,17 @@ var _b=location.hash.match(/^#(\d+)$/); if(_b){var el=document.querySelectorAll(
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1" class="lv3">本质与衡量4 章 · 110 屏</a>
+  <div class="toc-h"><b>教材投屏课件 · 五篇三十二章</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1" class="lv3">1. 本质与衡量4 章 · 110 屏</a>
 <a href="#toc-2" class="lv3">模块 A · 定价决策4 章 · 104 屏</a>
 <a href="#toc-3" class="lv3">模块 B · 库存决策4 章 · 105 屏</a>
 <a href="#toc-4" class="lv3">模块 C · 客源与渠道决策4 章 · 106 屏</a>
 <a href="#toc-5" class="lv3">模块 D · 节奏与流程（三层）3 章 · 81 屏</a>
 <a href="#toc-6" class="lv3">模块 E · 计划与支撑5 章 · 125 屏</a>
-<a href="#toc-7" class="lv3">组织与支撑4 章 · 101 屏</a>
-<a href="#toc-8" class="lv3">迁移与自查4 章 · 99 屏</a></div>
+<a href="#toc-7" class="lv3">2. 组织与支撑4 章 · 101 屏</a>
+<a href="#toc-8" class="lv3">3. 迁移与自查4 章 · 99 屏</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -100,6 +101,11 @@ var _b=location.hash.match(/^#(\d+)$/); if(_b){var el=document.querySelectorAll(
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

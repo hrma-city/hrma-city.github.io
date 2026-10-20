@@ -200,23 +200,24 @@ if (h){ var el = document.getElementById(h); if (el) el.classList.add('focus'); 
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">01案例 01 · 一场&quot;全员降价&quot;的代价12 屏课件 · 3 题</a>
-<a href="#toc-2">02案例 02 · 数据打架的那一天11 屏课件 · 3 题</a>
-<a href="#toc-3">03案例 03 · 林岚的星期二13 屏课件 · 3 题</a>
-<a href="#toc-4">04案例 04 · 月度例会上的沉默11 屏课件 · 3 题</a>
-<a href="#toc-5">05案例 05 · 展会周的那 300 间房11 屏课件 · 3 题</a>
-<a href="#toc-6">06案例 06 · 399 还是 59910 屏课件 · 3 题</a>
-<a href="#toc-7">07案例 07 · 团队和散客，留给谁12 屏课件 · 3 题</a>
-<a href="#toc-8">08案例 08 · OTA 的 25%11 屏课件 · 3 题</a>
-<a href="#toc-9">09案例 09 · 对面降价了11 屏课件 · 3 题</a>
-<a href="#toc-10">10案例 10 · 三类客人，三种价格10 屏课件 · 3 题</a>
-<a href="#toc-11">11案例 11 · 明年的数字怎么定11 屏课件 · 3 题</a>
-<a href="#toc-12">12案例 12 · 800 人的宴会与 200 间房11 屏课件 · 3 题</a>
-<a href="#toc-13">13案例 13 · 前厅和收益的战争11 屏课件 · 3 题</a>
-<a href="#toc-14">14案例 14 · 系统说降价，林岚说不11 屏课件 · 3 题</a>
-<a href="#toc-15">全套答案册（教师）</a></div>
+  <div class="toc-h"><b>案例配套自测 42 题 · 《收益管理案例解析》</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 01案例 01 · 一场&quot;全员降价&quot;的代价12 屏课件 · 3 题</a>
+<a href="#toc-2">2. 02案例 02 · 数据打架的那一天11 屏课件 · 3 题</a>
+<a href="#toc-3">3. 03案例 03 · 林岚的星期二13 屏课件 · 3 题</a>
+<a href="#toc-4">4. 04案例 04 · 月度例会上的沉默11 屏课件 · 3 题</a>
+<a href="#toc-5">5. 05案例 05 · 展会周的那 300 间房11 屏课件 · 3 题</a>
+<a href="#toc-6">6. 06案例 06 · 399 还是 59910 屏课件 · 3 题</a>
+<a href="#toc-7">7. 07案例 07 · 团队和散客，留给谁12 屏课件 · 3 题</a>
+<a href="#toc-8">8. 08案例 08 · OTA 的 25%11 屏课件 · 3 题</a>
+<a href="#toc-9">9. 09案例 09 · 对面降价了11 屏课件 · 3 题</a>
+<a href="#toc-10">10. 10案例 10 · 三类客人，三种价格10 屏课件 · 3 题</a>
+<a href="#toc-11">11. 11案例 11 · 明年的数字怎么定11 屏课件 · 3 题</a>
+<a href="#toc-12">12. 12案例 12 · 800 人的宴会与 200 间房11 屏课件 · 3 题</a>
+<a href="#toc-13">13. 13案例 13 · 前厅和收益的战争11 屏课件 · 3 题</a>
+<a href="#toc-14">14. 14案例 14 · 系统说降价，林岚说不11 屏课件 · 3 题</a>
+<a href="#toc-15">15. 全套答案册（教师）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -229,6 +230,11 @@ if (h){ var el = document.getElementById(h); if (el) el.classList.add('focus'); 
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

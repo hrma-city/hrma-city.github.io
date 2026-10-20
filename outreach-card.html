@@ -158,17 +158,18 @@ td{border-bottom:1px solid #e4ecf4;padding:7px 10px;vertical-align:top}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>一页纸 · 几十人名单作战卡</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">一、名单分层（先花 30 分钟做完这件事）</a>
 <a href="#toc-2">二、三天启动节奏</a>
 <a href="#toc-3">三、三类话术（可直接改）</a>
-<a href="#toc-4" class="lv3">① 首次私聊（热名单）核心</a>
-<a href="#toc-5" class="lv3">② 温名单（没深聊过的）</a>
-<a href="#toc-6" class="lv3">③ 对方有回应后，约深聊</a>
+<a href="#toc-4" class="lv3">1. ① 首次私聊（热名单）核心</a>
+<a href="#toc-5" class="lv3">2. ② 温名单（没深聊过的）</a>
+<a href="#toc-6" class="lv3">3. ③ 对方有回应后，约深聊</a>
 <a href="#toc-7">四、对方可能的四种回答（与应对）</a>
 <a href="#toc-8">五、目标与检验标准</a>
 <a href="#toc-9">六、四条红线</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -181,6 +182,11 @@ td{border-bottom:1px solid #e4ecf4;padding:7px 10px;vertical-align:top}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

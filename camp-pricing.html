@@ -369,18 +369,19 @@ document.getElementById("submit").addEventListener("click", function(){
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">为什么是「实操营」，不是「课程」</a>
+  <div class="toc-h"><b>21 天定价实操营 · HRMA 收益管理</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 为什么是「实操营」，不是「课程」</a>
 <a href="#toc-2">21 天怎么走</a>
-<a href="#toc-3" class="lv3">每天的节奏（4 步）</a>
-<a href="#toc-4">怎么衡量您有没有拿到结果</a>
-<a href="#toc-5">我们的承诺，与不承诺</a>
-<a href="#toc-6">适合谁 / 不适合谁</a>
-<a href="#toc-7">价格与开营</a>
-<a href="#toc-8">报名</a>
-<a href="#toc-9">常见问题</a>
-<a href="#toc-10">结业与认证衔接</a></div>
+<a href="#toc-3" class="lv3">1.1 每天的节奏（4 步）</a>
+<a href="#toc-4">2. 怎么衡量您有没有拿到结果</a>
+<a href="#toc-5">3. 我们的承诺，与不承诺</a>
+<a href="#toc-6">4. 适合谁 / 不适合谁</a>
+<a href="#toc-7">5. 价格与开营</a>
+<a href="#toc-8">6. 报名</a>
+<a href="#toc-9">7. 常见问题</a>
+<a href="#toc-10">8. 结业与认证衔接</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -393,6 +394,11 @@ document.getElementById("submit").addEventListener("click", function(){
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

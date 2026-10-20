@@ -208,18 +208,19 @@ ul.cs-ul li{margin-bottom:5px}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>酒店收益管理课程 · 开课教学咨询与师资陪跑 | RMC</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">一、20 万买的是什么</a>
 <a href="#toc-2">二、产品线（三档，按需选择）</a>
 <a href="#toc-3">三、师资陪跑：12 个月怎么走</a>
-<a href="#toc-4" class="lv3">1第 1–3 月 · 立起来</a>
-<a href="#toc-5" class="lv3">2第 4–6 月 · 讲起来</a>
-<a href="#toc-6" class="lv3">3第 7–9 月 · 稳下来</a>
-<a href="#toc-7" class="lv3">4第 10–12 月 · 拿出来</a>
+<a href="#toc-4" class="lv3">1. 1第 1–3 月 · 立起来</a>
+<a href="#toc-5" class="lv3">2. 2第 4–6 月 · 讲起来</a>
+<a href="#toc-6" class="lv3">3. 3第 7–9 月 · 稳下来</a>
+<a href="#toc-7" class="lv3">4. 4第 10–12 月 · 拿出来</a>
 <a href="#toc-8">四、交付方式（先把边界说清楚）</a>
 <a href="#toc-9">五、常见疑问</a>
-<a href="#toc-10" class="lv3">下一步：先做一次开课可行性诊断</a></div>
+<a href="#toc-10" class="lv3">5. 下一步：先做一次开课可行性诊断</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -232,6 +233,11 @@ ul.cs-ul li{margin-bottom:5px}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

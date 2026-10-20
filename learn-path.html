@@ -662,14 +662,15 @@ render();
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1" class="lv3">直接进模块（不依赖脚本，任何时候都点得开）</a>
-<a href="#toc-2" class="lv3">学完全书之后</a>
-<a href="#toc-3" class="lv3">考级时看这些</a>
-<a href="#toc-4" class="lv3">资料库（按类型直接取用）</a>
-<a href="#toc-5">&#x27;+esc(s.t)+&#x27;</a>
-<a href="#toc-6">&#x27;+esc(c.t)+&#x27;</a></div>
+  <div class="toc-h"><b>收益管理 · 学习路径（学生按教材 / 酒店人按认证） · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1" class="lv3">1. 直接进模块（不依赖脚本，任何时候都点得开）</a>
+<a href="#toc-2" class="lv3">2. 学完全书之后</a>
+<a href="#toc-3" class="lv3">3. 考级时看这些</a>
+<a href="#toc-4" class="lv3">4. 资料库（按类型直接取用）</a>
+<a href="#toc-5">1. &#x27;+esc(s.t)+&#x27;</a>
+<a href="#toc-6">2. &#x27;+esc(c.t)+&#x27;</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -682,6 +683,11 @@ render();
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

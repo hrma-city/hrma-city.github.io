@@ -198,13 +198,14 @@ table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">客房满房的那天，宴会厅空了一整天</a>
-<a href="#toc-2">场地是另一种“过期作废”的库存</a>
-<a href="#toc-3">算一遍，您会记一辈子</a>
-<a href="#toc-4">三步上限，别超过三件事</a>
-<a href="#toc-5">同一场会议，两种算法</a></div>
+  <div class="toc-h"><b>28 会议宴会与多功能厅收益 · HRMA 口袋书</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 客房满房的那天，宴会厅空了一整天</a>
+<a href="#toc-2">2. 场地是另一种“过期作废”的库存</a>
+<a href="#toc-3">3. 算一遍，您会记一辈子</a>
+<a href="#toc-4">4. 三步上限，别超过三件事</a>
+<a href="#toc-5">5. 同一场会议，两种算法</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -217,6 +218,11 @@ table.data td{padding:9px 11px;border-top:1px solid #edf1f6}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

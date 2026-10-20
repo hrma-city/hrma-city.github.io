@@ -597,14 +597,15 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1" class="lv3">按 STR 报告模板上报：Supply / Demand / Revenue</a>
-<a href="#toc-2" class="lv3">填写上个月的经营数据</a>
-<a href="#toc-3" class="lv3">我提交的 STR 标准数据</a>
-<a href="#toc-4" class="lv3">哪些城市与档次已经有数据</a>
-<a href="#toc-5" class="lv3">拉同行一起报，基准才有用</a>
-<a href="#toc-6" class="lv3">我提交过的数据（快速通道）</a></div>
+  <div class="toc-h"><b>共建样本池 · 行业基准数据中心 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1" class="lv3">1. 按 STR 报告模板上报：Supply / Demand / Revenue</a>
+<a href="#toc-2" class="lv3">2. 填写上个月的经营数据</a>
+<a href="#toc-3" class="lv3">3. 我提交的 STR 标准数据</a>
+<a href="#toc-4" class="lv3">4. 哪些城市与档次已经有数据</a>
+<a href="#toc-5" class="lv3">5. 拉同行一起报，基准才有用</a>
+<a href="#toc-6" class="lv3">6. 我提交过的数据（快速通道）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -617,6 +618,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

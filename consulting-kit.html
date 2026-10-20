@@ -211,19 +211,20 @@ https://hrma-city.github.io/whitepaper.html
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>开课咨询 · 销售作战包（内部）| RMC</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">一、一句话定位（所有场合都用这一句）</a>
 <a href="#toc-2">二、客户画像：打动谁、给谁用</a>
 <a href="#toc-3">三、触达路径（按精力分级，只做零成本那一档）</a>
 <a href="#toc-4">四、转化漏斗</a>
 <a href="#toc-5">五、今天就能做的一件事</a>
-<a href="#toc-6" class="lv3">1给 1 位目标院校的专业带头人，发 1 封邮件</a>
+<a href="#toc-6" class="lv3">1. 1给 1 位目标院校的专业带头人，发 1 封邮件</a>
 <a href="#toc-7">六、可复制的邮件模板</a>
-<a href="#toc-8" class="lv3">A. 第一次触达（冷邮件，只问问题）</a>
-<a href="#toc-9" class="lv3">B. 对方回了之后（给具体建议 + 约诊断）</a>
+<a href="#toc-8" class="lv3">2. A. 第一次触达（冷邮件，只问问题）</a>
+<a href="#toc-9" class="lv3">3. B. 对方回了之后（给具体建议 + 约诊断）</a>
 <a href="#toc-10">七、异议应对</a>
 <a href="#toc-11">八、每周节奏（极简，照顾精力）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -236,6 +237,11 @@ https://hrma-city.github.io/whitepaper.html
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

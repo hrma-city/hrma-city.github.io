@@ -331,21 +331,21 @@ td.c,th.c{text-align:center}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>院校线产品方案 v2（整合版）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">一、定位修正：您不是发证机构</a>
 <a href="#toc-2">二、院校线产品矩阵（5 个产品，阶梯式）</a>
-<a href="#toc-3" class="lv3">P1 · 教材（学生版 ＋ 教师册）现在就能卖</a>
-<a href="#toc-4" class="lv3">P2 · 开课授权包现在就能卖 核心产品</a>
-<a href="#toc-5" class="lv3">P3 · 师资培训与授课资格现在就能卖</a>
-<a href="#toc-6" class="lv3">P4 · 标尺与能力档案第 6 所起收费</a>
-<a href="#toc-7" class="lv3">P5 · 年度更新与复审现在就能卖</a>
+<a href="#toc-3" class="lv3">1. P1 · 教材（学生版 ＋ 教师册）现在就能卖</a>
+<a href="#toc-4" class="lv3">2. P2 · 开课授权包现在就能卖 核心产品</a>
+<a href="#toc-5" class="lv3">3. P3 · 师资培训与授课资格现在就能卖</a>
+<a href="#toc-6" class="lv3">4. P4 · 标尺与能力档案第 6 所起收费</a>
+<a href="#toc-7" class="lv3">5. P5 · 年度更新与复审现在就能卖</a>
 <a href="#toc-8">三、价值阶梯：什么时候卖什么（三阶段）</a>
 <a href="#toc-9">四、P2 开课授权包：交付清单（12 项）</a>
 <a href="#toc-10">五、P4 标尺：核心壁垒（设计已完成，此处为要点）</a>
 <a href="#toc-11">六、壁垒体系（修正后：不是防抄）</a>
 <a href="#toc-12">七、定价与收入模型（修正后）</a>
 <a href="#toc-13">八、合规边界（三条不能碰）</a>
-<a href="#toc-14">八·补 AI 时代的定位（2026-10-02 新增，优先级最高）</a>
+<a href="#toc-14">1. 八·补 AI 时代的定位（2026-10-02 新增，优先级最高）</a>
 <a href="#toc-15" class="lv3">8.1 教师真正卡住的五件事（生成不是瓶颈，验证才是）</a>
 <a href="#toc-16" class="lv3">8.2 六条不可替代性（分&quot;结构性&quot;与&quot;需维护&quot;）</a>
 <a href="#toc-17" class="lv3">8.3 三处话术改造（覆盖旧话术，今天就用新的）</a>
@@ -354,6 +354,7 @@ td.c,th.c{text-align:center}
 <a href="#toc-20">九、对外话术（一句与三句）</a>
 <a href="#toc-21">十、下一步清单（按优先级，共约 8 天）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -366,6 +367,11 @@ td.c,th.c{text-align:center}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

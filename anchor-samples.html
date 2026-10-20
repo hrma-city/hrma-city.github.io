@@ -252,14 +252,14 @@ td.c,th.c{text-align:center}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>锚定样例采集模板（24 份）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">一、为什么必须先备好这张表</a>
 <a href="#toc-2">二、24 份清单与编号规则</a>
 <a href="#toc-3">三、四张标准化任务卡（采集的核心，先定死）</a>
-<a href="#toc-4" class="lv3">任务卡 A · 诊断（维度 A 采集用）</a>
-<a href="#toc-5" class="lv3">任务卡 B · 定价（维度 B 采集用）</a>
-<a href="#toc-6" class="lv3">任务卡 C · 控货（维度 C 采集用）</a>
-<a href="#toc-7" class="lv3">任务卡 D · 运营（维度 D 采集用）</a>
+<a href="#toc-4" class="lv3">1. 任务卡 A · 诊断（维度 A 采集用）</a>
+<a href="#toc-5" class="lv3">2. 任务卡 B · 定价（维度 B 采集用）</a>
+<a href="#toc-6" class="lv3">3. 任务卡 C · 控货（维度 C 采集用）</a>
+<a href="#toc-7" class="lv3">4. 任务卡 D · 运营（维度 D 采集用）</a>
 <a href="#toc-8">四、单份样例采集表（可复制使用）</a>
 <a href="#toc-9">五、填写示例（照着这个填，两份）</a>
 <a href="#toc-10">六、采集流程与时间表</a>
@@ -267,6 +267,7 @@ td.c,th.c{text-align:center}
 <a href="#toc-12">八、采集时最容易犯的四个错</a>
 <a href="#toc-13">九、采完之后怎么用</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -279,6 +280,11 @@ td.c,th.c{text-align:center}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

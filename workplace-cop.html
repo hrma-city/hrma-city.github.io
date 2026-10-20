@@ -179,20 +179,21 @@ label{display:block;font-size:13px;color:var(--navy);margin:10px 0 4px;font-weig
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">上岗之后，问题才刚开始</a>
-<a href="#toc-2">社区规则：少即是多</a>
-<a href="#toc-3">社区节奏：不用天天来，也别消失</a>
-<a href="#toc-4">校友网络：从同学到同行</a>
-<a href="#toc-5" class="lv3">结业作品展示</a>
-<a href="#toc-6" class="lv3">内推与引荐</a>
-<a href="#toc-7" class="lv3">带新人（mentor）</a>
-<a href="#toc-8">校企直通：院校与酒店之间的信息传递</a>
-<a href="#toc-9" class="lv3">自助申请模板（复制后填写）</a>
-<a href="#toc-10">专家答疑与紧急会诊</a>
-<a href="#toc-11" class="lv3">每季一次集中答疑</a>
-<a href="#toc-12" class="lv3">紧急会诊</a></div>
+  <div class="toc-h"><b>在岗实践社区 · 上岗之后有人可问</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 上岗之后，问题才刚开始</a>
+<a href="#toc-2">2. 社区规则：少即是多</a>
+<a href="#toc-3">3. 社区节奏：不用天天来，也别消失</a>
+<a href="#toc-4">4. 校友网络：从同学到同行</a>
+<a href="#toc-5" class="lv3">4.1 结业作品展示</a>
+<a href="#toc-6" class="lv3">4.2 内推与引荐</a>
+<a href="#toc-7" class="lv3">4.3 带新人（mentor）</a>
+<a href="#toc-8">5. 校企直通：院校与酒店之间的信息传递</a>
+<a href="#toc-9" class="lv3">5.1 自助申请模板（复制后填写）</a>
+<a href="#toc-10">6. 专家答疑与紧急会诊</a>
+<a href="#toc-11" class="lv3">6.1 每季一次集中答疑</a>
+<a href="#toc-12" class="lv3">6.2 紧急会诊</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -205,6 +206,11 @@ label{display:block;font-size:13px;color:var(--navy);margin:10px 0 4px;font-weig
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

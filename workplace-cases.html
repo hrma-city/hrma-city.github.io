@@ -306,13 +306,14 @@ g('f-clear').addEventListener('click', function(){
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">酒店收益在岗战例：12 个&quot;当时我也懵&quot;的瞬间</a>
-<a href="#toc-2">案例廊（按判定表顺序排）</a>
-<a href="#toc-3">把你的战例投进来</a>
-<a href="#toc-4" class="lv3">遴选怎么走（四步）</a>
-<a href="#toc-5" class="lv3">投稿整理单（在本机暂存，提交时复制）</a></div>
+  <div class="toc-h"><b>在岗案例廊 · 酒店收益战例与投稿</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 酒店收益在岗战例：12 个&quot;当时我也懵&quot;的瞬间</a>
+<a href="#toc-2">2. 案例廊（按判定表顺序排）</a>
+<a href="#toc-3">3. 把你的战例投进来</a>
+<a href="#toc-4" class="lv3">3.1 遴选怎么走（四步）</a>
+<a href="#toc-5" class="lv3">3.2 投稿整理单（在本机暂存，提交时复制）</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -325,6 +326,11 @@ g('f-clear').addEventListener('click', function(){
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

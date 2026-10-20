@@ -2162,9 +2162,8 @@ body{margin:0;background:#eef2f7;color:#1f2a37;font-family:-apple-system,BlinkMa
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1" class="lv3">目录</a>
-<a href="#toc-2">第 1 章 · 收益管理是什么：一句话与底层逻辑</a>
+  <div class="toc-h"><b>教师线 · 开课教案完整版（41 章）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-2">第 1 章 · 收益管理是什么：一句话与底层逻辑</a>
 <a href="#toc-3" class="lv3">一、学完这一章，学生能做到什么</a>
 <a href="#toc-4" class="lv3">二、课时安排（3 课时）</a>
 <a href="#toc-5" class="lv3">三、讲这一章要用的公式与定义</a>
@@ -2493,6 +2492,7 @@ body{margin:0;background:#eef2f7;color:#1f2a37;font-family:-apple-system,BlinkMa
 <a href="#toc-328" class="lv3">六、容易讲错的地方</a>
 <a href="#toc-329" class="lv3">七、作业与测评</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -2505,6 +2505,11 @@ body{margin:0;background:#eef2f7;color:#1f2a37;font-family:-apple-system,BlinkMa
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>

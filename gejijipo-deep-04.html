@@ -245,8 +245,8 @@ li{margin:5px 0;}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">本册目录</a>
+  <div class="toc-h"><b>各个击破 · 深读系列 第4册《动态定价》 | RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 本册目录</a>
 <a href="#toc-2">开篇的话</a>
 <a href="#ch1">第一章 什么是动态定价</a>
 <a href="#toc-3" class="lv3">1.1 一句话定义</a>
@@ -254,20 +254,21 @@ li{margin:5px 0;}
 <a href="#toc-5" class="lv3">1.3 与弹性的关系</a>
 <a href="#toc-6" class="lv3">1.4 最容易错的地方</a>
 <a href="#ch2">第二章 生活中的动态定价</a>
-<a href="#toc-7" class="lv3">场景一：滴滴高峰溢价</a>
-<a href="#toc-8" class="lv3">场景二：机票越早越便宜</a>
-<a href="#toc-9" class="lv3">场景三：菜场收摊降价</a>
-<a href="#toc-10" class="lv3">场景四：电影院非黄金场便宜</a>
+<a href="#toc-7" class="lv3">1.1 场景一：滴滴高峰溢价</a>
+<a href="#toc-8" class="lv3">1.2 场景二：机票越早越便宜</a>
+<a href="#toc-9" class="lv3">1.3 场景三：菜场收摊降价</a>
+<a href="#toc-10" class="lv3">1.4 场景四：电影院非黄金场便宜</a>
 <a href="#ch3">第三章 酒店实操案例（9 个）</a>
-<a href="#toc-11" class="lv3">业态一：城市商务酒店</a>
-<a href="#toc-12" class="lv3">业态二：度假酒店</a>
-<a href="#toc-13" class="lv3">业态三：机场 / 中转酒店</a>
-<a href="#toc-14" class="lv3">本章小结</a>
+<a href="#toc-11" class="lv3">1.5 业态一：城市商务酒店</a>
+<a href="#toc-12" class="lv3">1.6 业态二：度假酒店</a>
+<a href="#toc-13" class="lv3">1.7 业态三：机场 / 中转酒店</a>
+<a href="#toc-14" class="lv3">1.8 本章小结</a>
 <a href="#ch4">第四章 上手五步法</a>
 <a href="#ch5">第五章 三个常见误区</a>
 <a href="#ch6">结语</a>
-<a href="#ch7">思考题</a></div>
+<a href="#ch7">2. 思考题</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -280,6 +281,11 @@ li{margin:5px 0;}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

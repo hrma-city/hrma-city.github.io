@@ -217,20 +217,21 @@
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">① 从头在线学（互动 HTML 为主教具）</a>
-<a href="#toc-2" class="lv3">学习入口</a>
-<a href="#toc-3" class="lv3">微课与讲解</a>
-<a href="#toc-4">② 游戏练习</a>
-<a href="#toc-5" class="lv3">游戏中心</a>
-<a href="#toc-6">③ 角色扮演（经营情景模拟）</a>
-<a href="#toc-7" class="lv3">情景库</a>
-<a href="#toc-8">④ 测验与自测</a>
-<a href="#toc-9" class="lv3">测验</a>
-<a href="#toc-10">⑤ 备查工具（书 / 册 / 表单）</a>
-<a href="#toc-11" class="lv3">书与册</a>
-<a href="#toc-12" class="lv3">表与速查</a></div>
+  <div class="toc-h"><b>学生 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. ① 从头在线学（互动 HTML 为主教具）</a>
+<a href="#toc-2" class="lv3">1.1 学习入口</a>
+<a href="#toc-3" class="lv3">1.2 微课与讲解</a>
+<a href="#toc-4">2. ② 游戏练习</a>
+<a href="#toc-5" class="lv3">2.1 游戏中心</a>
+<a href="#toc-6">3. ③ 角色扮演（经营情景模拟）</a>
+<a href="#toc-7" class="lv3">3.1 情景库</a>
+<a href="#toc-8">4. ④ 测验与自测</a>
+<a href="#toc-9" class="lv3">4.1 测验</a>
+<a href="#toc-10">5. ⑤ 备查工具（书 / 册 / 表单）</a>
+<a href="#toc-11" class="lv3">5.1 书与册</a>
+<a href="#toc-12" class="lv3">5.2 表与速查</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -243,6 +244,11 @@
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body>

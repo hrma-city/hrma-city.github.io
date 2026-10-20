@@ -794,22 +794,23 @@ ol,ul{margin:4px 0 4px 22px}
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">收益管理的语言：指标与计算</a>
-<a href="#toc-2">系统与数据：把术语说成同一种话</a>
-<a href="#toc-3">每日流水线与调价：表 A 怎么查</a>
-<a href="#toc-4">报表与台账：留下可复盘的痕迹</a>
-<a href="#toc-5">需求预测与进度监控：表 I 六个窗口</a>
-<a href="#toc-6">价格体系：表 F 房型价差阶梯</a>
-<a href="#toc-7">库存限制与超售：表 B 与表 E</a>
-<a href="#toc-8">渠道分销：净价思维与表 H</a>
-<a href="#toc-9">竞争监测：表 C 与表 D</a>
-<a href="#toc-10">客源细分与团队决策：表 G 与表 K</a>
-<a href="#toc-11">年度预算与滚动预测：把目标拆成每一天</a>
-<a href="#toc-12">会议与汇报：把数据讲成决策</a>
-<a href="#toc-13">跨部门协同与冲突仲裁：表 O</a>
-<a href="#toc-14">系统与自动化：人机边界</a></div>
+  <div class="toc-h"><b>登顶之路 · 知识草稿审阅 · RMC</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 收益管理的语言：指标与计算</a>
+<a href="#toc-2">2. 系统与数据：把术语说成同一种话</a>
+<a href="#toc-3">3. 每日流水线与调价：表 A 怎么查</a>
+<a href="#toc-4">4. 报表与台账：留下可复盘的痕迹</a>
+<a href="#toc-5">5. 需求预测与进度监控：表 I 六个窗口</a>
+<a href="#toc-6">6. 价格体系：表 F 房型价差阶梯</a>
+<a href="#toc-7">7. 库存限制与超售：表 B 与表 E</a>
+<a href="#toc-8">8. 渠道分销：净价思维与表 H</a>
+<a href="#toc-9">9. 竞争监测：表 C 与表 D</a>
+<a href="#toc-10">10. 客源细分与团队决策：表 G 与表 K</a>
+<a href="#toc-11">11. 年度预算与滚动预测：把目标拆成每一天</a>
+<a href="#toc-12">12. 会议与汇报：把数据讲成决策</a>
+<a href="#toc-13">13. 跨部门协同与冲突仲裁：表 O</a>
+<a href="#toc-14">14. 系统与自动化：人机边界</a></div>
 </nav>
+
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -822,6 +823,11 @@ ol,ul{margin:4px 0 4px 22px}
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
     links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
 })();
 </script>
 </body></html>
