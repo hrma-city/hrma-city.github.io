@@ -91,6 +91,14 @@ input[type=text]{flex:1;min-width:200px}
 .qz{border:1px solid #d9e3ee;border-radius:10px;padding:13px 14px;margin-bottom:13px;background:#fcfdff}
 .qz .qh{font-size:13px;font-weight:800;color:#0f2a4a;margin:0 0 4px;letter-spacing:.5px}
 .qz .qs{font-size:12.5px;color:#8394a8;margin:0 0 11px}
+/* 考核默认收起：点标题展开 */
+.qz.fold .qh{cursor:pointer;display:flex;align-items:center;gap:8px;user-select:none}
+.qz.fold .qh .ar{margin-left:auto;color:#8394a8;font-size:11px;transition:transform .15s}
+.qz.fold.open .qh .ar{transform:rotate(180deg)}
+.qz.fold .qz-body{display:none}
+.qz.fold.open .qz-body{display:block}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:10px;font-weight:700;letter-spacing:0}
+.qtag.ok{background:#e5f3e8;color:#1e7a3a}
 .qitem{margin:0 0 13px;padding-bottom:12px;border-bottom:1px dashed #e3e8ef}
 .qitem:last-of-type{border-bottom:0;padding-bottom:0;margin-bottom:9px}
 .qitem .qt{font-size:14px;line-height:1.65;color:#1f2a37;margin:0 0 8px;font-weight:600}
@@ -195,10 +203,7 @@ input[type=text]{flex:1;min-width:200px}
   color:#5b6a7d;font-family:inherit;font-weight:600}
 .viewtab button.on{background:#fff;color:#0f2a4a;box-shadow:0 1px 3px rgba(15,42,74,.12)}
 </style>
-<script src="assets/js/site-nav.js?v=v21"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"training","item":"https://hrma-city.github.io/training.html"}]}</script>
+<script src="assets/js/site-nav.js?v=v19"></script>
 </head>
 <body>
 <div class="hero"><div class="wrap" style="padding-bottom:0"><a class="back" href="index.html">← 回陈列首页</a><h1>培训馆 · 三级认证，学一课考一课</h1><p>第一站先看清<b style="color:#ffd97a">课程体系与考核标准</b>——每一级到底怎么考、怎么算过；然后 L1（M01–M04）→ L2（M05–M09）→ L3（M10–M14），每级都是「学课程 → 模块练习 → 打该级真题卷」：真题卷按考核认证标准原样呈现（L1 90 分钟 / L2 120 分钟 / L3 150 分钟，满分 100、≥80 通过）。</p><div class="cnt">共 <b>5</b> 站 · 真题 <b>76</b> 题在线考核 · 覆盖 <b>14</b> 个认证模块与 <b>34</b> 项资源</div></div></div>
@@ -402,8 +407,10 @@ function rquizHtml(s, i){
       + '<span class="qres' + (passed ? ' ok' : '') + '" id="qres_' + s.id + '">'
       + (passed ? '本站已完成' : '') + '</span></div>';
   }
-  var h = '<div class="qz"><div class="qh">本站考核 · ' + s.quiz.length + ' 题</div>'
-    + '<p class="qs">' + (passed
+  var h = '<div class="qz fold" id="qz_' + s.id + '"><div class="qh"><span class="qh-t">本站考核 · ' + s.quiz.length + ' 题</span>'
+    + (passed ? '<span class="qtag ok">已通过 ' + rec.score + '</span>' : '')
+    + '<span class="ar">▾</span></div>'
+    + '<div class="qz-body"><p class="qs">' + (passed
         ? '已通过（' + rec.score + '）。这一站计入路线进度。'
         : '全部答对才算通过这一站。答错会给出正确答案与解析，改完可以再交。') + '</p>';
   s.quiz.forEach(function(q, qi){
@@ -434,11 +441,15 @@ function rquizHtml(s, i){
   });
   h += '<div class="qfoot"><button class="st-btn" data-sub="' + s.id + '">'
     + (passed ? '再测一次' : '提交考核') + '</button>'
-    + '<span class="qres" id="qres_' + s.id + '"></span></div></div>';
+    + '<span class="qres" id="qres_' + s.id + '"></span></div></div></div>';
   return h;
 }
 
 function rbindQuiz(){
+  /* 考核标题点击展开/收起 */
+  Array.prototype.forEach.call(document.querySelectorAll('.qz.fold .qh'), function(h){
+    h.addEventListener('click', function(){ h.parentElement.classList.toggle('open'); });
+  });
   Array.prototype.forEach.call(document.querySelectorAll('[data-next]'), function(b){
     b.addEventListener('click', function(){
       var i = +b.getAttribute('data-next'), cur = ST[i], nx = ST[i + 1];
@@ -487,6 +498,8 @@ function rbindQuiz(){
       }
       rdrawMap();
       rrenderPath();
+      /* 重渲染后默认仍是收起；没通过的自动展开方便改答案，通过的不展开 */
+      if (!all) { var qzel = document.getElementById('qz_' + sid); if (qzel) qzel.classList.add('open'); }
       if (all) {
         var nx = document.getElementById('st-' + (ST[si + 1] ? ST[si + 1].id : ST[si].id));
         if (nx) setTimeout(function(){ nx.scrollIntoView({behavior:'smooth', block:'start'}); }, 150);

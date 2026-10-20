@@ -151,7 +151,7 @@
     if (/^codex/.test(here)) return { url: 'codex.html', label: '操作法典' };
     if (/^games\/|^sim\.html|^reigns\.html|^pipeline\.html|^duty\.html|^arena\.html|^level\.html|^classroom\.html|^flow-quest\.html|^games-cases\.html|^game-/.test(here)) return { url: 'games.html', label: '游戏化教具' };
     if (/^community\/|^board\.html|^leaderboard\.html|^community-cases\.html/.test(here)) return { url: 'community.html', label: '社区' };
-    if (/^books\/|^textbook|series-textbook|books-textbook|glossary\.html|^guide\.html|series-16|series-topics|pocket-32/.test(here)) return { url: 'resources.html', label: '资料库' };
+    if (/^books\/|^textbook|series-textbook|books-textbook|glossary\.html|^guide\.html|series-16|series-topics|pocket-41|pocket-no/.test(here)) return { url: 'resources.html', label: '资料库' };
     if (/^benchmark/.test(here)) return { url: 'benchmark.html', label: '基准数据' };
     if (/report|series\/tools|preview\.html$/.test(here)) return { url: 'report-preview.html', label: '报表工具' };
     if (/^teacher|slides?|teach|micro|open-course|^ai-|coach/.test(here)) return { url: 'teacher.html', label: '教师' };
