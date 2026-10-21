@@ -16,13 +16,14 @@
    'local' = 本地模式：账号存在各自浏览器，不联网。适合只有您自己访问。
                        一旦切回 'local'，云端注册/审核/登录三端会被整条旁路。
 
-   ⚠️ 2026-10-21 切回 'cloud'：Supabase 项目已恢复（管理 API 成功落库），
-   现在要重新支持「外部人自助注册 + 管理员审批」的真实账号体系。
-   切换前已补好 signin.html 的云端登录/注册分支，并保留本地预置账号兜底——
-   即使 Supabase 不可达，站长用恢复码、预置账号仍可进站；回退只需把本行改回 'local' 并重新部署。
+   ⚠️ 2026-10-21 22:47 已确认并从 'cloud' 回退 'local'：Supabase 项目 ivcylkcbodoacajyvnpy（孟买 ap-south-1）
+   **从中国大陆网络完全不可达**——浏览器直连报「服务器意外中断了连接」（连接被重置），注册 fetch 报「Load failed」。
+   即「外部人云端自助注册」对国内用户走不通（supabase.co 域名 + 孟买区域双重绕不过）。
+   signin.html 的云端登录/注册分支、auth.js、admin-approve.html 云端审批代码**全部保留**，本地预置账号兜底也在——
+   将来到国内可访问的鉴权后端（腾讯云 CloudBase / Supabase 亚太区+自定义域名 等）就绪后，把本行改回 'cloud' 即可再开，无需重写。
    纯静态站点固有限制：懂技术的人仍可用 curl/查看源码扒到 HTML，
    要做到文件级真加密须迁腾讯云服务器（带访问网关），此处只挡普通访客。 */
-window.HRMA_AUTH_MODE = 'cloud';
+window.HRMA_AUTH_MODE = 'local';
 
 /* 管理员密码哈希（SHA-256）。只存哈希不存明文——20 位随机强密码，无法从哈希反推。
    明文只存在站长本机 hrma/_private_files/管理员密码.txt。
