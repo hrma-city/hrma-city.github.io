@@ -11,8 +11,9 @@
     return m ? m[1] : null;
   }
   var ep = eps.filter(function(e){return e.id===getId();})[0];
+  if(!ep && eps.length){ ep = eps[0]; }   // 无 id 时默认播放第一集（适配机房版裸链接 / 直接打开）
   if(!ep){
-    wrap.innerHTML = '<p style="color:var(--ink-3)">未找到该集。<a href="gejijipo.html">返回各个击破</a></p>';
+    wrap.innerHTML = '<p style="color:var(--ink-3)">暂无可播放的微课内容。</p>';
     return;
   }
 
