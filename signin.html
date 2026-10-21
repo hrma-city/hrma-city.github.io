@@ -15,6 +15,10 @@
   button:disabled{opacity:.6;cursor:default}
   .msg{margin-top:12px;min-height:20px;font-size:14px;text-align:center}
   .msg.bad{color:#f87171}.msg.ok{color:#4ade80}
+  textarea{width:100%;height:64px;margin:9px 0;padding:10px 14px;background:#0b1220;color:#e6edf7;border:1px solid #2a3852;border-radius:9px;font-size:14px;outline:none;resize:vertical;font-family:inherit}
+  .switch{margin-top:14px;text-align:center}
+  .switch a{color:#7db0ff;font-size:13px;text-decoration:none}
+  .switch a:hover{text-decoration:underline}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -22,16 +26,33 @@
 </head>
 <body>
   <div class="box">
-    <input id="acc" type="text" autocomplete="username" placeholder="账号" aria-label="账号">
-    <input id="password" type="password" autocomplete="current-password" placeholder="密码" aria-label="密码">
-    <button id="btn">登录</button>
-    <div id="msg" class="msg"></div>
+    <div id="loginView">
+      <input id="acc" type="text" autocomplete="username" placeholder="账号 / 邮箱" aria-label="账号">
+      <input id="password" type="password" autocomplete="current-password" placeholder="密码" aria-label="密码">
+      <button id="btn">登录</button>
+      <div id="msg" class="msg"></div>
+      <div id="regToggle" class="switch" style="display:none">
+        <a href="#" id="toReg">还没有账号？注册</a>
+      </div>
+    </div>
+    <div id="regView" style="display:none">
+      <input id="rname" type="text" placeholder="姓名 / 昵称" aria-label="姓名">
+      <input id="remail" type="email" placeholder="邮箱" aria-label="邮箱">
+      <input id="rorg" type="text" placeholder="单位（选填）" aria-label="单位">
+      <input id="rpassword" type="password" autocomplete="new-password" placeholder="设置密码" aria-label="密码">
+      <textarea id="rreason" placeholder="申请理由（选填）" aria-label="申请理由"></textarea>
+      <button id="rbtn">提交注册</button>
+      <div id="rmsg" class="msg"></div>
+      <div class="switch"><a href="#" id="toLogin">已有账号？返回登录</a></div>
+    </div>
   </div>
 
+<script src="auth-config.js?v=cloud20261021"></script>
 <script>
 (function () {
   'use strict';
-  /* 全部内联：不依赖任何外部 JS，避免浏览器缓存旧版导致哈希对不上。
+  /* 云端模式需要的配置（URL/anonKey/模式开关）来自 auth-config.js。
+     本地模式时该文件里的 HRMA_AUTH_MODE='local'，下方逻辑自动回退到预置账号表。
      账号为预置列表 rmc001–rmc500（无自由注册）。哈希=密码 SHA-256，无法反推。 */
   var USERS = [
   {u:'rmc001',p:'e8334a47f7075332b41df7e754547e7023cfa32e45d8ca721b69f5052dcef732'},
@@ -623,12 +644,8 @@
     return;
   }
 
-  /* 账号 + 密码登录（匹配预置列表 USERS） */
-  btn.addEventListener('click', function () {
-    var acc = String(accEl.value || '').trim().toLowerCase();
-    var pw = String(pwEl.value || '').replace(/^\s+|\s+$/g, '');
-    if (!acc || !pw) { say('请填写账号和密码。', 'bad'); return; }
-    btn.disabled = true; btn.textContent = '验证中…'; say('');
+  /* 本地匹配（预置账号表），云端登录失败时的兜底 */
+  function localMatch(acc, pw) {
     sha256(pw).then(function (h) {
       for (var i = 0; i < USERS.length; i++) {
         if (USERS[i].u === acc && USERS[i].p === h) {
@@ -645,10 +662,123 @@
       if (window.console && console.error) console.error('[HRMA login]', e);
       say('登录失败，请稍后重试。', 'bad');
     });
+  }
+
+  /* 云端登录：走 Supabase 密码授权，成功签发 cloud: 会话 */
+  function cloudLogin(email, password) {
+    var C = window.HRMA_SUPABASE || {};
+    if (!C.url || !C.anonKey) return Promise.reject(new Error('no-cfg'));
+    return fetch(C.url + '/auth/v1/token?grant_type=password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', apikey: C.anonKey, Authorization: 'Bearer ' + C.anonKey },
+      body: JSON.stringify({ email: email, password: password })
+    }).then(function (r) {
+      return r.json().then(function (j) { return { ok: r.ok, j: j }; });
+    }).then(function (res) {
+      if (!res.ok || !res.j || !res.j.access_token) throw new Error('bad-cred');
+      var j = res.j;
+      return sha256('cloud:' + j.access_token).then(function (h) {
+        var s = {
+          email: (j.user && j.user.email) ? j.user.email : email,
+          name: (j.user && j.user.user_metadata && j.user.user_metadata.full_name) || email,
+          status: 'pending',
+          pwRef: 'cloud:' + h,
+          access_token: j.access_token,
+          issuedAt: Date.now(),
+          verifiedAt: 0
+        };
+        try { localStorage.setItem('hrma_session_v2', JSON.stringify(s)); } catch (e) {}
+        location.replace(safeTarget(qs('to') || 'index.html?t=nav1'));
+        return true;
+      });
+    });
+  }
+
+  /* 账号 + 密码登录：云端模式先试 Supabase，失败回退本地预置账号 */
+  btn.addEventListener('click', function () {
+    var acc = String(accEl.value || '').trim().toLowerCase();
+    var pw = String(pwEl.value || '').replace(/^\s+|\s+$/g, '');
+    if (!acc || !pw) { say('请填写账号和密码。', 'bad'); return; }
+    var C = window.HRMA_SUPABASE || {};
+    var cloud = (String(window.HRMA_AUTH_MODE || 'cloud') !== 'local')
+      && !!(C.url && C.anonKey && String(C.anonKey).indexOf('XXXX') < 0);
+    if (cloud) {
+      btn.disabled = true; btn.textContent = '验证中…'; say('');
+      cloudLogin(acc, pw).then(function (ok) {
+        if (ok) return;                  // 已重定向进站
+        localMatch(acc, pw);             // 云端失败 → 本地兜底（预置账号/恢复码仍可用）
+      }).catch(function () { localMatch(acc, pw); });
+      return;
+    }
+    localMatch(acc, pw);
   });
   [accEl, pwEl].forEach(function (el) {
     if (!el) return;
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter' && btn) btn.click(); });
+  });
+
+  /* ---------- 云端注册（仅云端模式显示） ---------- */
+  var C2 = window.HRMA_SUPABASE || {};
+  var cloudOn = (String(window.HRMA_AUTH_MODE || 'cloud') !== 'local')
+    && !!(C2.url && C2.anonKey && String(C2.anonKey).indexOf('XXXX') < 0);
+  var regToggle = document.getElementById('regToggle');
+  var regView = document.getElementById('regView');
+  var loginView = document.getElementById('loginView');
+  if (cloudOn && regToggle) regToggle.style.display = 'block';
+  var toReg = document.getElementById('toReg');
+  if (toReg) toReg.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (loginView) loginView.style.display = 'none';
+    if (regView) regView.style.display = 'block';
+  });
+  var toLogin = document.getElementById('toLogin');
+  if (toLogin) toLogin.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (regView) regView.style.display = 'none';
+    if (loginView) loginView.style.display = 'block';
+  });
+  var rbtn = document.getElementById('rbtn');
+  if (rbtn) rbtn.addEventListener('click', function () {
+    var remail = document.getElementById('remail');
+    var rpassword = document.getElementById('rpassword');
+    var rname = document.getElementById('rname');
+    var rorg = document.getElementById('rorg');
+    var rreason = document.getElementById('rreason');
+    var rmsg = document.getElementById('rmsg');
+    var email = String(remail.value || '').trim();
+    var pw = String(rpassword.value || '');
+    var name = String(rname.value || '').trim();
+    var org = String(rorg.value || '').trim();
+    var reason = String(rreason.value || '').trim();
+    if (!email || !pw) { rmsg.textContent = '请填写邮箱和密码。'; rmsg.className = 'msg bad'; return; }
+    if (!cloudOn) { rmsg.textContent = '当前为本地模式，不开放注册。'; rmsg.className = 'msg bad'; return; }
+    rbtn.disabled = true; rbtn.textContent = '提交中…'; rmsg.textContent = '';
+    var redir = location.origin + location.pathname.replace(/signin\.html.*/, 'confirm.html');
+    fetch(C2.url + '/auth/v1/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', apikey: C2.anonKey, Authorization: 'Bearer ' + C2.anonKey },
+      body: JSON.stringify({
+        email: email, password: pw,
+        options: {
+          emailRedirectTo: redir,
+          data: { full_name: name, org: org, role_text: '', phone: '', reason: reason }
+        }
+      })
+    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+    .then(function (res) {
+      rbtn.disabled = false; rbtn.textContent = '提交注册';
+      if (res.j && res.j.error) {
+        rmsg.textContent = '注册失败：' + (res.j.error.message || '未知错误');
+        rmsg.className = 'msg bad';
+        return;
+      }
+      rmsg.textContent = '注册成功，请等待管理员审核后登录。';
+      rmsg.className = 'msg ok';
+    }).catch(function () {
+      rbtn.disabled = false; rbtn.textContent = '提交注册';
+      rmsg.textContent = '提交失败，请检查网络后重试。';
+      rmsg.className = 'msg bad';
+    });
   });
 })();
 </script>
