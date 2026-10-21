@@ -754,8 +754,11 @@
     if (!cloudOn) { rmsg.textContent = '当前为本地模式，不开放注册。'; rmsg.className = 'msg bad'; return; }
     rbtn.disabled = true; rbtn.textContent = '提交中…'; rmsg.textContent = '';
     var redir = location.origin + location.pathname.replace(/signin\.html.*/, 'confirm.html');
+    var ctrl = ('AbortController' in window) ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 15000) : null;
     fetch(C2.url + '/auth/v1/signup', {
       method: 'POST',
+      signal: ctrl ? ctrl.signal : undefined,
       headers: { 'Content-Type': 'application/json', apikey: C2.anonKey, Authorization: 'Bearer ' + C2.anonKey },
       body: JSON.stringify({
         email: email, password: pw,
@@ -764,19 +767,31 @@
           data: { full_name: name, org: org, role_text: '', phone: '', reason: reason }
         }
       })
-    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
-    .then(function (res) {
+    }).then(function (r) {
+      if (timer) clearTimeout(timer);
+      return r.text().then(function (txt) {
+        var j = null; try { j = txt ? JSON.parse(txt) : null; } catch (e) {}
+        return { ok: r.ok, status: r.status, j: j, txt: txt };
+      });
+    }).then(function (res) {
       rbtn.disabled = false; rbtn.textContent = '提交注册';
       if (res.j && res.j.error) {
-        rmsg.textContent = '注册失败：' + (res.j.error.message || '未知错误');
-        rmsg.className = 'msg bad';
-        return;
+        rmsg.textContent = '注册失败：' + (res.j.error.message || ('HTTP ' + res.status));
+        rmsg.className = 'msg bad'; return;
+      }
+      if (!res.ok) {
+        rmsg.textContent = '注册失败（HTTP ' + res.status + '）：' + ((res.j && (res.j.msg || res.j.error_description)) || (res.txt || '').slice(0, 80) || '服务端异常');
+        rmsg.className = 'msg bad'; return;
       }
       rmsg.textContent = '注册成功，请等待管理员审核后登录。';
       rmsg.className = 'msg ok';
-    }).catch(function () {
+    }).catch(function (e) {
+      if (timer) clearTimeout(timer);
       rbtn.disabled = false; rbtn.textContent = '提交注册';
-      rmsg.textContent = '提交失败，请检查网络后重试。';
+      var m = (e && e.name === 'AbortError')
+        ? '连接超时（15 秒无响应）'
+        : ('网络错误：' + ((e && e.message) || '无法连接到登录服务器'));
+      rmsg.textContent = m + '。若反复失败，可能是登录服务器在境外、当前网络暂不可达。';
       rmsg.className = 'msg bad';
     });
   });
