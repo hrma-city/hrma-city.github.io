@@ -10,8 +10,47 @@
     var m = location.search.match(/[?&]id=([^&]+)/);
     return m ? m[1] : null;
   }
-  var ep = eps.filter(function(e){return e.id===getId();})[0];
-  if(!ep && eps.length){ ep = eps[0]; }   // 无 id 时默认播放第一集（适配机房版裸链接 / 直接打开）
+
+  // 无 ?id：展示选集列表，让学生自选（适配机房版裸链接 / 直接打开）
+  function renderChooser(){
+    if(!eps.length){
+      wrap.innerHTML = '<p style="color:var(--ink-3)">暂无可播放的微课内容。</p>';
+      return;
+    }
+    var groups = {};
+    eps.forEach(function(e){
+      var k = e.part || 'other';
+      (groups[k] = groups[k] || []).push(e);
+    });
+    var html = '<div class="ply-chooser">'
+      + '<h1>各个击破 · 微课堂</h1>'
+      + '<p class="ply-sub">任选一集播放：每集约 1 分钟，自动播放插画动画，可开启语音解说、暂停或跳集。</p>';
+    Object.keys(groups).forEach(function(key){
+      var p = partName[key] || {name:'其他', icon:'◆'};
+      html += '<div class="ch-group"><h2>'+p.icon+' '+p.name+'</h2><div class="ch-grid">';
+      groups[key].forEach(function(e){
+        html += '<a class="ch-item" href="gejijipo-player.html?id='+encodeURIComponent(e.id)+'">'
+          + '<span class="ch-t">'+e.title+'</span>'
+          + '<span class="ch-e">'+e.en+'</span>'
+          + '<span class="ch-tag">'+e.tag+'</span>'
+          + '</a>';
+      });
+      html += '</div></div>';
+    });
+    html += '</div>';
+    wrap.innerHTML = html;
+  }
+
+  var reqId = getId();
+  var ep = eps.filter(function(e){return e.id===reqId;})[0];
+  if(!ep && reqId){
+    wrap.innerHTML = '<p style="color:var(--ink-3)">未找到该集。<a href="gejijipo.html">返回各个击破</a></p>';
+    return;
+  }
+  if(!ep && !reqId){
+    renderChooser();
+    return;
+  }
   if(!ep){
     wrap.innerHTML = '<p style="color:var(--ink-3)">暂无可播放的微课内容。</p>';
     return;
