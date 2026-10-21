@@ -145,7 +145,7 @@ alter table public.replies enable row level security;
 alter table public.cases   enable row level security;
 
 do $$
-declare admin_emails text[] := array['rm-community@qq.com','3984557428@qq.com'];
+declare admin_emails text[] := array['rm-community@qq.com'];
 begin
   -- posts：任何人可读已发布内容
   drop policy if exists posts_select on public.posts;

@@ -28,7 +28,7 @@
 (function () {
   'use strict';
 
-  var ADMIN_EMAIL = '3984557428@qq.com';
+  var ADMIN_EMAIL = 'rm-community@qq.com';
 
   /* ⚠️ 这里曾放管理员密码的哈希 —— 那等于把密码公开，已彻底移除。
      原因：密码是低熵的，攻击者拿到哈希后可离线字典爆破；即使爆破不出，

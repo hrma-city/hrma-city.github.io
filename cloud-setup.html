@@ -143,13 +143,13 @@ create policy "read own" on public.profiles
 drop policy if exists "admin read all" on public.profiles;
 create policy "admin read all" on public.profiles
   for select to authenticated
-  using ((auth.jwt() ->> 'email') = '3984557428@qq.com');
+  using ((auth.jwt() ->> 'email') = 'rm-community@qq.com');
 
 drop policy if exists "admin update" on public.profiles;
 create policy "admin update" on public.profiles
   for update to authenticated
-  using ((auth.jwt() ->> 'email') = '3984557428@qq.com')
-  with check ((auth.jwt() ->> 'email') = '3984557428@qq.com');
+  using ((auth.jwt() ->> 'email') = 'rm-community@qq.com')
+  with check ((auth.jwt() ->> 'email') = 'rm-community@qq.com');
 
 -- 5) 新用户注册自动建 pending 记录；管理员邮箱自动 approved
 create or replace function public.handle_new_user()
@@ -163,7 +163,7 @@ begin
     new.id,
     new.email,
     coalesce(new.raw_user_meta_data->>'full_name',''),
-    case when new.email = '3984557428@qq.com' then 'approved' else 'pending' end,
+    case when new.email = 'rm-community@qq.com' then 'approved' else 'pending' end,
     now()
   )
   on conflict (email) do update set status = excluded.status;

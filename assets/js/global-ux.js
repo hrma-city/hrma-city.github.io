@@ -492,7 +492,12 @@
   /* ============ 初始化 ============ */
   function init() {
     compileGloss();
-    buildDrawer();
+    /* 2026-10-21 清理：老版“目录抽屉/侧栏”（含“随时跳转到任意板块”标语与
+       首页/学院/资源/书籍/各个击破/游戏/认证/专家/会员/基准/社区/资讯/行业矩阵
+       板块列表）已废弃，与 site-nav.js 的现五馆顶栏重复/冲突，停用注入。
+       仅停用老侧栏；名词解释浮窗、法典表 X 自动链接、表格内联预览等其余
+       功能（highlightTerms / linkifyCodex / initTablePreview）保持原样。 */
+    // buildDrawer();
     highlightTerms();
     linkifyCodex();
     wireGlossEvents();

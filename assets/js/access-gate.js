@@ -23,7 +23,7 @@
 (function () {
   'use strict';
 
-  var ADMIN_EMAIL = '3984557428@qq.com';
+  var ADMIN_EMAIL = 'rm-community@qq.com';
   var KEY_SESSION = 'hrma_session_v2';   // 登录态：{email, name, status, pwRef, issuedAt, verifiedAt}
   var KEY_LEGACY = 'hrma_gate_v1';       // 旧版「只输邮箱」凭证，需清理
   var KEY_LOCALLIST = 'hrma_approved_local'; // 本地降级模式的已通过名单

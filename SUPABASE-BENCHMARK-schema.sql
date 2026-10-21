@@ -61,7 +61,7 @@ alter table public.benchmark_points enable row level security;
 
 do $$
 declare
-  admin_emails text[] := array['rm-community@qq.com','3984557428@qq.com'];
+  admin_emails text[] := array['rm-community@qq.com'];
 begin
   -- 本人可读自己的全部（含被驳回的）
   drop policy if exists bp_read_own on public.benchmark_points;

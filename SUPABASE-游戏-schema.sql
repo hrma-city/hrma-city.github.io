@@ -60,7 +60,7 @@ alter table public.game_rounds  enable row level security;
 
 do $$
 declare
-  admin_emails text[] := array['rm-community@qq.com','3984557428@qq.com'];
+  admin_emails text[] := array['rm-community@qq.com'];
 begin
   -- rooms：公开可读（大厅展示）；登录可建（host=自己）；房主/管理员可改
   drop policy if exists gr_read on public.game_rooms;
@@ -74,9 +74,9 @@ begin
   create policy gr_update on public.game_rooms
     for update to authenticated
     using  (auth.uid() = host
-            or (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']))
+            or (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']))
     with check (auth.uid() = host
-            or (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']));
+            or (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']));
 
   -- players：公开可读（大厅人数 / 排行榜）；本人可写自己；房主 / 管理员可管
   drop policy if exists gp_read on public.game_players;
@@ -87,10 +87,10 @@ begin
     for all to authenticated
     using  (auth.uid() = user_id
             or auth.uid() = (select host from public.game_rooms where id = room_id)
-            or (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']))
+            or (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']))
     with check (auth.uid() = user_id
             or auth.uid() = (select host from public.game_rooms where id = room_id)
-            or (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']));
+            or (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']));
 
   -- rounds：公开可读（复盘）；房主 / 管理员可写
   drop policy if exists grd_read on public.game_rounds;
@@ -100,9 +100,9 @@ begin
   create policy grd_write on public.game_rounds
     for all to authenticated
     using  (auth.uid() = (select host from public.game_rooms where id = room_id)
-            or (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']))
+            or (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']))
     with check (auth.uid() = (select host from public.game_rooms where id = room_id)
-            or (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']));
+            or (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']));
 end $$;
 
 /* ---------------- 5. 授权 ---------------- */

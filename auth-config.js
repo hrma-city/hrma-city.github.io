@@ -18,7 +18,7 @@
 
    ⚠️ 2026-10-13 改回 'local' 的原因：云端 Supabase 免费项目已闲置暂停（探活 HTTP 000），
    整道门悬空。当前需求是「仅站长可见」，不需要给外人开账号，故切本地模式，
-   彻底摆脱对外部服务的依赖。站长邮箱 3984557428@qq.com 登录即自动放行，
+   彻底摆脱对外部服务的依赖。站长邮箱 rm-community@qq.com 登录即自动放行，
    其他人即便在 signin 页点注册，也只会被卡在「待审核」、永远进不来。
    纯静态站点固有限制：懂技术的人仍可用 curl/查看源码扒到 HTML，
    要做到文件级真加密须迁腾讯云服务器（带访问网关），此处只挡普通访客。 */
@@ -38,9 +38,10 @@ window.HRMA_SUPABASE = {
 };
 
 /* 管理员邮箱（拥有审批权限）。多个用逗号分隔。
-   同时保留新旧两个邮箱，兼容数据库里可能仍是旧策略的情况。
-   数据库侧 profiles_admin_all 策略请见 supabase-setup.md（已支持这两个邮箱）。 */
-window.HRMA_ADMIN_EMAILS = ["rm-community@qq.com", "3984557428@qq.com"];
+   三者均为站长本人可控的 QQ 邮箱（community 与 rm 为同一邮箱的别名，coach 亦为站长邮箱），
+   任一均可登录并被前端识别为管理员、数据库触发器自动 approved。
+   数据库侧 profiles_admin_all / handle_new_user 策略已同步支持这三个邮箱（见 _update_admin.py）。 */
+window.HRMA_ADMIN_EMAILS = ["rm-community@qq.com", "rm-coach@qq.com"];
 
 /* 联系邮箱（页面展示用） */
 window.HRMA_CONTACT_EMAIL = "rm-community@qq.com";

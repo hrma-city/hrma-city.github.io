@@ -13,7 +13,7 @@
  *   supabase/functions/payment-create/index.ts   —— 创建支付（分发微信/支付宝/Stripe）
  *   supabase/functions/payment-webhook/index.ts  —— 支付回调（验签 + 调 complete_payment）
  *
- * 管理员邮箱与本社区一致：rm-community@qq.com / 3984557428@qq.com
+ * 管理员邮箱与本社区一致：rm-community@qq.com / rm-community@qq.com
  * ========================================================================== */
 
 /* ---------------- 1. orders 扩展 ---------------- */
@@ -47,8 +47,8 @@ create policy payments_owner_read on public.payments
 drop policy if exists payments_admin on public.payments;
 create policy payments_admin on public.payments
   for all to authenticated
-  using ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) )
-  with check ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) );
+  using ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']) )
+  with check ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']) );
 
 grant select on public.payments to authenticated;
 

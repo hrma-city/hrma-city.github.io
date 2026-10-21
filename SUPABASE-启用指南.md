@@ -26,12 +26,12 @@
 打开 Supabase 控制台 → **SQL Editor** → 新建查询，粘贴下面整段执行（幂等，可重复跑）：
 
 ```sql
--- 让 rm-community@qq.com 与 3984557428@qq.com 都拥有管理员权限
+-- 让 rm-community@qq.com 与 rm-community@qq.com 都拥有管理员权限
 drop policy if exists "profiles_admin_all" on public.profiles;
 create policy "profiles_admin_all" on public.profiles
   for all to authenticated
-  using ( (select auth.jwt() ->> 'email') in ('rm-community@qq.com','3984557428@qq.com') )
-  with check ( (select auth.jwt() ->> 'email') in ('rm-community@qq.com','3984557428@qq.com') );
+  using ( (select auth.jwt() ->> 'email') in ('rm-community@qq.com') )
+  with check ( (select auth.jwt() ->> 'email') in ('rm-community@qq.com') );
 ```
 
 > 若执行报 `relation "profiles" does not exist`，说明表还没建——请先到 `supabase-setup.md` 第 3 步执行「建表 + 触发器 + 权限」整段 SQL，再回来跑上面的策略。
@@ -56,7 +56,7 @@ create policy "profiles_admin_all" on public.profiles
    - 在「待审核」里找到自己的申请，点 **通过**。
 6. 退出登录再重新登录，或刷新 `curriculum.html` → 即可进入全部受保护内容。
 
-> 备用方案：若上述后台读不到列表（说明数据库策略仍是旧邮箱），改用 `3984557428@qq.com` 走同一流程，或先执行 1.1 的 SQL。
+> 备用方案：若上述后台读不到列表（说明数据库策略仍是旧邮箱），改用 `rm-community@qq.com` 走同一流程，或先执行 1.1 的 SQL。
 
 ---
 

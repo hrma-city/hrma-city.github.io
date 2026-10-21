@@ -72,7 +72,7 @@ set search_path = public
 as $$
 declare
   v_order public.orders;
-  admin_emails text[] := array['rm-community@qq.com','3984557428@qq.com'];
+  admin_emails text[] := array['rm-community@qq.com'];
   v_email text := auth.jwt() ->> 'email';
 begin
   if v_email is null or not (v_email = any(admin_emails)) then

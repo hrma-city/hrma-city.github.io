@@ -47,7 +47,7 @@
     ['about.html', '关于学院'],
     ['contact.html', '联系我们']
   ];
-  var ADMIN_EMAIL = '3984557428@qq.com';
+  var ADMIN_EMAIL = 'rm-community@qq.com';
   var STU = /^m(\d\d)\.html$/;
 
   var file = (location.pathname.split('/').pop() || 'index.html').toLowerCase();

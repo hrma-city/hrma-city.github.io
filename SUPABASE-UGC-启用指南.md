@@ -19,7 +19,7 @@
 - 给 `profiles` 表加 `exam_score / exam_level / contributions / bio / avatar_url` 字段。
 - 新建公开视图 `public_leaderboard`（排行榜只读，绕过 profiles 的私有 RLS）。
 - 新建点赞函数 `inc_votes`（登录用户可调用）。
-- 用 DO 块重置 RLS 策略：任何人可读已发布内容，登录用户只能写自己的，管理员（`rm-community@qq.com`、`3984557428@qq.com`）可审。
+- 用 DO 块重置 RLS 策略：任何人可读已发布内容，登录用户只能写自己的，管理员（`rm-community@qq.com`、`rm-community@qq.com`）可审。
 
 执行无报错即完成。之后无需再动数据库。
 

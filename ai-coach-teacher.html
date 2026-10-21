@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>教师备课教练 · AI 分身（判定表驱动）</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--gold2:#f5d78e;--ink:#1f2a37;--mut:#5b6a7d;
+  --ok:#2a9d5f;--blue:#3d8bd4;--red:#c0503f;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+.topbar{height:58px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;position:sticky;top:0;z-index:30}
+.topbar b{color:var(--navy);font-size:16px}
+.topbar .tag{margin-left:10px;font-size:12px;color:#7a5b00;background:#fff8e6;border:1px solid #ecd9a0;border-radius:12px;padding:2px 10px}
+.topbar .restart{margin-left:auto;font-size:13px;color:var(--navy);cursor:pointer;border:1px solid var(--line);border-radius:8px;padding:5px 12px;background:#fff}
+.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;height:calc(100vh - 58px)}
+.msgs{flex:1;overflow:auto;padding:18px 16px 6px}
+.row{display:flex;flex-direction:column}
+.bubble{max-width:84%;padding:10px 14px;border-radius:15px;margin:7px 0;font-size:14px;line-height:1.7;word-break:break-word}
+.bubble b{color:var(--navy)}
+.coach{background:#fff;border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
+.user{background:var(--navy);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.bubble ol{margin:6px 0 0 18px;padding:0}
+.bubble ul{margin:6px 0 0 18px;padding:0}
+.quick{display:flex;gap:8px;flex-wrap:wrap;padding:2px 16px 6px}
+.qchip{background:#eef4fa;color:var(--navy);border:1px solid #cdd9e8;border-radius:18px;padding:6px 13px;font-size:13px;cursor:pointer}
+.qchip:hover{background:#dce9f6}
+.qchip.m{background:#fff8e6;border-color:#ecd9a0;color:#7a5b00}
+.inputbar{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--line);background:#fff}
+.inputbar input{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit}
+.btn{background:var(--navy);color:#fff;border:0;border-radius:10px;padding:0 18px;font:inherit;cursor:pointer}
+.foot{text-align:center;color:var(--mut);font-size:11.5px;padding:6px 0 12px}
+.src{display:inline-block;font-size:11.5px;color:#fff;background:var(--blue);border-radius:5px;padding:1px 7px;margin:2px 4px 2px 0;text-decoration:none}
+.src:hover{background:#2f74b8}
+.note{background:#eef6f1;border:1px solid #c4e2d0;border-radius:8px;padding:8px 12px;font-size:12.5px;color:#2c6e48;margin-top:8px}
+.warn{background:#fdf1ef;border:1px solid #eecac4;border-radius:8px;padding:8px 12px;font-size:12.5px;color:#8a3a2e;margin-top:8px}
+a.eng{color:var(--navy)}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。","email":"rm-community@qq.com","areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+</head>
+<body data-page="ai-coach-teacher">
+<div class="topbar">
+  <b>教师备课教练</b><span class="tag">AI 分身 · 判定表驱动</span>
+  <span class="restart" id="restart">重新开始</span>
+</div>
+<div class="wrap">
+  <div class="msgs" id="msgs"></div>
+  <div class="quick" id="quick"></div>
+  <div class="inputbar">
+    <input id="inp" placeholder="问我备课问题，例如：超售那节怎么讲学生才有感觉？/ 竞品降价30%让学生查哪张表？/ 这道题答案为什么是B？" autocomplete="off">
+    <button class="btn" id="send">发送</button>
+  </div>
+</div>
+<div class="foot">判定表驱动的教学备课教练 · 回答必带出处（章节 / 表号 / 题库）· 门内页面</div>
+
+<!-- 15 张判定表元数据（与 jt-engine / jt-coach 同源，供"查哪张表"定位；深算请到判定表引擎） -->
+<script>
+const JT = [
+ {id:"JT-A",code:"表 A",title:"每日价格调整判定表",domain:"价格",scene:"每日 09:10 调价前，按预测 OCC 与 Pickup 偏差定 BAR 动作",
+  logic:"行＝预测 OCC、列＝Pickup 偏差，查矩阵得价格动作；与表 B 配套，受表 O 优先级约束（价格优先级 3）",
+  path:"先选『预测 OCC』落在哪一档（≥95 / 85-95 / 70-85 / …），再选『Pickup 偏差』（领先>10% / 持平 / 落后…），交叉格＝价格动作",
+  basis:"OCC 分母＝可售房晚；单日同方向累计≤20%，每次≥3% 才有市场感知；D1 峰值日须 L3 审批",
+  pitfalls:"调价后 30min 核查 OTA 挂牌价；每次写入《调价台账》注明依据表 A；不得与表 C 叠加",
+  rel:["JT-B","JT-O"],ch:"第5章 动态定价、第2章 指标体系"},
+ {id:"JT-B",code:"表 B",title:"库存与限制条件配置表",domain:"库存",scene:"价格定完后立即配置当日库存限制条件",
+  logic:"按预测 OCC 配置 MinLOS / CTA / 低价渠道 Stop Sell / 超额预订；库存动作优先级高于价格（表 O 优先级 2）",
+  path:"按『预测 OCC』档次直接读该行：MinLOS、CTA、渠道关停、超售额度",
+  basis:"房量安全永远比多卖 20 块钱重要；满房日一过立即撤限制",
+  pitfalls:"所有限制条件必须设到期自动解除；满房日一过 MinLOS/CTA 要立刻撤，否则次日莫名挡单",
+  rel:["JT-E","JT-A"],ch:"第6章 库存与限制条件"},
+ {id:"JT-C",code:"表 C",title:"价格指数（ARI）判定表",domain:"竞争",scene:"评估本店价格相对竞争组合高低时",
+  logic:"按 ARI 七档判定，偏高/偏低则调价；不得与表 A 叠加（表 A 优先级 3 > 表 C 优先级 4）",
+  path:"先算 ARI＝本店ADR ÷ 竞争组合加权ADR ×100，落到七档之一读动作",
+  basis:"比价须五同：同入住日、同房型、同含早、同取消政策、同提前天数",
+  pitfalls:"ARI 调整每次≤8%、每周≤2 次；五同比价否则算废数",
+  rel:["JT-D","JT-O"],ch:"第12章 竞争分析、第2章 指标体系"},
+ {id:"JT-D",code:"表 D",title:"市场渗透指数（MPI）判定表",domain:"竞争",scene:"评估本店市场份额是否达标时",
+  logic:"按 MPI 五档判定份额；偏诊断少出动作（表 O 优先级最低 6）；与 ARI 配合做三角诊断",
+  path:"算 MPI＝本店OCC ÷ 竞争组合OCC ×100，落到五档读动作；联合 ARI 做三角诊断",
+  basis:"三角诊断：MPI高+ARI高＝还能提；MPI高+ARI低＝该收割；MPI低+ARI高＝太贵；MPI低+ARI低＝产品/口碑问题",
+  pitfalls:"单独看 MPI 或 ARI 都会误判，需三角诊断一起看",
+  rel:["JT-C","JT-O"],ch:"第12章 竞争分析、第2章 指标体系"},
+ {id:"JT-E",code:"表 E",title:"超额预订标准表",domain:"库存",scene:"表 B 判定可超售后，计算当日超售间数",
+  logic:"三步走：查基准率 → 乘修正系数 → 卡硬上限（≤5% 且 ≤15 间；步行 30min 内无同档备用酒店再减半）",
+  path:"按『No-show+24h取消 合计』查基准率 → 乘峰值/担保/团队/协议修正系数 → 向下取整得超售间数 → 卡硬上限",
+  basis:"超售间数＝可售房量 × 超售率（向下取整）",
+  pitfalls:">30% 基准率须 L3 审批；硬上限三条须同时满足；到店无房走表 L《步行客人预案》",
+  rel:["JT-B","JT-L"],ch:"第7章 超额预订"},
+ {id:"JT-F",code:"表 F",title:"房型价差阶梯表",domain:"价格",scene:"设定或每周校验全房型价格体系时",
+  logic:"以高级房 BAR 为基准 100，各房型按系数自动生成；每周一价差校验",
+  path:"以高级房 BAR（基准100）为锚，按系数生成各房型价；校验相邻价差 8–35%、套房与最高非套房差 <60%",
+  basis:"系数：标准85/高级100/豪华120/江景140/行政145/商务套180/行政套265",
+  pitfalls:"相邻价差<8% 白送利润；>35% 中间档卖不动；套房是利润品不能贱卖；大床/双床同价",
+  rel:[],ch:"第14章 价格体系设计"},
+ {id:"JT-G",code:"表 G",title:"团队／协议询价接受判定表",domain:"客户",scene:"销售提交团队/协议询价，判断是否接受",
+  logic:"行＝比率 R、列＝预测 OCC，查矩阵得接受/上报 L3/拒绝；全服务酒店会议团队算综合贡献可破例",
+  path:"算 R＝团队报价 ÷ 该日预期散客ADR，落到矩阵（R 行 × OCC 列）读决策",
+  basis:"置换成本＝被挤占房晚×(预期散客ADR−团队价)+被挤占餐饮/其他边际收益；综合贡献≥占用房晚×预期散客ADR×85% 可破例（须 L3 审批）",
+  pitfalls:"不凭感觉查表；全服务酒店会议团队看综合贡献而非仅 R；R<55% 但综合贡献达标且 L3 审批可接",
+  rel:["JT-K"],ch:"第10章 团队与协议、第11章 会议宴会"},
+ {id:"JT-H",code:"表 H",title:"渠道开关判定表",domain:"渠道",scene:"按目标日预测 OCC 决定各渠道开关状态",
+  logic:"房好卖关贵渠道、难卖全开；各渠道按 OCC 档位定开关；用 NRevPAR 看渠道净收益",
+  path:"按『预测 OCC』档位读各渠道（OTA国内/OTA国际/GDS/批发/直销）开关状态",
+  basis:"NRevPAR＝RevPAR×(1−渠道综合成本率)；成本率：直销3%/会员4%/协议8%/GDS13%/OTA国内16%/OTA国际18%/批发26%",
+  pitfalls:"价格一致性四条红线：直销价不得高于任一 OTA；会员价仅登录会员可见；批发/包房价为净价不公开；违反应 24h 内整改",
+  rel:["JT-O"],ch:"第8章 渠道管理"},
+ {id:"JT-I",code:"表 I",title:"预订窗口分档监控表",domain:"节奏",scene:"按提前天数分档监控预订进度",
+  logic:"六档窗口（0-3/4-7/8-14/15-30/31-60/>60 天）各有监控频率/关注指标/落后触发阈值/触发动作",
+  path:"按『提前天数』落到六档之一，读该档的监控频率、落后阈值与触发动作",
+  basis:"真正赚钱的决策在 15-60 天窗口就做完了；等到只剩 3 天才发现没房只能降价",
+  pitfalls:"只盯近期不盯远期；每天至少花 10 分钟看 15 天以后的在手量",
+  rel:[],ch:"第3章 需求预测、第13章 预测方法深化"},
+ {id:"JT-J",code:"表 J",title:"免费升级规则表",domain:"库存",scene:"超售腾房 / 高档房空置>20% / 会员权益兑现 三种场景需升级时",
+  logic:"严格按执行顺序排优先级：①忠诚等级 ②同档内预订价高者 ③同价住期长者 ④仍相同复购多者；每次最多升 1 档",
+  path:"按四步优先级依次排序，选出本次升级对象；每次最多升 1 档，禁止连跳 2 档",
+  basis:"升级是成本最低的满意度工具，但必须用规则管住",
+  pitfalls:"每次最多升 1 档（除 L3 特批）；套房升级每日≤3 间须 L3 审批；每次升级写入《升级台账》",
+  rel:["JT-E"],ch:"第6章 库存与限制条件、第9章 客源细分"},
+ {id:"JT-K",code:"表 K",title:"会议／宴会综合收益联动表",domain:"客户",scene:"全服务酒店评估会议/宴会团队是否接受",
+  logic:"先问餐饮/宴会承接能力 → 再算综合贡献 → 最后才查表 G 看客房比率；按规模定接受底线",
+  path:"先算综合贡献＝客房+餐饮+会场+设备，再与『客房置换成本×系数』比较，按会议规模定底线",
+  basis:"接受底线＝综合贡献 ≥ 客房置换成本 × 系数（小1.1/中1.0/大0.95/超大0.9+L3审批）",
+  pitfalls:"餐饮毛利率<55% 的会议须 L3 审批；勿一上来就用表 G 拒会议，白白丢掉十几万餐饮收入",
+  rel:["JT-G"],ch:"第11章 会议宴会"},
+ {id:"JT-L",code:"表 L",title:"异常事件应急判定表",domain:"应急",scene:"发生五类异常事件之一（需求暴跌/暴涨/竞对新开/系统故障/超售过度）",
+  logic:"本表优先级 1 覆盖一切；按事件类型执行 2h 内动作/24h 动作/复盘；超售过度走《步行客人预案》四步",
+  path:"先判事件类型，读该类型『2h内动作/24h动作/复盘』；超售过度执行步行预案四步",
+  basis:"步行客人预案：①同档/更高档酒店+差价交通费 ②下次免费升1档+双早 ③会员额外5000积分 ④总经理致歉信+值班经理跟进",
+  pitfalls:"步行客人预案四步按序执行不得跳步；处理得当复购率高于普通客人",
+  rel:["JT-E","JT-O"],ch:"第21章 危机与极端场景"},
+ {id:"JT-M",code:"表 M",title:"每日收益操作流水线（时间表）",domain:"节奏",scene:"L1 每日收益操作流程（07:30–17:00）",
+  logic:"严格按时间表九步：抓数据→抓在手→采竞争价→查表A/B/C/H出动作→执行→核查→写台账→晨会→二次巡检；10:30 前完成且每项注明依据表 X",
+  path:"按 07:30→17:00 九个时点依次执行，每步标注『依据表 X』",
+  basis:"L1 必须背下来的流程；照着走完一天工作就做完了",
+  pitfalls:"每项动作须标注『依据表 X』；合格标准＝10:30 前完成 + 清单全标注",
+  rel:["JT-A","JT-B","JT-C","JT-H"],ch:"第15章 收益例会、第16章 报表与台账"},
+ {id:"JT-N",code:"表 N",title:"周度／月度节奏表",domain:"节奏",scene:"周期性（周/月/季/年）收益动作",
+  logic:"按周期执行固定动作：周一价差校验/周三深度比价/周五周末作战/月1复盘/月5渠道/月10汇报/季重构/年9预算",
+  path:"按当前周期节点（周一/周三/周五/每月1/5/10日/每季/每年9月）读对应动作与产出物",
+  basis:"漏掉任一项体系就会出现漏洞",
+  pitfalls:"周期性动作不可漏；每周一必做房型价差校验（表 F）",
+  rel:["JT-F"],ch:"第15章 收益例会、第18章 组织与岗位"},
+ {id:"JT-O",code:"表 O",title:"决策优先级与冲突仲裁表",domain:"应急",scene:"多张表给出不同动作时",
+  logic:"严格按优先级（1应急L>2库存B>3价格A>4竞争C>5渠道H>6份额D）执行最高那条，其余记入《观察清单》；最高为『维持』则顺延下一优先级",
+  path:"把相互冲突的表列出来，按 L>B>A>C>H>D 排优先级，只执行最高那条",
+  basis:"优先级表覆盖全部 15 张表；有了它学员永远不会卡住",
+  pitfalls:"同日只执行最高优先级一条；最高为维持则顺延下一优先级；所有冲突与取舍必须写入《调价台账》备注栏",
+  rel:["JT-A","JT-B","JT-C","JT-D","JT-H","JT-L"],ch:"第5章 动态定价（综述）、第15章 收益例会"}
+];
+
+// ---- 备课 KB（怎么讲） ----
+const TEACH = [
+ {k:"库存易逝",ch:"第1章 什么是收益管理",rel:[],
+  mist:"学生把『库存易逝』记成『房间会旧』，以为只是物理折旧，没体会『今晚卖不掉价值永久归零』。",
+  fix:"课堂动作：先让学生算一笔账——一间本可卖 680 的房以 320 卖掉，损失的是 360 纯利；再用『衣服能囤到明年、房晚不能』类比，最后落到『这就是收益管理存在的理由』一句话收口。"},
+ {k:"指标关系",ch:"第2章 指标体系",rel:["表 A","表 C","表 D"],
+  mist:"学生把 OCC、ADR、RevPAR 当成三个独立数，不会用 RevPAR＝OCC×ADR 互相验证；RGI/ARI/MPI 三指数经常张冠李戴。",
+  fix:"课堂动作：给一组真实数据让学生反推——已知 RevPAR 和 ADR 求 OCC；再把 ARI、MPI、RGI 写成『MPI×ARI＝RGI』三角，让学生用一张图定位本店在哪一角（贵不贵、卖不卖得动）。"},
+ {k:"需求预测",ch:"第3章 需求预测",rel:["表 I"],
+  mist:"学生以为预测＝拍脑袋，或把『预测』和『在手量』混为一谈；不理解为啥要提前 15-60 天就决策。",
+  fix:"课堂动作：用云璟 90 天数据，让学生对比『上月今日预测』和『实际」，算预测偏差；再演示 15-60 天窗口的 Pickup 曲线，说明『真赚钱的决策在那个窗口就做完了』。"},
+ {k:"价格弹性",ch:"第4章 价格弹性与定价基础",rel:[],
+  mist:"学生以为『降价一定多卖、涨价一定少卖』，不懂弹性因客群而异（商务客刚性、游客弹性大）。",
+  fix:"课堂动作：把同一间房卖给两类人——商务客临时出差（公司买单，680 不眨眼）vs 游客提前规划（自掏腰包，只愿 320）；引出『同样是房，价值因人而异』，再讲细分定价的前提。"},
+ {k:"每日调价",ch:"第5章 动态定价",rel:["表 A","表 O"],
+  mist:"学生把调价当『想涨就涨』，不懂先读预测 OCC、再读 Pickup 偏差这两步；更不懂同日只执行最高优先级一条。",
+  fix:"课堂动作：用表 A 矩阵让学生动手查——预测 OCC 95%、Pickup 领先 10% 落在哪一格（↑20%）；再强调『每次≥3% 才有市场感知、单日累计≤20%』，并写在台账里注明依据表 A。"},
+ {k:"库存限制",ch:"第6章 库存与限制条件",rel:["表 B","表 J"],
+  mist:"学生以为限制条件『设了就完事』，不懂『满房日一过必须撤 MinLOS/CTA』，否则次日莫名挡单；也不知道库存优先级高于价格。",
+  fix:"课堂动作：用表 B 让学生按预测 OCC 读 MinLOS/CTA/渠道关停；再给一个『设了没撤，第二天被销售骂』的真实事故，强调『所有限制条件设到期自动解除』。"},
+ {k:"超额预订",ch:"第7章 超额预订",rel:["表 E","表 L"],
+  mist:"学生把超售当成『故意多卖坑客人』，恐惧且算不清到底超几间；不懂硬上限与步行预案。",
+  fix:"课堂动作：用表 E 三步法实算——No-show+取消合计 15%→基准3%→乘峰值系数→320间向下取整得 4 间；再讲硬上限（≤5%且≤15间）和『到店无房走步行预案四步』，把恐惧转成可算的规则。"},
+ {k:"渠道成本",ch:"第8章 渠道管理",rel:["表 H"],
+  mist:"学生只看『卖出去就行』，不懂各渠道成本率差出 23 个点（直销3% vs 批发26%），也不懂 NRevPAR。",
+  fix:"课堂动作：用表 H 成本率让学生算同一间房在不同渠道的净收入（直销530×0.97 vs OTA600×0.84），引出 NRevPAR；再讲价格一致性四条红线。"},
+ {k:"客源细分",ch:"第9章 客源细分",rel:["表 J"],
+  mist:"学生以为细分＝『分个类』，不懂细分是定价的前提，也不懂会员升级的优先级规则。",
+  fix:"课堂动作：用『价格弹性』那节的商务客/游客案例，说明『不细分就只能定一个价、两头都亏』；顺带用表 J 讲免费升级的四步优先级（忠诚>房价>住期>复购）。"},
+ {k:"团队协议",ch:"第10章 团队与协议",rel:["表 G"],
+  mist:"学生凭感觉接或不接团队，不会算 R＝团队报价÷散客ADR，更不懂置换成本。",
+  fix:"课堂动作：用表 G 矩阵，给学生一个『80 间夜、报价散客价 8 折、当天 OCC 80%』的询价，让其查格得出『接受（≤30间）』；再讲置换成本＝被挤占房晚×价差。"},
+ {k:"会议宴会",ch:"第11章 会议宴会",rel:["表 K","表 G"],
+  mist:"学生只盯着客房，一见会议团队占房就拒，白白丢掉十几万餐饮收入；不懂综合贡献。",
+  fix:"课堂动作：用表 K 算一笔『80人会议、餐饮保底3万、客房置换成本2万』的综合贡献，证明『即使 R 偏低，综合贡献达标也能接』；强调『先算餐饮再查表 G』。"},
+ {k:"竞争比价",ch:"第12章 竞争分析",rel:["表 C","表 D"],
+  mist:"学生比价不守『五同』（同房型/同含早/同取消政策/同提前天数/同入住日），算出一堆废数还当真。",
+  fix:"课堂动作：故意给一组『不同房型、不同含早』的竞品价，让学生算出 ARI 后指出『这是废数』；再练一次五同下的正确 ARI，并联合 MPI 做三角诊断。"},
+ {k:"价格体系",ch:"第14章 价格体系设计",rel:["表 F"],
+  mist:"学生以为各房型随便定价，不懂以高级房 BAR 为基准 100 的系数体系，也不懂相邻价差 8-35% 的红线。",
+  fix:"课堂动作：用表 F 系数（标准85/高级100/豪华120/…）让学生生成一套房价；再演示『相邻价差<8% 白送利润、>35% 中间档卖不动』两个反例。"},
+ {k:"收益例会",ch:"第15章 收益例会",rel:["表 M","表 N"],
+  mist:"学生以为例会是『念数据』，不懂 10:30 前完成、每项标注依据表 X 的硬性要求。",
+  fix:"课堂动作：用表 M 九步时间表，让学生排一遍某工作日 07:30-17:00 的动作，每步写在『依据表 X』；再讲表 N 的周/月节奏，说明『漏一项体系就漏一处』。"},
+ {k:"报表台账",ch:"第16章 报表与台账",rel:["表 M"],
+  mist:"学生觉得写台账是『行政负担』，不懂台账是『决策可审计、冲突可追溯』的命门。",
+  fix:"课堂动作：给一个『两表冲突、查台账发现依据表 O 仲裁』的案例，让学生体会『没有台账，冲突就说不清』；强调表 O 所有取舍必须进台账备注栏。"},
+ {k:"RMS系统",ch:"第17章 收益管理系统",rel:[],
+  mist:"学生神话或妖魔化 RMS，以为『上了系统就不用人』或『系统一定对』。",
+  fix:"课堂动作：用『系统按表 A 自动调价，但 D1 峰值日仍需 L3 审批』的边界讲清——系统是规则的执行器，人才是规则的制定与兜底者。"},
+ {k:"组织岗位",ch:"第18章 组织与岗位",rel:[],
+  mist:"学生不清楚收益经理到底归谁管、和前台/销售什么关系，以为是个孤立岗位。",
+  fix:"课堂动作：画一张『收益经理—销售—前台—财务』协作图，用『限制条件到期没撤，前台被骂』的例子说明跨岗依赖。"},
+ {k:"AI工具",ch:"第20章 AI工具",rel:[],
+  mist:"学生问『AI 会不会取代收益经理』，容易走极端（全取代或完全没用）。",
+  fix:"课堂动作：用本教练做示范——AI 能查表、能算、能给决策建议，但『定边界、做仲裁、担责任』仍是人；收口到『AI 时代不缺知识、缺判断标准』。"},
+ {k:"危机极端",ch:"第21章 危机与极端场景",rel:["表 L","表 E"],
+  mist:"学生遇到需求暴跌/暴涨/系统故障就慌，不知道有标准预案按序执行。",
+  fix:"课堂动作：用表 L 五类异常，分组抽签演『需求暴跌 48h Pickup 落后>40%』的 2h/24h 动作；超售过度一组演『步行客人预案四步』。"},
+ {k:"免费升级",ch:"第6章 库存与限制条件",rel:["表 J"],
+  mist:"学生以为升级『前台想升就升』，不懂规则管住，也不懂每次最多升 1 档。",
+  fix:"课堂动作：用表 J 四步优先级，给一组『钻石会员/金卡/高价长住/老客』让学生排序决定谁升；强调『套房升级每日≤3 间须 L3 审批』。"},
+ {k:"预订窗口",ch:"第3章 需求预测",rel:["表 I"],
+  mist:"学生只盯『还剩 3 天』的近期，不盯 15-60 天的远期在手量，导致临近才发现没房只能降价。",
+  fix:"课堂动作：用表 I 六档窗口，让学生给不同提前天数选监控频率与触发动作，落到『每天至少 10 分钟看 15 天后的在手量』。"},
+ {k:"优先级仲裁",ch:"第5章 动态定价",rel:["表 O","表 A","表 B"],
+  mist:"学生同时拿到表 A（涨价）和表 C（降价）的建议就懵，不知道该听谁的。",
+  fix:"课堂动作：直接背表 O 优先级 L>B>A>C>H>D，用『表 A 与表 C 冲突→听表 A』的实例，说明『同日只执行最高优先级一条，其余进观察清单』。"}
+];
+
+// ---- 判定表口语线索（查哪张表） ----
+const CUES = {
+ '涨价':'JT-A','降价':'JT-A','调价':'JT-A','Pickup':'JT-A','BAR':'JT-A','峰值日':'JT-A','栅栏':'JT-A',
+ 'ARI':'JT-C','价格指数':'JT-C','比价':'JT-C','MPI':'JT-D','渗透指数':'JT-D','份额':'JT-D','三角诊断':'JT-D',
+ '超售':'JT-E','满房':'JT-E','No-show':'JT-E','noshow':'JT-E','硬上限':'JT-E','步行':'JT-E','到店无房':'JT-L',
+ '房型':'JT-F','价差':'JT-F','套房':'JT-F','价格体系':'JT-F',
+ '团队':'JT-G','协议':'JT-G','置换成本':'JT-G','询价':'JT-G','协议价':'JT-G','会议团队':'JT-K','宴会':'JT-K','综合贡献':'JT-K','餐饮保底':'JT-K','会议':'JT-K',
+ '渠道':'JT-H','OTA':'JT-H','直销':'JT-H','价格一致性':'JT-H','StopSell':'JT-H','关渠道':'JT-H','净RevPAR':'JT-H','NRevPAR':'JT-H',
+ '预订窗口':'JT-I','提前天数':'JT-I','在手量':'JT-I','监控':'JT-I',
+ '升级':'JT-J','会员升级':'JT-J','忠诚':'JT-J','会员权益':'JT-J',
+ '应急':'JT-L','异常':'JT-L','需求暴跌':'JT-L','需求暴涨':'JT-L','系统故障':'JT-L',
+ '流水线':'JT-M','每日流程':'JT-M','晨会':'JT-M','调价台账':'JT-M',
+ '周报':'JT-N','月报':'JT-N','季报':'JT-N','年度预算':'JT-N','周期动作':'JT-N',
+ '冲突':'JT-O','优先级':'JT-O','仲裁':'JT-O','该听谁的':'JT-O','限制':'JT-B','MinLOS':'JT-B','CTA':'JT-B','关房':'JT-B'
+};
+const DOMAIN_LABELS = ['价格','库存','竞争','渠道','客户','节奏','应急'];
+</script>
+
+<!-- 题库（学生/教材 363 题，每条带章节出处） -->
+<script src="textbook_quiz.js?v=2"></script>
+
+<script>
+const byId = id => JT.find(r=>r.id===id);
+const msgs = document.getElementById('msgs'), quick = document.getElementById('quick'), inp = document.getElementById('inp');
+const $ = s => document.querySelector(s);
+function esc(s){ return String(s==null?'':s).replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function trunc(s,n){ s=String(s); return s.length>n? s.slice(0,n)+'…' : s; }
+
+function coachSay(html, qr){
+  const d=document.createElement('div'); d.className='row';
+  const b=document.createElement('div'); b.className='bubble coach'; b.innerHTML=html;
+  d.appendChild(b); msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
+  renderQuick(qr||[]);
+}
+function userSay(text){
+  const d=document.createElement('div'); d.className='row';
+  const b=document.createElement('div'); b.className='bubble user'; b.textContent=text;
+  d.appendChild(b); msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
+}
+function renderQuick(list){
+  if(!list || !list.length) return;   // 空列表不清除已渲染的快捷入口（避免上一条 coachSay 把入口冲掉）
+  quick.innerHTML='';
+  list.forEach(it=>{
+    const c=document.createElement('span'); c.className='qchip'+(it.m?' m':''); c.textContent=it.label; c.title=it.label;
+    c.onclick=()=>onPick(it); quick.appendChild(c);
+  });
+}
+function onPick(it){
+  if(it.mode){ startMode(it.mode); return; }
+  if(it.value==='@restart'){ restart(); return; }
+  if(it.value.startsWith('@table:')){ showTable(byId(it.value.slice(7))); return; }
+  if(it.value.startsWith('@teach:')){ showTeach(TEACH[parseInt(it.value.slice(7),10)]); return; }
+  if(it.value.startsWith('@quiz:')){ showQuiz(parseInt(it.value.slice(6),10)); return; }
+  if(it.value==='@quizmore'){ quizMore(); return; }
+  if(it.value.startsWith('@quiztopic:')){ quizByTopic(it.value.slice(11)); return; }
+}
+
+// ---- 模式引导 ----
+function startMode(mode){
+  if(mode==='teach'){
+    state={mode:'teach'};
+    coachSay('好，我们聊<b>「怎么讲」</b>。选一个你想备的专题，或直接说出你的困惑（如「超售那节怎么讲学生才有感觉？」）。',
+      TEACH.map((t,i)=>({label:t.k, value:'@teach:'+i})).concat([{label:'查看全部专题', value:'@teach:-1'}]));
+  } else if(mode==='table'){
+    state={mode:'table'};
+    coachSay('好，我们聊<b>「查哪张表」</b>。把情境用一句话告诉我（如「竞品降价30%让学生查哪张表？」），或直接选领域：',
+      DOMAIN_LABELS.map(d=>({label:d, value:'@domain:'+d})));
+  } else if(mode==='quiz'){
+    state={mode:'quiz', list:[]};
+    coachSay('好，我们聊<b>「这道题」</b>。点一个专题看典型题，或直接在输入框搜关键词 / 写章节号（如「超售」「第7章」）。',
+      TEACH.map((t,i)=>({label:t.k, value:'@quiztopic:'+i})));
+  }
+}
+
+// ---- 查哪张表 ----
+function domainOf(q){
+  for(const k in CUES){ if(q.includes(k)) return byId(CUES[k]); }
+  return null;
+}
+function showTable(rec){
+  let h='你该让学生查 <b>'+rec.code+' '+rec.title+'</b>（'+rec.domain+'）。<br><br>';
+  h+='<b>适用场景：</b>'+esc(rec.scene)+'<br>';
+  h+='<b>决策逻辑：</b>'+esc(rec.logic)+'<br>';
+  h+='<b>查表路径（让学生一步步走）：</b>'+esc(rec.path)+'<br><br>';
+  h+='<b>依据 / 红线：</b>'+esc(rec.basis)+(rec.pitfalls?('；<span style="color:#c0503f">'+esc(rec.pitfalls)+'</span>'):'');
+  h+='<br><br><span class="note">对应教材：'+esc(rec.ch)+'。想让学生亲手查表演练，打开『判定表决策引擎』做完整交互。</span>';
+  coachSay(h);
+  const rel=(rec.rel||[]).map(id=>({label:'关联 '+id.replace('JT-','表 '), value:'@table:'+id}));
+  rel.push({label:'打开判定表引擎', value:'@eng'});
+  rel.push({label:'换领域', value:'@restart'});
+  coachSay('还想看哪张表，或换个情境？', rel);
+}
+function showEngine(){
+  userSay('打开判定表引擎');
+  coachSay('判定表决策引擎（15 张表完整交互，含矩阵/行表/步骤表与决策输出）在这里：<br><a class="src" href="jt-engine.html">表 A–O 完整引擎 →</a>　<a class="src" href="jt-coach.html">酒店人实战教练（对话版）→</a>');
+  coachSay('那是给学生/酒店人亲手查表练手的地方；教师用它做课堂演示也很好。还要备点别的吗？', [{label:'换个情境', value:'@restart'},{label:'怎么讲', value:'@mode:teach'},{label:'这道题', value:'@mode:quiz'}]);
+}
+
+// ---- 怎么讲 ----
+function showTeach(t){
+  if(!t){ // 全部
+    let h='<b>全部备课专题（点任一可再展开）：</b><ol>';
+    TEACH.forEach((x,i)=>{ h+='<li><a class="src" href="javascript:void(0)" onclick="showTeach(TEACH['+i+'])">'+esc(x.k)+'</a> · '+esc(x.ch)+'</li>'; });
+    h+='</ol>';
+    coachSay(h);
+    return;
+  }
+  let h='<b>「'+esc(t.k)+'」怎么讲</b>（'+esc(t.ch)+'）<br><br>';
+  h+='<b>学生最容易误解：</b>'+esc(t.mist)+'<br><br>';
+  h+='<b>课堂纠错动作：</b>'+esc(t.fix);
+  if(t.rel && t.rel.length){ h+='<br><br><span class="note">关联判定表：'+t.rel.map(r=>'<a class="src" href="javascript:void(0)" onclick="showTable(byId(\''+r+'\'))">'+r.replace('JT-','表 ')+'</a>').join(' ')+'</span>'; }
+  h+='<br><br><span class="note">出处：教材'+esc(t.ch)+'。可点上方关联判定表，让学生边查表边学。</span>';
+  coachSay(h);
+  coachSay('还想备哪个专题？', TEACH.map((x,i)=>({label:x.k, value:'@teach:'+i})));
+}
+
+// ---- 这道题 ----
+let quizAll = (window.HRMA_QUIZ || []);
+function quizByTopic(idx){
+  const k = TEACH[idx].k;
+  // 在题干/解析里搜该专题关键词
+  const hits = quizAll.map((q,i)=>({q,i})).filter(o=>{
+    const s=(o.q.stem+' '+o.q.exp+' '+o.q.ch).toLowerCase();
+    return s.includes(k.toLowerCase()) || o.q.ch === TEACH[idx].ch.match(/第\d+章/);
+  });
+  showQuizList(hits, '专题「'+k+'」');
+}
+function quizSearch(text){
+  const t=text.trim().toLowerCase();
+  if(!t) return [];
+  return quizAll.map((q,i)=>({q,i})).filter(o=>{
+    const chMatch = /^第?\s*\d+\s*章?$/.test(t) ? ('第'+t.replace(/[^0-9]/g,'')+'章') : null;
+    if(chMatch && o.q.ch===chMatch) return true;
+    return (o.q.stem+' '+o.q.exp+' '+o.q.ch).toLowerCase().includes(t);
+  });
+}
+function showQuizList(hits, title){
+  if(!hits.length){ coachSay('题库里暂时没有匹配「'+esc(title)+'」的题。换个关键词，或点其它专题。', TEACH.map((x,i)=>({label:x.k, value:'@quiztopic:'+i}))); return; }
+  state.list = hits;
+  let h='<b>'+esc(title)+'</b> 命中 <b>'+hits.length+'</b> 道（点一道看答案与解析）：<ol>';
+  hits.slice(0,30).forEach((o,si)=>{
+    h+='<li><a class="src" href="javascript:void(0)" onclick="showQuiz('+o.i+')">'+esc(trunc(o.q.stem,40))+'</a> <span style="color:#5b6a7d;font-size:12px">('+esc(o.q.ch)+')</span></li>';
+  });
+  h+='</ol>';
+  if(hits.length>30) h+='<span class="muted">仅显示前 30 道，可在输入框继续搜。</span>';
+  coachSay(h);
+}
+function quizMore(){
+  const hits=state.list||[];
+  coachSay('可继续在输入框搜关键词 / 章节号，查看更多题。');
+}
+function showQuiz(i){
+  const q=quizAll[i]; if(!q){ coachSay('该题暂无数据。'); return; }
+  let h='<b>'+esc(q.stem)+'</b><br><span style="color:#5b6a7d;font-size:12.5px">（'+esc(q.ch)+' · 题型 '+esc(q.type||'')+'）</span><br><br>';
+  h+='<b>选项：</b><ol style="margin-top:4px">';
+  (q.opts||[]).forEach((o,oi)=>{ h+='<li'+(o===q.ans?' style="color:#2a9d5f;font-weight:700"':'')+'>'+esc(o)+(o===q.ans?' ✓ 答案':'')+'</li>'; });
+  h+='</ol><br>';
+  h+='<b>解析 / 出处：</b><div style="background:#f4f7fb;border-left:3px solid #3d8bd4;padding:8px 12px;border-radius:0 8px 8px 0;margin-top:4px">'+esc(q.exp)+'</div>';
+  coachSay(h);
+  coachSay('这道题讲完，还想看？', [
+    {label:'再搜一题', value:'@mode:quiz'},
+    {label:'看关联备课', value:'@teach:'+Math.max(0, TEACH.findIndex(t=>q.ch.indexOf(t.ch.match(/第\d+章/))>=0))},
+    {label:'换模式', value:'@restart'}
+  ]);
+}
+
+// ---- 自由文本路由 ----
+function classify(text){
+  if(text.includes('怎么讲')||text.includes('怎么教')||text.includes('学生听不懂')||text.includes('误解')||text.includes('误区')||text.includes('上课')||text.includes('课堂')) return 'teach';
+  if(text.includes('这道题')||text.includes('答案')||text.includes('解析')||text.includes('为什么是')||text.includes('选')&&text.includes('题')) return 'quiz';
+  if(text.includes('查哪张表')||text.includes('查表')||text.includes('哪张表')||text.includes('让学生')) return 'table';
+  return null;
+}
+function handleUser(text){
+  const forced = classify(text);
+  // 这道题：命中题库
+  const hits = quizSearch(text);
+  if((forced==='quiz' || (hits.length && !forced)) && hits.length){
+    state={mode:'quiz', list:hits};
+    coachSay('我在题库里找到 '+hits.length+' 道相关题：');
+    showQuizList(hits, text);
+    return;
+  }
+  if(forced==='teach'){
+    state={mode:'teach'};
+    const t = TEACH.find(x=>text.includes(x.k)) || TEACH.find(x=>(x.ch||'').includes(text.replace(/章.*/,'')));
+    if(t){ showTeach(t); }
+    else { coachSay('你想备哪个专题？点一个，或直接说（如「超售那节怎么讲」）：', TEACH.map((x,i)=>({label:x.k, value:'@teach:'+i}))); }
+    return;
+  }
+  // 查哪张表
+  const rec = domainOf(text);
+  if(rec){ state={mode:'table'}; showTable(rec); return; }
+  if(forced==='table'){ state={mode:'table'}; coachSay('这个情境我没能定位到具体表，先选个领域：', DOMAIN_LABELS.map(d=>({label:d, value:'@domain:'+d}))); return; }
+  // 兜底：给三模式
+  coachSay('我能帮你备三类问题，选一个开始：', [
+    {label:'怎么讲（教学法）', value:'@mode:teach', m:true},
+    {label:'查哪张表（工具）', value:'@mode:table', m:true},
+    {label:'这道题（题库）', value:'@mode:quiz', m:true}
+  ]);
+}
+// @domain: 在查表模式下选领域 → 列出该领域所有表
+function showDomainTables(dom){
+  const list=JT.filter(r=>r.domain===dom);
+  if(!list.length){ coachSay('这一类暂无对应判定表，换一个：', DOMAIN_LABELS.map(d=>({label:d, value:'@domain:'+d}))); return; }
+  coachSay('「'+dom+'」相关的判定表有这几张，点一张讲查表路径：', list.map(r=>({label:r.id.replace('JT-','表 ')+'·'+trunc(r.title,10), value:'@table:'+r.id})));
+}
+
+// ---- 输入 ----
+document.getElementById('send').onclick=()=>{
+  const v=inp.value.trim(); if(!v) return; userSay(v); inp.value=''; handleUser(v);
+};
+inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ document.getElementById('send').click(); } });
+document.getElementById('restart').onclick=restart;
+
+// onPick 扩展：@mode / @domain / @eng
+const _onPick = onPick;
+onPick = function(it){
+  if(it.value==='@eng'){ showEngine(); return; }
+  if(it.value.startsWith('@mode:')){ startMode(it.value.slice(6)); return; }
+  if(it.value.startsWith('@domain:')){ showDomainTables(it.value.slice(8)); return; }
+  if(it.value.startsWith('@quiztopic:')){ quizByTopic(parseInt(it.value.slice(11),10)); return; }
+  if(it.value.startsWith('@teach:') && it.value.slice(7)==='-1'){ showTeach(null); return; }
+  _onPick(it);
+};
+
+function restart(){
+  state={mode:null};
+  coachSay('你好，我是<b>教师备课教练</b>——你的收益管理备课分身。回答都带出处（章节 / 判定表号 / 题库），你可以放心拿来准备课堂。');
+  coachSay('你想备哪一类？点一个，或直接把问题打给我。', [
+    {label:'怎么讲（教学法）', value:'@mode:teach', m:true},
+    {label:'查哪张表（工具）', value:'@mode:table', m:true},
+    {label:'这道题（题库）', value:'@mode:quiz', m:true}
+  ]);
+  coachSay('示例：「超售那节怎么讲学生才有感觉？」「竞品降价30%让学生查哪张表？」「这道题答案为什么是B？」');
+}
+let state={mode:null};
+restart();
+</script>
+<script src="assets/js/site-nav.js?v=v21"></script>
+</body>
+</html>

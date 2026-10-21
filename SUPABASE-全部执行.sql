@@ -250,7 +250,7 @@ alter table public.replies enable row level security;
 alter table public.cases   enable row level security;
 
 do $$
-declare admin_emails text[] := array['rm-community@qq.com','3984557428@qq.com'];
+declare admin_emails text[] := array['rm-community@qq.com'];
 begin
   -- posts：任何人可读已发布内容
   drop policy if exists posts_select on public.posts;
@@ -278,8 +278,8 @@ begin
   drop policy if exists posts_admin on public.posts;
   create policy posts_admin on public.posts
     for all to authenticated
-    using ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) )
-    with check ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) );
+    using ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']) )
+    with check ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']) );
 
   -- replies：任何人可读
   drop policy if exists replies_select on public.replies;
@@ -303,8 +303,8 @@ begin
   drop policy if exists replies_admin on public.replies;
   create policy replies_admin on public.replies
     for all to authenticated
-    using ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) )
-    with check ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) );
+    using ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']) )
+    with check ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']) );
 
   -- cases：所有人可读已审核通过的
   drop policy if exists cases_select on public.cases;
@@ -327,8 +327,8 @@ begin
   drop policy if exists cases_admin on public.cases;
   create policy cases_admin on public.cases
     for all to authenticated
-    using ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) )
-    with check ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) );
+    using ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']) )
+    with check ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']) );
 end $$;
 
 
@@ -357,7 +357,7 @@ end $$;
 -- 管理员邮箱（保持与现有策略一致）
 do $$
 declare
-  admin_emails text[] := array['rm-community@qq.com','3984557428@qq.com'];
+  admin_emails text[] := array['rm-community@qq.com'];
 begin
   -- profiles 扩展字段
   if not exists (select 1 from information_schema.columns
@@ -446,7 +446,7 @@ alter table public.orders  enable row level security;
 
 do $$
 declare
-  admin_emails text[] := array['rm-community@qq.com','3984557428@qq.com'];
+  admin_emails text[] := array['rm-community@qq.com'];
 begin
   -- experts：匿名/登录可读；登录用户仅能写自己的（user_id=auth.uid()）
   drop policy if exists experts_read on public.experts;
@@ -464,8 +464,8 @@ begin
   create policy experts_admin on public.experts
     for all
     to authenticated
-    using (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']))
-    with check (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']));
+    using (auth.jwt() ->> 'email' = any(array['rm-community@qq.com']))
+    with check (auth.jwt() ->> 'email' = any(array['rm-community@qq.com']));
 
   -- jobs：匿名/登录可读在招职位（open）；登录用户仅能写自己发布的
   drop policy if exists jobs_read on public.jobs;
@@ -483,8 +483,8 @@ begin
   create policy jobs_admin on public.jobs
     for all
     to authenticated
-    using (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']))
-    with check (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']));
+    using (auth.jwt() ->> 'email' = any(array['rm-community@qq.com']))
+    with check (auth.jwt() ->> 'email' = any(array['rm-community@qq.com']));
 
   -- orders：仅本人可读写自己的；无直接 update 策略（状态由 confirm_payment 改变）
   drop policy if exists orders_read on public.orders;
@@ -503,8 +503,8 @@ begin
   create policy orders_admin on public.orders
     for all
     to authenticated
-    using (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']))
-    with check (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']));
+    using (auth.jwt() ->> 'email' = any(array['rm-community@qq.com']))
+    with check (auth.jwt() ->> 'email' = any(array['rm-community@qq.com']));
 end $$;
 
 /* ---------------- 占位支付确认函数 ----------------
@@ -567,7 +567,7 @@ set search_path = public
 as $$
 declare
   v_order public.orders;
-  admin_emails text[] := array['rm-community@qq.com','3984557428@qq.com'];
+  admin_emails text[] := array['rm-community@qq.com'];
   v_email text := auth.jwt() ->> 'email';
 begin
   if v_email is null or not (v_email = any(admin_emails)) then
@@ -706,7 +706,7 @@ alter table public.benchmark_points enable row level security;
 
 do $$
 declare
-  admin_emails text[] := array['rm-community@qq.com','3984557428@qq.com'];
+  admin_emails text[] := array['rm-community@qq.com'];
 begin
   -- 本人可读自己的全部（含被驳回的）
   drop policy if exists bp_read_own on public.benchmark_points;
@@ -731,8 +731,8 @@ begin
   drop policy if exists bp_admin on public.benchmark_points;
   create policy bp_admin on public.benchmark_points
     for all to authenticated
-    using (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']))
-    with check (auth.jwt() ->> 'email' = any(array['rm-community@qq.com','3984557428@qq.com']));
+    using (auth.jwt() ->> 'email' = any(array['rm-community@qq.com']))
+    with check (auth.jwt() ->> 'email' = any(array['rm-community@qq.com']));
 end $$;
 
 -- ---------------- 4. 授权 ----------------
@@ -777,8 +777,8 @@ create policy payments_owner_read on public.payments
 drop policy if exists payments_admin on public.payments;
 create policy payments_admin on public.payments
   for all to authenticated
-  using ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) )
-  with check ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com','3984557428@qq.com']) );
+  using ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']) )
+  with check ( (select auth.jwt() ->> 'email') = any(array['rm-community@qq.com']) );
 
 grant select on public.payments to authenticated;
 

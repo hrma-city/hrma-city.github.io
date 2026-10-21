@@ -17,7 +17,7 @@
 -- 管理员邮箱（保持与现有策略一致）
 do $$
 declare
-  admin_emails text[] := array['rm-community@qq.com','3984557428@qq.com'];
+  admin_emails text[] := array['rm-community@qq.com'];
 begin
   -- profiles 扩展字段
   if not exists (select 1 from information_schema.columns
@@ -106,7 +106,7 @@ alter table public.orders  enable row level security;
 
 do $$
 declare
-  admin_emails text[] := array['rm-community@qq.com','3984557428@qq.com'];
+  admin_emails text[] := array['rm-community@qq.com'];
 begin
   -- experts：匿名/登录可读；登录用户仅能写自己的（user_id=auth.uid()）
   drop policy if exists experts_read on public.experts;
@@ -227,7 +227,7 @@ set search_path = public
 as $$
 declare
   v_order public.orders;
-  admin_emails text[] := array['rm-community@qq.com','3984557428@qq.com'];
+  admin_emails text[] := array['rm-community@qq.com'];
   v_email text := auth.jwt() ->> 'email';
 begin
   if v_email is null or not (v_email = any(admin_emails)) then
