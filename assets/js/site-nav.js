@@ -26,6 +26,7 @@
     ['index.html', '首页'],
     ['knowledge.html', '知识库'],
     ['games-hub.html', '游戏'],
+    ['coach-hub.html', '教练'],
     ['teach.html', '教学'],
     ['training.html', '培训'],
     ['growth-hub.html', '上岗'],
@@ -154,6 +155,7 @@
     if (/^books\/|^textbook|series-textbook|books-textbook|glossary\.html|^guide\.html|series-16|series-topics|pocket-41|pocket-no/.test(here)) return { url: 'resources.html', label: '资料库' };
     if (/^benchmark/.test(here)) return { url: 'benchmark.html', label: '基准数据' };
     if (/report|series\/tools|preview\.html$/.test(here)) return { url: 'report-preview.html', label: '报表工具' };
+    if (/^coach|^jt-coach|^ai-coach|^rm-coach/.test(here)) return { url: 'coach-hub.html', label: '教练' };
     if (/^teacher|slides?|teach|micro|open-course|^ai-|coach/.test(here)) return { url: 'teacher.html', label: '教师' };
     if (/^student|^learn|^study|roleplay|^cases/.test(here)) return { url: 'student.html', label: '学生' };
     return { url: 'resources.html', label: '资料库' };

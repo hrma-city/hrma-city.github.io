@@ -17,7 +17,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Micros
 .topbar b{color:var(--navy);font-size:16px}
 .topbar .tag{margin-left:10px;font-size:12px;color:#7a5b00;background:#fff8e6;border:1px solid #ecd9a0;border-radius:12px;padding:2px 10px}
 .topbar .restart{margin-left:auto;font-size:13px;color:var(--navy);cursor:pointer;border:1px solid var(--line);border-radius:8px;padding:5px 12px;background:#fff}
-.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;height:calc(100vh - 58px)}
+.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;flex:1 1 auto;min-height:0}
 .msgs{flex:1;overflow:auto;padding:18px 16px 6px}
 .row{display:flex;flex-direction:column}
 .bubble{max-width:84%;padding:10px 14px;border-radius:15px;margin:7px 0;font-size:14px;line-height:1.7;word-break:break-word}
@@ -39,6 +39,16 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Micros
 .note{background:#eef6f1;border:1px solid #c4e2d0;border-radius:8px;padding:8px 12px;font-size:12.5px;color:#2c6e48;margin-top:8px}
 .warn{background:#fdf1ef;border:1px solid #eecac4;border-radius:8px;padding:8px 12px;font-size:12.5px;color:#8a3a2e;margin-top:8px}
 a.eng{color:var(--navy)}
+
+/* 输入框常驻底部（2026-10-23）：body 改为 flex 列，消息区吃掉剩余高度 */
+html,body{height:100%}
+body{display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box}
+.wrap>*{flex:0 0 auto}
+.msgs{flex:1 1 auto!important;min-height:0}
+.quick{flex:0 0 auto}
+.inputbar{flex:0 0 auto;position:sticky;bottom:0;z-index:20}
+@media (max-height:520px){.quick{display:none}}
+
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。","email":"rm-community@qq.com","areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
 </head>
@@ -55,7 +65,7 @@ a.eng{color:var(--navy)}
     <button class="btn" id="send">发送</button>
   </div>
 </div>
-<div class="foot">判定表驱动的教学备课教练 · 回答必带出处（章节 / 表号 / 题库）· 门内页面</div>
+
 
 <!-- 15 张判定表元数据（与 jt-engine / jt-coach 同源，供"查哪张表"定位；深算请到判定表引擎） -->
 <script>
@@ -461,6 +471,6 @@ function restart(){
 let state={mode:null};
 restart();
 </script>
-<script src="assets/js/site-nav.js?v=v21"></script>
+<script src="assets/js/site-nav.js?v=v22"></script>
 </body>
 </html>
