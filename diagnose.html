@@ -62,14 +62,15 @@
   @media(max-width:720px){.dg-score{grid-template-columns:1fr}}
 </style>
 
+
 <style id="rm-toc-style">
 #rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
   box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
   z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
 #rm-toc-drawer.open{transform:translateX(0)}
-#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
   background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
-#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
 #rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
 #rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
 #rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
@@ -199,6 +200,8 @@
         <div class="cm-btns" style="margin-top:10px">
           <a class="cm-btn cm-btn-primary" href="codex.html">去查对应判定表</a>
           <a class="cm-btn cm-btn-ghost" href="tools.html">用在线工具细算</a>
+          <a class="cm-btn cm-btn-ghost" href="rm-audit.html">40 题成熟度深测（雷达图）</a>
+          <a class="cm-btn cm-btn-ghost" href="rm-checkup.html">固定价收益体检 ¥9,800</a>
           <a class="cm-btn cm-btn-ghost" href="benchmark.html">看行业基准数据</a>
           <a class="cm-btn cm-btn-ghost" href="board.html">把问题发到社区问</a>
         </div>
@@ -538,40 +541,7 @@
       '<div class="note">本报告由 RMC收益管理社区「收益健康自检」生成，属规则引擎自检（基于手工填写的数据），非 AI 识图；'+
       '机会金额为保守粗估，未完全计入提价后的需求弹性衰减，仅用于排优先级，不作为财务承诺。<br>'+
       'RMC收益管理社区 · https://hrma-city.github.io/</div>'+
-      '
-
-<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
-<nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>收益健康自检 · 收益管理诊断工具</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">1. 异常项与建议动作（按严重程度）</a>
-<a href="#toc-2" class="lv3">1.1 把这份结果带走</a>
-<a href="#toc-3" class="lv3">1.2 想让人对着您的真实报表再看一遍？</a>
-<a href="#toc-4" class="lv3">1.3 下一步</a>
-<a href="#toc-5">2. 基础数据</a>
-<a href="#toc-6">3. 机会与损失</a>
-<a href="#toc-7">4. 异常项与建议动作（&#x27;+L.redN+&#x27; 严重 / &#x27;+L.ambN+&#x27; 提醒）</a></div>
-</nav>
-
-<script id="rm-toc-script">
-(function(){
-  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
-  if(!d||!t)return;
-  var c=d.querySelector('.toc-close');
-  t.addEventListener('click',function(){d.classList.toggle('open')});
-  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
-  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
-  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
-  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
-    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
-  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-  links.forEach(function(a){a.addEventListener('click',function(){
-    var el=document.getElementById(a.getAttribute('href').slice(1));
-    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
-    d.classList.remove('open');
-  });});
-})();
-</script>
-</body></html>';
+      '</body></html>';
   }
 
   function download(filename, text){
@@ -638,5 +608,33 @@
 </script>
 <script>window.HRMA_PREFIX="";</script>
 <script src="assets/js/notify.js"></script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>收益健康自检 · 收益管理诊断工具</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 异常项与建议动作（按严重程度）</a>
+<a href="#toc-2" class="lv3">1.1 把这份结果带走</a>
+<a href="#toc-3" class="lv3">1.2 想让人对着您的真实报表再看一遍？</a>
+<a href="#toc-4" class="lv3">1.3 下一步</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
+})();
+</script>
 </body>
 </html>

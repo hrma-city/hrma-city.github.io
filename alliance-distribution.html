@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX=""></script>
+
+<meta charset="UTF-8">
+<script src="assets/js/site-nav.js?v=v21"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script>window.HRMA_PREFIX=""></script>
+
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>联盟分销方案设计（内部） · 课程目录挂载三线并进 · RMC</title>
+<meta name="description" content="内部方案：把课程挂上酒店集团 HR 内训目录、旅游院校联盟课程目录、行业协会继续教育目录。定位是既有转介绍机制的放大器，含触发门槛、合作模式、分润纪律、落地步骤与风险边界。">
+<link rel="stylesheet" href="assets/css/main.css?v=v2">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/community.css">
+<link rel="stylesheet" href="assets/css/auth.css">
+<link rel="stylesheet" href="assets/css/notify.css">
+<style>
+  .al-wrap{max-width:980px;margin:0 auto}
+  .al-hero{background:linear-gradient(120deg,var(--navy),#2A5680);color:#fff;border-radius:16px;padding:26px 30px;margin:14px 0 18px}
+  .al-hero h1{font-size:24px;font-weight:800;margin:0 0 8px;color:#fff}
+  .al-hero p{font-size:13.5px;color:rgba(255,255,255,.86);line-height:1.85;margin:0}
+  .al-tag{display:inline-block;background:#B3261E;color:#fff;font-size:11.5px;font-weight:700;border-radius:6px;padding:2px 10px;margin-bottom:10px;letter-spacing:1px}
+  .al-sec{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin:14px 0}
+  .al-sec h2{font-size:18px;font-weight:800;color:var(--navy);margin:0 0 10px;padding-bottom:8px;border-bottom:2px solid var(--gold)}
+  .al-sec h3{font-size:14.5px;font-weight:700;color:var(--navy);margin:16px 0 6px}
+  .al-sec p{font-size:13.5px;color:var(--ink-2);line-height:1.9;margin:6px 0}
+  .al-sec ul,.al-sec ol{font-size:13.5px;color:var(--ink-2);line-height:1.9;padding-left:22px;margin:8px 0}
+  .al-sec li{margin:4px 0}
+  .al-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:12px 0}
+  .al-card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#F9FBFD}
+  .al-card b{display:block;font-size:14px;color:var(--navy);margin-bottom:6px}
+  .al-card span{font-size:12.5px;color:var(--ink-2);line-height:1.75}
+  .al-table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+  .al-table th{background:var(--bg-2);text-align:left;padding:9px 10px;font-size:12px;color:var(--ink-2);font-weight:700}
+  .al-table td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.7}
+  .al-note{background:#FFF8E6;border:1px solid var(--gold);border-radius:12px;padding:14px 18px;font-size:13px;line-height:1.85;color:var(--ink);margin:14px 0}
+  .al-warn{background:#FDECEA;border:1px solid #C0392B;border-radius:12px;padding:14px 18px;font-size:13px;line-height:1.85;color:var(--ink);margin:14px 0}
+  .al-step{border-left:3px solid var(--navy);background:#F6F9FC;border-radius:0 10px 10px 0;padding:12px 16px;margin:10px 0}
+  .al-step .t{font-weight:800;color:var(--navy);font-size:14px}
+  .al-step .d{font-size:12.5px;color:var(--ink-2);line-height:1.8;margin-top:4px}
+  .al-step .o{font-size:12.5px;color:#2F6B3A;font-weight:600;margin-top:4px}
+  .al-nav{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+  .al-nav a{font-size:13px;color:var(--navy);font-weight:600;text-decoration:none;border:1px solid var(--line);border-radius:9px;padding:8px 14px;background:var(--white)}
+  .al-nav a:hover{border-color:var(--gold)}
+  @media print{.al-nav,.sn-cta,.sn-toggle,#rm-toc-drawer,#rm-toc-toggle{display:none!important}.al-sec{border:none;box-shadow:none;padding:8px 0}}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <div class="al-wrap">
+    <div class="al-tag">内部文档 · 仅限门内查看 · 含分润与价格信息</div>
+    <div class="al-hero">
+      <h1>联盟分销方案设计</h1>
+      <p>把课程挂上<b>酒店集团 HR 的内训目录</b>、<b>旅游院校联盟的课程目录</b>、<b>行业协会的继续教育目录</b>——这不是一条新销路，而是既有转介绍机制的放大器。方案回答四个问题：挂什么、怎么挂、钱怎么分、什么时候动手。</p>
+    </div>
+
+    <div class="al-note">
+      <b>先读这条：为什么现在只做设计不动手。</b>原计划把这一项标为「远期 · 低 · 有第一批客户后再做」，这个判断不变。联盟分销放大的是<b>已经存在的转化</b>——如果自有漏斗还没有稳定的成交与交付，挂载只会把口碑风险提前放大。本方案是「触发即启动」的预置设计：门槛达标后按第 6 节的四步走，不用再从零讨论。
+    </div>
+
+    <div class="al-sec">
+      <h2 id="toc-1">1. 定位：放大器，不是新漏斗</h2>
+      <p>站上的成交路径是：垂直内容 → 免费工具（自检/自评）换联系方式 → 一对一成交。转介绍机制已经在点状运作（老学员介绍新学员、酒店介绍酒店）。联盟分销做的是同一件事的<b>面状版</b>：</p>
+      <ul>
+        <li><b>转介绍</b>＝一个人把他的信用借给你一次，成本是你欠一个人情；</li>
+        <li><b>联盟挂载</b>＝一个机构把它的信用借给你一整年，成本是分润与品牌让渡。</li>
+      </ul>
+      <p>所以联盟的第一价值不是「多一条流量」，是<b>把点状信用变成可持续的背书资产</b>：学校老师看到「院校联盟目录里有这门课」敢开课；酒店 HR 看到「集团内训目录里有这套课」好走内部立项。</p>
+      <p><b>三不原则</b>（写进所有合作洽谈）：不进没有对方背书价值的目录（纯卖货渠道不做）；不接受低于官网价的采购价（防价格穿洞）；不让联盟伙伴接触最终学员的交付环节（交付质量只有我们自己能兜）。</p>
+    </div>
+
+    <div class="al-sec">
+      <h2 id="toc-2">2. 三类伙伴画像与打法</h2>
+      <div class="al-grid">
+        <div class="al-card"><b>A · 酒店集团 HR（内训目录）</b><span>
+          <b>决策人</b>：集团培训经理/HRD，向人力总汇报。<b>他的 KPI</b>：上岗速度、前台流失率、内训完成率——不是 RevPAR。<br>
+          <b>挂什么</b>：前台与预订部基础课（挂剧集当教材，6/12/16 讲三种长度）+ 收益例会工具包。集团按门店数一口价采购。<br>
+          <b>切入点话术</b>：「前台三个月流失率多少？流失一次重训成本多少？这套课把上岗培训从两周压到四天。」</span></div>
+        <div class="al-card"><b>B · 旅游院校联盟（课程目录）</b><span>
+          <b>决策人</b>：联盟秘书处 + 成员校教研室主任。<b>他的 KPI</b>：课程共建成果、实训课时、就业率。<br>
+          <b>挂什么</b>：《酒店收益管理》教材（争规划教材身份）+ 学生认证（99–149/生）+ 师资训练营（2 万/校）。<br>
+          <b>切入点话术</b>：「联盟牵头做‘收益管理’共享课程，成员校直接挂载，学生认证在联盟内互认。」</span></div>
+        <div class="al-card"><b>C · 行业协会（继续教育目录）</b><span>
+          <b>决策人</b>：协会培训部/秘书长。<b>他的 KPI</b>：会员活跃、继续教育学时、会费续缴。<br>
+          <b>挂什么</b>：15 张判定表微课 + 三级认证 + 酒店人线 14 模块考证课。<br>
+          <b>切入点话术</b>：「协会出学时与公信力，我们出内容与平台，会员续费多一个理由。」</span></div>
+      </div>
+      <p style="font-size:12.5px;color:var(--ink-3)">共同点：三个伙伴卖的都是「目录里多一样东西」，都不碰交付。我们把交付、题库、证书系统握在手里，伙伴只做目录与背书——这决定了后面分润模式只能是「目录价 + 渠道折扣」，不能是「代收学费」。</p>
+    </div>
+
+    <div class="al-sec">
+      <h2 id="toc-3">3. 四种合作模式（按介入深度排序）</h2>
+      <table class="al-table">
+        <tr><th style="width:130px">模式</th><th>怎么运作</th><th>适用伙伴</th><th>我们的让步</th></tr>
+        <tr><td><b>① 目录挂载（收录）</b></td><td>课程进入对方课程目录/内训目录，附我方简介与试听章节；对方不收款，意向转给我们成交。</td><td>院校联盟、行业协会</td><td>零。给对方「首批学员名额」或联合署名。</td></tr>
+        <tr><td><b>② 联合品牌内训</b></td><td>以「协会/联盟 × RMC」联合名义办班，我方出内容与讲师，对方出学员与场地。</td><td>行业协会、酒店集团</td><td>品牌联合署名 + 对方留成 10–15%。</td></tr>
+        <tr><td><b>③ 认证互认</b></td><td>我们的认证进入对方继续教育体系，算学时；对方的培训记录计入我们认证的免考模块。</td><td>行业协会、院校联盟</td><td>免考模块设计成本 + 质量审核义务。</td></tr>
+        <tr><td><b>④ 渠道代销（团购码）</b></td><td>对方统一采购「团购码」分发给成员/会员，成员凭码在我们站内开通。</td><td>酒店集团 HR、院校联盟</td><td>渠道折扣（见第 4 节纪律）。</td></tr>
+      </table>
+      <p><b>启动顺序建议：</b>先①后②再④，③最后。①零成本验证「目录里到底有没有人点」；有人点再谈②联合；②跑通再放④团购码；③涉及认证体系变更，周期最长，放在有 10 家以上稳定合作后再谈。</p>
+    </div>
+
+    <div class="al-sec">
+      <h2 id="toc-4">4. 分润与价格纪律（本节敏感，勿外传）</h2>
+      <table class="al-table">
+        <tr><th>事项</th><th>规则</th><th>理由</th></tr>
+        <tr><td>价格基准</td><td>一切合作以官网公示价（pricing.html）为唯一基准，联盟采购价 = 基准价 × 渠道折扣。</td><td>价格穿洞是分销第一死因——集团采购价一旦外泄，单体校与单体酒店的成交全崩。</td></tr>
+        <tr><td>渠道折扣上限</td><td>目录挂载 0 折扣（只给首批名额）；联合内训留成 10–15%；团购码按量分档：≥50 席 9 折、≥200 席 85 折、≥500 席 8 折封顶。<b>任何渠道不得低于 8 折。</b></td><td>8 折是师资训练营毛利与「低价品吃高价品」的防线；999 会员线与训练营线不进入任何团购。</td></tr>
+        <tr><td>锁死不进团购的 SKU</td><td>① 社区会员 999（低价品，团购会吃掉训练营）；② 学生认证个位数采购（防学校倒卖名额）；③ 年度陪跑（交付容量有限，不放大）。</td><td>分销只放大「标准化、可异步交付」的 SKU。</td></tr>
+        <tr><td>结算</td><td>团购码预付（对方先付款、后发码）；联合内训事后月结；不设账期。</td><td>我们体量小，垫不起账期，也不垫品牌风险。</td></tr>
+        <tr><td>续费归属</td><td>通过联盟成交的客户，次年续费归自有渠道（不再分润），但对方保留「目录在架」的持续署名价值。</td><td>分润只付一次获客成本，不变成长期失血。</td></tr>
+      </table>
+      <div class="al-warn"><b>红线：</b>任何时候不出现「官网一个价、联盟一个价、老学员又一个价」的三价并存。所有折扣必须能追溯到本条规则表；对不守价的伙伴，第一次书面提醒，第二次下架——下架比烂价便宜。</div>
+    </div>
+
+    <div class="al-sec">
+      <h2 id="toc-5">5. 触发门槛：什么时候动手</h2>
+      <p>「有第一批客户后再做」需要可量化，否则永远不触发或过早触发。<b>建议门槛（两条同时满足）：</b></p>
+      <ul>
+        <li><b>学校线</b>：≥ 8 所院校用我们的教材/认证实际开课（有教学计划或选课名单佐证），且其中 ≥ 3 所完成至少一个完整学期；</li>
+        <li><b>酒店线</b>：≥ 3 家酒店完成付费体检或进入陪跑（证明 B 端内容包被真实使用过）。</li>
+      </ul>
+      <p><b>为什么是这个数：</b>8 所学校＝案例够讲（联盟秘书处需要「已有 8 校在用」才愿意挂目录）；3 家酒店＝企业版内容包经过真实场景打磨，敢挂集团目录；同时交付量仍在个人精力罩得住的范围内（当前约束下月交付上限约 6–8 个班次）。</p>
+      <p><b>提前量动作（不触发也可做）：</b>维护一份「意向伙伴清单」（目标 20 家：5 集团 HR、10 院校联盟秘书处、5 协会培训部），每季度触达一次，只同步进展不推销——等门槛达标时，洽谈对象是熟脸而不是冷启。</p>
+    </div>
+
+    <div class="al-sec">
+      <h2 id="toc-6">6. 触发后的四步落地</h2>
+      <div class="al-step"><div class="t">第 1 步 · 选 1 个伙伴做样板（4–6 周）</div>
+        <div class="d">从意向清单里选「决策链最短 + 背书价值最高」的一家（首选：一家区域性酒店集团的培训经理，或一个省级旅游协会的培训部）。只做模式①目录挂载，零折扣零分润，验证「目录里有没有人点」。</div>
+        <div class="o">产出物：挂载页 + 30 天点击/留资数据</div></div>
+      <div class="al-step"><div class="t">第 2 步 · 复盘决定放量（2 周）</div>
+        <div class="d">看三个数：目录点击率、点击→留资率、留资→成交率。任一显著低于自有渠道，说明该伙伴的目录信用是假的，换一家；三者接近自有渠道，进入放量。</div>
+        <div class="o">产出物：放量/放弃决策备忘录（一页）</div></div>
+      <div class="al-step"><div class="t">第 3 步 · 同模式复制到同类伙伴（8–12 周）</div>
+        <div class="d">把跑通的模式复制到同类型其余 4–8 家；同时按第 3 节顺序向模式②（联合内训）升级一家。所有合作走同一份《联盟合作条款模板》：授权范围、价格纪律、品牌用法、数据归属、退出机制。</div>
+        <div class="o">产出物：条款模板 + 3–5 家在架目录</div></div>
+      <div class="al-step"><div class="t">第 4 步 · 建联盟运营节律（长期）</div>
+        <div class="d">每月给伙伴发一次「在架课程数据简报」（点击/留资/成交，脱敏）；每季度一次线上对齐会；每年续签一次授权。联盟是资产，资产需要记账——数据简报就是记账。</div>
+        <div class="o">产出物：月度简报模板 + 年度授权台账</div></div>
+    </div>
+
+    <div class="al-sec">
+      <h2 id="toc-7">7. 与既有转介绍机制的关系</h2>
+      <p>转介绍（老学员/老客户介绍新客户）保持点状运作不变，联盟分销复用<b>同一套分润池与同一套价格纪律</b>，只是结算对象从个人变成机构：</p>
+      <ul>
+        <li>个人转介绍：一次性的谢礼（课程券/资料包），不设现金分润——人情比现金持久，也规避传销边界；</li>
+        <li>机构联盟：按第 4 节纪律走团购码/留成，走对公结算、开发票；</li>
+        <li>两者<b>不叠加</b>：通过联盟成交的客户，介绍人不再拿个人谢礼，避免双重付费。</li>
+      </ul>
+      <p>北极星指标不变：<b>结业教师真开课率</b>。联盟放大的是「有人知道我们」，真开课率才能把知名度变成续费与转介绍——所以第 4 步的数据简报里必须带开课率，而不只是成交额。</p>
+    </div>
+
+    <div class="al-sec">
+      <h2 id="toc-8">8. 风险与刹车</h2>
+      <table class="al-table">
+        <tr><th style="width:150px">风险</th><th>信号</th><th>刹车动作</th></tr>
+        <tr><td>价格穿洞</td><td>市场上出现低于 8 折的团购码；老学员发现价差投诉</td><td>立即回收该伙伴全部码；书面修订条款；二次违反应下架</td></tr>
+        <tr><td>交付超载</td><td>月交付班次超过 8 个；作业批改开始逾期</td><td>暂停新联盟上架；先扩助教梯队再放量（第 2 期起培养结业教师当助教）</td></tr>
+        <tr><td>品牌稀释</td><td>伙伴把课程改名/拆条/换成自家名义；证书被简化成「参与证」</td><td>条款里写死品牌用法与证书全称；违约一次即下架</td></tr>
+        <tr><td>精力陷阱</td><td>联盟运营（简报/对齐会/续签）占用超过每周 4 小时</td><td>砍到只保留 Top 3 伙伴；其余降级为「目录在架、不主动运营」</td></tr>
+      </table>
+      <p><b>最坏情况预设：</b>如果联盟运营 6 个月内没有带来任何一笔「不靠自有渠道就能成交」的订单，整体关停、只保留 1 家样板写进案例。沉没成本不参与决策。</p>
+    </div>
+
+    <div class="al-sec">
+      <h2 id="toc-9">9. 触发后 90 天启动清单（预置）</h2>
+      <ul>
+        <li><b>第 1 周</b>：从 20 家意向清单筛出 3 家候选，各发一页《合作构想》（用本方案第 2、3 节改写，去掉分润细节）；</li>
+        <li><b>第 2–3 周</b>：完成 3 家意向访谈，确定样板伙伴，签模式①挂载备忘录（无价格条款）；</li>
+        <li><b>第 4–6 周</b>：挂载页上线，配专属留资通道；开始 30 天数据观察；</li>
+        <li><b>第 7–10 周</b>：数据复盘（第 2 步）；若放量，起草《联盟合作条款模板》并启动同类复制；</li>
+        <li><b>第 11–13 周</b>：第一家模式②联合内训立项；建立月度简报模板；</li>
+        <li><b>持续</b>：每月一次伙伴数据简报，每季度一次授权台账更新。</li>
+      </ul>
+    </div>
+
+    <div class="al-nav">
+      <a href="global-gap-plan.html">← 返回缺口总计划（⑭ 原文）</a>
+      <a href="partners.html">服务商对接与合作</a>
+      <a href="pricing.html">价格纪律基准（pricing）</a>
+      <a href="rm-checkup.html">酒店线：收益体检</a>
+    </div>
+  </div>
+</main>
+
+<script src="assets/js/app.js?v=v2"></script>
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/notify.js"></script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>联盟分销方案设计（内部） · 课程目录挂载三线并进 · RMC</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 定位：放大器，不是新漏斗</a>
+<a href="#toc-2">2. 三类伙伴画像与打法</a>
+<a href="#toc-3">3. 四种合作模式（按介入深度排序）</a>
+<a href="#toc-4">4. 分润与价格纪律（本节敏感，勿外传）</a>
+<a href="#toc-5">5. 触发门槛：什么时候动手</a>
+<a href="#toc-6">6. 触发后的四步落地</a>
+<a href="#toc-7">7. 与既有转介绍机制的关系</a>
+<a href="#toc-8">8. 风险与刹车</a>
+<a href="#toc-9">9. 触发后 90 天启动清单（预置）</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
+})();
+</script>
+</body>
+</html>

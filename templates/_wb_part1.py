@@ -149,7 +149,7 @@ def build_01(path):
     widths = [11, 7, 8, 8, 8, 8, 11, 8, 9, 10, 10, 11, 8, 8, 8, 9, 9, 9,
               10, 10, 11, 8, 8, 9, 9, 9, 10]
     set_widths(ws, widths)
-    title(ws, "每日收益日报 · 杭州滨江云璟酒店（320 间）",
+    title(ws, "每日收益日报 · 杭州滨江云璟酒店（300 间）",
           "黄底=输入，白底=公式。先填 A/C/D/E/G/J/K/P/R 列，其余全部自动生成。示例数据为 2026 年 1 月，可直接覆盖。", LAST)
     header_row(ws, 3, 1, headers, height=38)
     freeze(ws, "D4")

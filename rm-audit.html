@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+
+<meta charset="UTF-8">
+<script src="assets/js/site-nav.js?v=v21"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script>window.HRMA_PREFIX="";</script>
+
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>收益管理成熟度诊断 · 40 题自评（五维雷达图与分级）</title>
+<meta name="description" content="40 题自评，覆盖定价流程、需求预测、系统与工具、组织与例会、数据质量五个维度，答完自动生成五维雷达图与 L1–L5 成熟度分级。三用：免费自测、咨询前诊断、陪跑基线测量。全部在浏览器本地计算，不上传数据。">
+<link rel="stylesheet" href="assets/css/main.css?v=v2">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/community.css">
+<link rel="stylesheet" href="assets/css/auth.css">
+<link rel="stylesheet" href="assets/css/notify.css">
+<style>
+  .au-wrap{max-width:1000px;margin:0 auto}
+  .au-uses{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0 6px}
+  .au-use{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .au-use b{display:block;font-size:14px;color:var(--navy);margin-bottom:4px}
+  .au-use span{font-size:12.5px;color:var(--ink-2);line-height:1.65}
+  .au-progress{position:sticky;top:46px;z-index:50;background:var(--white);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:14px 0;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)}
+  .au-progress .bar{flex:1;height:8px;border-radius:6px;background:var(--bg-2);overflow:hidden}
+  .au-progress .bar i{display:block;height:100%;width:0;background:var(--navy);transition:width .25s}
+  .au-progress .n{font-size:13px;font-weight:700;color:var(--navy);font-family:var(--mono);white-space:nowrap}
+  .au-dim{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0;box-shadow:var(--shadow)}
+  .au-dim>h2{font-size:17px;color:var(--navy);margin:0 0 4px;border-left:3px solid var(--gold);padding-left:10px}
+  .au-dim>.d{font-size:12.5px;color:var(--ink-3);margin:0 0 10px;padding-left:13px}
+  .au-q{border-top:1px dashed var(--line-2);padding:12px 2px 10px}
+  .au-q:first-of-type{border-top:none}
+  .au-q .qt{font-size:14px;color:var(--ink);line-height:1.7;font-weight:600;margin-bottom:8px}
+  .au-q .qt small{color:var(--ink-3);font-weight:600;margin-right:6px;font-family:var(--mono)}
+  .au-opts{display:flex;flex-wrap:wrap;gap:6px}
+  .au-opts label{flex:1 1 130px;min-width:126px;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-2);background:var(--bg-2);border:1px solid var(--line);border-radius:8px;padding:7px 9px;cursor:pointer;line-height:1.4}
+  .au-opts label:hover{border-color:var(--navy)}
+  .au-opts input{accent-color:var(--navy);margin:0;flex:0 0 auto}
+  .au-opts label.on{background:#EDF3FA;border-color:var(--navy);color:var(--navy);font-weight:700}
+  .au-btns{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  #out{margin-top:26px;display:none}
+  .au-res{display:grid;grid-template-columns:400px 1fr;gap:18px;align-items:stretch}
+  .au-radar{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center}
+  .au-radar svg{max-width:100%;height:auto}
+  .au-side{display:grid;gap:14px;align-content:start}
+  .au-level{background:linear-gradient(120deg,var(--navy),#2A5680);color:#fff;border-radius:14px;padding:20px 22px}
+  .au-level .lv{font-size:30px;font-weight:800;line-height:1.2}
+  .au-level .sc{font-size:13px;color:var(--gold-2);font-weight:700;margin-top:4px}
+  .au-level .d{font-size:13px;color:rgba(255,255,255,.82);margin-top:8px;line-height:1.7}
+  .au-dimbars{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:16px 20px;display:grid;gap:11px;align-content:center}
+  .au-dimbars .row{display:grid;grid-template-columns:118px 1fr 52px;align-items:center;gap:10px}
+  .au-dimbars .row .k{font-size:12.5px;font-weight:650;color:var(--ink-2)}
+  .au-dimbars .row .bar{height:9px;border-radius:6px;background:var(--bg-2);overflow:hidden}
+  .au-dimbars .row .bar i{display:block;height:100%;background:var(--navy)}
+  .au-dimbars .row .v{font-size:15px;font-weight:800;font-family:var(--mono);color:var(--navy);text-align:right}
+  .au-dimbars .row.weak .bar i{background:var(--danger)}
+  .au-dimbars .row.weak .v{color:var(--danger)}
+  .au-act{border:1px solid var(--line);border-left:5px solid var(--danger);border-radius:10px;padding:13px 16px;background:var(--white)}
+  .au-act .h{font-size:14.5px;font-weight:700;color:var(--navy);margin-bottom:5px}
+  .au-act .b{font-size:13px;color:var(--ink-2);line-height:1.75}
+  .au-act .t{display:inline-block;margin-top:7px;font-size:11.5px;background:var(--navy);color:#fff;padding:3px 10px;border-radius:20px}
+  .au-note{font-size:12.5px;color:var(--ink-3);line-height:1.7;margin-top:12px}
+  @media(max-width:820px){.au-res{grid-template-columns:1fr}.au-progress{top:44px}}
+  @media print{.au-btns,.au-progress,.au-opts,#qform,.sn-cta,.sn-toggle{display:none!important}.au-dim{border:none;box-shadow:none;padding:6px 0}#out{display:block!important}}
+</style>
+</head>
+<body>
+
+<main class="site-main" style="padding-top:30px;padding-bottom:44px">
+  <div class="au-wrap">
+    <div class="cm-eyebrow">诊断 · Maturity Audit</div>
+    <h1 style="font-size:27px;font-weight:800;color:var(--navy);margin:0 0 6px">收益管理成熟度诊断（40 题自评）</h1>
+    <p style="font-size:14px;color:var(--ink-2);line-height:1.8;margin:0 0 4px">
+      不用填经营数据——<b>40 道题、约 10 分钟</b>，按您店里的真实做法如实选即可。答完自动生成
+      <b>五维雷达图</b>（定价流程 / 需求预测 / 系统与工具 / 组织与例会 / 数据质量）和
+      <b>L1–L5 成熟度分级</b>，并给出最薄弱两个维度的改进起点。
+    </p>
+    <div class="au-uses">
+      <div class="au-use"><b>一用 · 免费自测</b><span>知道自己现在处在哪一级、短板在哪个维度，比看多少文章都直观。</span></div>
+      <div class="au-use"><b>二用 · 咨询前诊断</b><span>做收益体检或请专家之前先答一遍，沟通成本立刻降下来。</span></div>
+      <div class="au-use"><b>三用 · 陪跑基线</b><span>每季度重测一次，雷达图的变化就是您团队进步的成绩单。</span></div>
+    </div>
+    <p class="cm-hint" style="margin:8px 0 14px">
+      说明：全部计算在您浏览器本地完成，<b>不上传任何数据</b>；结果可导出为自包含 HTML 报告存档或发给顾问。
+      如实选「没有」不丢人——诊断工具的价值就在于找到真问题。
+    </p>
+
+    <div class="au-progress"><span class="n" id="pText">已答 0 / 40</span><div class="bar"><i id="pBar"></i></div></div>
+
+    <div id="qform"></div>
+
+    <div class="au-btns">
+      <button class="cm-btn cm-btn-primary" id="btnRun">生成我的雷达图 →</button>
+      <button class="cm-btn cm-btn-ghost" id="btnDemo">填入示例答案</button>
+      <button class="cm-btn cm-btn-ghost" id="btnClear">清空本机答案</button>
+      <button class="cm-btn cm-btn-ghost" id="btnPrint">打印 / 存 PDF</button>
+      <span class="cm-hint" id="saveTip"></span>
+    </div>
+    <p class="cm-hint" id="runTip" style="margin-top:8px"></p>
+
+    <div id="out">
+      <div class="au-res">
+        <div class="au-radar" id="radarBox"></div>
+        <div class="au-side">
+          <div class="au-level">
+            <div class="lv" id="lvName">—</div>
+            <div class="sc" id="lvScore">—</div>
+            <div class="d" id="lvDesc"></div>
+          </div>
+          <div class="au-dimbars" id="dimBars"></div>
+        </div>
+      </div>
+
+      <h2 class="cm-section-title" style="font-size:20px;margin-top:26px">最薄弱的两个维度：从这里改起</h2>
+      <div style="display:grid;gap:12px;margin-top:12px" id="weakActs"></div>
+
+      <div class="cm-card" style="margin-top:18px">
+        <h3>把这份结果带走</h3>
+        <p style="font-size:13px;color:var(--ink-2);line-height:1.8;margin:6px 0 0">
+          导出的是<b>自包含 HTML 报告</b>（含雷达图），双击即可打开、可打印或另存为 PDF；
+          文字摘要可直接粘贴到微信 / 邮件。建议每季度重测一次，对比雷达图变化。
+        </p>
+        <div class="cm-btns" style="margin-top:10px">
+          <button class="cm-btn cm-btn-primary" id="btnExport">⬇ 导出诊断报告</button>
+          <button class="cm-btn cm-btn-ghost" id="btnCopy">📋 复制文字摘要</button>
+          <button class="cm-btn cm-btn-ghost" id="btnPrint2">打印 / 存 PDF</button>
+        </div>
+        <p class="cm-hint" id="expTip" style="margin-top:8px"></p>
+      </div>
+
+      <div class="cm-card" style="margin-top:18px;border-color:var(--gold)">
+        <h3>下一步：把「自评」升级成「体检」</h3>
+        <p style="font-size:13px;color:var(--ink-2);line-height:1.8;margin:6px 0 0">
+          自评衡量的是<b>做法</b>；要核<b>结果</b>，还需要真实报表数字。
+          如果您想要专家对着您的真实数据核一遍、并给出可执行的改进行动，看这里：
+        </p>
+        <ul style="font-size:13px;color:var(--ink-2);line-height:1.9;margin:10px 0 0;padding-left:20px">
+          <li><b>收益体检</b>（固定价 ¥9,800 / 店，两周交付）：本自评 + 访谈 + 数据抽查，交付 20 页体检报告与前三条改进行动</li>
+          <li><b>收益健康自检</b>（免费）：把上月经营数字填进去，立刻算出 RGI/MPI/ARI 与机会金额</li>
+        </ul>
+        <div class="cm-btns" style="margin-top:10px">
+          <a class="cm-btn cm-btn-primary" href="rm-checkup.html" style="text-decoration:none;display:inline-flex;align-items:center">了解收益体检 →</a>
+          <a class="cm-btn cm-btn-ghost" href="diagnose.html" style="text-decoration:none;display:inline-flex;align-items:center">先做免费的数字自检</a>
+          <a class="cm-btn cm-btn-ghost" href="codex.html" style="text-decoration:none;display:inline-flex;align-items:center">查操作法典（15 张判定表）</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="site-main"><div class="sf-bot">
+  <span>RMC收益管理社区 · 收益管理成熟度诊断</span>
+  <span>联系：<a href="mailto:rm-community@qq.com" style="display:inline;color:var(--gold-2)">rm-community@qq.com</a></span>
+</div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/app.js?v=v2"></script>
+<script>
+(function(){
+  "use strict";
+  var KEY="hrma_audit_v1";
+  var $=function(id){return document.getElementById(id);};
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+  function pad(n){return n<10?"0"+n:""+n;}
+  function fmt(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+" "+pad(d.getHours())+":"+pad(d.getMinutes());}
+  function tip(msg){var e=$("expTip");if(e)e.textContent=msg;}
+
+  /* ---------- 量表 ---------- */
+  var SCALE=[
+    {v:0,t:"没有",d:"从没做过"},
+    {v:1,t:"偶尔",d:"做过几次，没有固定做法"},
+    {v:2,t:"有但不稳",d:"有时做有时不做"},
+    {v:3,t:"稳定在做",d:"有固定流程或工具，坚持在做"},
+    {v:4,t:"成体系",d:"有流程有数据复盘，还在持续改进"}
+  ];
+
+  /* ---------- 五个维度 × 各 8 题 ---------- */
+  var DIMS=[
+    {id:"A",name:"定价与库存决策",qs:[
+      "我们有覆盖未来 90 天的分日型价格表（平日 / 周末 / 节假日 / 展会），由专人维护更新。",
+      "房价调整有固定节奏（每日或每周复盘调价），而不是客人问了才临时改。",
+      "满房日前 3 天我们会主动提价，而不是任由低价订单把房卖完。",
+      "团队 / 会议报价前会做置换分析：算清这单会挤掉多少高价散客。",
+      "折扣和促销有渠道隔离，促销价不会污染门市价（BAR）。",
+      "协议公司与长住价格每年至少复核一次，淘汰产量低、侵蚀价格的账号。",
+      "不同房型之间的价差有设计逻辑，而不是拍脑袋定一个差额。",
+      "超售间数按 No-show 率反推得出，而不是固定「多卖 2 间」。"
+    ]},
+    {id:"B",name:"需求预测",qs:[
+      "我们每月对未来 1–3 个月做正式的出租率与房价预测。",
+      "每天追踪在手预订量与捡房速度（pickup）。",
+      "预测按客源细分（散客 / 团队 / 协议 / OTA）分开做，不是一个总数。",
+      "有城市活动日历 / 展会信息进预测，知道下月哪几天需求会涨。",
+      "取消率和 No-show 率被计入预测与库存决策。",
+      "每月复盘预测准确率，找出偏差原因。",
+      "平均提前预订窗口被监测，并据此安排开售与早鸟节奏。",
+      "旺季 / 高峰日的销量上限（何时停卖低价房型）有明确规则。"
+    ]},
+    {id:"C",name:"系统与工具",qs:[
+      "PMS 日报能自动产出 OCC / ADR / RevPAR，不用手工算。",
+      "我们用成体系的 Excel 模板管理日常收益工作（日报 / pickup / 竞比 / 调价台账）。",
+      "各 OTA 后台的价格与房态和我们自己的价格表一致，不会改了这边忘了那边。",
+      "有稳定的竞对价格数据来源，不是偶尔才看一眼。",
+      "能按渠道看到净价（扣除佣金后），而不只看面价。",
+      "从取数到出定价决策，全程不超过 30 分钟。",
+      "关键报表（日报 / 周报 / 月报）格式固定，任何人接手都能看懂。",
+      "数据定期备份，换人或电脑坏了不会丢历史。"
+    ]},
+    {id:"D",name:"组织与例会",qs:[
+      "有明确的人（哪怕兼岗）对收益结果负责。",
+      "每周固定开收益例会，有议程、有数据、有结论。",
+      "前台与预订部理解当前价格策略，知道什么能卖、什么不能卖。",
+      "店总亲自参与定价决策，而不是完全放手。",
+      "销售、前厅、预订在团队接单前会先沟通房量冲突。",
+      "收益相关培训每年至少一次，哪怕内部互相讲。",
+      "员工激励与收益指标（而不只是出租率）挂钩。",
+      "有把收益思路向业主 / 上级定期汇报的机制。"
+    ]},
+    {id:"E",name:"数据质量",qs:[
+      "每天的 OCC / ADR / RevPAR 数据完整可查，缺天能补上。",
+      "渠道产量数据准确，能回答「OTA 占多少、直销占多少」。",
+      "竞对数据和我们是同档次、同商圈，真正可比。",
+      "历史数据至少 12 个月可回溯。",
+      "客源细分口径全店统一（商务 / 团队 / 协议 / OTA 定义一致）。",
+      "有发现数据错误的机制，对不上账时能查出来。",
+      "统计口径与财务口径定期核对，收入数字两边对得上。",
+      "除 RevPAR 外还看 TRevPAR / GOPPAR 等全收入口径指标。"
+    ]}
+  ];
+
+  var TOTALQ=40;
+  var answers={}; // qIndex -> 0..4
+  var LAST=null;
+
+  /* ---------- 渲染题目 ---------- */
+  function render(){
+    var html="",qi=0;
+    DIMS.forEach(function(dim,di){
+      html+='<div class="au-dim"><h2>维度'+dim.id+' · '+dim.name+'</h2>';
+      html+='<p class="d">以下 8 题，按您店里<b>过去 3 个月的真实做法</b>选，不是按「觉得应该有」选。</p>';
+      dim.qs.forEach(function(q,i){
+        html+='<div class="au-q"><div class="qt"><small>'+pad2(qi+1)+'</small>'+esc(q)+'</div><div class="au-opts">';
+        SCALE.forEach(function(o){
+          html+='<label data-q="'+qi+'" data-v="'+o.v+'"><input type="radio" name="q'+qi+'" value="'+o.v+'">'+o.t+'<span style="color:var(--ink-3)">'+o.d+'</span></label>';
+        });
+        html+='</div></div>';qi++;
+      });
+      html+='</div>';
+    });
+    $("qform").innerHTML=html;
+    Array.prototype.forEach.call(document.querySelectorAll(".au-opts label"),function(lb){
+      lb.addEventListener("click",function(){
+        var qi2=+lb.getAttribute("data-q"), v=+lb.getAttribute("data-v");
+        answers[qi2]=v;
+        Array.prototype.forEach.call(lb.parentElement.children,function(x){x.classList.remove("on");});
+        lb.classList.add("on");
+        updateProgress(); save();
+      });
+    });
+  }
+  function pad2(n){return n<10?"0"+n:""+n;}
+
+  function updateProgress(){
+    var n=Object.keys(answers).length;
+    $("pText").textContent="已答 "+n+" / "+TOTALQ;
+    $("pBar").style.width=(n/TOTALQ*100)+"%";
+  }
+
+  function save(){
+    try{localStorage.setItem(KEY,JSON.stringify(answers));}catch(e){}
+  }
+  function load(){
+    try{
+      var s=localStorage.getItem(KEY); if(!s)return;
+      answers=JSON.parse(s)||{};
+      for(var k in answers){
+        var lb=document.querySelector('.au-opts label[data-q="'+k+'"][data-v="'+answers[k]+'"]');
+        if(lb){lb.classList.add("on");var r=lb.querySelector("input");if(r)r.checked=true;}
+      }
+      updateProgress();
+      $("saveTip").textContent="已恢复上次作答";
+    }catch(e){}
+  }
+
+  /* ---------- 计分与分级 ---------- */
+  function levelOf(score){
+    if(score>=85)return {lv:"L5 · 优化级",d:"体系成熟。重点转向持续校准与团队梯队——让体系不依赖某一个人。"};
+    if(score>=70)return {lv:"L4 · 成熟级",d:"流程完整、稳定在跑。下一程拼精细化：细分预测、置换分析、全收入口径。"};
+    if(score>=55)return {lv:"L3 · 成长级",d:"基本功已经立住了。差距集中在预测与数据深度，选 1–2 个杠杆做深，别贪多。"};
+    if(score>=35)return {lv:"L2 · 起步级",d:"有零星动作但没连成流程。优先把薄弱维度里最简单的两条固化成周例会动作。"};
+    return {lv:"L1 · 初始级",d:"收益管理基本靠经验和感觉。先从两件事做起：每天一份日报，每周一次例会。"};
+  }
+
+  function compute(){
+    var res=DIMS.map(function(dim,di){
+      var s=0,miss=0;
+      dim.qs.forEach(function(q,i){
+        var v=answers[di*8+i];
+        if(v===undefined)miss++; else s+=v;
+      });
+      return {id:dim.id,name:dim.name,sum:s,miss:miss,pct:Math.round(s/32*100)};
+    });
+    var done=res.every(function(r){return r.miss===0;});
+    var overall=Math.round(res.reduce(function(a,r){return a+r.pct;},0)/res.length);
+    return {dims:res,overall:overall,done:done};
+  }
+
+  /* ---------- 雷达图（纯 SVG） ---------- */
+  function radarSVG(dims,size){
+    size=size||360;
+    var cx=size/2, cy=size/2+8, R=size*0.36;
+    var NS="http://www.w3.org/2000/svg";
+    var svg=document.createElementNS(NS,"svg");
+    svg.setAttribute("viewBox","0 0 "+size+" "+(size+22));
+    svg.setAttribute("width",size);svg.setAttribute("height",size+22);
+    function pt(i,f){var ang=-Math.PI/2+i*2*Math.PI/5;return [cx+Math.cos(ang)*R*f, cy+Math.sin(ang)*R*f];}
+    // 底环
+    [0.25,0.5,0.75,1].forEach(function(f){
+      var pts=[];for(var i=0;i<5;i++){pts.push(pt(i,f).join(","));}
+      var poly=document.createElementNS(NS,"polygon");
+      poly.setAttribute("points",pts.join(" "));
+      poly.setAttribute("fill","none");poly.setAttribute("stroke","#D7E0EA");
+      poly.setAttribute("stroke-width",f===1?"1.5":"1");
+      svg.appendChild(poly);
+    });
+    // 轴线
+    for(var i=0;i<5;i++){
+      var ln=document.createElementNS(NS,"line");
+      ln.setAttribute("x1",cx);ln.setAttribute("y1",cy);
+      ln.setAttribute("x2",pt(i,1)[0]);ln.setAttribute("y2",pt(i,1)[1]);
+      ln.setAttribute("stroke","#D7E0EA");ln.setAttribute("stroke-width","1");
+      svg.appendChild(ln);
+    }
+    // 得分多边形
+    var sp=[];for(var j=0;j<5;j++){sp.push(pt(j,Math.max(0.04,dims[j].pct/100)).join(","));}
+    var spoly=document.createElementNS(NS,"polygon");
+    spoly.setAttribute("points",sp.join(" "));
+    spoly.setAttribute("fill","rgba(26,88,144,.30)");
+    spoly.setAttribute("stroke","#1A5890");spoly.setAttribute("stroke-width","2.5");
+    svg.appendChild(spoly);
+    // 顶点
+    for(var k=0;k<5;k++){
+      var c=document.createElementNS(NS,"circle");
+      c.setAttribute("cx",pt(k,Math.max(0.04,dims[k].pct/100))[0]);
+      c.setAttribute("cy",pt(k,Math.max(0.04,dims[k].pct/100))[1]);
+      c.setAttribute("r","4");c.setAttribute("fill","#1A5890");
+      svg.appendChild(c);
+    }
+    // 标签
+    for(var m=0;m<5;m++){
+      var lp=pt(m,1.24);
+      var tx=document.createElementNS(NS,"text");
+      tx.setAttribute("x",lp[0]);tx.setAttribute("y",lp[1]);
+      tx.setAttribute("text-anchor","middle");
+      tx.setAttribute("font-size","12.5");
+      tx.setAttribute("fill", dims[m].pct<55?"#C0392B":"#1B3A5C");
+      tx.setAttribute("font-weight","700");
+      tx.textContent=dims[m].name+" "+dims[m].pct+"%";
+      svg.appendChild(tx);
+    }
+    return svg;
+  }
+
+  /* ---------- 弱项建议 ---------- */
+  var ACTIONS={
+    A:{t:"从《操作法典》表A（分日型提价）与表H（渠道隔离）起步。",tab:"工具：调价台账（模板04）· 房型价差表（模板05）"},
+    B:{t:"先把「每天看在手预订 + pickup」变成固定动作，再谈细分预测。",tab:"工具：Pickup追踪表（模板02）· 年度预算分解（模板06）"},
+    C:{t:"先把日报自动化：固定格式、30 分钟内出决策。",tab:"工具：每日收益日报（模板01）· 周报月报（模板07）"},
+    D:{t:"先把收益例会开起来：有议程、有数据、有结论。",tab:"工具：收益例会手册 · 例会台词脚本 20 篇"},
+    E:{t:"先做一次数字自检，把口径统一起来再谈深度分析。",tab:"工具：收益健康自检（diagnose）· 每日收益日报（模板01）"}
+  };
+
+  function renderResult(R){
+    var L=levelOf(R.overall);
+    $("lvName").textContent=L.lv;
+    $("lvScore").textContent="综合成熟度 "+R.overall+" / 100";
+    $("lvDesc").textContent=L.d;
+    $("radarBox").innerHTML="";
+    $("radarBox").appendChild(radarSVG(R.dims,380));
+    // 维度条
+    var sorted=R.dims.slice().sort(function(a,b){return a.pct-b.pct;});
+    var weakIds=sorted.slice(0,2).map(function(r){return r.id;});
+    $("dimBars").innerHTML=R.dims.map(function(r){
+      return '<div class="row'+(weakIds.indexOf(r.id)>=0?" weak":"")+'">'+
+        '<span class="k">'+r.id+' · '+r.name+'</span>'+
+        '<span class="bar"><i style="width:'+r.pct+'%"></i></span>'+
+        '<span class="v">'+r.pct+'</span></div>';
+    }).join("")+'<div style="font-size:11.5px;color:var(--ink-3)">红色为最薄弱的两个维度</div>';
+    // 弱项动作
+    $("weakActs").innerHTML=sorted.slice(0,2).map(function(r){
+      var a=ACTIONS[r.id];
+      return '<div class="au-act"><div class="h">'+r.id+' · '+r.name+'（'+r.pct+'%，8 题得 '+r.sum+' / 32）</div>'+
+        '<div class="b"><b>改进起点：</b>'+a.t+'<br>'+esc(a.tab)+'</div>'+
+        '<a class="t" href="codex.html" style="text-decoration:none">查操作法典对应判定表</a></div>';
+    }).join("");
+  }
+
+  function run(){
+    if(Object.keys(answers).length<TOTALQ){
+      $("runTip").textContent="还有 "+(TOTALQ-Object.keys(answers).length)+" 题没答——全部答完才能出雷达图（如实选「没有」即可）。";
+      $("runTip").style.color="var(--danger)";
+      return;
+    }
+    $("runTip").textContent="";$("runTip").style.color="";
+    var R=compute();
+    LAST={when:new Date(),R:R,level:levelOf(R.overall)};
+    renderResult(R);
+    $("out").style.display="block";
+    var oe=$("out");
+    if(oe.scrollIntoView){try{oe.scrollIntoView({behavior:"smooth",block:"start"});}catch(e){oe.scrollIntoView();}}
+  }
+
+  function demo(){
+    answers={};
+    document.querySelectorAll(".au-opts label").forEach(function(lb){lb.classList.remove("on");});
+    document.querySelectorAll(".au-opts input").forEach(function(r){r.checked=false;});
+    // 示例：L2 起步级画像——定价尚可、预测弱、数据弱
+    var demo=[2,1,1,0,1,2,2,1,  1,1,0,1,1,0,1,0,  2,2,1,2,1,2,2,1,  2,2,1,2,1,0,0,1,  2,1,1,2,1,0,1,0];
+    demo.forEach(function(v,i){answers[i]=v;});
+    document.querySelectorAll(".au-opts label").forEach(function(lb){
+      var qi=+lb.getAttribute("data-q");
+      if(answers[qi]===+lb.getAttribute("data-v")){lb.classList.add("on");var r=lb.querySelector("input");if(r)r.checked=true;}
+    });
+    updateProgress();save();
+    $("saveTip").textContent="已填入示例（一家 L2 起步级酒店的画像），点「生成我的雷达图」看效果";
+  }
+
+  /* ---------- 摘要与导出 ---------- */
+  function summaryText(){
+    var R=LAST.R,out=[];
+    out.push("RMC收益管理社区 · 收益管理成熟度诊断");
+    out.push("生成时间："+fmt(LAST.when));
+    out.push("");
+    out.push("【综合成熟度】"+R.overall+" / 100 —— "+LAST.level.lv);
+    out.push("【分级说明】"+LAST.level.d);
+    out.push("");
+    out.push("【五维得分】");
+    R.dims.forEach(function(r){
+      out.push("  "+r.id+" · "+r.name+"："+r.pct+"%（8 题得 "+r.sum+" / 32）");
+    });
+    var sorted=R.dims.slice().sort(function(a,b){return a.pct-b.pct;});
+    out.push("");
+    out.push("【最薄弱两维】"+sorted[0].name+"、"+sorted[1].name);
+    out.push("说明：40 题自评，衡量的是「做法」而非「结果」；结果层请配合收益健康自检（免费）或收益体检（人工核对真实报表）。");
+    return out.join("\n");
+  }
+
+  function reportHTML(){
+    var R=LAST.R;
+    var svgStr=$("radarBox").innerHTML;
+    var dimRows=R.dims.map(function(r){
+      return '<tr><td style="padding:8px 10px;border-bottom:1px solid #eee">'+r.id+' · '+esc(r.name)+'</td>'+
+        '<td style="padding:8px 10px;border-bottom:1px solid #eee;text-align:right;font-family:monospace">'+r.sum+' / 32</td>'+
+        '<td style="padding:8px 10px;border-bottom:1px solid #eee;text-align:right;font-family:monospace"><b>'+r.pct+'%</b></td></tr>';
+    }).join("");
+    var sorted=R.dims.slice().sort(function(a,b){return a.pct-b.pct;});
+    var actRows=sorted.slice(0,2).map(function(r){
+      var a=ACTIONS[r.id];
+      return '<p style="font-size:13.5px;line-height:1.8"><b>'+r.id+' · '+esc(r.name)+'（'+r.pct+'%）</b><br>改进起点：'+a.t+'<br><span style="color:#666">'+esc(a.tab)+'</span></p>';
+    }).join("");
+    return '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">'+
+      '<meta name="viewport" content="width=device-width,initial-scale=1">'+
+      '<title>收益管理成熟度诊断报告 · '+esc(fmt(LAST.when))+'</title><style>'+
+      'body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;max-width:840px;margin:0 auto;padding:32px 28px;color:#222;line-height:1.75}'+
+      'h1{color:#1B3A5C;margin:0 0 4px;font-size:24px}h2{color:#1B3A5C;font-size:17px;border-left:4px solid #B8894A;padding-left:10px;margin:28px 0 10px}'+
+      '.meta{color:#888;font-size:12.5px;margin-bottom:18px}'+
+      'table{width:100%;border-collapse:collapse;font-size:13.5px}'+
+      '.score{background:#1B3A5C;color:#fff;border-radius:10px;padding:16px 20px;text-align:center;margin:18px 0}'+
+      '.score .n{font-size:40px;font-weight:800;line-height:1}.score .t{color:#E8C87E;font-weight:700;margin-top:4px}'+
+      '.radar{text-align:center;margin:10px 0}.radar svg{max-width:380px;width:100%;height:auto}'+
+      '.note{font-size:12px;color:#888;margin-top:24px;border-top:1px solid #eee;padding-top:12px}'+
+      '.noprint{margin-bottom:16px}.noprint button{font-family:inherit;font-size:13px;padding:8px 16px;border:1px solid #1B3A5C;background:#1B3A5C;color:#fff;border-radius:7px;cursor:pointer}'+
+      '@media print{.noprint{display:none}body{padding:0}}'+
+      '</style></head><body>'+
+      '<div class="noprint"><button onclick="window.print()">打印 / 另存为 PDF</button></div>'+
+      '<h1>收益管理成熟度诊断报告</h1>'+
+      '<div class="meta">RMC收益管理社区 · 40 题自评（五维） · 生成时间 '+esc(fmt(LAST.when))+'</div>'+
+      '<div class="score"><div class="n">'+R.overall+'</div><div class="t">'+esc(LAST.level.lv)+' / 100</div>'+
+      '<div style="font-size:13.5px;margin-top:8px">'+esc(LAST.level.d)+'</div></div>'+
+      '<h2>五维雷达图</h2><div class="radar">'+svgStr+'</div>'+
+      '<h2>维度明细</h2><table><tr style="background:#F6F7F9"><th style="text-align:left;padding:8px 10px">维度</th><th style="text-align:right;padding:8px 10px">得分</th><th style="text-align:right;padding:8px 10px">成熟度</th></tr>'+dimRows+'</table>'+
+      '<h2>最薄弱的两个维度：改进起点</h2>'+actRows+
+      '<div class="note">本报告由 40 题自评生成，衡量的是酒店的收益管理「做法成熟度」，不构成经营结果评价；'+
+      '机会金额与结果层分析请配合「收益健康自检」（免费）或「收益体检」完成。<br>'+
+      'RMC收益管理社区 · https://hrma-city.github.io/</div>'+
+      '</body></html>';
+  }
+
+  function download(filename,text){
+    try{
+      var blob=new Blob(["\ufeff"+text],{type:"text/html;charset=utf-8"});
+      var url=URL.createObjectURL(blob);
+      var a=document.createElement("a");
+      a.href=url;a.download=filename;
+      document.body.appendChild(a);a.click();
+      setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},300);
+      return true;
+    }catch(e){return false;}
+  }
+  function doExport(){
+    if(!LAST){tip("请先点「生成我的雷达图」再导出");return;}
+    var name="收益管理成熟度诊断报告_"+fmt(LAST.when).replace(/[-: ]/g,"")+".html";
+    if(download(name,reportHTML()))tip("✓ 已导出："+name+"（下载后双击打开，可打印或另存为 PDF）");
+    else tip("导出失败，可改用「打印 / 存 PDF」");
+  }
+  function fallbackCopy(txt){
+    var ta=document.createElement("textarea");
+    ta.value=txt;ta.style.position="fixed";ta.style.opacity="0";
+    document.body.appendChild(ta);ta.select();
+    var ok=false;
+    try{ok=document.execCommand("copy");}catch(e){}
+    document.body.removeChild(ta);
+    tip(ok?"✓ 已复制文字摘要，可直接粘贴":"复制失败，请手动选择文本复制");
+  }
+  function doCopy(){
+    if(!LAST){tip("请先点「生成我的雷达图」再复制");return;}
+    var txt=summaryText();
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){tip("✓ 已复制文字摘要，可直接粘贴到微信 / 邮件");},function(){fallbackCopy(txt);});
+    }else fallbackCopy(txt);
+  }
+
+  $("btnRun").onclick=run;
+  $("btnDemo").onclick=demo;
+  $("btnExport").onclick=doExport;
+  $("btnCopy").onclick=doCopy;
+  $("btnPrint").onclick=function(){window.print();};
+  $("btnPrint2").onclick=function(){if(!LAST){tip("请先点「生成我的雷达图」");return;}window.print();};
+  $("btnClear").onclick=function(){
+    try{localStorage.removeItem(KEY);}catch(e){}
+    answers={};
+    document.querySelectorAll(".au-opts label").forEach(function(lb){lb.classList.remove("on");});
+    document.querySelectorAll(".au-opts input").forEach(function(r){r.checked=false;});
+    updateProgress();$("saveTip").textContent="已清空";$("runTip").textContent="";
+    $("out").style.display="none";
+  };
+  render();load();
+})();
+</script>
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/notify.js"></script>
+</body>
+</html>

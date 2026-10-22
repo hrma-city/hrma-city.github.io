@@ -2,7 +2,7 @@
 """
 HRMA · 模拟数据集生成器
 ======================
-生成杭州滨江云璟酒店（320 间房，中高端全服务）的仿真经营数据，供学员实操与考试使用。
+生成杭州滨江云璟酒店（300 间房，中高端全服务）的仿真经营数据，供学员实操与考试使用。
 
 设计原则：
   1. 数据内部自洽 —— 能互相验算（已售房晚 = 可售 × OCC；客房收入 = 已售 × ADR）
@@ -32,7 +32,7 @@ rng = random.Random(SEED)
 # --------------------------------------------------------------------------
 # 基础设定（SPEC 2.1 / 2.3 / 2.4 / 2.5）
 # --------------------------------------------------------------------------
-ROOMS = 320
+ROOMS = 300
 YEAR = 2025
 
 # 月度 OCC / ADR 基准（SPEC 2.5）
@@ -385,7 +385,7 @@ def measure(rows):
     return sold / avail, (rev / sold if sold else 0)
 
 
-def calibrate(target_occ=0.72, target_adr=618.0, tol=0.004):
+def calibrate(target_occ=0.68, target_adr=620.0, tol=0.004):
     """两遍校准：让全年 OCC / ADR 命中 SPEC 2.3 基线。"""
     o_s = a_s = 1.0
     for _ in range(6):
@@ -432,11 +432,11 @@ def main():
     print(f"  04 竞争组合90天价格      {len(comp):5d} 行 × {len(comp[0])} 列")
     print("-" * 70)
     print("  自检（对照 SPEC 2.3 基线）")
-    print(f"    全年 OCC     {occ*100:6.2f}%   基线 72.00%   偏差 {abs(occ-0.72)*100:5.2f} pp")
-    print(f"    全年 ADR     ¥{adr:6.0f}    基线 ¥618     偏差 {abs(adr-618)/618*100:5.2f}%")
-    print(f"    全年 RevPAR  ¥{revpar:6.0f}    基线 ¥445     偏差 {abs(revpar-445)/445*100:5.2f}%")
-    print(f"    全年客房收入 ¥{rev/1e4:7.1f} 万  基线 ¥5197.7 万")
-    print(f"    全年总营收   ¥{total_rev/1e4:7.1f} 万  基线 ¥8467.7 万")
+    print(f"    全年 OCC     {occ*100:6.2f}%   基线 68.00%   偏差 {abs(occ-0.68)*100:5.2f} pp")
+    print(f"    全年 ADR     ¥{adr:6.0f}    基线 ¥620     偏差 {abs(adr-620)/620*100:5.2f}%")
+    print(f"    全年 RevPAR  ¥{revpar:6.0f}    基线 ¥422     偏差 {abs(revpar-422)/422*100:5.2f}%")
+    print(f"    全年客房收入 ¥{rev/1e4:7.1f} 万  基线 ¥4616.5 万")
+    print(f"    全年总营收   ¥{total_rev/1e4:7.1f} 万  基线 ¥7640.5 万")
     print(f"    RevPAR 反查  RevPAR÷OCC = ¥{revpar/occ:.0f}  （应 ≈ ADR ¥{adr:.0f}）")
 
     # 细分占比自检
@@ -456,7 +456,7 @@ def main():
     # ---- README ----
     with open(os.path.join(DATA, "README.md"), "w", encoding="utf-8") as f:
         f.write("# HRMA 模拟数据集 · 使用说明\n\n")
-        f.write("> 全部数据基于**杭州滨江云璟酒店**（虚构）：320 间客房，中高端全服务酒店。\n")
+        f.write("> 全部数据基于**杭州滨江云璟酒店**（虚构）：300 间客房，中高端全服务酒店。\n")
         f.write("> 生成脚本：`templates/../data/_gen_data.py`，随机种子 `20250903`，可完全复现。\n\n")
         f.write("## 文件清单\n\n| 文件 | 行数 | 用途 |\n|---|---|---|\n")
         f.write(f"| 01_历史日度经营数据_2025.csv | {len(daily)} | 日报复盘、指标计算、年度预算基线 |\n")
