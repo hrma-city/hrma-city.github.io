@@ -32,6 +32,38 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang 
 .btn{background:var(--navy);color:#fff;border:0;border-radius:10px;padding:0 18px;font:inherit;cursor:pointer}
 .foot{text-align:center;color:var(--ink2);font-size:11.5px;padding:6px 0 12px}
 a.eng{color:var(--navy)}
+/* 轻量决策助手：定位条 + 例会清单 */
+.scopebar{max-width:800px;margin:10px auto 0;padding:8px 14px;background:#eef7f2;border:1px solid #bfe3d4;border-radius:10px;font-size:12.8px;color:#245c48}
+.mtbtn{margin-left:auto;font-size:13px;color:#fff;cursor:pointer;border:1px solid var(--teal);border-radius:8px;padding:5px 12px;background:var(--teal)}
+.mtbtn:hover{opacity:.9}
+.mt-add{display:inline-block;margin-top:10px;font-size:12.5px;color:var(--navy);cursor:pointer;border:1px solid #cdd9e8;border-radius:16px;padding:4px 12px;background:#eef2f7}
+.mt-add:hover{background:#e3ebf5}
+.mt-add.done{color:#245c48;border-color:#bfe3d4;background:#eef7f2;cursor:default}
+.mt-mask{position:fixed;inset:0;background:rgba(15,30,50,.45);z-index:90;display:flex;align-items:center;justify-content:center;padding:16px}
+.mt-mask[hidden]{display:none}
+.mt-panel{background:#fff;max-width:880px;width:100%;max-height:88vh;display:flex;flex-direction:column;border-radius:12px;overflow:hidden;box-shadow:0 12px 40px rgba(15,30,50,.25)}
+.mt-head{display:flex;align-items:center;gap:10px;padding:12px 18px;border-bottom:1px solid var(--line);background:#f7f8fa}
+.mt-head b{color:var(--navy);font-size:15px}
+.mt-head .mt-time{font-size:12px;color:var(--ink2)}
+.mt-close{margin-left:auto;font-size:13px;color:var(--navy);cursor:pointer;border:1px solid var(--line);border-radius:8px;padding:4px 10px;background:#fff}
+.mt-body{overflow:auto;padding:14px 18px;font-size:13.2px}
+.mt-body h4{margin:14px 0 6px;color:var(--navy);font-size:13.6px}
+.mt-body h4:first-child{margin-top:0}
+.mt-t{width:100%;border-collapse:collapse;font-size:12.6px;margin:4px 0}
+.mt-t th,.mt-t td{border:1px solid #d6dee8;padding:6px 8px;text-align:left;vertical-align:top;line-height:1.6}
+.mt-t th{background:#eef4fa;color:var(--navy)}
+.mt-blank{color:var(--ink2)}
+.mt-foot{display:flex;gap:8px;padding:10px 18px;border-top:1px solid var(--line);background:#f7f8fa}
+.mt-b{font:inherit;font-size:13px;color:#fff;background:var(--navy);border:0;border-radius:8px;padding:7px 14px;cursor:pointer}
+.mt-b.ghost{color:var(--ink2);background:#fff;border:1px solid var(--line)}
+.mt-toast{position:fixed;left:50%;bottom:76px;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:13px;padding:8px 18px;border-radius:20px;z-index:99;opacity:0;transition:opacity .25s;pointer-events:none}
+.mt-toast.on{opacity:.95}
+@media print{
+  .topbar,.scopebar,.wrap,.foot,.mt-head,.mt-foot{display:none!important}
+  .mt-mask{position:static;background:#fff;padding:0;display:block}
+  .mt-panel{max-width:none;box-shadow:none;border-radius:0}
+  .mt-body{overflow:visible}
+}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -41,8 +73,10 @@ a.eng{color:var(--navy)}
 <div id="toc" style="display:none"></div>
 <div class="topbar">
   <b>收益管理教练</b><span class="tag">AI 分身演示（对话壳 + 判定表引擎）</span>
+  <span class="mtbtn" id="mt-open">例会清单 (<span id="mt-n">0</span>)</span>
   <span class="restart" id="restart">重新开始</span>
 </div>
+<div class="scopebar">定位：按店订阅的<b>轻量决策助手</b>——只做「判定表引导 ＋ 例会清单」，不做完整 RMS，不接管你的 PMS／预测系统。引擎为操作法典 15 表（表 A–O），结论可查、可算、可审计。</div>
 <div class="wrap">
   <div class="msgs" id="msgs"></div>
   <div class="quick" id="quick"></div>
@@ -52,6 +86,19 @@ a.eng{color:var(--navy)}
   </div>
 </div>
 <div class="foot">演示原型：对话壳由前端脚本驱动，底层为确定性判定表引擎（操作法典 15 表）。正式版可由你本人的 AI 分身（LLM）接管对话，引擎不变。分身名可改为你的名字（如「XX 教练」）。</div>
+<div class="mt-mask" id="mt-mask" hidden>
+  <div class="mt-panel">
+    <div class="mt-head"><b>收益例会清单</b><span class="mt-time" id="mt-time"></span><span class="mt-close" id="mt-close">&times; 关闭</span></div>
+    <div class="mt-body" id="mt-body"></div>
+    <div class="mt-foot">
+      <button class="mt-b" id="mt-copy">复制为文本</button>
+      <button class="mt-b" id="mt-print">打印</button>
+      <button class="mt-b ghost" id="mt-clear">清空本会话记录</button>
+    </div>
+  </div>
+</div>
+<div class="mt-toast" id="mt-toast">已记入例会清单</div>
+
 <script type="application/json" id="jt-data">[
  {
   "id": "JT-A",
@@ -1910,6 +1957,10 @@ function presentDecision(rec, decision, note){
   if(rec.basis) h+='<br><b>依据 / 公式：</b>'+esc(rec.basis)+'<br>';
   if(rec.pitfalls) h+='<br>⚠️ <b>易错 / 红线：</b>'+esc(rec.pitfalls);
   h+='<br><br><span style="color:var(--ink2);font-size:12.5px">（定位：'+esc(note)+'）</span>';
+  MTLOG.push({code:rec.code, title:rec.title, domain:rec.domain||'', decision:decision, note:note,
+              basis:rec.basis||'', pitfalls:rec.pitfalls||''});
+  var mi=MTLOG.length-1;
+  h+='<div class="mt-add" onclick="mtAdd(this,'+mi+')">＋ 记入例会清单</div>';
   coachSay(h);
   const rel=(rec.related||[]);
   const qr=rel.map(id=>({label:'看关联 '+id.replace('JT-','表 '), value:'@table:'+id}));
@@ -1940,10 +1991,90 @@ document.getElementById('send').onclick=()=>{ const v=inp.value.trim(); if(!v) r
 inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ document.getElementById('send').click(); } });
 document.getElementById('restart').onclick=restart;
 
+/* ---- 例会清单：判定表引导的产出闭环 ---- */
+var MTLOG=[];          /* 本次会话产出的全部决策（含未记入） */
+var MTSHOW=[];         /* 已记入清单的 MTLOG 下标 */
+function gid(id){ return document.getElementById(id); }
+function mtAdd(btn,i){
+  if(btn.dataset.done) return;
+  btn.dataset.done='1'; btn.classList.add('done'); btn.textContent='已记入 ✓';
+  if(MTSHOW.indexOf(i)<0) MTSHOW.push(i);
+  gid('mt-n').textContent=MTSHOW.length;
+  var t=gid('mt-toast'); t.classList.add('on'); setTimeout(function(){ t.classList.remove('on'); },1400);
+}
+function mtEsc(s){ return esc(s); }
+function mtRender(){
+  var n=MTSHOW.length, body=gid('mt-body');
+  gid('mt-time').textContent='生成于 '+new Date().toLocaleString('zh-CN',{hour12:false});
+  var h='';
+  if(!n){
+    h='<p class="mt-blank">本次会话还没有记入任何决策。走任意一张判定表（如「今天预测出租率 95%、Pickup 领先 10%，要涨价吗？」），在结论下方点「＋ 记入例会清单」，这里就会帮你攒出明天例会要用的清单。</p>';
+  } else {
+    /* ① 昨日复盘 */
+    h+='<h4>① 昨日复盘（会前 5 分钟填）</h4>';
+    h+='<table class="mt-t"><tr><th>指标</th><th>实际</th><th>预测</th><th>偏差与一句话归因</th></tr>';
+    h+='<tr><td>出租率 OCC</td><td class="mt-blank">＿＿ %</td><td class="mt-blank">＿＿ %</td><td class="mt-blank"></td></tr>';
+    h+='<tr><td>平均房价 ADR</td><td class="mt-blank">＿＿ 元</td><td class="mt-blank">＿＿ 元</td><td class="mt-blank"></td></tr>';
+    h+='<tr><td>RevPAR</td><td class="mt-blank">＿＿ 元</td><td class="mt-blank">＿＿ 元</td><td class="mt-blank"></td></tr></table>';
+    /* ② 今日动作（来自判定表记录） */
+    h+='<h4>② 今日动作（来自判定表引导，共 '+n+' 条）</h4>';
+    h+='<table class="mt-t"><tr><th>#</th><th>条件 / 定位</th><th>判定依据</th><th>动作</th><th>红线 / 台账</th></tr>';
+    MTSHOW.forEach(function(idx,k){
+      var it=MTLOG[idx];
+      h+='<tr><td>'+(k+1)+'</td><td>'+mtEsc(trunc(it.note,60))+'</td><td><b>'+mtEsc(it.code)+'</b> '+mtEsc(trunc(it.title,16))+'</td><td><b>'+mtEsc(it.decision)+'</b></td><td>'+mtEsc(trunc(it.pitfalls,80)||'—')+'</td></tr>';
+    });
+    h+='</table>';
+    /* ③ 未来 7 天风险 */
+    h+='<h4>③ 未来 7 天风险检查（固定四项 + 本会话红线）</h4><ul style="margin:4px 0 0 18px;padding:0">';
+    h+='<li>所有限制条件（MinLOS / CTA / Stop Sell）到期是否自动解除</li>';
+    h+='<li>未来 7 天团队、宴会到店日期与房量是否已对齐</li>';
+    h+='<li>竞品未来一周促销 / 活动信号是否有人盯</li>';
+    h+='<li>满房日一过，MinLOS / CTA 是否立刻撤</li>';
+    MTSHOW.forEach(function(idx){
+      var p=MTLOG[idx].pitfalls;
+      if(p) h+='<li>（'+mtEsc(MTLOG[idx].code)+'）'+mtEsc(trunc(p,60))+'</li>';
+    });
+    h+='</ul>';
+  }
+  body.innerHTML=h;
+}
+function mtOpen(){ mtRender(); gid('mt-mask').hidden=false; }
+function mtClose(){ gid('mt-mask').hidden=true; }
+function mtCopy(){
+  var n=MTSHOW.length;
+  var lines=['《收益例会清单》 生成于 '+new Date().toLocaleString('zh-CN',{hour12:false})+'',''];
+  if(!n){ lines.push('（本次会话尚未记入任何决策）'); }
+  else{
+    lines.push('① 昨日复盘：OCC __% / ADR __元 / RevPAR __元，偏差归因：______','');
+    lines.push('② 今日动作（共 '+n+' 条）：');
+    MTSHOW.forEach(function(idx,k){
+      var it=MTLOG[idx];
+      lines.push((k+1)+'. ['+it.code+'·'+it.title+'] 动作：'+it.decision+' ｜ 条件：'+it.note+' ｜ 红线：'+(it.pitfalls||'—'));
+    });
+    lines.push('','③ 未来 7 天风险：限制条件到期解除 / 团队宴会到店 / 竞品促销 / 满房日过后撤 MinLOS');
+  }
+  var txt=lines.join('\n');
+  function fb(){
+    var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta);
+    ta.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(ta);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).catch(fb); } else { fb(); }
+  var t=gid('mt-toast'); t.textContent='已复制为纯文本'; t.classList.add('on');
+  setTimeout(function(){ t.classList.remove('on'); t.textContent='已记入例会清单'; },1400);
+}
+gid('mt-open').onclick=mtOpen;
+gid('mt-close').onclick=mtClose;
+gid('mt-copy').onclick=mtCopy;
+gid('mt-print').onclick=function(){ mtRender(); window.print(); };
+gid('mt-clear').onclick=function(){ MTSHOW=[]; gid('mt-n').textContent='0'; mtRender(); };
+gid('mt-mask').addEventListener('click',function(e){ if(e.target===this) mtClose(); });
+
 let state={tableId:null};
 restart();
 
 </script>
 <script src="assets/js/site-nav.js?v=v21"></script>
+
+
 </body>
 </html>
