@@ -66,6 +66,14 @@ main{padding:26px 0 60px}
 .mark span{font-size:12.5px;color:var(--muted)}
 .tch{display:none}
 body.mode-teach .tch{display:grid}
+/* 教师模式只保留课堂五步（讲/演示/练/判/考），学生四步整块隐藏——
+   否则教师看到的是「学生四步 + 教师五步」堆在一格里，三个身份看不出区别。 */
+body.mode-teach .steps{display:none}
+body.mode-teach .mark{margin-top:14px}
+.tchflow{margin-top:14px;font-size:13px;line-height:2.1;color:var(--muted);
+  background:#f7fafd;border:1px solid #dde8f3;border-radius:10px;padding:10px 14px}
+.tchflow b{color:var(--navy)}
+.tchflow a{color:var(--blue);font-weight:600;margin:0 2px}
 .tchbox{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px;
   grid-template-columns:repeat(4,1fr);gap:10px}
 @media(max-width:900px){.tchbox{grid-template-columns:repeat(2,1fr)}}
@@ -172,6 +180,13 @@ body.mode-pro .stuonly{display:none}
     <p class="stu">这一条完全照<b>新版教材的顺序</b>走：先看开篇的两张图建立骨架，再按<b>七篇四十一章</b>一路往下读。每一章都是三步——读这一章、做章末练习（答案在附录 B）、有配套工具的就用工具练一遍。读完四十一章，再做附录 E 的八个综合实训收尾。</p>
     <p class="pro">您在店里做事，要的是能立刻用上的东西。这一条走的是职业认证的十四个模块，按 <b>L1 执行专员 → L2 主管 → L3 经理</b> 三级递进，每个模块标了课时与认证权重，学完直接报考对应级别。</p>
     <p class="tch">同一条学生路径（教材四十一章），教师视角。每一章下面是按课堂顺序排好的五步——讲、演示、练、判、考，可以直接照着排课，也可以整门课布置给学生。</p>
+    <div class="tch tchflow">
+      <b>开课四步（先走完这四步，再往下翻各章的五步）：</b>
+      <a href="teach.html">① 开课准备</a>（申报书 / 课程标准 / 进度表）
+      <a href="teach.html">② 备课取材</a>（41 章教案按你的课时取材）
+      <a href="teach.html">③ 上课交付</a>（课件 / 演示 / 课堂活动）
+      <a href="teach.html">④ 组织考核</a>（题库 / 标尺 / 成绩结构）
+    </div>
     <div class="switch">
       <button id="btnStu" class="on" type="button">我是学生 · 学这门课</button>
       <button id="btnPro" type="button">我是酒店人 · 在岗考级</button>
@@ -550,9 +565,20 @@ var BOOK=[
  chs:[{n:29,t:'餐饮收益：RevPASH 与翻台', tool:null},
       {n:30,t:'会议宴会：不只算房，算总贡献', tool:null},
       {n:31,t:'其他业态与跨行业参数', tool:['cases.html','跨行业案例集']},
-      {n:32,t:'常见误区：30 个坑，别再踩', tool:null}]}
+      {n:32,t:'常见误区：30 个坑，别再踩', tool:null}]},
+{part:'第六篇 · 现实篇', mod:'中国市场与组织现实', desc:'把前面的原理放回您店里真实的环境',
+ chs:[{n:33,t:'中国渠道生态：平台、私域、买断与直播', tool:['02-onbook.html','渠道在途表']},
+      {n:34,t:'连锁与中央预订：总部定价，门店做什么', tool:null},
+      {n:35,t:'AI 工具做收益分析', tool:['ai-coach-chat.html','AI 收益分析教练']},
+      {n:36,t:'危机与极端场景', tool:null},
+      {n:37,t:'收益岗位与职业发展', tool:['growth-hub.html','上岗馆 · 职业发展']},
+      {n:38,t:'变革篇：收益管理正在发生的五件事', tool:null}]},
+{part:'第七篇 · 视野篇', mod:'周期、智能与可持续', desc:'把时间拉长，看这门学科往哪走',
+ chs:[{n:39,t:'周期与不确定性下的收益管理', tool:null},
+      {n:40,t:'人工智能与收益管理（科普）', tool:['ai-era.html','AI 时代 · 收益管理']},
+      {n:41,t:'绿色收益管理与可持续', tool:null}]}
 ];
-var CH_TOTAL=32;
+var CH_TOTAL=41;
 function pad2(n){ return (n<10?'0':'')+n; }
 
 function renderStu(){
