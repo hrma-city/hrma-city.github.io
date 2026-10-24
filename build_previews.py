@@ -234,6 +234,19 @@ def main():
         tabs, sheets = render_xlsx(os.path.join(tdir, fn), rel)
         write_html(out, fn, tabs, sheets, "Excel 模板预览（公式计算值，输入格为示例/空）")
         mapping[rel] = "assets/previews/" + slug + ".html"
+    # 根目录 calc-*.xlsx（2026-10-25 补齐）
+    # 这些是「计算器」版模板，此前 build_previews 只扫 templates/ 与 data/，
+    # 导致模板库里这些项只有下载链接、没有在线预览。这里一并生成预览页。
+    for fn in sorted(os.listdir(HERE)):
+        if not fn.lower().startswith("calc-") or not fn.lower().endswith(".xlsx"):
+            continue
+        rel = fn
+        slug = slugify(rel)
+        out = os.path.join(OUT_DIR, slug + ".html")
+        print("render xlsx:", rel)
+        tabs, sheets = render_xlsx(os.path.join(HERE, fn), rel)
+        write_html(out, fn, tabs, sheets, "Excel 计算模板预览（含公式，输入格为示例/空）")
+        mapping[rel] = "assets/previews/" + slug + ".html"
     # csv
     ddir = os.path.join(HERE, "data")
     for fn in sorted(os.listdir(ddir)):
