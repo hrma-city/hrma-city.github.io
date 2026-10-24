@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OCC / ADR / RevPAR 速查卡 · 一页纸</title>
+<style>
+:root{--navy:#0f2a4a;--ink:#1a2330;--ink2:#5a6675;--line:#dbe2ea;--bg:#f4f6f9;--gold:#b8860b;--red:#b3261e;--teal:#0d7a6a}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.7}
+.wrap{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px 26px;margin-bottom:14px}
+h1{font-size:21px;margin:0 0 4px;color:var(--navy)}
+.sub{color:var(--ink2);font-size:12.5px;margin-bottom:16px}
+h2{font-size:15px;color:var(--navy);margin:18px 0 8px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+th{background:#f2f6fa;text-align:left;padding:8px 10px;border-bottom:2px solid var(--line);font-size:12.5px;color:var(--ink2)}
+td{padding:8px 10px;border-bottom:1px solid #edf1f5;vertical-align:top}
+.num{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;white-space:nowrap}
+.formula{background:#f7fafd;border:1px solid #dde8f3;border-radius:8px;padding:10px 14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;margin:8px 0;color:var(--navy)}
+.warn{background:#fdecea;border-left:4px solid var(--red);border-radius:6px;padding:10px 14px;font-size:12.8px;margin:8px 0}
+.good{background:#e8f4f0;border-left:4px solid var(--teal);border-radius:6px;padding:10px 14px;font-size:12.8px;margin:8px 0}
+.btn{display:inline-block;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13.5px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--navy);margin-left:8px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+@media print{
+  body{background:#fff;font-size:11.5px}
+  .wrap{padding:0;max-width:none}
+  .card{border:none;padding:8px 0;page-break-inside:avoid}
+  .tools,.sub{display:none}
+  h1{font-size:16px}
+  table{font-size:10.5px}
+  td,th{padding:4px 6px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>OCC / ADR / RevPAR 速查卡</h1>
+    <div class="sub">一页纸 · 算例采用杭州滨江云璟酒店（虚构脱敏）2025 年度口径：300 间，年可售 109,500 间夜</div>
+    <div class="tools">
+      <button class="btn" onclick="window.print()">打印 / 存 PDF</button>
+      <a class="btn ghost" href="diagnose.html">用自家数字算一遍（免费自检）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>一、三个数各是什么</h2>
+    <table>
+      <thead><tr><th style="width:90px">指标</th><th>一句话定义</th><th style="width:260px">公式</th><th style="width:110px">云璟 2025</th></tr></thead>
+      <tbody>
+        <tr><td><b>OCC</b><br><span style="font-size:11.5px;color:var(--ink2)">出租率</span></td><td>卖出去的房，占能卖房的几成</td><td class="num">售出房晚 ÷ 可售房晚</td><td class="num">68.0%</td></tr>
+        <tr><td><b>ADR</b><br><span style="font-size:11.5px;color:var(--ink2)">平均房价</span></td><td>每一间卖出去的房，平均卖了多少钱</td><td class="num">客房收入 ÷ 售出房晚</td><td class="num">¥620</td></tr>
+        <tr><td><b>RevPAR</b><br><span style="font-size:11.5px;color:var(--ink2)">每间可售房收入</span></td><td>每一间<i>本来能卖</i>的房，实际赚了多少钱</td><td class="num">客房收入 ÷ 可售房晚</td><td class="num">¥422</td></tr>
+      </tbody>
+    </table>
+    <div class="formula">三角关系：RevPAR ＝ OCC × ADR　｜　0.680 × 620 ＝ ¥421.6 ≈ ¥422（取整差来自 ADR 的四舍五入）</div>
+  </div>
+
+  <div class="card">
+    <h2>二、为什么 OCC 高不等于赚钱（同一家店的三个方案）</h2>
+    <table>
+      <thead><tr><th>方案</th><th class="num">OCC</th><th class="num">ADR</th><th class="num">RevPAR</th><th class="num">年客房收入</th><th class="num">对比基准</th></tr></thead>
+      <tbody>
+        <tr><td><b>基准</b>（云璟 2025 实绩）</td><td class="num">68.0%</td><td class="num">¥620</td><td class="num">¥422.0</td><td class="num">¥4,616.5 万</td><td class="num">—</td></tr>
+        <tr><td>提价保房（少卖，卖贵）</td><td class="num">64.0%</td><td class="num">¥660</td><td class="num">¥422.4</td><td class="num">¥4,625.3 万</td><td class="num" style="color:var(--teal)">+8.8 万</td></tr>
+        <tr><td>降价冲量（多卖，卖贱）</td><td class="num">78.0%</td><td class="num">¥520</td><td class="num">¥405.6</td><td class="num">¥4,441.3 万</td><td class="num" style="color:var(--red)">−175.2 万</td></tr>
+      </tbody>
+    </table>
+    <div class="good"><b>读法</b>：降价方案把出租率拉高了 10 个百分点，年客房收入反而<b>少 175.2 万</b>——多卖了 10,950 间夜，每间少赚 100 元。OCC 是过程指标，RevPAR 才是结果指标。</div>
+    <div class="formula">验算：300 间 × 365 ＝ 109,500 ｜ 109,500 × 78% ＝ 85,410 间夜 × ¥520 ＝ ¥4,441.3 万 ｜ 85,410 − 74,460 ＝ 10,950 间夜</div>
+  </div>
+
+  <div class="card">
+    <h2>三、三条红线（最常错的）</h2>
+    <div class="warn"><b>1. 把 OCC 当考核目标。</b>「这个月出租率必须上 90%」一旦成为目标，一线唯一的达成手段就是降价——收入掉、佣金照付。考核应对准 RevPAR 或客房收入。</div>
+    <div class="warn"><b>2. 拿 OCC 和 ADR 单独跟竞品比。</b>对手 OCC 比你高 8 个点，可能只是它价格低 15%——要同时看 MPI（出租率指数）与 ARI（房价指数），两者相乘才是 RGI（收益指数）。</div>
+    <div class="warn"><b>3. RevPAR 相同就以为策略一样。</b>提价保房与降价冲量可能算出同一个 RevPAR，但现金回流节奏、佣金结构、客源质量完全不同——别只看一个数做决定。</div>
+  </div>
+
+  <div class="card">
+    <h2>四、带走这两样</h2>
+    <div class="tools">
+      <a class="btn" href="diagnose.html">收益健康自检（免费）：填自家三个数，出 MPI / ARI / RGI 与异常清单</a>
+      <a class="btn ghost" href="jt-coach.html">AI 教练（免费）：直接问「我这种情况涨不涨」</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
