@@ -19,27 +19,7 @@
 <link rel="stylesheet" href="assets/css/auth.css">
 <link rel="stylesheet" href="assets/css/notify.css">
 
-<style id="rm-toc-style">
-#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
-  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
-  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
-#rm-toc-drawer.open{transform:translateX(0)}
-#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
-  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
-#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
-#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
-#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
-#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
-  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
-#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
-#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
-#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
-  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
-  display:flex;align-items:center;justify-content:center}
-#rm-toc-toggle:hover{background:#1d4e7e}
-@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
-</style>
+
 
 <style id="a4-print-fix">
 /* ===== 屏幕：A4 纸张预览 + 打印指引 ===== */
@@ -64,6 +44,30 @@
   .site-nav,.topbar,#rm-toc-drawer,#rm-toc-toggle{position:static !important;box-shadow:none !important}
   a{color:#0f2a4a !important;text-decoration:none}
 }
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+@media (min-width:1100px){body.toc-open{padding-left:312px}body.toc-open .site-nav,body.toc-open .topbar{left:312px}}
+body{transition:padding-left .25s ease}
 </style>
 </head>
 <body data-page="codex" data-auth="protected">
@@ -130,8 +134,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="price" id="table-a">
   <div class="codex-head">
-    <span class="badge-codex">表 A</span>
-    <h3 id="toc-1">每日价格调整判定表</h3>
+    <h3 id="toc-1">表 A · 每日价格调整判定表</h3>
     <span class="pill pill-red">最常用</span>
   </div>
   <p class="codex-desc">
@@ -202,8 +205,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="inventory" id="table-b">
   <div class="codex-head">
-    <span class="badge-codex">表 B</span>
-    <h3 id="toc-2">库存与限制条件配置表</h3>
+    <h3 id="toc-2">表 B · 库存与限制条件配置表</h3>
     <span class="pill pill-teal">与表 A 配套使用</span>
   </div>
   <p class="codex-desc">
@@ -251,8 +253,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="compete" id="table-c">
   <div class="codex-head">
-    <span class="badge-codex">表 C</span>
-    <h3 id="toc-3">价格指数（ARI）判定表</h3>
+    <h3 id="toc-3">表 C · 价格指数（ARI）判定表</h3>
   </div>
   <p class="codex-desc">
     <b>ARI = 本店 ADR ÷ 竞争组合加权 ADR × 100</b>。回答一个问题：<b>我卖得比隔壁贵还是便宜？</b>
@@ -298,8 +299,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="compete" id="table-d">
   <div class="codex-head">
-    <span class="badge-codex">表 D</span>
-    <h3 id="toc-4">市场渗透指数（MPI）判定表</h3>
+    <h3 id="toc-4">表 D · 市场渗透指数（MPI）判定表</h3>
     <span class="pill">偏诊断，少出动作</span>
   </div>
   <p class="codex-desc">
@@ -345,8 +345,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="inventory" id="table-e">
   <div class="codex-head">
-    <span class="badge-codex">表 E</span>
-    <h3 id="toc-5">超额预订标准表</h3>
+    <h3 id="toc-5">表 E · 超额预订标准表</h3>
     <span class="pill pill-amber">高风险动作</span>
   </div>
   <p class="codex-desc">
@@ -411,8 +410,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="price" id="table-f">
   <div class="codex-head">
-    <span class="badge-codex">表 F</span>
-    <h3 id="toc-6">房型价差阶梯表</h3>
+    <h3 id="toc-6">表 F · 房型价差阶梯表</h3>
   </div>
   <p class="codex-desc">
     以<b>高级房 BAR 为基准 100</b>。设定一次，全房型价格自动生成。
@@ -459,8 +457,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="customer" id="table-g">
   <div class="codex-head">
-    <span class="badge-codex">表 G</span>
-    <h3 id="toc-7">团队／协议询价接受判定表</h3>
+    <h3 id="toc-7">表 G · 团队／协议询价接受判定表</h3>
     <span class="pill pill-amber">置换分析简化版</span>
   </div>
   <p class="codex-desc">
@@ -525,8 +522,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="channel" id="table-h">
   <div class="codex-head">
-    <span class="badge-codex">表 H</span>
-    <h3 id="toc-8">渠道开关判定表</h3>
+    <h3 id="toc-8">表 H · 渠道开关判定表</h3>
   </div>
   <p class="codex-desc">
     按目标日预测 OCC 决定各渠道的开关状态。<b>核心原则：房好卖的时候关掉贵渠道，房难卖的时候全开。</b>
@@ -593,8 +589,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="rhythm" id="table-i">
   <div class="codex-head">
-    <span class="badge-codex">表 I</span>
-    <h3 id="toc-9">预订窗口分档监控表</h3>
+    <h3 id="toc-9">表 I · 预订窗口分档监控表</h3>
   </div>
   <p class="codex-desc">
     不同提前天数的日期，<b>监控频率和触发阈值都不一样</b>。
@@ -631,8 +626,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="inventory" id="table-j">
   <div class="codex-head">
-    <span class="badge-codex">表 J</span>
-    <h3 id="toc-10">免费升级规则表</h3>
+    <h3 id="toc-10">表 J · 免费升级规则表</h3>
   </div>
   <p class="codex-desc">
     <b>三种触发场景</b>：① 超售需要腾房；② 目标日高档房预测空置 &gt; 20%；③ 会员权益兑现。
@@ -662,8 +656,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="customer" id="table-k">
   <div class="codex-head">
-    <span class="badge-codex">表 K</span>
-    <h3 id="toc-11">会议／宴会综合收益联动表</h3>
+    <h3 id="toc-11">表 K · 会议／宴会综合收益联动表</h3>
     <span class="pill pill-navy">全服务酒店专属</span>
   </div>
   <p class="codex-desc">
@@ -708,8 +701,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="emergency" id="table-l">
   <div class="codex-head">
-    <span class="badge-codex">表 L</span>
-    <h3 id="toc-12">异常事件应急判定表</h3>
+    <h3 id="toc-12">表 L · 异常事件应急判定表</h3>
     <span class="pill pill-red">优先级最高</span>
   </div>
   <p class="codex-desc">
@@ -779,8 +771,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="rhythm" id="table-m">
   <div class="codex-head">
-    <span class="badge-codex">表 M</span>
-    <h3 id="toc-13">每日收益操作流水线（时间表）</h3>
+    <h3 id="toc-13">表 M · 每日收益操作流水线（时间表）</h3>
     <span class="pill pill-red">L1 核心</span>
   </div>
   <p class="codex-desc">
@@ -841,8 +832,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="rhythm" id="table-n">
   <div class="codex-head">
-    <span class="badge-codex">表 N</span>
-    <h3 id="toc-14">周度／月度节奏表</h3>
+    <h3 id="toc-14">表 N · 周度／月度节奏表</h3>
   </div>
   <p class="codex-desc">除了每天做的事，还有哪些事必须<b>按周、按月、按季度</b>做。漏掉任何一项，体系就会出现漏洞。</p>
 
@@ -871,8 +861,7 @@
      ============================================================ -->
 <div class="codex-block" data-codex-block data-cat="emergency rhythm" id="table-o">
   <div class="codex-head">
-    <span class="badge-codex">表 O</span>
-    <h3 id="toc-15">决策优先级与冲突仲裁表</h3>
+    <h3 id="toc-15">表 O · 决策优先级与冲突仲裁表</h3>
     <span class="pill pill-red">不纠结的终极保障</span>
   </div>
   <p class="codex-desc">
@@ -986,8 +975,7 @@
 </div>
 
 <section class="co-sec" id="appendix" style="margin-top:34px">
-  <span class="co-badge">附录</span>
-  <h2 id="toc-17" style="border:none;margin-bottom:6px">新手三件套：致命错误 · 价格速查 · 检查清单</h2>
+  <h2 id="toc-17" style="border:none;margin-bottom:6px">附录 · 新手三件套：致命错误 · 价格速查 · 检查清单</h2>
   <p style="font-size:13px;color:#6b7280;margin-bottom:14px">摘自《酒店收益管理极简实操手册》（培训四件套之一），与上方 15 张判定表配套使用：判定表教"怎么判"，这三件教"别做错、知道何时动手、每天照单打勾"。</p>
 
   <h3 id="toc-18">一、新手最易犯的 5 个致命错误</h3>
@@ -1063,38 +1051,42 @@
 <script>window.HRMA_PREFIX="";</script>
 <script src="assets/js/notify.js"></script>
 
+
+
+
+
+
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
   <div class="toc-h"><b>收益管理操作法典（15 张判定表） · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1" class="lv3">1. 每日价格调整判定表</a>
-<a href="#toc-2" class="lv3">2. 库存与限制条件配置表</a>
-<a href="#toc-3" class="lv3">3. 价格指数（ARI）判定表</a>
-<a href="#toc-4" class="lv3">4. 市场渗透指数（MPI）判定表</a>
-<a href="#toc-5" class="lv3">5. 超额预订标准表</a>
-<a href="#toc-6" class="lv3">6. 房型价差阶梯表</a>
-<a href="#toc-7" class="lv3">7. 团队／协议询价接受判定表</a>
-<a href="#toc-8" class="lv3">8. 渠道开关判定表</a>
-<a href="#toc-9" class="lv3">9. 预订窗口分档监控表</a>
-<a href="#toc-10" class="lv3">10. 免费升级规则表</a>
-<a href="#toc-11" class="lv3">11. 会议／宴会综合收益联动表</a>
-<a href="#toc-12" class="lv3">12. 异常事件应急判定表</a>
-<a href="#toc-13" class="lv3">13. 每日收益操作流水线（时间表）</a>
-<a href="#toc-14" class="lv3">14. 周度／月度节奏表</a>
-<a href="#toc-15" class="lv3">15. 决策优先级与冲突仲裁表</a>
+  <div class="toc-body"><a href="#toc-1" class="lv3">1. 表 A · 每日价格调整判定表</a>
+<a href="#toc-2" class="lv3">2. 表 B · 库存与限制条件配置表</a>
+<a href="#toc-3" class="lv3">3. 表 C · 价格指数（ARI）判定表</a>
+<a href="#toc-4" class="lv3">4. 表 D · 市场渗透指数（MPI）判定表</a>
+<a href="#toc-5" class="lv3">5. 表 E · 超额预订标准表</a>
+<a href="#toc-6" class="lv3">6. 表 F · 房型价差阶梯表</a>
+<a href="#toc-7" class="lv3">7. 表 G · 团队／协议询价接受判定表</a>
+<a href="#toc-8" class="lv3">8. 表 H · 渠道开关判定表</a>
+<a href="#toc-9" class="lv3">9. 表 I · 预订窗口分档监控表</a>
+<a href="#toc-10" class="lv3">10. 表 J · 免费升级规则表</a>
+<a href="#toc-11" class="lv3">11. 表 K · 会议／宴会综合收益联动表</a>
+<a href="#toc-12" class="lv3">12. 表 L · 异常事件应急判定表</a>
+<a href="#toc-13" class="lv3">13. 表 M · 每日收益操作流水线（时间表）</a>
+<a href="#toc-14" class="lv3">14. 表 N · 周度／月度节奏表</a>
+<a href="#toc-15" class="lv3">15. 表 O · 决策优先级与冲突仲裁表</a>
 <a href="#toc-16" class="lv3">16. 需求等级日历（D1–D4）</a>
-<a href="#toc-17">1. 新手三件套：致命错误 · 价格速查 · 检查清单</a>
+<a href="#toc-17">附录 · 新手三件套：致命错误 · 价格速查 · 检查清单</a>
 <a href="#toc-18" class="lv3">一、新手最易犯的 5 个致命错误</a>
 <a href="#toc-19" class="lv3">二、价格调整速查表</a>
 <a href="#toc-20" class="lv3">三、每日 / 每周 / 每月检查清单</a></div>
 </nav>
-
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
   if(!d||!t)return;
   var c=d.querySelector('.toc-close');
-  t.addEventListener('click',function(){d.classList.toggle('open')});
-  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  t.addEventListener('click',function(){d.classList.toggle('open');document.body.classList.toggle('toc-open',d.classList.contains('open'))});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open');document.body.classList.remove('toc-open')});
   var links=[].slice.call(d.querySelectorAll('.toc-body a'));
   var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
   function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
@@ -1103,7 +1095,7 @@
   links.forEach(function(a){a.addEventListener('click',function(){
     var el=document.getElementById(a.getAttribute('href').slice(1));
     if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
-    d.classList.remove('open');
+    d.classList.remove('open');document.body.classList.remove('toc-open');
   });});
 })();
 </script>
