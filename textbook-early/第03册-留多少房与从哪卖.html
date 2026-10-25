@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js?v=gate20261013"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>酒店收益管理 · 教材（第 03 册 第 14–21 章）</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:#eef2f7;color:#1a1a1a;line-height:1.9;font-size:15px}
+  .wrap{max-width:900px;margin:0 auto;background:#fff;box-shadow:0 2px 24px rgba(15,42,74,.12)}
+  header{background:linear-gradient(135deg,#0f2a4a 0%,#1d4f80 100%);color:#fff;padding:36px 46px 30px}
+  header .eyebrow{color:#e8b84b;font-size:12.5px;letter-spacing:3px;font-weight:600;margin-bottom:10px}
+  header h1{font-size:26px;font-weight:700;margin-bottom:8px}
+  header .sub{color:#c3d6ea;font-size:14px}
+  main{padding:0 46px 50px}
+  h2{font-size:22px;color:#0f2a4a;margin:42px 0 14px;padding-left:14px;border-left:5px solid #e8b84b;line-height:1.5}
+  h3{font-size:17px;color:#1d4f80;margin:26px 0 9px;font-weight:650}
+  h4{font-size:15px;color:#0f2a4a;margin:18px 0 7px;font-weight:650}
+  p{margin:12px 0}
+  ul,ol{margin:12px 0 12px 24px}
+  li{margin:7px 0}
+  strong{color:#0f2a4a}
+  .part{background:#0f2a4a;color:#fff;padding:20px 24px;margin:38px 0 22px;border-radius:6px}
+  .part .pn{color:#e8b84b;font-size:12.5px;letter-spacing:3px;font-weight:600;margin-bottom:7px}
+  .part h2{margin:0;font-size:21px;color:#fff;border:none;padding:0}
+  .part .desc{color:#c3d6ea;font-size:13.5px;margin-top:8px;line-height:1.8}
+  .goal{background:#f0f6fb;border:1px solid #c9dcee;padding:14px 18px;margin:18px 0;border-radius:0 6px 6px 0}
+  .goal .lbl{font-weight:700;color:#1d4f80;margin-bottom:6px;font-size:14px}
+  .scene{background:#fff8e8;border-left:4px solid #e8b84b;padding:16px 20px;margin:20px 0;border-radius:0 6px 6px 0}
+  .scene .lbl{font-size:12.5px;font-weight:700;color:#c99a3f;letter-spacing:1px;margin-bottom:8px}
+  .mistake{background:#fdf1f0;border-left:4px solid #c0392b;padding:14px 18px;margin:18px 0;border-radius:0 6px 6px 0}
+  .mistake .lbl{font-size:12.5px;font-weight:700;color:#c0392b;letter-spacing:1px;margin-bottom:7px}
+  .calc{background:#f4f8fc;padding:14px 18px;border-left:4px solid #1d6fb8;margin:16px 0;font-size:14px;
+    font-family:"SFMono-Regular",Consolas,monospace;line-height:1.9}
+  .ex{background:#f0f8f2;border:1px solid #cfe6d8;padding:14px 18px;margin:18px 0;border-radius:0 6px 6px 0}
+  .ex .lbl{font-weight:700;color:#2e8b57;margin-bottom:6px;font-size:14px}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px}
+  th{background:#0f2a4a;color:#fff;padding:10px 12px;text-align:left;font-size:13px}
+  td{padding:10px 12px;border-bottom:1px solid #e3eaf2;vertical-align:top}
+  tr:nth-child(even) td{background:#f8fafd}
+  .lead{background:#f4f8fc;border-left:4px solid #1d6fb8;padding:15px 19px;margin:18px 0}
+  .ethics{background:#f0f8f2;border-left:4px solid #2e8b57;padding:15px 19px;margin:18px 0}
+  .ethics .lbl{font-weight:700;color:#2e8b57;margin-bottom:7px;font-size:14px}
+  footer{background:#0f2a4a;color:#9db8d2;padding:20px 46px;font-size:12.5px;text-align:center}
+  footer b{color:#e8b84b}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">酒店收益管理 · 第 03 册</div>
+  <h1>第 14–21 章　留多少房 · 从哪卖</h1>
+  <div class="sub">第四篇 + 第五篇完整</div>
+</header>
+
+<main>
+
+<div class="part">
+  <div class="pn">第 四 篇 · 留 多 少 房</div>
+  <h2>第 14 章　库存分配与客源配额</h2>
+  <div class="desc">房是固定的，今天卖不掉，这份收入就永久消失。收益管理真正难的问题不是"定多少钱"，是"把这间房给谁"。</div>
+</div>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 理解为什么"先到先得"是最差的分配；② 掌握三层分配结构；③ 会按"价值 × 确定性"排优先级。</p>
+</div>
+
+<h3>14.1 先到先得的问题</h3>
+<p>很多酒店的实际做法就是：谁先订给谁，直到卖完。需求平缓时问题不大，
+但<strong>一旦某天需求旺盛，你就会把房卖给最早来的低价客</strong>，后面愿意付更多的客人进不来。</p>
+
+<h3>14.2 三层分配结构</h3>
+<table>
+<tr><th style="width:16%">层级</th><th style="width:28%">控制什么</th><th>典型做法</th></tr>
+<tr><td><strong>房型保护</strong></td><td>高档房型不给低价渠道</td><td>套房、行政房不在 OTA 开放，仅直销或会员</td></tr>
+<tr><td><strong>客源配额</strong></td><td>每类客人最多放多少间</td><td>OTA 每日上限 20 间，团队上限 30 间</td></tr>
+<tr><td><strong>渠道配额</strong></td><td>每个渠道各分多少</td><td>按净值高低分配，高净值渠道多给</td></tr>
+</table>
+<p>三层<strong>从上到下逐级收紧</strong>。顺序反了会出现"配额设了但房型没保护，低价客照样住进套房"。</p>
+
+<h3>14.3 优先级依据什么排</h3>
+<p>只用两个维度：</p>
+<ul>
+<li><strong>价值</strong>——这个客人带来的净值高低（第 18 章）</li>
+<li><strong>确定性</strong>——这笔生意兑现的概率（取消率、no-show 率）</li>
+</ul>
+<table>
+<tr><th style="width:22%">客源</th><th style="width:20%">支付意愿</th><th style="width:18%">确定性</th><th>管理重点</th></tr>
+<tr><td>散客·直销/会员</td><td>高</td><td>中</td><td><strong>优先保护</strong>，不设限</td></tr>
+<tr><td>散客·OTA</td><td>中</td><td>低</td><td>设配额，需求旺时收紧</td></tr>
+<tr><td>协议公司</td><td>中低</td><td>高</td><td>控量，避开高峰日</td></tr>
+<tr><td>团队/会议</td><td>低（量大）</td><td>高</td><td><strong>用置换分析判断</strong></td></tr>
+<tr><td>批发/包销</td><td>最低</td><td>最高</td><td>只用于填底，旺季关闭</td></tr>
+</table>
+<p><strong>只给中低价值的客源设上限</strong>——高价值客源来多少收多少。分 4–6 类即可，超过 8 类每类样本太小、没法分别管理。</p>
+
+<h3>14.4 分配算例</h3>
+<div class="calc">
+某日可售 100 间，预计需求旺盛：<br>
+· 直销/会员（净值最高）→ <b>不设上限</b>，优先满足<br>
+· OTA（净值中等）→ 配额 <b>30 间</b><br>
+· 团队/批发 → 仅在 OTB 明显落后时开放<br>
+· 套房（8 间）→ OTA 不开放，仅直销<br><br>
+若 Pickup 显示需求走强 → 先把 OTA 配额降到 15，再逐步关闭最低价房型
+</div>
+
+<div class="mistake">
+<div class="lbl">常见错误</div>
+<ul style="margin:0">
+<li><strong>设完不调</strong>——每周应复检：长期用满→放量或提价；长期用不满→收回</li>
+<li><strong>配额用完就停售</strong>——<strong>应自动切到更高价档，而不是关门</strong>。这是实操中最常见的设置有误</li>
+<li><strong>给所有客源都设上限</strong>——包括最高价值的会员，那就错了</li>
+</ul>
+</div>
+
+<!-- ===== 第15章 ===== -->
+<h2>第 15 章　MinLOS 与住期控制</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 知道 MinLOS 的两种用法；② 会判断何时设、设几天；③ <strong>理解撤销条件为什么不能省</strong>。</p>
+</div>
+
+<h3>15.1 两种完全不同的用法</h3>
+<ul>
+<li><strong>用法一：保库存</strong>——要求住满 N 晚，把只住 1 晚的客人挡在外面，避免"住一晚占掉房、第二天没人接上"</li>
+<li><strong>用法二：变相提价</strong>——房价不动，但要求住 2 晚，实际客单变成两倍</li>
+</ul>
+<p>第二种特别适合<strong>不便公开涨价的时候</strong>（有协议价约束、怕引起客诉）。</p>
+
+<h3>15.2 什么时候设</h3>
+<table>
+<tr><th style="width:26%">场景</th><th style="width:18%">建议</th><th>说明</th></tr>
+<tr><td>事件日 / 高峰期</td><td>2–3 晚</td><td>需求充足，过滤短住客</td></tr>
+<tr><td>周末（度假型）</td><td>2 晚</td><td>周六单晚是浪费</td></tr>
+<tr><td>中间有低需求日</td><td>跨低日 3 晚</td><td>把低谷日"绑"进高需求日一起卖</td></tr>
+<tr><td>平日、需求平淡</td><td><strong>不设</strong></td><td>设了只会挡掉生意</td></tr>
+</table>
+<p>第三条是高级用法：如果周四周六高、周五低，可以对周四设 MinLOS 3 晚（覆盖周四到周六），顺带把周五卖掉。</p>
+
+<h3>15.3 设几晚、何时撤</h3>
+<ul>
+<li><strong>先设 2 晚看效果</strong>，不要一上来 3 晚。2 晚能解决大部分问题，客人抵触也小</li>
+<li><strong>设了就要设撤销条件</strong>——临近日期（提前 3–5 天）OTB 仍落后就撤掉。
+<strong>临期还在挡客人是最常见也最不该犯的错</strong></li>
+<li><strong>只在高需求日设</strong>。全年常设 MinLOS 的酒店，基本都是在自伤</li>
+</ul>
+
+<div class="calc">
+设错的代价：某日设 MinLOS 2 晚，20 个只住 1 晚的询价被挡，
+按历史转化能成交 8 间、均价 500 → <b>少赚 4,000</b>。
+若当天需求其实没那么旺，这 4,000 就是净损失，还丢了 8 个潜在新客。<br><br>
+<b>判断标准：你有把握当天不放 MinLOS 也能卖满，才设它。</b>
+</div>
+
+<!-- ===== 第16章 ===== -->
+<h2>第 16 章　超额预订的上限</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 理解超售是"对冲预订不履行"；② 会算上限并留缓冲；③ 知道哪些渠道绝不能超售；
+④ <strong>能说清兑现不了时怎么处理</strong>。</p>
+</div>
+
+<div class="ethics">
+<div class="lbl">本章含课程思政内容：职业伦理与责任</div>
+<p style="margin:0">学生最容易问："这不就是坑客人吗？"——这个问题必须先解决，否则后面讲什么都听不进去。</p>
+</div>
+
+<h3>16.1 先解决伦理问题</h3>
+<ol>
+<li><strong>超售不是欺骗，是对冲。</strong>因为有取消和 no-show，不超售的结果是房间白白空着——
+而空房的成本最终会摊到所有客人身上</li>
+<li><strong>行业里所有航空公司都在做</strong>，酒店做得更保守。不是某家酒店的"骚操作"，是通行做法</li>
+<li><strong>关键在怎么处理兑现不了的情况。</strong>正规做法是升级或妥善安置并补偿，<strong>而不是把人赶走</strong>。
+这才是一家酒店专业与否的分水岭</li>
+</ol>
+<p>第三点是重点。把话题从"该不该超售"转向"超售了怎么负责"，抵触会明显降低。</p>
+
+<h3>16.2 算上限需要三个数</h3>
+<table>
+<tr><th style="width:18%">输入</th><th style="width:32%">怎么取</th><th>注意</th></tr>
+<tr><td><strong>取消率</strong></td><td>过去 90 天 取消间夜 ÷ 预订间夜</td><td>分渠道取，OTA 和直销差很多</td></tr>
+<tr><td><strong>no-show 率</strong></td><td>过去 90 天 未到间夜 ÷ 应到间夜</td><td>同样分渠道</td></tr>
+<tr><td><strong>步行成本</strong></td><td>安置一个客人的代价</td><td>房费 + 交通 + 补偿 + 口碑折损</td></tr>
+</table>
+
+<h3>16.3 算例</h3>
+<div class="calc">
+100 间房，某日预计满房：取消率 8%（8 间）+ no-show 3%（3 间）= 预计不兑现 <b>11 间</b><br><br>
+成本对比：<br>
+· 少补 1 间 → 空房损失 = 房价 500<br>
+· 多补 1 间且兑现不了 → 步行成本 ≈ 500 + 100 + 200 + 口碑 300 = <b>1,100</b><br><br>
+<b>步行成本是空房损失的 2 倍多 → 不能按预计数满打满算地超售。</b><br>
+安全做法：11 × 约 60% ≈ <b>6–7 间</b>，留 4 间缓冲。
+</div>
+<p>那个 60% 不是精确公式，是<strong>风险偏好</strong>。步行成本越高（高端酒店、位置偏、替代酒店少），
+比例应越低；反之可以激进些。</p>
+
+<h3>16.4 分渠道超售，别一刀切</h3>
+<ul>
+<li><strong>预付不可取消的渠道</strong> → 取消率接近 0，<strong>绝对不能超售</strong></li>
+<li><strong>OTA 免费取消</strong> → 取消率高，是超售的主要来源</li>
+<li><strong>团队</strong> → 有确定截止时间，按协议处理</li>
+</ul>
+<div class="mistake">
+<div class="lbl">必纠偏</div>
+<p style="margin:0"><strong>只对高取消率的渠道超售。</strong>对不可取消的订单也超售，
+那不是超售，是纯粹的<strong>过度预订</strong>——不是在管理风险，是在制造风险。</p>
+</div>
+
+<h3>16.5 三个必须有的配套动作</h3>
+<ol>
+<li><strong>到店前一天复核一次</strong>——重新看实际在手，调整超售量</li>
+<li><strong>准备好安置方案</strong>——提前谈好 2–3 家同档或更高档的协作酒店，别到晚上临时找</li>
+<li><strong>升级而不是外送</strong>——店里还有更高房型就优先免费升级；外送是最后手段。
+<strong>升级比外送成本低得多，而且口碑是正的</strong></li>
+</ol>
+
+<!-- ===== 第17章 ===== -->
+<h2>第 17 章　置换分析：团队该不该接</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 会算三个数并得出结论；② <strong>理解"同样的价换个日期结论可能相反"</strong>；
+③ 能把分析过程讲给销售听。</p>
+</div>
+
+<div class="scene">
+<div class="lbl">先自己答</div>
+<p style="margin:0">销售拿来一个团队询价：50 间、2 晚、每间 300 元。接不接？<br>
+<em>（提示：现在你手上的散客价是 450。先写下答案，再往下读。）</em></p>
+</div>
+
+<p>多数人会答"不接，太便宜了"——因为 300 &lt; 450。这个判断<strong>很可能让你错失一笔赚钱的生意</strong>。</p>
+
+<h3>17.1 真正要问的问题</h3>
+<p>不是"这个价低不低"，而是<strong>这批团队会挤掉谁</strong>。</p>
+<p>如果这些房本来就会空着，哪怕 200 元也是净赚；如果它们会挤掉散客，300 元可能确实不够。
+<strong>关键变量是"被挤掉的散客到底能卖掉多少"。</strong></p>
+
+<h3>17.2 三个数</h3>
+<div class="calc">
+① 团队总收入 = 团队价 × 间数 × 晚数 + 附加消费（餐饮、会场等）<br>
+② 被置换的散客价值 = 预计能卖掉的散客间夜 × 散客均价<br>
+③ 置换净收益 = ① − ②　（<b>正数才接</b>）
+</div>
+
+<h3>17.3 同一案例，两个日期</h3>
+<div class="calc">
+<b>情形一：平日，预计出租率 65%</b><br>
+团队收入 = 50 × 2 × 300 = 30,000<br>
+被置换散客 = 100 间夜 × 450 × 60%（卖不满）= 27,000<br>
+净收益 = +3,000 → <b>可以接</b><br><br>
+<b>情形二：事件日，预计满房</b><br>
+团队收入 = 30,000（不变）<br>
+被置换散客 = 100 × 450 × 95% = 42,750<br>
+净收益 = −12,750 → <b>不能接</b>
+</div>
+<div class="lead"><p style="margin:0"><strong>同样的团队、同样的价格，换个日期结论完全相反。</strong>
+这就是置换分析的精髓——它不是一个固定的价，是一个<strong>随日期变化的判断</strong>。</p></div>
+
+<h3>17.4 三个常见错误</h3>
+<ol>
+<li><strong>忽略附加消费</strong>——团队常带餐饮和会场，毛利率往往高于客房。算总贡献，别只算房费</li>
+<li><strong>用"现在满房"代替"那天会满房"</strong>——团队通常提前很久，要判断的是<strong>入住那几天</strong>的需求</li>
+<li><strong>忘了算取消风险</strong>——合同要写明<strong>递减条款</strong>（如提前 30 天可减 10%，之后不可减）</li>
+</ol>
+
+<h3>17.5 接不接之外的第三个选项</h3>
+<p>置换分析还有一个用途：<strong>还价</strong>。如果算出来是负的但差距不大，你可以报更高的价（如 350），
+或者要求"减少房间数但延后入住日期"。<strong>把分析过程讲给销售听，谈判会容易很多</strong>——
+因为有依据，不是在拍脑袋拒绝。</p>
+
+<div class="lead"><p style="margin:0">分析能力要<strong>转化成沟通能力</strong>，否则在工作中用不上。这是本章最重要的能力终点。</p></div>
+
+<!-- ===== 第五篇 ===== -->
+<div class="part">
+  <div class="pn">第 五 篇 · 从 哪 卖</div>
+  <h2>第 18 章　渠道净值</h2>
+  <div class="desc">OTA 佣金 15%，所以 500 元的房到手 425——这个算法几乎人人都会，也几乎人人算少了。</div>
+</div>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 掌握渠道成本的完整口径（五项）；② 会算净值；③ 理解"净值低不等于该关"。</p>
+</div>
+
+<h3>18.1 完整的成本口径</h3>
+<table>
+<tr><th style="width:20%">成本项</th><th style="width:22%">典型幅度</th><th>说明</th></tr>
+<tr><td><strong>佣金</strong></td><td>10%–20%</td><td>最显眼的一项</td></tr>
+<tr><td><strong>支付/结算手续费</strong></td><td>0.6%–1%</td><td>各渠道都有，不只是 OTA</td></tr>
+<tr><td><strong>积分与促销成本</strong></td><td>2%–8%</td><td>平台会员积分、满减、优惠券——<strong>最容易漏</strong></td></tr>
+<tr><td><strong>取消损失</strong></td><td>按各渠道取消率折算</td><td>取消率高的渠道隐性成本大</td></tr>
+<tr><td><strong>获客成本分摊</strong></td><td>视投入而定</td><td>直销要分摊网站、广告、运营</td></tr>
+</table>
+
+<h3>18.2 算一遍</h3>
+<div class="calc">
+某房 500 元：<br>
+<b>OTA：</b>500 − 佣金 15%(75) − 支付 0.6%(3) − 积分促销 5%(25) = <b>397</b><br>
+<b>直销官网：</b>500 − 支付 0.6%(3) − 积分 2%(10) − 获客分摊 20 = <b>467</b><br>
+<b>批发商净价：</b>结算价 350 = <b>350</b><br><br>
+差距：直销比 OTA 多 <b>70 元/间</b>，比批发商多 <b>117 元/间</b><br>
+<b>你以为的"15%"其实是 20.6%。</b>
+</div>
+
+<h3>18.3 净值低的渠道该不该关</h3>
+<p><strong>不一定——这是净值表最容易误用的地方。</strong>判断标准不是净值高低，而是<strong>它带来的是不是增量</strong>：</p>
+<ul>
+<li><strong>是增量</strong>（这些客人本来不会来）→ 净值低也值得做。15% 佣金换来一个本来不存在的客人，很划算</li>
+<li><strong>不是增量</strong>（只是把直销客人转移到 OTA）→ 净值再高也是损失</li>
+</ul>
+<p>怎么判断？看一个信号：<strong>关闭或收紧该渠道后，总体入住率是否明显下降。</strong>
+如果没降，说明那些客人本来会通过别的渠道来——那这个渠道是在分流，不是在增量。
+可以做小范围测试（某渠道配额减半，观察两周）。</p>
+
+<h3>18.4 净值表怎么用</h3>
+<p>净值最大的用处不是"关渠道"，而是<strong>分配库存</strong>（第 14 章）：高净值渠道多给房，低净值渠道给配额。
+这比单纯提价更有效，而且是每天都在发生的决策。</p>
+
+<!-- ===== 第19章 ===== -->
+<h2>第 19 章　直销与会员</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 知道直销的四项成本；② 会算会员价的真实让利；③ 理解"该看总渠道成本，不是直销占比"。</p>
+</div>
+
+<h3>19.1 直销不是零成本</h3>
+<ul>
+<li><strong>获客成本</strong>——网站流量、搜索广告、内容运营。OTA 是"客人已经在那里"，直销是"你得把人拉过来"</li>
+<li><strong>系统与维护</strong>——预订引擎、官网、小程序，都是持续投入</li>
+<li><strong>会员权益成本</strong>——折扣、积分兑换、免费升级、延迟退房</li>
+<li><strong>服务成本</strong>——直销客人往往直接联系酒店，服务响应更重</li>
+</ul>
+
+<h3>19.2 会员折扣到底有多贵</h3>
+<div class="calc">
+某会员价：房价 500 打 9 折 = 450<br>
+· 直接少收 <b>50</b><br>
+· 积分回赠约 5%（25，未来要兑换）<br>
+· 免费早餐（成本 40）或延迟退房（成本近 0）<br><br>
+实际让利可达 <b>75–115 元/间</b>，相当于 <b>15%–23%</b>
+</div>
+<p><strong>一个"9 折会员价"的真实成本可能接近甚至超过 OTA 的 15% 佣金。</strong>这就是不能只看名义折扣的原因。</p>
+
+<h3>19.3 什么时候直销真的更划算</h3>
+<ol>
+<li><strong>客人本来就会来</strong>——老客、复购、会议客户。不用付获客成本，省下的就是佣金</li>
+<li><strong>能建立长期关系</strong>——这次直销，下次还是直销</li>
+<li><strong>附带消费高</strong>——直销客人更容易加购餐饮、SPA、升级</li>
+</ol>
+<p>反过来，<strong>为拉新客而给的大额折扣，本质就是买流量的钱</strong>——它和投广告是一类支出。</p>
+
+<div class="mistake">
+<div class="lbl">最常见的误判</div>
+<p style="margin:0"><strong>为了直销占比，牺牲了整体收益。</strong><br>
+典型表现：给会员的折扣越来越深，直销占比数字好看，但<strong>整体平均房价在降</strong>。<br>
+正确做法：<strong>看"总渠道成本"，而不是"直销占比"</strong>。只要总成本在降、收益在涨，直销占比低一点也没关系。</p>
+</div>
+
+<!-- ===== 第20章 ===== -->
+<h2>第 20 章　点评与口碑的价值</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 知道评分影响哪两件事；② 会把评分折算成金额；③ 理解"同类型差评重复＝运营问题"。</p>
+</div>
+
+<h3>20.1 评分影响两件事</h3>
+<ul>
+<li><strong>转化率</strong>——同样被看到，评分高的更容易被选中</li>
+<li><strong>排序与曝光</strong>——平台会给高分酒店更好的位置。<strong>这一项更隐蔽也更值钱</strong>：
+排序靠后意味着曝光下降，而曝光下降是"看不到就没有"的损失</li>
+</ul>
+
+<h3>20.2 怎么估算</h3>
+<div class="calc">
+某酒店 OTA 月曝光 50,000 次：<br>
+· 评分 4.6 时，转化率 3% → 150 单/月<br>
+· 评分降到 4.3，转化率降到 2.4%，曝光降到 42,000<br>
+→ 42,000 × 2.4% = <b>101 单/月</b><br><br>
+少了 49 单 × 均价 450 = <b>每月少约 22,000 元</b>
+</div>
+<p>这是粗略模型，系数因城市和档次而异。但它的价值在于：<strong>把"评分重要"变成了一个数量级</strong>。
+有了量级，你才能判断该为评分投入多少。</p>
+
+<h3>20.3 比平均分更要紧的是最近的差评</h3>
+<p>客人看的是"最新几条"，不是平均分。一条具体、情绪强烈的差评造成的转化损失，
+可能超过平均分下降 0.1。</p>
+<ul>
+<li><strong>回复比删除重要</strong>——一条诚恳的公开回复，能显著减轻差评对后来者的影响</li>
+<li><strong>同类型差评重复出现是危险信号</strong>——一条说空调是意外；五条都说空调，<strong>那是设备问题</strong>，
+已经不是口碑问题，是运营问题</li>
+</ul>
+
+<div class="ethics">
+<div class="lbl">红线</div>
+<p style="margin:0"><strong>不要刷分。</strong>平台对刷分的识别能力远超多数人想象，被处罚的代价（降权、曝光清零）
+远高于刷分带来的收益。而且刷分掩盖了真实问题——那些问题还会在别的地方爆发。<br>
+正确做法：<strong>把提升评分的钱花在真实体验上，然后主动邀请满意的客人留评。</strong>后者合规且高效。</p>
+</div>
+
+<!-- ===== 第21章 ===== -->
+<h2>第 21 章　价格一致性</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 理解乱价的主要来源；② 会做巡检；③ 知道发现低价后的三步处理。</p>
+</div>
+
+<h3>21.1 乱价是怎么发生的</h3>
+<p>一个反常识的事实：<strong>大部分乱价不是你自己造成的，是分销链条造成的。</strong></p>
+<p>典型链条：你把房卖给批发商 A（净价 400）→ A 转手给 B → B 放到某个平台，为抢单标 520。
+你定的 600 就这样被打破了。</p>
+<p>所以管控的第一个难点是：<strong>你管得住自己的渠道，但管不住二级分销。</strong></p>
+
+<h3>21.2 三道防线</h3>
+<table>
+<tr><th style="width:18%">防线</th><th style="width:32%">做什么</th><th>频率</th></tr>
+<tr><td><strong>合同约束</strong></td><td>与分销商签协议，明确最低公开价（MPR）与违约责任</td><td>签约时 + 年度重签</td></tr>
+<tr><td><strong>定期巡检</strong></td><td>抽查主要平台与搜索引擎的挂牌价</td><td>每周，重点日期加频</td></tr>
+<tr><td><strong>监控工具</strong></td><td>用比价工具自动报警</td><td>持续</td></tr>
+</table>
+<p>第一道最容易做也最容易漏——<strong>很多酒店和批发商签的合同里根本没有最低价条款</strong>，出事了才发现没依据。</p>
+
+<h3>21.3 巡检查什么（三个就够）</h3>
+<ul>
+<li>两大 OTA 的同房型同日期价</li>
+<li>搜索引擎里"你的酒店名 + 价格"（这里最容易冒出不合规的分销）</li>
+<li>你的会员价/协议价是否被泄露到公开渠道（常被忽略，却是乱价的重要来源）</li>
+</ul>
+
+<h3>21.4 发现低价怎么补救</h3>
+<ol>
+<li><strong>先确认来源</strong>——联系对方问清房从哪里来。多数会配合下架，因为他也怕被投诉</li>
+<li><strong>追溯到分销商</strong>——按合同要求整改；屡犯就停止供货</li>
+<li><strong>必要时向平台投诉</strong>——凭合同和截图</li>
+</ol>
+<div class="mistake">
+<div class="lbl">不要做的事</div>
+<p style="margin:0"><strong>不要第一反应就是自己降价去"对齐"。</strong>
+那等于承认了乱价是对的，而且你会被更低的价格一路拖下去。</p>
+</div>
+<p>长期看，减少乱价最有效的办法是<strong>减少不受控的分销层级</strong>。
+每一层转手都是一次失控的机会——<strong>宁可少几家分销商，也要让链条短、可追溯。</strong></p>
+
+<div class="ex">
+<div class="lbl">第四篇、第五篇 综合实训</div>
+<p style="margin:0"><strong>任务：某日可售 100 间、需求旺盛，请分配房量。</strong><br>
+产出：① 各渠道/客源的配额表（说明依据）② 该日的超售量（写出计算过程）③ 一个 40 间团队询价的置换判断。<br>
+<strong>评分</strong>：高价值客源是否被保护（30%）／超售是否留了缓冲（30%）／置换是否算对被置换价值（40%）。<br>
+<em>建议分组竞赛——竞争性很强，且能让学生亲身体会"分配"比"定价"更影响结果。</em></p>
+</div>
+
+<div class="ex">
+<div class="lbl">自测（第四、五篇）</div>
+<ol style="margin:0">
+<li>库存分配的三层结构是什么？顺序为什么不能反？</li>
+<li>配额用完应该停售还是切高价档？</li>
+<li>MinLOS 的两种用法？什么情况下绝对不该设？</li>
+<li>超售为什么不能按预计取消数满打满算？哪些渠道绝不能超售？</li>
+<li>同样的团队、同样的价，为什么换个日期结论可能相反？</li>
+<li>OTA 的 15% 佣金，实际到手损失是多少？还漏算了什么？</li>
+<li>净值低的渠道一定该关吗？判断标准是什么？</li>
+<li>发现乱价时，最不该做的第一反应是什么？</li>
+</ol>
+</div>
+
+</main>
+
+<footer>
+  <b>酒店收益管理</b> · 第 03 册 第 14–21 章<br>
+  第四篇《留多少房》+ 第五篇《从哪卖》完整 · 含两处课程思政（超售伦理、数据诚信）
+</footer>
+
+</div>
+</body>
+</html>

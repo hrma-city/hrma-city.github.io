@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>新版教材 · 按问途板式重构（学生用书版）· 目录体系+板式规范+样章</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--gold2:#f5d78e;--ink:#1f2a37;--mut:#5b6a7d;
+  --ok:#2a9d5f;--blue:#3d8bd4;--red:#c0503f;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.75}
+.wrap{max-width:940px;margin:0 auto;padding:0 20px 70px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:28px 0 24px}
+.hero .wrap{padding-bottom:0}
+.hero .tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);
+  color:var(--gold2);font-size:12.5px;border-radius:999px;padding:3px 12px;margin-bottom:10px}
+.hero h1{font-size:22px;line-height:1.45}
+.hero p{color:#b9d0e6;font-size:13.5px;margin-top:8px;max-width:720px}
+h2{font-size:18px;color:var(--navy);margin:32px 0 4px;padding-left:11px;border-left:4px solid var(--gold)}
+h3{font-size:15px;color:var(--navy);margin:16px 0 6px}
+.sd{color:var(--mut);font-size:13px;margin:6px 0 12px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 19px;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:12px;overflow:hidden;margin:8px 0}
+th{background:var(--navy);color:#fff;text-align:left;padding:8px 11px;font-size:12.5px}
+td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:#fafcfe}
+.pill{display:inline-block;font-size:11px;border-radius:6px;padding:1px 8px;color:#fff;white-space:nowrap}
+.pill.w{background:var(--gold);color:#3a2c07}.pill.g{background:var(--ok)}.pill.b{background:var(--blue)}.pill.r{background:#c0503f}
+.quote{border-left:3px solid var(--gold);background:#fffcf2;padding:10px 14px;border-radius:0 10px 10px 0;font-size:13.5px;color:#5b4a12;margin:10px 0}
+.note{background:#eef6f1;border:1px solid #c4e2d0;border-radius:10px;padding:11px 15px;font-size:13px;color:#2c6e48;margin-top:10px}
+.warn{background:#fdf1ef;border:1px solid #eecac4;border-radius:12px;padding:12px 15px;font-size:13.5px;color:#8a3a2e;margin-top:10px}
+.ch{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-bottom:10px}
+.ch .hd{font-weight:700;color:var(--navy);font-size:14.5px}
+.ch .secs{font-size:12.5px;color:#44536a;margin-top:4px;line-height:1.85}
+.ch .exp{font-size:12.5px;color:var(--mut);margin-top:5px}
+.ch .exp b{color:#c98f2d}
+.samp{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+.samp h4{font-size:17px;color:var(--navy);margin-bottom:3px}
+.samp .four{background:#f8fafc;border:1px dashed #b9c9da;border-radius:10px;padding:10px 13px;font-size:12.5px;margin:10px 0}
+.samp .four b{color:var(--navy)}
+.samp p{font-size:13.5px;margin:7px 0}
+.samp .exp-box{background:#fffcf2;border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:11px 14px;font-size:13px;margin-top:10px}
+.samp .exp-box b{color:#7a5b12}
+.foot{color:#8fa3b8;font-size:12px;text-align:center;margin-top:28px}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <span class="tag">教材新版 · 内部稿 · 原 32 章版保留</span>
+  <h1>《酒店收益管理》学生用书（新版）<br>按问途机工社板式重构 · 目录体系 + 板式规范 + 样章</h1>
+  <p>对标《酒店与旅游业人工智能应用》（机工社，三篇 7 章 218 页）的流行范式：篇—章—节+实验、每章四件套、薄教材。
+  <b>原 32 章版完整保留</b>（教师版/完整版），新版定位学生用书与训练营讲义，两者并行。</p>
+</div></header>
+
+<main class="wrap">
+
+<h2 id="toc-1">一、两版关系与定位</h2>
+<table>
+<tr><th style="width:130px">版本</th><th style="width:150px">定位</th><th style="width:100px">体量</th><th>用途</th></tr>
+<tr><td><b>原版（保留）</b></td><td>教师版 / 完整版</td><td>5 篇 32 章</td><td>站上 textbook.html；教师备课、查漏、出卷的底本；训练营讲师手册来源</td></tr>
+<tr><td><b>新版（本方案）</b></td><td><b>学生用书</b></td><td>3 篇 14 章<br>≈218 页</td><td>学生人手一册；<b>训练营（5 万/人）与陪跑的班用讲义</b>；每章二维码直连站上 143 灯/题库/考核</td></tr>
+</table>
+<div class="quote">压到 14 章不是删内容，是<b>换组织逻辑</b>：原版按知识模块排（M01–M14），新版按<b>学习路径</b>排（先会算 → 会查表 → 会经营）。学生书要薄、要能一学期讲完。</div>
+
+<h2 id="toc-2">二、板式规范（每章固定七件套）</h2>
+<div class="card">
+  <table>
+    <tr><th style="width:150px">构件</th><th>要求</th><th style="width:110px">素材来源</th></tr>
+    <tr><td><b>本章思维导图</b></td><td>一页图，不超过 12 个节点，章首</td><td>站上章节结构可自动生成</td></tr>
+    <tr><td><b>学习目标</b></td><td>3–4 条，动词开头（会算/会查/会判/会写），可考核</td><td>题库考点反推</td></tr>
+    <tr><td><b>案例导入</b></td><td>云璟酒店真实情境 200–300 字，带一个悬念问题</td><td>案例库 24 情境</td></tr>
+    <tr><td><b>正文（3–4 节）</b></td><td>每节：概念 → 公式/规则 → 判定表 → 易错点</td><td>M01–M14 内容</td></tr>
+    <tr><td><b>实验</b></td><td><b>必做</b>。给真实数据 → 查表 → 出决策 → 写台账，附评分 rubric</td><td>15 张判定表</td></tr>
+    <tr><td><b>练习与自测</b></td><td>6–10 题，<b>印二维码</b>直通站上题库（自动判分）</td><td>253 题库</td></tr>
+    <tr><td><b>本章口诀</b></td><td>一句可背的话，与知识灯「口诀」一致</td><td>143 灯 key 字段</td></tr>
+  </table>
+  <div class="note"><b>反超问途的关键在「实验」这一项。</b>问途那本书的实验是「操作 AI 工具」（做聊天机器人、搭工作流）；你的实验是「用真实数据查表做行业决策」——查表 A 定调价、算超售间数、算置换成本、写调价台账。<b>行业专业决策实验，它一本都没有。</b></div>
+</div>
+
+<h2 id="toc-3">三、全书目录体系（3 篇 14 章）</h2>
+
+<h3 id="toc-4">第一篇 · 基础篇：收益管理的语言（第 1–4 章）</h3>
+<div class="ch"><div class="hd">第 1 章　收益管理与核心指标</div>
+<div class="secs">1.1 为什么同一间房卖不同的价　1.2 OCC、ADR、RevPAR：分母分别是谁　1.3 TRevPAR、NRevPAR、GOPPAR：从收入到利润　1.4 MPI / ARI / RGI：三个竞争指数　1.5 量差与价差：RevPAR 变动怎么拆</div>
+<div class="exp">实验：<b>给云璟一年数据，算全套指标并做一次量差价差分解</b></div></div>
+
+<div class="ch"><div class="hd">第 2 章　系统、术语与数据来源</div>
+<div class="secs">2.1 PMS 与 RMS 分别管什么　2.2 价格代码、市场细分、渠道：三个易混字段　2.3 限制条件家族：MinLOS / CTA / Stop Sell　2.4 《取数清单》：口径一致才查得准</div>
+<div class="exp">实验：<b>按《取数清单》抓取一日数据，算出与标准答案一致的 OCC</b></div></div>
+
+<div class="ch"><div class="hd">第 3 章　收益经理的一天与台账</div>
+<div class="secs">3.1 表 M：从 07:30 到 10:05 的固定节拍　3.2 日报表四件套　3.3 《调价台账》13 个必填字段　3.4 周期的报表（表 N）</div>
+<div class="exp">实验：<b>按表 M 走完一个早晨，产出《今日动作清单》与一条合规台账</b></div></div>
+
+<div class="ch"><div class="hd">第 4 章　需求预测与进度监控</div>
+<div class="secs">4.1 RW 剩余需求：还差多少没填上　4.2 Pickup 与进度偏差　4.3 表 I 六个提前窗口　4.4 落后了用什么救</div>
+<div class="exp">实验：<b>算 RW 与 Pickup 偏差，判六个窗口的触发与动作</b></div></div>
+
+<h3 id="toc-5">第二篇 · 操作篇：四张判定表（第 5–10 章）</h3>
+<div class="ch"><div class="hd">第 5 章　动态定价：表 A 怎么查</div>
+<div class="secs">5.1 双因子：OCC 定方向、Pickup 定幅度　5.2 五列六行的读法　5.3 四条执行约束　5.4 D1 峰值日与审批　5.5 高频易错格</div>
+<div class="exp">实验：<b>给定 OCC 与 Pickup，查表 A 出动作、过合规检查、写台账</b></div></div>
+
+<div class="ch"><div class="hd">第 6 章　价格体系与房型价差</div>
+<div class="secs">6.1 价差健康区间 8%–35%　6.2 套房 60% 底线　6.3 附加价四件套与叠加顺序　6.4 每周一价差校验（表 F）</div>
+<div class="exp">实验：<b>对本店 10 个房型做一次价差体检，给出三条修价动作</b></div></div>
+
+<div class="ch"><div class="hd">第 7 章　库存控制与超售</div>
+<div class="secs">7.1 表 B：四档配置行　7.2 CTA 与 Stop Sell 的区别　7.3 表 E 三步法　7.4 硬上限三道闸</div>
+<div class="exp">实验：<b>算超售间数（含修正系数与取整），并配置表 B 四项</b></div></div>
+
+<div class="ch"><div class="hd">第 8 章　渠道分销与价格一致性</div>
+<div class="secs">8.1 七个渠道成本率　8.2 净价思维：先扣佣金再比较　8.3 表 H 按需求开关龙头　8.4 四条一致性红线</div>
+<div class="exp">实验：<b>算综合成本率与 NRevPAR，做一次 6 渠道一致性核查</b></div></div>
+
+<div class="ch"><div class="hd">第 9 章　竞争监测与定位</div>
+<div class="secs">9.1 竞组「三同」与加权均价　9.2 表 C：ARI 六档　9.3 表 D：MPI 五档　9.4 假持平识别</div>
+<div class="exp">实验：<b>用三个指数做一次定位诊断，并写出下一步动作</b></div></div>
+
+<div class="ch"><div class="hd">第 10 章　团队与会议决策</div>
+<div class="secs">10.1 表 G：R 与预测 OCC　10.2 置换成本：接单前先算挤掉了谁　10.3 表 K 会议底线与餐饮保底　10.4 会议附加条款</div>
+<div class="exp">实验：<b>判一个 80 人会议接不接，算综合贡献与保底</b></div></div>
+
+<h3 id="toc-6">第三篇 · 经营篇：全局与落地（第 11–14 章）</h3>
+<div class="ch"><div class="hd">第 11 章　年度预算与滚动预测</div><div class="secs">11.1 固定分母 116,800　11.2 收入结构决定看哪些指标　11.3 目标不能 ÷12　11.4 量差价差与滚动修正</div><div class="exp">实验：<b>把业主的 RevPAR +8% 拆成三条路径并推荐一条</b></div></div>
+<div class="ch"><div class="hd">第 12 章　会议与汇报</div><div class="secs">12.1 汇报指标的出场顺序　12.2 一页纸摘要六个板块　12.3 晨会 25 分钟　12.4 三类灵魂拷问的应答</div><div class="exp">实验：<b>写一份一页纸摘要，并应答「RevPAR 涨了 GOP 率为什么掉」</b></div></div>
+<div class="ch"><div class="hd">第 13 章　冲突仲裁与跨部门协同</div><div class="secs">13.1 表 O 优先级与口诀　13.2 铁律三条　13.3 裁决只管同维度　13.4 台账留痕</div><div class="exp">实验：<b>五张表同时给出结论，写出当日唯一执行动作与留痕</b></div></div>
+<div class="ch"><div class="hd">第 14 章　系统、自动化与人机边界</div><div class="secs">14.1 RMS 四模块　14.2 白名单与黑名单　14.3 告警稀缺性　14.4 自动化五级，不许跳级</div><div class="exp">实验：<b>给自家店配一次 12 参数，并划出本店黑白名单</b></div></div>
+
+<div class="note"><b>14 章 ≈ 15 页/章（含图表与实验）≈ 218 页</b>，正好一个学期 32–48 学时讲完，与问途薄教材体量一致。</div>
+
+<h2 id="toc-7">四、样章：第 1 章（完整）</h2>
+<div class="samp">
+  <h4>第 1 章　收益管理与核心指标</h4>
+  <div class="four">
+    <b>本章思维导图</b>（图：中心「收益管理」→ 五分支：为什么存在 / 量指标 / 价指标 / 综合指标 / 竞争指标 → 每分支 2–3 个指标名）<br>
+    <b>学习目标</b>：① 会算 OCC、ADR、RevPAR 并说清各自的分母；② 会算 TRevPAR、NRevPAR、GOPPAR 并知道各自回答什么问题；③ 会用 MPI/ARI/RGI 判断本店在市场中的位置；④ 会把 RevPAR 变动拆成量差与价差。<br>
+    <b>案例导入</b>：云璟酒店 3 月 OCC 74%、ADR ¥600；4 月 OCC 78%、ADR ¥660。RevPAR 涨了 ¥70.8——可财务总监却说「这个月不值得庆功」。为什么？看完本章你会知道：涨的部分里，¥46.8 来自涨价、¥24 来自量，而涨价的空间已经快用完了。
+  </div>
+  <p><b>1.1　为什么同一间房卖不同的价</b><br>
+  收益管理存在的前提有三个：产能固定（320 间房今晚多一间也变不出来）、库存易逝（今晚没卖掉的房，价值永远归零）、需求可细分（商务客提前 3 天订、愿意付 ¥680；游客提前 30 天订、只肯付 ¥420）。既然房晚卖不掉就归零，那就必须在正确的时机、以正确的价格、卖给正确的客人。<b>这不是「卖贵」，是「别空着」。 </b></p>
+  <p><b>1.2　OCC、ADR、RevPAR：分母分别是谁</b><br>
+  OCC（出租率）= 已售房晚 ÷ <b>可售房晚</b> × 100%。分母必须剔除坏房（OOO）与装修房——320 间房有 3 间 OOO，可售就是 317。<br>
+  ADR（平均房价）= 客房收入 ÷ <b>已售房晚</b>。只算卖掉的房。<br>
+  RevPAR = 客房收入 ÷ <b>可售房晚</b> = OCC × ADR。空着的房也摊进分母——这正是它能同时被量价双向拉动的原因。<br>
+  <b>易错点</b>：把 ADR 的分母写成可售房晚，那是 RevPAR；把 OCC 分母写成总房量，OCC 会被系统性低估。</p>
+  <p><b>1.3　从收入到利润：还要看三个</b><br>
+  TRevPAR = 总营收 ÷ 可售房晚。云璟客房只占总营收 61.4%，全服务酒店必须同时看它。<br>
+  NRevPAR = RevPAR ×（1 − 渠道综合成本率）。佣金最低 3%（直销）、最高 26%（批发），所以 NRevPAR 永远不高于 RevPAR。<br>
+  GOPPAR = 经营毛利 ÷ 可售房晚。<b>这是业主真正看的最终指标。</b>RevPAR 涨了 GOPPAR 没涨，通常意味着增量来自高佣金渠道。</p>
+  <p><b>1.4　三个竞争指数</b><br>
+  MPI = 本店 OCC ÷ 竞组 OCC ×100（抢没抢到<b>量</b>）；ARI = 本店 ADR ÷ 竞组 ADR ×100（卖得<b>贵不贵</b>）；RGI = 本店 RevPAR ÷ 竞组 RevPAR ×100 = MPI × ARI ÷ 100。<br>
+  <b>易错点</b>：说「MPI >100 说明卖得贵」——那是 ARI 的事。<b>假持平</b>：RGI 100 可能是 MPI 106 × ARI 94，份额是降价换来的。</p>
+  <p><b>1.5　量差与价差</b><br>
+  量差 =（OCC₁ − OCC₀）× ADR₀；价差 =（ADR₁ − ADR₀）× OCC₁。量差用基期价、价差用报告期量，两者之和恰好等于 RevPAR 总变动——可以对账。<br>
+  <b>本章口诀：量差旧价称、价差新量称；两个加一起，正好对总账。</b></p>
+  <div class="exp-box">
+    <b>实验 1-1　给云璟一年数据，算全套指标并做量价分解</b><br>
+    <b>数据</b>：320 间房、年可售房晚 116,800；客房收入 ¥51,977,328、总营收 ¥84,677,328、GOP ¥27,098,741；OCC 72.0%、ADR ¥618；竞组 OCC 68.0%、ADR ¥680；渠道综合成本率 9.1%。<br>
+    <b>任务</b>：① 算 OCC/ADR/RevPAR/TRevPAR/NRevPAR/GOPPAR 六个指标（各保留整数或一位小数）；② 算 MPI/ARI/RGI；③ 用 RGI = MPI × ARI ÷ 100 验算；④ 若下年目标 OCC 74%、ADR ¥640，把 RevPAR 变动拆成量差与价差；⑤ 回答：这家店是「量赢价输」还是「价赢量输」？下一步该动什么？<br>
+    <b>评分 rubric</b>：六个指标各 10 分（公式与口径对即得分）；三个指数 15 分；验算 10 分；量价分解 15 分；结论 10 分。共 100 分，60 分合格。<br>
+    <b>提交</b>：填《指标测算表》（扫本章末二维码下载），上传至班级群。系统自动判分，错题进错题本。
+  </div>
+  <p style="margin-top:10px;font-size:12.5px;color:var(--mut)">📱 <b>练习与自测</b>：扫二维码 → 站上第 1 章题库（22 题），自动判分。　📱 <b>知识灯</b>：扫二维码 → 登顶闯关 M01 营地，11 盏灯。</p>
+</div>
+
+<h2 id="toc-8">五、样章：第 5 章（实验部分，核心章）</h2>
+<div class="samp">
+  <h4>第 5 章　动态定价：表 A 怎么查</h4>
+  <div class="four">
+    <b>学习目标</b>：① 会按「预测 OCC + Pickup 偏差」定位表 A 的唯一格子；② 会做四条合规检查；③ 知道 D1 峰值日为什么必须审批；④ 能识破三个高频易错格。<br>
+    <b>案例导入</b>：10 月 2 日，国庆 D1 峰值日。预测 OCC 92%，Pickup 领先 12%。L1 专员小王查表得 ↑15%，正准备直接执行——被收益经理拦下了。为什么拦？
+  </div>
+  <p><b>5.1　双因子：OCC 定方向，Pickup 定幅度</b>——行是预测 OCC（&lt;40 到 ≥95 共六档），列是 Pickup 偏差（落后 &gt;10 / 落后 3–10 / 持平 ±3 / 领先 3–10 / 领先 &gt;10 共五档）。行列交叉给出唯一动作。<b>需求绝对水平决定调不调、往哪调；势头只决定调多少。</b></p>
+  <p><b>5.2　四条执行约束</b>——① 单日同方向累计 ≤20%；② 单次 ≥3%（低于 3% 不算调价）；③ 24 小时内同方向 ≤2 次；④ 触及 D1 峰值日必须 L3 审批。<b>案例悬念的答案就在这里：小王的动作对，但 D1 日必须审批后执行。</b></p>
+  <p><b>5.3　三个高频易错格</b>——① 55–70% 行的「持平」是 ↓3%，不是不动；② &lt;40% 行「领先 3–10%」是全表唯一的「领先仍降」；③ ≥95% 行「落后 3–10%」是 ↑5%——落后不等于降价。</p>
+  <div class="exp-box">
+    <b>实验 5-1　六个目标日，查表 A 并写出执行与留痕</b><br>
+    <b>任务</b>：对以下六天逐一查表 A，写出「动作 + 合规检查 + 台账写法」。① OCC 95.5% × 落后 5%　② OCC 66% × 持平 −1%　③ OCC 32% × 领先 5%　④ OCC 92% × 落后 12%（同日表 C 给 ARI 92）　⑤ OCC 96% × 落后 15%　⑥ 10 月 2 日 D1，OCC 92% × 领先 12%<br>
+    <b>要求</b>：第 ④ 题要写出表 O 的顺延过程；第 ⑤ 题要写出「维持」之后的下一步；第 ⑥ 题要写出审批流程与台账依据栏的规范写法。<br>
+    <b>评分 rubric</b>：每题 15 分（格子定位 8 分 + 合规判断 4 分 + 台账 3 分），第 ④⑥ 题各加 5 分（顺延与审批）。共 100 分。<br>
+    <b>常见失分</b>：把「持平」一律写成维持（错 2 格）；忘记 D1 审批；台账依据栏写「市场变化」（模糊表述，本题直接扣 3 分）。
+  </div>
+</div>
+
+<h2 id="toc-9">六、生产计划与配套</h2>
+<div class="card">
+  <table>
+    <tr><th style="width:130px">阶段</th><th>动作</th><th style="width:110px">产出</th></tr>
+    <tr><td><b>定稿（先做）</b></td><td>本目录体系 + 板式规范 + 2 个样章 → 您审核口径与文风</td><td>本文件</td></tr>
+    <tr><td><b>批量生产</b></td><td>按章批量写（每章：四件套 + 3–4 节 + 实验 + 二维码）。内容源自站上已审内容，<b>新写文字需您过一遍</b></td><td>14 章正文</td></tr>
+    <tr><td><b>配套</b></td><td>思维导图 14 张 / 实验数据表 / 评分 rubric / 题库二维码 / PPT（投屏课件已有）</td><td>课件包</td></tr>
+    <tr><td><b>出版形态</b></td><td>正式版 ISBN（走院校采购）+ 训练营讲义版（无号，随班发）</td><td>见商业方案「书号路径」</td></tr>
+  </table>
+  <div class="warn"><b>内容纪律：</b>本样章的指标口径、公式、判定表数值全部沿用站上既有内容（《SPEC》与《法典》口径），未新增自造定义。批量生产时若遇需要新增或改口径之处，<b>先报您审核再写</b>。</div>
+</div>
+
+<div class="foot">新版教材骨架 · 2026-10-15 · 内部稿 · 原 32 章版完整保留</div>
+</main>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>新版教材 · 按问途板式重构（学生用书版）· 目录体系+板式规范+样章</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">一、两版关系与定位</a>
+<a href="#toc-2">二、板式规范（每章固定七件套）</a>
+<a href="#toc-3">三、全书目录体系（3 篇 14 章）</a>
+<a href="#toc-4" class="lv3">第一篇 · 基础篇：收益管理的语言（第 1–4 章）</a>
+<a href="#toc-5" class="lv3">第二篇 · 操作篇：四张判定表（第 5–10 章）</a>
+<a href="#toc-6" class="lv3">第三篇 · 经营篇：全局与落地（第 11–14 章）</a>
+<a href="#toc-7">四、样章：第 1 章（完整）</a>
+<a href="#toc-8">五、样章：第 5 章（实验部分，核心章）</a>
+<a href="#toc-9">六、生产计划与配套</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
+})();
+</script>
+</body>
+</html>

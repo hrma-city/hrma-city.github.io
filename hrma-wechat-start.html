@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HRMA 公众号起号与运营方案</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:#eef2f7;color:#1a1a1a;line-height:1.85;font-size:15px}
+  .wrap{max-width:920px;margin:0 auto;background:#fff;box-shadow:0 2px 24px rgba(15,42,74,.12)}
+  header{background:linear-gradient(135deg,#0f2a4a 0%,#1d4f80 100%);color:#fff;padding:44px 46px 38px}
+  header .eyebrow{color:#e8b84b;font-size:13px;letter-spacing:3px;font-weight:600;margin-bottom:12px}
+  header h1{font-size:29px;font-weight:700;line-height:1.4;margin-bottom:14px}
+  header .sub{color:#c3d6ea;font-size:14.5px;line-height:1.8;max-width:680px}
+  .meta{margin-top:20px;display:flex;gap:26px;flex-wrap:wrap;font-size:13px;color:#a9c4de;
+    border-top:1px solid rgba(255,255,255,.18);padding-top:16px}
+  .meta b{color:#e8b84b;font-weight:600}
+  main{padding:0 46px 50px}
+  h2{font-size:21px;color:#0f2a4a;margin:44px 0 16px;padding-left:14px;border-left:5px solid #e8b84b;line-height:1.5}
+  h3{font-size:17px;color:#1d4f80;margin:26px 0 10px;font-weight:650}
+  h4{font-size:15px;color:#0f2a4a;margin:18px 0 8px;font-weight:650}
+  p{margin:10px 0}
+  ul,ol{margin:10px 0 10px 22px}
+  li{margin:6px 0}
+  strong{color:#0f2a4a}
+  .lead{background:#f4f8fc;border-left:4px solid #1d6fb8;padding:16px 20px;margin:18px 0;border-radius:0 6px 6px 0}
+  .judge{background:#fff8e8;border-left:4px solid #e8b84b;padding:16px 20px;margin:18px 0;border-radius:0 6px 6px 0}
+  .judge .tag{display:inline-block;background:#e8b84b;color:#0f2a4a;font-size:12px;font-weight:700;
+    padding:2px 9px;border-radius:3px;margin-bottom:8px}
+  .warn{background:#fdf1f0;border-left:4px solid #c0392b;padding:16px 20px;margin:18px 0;border-radius:0 6px 6px 0}
+  .warn .tag{display:inline-block;background:#c0392b;color:#fff;font-size:12px;font-weight:700;
+    padding:2px 9px;border-radius:3px;margin-bottom:8px}
+  .ok{background:#f0f8f2;border-left:4px solid #2e8b57;padding:16px 20px;margin:18px 0;border-radius:0 6px 6px 0}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+  th{background:#0f2a4a;color:#fff;padding:11px 13px;text-align:left;font-weight:600;font-size:13.5px}
+  td{padding:10px 13px;border-bottom:1px solid #e3eaf2;vertical-align:top}
+  tr:nth-child(even) td{background:#f8fafd}
+  .cards{display:flex;gap:12px;margin:18px 0;flex-wrap:wrap}
+  .card{flex:1;min-width:180px;background:#f4f8fc;border:1px solid #dbe6f0;border-radius:8px;padding:15px 16px}
+  .card .n{color:#e8b84b;font-weight:700;font-size:12px;letter-spacing:1px;margin-bottom:6px}
+  .card h4{margin:0 0 6px;font-size:14.5px}
+  .card p{font-size:13px;color:#4a5a6a;margin:0;line-height:1.7}
+  .flow{display:flex;align-items:stretch;gap:0;margin:20px 0;flex-wrap:wrap}
+  .step{flex:1;min-width:130px;background:#f4f8fc;border:2px solid #dbe6f0;border-radius:8px;padding:13px 12px;
+    position:relative;text-align:center}
+  .step+.step{margin-left:22px}
+  .step+.step:before{content:"→";position:absolute;left:-20px;top:50%;transform:translateY(-50%);
+    color:#1d6fb8;font-size:19px;font-weight:700}
+  .step b{display:block;color:#0f2a4a;font-size:14px;margin-bottom:5px}
+  .step span{font-size:12.5px;color:#4a5a6a;line-height:1.6}
+  .step.hi{background:#fff8e8;border-color:#e8b84b}
+  .code{background:#0f2a4a;color:#d6e6f5;font-family:"SFMono-Regular",Consolas,monospace;
+    padding:14px 18px;border-radius:6px;font-size:13px;line-height:1.9;margin:14px 0;white-space:pre-wrap}
+  .chk{list-style:none;margin-left:0}
+  .chk li{padding-left:26px;position:relative;margin:8px 0}
+  .chk li:before{content:"☐";position:absolute;left:0;color:#1d6fb8;font-size:16px;font-weight:700}
+  .no{list-style:none;margin-left:0}
+  .no li{padding-left:26px;position:relative;margin:8px 0;color:#5a3a3a}
+  .no li:before{content:"✕";position:absolute;left:0;color:#c0392b;font-weight:700}
+  .k{display:inline-block;background:#eef4fa;border:1px solid #c9dcee;color:#1d4f80;
+    padding:1px 7px;border-radius:3px;font-size:12.5px;margin:0 2px}
+  footer{background:#0f2a4a;color:#9db8d2;padding:22px 46px;font-size:12.5px;line-height:1.8}
+  footer b{color:#e8b84b}
+  .num{display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;background:#1d6fb8;
+    color:#fff;border-radius:50%;font-size:12px;font-weight:700;margin-right:7px}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">HRMA · 内容营销作战手册</div>
+  <h1>公众号起号与运营方案<br><span style="font-size:21px;font-weight:500">不新写内容，只把已有资产切片分发</span></h1>
+  <div class="sub">本方案的全部前提：你已经有 32 本口袋书、16 册主题书、15 张判定表、14 个课程模块、8 套 Excel 模板、三级考核体系。
+  公众号不需要你"创作"，只需要你"分发"。这是它与你精力结构唯一兼容的形态。</div>
+  <div class="meta">
+    <span>定位 <b>判定表分发器</b></span>
+    <span>节奏 <b>周更 1 篇</b></span>
+    <span>唯一外部渠道 <b>搜一搜（被动）</b></span>
+    <span>北极星 <b>关键词领取次数</b></span>
+  </div>
+</header>
+
+<main>
+
+<h2 id="toc-1">一、先说结论：三件事决定成败</h2>
+
+<div class="judge">
+<div class="tag">判断 1</div>
+<p><strong>公众号对你不是"媒体号"，是"判定表的免费分发器"。</strong>
+不要追热点、不要追阅读量、不要做日更。它的唯一KPI是：有多少人把你的判定表领走并真的用了。
+领表的人里，会有一小部分主动来问"能不能教我/能不能帮我们学校开课"——那是你真正要的单。</p>
+</div>
+
+<div class="judge">
+<div class="tag">判断 2</div>
+<p><strong>你的资产形态，正好踩中 2026 年算法的三条红利。</strong>
+① 内容极度垂直（只讲酒店收益管理）→ 垂直度&gt;80%，搜索流量是泛领域号的 <strong>5.6 倍</strong>；
+② 判定表/模板是工具型内容 → 天然高"收藏率"（算法权重 20%，且显著延长长尾生命周期）；
+③ 15 张判定表、32 个公式天然成体系 → 可直接做成<strong>合集</strong>（合集在搜索结果里展示面积大 2 倍、点击率高 45%）。<br>
+这三条你不争取也有，是白捡的。泛领域博主花钱都买不到。</p>
+</div>
+
+<div class="judge">
+<div class="tag">判断 3</div>
+<p><strong>标准公众号打法必须按你的精力裁剪，否则必弃。</strong>
+网上主流方法要求：每天 20 分钟、文章发布 2 小时内分享到 5–10 个群并组织 20 人深度评论、
+同时运营知乎+小红书、每天在"问一问"答 3–5 题。<strong>这些全是高频社交动作，与你"精力不足、做不了体力活"直接冲突。</strong>
+本方案只保留"设置一次、长期生效"的被动动作，其余全部砍掉（见第九节"明确不做"）。</p>
+</div>
+
+<h2 id="toc-2">二、账号开设：一次定好，别反复改</h2>
+
+<h3 id="toc-3">名字（决定搜索权重，最关键的 5 分钟）</h3>
+<p>微信搜一搜月活超 8 亿，近 40% 的新关注来自搜索。<strong>名字里有没有"酒店收益管理"这五个字，直接决定你能不能被搜到。</strong>
+注册前先在搜一搜里查重，按下列优先级选第一个未被占用的：</p>
+<table>
+<tr><th style="width:34%">候选名</th><th>理由</th><th style="width:16%">优先级</th></tr>
+<tr><td><strong>酒店收益管理</strong></td><td>纯关键词，搜索匹配度最高。缺点是像个机构不像人</td><td>首选（若未被占）</td></tr>
+<tr><td><strong>酒店收益管理手册</strong></td><td>含关键词 + "手册"暗示工具属性，与你的书系呼应</td><td>次选</td></tr>
+<tr><td><strong>收益管理实战笔记</strong></td><td>有个人感，"笔记"降低读者压力（不像教科书）</td><td>第三</td></tr>
+<tr><td><strong>酒店收益管理研究所</strong></td><td>专业感强，适合面向院校教师；但对一线从业者略远</td><td>备选</td></tr>
+</table>
+<p class="lead">改名有次数限制，<strong>注册时一次定好</strong>。定名唯一标准：目标读者在搜一搜里会打哪几个字。</p>
+
+<h3 id="toc-4">简介（30 字内塞满关键词 + 身份 + 钩子）</h3>
+<div class="code">酒店收益管理｜15 张判定表免费领
+XX 年酒店收益管理实战 / 高校收益管理课程顾问
+回复【判定表】领 Excel 模板</div>
+<p><strong>三行结构：关键词行 / 身份行 / 行动行。</strong>第三行必须有一个明确的"回复关键词"动作——这是零社交承接的关键。</p>
+
+<h3 id="toc-5">被关注自动回复 + 关键词回复（无人值守的核心武器）</h3>
+<p>这是全方案<strong>能耗最低、性价比最高</strong>的一环：配置一次，此后 24 小时自动承接，你不需要在场。</p>
+<ul>
+<li><strong>被关注自动回复</strong>：欢迎语 + 一句身份 + 3 个关键词选项（不要发长段落）</li>
+<li><strong>关键词用 2 字短词</strong>，别用长句子——用户懒得打。建议：<span class="k">判定表</span><span class="k">日历</span><span class="k">大纲</span><span class="k">预测</span></li>
+<li><strong>资料必须真实可用</strong>：给 Excel 模板，不要给"资料包合集"。你已经有 8 套编号模板 + 9 个工具 xlsx，直接给</li>
+</ul>
+
+<h2 id="toc-6">三、内容策略总纲：不创作，只做三件事</h2>
+
+<p>你最大的风险不是"不会写"，是<strong>"觉得每篇都要新写"然后被吓退</strong>。真实情况是：每篇文章只有三个动作，素材全部现成。</p>
+
+<div class="flow">
+  <div class="step"><b>① 切片</b><span>从口袋书/判定表/课程模块里取一个完整的小结论</span></div>
+  <div class="step hi"><b>② 加场景</b><span>给它配一个真实业务场景（案例库现成）</span></div>
+  <div class="step"><b>③ 配钩子</b><span>文末回扣一个关键词领对应 Excel</span></div>
+</div>
+
+<h3 id="toc-7">内容 ↔ 资产映射表（写作前先看这张表，不要凭空想选题）</h3>
+<table>
+<tr><th style="width:22%">你的已有资产</th><th style="width:26%">可直接切出的内容</th><th>配什么钩子</th></tr>
+<tr><td>15 张判定表（表 A–表 O）</td><td>"遇到 X 情况，按这张表判断"系列</td><td>该表 Excel / 自检表</td></tr>
+<tr><td>32 本口袋书 / 32 个公式</td><td>"一个公式讲透一件事"系列</td><td>公式计算表</td></tr>
+<tr><td>16 册主题书</td><td>"XX 怎么做的完整流程"系列</td><td>对应模板 xlsx</td></tr>
+<tr><td>14 个课程模块（m01–m14）</td><td><strong>教师向</strong>：大纲、教案、怎么讲</td><td>教学大纲 / 教案</td></tr>
+<tr><td>三级考核体系（L1/L2/L3）</td><td>"五级/四级/三级各考什么"</td><td>考核方案节选</td></tr>
+<tr><td>9 个工具 xlsx + 8 套模板</td><td>工具使用教程</td><td>模板本体（最强钩子）</td></tr>
+<tr><td>1+X 政策研究（你刚做的）</td><td><strong>政策解读（破圈选题）</strong></td><td>院校应对清单</td></tr>
+<tr><td>案例库（4 套脱敏数据 + 20 案例）</td><td>决策复盘</td><td>数据表样张</td></tr>
+</table>
+
+<h2 id="toc-8">四、四大栏目 + 前 30 篇选题库</h2>
+
+<p><strong>双轨配比：70% 面向酒店从业者（起量、转发、搜索），30% 面向院校教师（转化大单、差异化、对手极少）。</strong>
+不要为了"精准"只写教师——教师人数少、决策慢，只写教师你起不了量；但完全不写教师，你会错失真正的大单。</p>
+
+<div class="cards">
+  <div class="card"><div class="n">栏目 A · 主力（约 40%）</div><h4>判定表系列</h4><p>15 张判定表逐张拆。护城河内容，免费给。收藏率最高，长尾最强。</p></div>
+  <div class="card"><div class="n">栏目 B · 起量（约 30%）</div><h4>一个公式一件事</h4><p>32 个公式逐个讲。短、可扫描、完读率高。最适合算法。</p></div>
+  <div class="card"><div class="n">栏目 C · 转化（约 20%）</div><h4>给酒店管理教师</h4><p>怎么开课、大纲、教案、申报。读者少但单价高。</p></div>
+  <div class="card"><div class="n">栏目 D · 破圈（约 10%）</div><h4>政策与案例复盘</h4><p>1+X 移交、等级认定路径。时效强、竞争者几乎为零。</p></div>
+</div>
+
+<h3 id="toc-9">前 30 篇选题（直接抄，不用想）</h3>
+
+<h4>栏目 A · 判定表系列（1–8）</h4>
+<ol>
+<li>你的酒店收益健康吗？先做这 15 项自检（<strong>建议作第 1 篇</strong>，天然钩子）</li>
+<li>每天上班 15 分钟，该看哪 9 个数（表 M 每日流水线）</li>
+<li>周/月/季/年，收益管理各该做什么（节奏表）</li>
+<li>两张表结论打架时听谁的（仲裁表——这是你的独家，别人没有）</li>
+<li>竞品降价了，跟不跟？三步判断</li>
+<li>团队该不该接？置换分析怎么算</li>
+<li>超额预订的上限定多少？算给你看</li>
+<li>房型价差定多少合理？校验方法</li>
+</ol>
+
+<h4>栏目 B · 一个公式一件事（9–18）</h4>
+<ol start="9">
+<li>RevPAR 90% 的人都算错了：必须按可售房晚加权</li>
+<li>OCC、ADR、RevPAR 三个指标到底谁管谁</li>
+<li>MPI / ARI / RGI 三个指数，一篇讲清</li>
+<li>什么时候该涨价？看这个触发条件</li>
+<li>MinLOS 怎么设？设错了少赚多少</li>
+<li>渠道净值怎么算？那个 15% 佣金不是全部成本</li>
+<li>Pickup 怎么看？提前多久能预判满房</li>
+<li>BAR 价格层级怎么搭才不乱</li>
+<li>淡旺季价格日历：一套模板做完全年</li>
+<li>保本点怎么算？降到什么价就别卖了</li>
+</ol>
+
+<h4>栏目 C · 给酒店管理教师（19–26）</h4>
+<ol start="19">
+<li>酒店管理专业，为什么现在必须开收益管理课</li>
+<li>收益管理课程大纲：16 周，可直接改（附课时分配）</li>
+<li>32 个公式怎么讲，学生才听得懂</li>
+<li>收益管理实训怎么做：不需要买昂贵系统</li>
+<li>这门课的考核怎么设计才不像背书</li>
+<li>收益管理课程思政：3 个可落地的切入点</li>
+<li>一流课程 / 教改项目申报：收益管理方向材料清单</li>
+<li>教师最常问我的 10 个问题</li>
+</ol>
+
+<h4>栏目 D · 政策与案例（27–30）</h4>
+<ol start="27">
+<li><strong>1+X 移交人社部了，院校该往哪走</strong>（破圈王牌，你刚做完政策研究，全网几乎没人写透）</li>
+<li>职业技能等级认定：院校怎么申请资质，要准备什么</li>
+<li>某酒店 RevPAR 下滑 12%，我们是这样查的（脱敏复盘）</li>
+<li>收益管理 30 个常见误区，一次说完</li>
+</ol>
+
+<div class="ok">
+<p><strong>第 1 篇和第 27 篇是全部 30 篇里最重要的两篇。</strong>
+第 1 篇决定你的钩子能不能转起来；第 27 篇是唯一有可能在没有粉丝时被大量转发的——因为它解答的是所有院校教师此刻正在焦虑的问题，而写透它的人极少。</p>
+</div>
+
+<h2 id="toc-10">五、每篇文章的固定模板（用模板消灭决策）</h2>
+
+<p>直接复用你口袋书已定的六段模板，一篇 1500–2000 字。<strong>控制篇幅是因为算法第一权重是完读率（35%）</strong>——长文读完率低，会被判定低质并停止推荐。</p>
+<div class="code">① 标题：含搜索关键词 + 具体数字/场景
+② 开头 100 字：直接给答案（不要"大家好，我是…"）
+③ 一个真实场景 / 一张图 / 三个要点
+④ 一个公式 + 算例
+⑤ 三步做法 + 一件不要做的事
+⑥ 结尾：行动清单 + 回复【XX】领 Excel</div>
+<p><strong>排版三条硬规则</strong>：每段不超过 5 行；小标题分层；关键数字加粗。
+固定一个排版模板后每篇不再重新设计——这本身就是省精力。</p>
+
+<h2 id="toc-11">六、搜一搜 SEO：五件"设置一次、长期生效"的事</h2>
+
+<p>这是本方案<strong>唯一保留的主动获客动作</strong>，因为它全部是"一次性配置"，不需要每天做。</p>
+<ol>
+<li><span class="num">1</span><strong>标题命中搜索词</strong>：读者会搜什么，标题里就有什么（"RevPAR 怎么算"而不是"收益指标浅析"）</li>
+<li><span class="num">2</span><strong>开头 200 字内给答案</strong>，不绕弯——搜索来的读者是带着问题来的，找不到答案立刻退出</li>
+<li><span class="num">3</span><strong>填好 120 字"搜索摘要"</strong>：后台发布时可填，会直接显示在搜索结果里，相当于免费搜索广告</li>
+<li><span class="num">4</span><strong>加 3–5 个标签</strong>：选"搜索量中等、竞争低"的蓝海标签，别堆大词</li>
+<li><span class="num">5</span><strong>建合集</strong>：把判定表系列、公式系列分别建合集。合集在搜索结果里展示面积大 2 倍、点击率高 45%</li>
+</ol>
+<p class="lead"><strong>关键词密度控制在 3%–5%，不要堆砌</strong>——2026 年算法会判定作弊降权。
+另：老文章发布 30 天后回来优化一次标题+摘要+标签，搜索流量平均能提升 2.5 倍（这是低投入高回报的动作，每季度做一次）。</p>
+
+<h2 id="toc-12">七、发布节奏：周更 1 篇，批量生产</h2>
+
+<div class="warn">
+<div class="tag">不要日更</div>
+<p>日更是精力结构下最快导致放弃的行为。周更 1 篇，一年 52 篇——足以覆盖你所有核心资产，且可持续。</p>
+</div>
+
+<h3 id="toc-13">批量生产法（关键省精力技巧）</h3>
+<ul>
+<li><strong>不要每周现写</strong>：一次坐下来写 3–4 篇，全部排期发布。这样你一个月只需要"进入状态"1–2 次</li>
+<li><strong>进入状态的成本远大于写作本身</strong>，批量化是唯一解</li>
+<li>排期功能直接用公众号后台的定时发布，写完不用管</li>
+<li>每篇目标 1500–2000 字、40 分钟内完成（因为素材现成，你不该花 3 小时）</li>
+</ul>
+
+<h2 id="toc-14">八、转化路径：不做社群的极简版</h2>
+
+<div class="flow">
+  <div class="step"><b>公众号文章</b><span>判定表 / 公式 / 教学</span></div>
+  <div class="step hi"><b>文末钩子</b><span>回复关键词领 Excel</span></div>
+  <div class="step"><b>自动回复</b><span>无人值守承接</span></div>
+  <div class="step"><b>站点 / 书系</b><span>已有落地页承接</span></div>
+  <div class="step"><b>主动求助</b><span>培训 / 院校陪跑</span></div>
+</div>
+
+<p><strong>全程零社交。</strong>用关键词自动回复 + 你已有的站点落地页承接，不建群、不做群运营、不拉社群。
+理由很直白：社群是"一旦开了就必须持续在场"的东西，与你的精力结构根本冲突，开了必弃，弃了伤号。</p>
+<p>若读者主动私聊咨询，那是<strong>被动接单</strong>——这与你"被动接院校合作"的整体策略一致，不额外耗能。</p>
+
+<h2 id="toc-15">九、明确不做（照标准打法做必弃的部分）</h2>
+<ul class="no">
+<li><strong>不做日更</strong>——周更 1 篇</li>
+<li><strong>不做社群 / 群运营</strong>——用关键词自动回复替代</li>
+<li><strong>不做"2 小时冷启动"</strong>（发完分享到 5–10 个群、组织 20 人深度评论）——高频社交，直接放弃这个流量红利</li>
+<li><strong>不追热点</strong>——热点伤垂直度，而垂直度是你最大的搜索红利</li>
+<li><strong>不同时做知乎 + 小红书 + 视频号</strong>——起号期只做公众号一个阵地；若 3 个月后有余力，唯一追加渠道是知乎（同稿改写，零额外创作）</li>
+<li><strong>不做"问一问"每日答题</strong>——虽然占 15% 流量，但要求每天 30 分钟，列为"有余力再说"的期权</li>
+<li><strong>不买粉、不互推</strong>——僵尸粉拉低完读率，算法会判你低质</li>
+</ul>
+
+<h2 id="toc-16">十、只看两个数字</h2>
+<table>
+<tr><th style="width:24%">阶段</th><th style="width:28%">唯一该看的指标</th><th>不看什么</th></tr>
+<tr><td>0–3 个月</td><td><strong>关键词领取次数</strong></td><td>阅读量、粉丝总数（早期必然难看，看了只会想放弃）</td></tr>
+<tr><td>3–6 个月</td><td><strong>主动咨询次数</strong>（私聊/邮件）</td><td>点赞、在看、转发数</td></tr>
+<tr><td>6 个月后</td><td><strong>由公众号带来的成交单数</strong></td><td>同行对比、涨粉速度</td></tr>
+</table>
+<p class="lead">判断标准极其简单：<strong>每周只看"这周字数有没有增加 + 有没有人领表"</strong>。
+连续两周一件没做，问题不在方案在你状态——那时应该先处理精力本身，而不是换方案。</p>
+
+<h2 id="toc-17">十一、合规红线（必守）</h2>
+<div class="warn">
+<div class="tag">红线</div>
+<ul style="margin-bottom:0">
+<li><strong>AI 辅助创作必须人工加工</strong>：2026 年 3 月微信新增"非真人自动化创作"条款。用 AI 整理旧稿后必须补真实案例、加个人观点、调整语气去 AI 味，并在后台勾选"AI辅助创作"。违规可删文至封号</li>
+<li><strong>导流走正门</strong>：2026 年 5 月起，简介/评论/私信留微信号、"发一半扫码看全文"、A 号跳 B 号导流均被限流。正确姿势是引流到公众号后用关键词自动回复承接，全程在微信生态内完成</li>
+<li><strong>证书表述</strong>：不得自称"收益管理师职业资格证书"，不得暗示国家认可。只能写"培训认证 / 职业能力等级评价"——国家职业分类里没有独立工种，必须挂靠现有职业（如 4-03-01-01 前厅服务员）</li>
+<li><strong>就业承诺</strong>：不得承诺就业、不得收取就业费用，只能写"人才库展示 / 岗位撮合 / 双向选择"</li>
+<li><strong>案例数据脱敏</strong>：所有复盘文章用脱敏数据，不出现真实酒店名称与可反推的经营数据</li>
+</ul>
+</div>
+
+<h2 id="toc-18">十二、90 天执行清单（一周一事，不要并行）</h2>
+<ul class="chk">
+<li><strong>第 1 周（唯一动作）</strong>：注册公众号 + 定名 + 写简介 + 配置被关注回复和 2 个关键词回复。<strong>不发文章</strong></li>
+<li><strong>第 2 周</strong>：发第 1 篇（15 项收益自检表）+ 配好第一个 Excel 钩子。发朋友圈一次（一次性动作，不是持续动作）</li>
+<li><strong>第 3 周</strong>：发第 2 篇（每天 15 分钟看哪 9 个数）+ 建"判定表"合集</li>
+<li><strong>第 4 周</strong>：发第 3 篇（RevPAR 加权算法——最容易出搜索流量）</li>
+<li><strong>第 5–8 周</strong>：按选题库发 4 篇（栏目 A 与 B 交替）。第 6 周发<strong>第 27 篇政策解读</strong>（破圈）</li>
+<li><strong>第 9 周</strong>：复盘——只看"领表次数"和"有没有人主动咨询"。有咨询即验证成立</li>
+<li><strong>第 10–12 周</strong>：继续周更；把前 8 篇的标题 + 摘要 + 标签优化一次</li>
+<li><strong>第 13 周</strong>：开始发栏目 C（教师向）。此时你已有 12 篇存量内容，教师看到会觉得"这个人是认真的"</li>
+</ul>
+
+<div class="ok">
+<p><strong>第 1 周只做一件事：把号开起来、把自动回复配好，然后什么都不发。</strong>
+这是刻意设计的——让第一周小到不可能失败。很多人死在"第一周就想写一篇完美的开篇词"，而开篇词恰恰是最没人看的东西。</p>
+</div>
+
+</main>
+
+<footer>
+  <b>HRMA 公众号起号与运营方案</b> · 基于既有资产（32 口袋书 / 16 册主题书 / 15 判定表 / 14 模块 / 8 模板 / 三级考核）设计<br>
+  核心原则：不创作只分发 · 周更不日更 · 零社群运营 · 按精力结构裁剪标准打法<br>
+  本方案为内部策略文档，含定价与合规判断，未公开发布
+</footer>
+
+</div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>HRMA 公众号起号与运营方案</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">一、先说结论：三件事决定成败</a>
+<a href="#toc-2">二、账号开设：一次定好，别反复改</a>
+<a href="#toc-3" class="lv3">1. 名字（决定搜索权重，最关键的 5 分钟）</a>
+<a href="#toc-4" class="lv3">2. 简介（30 字内塞满关键词 + 身份 + 钩子）</a>
+<a href="#toc-5" class="lv3">3. 被关注自动回复 + 关键词回复（无人值守的核心武器）</a>
+<a href="#toc-6">三、内容策略总纲：不创作，只做三件事</a>
+<a href="#toc-7" class="lv3">4. 内容 ↔ 资产映射表（写作前先看这张表，不要凭空想选题）</a>
+<a href="#toc-8">四、四大栏目 + 前 30 篇选题库</a>
+<a href="#toc-9" class="lv3">5. 前 30 篇选题（直接抄，不用想）</a>
+<a href="#toc-10">五、每篇文章的固定模板（用模板消灭决策）</a>
+<a href="#toc-11">六、搜一搜 SEO：五件&quot;设置一次、长期生效&quot;的事</a>
+<a href="#toc-12">七、发布节奏：周更 1 篇，批量生产</a>
+<a href="#toc-13" class="lv3">6. 批量生产法（关键省精力技巧）</a>
+<a href="#toc-14">八、转化路径：不做社群的极简版</a>
+<a href="#toc-15">九、明确不做（照标准打法做必弃的部分）</a>
+<a href="#toc-16">十、只看两个数字</a>
+<a href="#toc-17">十一、合规红线（必守）</a>
+<a href="#toc-18">十二、90 天执行清单（一周一事，不要并行）</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="../../";</script>
+<script src="../../auth-config.js?v=gate20261013"></script>
+<script src="../../assets/js/access-gate.js?v=v12"></script>
+<script>window.HRMA_PREFIX="";</script>
+
+<script>
+/* ==========================================================================
+   HRMA 学院官网 · 鉴权配置
+   --------------------------------------------------------------------------
+   ▼▼▼ 需要填的就是下面两行 ▼▼▼
+   1. 到 https://supabase.com 免费注册，新建一个项目
+   2. 项目 → Settings → API
+      · Project URL       → 贴在 url
+      · anon public key   → 贴在 anonKey
+   3. 保存本文件，重新部署
+
+   详细步骤见同目录 supabase-setup.md
+   ========================================================================== */
+
+/* ★ 鉴权模式开关（重要）
+   'cloud' = 云端模式：走 Supabase 真实服务端校验，可给外部人开账号。
+   'local' = 本地模式：账号存在各自浏览器，不联网。适合只有您自己访问。
+                       一旦切回 'local'，云端注册/审核/登录三端会被整条旁路。
+
+   ⚠️ 2026-10-21 22:47 已确认并从 'cloud' 回退 'local'：Supabase 项目 ivcylkcbodoacajyvnpy（孟买 ap-south-1）
+   **从中国大陆网络完全不可达**——浏览器直连报「服务器意外中断了连接」（连接被重置），注册 fetch 报「Load failed」。
+   即「外部人云端自助注册」对国内用户走不通（supabase.co 域名 + 孟买区域双重绕不过）。
+   signin.html 的云端登录/注册分支、auth.js、admin-approve.html 云端审批代码**全部保留**，本地预置账号兜底也在——
+   将来到国内可访问的鉴权后端（腾讯云 CloudBase / Supabase 亚太区+自定义域名 等）就绪后，把本行改回 'cloud' 即可再开，无需重写。
+   纯静态站点固有限制：懂技术的人仍可用 curl/查看源码扒到 HTML，
+   要做到文件级真加密须迁腾讯云服务器（带访问网关），此处只挡普通访客。 */
+window.HRMA_AUTH_MODE = 'local';
+
+/* 管理员密码哈希（SHA-256）。只存哈希不存明文——20 位随机强密码，无法从哈希反推。
+   明文只存在站长本机 hrma/_private_files/管理员密码.txt。
+   作用：管理员邮箱 + 此密码，可在任意设备的登录门直接进站，不依赖恢复码。 */
+window.HRMA_ADMIN_PW_HASH = "f8d4f00ade4fac6f8474569be361054cb95008313161f5216c231be27b884085";
+
+window.HRMA_SUPABASE = {
+  // 例： "https://abcdefghijklmnop.supabase.co"
+  url: "https://ivcylkcbodoacajyvnpy.supabase.co",
+
+  // 例： "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9......"
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2Y3lsa2Nib2RvYWNhanl2bnB5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTYzMzYsImV4cCI6MjEwNDI3MjMzNn0.oO7kU5OJ2TYY6U1ZD6Ol3Vuh6dMwaIvV2N6CzsqL4Xw"
+};
+
+/* 管理员邮箱（拥有审批权限）。多个用逗号分隔。
+   三者均为站长本人可控的 QQ 邮箱（community 与 rm 为同一邮箱的别名，coach 亦为站长邮箱），
+   任一均可登录并被前端识别为管理员、数据库触发器自动 approved。
+   数据库侧 profiles_admin_all / handle_new_user 策略已同步支持这三个邮箱（见 _update_admin.py）。 */
+window.HRMA_ADMIN_EMAILS = ["rm-community@qq.com", "rm-coach@qq.com"];
+
+/* 联系邮箱（页面展示用） */
+window.HRMA_CONTACT_EMAIL = "rm-community@qq.com";
+
+/* 收款信息（结算页展示用）。
+   --------------------------------------------------------------------------
+   当前模式：**邮箱联系**（保护隐私，网页上不展示任何个人/收款账号）。
+   流程：用户下单 → 页面给出联系邮箱 → 发邮件索取付款方式 → 您邮件告知 →
+        对方付款 → 您核销后手动开通权益。
+   备注：微信/支付宝「转账」方式收款方无上限，不受静态收款码那条「单日 500 元」限制，
+        适合 ¥299 / ¥1999 这种客单价。
+   如需将来改回扫码，把下面 wechatQR / alipayQR 填上图片地址即可（但请留意 500 元限制）。
+   -------------------------------------------------------------------------- */
+window.HRMA_PAY = {
+  payee: "RMC收益管理社区",
+
+  // 页面上唯一对外展示的联系方式
+  contact: "rm-community@qq.com",
+
+  // 收款码图片地址：留空则不展示二维码
+  wechatQR: "",
+  alipayQR: "",
+
+  // 银行账号说明：留空则不展示（保护隐私，默认不展示）
+  bank: "",
+
+  note: "为保护隐私，本站不在网页展示任何收款账号。请通过上述邮箱联系我们获取付款方式，邮件中请附上您的订单号。"
+};
+
+</script>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>收益例会模拟主持 · 5 场景角色扮演 · RMC收益管理社区</title>
+<meta name="description" content="主持收益例会的角色扮演游戏：旺季涨价会、淡季促销会、团队询价会、超售救火会、渠道冲突会。5 个场景 20 个决策回合，选对话、给依据、当场落 owner，练的是把会开成决策会。">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fa;color:#1f2a37;
+  font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px 60px}
+.hero{background:linear-gradient(160deg,#0f2a4a,#16406e 65%,#1d6fb8);color:#fff;padding:30px 16px 26px}
+.hero h1{margin:0 0 8px;font-size:26px;letter-spacing:.5px}
+.hero p{margin:0;opacity:.9;font-size:15px;line-height:1.7;max-width:820px}
+.hero .cnt{margin-top:12px;font-size:13px;opacity:.85}
+.back{color:#cfe0f5;font-size:13px;text-decoration:none}
+.meta{font-size:13px;color:#5b6a7d;margin:16px 0 10px}
+.meta b{color:#1d6fb8}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.scn{background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:15px 16px;cursor:pointer;transition:.15s;box-shadow:0 1px 3px rgba(15,42,74,.05);position:relative}
+.scn:hover{border-color:#1d6fb8;transform:translateY(-2px)}
+.scn .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1px;color:#fff;border-radius:5px;padding:3px 9px;margin-bottom:8px}
+.scn h3{margin:0 0 6px;font-size:15.5px;color:#0f2a4a;line-height:1.45}
+.scn p{margin:0 0 9px;font-size:12.8px;line-height:1.65;color:#43536a}
+.scn .best{font-size:12px;color:#8494a8}
+.scn .best b{color:#2a7d4f}
+.tip{background:#fff8e8;border:1px solid #ecd9a8;color:#7a5a12;border-radius:10px;padding:12px 15px;font-size:13.2px;line-height:1.7;margin:14px 0}
+/* 演练界面 */
+.game{display:none}
+.game .ctx{background:#fff;border:1px solid #e3e8ef;border-left:5px solid #1d6fb8;border-radius:10px;padding:13px 16px;margin:14px 0 12px;font-size:13.5px;line-height:1.75;color:#33465c}
+.game .ctx .ct{font-weight:800;color:#0f2a4a;font-size:15px;margin-bottom:5px}
+.round{background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:15px 17px;margin:12px 0;box-shadow:0 1px 3px rgba(15,42,74,.05)}
+.round .who{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:#5b6a7d;border-radius:5px;padding:3px 10px;margin-bottom:8px}
+.round .say{font-size:14px;line-height:1.75;color:#0f2a4a;font-weight:600;margin-bottom:11px}
+.opt{display:block;width:100%;text-align:left;background:#fbfcfe;border:1px solid #d5dde7;border-radius:9px;padding:10px 13px;font-size:13.3px;line-height:1.6;color:#33465c;cursor:pointer;margin:7px 0;font-family:inherit;transition:.12s}
+.opt:hover{border-color:#1d6fb8;background:#f2f7fd}
+.opt:disabled{cursor:default}
+.opt.good{background:#eaf4ee;border-color:#2a7d4f}
+.opt.mid{background:#fff8e8;border-color:#d9b96a}
+.opt.bad{background:#fff1f0;border-color:#e0a0a0}
+.opt .pick{font-weight:800;margin-right:4px}
+.fb{display:none;margin-top:10px;border-top:1px dashed #d4dcea;padding-top:10px;font-size:13px;line-height:1.7;border-radius:8px;padding:10px 13px}
+.fb.show{display:block}
+.fb.g{background:#eaf4ee;color:#1d5c38}
+.fb.m{background:#fff8e8;color:#6b5216}
+.fb.b{background:#fff1f0;color:#7a2e2e}
+.fb b{letter-spacing:.5px}
+.pbar{height:7px;background:#e3e8ef;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.pbar i{display:block;height:100%;background:#1d6fb8;border-radius:99px;transition:width .25s}
+.plabel{font-size:12px;color:#8494a8;margin-bottom:6px}
+.result{display:none;background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:18px 20px;margin:14px 0}
+.result .sc{font-size:30px;font-weight:800;color:#1d6fb8}
+.result .sc small{font-size:14px;color:#8494a8;font-weight:600}
+.result h3{margin:10px 0 6px;font-size:16px;color:#0f2a4a}
+.result p,.result li{font-size:13.5px;line-height:1.75;color:#33465c}
+.result ul{padding-left:20px;margin:6px 0}
+.btnrow{margin:16px 0 0;display:flex;gap:10px;flex-wrap:wrap}
+.btn{background:#1d6fb8;color:#fff;border:0;border-radius:9px;padding:10px 20px;font-size:14px;cursor:pointer;font-family:inherit}
+.btn:hover{background:#185a96}
+.btn.ghost{background:#fff;color:#1d6fb8;border:1px solid #1d6fb8}
+.btn.ghost:hover{background:#f2f7fd}
+.linkline{font-size:13px;color:#5b6a7d;margin-top:14px;line-height:1.8}
+.linkline a{color:#1d6fb8;font-weight:700;text-decoration:none}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"meeting-sim","item":"https://hrma-city.github.io/meeting-sim.html"}]}</script>
+</head>
+<body>
+<div class="hero">
+  <a class="back" href="revenue-meeting.html">← 返回收益例会手册</a>
+  <h1>收益例会模拟主持 · 角色扮演</h1>
+  <p>您是收益经理，今天是您主持例会的第 N 周。销售、前厅、预订部各有立场，总经理在座——每个回合选您的应对，当场见分晓：有没有给依据、有没有落 owner、有没有把会拉回决策。5 个场景，每个 4 回合。</p>
+  <div class="cnt">门内资源 · 评分依据全部对应《操作法典》判定表 · 成绩存本机</div>
+</div>
+<div class="wrap">
+
+  <div id="fatalBar" style="display:none;background:#c0392b;color:#fff;padding:10px 14px;border-radius:8px;font-size:13px;margin:12px 0"></div>
+  <div class="meta" id="totalLine"></div>
+
+  <!-- 场景选择 -->
+  <div id="menu">
+    <div class="tip"><b>评分规则：</b>每回合最优 3 分、可行 1 分、错误 0 分。场景满分 12：≥10 优秀主持；7–9 合格；&lt;7 建议重开——先读<a href="revenue-meeting.html" style="color:#1d6fb8;font-weight:700">例会手册</a>再来。</div>
+    <div class="grid" id="scnGrid"></div>
+  </div>
+
+  <!-- 演练 -->
+  <div class="game" id="game">
+    <div class="btnrow" style="margin:0 0 6px"><button class="btn ghost" id="gTopBack">← 回场景列表</button></div>
+    <div class="plabel" id="gLabel"></div>
+    <div class="pbar"><i id="gFill" style="width:0%"></i></div>
+    <div class="ctx" id="gCtx"></div>
+    <div id="gRounds"></div>
+    <div class="btnrow"><button class="btn ghost" id="gQuit">放弃本场，回场景列表</button></div>
+  </div>
+
+  <!-- 结算 -->
+  <div class="result" id="result">
+    <div class="btnrow" style="margin:0 0 6px"><button class="btn ghost" id="rTopBack">← 回场景列表</button></div>
+    <div class="sc" id="rScore"></div>
+    <h3 id="rTitle"></h3>
+    <p id="rSum"></p>
+    <h3>本场复盘</h3>
+    <ul id="rRecap"></ul>
+    <div class="btnrow">
+      <button class="btn" id="rRetry">再开一次</button>
+      <button class="btn ghost" id="rMenu">回场景列表</button>
+    </div>
+  </div>
+
+  <div class="linkline">配套：<a href="revenue-meeting.html">收益例会 · 主持与执行手册</a>　·　<a href="codex.html">操作法典（15 张判定表）</a>　·　<a href="price-log.html">调价台账练习器</a>——会后留痕在这里。</div>
+
+</div>
+<script>
+(function(){
+function fatal(e){var b=document.getElementById('fatalBar');if(b){b.style.display='block';b.textContent='页面脚本出错：'+(e&&e.message?e.message:e)+'——请截图报给站长。';}}
+try{
+var DATA=[
+{id:"s1",name:"旺季涨价会",tag:"旺季 · D1 峰值日",color:"#b0563a",
+ ctx:"9 月 28 日，云栖大会注册日前一天（D1 峰值日）。320 间房，预测 OCC 95.3%，pickup 领先 10.4%。《操作法典》表 A 的结论唯一且明确：BAR 680 → ↑20% = 816，且 D1 调价须 L3（您本人）审批。今天的例会，就是把涨价排下去。",
+ rounds:[
+ {who:"销售总监 郑昊",say:"“一下从 680 涨到 816，协议客户会炸锅。要涨你涨，协议那边我不敢通知。”",
+  opts:[{t:"先不涨了，稳住协议关系要紧，涨个 30 块意思一下。",s:0,fb:"【0 分 · 错误】表 A 的输入（95.3% + 领先 10.4%）给的是唯一动作，凭感觉折中不是决策。D1 按兵不动，等于把 136 元/间的增量白白送掉，协议客户也未必领情。"},
+        {t:"按表 A 涨到 816；核心协议户由销售部逐一致电：大会行情说明 + 协议价 680 锁价保护 3 天。",s:3,fb:"【3 分 · 最优】涨价执行 + 协议保护位，两头都稳。散客市场吃到了峰值价，协议客户拿到了确定性——这正是销售要向客户讲的话术。"},
+        {t:"涨到 748 折中，既涨了也不刺激人。",s:1,fb:"【1 分 · 可行但不优】748 没有任何依据——不是表 A 的结论。例会要的是“按表决策或拿出反证数据”，不是和稀泥。"}]},
+ {who:"前厅经理",say:"“涨到 816，升级诉求肯定爆，我人手排不开，旺季干脆一律不给升级。”",
+  opts:[{t:"旺季一律不升级，省心。",s:1,fb:"【1 分 · 可行但不优】一刀切省事，但把表 J（免费升级规则）的定向权益也砍了——会员和长住的升级是留客资产，不能跟着停。"},
+        {t:"按表 J 执行：只对会员与长住定向升级，升级量上限写进今日简报，超出须回报你。",s:3,fb:"【3 分 · 最优】升级是受控动作不是福利放水：对象定向、量有上限、超出审批。前厅拿到的是清晰边界，不是“看情况”。"},
+        {t:"让预订部少放高价房，留几间给现场升级用。",s:0,fb:"【0 分 · 错误】旺季高价房是置换资产，留着“送人情”是双重损失。表 B 的库存逻辑：越旺越要先卖高价。"}]},
+ {who:"预订部主管",say:"“六个渠道的挂牌价我没法 30 分钟内全改完，明天统一改行不行？”",
+  opts:[{t:"表 A 红线：调价后 30 分钟内核价。改不完就先关改不动的渠道，价差渠道绝不过夜。",s:3,fb:"【3 分 · 最优】30 分钟核价是红线不是建议。执行顺序正确：先保一致，保不了一致就先限供该渠道（表 H），而不是留着倒挂过夜。"},
+        {t:"让 OTA 自己跟价，他们有自动调价工具。",s:0,fb:"【0 分 · 错误】价格一致性责任在酒店。OTA 监测到倒挂轻则流量降权，重则下架索赔（见场景 5）。"},
+        {t:"先把官网改了，OTA 明天上班再说。",s:1,fb:"【1 分 · 可行但不优】官网改了 OTA 没改，等于只修了一条路——客人照样从 OTA 看到旧价，倒挂照样发生。"}]},
+ {who:"总经理",say:"“一夜涨 20%，会不会影响我们全年的客户满意度考评？”",
+  opts:[{t:"给数据说话：D1 单日增量约 3.6 万；竞品 A 挂 880，我们 816 仍有价差优势；满意度考评看的是入住体验与问题解决，不是 BAR 定价。",s:3,fb:"【3 分 · 最优】这正是“能汇报”的三件事结构：结果（+3.6 万/日）、原因（市场水位 + 竞品锚点）、结论（满意度与 BAR 无因果）。总经理拿到的是可批准的依据。"},
+        {t:"“您批准就行，出了问题我担着。”",s:0,fb:"【0 分 · 错误】放弃专业立场。总经理要的是依据，不是表态——这句话在任何例会里都是减分项。"},
+        {t:"“要不今年旺季先不涨，明年我们再系统研究。”",s:1,fb:"【1 分 · 可行但不优】回避决策。把一个当天要落的问题推到来年，是“没有决定”型跑偏的变体。"}]}],
+ recap:["表 A 不是参考意见，是决策依据：输入对，动作唯一。反方要拦，请拿数据反证输入。",
+ "涨价要配套：协议保护位（销售）、升级控量（前厅）、30 分钟核价（预订）——三件事都在动作清单里落 owner 和 deadline。",
+ "对总经理永远给三件事：结果、原因、需要什么决定。"]},
+{id:"s2",name:"淡季促销会",tag:"淡季 · 1 月",color:"#2e8b57",
+ ctx:"1 月第二周，预测 OCC 42%。变动成本 95 元/间夜。淡季不作为是放弃，乱作为是自毁价格体系——这周的例会要在“抢量”和“守价”之间排出动作。",
+ rounds:[
+ {who:"前厅经理",say:"“BAR 从 560 降到 399 吧，先冲量回点现金，躺着也是亏。”",
+  opts:[{t:"全渠道直接降到 399，能卖一间是一间。",s:0,fb:"【0 分 · 错误】399 虽然高于变动成本，但一刀到底击穿价格体系：明年旺季的锚点就再也抬不回去了。淡季降价要设底线、限渠道、定向。"},
+        {t:"降但设底线：BAR 调至 468（-16%），仅开放直销与会员渠道，会员再叠 20 元定向券。",s:3,fb:"【3 分 · 最优】降幅有依据（淡季档 表A ↓区间的合规动作）、渠道有选择（避开高佣金）、会员定向（把钱花在复购客身上）。"},
+        {t:"淡季不折腾，等市场自己回暖。",s:1,fb:"【1 分 · 可行但不优】42% 的水位上什么都不做，等于把淡季的协议谈判窗口和现金流一起放弃。"}]},
+ {who:"销售总监 郑昊",say:"“趁淡季我把三家企业的年度协议压到 380，锁一整年，行不行？”",
+  opts:[{t:"可以，淡季就得锁定大客户，380 就 380。",s:0,fb:"【0 分 · 错误】年度协议价是全年加权——用淡季水位谈出来的低价，旺季也改不掉。这三家会成为全年 380 的锚。"},
+        {t:"给 420，但加两个条款：全年保底用量写进协议 + 旺季按表 G 上浮。",s:3,fb:"【3 分 · 最优】协议价不是拍出来的数字，是“价 × 用量 × 浮动条款”的组合。淡季确实是谈判窗口，但要谈的是结构，不是最低价。"},
+        {t:"淡季不谈协议，避免被压价。",s:1,fb:"【1 分 · 可行但不优】方向反了：淡季正是企业客户做年度采购决策的窗口，拒绝谈判等于把份额让给竞品。"}]},
+ {who:"预订部主管",say:"“OTA 上同款房别人都在促销，我们要不要也挂 399 抢流量？”",
+  opts:[{t:"按表 H：OTA 限供给量、价格跟到 468 为止，不参与 399 的价格战。",s:3,fb:"【3 分 · 最优】OTA 的每一单还要付 15% 佣金——399 的订单量越大，净失血越多。限供 + 底价，把 OTA 当补充不当主力。"},
+        {t:"挂 399，先把排名和流量抢回来。",s:0,fb:"【0 分 · 错误】低价 + 15% 佣金双重失血，换来的流量还沉淀不下来（OTA 客人不留资料）。"},
+        {t:"干脆把 OTA 关一个月，眼不见心不烦。",s:1,fb:"【1 分 · 可行但不优】关渠道是表 H 的最后手段，不是赌气选项。42% 水位下，每一个渠道都值得留一条缝。"}]},
+ {who:"总经理",say:"“淡季这个样子，月底业主问利润，你怎么答？”",
+  opts:[{t:"给两条线：本月 GOP 守住多少（覆盖率口径）+ 协议签约数（明年收入基础）。淡季的目标是“少亏得有质量”。",s:3,fb:"【3 分 · 最优】用可控指标向业主交代，而不是拿天气当借口。这正是“能汇报”三件事：结果（GOP 线）、原因（季节性 + 已做对冲）、需要（业主对协议签约的耐心）。"},
+        {t:"“淡季都这样，业主也习惯了。”",s:0,fb:"【0 分 · 错误】“习惯了”不是交代。业主能接受亏损，接受不了亏损没有解释和动作。"},
+        {t:"“我把 OCC 冲到 60%，报表会好看很多。”",s:1,fb:"【1 分 · 可行但不优】冲 OCC 不顾 ADR，就是本站讲过一百遍的“虚假繁荣”——57 块 RevPAR 换 13 个点的出租率。"}]}],
+ recap:["淡季三件套：降价有底线（不破价格体系）、协议谈结构（用量+浮动条款）、渠道限供不参战。",
+ "淡季的产出不只是现金流，还有下一年的协议基础。",
+ "向业主/总经理交代用可控指标：GOP 覆盖线 + 签约数，不拿“市场不好”当结论。"]},
+{id:"s3",name:"团队询价会",tag:"平季 · 团队置换",color:"#9a6b1f",
+ ctx:"会展公司询价：60 间 × 3 晚（周三至周五），报价 480。当期散客 BAR 620，预测 OCC 78%。这单接不接、怎么接，就是一场标准的表 G 置换推演。",
+ rounds:[
+ {who:"销售总监 郑昊",say:"“180 个间夜的大单，480 我觉得可以接，稳定大盘。”",
+  opts:[{t:"大单先接下来，细节后面再谈。",s:0,fb:"【0 分 · 错误】跳过置换矩阵接单，是销售侧最常见的“表面收入陷阱”。78% 的水位下散客成交概率高，480×180 的置换损失要先算。"},
+        {t:"先过表 G：按散客成交概率算置换损失——亏损就还价 540，并要求宴会/会议场地打包联动。",s:3,fb:"【3 分 · 最优】这就是例会的价值：销售冲在前面，收益用置换矩阵把关。还价 + 联动（表 K）让单子从“低价堵库”变成“综合收益单”。"},
+        {t:"直接拒掉，我们的价格体系不接受 480。",s:1,fb:"【1 分 · 可行但不优】结论可能对，过程不合格——“拒”必须是算出来的结论，不是姿态。"}]},
+ {who:"预订部主管",say:"“如果接，60 间全堵在周三到周五，把散客顶得干干净净。”",
+  opts:[{t:"按表 B 错峰分房：团队房摊到周日至周三，峰值日只给 15 间保护位。",s:3,fb:"【3 分 · 最优】库存控制的经典动作：团队要的是总量，不是具体三天。错峰后散客峰值收入保住，团队也接了。"},
+        {t:"集中三天就集中三天，团队反正是确定性收入。",s:0,fb:"【0 分 · 错误】确定性最低价的收入顶掉确定性最高的散客峰值——这是置换损失最大化的排法。"},
+        {t:"让客户自己挑日期，我们只管给房量。",s:1,fb:"【1 分 · 可行但不优】把库存控制权交给客户，等于放弃了表 B 的排房主动权。"}]},
+ {who:"前厅经理",say:"“60 人同一天进出，前台和客房部排班会爆，我反对。”",
+  opts:[{t:"让销售去跟客户压时间，把进出拆开。",s:0,fb:"【0 分 · 错误】内部协调问题外部化，客户体验和销售关系一起受损。"},
+        {t:"团队集中管控：预分房提前一天完成、进出安排在排班盈余时段、楼层集中（减少跨楼清扫）。",s:3,fb:"【3 分 · 最优】用排产思维消化团队波动：预分房、错时、集中楼层——三招都是零成本的结构性解法。"},
+        {t:"加钱请两个临时工顶一天。",s:1,fb:"【1 分 · 可行但不优】成本后置。先用结构性方案，人力是最后的补丁。"}]},
+ {who:"销售总监 郑昊",say:"“客户刚来电：竞品 B 给了 460。你看怎么办。”",
+  opts:[{t:"立刻跟到 460，别让单子飞了。",s:0,fb:"【0 分 · 错误】和竞品 B 拼裸房价没有赢家——B 的定位本来就低，跟到底只是把自己的收益打穿。"},
+        {t:"表 C 口径：我们的溢价来自全服务——回“含早 + 宴会场地 + 免费班车”打包方案对比，不跟裸房价。",s:3,fb:"【3 分 · 最优】ARI 溢价要有价值支撑，比价要比“同交付物”。打包对比把战场从价格拉回价值。"},
+        {t:"“您比较一下再定，我们尊重您的选择。”",s:1,fb:"【1 分 · 可行但不优】礼貌的放弃。销售可以把选择权给客户，但价值对比要先做给客户看。"}]}],
+ recap:["团队单必过表 G：置换损失 = 散客成交概率 × 价差 × 挤占间夜。算完再谈，谈完再接。",
+ "接单之后还有库存权：错峰分房、保护位、楼层集中——表 B 是接单的下半场。",
+ "跟竞品比价比“同交付物”：打包、服务、位置，不跟裸房价。"]},
+{id:"s4",name:"超售救火会",tag:"紧急 · 明天 105%",color:"#c0392b",
+ ctx:"下午 4 点，预订部报告：明天 320 间已收 336 间夜预订，预测 OCC 105%。历史取消率 6%、No-show 3%。明天前厅有 3 组连住家庭、两个协议公司各 8 间。40 分钟内要拿出预案。",
+ rounds:[
+ {who:"预订部主管",say:"“超了 16 间，要不要立刻把所有渠道全关了？”",
+  opts:[{t:"按表 E 先算安全垫：320×(6%+3%)≈29 间。超 16 间仍在安全区内——限供新订单，但不全关。",s:3,fb:"【3 分 · 最优】超售额是用取消率算出来的，不是吓出来的。29 间安全垫 > 16 间超出，正确动作是“停增量、留存量”，而不是全关丢掉合法增量。"},
+        {t:"立刻全关，一个渠道都不留，安全第一。",s:1,fb:"【1 分 · 可行但不优】过度反应。全关丢掉的不只是 29 间安全垫，还有今晚到明早的自然增量订单。"},
+        {t:"继续放售，明早总有人取消，赌一把。",s:0,fb:"【0 分 · 错误】赌徒模式。安全垫是拿来吸收“正常波动”的，不是拿来继续超卖的许可。"}]},
+ {who:"前厅经理",say:"“真到 walk 那步谁走？我有 3 组连住家庭，带孩子的，walk 体验最差。”",
+  opts:[{t:"按表 E 优先级：保连住、保会员；walk 对象限定单晚散客，并提前联系竞品 D（720 同档）谈好房差与打车补偿。",s:3,fb:"【3 分 · 最优】walk 有优先级、有预案、有成本预算——把最坏的情景先排好，它就大概率不发生。"},
+        {t:"到店再看，谁最后到店谁 walk。",s:0,fb:"【0 分 · 错误】最差实践。深夜 walk 家庭客，换来的是 OTA 差评 + 客诉 + 一线员工背锅。"},
+        {t:"让预订部把超的 16 间改到后天，跟客人说房型的日子调一下。",s:1,fb:"【1 分 · 可行但不优】客人不是库存，单方面改期是变相违约，只可在客人同意的前提下作为选项之一。"}]},
+ {who:"销售总监 郑昊",say:"“明天两个协议公司各 8 间，都是年约客户，我的人绝对不能动。”",
+  opts:[{t:"协议客户同样进 walk 优先级排序，但今天下班前电话确认到店时间——确认本身就是保护。",s:3,fb:"【3 分 · 最优】不承诺“绝对不动”，而是用主动确认降低不确定性。No-show 的协议房恰恰是最常见的虚假占用。"},
+        {t:"协议客户绝对不动，其他谁合适动谁。",s:1,fb:"【1 分 · 可行但不优】原则可以，但缺动作。不确认到店，walk 风险最后还是落在前厅头上。"},
+        {t:"把协议客人全升到套房，安抚到位。",s:0,fb:"【0 分 · 错误】套房是旺季置换资产，用它“安抚”是把小成本问题变成大成本问题。"}]},
+ {who:"总经理",say:"“万一真 walk 了，客诉和 OTA 差评谁兜？先说清楚。”",
+  opts:[{t:"表 E walk 成本预算：房差 + 打车 + 积分补偿合计不超过 3 倍夜价；24 小时内您署名致歉电话——成本算在前面，流程定在前面。",s:3,fb:"【3 分 · 最优】这就是“能汇报”三件事的变体：需要什么决定（预算授权）、原因（walk 成本可量化）、结果预期（差评率可控）。总经理当场批，前厅今晚就敢执行。"},
+        {t:"“到时候让前厅灵活处理，他们有经验。”",s:0,fb:"【0 分 · 错误】把预算和流程责任推给一线，“灵活处理”的结果通常是标准不一致 + 事后追责。"},
+        {t:"“先别想那么远，大概率不会发生。”",s:1,fb:"【1 分 · 可行但不优】大概率不发生 ≠ 不需要预案。预案的意义恰恰是让大概率站在你这边。"}]}],
+ recap:["超售额 = 房量 ×(取消率 + No-show 率)，表 E 给的是数字不是胆量。",
+ "walk 有优先级：保连住、保会员；walk 单晚散客，且预案（竞品房 + 补偿预算）走在发生之前。",
+ "协议客户“不绝对不动”，但必须主动确认到店——确认就是保护。"]},
+{id:"s5",name:"渠道冲突会",tag:"突发 · OTA 倒挂投诉",color:"#7a4fa0",
+ ctx:"上午 10 点，OTA 平台发函：监测到某渠道牌价 620，而贵酒店官方小程序“连住优惠码”实付 520，违反价格一致性条款，48 小时内未整改将下架处置。例会临时加了一个议题。",
+ rounds:[
+ {who:"预订部主管",say:"“优惠码是前台自己放的。我建议先别理 OTA，他们吓唬人。”",
+  opts:[{t:"按表 H 红线处理：立即停码，30 分钟内核查全部渠道挂牌一致，先把违约状态止住。",s:3,fb:"【3 分 · 最优】价格一致性是硬条款不是吓唬。先止损（停码 + 核价）再谈关系——顺序不能反。"},
+        {t:"“是前台个人行为，跟酒店无关”，回复 OTA。",s:0,fb:"【0 分 · 错误】责任主体是酒店，员工行为即酒店行为。甩锅式回复只会把处置升级。"},
+        {t:"把 OTA 价也降到 520，对齐了就没事。",s:1,fb:"【1 分 · 可行但不优】被违规动作牵着走：全渠道降 92 元，还多付 15% 佣金。对齐的正确方向是把码停掉，不是把价打下来。"}]},
+ {who:"预订部主管（转述 OTA 业务经理来电）",say:"“下架之前，他们要一个书面说明和一个补偿方案。”",
+  opts:[{t:"给书面说明（原因 + 整改时间表）+ 补偿用流量资源置换（首页推荐位 3 天），不动价格、不动佣金。",s:3,fb:"【3 分 · 最优】补偿对等：违约伤的是平台的“价格信任”，用平台的“流量资源”回补，方向对、成本可控。价格与佣金条款不动摇。"},
+        {t:"答应降 2 个点佣金，换他们不追究。",s:1,fb:"【1 分 · 可行但不优】佣金是渠道合作条款，这次违约是价格一致性——两码事。用降佣消灾，下次还得降。"},
+        {t:"硬扛：优惠码是我们的定价自由。",s:0,fb:"【0 分 · 错误】挂牌价参与比价系统后就不存在“定价自由”，违约事实清楚，硬扛的唯一结局是下架。"}]},
+ {who:"前厅经理",say:"“码是我放的。淡季冲量总得给我点工具吧？”",
+  opts:[{t:"认错纳入正轨：促销码走收益审批制、限定可用渠道白名单、避开 OTA 监测面——工具保留，边界划清。",s:3,fb:"【3 分 · 最优】一线要工具是合理诉求，错的不是要工具，是绕开管控。给合规的路径比没收工具更能防止复发。"},
+        {t:"没收权限，前厅以后不许碰任何促销。",s:1,fb:"【1 分 · 可行但不优】因噎废食。没有出口的促销需求，下一次只会以更隐蔽的方式冒出来。"},
+        {t:"“下次放码前隐蔽一点，别被监测到。”",s:0,fb:"【0 分 · 错误】这是把违规升级为共谋。管理者的这句话本身就该进反面教材。"}]},
+ {who:"总经理",say:"“最后说机制：怎么保证这种事不再发生？”",
+  opts:[{t:"三道闸：促销码收益审批制 + 调价台账强制留痕 + 表 H 红线季度培训签到；“每周核价”写进例会固定议程。",s:3,fb:"【3 分 · 最优】把一次性救火变成常设机制：审批（事前）、留痕（事中）、核价（事后）。这也正是例会手册“会后 24 小时跟进”的内容。"},
+        {t:"发一份通报批评，全员学习。",s:1,fb:"【1 分 · 可行但不优】通报解决情绪，不解决机制。没有审批流和核价项，下一次错误只是换了个人。"},
+        {t:"“前台承诺不会再有下次。”",s:0,fb:"【0 分 · 错误】靠承诺管理的机制等于没有机制。"}]}],
+ recap:["价格一致性是硬约束：先止损（停码 + 30 分钟核价），再谈关系（书面说明 + 资源置换）。",
+ "补偿用“对方在乎的资源”置换，不动价格与佣金条款。",
+ "一线要促销工具是合理需求——给合规路径（审批 + 白名单），比一刀切没收更能防复发。"]}
+];
+var KEY='hrma_meetingsim_v1';
+function loadRec(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
+function saveRec(r){try{localStorage.setItem(KEY,JSON.stringify(r))}catch(e){}}
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+var menu=document.getElementById('menu'),game=document.getElementById('game'),result=document.getElementById('result');
+var cur=null,ri=0,score=0,answers=[];
+function stars(sc){return sc>=10?'优秀主持':(sc>=7?'合格':'需重开')}
+function renderMenu(){
+  game.style.display='none';result.style.display='none';menu.style.display='block';
+  var rec=loadRec(),tot=0,max=0,done=0;
+  DATA.forEach(function(s){max+=s.rounds.length*3;if(rec[s.id]!=null){tot+=rec[s.id];done++}});
+  document.getElementById('totalLine').innerHTML='已通关 <b>'+done+' / '+DATA.length+'</b> 场景 · 累计最佳 <b>'+tot+' / '+max+'</b> 分（成绩存本机）';
+  var g=document.getElementById('scnGrid');g.innerHTML='';
+  DATA.forEach(function(s,i){
+    var d=document.createElement('div');d.className='scn';
+    var best=rec[s.id]!=null?'<span class="best">最佳 <b>'+rec[s.id]+'</b> / '+(s.rounds.length*3)+' · '+stars(rec[s.id])+'</span>':'<span class="best">未通关</span>';
+    d.innerHTML='<span class="tag" style="background:'+s.color+'">'+esc(s.tag)+'</span><h3>场景 '+(i+1)+' · '+esc(s.name)+'</h3><p>'+esc(s.ctx.slice(0,52))+'…</p>'+best;
+    d.addEventListener('click',function(){start(s)});
+    g.appendChild(d);
+  });
+}
+function start(s){
+  cur=s;ri=0;score=0;answers=[];
+  menu.style.display='none';result.style.display='none';game.style.display='block';
+  document.getElementById('gCtx').innerHTML='<div class="ct">场景 · '+esc(s.name)+'</div>'+esc(s.ctx);
+  nextRound();
+}
+function nextRound(){
+  document.getElementById('gRounds').innerHTML='';
+  document.getElementById('gLabel').textContent=cur.name+' · 回合 '+(ri+1)+' / '+cur.rounds.length;
+  document.getElementById('gFill').style.width=(ri/cur.rounds.length*100)+'%';
+  if(ri>=cur.rounds.length){finish();return}
+  var r=cur.rounds[ri];
+  var box=document.createElement('div');box.className='round';
+  var h='<span class="who">'+esc(r.who)+'</span><div class="say">'+esc(r.say)+'</div>';
+  var letters=['A','B','C'];
+  r.opts.forEach(function(o,i){h+='<button class="opt" data-i="'+i+'"><span class="pick">'+letters[i]+'.</span>'+esc(o.t)+'</button>'});
+  h+='<div class="fb" id="fb"></div>';
+  h+=(ri<cur.rounds.length-1)?'<div class="btnrow"><button class="btn" id="gNext" style="display:none">下一回合 →</button></div>':'<div class="btnrow"><button class="btn" id="gFinish" style="display:none">看本场结果 →</button></div>';
+  box.innerHTML=h;
+  document.getElementById('gRounds').appendChild(box);
+  box.querySelectorAll('.opt').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var i=parseInt(btn.dataset.i,10),o=r.opts[i];
+      box.querySelectorAll('.opt').forEach(function(b){b.disabled=true});
+      btn.classList.add(o.s===3?'good':(o.s===1?'mid':'bad'));
+      score+=o.s;answers.push(i);
+      var fb=document.getElementById('fb');
+      fb.className='fb show '+(o.s===3?'g':(o.s===1?'m':'b'));
+      fb.innerHTML='<b>'+esc(o.fb.split('】')[0]+'】')+'</b>'+esc(o.fb.split('】').slice(1).join('】'));
+      var nb=document.getElementById(ri<cur.rounds.length-1?'gNext':'gFinish');
+      if(nb)nb.style.display='';
+    });
+  });
+  var nb=document.getElementById(ri<cur.rounds.length-1?'gNext':'gFinish');
+  if(nb)nb.addEventListener('click',function(){ri++;nextRound()});
+}
+function finish(){
+  document.getElementById('gFill').style.width='100%';
+  var rec=loadRec();
+  if(rec[cur.id]==null||score>rec[cur.id]){rec[cur.id]=score;saveRec(rec)}
+  game.style.display='none';result.style.display='block';
+  document.getElementById('rScore').innerHTML=score+'<small> / '+(cur.rounds.length*3)+' · '+stars(score)+'</small>';
+  document.getElementById('rTitle').textContent='场景 · '+cur.name;
+  document.getElementById('rSum').textContent=score>=10?'您把会开成了决策会：有依据、有 owner、有裁决。':(score>=7?'基本合格，但有几个回合靠的是直觉而不是判定表——复盘里标出来的是您的失分点。':'本场跑偏较多。建议回手册重读「五种跑偏」后重开。');
+  var ul=document.getElementById('rRecap');ul.innerHTML='';
+  cur.recap.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li)});
+}
+document.getElementById('gQuit').addEventListener('click',renderMenu);
+document.getElementById('gTopBack').addEventListener('click',renderMenu);
+document.getElementById('rTopBack').addEventListener('click',renderMenu);
+document.getElementById('rRetry').addEventListener('click',function(){start(cur)});
+document.getElementById('rMenu').addEventListener('click',renderMenu);
+renderMenu();
+}catch(e){fatal(e);}
+})();
+</script>
+</body>
+</html>

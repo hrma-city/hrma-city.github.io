@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HRMA 双合集内容清单 · 写作台本</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:#eef2f7;color:#1a1a1a;line-height:1.8;font-size:14.5px}
+  .wrap{max-width:1100px;margin:0 auto;background:#fff;box-shadow:0 2px 24px rgba(15,42,74,.12)}
+  header{background:linear-gradient(135deg,#0f2a4a 0%,#1d4f80 100%);color:#fff;padding:40px 42px 34px}
+  header .eyebrow{color:#e8b84b;font-size:13px;letter-spacing:3px;font-weight:600;margin-bottom:12px}
+  header h1{font-size:28px;font-weight:700;line-height:1.4;margin-bottom:12px}
+  header .sub{color:#c3d6ea;font-size:14px;line-height:1.8;max-width:820px}
+  .meta{margin-top:18px;display:flex;gap:22px;flex-wrap:wrap;font-size:13px;color:#a9c4de;
+    border-top:1px solid rgba(255,255,255,.18);padding-top:15px}
+  .meta b{color:#e8b84b}
+  main{padding:0 42px 50px}
+  h2{font-size:22px;color:#0f2a4a;margin:40px 0 8px;padding-left:14px;border-left:5px solid #e8b84b;line-height:1.5}
+  h2 .sub2{display:block;font-size:13.5px;color:#5a6a7a;font-weight:400;margin-top:6px;padding-left:0}
+  h3{font-size:16px;color:#1d4f80;margin:26px 0 8px;padding:6px 12px;background:#eef4fa;border-left:4px solid #1d6fb8;font-weight:650}
+  p{margin:10px 0}
+  ul,ol{margin:10px 0 10px 22px}
+  li{margin:5px 0}
+  strong{color:#0f2a4a}
+  .lead{background:#f4f8fc;border-left:4px solid #1d6fb8;padding:15px 19px;margin:16px 0;border-radius:0 6px 6px 0}
+  .judge{background:#fff8e8;border-left:4px solid #e8b84b;padding:15px 19px;margin:16px 0;border-radius:0 6px 6px 0}
+  .judge .tag{display:inline-block;background:#e8b84b;color:#0f2a4a;font-size:12px;font-weight:700;
+    padding:2px 9px;border-radius:3px;margin-bottom:7px}
+  .warn{background:#fdf1f0;border-left:4px solid #c0392b;padding:15px 19px;margin:16px 0;border-radius:0 6px 6px 0}
+  .ok{background:#f0f8f2;border-left:4px solid #2e8b57;padding:15px 19px;margin:16px 0;border-radius:0 6px 6px 0}
+  table{width:100%;border-collapse:collapse;margin:12px 0 6px;font-size:13px}
+  th{background:#0f2a4a;color:#fff;padding:9px 10px;text-align:left;font-weight:600;font-size:12.5px}
+  td{padding:9px 10px;border-bottom:1px solid #e3eaf2;vertical-align:top;line-height:1.65}
+  tr:nth-child(even) td{background:#f8fafd}
+  td.n{text-align:center;font-weight:700;color:#1d6fb8;width:34px}
+  td.t{font-weight:600;color:#0f2a4a;width:190px}
+  td.k{width:330px}
+  td.s{width:170px;font-size:12px;color:#4a5a6a}
+  .kw{display:inline-block;background:#eef4fa;border:1px solid #c9dcee;color:#1d4f80;
+    padding:0 5px;border-radius:3px;font-size:11.5px;margin:1px 2px 1px 0}
+  .cards{display:flex;gap:12px;margin:16px 0;flex-wrap:wrap}
+  .card{flex:1;min-width:200px;background:#f4f8fc;border:1px solid #dbe6f0;border-radius:8px;padding:14px 15px}
+  .card .n{color:#e8b84b;font-weight:700;font-size:12px;letter-spacing:1px;margin-bottom:5px}
+  .card h4{margin:0 0 6px;font-size:14px}
+  .card p{font-size:12.5px;color:#4a5a6a;margin:0;line-height:1.7}
+  .code{background:#0f2a4a;color:#d6e6f5;font-family:"SFMono-Regular",Consolas,monospace;
+    padding:14px 17px;border-radius:6px;font-size:12.5px;line-height:1.9;margin:13px 0;white-space:pre-wrap}
+  footer{background:#0f2a4a;color:#9db8d2;padding:20px 42px;font-size:12.5px;line-height:1.8}
+  footer b{color:#e8b84b}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">HRMA · 写作台本（可直接照着写）</div>
+  <h1>双合集全部主题与关键内容</h1>
+  <div class="sub">合集一《收益管理怎么做》面向从业者，负责搜一搜流量、收藏率与"证明你真的懂业务"；
+  合集二《收益管理怎么教》面向教师，是你的旗帜，直接通向陪跑。
+  <strong>合集二是你说自己是谁时讲的东西，合集一是别人找到你的路。</strong></div>
+  <div class="meta">
+    <span>合集一 <b>36 篇 · 六层</b></span>
+    <span>合集二 <b>24 篇 · 五组</b></span>
+    <span>合计 <b>60 篇 ≈ 14 个月周更</b></span>
+    <span>每篇 <b>1500–2000 字</b></span>
+  </div>
+</header>
+
+<main>
+
+<div class="judge">
+<div class="tag">先说怎么用这份清单</div>
+<p><strong>不要按顺序从头写到尾。</strong>发布顺序见文末"发布顺序建议"——先发能带来搜索流量的，再发能转化的。
+每篇写之前只看那一行：<strong>标题 → 关键内容（就是这篇的骨架）→ 素材（直接取，不用另找）→ 钩子（文末领什么）。</strong>
+写不出来就跳过，跳过的篇目以后再说，不要卡住。</p>
+</div>
+
+<h2 id="toc-1">合集一《收益管理怎么做》<span class="sub2">面向从业者 · 引流 / 搜索 / 收藏 / 证明你懂业务 · 共 36 篇，分为六层</span></h2>
+
+<h3 id="toc-2">第一层 · 基础：先看清自己站在哪（6 篇）</h3>
+<table>
+<tr><th></th><th>标题（含搜索词）</th><th>关键内容（本篇骨架）</th><th>素材 / 钩子</th></tr>
+<tr><td class="n">1</td><td class="t">收益管理到底管什么？一张图讲清</td><td class="k">卖对的房、给对的人、在对的时间、用对的价；4R 与边界；它<strong>不是</strong>什么（不是一味涨价、不是追满房、不是抄竞品价）</td><td class="s">16 册 01 地图｜模板 01 基线<br><span class="kw">收益管理是什么</span></td></tr>
+<tr><td class="n">2</td><td class="t">OCC、ADR、RevPAR 三个指标，到底谁管谁</td><td class="k">三个指标的分母分别是什么；为什么"出租率涨了收入却跌"；三者联动关系；常见的看指标顺序错误</td><td class="s">口袋书 02｜表 A<br><span class="kw">RevPAR怎么算</span><span class="kw">OCC ADR</span></td></tr>
+<tr><td class="n">3</td><td class="t">RevPAR 90% 的人都算错了：必须按可售房晚加权</td><td class="k">月度 RevPAR 用算术平均是错的；正确算法与算例；错算会导致什么决策后果（这是全站最高频失分点）</td><td class="s">口袋书 02｜32 误区<br><span class="kw">RevPAR 加权</span><span class="kw">月均RevPAR</span></td></tr>
+<tr><td class="n">4</td><td class="t">MPI / ARI / RGI 三个指数，一篇讲清</td><td class="k">三个指数各回答什么问题；怎么取竞争群；指数好看但利润差是怎么回事；三个一起看才有用</td><td class="s">口袋书 03｜16 册 03<br><span class="kw">MPI ARI RGI</span><span class="kw">竞争群</span></td></tr>
+<tr><td class="n">5</td><td class="t">满房不等于赚钱：从 RevPAR 到利润</td><td class="k">RevPAR 高但 GOP 低的三种情况；渠道成本、取消、超售赔付如何吃掉利润；为什么该看净利润口径</td><td class="s">16 册 02 指标与利润<br><span class="kw">RevPAR 利润</span><span class="kw">GOPPAR</span></td></tr>
+<tr><td class="n">6</td><td class="t">你的酒店收益健康吗？15 项自检表</td><td class="k">15 项自检清单；每项怎么判断合格/预警/危险；自检完第一步该做什么<br><strong>（建议作账号第 1 篇）</strong></td><td class="s">判定表全集｜模板 01<br><span class="kw">收益管理自检</span><span class="kw">酒店诊断</span></td></tr>
+</table>
+
+<h3 id="toc-3">第二层 · 需求：看清未来（7 篇）</h3>
+<table>
+<tr><th></th><th>标题</th><th>关键内容</th><th>素材 / 钩子</th></tr>
+<tr><td class="n">7</td><td class="t">需求预测怎么做：两种够用的方法</td><td class="k">简易平均法、移动平均法；什么时候用哪个；预测不是算命，是给决策一个基准</td><td class="s">16 册 04｜模板 02<br><span class="kw">酒店需求预测</span><span class="kw">移动平均</span></td></tr>
+<tr><td class="n">8</td><td class="t">预测偏差多少算合格？3%–5% 这条线</td><td class="k">偏差怎么算；为什么 3%–5% 是行业常见 KPI；偏差持续超标的三个常见原因；怎么改进</td><td class="s">模板 02｜判定表<br><span class="kw">预测准确率</span><span class="kw">预测偏差</span></td></tr>
+<tr><td class="n">9</td><td class="t">Pickup 怎么看：提前多久能预判满房</td><td class="k">Pickup 的定义与画法；同期对比怎么看；出现什么形态该动手调价</td><td class="s">口袋书 10｜模板 03 进度<br><span class="kw">pickup</span><span class="kw">预订进度</span></td></tr>
+<tr><td class="n">10</td><td class="t">预订进度（OTB）怎么看、怎么预警</td><td class="k">OTB 与去年同期比什么；落后多少该启动动作；预警阈值怎么设</td><td class="s">模板 03｜16 册 05<br><span class="kw">OTB</span><span class="kw">在手预订</span></td></tr>
+<tr><td class="n">11</td><td class="t">需求日历：把一年的高低点标出来</td><td class="k">怎么画需求日历；节假日/展会/考试/寒暑假的标注方法；日历怎么变成价格日历的输入</td><td class="s">16 册 05｜模板 05<br><span class="kw">需求日历</span><span class="kw">淡旺季</span></td></tr>
+<tr><td class="n">12</td><td class="t">事件日怎么提前布局（展会 / 演唱会 / 考试）</td><td class="k">事件日三要素（确定时间、影响半径、提前期）；提前多久锁价；一个完整案例（某酒店提前拉平团队价与 BAR，ADR 翻倍）</td><td class="s">案例库｜口袋书 26<br><span class="kw">展会定价</span><span class="kw">事件日</span></td></tr>
+<tr><td class="n">13</td><td class="t">淡旺季怎么切：不是只有两档</td><td class="k">常见的"只有淡旺两档"错在哪；三档/五档切法；过渡期怎么处理</td><td class="s">口袋书 25｜模板 05<br><span class="kw">淡旺季定价</span></td></tr>
+</table>
+
+<h3 id="toc-4">第三层 · 价格：定什么价（7 篇）</h3>
+<table>
+<tr><th></th><th>标题</th><th>关键内容</th><th>素材 / 钩子</th></tr>
+<tr><td class="n">14</td><td class="t">BAR 价格层级怎么搭才不乱</td><td class="k">BAR 是什么、为什么必须有；层级搭几档；档位之间差多少；常见的层级混乱后果</td><td class="s">口袋书 13｜16 册 07<br><span class="kw">BAR</span><span class="kw">价格体系</span></td></tr>
+<tr><td class="n">15</td><td class="t">房型价差定多少合理？一套校验方法</td><td class="k">价差不是拍脑袋；按面积/景观/床型/附加权益拆解；怎么校验价差是否站得住</td><td class="s">口袋书 07｜表 F 价差校验<br><span class="kw">房型价差</span><span class="kw">定价</span></td></tr>
+<tr><td class="n">16</td><td class="t">什么时候该涨价？看这个触发条件</td><td class="k">先讲大多数人的错误做法（出租率到 60% 换一档、80% 再换一档）；为什么"看 OTB 再调"已经晚了；正确的提前量与触发条件</td><td class="s">口袋书 05｜表 C<br><span class="kw">涨价时机</span><span class="kw">调价</span></td></tr>
+<tr><td class="n">17</td><td class="t">竞品降价了，跟不跟？三步判断</td><td class="k">先看竞品是不是真降价（是否换房型/换渠道）；再看自己 OTB 与 pickup；最后才决定跟不跟、跟多少</td><td class="s">口袋书 11｜表 E<br><span class="kw">竞品降价</span><span class="kw">跟价</span></td></tr>
+<tr><td class="n">18</td><td class="t">折扣与促销的边界：什么时候该停</td><td class="k">折扣的三种合理用途；促销伤品牌的两个信号；怎么设停止条件</td><td class="s">口袋书 20｜16 册 09<br><span class="kw">酒店折扣</span><span class="kw">促销</span></td></tr>
+<tr><td class="n">19</td><td class="t">降到什么价就别卖了：保本点怎么算</td><td class="k">边际成本 vs 全成本；保本房价的算法与算例；低于保本点还卖的三个例外</td><td class="s">口袋书 23｜模板 05 弹性<br><span class="kw">保本房价</span><span class="kw">价格弹性</span></td></tr>
+<tr><td class="n">20</td><td class="t">全年价格日历：一套模板做完 365 天</td><td class="k">从需求日历到价格日历的转换；一次做完而不是天天调；例外日怎么处理</td><td class="s">模板 05（全年价格日历）<br><span class="kw">价格日历</span><span class="kw">全年定价</span></td></tr>
+<tr><td class="n">21</td><td class="t">套餐与打包：怎么用锚定拉高客单</td><td class="k">套餐不是打折；锚定效应的用法；哪些附加项适合打包</td><td class="s">口袋书 24<br><span class="kw">酒店套餐</span><span class="kw">打包</span></td></tr>
+</table>
+
+<h3 id="toc-5">第四层 · 库存：留多少房（5 篇）</h3>
+<table>
+<tr><th></th><th>标题</th><th>关键内容</th><th>素材 / 钩子</th></tr>
+<tr><td class="n">22</td><td class="t">库存控制与分配：先分给谁</td><td class="k">库存分配的优先级逻辑；按客源/渠道分配的原则；分配错了的代价</td><td class="s">口袋书 15｜模板 06 配额<br><span class="kw">库存分配</span><span class="kw">房量控制</span></td></tr>
+<tr><td class="n">23</td><td class="t">MinLOS 怎么设？设错了少赚多少</td><td class="k">MinLOS 的作用与两种用法（提价/保库存）；怎么设天数；设太长的代价</td><td class="s">口袋书 08｜16 册 10<br><span class="kw">MinLOS</span><span class="kw">最少住几晚</span></td></tr>
+<tr><td class="n">24</td><td class="t">超额预订的上限定多少？算给你看</td><td class="k">超售不是拍脑袋；按取消率/no-show 率/步行成本算上限；赔付怎么预估；上限的动态调整</td><td class="s">口袋书 06｜模板 08 超售<br><span class="kw">超额预订</span><span class="kw">超售</span></td></tr>
+<tr><td class="n">25</td><td class="t">团队该不该接？置换分析怎么算</td><td class="k">置换分析的核心：这批团队挤掉的是谁；怎么算被挤散客的价值；接/不接/还价的判断</td><td class="s">口袋书 12｜模板 07 置换｜表 G·K<br><span class="kw">团队置换</span><span class="kw">团队该不该接</span></td></tr>
+<tr><td class="n">26</td><td class="t">客源细分与配额：别让低价客占满</td><td class="k">细分维度怎么选；配额怎么设；配额用完不等于关门</td><td class="s">口袋书 14｜16 册 06<br><span class="kw">客源细分</span><span class="kw">配额</span></td></tr>
+</table>
+
+<h3 id="toc-6">第五层 · 渠道：从哪卖（4 篇）</h3>
+<table>
+<tr><th></th><th>标题</th><th>关键内容</th><th>素材 / 钩子</th></tr>
+<tr><td class="n">27</td><td class="t">渠道净值怎么算？那 15% 佣金不是全部成本</td><td class="k">净值的完整口径（佣金+支付+积分+获客+取消）；各渠道净值对比；净值低的渠道该不该关</td><td class="s">口袋书 09<br><span class="kw">渠道净值</span><span class="kw">OTA佣金</span></td></tr>
+<tr><td class="n">28</td><td class="t">直销和会员：怎么算才不算亏</td><td class="k">直销的真实成本（获客、系统、权益）；会员折扣与积分成本；什么时候直销真的更划算</td><td class="s">口袋书 21<br><span class="kw">酒店直销</span><span class="kw">会员体系</span></td></tr>
+<tr><td class="n">29</td><td class="t">OTA 点评值多少钱</td><td class="k">评分与转化/价格承受度的关系；差评的隐性成本；怎么把点评纳入收益口径</td><td class="s">口袋书 22｜模板 09 复盘<br><span class="kw">OTA点评</span><span class="kw">评分</span></td></tr>
+<tr><td class="n">30</td><td class="t">价格一致性：渠道乱价的根源与管法</td><td class="k">乱价是怎么发生的；管控的三道防线；被平台抓到低价怎么补救</td><td class="s">16 册 07<br><span class="kw">价格一致性</span><span class="kw">渠道管控</span></td></tr>
+</table>
+
+<h3 id="toc-7">第六层 · 经营：怎么转起来（6 篇）</h3>
+<table>
+<tr><th></th><th>标题</th><th>关键内容</th><th>素材 / 钩子</th></tr>
+<tr><td class="n">31</td><td class="t">每天上班 15 分钟，该看哪 9 个数</td><td class="k">九步流水线逐条讲；每步看什么、异常怎么判、判完做什么；15 分钟怎么分配</td><td class="s">表 M（每日九步）｜节奏页<br><strong>收藏率最高，强推</strong><br><span class="kw">收益每日工作</span></td></tr>
+<tr><td class="n">32</td><td class="t">每周 / 每月 / 每季 / 每年各该做什么</td><td class="k">四层节奏各自的动作清单；哪些事做错层级会白干</td><td class="s">表 N（节奏）｜4 个节奏页<br><span class="kw">收益管理流程</span><span class="kw">周月工作</span></td></tr>
+<tr><td class="n">33</td><td class="t">两张表结论打架时听谁的</td><td class="k">多表冲突是常态不是错误；仲裁的优先级原则；举 2 个真实冲突案例<br><strong>（这是你的独家内容，同行没有）</strong></td><td class="s">表 O（仲裁）<br><span class="kw">收益决策冲突</span></td></tr>
+<tr><td class="n">34</td><td class="t">收益例会怎么开：45 分钟议程</td><td class="k">会前准备什么；45 分钟怎么分；会议产出必须是什么（不是"讨论了"）；常见开法错在哪</td><td class="s">16 册 14｜模板 07 会议<br><span class="kw">收益例会</span><span class="kw">收益会议</span></td></tr>
+<tr><td class="n">35</td><td class="t">年度预算怎么做，以及月度怎么分解</td><td class="k">预算的自下而上做法；月度分解的依据；量差价差归因怎么做</td><td class="s">口袋书 17｜模板 06 预算<br><span class="kw">酒店预算</span><span class="kw">量差价差</span></td></tr>
+<tr><td class="n">36</td><td class="t">30 个常见误区，一次说完</td><td class="k">按指标/价格/库存/渠道/经营五组列 30 条；每条一句错在哪、一句怎么做<br><strong>（收藏率极高的工具文）</strong></td><td class="s">口袋书 32｜16 册 16<br><span class="kw">收益管理误区</span><span class="kw">常见错误</span></td></tr>
+</table>
+<p class="lead">补 3 篇机动（不算在 36 内，有精力再写）：跨行业参数（餐饮 RevPASH / 宴会 / 公寓民宿）、系统与数据怎么选、人机边界（哪些判断不能交给系统）。</p>
+
+<h2 id="toc-8">合集二《收益管理怎么教》<span class="sub2">面向教师 · 你的旗帜 · 直接通向陪跑 · 共 24 篇，分为五组</span></h2>
+
+<div class="judge">
+<div class="tag">这一组是你的护城河</div>
+<p>合集一的每一篇，胡质健、浅谈 RM 都能写（他们更资深）。<strong>但合集二全 24 篇，全网几乎没人写得出来</strong>——
+因为它要求的不是"懂收益管理"，而是"懂收益管理 + 懂教学 + 愿意把两者翻译一遍"。这正是你二十年经验 + 14 模块 + 教案 + 考核方案的独家交叉点。</p>
+</div>
+
+<h3 id="toc-9">第一组 · 要不要开、能不能开（4 篇）</h3>
+<table>
+<tr><th></th><th>标题</th><th>关键内容</th><th>素材 / 钩子</th></tr>
+<tr><td class="n">1</td><td class="t">为什么酒店管理专业现在必须开收益管理课</td><td class="k">产业侧需求（岗位真实存在、招人难）；学生侧收益（可上手、可就业）；院校侧收益（申报、专业建设、竞赛）；不开的代价</td><td class="s">campus.html 痛点章<br><strong>转化首选篇</strong></td></tr>
+<tr><td class="n">2</td><td class="t">收益管理课和前厅、房务课，边界在哪</td><td class="k">三门课的内容重叠区；怎么划界才不互相抢课时；跨课程协作建议</td><td class="s">14 模块大纲</td></tr>
+<tr><td class="n">3</td><td class="t">我没有收益管理背景，能开这门课吗</td><td class="k">能，但有三条硬门槛（要懂判定表、要能算、要有真实数据）；最短补齐路径；哪些部分可以借力<br><strong>（击中教师最大心结，必写）</strong></td><td class="s">L1/L2/L3 能力终点</td></tr>
+<tr><td class="n">4</td><td class="t">一门新课要多少课时？16 / 32 / 48 三种版本</td><td class="k">三种课时版本各自能讲到什么程度；课时不够时砍什么、绝不能砍什么</td><td class="s">14 模块课时分配<br><strong>回复【大纲】领</strong></td></tr>
+</table>
+
+<h3 id="toc-10">第二组 · 怎么设计（5 篇）</h3>
+<table>
+<tr><th></th><th>标题</th><th>关键内容</th><th>素材 / 钩子</th></tr>
+<tr><td class="n">5</td><td class="t">16 周课程大纲：可直接改（附课时分配）</td><td class="k">逐周列出主题、课时、能力终点；哪些周是关键节点；怎么按自己学校情况改</td><td class="s">14 模块｜教案<br><strong>最强钩子，必写</strong></td></tr>
+<tr><td class="n">6</td><td class="t">32 个公式的教学顺序：先讲哪个后讲哪个</td><td class="k">为什么不能按教材顺序讲；按"判断链"排序的逻辑；给出推荐顺序表</td><td class="s">32 本口袋书<br><span class="kw">收益管理教学顺序</span></td></tr>
+<tr><td class="n">7</td><td class="t">实训怎么设计：不买系统也能做</td><td class="k">机房 + Excel + 模板即可；三个实训项目设计；为什么不需要昂贵实训软件<br><strong>（院校决策门槛低，是重要卖点）</strong></td><td class="s">8 套模板｜9 个工具 xlsx</td></tr>
+<tr><td class="n">8</td><td class="t">案例怎么设计：4 套脱敏数据怎么用</td><td class="k">真实数据为什么比编的好用；怎么把一份数据拆成多个案例；案例的三种用法（讲/练/考）</td><td class="s">4 套脱敏数据｜20 案例</td></tr>
+<tr><td class="n">9</td><td class="t">课堂活动：让学生真的做一次决策</td><td class="k">3–5 个可复制的课堂活动设计（含时长、分组、产出）；为什么"讲完再练"效果差</td><td class="s">14 教案</td></tr>
+</table>
+
+<h3 id="toc-11">第三组 · 怎么讲（6 篇 · 每篇讲透一个难点）</h3>
+<table>
+<tr><th></th><th>标题</th><th>关键内容</th><th>素材 / 钩子</th></tr>
+<tr><td class="n">10</td><td class="t">OCC / ADR / RevPAR 怎么讲学生才懂</td><td class="k">学生最常见的误解；一个能讲活的比喻或算例；讲完必须能做什么</td><td class="s">口袋书 02｜m01</td></tr>
+<tr><td class="n">11</td><td class="t">超额预订怎么讲（最容易被讲砸的一节）</td><td class="k">学生为什么一听就觉得"这是坑人"；怎么讲清商业逻辑与赔付边界；一个反转案例</td><td class="s">口袋书 06｜16 册 11</td></tr>
+<tr><td class="n">12</td><td class="t">动态定价怎么讲（别让学生理解成宰客）</td><td class="k">必须讲清的伦理边界；用机票/演唱会做类比；课堂辩论设计</td><td class="s">口袋书 05｜16 册 08</td></tr>
+<tr><td class="n">13</td><td class="t">置换分析怎么讲：用一个团队询价讲透</td><td class="k">一个完整案例从头讲到尾；学生要算哪三个数；常见算错点</td><td class="s">口袋书 12｜模板 07</td></tr>
+<tr><td class="n">14</td><td class="t">预测怎么讲（最容易变成念公式的一节）</td><td class="k">别先讲公式；先让学生手猜一次再对答案；偏差怎么变成课堂竞赛</td><td class="s">口袋书 04｜模板 02</td></tr>
+<tr><td class="n">15</td><td class="t">学生听不懂的 5 个地方，以及怎么救</td><td class="k">按出现频率列 5 个卡点；每个给一个替代讲法<br><strong>（教师共鸣极强）</strong></td><td class="s">14 教案易错点</td></tr>
+</table>
+
+<h3 id="toc-12">第四组 · 怎么评（5 篇）</h3>
+<table>
+<tr><th></th><th>标题</th><th>关键内容</th><th>素材 / 钩子</th></tr>
+<tr><td class="n">16</td><td class="t">考核怎么设计，才不像在背书</td><td class="k">三维占比（知识/表应用/实操）；为什么"表应用"占比要最高；给出五级/四级/三级蓝图</td><td class="s">三级考核方案<br><strong>回复【考核】领</strong></td></tr>
+<tr><td class="n">17</td><td class="t">默写判定表：一个笨但极有效的考核法</td><td class="k">为什么要默写；L1 默 3 张 / L2 默 9 张 / L3 默 15 张；怎么评分</td><td class="s">默写表清单（A,B,M…）</td></tr>
+<tr><td class="n">18</td><td class="t">项目作品：让学生交一份年度收益提升方案</td><td class="k">6 项交付物与 100 分分配；答辩量规；一份三用（考核载体/求职作品集/成果物证）</td><td class="s">三级项目作品任务书</td></tr>
+<tr><td class="n">19</td><td class="t">答辩怎么评分：四档量规与必答三问</td><td class="k">优秀/良好/勉强/不合格的判定标准；必答三问；说不出数字来源的处理</td><td class="s">答辩量规</td></tr>
+<tr><td class="n">20</td><td class="t">高频失分点与防抄袭</td><td class="k">RevPAR 用月度算术平均直接判错；Excel 源文件查重；补考与单独重交规则</td><td class="s">考核方案</td></tr>
+</table>
+
+<h3 id="toc-13">第五组 · 申报与进阶（4 篇）</h3>
+<table>
+<tr><th></th><th>标题</th><th>关键内容</th><th>素材 / 钩子</th></tr>
+<tr><td class="n">21</td><td class="t">课程思政：3 个能落地的切入点</td><td class="k">不喊口号；3 个与收益管理内容天然结合的思政点（如诚信定价、数据安全、劳动价值）</td><td class="s">思政 3 点</td></tr>
+<tr><td class="n">22</td><td class="t">一流课程 / 教改项目申报：材料清单</td><td class="k">逐项列出申报所需材料；收益管理方向怎么写更容易中；常见被退回原因</td><td class="s">申报 6 项清单<br><strong>领导最关心，转化强</strong></td></tr>
+<tr><td class="n">23</td><td class="t">1+X 移交人社部后，院校该往哪走</td><td class="k">政策事实（两个时间节点）；院校三条可选路径；为什么"等"是最差的策略<br><strong>（破圈王牌，全网几乎无人写透）</strong></td><td class="s">融合方案<br><strong>单篇只写教师</strong></td></tr>
+<tr><td class="n">24</td><td class="t">课证融通：课程怎么对接职业技能等级认定</td><td class="k">等级对位（L1=五级 / L2=四级 / L3=三级）；院校申请资质要准备什么；你能在哪一步帮忙</td><td class="s">陪跑包｜考核方案</td></tr>
+</table>
+
+<h2 id="toc-14">发布顺序建议</h2>
+
+<div class="cards">
+  <div class="card"><div class="n">第 1–4 周</div><h4>先发合集一的"钩子篇"</h4><p>第 6 篇（15 项自检）、第 31 篇（每天 9 个数）、第 3 篇（RevPAR 加权）、第 36 篇（30 个误区）。
+  这 4 篇<strong>搜索量最大、收藏率最高</strong>，是账号的流量地基。</p></div>
+  <div class="card"><div class="n">第 5–8 周</div><h4>插入合集二的"旗帜篇"</h4><p>第 23 篇（1+X 政策，破圈）+ 合集二第 1 篇（为什么必须开这门课）。
+  此时已有 4 篇存量，教师看到会觉得"这个人是认真的"。</p></div>
+  <div class="card"><div class="n">之后</div><h4>交替，但合集一占六成</h4><p>合集一负责持续带来新人，合集二负责把教师留下并转化。
+  <strong>每篇合集一文末都加《给教师的一句话》</strong>，让引流内容也顺带转化。</p></div>
+</div>
+
+<div class="ok">
+<p><strong>最后三句提醒：</strong></p>
+<ul style="margin-bottom:0">
+<li><strong>写不出来就跳过</strong>，不要卡住。60 篇是弹药库不是任务清单，够你写一年多。</li>
+<li><strong>每篇 1500–2000 字</strong>，不要写长——算法第一权重是完读率，长文读完率低会被判定低质。</li>
+<li><strong>降级继续 &gt; 中断停止</strong>。写不动就把篇幅降到 800 字、频率降到半月更。"持续在煮"比"温度高"重要。</li>
+</ul>
+</div>
+
+</main>
+
+<footer>
+  <b>HRMA 双合集内容清单 · 写作台本</b><br>
+  合集一《收益管理怎么做》36 篇（引流，六层）＋ 合集二《收益管理怎么教》24 篇（旗帜，五组）<br>
+  素材映射：15 判定表 / 32 口袋书 / 16 册主题书 / 8 模板 + 9 工具 xlsx / 14 模块 / 三级考核 / 4 套脱敏数据<br>
+  本清单为内部策略文档，未公开发布
+</footer>
+
+</div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>HRMA 双合集内容清单 · 写作台本</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 合集一《收益管理怎么做》面向从业者 · 引流 / 搜索 / 收藏 / 证明你懂业务 · 共 36 篇，分为六层</a>
+<a href="#toc-2" class="lv3">1.1 第一层 · 基础：先看清自己站在哪（6 篇）</a>
+<a href="#toc-3" class="lv3">1.2 第二层 · 需求：看清未来（7 篇）</a>
+<a href="#toc-4" class="lv3">1.3 第三层 · 价格：定什么价（7 篇）</a>
+<a href="#toc-5" class="lv3">1.4 第四层 · 库存：留多少房（5 篇）</a>
+<a href="#toc-6" class="lv3">1.5 第五层 · 渠道：从哪卖（4 篇）</a>
+<a href="#toc-7" class="lv3">1.6 第六层 · 经营：怎么转起来（6 篇）</a>
+<a href="#toc-8">2. 合集二《收益管理怎么教》面向教师 · 你的旗帜 · 直接通向陪跑 · 共 24 篇，分为五组</a>
+<a href="#toc-9" class="lv3">2.1 第一组 · 要不要开、能不能开（4 篇）</a>
+<a href="#toc-10" class="lv3">2.2 第二组 · 怎么设计（5 篇）</a>
+<a href="#toc-11" class="lv3">2.3 第三组 · 怎么讲（6 篇 · 每篇讲透一个难点）</a>
+<a href="#toc-12" class="lv3">2.4 第四组 · 怎么评（5 篇）</a>
+<a href="#toc-13" class="lv3">2.5 第五组 · 申报与进阶（4 篇）</a>
+<a href="#toc-14">3. 发布顺序建议</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
+})();
+</script>
+</body>
+</html>

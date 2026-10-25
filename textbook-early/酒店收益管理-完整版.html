@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js?v=gate20261013"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>酒店收益管理 · 完整版（可打印）</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  color:#1a1a1a;line-height:1.95;font-size:15px;background:#f2f4f7}
+.page{max-width:860px;margin:0 auto;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,.10)}
+
+/* ---- 封面 ---- */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:60px 50px;background:linear-gradient(135deg,#0f2a4a 0%,#1d4f80 100%);color:#fff}
+.cover .kicker{color:#e8b84b;font-size:13px;letter-spacing:6px;font-weight:600;margin-bottom:26px}
+.cover h1{font-size:44px;font-weight:700;letter-spacing:6px;margin-bottom:18px;line-height:1.3}
+.cover .sub{font-size:17px;color:#c3d6ea;margin-bottom:8px;line-height:1.8}
+.cover .line{width:70px;height:3px;background:#e8b84b;margin:34px 0}
+.cover .by{font-size:14px;color:#9db8d2;line-height:2}
+.cover .by b{color:#e8b84b;font-weight:600}
+
+/* ---- 目录 ---- */
+.toc-page{padding:56px 60px}
+.toc-page h2{font-size:24px;color:#0f2a4a;margin-bottom:22px;padding-bottom:12px;border-bottom:2px solid #e8b84b}
+.toc-page a{display:block;text-decoration:none;color:#1a1a1a;padding:6px 0;font-size:14.5px;line-height:1.7}
+.toc-page .t-part{color:#0f2a4a;font-weight:700;margin-top:20px;font-size:15.5px;
+  border-left:4px solid #e8b84b;padding:4px 0 4px 12px}
+.toc-page a.t-ch{padding-left:26px;color:#33475b}
+.toc-page a:hover{color:#1d6fb8}
+
+/* ---- 正文 ---- */
+.content{padding:0 56px 60px}
+h2{font-size:22px;color:#0f2a4a;margin:40px 0 14px;padding-left:14px;border-left:5px solid #e8b84b;line-height:1.5}
+h3{font-size:17px;color:#1d4f80;margin:24px 0 9px;font-weight:650}
+h4{font-size:15px;color:#0f2a4a;margin:17px 0 7px;font-weight:650}
+p{margin:11px 0}
+ul,ol{margin:11px 0 11px 24px}
+li{margin:6px 0}
+strong{color:#0f2a4a}
+table{width:100%;border-collapse:collapse;margin:15px 0;font-size:13.5px}
+th{background:#0f2a4a;color:#fff;padding:9px 11px;text-align:left;font-size:13px}
+td{padding:9px 11px;border:1px solid #dde6ef;vertical-align:top}
+tr:nth-child(even) td{background:#f8fafd}
+.part{background:#0f2a4a;color:#fff;padding:20px 24px;margin:36px 0 20px;border-radius:5px}
+.part .pn{color:#e8b84b;font-size:12.5px;letter-spacing:3px;font-weight:600;margin-bottom:7px}
+.part h2{margin:0;font-size:21px;color:#fff;border:none;padding:0}
+.part .desc{color:#c3d6ea;font-size:13.5px;margin-top:8px;line-height:1.8}
+.goal{background:#f0f6fb;border:1px solid #c9dcee;padding:13px 17px;margin:16px 0;border-radius:0 6px 6px 0}
+.goal .lbl{font-weight:700;color:#1d4f80;margin-bottom:6px;font-size:13.5px}
+.scene{background:#fff8e8;border-left:4px solid #e8b84b;padding:15px 19px;margin:18px 0;border-radius:0 6px 6px 0}
+.scene .lbl{font-size:12.5px;font-weight:700;color:#c99a3f;letter-spacing:1px;margin-bottom:7px}
+.mistake{background:#fdf1f0;border-left:4px solid #c0392b;padding:14px 18px;margin:17px 0;border-radius:0 6px 6px 0}
+.mistake .lbl{font-size:12.5px;font-weight:700;color:#c0392b;letter-spacing:1px;margin-bottom:6px}
+.calc{background:#f4f8fc;padding:13px 17px;border-left:4px solid #1d6fb8;margin:15px 0;font-size:13.5px;
+  font-family:"SFMono-Regular",Consolas,monospace;line-height:1.85;white-space:pre-wrap}
+.ex{background:#f0f8f2;border:1px solid #cfe6d8;padding:14px 18px;margin:17px 0;border-radius:0 6px 6px 0}
+.ex .lbl{font-weight:700;color:#2e8b57;margin-bottom:6px;font-size:13.5px}
+.lead{background:#f4f8fc;border-left:4px solid #1d6fb8;padding:14px 18px;margin:17px 0}
+.ethics{background:#f0f8f2;border-left:4px solid #2e8b57;padding:14px 18px;margin:17px 0}
+.ethics .lbl{font-weight:700;color:#2e8b57;margin-bottom:6px;font-size:13.5px}
+.case{background:#f7f4ef;border-left:4px solid #c99a3f;padding:14px 18px;margin:17px 0}
+.case .lbl{font-weight:700;color:#a0722a;margin-bottom:6px;font-size:13px}
+.chk{list-style:none;margin-left:0}
+.chk li{padding-left:26px;position:relative;margin:7px 0}
+.chk li:before{content:"☐";position:absolute;left:0;color:#1d4fb8;font-weight:700}
+
+/* ---- 页脚 ---- */
+.endfoot{background:#0f2a4a;color:#9db8d2;padding:26px 56px;font-size:12.5px;text-align:center;line-height:1.9}
+.endfoot b{color:#e8b84b}
+
+/* ================= 打印（A4） ================= */
+@media print{
+  @page{size:A4;margin:18mm 16mm 20mm;}
+  body{background:#fff;font-size:10.5pt;line-height:1.75}
+  .page{box-shadow:none;max-width:100%;margin:0}
+  .cover{min-height:auto;height:100vh;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .toc-page{page-break-after:always;padding:0 0 24px}
+  .content{padding:0}
+  h2{font-size:15pt;margin:16pt 0 8pt;page-break-after:avoid}
+  h3{font-size:12.5pt;margin:12pt 0 5pt;page-break-after:avoid}
+  h4{font-size:11pt;page-break-after:avoid}
+  p,li{font-size:10.5pt;orphans:3;widows:3}
+  .part{page-break-before:always;page-break-after:avoid;padding:12pt 14pt;margin:14pt 0 10pt;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .part h2{font-size:14pt;margin:0}
+  .goal,.scene,.mistake,.calc,.ex,.lead,.ethics,.case{
+    page-break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  table{page-break-inside:auto;font-size:9.5pt}
+  tr{page-break-inside:avoid}
+  thead{display:table-header-group}
+  .endfoot{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  a{text-decoration:none;color:inherit}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="cover">
+  <div class="kicker">酒 店 管 理 专 业 教 材</div>
+  <h1>酒店收益管理</h1>
+  <div class="sub">从看懂一个数字，到做出一次判断</div>
+  <div class="line"></div>
+  <div class="by">
+    收益管理教学教练　编著<br>
+    写给酒店管理专业的学生<br><br>
+    全书 26 章 · 六篇结构 · 约 5 万字<br>
+    <b>体例：场景导入 → 正文 → 常见错误 → 课堂练习 → 自测</b>
+  </div>
+</div>
+
+<div class="toc-page">
+  <h2>目　录</h2>
+<div class="t-part">前　言</div>
+<a class="t-ch" href="#sec1">怎样使用这本教材</a>
+<div class="t-part">准 备 篇</div>
+<a class="t-ch" href="#sec4">第 0 章　收益管理管什么，不管什么</a>
+<div class="t-part">第 一 篇 · 看 懂 现 状</div>
+<a class="t-ch" href="#sec5">第 1 章　三个指标：OCC、ADR、RevPAR</a>
+<a class="t-ch" href="#sec6">第 2 章　从收入到利润：满房不等于赚钱</a>
+<a class="t-ch" href="#sec7">第 3 章　你在市场里的位置：MPI / ARI / RGI</a>
+<div class="t-part">第 二 篇 · 看 清 未 来</div>
+<a class="t-ch" href="#sec8">第 4 章　需求预测：两种够用的方法</a>
+<a class="t-ch" href="#sec9">第 5 章　预测偏差：那条 3%–5% 的线</a>
+<a class="t-ch" href="#sec10">第 6 章　Pickup 与在手预订</a>
+<a class="t-ch" href="#sec11">第 7 章　需求日历与事件日</a>
+<div class="t-part">第 三 篇 · 定 什 么 价</div>
+<a class="t-ch" href="#sec12">第 8 章　BAR 与价格层级</a>
+<a class="t-ch" href="#sec13">第 9 章　房型价差与保本点</a>
+<a class="t-ch" href="#sec14">第 10 章　什么时候该涨价</a>
+<a class="t-ch" href="#sec15">第 11 章　竞品降价了，跟不跟</a>
+<a class="t-ch" href="#sec16">第 12 章　折扣、套餐与促销的边界</a>
+<a class="t-ch" href="#sec17">第 13 章　全年价格日历</a>
+<div class="t-part">第 四 篇 · 留 多 少 房</div>
+<a class="t-ch" href="#sec18">第 14 章　库存分配与客源配额</a>
+<a class="t-ch" href="#sec19">第 15 章　MinLOS 与住期控制</a>
+<a class="t-ch" href="#sec20">第 16 章　超额预订的上限</a>
+<a class="t-ch" href="#sec21">第 17 章　置换分析：团队该不该接</a>
+<div class="t-part">第 五 篇 · 从 哪 卖</div>
+<a class="t-ch" href="#sec22">第 18 章　渠道净值</a>
+<a class="t-ch" href="#sec23">第 19 章　直销与会员</a>
+<a class="t-ch" href="#sec24">第 20 章　点评与口碑的价值</a>
+<a class="t-ch" href="#sec25">第 21 章　价格一致性</a>
+<div class="t-part">第 六 篇 · 怎 么 运 转</div>
+<a class="t-ch" href="#sec26">第 22 章　每天 15 分钟：九个动作</a>
+<a class="t-ch" href="#sec27">第 23 章　每周、每月、每季、每年</a>
+<a class="t-ch" href="#sec28">第 24 章　两个信号打架时听谁的</a>
+<a class="t-ch" href="#sec29">第 25 章　收益例会</a>
+<a class="t-ch" href="#sec30">第 26 章　预算与归因</a>
+<div class="t-part">结 束 篇</div>
+<a class="t-ch" href="#sec31">这门课怎么考 · 你要交什么作品</a>
+<div class="t-part">附 录</div>
+<a class="t-ch" href="#sec32">公式卡 · 判定表 · 30 个误区</a>
+</div>
+
+<div class="content">
+
+
+<h2 id="sec1">怎样使用这本教材</h2>
+
+<p>这本教材的写法和你们熟悉的大多数课本不太一样。先说清楚三点，免得你觉得奇怪。</p>
+
+<h3>第一，每章都从一个问题开始，不是从定义开始</h3>
+<p>你会发现每一章开头都有一个<strong>具体场景</strong>，通常是两个看起来都对、但结论相反的情况。请你<strong>先自己想一想</strong>，把答案写下来，再往下读。</p>
+<p>为什么这么安排？因为这门课教的不是知识，是<strong>判断</strong>。而判断能力只有在"你已经有了自己的答案"之后才能长出来——如果一上来就告诉你结论，你记住的是结论，不是判断。</p>
+
+<h3>第二，考试可以查表，默写也不算死记硬背</h3>
+<p>这门课允许查表。原因是真实工作里本来就可以查——收益人员桌上都放着判定表。所以考核考的是<strong>你会不会用</strong>，不是<strong>你背不背得下</strong>。</p>
+<p>但有一类东西要求默写到能写出来：<strong>判断的顺序</strong>。因为在忙乱的真实场景里，人不会"思考"，只会"调用"。顺序没进到肌肉记忆里，你就会漏步骤。</p>
+
+<h3>第三，每章都有"常见错误"，那部分比正文更重要</h3>
+<div class="mistake">
+<div class="lbl">建议的阅读顺序</div>
+<p style="margin:0">先看场景 → 自己想 → 读正文 → <strong>重点看"常见错误"</strong> → 做练习。<br>
+"常见错误"里列的，都是往届学生真的犯过的错。能认出错误，比记住正确做法更能说明你懂了。</p>
+</div>
+
+<h3>这门课结束的时候，你应该能做到三件事</h3>
+<ol>
+<li>拿到一家酒店的数据，<strong>能独立算对</strong>它的核心指标，并判断哪里出了问题</li>
+<li>遇到一个具体情况，<strong>能说出判断顺序</strong>——先看什么、再判什么、最后做什么</li>
+<li>能完成一份<strong>可交付的东西</strong>（价格日历、置换分析、收益方案），并且讲得出依据</li>
+</ol>
+<p>如果只能做到第一件，你学到的是算术；做到第二件，才是这门课要给的。</p>
+
+<div class="lead">
+<strong>一个提醒：</strong>这门课的价值不在"你知道收益管理是什么"，而在"你能回答别人的追问"。
+学生问"为什么这时候不能降价"，你不能说"因为书上是这么写的"。所以读书时多问自己一句：<strong>如果有人追问我为什么，我答得上来吗？</strong>
+</div>
+
+<h2 id="sec2">全书结构 · 五层判断链</h2>
+
+<p>这本书不按学科体系排（概念→原理→方法→应用），而是<strong>按收益人员真实的判断顺序排</strong>。五个层级，从下往上：</p>
+
+<table>
+<tr><th style="width:14%">层级</th><th style="width:26%">要解决的问题</th><th>对应篇章</th></tr>
+<tr><td><strong>第一层</strong></td><td>我现在处境如何</td><td>第一篇 · 看懂现状（指标与竞争）</td></tr>
+<tr><td><strong>第二层</strong></td><td>未来会怎样</td><td>第二篇 · 看清未来（需求预测）</td></tr>
+<tr><td><strong>第三层</strong></td><td>我该定什么价</td><td>第三篇 · 定什么价（价格）</td></tr>
+<tr><td><strong>第四层</strong></td><td>房该怎么分</td><td>第四篇 · 留多少房（库存）</td></tr>
+<tr><td><strong>第五层</strong></td><td>从哪卖、赚多少</td><td>第五篇 · 从哪卖（渠道）</td></tr>
+<tr><td colspan="3" style="background:#fff8e8"><strong>贯穿层：第六篇 · 怎么运转</strong>——把前五层串成每天、每周、每月的动作</td></tr>
+</table>
+
+<div class="lead">这样排的好处：<strong>每个知识点出现时，你都已经知道"我为什么需要它"。</strong>
+按教材目录顺序学，往往学到第六周还不知道这些公式是用来干嘛的。</div>
+
+<h2 id="sec3">目录</h2>
+<table class="toc">
+<tr><th style="width:58px">章</th><th>标题</th></tr>
+<tr><td colspan="2" style="background:#f0f6fb;font-weight:700;color:#0f2a4a">准备篇</td></tr>
+<tr><td class="ch">第0章</td><td>收益管理管什么，不管什么</td></tr>
+<tr><td colspan="2" style="background:#f0f6fb;font-weight:700;color:#0f2a4a">第一篇 · 看懂现状</td></tr>
+<tr><td class="ch">第1章</td><td>三个指标：OCC、ADR、RevPAR</td></tr>
+<tr><td class="ch">第2章</td><td>从收入到利润：满房不等于赚钱</td></tr>
+<tr><td class="ch">第3章</td><td>你在市场里的位置：MPI / ARI / RGI</td></tr>
+<tr><td colspan="2" style="background:#f0f6fb;font-weight:700;color:#0f2a4a">第二篇 · 看清未来</td></tr>
+<tr><td class="ch">第4章</td><td>需求预测：两种够用的方法</td></tr>
+<tr><td class="ch">第5章</td><td>预测偏差：那条 3%–5% 的线</td></tr>
+<tr><td class="ch">第6章</td><td>Pickup 与在手预订</td></tr>
+<tr><td class="ch">第7章</td><td>需求日历与事件日</td></tr>
+<tr><td colspan="2" style="background:#f0f6fb;font-weight:700;color:#0f2a4a">第三篇 · 定什么价</td></tr>
+<tr><td class="ch">第8章</td><td>BAR 与价格层级</td></tr>
+<tr><td class="ch">第9章</td><td>房型价差与保本点</td></tr>
+<tr><td class="ch">第10章</td><td>什么时候该涨价</td></tr>
+<tr><td class="ch">第11章</td><td>竞品降价了，跟不跟</td></tr>
+<tr><td class="ch">第12章</td><td>折扣、套餐与促销的边界</td></tr>
+<tr><td class="ch">第13章</td><td>全年价格日历</td></tr>
+<tr><td colspan="2" style="background:#f0f6fb;font-weight:700;color:#0f2a4a">第四篇 · 留多少房</td></tr>
+<tr><td class="ch">第14章</td><td>库存分配与客源配额</td></tr>
+<tr><td class="ch">第15章</td><td>MinLOS 与住期控制</td></tr>
+<tr><td class="ch">第16章</td><td>超额预订的上限</td></tr>
+<tr><td class="ch">第17章</td><td>置换分析：团队该不该接</td></tr>
+<tr><td colspan="2" style="background:#f0f6fb;font-weight:700;color:#0f2a4a">第五篇 · 从哪卖</td></tr>
+<tr><td class="ch">第18章</td><td>渠道净值</td></tr>
+<tr><td class="ch">第19章</td><td>直销与会员</td></tr>
+<tr><td class="ch">第20章</td><td>点评与口碑的价值</td></tr>
+<tr><td class="ch">第21章</td><td>价格一致性</td></tr>
+<tr><td colspan="2" style="background:#f0f6fb;font-weight:700;color:#0f2a4a">第六篇 · 怎么运转</td></tr>
+<tr><td class="ch">第22章</td><td>每天 15 分钟：九个动作</td></tr>
+<tr><td class="ch">第23章</td><td>每周、每月、每季、每年</td></tr>
+<tr><td class="ch">第24章</td><td>两个信号打架时听谁的</td></tr>
+<tr><td class="ch">第25章</td><td>收益例会</td></tr>
+<tr><td class="ch">第26章</td><td>预算与归因</td></tr>
+<tr><td colspan="2" style="background:#f0f6fb;font-weight:700;color:#0f2a4a">结束篇 · 考核与作品</td></tr>
+<tr><td class="ch">附录</td><td>公式卡 · 判定表索引 · 30 个误区 · 项目作品任务书</td></tr>
+</table>
+
+<!-- ================= 准备篇 ================= -->
+<div class="part">
+  <div class="pn">准 备 篇</div>
+  <h2 id="sec4">第 0 章　收益管理管什么，不管什么</h2>
+  <div class="desc">在学任何公式之前，先划清边界。这门课最容易发生的误解，几乎都出在"以为它管什么"上。</div>
+</div>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">学完本章，你应该能：① 说清收益管理做的四件事；② 举出四条"它不是什么"并说明理由；
+③ 解释为什么"收益管理的产品是决策依据，不是价格"。</p>
+</div>
+
+<div class="scene">
+<div class="lbl">先看一个场景（请先自己回答，再往下读）</div>
+<p style="margin:0">你是某酒店前厅部主管。今天是周三，出租率 71%。销售部拿来一个 40 间的团队询价，
+价格比你现在挂牌价低 30%，要求明天入住。<strong>接，还是不接？</strong><br><br>
+你可能会说"看情况"。那么——<strong>看什么情况？请列出你要看的三个数。</strong></p>
+</div>
+
+<h3>0.1 先说它做什么：四个判断</h3>
+<p>收益管理做的是四个判断的组合，而且<strong>这四个判断是同时做的、互相牵制的</strong>：</p>
+<table>
+<tr><th style="width:22%">判断</th><th style="width:26%">本质是什么问题</th><th>具体内容</th></tr>
+<tr><td><strong>卖什么房</strong></td><td>库存问题</td><td>哪些房留给高价客、哪些给团队、哪些先别动</td></tr>
+<tr><td><strong>给什么人</strong></td><td>细分问题</td><td>商务、会员、团队、OTA 的支付意愿与取消率都不同</td></tr>
+<tr><td><strong>在什么时间</strong></td><td>节奏问题</td><td>提前多久放什么档位的价</td></tr>
+<tr><td><strong>用什么价</strong></td><td>价格问题</td><td>不是单一价格，是一套层级</td></tr>
+</table>
+<p>回到开头的场景：这四个判断会同时冒出来。40 间房给不给（库存/细分）？这个团队会不会挤掉明天的散客（时间/节奏）？如果接，用什么价（价格）？</p>
+<p><strong>只回答"接不接"是不够的</strong>——你要能说出这四个判断各自的结论。</p>
+
+<h3>0.2 更要紧的：它不管什么</h3>
+<p>这是本章的重点。四条边界，每一条都对应一个常见误解：</p>
+
+<h4>① 不是一味涨价</h4>
+<p>涨价只是手段之一。什么时候该降、降多少，同样属于收益管理。把收益管理理解成"想办法卖贵"，是最大的误读。</p>
+
+<h4>② 不是追 100% 出租率</h4>
+<p>满房很可能是<strong>定价定低了的信号</strong>，不是成绩。一间房只要售价高于它的边际成本，卖出就是赚的；
+但如果为了填满最后几间而把价格压到边际成本以下，你只是在增加酒店的工作量。</p>
+
+<h4>③ 不是抄竞品价格</h4>
+<p>竞品的价格反映的是<strong>他的库存情况和客源结构</strong>，不是你的。照抄等于把定价权交给对手。</p>
+
+<h4>④ 不是来者不拒</h4>
+<p>有些生意不该接。这是收益管理里<strong>最难、也最容易被忽视</strong>的部分——因为拒绝一单生意需要承担人际关系压力，
+而接受它只需要点个头。本书第 17 章（置换分析）专门解决这个问题。</p>
+
+<h3>0.3 它的产品是什么</h3>
+<div class="lead">
+<p style="margin:0"><strong>收益管理的产品是"决策依据"，不是"价格"。</strong><br>
+给出"今天卖 680"是结果；能说出"因为 Pickup 比同期慢 12%、下周有展会、而且竞品已经把 8 号锁了"——这才是收益管理。</p>
+</div>
+<p>这也解释了为什么这个岗位不能被系统完全取代：系统能算，但<strong>不替你承担判断的责任</strong>。
+真正值钱的是那句"为什么"。</p>
+
+<div class="mistake">
+<div class="lbl">常见错误</div>
+<ul style="margin:0">
+<li><strong>把收益管理等同于"调价"。</strong>调价只是四个判断中的一个。配额、房型开关、住期限制往往比调价更有效</li>
+<li><strong>认为满房就是做好了。</strong>真实问题常常是"卖得太便宜"，而不是"卖得不够多"</li>
+<li><strong>以为收益管理只在淡季有用。</strong>恰恰相反——旺季的溢价空间才是收益差距最大的地方</li>
+</ul>
+</div>
+
+<div class="ex">
+<div class="lbl">课堂练习 0-1</div>
+<p style="margin:0">三人一组。一人扮演收益经理，一人扮演销售，一人扮演总经理。
+用开头那个"40 间团队询价"场景，<strong>收益经理必须说出他要看的三个数才能决定</strong>，
+销售负责追问，总经理最后问一句"你为什么这么判断"。<br>
+<strong>时间 15 分钟。产出：三个要看的数 + 一句判断依据。</strong></p>
+</div>
+
+<div class="ex">
+<div class="lbl">自测</div>
+<ol style="margin:0">
+<li>说出收益管理做的四件事，并说明它们为什么"互相牵制"</li>
+<li>举出四条"它不是什么"，每条配一个理由</li>
+<li>为什么说它的产品是"决策依据"而不是"价格"？</li>
+</ol>
+</div>
+
+<!-- ================= 第一篇 ================= -->
+<div class="part">
+  <div class="pn">第 一 篇 · 看 懂 现 状</div>
+  <h2 id="sec5">第 1 章　三个指标：OCC、ADR、RevPAR</h2>
+  <div class="desc">这是全书的地基。这一章听不懂，后面全是空中楼阁。本章有一个"必错点"，几乎每届学生都会踩。</div>
+</div>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">学完本章，你应该能：① 独立算对月度 RevPAR（加权）；② 看到三个指标能判断"是量的问题还是价的问题"；
+③ 说出一个"RevPAR 高但不健康"的情况。</p>
+</div>
+
+<div class="scene">
+<div class="lbl">先看一组打架的数据</div>
+<p style="margin:0">某酒店这个月 vs 上个月：<br><br>
+出租率　72% → <strong>78%</strong>（涨了）<br>
+平均房价　420 → <strong>395</strong>（跌了）<br>
+RevPAR　　302 → <strong>308</strong>（涨了）<br><br>
+<strong>问：这个月做得好不好？请写下你的答案和理由，再往下读。</strong></p>
+</div>
+
+<p>课堂上这组数据几乎一定会引起争论。说"好"的人看 RevPAR，说"不好"的人看房价。
+<strong>两边都有道理，也都不完整</strong>——因为没人解释三个数之间的牵制关系。</p>
+
+<h3>1.1 三个指标各回答什么</h3>
+<table>
+<tr><th style="width:16%">指标</th><th style="width:30%">公式</th><th>回答的问题</th></tr>
+<tr><td><strong>OCC</strong> 出租率</td><td>已售房晚 ÷ 可售房晚</td><td>卖得出去吗（量）</td></tr>
+<tr><td><strong>ADR</strong> 平均房价</td><td>客房收入 ÷ <strong>已售</strong>房晚</td><td>卖得值吗（价）</td></tr>
+<tr><td><strong>RevPAR</strong></td><td>客房收入 ÷ <strong>可售</strong>房晚</td><td>整体产出如何</td></tr>
+</table>
+
+<div class="lead">
+<p style="margin:0"><strong>注意两个分母不一样：ADR 的分母是"已售"，RevPAR 的分母是"可售"。
+这个差别是所有误解的根源。</strong>请现在就把这句话记住。</p>
+</div>
+
+<h3>1.2 回到那组打架的数据</h3>
+<p>这家酒店做的是：<strong>主动降价换量</strong>（ADR −25），换来出租率 +6 个百分点，最终 RevPAR 微涨 6 元。</p>
+<p>这个动作对不对？<strong>单看 RevPAR 无法判断。</strong>要追加三个问题：</p>
+<ol>
+<li><strong>多卖的这些房，边际成本是多少？</strong>清洁、布草、早餐、能耗——如果一间房的边际成本是 80 元，
+那么 ADR 从 420 降到 395，赚的还是正钱；但如果降到 350，就要重新算（详见第 2 章）</li>
+<li><strong>这些房从哪个渠道卖出去的？</strong>如果是 OTA 佣金 15% 加积分成本，ADR 395 到手可能只剩 320</li>
+<li><strong>低价客有没有挤掉高价客？</strong>这是最隐蔽的损失——RevPAR 涨了，但被挤掉的老客户再也不回来了</li>
+</ol>
+
+<h3>1.3 正确的看指标顺序</h3>
+<p><strong>先看 RevPAR 定方向 → 再拆 OCC 和 ADR 看是量还是价 → 最后看渠道和客源看质量。</strong></p>
+<p>反过来做会出问题：先看出租率，你会倾向于降价；只看房价，你会倾向于守高价。
+<strong>这两个倾向都会让你错过最优解</strong>——因为最优解往往在"稍微降一点价、换来高得多的量"
+或者"少卖几间、但每间贵很多"之间。</p>
+
+<h3>1.4 ★ 必错点：月度 RevPAR 必须加权</h3>
+<div class="mistake">
+<div class="lbl">这是本书第一个"必错点"，也是考核中直接判错、不给部分分的一处</div>
+<p style="margin:0"><strong>把每天的日 RevPAR 加起来除以天数，是错的。</strong></p>
+</div>
+
+<p>看算例。某酒店三天：</p>
+<table>
+<tr><th></th><th>可售房晚</th><th>已售房晚</th><th>客房收入</th><th>当日 RevPAR</th></tr>
+<tr><td>第 1 天</td><td>100</td><td>10</td><td>3,000</td><td>30</td></tr>
+<tr><td>第 2 天</td><td>100</td><td>10</td><td>3,000</td><td>30</td></tr>
+<tr><td>第 3 天（装修停售 90%）</td><td>10</td><td>10</td><td>5,000</td><td><strong>500</strong></td></tr>
+</table>
+
+<div class="calc">
+错误算法（算术平均）：(30 + 30 + 500) ÷ 3 = <strong>186.7</strong><br>
+正确算法（总收入 ÷ 总可售房晚）：11,000 ÷ 210 = <strong>52.4</strong><br><br>
+<strong>差了 3.6 倍。</strong>
+</div>
+
+<p><strong>为什么会差这么多？</strong>算术平均默认"每天一样重要"。但第 3 天只有 10 间可售，
+它在三天总可售房晚里占的份额是 10 ÷ 210，<strong>还不到 5%</strong>。正确权重应该是 5%，而算术平均给了它整整三分之一。</p>
+
+<p>放到一个月会怎样？假设这个月有 5 天是这样装修停售的日子，
+你汇报出去的月 RevPAR 会比真实值高出一大截；下个月装修结束、可售房恢复正常，
+RevPAR 会<strong>莫名其妙暴跌</strong>，而你还得开会找原因——真正的原因只是算法错了。</p>
+
+<div class="lead">
+<p style="margin:0"><strong>结论：跨天汇总一律用"总和 ÷ 总和"，不要用"平均值再平均"。</strong><br>
+月 RevPAR = 月客房总收入 ÷ 月总可售房晚<br>
+月 ADR = 月客房总收入 ÷ 月总已售房晚<br>
+月 OCC = 月总已售房晚 ÷ 月总可售房晚<br><br>
+两种算法<strong>只有在"每天可售房数完全相同"时才相等</strong>。只要任何一天可售房变了
+（停售维修、团队锁房、房型改造、临时加房），算术平均就失真。<br><br>
+<strong>Excel 提示：</strong>不要对"当日 RevPAR"那一列用 AVERAGE，而是用 SUM(收入列) ÷ SUM(可售房列)。</p>
+</div>
+
+<h3>1.5 常见错误汇总</h3>
+<div class="mistake">
+<div class="lbl">本章常见错误</div>
+<ul style="margin:0">
+<li><strong>月度 RevPAR 用算术平均</strong>——地基错误，直接判错</li>
+<li><strong>ADR 和 RevPAR 的分母搞混</strong>——记住：ADR 看已售，RevPAR 看可售</li>
+<li><strong>以为三个指标是并列关系</strong>——它们互相牵制，看的时候有顺序</li>
+<li><strong>只看 RevPAR 就下结论</strong>——必须追问渠道成本和客源结构</li>
+</ul>
+</div>
+
+<div class="ex">
+<div class="lbl">课堂练习 1-1（本题必做）</div>
+<p style="margin:0">某酒店 5 天数据如下，请<strong>分别用两种算法</strong>算月 RevPAR，并说明差异原因：<br>
+第1天：可售 100，收入 40,000｜第2天：可售 100，收入 10,000｜第3天：可售 20，收入 8,000<br>
+第4天：可售 100，收入 12,000｜第5天：可售 100，收入 9,000<br>
+<strong>做完再对答案——大部分人第一次会算错。</strong></p>
+</div>
+
+<div class="ex">
+<div class="lbl">自测</div>
+<ol style="margin:0">
+<li>写出三个指标的公式，并说明 ADR 与 RevPAR 分母的区别</li>
+<li>什么情况下"月度 RevPAR 用算术平均"会等于"加权算法"？</li>
+<li>举一个"出租率涨、房价跌、RevPAR 还涨"的例子，并说明它是否健康</li>
+</ol>
+</div>
+
+
+
+
+<!-- ===== 第2章 ===== -->
+<h2 id="sec6">第 2 章　从收入到利润：满房不等于赚钱</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 分清边际成本与全成本；② 会算渠道到手净值；③ 能判断"这笔低价单该不该接"；
+④ 识别"低价客挤走高价客"的信号。</p>
+</div>
+
+<div class="scene">
+<div class="lbl">先看一个反常识的事</div>
+<p style="margin:0">某酒店某月做到 96% 出租率，RevPAR 同比涨了 8%，团队开了庆功会。
+月底财务出来：<strong>客房部门的 GOP 反而比去年同期低了。</strong><br><br>
+<strong>请列出三个可能的原因，再往下读。</strong></p>
+</div>
+
+<h3>2.1 RevPAR 不看成本</h3>
+<p>RevPAR 的分子是"客房收入"，从不问"赚到了多少"。同样的 RevPAR 可以来自两条完全不同的路：</p>
+<ul>
+<li>房价 700，卖 50 间</li>
+<li>房价 350，卖 100 间</li>
+</ul>
+<p>RevPAR 都是 350。但后者的清洁、布草、易耗品、早餐、能耗成本是前者的<strong>接近两倍</strong>。</p>
+
+<h4>边际成本 vs 全成本</h4>
+<table>
+<tr><th style="width:20%"></th><th style="width:34%">包含什么</th><th>用途</th></tr>
+<tr><td><strong>边际成本</strong></td><td>多卖一间房额外产生的：清洁、布草洗涤、易耗品、早餐、能耗</td><td><strong>判断"要不要接这笔低价单"</strong>——通常 60–120 元/间</td></tr>
+<tr><td><strong>全成本</strong></td><td>再加分摊的固定成本：房租折旧、人工、管理费</td><td>核算酒店整体盈亏，<strong>不用于单笔决策</strong></td></tr>
+</table>
+<div class="lead"><p style="margin:0">关键区别：<strong>固定成本不管你卖不卖都在发生。</strong>
+所以判断单笔生意，看边际成本，不看全成本。</p></div>
+
+<h3>2.2 渠道把收入吃掉了（原因一）</h3>
+<p>同样卖 500 元的房：</p>
+<table>
+<tr><th>渠道</th><th>表面收入</th><th>实际扣项</th><th>到手</th></tr>
+<tr><td>直销（官网/前台）</td><td>500</td><td>支付手续费约 5–10 元</td><td><strong>约 490</strong></td></tr>
+<tr><td>OTA</td><td>500</td><td>佣金 15%（75）+ 积分成本 + 可能的促销折扣</td><td><strong>约 400–415</strong></td></tr>
+<tr><td>团队/协议</td><td>500</td><td>返佣、免费房配额、早餐升级</td><td><strong>约 420–450</strong></td></tr>
+</table>
+<p><strong>RevPAR 相同，落到账上的钱差了 15%–20%。</strong>这就是那家 96% 出租率酒店的第一个问题：
+多出来的房主要通过 OTA 卖的。（第 18 章会详细讲渠道净值的完整口径。）</p>
+
+<h3>2.3 低价客挤掉了高价客（原因二，最隐蔽）</h3>
+<p>你放了一批低价房出去，房间确实卖了，RevPAR 也达标了——<strong>但那些房间本来可以卖给愿意付全价的客人。</strong></p>
+<p>这种损失不会出现在任何报表里。它只会在某个季度突然表现为"我们的高端客源好像流失了"。</p>
+<div class="lead"><p style="margin:0"><strong>判断信号：ADR 在涨，但高价位房型的售出占比在降。</strong>
+出现这个组合，说明低价客正在挤占结构。</p></div>
+
+<h3>2.4 该看什么指标</h3>
+<ul>
+<li><strong>GOPPAR</strong>（每间可售房的营业毛利）——把成本纳入分子，最真实反映客房部门的赚钱能力</li>
+<li>如果暂时拿不到 GOPPAR，退而求其次：<strong>RevPAR 配一份渠道净值表一起看</strong></li>
+</ul>
+
+<h3>2.5 什么时候满房是对的</h3>
+<p>也不是所有满房都该避免。<strong>淡季时，只要 ADR 高于边际成本，多卖就是对的</strong>——哪怕拉低了整体 ADR。</p>
+<div class="calc">
+判断点只有一句：<br>
+<b>这批增量生意的价格，有没有覆盖它的边际成本 + 渠道成本。</b><br>
+覆盖了就做，没覆盖就不做——哪怕房间会空着。
+</div>
+
+<div class="mistake">
+<div class="lbl">常见错误</div>
+<ul style="margin:0">
+<li><strong>用全成本判断单笔生意</strong>——固定成本已经发生了，不该影响"多卖一间"的决策</li>
+<li><strong>只看毛 ADR 不看渠道</strong>——500 的房价，不同渠道到手差 90 元</li>
+<li><strong>忽略挤压效应</strong>——RevPAR 达标不等于健康，要看客源结构</li>
+</ul>
+</div>
+
+<div class="ex">
+<div class="lbl">课堂练习 2-1</div>
+<p style="margin:0">给两个方案，RevPAR 都是 350：<br>
+A：房价 700，卖 50 间｜B：房价 350，卖 100 间（假定边际成本 80 元/间）<br>
+<strong>请分别算出两个方案的毛利，并说明哪个更好。</strong><br>
+（提示：多数人只看 RevPAR 会说"一样"，算完会发现差很多。）</p>
+</div>
+
+<!-- ===== 第3章 ===== -->
+<h2 id="sec7">第 3 章　你在市场里的位置：MPI / ARI / RGI</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 会算三个指数；② 会选竞争群；③ <strong>能看组合形态而不是看单个数字</strong>。</p>
+</div>
+
+<p>你知道自己 RevPAR 是 308。然后呢？308 是好是坏，取决于邻居考了多少分。</p>
+
+<h3>3.1 三个指数各回答什么</h3>
+<table>
+<tr><th style="width:12%">指数</th><th style="width:32%">公式</th><th>回答的问题</th></tr>
+<tr><td><strong>MPI</strong></td><td>你的 OCC ÷ 竞争群 OCC × 100</td><td><strong>量</strong>上抢到多少份额</td></tr>
+<tr><td><strong>ARI</strong></td><td>你的 ADR ÷ 竞争群 ADR × 100</td><td><strong>价</strong>上处在什么位置</td></tr>
+<tr><td><strong>RGI</strong></td><td>你的 RevPAR ÷ 竞争群 RevPAR × 100</td><td><strong>整体产出</strong>拿了多少</td></tr>
+</table>
+<p>基准都是 <strong>100</strong>。110 表示你比竞争群高 10%。</p>
+
+<h3>3.2 关键：看组合形态</h3>
+<div class="scene">
+<div class="lbl">为什么不能只看一个数</div>
+<p style="margin:0">单独看一个指数极易误判。<strong>真正的信息在三个数的组合里。</strong></p>
+</div>
+<ul>
+<li><strong>MPI 高、ARI 低、RGI 勉强持平</strong> → 你在用低价买份额。量抢到了，没赚到更多钱。
+<strong>这是最常见的组合，也是最容易被误当成"做得不错"的组合。</strong></li>
+<li><strong>MPI 低、ARI 高、RGI 高</strong> → 守高价、牺牲入住率，但整体产出更好。说明产品有溢价能力</li>
+<li><strong>三个都低</strong> → 问题通常在产品或分销，不在定价动作</li>
+<li><strong>MPI 高、ARI 高、RGI 反而低</strong> → <strong>立刻检查算法</strong>。这个组合在数学上几乎不可能，
+十有八九是 RevPAR 算错了（回到第 1 章的加权问题）</li>
+</ul>
+
+<h3>3.3 竞争群怎么选</h3>
+<p>这三个指数好不好用，八成取决于竞争群选得对不对。三条原则：</p>
+<ol>
+<li><strong>3–6 家就够</strong>。选 15 家会把差异摊平，什么也看不出来</li>
+<li><strong>选真正抢同一批客人的</strong>。不是"附近的酒店"，而是"客人会同时比较的酒店"。
+一家五星和一家快捷即便隔街相望，也不是竞争群</li>
+<li><strong>定期更换</strong>。新酒店开业、老酒店翻新都会改变竞争关系，至少每半年重审一次</li>
+</ol>
+<p>还有一个陷阱：<strong>把竞争群当成"要打赢的对手"。</strong>它们的实际用途是<strong>参照系</strong>——
+告诉你市场这段时间整体如何。如果全群 MPI 都在跌，那不是你的问题，是市场在下行。</p>
+
+<div class="mistake">
+<div class="lbl">常见错误</div>
+<ul style="margin:0">
+<li><strong>只看 MPI 或只看 ARI</strong>——必须三个一起看</li>
+<li><strong>竞争群选十几家</strong>——差异被摊平</li>
+<li><strong>把指数当成绩单</strong>——指数的价值在于定位，在于告诉你"该去查哪里了"，不是打分</li>
+</ul>
+</div>
+
+<div class="ex">
+<div class="lbl">课堂练习 3-1（很有说服力的一道）</div>
+<p style="margin:0">给同一家酒店选两个不同的竞争群：<br>
+A 组"同星级就近 5 家"｜B 组"客人实际会比较的 3 家"<br>
+算出两组 RGI。<strong>你会发现结论可能从"表现良好"翻转成"明显落后"</strong>——
+这比讲十遍"选群要谨慎"都管用。</p>
+</div>
+
+<!-- ===== 第二篇 ===== -->
+<div class="part">
+  <div class="pn">第 二 篇 · 看 清 未 来</div>
+  <h2 id="sec8">第 4 章　需求预测：两种够用的方法</h2>
+</div>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 会用简易平均与移动平均；② 知道各自适用什么情况；③ 理解<strong>预测的价值在于"知道自己错在哪"，不在于准</strong>。</p>
+</div>
+
+<div class="scene">
+<div class="lbl">先做一次（请把答案写下来）</div>
+<p style="margin:0">某酒店过去 4 个周三的售出房晚分别是：82、78、85、79。<br>
+<strong>请预测下周三是多少。写下你的数字，再往下读。</strong></p>
+</div>
+
+<h3>4.1 方法一：简易平均法</h3>
+<p>把过去 N 期的数据取平均作为预测值。</p>
+<div class="calc">
+(82 + 78 + 85 + 79) ÷ 4 = <strong>81</strong>
+</div>
+<ul>
+<li><strong>优点</strong>：简单、稳、不容易被单日异常带偏</li>
+<li><strong>缺点</strong>：对趋势不敏感——市场明明在涨，它还在用四期前的平均</li>
+<li><strong>适合</strong>：需求稳定的商务酒店、工作日规律性强的门店</li>
+</ul>
+
+<h3>4.2 方法二：移动平均法</h3>
+<p>只用最近 N 期平均，窗口随时间一起往前挪。</p>
+<ul>
+<li><strong>优点</strong>：对近期变化敏感，能跟上趋势</li>
+<li><strong>缺点</strong>：容易被异常值影响——某天临时接了个团队，会把后面几天都带偏</li>
+<li><strong>适合</strong>：需求波动大、需要快速反应的度假型或商圈型酒店</li>
+</ul>
+
+<h3>4.3 怎么选</h3>
+<table>
+<tr><th style="width:30%">你的情况</th><th>建议</th></tr>
+<tr><td>规律强、波动小</td><td>简易平均法，取 4–8 期</td></tr>
+<tr><td>波动大、趋势明显</td><td>移动平均法，窗口约 7 期</td></tr>
+<tr><td>有强周期（周/节假日）</td><td><strong>两者结合</strong>：用移动平均定基准，再按周期系数调整</td></tr>
+</table>
+
+<h3>4.4 比方法更重要的三件事</h3>
+<ol>
+<li><strong>把历史里的"脏数据"剔掉。</strong>去年那次台风、那次政府包楼、那次系统故障——
+这些不是正常需求，留着会持续污染你的预测。<strong>建一张异常事件表，遇到就记一笔</strong></li>
+<li><strong>预测之后一定要回头看偏差。</strong>不统计偏差的预测等于没做（第 5 章）</li>
+<li><strong>人工修正不能省。</strong>方法只能告诉你"按历史该是多少"，但你知道下周有展会。
+这一步正是收益管理岗的价值所在</li>
+</ol>
+
+<div class="mistake">
+<div class="lbl">常见错误</div>
+<ul style="margin:0">
+<li><strong>历史数据不做清洗</strong>——异常事件持续污染预测</li>
+<li><strong>做完预测不统计偏差</strong></li>
+<li><strong>以为预测要"算得准"</strong>——真正重要的是能说出偏差原因</li>
+</ul>
+</div>
+
+<!-- ===== 第5章 ===== -->
+<h2 id="sec9">第 5 章　预测偏差：那条 3%–5% 的线</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 会算偏差；② 知道 3%–5% 的含义；③ <strong>能建立偏差追踪表并写出原因</strong>。</p>
+</div>
+
+<h3>5.1 偏差怎么算</h3>
+<div class="calc">
+偏差 = |实际值 − 预测值| ÷ 实际值 × 100%
+</div>
+<p>例：预测某天卖 80 间，实际 84 间 → 4 ÷ 84 ≈ <strong>4.8%</strong></p>
+<p>建议<strong>两种口径都算</strong>：日均偏差看稳定性，总量偏差看实际影响。</p>
+
+<h3>5.2 3%–5% 是哪里来的</h3>
+<table>
+<tr><th style="width:26%">区间</th><th>含义</th></tr>
+<tr><td><strong>5% 以内</strong></td><td>合格，多数正常运转的酒店能达到</td></tr>
+<tr><td><strong>3% 以内</strong></td><td>优秀，一些规范集团会写进收益人员 KPI</td></tr>
+<tr><td><strong>持续超过 8%</strong></td><td>预警——历史数据、竞争假设或事件跟踪至少一环出了问题</td></tr>
+</table>
+<p>把偏差写进 KPI 的意义不在于惩罚，在于<strong>逼出"回头看"这个动作</strong>。</p>
+
+<h3>5.3 超标的三个常见原因</h3>
+<ol>
+<li><strong>竞争群变了但你没更新。</strong>对面新开一家同档次酒店，你的需求被分走——
+而你的模型假设市场结构没变。<strong>这是最常见也最容易忽略的一条</strong></li>
+<li><strong>异常事件没记。</strong>去年那场暴雨让数据偏低，今年预测直接沿用了被污染的历史值</li>
+<li><strong>只看历史，不看前置信号。</strong>展会、演唱会、考试季都不在历史数据里。
+<strong>没有人工修正环节的预测，准确率有天花板</strong></li>
+</ol>
+
+<h3>5.4 偏差追踪表（第四列最关键）</h3>
+<table>
+<tr><th>日期</th><th>预测值</th><th>实际值</th><th>偏差原因（一句话）</th></tr>
+<tr><td>……</td><td>……</td><td>……</td><td>"新竞品开业，分流约 15 间"</td></tr>
+</table>
+<div class="lead"><p style="margin:0"><strong>只记数字不记原因，这张表毫无价值。</strong>
+积累三个月后你会清楚看到自己的误差主要来自哪一类——然后针对性改那一条就够了。</p></div>
+
+<div class="ex">
+<div class="lbl">课堂活动 · 两周预测竞赛</div>
+<p style="margin:0">第 N 周：给历史数据，每人预测未来一周并写下依据。
+第 N+1 周：公布实际值，算偏差排名。<br>
+<strong>学生会主动追问"为什么我错了"</strong>——这个问题正是偏差分析最好的入口，
+由他们自己提出比老师提出强十倍。</p>
+</div>
+
+<!-- ===== 第6章 ===== -->
+<h2 id="sec10">第 6 章　Pickup 与在手预订</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 分清"存量"和"速度"；② 会看 Pickup 曲线三种形态并对应动作；
+③ 会设 OTB 预警的分层阈值。</p>
+</div>
+
+<h3>6.1 Pickup 是什么</h3>
+<p>某个未来日期，在"距到达还有 N 天"这个时点上，<strong>新增了多少预订</strong>。</p>
+<ul>
+<li>预测是看"<strong>已经攒了多少</strong>"</li>
+<li>Pickup 是看"<strong>今天又来了多少</strong>"</li>
+</ul>
+<p>例：7 月 20 日，距 30 天时累计在手 40 间；距 29 天时累计 52 间 → <strong>今天 Pickup = 12 间</strong></p>
+
+<h3>6.2 三种形态与对应动作</h3>
+<table>
+<tr><th style="width:26%">形态</th><th style="width:30%">含义</th><th>动作</th></tr>
+<tr><td><strong>低于去年同期</strong></td><td>需求偏弱，或你的价格偏高</td><td><strong>先排查自己</strong>（竞品价、房型是否齐全），确认是市场问题再考虑促销。别急着降价</td></tr>
+<tr><td><strong>高于同期且仍快升</strong></td><td>需求旺，惜售窗口出现</td><td><strong>关低价房型、抬价、收紧 MinLOS。</strong>不要"等着看"——低价房早被订完，抬价时已无房可卖</td></tr>
+<tr><td><strong>平淡后突然陡增</strong></td><td>发生了事件（展会官宣、演唱会开票、竞品涨价）</td><td>立刻查外部事件，确认利好就<strong>马上做价格布局</strong></td></tr>
+</table>
+
+<h3>6.3 一个必须纠正的误区</h3>
+<div class="mistake">
+<div class="lbl">只看累计在手，不看增量</div>
+<p style="margin:0">两个在手都是 100 间的日期：<br>
+A 日期：最近三天每天新增 20 间（还在快速涌入）<br>
+B 日期：最近三天每天新增 2 间（基本停滞）<br><br>
+在手一样，但 A 大概率还会涨，B 基本到顶了。<strong>Pickup 看的是速度，在手看的是存量。</strong></p>
+</div>
+
+<h3>6.4 OTB 预警：分层阈值</h3>
+<p>不要一看到落后就慌着降价。分三档：</p>
+<ul>
+<li><strong>落后 5% 以内</strong> → 观察。动手反而容易过度反应</li>
+<li><strong>落后 5%–10%</strong> → 一级动作：查竞品价、查房型是否齐全、适度放开配额或 MinLOS。
+<strong>先动"限制"，别急着降价格</strong></li>
+<li><strong>落后 10% 以上</strong> → 二级动作：考虑促销或调低 BAR，但<strong>必须设撤销条件</strong>
+（如"三天内 Pickup 回到同期则立刻调回"）</li>
+</ul>
+<p>没有撤销条件的促销，往往会一路滑坡到底。</p>
+
+<h3>6.5 致命陷阱：OTB 高不代表安全</h3>
+<div class="lead"><p style="margin:0">OTB 高可能是好事，也可能是<strong>低价堆出来的假象</strong>。<br><br>
+在手 120 间，均价 620，目标 650 → 领先，正常<br>
+在手 130 间，均价 <strong>480</strong>，目标 650 → <strong>危险</strong>：房被低价订走，后面高价房卖不动<br><br>
+<strong>所以 OTB 必须和均价一起看，缺一不可。</strong></p></div>
+
+<!-- ===== 第7章 ===== -->
+<h2 id="sec11">第 7 章　需求日历与事件日</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 会画五档需求日历；② 掌握事件日三要素与排查清单；③ 理解<strong>为什么要提前布局</strong>。</p>
+</div>
+
+<h3>7.1 需求是三个周期叠加出来的</h3>
+<ul>
+<li><strong>星期周期</strong>——商务酒店周一到周四高、周末低；度假型相反。最稳定也最易被忽略</li>
+<li><strong>季节周期</strong>——气候、假期、学期，跨度以月计</li>
+<li><strong>事件周期</strong>——展会、演唱会、考试、赛事。最不规则，但单次影响最大</li>
+</ul>
+<p><strong>只按月份切淡旺季，等于只看了第二个周期。</strong></p>
+
+<h3>7.2 怎么画需求日历</h3>
+<ol>
+<li>取去年每天的实际出租率，按星期几分组，算出星期系数</li>
+<li>标出所有节假日与假期（法定假、寒暑假、本地特有的节）</li>
+<li>叠上已知事件（展会日程、演出排期）</li>
+<li>给每天打需求等级：<strong>极低 / 低 / 中 / 高 / 极高</strong>，五档足够</li>
+</ol>
+<p>五档就够用。分到十档你会发现自己分不出来——区分度本来就没那么细。</p>
+
+<h3>7.3 事件日：三要素与排查清单</h3>
+<table>
+<tr><th style="width:18%">要素</th><th style="width:32%">要查清什么</th><th>为什么重要</th></tr>
+<tr><td><strong>确定时间</strong></td><td>具体哪几天，是否含前后延展</td><td>展会通常"布展+开展+撤展"，高峰在中间</td></tr>
+<tr><td><strong>影响半径</strong></td><td>参会人数、外地占比、消费层次</td><td>5 万人的本地活动，意义远小于 5000 人的外地高端会议</td></tr>
+<tr><td><strong>提前期</strong></td><td>客人一般提前多久订房</td><td>决定你该在什么时候完成布局</td></tr>
+</table>
+
+<h4>去哪里找事件</h4>
+<ul>
+<li><strong>会展中心官网</strong>——排期通常提前半年到一年公布，最可靠</li>
+<li><strong>演出票务平台</strong>——大型演唱会开票日就是需求启动日</li>
+<li><strong>考试院 / 教育局</strong>——考研、公考面试、艺考，都是稳定的住宿需求</li>
+<li><strong>体育赛事日程</strong>——马拉松、联赛主场</li>
+<li><strong>竞品动态</strong>——对手突然锁房或抬价，往往说明他们知道你不知道的事</li>
+</ul>
+
+<div class="case">
+<div class="lbl">案例 · 提前布局为什么有效</div>
+<p style="margin:0">某酒店在一个大型展会前<strong>很早</strong>就把 BAR 抬了上去，并把团队价拉到与 BAR 同价。
+当时出租率还很低，很多人不理解。<br>
+结果：随着时间推移出租率一路爬升，那几天的 ADR 比平时<strong>高了一倍</strong>。<br><br>
+<strong>原理：</strong>收益人员早就知道有大型展会，判断会一房难求，所以在预订流量进来之前就完成价格筛选——
+低价客被挡在外面，进来的基本都是高价客。<br>
+关键不在于"他猜中了"，而在于<strong>他提前知道了，并且敢提前动手</strong>。</p>
+</div>
+
+<h3>7.4 提前多久动手</h3>
+<div class="lead"><p style="margin:0">经验规则：<strong>在你判断的"客人开始预订"之前 2–4 周完成价格布局。</strong><br>
+太早抬价会损失常规客源；等到客流进来再提价，<strong>低价房早被订完了</strong>——
+因为客人是按价格从低到高被订走的。这就是案例中那个反直觉动作的原理：
+<strong>提前抬价不是为了"卖贵"，是为了"别把便宜房卖出去"。</strong></p></div>
+
+<h3>7.5 两个必须做的风险准备</h3>
+<ol>
+<li><strong>设撤销条件</strong>——临近日期 Pickup 明显不及预期时要有预案回调价格。写在纸上，别靠临场判断</li>
+<li><strong>警惕事件取消或延期</strong>——对单一大事件押注过重，一旦取消会很被动。
+<strong>事件日要做，但不要把全年目标压在一两个事件上</strong></li>
+</ol>
+
+<div class="ex">
+<div class="lbl">课堂练习 7-1</div>
+<p style="margin:0">给你所在城市未来 6 个月的节假日表，请排出需求等级（五档），
+并列出至少 3 个你查到的已知事件。完成后与同桌对照，讨论分歧在哪。</p>
+</div>
+
+<div class="ex">
+<div class="lbl">第一篇、第二篇 综合实训</div>
+<p style="margin:0"><strong>实训任务：给一家酒店做一次"体检 + 预测"。</strong><br>
+产出两部分：<br>
+① 指标体检——算对月度 RevPAR（加权）、三个竞争指数、指出三项风险<br>
+② 需求判断——用两种方法做下月预测、排需求等级、标出事件日<br>
+<strong>评分看三点</strong>：算得对不对 / 有没有依据 / 是否指出风险边界。</p>
+</div>
+
+
+
+
+<div class="part">
+  <div class="pn">第 三 篇 · 定 什 么 价</div>
+  <h2 id="sec12">第 8 章　BAR 与价格层级</h2>
+  <div class="desc">价格不是被"问出来"的，是体系推导出来的。没有 BAR，各渠道就是各自为政的几个数字。</div>
+</div>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 说清 BAR 是什么、为什么必须有；② 能搭一套五档价格层级；③ 理解<strong>涨价必须三件事一起动</strong>。</p>
+</div>
+
+<div class="scene">
+<div class="lbl">先回答一个问题</div>
+<p style="margin:0">客人打电话问"今天房价多少"，你们有几个答案？<br>
+如果前台、销售、OTA 给出的数字都不一样——问题不在人，在于<strong>你没有一套价格层级</strong>。</p>
+</div>
+
+<h3>8.1 BAR 是什么</h3>
+<p>BAR（Best Available Rate，最优可用房价）是<strong>当天公开渠道可售的最低公开价</strong>。</p>
+<p>它不是"最便宜的价"，也不是"平均价"，而是<strong>整个价格体系的锚点</strong>——所有其他价格都相对它推导：</p>
+<ul>
+<li>会员价 = BAR − 固定折扣</li>
+<li>协议价 = BAR − 协议折扣</li>
+<li>团队价 = 按置换分析单独评估（第 17 章）</li>
+<li>促销价 = BAR − 临时折扣（有期限）</li>
+</ul>
+
+<h3>8.2 层级搭几档、差多少</h3>
+<p>BAR 本身每天浮动，但它依附于一套<strong>固定的档位结构</strong>。建议五档：</p>
+<table>
+<tr><th style="width:16%">层级</th><th style="width:26%">适用场景</th><th style="width:18%">相对基准</th><th>同步动作</th></tr>
+<tr><td>+2 档</td><td>事件日 / 高峰</td><td>+40%–80%</td><td>关闭最低 2 个房型 + 设 MinLOS</td></tr>
+<tr><td>+1 档</td><td>需求偏高日</td><td>+15%–25%</td><td>关闭最低 1 个房型</td></tr>
+<tr><td>基准</td><td>平日标准</td><td>100%</td><td>全开</td></tr>
+<tr><td>−1 档</td><td>需求偏低日</td><td>−10%–15%</td><td>全开</td></tr>
+<tr><td>−2 档</td><td>极低需求</td><td>−25%（<strong>不低于保本点</strong>）</td><td>低于保本价立即停用</td></tr>
+</table>
+<p>档位<strong>控制在 5 档以内</strong>——太多员工记不住，执行就会走样。</p>
+<p>档位之间差多少？两条经验：</p>
+<ul>
+<li><strong>差得太小（&lt;10%）</strong> → 档位形同虚设，客人感知不到差别</li>
+<li><strong>差得太大（&gt;50%）</strong> → 相邻日期价格断层，引起客诉，也让客人学会"挑日子订"</li>
+</ul>
+
+<h3>8.3 ★ 涨价必须三件事一起动</h3>
+<div class="lead">
+<p style="margin:0"><strong>价格 + 房型 + 住期，这三件事必须同时动。</strong><br>
+只调价格不关房型，客人还是会从最低档订进来，效果至少打对折。<br><br>
+① <strong>价格</strong>：BAR 档位上调<br>
+② <strong>房型</strong>：关闭最低价房型（只涨价不关房等于没涨）<br>
+③ <strong>住期</strong>：设 MinLOS 过滤短住低价客（第 15 章）</p>
+</div>
+
+<h3>8.4 层级乱了会怎样</h3>
+<ol>
+<li><strong>渠道价格不一致</strong>——被平台抓到、被客人投诉，最容易被外部发现</li>
+<li><strong>老客户流失</strong>——他们发现自己订的比新客户贵，而原因只是你报价随机</li>
+<li><strong>内部扯皮</strong>——销售说"这个价我能卖"，收益说"不行"，谁也说服不了谁</li>
+</ol>
+<p>第三条其实最伤。<strong>有 BAR 的最大好处不是对外，是"对内有个共同语言"。</strong></p>
+
+<!-- ===== 第9章 ===== -->
+<h2 id="sec13">第 9 章　房型价差与保本点</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 会把价差拆成四个维度；② 用售出结构和升级转化率校验价差；
+③ 会算保本房价，并知道<strong>它是底线不是售价</strong>。</p>
+</div>
+
+<h3>9.1 价差不是拍脑袋来的</h3>
+<p>"高级房比标准房贵 100，豪华房再贵 100"——如果答案是"一直这么定的"，那大概率错了。
+先把价差拆成四个维度：</p>
+<table>
+<tr><th style="width:16%">维度</th><th style="width:32%">典型差距</th><th>这部分值多少</th></tr>
+<tr><td>面积</td><td>28㎡ vs 38㎡</td><td>可折算，但<strong>边际递减</strong>——40→50 的感知远小于 25→35</td></tr>
+<tr><td>景观/朝向</td><td>城景 vs 江景、高层 vs 低层</td><td>度假型权重最高，商务型较低</td></tr>
+<tr><td>床型/配置</td><td>大床 vs 双床、有无浴缸</td><td>影响客群匹配，<strong>不必然是"更好"</strong></td></tr>
+<tr><td>附加权益</td><td>含早、行政待遇、延迟退房</td><td><strong>最容易量化</strong>——按成本加一点溢价</td></tr>
+</table>
+<p>拆开后你会发现：<strong>有些价差其实站不住</strong>——比如"双床房比大床房贵 80"，
+但双床并不比大床成本更高，它只是适合不同客群。</p>
+
+<h3>9.2 校验方法一：售出结构</h3>
+<ul>
+<li><strong>低价房型售出占比 &gt;70%</strong> → 价差可能<strong>偏大</strong>，客人觉得升级不值</li>
+<li><strong>高价房型售出占比过高</strong> → 价差可能<strong>偏小</strong>，升级太划算，你在少收钱</li>
+<li><strong>比较健康</strong>：各房型售出占比大致接近其房量占比</li>
+</ul>
+<p>注意排除"没房可卖"的干扰——高价房型本来就只有 5 间时，占比低是正常的。</p>
+
+<h3>9.3 校验方法二：升级转化率</h3>
+<p>看客人被推荐升级时的<strong>接受率</strong>：接受率很高（&gt;50%）说明升级太便宜，价差可以拉大；
+很低（&lt;10%）说明要么价差太大，要么话术有问题。这个数据<strong>直接反映客人的支付意愿</strong>，
+比任何内部讨论都客观。</p>
+
+<h3>9.4 保本点怎么算</h3>
+<div class="calc">
+边际贡献 = 实收房价 − 渠道成本 − 边际成本<br><br>
+例：房价 300，OTA 佣金 15%（45），边际成本 80<br>
+边际贡献 = 300 − 45 − 80 = <strong>175</strong>（只要为正，就比空着强）<br><br>
+<b>最低可接受房价 = 边际成本 ÷ (1 − 渠道费率)</b><br>
+OTA：80 ÷ (1 − 15%) = 80 ÷ 0.85 ≈ <strong>94 元</strong><br>
+直销：80 ÷ (1 − 2%) ≈ <strong>82 元</strong>
+</div>
+<p><strong>同样低的价，直销渠道能做、OTA 不能做</strong>——这就是渠道净值重要的原因。</p>
+
+<h3>9.5 三个可以破例的情况</h3>
+<ol>
+<li><strong>会带来二次消费</strong>——会议、团队客人房价低但餐饮会场能补回。要看整体贡献</li>
+<li><strong>能填极低的空档</strong>——员工在岗、设备在运行，边际成本可能被摊薄</li>
+<li><strong>战略性新客获取</strong>——但<strong>必须明确这是获客成本，从市场费用里出</strong>，不能算进客房收益</li>
+</ol>
+
+<div class="mistake">
+<div class="lbl">最常见的误用</div>
+<p style="margin:0"><strong>把保本点当成"建议售价"。</strong>这是危险的——保本点是底线不是目标。
+长期在保本点附近卖，酒店不会盈利，只会看起来很忙。<br>
+<strong>保本点的正确用法是：用来拒绝那些不该接的单子，而不是用来定价。</strong></p>
+</div>
+
+<!-- ===== 第10章 ===== -->
+<h2 id="sec14">第 10 章　什么时候该涨价</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 知道为什么"看出租率调价"是错的；② 会用三个前置信号判断；③ 掌握提前量与涨幅原则。</p>
+</div>
+
+<h3>10.1 先说大多数酒店的做法</h3>
+<div class="scene">
+<div class="lbl">常见的 SOP（也是错的）</div>
+<p style="margin:0">出租率到 <strong>60%</strong> → 价格换一档<br>
+出租率到 <strong>80%</strong> → 再上一档</p>
+</div>
+<p>逻辑是"看着 OTB 涨，我跟着提价"。听起来合理，问题在于<strong>这个动作发生得太晚了</strong>。</p>
+<p>当出租率已经到 80%，意味着愿意以当前价格入住的客人大部分已经订完了。
+<strong>你现在提价，能影响的只剩最后那 20% 的房——而真正该高价卖的那些房，早就被订走了。</strong></p>
+<p>更麻烦的是：如果监控门槛设得少、档位粗，等你反应过来，<strong>可能已经没多少库存能按新价卖了</strong>。</p>
+
+<h3>10.2 正确的做法：看三个前置信号</h3>
+<p>出租率是<strong>结果指标</strong>，它告诉你已经发生了什么。要提前判断，得看前置信号：</p>
+<table>
+<tr><th style="width:20%">信号</th><th style="width:30%">看什么</th><th>触发条件</th></tr>
+<tr><td><strong>Pickup 速度</strong></td><td>近期每天新增预订量 vs 去年同期</td><td>连续 2–3 天明显高于同期</td></tr>
+<tr><td><strong>同期对比</strong></td><td>OTB 相对去年同期的完成率</td><td>领先幅度<strong>在扩大</strong>（不是首次领先）</td></tr>
+<tr><td><strong>剩余房量</strong></td><td>高档房型还剩多少可售</td><td>低价房型售出超过某个比例</td></tr>
+</table>
+<p><strong>三个里至少满足两个才动手。</strong>只满足一个，通常是噪音。</p>
+
+<h3>10.3 提前多久、涨多少</h3>
+<ul>
+<li><strong>提前量</strong>：在客人开始大量预订之前 2–4 周完成布局。
+原理（第 7 章）：客人按价格从低到高被订走，你晚一天抬价就多一批房以低价卖掉</li>
+<li><strong>小幅多次优于一次大涨</strong>：一次涨 20% 容易吓跑客人，也难以下调。
+分两三次、每次 8%–10%，观察反应再决定</li>
+<li><strong>涨幅上限</strong>：单日不超过前一档的 25%，除非是明确事件日</li>
+</ul>
+
+<div class="mistake">
+<div class="lbl">常见错误</div>
+<ul style="margin:0">
+<li><strong>看出租率调价</strong>——太晚，低价房早被订走</li>
+<li><strong>只调价格不关房型</strong>——效果打对折</li>
+<li><strong>一次涨太多</strong>——难以下调，也容易吓跑客人</li>
+</ul>
+</div>
+
+<!-- ===== 第11章 ===== -->
+<h2 id="sec15">第 11 章　竞品降价了，跟不跟</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 会做"是否真降价"的四步排查；② 会用判断矩阵；③ 知道什么时候坚决不跟。</p>
+</div>
+
+<p>早上巡价，发现对面降了 60 块。第一反应通常是"要不要跟"。
+<strong>我的建议是：先别急着回答这个问题，因为它问错了。</strong>正确顺序是三步。</p>
+
+<h3>11.1 第一步：确认是不是真降价</h3>
+<p>巡价看到的"降价"，有相当比例是假象。先排查四种：</p>
+<ul>
+<li><strong>换了房型在比</strong>——他挂基础房，你比的是高级房</li>
+<li><strong>换了渠道在比</strong>——只在某个 OTA 做活动，其他渠道没降</li>
+<li><strong>是促销码 / 会员价</strong>——普通客人看不到这个价</li>
+<li><strong>是打包价</strong>——含早含权益，拆开算不一定便宜</li>
+</ul>
+<div class="lead"><p style="margin:0"><strong>这一步能过滤掉大约一半的"降价"。</strong>很多人跳过了它，白白跟着降了一轮。</p></div>
+
+<h3>11.2 第二步：看自己，不看对手</h3>
+<ol>
+<li><strong>你的 OTB 同期对比</strong>——本来就领先同期，说明需求没问题，对手降价可能是他自己的问题</li>
+<li><strong>你的 Pickup 速度</strong>——还在正常涌入，说明你的价格客人是接受的</li>
+</ol>
+<p>这两个数正常，就<strong>先观察 2–3 天</strong>。很多时候对手一周后就调回来了。</p>
+
+<h3>11.3 第三步：才决定跟不跟、跟多少</h3>
+<table>
+<tr><th style="width:28%">你的情况</th><th style="width:20%">对手降幅</th><th>建议动作</th></tr>
+<tr><td>OTB 领先、Pickup 正常</td><td>任意</td><td><strong>不跟</strong>，观察</td></tr>
+<tr><td>落后但差距稳定</td><td>&lt;5%</td><td>不跟价，改用非价格手段（加权益、放宽 MinLOS）</td></tr>
+<tr><td>落后且差距扩大</td><td>5%–15%</td><td><strong>部分跟</strong>：跟一半，且只跟部分房型</td></tr>
+<tr><td>大幅落后、Pickup 停滞</td><td>&gt;15%</td><td>跟，但<strong>设撤销条件</strong></td></tr>
+</table>
+
+<h3>11.4 两个关键细节</h3>
+<ul>
+<li><strong>"部分跟"是什么意思？</strong>不要全渠道全房型跟降。常见做法：<strong>只调低最低档房型</strong>，
+保持高档房型不动。能保住入口竞争力，又不至于把整体均价拉下去</li>
+<li><strong>什么时候坚决不跟？</strong>① 你的产品明显优于对手（降价是在浪费优势）；
+② 对手在清库存（即将装修、换品牌）；③ 降价会跌破你的保本点</li>
+</ul>
+<div class="lead"><p style="margin:0">不要养成"对手动我就动"的习惯——<strong>那等于把定价权交给对手</strong>。
+每一次跟价都应有明确理由和退出条件，写下来。</p></div>
+
+<!-- ===== 第12章 ===== -->
+<h2 id="sec16">第 12 章　折扣、套餐与促销的边界</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 分清折扣与降价；② 知道折扣的三种合理用途与两个危险信号；
+③ 会设停止与撤销条件；④ <strong>理解动态定价的伦理边界</strong>。</p>
+</div>
+
+<div class="ethics">
+<div class="lbl">本章含课程思政内容：价格伦理</div>
+<p style="margin:0">这一节的学习风险是：学完之后以为收益管理就是"看人下菜碟、能宰就宰"。
+这不只是理解偏差，也是职业伦理隐患。所以<strong>必须先立边界，再讲方法</strong>。</p>
+</div>
+
+<h3>12.1 折扣 ≠ 降价</h3>
+<ul>
+<li><strong>降价</strong>——公开价格调整，所有人可见，<strong>会改变客人对这家酒店的价值认知</strong></li>
+<li><strong>折扣</strong>——针对特定人群或条件的让利，有边界有期限，<strong>不改变公开价</strong></li>
+</ul>
+<p>混淆二者的后果：一个本该做成"限时折扣"的动作，被做成了"公开降价"，结果价格再也回不去了。</p>
+
+<h3>12.2 折扣只有三种合理用途</h3>
+<ol>
+<li><strong>清库存</strong>——某几天明显卖不动，房晚过期就归零，低价换一点收入是划算的</li>
+<li><strong>填淡季</strong>——需求极低时期，只要高于边际成本，多卖一间就是净赚</li>
+<li><strong>锁早鸟</strong>——用折扣换"提前确定"，降低你的预测不确定性</li>
+</ol>
+<p>注意第三种：<strong>早鸟折扣买的不是量，是确定性</strong>。讲清这个逻辑，销售部就不会把早鸟价当成常规低价乱放。</p>
+
+<h3>12.3 两个危险信号</h3>
+<ul>
+<li><strong>客人开始"等折扣"</strong>——表现为临近日期的预订占比异常升高，或老客人在前台询问"最近有活动吗"</li>
+<li><strong>不打折就卖不动</strong>——说明公开价已被自己打穿，客人锚定的不再是原价而是折扣价</li>
+</ul>
+<p>这两条一旦成立，修复成本远高于当初打折换来的收益。</p>
+
+<h3>12.4 停止条件三要素</h3>
+<table>
+<tr><th style="width:22%">要素</th><th>写法示例</th></tr>
+<tr><td><strong>适用期限</strong></td><td>"仅 6 月 1–20 日入住"</td></tr>
+<tr><td><strong>适用房型</strong></td><td>"仅标准房，不含套房"</td></tr>
+<tr><td><strong>撤销条件</strong></td><td>"该日期 OTB 回到同期 95% 以上立即停售"</td></tr>
+</table>
+<p><strong>第三行最容易漏，也最重要。</strong>没有撤销条件的折扣，基本都会一直放到活动结束——哪怕市场早就不需要了。</p>
+
+<h3>12.5 动态定价：先立三条边界</h3>
+<div class="ethics">
+<div class="lbl">这三条要写在课件第一页</div>
+<p style="margin:0">① <strong>不是趁火打劫</strong>——灾情、事故等场景下不涨价，这是底线，也是很多酒店的实际做法<br>
+② <strong>不是价格歧视</strong>——价格差异来自"购买条件不同"（提前多久订、能否取消），不是"看人报价"<br>
+③ <strong>不是无限上浮</strong>——有档位、有上限，超出档位就是违规</p>
+</div>
+<p>讲清楚这三条，学生才会把动态定价理解成<strong>一种资源分配机制</strong>，而不是宰客技巧。</p>
+<p><strong>价格差异真正来自哪里？</strong>四条：购买时间不同、取消条件不同、产品不同、需求量不同。
+<strong>四条里没有一条是"看人报价"。</strong></p>
+
+<h3>12.6 套餐与打包</h3>
+<p>套餐不是打折。真正的套餐做的是<strong>改变客人比较的参照物</strong>：</p>
+<ul>
+<li>单独看房价 600 时，客人比较的是"对面那家 550"（横向比价，你很难赢）</li>
+<li>打包成 780 并标出"单买合计 900"，客人比较的是"780 换 900 的东西"（纵向比价，参照物是你给的）</li>
+</ul>
+<p><strong>必须把单品原价标出来</strong>——不标，锚定就不成立。</p>
+<div class="lead"><p style="margin:0">套餐的价值不在"多卖了早餐"，在于<strong>用一个更高的总价成交了同一间房</strong>。<br>
+高档房型别轻易打包（套房客人对"省了多少"不敏感，反而觉得被塞了一堆不需要的东西）；
+旺季也别打包（旺季要做的是惜售，不是促销）。</p></div>
+
+<!-- ===== 第13章 ===== -->
+<h2 id="sec17">第 13 章　全年价格日历</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 会把需求日历转成价格日历；② 掌握四步做法；③ 理解"只处理例外"的工作方式。</p>
+</div>
+
+<p>如果你每天早上都要"看看今天该卖多少钱"，那你的工作方式本身就有问题。
+最理想的状态是：<strong>大部分日期的价格早就定好了，你每天只处理例外。</strong></p>
+
+<h3>13.1 从需求日历到价格日历</h3>
+<ol>
+<li><strong>需求日历</strong>——给每天打需求等级（第 7 章）</li>
+<li><strong>价格日历</strong>——每个需求等级对应一个 BAR 档位（第 8 章）</li>
+</ol>
+<p>映射一旦建立，你就能在年初把整年的价格一次排出来。</p>
+
+<h3>13.2 四步做法</h3>
+<ul>
+<li><strong>第一步：填日期属性</strong>——星期几、是否节假日、前后是否连休</li>
+<li><strong>第二步：填需求等级</strong>——星期系数 + 季节档 + 已知事件</li>
+<li><strong>第三步：套价格档位</strong>——每个等级对应一个 BAR 档</li>
+<li><strong>第四步：检查相邻价差</strong>——凡是相邻两天价差超过 30% 的，标黄复查（通常是等级跳得太硬）</li>
+</ul>
+<p>工作量大概半天，一年做一到两次。</p>
+
+<h3>13.3 之后每天做什么</h3>
+<ul>
+<li><strong>每天只处理三类例外</strong>：新出现的事件、Pickup 明显偏离预期、竞品有大动作</li>
+<li><strong>其余日期按日历执行</strong>，不动</li>
+</ul>
+<p>这个转变很重要：没有日历的人，每天都在做 365 个决策；有日历的人，每天只做 2–3 个。</p>
+
+<h3>13.4 两个实操提醒</h3>
+<ul>
+<li><strong>日历要留"待定"档</strong>——年初看不清的日期标待定，接近了再定。强行填一个数反而有害</li>
+<li><strong>每月复盘偏离率</strong>——统计有多少天的实际价格偏离了日历。
+<strong>如果偏离率超过 30%，说明你的需求等级判断有问题</strong>，该回去修需求日历，而不是继续修价格</li>
+</ul>
+
+<div class="ex">
+<div class="lbl">第三篇 综合实训（本书最重要的实训之一）</div>
+<p style="margin:0"><strong>任务：给一家酒店排出完整一个季度的价格日历。</strong><br>
+步骤：① 按星期分组算系数 → ② 标节假日与事件 → ③ 打需求等级 → ④ 套五档 BAR → ⑤ 检查相邻价差。<br>
+<strong>交付：一张 90 天的价格表 + 一页说明（你为什么这么排）。</strong><br>
+<strong>评分</strong>：高低点是否对齐需求（40%）／价差是否合理（30%）／说明是否有依据（30%）。<br>
+<em>这是最好的期末作业之一——做完你会第一次体会到"体系"是什么：不是每天想一次，而是建一次、用一年。</em></p>
+</div>
+
+<div class="ex">
+<div class="lbl">自测（第三篇）</div>
+<ol style="margin:0">
+<li>BAR 是什么？为什么说它是"锚点"而不是"最低价"？</li>
+<li>涨价为什么要"价格 + 房型 + 住期"三件一起动？</li>
+<li>保本点的正确用法是什么？举一个"低于保本价也该接"的例外</li>
+<li>为什么"出租率到 80% 才提价"是错的？正确的三个前置信号是什么？</li>
+<li>竞品降价时，第一步该做什么？说出四步排查</li>
+<li>折扣和降价的区别？为什么撤销条件最重要？</li>
+<li>动态定价的三条伦理边界是什么？价格差异真正来自哪四条？</li>
+</ol>
+</div>
+
+
+
+
+<div class="part">
+  <div class="pn">第 四 篇 · 留 多 少 房</div>
+  <h2 id="sec18">第 14 章　库存分配与客源配额</h2>
+  <div class="desc">房是固定的，今天卖不掉，这份收入就永久消失。收益管理真正难的问题不是"定多少钱"，是"把这间房给谁"。</div>
+</div>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 理解为什么"先到先得"是最差的分配；② 掌握三层分配结构；③ 会按"价值 × 确定性"排优先级。</p>
+</div>
+
+<h3>14.1 先到先得的问题</h3>
+<p>很多酒店的实际做法就是：谁先订给谁，直到卖完。需求平缓时问题不大，
+但<strong>一旦某天需求旺盛，你就会把房卖给最早来的低价客</strong>，后面愿意付更多的客人进不来。</p>
+
+<h3>14.2 三层分配结构</h3>
+<table>
+<tr><th style="width:16%">层级</th><th style="width:28%">控制什么</th><th>典型做法</th></tr>
+<tr><td><strong>房型保护</strong></td><td>高档房型不给低价渠道</td><td>套房、行政房不在 OTA 开放，仅直销或会员</td></tr>
+<tr><td><strong>客源配额</strong></td><td>每类客人最多放多少间</td><td>OTA 每日上限 20 间，团队上限 30 间</td></tr>
+<tr><td><strong>渠道配额</strong></td><td>每个渠道各分多少</td><td>按净值高低分配，高净值渠道多给</td></tr>
+</table>
+<p>三层<strong>从上到下逐级收紧</strong>。顺序反了会出现"配额设了但房型没保护，低价客照样住进套房"。</p>
+
+<h3>14.3 优先级依据什么排</h3>
+<p>只用两个维度：</p>
+<ul>
+<li><strong>价值</strong>——这个客人带来的净值高低（第 18 章）</li>
+<li><strong>确定性</strong>——这笔生意兑现的概率（取消率、no-show 率）</li>
+</ul>
+<table>
+<tr><th style="width:22%">客源</th><th style="width:20%">支付意愿</th><th style="width:18%">确定性</th><th>管理重点</th></tr>
+<tr><td>散客·直销/会员</td><td>高</td><td>中</td><td><strong>优先保护</strong>，不设限</td></tr>
+<tr><td>散客·OTA</td><td>中</td><td>低</td><td>设配额，需求旺时收紧</td></tr>
+<tr><td>协议公司</td><td>中低</td><td>高</td><td>控量，避开高峰日</td></tr>
+<tr><td>团队/会议</td><td>低（量大）</td><td>高</td><td><strong>用置换分析判断</strong></td></tr>
+<tr><td>批发/包销</td><td>最低</td><td>最高</td><td>只用于填底，旺季关闭</td></tr>
+</table>
+<p><strong>只给中低价值的客源设上限</strong>——高价值客源来多少收多少。分 4–6 类即可，超过 8 类每类样本太小、没法分别管理。</p>
+
+<h3>14.4 分配算例</h3>
+<div class="calc">
+某日可售 100 间，预计需求旺盛：<br>
+· 直销/会员（净值最高）→ <b>不设上限</b>，优先满足<br>
+· OTA（净值中等）→ 配额 <b>30 间</b><br>
+· 团队/批发 → 仅在 OTB 明显落后时开放<br>
+· 套房（8 间）→ OTA 不开放，仅直销<br><br>
+若 Pickup 显示需求走强 → 先把 OTA 配额降到 15，再逐步关闭最低价房型
+</div>
+
+<div class="mistake">
+<div class="lbl">常见错误</div>
+<ul style="margin:0">
+<li><strong>设完不调</strong>——每周应复检：长期用满→放量或提价；长期用不满→收回</li>
+<li><strong>配额用完就停售</strong>——<strong>应自动切到更高价档，而不是关门</strong>。这是实操中最常见的设置有误</li>
+<li><strong>给所有客源都设上限</strong>——包括最高价值的会员，那就错了</li>
+</ul>
+</div>
+
+<!-- ===== 第15章 ===== -->
+<h2 id="sec19">第 15 章　MinLOS 与住期控制</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 知道 MinLOS 的两种用法；② 会判断何时设、设几天；③ <strong>理解撤销条件为什么不能省</strong>。</p>
+</div>
+
+<h3>15.1 两种完全不同的用法</h3>
+<ul>
+<li><strong>用法一：保库存</strong>——要求住满 N 晚，把只住 1 晚的客人挡在外面，避免"住一晚占掉房、第二天没人接上"</li>
+<li><strong>用法二：变相提价</strong>——房价不动，但要求住 2 晚，实际客单变成两倍</li>
+</ul>
+<p>第二种特别适合<strong>不便公开涨价的时候</strong>（有协议价约束、怕引起客诉）。</p>
+
+<h3>15.2 什么时候设</h3>
+<table>
+<tr><th style="width:26%">场景</th><th style="width:18%">建议</th><th>说明</th></tr>
+<tr><td>事件日 / 高峰期</td><td>2–3 晚</td><td>需求充足，过滤短住客</td></tr>
+<tr><td>周末（度假型）</td><td>2 晚</td><td>周六单晚是浪费</td></tr>
+<tr><td>中间有低需求日</td><td>跨低日 3 晚</td><td>把低谷日"绑"进高需求日一起卖</td></tr>
+<tr><td>平日、需求平淡</td><td><strong>不设</strong></td><td>设了只会挡掉生意</td></tr>
+</table>
+<p>第三条是高级用法：如果周四周六高、周五低，可以对周四设 MinLOS 3 晚（覆盖周四到周六），顺带把周五卖掉。</p>
+
+<h3>15.3 设几晚、何时撤</h3>
+<ul>
+<li><strong>先设 2 晚看效果</strong>，不要一上来 3 晚。2 晚能解决大部分问题，客人抵触也小</li>
+<li><strong>设了就要设撤销条件</strong>——临近日期（提前 3–5 天）OTB 仍落后就撤掉。
+<strong>临期还在挡客人是最常见也最不该犯的错</strong></li>
+<li><strong>只在高需求日设</strong>。全年常设 MinLOS 的酒店，基本都是在自伤</li>
+</ul>
+
+<div class="calc">
+设错的代价：某日设 MinLOS 2 晚，20 个只住 1 晚的询价被挡，
+按历史转化能成交 8 间、均价 500 → <b>少赚 4,000</b>。
+若当天需求其实没那么旺，这 4,000 就是净损失，还丢了 8 个潜在新客。<br><br>
+<b>判断标准：你有把握当天不放 MinLOS 也能卖满，才设它。</b>
+</div>
+
+<!-- ===== 第16章 ===== -->
+<h2 id="sec20">第 16 章　超额预订的上限</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 理解超售是"对冲预订不履行"；② 会算上限并留缓冲；③ 知道哪些渠道绝不能超售；
+④ <strong>能说清兑现不了时怎么处理</strong>。</p>
+</div>
+
+<div class="ethics">
+<div class="lbl">本章含课程思政内容：职业伦理与责任</div>
+<p style="margin:0">学生最容易问："这不就是坑客人吗？"——这个问题必须先解决，否则后面讲什么都听不进去。</p>
+</div>
+
+<h3>16.1 先解决伦理问题</h3>
+<ol>
+<li><strong>超售不是欺骗，是对冲。</strong>因为有取消和 no-show，不超售的结果是房间白白空着——
+而空房的成本最终会摊到所有客人身上</li>
+<li><strong>行业里所有航空公司都在做</strong>，酒店做得更保守。不是某家酒店的"骚操作"，是通行做法</li>
+<li><strong>关键在怎么处理兑现不了的情况。</strong>正规做法是升级或妥善安置并补偿，<strong>而不是把人赶走</strong>。
+这才是一家酒店专业与否的分水岭</li>
+</ol>
+<p>第三点是重点。把话题从"该不该超售"转向"超售了怎么负责"，抵触会明显降低。</p>
+
+<h3>16.2 算上限需要三个数</h3>
+<table>
+<tr><th style="width:18%">输入</th><th style="width:32%">怎么取</th><th>注意</th></tr>
+<tr><td><strong>取消率</strong></td><td>过去 90 天 取消间夜 ÷ 预订间夜</td><td>分渠道取，OTA 和直销差很多</td></tr>
+<tr><td><strong>no-show 率</strong></td><td>过去 90 天 未到间夜 ÷ 应到间夜</td><td>同样分渠道</td></tr>
+<tr><td><strong>步行成本</strong></td><td>安置一个客人的代价</td><td>房费 + 交通 + 补偿 + 口碑折损</td></tr>
+</table>
+
+<h3>16.3 算例</h3>
+<div class="calc">
+100 间房，某日预计满房：取消率 8%（8 间）+ no-show 3%（3 间）= 预计不兑现 <b>11 间</b><br><br>
+成本对比：<br>
+· 少补 1 间 → 空房损失 = 房价 500<br>
+· 多补 1 间且兑现不了 → 步行成本 ≈ 500 + 100 + 200 + 口碑 300 = <b>1,100</b><br><br>
+<b>步行成本是空房损失的 2 倍多 → 不能按预计数满打满算地超售。</b><br>
+安全做法：11 × 约 60% ≈ <b>6–7 间</b>，留 4 间缓冲。
+</div>
+<p>那个 60% 不是精确公式，是<strong>风险偏好</strong>。步行成本越高（高端酒店、位置偏、替代酒店少），
+比例应越低；反之可以激进些。</p>
+
+<h3>16.4 分渠道超售，别一刀切</h3>
+<ul>
+<li><strong>预付不可取消的渠道</strong> → 取消率接近 0，<strong>绝对不能超售</strong></li>
+<li><strong>OTA 免费取消</strong> → 取消率高，是超售的主要来源</li>
+<li><strong>团队</strong> → 有确定截止时间，按协议处理</li>
+</ul>
+<div class="mistake">
+<div class="lbl">必纠偏</div>
+<p style="margin:0"><strong>只对高取消率的渠道超售。</strong>对不可取消的订单也超售，
+那不是超售，是纯粹的<strong>过度预订</strong>——不是在管理风险，是在制造风险。</p>
+</div>
+
+<h3>16.5 三个必须有的配套动作</h3>
+<ol>
+<li><strong>到店前一天复核一次</strong>——重新看实际在手，调整超售量</li>
+<li><strong>准备好安置方案</strong>——提前谈好 2–3 家同档或更高档的协作酒店，别到晚上临时找</li>
+<li><strong>升级而不是外送</strong>——店里还有更高房型就优先免费升级；外送是最后手段。
+<strong>升级比外送成本低得多，而且口碑是正的</strong></li>
+</ol>
+
+<!-- ===== 第17章 ===== -->
+<h2 id="sec21">第 17 章　置换分析：团队该不该接</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 会算三个数并得出结论；② <strong>理解"同样的价换个日期结论可能相反"</strong>；
+③ 能把分析过程讲给销售听。</p>
+</div>
+
+<div class="scene">
+<div class="lbl">先自己答</div>
+<p style="margin:0">销售拿来一个团队询价：50 间、2 晚、每间 300 元。接不接？<br>
+<em>（提示：现在你手上的散客价是 450。先写下答案，再往下读。）</em></p>
+</div>
+
+<p>多数人会答"不接，太便宜了"——因为 300 &lt; 450。这个判断<strong>很可能让你错失一笔赚钱的生意</strong>。</p>
+
+<h3>17.1 真正要问的问题</h3>
+<p>不是"这个价低不低"，而是<strong>这批团队会挤掉谁</strong>。</p>
+<p>如果这些房本来就会空着，哪怕 200 元也是净赚；如果它们会挤掉散客，300 元可能确实不够。
+<strong>关键变量是"被挤掉的散客到底能卖掉多少"。</strong></p>
+
+<h3>17.2 三个数</h3>
+<div class="calc">
+① 团队总收入 = 团队价 × 间数 × 晚数 + 附加消费（餐饮、会场等）<br>
+② 被置换的散客价值 = 预计能卖掉的散客间夜 × 散客均价<br>
+③ 置换净收益 = ① − ②　（<b>正数才接</b>）
+</div>
+
+<h3>17.3 同一案例，两个日期</h3>
+<div class="calc">
+<b>情形一：平日，预计出租率 65%</b><br>
+团队收入 = 50 × 2 × 300 = 30,000<br>
+被置换散客 = 100 间夜 × 450 × 60%（卖不满）= 27,000<br>
+净收益 = +3,000 → <b>可以接</b><br><br>
+<b>情形二：事件日，预计满房</b><br>
+团队收入 = 30,000（不变）<br>
+被置换散客 = 100 × 450 × 95% = 42,750<br>
+净收益 = −12,750 → <b>不能接</b>
+</div>
+<div class="lead"><p style="margin:0"><strong>同样的团队、同样的价格，换个日期结论完全相反。</strong>
+这就是置换分析的精髓——它不是一个固定的价，是一个<strong>随日期变化的判断</strong>。</p></div>
+
+<h3>17.4 三个常见错误</h3>
+<ol>
+<li><strong>忽略附加消费</strong>——团队常带餐饮和会场，毛利率往往高于客房。算总贡献，别只算房费</li>
+<li><strong>用"现在满房"代替"那天会满房"</strong>——团队通常提前很久，要判断的是<strong>入住那几天</strong>的需求</li>
+<li><strong>忘了算取消风险</strong>——合同要写明<strong>递减条款</strong>（如提前 30 天可减 10%，之后不可减）</li>
+</ol>
+
+<h3>17.5 接不接之外的第三个选项</h3>
+<p>置换分析还有一个用途：<strong>还价</strong>。如果算出来是负的但差距不大，你可以报更高的价（如 350），
+或者要求"减少房间数但延后入住日期"。<strong>把分析过程讲给销售听，谈判会容易很多</strong>——
+因为有依据，不是在拍脑袋拒绝。</p>
+
+<div class="lead"><p style="margin:0">分析能力要<strong>转化成沟通能力</strong>，否则在工作中用不上。这是本章最重要的能力终点。</p></div>
+
+<!-- ===== 第五篇 ===== -->
+<div class="part">
+  <div class="pn">第 五 篇 · 从 哪 卖</div>
+  <h2 id="sec22">第 18 章　渠道净值</h2>
+  <div class="desc">OTA 佣金 15%，所以 500 元的房到手 425——这个算法几乎人人都会，也几乎人人算少了。</div>
+</div>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 掌握渠道成本的完整口径（五项）；② 会算净值；③ 理解"净值低不等于该关"。</p>
+</div>
+
+<h3>18.1 完整的成本口径</h3>
+<table>
+<tr><th style="width:20%">成本项</th><th style="width:22%">典型幅度</th><th>说明</th></tr>
+<tr><td><strong>佣金</strong></td><td>10%–20%</td><td>最显眼的一项</td></tr>
+<tr><td><strong>支付/结算手续费</strong></td><td>0.6%–1%</td><td>各渠道都有，不只是 OTA</td></tr>
+<tr><td><strong>积分与促销成本</strong></td><td>2%–8%</td><td>平台会员积分、满减、优惠券——<strong>最容易漏</strong></td></tr>
+<tr><td><strong>取消损失</strong></td><td>按各渠道取消率折算</td><td>取消率高的渠道隐性成本大</td></tr>
+<tr><td><strong>获客成本分摊</strong></td><td>视投入而定</td><td>直销要分摊网站、广告、运营</td></tr>
+</table>
+
+<h3>18.2 算一遍</h3>
+<div class="calc">
+某房 500 元：<br>
+<b>OTA：</b>500 − 佣金 15%(75) − 支付 0.6%(3) − 积分促销 5%(25) = <b>397</b><br>
+<b>直销官网：</b>500 − 支付 0.6%(3) − 积分 2%(10) − 获客分摊 20 = <b>467</b><br>
+<b>批发商净价：</b>结算价 350 = <b>350</b><br><br>
+差距：直销比 OTA 多 <b>70 元/间</b>，比批发商多 <b>117 元/间</b><br>
+<b>你以为的"15%"其实是 20.6%。</b>
+</div>
+
+<h3>18.3 净值低的渠道该不该关</h3>
+<p><strong>不一定——这是净值表最容易误用的地方。</strong>判断标准不是净值高低，而是<strong>它带来的是不是增量</strong>：</p>
+<ul>
+<li><strong>是增量</strong>（这些客人本来不会来）→ 净值低也值得做。15% 佣金换来一个本来不存在的客人，很划算</li>
+<li><strong>不是增量</strong>（只是把直销客人转移到 OTA）→ 净值再高也是损失</li>
+</ul>
+<p>怎么判断？看一个信号：<strong>关闭或收紧该渠道后，总体入住率是否明显下降。</strong>
+如果没降，说明那些客人本来会通过别的渠道来——那这个渠道是在分流，不是在增量。
+可以做小范围测试（某渠道配额减半，观察两周）。</p>
+
+<h3>18.4 净值表怎么用</h3>
+<p>净值最大的用处不是"关渠道"，而是<strong>分配库存</strong>（第 14 章）：高净值渠道多给房，低净值渠道给配额。
+这比单纯提价更有效，而且是每天都在发生的决策。</p>
+
+<!-- ===== 第19章 ===== -->
+<h2 id="sec23">第 19 章　直销与会员</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 知道直销的四项成本；② 会算会员价的真实让利；③ 理解"该看总渠道成本，不是直销占比"。</p>
+</div>
+
+<h3>19.1 直销不是零成本</h3>
+<ul>
+<li><strong>获客成本</strong>——网站流量、搜索广告、内容运营。OTA 是"客人已经在那里"，直销是"你得把人拉过来"</li>
+<li><strong>系统与维护</strong>——预订引擎、官网、小程序，都是持续投入</li>
+<li><strong>会员权益成本</strong>——折扣、积分兑换、免费升级、延迟退房</li>
+<li><strong>服务成本</strong>——直销客人往往直接联系酒店，服务响应更重</li>
+</ul>
+
+<h3>19.2 会员折扣到底有多贵</h3>
+<div class="calc">
+某会员价：房价 500 打 9 折 = 450<br>
+· 直接少收 <b>50</b><br>
+· 积分回赠约 5%（25，未来要兑换）<br>
+· 免费早餐（成本 40）或延迟退房（成本近 0）<br><br>
+实际让利可达 <b>75–115 元/间</b>，相当于 <b>15%–23%</b>
+</div>
+<p><strong>一个"9 折会员价"的真实成本可能接近甚至超过 OTA 的 15% 佣金。</strong>这就是不能只看名义折扣的原因。</p>
+
+<h3>19.3 什么时候直销真的更划算</h3>
+<ol>
+<li><strong>客人本来就会来</strong>——老客、复购、会议客户。不用付获客成本，省下的就是佣金</li>
+<li><strong>能建立长期关系</strong>——这次直销，下次还是直销</li>
+<li><strong>附带消费高</strong>——直销客人更容易加购餐饮、SPA、升级</li>
+</ol>
+<p>反过来，<strong>为拉新客而给的大额折扣，本质就是买流量的钱</strong>——它和投广告是一类支出。</p>
+
+<div class="mistake">
+<div class="lbl">最常见的误判</div>
+<p style="margin:0"><strong>为了直销占比，牺牲了整体收益。</strong><br>
+典型表现：给会员的折扣越来越深，直销占比数字好看，但<strong>整体平均房价在降</strong>。<br>
+正确做法：<strong>看"总渠道成本"，而不是"直销占比"</strong>。只要总成本在降、收益在涨，直销占比低一点也没关系。</p>
+</div>
+
+<!-- ===== 第20章 ===== -->
+<h2 id="sec24">第 20 章　点评与口碑的价值</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 知道评分影响哪两件事；② 会把评分折算成金额；③ 理解"同类型差评重复＝运营问题"。</p>
+</div>
+
+<h3>20.1 评分影响两件事</h3>
+<ul>
+<li><strong>转化率</strong>——同样被看到，评分高的更容易被选中</li>
+<li><strong>排序与曝光</strong>——平台会给高分酒店更好的位置。<strong>这一项更隐蔽也更值钱</strong>：
+排序靠后意味着曝光下降，而曝光下降是"看不到就没有"的损失</li>
+</ul>
+
+<h3>20.2 怎么估算</h3>
+<div class="calc">
+某酒店 OTA 月曝光 50,000 次：<br>
+· 评分 4.6 时，转化率 3% → 150 单/月<br>
+· 评分降到 4.3，转化率降到 2.4%，曝光降到 42,000<br>
+→ 42,000 × 2.4% = <b>101 单/月</b><br><br>
+少了 49 单 × 均价 450 = <b>每月少约 22,000 元</b>
+</div>
+<p>这是粗略模型，系数因城市和档次而异。但它的价值在于：<strong>把"评分重要"变成了一个数量级</strong>。
+有了量级，你才能判断该为评分投入多少。</p>
+
+<h3>20.3 比平均分更要紧的是最近的差评</h3>
+<p>客人看的是"最新几条"，不是平均分。一条具体、情绪强烈的差评造成的转化损失，
+可能超过平均分下降 0.1。</p>
+<ul>
+<li><strong>回复比删除重要</strong>——一条诚恳的公开回复，能显著减轻差评对后来者的影响</li>
+<li><strong>同类型差评重复出现是危险信号</strong>——一条说空调是意外；五条都说空调，<strong>那是设备问题</strong>，
+已经不是口碑问题，是运营问题</li>
+</ul>
+
+<div class="ethics">
+<div class="lbl">红线</div>
+<p style="margin:0"><strong>不要刷分。</strong>平台对刷分的识别能力远超多数人想象，被处罚的代价（降权、曝光清零）
+远高于刷分带来的收益。而且刷分掩盖了真实问题——那些问题还会在别的地方爆发。<br>
+正确做法：<strong>把提升评分的钱花在真实体验上，然后主动邀请满意的客人留评。</strong>后者合规且高效。</p>
+</div>
+
+<!-- ===== 第21章 ===== -->
+<h2 id="sec25">第 21 章　价格一致性</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 理解乱价的主要来源；② 会做巡检；③ 知道发现低价后的三步处理。</p>
+</div>
+
+<h3>21.1 乱价是怎么发生的</h3>
+<p>一个反常识的事实：<strong>大部分乱价不是你自己造成的，是分销链条造成的。</strong></p>
+<p>典型链条：你把房卖给批发商 A（净价 400）→ A 转手给 B → B 放到某个平台，为抢单标 520。
+你定的 600 就这样被打破了。</p>
+<p>所以管控的第一个难点是：<strong>你管得住自己的渠道，但管不住二级分销。</strong></p>
+
+<h3>21.2 三道防线</h3>
+<table>
+<tr><th style="width:18%">防线</th><th style="width:32%">做什么</th><th>频率</th></tr>
+<tr><td><strong>合同约束</strong></td><td>与分销商签协议，明确最低公开价（MPR）与违约责任</td><td>签约时 + 年度重签</td></tr>
+<tr><td><strong>定期巡检</strong></td><td>抽查主要平台与搜索引擎的挂牌价</td><td>每周，重点日期加频</td></tr>
+<tr><td><strong>监控工具</strong></td><td>用比价工具自动报警</td><td>持续</td></tr>
+</table>
+<p>第一道最容易做也最容易漏——<strong>很多酒店和批发商签的合同里根本没有最低价条款</strong>，出事了才发现没依据。</p>
+
+<h3>21.3 巡检查什么（三个就够）</h3>
+<ul>
+<li>两大 OTA 的同房型同日期价</li>
+<li>搜索引擎里"你的酒店名 + 价格"（这里最容易冒出不合规的分销）</li>
+<li>你的会员价/协议价是否被泄露到公开渠道（常被忽略，却是乱价的重要来源）</li>
+</ul>
+
+<h3>21.4 发现低价怎么补救</h3>
+<ol>
+<li><strong>先确认来源</strong>——联系对方问清房从哪里来。多数会配合下架，因为他也怕被投诉</li>
+<li><strong>追溯到分销商</strong>——按合同要求整改；屡犯就停止供货</li>
+<li><strong>必要时向平台投诉</strong>——凭合同和截图</li>
+</ol>
+<div class="mistake">
+<div class="lbl">不要做的事</div>
+<p style="margin:0"><strong>不要第一反应就是自己降价去"对齐"。</strong>
+那等于承认了乱价是对的，而且你会被更低的价格一路拖下去。</p>
+</div>
+<p>长期看，减少乱价最有效的办法是<strong>减少不受控的分销层级</strong>。
+每一层转手都是一次失控的机会——<strong>宁可少几家分销商，也要让链条短、可追溯。</strong></p>
+
+<div class="ex">
+<div class="lbl">第四篇、第五篇 综合实训</div>
+<p style="margin:0"><strong>任务：某日可售 100 间、需求旺盛，请分配房量。</strong><br>
+产出：① 各渠道/客源的配额表（说明依据）② 该日的超售量（写出计算过程）③ 一个 40 间团队询价的置换判断。<br>
+<strong>评分</strong>：高价值客源是否被保护（30%）／超售是否留了缓冲（30%）／置换是否算对被置换价值（40%）。<br>
+<em>建议分组竞赛——竞争性很强，且能让学生亲身体会"分配"比"定价"更影响结果。</em></p>
+</div>
+
+<div class="ex">
+<div class="lbl">自测（第四、五篇）</div>
+<ol style="margin:0">
+<li>库存分配的三层结构是什么？顺序为什么不能反？</li>
+<li>配额用完应该停售还是切高价档？</li>
+<li>MinLOS 的两种用法？什么情况下绝对不该设？</li>
+<li>超售为什么不能按预计取消数满打满算？哪些渠道绝不能超售？</li>
+<li>同样的团队、同样的价，为什么换个日期结论可能相反？</li>
+<li>OTA 的 15% 佣金，实际到手损失是多少？还漏算了什么？</li>
+<li>净值低的渠道一定该关吗？判断标准是什么？</li>
+<li>发现乱价时，最不该做的第一反应是什么？</li>
+</ol>
+</div>
+
+
+
+
+<div class="part">
+  <div class="pn">第 六 篇 · 怎 么 运 转</div>
+  <h2 id="sec26">第 22 章　每天 15 分钟：九个动作</h2>
+  <div class="desc">看完不动手，等于没看。第九步决定前面八步有没有价值。</div>
+</div>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 能完整走完九步；② 知道 15 分钟怎么分配；③ <strong>理解为什么第九步不能省</strong>。</p>
+</div>
+
+<p>很多收益人员的早晨是这样的：打开后台看一眼，"哦，今天 70%"，然后关掉。
+这不叫看数据，这叫<strong>确认自己还活着</strong>。</p>
+
+<h3>22.1 九步流水线</h3>
+<table>
+<tr><th style="width:5%">步</th><th style="width:24%">看什么</th><th style="width:30%">正常/异常判据</th><th>异常时做什么</th></tr>
+<tr><td>1</td><td>昨天实际 vs 预测</td><td>偏差 ±5% 内</td><td>超了记一笔原因</td></tr>
+<tr><td>2</td><td>今天的在手变化</td><td>比昨天同时点增减</td><td>骤减查渠道</td></tr>
+<tr><td>3</td><td>未来 7 天 OTB 同期对比</td><td>完成率是否落后</td><td>按三档阈值处理</td></tr>
+<tr><td>4</td><td>未来 14 天 Pickup 异常</td><td>有无突然加速或停滞</td><td>加速→惜售；停滞→排查</td></tr>
+<tr><td>5</td><td>未来 30 天均价</td><td>是否跌破目标 ADR</td><td>查低价客占比</td></tr>
+<tr><td>6</td><td>竞品价格变动</td><td>有无明显降价</td><td>按第 11 章三步</td></tr>
+<tr><td>7</td><td>渠道配额使用</td><td>长期用满/用不满</td><td>用满→放量或提价</td></tr>
+<tr><td>8</td><td>昨日取消与 no-show</td><td>是否在正常区间</td><td>异常→复核超售量</td></tr>
+<tr><td><strong>9</strong></td><td><strong>写下今天的动作</strong></td><td>——</td><td><strong>不能省</strong></td></tr>
+</table>
+
+<h3>22.2 15 分钟怎么分配</h3>
+<ul>
+<li><strong>第 1–5 步：8 分钟</strong>——核心，看未来</li>
+<li><strong>第 6–8 步：5 分钟</strong>——外围，看环境</li>
+<li><strong>第 9 步：2 分钟</strong>——产出</li>
+</ul>
+<p>注意分配：<strong>大部分时间花在"未来"上，不是"昨天"上。</strong>
+昨天已经发生了，你改变不了它，它能做的只是校准预测。</p>
+
+<h3>22.3 第九步为什么最重要</h3>
+<div class="lead">
+<p style="margin:0">要求写下<strong>一条能当天执行的动作</strong>，例如：<br>
+· "7 月 20 日 OTA 配额从 30 降到 15"<br>
+· "给 8 月 5 日设 MinLOS 2 晚"<br>
+· "查一下为什么 9 月 12 日的均价只有 380"<br>
+<strong>不可以写"持续关注"——那不是动作。</strong></p>
+</div>
+
+<h3>22.4 两个误区与坚持多久</h3>
+<ul>
+<li><strong>把九步做成超复杂的表</strong>——然后没人填或敷衍填。要极简，能打勾、能写一句话就够</li>
+<li><strong>周末节假日跳过</strong>——恰恰相反，这些日子需求变化最大。可缩短到 5 分钟，但不要断</li>
+</ul>
+<p><strong>坚持 3 周</strong>会开始有效果：你会"认得"自己的酒店——哪些数字是异常、哪些只是噪音。
+这种直觉只能靠连续观察养出来，任何系统都给不了。</p>
+
+<!-- ===== 第23章 ===== -->
+<h2 id="sec27">第 23 章　每周、每月、每季、每年</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 知道四层各做什么；② 掌握"按变量自然变化周期定频率"的原则；③ 识别两类做错层级的错误。</p>
+</div>
+
+<p>并不是所有事都该每天做。有些动作放在每天做是浪费，有些放在每年做就太晚了。</p>
+
+<h3>23.1 四层节奏</h3>
+<table>
+<tr><th style="width:10%">层级</th><th style="width:30%">核心动作</th><th>为什么是这个频率</th></tr>
+<tr><td><strong>每天</strong></td><td>九步流水线</td><td>价格和库存都在变，需高频校准</td></tr>
+<tr><td><strong>每周</strong></td><td>配额调整、竞品巡价汇总、下周预测更新</td><td>一周的量足够看出趋势，又不至于滞后</td></tr>
+<tr><td><strong>每月</strong></td><td>预测偏差复盘、客源结构分析、下月价格日历确认</td><td>月是经营核算的基本单位</td></tr>
+<tr><td><strong>每季</strong></td><td>竞争群重审、需求日历更新、房型价差复检</td><td>市场结构变化以季度计</td></tr>
+<tr><td><strong>每年</strong></td><td>预算、年度价格日历、渠道合同重签</td><td>一年一次，但决定全年框架</td></tr>
+</table>
+
+<h3>23.2 每层具体做什么</h3>
+<h4>每周（约 30 分钟）</h4>
+<ul>
+<li>调整各渠道配额——依据上周使用情况</li>
+<li>汇总本周竞品变动（每天看是噪音，一周看是趋势）</li>
+<li>更新未来两周的预测</li>
+</ul>
+<h4>每月（约 2 小时）</h4>
+<ul>
+<li><strong>算预测偏差并写原因</strong>——月度最重要的一项</li>
+<li>看客源结构有没有偏移：高价位客源占比是否在降</li>
+<li>确认下月价格日历，把待定档补上</li>
+</ul>
+<h4>每季（约半天）</h4>
+<ul>
+<li><strong>重审竞争群</strong>——新开的、翻新的、关门的</li>
+<li>更新需求日历</li>
+<li>复检房型价差——看售出结构是否失衡</li>
+</ul>
+<h4>每年</h4>
+<ul>
+<li>做预算并分解到月</li>
+<li>排全年价格日历</li>
+<li>重签渠道合同，<strong>补上最低价条款</strong></li>
+</ul>
+
+<h3>23.3 做错层级会怎样</h3>
+<ul>
+<li><strong>用高频动作做低频的事</strong>——每天调竞争群、每天改价差。噪音主导决策，且极其耗人</li>
+<li><strong>用低频动作做高频的事</strong>——季度才调一次配额。价格体系僵化，错过所有窗口</li>
+</ul>
+<div class="lead"><p style="margin:0"><strong>判断标准：这个变量的自然变化周期是多久，就用多久的频率去管它。</strong>
+价格每天变（每天管），客源结构一季变（一季管），市场结构一年变（一年管）。</p></div>
+
+<!-- ===== 第24章 ===== -->
+<h2 id="sec28">第 24 章　两个信号打架时听谁的</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 理解冲突是常态；② 掌握三条仲裁原则；③ <strong>知道"二选一往往是最差答案"</strong>。</p>
+</div>
+
+<p>先说一个很多人不好意思承认的事实：<strong>你手上的判断工具，经常会给出互相矛盾的结论。</strong></p>
+<p>比如：按需求信号该涨价；但按竞争位置，你已比竞品贵 20%，不该再涨。两个都对，听谁的？</p>
+<p>大部分人的处理是"凭感觉选一个"，或者"哪个结论更顺耳选哪个"。这不叫决策，这叫挑食。</p>
+
+<h3>24.1 冲突是常态，不是错误</h3>
+<p>工具打架不代表工具有问题。它们本就在衡量不同的东西——
+一个看需求强度，一个看竞争相对位置，一个看库存紧张度。
+<strong>它们在看同一个现实的不同侧面，侧面之间本来就经常不一致。</strong></p>
+<p>真正需要的是<strong>仲裁规则</strong>：谁优先、什么时候让位。</p>
+
+<h3>24.2 三条原则（从上到下）</h3>
+<table>
+<tr><th style="width:20%">原则</th><th style="width:32%">内容</th><th>理由</th></tr>
+<tr><td><strong>① 库存紧张度优先</strong></td><td>剩余房量告急时，惜售信号压过其他信号</td><td>房卖完就没了，损失不可逆</td></tr>
+<tr><td><strong>② 收益优先于出租率</strong></td><td>"能卖高价但会少卖几间"时优先保收益</td><td>出租率可事后补，收益损失补不回</td></tr>
+<tr><td><strong>③ 长期关系优先于单日收益</strong></td><td>涉及老客户、重要协议、口碑时让位</td><td>单日收益可再赚，客户走了难回</td></tr>
+</table>
+
+<h3>24.3 两个真实冲突场景</h3>
+<h4>场景一：需求说涨，竞争说别涨</h4>
+<div class="calc">
+情况：Pickup 明显快于同期（该涨），但已比竞争群贵 18%（不该涨）。<br>
+按原则判断：先看库存——若高档房型已不多（原则①生效），<b>仍然惜售，但不抬公开价</b>。<br>
+动作：<b>关闭最低价房型、设 MinLOS，而不是直接涨价。</b><br>
+结果：实际客单提升，但挂牌价没有变得比竞品更难看。
+</div>
+<p><strong>关键在于："涨价"和"惜售"是两件事。</strong>很多人以为只能二选一，
+其实可以<strong>不动价格、只动可售房型</strong>——既回应需求信号，又不破坏竞争位置。</p>
+
+<h4>场景二：库存说关，销售说放</h4>
+<div class="calc">
+情况：需求走强，收益主张关团队配额；销售说老客户要 30 间，不能得罪。<br>
+按原则判断：原则①指向关，原则③指向放。<br>
+动作：不二选一——<b>给 15 间（不是 30）并且报价提高</b>，说明"这几天房很紧"。<br>
+结果：保住关系，也保住大部分高价库存。
+</div>
+
+<div class="lead"><p style="margin:0"><strong>把这三条原则打印出来贴在办公桌上</strong>，每次冲突后记一笔"这次怎么裁的"。
+一是避免临场被情绪或压力带偏（尤其面对销售和老板时），二是积累出自己的优先级直觉——
+那比任何工具都可靠。</p></div>
+
+<!-- ===== 第25章 ===== -->
+<h2 id="sec29">第 25 章　收益例会</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 知道例会的产出标准；② 会排 45 分钟议程；③ 理解会前准备为什么占八成。</p>
+</div>
+
+<p>收益例会最常见的死法：<strong>开成了汇报会</strong>。前 30 分钟各部门念数据，
+中间 10 分钟解释，最后 5 分钟老板说"大家努力一下"。散会之后什么都没改变——
+因为<strong>这个会没有产出决策</strong>。</p>
+
+<h3>25.1 产出必须是决策记录</h3>
+<p>判断一次会开得好不好，只看一件事：<strong>散会时有没有形成"谁、在什么时间前、做什么"的清单。</strong></p>
+
+<h3>25.2 45 分钟怎么分</h3>
+<table>
+<tr><th style="width:12%">时长</th><th style="width:22%">环节</th><th>内容</th></tr>
+<tr><td>5′</td><td>看结果</td><td>上期决策的执行结果——<strong>先复盘，不是先汇报</strong></td></tr>
+<tr><td>10′</td><td>看未来</td><td>未来 30 天的关键日期、风险日、机会日</td></tr>
+<tr><td><strong>15′</strong></td><td><strong>做决策</strong></td><td>针对具体日期定动作（价格/房型/配额/MinLOS）</td></tr>
+<tr><td>10′</td><td>跨部门协调</td><td>需要销售、前厅、餐饮配合的事</td></tr>
+<tr><td>5′</td><td>确认清单</td><td>逐条念出"谁、何时、做什么"</td></tr>
+</table>
+<p>中间那 15 分钟是主体，也是多数会被砍掉的部分。</p>
+
+<h3>25.3 会前要准备什么（八成取决于此）</h3>
+<ol>
+<li><strong>一页纸的数据</strong>——未来 30 天关键日期表，标注风险/机会</li>
+<li><strong>上期决策的执行情况</strong>——完成几条、没完成的为什么</li>
+<li><strong>本次要决策的议题清单</strong>——具体到日期，不要"讨论下月价格"</li>
+</ol>
+<p>第三项最关键。<strong>没有议题清单的会，一定会变成漫谈。</strong></p>
+
+<h3>25.4 三个常见错误与一个建议</h3>
+<ul>
+<li><strong>参会人太多</strong>——决策会 5–7 人足够。超过 10 人，发言会变成表态</li>
+<li><strong>没有记录人</strong>——决策必须当场写下来并当场确认</li>
+<li><strong>频率不对</strong>——建议<strong>每周一次 45 分钟</strong>，而不是每月一次 3 小时。价格变化以周计</li>
+</ul>
+<p>额外建议：把决策清单<strong>公示</strong>。看得见的承诺才会被执行——
+锁在笔记本里的决策，执行率通常不到一半。</p>
+
+<!-- ===== 第26章 ===== -->
+<h2 id="sec30">第 26 章　预算与归因</h2>
+
+<div class="goal">
+<div class="lbl">本章目标</div>
+<p style="margin:0">① 会用自下而上做预算；② 会做量差价差归因；③ 理解"预算不是预测，是行动清单"。</p>
+</div>
+
+<h3>26.1 自下而上怎么做（四步）</h3>
+<ol>
+<li><strong>先算"按现状能卖多少"</strong>——今年实际 + 已知变化（新竞品、装修、渠道调整）</li>
+<li><strong>再算"努力空间在哪"</strong>——逐月看：哪几个月有明显没吃到的溢价，哪几个月是硬的低谷</li>
+<li><strong>把增长放到有空间的月份</strong>——不是平均摊</li>
+<li><strong>倒推需要的动作</strong>——每个月要完成目标需要哪些具体动作</li>
+</ol>
+<p>第 4 步最容易被跳过，但它才是预算的价值所在：<strong>预算不是预测，是"要达成它你得做什么"的清单。</strong></p>
+
+<h3>26.2 月度分解的依据（三个修正）</h3>
+<ul>
+<li><strong>节假日位置</strong>——春节在 1 月还是 2 月，直接改变两个月格局</li>
+<li><strong>星期分布</strong>——有的月份周末多，对度假型和商务型影响相反</li>
+<li><strong>已知事件</strong>——展会、演出、考试</li>
+</ul>
+
+<h3>26.3 量差价差归因</h3>
+<div class="calc">
+RevPAR = 出租率 × 平均房价<br><br>
+<b>量差</b> = (实际出租率 − 预算出租率) × 预算平均房价<br>
+<b>价差</b> = (实际平均房价 − 预算平均房价) × 实际出租率<br><br>
+例：预算 70% × 450 = 315；实际 75% × 430 = 322.5<br>
+量差 = (75%−70%) × 450 = +22.5<br>
+价差 = (430−450) × 75% = −15<br>
+合计 +7.5 ✓
+</div>
+<ul>
+<li><strong>量差为主</strong> → 在用价格换量，检查是否让利过多</li>
+<li><strong>价差为主且为正</strong> → 溢价能力提升，好</li>
+<li><strong>量涨价跌但 RevPAR 只微增</strong> → 典型的"用低价换量"，要警惕</li>
+</ul>
+<div class="lead"><p style="margin:0">这个拆分的价值：<strong>能告诉你这个月是"卖得多了"还是"卖得贵了"。</strong>
+从操作员走向收益经理，分水岭就在能不能做这个拆分。</p></div>
+
+<h3>26.4 一个提醒</h3>
+<p>预算定完<strong>每季度要复检一次</strong>。市场变了，预算就该改。
+<strong>不改的预算会逼出一堆破坏长期价格的动作</strong>——因为一线为了完成数字，什么价都敢放。</p>
+
+<!-- ===== 结束篇 ===== -->
+<div class="part">
+  <div class="pn">结 束 篇</div>
+  <h2 id="sec31">这门课怎么考 · 你要交什么作品</h2>
+  <div class="desc">这门课如果用传统选择填空考，会出现"考高分的学生不会做决策"。所以考核方式也不一样。</div>
+</div>
+
+<h3>三维考核结构</h3>
+<table>
+<tr><th style="width:18%">维度</th><th style="width:26%">考什么</th><th style="width:14%">占比</th><th>为什么</th></tr>
+<tr><td><strong>知识理解</strong></td><td>概念、定义、公式</td><td>20%–30%</td><td>必要但不该是主体</td></tr>
+<tr><td><strong>表/框架应用</strong></td><td>遇情况按什么顺序判断</td><td><strong>35%–45%</strong></td><td><strong>这门课的核心</strong></td></tr>
+<tr><td><strong>实操操作</strong></td><td>真的算一遍、做一份东西</td><td>25%–40%</td><td>检验能不能上手</td></tr>
+</table>
+<p>中间那行是差异化所在。多数课程以"知识理解"为主，而收益管理课应该以"框架应用"为主——
+因为这门课教的是<strong>判断，不是知识</strong>。</p>
+
+<h3>三个等级</h3>
+<table>
+<tr><th style="width:14%">等级</th><th style="width:24%">对应水平</th><th>考核构成</th></tr>
+<tr><td><strong>初级</strong></td><td>执行岗</td><td>概念 30% + 表应用 45% + 实操 25%。重点看会不会算、会不会查表</td></tr>
+<tr><td><strong>中级</strong></td><td>独立负责单店</td><td>知识 15% + 表应用 35% + 综合实操 50%。<strong>必含"多表冲突"题</strong></td></tr>
+<tr><td><strong>高级</strong></td><td>参与策略制定</td><td>战略知识 30% + 项目实操 40% + 答辩 30%</td></tr>
+</table>
+<p>中级那个"必含多表冲突题"值得强调：<strong>它是区分"会算"和"会判断"的分水岭。</strong></p>
+
+<h3>三条做法</h3>
+<ol>
+<li><strong>考"为什么"而不是"是多少"</strong></li>
+<li><strong>允许查表</strong>——真实工作本来就能查。闭卷考记忆，开卷考判断</li>
+<li><strong>设必错点</strong>——数据里埋一个陷阱（如装修停售日），踩坑即扣分</li>
+</ol>
+
+<h3>默写判定表</h3>
+<p>初级默 3 张 / 中级 9 张 / 高级 15 张。
+<strong>评分看顺序（最重要）、触发条件（次之），不扣字眼</strong>——扣字眼会让学生以为这是背诵考试。</p>
+<p>目的是把判断流程刻进肌肉记忆：<strong>在高压力的真实场景里，人不会"思考"，只会"调用"。</strong></p>
+
+<h3>项目作品：年度收益提升方案</h3>
+<table>
+<tr><th style="width:6%">项</th><th style="width:30%">交付物</th><th style="width:10%">分值</th><th>看什么</th></tr>
+<tr><td>1</td><td>年度预算与月度分解</td><td>25</td><td>分解依据是否说明</td></tr>
+<tr><td>2</td><td>量差价差归因</td><td>15</td><td>拆得对不对、有无数据支撑</td></tr>
+<tr><td>3</td><td>客源结构分析与置换建议</td><td>15</td><td>是否算了被置换价值</td></tr>
+<tr><td>4</td><td>全年价格体系与价差校验</td><td>15</td><td>档位是否合理</td></tr>
+<tr><td>5</td><td>三层会议材料（月/周/日）</td><td>15</td><td>是否可执行，不是空话</td></tr>
+<tr><td>6</td><td>人机边界说明</td><td>15</td><td>哪些判断不能交给系统</td></tr>
+</table>
+<p><strong>答辩另计，不低于 75 分。</strong>陈述 15 分钟 + 追问 15 分钟，评委不少于 3 人（建议含 1 名外部专家）。</p>
+<div class="calc">
+必答三问：<br>
+① 你最重要的一个判断是什么？依据是什么？<br>
+② 这个方案最大的风险在哪？<br>
+③ 如果市场突变，你第一步改什么？<br><br>
+硬规则：说不出关键数字来源 → 该项 0 分；<b>编造数据 → 整体不合格</b><br>
+高频失分：月度 RevPAR 用算术平均 → <b>直接判错，不给部分分</b>
+</div>
+<p><strong>第 2 问最能区分水平</strong>——只会按流程做的学生答不上来。
+而"知道自己可能错在哪"正是收益人员最重要的品质。<strong>这门课如果能教会你这一点，就算成功了。</strong></p>
+
+<div class="ethics">
+<div class="lbl">课程思政 · 三句话</div>
+<p style="margin:0">这门课的思政不需要另外加内容，它长在专业里：<br>
+① <strong>价格伦理</strong>——市场机制与商业伦理的统一（第 12 章）<br>
+② <strong>数据诚信</strong>——偏差要如实记录，编造直接不合格。收益岗确实存在修饰数字的空间，提前立住比事后纠偏有效<br>
+③ <strong>劳动价值</strong>——任何溢价最终要由一线服务兑现。岗位没有高低，只有分工</p>
+</div>
+
+<!-- ===== 附录 ===== -->
+<div class="part">
+  <div class="pn">附 录</div>
+  <h2 id="sec32">公式卡 · 判定表 · 30 个误区</h2>
+</div>
+
+<h3>附录 A　核心公式（五层）</h3>
+<table>
+<tr><th style="width:14%">层</th><th style="width:34%">公式</th><th>什么时候用</th></tr>
+<tr><td rowspan="4"><strong>看</strong></td><td>OCC = 已售房晚 ÷ 可售房晚</td><td>看量</td></tr>
+<tr><td>ADR = 客房收入 ÷ 已售房晚</td><td>看价（分母是<b>已售</b>）</td></tr>
+<tr><td>RevPAR = 客房收入 ÷ 可售房晚</td><td>看整体（分母是<b>可售</b>）</td></tr>
+<tr><td>MPI/ARI/RGI = 你的 ÷ 竞争群 × 100</td><td>看市场位置，基准 100</td></tr>
+<tr><td rowspan="2"><strong>预测</strong></td><td>简易平均 = 过去 N 期均值</td><td>需求稳定时</td></tr>
+<tr><td>偏差 = |实际 − 预测| ÷ 实际</td><td>5% 合格 / 3% 优秀</td></tr>
+<tr><td rowspan="2"><strong>价</strong></td><td>边际贡献 = 房价 − 渠道成本 − 边际成本</td><td>判断低价单能否接</td></tr>
+<tr><td>最低可接受房价 = 边际成本 ÷ (1 − 渠道费率)</td><td>保本底线，<b>不是售价</b></td></tr>
+<tr><td rowspan="2"><strong>库存</strong></td><td>建议超售 ≈ 预计不兑现 × 60%</td><td>风险偏好按步行成本调整</td></tr>
+<tr><td>置换净收益 = 团队收入 − 被置换散客价值</td><td>正数才接</td></tr>
+<tr><td><strong>渠道</strong></td><td>渠道净值 = 房价 − 房价 × (佣金+支付+积分+取消)</td><td>真实到手</td></tr>
+<tr><td><strong>归因</strong></td><td>量差 = Δ出租率 × 预算房价；价差 = Δ房价 × 实际出租率</td><td>月度复盘</td></tr>
+</table>
+
+<h3>附录 B　30 个误区速查</h3>
+<table>
+<tr><th style="width:12%">组</th><th>误区 → 正确做法</th></tr>
+<tr><td><strong>指标</strong></td><td>月度 RevPAR 算术平均 → 加权｜只看 RevPAR 不看利润 → 看净值｜分母搞混 → ADR 已售、RevPAR 可售｜只看单个指数 → 看组合｜竞争群十几家 → 3–6 家｜预算平均摊 → 按修正分解</td></tr>
+<tr><td><strong>需求</strong></td><td>历史不清洗 → 剔脏数据｜做完不统计偏差 → 必算｜只看出租率 → 看 Pickup｜OTB 看绝对值 → 同期对比 + 均价｜日历不更新 → 每季重审｜不知道事件 → 建排查清单</td></tr>
+<tr><td><strong>价格</strong></td><td>出租率到点才调 → 太晚｜没有 BAR → 建层级｜价差靠感觉 → 拆四维｜竞品降就跟 → 三步判断｜折扣做成降价 → 设三要素｜保本当售价 → 是底线｜每天临时定价 → 用日历</td></tr>
+<tr><td><strong>库存</strong></td><td>先到先得 → 三层分配｜配额用完停售 → 切高价档｜全年常设 MinLOS → 只旺时设｜超售满打满算 → 留缓冲｜团队只看价 → 算置换</td></tr>
+<tr><td><strong>渠道</strong></td><td>以为成本就是 15% → 实际约 20%｜为直销占比牺牲收益 → 看总成本｜乱价就跟着降 → 追溯整改</td></tr>
+<tr><td><strong>流程</strong></td><td>看一眼就完 → 九步 + 一个动作｜低频动作天天做 → 按周期｜例会变汇报 → 产出决策清单</td></tr>
+</table>
+
+<div class="ex">
+<div class="lbl">结课作业（建议）</div>
+<p style="margin:0">从 30 个误区里挑 5 条，<strong>去调查一家真实酒店是否存在</strong>，写出你的查证过程和结论。<br>
+<em>把"我知道"变成"我查证过"——这是这门课最好的结课方式。</em></p>
+</div>
+
+<div class="lead">
+<p style="margin:0"><strong>最后一句。</strong>这门课结束的时候，如果你只记住一件事，我希望是这句：<br>
+<strong>收益管理的产品是判断依据，不是价格。</strong><br>
+能说出"为什么"，你才真正开始做这份工作。</p>
+</div>
+
+
+</div>
+
+<div class="endfoot">
+  <b>酒店收益管理</b> · 完整版 · 26 章<br>
+  体例贯彻"先制造认知冲突，再给方法"的教学法：每章从场景导入，配常见错误与课堂练习。<br>
+  考核采用三维结构（知识 / 表应用 / 实操），允许查表，重点考查判断顺序与依据。<br>
+  <b>打印提示：</b>在浏览器中按 Cmd+P（Windows 为 Ctrl+P），目标选择"存储为 PDF"即可得到纸质版文件。
+</div>
+
+</div>
+</body>
+</html>

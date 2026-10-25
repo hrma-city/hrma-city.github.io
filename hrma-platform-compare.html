@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>平台选型与安全对比 · 小鹅通 / 知识星球机构版 / 自建</title>
+<style>
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;margin:0;background:#f5f7fa;color:#1d2433;line-height:1.7;}
+  .hd{background:#0f2a4a;color:#fff;padding:30px 34px;}
+  .hd h1{margin:0 0 8px;font-size:22px;}
+  .hd p{margin:0;color:#cdd9e8;font-size:13.5px;}
+  .wrap{max-width:1000px;margin:0 auto;padding:26px 34px 70px;}
+  .sec{background:#fff;border:1px solid #e3e8f0;border-radius:10px;margin:18px 0;padding:20px 24px;}
+  .sec h2{margin:0 0 12px;font-size:18px;color:#0f2a4a;border-left:4px solid #e8b84b;padding-left:10px;}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px;}
+  th,td{border:1px solid #e3e8f0;padding:9px 11px;text-align:left;vertical-align:top;}
+  th{background:#12365c;color:#fff;font-weight:600;}
+  tr:nth-child(even) td{background:#fafbfd;}
+  .gold{color:#c99a3f;font-weight:700;}
+  .yes{color:#1d5b32;font-weight:700;}
+  .no{color:#b23b3b;font-weight:700;}
+  .warn{background:#fff6ec;border:1px solid #f0c89a;border-radius:8px;padding:12px 16px;font-size:13.5px;color:#7a4a12;margin:12px 0;}
+  .ok{background:#eef9f0;border:1px solid #a9dab8;border-radius:8px;padding:12px 16px;font-size:13.5px;color:#1d5b32;margin:12px 0;}
+  .pill{display:inline-block;background:#eef3fa;color:#1d6fb8;border:1px solid #cfe0f2;font-size:12px;padding:2px 9px;border-radius:6px;margin:2px 3px 2px 0;}
+  .rec{background:#0f2a4a;color:#fff;border-radius:10px;padding:16px 22px;margin:18px 0;}
+  .rec b{color:#e8b84b;}
+  .twocol{display:flex;gap:18px;flex-wrap:wrap;} .twocol>div{flex:1;min-width:280px;}
+  .ft{text-align:center;color:#8a94a6;font-size:12px;padding:20px;}
+  code{background:#eef3fa;padding:1px 6px;border-radius:4px;font-size:13px;color:#0f2a4a;}
+  ul{margin:8px 0;padding-left:20px;} li{margin:5px 0;font-size:14px;}
+  .big{font-size:15px;font-weight:700;color:#0f2a4a;}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<div class="hd">
+  <h1>平台选型与安全对比 · 院校教学云平台承载方案</h1>
+  <p>小鹅通（机构/企业版）｜ 知识星球（机构版）｜ 自建 SaaS —— 从登录·账号·发票·内容防护·运维·费用六维对比，回应"被抄"与"账号管理能力"两问。</p>
+</div>
+<div class="wrap">
+
+  <div class="sec">
+    <h2 id="toc-1">一、六维对比总表</h2>
+    <table>
+      <tr><th>维度</th><th>小鹅通（专业版/旗舰版）</th><th>知识星球（机构版）</th><th>自建 SaaS</th></tr>
+      <tr><td><b>登录与账号</b></td><td>公众号/小程序/PC 店铺登录；<span class="yes">子账号+多角色</span>（旗舰含 SCRM 分权）</td><td>仅微信授权登录；<span class="no">不支持账号共享</span>，偏个人</td><td>你自建=完全可控，但=你运维</td></tr>
+      <tr><td><b>院校"多人共用"</b></td><td><span class="yes">兑换码/课程码批量发</span>，可设分校分权（旗舰）</td><td><span class="no">不支持共享</span>，按微信个人，院校多人难管</td><td>可设计"按校发激活码"，但自己实现</td></tr>
+      <tr><td><b>教学工具</b></td><td><span class="yes">考试/作业/练习/打卡/证书</span>（专业版起），学练测闭环</td><td><span class="no">弱</span>：图文/音视频沉淀，无题库/证书闭环</td><td>你自己做（游戏/题库已现成，批改要开发）</td></tr>
+      <tr><td><b>发票与走账</b></td><td>店铺可给买家开<span class="yes">电子发票</span>，适配学校走账</td><td>企业星球认证后可开，但<span class="no">形态偏 C 端社群</span>，学校采购或认</td><td>需企业主体自接开票 API，自己担</td></tr>
+      <tr><td><b>内容防护（防抄）</b></td><td><span class="yes">版权保护机制完善</span>（图文防盗/加密/水印）</td><td><span class="no">弱</span>：社群式，截图/复制易</td><td>你控制，但静态前端仍可被扒（加 DRM 体验差）</td></tr>
+      <tr><td><b>运维量（你的精力）</b></td><td><span class="yes">零运维</span>，平台管服务器/支付/账号</td><td><span class="yes">零运维</span></td><td><span class="no">重</span>：服务器+账号+支付+发票+被攻击，持续</td></tr>
+      <tr><td><b>年费成本</b></td><td>专业版 <span class="gold">¥12,800</span> / 旗舰版 <span class="gold">¥25,800</span></td><td>机构版 <span class="gold">¥999</span> 起 + 收入抽成 5–10%</td><td>服务器 ¥2k–5k/年 + 开发 ¥数万–数十万（一次性）</td></tr>
+      <tr><td><b>交易抽成</b></td><td>专业版 50 万内免收，超出约 2%；支付 0.6%</td><td>收入 10 万内 10%，超出 5%；微信 1%</td><td>仅支付通道费 0.6%（你直连微信/对公）</td></tr>
+    </table>
+    <p class="ft-note" style="font-size:12px;color:#8a94a6;margin:6px 0 0">价格来自 2026 年官方公示与公开测评，随活动浮动，以官网实时报价为准。</p>
+  </div>
+
+  <div class="sec">
+    <h2 id="toc-2">二、逐项解读：回应你的两个核心疑问</h2>
+
+    <h3 id="toc-3">① "我的网站会被窃取 / 反编译复制吗？"</h3>
+    <ul>
+      <li><b>网页没有"反编译"</b>：前端 HTML/CSS/JS 本就明文发给浏览器，"查看源代码"即得。任何平台都只能防"随手抄"，防不了"决心抄"——<b>文字内容在一切平台上都可被复制</b>。</li>
+      <li><b>当前公开站最危险</b>：你 <code>open-course/</code> 现是公开静态页（curl 200 无需密码），别人现在就能拿走。迁到<b>登录平台=加了一道账号门槛+水印+加密</b>，比你现在更难抄，不是更易。</li>
+      <li><b>三家防护排序</b>：小鹅通（版权保护完善）＞ 自建（你控但静态可扒）＞ 知识星球（社群式最弱）。</li>
+      <li><b>真正的护城河不是技术封锁</b>：持续自动更新（抄家得自己更）、陪跑（人不可复制）、院校白标+年报、便利溢价。卖"活的服务"不卖"文件快照"。</li>
+    </ul>
+
+    <h3 id="toc-4">② "师生账号，现在有管理能力吗？"</h3>
+    <ul>
+      <li><b>现在：没有。</b>当前纯静态、零账号。简单 key 门禁也只有"发码/收码"，无后台、看不到登录、不能停用、无进度。</li>
+      <li><b>用小鹅通后：有，且零开发。</b>机构后台可见成员、登录情况、移除账号、设子账号权限、导出数据——你要的"管理能力"平台白给。</li>
+      <li><b>知识星球：有成员审批/自动回复，但偏社群、不支持共享</b>，不适合"院校买登录权多人教学"。</li>
+      <li><b>自建：完全可控，但等于你养一套账号系统</b>——与"做不了体力活"正面冲突，不推荐。</li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <h2 id="toc-5">三、针对"院校卖登录权"场景的适配度</h2>
+    <div class="twocol">
+      <div>
+        <h3 id="toc-6">小鹅通（专业版 ¥12,800/年）</h3>
+        <p><span class="pill">院校共享 ✓</span><span class="pill">教学闭环 ✓</span><span class="pill">发票走账 ✓</span><span class="pill">版权保护 ✓</span><span class="pill">零运维 ✓</span></p>
+        <p>最贴合：院校是要"多人登录+教材+游戏+题库+证书+数据报告"的教学平台，不是个人社群。专业版即含考试/作业/证书，旗舰版再加 PC 独立店铺与多分校分权。</p>
+      </div>
+      <div>
+        <h3 id="toc-7">知识星球（机构版 ¥999/年）</h3>
+        <p><span class="pill">便宜 ✓</span><span class="pill">零运维 ✓</span><span class="pill">社群沉淀 ✓</span><span class="pill">不支持共享 ✗</span><span class="pill">教学弱 ✗</span></p>
+        <p>适合做<b>"教师交流圈"</b>（阶段三低频社群），<b>不适合当院校教学平台</b>：不支持账号共享、无题库/证书闭环、内容防护弱、学校采购或不认"星球"形态。</p>
+      </div>
+    </div>
+    <div class="warn"><b>自建 SaaS：</b>控制力最强，但 = 服务器+账号系统+支付+发票+安全运维的持续体力活，与你的精力结构冲突。除非订阅校规模大到平台抽成不划算（远超 50 万/年），否则不自建。</div>
+  </div>
+
+  <div class="sec">
+    <h2 id="toc-8">四、成本测算（示例：3 所校首年）</h2>
+    <p class="big">假设订阅：单专业 ¥9,800 × 2 + 院系 ¥19,800 = 年流水 <span class="gold">¥39,400</span></p>
+    <table>
+      <tr><th>方案</th><th>平台年费</th><th>抽成/手续费</th><th>你年成本</th><th>备注</th></tr>
+      <tr><td><b>小鹅通专业版</b></td><td>¥12,800</td><td>支付 0.6% ≈ ¥236（流水＜50万免2%）</td><td class="gold">≈ ¥13,036</td><td>成本占流水 33%，毛利高；含完整教学工具</td></tr>
+      <tr><td><b>知识星球机构版</b></td><td>¥999</td><td>收入抽成 10% ≈ ¥3,940</td><td class="gold">≈ ¥4,939</td><td>便宜但不满足教学/共享，仅宜做教师圈</td></tr>
+      <tr><td><b>自建</b></td><td>服务器 ¥3,000 + 开发 ¥数万（一次性）</td><td>支付 0.6%</td><td class="gold">¥3k+/年 + 前期开发</td><td>前期投入大、持续运维，与精力冲突</td></tr>
+    </table>
+    <p>结论：在年流水远低于 50 万的阶段，<b>小鹅通专业版的固定年费反而是可预期的低支出</b>，且功能完全覆盖"院校教学平台"；知识星球省钱但错配场景；自建短期最贵且最累。</p>
+  </div>
+
+  <div class="sec">
+    <h2 id="toc-9">四-B. 自建 vs 平台：运维 / 合规 / 成本 三张对照清单</h2>
+    <p class="big">把"自己买服务器"和"用机构版平台"摊在一页里，一眼可比。两列：<b>自建 SaaS</b>（你买服务器、自己养）｜ <b>平台（小鹅通专业版）</b>。</p>
+
+    <h3 id="toc-10">① 运维对照</h3>
+    <table>
+      <tr><th>事项</th><th>自建 SaaS</th><th>平台（小鹅通）</th></tr>
+      <tr><td>服务器 / 部署</td><td>买 VPS、装运行环境、绑域名、<b>ICP 备案</b>（1–2 周）</td><td class="yes">开通即用，零部署</td></tr>
+      <tr><td>账号与密码</td><td>建用户表、密码加密、发初始码、<b>处理忘密码 / 停用离职</b></td><td class="yes">后台开关 + 兑换码 / 子账号</td></tr>
+      <tr><td>数据备份</td><td>自己定备份策略，漏了 = 全校数据没了</td><td class="yes">平台托管，自动</td></tr>
+      <tr><td>安全防护</td><td>自己防注入 / 防攻击 / 打补丁</td><td class="yes">平台安全团队</td></tr>
+      <tr><td>内容更新</td><td>改完自己重新部署</td><td class="yes">后台改即全网同步</td></tr>
+      <tr><td>日常答疑</td><td class="no">账号问题直接砸你头上</td><td>平台客服接技术，你只管内容</td></tr>
+    </table>
+
+    <h3 id="toc-11">② 合规对照（师生账号 = 个人信息，受 PIPL 约束）</h3>
+    <table>
+      <tr><th>事项</th><th>自建 SaaS</th><th>平台（小鹅通）</th></tr>
+      <tr><td>隐私政策 / 告知</td><td>自己起草 + 公示</td><td class="yes">平台模板，你补条款</td></tr>
+      <tr><td>数据安全义务</td><td class="no">你为处理者，全责</td><td class="yes">平台为受托方，共担</td></tr>
+      <tr><td>等保 / 资质</td><td>需自行评估备案</td><td class="yes">平台已有资质</td></tr>
+      <tr><td>发票 / 经营主体</td><td>你需企业主体自开票</td><td class="yes">平台可开，走账顺畅</td></tr>
+      <tr><td>账号泄露责任</td><td class="no">合同约定你担</td><td class="yes">平台合同约定兜底</td></tr>
+    </table>
+
+    <h3 id="toc-12">③ 成本对照（首年 + 持续）</h3>
+    <table>
+      <tr><th>成本项</th><th>自建 SaaS</th><th>平台（小鹅通专业版）</th></tr>
+      <tr><td>显性年费</td><td>服务器 ¥600–3,000 + 域名 ¥50</td><td class="gold">¥12,800 固定</td></tr>
+      <tr><td>一次性开发</td><td class="no">¥数万–数十万（登录 / 支付 / 权限）</td><td class="yes">0</td></tr>
+      <tr><td>ICP 备案时间</td><td class="no">1–2 周你跑</td><td class="yes">不需要（平台已备）</td></tr>
+      <tr><td>持续运维人力</td><td class="no">折算 ≥¥2–5 万 / 年 或你的精力</td><td class="yes">0</td></tr>
+      <tr><td>故障 / 数据损失风险</td><td class="no">你扛</td><td class="yes">平台 SLA</td></tr>
+      <tr><td>3 校首年总支出</td><td class="no">¥3k+ 年费 + 数万开发 + 你精力</td><td class="gold">≈¥13,036（占流水 33%）</td></tr>
+    </table>
+    <div class="warn">一句话：自建把"账号 / 支付 / 发票 / 安全 / 合规"五件体力活全压回你身上，且前期开发数万起；平台用 ¥1.3 万 / 年把这些白送，你只留内容 IP 和续费关系——这正是"卖登录权不卖服务器"的核心。</div>
+  </div>
+
+  <div class="rec">
+    <b>推荐结论</b><br>
+    ① <b>院校教学平台 → 小鹅通专业版（¥12,800/年）</b>：子账号/兑换码解决"院校共享登录"，考试/证书做教学闭环，电子发票走账，版权保护防抄，零运维护住你的精力。<br>
+    ② <b>教师交流圈（若未来做）→ 知识星球机构版（¥999/年）</b>：只做低频社群，不当教学平台。<br>
+    ③ <b>不自建</b>：把账号/支付/发票/安全的体力活交给平台，你只维护一份内容源、自动同步。<br>
+    ④ <b>付费内容绝不放公开 Pages</b>：公开站只留引流层，教材/游戏搬进登录平台。
+  </div>
+
+  <div class="sec">
+    <h2 id="toc-13">五、下一步</h2>
+    <ul>
+      <li>注册小鹅通专业版试用，把 <code>open-course/</code> 现有教材+2 游戏+题库上架为"院校会员"。</li>
+      <li>设三档年费（单专业/院系/院校），用兑换码给学校发登录权。</li>
+      <li>白皮书/专题页加"领 14 天体验账号"入口（已有 open-course 入口，加表单即可）。</li>
+      <li>如需，我可起草《平台一期上架清单》与体验账号申请表单文案。</li>
+    </ul>
+  </div>
+
+  <div class="ft">由 WorkBuddy 生成 · 决策文档 · 价格以官网实时报价为准</div>
+</div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>平台选型与安全对比 · 小鹅通 / 知识星球机构版 / 自建</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">一、六维对比总表</a>
+<a href="#toc-2">二、逐项解读：回应你的两个核心疑问</a>
+<a href="#toc-3" class="lv3">1. ① &quot;我的网站会被窃取 / 反编译复制吗？&quot;</a>
+<a href="#toc-4" class="lv3">2. ② &quot;师生账号，现在有管理能力吗？&quot;</a>
+<a href="#toc-5">三、针对&quot;院校卖登录权&quot;场景的适配度</a>
+<a href="#toc-6" class="lv3">3. 小鹅通（专业版 ¥12,800/年）</a>
+<a href="#toc-7" class="lv3">4. 知识星球（机构版 ¥999/年）</a>
+<a href="#toc-8">四、成本测算（示例：3 所校首年）</a>
+<a href="#toc-9">1. 四-B. 自建 vs 平台：运维 / 合规 / 成本 三张对照清单</a>
+<a href="#toc-10" class="lv3">1.1 ① 运维对照</a>
+<a href="#toc-11" class="lv3">1.2 ② 合规对照（师生账号 = 个人信息，受 PIPL 约束）</a>
+<a href="#toc-12" class="lv3">1.3 ③ 成本对照（首年 + 持续）</a>
+<a href="#toc-13">五、下一步</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
+})();
+</script>
+</body>
+</html>

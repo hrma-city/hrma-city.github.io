@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HRMA 定位定稿 · 收益管理教学教练</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:#eef2f7;color:#1a1a1a;line-height:1.85;font-size:15px}
+  .wrap{max-width:920px;margin:0 auto;background:#fff;box-shadow:0 2px 24px rgba(15,42,74,.12)}
+  header{background:linear-gradient(135deg,#0f2a4a 0%,#1d4f80 100%);color:#fff;padding:44px 46px 38px}
+  header .eyebrow{color:#e8b84b;font-size:13px;letter-spacing:3px;font-weight:600;margin-bottom:12px}
+  header h1{font-size:30px;font-weight:700;line-height:1.4;margin-bottom:14px}
+  header .sub{color:#c3d6ea;font-size:14.5px;line-height:1.8;max-width:700px}
+  .pos{background:rgba(255,255,255,.1);border-left:4px solid #e8b84b;padding:16px 20px;margin:22px 0 0;border-radius:0 6px 6px 0}
+  .pos .lbl{color:#e8b84b;font-size:12px;font-weight:700;letter-spacing:2px;margin-bottom:7px}
+  .pos .txt{font-size:19px;font-weight:600;line-height:1.6;color:#fff}
+  main{padding:0 46px 50px}
+  h2{font-size:21px;color:#0f2a4a;margin:42px 0 16px;padding-left:14px;border-left:5px solid #e8b84b;line-height:1.5}
+  h3{font-size:17px;color:#1d4f80;margin:24px 0 10px;font-weight:650}
+  h4{font-size:15px;color:#0f2a4a;margin:16px 0 8px;font-weight:650}
+  p{margin:10px 0}
+  ul,ol{margin:10px 0 10px 22px}
+  li{margin:6px 0}
+  strong{color:#0f2a4a}
+  .lead{background:#f4f8fc;border-left:4px solid #1d6fb8;padding:16px 20px;margin:18px 0;border-radius:0 6px 6px 0}
+  .judge{background:#fff8e8;border-left:4px solid #e8b84b;padding:16px 20px;margin:18px 0;border-radius:0 6px 6px 0}
+  .judge .tag{display:inline-block;background:#e8b84b;color:#0f2a4a;font-size:12px;font-weight:700;
+    padding:2px 9px;border-radius:3px;margin-bottom:8px}
+  .warn{background:#fdf1f0;border-left:4px solid #c0392b;padding:16px 20px;margin:18px 0;border-radius:0 6px 6px 0}
+  .warn .tag{display:inline-block;background:#c0392b;color:#fff;font-size:12px;font-weight:700;
+    padding:2px 9px;border-radius:3px;margin-bottom:8px}
+  .ok{background:#f0f8f2;border-left:4px solid #2e8b57;padding:16px 20px;margin:18px 0;border-radius:0 6px 6px 0}
+  .ok .tag{display:inline-block;background:#2e8b57;color:#fff;font-size:12px;font-weight:700;
+    padding:2px 9px;border-radius:3px;margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px}
+  th{background:#0f2a4a;color:#fff;padding:11px 12px;text-align:left;font-weight:600;font-size:13px}
+  td{padding:10px 12px;border-bottom:1px solid #e3eaf2;vertical-align:top}
+  tr:nth-child(even) td{background:#f8fafd}
+  td.mine{background:#fff8e8 !important;font-weight:600;color:#0f2a4a}
+  .cards{display:flex;gap:12px;margin:18px 0;flex-wrap:wrap}
+  .card{flex:1;min-width:190px;background:#f4f8fc;border:1px solid #dbe6f0;border-radius:8px;padding:15px 16px}
+  .card .n{color:#e8b84b;font-weight:700;font-size:12px;letter-spacing:1px;margin-bottom:6px}
+  .card h4{margin:0 0 6px;font-size:14.5px}
+  .card p{font-size:13px;color:#4a5a6a;margin:0;line-height:1.7}
+  .code{background:#0f2a4a;color:#d6e6f5;font-family:"SFMono-Regular",Consolas,monospace;
+    padding:15px 18px;border-radius:6px;font-size:13px;line-height:1.95;margin:14px 0;white-space:pre-wrap}
+  .quote{background:#f4f8fc;border-left:3px solid #9db8d2;padding:12px 18px;margin:14px 0;font-size:13.5px;color:#4a5a6a}
+  .quote b{color:#0f2a4a}
+  .no{list-style:none;margin-left:0}
+  .no li{padding-left:26px;position:relative;margin:8px 0;color:#5a3a3a}
+  .no li:before{content:"✕";position:absolute;left:0;color:#c0392b;font-weight:700}
+  .yes{list-style:none;margin-left:0}
+  .yes li{padding-left:26px;position:relative;margin:8px 0}
+  .yes li:before{content:"✓";position:absolute;left:0;color:#2e8b57;font-weight:700}
+  .k{display:inline-block;background:#eef4fa;border:1px solid #c9dcee;color:#1d4f80;
+    padding:1px 7px;border-radius:3px;font-size:12.5px;margin:0 2px}
+  footer{background:#0f2a4a;color:#9db8d2;padding:22px 46px;font-size:12.5px;line-height:1.8}
+  footer b{color:#e8b84b}
+  .num{display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;background:#1d6fb8;
+    color:#fff;border-radius:50%;font-size:12px;font-weight:700;margin-right:7px}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">HRMA · 定位定稿（覆盖 v2 的定位表述）</div>
+  <h1>收益管理教学教练</h1>
+  <div class="sub">你给出的这个词，比我上一版的表述更好——它同时解决了差异化、客单价和合规三个问题。
+  下面是它带来的全部好处，以及必须配套改掉的东西。</div>
+  <div class="pos">
+    <div class="lbl">定位一句话（定稿）</div>
+    <div class="txt">收益管理教学教练 —— 不带酒店人做实操，只陪高校教师把收益管理课真正开起来。</div>
+  </div>
+</header>
+
+<main>
+
+<h2 id="toc-1">一、为什么"教练"比"专家 / 培训师 / 顾问"都好</h2>
+
+<table>
+<tr><th style="width:15%">身份</th><th style="width:30%">卖的是什么</th><th style="width:22%">交付结束于</th><th>问题</th></tr>
+<tr><td><b>专家</b></td><td>我比你懂（权威背书）</td><td>一次讲课 / 一本专著</td><td class="mine">胡质健已占满，正面必输</td></tr>
+<tr><td><b>培训师</b></td><td>我讲你听（知识转移）</td><td>课程结束</td><td>按课时计价，天花板低，且你必须到场</td></tr>
+<tr><td><b>顾问</b></td><td>我给你方案</td><td>报告交付</td><td>客户拿到方案不一定做，结果不由你负责</td></tr>
+<tr><td class="mine"><b>教练</b></td><td class="mine">我陪你做到，能力长在你身上</td><td class="mine">一段可续费的关系</td><td class="mine">——</td></tr>
+</table>
+
+<div class="cards">
+  <div class="card"><div class="n">好处 1</div><h4>天然不比权威</h4><p>教练不需要是最权威的那个，需要的是"能让你做到"。<strong>这一条直接绕开胡质健。</strong></p></div>
+  <div class="card"><div class="n">好处 2</div><h4>天然可续费</h4><p>教练交付的是一段关系不是一份物料。年框是教练的自然形态，不是硬卖。</p></div>
+  <div class="card"><div class="n">好处 3</div><h4>天然是陪跑</h4><p>你的利润核心本来就是师资陪跑。<strong>教练 = 陪跑的正式名字</strong>，以前缺一个能对外说的词。</p></div>
+</div>
+
+<div class="ok">
+<div class="tag">最有价值的一条：教练让你彻底不必碰证书</div>
+<p>教练卖的是<strong>能力成长</strong>，不是资格认定。这意味着：</p>
+<ul style="margin-bottom:0">
+<li>你不需要"收益管理师"这个证书——国家职业分类里本来就没有这个工种</li>
+<li>你不需要和胡质健执笔的《酒店收益管理人员职业能力要求》团体标准竞争——那是<strong>从业人员的从业标准</strong>，教练做的是<strong>教学能力</strong>，两条线根本不相交</li>
+<li>你也不需要人社备案、不需要评价组织资质（那条路重资产、重运营，和你精力结构冲突）</li>
+</ul>
+<p style="margin-bottom:0"><strong>一句话：教练定位把你从"发证赛道"里整个摘了出来，合规雷区一次性清空。</strong></p>
+</div>
+
+<h2 id="toc-2">二、与胡质健的最终对照</h2>
+<table>
+<tr><th style="width:16%"></th><th>胡质健</th><th class="mine" style="width:38%">你（收益管理教学教练）</th></tr>
+<tr><td><b>身份</b></td><td>专家 / 权威 / 标准起草人</td><td class="mine">教练</td></tr>
+<tr><td><b>对谁</b></td><td>酒店收益经理、总经理</td><td class="mine">教酒店人的老师</td></tr>
+<tr><td><b>交付</b></td><td>讲课、写书、起草标准</td><td class="mine">陪跑：评审、答疑、打磨、冲刺</td></tr>
+<tr><td><b>结果归属</b></td><td>学员听懂了</td><td class="mine">老师把课开起来了</td></tr>
+<tr><td><b>院校关系</b></td><td>被请去讲课（一次一校）</td><td class="mine">帮学校建课（一校建完可复利）</td></tr>
+<tr><td><b>能不能被抄</b></td><td>抄不了（他是权威）</td><td class="mine">抄不了（15 张判定表是你的教练工具）</td></tr>
+</table>
+<p class="lead"><strong>他赢在"知道"，你赢在"做到"。这两件事不冲突，也不需要在同一个维度上比。</strong>
+对外表述时永远不要说"我比谁更权威"，只说"我能让一个没开过这门课的老师，在 X 周内把课开起来"。</p>
+
+<h2 id="toc-3">三、⚠ 必须先解决：教练 vs 你的精力结构</h2>
+
+<div class="warn">
+<div class="tag">这是这个定位唯一的隐患</div>
+<p>"教练"听起来意味着高频陪伴、随时响应、大量一对一——<strong>这恰恰是你最消耗不起的东西</strong>。
+如果不先把交付形态锁死，你会接下第一单就累垮，然后整个模式崩掉。</p>
+</div>
+
+<h3 id="toc-4">解法：做"异步教练"，四条规定写进合同和宣传页</h3>
+<ol>
+<li><strong>异步，不实时</strong>：老师提交作业/方案 → 你在约定周期内出评审意见。不接电话答疑、不做随时响应</li>
+<li><strong>固定节奏，不按需</strong>：每月一次深度评审 + 一次集中答疑（可书面收集问题统一答），不承诺"有问题随时找我"</li>
+<li><strong>用工具替代口述</strong>：<strong>你的 15 张判定表就是教练工具</strong>——反馈意见一律"指向判定表第几张 + 哪里扣分"，不写长篇评语。既省你时间，又让反馈可复用</li>
+<li><strong>边界写死</strong>：不代为写申报材料、不代为上课、不参与校内事务协调。你是教练，不是外包</li>
+</ol>
+<div class="ok">
+<p><strong>把"教练"定义成"按判定表给反馈的异步评审者"，能耗就降到和写稿差不多。</strong>
+这也是为什么你的判定表是护城河——它同时是产品、是内容、是教练工具、是标准化的载体。
+一个东西顶四件事，这正是"标准化交付"那条壁垒的实质。</p>
+</div>
+
+<h2 id="toc-5">四、账号文案定稿（可直接复制）</h2>
+
+<h3 id="toc-6">名称</h3>
+<div class="code">首选：收益管理教练
+次选：酒店收益管理教练
+（保留"收益管理"关键词以吃搜一搜流量；"教练"两字直接把身份写进名字，
+ 比"酒店收益管理"这类纯媒体号名更有辨识度，也天然筛掉只想白嫖资料的人）</div>
+
+<h3 id="toc-7">简介</h3>
+<div class="code">收益管理教学教练
+不带酒店人做实操，只陪高校教师把课开起来
+15 张判定表免费领 · 回复【判定表】</div>
+
+<h3 id="toc-8">人设（反差句式，参照 Write to Live）</h3>
+<div class="code">不带酒店人做实操，却帮一所所学校把收益管理课开起来。
+不做销售，却拿下一个个院校陪跑年框。
+只写判定表，不写观点文。</div>
+<p class="lead">第三句"只写判定表，不写观点文"是最强的一句：它同时拒绝了热点、拒绝了同行爱写的感想文，
+并让读者一眼知道这里有什么、不有什么。<strong>建议作为长期固定签名。</strong></p>
+
+<h3 id="toc-9">被关注自动回复</h3>
+<div class="code">欢迎。这里只做两件事：
+给从业者发判定表，给教师发开课方法。
+回复【判定表】领收益自检表
+回复【大纲】领 16 周课程大纲
+回复【教案】领课时教案样例</div>
+<p>关键词一律 2 字短词。这三个词分别对应三级火箭的第一级（模板）。</p>
+
+<h2 id="toc-10">五、栏目结构定稿：双合集制</h2>
+
+<p>既然"主攻教学"，教学就不能只是文末附庸。改为<strong>两个明确合集并列</strong>，各司其职：</p>
+<div class="cards">
+  <div class="card"><div class="n">合集一 · 引流</div><h4>《收益管理怎么做》</h4><p>面向从业者。判定表、公式、场景决策。<strong>作用：搜一搜流量、收藏率、证明你真的懂业务。</strong></p></div>
+  <div class="card"><div class="n">合集二 · 转化（旗帜）</div><h4>《收益管理怎么教》</h4><p>面向教师。大纲、教案、怎么讲、怎么评、怎么申报。<strong>作用：你的差异化主战场，直接通向陪跑。</strong></p></div>
+</div>
+<p><strong>合集二是账号的旗帜，合集一是流量入口。</strong>对外介绍自己时说的永远是合集二；
+但发文量上合集一要多一些（因为搜索量和转发量都在那边）。</p>
+
+<p>依旧保留 v2 的<strong>「一稿两用」</strong>：合集一的每篇文末固定加《给教师的一句话》（3–5 行，这节课怎么上）。
+<strong>成本每篇 5 行，让引流内容也顺带转化。</strong></p>
+
+<h2 id="toc-11">六、产品语言必须改的几处</h2>
+<table>
+<tr><th style="width:30%">旧说法（物料思维）</th><th style="width:34%">新说法（教练思维）</th><th>为什么</th></tr>
+<tr><td>开课即用包</td><td class="mine">陪跑期教材 / 教练工具包</td><td>包是一次性交付，教材是陪跑过程里用的</td></tr>
+<tr><td>卖课程</td><td class="mine">陪你开出这门课</td><td>卖课 = 我讲完就结束；陪跑 = 结果由我负责</td></tr>
+<tr><td>教师培训</td><td class="mine">师资陪跑</td><td>培训师按课时收费；教练按结果收费</td></tr>
+<tr><td>认证 / 考证</td><td class="mine">能力评价（或干脆不提）</td><td>教练不需要发证，提了反而引向合规雷区</td></tr>
+<tr><td>工具包 ¥1,980</td><td class="mine">陪跑年框的入口</td><td>单卖物料不值钱且易抄，应作为年框的第一段</td></tr>
+</table>
+
+<h2 id="toc-12">七、唯一该对外宣称的成果指标</h2>
+<div class="judge">
+<p style="font-size:16px;margin:0"><strong>不是粉丝数，不是课销量，是"陪几位老师把课开起来了"。</strong></p>
+<p style="margin:8px 0 0">这是教练模式唯一诚实的成果指标，也是你未来最强的销售话术：
+"我已经陪 X 位老师把收益管理课开起来了。"这句话比任何头衔都有说服力，
+而且<strong>它天然不可比——胡质健可以说他讲了多少场，但他说不出陪几位老师开出了一门课。</strong></p>
+</div>
+<p>建议从第一天就记录这个数字（哪怕先是免费的 3–5 位种子教师）。它是你全部对外材料的开头。</p>
+
+<h2 id="toc-13">八、需要改的既有材料（清单）</h2>
+<ul class="yes">
+<li><strong>能改就改</strong>：站点 <code>campus.html</code> 首屏标题、<code>pricing.html</code> 卡片名——把"开课即用包"改成陪跑语言</li>
+<li><strong>能改就改</strong>：任何出现"专家""权威""首个""首创"的地方——全部换成"教练""陪跑""课程怎么开"</li>
+<li><strong>立刻停用</strong>：一切"从业人员职业能力标准 / 收益管理师资格"相关表述（胡质健已执笔团标 + 无此工种，双重风险）</li>
+<li><strong>不必动</strong>：15 张判定表、32 本口袋书、14 模块、教案、考核方案——这些是教练工具，换个名字就能直接用</li>
+</ul>
+<p class="lead"><strong>好消息：这次定位调整几乎不需要你新做任何东西。</strong>
+改的是"怎么称呼它"，不是"重造一个"。判定表还是那 15 张，只是现在它们的正式身份是"教练工具"。</p>
+
+</main>
+
+<footer>
+  <b>HRMA 定位定稿 · 收益管理教学教练</b> · 覆盖 v2《公众号打法》中的定位表述<br>
+  核心：教练卖能力成长不卖权威 → 绕开胡质健 / 不碰证书与团标 → 合规雷区清空；
+  配套"异步教练"四条规定以匹配精力结构<br>
+  本方案为内部策略文档，未公开发布
+</footer>
+
+</div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>HRMA 定位定稿 · 收益管理教学教练</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">一、为什么&quot;教练&quot;比&quot;专家 / 培训师 / 顾问&quot;都好</a>
+<a href="#toc-2">二、与胡质健的最终对照</a>
+<a href="#toc-3">三、⚠ 必须先解决：教练 vs 你的精力结构</a>
+<a href="#toc-4" class="lv3">1. 解法：做&quot;异步教练&quot;，四条规定写进合同和宣传页</a>
+<a href="#toc-5">四、账号文案定稿（可直接复制）</a>
+<a href="#toc-6" class="lv3">2. 名称</a>
+<a href="#toc-7" class="lv3">3. 简介</a>
+<a href="#toc-8" class="lv3">4. 人设（反差句式，参照 Write to Live）</a>
+<a href="#toc-9" class="lv3">5. 被关注自动回复</a>
+<a href="#toc-10">五、栏目结构定稿：双合集制</a>
+<a href="#toc-11">六、产品语言必须改的几处</a>
+<a href="#toc-12">七、唯一该对外宣称的成果指标</a>
+<a href="#toc-13">八、需要改的既有材料（清单）</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
+})();
+</script>
+</body>
+</html>

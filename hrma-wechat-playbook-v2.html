@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HRMA 公众号打法 · 竞品对标与方法论整合</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:#eef2f7;color:#1a1a1a;line-height:1.85;font-size:15px}
+  .wrap{max-width:940px;margin:0 auto;background:#fff;box-shadow:0 2px 24px rgba(15,42,74,.12)}
+  header{background:linear-gradient(135deg,#0f2a4a 0%,#1d4f80 100%);color:#fff;padding:44px 46px 38px}
+  header .eyebrow{color:#e8b84b;font-size:13px;letter-spacing:3px;font-weight:600;margin-bottom:12px}
+  header h1{font-size:29px;font-weight:700;line-height:1.4;margin-bottom:14px}
+  header .sub{color:#c3d6ea;font-size:14.5px;line-height:1.8;max-width:700px}
+  .meta{margin-top:20px;display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:#a9c4de;
+    border-top:1px solid rgba(255,255,255,.18);padding-top:16px}
+  .meta b{color:#e8b84b;font-weight:600}
+  main{padding:0 46px 50px}
+  h2{font-size:21px;color:#0f2a4a;margin:44px 0 16px;padding-left:14px;border-left:5px solid #e8b84b;line-height:1.5}
+  h3{font-size:17px;color:#1d4f80;margin:26px 0 10px;font-weight:650}
+  h4{font-size:15px;color:#0f2a4a;margin:18px 0 8px;font-weight:650}
+  p{margin:10px 0}
+  ul,ol{margin:10px 0 10px 22px}
+  li{margin:6px 0}
+  strong{color:#0f2a4a}
+  .lead{background:#f4f8fc;border-left:4px solid #1d6fb8;padding:16px 20px;margin:18px 0;border-radius:0 6px 6px 0}
+  .judge{background:#fff8e8;border-left:4px solid #e8b84b;padding:16px 20px;margin:18px 0;border-radius:0 6px 6px 0}
+  .judge .tag{display:inline-block;background:#e8b84b;color:#0f2a4a;font-size:12px;font-weight:700;
+    padding:2px 9px;border-radius:3px;margin-bottom:8px}
+  .warn{background:#fdf1f0;border-left:4px solid #c0392b;padding:16px 20px;margin:18px 0;border-radius:0 6px 6px 0}
+  .warn .tag{display:inline-block;background:#c0392b;color:#fff;font-size:12px;font-weight:700;
+    padding:2px 9px;border-radius:3px;margin-bottom:8px}
+  .ok{background:#f0f8f2;border-left:4px solid #2e8b57;padding:16px 20px;margin:18px 0;border-radius:0 6px 6px 0}
+  .ok .tag{display:inline-block;background:#2e8b57;color:#fff;font-size:12px;font-weight:700;
+    padding:2px 9px;border-radius:3px;margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px}
+  th{background:#0f2a4a;color:#fff;padding:11px 12px;text-align:left;font-weight:600;font-size:13px}
+  td{padding:10px 12px;border-bottom:1px solid #e3eaf2;vertical-align:top}
+  tr:nth-child(even) td{background:#f8fafd}
+  td.mine{background:#fff8e8 !important;font-weight:600;color:#0f2a4a}
+  .cards{display:flex;gap:12px;margin:18px 0;flex-wrap:wrap}
+  .card{flex:1;min-width:180px;background:#f4f8fc;border:1px solid #dbe6f0;border-radius:8px;padding:15px 16px}
+  .card .n{color:#e8b84b;font-weight:700;font-size:12px;letter-spacing:1px;margin-bottom:6px}
+  .card h4{margin:0 0 6px;font-size:14.5px}
+  .card p{font-size:13px;color:#4a5a6a;margin:0;line-height:1.7}
+  .rocket{display:flex;gap:0;margin:20px 0;flex-wrap:wrap;align-items:stretch}
+  .lv{flex:1;min-width:150px;border:2px solid #dbe6f0;border-radius:8px;padding:14px 14px;background:#f4f8fc;position:relative}
+  .lv+.lv{margin-left:20px}
+  .lv:before{content:"▲";position:absolute;left:-15px;top:50%;transform:translateY(-50%);color:#e8b84b;font-size:13px}
+  .lv:first-child:before{display:none}
+  .lv b{display:block;color:#0f2a4a;font-size:14.5px;margin-bottom:4px}
+  .lv .p{font-size:12.5px;color:#c99a3f;font-weight:700;margin-bottom:6px}
+  .lv span{font-size:12.5px;color:#4a5a6a;line-height:1.65}
+  .lv.hi{background:#fff8e8;border-color:#e8b84b}
+  .code{background:#0f2a4a;color:#d6e6f5;font-family:"SFMono-Regular",Consolas,monospace;
+    padding:14px 18px;border-radius:6px;font-size:13px;line-height:1.9;margin:14px 0;white-space:pre-wrap}
+  .quote{background:#f4f8fc;border-left:3px solid #9db8d2;padding:12px 18px;margin:14px 0;
+    font-size:13.5px;color:#4a5a6a;font-style:normal}
+  .quote b{color:#0f2a4a;font-style:normal}
+  .chk{list-style:none;margin-left:0}
+  .chk li{padding-left:26px;position:relative;margin:8px 0}
+  .chk li:before{content:"☐";position:absolute;left:0;color:#1d6fb8;font-size:16px;font-weight:700}
+  .no{list-style:none;margin-left:0}
+  .no li{padding-left:26px;position:relative;margin:8px 0;color:#5a3a3a}
+  .no li:before{content:"✕";position:absolute;left:0;color:#c0392b;font-weight:700}
+  .k{display:inline-block;background:#eef4fa;border:1px solid #c9dcee;color:#1d4f80;
+    padding:1px 7px;border-radius:3px;font-size:12.5px;margin:0 2px}
+  .split{display:flex;gap:14px;margin:18px 0;flex-wrap:wrap}
+  .split>div{flex:1;min-width:250px;border:1px solid #dbe6f0;border-radius:8px;padding:15px 17px;background:#fafcfd}
+  .split h4{margin-top:0}
+  .split .who{font-size:12px;color:#1d6fb8;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+  footer{background:#0f2a4a;color:#9db8d2;padding:22px 46px;font-size:12.5px;line-height:1.8}
+  footer b{color:#e8b84b}
+  .num{display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;background:#1d6fb8;
+    color:#fff;border-radius:50%;font-size:12px;font-weight:700;margin-right:7px}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">HRMA · 公众号打法 v2（竞品对标 + 方法论整合）</div>
+  <h1>收益管理垂类谁在写、Write&nbsp;to&nbsp;Live 能迁移什么、<br><span style="font-size:21px;font-weight:500">以及你唯一没人占的位置</span></h1>
+  <div class="sub">v1 版本解决的是"怎么发"。这一版解决更前置的问题：<strong>在这个已经有权威的垂类里，你该站在哪。</strong>
+  结论先说：正面赛道已被占满，但有一个生态位是空的——教"教酒店人的老师"。那正是你全部资产的指向。</div>
+  <div class="meta">
+    <span>竞品 <b>胡质健 / 浅谈RM / 张小姐</b></span>
+    <span>方法论来源 <b>Write to Live（Alina霖子）</b></span>
+    <span>核心机制 <b>一稿两用</b></span>
+    <span>目标 <b>300 个精准，不是 3 万粉</b></span>
+  </div>
+</header>
+
+<main>
+
+<h2 id="toc-1">一、垂类情报：这个赛道谁在写</h2>
+
+<h3 id="toc-2">1. 胡质健 —— 行业权威，且已占住你要的高地</h3>
+<div class="quote">
+<b>已核实事实：</b>《饭店收益管理》专著作者（中国旅游出版社，2016 一版 / 2021 二版 / 2024 三版）；
+<b>《酒店收益管理人员职业能力要求》团体标准执笔起草人</b>；全国酒店收益管理技能大赛专家评审组副组长；
+中国旅游饭店业协会、中国饭店协会理事；北京第二外国语学院中瑞酒店管理学院客座教授；清华大学继续教育学院酒店管理高级课程班特聘教师；
+美国饭店协会教育学院 CHE / CHT；迈点网、环球旅讯、酒店评论专栏作者。曾任建国国际营销总监、PriceMatch 大中华区收益管理高级咨询顾问、众荟高级顾问、多家饭店总经理。
+</div>
+<div class="warn">
+<div class="tag">这条情报直接改变你的两处做法</div>
+<p><strong>① 你不能做"从业人员职业能力标准"。</strong>该领域的团体标准已由他执笔起草。你若再推一份《酒店收益管理人员能力规范》，不仅撞车，而且你没有任何机构身份背书，站不住。
+→ 你的《能力规范》必须改定位为 <strong>"教学标准 / 课程标准"</strong>（收益管理课程该怎么开、考什么、达到什么教学终点），这是他没做也没打算做的方向。</p>
+<p><strong>② 院校线并非无人，但占法完全不同。</strong>他是"被请去讲课的客座教授"，你是"教老师怎么开出这门课的人"。
+他去一所学校赚一次课酬；你帮一所学校建起一门课后可以复利。<strong>他占据的是"权威"，你占据的是"方法"——不要去比谁更权威，那是必输的比赛。</strong></p>
+</div>
+
+<h3 id="toc-3">2. 浅谈 Revenue Management —— 一线实操派，写法值得直接学</h3>
+<p>公众号，面向一线收益人员。其典型文章（价格调整时间点）结构如下，这是<strong>垂类内已被验证的写法</strong>：</p>
+<ul>
+<li>第一人称口语化开场（"那么今天我们就来聊一聊…"）</li>
+<li>先说<strong>大多数人的错误做法</strong>（出租率到 60% 换一档价格体系、80% 再换一档）</li>
+<li>再给<strong>正确做法 + 一个真实案例</strong>（某酒店提前把团队价与 BAR 拉平，展会期间 ADR 高出一倍）</li>
+<li>给<strong>具体数字标准</strong>（月度预测偏差 3%–5%，列入收益人员 KPI）</li>
+<li><strong>文末留作业</strong>："本周作业：你觉得市场热度最重要的判断标准是什么？欢迎评论区分享"</li>
+<li>固定收尾口号 + 引导关注</li>
+</ul>
+<p class="lead"><strong>可迁移的两点</strong>：① "先讲大家做错的做法，再讲对的"——这个结构天然产生完读率（算法第一权重）；
+② <strong>文末留作业</strong>——这是垂类内极少有人做、且几乎零成本的互动率提升手段（互动权重 15%）。建议你直接采用。</p>
+
+<h3 id="toc-4">3. 张小姐看酒店生意（露丹）—— 告诉你流量天花板有多低</h3>
+<p>十几年酒店收益管理经验，做喜马拉雅播客 + 小红书同名账号，节目定位"用真实案例，讲清酒店利润背后的生意逻辑"。
+<strong>关键情报：其播客单集播放量在数百量级（622 / 204），订阅数二十余。</strong></p>
+<div class="judge">
+<div class="tag">这条数据比任何方法论都重要</div>
+<p>一个做了十几年、内容质量不差的从业者，在音频+小红书赛道上的真实数据是<strong>几百播放、二十几个订阅</strong>。
+这说明：<strong>酒店收益管理是一个极窄的垂类，公域流量天花板很低。</strong><br>
+→ 所以<strong>千万不要把公众号当流量生意做</strong>。指望阅读量涨到几万后自然变现，在这个垂类里不成立。<br>
+→ 正确预期是 Alina 那句话：<strong>"我不追求海量粉丝，我要的是 3000 个精准信任我的人——够了。"</strong>
+对你甚至不需要 3000 个：<strong>300 个精准的院校教师 + 酒店收益负责人，就足以撑起你的全部生意。</strong></p>
+</div>
+
+<h3 id="toc-5">4. 三方对照：你的位置在哪</h3>
+<table>
+<tr><th style="width:14%"></th><th>胡质健</th><th>浅谈 RM</th><th>张小姐</th><th class="mine" style="width:24%">你</th></tr>
+<tr><td><b>写给谁</b></td><td>酒店收益经理 / 总经理</td><td>一线收益人员</td><td>酒店经营者 + 泛商业</td><td class="mine">教酒店人的老师<br>+ 从业者</td></tr>
+<tr><td><b>卖什么</b></td><td>线下培训课、专著</td><td>（内容为主）</td><td>创业 / 播客</td><td class="mine">开课工具包<br>+ 师资陪跑</td></tr>
+<tr><td><b>形式</b></td><td>专栏长文 + 面授</td><td>公众号</td><td>音频 + 小红书</td><td class="mine">公众号 + 判定表</td></tr>
+<tr><td><b>标准</b></td><td>团体标准起草人</td><td>无</td><td>无</td><td class="mine">教学/课程标准（避开）</td></tr>
+<tr><td><b>院校</b></td><td>被请去讲课</td><td>无</td><td>无</td><td class="mine">教老师自己开课</td></tr>
+</table>
+<p class="lead"><strong>唯一空白且客单价最高的格子是"院校 × 教方法"。</strong>胡质健填的是"院校 × 亲自讲"，那一格他已经赢了，你不要去抢。</p>
+
+<h2 id="toc-6">二、Write to Live 能迁移给你的五条</h2>
+
+<p>Alina霖子（个人品牌商业教练、两本畅销书作者、一人公司）的公众号 <strong>Write to Live</strong> 是纯文字创作变现的成熟样本：不露脸、不讲课、不追流量，靠文字做到连续多年营收百万。以下是能直接迁移的部分。</p>
+
+<h3 id="toc-7">① 写作 ≠ 产品：三级火箭（最重要）</h3>
+<div class="quote">她的原话：<b>"写作≠产品。表达≠服务。分享≠销售。"</b>
+内容要经过"结构设计、价值浓缩、应用场景定位"才可能成为可销售的产品。她真实走过的三条路径：<b>模板 → 小册合集 → 训练营</b>。</div>
+<div class="rocket">
+  <div class="lv"><b>第一级 · 模板</b><div class="p">低价 / 免费</div><span>为"想开始但卡在第一步"的人。核心是<b>帮用户越过从 0 到 1 的卡顿</b>，直接套用你的思考结构。她的洞察："能写出来远比写得完美重要"</span></div>
+  <div class="lv"><b>第二级 · 小册合集</b><div class="p">中价</div><span>为"想深入理解你的内容系统"的人。不是复制粘贴，而是重排序 + 加导航页 + 补练习。<b>碎片阅读 → 系统理解</b>的桥梁产品</span></div>
+  <div class="lv hi"><b>第三级 · 陪伴营</b><div class="p">高客单</div><span>为"想被你陪一段"的人。<b>不是卖知识，是卖陪伴</b>。成功关键：用陪伴/练习/反馈帮他完成那一小步</span></div>
+</div>
+<div class="ok">
+<div class="tag">好消息</div>
+<p><strong>这三级你已经全部建好了，只是没用"火箭"的语言串起来。</strong></p>
+<ul style="margin-bottom:0">
+<li>第一级模板 = <strong>判定表 Excel / 公式计算表 / 8 套模板</strong>（现成，免费钩子）</li>
+<li>第二级小册合集 = <strong>32 本口袋书 + 16 册主题书 + 教材 + 指南</strong>（现成）</li>
+<li>第三级陪伴 = <strong>师资陪跑 / 院校共建</strong>（现成，你的利润核心）</li>
+</ul>
+<p style="margin-bottom:0">你要做的不是造产品，是<strong>在每篇文章末尾把读者往上一级推一格</strong>。</p>
+</div>
+
+<h3 id="toc-8">② 3000 人理论 → 你的 300 人目标</h3>
+<p>她明确写："<strong>少数人 &gt; 大众。我不追求海量粉丝，我要的是 3000 个精准信任我的人——够了。</strong>"
+在收益管理这个窄垂类，你的数字还要更小。<strong>把目标定为 300 个精准读者：其中包含未来会找你做院校陪跑的系主任、专业负责人、酒店收益总监。</strong>
+这个数字的意义是：让你不再为"阅读量只有 200"而焦虑——那 200 人里只要有 1 个是系主任就值了。</p>
+
+<h3 id="toc-9">③ 系统写作的四条小机制（非压迫性，专为低能耗设计）</h3>
+<p>她反复强调自己的系统是"温柔的、一人适用的小系统"，"不是用来管理我的创作，而是用来保护它"。具体机制：</p>
+<ol>
+<li><strong>每周设一个"主题感"</strong>——不是选题，是那周最在意、最想靠近的状态</li>
+<li><strong>每天起床前写 5 分钟"不用来发表"的文字</strong>——像热身</li>
+<li><strong>每周更新 1–2 篇</strong>，"不管有没有人等，都当作定期和自己对话的仪式"</li>
+<li><strong>每月一次内容回顾</strong>：整理高反馈内容，看是否可以做成<strong>深度稿、课程雏形或互动问答</strong></li>
+</ol>
+<div class="judge">
+<div class="tag">第四条对你价值最大</div>
+<p>她每月把高反馈文章升级成课程雏形——<strong>而你的情况更夸张：你的高反馈文章可以直接长成口袋书的一章、教案的一节、判定表的一张。</strong>
+因为文章与你的书系本来就是同源的。"文章 → 书 → 课程 → 陪跑"在你这里不是比喻，是同一份内容原子的四种包装。
+<strong>每月回顾这一小时，是你整个系统里回报率最高的动作。</strong></p>
+</div>
+<p>另有一条她的铁律值得抄：<strong>"不写我不相信的东西。"</strong>
+她试过写"鸡汤"和"方法论"讨好市场，结果"整个人都很疲惫"，定下这条规则后"结果反而更好"。你是二十年实战专家，这条对你天然成立——<strong>不要为了讨好算法去写你不信的内容</strong>。</p>
+
+<h3 id="toc-10">④ 反差句式人设（可直接套用）</h3>
+<p>她的自我介绍是三段反差，极有记忆点：</p>
+<div class="code">不喜欢社交，却有来自全球 10+ 个国家的商业咨询客户。
+不擅长表达，却出版了两本个人品牌商业书籍。
+不追逐流量，却连续 3 年营收百万。</div>
+<p><strong>句式 = "我不 X，却 Y"。用它把你的"弱点"变成辨识度。</strong>你的版本建议：</p>
+<div class="code">不带酒店人做实操，却帮院校把收益管理课真正开起来。
+不做销售，却拿下一个个院校陪跑年框。
+只写判定表，不写观点文。</div>
+<p class="lead">注意第三句——<strong>"只写判定表，不写观点文"是极强的差异化声明</strong>：它同时拒绝了热点、拒绝了大量同行在写的感想文，并让读者一眼知道这里有什么。</p>
+
+<h3 id="toc-11">⑤ 转化不是设计出来的（与你的"被动接单"完全一致）</h3>
+<div class="quote">她的描述："这些收入，没有设计过销售漏斗，没有推广计划。只是因为：<b>表达是通的，信任就来了；信任来了，收入也不会远。</b>"
+有人加微信想聊聊项目、有人问能不能开小班、有人在文章底下直接问"你有没有一对一咨询"。</div>
+<p>这与你已定的"被动接单、不做主动 BD"策略<strong>完全同构</strong>。她的工作哲学也值得抄：
+<strong>"干了再说，错了就改，对了就重复干，重复干就写 SOP。"</strong>以及<strong>"凡是累都不对——如果很累，说明方法错了"</strong>——这句话应该成为你运营公众号时的止损线。</p>
+
+<h2 id="toc-12">三、整合后的打法</h2>
+
+<h3 id="toc-13">定位一句话</h3>
+<div class="judge">
+<p style="font-size:17px;margin:0"><strong>收益管理教学教练 —— 不带酒店人做实操，只陪高校教师把收益管理课真正开起来。</strong></p>
+<p style="margin:8px 0 0">胡质健教酒店人怎么做收益，浅谈 RM 教一线怎么调价，张小姐讲酒店生意经。<strong>没有人教"如何把这门课开起来"——而你全部的资产（14 模块、15 判定表、教案、考核、申报清单）都是为这件事造的。</strong></p>
+<p style="margin:10px 0 0;font-size:13.5px;color:#7a5a00">
+⚠ <strong>本定位已由用户确认为"收益管理教练，主攻收益管理教学"，完整定稿见
+《HRMA-定位定稿-收益管理教学教练》</strong>（含：教练身份三重好处、与胡质健最终对照、
+"异步教练"四条规定以匹配精力结构、账号文案定稿、双合集栏目结构、产品语言改写表）。
+<strong>本文件以下内容（一稿两用、三级火箭、90 天清单）仍然有效</strong>，仅定位表述以定稿为准。</p>
+</div>
+
+<h3 id="toc-14">核心机制：一稿两用（一篇同时喂饱两类读者）</h3>
+<p>这是本方案最重要的机制设计。你之前纠结"写从业者的还是写教师的"——答案是<strong>不用选，一篇里都写</strong>，因为：</p>
+<ul>
+<li><strong>从业者</strong>要的是"这张表怎么用"（可操作）</li>
+<li><strong>教师</strong>要的是"这个知识点怎么教"（可教学化）</li>
+</ul>
+<p>同一张判定表，两个角度。做法：正文写从业者怎么用，<strong>文末固定加一个栏目《给教师的一句话》</strong>（3–5 行），讲这篇怎么变成一节课/一个课堂活动/一道考题。</p>
+<div class="split">
+  <div>
+    <div class="who">正文 · 面向从业者（起量 / 搜索 / 收藏）</div>
+    <h4>《竞品降价了，跟不跟？三步判断》</h4>
+    <p style="font-size:13.5px;margin:0">场景 → 大多数人的错误做法 → 正确三步 → 案例 + 数字 → 文末留作业 → 回复【竞品】领对照表</p>
+  </div>
+  <div>
+    <div class="who">文末固定栏目 · 面向教师（转化大单）</div>
+    <h4>《给教师的一句话》</h4>
+    <p style="font-size:13.5px;margin:0">"这节课可以这么上：给学生两组真实数据，一组跟价一组不跟，让他们算 30 天后的 RevPAR 差值。
+    <strong>这是本模块最容易讲活的 15 分钟。</strong>"→ 回复【教案】领本课时教案</p>
+  </div>
+</div>
+<p class="lead"><strong>成本：每篇多写 3–5 行。</strong>收益：同一篇文章同时承担"起量"和"转化"两个职能，且不稀释垂直度（两栏都是收益管理）。</p>
+
+<h3 id="toc-15">内容配比修订（v1 的 70/30 → 改为一稿两用）</h3>
+<p>v1 方案定的是 70% 从业者 + 30% 教师。看完竞品后修正：<strong>不再按篇数分配，改为每篇内置双栏。</strong>理由：
+纯教师内容在微信搜一搜里几乎没有搜索量（教师不会主动搜"收益管理教案"），起不了量；
+但纯从业者内容又错失你的高客单客户。<strong>一稿两用同时解决两个问题。</strong></p>
+<p>唯一例外：<strong>政策类选题（1+X 移交、等级认定）单独成篇，且只写教师</strong>——那是教师会主动搜、且全网几乎无人写透的破圈内容。</p>
+
+<h3 id="toc-16">三级火箭的推进节奏</h3>
+<table>
+<tr><th style="width:16%">阶段</th><th style="width:26%">文章在做什么</th><th>把读者推向哪一级</th></tr>
+<tr><td>0–3 个月</td><td>判定表 / 公式类，免费给</td><td>推向<strong>第一级模板</strong>：回复关键词领 Excel。目标：领表次数</td></tr>
+<tr><td>3–6 个月</td><td>建合集，形成体系感</td><td>推向<strong>第二级小册</strong>：口袋书 / 主题书 / 教材。目标：主动咨询</td></tr>
+<tr><td>6 个月后</td><td>教师向 + 政策向内容</td><td>推向<strong>第三级陪跑</strong>：院校共建。目标：签约</td></tr>
+</table>
+
+<h2 id="toc-17">四、人设与账号设置</h2>
+<div class="code">名称：酒店收益管理（首选，含搜索关键词；次选"酒店收益管理手册"）
+
+简介：
+酒店收益管理｜15 张判定表免费领
+不带人实操，只教怎么开课、怎么判断
+回复【判定表】领 Excel · 回复【大纲】领课程大纲
+
+被关注回复：
+欢迎。这里只做两件事：给从业者发判定表，给教师发开课方法。
+回复【判定表】领自检表 ｜ 回复【大纲】领 16 周课程大纲</div>
+<p><strong>关键词一律 2 字短词</strong>（判定表 / 大纲 / 预测 / 日历），不要用长句子。
+<strong>头像</strong>不要用风景或酒店图——用纯色底 + 账号名文字，专业且易在订阅列表里被认出。</p>
+
+<h2 id="toc-18">五、三个必须避开的坑（基于情报）</h2>
+<ul class="no">
+<li><strong>不要碰"从业人员职业能力标准"</strong>——胡质健已是《酒店收益管理人员职业能力要求》团标执笔起草人。你只做"教学/课程标准"，且不说"首个""首创"</li>
+<li><strong>不要做播客 / 音频 / 短视频</strong>——张小姐已验证该赛道天花板极低（数百播放），且音频能耗远高于文字。你的精力只够一个形态：文字</li>
+<li><strong>不要追阅读量，也不要和胡质健比权威</strong>——前者在这个垂类不成立（几百阅读是常态），后者是必输比赛。你比的是"谁能让一个老师真的把课开起来"</li>
+</ul>
+<p>沿用 v1 已定的合规红线：AI 辅助创作必须人工加工并勾选声明；不得暗示国家认可；不得承诺就业；案例数据必须脱敏。</p>
+
+<h2 id="toc-19">六、修订后的 90 天清单</h2>
+<ul class="chk">
+<li><strong>第 1 周</strong>：注册 + 定名 + 简介 + 配置"被关注回复"和 2 个关键词回复。<strong>不发文章</strong></li>
+<li><strong>第 2 周</strong>：发第 1 篇《15 项收益自检表》+ 文末首次使用《给教师的一句话》栏目 + 配 Excel 钩子</li>
+<li><strong>第 3 周</strong>：发第 2 篇（每天该看哪 9 个数）+ 建"判定表"合集</li>
+<li><strong>第 4 周</strong>：发第 3 篇（RevPAR 加权算法，搜索友好）+ <strong>文末开始留作业</strong>（学浅谈 RM）</li>
+<li><strong>第 5–8 周</strong>：按选题库周更；其中一周发<strong>政策解读《1+X 移交后院校该往哪走》</strong>（教师向单篇，破圈用）</li>
+<li><strong>第 9 周</strong>：<strong>第一次月度回顾</strong>——挑出反馈最好的 1–2 篇，升级成口袋书的一章 / 教案的一节</li>
+<li><strong>第 10–12 周</strong>：继续周更；优化前 8 篇的标题 + 120 字搜索摘要 + 标签</li>
+<li><strong>第 13 周</strong>：第二次月度回顾；此时判断是否有读者主动咨询——有即验证成立，可开始推第二级（书系）</li>
+</ul>
+<div class="ok">
+<p><strong>止损线（来自 Alina 的一句话）："凡是累都不对——如果很累，说明方法错了。"</strong>
+如果连续两周一篇都发不出，不要加大意志力，而是把篇幅从 1500 字降到 800 字、把频率从周更降到半月更。
+<strong>降级继续 &gt; 中断停止。</strong>这个账号的价值在于"持续在煮"，不在于"温度高"。</p>
+</div>
+
+</main>
+
+<footer>
+  <b>HRMA 公众号打法 v2 · 竞品对标与方法论整合</b><br>
+  竞品情报来源：胡质健（百度百科 / 中瑞酒店管理学院官网）、浅谈 Revenue Management（公众号原文）、张小姐看酒店生意（喜马拉雅）<br>
+  方法论来源：Write to Live（Alina霖子）· 一人创作系统 / 内容产品三级火箭<br>
+  本方案为内部策略文档，含竞争判断与合规提示，未公开发布
+</footer>
+
+</div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>HRMA 公众号打法 · 竞品对标与方法论整合</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">一、垂类情报：这个赛道谁在写</a>
+<a href="#toc-2" class="lv3">1. 胡质健 —— 行业权威，且已占住你要的高地</a>
+<a href="#toc-3" class="lv3">2. 浅谈 Revenue Management —— 一线实操派，写法值得直接学</a>
+<a href="#toc-4" class="lv3">3. 张小姐看酒店生意（露丹）—— 告诉你流量天花板有多低</a>
+<a href="#toc-5" class="lv3">4. 三方对照：你的位置在哪</a>
+<a href="#toc-6">二、Write to Live 能迁移给你的五条</a>
+<a href="#toc-7" class="lv3">1. ① 写作 ≠ 产品：三级火箭（最重要）</a>
+<a href="#toc-8" class="lv3">2. ② 3000 人理论 → 你的 300 人目标</a>
+<a href="#toc-9" class="lv3">3. ③ 系统写作的四条小机制（非压迫性，专为低能耗设计）</a>
+<a href="#toc-10" class="lv3">4. ④ 反差句式人设（可直接套用）</a>
+<a href="#toc-11" class="lv3">5. ⑤ 转化不是设计出来的（与你的&quot;被动接单&quot;完全一致）</a>
+<a href="#toc-12">三、整合后的打法</a>
+<a href="#toc-13" class="lv3">6. 定位一句话</a>
+<a href="#toc-14" class="lv3">7. 核心机制：一稿两用（一篇同时喂饱两类读者）</a>
+<a href="#toc-15" class="lv3">8. 内容配比修订（v1 的 70/30 → 改为一稿两用）</a>
+<a href="#toc-16" class="lv3">9. 三级火箭的推进节奏</a>
+<a href="#toc-17">四、人设与账号设置</a>
+<a href="#toc-18">五、三个必须避开的坑（基于情报）</a>
+<a href="#toc-19">六、修订后的 90 天清单</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
+})();
+</script>
+</body>
+</html>

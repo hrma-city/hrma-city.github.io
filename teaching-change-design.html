@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>教学变革借鉴与「送马上岗＋扶一程」社区运营产品设计</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--gold2:#f5d78e;--ink:#1f2a37;--mut:#5b6a7d;
+  --ok:#2a9d5f;--blue:#3d8bd4;--red:#c0503f;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.85;font-size:15px}
+.wrap{max-width:980px;margin:0 auto;padding:0 22px 90px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:34px 0 30px}
+.hero .wrap{padding-bottom:0}
+.hero .tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);
+  color:var(--gold2);font-size:12.5px;border-radius:999px;padding:3px 13px;margin-bottom:12px}
+.hero h1{font-size:25px;line-height:1.45}
+.hero p{color:#b9d0e6;font-size:14px;margin-top:10px;max-width:800px}
+h2{font-size:20px;color:var(--navy);margin:38px 0 6px;padding-left:12px;border-left:4px solid var(--gold)}
+h3{font-size:16px;color:var(--navy);margin:20px 0 6px}
+.lead{color:var(--mut);font-size:14px;margin:6px 0 14px;padding-left:12px}
+p{margin:9px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:14px 0}
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:12px;overflow:hidden;margin:12px 0}
+th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-size:12.5px}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:#fafcfe}
+.pill{display:inline-block;font-size:11px;border-radius:6px;padding:1px 8px;color:#fff;white-space:nowrap}
+.pill.h{background:var(--ok)}.pill.m{background:var(--blue)}.pill.l{background:var(--gold);color:#3a2c07}
+.quote{border-left:3px solid var(--gold);background:#fffcf2;padding:11px 15px;border-radius:0 10px 10px 0;font-size:13.5px;color:#5b4a12;margin:12px 0}
+.note{background:#eef6f1;border:1px solid #c4e2d0;border-radius:10px;padding:12px 16px;font-size:13.5px;color:#2c6e48;margin:12px 0}
+.warn{background:#fdf1ef;border:1px solid #eecac4;border-radius:12px;padding:12px 16px;font-size:13.5px;color:#8a3a2e;margin:12px 0}
+.flow{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.step{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 15px;flex:1 1 200px;min-width:180px}
+.step b{color:var(--navy);display:block;margin-bottom:4px;font-size:14px}
+.step span{font-size:12.5px;color:var(--mut)}
+.foot{text-align:center;color:var(--mut);font-size:12.5px;margin-top:40px;padding-top:18px;border-top:1px solid var(--line)}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;right:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:-6px 0 28px rgba(15,42,74,.20);transform:translateX(100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;right:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero"><div class="wrap">
+  <span class="tag">战略设计 · 内部文稿 · 本地留存</span>
+  <h1>教学变革借鉴与「送马上岗 ＋ 扶一程」社区运营产品设计</h1>
+  <p>跳出酒店收益管理教学、酒店行业、旅游行业的视角，学习全行业 / 全国 / 全球近年的教学变革与互动创新；
+  并设计学生"学完即用、上岗有人扶"的产品闭环——这是社区运营要承载的长期价值。</p>
+</div></header>
+
+<main class="wrap">
+
+<h2 id="toc-1">引言：从"一直往下拖"到"点一下就到"</h2>
+<p class="lead">先说一个刚立下的铁律，它也是这份设计的出发点：今后出教材、书、手册等大篇幅文件，必须配可点击的在线阅读目录。本文自身就带头做到（右下角 ☰ 打开目录）。</p>
+<p>这份设计分六块：① 全球教学变革地图与可借鉴度；② 落到收益管理教学的具体重构；③ "送马上岗"服务包（学完到入职的临门一脚）；④ "扶一程"持续教培与社区运营产品（上岗后的长期支持）；⑤ 按"一次只给一件事"的落地优先级；⑥ 现有大文件补目录的执行计划（本次已落地）。</p>
+<div class="note"><b>设计原则（用户确立）：</b>主动多想一步、破除思维限制——想得全是为了交付更好的方案，不是拖延；所有产品按"能量约束"设计：优先产品型（写一次卖多次、异步交付），避免服务型（高频交付、线性换钱、持续社交）；一次只给一件事，且要小到今天能完成。</div>
+
+<h2 id="toc-2">一、跳出行业：全球 / 全国 / 全行业的教学变革地图（2024–2025）</h2>
+<p class="lead">不重述酒店培训老办法，只采集"跨行业、已被验证、可迁移"的做法，并给每一项打可借鉴度。</p>
+
+<table>
+<thead><tr><th>变革方向</th><th>典型做法</th><th>代表案例 / 来源</th><th>可借鉴度</th><th>落到 RM 教学的形态</th></tr></thead>
+<tbody>
+<tr><td>AI 个性化 / 自适应学习</td><td>按学习者水平动态推题、调难度、补薄弱点</td><td>Khanmigo、可汗学院；国内"AI 学伴"在 200+ 高校试点</td><td><span class="pill h">高</span></td><td>题库按判定表能力图谱动态出题；弱项自动回流到对应章节</td></tr>
+<tr><td>AI 导师 / RAG 问答</td><td>用课程专属资料做检索增强，秒级答疑、降低教师重复劳动</td><td>山东电子职院"AI 学长"：7 个数字人、RAG  grounding、准确率 90%+、3 秒响应、带情感预警</td><td><span class="pill h">高</span></td><td>"RM 学长"导师：基于本站教材 / 题库 / 案例作答，7 种人设对应 7 类问题</td></tr>
+<tr><td>微学习（Microlearning）</td><td>2–5 分钟知识点切片，碎片化吸收</td><td>字节 / 腾讯内部"日课"；Duolingo 模式全球验证</td><td><span class="pill h">高</span></td><td>每日一"判定表口诀灯"；课前 3 分钟短视频 / 一图流</td></tr>
+<tr><td>游戏化 / 教育娱乐</td><td>关卡、徽章、排行榜、剧情，把练习变"想再来一局"</td><td>本站已有"登顶闯关""30 天经营模拟"；多邻国留存验证</td><td><span class="pill h">高</span></td><td>把每日收益决策做成限时"决策冲刺"关卡，连胜给段位</td></tr>
+<tr><td>项目制学习 PBL</td><td>用真实问题 / 真实数据做完整体交付物</td><td>工程 / 医学教育主流化；CDIO 模式</td><td><span class="pill h">高</span></td><td>用本站"云璟 90 天模拟数据库"做真实收益诊断报告 + 30 天行动方案</td></tr>
+<tr><td>翻转课堂</td><td>课前自学知识点，课中只做讨论 / 演练</td><td>全国高校一流课程普遍采用</td><td><span class="pill m">中</span></td><td>微课自学家里看，课堂 100% 做角色扮演 / 查表实战</td></tr>
+<tr><td>XR 沉浸仿真（VR/AR）</td><td>低成本还原高危 / 高成本场景练手</td><td>医学手术、核电演练；酒店前台 VR 培训已有商用</td><td><span class="pill m">中</span></td><td>把"晨会 / 客户谈判 / 超售救场"做成可重玩的角色情景（已 32 个，可升 VR）</td></tr>
+<tr><td>微证书 / 纳米学位</td><td>小块能力可被验证、被雇主采信</td><td>Coursera / edX 微证书；HSMAI CertRM、康奈尔收益优化认证</td><td><span class="pill h">高</span></td><td>站内"段位徽章"对齐 HSMAI CertRM L1/L2，结业即持证路径</td></tr>
+<tr><td>胜任力本位教育 CBE</td><td>不以学时为准，以"能不能做"为准</td><td>护理 / IT 认证体系；行业认证普遍 CBE 化</td><td><span class="pill h">高</span></td><td>以 15 张判定表为胜任力地图，过关 = 能上岗</td></tr>
+<tr><td>混合 / 混合式</td><td>线上自学 + 线下实战 + 异步回看</td><td>后疫情高校标配</td><td><span class="pill m">中</span></td><td>录播课 + 轻社群 + 线下训练营，三段组合</td></tr>
+<tr><td>数据驱动教学设计</td><td>用学习行为数据迭代内容</td><td>各 LMS 学习分析模块</td><td><span class="pill m">中</span></td><td>追踪"哪张判定表错最多"，反向修订教材与课件</td></tr>
+<tr><td>软技能 / 人机协作</td><td>沟通、谈判、用 AI 而非被 AI 替代</td><td>WTTC：74% 雇主称毕业生"不 ready"；HEDNA 2025 强调数据素养 + 人际能力</td><td><span class="pill h">高</span></td><td>在情景演练里专门练"跨部门推动""向总经理翻译收益语言"</td></tr>
+<tr><td>可持续 / 情感教育</td><td>ESG、韧性、心理安全进入课程</td><td>欧盟 digiCOMP；高校通识改革</td><td><span class="pill l">低</span></td><td>作为"汇报翻译"模块的延伸：把收益目标讲成经营语言</td></tr>
+<tr><td>职场学习 70-20-10</td><td>70% 在岗实战 / 20% 同伴 / 10% 正式课</td><td>企业学习领域共识模型</td><td><span class="pill h">高</span></td><td>社区产品的骨架：在岗求助 + 同伴案例 + 微课，三者配比按此</td></tr>
+<tr><td>实践社区 CoP</td><td>同行持续共建知识、互答疑难</td><td>Mighty Networks / Circle 社区产品范式</td><td><span class="pill h">高</span></td><td>校友 / 在岗收益经理的提问板、案例廊、排行榜</td></tr>
+<tr><td>学习流中（Learning in the flow of work）</td><td>在干活时顺手查到"怎么做"，不离开岗位</td><td>McKinsey、ServiceNow 推行 job aids</td><td><span class="pill h">高</span></td><td>"90 天爬坡 Job Aids"：情景速查卡，上岗即查即用</td></tr>
+<tr><td>微承诺 / 学习冲刺</td><td>2–4 周一个小目标，降低放弃率</td><td>社区运营最佳实践中"ritual + milestone"</td><td><span class="pill m">中</span></td><td>社区每月一个主题冲刺，季度一次复盘</td></tr>
+</tbody>
+</table>
+<div class="quote">一句话结论：最该借的不是某个花哨技术，而是三条主线——<b>自适应 + AI 导师</b>（解决"学得会"）、<b>PBL + 胜任力</b>（解决"用得上"）、<b>70-20-10 + CoP</b>（解决"上岗后还有人扶"）。</div>
+
+<h2 id="toc-3">二、可借鉴到酒店收益管理教学的具体重构</h2>
+<p class="lead">把上面的方向翻译成本站能马上做、且和现有资产（教材 / 题库 / 案例 / 模拟库 / 游戏）接得上的形态。</p>
+
+<h3 id="toc-4">2.1 决策冲刺游戏化</h3>
+<p>把"收益经理一天"拆成 6–8 个限时决策点（抓数据 → 看 Pickup → 查表 A/B/C/H → 晨会 → 台账），每个点 90 秒作答，连对给"连胜值"，周末结算段位。本质是把现有"登顶闯关"的"学"升级为"做"，更接近真实岗位节奏。</p>
+
+<h3 id="toc-5">2.2 沉浸式仿真升级</h3>
+<p>本站已有"云璟 90 天经营模拟"和 32 个角色情景。下一步：把其中 5 个高频高危情景（超售救场、客户谈判、总经理汇报、渠道冲突、旺季定价）做成"可重玩、带分支结局"的轻量互动剧；条件成熟再升 VR。先剧本后技术，避免为技术而技术。</p>
+
+<h3 id="toc-6">2.3 PBL 真实数据项目</h3>
+<p>用本站"云璟 90 天模拟数据库"做学期大作业：给学生一份真实口径的数据，要求产出《收益诊断报告 + 30 天行动方案》，评分以"依据与留痕"为主（对齐教师手册每章第⑥段验收判据）。交付物可直接进"送马上岗"的作品集。</p>
+
+<h3 id="toc-7">2.4 AI 学长导师（RAG 版）</h3>
+<p>已有 coach.html（方法论分身）。升级为"RM 学长"：用本站教材 / 题库 / 案例做检索增强，7 种人设对应 7 类问题（指标算不清、查表不会、晨会怎么开、客户怎么谈、汇报怎么翻、面试怎么答、上岗第一天干嘛）。秒级答疑、答不出时转人工、并对"连续答错 / 情绪化"触发预警推给教师或教练。这是"扶一程"的核心引擎，也是降低教师重复答疑的关键。</p>
+
+<h3 id="toc-8">2.5 微证书 / 能力徽章</h3>
+<p>以 15 张判定表为能力地图，学员每过一张即点亮对应徽章；集齐基础篇 = L1（对齐 HSMAI CertRM L1），集齐操作篇 = L2（对齐 L2）。徽章可被院校 / 雇主采信为"能上岗"的证据。路径明示：本站结业 → 考取行业 CertRM。</p>
+
+<h3 id="toc-9">2.6 翻转课堂 + 微学习</h3>
+<p>课前发 3 分钟"一图流 / 短视频"讲清一个判定表；课堂 100% 用来角色扮演和查表实战。口诀灯（quest 知识灯）改成每日推送一条，形成微学习习惯。</p>
+
+<h3 id="toc-10">2.7 胜任力本位</h3>
+<p>不以"上了多少课时"评价，而以"15 张判定表能不能独立查对、留痕、解释"评价。过关即视为具备上岗基础——这反过来要求教材、题库、课件、游戏全部围绕判定表组织（现有体系已大致对齐，此处是明确化）。</p>
+
+<h2 id="toc-11">三、"送马上岗"服务包：学完到入职的临门一脚</h2>
+<p class="lead">学生学完课程，到真正坐上收益经理的椅子，中间还差"临门一脚"。这一脚不由教材给，而由一套产品型服务包给——写一次、卖多次、可下载可打印。</p>
+
+<h3 id="toc-12">3.1 岗位入职工具包（Job Start Kit）</h3>
+<p>三张清单：<b>第 1 天</b>（账号权限、系统熟悉、找谁问）、<b>第 1 周</b>（晨会怎么开、台账怎么填、前 7 天看板）、<b>第 1 月</b>（首份定价建议怎么出、首次汇报怎么说）。可直接下载 PDF / 打印携带。</p>
+
+<h3 id="toc-13">3.2 90 天爬坡 Job Aids</h3>
+<p>上岗头 90 天最高频的 20 个情景速查卡：超售阈值怎么定、竞对价异常怎么处理、渠道成本率怎么看、晨会 25 分钟脚本、台账 13 字段填法。原则是"在干活时顺手查到怎么做"，不离开岗位。</p>
+
+<h3 id="toc-14">3.3 结业作品集（Capstone Portfolio）</h3>
+<p>学员结课时产出的《收益诊断报告 + 30 天行动方案》打包成作品集，附能力徽章截图。用途：求职背书、入职后直接复用为新店的起步方案。这是"学完即用"的硬交付。</p>
+
+<h3 id="toc-15">3.4 简历 / 面试助攻</h3>
+<p>拆解"收益管理经理"岗位 JD 的关键词，给简历模板与话术；建 RM 面试题库（含情景题）与模拟面试脚本。让学生不是"学过"而是"能讲清楚自己会什么"。</p>
+
+<h3 id="toc-16">3.5 校企合作直通</h3>
+<p>把"送马上岗"延伸到院校侧：与开设酒管专业、且有酒店合作资源的院校共建实习 / 管培生内推通道；本站提供"已具备上岗基础"的能力证明，院校与酒店之间减少信息不对称。</p>
+<div class="note"><b>为什么是产品型：</b>以上 3.1–3.4 都是一次写就、多次分发、异步使用的文档 / 模板，不消耗教师持续精力；3.5 才需要少量人际，但可用"合作院校模板 + 自助申请"降到最低。</div>
+
+<h2 id="toc-17">四、"扶一程"持续教培与社区运营产品：上岗后的长期支持</h2>
+<p class="lead">上岗不是终点。岗位上的真实问题（系统换了、老板要新口径、旺季撞上大型活动）教材覆盖不到。这一程要靠"社区 + 教练 + 同伴"持续供给——这正是您的社区运营产品要承载的。</p>
+
+<h3 id="toc-18">4.1 产品全貌：Freemium → 付费会员三档</h3>
+<table>
+<thead><tr><th>档位</th><th>人群</th><th>给什么</th><th>价值锚点</th></tr></thead>
+<tbody>
+<tr><td><b>免费层</b>（公域引流）</td><td>学生 / 刚入行</td><td>口诀灯、部分案例、每日一问、社区提问浏览</td><td>持续接触，建立信任</td></tr>
+<tr><td><b>会员·成长</b>（在岗主力）</td><td>在岗收益经理 / 应届入职</td><td>90 天 Job Aids、AI 学长在岗版、每月主题冲刺、案例廊投稿与下载、微证书晋级</td><td>"上岗后有人扶"</td></tr>
+<tr><td><b>会员·进阶</b>（资深 / 管理者）</td><td>收益总监 / 培训负责人</td><td>专家月度 AMA、紧急会诊通道、CoP 内推与 mentor、可下载行业基准包、团队账号</td><td>"疑难有人接、人脉有渠道"</td></tr>
+</tbody>
+</table>
+
+<h3 id="toc-19">4.2 仪式与节奏（社区活下来的关键）</h3>
+<div class="flow">
+  <div class="step"><b>每日一问</b><span>一条真实情景选择题，评论区互答，AI 学长给标准依据</span></div>
+  <div class="step"><b>每周一事</b><span>周一发任务、周五交作业（如"给你家本周定价建议"）</span></div>
+  <div class="step"><b>每月一主题</b><span>如"旺季定价月""渠道谈判月"，配冲刺徽章</span></div>
+  <div class="step"><b>每季一复盘</b><span>线上复盘会 + 标杆案例展示，强化归属</span></div>
+</div>
+<p>参考 Mighty Networks 数据：社区活跃靠"ritual + visible milestone + peer support"，84% 内容由成员生产、周活 59% 来自稳定仪式。节奏比功能重要。</p>
+
+<h3 id="toc-20">4.3 在岗教练（AI 学长升级版）</h3>
+<p>把 2.4 的 RM 学长从"学生版"切到"在岗版"：检索范围加入行业基准、最新案例、政策口径；问题从"这题怎么做"变成"我们店这个月该怎么定"。答不出或涉及合规风险时，转人工专家 + 触发预警。</p>
+
+<h3 id="toc-21">4.4 实践社区 CoP</h3>
+<p>三件套：<b>提问板</b>（疑难互答，AI 先答、人补充）、<b>案例廊</b>（成员投稿真实战例，优质者进教材）、<b>排行榜</b>（按贡献 / 段位激励）。本站已有 community 板块骨架（讨论板、案例投稿、排行榜），可直接承载。</p>
+
+<h3 id="toc-22">4.5 校友 / 结业网络</h3>
+<p>结业作品集公开展示（脱敏）、内推通道、资深带新人的 mentor 机制。把"学员 → 助教 → 认证讲师 → 区域合伙人"的晋级链搬进社区，让社区自己生产内容与口碑。</p>
+
+<h3 id="toc-23">4.6 专家热线</h3>
+<p>每月一次 AMA（问行业权威体系代表 / 资深从业者）；"紧急会诊"通道处理在岗突发（如大型活动定价、系统切换）。注意：站上不出现真实专家姓名，用"行业权威体系""资深收益总监"等泛称（保密铁律）。</p>
+
+<h3 id="toc-24">4.7 持续微证书与晋级</h3>
+<p>在岗每完成一个主题冲刺、每解决一个高难案例，点亮进阶徽章；L2 → L3 对应"能带团队 / 能做经营决策"。证书路径与 HSMAI / 康奈尔等行业认证衔接，形成"站内段位 → 行业持证"的上升通道。</p>
+
+<h3 id="toc-25">4.8 商业模型草图（参考，非定价承诺）</h3>
+<table>
+<thead><tr><th>指标</th><th>参考值 / 做法</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>ARPU 参考</td><td>Mighty Networks 平均 $48 / 月 / 会员</td><td>国内可按 ¥30–80 / 月 试探，先用低价漏斗验证</td></tr>
+<tr><td>付费转化</td><td>Circle 平台 88% 社区靠付费会员变现</td><td>免费层做大分母，会员层做收入</td></tr>
+<tr><td>漏斗</td><td>免费（教材 / 口诀灯）→ 成长会员 → 进阶会员</td><td>首月低价或限时免费，降低入门门槛</td></tr>
+<tr><td>北极星</td><td>在岗 90 天留存率 + 月活贡献</td><td>比"注册数"更能反映"扶一程"是否真有效</td></tr>
+<tr><td>成本结构</td><td>AI 学长（边际近 0）+ 每月 1 次 AMA + 用户生产内容</td><td>符合"能量约束"：重资产前置，运营轻量</td></tr>
+</tbody>
+</table>
+<div class="warn"><b>诚实边界：</b>社区收入是"扶一程"的可持续来源，但不是主收入（主收入仍是训练营 / 陪跑）。社区的作用是——让结业教师与学员"真开课、真上岗、真留下"，反哺口碑与续费。定价需经您拍板，本表仅作参考框架。</div>
+
+<h2 id="toc-26">五、落地优先级：一次只给一件事（按能量约束排期）</h2>
+<p class="lead">您精力有限、做不了体力活。所以排期遵守两条：① 优先产品型（写一次卖多次）；② 同一时刻只放一件事，且小到今天能完成。</p>
+<div class="flow">
+  <div class="step"><b>① AI 学长导师（轻量 RAG 版）</b><span>复用 coach.html，先接教材 + 题库做检索增强；最低成本验证"有人答疑"</span></div>
+  <div class="step"><b>② 90 天爬坡 Job Aids</b><span>产品型文档，一次写就多次分发；直接接"送马上岗"</span></div>
+  <div class="step"><b>③ 在线阅读目录</b><span>✅ 本次已完成：全站 269 个大文档加可点击 TOC</span></div>
+  <div class="step"><b>④ 微证书段位</b><span>把 15 张判定表映射成徽章，接现有 quest 进度</span></div>
+  <div class="step"><b>⑤ 社区会员产品</b><span>在现有 community 骨架上升级三档 + 仪式节奏</span></div>
+  <div class="step"><b>⑥ 沉浸仿真升级</b><span>选 5 个高频情景做分支互动剧，最后才考虑 VR</span></div>
+</div>
+<p>节奏建议：①② 可并行内容生产但错峰发布；③④ 是"顺手就能做"的小步；⑤⑥ 等前面积累出真实用户再上，避免空转。</p>
+
+<h2 id="toc-27">六、给现有大文件加在线目录的执行计划（本次已落地）</h2>
+<p class="lead">呼应开头铁律。已做：新增可复用工具 + 部署管线集成 + 全站存量补齐。</p>
+<table>
+<thead><tr><th>动作</th><th>结果</th></tr></thead>
+<tbody>
+<tr><td>新增 <code>hrma/inject_toc.py</code></td><td>浮动抽屉式 TOC 注入器：幂等、不挤压正文、自动给 h2/h3 或 .mod 块补锚点、带滚动高亮</td></tr>
+<tr><td>集成进 <code>sync_gh.sh</code></td><td>每次部署自动给大文档补目录，未来出新大文件也自动带目录</td></tr>
+<tr><td>三个生成器内置 TOC</td><td><code>_build_textbook_merged.py</code> / <code>_merge_teacher_manual.py</code> / <code>_build_teach_kit.py</code> 写盘前调用 add_toc，重建不丢目录</td></tr>
+<tr><td>存量补齐并部署</td><td>全站 269 个大文档已加目录并上线（含教材 / 手册 / 教学资源中心）</td></tr>
+</tbody>
+</table>
+<div class="note"><b>铁律固化：</b>今后任何大篇幅 HTML 文档，生成时即带 TOC；旧文件下次部署会被自动补齐。门控页、游戏页、枢纽页在跳过名单内，不会误加。</div>
+
+<h2 id="toc-28">附：参考来源（采集自公开资料，仅作设计依据）</h2>
+<ul>
+<li>全球教学创新综述（2024–2025）：AI 自适应、微学习、游戏化、PBL、XR、微证书、CBE、混合式、数据驱动教学设计、软技能。</li>
+<li>AI 导师案例：山东电子职业技术学院"AI 学长"（RAG grounding、7 数字人、3 秒响应、情感预警）——用于 2.4 / 4.3 设计。</li>
+<li>职场学习：70-20-10 模型、Learning in the flow of work、CoP、2–4 周学习冲刺——用于 4.2 / 4.4。</li>
+<li>社区产品范式：Mighty Networks（ARPU $48、84% 成员生产内容、59% 周活）、Circle（88% 靠付费会员变现）——用于 4.1 / 4.8。</li>
+<li>行业人才缺口：WTTC（自动化到 2030 或替代 12.5% 酒店岗位、74% 雇主称毕业生不 ready）、HEDNA 2025（数据素养 + 人际能力为跨切能力）——用于软技能与胜任力设计。</li>
+<li>行业认证路径：HSMAI CertRM L1/L2、康奈尔收益优化认证、Revenue Academy——用于 2.5 / 4.7 徽章对齐。</li>
+</ul>
+
+<div class="foot">内部战略设计稿 · 含定价与商业底线，本地留存不部署 · 配套执行见第六部分</div>
+</main>
+
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>目录</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">引言：从&quot;一直往下拖&quot;到&quot;点一下就到&quot;</a>
+<a href="#toc-2">一、跳出行业：全球 / 全国 / 全行业的教学变革地图（2024–2025）</a>
+<a href="#toc-3">二、可借鉴到酒店收益管理教学的具体重构</a>
+<a href="#toc-4" class="lv3">2.1 决策冲刺游戏化</a>
+<a href="#toc-5" class="lv3">2.2 沉浸式仿真升级</a>
+<a href="#toc-6" class="lv3">2.3 PBL 真实数据项目</a>
+<a href="#toc-7" class="lv3">2.4 AI 学长导师（RAG 版）</a>
+<a href="#toc-8" class="lv3">2.5 微证书 / 能力徽章</a>
+<a href="#toc-9" class="lv3">2.6 翻转课堂 + 微学习</a>
+<a href="#toc-10" class="lv3">2.7 胜任力本位</a>
+<a href="#toc-11">三、&quot;送马上岗&quot;服务包：学完到入职的临门一脚</a>
+<a href="#toc-12" class="lv3">3.1 岗位入职工具包（Job Start Kit）</a>
+<a href="#toc-13" class="lv3">3.2 90 天爬坡 Job Aids</a>
+<a href="#toc-14" class="lv3">3.3 结业作品集（Capstone Portfolio）</a>
+<a href="#toc-15" class="lv3">3.4 简历 / 面试助攻</a>
+<a href="#toc-16" class="lv3">3.5 校企合作直通</a>
+<a href="#toc-17">四、&quot;扶一程&quot;持续教培与社区运营产品：上岗后的长期支持</a>
+<a href="#toc-18" class="lv3">4.1 产品全貌：Freemium → 付费会员三档</a>
+<a href="#toc-19" class="lv3">4.2 仪式与节奏（社区活下来的关键）</a>
+<a href="#toc-20" class="lv3">4.3 在岗教练（AI 学长升级版）</a>
+<a href="#toc-21" class="lv3">4.4 实践社区 CoP</a>
+<a href="#toc-22" class="lv3">4.5 校友 / 结业网络</a>
+<a href="#toc-23" class="lv3">4.6 专家热线</a>
+<a href="#toc-24" class="lv3">4.7 持续微证书与晋级</a>
+<a href="#toc-25" class="lv3">4.8 商业模型草图（参考，非定价承诺）</a>
+<a href="#toc-26">五、落地优先级：一次只给一件事（按能量约束排期）</a>
+<a href="#toc-27">六、给现有大文件加在线目录的执行计划（本次已落地）</a>
+<a href="#toc-28">附：参考来源（采集自公开资料，仅作设计依据）</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
+</html>

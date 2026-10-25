@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>写书先行 · 低精力者的产品化路线</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    background:#f4f7fa;color:#1c2430;line-height:1.8;font-size:14.8px}
+  .wrap{max-width:860px;margin:0 auto;padding:0 16px 60px}
+  .hero{background:linear-gradient(150deg,#0f2a4a,#16406e 58%,#1d6fb8);color:#fff;padding:36px 16px 30px}
+  .eb{font-size:12px;letter-spacing:2.4px;opacity:.8;margin-bottom:8px}
+  h1{font-size:26px;font-weight:800;line-height:1.4;margin-bottom:10px}
+  .lead{opacity:.93;font-size:15px;max-width:720px}
+  .sec{margin-top:30px}
+  .sn{display:inline-block;background:#0f2a4a;color:#fff;font-size:12px;font-weight:700;
+    border-radius:6px;padding:3px 10px;margin-bottom:7px}
+  h2{font-size:19px;font-weight:800;color:#0f2a4a;margin-bottom:6px}
+  .sub{color:#5b6a7d;font-size:13.6px;margin-bottom:13px}
+  .card{background:#fff;border:1px solid #e2e8ef;border-radius:13px;padding:17px 19px;margin-bottom:12px}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8ef;
+    border-radius:12px;overflow:hidden;font-size:13.6px}
+  th{background:#eef3f9;color:#3a4b60;font-size:12.3px;text-align:left;padding:10px 12px;font-weight:700}
+  td{padding:10px 12px;border-top:1px solid #edf1f6;vertical-align:top}
+  ul.clean{list-style:none}
+  ul.clean li{padding:4px 0 4px 20px;position:relative;font-size:14px}
+  ul.clean li::before{content:"";position:absolute;left:6px;top:14px;width:6px;height:6px;
+    border-radius:50%;background:#1d6fb8}
+  .note{background:#fff8ec;border:1px solid #f0dcae;border-radius:11px;padding:13px 16px;font-size:13.8px;color:#6a5220}
+  .warn{background:#fdecec;border:1px solid #f0bcbc;border-radius:11px;padding:13px 16px;font-size:13.8px;color:#7a2424}
+  .ok{background:#eef7f2;border:1px solid #bfdfd0;border-radius:11px;padding:13px 16px;font-size:13.8px;color:#1d6b4c}
+  .big{border:2px solid #e8b84b;background:#fffdf6;border-radius:13px;padding:18px 20px;margin-top:14px}
+  .big .t{font-size:16px;font-weight:800;color:#0f2a4a;margin-bottom:6px}
+  footer{margin-top:34px;background:#0f2a4a;color:rgba(255,255,255,.7);padding:22px 16px;
+    font-size:13px;text-align:center;line-height:1.8}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eb">路线修正 · 按你的能量结构重新设计</div>
+    <h1>写书先行：<br>把生意改成「写一次，卖很多次」</h1>
+    <p class="lead">上一版的方案错在能耗——每周去辅导、去触达、去留痕，是持续燃烧体力和情绪的服务型活儿。你的身体已经在报警。<b>那就别做服务型，做产品型。</b>书写完一次，往后每卖一本都不再消耗你。</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="sec">
+    <span class="sn">01</span>
+    <h2 id="toc-1">先承认一件事：写书也可能是逃避</h2>
+    <p class="sub">这句话必须放在最前面，否则下面的内容会把你送进一个更舒服的死胡同。</p>
+    <div class="warn">
+      <b>逃避式写书</b>：写给自己看、追求完美、写到第三本也从不发售、没人读、不产生一分钱——它的吸引力在于<b>安全、可控、不会被拒绝</b>。<br><br>
+      <b>生意式写书</b>：每一本都有明确的目标读者（酒店管理老师）、明确的目的（替你完成说服）、明确的终点（书里留钩子，把需要的人筛出来）。
+    </div>
+    <div class="ok" style="margin-top:12px">
+      <b>检验方法只有一个：这本书写完，谁会因为读了它而掏钱？</b><br>
+      答得出来，就是生意；答不出来，就是在给自己找借口——那也没关系，但要知道自己在做什么。
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sn">02</span>
+    <h2 id="toc-2">你的能量画像，决定了只能走产品型</h2>
+    <table>
+      <thead><tr><th style="width:110px"></th><th>服务型（陪跑）</th><th>产品型（写书）</th></tr></thead>
+      <tbody>
+        <tr><td><b>能量消耗</b></td><td>每天/每周持续输出，客户越多越累</td><td><b>集中消耗一次，之后接近零</b></td></tr>
+        <tr><td><b>是否需要社交</b></td><td>要主动触达、被拒绝、维持关系</td><td><b>独自完成，异步交付</b></td></tr>
+        <tr><td><b>是否会被<br>拒绝</b></td><td>每天都要面对拒绝</td><td>写的过程没人能拒绝你</td></tr>
+        <tr><td><b>收入曲线</b></td><td>线性：一份时间换一份钱</td><td><b>复利：写一次，卖很多次</b></td></tr>
+        <tr><td><b>失败风险</b></td><td>累垮了就彻底停摆，客户还在等你</td><td>累了可以歇，书还在替你卖</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:13px">
+      <b>结论：</b>不是"要不要写书"的问题，是<b>"你的模式必须产品化"</b>的问题。陪跑没有取消，只是从「你去找人」变成「被书筛出来的人来找你」——主动变被动，这是低精力者唯一能持久的做法。
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sn">03</span>
+    <h2 id="toc-3">书在你的生意里扮演三个角色</h2>
+    <div class="card"><b>① 代替你去敲门的销售员</b><p style="color:#5b6a7d;font-size:13.6px">你最怕的是触达陌生人。书可以替你做这件事：它同时接触一千个老师，不需要你发一条消息，也不会让你被拒绝。</p></div>
+    <div class="card"><b>② 不用到场就能建立信任的凭据</b><p style="color:#5b6a7d;font-size:13.6px">"我是作者"和"我在做咨询"是两个世界的信任等级。有了书，院校领导会见你，是因为你是作者，而不是因为你来推销。</p></div>
+    <div class="card"><b>③ 未来所有产品的原料库</b><p style="color:#5b6a7d;font-size:13.6px">工具包、课件、认证题库、AI 分身知识库，全部是同一份内容的不同形态。写完书，这些东西顺手就有了。</p></div>
+  </div>
+
+  <div class="sec">
+    <span class="sn">04</span>
+    <h2 id="toc-4">第一本写什么：目录已经存在了</h2>
+    <p class="sub">你不是在"开始写一本新书"，你是在<b>整理已经写好的东西</b>——这个认知差别极大。</p>
+    <div class="card">
+      <b>《酒店收益管理：高校教师开课手册》</b>（暂定名，目标读者：酒店管理专业教师）
+      <ul class="clean" style="margin-top:8px">
+        <li>第 1 章 · 为什么必须开这门课（产业需求、岗位、缺口）</li>
+        <li>第 2 章 · 开课的四个真实障碍与破解路径</li>
+        <li>第 3 章 · 一份可以直接改的大纲</li>
+        <li>第 4 章 · 三十二个公式怎么讲（每式配案例与易错点）</li>
+        <li>第 5 章 · 评价怎么做：「1+3」模板与课程思政</li>
+        <li>第 6 章 · 申报怎么报：一流课程与教改的材料清单</li>
+      </ul>
+    </div>
+    <div class="note">
+      <b>素材盘点（全部已有，不需要从零写）：</b>207 页方法论、32 个公式、六大行业参数、
+      14 份教案、3 套 PPT、8 张 Excel、4 套脱敏数据集、20 个教学案例、三级认证体系。<br>
+      <b>上面这六章，本质上就是这些素材的重新编排。不是创作，是编辑。</b>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sn">05</span>
+    <h2 id="toc-5">写完怎么变成钱（从免费到二十五万）</h2>
+    <table>
+      <thead><tr><th style="width:80px">层级</th><th>形态</th><th style="width:150px">渠道</th><th style="width:120px">你的投入</th></tr></thead>
+      <tbody>
+        <tr><td><b>引流</b></td><td>免费章节 PDF + 白皮书</td><td>着陆页 / 教师群</td><td>零边际成本</td></tr>
+        <tr><td><b>筛选</b></td><td>电子书 ¥19–49 / 纸质 ¥59 起</td><td>微信读书、京东、亚马逊 KDP</td><td>一次</td></tr>
+        <tr><td><b>变现</b></td><td>《开课工具包》¥980–1,980（含课件/数据集）</td><td>小报童 · 知识星球（<b>无需公司主体</b>）</td><td>沉淀即可</td></tr>
+        <tr><td><b>被动陪跑</b></td><td>读者主动求助 → ¥8–25 万院校合作</td><td>书末/工具包里的联系方式</td><td>只接愿意的人</td></tr>
+      </tbody>
+    </table>
+    <div class="ok" style="margin-top:12px">
+      <b>这里最关键的一句：</b>辅导能力仍然是核心资产，但你把它从"主动上门"改成"守株待兔"。
+      书把人筛好了、说服好了，走到你面前的人已经是半成交状态——同样的收入，能耗只有原来的十分之一。
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sn">06</span>
+    <h2 id="toc-6">怎么写才不会写到一半放弃</h2>
+    <ul class="clean">
+      <li><b>不要"每天写四小时"</b>——先定每天 30–90 分钟，状态好就多写，写不动就停，第二天还能接着来。</li>
+      <li><b>先出丑的一版</b>：把 207 页按六章拖进去，哪怕每章只有骨架和要点，也算初稿完成。完美是发售之后的事。</li>
+      <li><b>不要重写，只做重排</b>：口述给 AI 转文字、让 AI 整理旧稿都可以，你负责判断对错，不负责逐字搬运。</li>
+      <li><b>先卖再写完</b>：写完第 3 章就可以做一个预售/试读版本投放，有人买是你继续的唯一动力来源。</li>
+      <li><b>一次一本</b>：不要同时起三本书的框架，那是典型的启动性逃避。</li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <span class="sn">07</span>
+    <h2 id="toc-7">三条防线（防止把写书写成拖延）</h2>
+    <div class="card"><b>一 · 定截止日。</b>给书定一个公开的发售日期（六到八周内），没有日期的写作等于没有这个项目。</div>
+    <div class="card"><b>二 · 每周只衡量一件事：字数增加了吗？</b>不看质量、不看排版、不看封面，只看有没有往前走。</div>
+    <div class="card"><b>三 · 两周自检。</b>如果两周过去一个字都没写——那问题不在模式，在状态：可能需要先处理精力本身（作息、身体、情绪），而不是继续换方案。</div>
+  </div>
+
+  <div class="big">
+    <div class="t">今天唯一要做的一件事（只有一件）</div>
+    <p style="font-size:14.5px;color:#3a2a00">
+      打开你已有的素材，把上面<b>六章目录</b>存成一个文件，每章下面先写三到五个要点——加起来大概三百字。<br>
+      <b>三百字，不是三万字。</b>写完这本就存在了，剩下的是往里面倒素材。<br>
+      <span style="color:#6a5220">不需要联系任何人，不需要注册公司，不需要做任何让你紧张的事。</span>
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  HRMA · 写书先行 · 路线修正版<br>
+  核心：把生意从"服务型"改成"产品型"，用能耗换持久
+</footer>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>写书先行 · 低精力者的产品化路线</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 先承认一件事：写书也可能是逃避</a>
+<a href="#toc-2">2. 你的能量画像，决定了只能走产品型</a>
+<a href="#toc-3">3. 书在你的生意里扮演三个角色</a>
+<a href="#toc-4">4. 第一本写什么：目录已经存在了</a>
+<a href="#toc-5">5. 写完怎么变成钱（从免费到二十五万）</a>
+<a href="#toc-6">6. 怎么写才不会写到一半放弃</a>
+<a href="#toc-7">7. 三条防线（防止把写书写成拖延）</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
+})();
+</script>
+</body>
+</html>

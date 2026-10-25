@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+
+<meta charset="utf-8">
+
+<script>window.HRMA_PREFIX="../../";</script>
+<script src="../../auth-config.js?v=gate20261013"></script>
+<script src="../../assets/js/access-gate.js?v=v12"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script>window.HRMA_PREFIX="";</script>
+
+<script>
+/* ==========================================================================
+   HRMA 学院官网 · 鉴权配置
+   --------------------------------------------------------------------------
+   ▼▼▼ 需要填的就是下面两行 ▼▼▼
+   1. 到 https://supabase.com 免费注册，新建一个项目
+   2. 项目 → Settings → API
+      · Project URL       → 贴在 url
+      · anon public key   → 贴在 anonKey
+   3. 保存本文件，重新部署
+
+   详细步骤见同目录 supabase-setup.md
+   ========================================================================== */
+
+/* ★ 鉴权模式开关（重要）
+   'cloud' = 云端模式：走 Supabase 真实服务端校验，可给外部人开账号。
+   'local' = 本地模式：账号存在各自浏览器，不联网。适合只有您自己访问。
+                       一旦切回 'local'，云端注册/审核/登录三端会被整条旁路。
+
+   ⚠️ 2026-10-21 22:47 已确认并从 'cloud' 回退 'local'：Supabase 项目 ivcylkcbodoacajyvnpy（孟买 ap-south-1）
+   **从中国大陆网络完全不可达**——浏览器直连报「服务器意外中断了连接」（连接被重置），注册 fetch 报「Load failed」。
+   即「外部人云端自助注册」对国内用户走不通（supabase.co 域名 + 孟买区域双重绕不过）。
+   signin.html 的云端登录/注册分支、auth.js、admin-approve.html 云端审批代码**全部保留**，本地预置账号兜底也在——
+   将来到国内可访问的鉴权后端（腾讯云 CloudBase / Supabase 亚太区+自定义域名 等）就绪后，把本行改回 'cloud' 即可再开，无需重写。
+   纯静态站点固有限制：懂技术的人仍可用 curl/查看源码扒到 HTML，
+   要做到文件级真加密须迁腾讯云服务器（带访问网关），此处只挡普通访客。 */
+window.HRMA_AUTH_MODE = 'local';
+
+/* 管理员密码哈希（SHA-256）。只存哈希不存明文——20 位随机强密码，无法从哈希反推。
+   明文只存在站长本机 hrma/_private_files/管理员密码.txt。
+   作用：管理员邮箱 + 此密码，可在任意设备的登录门直接进站，不依赖恢复码。 */
+window.HRMA_ADMIN_PW_HASH = "f8d4f00ade4fac6f8474569be361054cb95008313161f5216c231be27b884085";
+
+window.HRMA_SUPABASE = {
+  // 例： "https://abcdefghijklmnop.supabase.co"
+  url: "https://ivcylkcbodoacajyvnpy.supabase.co",
+
+  // 例： "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9......"
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2Y3lsa2Nib2RvYWNhanl2bnB5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTYzMzYsImV4cCI6MjEwNDI3MjMzNn0.oO7kU5OJ2TYY6U1ZD6Ol3Vuh6dMwaIvV2N6CzsqL4Xw"
+};
+
+/* 管理员邮箱（拥有审批权限）。多个用逗号分隔。
+   三者均为站长本人可控的 QQ 邮箱（community 与 rm 为同一邮箱的别名，coach 亦为站长邮箱），
+   任一均可登录并被前端识别为管理员、数据库触发器自动 approved。
+   数据库侧 profiles_admin_all / handle_new_user 策略已同步支持这三个邮箱（见 _update_admin.py）。 */
+window.HRMA_ADMIN_EMAILS = ["rm-community@qq.com", "rm-coach@qq.com"];
+
+/* 联系邮箱（页面展示用） */
+window.HRMA_CONTACT_EMAIL = "rm-community@qq.com";
+
+/* 收款信息（结算页展示用）。
+   --------------------------------------------------------------------------
+   当前模式：**邮箱联系**（保护隐私，网页上不展示任何个人/收款账号）。
+   流程：用户下单 → 页面给出联系邮箱 → 发邮件索取付款方式 → 您邮件告知 →
+        对方付款 → 您核销后手动开通权益。
+   备注：微信/支付宝「转账」方式收款方无上限，不受静态收款码那条「单日 500 元」限制，
+        适合 ¥299 / ¥1999 这种客单价。
+   如需将来改回扫码，把下面 wechatQR / alipayQR 填上图片地址即可（但请留意 500 元限制）。
+   -------------------------------------------------------------------------- */
+window.HRMA_PAY = {
+  payee: "RMC收益管理社区",
+
+  // 页面上唯一对外展示的联系方式
+  contact: "rm-community@qq.com",
+
+  // 收款码图片地址：留空则不展示二维码
+  wechatQR: "",
+  alipayQR: "",
+
+  // 银行账号说明：留空则不展示（保护隐私，默认不展示）
+  bank: "",
+
+  note: "为保护隐私，本站不在网页展示任何收款账号。请通过上述邮箱联系我们获取付款方式，邮件中请附上您的订单号。"
+};
+
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>场景化锻炼 · 超售决策（练判断）</title>
+<style>
+  :root{--navy:#0f2a4a;--navy2:#12365c;--gold:#e8b84b;--gold2:#c99a3f;--ink:#1d2433;--mut:#8a94a6;--line:#e3e8f0;--ok:#1f9d6b;--bad:#d8503e;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#eef2f7;color:var(--ink);line-height:1.7;}
+  .top{background:var(--navy);color:#fff;padding:22px 24px;}
+  .top h1{margin:0;font-size:20px;}
+  .top p{margin:6px 0 0;color:#cdd9e8;font-size:13px;}
+  .wrap{max-width:860px;margin:0 auto;padding:22px 18px 60px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0;box-shadow:0 2px 10px rgba(15,42,74,.05);}
+  .tag{display:inline-block;background:var(--gold);color:#3a2c08;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:10px;}
+  h2{font-size:17px;margin:0 0 10px;color:var(--navy2);}
+  .data{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0;}
+  .cell{background:#f4f7fb;border:1px solid var(--line);border-radius:8px;padding:10px 12px;}
+  .cell b{display:block;font-size:18px;color:var(--navy);}
+  .cell span{font-size:12px;color:var(--mut);}
+  .opts{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
+  button.opt{appearance:none;border:1px solid var(--navy2);background:#fff;color:var(--navy2);font-size:15px;font-weight:600;padding:12px 18px;border-radius:10px;cursor:pointer;transition:.15s;flex:1;min-width:120px;}
+  button.opt:hover{background:var(--navy2);color:#fff;}
+  button.opt:disabled{opacity:.5;cursor:not-allowed;}
+  .result{display:none;margin-top:8px;}
+  .verdict{border-left:4px solid var(--navy2);background:#f7faff;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px;}
+  .verdict.ok{border-color:var(--ok);background:#f1faf5;}
+  .verdict.warn{border-color:var(--gold2);background:#fdfaf0;}
+  .verdict.bad{border-color:var(--bad);background:#fdf1ef;}
+  .formula{background:#0f2a4a;color:#e8eef7;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:12px 16px;border-radius:8px;overflow-x:auto;white-space:pre;}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:center;}
+  th{background:#f4f7fb;color:var(--navy2);}
+  .reveal{font-size:14px;}
+  .btn2{appearance:none;border:none;background:var(--gold);color:#3a2c08;font-weight:700;padding:10px 20px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .note{font-size:12px;color:var(--mut);margin-top:10px;}
+  a.back{color:var(--navy2);font-size:13px;text-decoration:none;}
+  a.back:hover{text-decoration:underline;}
+  @media print{.lab-actions{display:none!important}#labTable{display:table!important}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"open-course","item":"https://hrma-city.github.io/game-oversell.html"},{"@type":"ListItem","position":3,"name":"game-oversell","item":"https://hrma-city.github.io/game-oversell.html"}]}</script>
+
+
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>场景化锻炼 · 超售决策</h1>
+  <p>纯浏览器运行 · 不联网 · 不装系统 · 适配课堂投屏 ｜ 数据取自「杭州滨江云璟酒店」脱敏数据集 2025-10-02（国庆次日）</p>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <span class="tag">场景</span>
+    <h2 id="toc-1">国庆次日，前厅打来电话：“今天订满了，还能不能再接几间？”</h2>
+    <p>您是收益课上的“当日收益官”。桌上没有 RMS 系统，只有一张日报和一张判定表（表 E）。请基于以下信息做决策：</p>
+    <div class="data">
+      <div class="cell"><b>320</b><span>可售房量（间）</span></div>
+      <div class="cell"><b>308</b><span>当前已确认预订（间）</span></div>
+      <div class="cell"><b>11%</b><span>历史 No-show 率（今日预期）</span></div>
+      <div class="cell"><b>¥680</b><span>每间空置的机会成本（房费贡献）</span></div>
+      <div class="cell"><b>¥1,200</b><span>每间 walk（拒住）成本（升级+补偿）</span></div>
+    </div>
+    <p class="reveal" id="actual"></p>
+    <h2 id="toc-2" style="margin-top:18px;">第一步：您决定超售多少间？</h2>
+    <div class="opts" id="opts">
+      <button class="opt" data-n="0">不超售（0 间）</button>
+      <button class="opt" data-n="8">保守超售（8 间）</button>
+      <button class="opt" data-n="20">激进超售（20 间）</button>
+      <button class="opt" data-n="50">极端超售（50 间）</button>
+    </div>
+  </div>
+
+  <div class="card result" id="result">
+    <h2 id="toc-3">决策结果核算</h2>
+    <div class="formula" id="calc"></div>
+    <div id="verdicts"></div>
+    <h2 id="toc-4" style="margin-top:18px;">对照 · 表 E 三步法</h2>
+    <div class="verdict"><b>① 算可超售数：</b>可超售上限 ≈ 预期 No-show 数。今日预期 No-show = 308 × 11% ≈ <b>34 间</b>。超过这个数，就开始承担 walk 风险。</div>
+    <div class="verdict"><b>② 设安全边界：</b>No-show 有波动（历史 8%–14%），不能顶满 34。留缓冲，通常取预期值的 60%–90%。</div>
+    <div class="verdict"><b>③ 触发处置：</b>一旦实际到店超过可售房，立即启动升级/补偿/walk 流程，并记入《调价台账》，让本次经验变成下次的可查资产。</div>
+    <p class="note">这节课要学生明白的只有一句话：<b>超售不是“多接几间”的胆量，而是“空置损失 vs 拒绝入住成本”的量化权衡。</b>系统只是把这个结果自动执行；判断本身，用一张表和四个数就能练。</p>
+    <div style="margin-top:16px;"><button class="btn2" onclick="location.reload()">再来一次</button>
+    <a class="back" style="margin-left:16px;" href="why-no-system.html">← 返回专题页</a></div>
+  </div>
+
+  <div class="card">
+    <span class="tag">模拟实验室</span>
+    <h2 id="toc-5">第二步（加深）：跑 200 晚，看平均账</h2>
+    <p>上面一晚是"揭晓答案"式的单次决策；这里把同一个决定放跑 <b>200 晚</b>——每晚 No-show 在历史区间 8%–14% 内随机波动，看哪个超售量<b>平均</b>最赚、walk 多久出一次。单次靠运气，两百晚靠期望，这才是超售该有的算法。</p>
+    <div class="data">
+      <div class="cell"><b>320</b><span>每晚可售房量（间）</span></div>
+      <div class="cell"><b>308</b><span>每晚已确认预订（间）</span></div>
+      <div class="cell"><b>8%–14%</b><span>No-show 率波动区间</span></div>
+      <div class="cell"><b>¥680 / ¥1,200</b><span>空置成本 / walk 成本</span></div>
+    </div>
+    <div class="lab-actions" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px">
+      <label style="font-size:14px;font-weight:600;color:var(--navy2)">超售量（间）</label>
+      <input id="labN" type="number" value="20" min="0" max="120" style="width:80px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:15px">
+      <button class="btn2" onclick="runLabOne()">模拟 200 晚</button>
+      <button class="btn2" style="background:var(--navy2);color:#fff" onclick="runLabAll()">五档全跑一遍</button>
+      <button class="btn2" style="background:#fff;color:var(--navy2);border:1px solid var(--navy2)" onclick="reseed()">重掷骰子</button>
+    </div>
+    <div class="formula" id="labOut" style="margin-top:14px">选一个超售量，点「模拟 200 晚」。默认随机种子固定，课堂上每人结果一致、可复现；想换一批运气，点「重掷骰子」。</div>
+    <table id="labTable" style="display:none">
+      <thead><tr><th>超售量</th><th>平均净贡献/晚</th><th>出现 walk 的晚数</th><th>最好一晚</th><th>最差一晚</th><th>解读</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <p class="note">口径：每晚 No-show 数 = round(308 × 均匀随机[8%,14%])；净贡献 = min(320, 到店)×680 − max(0, 到店−320)×1200；到店 = 308 + 超售量 − No-show。期望思维：不看单晚盈亏，看 200 晚平均与 walk 频率。</p>
+  </div>
+
+  <div class="card">
+    <h2 id="toc-6">讲师出题提示（来自数据集 10 个异常点之一）</h2>
+    <p>该日期在脱敏数据集里被标记为 <b>“超售风险”</b>：国庆次日 OCC 96%，但 No-show 率异常升至 11%。把它和 2025-07-09 台风“海棠”（48h Pickup 落后 45%，考表 L 需求暴跌）、2025-08-21 竞对恶意降价（考表 C 不盲目跟价）串起来，就是一整套“异常日决策”场景库——全部脱敏、可复现、不依赖任何系统。</p>
+  </div>
+</div>
+
+<script>
+  // 固定实际 No-show = 34 间（= 308×11%，取整），保证课堂可复现、可讲解
+  var NO_SHOW = 34;
+  document.getElementById('actual').innerHTML = '<b>本期实际 No-show 揭晓：' + NO_SHOW + ' 间</b>（系统揭晓前，学生应先用预期值 34 估上限）。';
+  var ROOMS = 320, BOOKED = 308, EMPTY_COST = 680, WALK_COST = 1200;
+
+  function choose(n){
+    var opts = document.querySelectorAll('#opts .opt');
+    opts.forEach(function(b){ b.disabled = true; });
+    var accepted = BOOKED + n;            // 接受预订总数
+    var showUp = accepted - NO_SHOW;      // 实际到店
+    var sold = Math.min(ROOMS, showUp);   // 实际售出（封顶 320）
+    var empty = Math.max(0, ROOMS - showUp);
+    var walk = Math.max(0, showUp - ROOMS);
+    var revenue = sold * EMPTY_COST;      // 房费贡献
+    var walkLoss = walk * WALK_COST;
+    var net = revenue - walkLoss;
+    // 参照系：不超售(n=0) 的净收益
+    var baseSold = Math.min(ROOMS, BOOKED - NO_SHOW); // 274
+    var baseNet = baseSold * EMPTY_COST;
+
+    var calc =
+      '接受预订   = 308 + ' + n + ' = ' + accepted + ' 间\n' +
+      '实际到店   = ' + accepted + ' − 34(No-show) = ' + showUp + ' 间\n' +
+      '实际售出   = min(320, ' + showUp + ') = ' + sold + ' 间\n' +
+      '空置房     = ' + empty + ' 间  × ¥680 = ¥' + (empty*EMPTY_COST).toLocaleString() + '\n' +
+      '拒住(walk) = ' + walk + ' 间  × ¥1,200 = ¥' + (walk*WALK_COST).toLocaleString() + '\n' +
+      '净贡献     = ' + sold + '×680 − ' + walk + '×1200 = ¥' + net.toLocaleString();
+    document.getElementById('calc').textContent = calc;
+
+    var v = [];
+    if(n === 0){
+      v.push(['warn','偏保守','不超售 → 今日至少空置 ' + empty + ' 间，白白损失约 ¥' + (empty*EMPTY_COST).toLocaleString() + '。账面上“零风险”，但空置本身就是成本。这正是多数新手的第一反应，要让他们看见“不决策也是决策”。']);
+    } else if(n <= 34){
+      v.push(['ok','落在安全区','超售 ' + n + ' 间 ≤ 预期 No-show 34，且留有缓冲，净贡献 ¥' + net.toLocaleString() + '，比不超售多赚 ¥' + (net-baseNet).toLocaleString() + '。表 E 第②步“安全边界”执行到位。']);
+    } else {
+      v.push(['bad','触发 walk 风险','超售 ' + n + ' 间 > 预期 No-show 34，出现 ' + walk + ' 间拒住，单 walk 成本 ¥' + (walk*WALK_COST).toLocaleString() + '。净贡献反而比安全区低。对应表 E 第③步：此刻必须启动升级/补偿流程并记入台账。']);
+    }
+    if(n === 50){
+      v.push(['bad','典型误判','“能接就接”是系统思维的反面。极端超售把风险敞口完全暴露，正是要让学生亲手算疼的一次。']);
+    }
+
+    var coach = '';
+    if(n === 0){
+      coach = '您选了不超售——今天白空 ' + empty + ' 间，扔掉约 ¥' + (empty*EMPTY_COST).toLocaleString() + '。账面上零风险，但空置本身就是成本。我不判您错，我判您没算账：不决策也是一种决策，而且往往是最贵的那种。';
+    } else if(n <= 34){
+      coach = '您落在安全区：超售 ' + n + ' 间没顶满 34，留了缓冲，比不超售多赚 ¥' + (net-baseNet).toLocaleString() + '。这一步就是收益官和赌徒的分界线——您守住了表 E 第②步的安全边界。';
+    } else {
+      coach = '您踩过线了：超售 ' + n + ' 间超过预期 No-show 34，出现 ' + walk + ' 间拒住。我不罚您分，我要您按表 E 第③步立刻启动升级/补偿，并把它记进《调价台账》——疼一次，下次就有得查。';
+    }
+
+    var html = '';
+    html += '<div class="verdict" style="border-left:4px solid #e8b84b;background:#fffdf5"><b>AI 教练 · 判您这一步：</b>' + coach + '</div>';
+    v.forEach(function(x){
+      html += '<div class="verdict '+x[0]+'"><b>'+x[1]+'：</b>'+x[2]+'</div>';
+    });
+    html += '<div class="verdict"><b>对照基准：</b>不超售净贡献 ¥' + baseNet.toLocaleString() + '；您这版的净贡献 ¥' + net.toLocaleString() + '（' + (net>=baseNet?('多 '+ (net-baseNet).toLocaleString()):('少 '+ (baseNet-net).toLocaleString()) ) + '）。</div>';
+    document.getElementById('verdicts').innerHTML = html;
+    document.getElementById('result').style.display = 'block';
+    var res = document.getElementById('result');
+    if(res.scrollIntoView) res.scrollIntoView({behavior:'smooth'});
+  }
+
+  document.querySelectorAll('#opts .opt').forEach(function(b){
+    b.addEventListener('click', function(){ choose(parseInt(b.getAttribute('data-n'),10)); });
+  });
+
+  /* ===== 模拟实验室：同一决定跑 200 晚（种子固定，课堂可复现） ===== */
+  var LAB_SEED = 20261018;
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  function simNights(n, seed){
+    var rnd = mulberry32(seed), sum=0, walkNights=0, best=-1e15, worst=1e15;
+    for(var i=0;i<200;i++){
+      var ns = Math.round(BOOKED * (0.08 + rnd()*0.06));   // No-show 8%–14% 均匀波动
+      var showUp = BOOKED + n - ns;
+      var sold = Math.min(ROOMS, showUp), walk = Math.max(0, showUp-ROOMS);
+      var net = sold*EMPTY_COST - walk*WALK_COST;
+      sum += net; if(walk>0) walkNights++;
+      if(net>best) best=net; if(net<worst) worst=net;
+    }
+    return {n:n, avg:sum/200, walkRate:walkNights/200, best:best, worst:worst};
+  }
+  function labRow(r, isBase){
+    var read;
+    if(r.walkRate >= 0.10) read = 'walk 偏频（≥10% 的晚出事），风险敞口太大';
+    else if(r.walkRate === 0) read = '200 晚零 walk，纯赚空置回填';
+    else read = 'walk 偶发（' + Math.round(r.walkRate*200) + ' 晚），期望仍为正';
+    return '<tr'+(isBase?' style="background:#fdfaf0"':'')+'><td><b>'+r.n+'</b> 间</td><td>¥'+Math.round(r.avg).toLocaleString()+'</td>'
+      +'<td>'+Math.round(r.walkRate*200)+' / 200 晚</td><td>¥'+Math.round(r.best).toLocaleString()+'</td>'
+      +'<td>¥'+Math.round(r.worst).toLocaleString()+'</td><td style="text-align:left">'+read+'</td></tr>';
+  }
+  function runLabOne(){
+    var n = parseInt(document.getElementById('labN').value, 10);
+    if(isNaN(n) || n<0){ document.getElementById('labOut').textContent = '超售量要填 0 以上的整数。'; return; }
+    var r = simNights(n, LAB_SEED), b = simNights(0, LAB_SEED);
+    var diff = r.avg - b.avg;
+    document.getElementById('labOut').textContent =
+      '超售 ' + n + ' 间 × 200 晚（种子 ' + LAB_SEED + '，可复现）\n' +
+      '平均净贡献/晚 = ¥' + Math.round(r.avg).toLocaleString() + '（不超售基线 ¥' + Math.round(b.avg).toLocaleString() + '，' + (diff>=0?'多 ':'少 ') + '¥' + Math.abs(Math.round(diff)).toLocaleString() + '/晚）\n' +
+      '出现 walk 的晚数 = ' + Math.round(r.walkRate*200) + ' / 200（' + Math.round(r.walkRate*100) + '%）\n' +
+      '最好一晚 ¥' + Math.round(r.best).toLocaleString() + ' ｜ 最差一晚 ¥' + Math.round(r.worst).toLocaleString();
+  }
+  function runLabAll(){
+    var levels = [0, 8, 20, 34, 50], rows = '', best = null;
+    levels.forEach(function(lv){
+      var r = simNights(lv, LAB_SEED);
+      if(!best || r.avg > best.avg) best = r;
+      rows += labRow(r, lv===0);
+    });
+    var tb = document.querySelector('#labTable tbody');
+    tb.innerHTML = rows;
+    document.getElementById('labTable').style.display = 'table';
+    document.getElementById('labOut').textContent =
+      '五档全跑完（每种 200 晚，同一种子 ' + LAB_SEED + '）：平均最好的是超售 ' + best.n + ' 间（¥' + Math.round(best.avg).toLocaleString() + '/晚）。\n' +
+      '注意：不是超售越多越好——34 间以上 walk 开始频繁，单晚可能亏到 ¥' + Math.round(simNights(50,LAB_SEED).worst).toLocaleString() + '。期望思维：看 200 晚平均，不赌单晚。';
+  }
+  function reseed(){
+    LAB_SEED = Math.floor(Math.random()*90000) + 10000;
+    document.getElementById('labOut').textContent = '已换新种子 ' + LAB_SEED + '，再点「模拟 200 晚」或「五档全跑一遍」。';
+  }
+</script>
+
+
+
+
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>场景化锻炼 · 超售决策（练判断）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 国庆次日，前厅打来电话：“今天订满了，还能不能再接几间？”</a>
+<a href="#toc-2">第一步：您决定超售多少间？</a>
+<a href="#toc-3">2. 决策结果核算</a>
+<a href="#toc-4">3. 对照 · 表 E 三步法</a>
+<a href="#toc-5">第二步（加深）：跑 200 晚，看平均账</a>
+<a href="#toc-6">4. 讲师出题提示（来自数据集 10 个异常点之一）</a></div>
+</nav>
+
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
+})();
+</script>
+</body>
+</html>
