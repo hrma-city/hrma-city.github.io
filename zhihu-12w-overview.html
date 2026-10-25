@@ -1,0 +1,530 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>知乎 12 周稿总览 · RMC收益管理社区</title><style>
+:root{--navy:#0f2a4a;--ink:#1a2330;--ink2:#5a6675;--line:#d8dee6;--bg:#f4f6f9;--gold:#b8860b;--teal:#0d7a6a}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.8}
+.wrap{max-width:1080px;margin:0 auto;padding:30px 20px 80px}
+.hero{background:var(--navy);color:#fff;border-radius:14px;padding:26px 28px;margin-bottom:18px}
+.hero h1{margin:0 0 6px;font-size:22px}
+.hero p{margin:0;color:#c3d4e8;font-size:13.5px}
+.hero a{color:#ffd97a}
+.toolbar{display:flex;gap:10px;margin:0 0 16px;flex-wrap:wrap}
+.toolbar button{font:inherit;font-size:13px;padding:8px 16px;border-radius:8px;border:1px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer;font-weight:600}
+.toolbar button.ghost{background:#fff;color:var(--navy)}
+.toolbar button:disabled{opacity:.4;cursor:default}
+.layout{display:flex;gap:18px;align-items:flex-start}
+.main{flex:1;min-width:0}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:14px;overflow:hidden;display:none;scroll-margin-top:16px}
+.card.active{display:block}
+.layout.all .card{display:block}
+.card .hd{padding:14px 20px;display:flex;align-items:center;gap:12px;background:#fbfcfe;border-bottom:1px solid #eef1f4}
+.wk{font-family:ui-monospace,Menlo,monospace;font-weight:700;color:var(--gold);font-size:15px;flex:0 0 auto}
+.ttl{font-weight:600;color:var(--navy);font-size:15px}
+.card .body{padding:6px 22px 20px}
+.card .body h1{font-size:19px;color:var(--navy);margin:14px 0 8px}
+.card .body h2{font-size:16px;color:var(--navy);margin:20px 0 8px;border-left:3px solid var(--gold);padding-left:10px}
+.card .body h3{font-size:14.5px;color:#2C5282;margin:14px 0 6px}
+.card .body p{margin:8px 0}
+.card .body .meta{color:var(--ink2);font-size:12.5px;margin:10px 0 4px}
+.card .body table{width:100%;border-collapse:collapse;font-size:12.8px;margin:10px 0}
+.card .body th{background:#f2f6fa;text-align:left;padding:7px 9px;border:1px solid var(--line);font-size:12px;color:var(--ink2)}
+.card .body td{padding:7px 9px;border:1px solid #e9edf1}
+.card .body blockquote{margin:10px 0;padding:8px 14px;background:#fff8e6;border-left:3px solid var(--gold);color:#5a4a2a;font-size:12.8px}
+.card .body code{background:#f2f5f8;padding:1px 5px;border-radius:4px;font-size:12.5px}
+.card .body pre{background:#f7f9fb;border:1px solid var(--line);border-radius:8px;padding:10px 14px;overflow:auto;font-size:12px}
+.card .body hr{border:none;border-top:1px dashed var(--line);margin:16px 0}
+.card .body a{color:#1b4a7a}
+.card .body ul,.card .body ol{margin:8px 0;padding-left:24px}
+.card .body li{margin:4px 0}
+.pager{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0 4px;padding-top:14px;border-top:1px dashed var(--line)}
+.layout.all .pager{display:none}
+.pager button{font:inherit;font-size:13px;padding:7px 14px;border-radius:8px;border:1px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer;font-weight:600}
+.pager button.ghost{background:#fff;color:var(--navy)}
+.pager button:disabled{opacity:.35;cursor:default}
+.pager .pgn{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--ink2)}
+#rm-toc-drawer{position:sticky;top:16px;align-self:flex-start;flex:0 0 272px;width:272px;background:#fff;border:1px solid var(--line);border-radius:12px;max-height:calc(100vh - 32px);display:flex;flex-direction:column;overflow:hidden;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+#rm-toc-drawer .toc-h{background:var(--navy);color:#fff;padding:12px 14px;font-size:13.5px;font-weight:700;flex:0 0 auto;display:flex;justify-content:space-between;align-items:center}
+#rm-toc-drawer .toc-h span{color:#c3d4e8;font-weight:400;font-size:12px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px;flex:1}
+#rm-toc-drawer .toc-body a{display:flex;gap:8px;padding:8px 10px;border-radius:8px;color:var(--ink);text-decoration:none;font-size:12.8px;line-height:1.55;border-left:3px solid transparent}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.active{background:#fff8e6;border-left-color:var(--gold);font-weight:600}
+#rm-toc-drawer .toc-body a .wk{font-size:12.5px;padding-top:1px}
+@media (max-width:980px){
+  .layout{flex-direction:column}
+  #rm-toc-drawer{position:static;width:auto;flex:none;max-height:none;margin-bottom:14px}
+  #rm-toc-drawer .toc-body{display:flex;flex-wrap:wrap;gap:6px}
+  #rm-toc-drawer .toc-body a{flex:1 1 46%}
+}
+@media print{
+  body{background:#fff;font-size:11.5px}
+  .wrap{padding:0;max-width:none}
+  .hero{background:#fff;color:#000;border:1px solid #ccc}
+  .hero p{color:#333}
+  .toolbar,#rm-toc-drawer,.pager{display:none!important}
+  .layout{display:block}
+  .card{display:block!important;border:1px solid #ddd;page-break-inside:avoid;margin-bottom:8px}
+  .card .hd{display:none}
+}
+</style></head><body><div class="wrap"><div class="hero"><h1>知乎 12 周稿总览</h1><p>12 篇成稿全部在此。<b>点右侧目录切换全文</b>（也可用键盘 &larr; / &rarr; 翻篇）；「全部展开」用于顺序通读与打印（A4 约 20 页）。发布顺序与节奏见 <a href="https://hrma-city.github.io/content-calendar.html">《内容营销启动包》</a>。</p></div><div class="toolbar"><button type="button" id="btn-expand-all">全部展开</button><button type="button" class="ghost" id="btn-collapse-all">全部收起</button><button type="button" class="ghost" id="btn-print">打印 / 存 PDF</button></div><div class="layout"><div class="main"><section class="card" id="w01" data-title="出租率 85% 为什么不赚钱？先把 OCC、ADR、RevPAR 三个数算清"><div class="hd"><span class="wk">W1</span><span class="ttl">出租率 85% 为什么不赚钱？先把 OCC、ADR、RevPAR 三个数算清</span></div><div class="body"><p class="meta">知乎发布稿 · W1 · 切片来源：教材第 2 章 + 云璟 2025 年度口径（虚构脱敏，300 间）</p><h1>出租率 85% 为什么不赚钱？先把 OCC、ADR、RevPAR 三个数算清</h1>
+<blockquote>知乎发布稿 · W1 · 切片来源：教材第 2 章 + 云璟 2025 年度口径（虚构脱敏，300 间）</blockquote>
+<blockquote>领取物：三指标速查卡 + 收益健康自检（均为公开免费页）</blockquote>
+<blockquote>目标关键词：RevPAR / 出租率 / 平均房价 / 酒店收益管理</blockquote>
+<hr>
+<h2>一家店的两个月</h2>
+<p>某酒店 6 月出租率 88%，平均房价 700 元；7 月做了一轮大促，出租率冲到 96%，创了开业以来新高，平均房价掉到 460 元。</p>
+<p>月底算账：7 月比 6 月多卖了 8 个百分点的房，客房收入反而少了 28%。</p>
+<p>老板把收益经理叫来问：这么满，怎么不赚钱？</p>
+<p>这个问题问倒过很多店。答案不在"忙不忙"，在三个数上。</p>
+<h2>一、先把三个数算清</h2>
+<p><b>OCC（出租率）</b> ＝ 售出房晚 ÷ 可售房晚<b>ADR（平均房价）</b> ＝ 客房收入 ÷ 售出房晚<b>RevPAR（每间可售房收入）</b> ＝ 客房收入 ÷ 可售房晚</p>
+<p>三个数里，前两个是过程，第三个是结果。它们的关系只有一条：</p>
+<p><b>RevPAR ＝ OCC × ADR</b></p>
+<p>用一家 300 间酒店的年度账算一遍（虚构脱敏示例，口径自洽）：</p>
+<table><thead><tr><th>方案</th><th>OCC</th><th>ADR</th><th>RevPAR</th><th>年客房收入</th><th>对比基准</th></tr></thead><tbody><tr><td>基准（2025 实绩）</td><td>68.0%</td><td>¥620</td><td>¥422.0</td><td>¥4,616.5 万</td><td>—</td></tr><tr><td>提价保房（少卖，卖贵）</td><td>64.0%</td><td>¥660</td><td>¥422.4</td><td>¥4,625.3 万</td><td>+8.8 万</td></tr><tr><td>降价冲量（多卖，卖贱）</td><td>78.0%</td><td>¥520</td><td>¥405.6</td><td>¥4,441.3 万</td><td>−175.2 万</td></tr></tbody></table>
+<p>验算：300 间 × 365 ＝ 109,500 间夜；降价方案多卖 109,500 × (78%−68%) ＝ 10,950 间夜，每间少赚 100 元，合计少赚 175.2 万。</p>
+<p>同一家店、同一年：<b>多卖一万间夜，少赚 175 万；少卖四千间夜，多赚 8.8 万。</b> 差别不在"卖了多少"，在"每间卖了多少钱"。</p>
+<h2>二、什么时候该追出租率，什么时候不该</h2>
+<p>该追 OCC 的三种情况：</p>
+<ol><li><b>淡季需求真空期</b>——可售房晚即将作废，卖一间赚一间；</li><li><b>新店爬坡期</b>——用入住换点评和复购，属于获客成本；</li><li><b>有二次消费的业态</b>——餐饮、娱乐、会议，房只是入场券。</li></ol>
+<p>不该追 OCC 的三种情况：</p>
+<ol><li><b>旺季需求确定性高</b>——可售房晚稀缺，降价是白送；</li><li><b>降价换来的量挤占了高价客源</b>——本来愿意付 660 的客人，现在付 520；</li><li><b>佣金渠道占比已高</b>——降下来的价，有一部分被佣金吃掉。</li></ol>
+<p>判断方法只有一句：<b>这笔降价，卖的是"本来会作废的房"，还是"本来能卖更贵的房"？</b> 前者该降，后者不该。</p>
+<h2>三、三条红线</h2>
+<ol><li><b>不要把 OCC 写进考核。</b> 一旦"出租率必须上 90%"成为目标，一线唯一的达成手段就是降价——收入掉了，佣金照付。</li><li><b>不要拿 OCC 单独跟竞品比。</b> 对手高你 8 个点，可能只是价格低你 15%。要同时看 MPI（出租率指数）和 ARI（房价指数），两者相乘才是 RGI（收益指数）。</li><li><b>RevPAR 相同不等于策略相同。</b> 提价保房和降价冲量可能算出同一个 RevPAR，但现金回流节奏、佣金结构、客源质量完全不同——别只看一个数做决定。</li></ol>
+<h2>四、两个可以带走的东西</h2>
+<ol><li><b>三指标速查卡</b>（一页纸，可打印）：含三个指标的定义与公式、上面的三方案算例、三条红线</li></ol>
+<p><a href="https://hrma-city.github.io/metrics-card.html">https://hrma-city.github.io/metrics-card.html</a></p>
+<ol><li><b>收益健康自检</b>（免费）：填自家和竞对的三个数，直接出 MPI / ARI / RGI 和异常清单</li></ol>
+<p><a href="https://hrma-city.github.io/diagnose.html">https://hrma-city.github.io/diagnose.html</a></p>
+<p>速查卡的 PDF 版，评论区打「速查卡」，我私信发你。</p>
+<hr>
+<h2>发布 SOP（不要发进知乎，这是给自己的）</h2>
+<ul><li><b>话题标签</b>：#酒店 #收益管理 #酒店经营管理 #定价 #酒店运营</li><li><b>发布时间</b>：周二或周四 21:00–22:00（酒店人下班后）</li><li><b>发布后 10 分钟</b>：自己写一条置顶评论，放两个链接（知乎正文外链会降权，置顶评论是主入口）</li><li><b>私信回复</b>：有人打「速查卡」→ 回「速查卡PDF：<a href="https://hrma-city.github.io/metrics-card.html">https://hrma-city.github.io/metrics-card.html</a> （可直接打印）」</li><li><b>记录</b>：把阅读量、速查卡领取次数记入内容日历的发布追踪表——北极星是领取次数，不是阅读量</li></ul><div class="pager"><button type="button" class="ghost prev" disabled>&larr; 上一篇</button><span class="pgn">W1 / 12</span><button type="button" class="next">下一篇 &rarr;</button></div></div></section>
+<section class="card" id="w02" data-title="竞品一夜降 8%，跟不跟？判定表 C 的四个条件"><div class="hd"><span class="wk">W2</span><span class="ttl">竞品一夜降 8%，跟不跟？判定表 C 的四个条件</span></div><div class="body"><p class="meta">知乎发布稿 · W2 · 切片来源：《操作法典》判定表 C + 教材第 6 章</p><h1>竞品一夜降 8%，跟不跟？判定表 C 的四个条件</h1>
+<blockquote>知乎发布稿 · W2 · 切片来源：《操作法典》判定表 C + 教材第 6 章</blockquote>
+<blockquote>领取物：《竞争比价监测表》xlsx + 收益管理教练（免费）</blockquote>
+<blockquote>目标关键词：竞品降价 跟价 收益管理 ARI</blockquote>
+<hr>
+<h2>前台的一句悄悄话</h2>
+<p>周五早上，前台小王跟收益经理说："隔壁那家，昨天开始房价降了 80 块，我们好几个老客人问我能不能也便宜点。"</p>
+<p>经理打开后台：本店 ADR 620，竞组均值 600，本店 OCC 68%，竞组 66%。</p>
+<p>降，还是不降？</p>
+<p>大部分店的答案是"跟"——因为怕掉量。但真跟着降，月底账很难看。</p>
+<h2>一、先把三个数摆出来</h2>
+<p>跟价决策只跟三个数有关，<b>只看"我的价格"或只看"我的出租率"都会判错</b>。</p>
+<table><thead><tr><th>指标</th><th>公式</th><th>本店</th><th>竞组</th></tr></thead><tbody><tr><td>OCC</td><td>售出 ÷ 可售</td><td>68%</td><td>66%</td></tr><tr><td>ADR</td><td>客房收入 ÷ 售出</td><td>¥620</td><td>¥600</td></tr><tr><td>RevPAR</td><td>客房收入 ÷ 可售</td><td>¥422</td><td>¥396</td></tr></tbody></table>
+<p>由它们派生两个指数：</p>
+<ul><li><b>MPI（市场渗透指数）</b>＝ 本店 OCC ÷ 竞组 OCC × 100 ＝ 68 ÷ 66 × 100 ≈ <b>103</b></li><li><b>ARI（房价指数）</b>＝ 本店 ADR ÷ 竞组 ADR × 100 ＝ 620 ÷ 600 × 100 ≈ <b>103</b></li><li><b>RGI（收益指数）</b>＝ MPI × ARI ÷ 100 ＝ 103 × 103 ÷ 100 ≈ <b>106</b></li></ul>
+<p>读法：<b>MPI &gt; 100 说明份额没丢，ARI &gt; 100 说明还卖得更贵，两者相乘 RGI ≈ 106 说明综合领先 6 个点。</b></p>
+<h2>二、四个条件：什么情况跟，什么情况不跟</h2>
+<p>《操作法典》判定表 C 用四个条件判断跟价动作。简化成一句话判据：</p>
+<blockquote><b>如果份额没掉（MPI ≥ 100），就不跟；如果份额掉了但价格还硬（ARI ≥ 100），先不动价、先查原因；只有份额和价格一起掉，才考虑跟。</b></blockquote>
+<table><thead><tr><th>情形</th><th>MPI</th><th>ARI</th><th>动作</th></tr></thead><tbody><tr><td>① 份额在、价格也在</td><td>≥100</td><td>≥100</td><td><b>不跟</b>，保持 BAR，观察 Pickup</td></tr><tr><td>② 份额掉了、价格还在</td><td>&lt;100</td><td>≥100</td><td>不动价，查渠道/曝光/点评/竞品房型</td></tr><tr><td>③ 份额在、价格掉了</td><td>≥100</td><td>&lt;100</td><td>不加价，先补溢价理由（服务/位置/房型）</td></tr><tr><td>④ 份额和价格一起掉</td><td>&lt;100</td><td>&lt;100</td><td>按需限量跟价，设止损线与复盘节点</td></tr></tbody></table>
+<p>回到开头那家店：<b>MPI 103、ARI 103</b>——落在情形①，<b>不跟</b>。理由很简单：你卖得比竞组贵 3%、还比他们多卖 2 个点的房，市场已经用钱投了票。</p>
+<h2>三、三条红线</h2>
+<ol><li><b>不要把"对手降了"当成降价的理由</b>。对手降价只说明他的处境，不说明你的。你的动作只能由你的 MPI / ARI / Pickup 决定。</li><li><b>跟价必须限量、限时、带止损</b>。整档全渠道跟价是最贵的一种降法——一次动作，全年买单。</li><li><b>降价后必须复盘</b>。跟价 7 天后回看：份额回来了吗、ADR 掉多少、RGI 是升是降。不复盘 = 白降。</li></ol>
+<h2>四、两个可以带走的</h2>
+<ol><li><b>竞争比价监测表 xlsx</b>：竞组常盯房型的价格快照与变动，超阈值自动标红</li></ol>
+<p><a href="https://hrma-city.github.io/templates/03_竞争比价监测表.xlsx">https://hrma-city.github.io/templates/03_竞争比价监测表.xlsx</a> → 在线预览：<a href="https://hrma-city.github.io/assets/previews/6ec3bd53f1e5_03_.xlsx.html">https://hrma-city.github.io/assets/previews/6ec3bd53f1e5_03_.xlsx.html</a></p>
+<ol><li><b>AI 教练（免费）</b>：把你的 OCC/ADR 与竞组代进去，读出该不该跟</li></ol>
+<p><a href="https://hrma-city.github.io/jt-coach.html">https://hrma-city.github.io/jt-coach.html</a></p>
+<hr>
+<p><em>发布日期建议：周二 21:00–22:00</em></p><div class="pager"><button type="button" class="ghost prev">&larr; 上一篇</button><span class="pgn">W2 / 12</span><button type="button" class="next">下一篇 &rarr;</button></div></div></section>
+<section class="card" id="w03" data-title="超额预订定多少？先算清 No-show 概率和赔付成本这两笔账"><div class="hd"><span class="wk">W3</span><span class="ttl">超额预订定多少？先算清 No-show 概率和赔付成本这两笔账</span></div><div class="body"><p class="meta">知乎发布稿 · W3 · 切片来源：《操作法典》判定表 E + 教材第 11 章 + 超售计算器 xlsx</p><h1>超额预订定多少？先算清 No-show 概率和赔付成本这两笔账</h1>
+<blockquote>知乎发布稿 · W3 · 切片来源：《操作法典》判定表 E + 教材第 11 章 + 超售计算器 xlsx</blockquote>
+<blockquote>领取物：超额预订计算器 xlsx</blockquote>
+<blockquote>目标关键词：超额预订 超售 noshow 酒店</blockquote>
+<hr>
+<h2>一个真实的夜晚</h2>
+<p>旺季某晚，某酒店 300 间房，按惯例多卖了 12 间。当晚实际到店 305 间——多了 5 间没房。</p>
+<p>前台安排了 5 位客人去隔壁同档次酒店，房费差价报销，另付一晚免费住宿券，打车费报销。</p>
+<p>第二天算账：直接赔付成本约 ¥2,400，加上平台差评和客人流失，这一晚的"多卖 12 间"其实是<b>亏的</b>。</p>
+<p>问题不是"该不该超售"，而是"<b>超售几间是安全的</b>"。</p>
+<h2>一、超售的账只有两笔</h2>
+<p><b>第一笔：少卖的损失（空房作废）</b>一间今晚没卖掉的房，收入就是 0，且永远补不回来。</p>
+<p><b>第二笔：多卖的代价（赔付）</b>一旦到店无房，成本＝差价 + 交通 + 补偿 + 口碑损失。</p>
+<p>所以超售的数量，是<b>这两笔账的平衡点</b>，不是拍脑袋定的。</p>
+<h2>二、算给你看</h2>
+<p>设：历史 No-show 率 = <b>4%</b>，临时取消率 = <b>2%</b>，合计未到率 = <b>6%</b></p>
+<table><thead><tr><th>超售间数</th><th>预期到店超出</th><th>出现无房概率</th><th>预期赔付成本</th></tr></thead><tbody><tr><td>满房可售 300 → 卖 306（超 6）</td><td>约 0 间</td><td>低</td><td>≈ ¥0</td></tr><tr><td>卖 310（超 10）</td><td>约 1.6 间</td><td>中</td><td>≈ ¥800</td></tr><tr><td>卖 318（超 18）</td><td>约 6.5 间</td><td>高</td><td>≈ ¥3,100</td></tr></tbody></table>
+<p><b>结论</b>：超售的合理上限，取决于你能承受多大的赔付风险，<b>以及这个比例是否有历史数据支撑</b>。</p>
+<p><b>红线</b>：无论需求多旺，<b>超售比例不应超过历史 No-show 率对应的统计余量</b>，且必须设专人盯、留记录、可回溯。</p>
+<h2>三、三条红线（最常错的）</h2>
+<ol><li><b>把超售当成"多赚钱"的手段</b>——它是防 No-show 的保险，不是创收工具。按赔付成本算，超售越多风险非线性上升</li><li><b>不看历史数据就定超售量</b>——不同客源、不同渠道、不同提前期的 No-show 率差很多（比如预付订单接近 0%，免费取消订单能到 8%）</li><li><b>没留台账和复盘</b>——超售决策必须留痕（谁批的、依据什么数据、结果如何），否则同类错误会反复犯</li></ol>
+<h2>四、带走这个</h2>
+<p><b>超额预订计算器 xlsx</b>：输入历史 No-show 率、赔付成本、房型结构，自动算出建议超售区间与风险提示。</p>
+<ul><li>下载：<a href="https://hrma-city.github.io/templates/08_超额预订计算器.xlsx">https://hrma-city.github.io/templates/08_超额预订计算器.xlsx</a></li><li>在线预览：<a href="https://hrma-city.github.io/assets/previews/46a1a386755b_08_.xlsx.html">https://hrma-city.github.io/assets/previews/46a1a386755b_08_.xlsx.html</a></li></ul>
+<p>想要更多模板，打开<b>表格模板工具包</b>一页汇总：<a href="https://hrma-city.github.io/templates-hub.html">https://hrma-city.github.io/templates-hub.html</a></p>
+<hr>
+<p><em>发布日期建议：周四 21:00–22:00</em></p><div class="pager"><button type="button" class="ghost prev">&larr; 上一篇</button><span class="pgn">W3 / 12</span><button type="button" class="next">下一篇 &rarr;</button></div></div></section>
+<section class="card" id="w04" data-title="一个 25 间的团队单，接不接？置换分析的三笔账"><div class="hd"><span class="wk">W4</span><span class="ttl">一个 25 间的团队单，接不接？置换分析的三笔账</span></div><div class="body"><p class="meta">知乎发布稿 · W4 · 切片来源：《操作法典》判定表 G + 教材第 15 章</p><h1>一个 25 间的团队单，接不接？置换分析的三笔账</h1>
+<blockquote>知乎发布稿 · W4 · 切片来源：《操作法典》判定表 G + 教材第 15 章</blockquote>
+<blockquote>领取物：团队置换分析表 xlsx</blockquote>
+<blockquote>目标关键词：团队接待 置换分析 displacement 酒店团队</blockquote>
+<hr>
+<h2>销售经理的电话</h2>
+<p>销售经理打来电话："一个公司团建，25 间房，连住 2 晚，给到 ¥480/间夜，下周三到店。接不接？"</p>
+<p>收益经理看了眼后台：下周三预测 OCC 已经 78%，散客 BAR ¥680。</p>
+<p>接了怕挤掉散客，不接怕这 50 个间夜白丢。</p>
+<h2>一、三笔账：置换分析怎么算</h2>
+<p><b>第一笔：团队给的总贡献</b></p>
+<pre>团队收入   = 480 元 × 25 间 × 2 晚 = 24,000 元
+餐饮会议   = 8,000 元
+团队总贡献 = 32,000 元</pre>
+<p><b>第二笔：被挤掉的散客值多少</b></p>
+<p>关键是算"净价"，不是"房价"——散客如果从 OTA 来，要扣掉佣金。</p>
+<pre>散客被挤掉 30 间夜（原本会来）
+散客房价   = 680 元
+渠道佣金   = 15%
+散客净价   = 680 × 0.85 = 578 元
+散客总净贡献 = 578 × 30 = 17,340 元</pre>
+<p><b>第三笔：增量</b></p>
+<pre>增量 = 团队总贡献 − 被挤掉散客净贡献
+     = 32,000 − 17,340 = +14,660 元</pre>
+<p><b>结论：接。</b> 因为团队总贡献（含餐饮会议）覆盖了被挤掉的散客净价，还有 1.4 万余量。</p>
+<h2>二、三个常见误算</h2>
+<ol><li><b>只比房价不比净价</b>：团队 ¥480 看着比散客 ¥680 低很多，但散客要扣佣金；如果散客是直销（无佣金），那 480 就真的亏了</li><li><b>忘了附加消费</b>：团建/会议单的餐饮、会场、用车是真实贡献，不算进去必然误判</li><li><b>高估了散客需求</b>："散客本来会来 30 间"是预测值，不是事实；要用历史同期的实际需求做校准</li></ol>
+<h2>三、三条红线</h2>
+<ol><li><b>置换分析必须在承诺前做完</b>——先接单后算账，等于把定价权交给销售</li><li><b>被挤掉的散客要按净价算</b>，不是按挂牌价</li><li><b>结果要留台账</b>：团队来源、算出的增量、实际执行情况，月末复盘</li></ol>
+<h2>四、带走这个</h2>
+<p><b>团队置换分析表 xlsx</b>：输入团队价、间夜、附加消费、被挤散客数与渠道结构，自动算增量与盈亏平衡点。</p>
+<ul><li>下载：<a href="https://hrma-city.github.io/templates/07_displacement.xlsx（若文件名含中文则见汇总页）">https://hrma-city.github.io/templates/07_displacement.xlsx（若文件名含中文则见汇总页）</a></li><li>全部模板一页汇总：<a href="https://hrma-city.github.io/templates-hub.html">https://hrma-city.github.io/templates-hub.html</a></li></ul>
+<hr>
+<p><em>发布日期建议：周二 21:00–22:00</em></p><div class="pager"><button type="button" class="ghost prev">&larr; 上一篇</button><span class="pgn">W4 / 12</span><button type="button" class="next">下一篇 &rarr;</button></div></div></section>
+<section class="card" id="w05" data-title="价格弹性不是拍脑袋：用 90 天真实数据算一遍"><div class="hd"><span class="wk">W5</span><span class="ttl">价格弹性不是拍脑袋：用 90 天真实数据算一遍</span></div><div class="body"><p class="meta">知乎发布稿 · W5 · 切片来源：教材第 4 章 + 需求价格弹性测算表 xlsx + 云璟 90 天数据</p><h1>价格弹性不是拍脑袋：用 90 天真实数据算一遍</h1>
+<blockquote>知乎发布稿 · W5 · 切片来源：教材第 4 章 + 需求价格弹性测算表 xlsx + 云璟 90 天数据</blockquote>
+<blockquote>领取物：需求价格弹性测算表 xlsx</blockquote>
+<blockquote>目标关键词：价格弹性 需求价格弹性 定价 酒店</blockquote>
+<hr>
+<h2>一句话的争论</h2>
+<p>会上，销售总监说："我们降价 5%，量能起来 10%，收入肯定涨。"</p>
+<p>收益经理没接话——他心里清楚，这话里有两个没验证的数字。</p>
+<p>价格弹性不是"感觉会涨"，是可以从历史数据里算出来的。</p>
+<h2>一、弹性是什么</h2>
+<p><b>需求价格弹性 E ＝ 需求量变动百分比 ÷ 价格变动百分比</b></p>
+<pre>E = (%ΔQ) ÷ (%ΔP)</pre>
+<table><thead><tr><th>|E|</th><th>含义</th><th>降价会怎样</th></tr></thead><tbody><tr><td>&lt; 1</td><td>缺乏弹性（刚需）</td><td>收入下降</td></tr><tr><td>= 1</td><td>单位弹性</td><td>收入不变</td></tr><tr><td>&gt; 1</td><td>富有弹性</td><td>收入上升</td></tr></tbody></table>
+<p><b>关键</b>：E 通常是负数（价升量跌），实务中取绝对值讨论。</p>
+<h2>二、算给你看（同一家店两种假设）</h2>
+<p>设本店 ADR ¥620，当前 OCC 68%。</p>
+<p><b>假设 A：E = −0.8（缺乏弹性）</b></p>
+<p>降价 8%：</p>
+<pre>新 ADR = 620 × 0.92 = ¥570.4
+新 OCC = 68% × (1 + 8% × 0.8) = 68% × 1.064 = 72.4%
+新 RevPAR = 570.4 × 72.4% = ¥413.0</pre>
+<p>对比原 RevPAR ¥422.0 → <b>下降 ¥9.0（−2.1%）</b></p>
+<p><b>假设 B：E = −1.6（富有弹性）</b></p>
+<p>降价 8%：</p>
+<pre>新 ADR = ¥570.4
+新 OCC = 68% × (1 + 8% × 1.6) = 68% × 1.128 = 76.7%
+新 RevPAR = 570.4 × 76.7% = ¥437.5</pre>
+<p>对比原 RevPAR ¥422.0 → <b>上升 ¥15.5（+3.7%）</b></p>
+<p><b>同样的降幅，弹性不同，结果一正一负。</b> 这就是为什么"降价冲量"必须先算弹性。</p>
+<h2>三、三条红线</h2>
+<ol><li><b>不要用主观判断代替弹性测算</b>——"我觉得能起来"不是依据</li><li><b>弹性会变</b>——淡旺季、星期、提前期、竞品动作都会改变弹性，要定期重算</li><li><b>算弹性要用净价</b>——挂牌价弹性会高估降价收益，因为佣金也在吃</li></ol>
+<hr>
+<p><b>带走这个：需求价格弹性测算表 xlsx</b>——输入历史价格与对应需求，自动拟合弹性系数与最优价格区间。</p>
+<ul><li>下载：<a href="https://hrma-city.github.io/templates/05_房型价差与价格体系.xlsx">https://hrma-city.github.io/templates/05_房型价差与价格体系.xlsx</a></li><li>全部模板一页汇总：<a href="https://hrma-city.github.io/templates-hub.html">https://hrma-city.github.io/templates-hub.html</a></li></ul>
+<hr>
+<p><em>发布日期建议：周四 21:00</em></p><div class="pager"><button type="button" class="ghost prev">&larr; 上一篇</button><span class="pgn">W5 / 12</span><button type="button" class="next">下一篇 &rarr;</button></div></div></section>
+<section class="card" id="w06" data-title="最短住期 MinLOS：把商务客和休闲客分开的那道闸门"><div class="hd"><span class="wk">W6</span><span class="ttl">最短住期 MinLOS：把商务客和休闲客分开的那道闸门</span></div><div class="body"><p class="meta">知乎发布稿 · W6 · 切片来源：《操作法典》判定表 B（库存）+ 教材第 10 章</p><h1>最短住期 MinLOS：把商务客和休闲客分开的那道闸门</h1>
+<blockquote>知乎发布稿 · W6 · 切片来源：《操作法典》判定表 B（库存）+ 教材第 10 章</blockquote>
+<blockquote>领取物：渠道/细分每日配额表 xlsx</blockquote>
+<blockquote>目标关键词：最短住期 MinLOS 库存限制 收益管理</blockquote>
+<hr>
+<h2>一个满房日的两种结局</h2>
+<p>某店展会周周三，可售 300 间，需求旺盛，预测能满房。</p>
+<p><b>做法 A（不设限制）</b>：敞开卖。结果 120 间是只住 1 晚的客人，周三满房，周四大量退房空置。</p>
+<p><b>做法 B（设 MinLOS=2）</b>：周三入住必须连住 2 晚。1 晚需求被挡掉一部分，但周四续住率上去，两晚综合收益更高。</p>
+<p>差别不在"卖了多少间"，在"卖给了谁"。</p>
+<h2>一、MinLOS 在做什么</h2>
+<p>MinLOS（Minimum Length of Stay，最短住期）规定：<b>住进这个日期的订单，至少要连住 N 晚</b>。</p>
+<p>它不是"不卖"，是"换个卖法"——<b>用停留时长筛选客群</b>：</p>
+<ul><li>只住 1 晚的：通常是过路客、当日到达的商务客</li><li>连住 2 晚以上的：展会客、度假客、有计划的商务客</li></ul>
+<p>需求高峰日，客房是稀缺资源。把它留给谁，决定了这两天的总收入。</p>
+<h2>二、算给你看</h2>
+<p>设：周三/周四各可售 300 间，散客 BAR ¥680，团队价 ¥480。</p>
+<p><b>方案 A：不设限制</b></p>
+<pre>周三：卖出 300 间（其中 120 间只住 1 晚）
+周四：卖出 180 间
+两晚合计：480 间夜 × 680 × 0.85（扣佣金）= ¥277,440</pre>
+<p><b>方案 B：周三设 MinLOS=2</b></p>
+<pre>周三：卖出 240 间（1 晚需求被挡掉 60 间）
+周四：卖出 240 间（周三的 240 间全部续住）
+两晚合计：480 间夜 × 680 × 0.85 = ¥277,440</pre>
+<p>表面一样。但加上团队与附加消费：</p>
+<p><b>方案 C：设 MinLOS=2 + 接 25 间团队（连住 2 晚，含餐饮会议 ¥8,000）</b></p>
+<pre>周三：团队 25 + 散客 215 = 240 间
+周四：团队 25 + 散客 215 = 240 间
+散客净收入   = 430 间夜 × 680 × 0.85 = ¥248,540
+团队收入     = 50 间夜 × 480 = ¥24,000（直销，无佣金）
+餐饮会议     = ¥8,000
+合计          = ¥280,540</pre>
+<p>比方案 A 多 <b>¥3,100</b>，而且客源结构更可控。</p>
+<h2>三、三条红线</h2>
+<ol><li><b>不要常开 MinLOS</b>。它是高峰日的临时闸门，常开等于常态拒客，会伤直销口碑</li><li><b>撤除要快</b>。高峰日一过立刻撤——忘了撤是最常见的失误，等于白送几天生意</li><li><b>设 MinLOS 必须同步看渠道结构</b>。只在部分渠道设，会出现"同日不同价"的客诉风险</li></ol>
+<h2>四、带走这个</h2>
+<p><b>渠道/细分每日配额表 xlsx</b>：按渠道 × 细分排每日配额，配 MinLOS 与保护位一起用。</p>
+<ul><li>下载：<a href="https://hrma-city.github.io/templates/06_quota.xlsx">https://hrma-city.github.io/templates/06_quota.xlsx</a></li><li>全部模板一页汇总：<a href="https://hrma-city.github.io/templates-hub.html">https://hrma-city.github.io/templates-hub.html</a></li></ul><div class="pager"><button type="button" class="ghost prev">&larr; 上一篇</button><span class="pgn">W6 / 12</span><button type="button" class="next">下一篇 &rarr;</button></div></div></section>
+<section class="card" id="w07" data-title="OTA 评分掉 0.3 分，平均房价会掉多少"><div class="hd"><span class="wk">W7</span><span class="ttl">OTA 评分掉 0.3 分，平均房价会掉多少</span></div><div class="body"><p class="meta">知乎发布稿 · W7 · 切片来源：教材第 24 章 + 竞争比价监测表 xlsx</p><h1>OTA 评分掉 0.3 分，平均房价会掉多少</h1>
+<blockquote>知乎发布稿 · W7 · 切片来源：教材第 24 章 + 竞争比价监测表 xlsx</blockquote>
+<blockquote>领取物：收益健康自检（免费）</blockquote>
+<blockquote>目标关键词：OTA 评分 点评 房价 转化率 酒店</blockquote>
+<hr>
+<h2>差评之后的三十天</h2>
+<p>某店 6 月因一批团队客噪音投诉，OTA 评分从 4.5 掉到 4.2。</p>
+<p>一个月后复盘：同样的曝光量，预订转化率从 3.1% 降到 2.4%；为了不掉量，前台把均价从 620 降到 560。</p>
+<p><b>评分掉了 0.3 分，实际收入代价是每间夜 60 元</b>——比"少了几单"严重得多。</p>
+<h2>一、评分怎么变成钱</h2>
+<p>评分不是虚荣指标，它直接进两个乘数：</p>
+<p><b>① 曝光权重</b>：OTA 排序里，评分高的酒店通常拿到更多展示<b>② 转化率</b>：同样曝光下，评分高的列表点击后更容易成交</p>
+<p>所以路径是：<b>评分 ↓ → 曝光 ↓ 且 转化率 ↓ → 订单 ↓ → 被迫降价 → RevPAR ↓</b></p>
+<h2>二、把它算成数</h2>
+<p>设本店月均曝光 100,000 次：</p>
+<table><thead><tr><th>阶段</th><th>评分</th><th>转化率</th><th>订单/月</th><th>ADR</th><th>月客房收入</th></tr></thead><tbody><tr><td>差评前</td><td>4.5</td><td>3.1%</td><td>3,100</td><td>¥620</td><td>¥1,922,000</td></tr><tr><td>差评后</td><td>4.2</td><td>2.4%</td><td>2,400</td><td>¥620</td><td>¥1,488,000</td></tr><tr><td>降价补救后</td><td>4.2</td><td>2.4%</td><td>2,400</td><td>¥560</td><td>¥1,344,000</td></tr></tbody></table>
+<p><b>降价不但没救回来，反而更差。</b></p>
+<p>再看修复路径：评分回到 4.4（补服务、处理投诉、引导好评），转化率回到 2.9%：</p>
+<pre>订单 ≈ 2,900 ｜ ADR ¥620 ｜ 月客房收入 ≈ ¥1,798,000</pre>
+<p><b>结论</b>：评分掉 0.3 的真实代价 ≈ 每月十几万级；<b>补服务比降价划算得多</b>。</p>
+<h2>三、三条红线</h2>
+<ol><li><b>不要用降价补评分</b>——差评的根因是体验，降价只会让收入再多掉一层</li><li><b>评分修复优先于促销投放</b>——先补服务再投流量，顺序反了烧钱</li><li><b>差评必须逐条留台账</b>——归因到具体环节（前台/客房/噪音/早餐），才能真修</li></ol>
+<p>想看自己店的评分与价格位置对应关系，用<b>收益健康自检</b>（免费）：<a href="https://hrma-city.github.io/diagnose.html">https://hrma-city.github.io/diagnose.html</a></p>
+<hr>
+<p><em>发布日期建议：周二 21:00</em></p><div class="pager"><button type="button" class="ghost prev">&larr; 上一篇</button><span class="pgn">W7 / 12</span><button type="button" class="next">下一篇 &rarr;</button></div></div></section>
+<section class="card" id="w08" data-title="渠道净价：到手 480 的渠道，可能比到手 520 的更值钱"><div class="hd"><span class="wk">W8</span><span class="ttl">渠道净价：到手 480 的渠道，可能比到手 520 的更值钱</span></div><div class="body"><p class="meta">知乎发布稿 · W8 · 切片来源：《操作法典》判定表 H（渠道）+ 教材第 13 章 + 渠道在途表 xlsx</p><h1>渠道净价：到手 480 的渠道，可能比到手 520 的更值钱</h1>
+<blockquote>知乎发布稿 · W8 · 切片来源：《操作法典》判定表 H（渠道）+ 教材第 13 章 + 渠道在途表 xlsx</blockquote>
+<blockquote>领取物：渠道在途表 xlsx + 每日收益日报 xlsx</blockquote>
+<blockquote>目标关键词：渠道净价 佣金 OTA 直销 酒店收益</blockquote>
+<hr>
+<h2>两张报表打架</h2>
+<p>月底，财务说"这个月 OTA 单量涨了 20%"，收益经理说"但客房收入只涨了 3%"。</p>
+<p>两边都没算错——<b>错在用了不同的口径</b>：一个看订单数，一个看总收入，谁也没算<b>扣掉佣金后真正到手多少</b>。</p>
+<h2>一、净价怎么算</h2>
+<p><b>渠道净价 ＝ 挂牌价 ×（1 − 佣金率）− 其他变动成本</b></p>
+<p>其中"其他变动成本"通常包括：支付手续费、会员权益成本、返现/优惠券等（按各店实际口径）。</p>
+<p><b>三个常见渠道对比（同一房型、同一天）：</b></p>
+<table><thead><tr><th>渠道</th><th>挂牌价</th><th>佣金率</th><th>其他变动成本</th><th><b>到手净价</b></th></tr></thead><tbody><tr><td>直销（官网/小程序/会员）</td><td>¥620</td><td>0%</td><td>¥12</td><td><b>¥608</b></td></tr><tr><td>OTA 标准</td><td>¥620</td><td>15%</td><td>¥12</td><td><b>¥515</b></td></tr><tr><td>OTA 促销位</td><td>¥560</td><td>20%</td><td>¥12</td><td><b>¥436</b></td></tr></tbody></table>
+<p><b>关键观察</b>：促销位挂牌价低 60 元，但到手少 79 元——<b>降价 + 高佣金的组合，是最贵的一种卖法</b>。</p>
+<h2>二、怎么用这张表</h2>
+<ol><li><b>每日看"到手均价"</b>，不是看挂牌均价</li><li><b>满房日前先关高佣渠道</b>，不要一刀切关全部</li><li><b>直销承接被挡掉的低价需求</b>（会员价、官网券）</li></ol>
+<h2>三、三条红线</h2>
+<ol><li><b>不要只看 OCC 定渠道策略</b>——同样是满房，直销满房和 OTA 促销满房差很多钱</li><li><b>佣金率要按实际结算口径</b>，不要按合同名义费率（返点、补贴会让实际费率不同）</li><li><b>别用"渠道占比"当目标</b>——目标是净收入，不是某个渠道的单量</li></ol>
+<h2>四、带走这个</h2>
+<p><b>渠道在途表 xlsx</b>（模板库 02）+ <b>每日收益日报 xlsx</b>（模板库 01）：按渠道记在手与到手净价，日报自动出 MPI/ARI/RGI。</p>
+<ul><li>在线预览：<a href="https://hrma-city.github.io/assets/previews/fa60c004b301_01_.xlsx.html">https://hrma-city.github.io/assets/previews/fa60c004b301_01_.xlsx.html</a></li><li>下载：<a href="https://hrma-city.github.io/templates/01_每日收益日报.xlsx">https://hrma-city.github.io/templates/01_每日收益日报.xlsx</a></li><li>全部模板：<a href="https://hrma-city.github.io/templates-hub.html">https://hrma-city.github.io/templates-hub.html</a></li></ul><div class="pager"><button type="button" class="ghost prev">&larr; 上一篇</button><span class="pgn">W8 / 12</span><button type="button" class="next">下一篇 &rarr;</button></div></div></section>
+<section class="card" id="w09" data-title="需求预测三步：从「去年今天」到「今年今天」"><div class="hd"><span class="wk">W9</span><span class="ttl">需求预测三步：从「去年今天」到「今年今天」</span></div><div class="body"><p class="meta">知乎发布稿 · W9 · 切片来源：《操作法典》表 M（流水线）+ 教材第 20 章 + Pace 模板 xlsx</p><h1>需求预测三步：从「去年今天」到「今年今天」</h1>
+<blockquote>知乎发布稿 · W9 · 切片来源：《操作法典》表 M（流水线）+ 教材第 20 章 + Pace 模板 xlsx</blockquote>
+<blockquote>领取物：预订进度表（Pace）xlsx</blockquote>
+<blockquote>目标关键词：需求预测 Pace Pickup 预测 酒店</blockquote>
+<hr>
+<h2>预测不是算命</h2>
+<p>很多店的"预测"是：销售说下周好，就按好排；说淡，就降。</p>
+<p>问题不是不准，而是<b>不可回溯</b>——准了不知道为什么准，错了不知道哪儿错，下次还是拍脑袋。</p>
+<p>《操作法典》表 M 给的是一条可复算的路径：<b>去年同日 → 今年在手 → Pickup 外推</b>。每一步都有数，错了能定位。</p>
+<h2>一、三步怎么走</h2>
+<p><b>第一步：取基准——去年同日售出</b></p>
+<pre>基准需求 = 去年同日售出房晚 × (1 + 市场增长修正)</pre>
+<p>注意"星期对齐"：不要简单按日期比，要按<b>星期几</b>比（去年周三 vs 今年周三）。</p>
+<p><b>第二步：叠在手——今年已确认的订单</b></p>
+<pre>在手房晚（on-book）= 目标日当前已确认的预订间夜</pre>
+<p>这一步是"已经锁定的部分"，确定性最高。</p>
+<p><b>第三步：外推增量——Pickup</b></p>
+<pre>预期 Pickup = 去年同窗口 Pickup × (1 + 需求变化修正)</pre>
+<p><b>总公式：</b></p>
+<pre>预测 OCC =（在手房晚 + 预期 Pickup）÷ 可售房晚</pre>
+<h2>二、算一遍（云璟口径，300 间）</h2>
+<p>设目标日可售 300 间，去年同日售出 190 间，当前在手 180 间，去年同窗口 Pickup 26 间，今年修正 −8%：</p>
+<pre>预期 Pickup = 26 × 0.92 ≈ 24 间
+预测需求 = 180 + 24 = 204 间
+预测 OCC = 204 ÷ 300 = 68.0%</pre>
+<p>再算 ADR 与 RevPAR：</p>
+<pre>目标 ADR = ¥620
+预测 RevPAR = 620 × 68.0% = ¥421.6 ≈ ¥422</pre>
+<p><b>如果 Pickup 实际只来 12 间（落后 50%）</b>：</p>
+<pre>实际需求 = 180 + 12 = 192 间
+实际 OCC = 64.0%
+RevPAR  = 620 × 64.0% = ¥396.8
+较预测少 ¥24.8/间 → 这就是"该不该动价"的触发点</pre>
+<h2>三、三条红线</h2>
+<ol><li><b>不要只用"去年"当预测</b>——去年是基准，不是答案；必须叠在手与 Pickup</li><li><b>Pickup 落后要设触发线</b>（比如落后 30% 触发查表），不要等满房日前一天才发现</li><li><b>预测必须留档</b>——预测值 vs 实际值，月末对比，这是改进预测的唯一办法</li></ol>
+<h2>四、带走这个</h2>
+<p><b>预订进度表（Pace）xlsx</b>（模板库 03）：按提前窗口记录在手与增量，自动算 Pickup 偏差。</p>
+<ul><li>在线预览：<a href="https://hrma-city.github.io/assets/previews/3d6b934e83cd_02_Pickup.xlsx.html">https://hrma-city.github.io/assets/previews/3d6b934e83cd_02_Pickup.xlsx.html</a></li><li>下载：<a href="https://hrma-city.github.io/templates/03_竞争比价监测表.xlsx">https://hrma-city.github.io/templates/03_竞争比价监测表.xlsx</a></li></ul>
+<hr>
+<p><em>发布日期建议：周四 21:00</em></p><div class="pager"><button type="button" class="ghost prev">&larr; 上一篇</button><span class="pgn">W9 / 12</span><button type="button" class="next">下一篇 &rarr;</button></div></div></section>
+<section class="card" id="w10" data-title="满房日别急着关房：先撤 MinLOS，再关低价渠道，顺序反了多花钱"><div class="hd"><span class="wk">W10</span><span class="ttl">满房日别急着关房：先撤 MinLOS，再关低价渠道，顺序反了多花钱</span></div><div class="body"><p class="meta">知乎发布稿 · W10 · 切片来源：《操作法典》判定表 B/H + 动画第 6 集《满房的那一天》</p><h1>满房日别急着关房：先撤 MinLOS，再关低价渠道，顺序反了多花钱</h1>
+<blockquote>知乎发布稿 · W10 · 切片来源：《操作法典》判定表 B/H + 动画第 6 集《满房的那一天》</blockquote>
+<blockquote>领取物：动画 ep06（可公开观看）+ 收益管理教练（免费）</blockquote>
+<blockquote>目标关键词：满房 库存控制 限制条件 收益管理</blockquote>
+<hr>
+<h2>满房前一天的三种做法</h2>
+<p>展会最后一天，可售 300 间，预测需求 340 间——<b>超额 40 间</b>。</p>
+<p><b>做法 A（直接关房）</b>：全渠道 Stop Sell。结果：高价值连住客也订不进来，反而把房留给了低价散客。</p>
+<p><b>做法 B（直接提价）</b>：全渠道涨 30%。结果：曝光掉了，转化没跟上，最后一天没卖满。</p>
+<p><b>做法 C（按顺序撤限）</b>：先撤 MinLOS → 再关高佣低价渠道 → 最后对剩余库存提价。</p>
+<p><b>C 才是对的。</b> 差别在于：满房不是"把门关上"，而是"换一种方式把房留给更值钱的需求"。</p>
+<h2>一、为什么顺序重要</h2>
+<p><b>撤回顺序必须反过来</b>——因为限制条件是叠加的：</p>
+<pre>设限顺序（淡→旺）：  设 MinLOS → 关低价渠道 → 提价 → Stop Sell
+撤除顺序（旺→淡）：  撤 MinLOS ← 开低价渠道 ← 降价 ← 开放售卖</pre>
+<p><b>满房日当天要做的，是这个链条的部分回溯</b>：</p>
+<table><thead><tr><th>步骤</th><th>动作</th><th>为什么</th></tr></thead><tbody><tr><td>1</td><td><b>撤 MinLOS</b></td><td>连住客是高峰日最值钱的客群，MinLOS 会挡掉他们</td></tr><tr><td>2</td><td><b>关高佣低价渠道</b></td><td>满房日不需要用低净价换量</td></tr><tr><td>3</td><td><b>剩余库存提价</b></td><td>稀缺就该卖贵，但要在渠道关掉之后</td></tr></tbody></table>
+<h2>二、算给你看</h2>
+<p>设 BAR ¥620，OTA 促销位净价 ¥436，直销净价 ¥608。</p>
+<p><b>若先提价、最后才关渠道</b>：</p>
+<pre>促销位继续卖 60 间 × ¥436 = ¥26,160
+直销因提价只卖 240 间 × ¥608 = ¥145,920
+合计 ¥172,080</pre>
+<p><b>若先关促销位、再对直销提价</b>：</p>
+<pre>促销位 0 间
+直销 300 间 × ¥650（提价后）= ¥195,000
+合计 ¥195,000</pre>
+<p><b>差 ¥22,920 —— 一夜之间。</b></p>
+<h2>三、三条红线</h2>
+<ol><li><b>不要把 Stop Sell 当第一动作</b>。它是最后一道，不是第一道</li><li><b>限制条件必须有到期日</b>。设了忘了撤，等于白送生意</li><li><b>满房日的动作要留台账</b>（时间、动作、依据），这是复盘的唯一依据</li></ol>
+<h2>四、带走这个</h2>
+<p><b>动画 ep06《满房的那一天》</b>：演示这一天三个动作怎么牵动一串连锁反应。</p>
+<ul><li>观看：<a href="https://hrma-city.github.io/ep06.html">https://hrma-city.github.io/ep06.html</a></li></ul>
+<p><b>AI 教练（免费）</b>：把可售、在手、BAR 代进去，读出该先撤哪一项。</p>
+<ul><li><a href="https://hrma-city.github.io/jt-coach.html">https://hrma-city.github.io/jt-coach.html</a></li></ul><div class="pager"><button type="button" class="ghost prev">&larr; 上一篇</button><span class="pgn">W10 / 12</span><button type="button" class="next">下一篇 &rarr;</button></div></div></section>
+<section class="card" id="w11" data-title="房型价差定多少？三个锚点：成本差、体验差、竞争差"><div class="hd"><span class="wk">W11</span><span class="ttl">房型价差定多少？三个锚点：成本差、体验差、竞争差</span></div><div class="body"><p class="meta">知乎发布稿 · W11 · 切片来源：教材第 9 章 + 房型价差与价格体系 xlsx</p><h1>房型价差定多少？三个锚点：成本差、体验差、竞争差</h1>
+<blockquote>知乎发布稿 · W11 · 切片来源：教材第 9 章 + 房型价差与价格体系 xlsx</blockquote>
+<blockquote>领取物：房型价差与价格体系 xlsx</blockquote>
+<blockquote>目标关键词：房型价差 价格体系 定价 酒店房型</blockquote>
+<hr>
+<h2>一个常见的定价事故</h2>
+<p>某店四个房型定价：</p>
+<pre>高级房 SUP  ¥620
+豪华房 DLX  ¥700（+80）
+行政房 EXE  ¥760（+60）
+套房 STE    ¥980（+220）</pre>
+<p>问题：<b>行政房只比豪华房贵 60 元</b>，但行政待遇（酒廊、早餐、延迟退房）的实际成本远高于 60 元。结果行政房卖得越多越亏，而套房因为价差过大几乎卖不动。</p>
+<h2>一、三个锚点</h2>
+<p><b>① 成本差（下限）</b></p>
+<p>每个房型的变动成本不同：面积、布草、耗材、清洁工时、含早成本、行政酒廊成本。</p>
+<pre>行政房比豪华房多出的成本：
+  行政酒廊使用权 ≈ ¥45/间夜
+  含双早         ≈ ¥30/间夜
+  延迟退房/熨烫   ≈ ¥8/间夜
+  ──────────────────────
+  成本差         ≈ ¥83/间夜</pre>
+<p><b>价差至少要覆盖成本差</b>——否则卖得越多亏得越多。</p>
+<p><b>② 体验差（中位）</b></p>
+<p>客人不会按你的成本买单，他们按"感知价值"付钱。所以要在成本差之上叠加"体验溢价"：景观、楼层、面积、床型、安静程度。</p>
+<p><b>③ 竞争差（上限）</b></p>
+<p>竞组同档次房型的价差是多少。如果你的价差明显高于竞组，客人会用脚投票——除非你的体验确实值这个溢价。</p>
+<h2>二、把三个锚点合成一张表</h2>
+<table><thead><tr><th>房型</th><th>成本差</th><th>体验溢价</th><th>竞组参考价差</th><th><b>建议价差</b></th><th><b>建议房价</b></th></tr></thead><tbody><tr><td>SUP 高级房</td><td>基准</td><td>—</td><td>—</td><td>基准</td><td>¥620</td></tr><tr><td>DLX 豪华房</td><td>¥35</td><td>¥105</td><td>¥130</td><td><b>¥140</b></td><td>¥760</td></tr><tr><td>EXE 行政房</td><td>¥83</td><td>¥87</td><td>¥160</td><td><b>¥170</b></td><td>¥930</td></tr><tr><td>STE 套房</td><td>¥160</td><td>¥130</td><td>¥280</td><td><b>¥290</b></td><td>¥1,220</td></tr></tbody></table>
+<p><b>校验</b>：</p>
+<ul><li>DLX − SUP = 140 ≥ 成本差 35 ✓</li><li>EXE − DLX = 170 ≥ 成本差 83 ✓（修掉了原来"只贵 60"的窟窿）</li><li>STE − EXE = 290 ≥ 成本差 160 ✓</li></ul>
+<h2>三、三条红线</h2>
+<ol><li><b>价差不能低于成本差</b>——否则高档房型卖得越多越亏</li><li><b>不要按"整数好看"定价</b>——¥700、¥760 这种数字是拍出来的，不是算出来的</li><li><b>价差要定期重算</b>——成本、竞组、客群结构变了，价差就要跟着变</li></ol>
+<h2>四、带走这个</h2>
+<p><b>房型价差与价格体系 xlsx</b>（模板库 05）：输入各房型成本、体验项、竞组价差，自动算出建议价差与房价。</p>
+<ul><li>下载：<a href="https://hrma-city.github.io/templates/05_房型价差与价格体系.xlsx">https://hrma-city.github.io/templates/05_房型价差与价格体系.xlsx</a></li><li>在线预览：<a href="https://hrma-city.github.io/assets/previews/0f03a295a187_05_.xlsx.html">https://hrma-city.github.io/assets/previews/0f03a295a187_05_.xlsx.html</a></li><li>全部模板：<a href="https://hrma-city.github.io/templates-hub.html">https://hrma-city.github.io/templates-hub.html</a></li></ul>
+<hr>
+<p><em>发布日期建议：周二 21:00</em></p><div class="pager"><button type="button" class="ghost prev">&larr; 上一篇</button><span class="pgn">W11 / 12</span><button type="button" class="next">下一篇 &rarr;</button></div></div></section>
+<section class="card" id="w12" data-title="一个 300 间酒店的一周：从周一到周日的收益动作清单"><div class="hd"><span class="wk">W12</span><span class="ttl">一个 300 间酒店的一周：从周一到周日的收益动作清单</span></div><div class="body"><p class="meta">知乎发布稿 · W12 · 切片来源：教材第 17/18/19 章 + 执行标准与收益例会 xlsx + 云璟数据</p><h1>一个 300 间酒店的一周：从周一到周日的收益动作清单</h1>
+<blockquote>知乎发布稿 · W12 · 切片来源：教材第 17/18/19 章 + 执行标准与收益例会 xlsx + 云璟数据</blockquote>
+<blockquote>领取物：周报月报模板 xlsx + 全部模板工具包</blockquote>
+<blockquote>目标关键词：酒店收益管理 一周工作 例会 复盘 执行标准</blockquote>
+<hr>
+<h2>先说一个反常识的结论</h2>
+<p>很多店把收益管理当成"调价"——每天调一次价就算做了。</p>
+<p>但真实的收益工作，<b>80% 的时间花在"看数和开会"，只有 20% 是调价</b>。价格动作是前面那些工作的自然结果。</p>
+<p>下面是一间 300 间商务酒店的标准一周（按《操作法典》表 M 的流水线节奏）。</p>
+<h2>一、一周动作清单</h2>
+<p><b>周一 · 复盘与预测校准</b></p>
+<ul><li>出上周周报：OCC/ADR/RevPAR + MPI/ARI/RGI + 渠道净价结构</li><li>对比上周预测 vs 实际，标出偏差超 5% 的日子，追归因</li><li>更新本周需求日历（事件日、展会、节假日）</li></ul>
+<p><b>周二 · 竞争监测</b></p>
+<ul><li>抓竞组 3–5 家常盯房型价格，记入比价表</li><li>变动超阈值（如 ±5%）标红，判断是否触发响应</li><li>查自家 OTA 评分与点评，新增差评归因到部门</li></ul>
+<p><b>周三 · 调价执行</b></p>
+<ul><li>按判定表 A（OCC × Pickup）读出未来 7 天的价格动作</li><li>同步设/撤限制条件（MinLOS、CTA、Stop Sell）</li><li>每次调价记入调价台账（时间、动作、依据表号）</li></ul>
+<p><b>周四 · 团队与会议评估</b></p>
+<ul><li>待答应的团队单走置换分析（三笔账）</li><li>看未来 90 天在手（on-book）与 Pickup 曲线</li><li>与销售对齐：哪些日期要给团队留房，哪些要保护散客</li></ul>
+<p><b>周五 · 下周预测与预算分解</b></p>
+<ul><li>出下周每日预测（去年同日 + 在手 + Pickup 外推）</li><li>对照月度预算，算达成率缺口</li><li>开收益例会：过异常清单、定下周动作、分责任人</li></ul>
+<p><b>周末 · 监控</b></p>
+<ul><li>每日盯在手与 Pickup，落后触发线则查表</li><li>满房/高峰日按"先撤 MinLOS → 关低价渠道 → 提价"的顺序回溯</li></ul>
+<h2>二、一周的时间分配（实测口径）</h2>
+<table><thead><tr><th>工作</th><th>占比</th><th>说明</th></tr></thead><tbody><tr><td>看数与复盘</td><td>45%</td><td>周报、日报、预测校准</td></tr><tr><td>开会与对齐</td><td>25%</td><td>收益例会、销售对齐</td></tr><tr><td>查表与定动作</td><td>20%</td><td>判定表 A–O</td></tr><tr><td>调价与设限</td><td>10%</td><td>实际的系统操作</td></tr></tbody></table>
+<p><b>如果一家店的收益经理 80% 时间在调价，说明前面三块缺失了。</b></p>
+<h2>三、三条红线</h2>
+<ol><li><b>不开例会的收益管理等于没做</b>——动作没有对齐，销售和收益会互相打架</li><li><b>预测不留档就没法进步</b>——预测 vs 实际必须每月对比</li><li><b>不要把"忙"当成"做了"</b>——调价次数多不代表收益管理做得好，看 RevPAR 和 RGI</li></ol>
+<h2>四、带走这个</h2>
+<p><b>周报月报模板 xlsx</b>（模板库 07）：周/月固定格式的复盘与汇报，含异常清单与责任人栏。</p>
+<ul><li>下载：<a href="https://hrma-city.github.io/templates/07_周报月报模板.xlsx">https://hrma-city.github.io/templates/07_周报月报模板.xlsx</a></li><li>在线预览：<a href="https://hrma-city.github.io/assets/previews/fa0e32d87f32_07_.xlsx.html">https://hrma-city.github.io/assets/previews/fa0e32d87f32_07_.xlsx.html</a></li></ul>
+<p><b>全部模板一页汇总</b>：<a href="https://hrma-city.github.io/templates-hub.html">https://hrma-city.github.io/templates-hub.html</a></p>
+<hr>
+<p><em>发布日期建议：周四 21:00（本系列收尾篇，可加一句"这是《酒店收益管理 12 周》最后一篇，前 11 篇见主页"）</em></p><div class="pager"><button type="button" class="ghost prev">&larr; 上一篇</button><span class="pgn">W12 / 12</span><button type="button" class="next" disabled>下一篇 &rarr;</button></div></div></section></div><nav id="rm-toc-drawer" aria-label="篇目目录"><div class="toc-h"><b>12 篇目录</b><span>点击切换</span></div><div class="toc-body"><a href="#w01" title="出租率 85% 为什么不赚钱？先把 OCC、ADR、RevPAR 三个数算清"><span class="wk">W1</span><span class="tt">出租率 85% 为什么不赚钱？先把 OCC、ADR、RevPAR 三个数算清</span></a>
+<a href="#w02" title="竞品一夜降 8%，跟不跟？判定表 C 的四个条件"><span class="wk">W2</span><span class="tt">竞品一夜降 8%，跟不跟？判定表 C 的四个条件</span></a>
+<a href="#w03" title="超额预订定多少？先算清 No-show 概率和赔付成本这两笔账"><span class="wk">W3</span><span class="tt">超额预订定多少？先算清 No-show 概率和赔付成本这两笔账</span></a>
+<a href="#w04" title="一个 25 间的团队单，接不接？置换分析的三笔账"><span class="wk">W4</span><span class="tt">一个 25 间的团队单，接不接？置换分析的三笔账</span></a>
+<a href="#w05" title="价格弹性不是拍脑袋：用 90 天真实数据算一遍"><span class="wk">W5</span><span class="tt">价格弹性不是拍脑袋：用 90 天真实数据算一遍</span></a>
+<a href="#w06" title="最短住期 MinLOS：把商务客和休闲客分开的那道闸门"><span class="wk">W6</span><span class="tt">最短住期 MinLOS：把商务客和休闲客分开的那道闸门</span></a>
+<a href="#w07" title="OTA 评分掉 0.3 分，平均房价会掉多少"><span class="wk">W7</span><span class="tt">OTA 评分掉 0.3 分，平均房价会掉多少</span></a>
+<a href="#w08" title="渠道净价：到手 480 的渠道，可能比到手 520 的更值钱"><span class="wk">W8</span><span class="tt">渠道净价：到手 480 的渠道，可能比到手 520 的更值钱</span></a>
+<a href="#w09" title="需求预测三步：从「去年今天」到「今年今天」"><span class="wk">W9</span><span class="tt">需求预测三步：从「去年今天」到「今年今天」</span></a>
+<a href="#w10" title="满房日别急着关房：先撤 MinLOS，再关低价渠道，顺序反了多花钱"><span class="wk">W10</span><span class="tt">满房日别急着关房：先撤 MinLOS，再关低价渠道，顺序反了多花钱</span></a>
+<a href="#w11" title="房型价差定多少？三个锚点：成本差、体验差、竞争差"><span class="wk">W11</span><span class="tt">房型价差定多少？三个锚点：成本差、体验差、竞争差</span></a>
+<a href="#w12" title="一个 300 间酒店的一周：从周一到周日的收益动作清单"><span class="wk">W12</span><span class="tt">一个 300 间酒店的一周：从周一到周日的收益动作清单</span></a></div></nav></div>
+<script>
+(function(){
+  var layout=document.querySelector('.layout');
+  if(!layout)return;
+  var cards=[].slice.call(document.querySelectorAll('.main .card'));
+  var links=[].slice.call(document.querySelectorAll('#rm-toc-drawer .toc-body a'));
+  var cur=0;
+  function pad(n){return (n<10?'0':'')+n;}
+  function setActive(i){
+    links.forEach(function(a,j){a.classList.toggle('active',j===i);});
+  }
+  function syncPager(){
+    document.querySelectorAll('.pager .prev').forEach(function(b){b.disabled=(cur===0);});
+    document.querySelectorAll('.pager .next').forEach(function(b){b.disabled=(cur===cards.length-1);});
+  }
+  function show(i,scroll){
+    if(i<0)i=0; if(i>cards.length-1)i=cards.length-1;
+    cur=i;
+    layout.classList.remove('all');
+    cards.forEach(function(c,j){c.classList.toggle('active',j===i);});
+    setActive(i); syncPager();
+    var t=cards[i].getAttribute('data-title')||'';
+    document.title='W'+pad(i+1)+' · '+t+' · 知乎 12 周稿总览';
+    try{if(history.replaceState)history.replaceState(null,'','#w'+pad(i+1));}catch(e){}
+    try{if(scroll!==false)window.scrollTo({top:0,behavior:'smooth'});}catch(e){if(scroll!==false)window.scrollTo(0,0);}
+  }
+  links.forEach(function(a,i){
+    a.addEventListener('click',function(e){
+      if(layout.classList.contains('all')){cur=i;setActive(i);syncPager();return;} // 全部展开态：原生锚点跳转
+      e.preventDefault();show(i);
+    });
+  });
+  cards.forEach(function(c,i){
+    var p=c.querySelector('.pager .prev'),n=c.querySelector('.pager .next');
+    if(p)p.addEventListener('click',function(){show(i-1);});
+    if(n)n.addEventListener('click',function(){show(i+1);});
+  });
+  function bind(id,fn){var el=document.getElementById(id);if(el)el.addEventListener('click',fn);}
+  bind('btn-expand-all',function(){layout.classList.add('all');});
+  bind('btn-collapse-all',function(){layout.classList.remove('all');show(cur,false);});
+  bind('btn-print',function(){window.print();});
+  document.addEventListener('keydown',function(e){
+    if(layout.classList.contains('all'))return;
+    if(e.key==='ArrowRight'){show(cur+1);}
+    else if(e.key==='ArrowLeft'){show(cur-1);}
+  });
+  window.addEventListener('hashchange',function(){
+    var m=(location.hash||'').match(/^#w(\d{2})$/);
+    if(m){var i=parseInt(m[1],10)-1;if(i>=0&&i<cards.length&&i!==cur)show(i,false);}
+  });
+  var m0=(location.hash||'').match(/^#w(\d{2})$/);
+  var start=m0?(parseInt(m0[1],10)-1):0;
+  if(isNaN(start)||start<0||start>=cards.length)start=0;
+  show(start,false);
+})();
+</script>
+</div></body></html>
