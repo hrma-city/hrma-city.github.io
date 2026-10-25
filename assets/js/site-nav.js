@@ -1,4 +1,5 @@
-/* HRMA 全站统一导航栏 v13（2026-10-11）
+/* HRMA 全站统一导航栏 v23（2026-10-25 大改：培训→认证；资料库后增「社区」「服务」两个主标签，社区从更多升主位；服务页 services.html 汇总全部产品与陪跑服务）
+   （原 v13 2026-10-11 起历次版本：v15 更多加全站导览/面包屑；v19 知识库合并理论+案例；v22 六馆+教练馆）
    在 v12 身份制基础上增加：
    ①「更多 ▾」加入「全站导览」(tour.html)，一次看清所有板块/系列/行业课/工具；
    ② 内容页顶部「面包屑」(首页 › 板块 › 当前)，点击任一级即可退回上一步/上上步；
@@ -28,9 +29,11 @@
     ['games-hub.html', '游戏'],
     ['coach-hub.html', '教练'],
     ['teach.html', '教学'],
-    ['training.html', '培训'],
+    ['training.html', '认证'],
     ['growth-hub.html', '上岗'],
-    ['resources.html', '资料库']
+    ['resources.html', '资料库'],
+    ['community.html', '社区'],
+    ['services.html', '服务']
   ];
   /* 次级页面：收进「更多」。原身份门户（酒店人/教师/学生/社区）降到这里，
      按身份找入口的人仍有退路，但不再占主导航首位。 */
@@ -41,7 +44,6 @@
     ['hotelier.html', '酒店人'],
     ['teacher.html', '教师'],
     ['student.html', '学生'],
-    ['community.html', '社区'],
     ['industries.html', '行业矩阵'],
     ['cert.html', '认证体系'],
     ['codex.html', '操作法典'],
@@ -66,7 +68,13 @@
     return 'display:inline-flex;align-items:center;height:32px;padding:0 11px;font-size:13.5px;line-height:1;'
       + 'white-space:nowrap;text-decoration:none;border-radius:8px;font-family:' + F + ';' + css;
   }
-  var AOFF = a('color:#d4e2f2');
+  /* 2026-10-25：锚点跳转偏移修正——顶栏 sticky 高约 46-58px，
+   标题被遮住需下滑几行才看到正文。全局给带 id 的标题加 scroll-margin-top。 */
+(function(){var st=document.createElement('style');
+st.textContent='h1[id],h2[id],h3[id],h4[id],h5[id],[id^="toc-"],[id^="sec-"],[id^="p"]{scroll-margin-top:76px}';
+(document.head||document.documentElement).appendChild(st);})();
+
+var AOFF = a('color:#d4e2f2');
   var AON = a('background:#1d6fb8;color:#fff;font-weight:700');
 
   function link(n, cls) {

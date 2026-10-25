@@ -66,11 +66,11 @@ html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-app
 .sw{position:fixed;left:0;right:0;bottom:0;height:58px;background:#0f2a4a;display:flex;align-items:center;justify-content:center;gap:16px;z-index:40;color:#cfe0f5;font-size:13px}
 .sw button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
 .sw button:hover{background:#1d6fb8}
-#toc{position:fixed;top:52px;right:0;bottom:58px;width:330px;background:#0c1f36;border-left:1px solid #1d3c5c;overflow:auto;z-index:60;padding:12px 0;display:none}
-#toc.on{display:block}
-#toc .th{color:#8fd0f5;font-size:13px;padding:6px 16px;letter-spacing:1px}
-#toc a{display:block;color:#d6e5f3;padding:9px 16px;font-size:14px;text-decoration:none;border-left:3px solid transparent}
-#toc a:hover,#toc a.cur{background:#153a5f;border-left-color:#e8b84b;color:#fff}
+
+
+
+
+
 #ov{position:fixed;inset:0;background:rgba(8,16,26,.92);z-index:80;display:none;overflow:auto;padding:30px 0}
 #ov.on{display:block}
 #ov .box{max-width:900px;margin:0 auto;background:#fff;color:#22303f;border-radius:14px;padding:26px 30px;font-size:17px;line-height:1.9}
@@ -79,7 +79,7 @@ html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-app
 #hint{position:fixed;right:16px;bottom:64px;color:#7ea0c0;font-size:12px;z-index:20}
 @media print{
  html,body{overflow:visible;height:auto;background:#fff}
- #bar,#sw,#toc,#ov,#hint{display:none!important}
+#bar,#sw,#ov,#hint{display:none!important}
  .sl{display:flex!important;page-break-after:always;height:100vh;width:100%;page-break-inside:avoid}
  .sl.cover,.sl.fml,.sl.end{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
  .bd,.sl.cover h1,.sl.cover .promise-b,.oneul li{color:#000}
@@ -87,6 +87,28 @@ html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-app
 </style><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"sl-ch39","item":"https://hrma-city.github.io/sl-ch39.html"}]}</script>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
 </head>
 <body>
 <div id="bar">
@@ -101,12 +123,12 @@ html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-app
   <span class="pg" id="pg">0 / 7</span>
 </div>
 <div id="stage"><section class="sl cover" data-i="0" data-k="cover" id="p0"><div class="kk">酒店收益管理 · 第七篇 · 视野篇</div><h1>周期与不确定性下的收益管理</h1><div class="meta">第 39 章 ｜ 第七篇 · 视野篇 ｜ 共 7 屏</div><div class="promise-b">学完这章你能周期与不确定性下的收益管理</div></section>
-<section class="sl note" data-i="1" data-k="note" id="p1"><h2>本章口诀</h2><div class="bd"><p class="key" style="font-size:26px;color:#0f2a4a;font-weight:700">周期与冲击是收益决策的前置条件：可预期周期提前进需求</p></div><div class="srctpl" hidden>周期与冲击是收益决策的前置条件：可预期周期提前进需求</div></section>
-<section class="sl note" data-i="2" data-k="note" id="p2"><h2>思维导图</h2><div class="bd"><p style="font-size:23px;line-height:2">周期与不确定性下的收益管理 需求不是一条直线 三类可预期的周期 不确定性下的五条纪律 下行期先保现金流</p></div><div class="srctpl" hidden>
+<section class="sl note" data-i="1" data-k="note" id="p1"><h2 id="toc-1">本章口诀</h2><div class="bd"><p class="key" style="font-size:26px;color:#0f2a4a;font-weight:700">周期与冲击是收益决策的前置条件：可预期周期提前进需求</p></div><div class="srctpl" hidden>周期与冲击是收益决策的前置条件：可预期周期提前进需求</div></section>
+<section class="sl note" data-i="2" data-k="note" id="p2"><h2 id="toc-2">思维导图</h2><div class="bd"><p style="font-size:23px;line-height:2">周期与不确定性下的收益管理 需求不是一条直线 三类可预期的周期 不确定性下的五条纪律 下行期先保现金流</p></div><div class="srctpl" hidden>
 <div class="box mind"><svg viewBox="0 0 820 176" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto"><rect x="16" y="62.0" width="230" height="52" rx="10" fill="#0f2a4a"/><text x="131" y="94.0" fill="#fff" font-size="15" font-weight="700" text-anchor="middle">周期与不确定性下的收益管理</text><path d="M246 88 C 320 88, 330 37.0, 402 37.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="22.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="42.0" fill="#1f3550" font-size="13">需求不是一条直线</text><circle cx="402" cy="37.0" r="3.4" fill="#1d6fb8"/><path d="M246 88 C 320 88, 330 71.0, 402 71.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="56.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="76.0" fill="#1f3550" font-size="13">三类可预期的周期</text><circle cx="402" cy="71.0" r="3.4" fill="#1d6fb8"/><path d="M246 88 C 320 88, 330 105.0, 402 105.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="90.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="110.0" fill="#1f3550" font-size="13">不确定性下的五条纪律</text><circle cx="402" cy="105.0" r="3.4" fill="#1d6fb8"/><path d="M246 88 C 320 88, 330 139.0, 402 139.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="124.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="144.0" fill="#1f3550" font-size="13">下行期先保现金流</text><circle cx="402" cy="139.0" r="3.4" fill="#1d6fb8"/></svg></div>
 
 </div></section>
-<section class="sl note" data-i="3" data-k="note" id="p3"><h2>② 案例导入</h2><div class="bd"><div class="story"><p>某会展城市的一家商务酒店，在展会周把散客价上调两倍仍满房；三个月后同城举办大型赛事，它照搬同一套高价，结果赛事因天气取消，预订大面积退订，当天出租率掉到四成。两次都是"事件"，结果天差地别——差别不在定价技巧，而在有没有把"周期与不确定性"当作决策的前置条件。</p></div>
+<section class="sl note" data-i="3" data-k="note" id="p3"><h2 id="toc-3">② 案例导入</h2><div class="bd"><div class="story"><p>某会展城市的一家商务酒店，在展会周把散客价上调两倍仍满房；三个月后同城举办大型赛事，它照搬同一套高价，结果赛事因天气取消，预订大面积退订，当天出租率掉到四成。两次都是"事件"，结果天差地别——差别不在定价技巧，而在有没有把"周期与不确定性"当作决策的前置条件。</p></div>
 
 <details class="sub"><summary>③ 正文全文（4 个决策现场 · 含判定与留痕）</summary>
 <div class="story"><p>某会展城市的一家商务酒店，在展会周把散客价上调两倍仍满房；三个月后同城举办大型赛事，它照搬同一套高价，结果赛事因天气取消，预订大面积退订，当天出租率掉到四成。两次都是"事件"，结果天差地别——差别不在定价技巧，而在有没有把"周期与不确定性"当作决策的前置条件。</p></div>
@@ -143,14 +165,14 @@ html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-app
 <a href="campus-resources.html">院校专区 · 七件套</a> 领取。没有 RMS 的学校，用 Excel 模板即可跑通。</p>
 <ul><li>动作清单：按本章判定表逐格执行，写下依据</li><li>交付物：一页 <a href="onepager-logic.html">方法论一页纸</a> + 一份留痕台账</li><li>验收：依据正确性（不是"算对了没有"）</li></ul>
 </details></div></section>
-<section class="sl note" data-i="4" data-k="note" id="p4"><h2>⑥ 本章小结</h2><div class="bd"><ul><li>周期与冲击是收益决策的前置条件：可预期周期提前进需求日历，不可预期冲击用情景规划与弹性库存对冲。</li><li>下行期现金流优先于出租率；判定表的硬底线是"打平量"。</li></ul>
+<section class="sl note" data-i="4" data-k="note" id="p4"><h2 id="toc-4">⑥ 本章小结</h2><div class="bd"><ul><li>周期与冲击是收益决策的前置条件：可预期周期提前进需求日历，不可预期冲击用情景规划与弹性库存对冲。</li><li>下行期现金流优先于出租率；判定表的硬底线是"打平量"。</li></ul>
 
 <div class="pc"><b>思政融入点 · 职业操守</b><p>收益动作要有依据、有留痕。</p><p class="mini">课堂追问：这个决定站得住吗？</p></div>
 <div class="pc"><b>数据看板</b><p>本章关键口径：<b>打平量、变动成本、边际贡献</b></p><p class="mini">看板位置：经营看板 · 本章区｜口径来源：云璟 90 天数据 v2026.1｜每学分 ≥100 题的题库由判定表映射组卷</p></div></div><div class="srctpl" hidden><ul><li>周期与冲击是收益决策的前置条件：可预期周期提前进需求日历，不可预期冲击用情景规划与弹性库存对冲。</li><li>下行期现金流优先于出租率；判定表的硬底线是"打平量"。</li></ul>
 
 <div class="pc"><b>思政融入点 · 职业操守</b><p>收益动作要有依据、有留痕。</p><p class="mini">课堂追问：这个决定站得住吗？</p></div>
 <div class="pc"><b>数据看板</b><p>本章关键口径：<b>打平量、变动成本、边际贡献</b></p><p class="mini">看板位置：经营看板 · 本章区｜口径来源：云璟 90 天数据 v2026.1｜每学分 ≥100 题的题库由判定表映射组卷</p></div></div></section>
-<section class="sl sum" data-i="5" data-k="sum" id="p5"><h2>本章小结</h2><div class="bd">
+<section class="sl sum" data-i="5" data-k="sum" id="p5"><h2 id="toc-5">本章小结</h2><div class="bd">
 <ul><li>周期与冲击是收益决策的前置条件：可预期周期提前进需求日历，不可预期冲击用情景规划与弹性库存对冲。</li><li>下行期现金流优先于出租率；判定表的硬底线是"打平量"。</li></ul>
 
 <div class="pc"><b>思政融入点 · 职业操守</b><p>收益动作要有依据、有留痕。</p><p class="mini">课堂追问：这个决定站得住吗？</p></div>
@@ -163,14 +185,14 @@ html,body{margin:0;height:100%;background:#0b1521;color:#e8eef6;font-family:-app
 <div class="pc"><b>数据看板</b><p>本章关键口径：<b>打平量、变动成本、边际贡献</b></p><p class="mini">看板位置：经营看板 · 本章区｜口径来源：云璟 90 天数据 v2026.1｜每学分 ≥100 题的题库由判定表映射组卷</p></div>
 
 </div></section>
-<section class="sl end" data-i="6" data-k="end" id="p6"><h2>一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li class="fml-i">口诀：周期与冲击是收益决策的前置条件：可预期周期提前进需求</li></ul></div></div></section></div>
+<section class="sl end" data-i="6" data-k="end" id="p6"><h2 id="toc-6">一页带走</h2><div class="bd"><div class="onec"><ul class="oneul"><li class="fml-i">口诀：周期与冲击是收益决策的前置条件：可预期周期提前进需求</li></ul></div></div></section></div>
 <div class="sw">
   <button onclick="go(-1)">← 上一屏</button>
   <span id="bar2">键盘 → ← 空格翻页 · F 全屏 · P 打印 · D 看备课原文</span>
   <button onclick="go(1)">下一屏 →</button>
 </div>
-<div id="toc"><div class="th">本节目录（共 7 屏）</div><a href="#p0" data-i="0">01　周期与不确定性下的收益管理</a><a href="#p1" data-i="1">02　本章口诀</a><a href="#p2" data-i="2">03　思维导图</a><a href="#p3" data-i="3">04　② 案例导入</a><a href="#p4" data-i="4">05　⑥ 本章小结</a><a href="#p5" data-i="5">06　本章小结</a><a href="#p6" data-i="6">07　一页带走</a></div>
-<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3>备课原文 · 教材对应段落</h3><div id="ovc"></div></div></div>
+
+<div id="ov"><div class="box"><button class="cl" onclick="OV()">关闭 Esc</button><h3 id="toc-7">备课原文 · 教材对应段落</h3><div id="ovc"></div></div></div>
 <div id="hint"></div>
 <script>
 var N=7, cur=0;
@@ -234,5 +256,36 @@ var _m=location.hash.match(/^#p(\d+)$/); if(_m) cur=parseInt(_m[1],10)-1;
 cur=Math.max(0,Math.min(N-1,cur));
 paint();
 </script>
-<script src="assets/js/site-nav.js?v=v22"></script>
+<script src="assets/js/site-nav.js?v=v23"></script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>第 39 章 周期与不确定性下的收益管理 · 投屏课件</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 本章口诀</a>
+<a href="#toc-2">2. 思维导图</a>
+<a href="#toc-3">3. ② 案例导入</a>
+<a href="#toc-4">4. ⑥ 本章小结</a>
+<a href="#toc-5">5. 本章小结</a>
+<a href="#toc-6">6. 一页带走</a>
+<a href="#toc-7" class="lv3">6.1 备课原文 · 教材对应段落</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
+})();
+</script>
 </body>

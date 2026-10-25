@@ -117,14 +117,16 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 
 
 
+
+
 <style id="rm-toc-style">
 #rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
   box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
   z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
 #rm-toc-drawer.open{transform:translateX(0)}
-#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
   background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
-#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
 #rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
 #rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
 #rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
@@ -499,6 +501,45 @@ $('btnBack').addEventListener('click',function(){location.href='games-hub.html'}
 
 
 
+
+
+
+
+<script src="assets/js/site-nav.js?v=v23"></script>
+<style>
+/* tguide */
+.tguide{max-width:920px;margin:26px auto 10px;padding:0 16px;font-size:13.5px}
+.tguide summary{cursor:pointer;font-weight:700;color:#2b4f7a;background:#eef4fb;border:1px solid #cddcf0;border-radius:8px;padding:10px 14px;list-style:none}
+.tguide summary::-webkit-details-marker{display:none}
+.tguide summary::before{content:'▸ ';}
+.tguide[open] summary::before{content:'▾ ';}
+.tguide .tg{border:1px solid #cddcf0;border-top:0;border-radius:0 0 8px 8px;padding:14px 18px;background:#fff;line-height:1.8}
+.tguide h4{margin:12px 0 6px;color:#2b4f7a;font-size:13.8px}
+.tguide .tg h4:first-of-type{margin-top:2px}
+.tguide ol,.tguide ul{margin:4px 0 8px;padding-left:20px}
+.tguide li{margin:5px 0}
+.tguide .tg-pos{background:#f6f9fd;border-left:3px solid #2b4f7a;padding:8px 12px;margin:2px 0 10px;border-radius:0 6px 6px 0}
+@media print{.tguide{display:none}}
+</style>
+<div style="margin:14px 0;padding:12px 16px;background:#f6f9fd;border-left:4px solid #2b4f7a;border-radius:0 8px 8px 0"><b style="color:#0f2a4a;font-size:14px">讲师出题提示</b><p style="margin:6px 0 0;font-size:13px;line-height:1.7;color:#333">沙盘自由推演，没有标准路径——但有标准动作。让学生先自己玩一年，再对照「标准答案」复盘：同样的市况，专家会怎么排优先级。差距最大的那一项，就是这个学生下一步该练的。</p></div>
+<details class="tguide"><summary>教师引导页 · 这局怎么带（导入流程 / 讨论题 / 卡点话术）</summary>
+<div class="tg">
+<p class="tg-pos"><b>定位：</b>12 个月连续经营的沙盘，适合当课程的「贯穿项目」：开学第一课开局玩 3 个月，学完一个模块回玩一段，期末玩完整年做总复盘——游戏进度对齐课程进度。</p>
+<h4>怎么带（课堂流程）</h4><ol>
+<li><b>导入（5 分钟）</b>：开局让每组选酒店、读一遍市场卡，只定一个策略关键词（冲价/保量/保结构）写在组名旁边，年底回来验证。</li>
+<li><b>进行（分段）</b>：每段 2–3 个月叫停一次：只问一个问题「这个月你最受哪个决策影响？」不评对错，积累复盘素材。</li>
+<li><b>复盘（20 分钟）</b>：年底对账：净利润排名只是引子，真正要复盘的是「年初的关键词应验了吗」「哪个月的决策链条最先走歪」。</li>
+</ol><h4>讨论什么</h4><ol>
+<li>你年初的策略关键词（冲价/保量/保结构），12 个月后被市场验证成什么样？当时错在哪一步？</li>
+<li>回头看，损失最大的一个月，根因是当月决策错，还是三个月前的库存结构就错了？</li>
+<li>淡旺季切换点（几月）你的动作是提前还是滞后？滞后的代价量化过吗？</li>
+<li>如果重开一年，你第一个要改的常设参数是什么（MinLOS/超售档/促销开关）？</li>
+</ol><h4>常见卡点与引导话术</h4><ul>
+<li><b>卡点：</b>学生只盯排名，赢了就跳过复盘。<br><b>话术：</b>把复盘锚在决策记录上：让第一名公开全部月度决策，全班找「他其实做错但赢了」的运气项——赢也要分清实力和运气。</li>
+<li><b>卡点：</b>学生每月决策断片，前后不一致，上一月的促销这个月就忘了收。<br><b>话术：</b>要求每组留一张「当前在生效的设置」清单（价格/闸门/促销），每月开工前先念一遍。</li>
+</ul><h4>课后衔接</h4><p>课后衔接：贯穿全课程使用；每月决策对应判定表 A/C/E/L 联查；期末与「game-rm 云璟一年」二选一做总验收。</p>
+</div></details>
+
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
   <div class="toc-h"><b>收益经理的一年 · 沙盘经营 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
@@ -508,7 +549,6 @@ $('btnBack').addEventListener('click',function(){location.href='games-hub.html'}
 <a href="#toc-4" class="lv3">1.3 轻住 · 经济连锁</a>
 <a href="#toc-5" class="lv3">1.4 我的酒店</a></div>
 </nav>
-
 <script id="rm-toc-script">
 (function(){
   var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
@@ -528,38 +568,5 @@ $('btnBack').addEventListener('click',function(){location.href='games-hub.html'}
   });});
 })();
 </script>
-<script src="assets/js/site-nav.js?v=v22"></script>
-<style>
-/* tguide */
-.tguide{max-width:920px;margin:26px auto 10px;padding:0 16px;font-size:13.5px}
-.tguide summary{cursor:pointer;font-weight:700;color:#2b4f7a;background:#eef4fb;border:1px solid #cddcf0;border-radius:8px;padding:10px 14px;list-style:none}
-.tguide summary::-webkit-details-marker{display:none}
-.tguide summary::before{content:'▸ ';}
-.tguide[open] summary::before{content:'▾ ';}
-.tguide .tg{border:1px solid #cddcf0;border-top:0;border-radius:0 0 8px 8px;padding:14px 18px;background:#fff;line-height:1.8}
-.tguide h4{margin:12px 0 6px;color:#2b4f7a;font-size:13.8px}
-.tguide .tg h4:first-of-type{margin-top:2px}
-.tguide ol,.tguide ul{margin:4px 0 8px;padding-left:20px}
-.tguide li{margin:5px 0}
-.tguide .tg-pos{background:#f6f9fd;border-left:3px solid #2b4f7a;padding:8px 12px;margin:2px 0 10px;border-radius:0 6px 6px 0}
-@media print{.tguide{display:none}}
-</style>
-<details class="tguide"><summary>教师引导页 · 这局怎么带（导入流程 / 讨论题 / 卡点话术）</summary>
-<div class="tg">
-<p class="tg-pos"><b>定位：</b>12 个月连续经营的沙盘，适合当课程的「贯穿项目」：开学第一课开局玩 3 个月，学完一个模块回玩一段，期末玩完整年做总复盘——游戏进度对齐课程进度。</p>
-<h4>怎么带（课堂流程）</h4><ol>
-<li><b>导入（5 分钟）</b>：开局让每组选酒店、读一遍市场卡，只定一个策略关键词（冲价/保量/保结构）写在组名旁边，年底回来验证。</li>
-<li><b>进行（分段）</b>：每段 2–3 个月叫停一次：只问一个问题「这个月你最受哪个决策影响？」不评对错，积累复盘素材。</li>
-<li><b>复盘（20 分钟）</b>：年底对账：净利润排名只是引子，真正要复盘的是「年初的关键词应验了吗」「哪个月的决策链条最先走歪」。</li>
-</ol><h4>讨论什么</h4><ol>
-<li>你年初的策略关键词（冲价/保量/保结构），12 个月后被市场验证成什么样？当时错在哪一步？</li>
-<li>回头看，损失最大的一个月，根因是当月决策错，还是三个月前的库存结构就错了？</li>
-<li>淡旺季切换点（几月）你的动作是提前还是滞后？滞后的代价量化过吗？</li>
-<li>如果重开一年，你第一个要改的常设参数是什么（MinLOS/超售档/促销开关）？</li>
-</ol><h4>常见卡点与引导话术</h4><ul>
-<li><b>卡点：</b>学生只盯排名，赢了就跳过复盘。<br><b>话术：</b>把复盘锚在决策记录上：让第一名公开全部月度决策，全班找「他其实做错但赢了」的运气项——赢也要分清实力和运气。</li>
-<li><b>卡点：</b>学生每月决策断片，前后不一致，上一月的促销这个月就忘了收。<br><b>话术：</b>要求每组留一张「当前在生效的设置」清单（价格/闸门/促销），每月开工前先念一遍。</li>
-</ul><h4>课后衔接</h4><p>课后衔接：贯穿全课程使用；每月决策对应判定表 A/C/E/L 联查；期末与「game-rm 云璟一年」二选一做总验收。</p>
-</div></details>
 </body>
 </html>
