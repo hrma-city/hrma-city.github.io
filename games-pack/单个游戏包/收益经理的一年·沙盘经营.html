@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="../../";</script>
+<script src="../../auth-config.js?v=gate20261013"></script>
+<script src="../../assets/js/access-gate.js?v=v12"></script>
+<script>window.HRMA_PREFIX="";</script>
+<script>
+/* ==========================================================================
+   HRMA 学院官网 · 鉴权配置
+   --------------------------------------------------------------------------
+   ▼▼▼ 需要填的就是下面两行 ▼▼▼
+   1. 到 https://supabase.com 免费注册，新建一个项目
+   2. 项目 → Settings → API
+      · Project URL       → 贴在 url
+      · anon public key   → 贴在 anonKey
+   3. 保存本文件，重新部署
+
+   详细步骤见同目录 supabase-setup.md
+   ========================================================================== */
+
+/* ★ 鉴权模式开关（重要）
+   'cloud' = 云端模式：走 Supabase 真实服务端校验，可给外部人开账号。
+   'local' = 本地模式：账号存在各自浏览器，不联网。适合只有您自己访问。
+                       一旦切回 'local'，云端注册/审核/登录三端会被整条旁路。
+
+   ⚠️ 2026-10-21 22:47 已确认并从 'cloud' 回退 'local'：Supabase 项目 ivcylkcbodoacajyvnpy（孟买 ap-south-1）
+   **从中国大陆网络完全不可达**——浏览器直连报「服务器意外中断了连接」（连接被重置），注册 fetch 报「Load failed」。
+   即「外部人云端自助注册」对国内用户走不通（supabase.co 域名 + 孟买区域双重绕不过）。
+   signin.html 的云端登录/注册分支、auth.js、admin-approve.html 云端审批代码**全部保留**，本地预置账号兜底也在——
+   将来到国内可访问的鉴权后端（腾讯云 CloudBase / Supabase 亚太区+自定义域名 等）就绪后，把本行改回 'cloud' 即可再开，无需重写。
+   纯静态站点固有限制：懂技术的人仍可用 curl/查看源码扒到 HTML，
+   要做到文件级真加密须迁腾讯云服务器（带访问网关），此处只挡普通访客。 */
+window.HRMA_AUTH_MODE = 'local';
+
+/* 管理员密码哈希（SHA-256）。只存哈希不存明文——20 位随机强密码，无法从哈希反推。
+   明文只存在站长本机 hrma/_private_files/管理员密码.txt。
+   作用：管理员邮箱 + 此密码，可在任意设备的登录门直接进站，不依赖恢复码。 */
+window.HRMA_ADMIN_PW_HASH = "f8d4f00ade4fac6f8474569be361054cb95008313161f5216c231be27b884085";
+
+window.HRMA_SUPABASE = {
+  // 例： "https://abcdefghijklmnop.supabase.co"
+  url: "https://ivcylkcbodoacajyvnpy.supabase.co",
+
+  // 例： "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9......"
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2Y3lsa2Nib2RvYWNhanl2bnB5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTYzMzYsImV4cCI6MjEwNDI3MjMzNn0.oO7kU5OJ2TYY6U1ZD6Ol3Vuh6dMwaIvV2N6CzsqL4Xw"
+};
+
+/* 管理员邮箱（拥有审批权限）。多个用逗号分隔。
+   三者均为站长本人可控的 QQ 邮箱（community 与 rm 为同一邮箱的别名，coach 亦为站长邮箱），
+   任一均可登录并被前端识别为管理员、数据库触发器自动 approved。
+   数据库侧 profiles_admin_all / handle_new_user 策略已同步支持这三个邮箱（见 _update_admin.py）。 */
+window.HRMA_ADMIN_EMAILS = ["rm-community@qq.com", "rm-coach@qq.com"];
+
+/* 联系邮箱（页面展示用） */
+window.HRMA_CONTACT_EMAIL = "rm-community@qq.com";
+
+/* 收款信息（结算页展示用）。
+   --------------------------------------------------------------------------
+   当前模式：**邮箱联系**（保护隐私，网页上不展示任何个人/收款账号）。
+   流程：用户下单 → 页面给出联系邮箱 → 发邮件索取付款方式 → 您邮件告知 →
+        对方付款 → 您核销后手动开通权益。
+   备注：微信/支付宝「转账」方式收款方无上限，不受静态收款码那条「单日 500 元」限制，
+        适合 ¥299 / ¥1999 这种客单价。
+   如需将来改回扫码，把下面 wechatQR / alipayQR 填上图片地址即可（但请留意 500 元限制）。
+   -------------------------------------------------------------------------- */
+window.HRMA_PAY = {
+  payee: "RMC收益管理社区",
+
+  // 页面上唯一对外展示的联系方式
+  contact: "rm-community@qq.com",
+
+  // 收款码图片地址：留空则不展示二维码
+  wechatQR: "",
+  alipayQR: "",
+
+  // 银行账号说明：留空则不展示（保护隐私，默认不展示）
+  bank: "",
+
+  note: "为保护隐私，本站不在网页展示任何收款账号。请通过上述邮箱联系我们获取付款方式，邮件中请附上您的订单号。"
+};
+
+</script>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>收益经理的一年 · 沙盘经营 · RMC收益管理社区</title>
+<meta name="description" content="酒店收益管理沙盘教学游戏：自选经营场景，12 个月逐月决策——定价、限制、超售、促销，看市场如何回应你。">
+<style>
+:root{--navy:#0f2a4a;--navy2:#163a63;--gold:#e8b84b;--gold2:#f5d78e;--cream:#f7f3ea;
+  --ink:#1f2a37;--mut:#5b6a7d;--ok:#2a7d4f;--bad:#c94f43;--blue:#3d8bd4;--line:#e3e9f1}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+  background:linear-gradient(180deg,#0f2a4a 0%,#163a63 320px,#f4f7fb 320px);color:var(--ink);
+  min-height:100vh;line-height:1.7}
+.wrap{max-width:960px;margin:0 auto;padding:0 18px 70px}
+a.back{color:#9fc3e4;font-size:13.5px;text-decoration:none;display:inline-block;margin-top:16px}
+a.back:hover{color:#fff}
+h1{color:#fff;font-size:26px;margin:6px 0 4px;letter-spacing:.5px}
+.sub{color:#b9d0e6;font-size:14px;max-width:660px}
+.stage{background:#fff;border-radius:16px;box-shadow:0 10px 40px rgba(15,42,74,.18);
+  padding:24px;margin-top:22px;display:none}
+.stage.on{display:block;animation:pop .35s ease}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+h2{font-size:20px;color:var(--navy);margin-bottom:6px}
+.tip{color:var(--mut);font-size:13.5px;margin-bottom:16px}
+/* ── 场景选择 ── */
+.scen{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:14px 0}
+.sc{border:2px solid var(--line);border-radius:14px;padding:16px;cursor:pointer;
+  transition:.18s;background:#fbfdff;position:relative}
+.sc:hover{border-color:var(--blue);transform:translateY(-3px)}
+.sc.on{border-color:var(--blue);box-shadow:0 0 0 3px rgba(61,139,212,.15);background:#f2f8ff}
+.sc .ic{font-size:30px}
+.sc h3{font-size:15.5px;margin:6px 0 2px;color:var(--navy)}
+.sc p{font-size:12.5px;color:var(--mut);line-height:1.6}
+.sc .tag{position:absolute;top:10px;right:10px;font-size:11px;background:var(--cream);
+  color:#8a6d1f;border-radius:999px;padding:2px 9px}
+.custom{border-top:1px dashed var(--line);margin-top:16px;padding-top:14px}
+.crow{display:flex;gap:14px;flex-wrap:wrap;margin:8px 0}
+.cfield{flex:1;min-width:170px;font-size:13px;color:var(--mut)}
+.cfield b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
+input[type=range]{width:100%;accent-color:var(--blue)}
+.cval{color:var(--blue);font-weight:800}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;border:none;
+  border-radius:10px;padding:12px 30px;font-size:15.5px;font-weight:700;cursor:pointer;
+  box-shadow:0 4px 14px rgba(61,139,212,.35);transition:.15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(61,139,212,.4)}
+.btn.gold{background:linear-gradient(135deg,#d9a83c,#e8b84b);color:#3a2c07;
+  box-shadow:0 4px 14px rgba(232,184,75,.4)}
+.btn.ghost{background:#eef2f7;color:#33465c;box-shadow:none}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+/* ── 月度界面 ── */
+.monthhd{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.month{font-size:13px;font-weight:800;color:#fff;background:var(--navy);border-radius:999px;padding:4px 16px}
+.money{font-size:13px;color:var(--mut)}
+.money b{color:var(--navy);font-size:15px}
+/* 酒店可视化 */
+.hotel{background:linear-gradient(180deg,#10294a,#1c4470);border-radius:14px;padding:16px 16px 10px;margin-bottom:14px}
+.sky{display:flex;justify-content:space-between;align-items:center;color:#9fc3e4;font-size:12px;margin-bottom:8px}
+.rooms{display:grid;grid-template-columns:repeat(15,1fr);gap:4px}
+.room{aspect-ratio:1;border-radius:3px;background:#234468;transition:background .5s,box-shadow .5s;position:relative}
+.room.lit{background:linear-gradient(135deg,#f5d78e,#e8b84b);box-shadow:0 0 6px rgba(232,184,75,.55)}
+.room.vip{background:linear-gradient(135deg,#ffe9b0,#f0b429);box-shadow:0 0 8px rgba(240,180,41,.7)}
+.hotel .legend{display:flex;gap:14px;color:#8fb2d4;font-size:11.5px;margin-top:8px;justify-content:flex-end}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+/* 事件卡 */
+.event{display:flex;gap:14px;align-items:center;background:linear-gradient(135deg,#fff8e8,#fdf3d7);
+  border:1px solid #ecd9a8;border-radius:12px;padding:12px 16px;margin-bottom:14px}
+.event .eic{font-size:34px}
+.event .et{font-weight:800;color:#7a5a12;font-size:15px}
+.event .ed{font-size:13px;color:#7a6a3a}
+/* 决策区 */
+.dec{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:14px}
+.dcard{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fbfcfe}
+.dcard h4{font-size:13.5px;color:var(--navy);margin-bottom:6px;display:flex;justify-content:space-between}
+.dcard h4 .dv{color:var(--blue);font-weight:800}
+.dcard p{font-size:12px;color:var(--mut);line-height:1.6}
+.pr-slide{width:100%;accent-color:var(--blue)}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg .sg{border:1px solid var(--line);border-radius:8px;padding:5px 12px;font-size:12.5px;cursor:pointer;background:#fff}
+.seg .sg.on{background:var(--navy);color:#fff;border-color:var(--navy);font-weight:700}
+/* 天气/需求条 */
+.meter{height:10px;border-radius:999px;background:#e8edf4;overflow:hidden;margin-top:6px}
+.meter i{display:block;height:100%;border-radius:999px;transition:width .6s ease}
+/* 月报 */
+.report{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:14px 0}
+.ritem{border:1px solid var(--line);border-radius:12px;padding:10px 12px;text-align:center;background:#fff}
+.ritem .rn{font-size:21px;font-weight:800;color:var(--navy)}
+.ritem .rn.up{color:var(--ok)}.rn.down{color:var(--bad)}
+.ritem .rl{font-size:11.5px;color:var(--mut)}
+.vs{font-size:12px;margin-top:2px;color:var(--mut)}
+.charts{display:flex;gap:6px;align-items:flex-end;height:74px;margin:10px 0 4px;padding:0 4px}
+.charts .bar{flex:1;border-radius:4px 4px 0 0;background:linear-gradient(180deg,#5ea0dd,#3d8bd4);
+  position:relative;min-height:3px;transition:height .6s ease}
+.charts .bar.me{background:linear-gradient(180deg,#f0c060,#d99a2b)}
+.charts .bar span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-size:10px;color:var(--mut)}
+.xline{border-top:1px dashed var(--line);margin:16px 0 12px}
+.feedback{border-radius:10px;padding:10px 14px;font-size:13.5px;margin:10px 0;display:none}
+.feedback.on{display:block;animation:pop .3s ease}
+.feedback.good{background:#eef8f1;border:1px solid #bcdcc8;color:#1d5c39}
+.feedback.bad{background:#fdefee;border:1px solid #eac5c0;color:#8e2b20}
+.feedback.neutral{background:#eef4fb;border:1px solid #c8dbec;color:#1d4e7e}
+/* 结算 */
+.grade{font-size:56px;font-weight:900;text-align:center;line-height:1.2;
+  background:linear-gradient(135deg,#d9a83c,#f5d78e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fin{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:18px 0}
+.center{text-align:center}
+.mini{font-size:12.5px;color:var(--mut)}
+@media(max-width:640px){.rooms{grid-template-columns:repeat(10,1fr)}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"sandbox","item":"https://hrma-city.github.io/sandbox.html"}]}</script>
+
+
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="games-hub.html">← 回游戏馆</a>
+  <h1>🏨 收益经理的一年 · 沙盘</h1>
+  <p class="sub">选一家酒店，经营 12 个月。每个月看市场、做决策——定价、限房、超售、促销——市场会真实地回应你。年底见分晓。</p>
+
+  <!-- ═══ 开局 ═══ -->
+  <div class="stage on" id="stSetup">
+    <h2 id="toc-1">选择你的酒店</h2>
+    <p class="tip">三家预设 + 一个自定义槽位。不同场景的客源结构和事件池完全不同。</p>
+    <div class="scen">
+      <div class="sc on" data-sc="biz"><span class="tag">入门</span><div class="ic">🏢</div>
+        <h3 id="toc-2">云璟 · 城市商务</h3><p>300 间 · 商务客为主 · 平稳但会展月爆发。学基础节奏首选。</p></div>
+      <div class="sc" data-sc="resort"><span class="tag">波动大</span><div class="ic">🏖️</div>
+        <h3 id="toc-3">金沙 · 海滨度假</h3><p>260 间 · 强季节性 · 夏季一房难求、冬季门可罗雀。考验淡旺定价。</p></div>
+      <div class="sc" data-sc="econ"><span class="tag">薄利</span><div class="ic">🛏️</div>
+        <h3 id="toc-4">轻住 · 经济连锁</h3><p>180 间 · 低价敏感 · 变动成本低但天花板也低，拼周转。</p></div>
+      <div class="sc" data-sc="custom"><span class="tag">自定义</span><div class="ic">⚙️</div>
+        <h3 id="toc-5">我的酒店</h3><p>自己调房量、基准价、季节强度与客源结构。</p></div>
+    </div>
+    <div class="custom" id="customBox" style="display:none">
+      <div class="crow">
+        <div class="cfield"><b>房量：<span class="cval" id="cvRooms">260</span> 间</b>
+          <input type="range" id="cfRooms" min="80" max="600" step="20" value="260"></div>
+        <div class="cfield"><b>平峰基准价：<span class="cval" id="cvBar">¥560</span></b>
+          <input type="range" id="cfBar" min="200" max="1500" step="20" value="560"></div>
+      </div>
+      <div class="crow">
+        <div class="cfield"><b>季节强度：<span class="cval" id="cvSeason">中等</span></b>
+          <input type="range" id="cfSeason" min="1" max="5" step="1" value="3"></div>
+        <div class="cfield"><b>团队/会议占比：<span class="cval" id="cvGrp">20%</span></b>
+          <input type="range" id="cfGrp" min="0" max="40" step="5" value="20"></div>
+      </div>
+    </div>
+    <div class="center" style="margin-top:18px">
+      <button class="btn gold" id="btnStart">上任，开始 1 月 →</button>
+    </div>
+  </div>
+
+  <!-- ═══ 月度决策 ═══ -->
+  <div class="stage" id="stPlay">
+    <div class="monthhd">
+      <span class="month" id="mLabel">1 月</span>
+      <span class="money">累计客房收入 <b id="mRev">¥0</b> ｜ 领先基准 <b id="mGap">±0</b></span>
+    </div>
+    <div class="hotel">
+      <div class="sky"><span id="mDemandTag">📊 市场需求：—</span><span id="mCompTag">🏷️ 竞对均价：—</span></div>
+      <div class="rooms" id="roomGrid"></div>
+      <div class="legend"><span><i style="background:#f0b429"></i>已售/贵宾</span><span><i style="background:#234468"></i>空房</span></div>
+    </div>
+    <div class="event" id="evBox">
+      <div class="eic" id="evIc">📅</div>
+      <div><div class="et" id="evT">—</div><div class="ed" id="evD">—</div></div>
+    </div>
+    <div class="dec">
+      <div class="dcard">
+        <h4>本月 BAR 定价 <span class="dv" id="dvPrice">¥560</span></h4>
+        <input type="range" class="pr-slide" id="slPrice" min="0" max="100" value="50">
+        <p id="priceHint">基准价的 0%–60% 浮动。旺季敢不敢抬、淡季舍不舍得降，看你对需求温度的判断。</p>
+      </div>
+      <div class="dcard">
+        <h4>最少连住 MinLOS <span class="dv" id="dvMin">不限</span></h4>
+        <div class="seg" id="segMin">
+          <span class="sg on" data-v="0">不限</span><span class="sg" data-v="2">2 晚</span><span class="sg" data-v="3">3 晚</span>
+        </div>
+        <p>旺季用它挡掉碎单，把好日子留给长住高价值客人；淡季设了会吓跑客人。</p>
+      </div>
+      <div class="dcard">
+        <h4>超售名额 <span class="dv" id="dvOver">0 间</span></h4>
+        <div class="seg" id="segOver">
+          <span class="sg on" data-v="0">0</span><span class="sg" data-v="2">2</span><span class="sg" data-v="4">4</span><span class="sg" data-v="6">6</span>
+        </div>
+        <p>赌 no-show 多卖几间。赌对了多赚，赌错了赔步行客人——上限别超过 5%。</p>
+      </div>
+      <div class="dcard">
+        <h4>促销冲量 <span class="dv" id="dvPromo">关</span></h4>
+        <div class="seg" id="segPromo">
+          <span class="sg on" data-v="0">关</span><span class="sg" data-v="1">-10% 冲 OTA</span>
+        </div>
+        <p>淡季救命稻草：额外+18% 产量，但拉低均价、扰动价格体系，旺季开着等于白送钱。</p>
+      </div>
+    </div>
+    <div class="center"><button class="btn" id="btnGo">结束本月，看市场反应 →</button></div>
+    <div class="feedback" id="fbBox"></div>
+    <div id="repBox" style="display:none">
+      <div class="xline"></div>
+      <div class="report" id="repGrid"></div>
+      <div class="charts" id="chart"></div>
+      <div class="center" style="margin-top:22px">
+        <button class="btn gold" id="btnNext">进入下个月 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 年度结算 ═══ -->
+  <div class="stage" id="stEnd">
+    <div class="center">
+      <div style="font-size:15px;color:var(--mut)">年度考核</div>
+      <div class="grade" id="fGrade">A</div>
+      <div style="font-size:15px;font-weight:700;color:var(--navy)" id="fTitle">收益操盘手</div>
+      <p class="mini" id="fNote" style="max-width:560px;margin:8px auto 0"></p>
+    </div>
+    <div class="fin" id="fGrid"></div>
+    <div class="feedback neutral on" id="fTip"></div>
+    <div class="center" style="margin-top:16px">
+      <button class="btn gold" id="btnAgain">换个场景再来一年</button>
+      <button class="btn ghost" id="btnBack" style="margin-left:8px">回游戏馆</button>
+    </div>
+  </div>
+</div>
+<script>
+/* ══════════════ 数据 ══════════════ */
+var SCN = {
+  biz:   {name:'云璟 · 城市商务', rooms:320, bar:620, season:2, grp:22, vol:1.0,
+          blurb:'商务客为主，2-3 月平、6 月展会爆发、8 月谷底。', comp:1.0},
+  resort:{name:'金沙 · 海滨度假', rooms:260, bar:540, season:5, grp:12, vol:1.15,
+          blurb:'7-8 月一房难求，11 月-3 月寒风刺骨。', comp:1.05},
+  econ:  {name:'轻住 · 经济连锁', rooms:180, bar:280, season:2, grp:8, vol:0.9,
+          blurb:'价格敏感，薄利多销，竞对一降你就得跟。', comp:0.92}
+};
+var MONTHS=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+/* 季节需求基数（×场景强度） */
+var SEASON=[0.72,0.78,0.86,0.94,1.0,1.18,1.3,1.05,0.98,0.96,0.82,0.88];
+var SEASON_RESORT=[0.55,0.5,0.55,0.72,0.95,1.25,1.45,1.4,1.0,0.8,0.6,0.62];
+var EVENTS_POOL=[
+  {ic:'🎪',t:'大型展会落地',d:'本月需求上浮 25%，竞对也知道了。敢不敢抬价？',dem:1.25,comp:1.04},
+  {ic:'🧨',t:'节假日连休',d:'休闲需求激增 30%，散客不问价格。',dem:1.3,comp:1.08},
+  {ic:'🌧️',t:'连日暴雨',d:'行程取消潮，需求下滑 22%。',dem:0.78,comp:0.94},
+  {ic:'🏨',t:'竞对新店开业',d:'对手开业特惠，竞对价格 -8%，分流明显。',dem:0.95,comp:0.92},
+  {ic:'🎟️',t:'OTA 平台大促',d:'平台补贴冲量：若开促销，产量加成翻倍。',dem:1.0,comp:0.96,promo:1.6},
+  {ic:'🎤',t:'巨星演唱会',d:'一房难求，需求上浮 35%，当天到店客人不差钱。',dem:1.35,comp:1.1},
+  {ic:'🚄',t:'高铁临时停运',d:'交通中断三天，需求骤降 30%。',dem:0.7,comp:0.9},
+  {ic:'📈',t:'本地商务回暖',d:'企业差旅预算放开，需求上浮 15%。',dem:1.15,comp:1.02},
+  {ic:'😴',t:'平淡的一个月',d:'没什么特别的，拼基本功。',dem:1.0,comp:1.0},
+  {ic:'🤝',t:'大型会议团询价',d:'一个 60 间夜的会议团在询价——本月团队产量自动 +10 间。',dem:1.08,comp:1.0,grp:10}
+];
+var EV_NAMES=['你是新上任的收益经理','市场不相信运气','价格是杠杆，也是态度'];
+
+/* ══════════════ 状态 ══════════════ */
+var S={};
+function $(id){return document.getElementById(id)}
+function fmt(n){return '¥'+Math.round(n).toLocaleString('en-US')}
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+
+/* ══════════════ 开局 ══════════════ */
+var selSc='biz';
+document.querySelectorAll('.sc').forEach(function(el){
+  el.addEventListener('click',function(){
+    document.querySelectorAll('.sc').forEach(function(x){x.classList.remove('on')});
+    el.classList.add('on'); selSc=el.getAttribute('data-sc');
+    $('customBox').style.display = selSc==='custom'?'block':'none';
+  });
+});
+['cfRooms','cfBar','cfSeason','cfGrp'].forEach(function(id){
+  $(id).addEventListener('input',function(){
+    $('cvRooms').textContent=$('cfRooms').value;
+    $('cvBar').textContent='¥'+$('cfBar').value;
+    $('cvSeason').textContent=['很平','较平','中等','起伏大','极端'][($('cfSeason').value-1)];
+    $('cvGrp').textContent=$('cfGrp').value+'%';
+  });
+});
+$('btnStart').addEventListener('click',function(){
+  var c;
+  if(selSc==='custom'){
+    var season=$('cfSeason').value;
+    c={name:'我的酒店',rooms:+$('cfRooms').value,bar:+$('cfBar').value,
+       season:+season,grp:+$('cfGrp').value,vol:1,comp:1,custom:true};
+  } else { c=SCN[selSc]; }
+  S={cfg:c,month:0,rev:0,bench:0,sat:78,hist:[],me:[],ai:[],grade:0,
+    occSum:0,adrSum:0,revpar:[]};
+  seasonBase = c.name==='金沙 · 海滨度假'?SEASON_RESORT:SEASON;
+  $('stSetup').classList.remove('on'); $('stPlay').classList.add('on');
+  loadMonth();
+});
+var seasonBase=SEASON;
+
+/* ══════════════ 月度加载 ══════════════ */
+var cur=null;
+function loadMonth(){
+  var m=S.month, cfg=S.cfg;
+  var base=seasonBase[m]*(cfg.season>=4?1+ (cfg.season-3)*0.08:1);
+  if(cfg.custom && cfg.season<=2) base=1-(1-base)*0.6;   /* 自定义弱季节化 */
+  var dem=Math.max(0.35, Math.min(1.6, base));
+  var ev = (m===5&&cfg.season>=3)?EVENTS_POOL[0]:pick(EVENTS_POOL);
+  dem*=ev.dem;
+  var compP=cfg.bar*(0.92+0.16*Math.sin(m*1.1))*ev.comp*(cfg.comp||1);
+  cur={m:m,dem:dem,comp:compP,ev:ev,noShow:0.02+0.03*Math.random()};
+  $('mLabel').textContent=MONTHS[m]+' · '+(m+1)+'/12';
+  $('mRev').textContent=fmt(S.rev);
+  $('mGap').textContent=(S.rev-S.bench>=0?'+':'−')+fmt(Math.abs(S.rev-S.bench)).slice(1);
+  $('mGap').style.color=(S.rev>=S.bench)?'var(--ok)':'var(--bad)';
+  $('mDemandTag').textContent='📊 市场需求：'+demTag(dem);
+  $('mDemandTag').nextElementSibling; /* noop */
+  $('mCompTag').textContent='🏷️ 竞对均价：'+fmt(compP);
+  $('evIc').textContent=ev.ic; $('evT').textContent=ev.t; $('evD').textContent=ev.d;
+  /* 重置控件 */
+  $('slPrice').value=50; syncPrice();
+  setSeg('segMin','0'); setSeg('segOver','0'); setSeg('segPromo','0');
+  $('repBox').style.display='none'; $('fbBox').className='feedback';
+  /* 需求计 */
+  drawHotel(0,cfg.rooms);
+  $('btnGo').style.display=''; $('btnGo').disabled=false;
+}
+function demTag(d){
+  return d>=1.25?'🔥 爆发（'+Math.round(d*100)+'%）':d>=1.05?'🌤️ 偏热（'+Math.round(d*100)+'%）'
+    :d>=0.9?('😐 平稳（'+Math.round(d*100)+'%）'):d>=0.7?('🌧️ 偏冷（'+Math.round(d*100)+'%）'):('❄️ 冰点（'+Math.round(d*100)+'%）');
+}
+function drawHotel(occ,rooms){
+  var g=$('roomGrid'); g.innerHTML='';
+  var n=Math.min(60, Math.max(24, Math.round(rooms/8)));
+  var lit=Math.round(n*occ);
+  for(var i=0;i<n;i++){
+    var r=document.createElement('div');
+    r.className='room'+(i<lit?(i<Math.round(lit*0.25)?' vip':' lit'):'');
+    g.appendChild(r);
+  }
+}
+function syncPrice(){
+  var v=+$('slPrice').value;   /* -30% ~ +60% */
+  var pct=(v-30);
+  var cfg=S.cfg, comp=cur?cur.comp:cfg.bar;
+  var p=Math.max(cfg.bar*0.5, comp*(1+pct/100));
+  cur.price=Math.round(p/10)*10;
+  $('dvPrice').textContent=fmt(cur.price)+(pct>=0?('（高于竞对 '+pct+'%）'):('（低于竞对 '+(-pct)+'%）'));
+}
+$('slPrice').addEventListener('input',syncPrice);
+function setSeg(id,v){
+  var seg=$(id);
+  Array.prototype.forEach.call(seg.children,function(x){x.classList.toggle('on',x.getAttribute('data-v')===v)});
+  return v;
+}
+['segMin','segOver','segPromo'].forEach(function(id){
+  $(id).addEventListener('click',function(e){
+    var sg=e.target.closest?e.target.closest('.sg'):null; if(!sg)return;
+    setSeg(id, sg.getAttribute('data-v'));
+    if(id==='segMin')$('dvMin').textContent=sg.textContent;
+    if(id==='segOver')$('dvOver').textContent=sg.textContent+' 间';
+    if(id==='segPromo')$('dvPromo').textContent=sg.textContent==='0'?'关':sg.textContent;
+  });
+});
+
+/* ══════════════ 结算本月 ══════════════ */
+$('btnGo').addEventListener('click',function(){
+  var cfg=S.cfg, c=cur;
+  var price=c.price, dem=c.dem;
+  var min=+getSeg('segMin'), over=+getSeg('segOver'), promo=+getSeg('segPromo');
+  /* 价格敏感度：需求价格弹性（对竞对的相对价格） */
+  var rel=price/c.comp;
+  var elasticity = dem>=1.2?0.9:dem<=0.75?1.6:1.25;      /* 越冷越挑价格 */
+  var demandIdx = dem * Math.pow(1/rel, elasticity);
+  if(promo) demandIdx *= (c.ev.promo||1.18);
+  /* MinLOS 惩罚：旺季挡碎单损少量产量，淡季重罚 */
+  var minPen = min===0?1: dem>=1.15?0.96: dem>=0.9?0.88:0.74;
+  demandIdx*=minPen;
+  var soldF=Math.min(0.995, demandIdx*0.82);
+  var sold=Math.round(cfg.rooms*Math.min(0.995,soldF));
+  var oversold=Math.min(over, Math.round(cfg.rooms*0.05));
+  var walk=Math.max(0, sold+oversold-Math.round(cfg.rooms*(1-c.noShow)));
+  var soldReal=Math.min(sold, cfg.rooms-Math.round(cfg.rooms*(sold+oversold>cfg.rooms?c.noShow:0))) + (sold+oversold<=cfg.rooms?0:0);
+  var occNum=Math.min(1,(sold+Math.min(oversold,2))/cfg.rooms);
+  var rooms_night=Math.min(cfg.rooms+oversold-Math.max(0,walk), cfg.rooms);
+  var revenue=Math.round(Math.min(sold+oversold-walk, cfg.rooms)*price*(promo?0.9:1));
+  var adr=revenue/Math.max(1,Math.min(sold+oversold-walk,cfg.rooms));
+  var occ=Math.min(sold+oversold-walk,cfg.rooms)/cfg.rooms*100;
+  var revpar=revenue/cfg.rooms;
+  /* 满意度 */
+  var satDelta=0;
+  if(walk>0)satDelta-=walk*1.2;
+  if(rel>1.25&&dem<0.9)satDelta-=2;
+  if(promo)satDelta-=0.5;
+  if(dem>=1.15&&rel>=1.05)satDelta-=1;   /* 旺季涨价伤体验 */
+  if(dem>=1.1&&rel<0.95)satDelta+=1.5;   /* 旺季厚道 */
+  S.sat=Math.max(40,Math.min(98,S.sat+satDelta));
+  /* AI 基准对手：规则化（跟竞对 ±需求修正） */
+  var aiPrice=Math.round(c.comp*(dem>=1.15?1.12:dem>=0.95?1.0:0.9)/10)*10;
+  var aiSold=Math.round(cfg.rooms*Math.min(0.98,dem*0.78));
+  var aiRev=Math.round(Math.min(aiSold,cfg.rooms)*aiPrice);
+  S.rev+=revenue; S.bench+=aiRev;
+  S.me.push(revenue); S.ai.push(aiRev); S.hist.push({m:MONTHS[c.m],occ:occ,adr:adr,revpar:revpar});
+  S.occSum+=occ; S.adrSum+=adr;
+  /* 反馈语 */
+  var fb, cls;
+  if(walk>0){fb='⚠️ 超售踩雷：'+walk+' 位客人到店无房被步行，赔付 + 口碑双输。超售要盯 no-show 历史，不是拍脑袋。';cls='bad';}
+  else if(dem>=1.2&&rel<0.95){fb='📉 供不应求你却在打折——'+MONTHS[c.m]+'的需求本可以支撑更高价格。这批钱留在了桌上。';cls='bad';}
+  else if(dem<=0.75&&rel>1.08){fb='🧊 需求冰冷还高于竞对——空房不会因为标价高就变成收入。淡季要敢降、要用促销换周转。';cls='bad';}
+  else if(dem>=1.15&&rel>=1.05&&occ>88){fb='🔥 旺季量价齐收：需求爆棚时敢于抬价，这正是收益管理的核心一击。';cls='good';}
+  else if(dem<=0.8&&rel<=0.95&&occ>75){fb='🎯 淡季以价换量打得漂亮：价格贴住市场，把出租率撑了起来。';cls='good';}
+  else{fb=pick(['📈 本月稳健：价格跟住了市场节奏。','🧭 中规中矩——下个月试着更贴近需求温度计。','🧮 账面平稳。收益管理的差距是在极端月份拉开的。']);cls='neutral';}
+  if(satDelta<-3)fb+=' 客人满意度下滑（'+Math.round(S.sat)+'）。';
+  var fbEl=$('fbBox'); fbEl.className='feedback on '+cls; fbEl.textContent=fb;
+  /* 月报 */
+  var meWin=S.rev>=S.bench;
+  $('repGrid').innerHTML=
+    ritem(Math.round(occ)+'%','出租率', meWin?'':'')+
+    ritem(fmt(adr),'均价 ADR')+
+    ritem(fmt(revpar),'RevPAR')+
+    ritem(fmt(revenue),'本月收入', revenue>=aiRev?'up':'down')+
+    ritem(fmt(aiRev),'基准对手', '')+
+    ritem('❤ '+Math.round(S.sat),'满意度');
+  $('repBox').style.display='';
+  /* 图表 */
+  var ch=$('chart'); ch.innerHTML='';
+  var mx=Math.max.apply(null,S.me.concat(S.ai));
+  for(var i=0;i<S.me.length;i++){
+    var b1=document.createElement('div');b1.className='bar me';b1.style.height=(S.me[i]/mx*100)+'%';
+    var b2=document.createElement('div');b2.className='bar';b2.style.height=(S.ai[i]/mx*100)+'%';
+    var lb=document.createElement('span');lb.textContent=MONTHS[i].replace('月','');
+    b1.appendChild(lb);ch.appendChild(b1);ch.appendChild(b2);
+  }
+  $('mRev').textContent=fmt(S.rev);
+  $('mGap').textContent=(S.rev-S.bench>=0?'+':'−')+fmt(Math.abs(S.rev-S.bench)).slice(1);
+  $('mGap').style.color=meWin?'var(--ok)':'var(--bad)';
+  $('btnGo').style.display='none';
+  $('btnNext').textContent = S.month>=11 ? '查看年度考核 →' : '进入'+MONTHS[S.month+1]+' →';
+});
+function ritem(n,l){return '<div class="ritem"><div class="rn">'+n+'</div><div class="rl">'+l+'</div></div>'}
+function getSeg(id){var on=$(id).querySelector('.sg.on');return on?on.getAttribute('data-v'):'0'}
+$('btnNext').addEventListener('click',function(){
+  S.month++;
+  if(S.month>11){endYear();return;}
+  $('stPlay').scrollIntoView({behavior:'smooth'});
+  loadMonth();
+});
+
+/* ══════════════ 年度结算 ══════════════ */
+function endYear(){
+  $('stPlay').classList.remove('on'); $('stEnd').classList.add('on');
+  var gap=S.rev-S.bench, ratio=S.bench?gap/S.bench:0;
+  var g, t, note;
+  if(ratio>0.12){g='S';t='收益大师';note='你把市场读懂了：旺季敢抬价、淡季会换量、超售有纪律。这套手感，就是收益管理的全部秘密——去把这套打法讲给你们团队听。';}
+  else if(ratio>0.05){g='A';t='收益操盘手';note='稳定跑赢基准。回看按月图表：差距通常是在两三个极端月份拉开的，复盘那几个月的决策。';}
+  else if(ratio>-0.03){g='B';t='合格的执行者';note='和基准对手打平。注意：基准对手只是机械地跟市场——你输给它，说明某些月份是凭感觉在定价。';}
+  else{g='C';t='见习经理';note='被基准对手拉开了。两条铁律先记住：需求热时把价格抬上去，需求冷时把价格放下来——再打一年。';}
+  if(S.sat<62){g=g==='S'?'A':g;t+='（口碑警示）';note+=' 另：全年满意度 '+Math.round(S.sat)+'——杀鸡取卵式涨价或频繁步行客人，账面赢 sustainability 输。';}
+  $('fGrade').textContent=g; $('fTitle').textContent=t; $('fNote').textContent=note;
+  var avgOcc=Math.round(S.occSum/12), avgAdr=Math.round(S.adrSum/12);
+  $('fGrid').innerHTML=
+    '<div class="ritem"><div class="rn">'+fmt(S.rev)+'</div><div class="rl">全年客房收入</div></div>'+
+    '<div class="ritem"><div class="rn">'+(ratio>=0?'+':'−')+fmt(Math.abs(gap)).slice(1)+'</div><div class="rl">对比基准对手</div></div>'+
+    '<div class="ritem"><div class="rn">'+avgOcc+'%</div><div class="rl">平均出租率</div></div>'+
+    '<div class="ritem"><div class="rn">'+fmt(avgAdr)+'</div><div class="rl">平均均价</div></div>'+
+    '<div class="ritem"><div class="rn">'+Math.round(S.sat)+'</div><div class="rl">客人满意度</div></div>';
+  $('fTip').textContent='💡 复盘线索：'+S.hist.map(function(h){return h.m+' RevPAR '+fmt(h.revpar)}).join(' · ');
+  try{
+    var best=JSON.parse(localStorage.getItem('hrma_sandbox_best')||'{}');
+    var key=S.cfg.name;
+    if(!best[key]||S.rev>best[key].rev){best[key]={rev:S.rev,grade:g};localStorage.setItem('hrma_sandbox_best',JSON.stringify(best));}
+  }catch(e){}
+}
+$('btnAgain').addEventListener('click',function(){
+  $('stEnd').classList.remove('on');$('stSetup').classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+$('btnBack').addEventListener('click',function(){location.href='games-hub.html'});
+</script>
+
+
+
+
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>收益经理的一年 · 沙盘经营 · RMC收益管理社区</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 选择你的酒店</a>
+<a href="#toc-2" class="lv3">1.1 云璟 · 城市商务</a>
+<a href="#toc-3" class="lv3">1.2 金沙 · 海滨度假</a>
+<a href="#toc-4" class="lv3">1.3 轻住 · 经济连锁</a>
+<a href="#toc-5" class="lv3">1.4 我的酒店</a></div>
+</nav>
+
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
+})();
+</script>
+
+<style>
+/* tguide */
+.tguide{max-width:920px;margin:26px auto 10px;padding:0 16px;font-size:13.5px}
+.tguide summary{cursor:pointer;font-weight:700;color:#2b4f7a;background:#eef4fb;border:1px solid #cddcf0;border-radius:8px;padding:10px 14px;list-style:none}
+.tguide summary::-webkit-details-marker{display:none}
+.tguide summary::before{content:'▸ ';}
+.tguide[open] summary::before{content:'▾ ';}
+.tguide .tg{border:1px solid #cddcf0;border-top:0;border-radius:0 0 8px 8px;padding:14px 18px;background:#fff;line-height:1.8}
+.tguide h4{margin:12px 0 6px;color:#2b4f7a;font-size:13.8px}
+.tguide .tg h4:first-of-type{margin-top:2px}
+.tguide ol,.tguide ul{margin:4px 0 8px;padding-left:20px}
+.tguide li{margin:5px 0}
+.tguide .tg-pos{background:#f6f9fd;border-left:3px solid #2b4f7a;padding:8px 12px;margin:2px 0 10px;border-radius:0 6px 6px 0}
+@media print{.tguide{display:none}}
+</style>
+<details class="tguide"><summary>教师引导页 · 这局怎么带（导入流程 / 讨论题 / 卡点话术）</summary>
+<div class="tg">
+<p class="tg-pos"><b>定位：</b>12 个月连续经营的沙盘，适合当课程的「贯穿项目」：开学第一课开局玩 3 个月，学完一个模块回玩一段，期末玩完整年做总复盘——游戏进度对齐课程进度。</p>
+<h4>怎么带（课堂流程）</h4><ol>
+<li><b>导入（5 分钟）</b>：开局让每组选酒店、读一遍市场卡，只定一个策略关键词（冲价/保量/保结构）写在组名旁边，年底回来验证。</li>
+<li><b>进行（分段）</b>：每段 2–3 个月叫停一次：只问一个问题「这个月你最受哪个决策影响？」不评对错，积累复盘素材。</li>
+<li><b>复盘（20 分钟）</b>：年底对账：净利润排名只是引子，真正要复盘的是「年初的关键词应验了吗」「哪个月的决策链条最先走歪」。</li>
+</ol><h4>讨论什么</h4><ol>
+<li>你年初的策略关键词（冲价/保量/保结构），12 个月后被市场验证成什么样？当时错在哪一步？</li>
+<li>回头看，损失最大的一个月，根因是当月决策错，还是三个月前的库存结构就错了？</li>
+<li>淡旺季切换点（几月）你的动作是提前还是滞后？滞后的代价量化过吗？</li>
+<li>如果重开一年，你第一个要改的常设参数是什么（MinLOS/超售档/促销开关）？</li>
+</ol><h4>常见卡点与引导话术</h4><ul>
+<li><b>卡点：</b>学生只盯排名，赢了就跳过复盘。<br><b>话术：</b>把复盘锚在决策记录上：让第一名公开全部月度决策，全班找「他其实做错但赢了」的运气项——赢也要分清实力和运气。</li>
+<li><b>卡点：</b>学生每月决策断片，前后不一致，上一月的促销这个月就忘了收。<br><b>话术：</b>要求每组留一张「当前在生效的设置」清单（价格/闸门/促销），每月开工前先念一遍。</li>
+</ul><h4>课后衔接</h4><p>课后衔接：贯穿全课程使用；每月决策对应判定表 A/C/E/L 联查；期末与「game-rm 云璟一年」二选一做总验收。</p>
+</div></details>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<meta charset="utf-8">
+
+<script>window.HRMA_PREFIX="../../";</script>
+<script src="../../auth-config.js?v=gate20261013"></script>
+<script src="../../assets/js/access-gate.js?v=v12"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script>
+/* ==========================================================================
+   HRMA 学院官网 · 鉴权配置
+   --------------------------------------------------------------------------
+   ▼▼▼ 需要填的就是下面两行 ▼▼▼
+   1. 到 https://supabase.com 免费注册，新建一个项目
+   2. 项目 → Settings → API
+      · Project URL       → 贴在 url
+      · anon public key   → 贴在 anonKey
+   3. 保存本文件，重新部署
+
+   详细步骤见同目录 supabase-setup.md
+   ========================================================================== */
+
+/* ★ 鉴权模式开关（重要）
+   'cloud' = 云端模式：走 Supabase 真实服务端校验，可给外部人开账号。
+   'local' = 本地模式：账号存在各自浏览器，不联网。适合只有您自己访问。
+                       一旦切回 'local'，云端注册/审核/登录三端会被整条旁路。
+
+   ⚠️ 2026-10-21 22:47 已确认并从 'cloud' 回退 'local'：Supabase 项目 ivcylkcbodoacajyvnpy（孟买 ap-south-1）
+   **从中国大陆网络完全不可达**——浏览器直连报「服务器意外中断了连接」（连接被重置），注册 fetch 报「Load failed」。
+   即「外部人云端自助注册」对国内用户走不通（supabase.co 域名 + 孟买区域双重绕不过）。
+   signin.html 的云端登录/注册分支、auth.js、admin-approve.html 云端审批代码**全部保留**，本地预置账号兜底也在——
+   将来到国内可访问的鉴权后端（腾讯云 CloudBase / Supabase 亚太区+自定义域名 等）就绪后，把本行改回 'cloud' 即可再开，无需重写。
+   纯静态站点固有限制：懂技术的人仍可用 curl/查看源码扒到 HTML，
+   要做到文件级真加密须迁腾讯云服务器（带访问网关），此处只挡普通访客。 */
+window.HRMA_AUTH_MODE = 'local';
+
+/* 管理员密码哈希（SHA-256）。只存哈希不存明文——20 位随机强密码，无法从哈希反推。
+   明文只存在站长本机 hrma/_private_files/管理员密码.txt。
+   作用：管理员邮箱 + 此密码，可在任意设备的登录门直接进站，不依赖恢复码。 */
+window.HRMA_ADMIN_PW_HASH = "f8d4f00ade4fac6f8474569be361054cb95008313161f5216c231be27b884085";
+
+window.HRMA_SUPABASE = {
+  // 例： "https://abcdefghijklmnop.supabase.co"
+  url: "https://ivcylkcbodoacajyvnpy.supabase.co",
+
+  // 例： "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9......"
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2Y3lsa2Nib2RvYWNhanl2bnB5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTYzMzYsImV4cCI6MjEwNDI3MjMzNn0.oO7kU5OJ2TYY6U1ZD6Ol3Vuh6dMwaIvV2N6CzsqL4Xw"
+};
+
+/* 管理员邮箱（拥有审批权限）。多个用逗号分隔。
+   三者均为站长本人可控的 QQ 邮箱（community 与 rm 为同一邮箱的别名，coach 亦为站长邮箱），
+   任一均可登录并被前端识别为管理员、数据库触发器自动 approved。
+   数据库侧 profiles_admin_all / handle_new_user 策略已同步支持这三个邮箱（见 _update_admin.py）。 */
+window.HRMA_ADMIN_EMAILS = ["rm-community@qq.com", "rm-coach@qq.com"];
+
+/* 联系邮箱（页面展示用） */
+window.HRMA_CONTACT_EMAIL = "rm-community@qq.com";
+
+/* 收款信息（结算页展示用）。
+   --------------------------------------------------------------------------
+   当前模式：**邮箱联系**（保护隐私，网页上不展示任何个人/收款账号）。
+   流程：用户下单 → 页面给出联系邮箱 → 发邮件索取付款方式 → 您邮件告知 →
+        对方付款 → 您核销后手动开通权益。
+   备注：微信/支付宝「转账」方式收款方无上限，不受静态收款码那条「单日 500 元」限制，
+        适合 ¥299 / ¥1999 这种客单价。
+   如需将来改回扫码，把下面 wechatQR / alipayQR 填上图片地址即可（但请留意 500 元限制）。
+   -------------------------------------------------------------------------- */
+window.HRMA_PAY = {
+  payee: "RMC收益管理社区",
+
+  // 页面上唯一对外展示的联系方式
+  contact: "rm-community@qq.com",
+
+  // 收款码图片地址：留空则不展示二维码
+  wechatQR: "",
+  alipayQR: "",
+
+  // 银行账号说明：留空则不展示（保护隐私，默认不展示）
+  bank: "",
+
+  note: "为保护隐私，本站不在网页展示任何收款账号。请通过上述邮箱联系我们获取付款方式，邮件中请附上您的订单号。"
+};
+
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>场景化锻炼 · 房型价差与房型开关（练判断）</title>
+<style>
+  :root{--navy:#0f2a4a;--navy2:#12365c;--gold:#e8b84b;--gold2:#c99a3f;--ink:#1d2433;--mut:#8a94a6;--line:#e3e8f0;--ok:#1f9d6b;--bad:#d8503e;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#eef2f7;color:var(--ink);line-height:1.7;}
+  .top{background:var(--navy);color:#fff;padding:22px 24px;}
+  .top h1{margin:0;font-size:20px;}
+  .top p{margin:6px 0 0;color:#cdd9e8;font-size:13px;}
+  .wrap{max-width:860px;margin:0 auto;padding:22px 18px 60px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0;box-shadow:0 2px 10px rgba(15,42,74,.05);}
+  .tag{display:inline-block;background:var(--gold);color:#3a2c08;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:10px;}
+  h2{font-size:17px;margin:0 0 10px;color:var(--navy2);}
+  .data{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0;}
+  .cell{background:#f4f7fb;border:1px solid var(--line);border-radius:8px;padding:10px 12px;}
+  .cell b{display:block;font-size:18px;color:var(--navy);}
+  .cell span{font-size:12px;color:var(--mut);}
+  .opts{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
+  button.opt{appearance:none;border:1px solid var(--navy2);background:#fff;color:var(--navy2);font-size:15px;font-weight:600;padding:12px 18px;border-radius:10px;cursor:pointer;transition:.15s;flex:1;min-width:120px;}
+  button.opt:hover{background:var(--navy2);color:#fff;}
+  button.opt:disabled{opacity:.5;cursor:not-allowed;}
+  .result{display:none;margin-top:8px;}
+  .verdict{border-left:4px solid var(--navy2);background:#f7faff;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px;}
+  .verdict.ok{border-color:var(--ok);background:#f1faf5;}
+  .verdict.warn{border-color:var(--gold2);background:#fdfaf0;}
+  .verdict.bad{border-color:var(--bad);background:#fdf1ef;}
+  .formula{background:#0f2a4a;color:#e8eef7;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:12px 16px;border-radius:8px;overflow-x:auto;white-space:pre;}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:center;}
+  th{background:#f4f7fb;color:var(--navy2);}
+  .reveal{font-size:14px;}
+  .btn2{appearance:none;border:none;background:var(--gold);color:#3a2c08;font-weight:700;padding:10px 20px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .note{font-size:12px;color:var(--mut);margin-top:10px;}
+  a.back{color:var(--navy2);font-size:13px;text-decoration:none;}
+  a.back:hover{text-decoration:underline;}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"scene-roomtype","item":"https://hrma-city.github.io/scene-roomtype.html"}]}</script>
+
+
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>场景化锻炼 · 房型价差与房型开关</h1>
+  <p>纯浏览器运行 · 不联网 · 不装系统 · 适配课堂投屏 ｜ 数据取自「杭州滨江云璟酒店」脱敏数据集</p>
+</div>
+<div class="wrap">
+
+  <div class="card">
+    <span class="tag">价格体系</span>
+    <h2 id="toc-1">豪华房 ¥720、行政房 ¥880，价差 ¥160。近期行政房升级率高达 72%——价差合理吗？</h2>
+    <p>价差要与"差异的可感知程度"和"额外变动成本"对应。升级率是最灵敏的信号：普遍升级说明价差偏小。</p>
+    <div class="data">
+      <div class="cell"><b>90</b><span>豪华房房量</span></div>
+      <div class="cell"><b>45</b><span>行政房房量</span></div>
+      <div class="cell"><b>¥160</b><span>当前豪华→行政价差</span></div>
+      <div class="cell"><b>72%</b><span>当前升级率</span></div>
+      <div class="cell"><b>45–55%</b><span>目标升级率区间</span></div>
+    </div>
+    <p class="reveal" id="actual"></p>
+    <h2 id="toc-2" style="margin-top:18px;">第一步：您把价差调到多少？</h2>
+    <div class="opts" id="opts">
+      <button class="opt" data-v="160" onclick="pick(160)">保持 ¥160</button>
+      <button class="opt" data-v="200" onclick="pick(200)">上调到 ¥200</button>
+      <button class="opt" data-v="240" onclick="pick(240)">上调到 ¥240</button>
+      <button class="opt" data-v="120" onclick="pick(120)">下调到 ¥120</button>
+    </div>
+  </div>
+
+  <div class="card result" id="result">
+    <h2 id="toc-3">决策结果核算</h2>
+    <div class="formula" id="calc"></div>
+    <div id="verdicts"></div>
+    <h2 id="toc-4" style="margin-top:18px;">对照 · 价格体系 · 价差校准</h2>
+    <div class="verdict"><b>① 看升级率：</b>普遍升级购买（&gt;60%）＝ 价差偏小；普遍降级 ＝ 价差偏大。</div>
+    <div class="verdict"><b>② 定目标区间：</b>让升级率落在 45–55%，此时行政房恰好填满、加权均价最高。</div>
+    <div class="verdict"><b>③ 按顺序开关：</b>房型开关有固定顺序——先关低价房型，后关高价房型。</div>
+    <p class="note">这节课要学生明白：<b>价差不是定死的参数，是用升级率反推出来的。看到一个房型被抢着升级买，就知道它的价定便宜了。</b></p>
+    <div style="margin-top:16px;"><button class="btn2" onclick="location.reload()">再来一次</button>
+    <a class="back" style="margin-left:16px;" href="teach.html">← 返回课堂现场</a></div>
+  </div>
+
+  <div class="card">
+    <h2 id="toc-5">讲师出题提示</h2>
+    <p>把"下调到 120"也算一遍：升级率冲到 78%，行政房 45 间瞬间售罄，等于把溢价拱手让人——这是最常见的定价错误。</p>
+  </div>
+</div>
+
+<script>
+  function R(v){
+    var CAND=90, SUITE=45, BASE=720;
+    var rate={120:0.78,160:0.72,200:0.58,240:0.46}[v];
+    var want=Math.round(CAND*rate);
+    var sold=Math.min(SUITE,want);
+    var over=Math.max(0,want-SUITE);
+    var price=BASE+v;
+    var wADR=(720*(CAND-want)+price*sold)/(CAND);
+    var rows=[['豪华→行政价差','¥'+v],['对应升级率',(rate*100).toFixed(0)+'%'],
+      ['想升级人数',want+' 人'],['行政房实际售出',sold+' 间'],
+      ['溢出（想买买不到）',over+' 人'],['行政房售价','¥'+price],
+      ['加权均价（豪华+行政）','¥'+wADR.toFixed(1)],['目标升级率','45–55%']];
+    var vd=[];
+    if(v===240) vd.push(['ok','<b>价差校准到位。</b>升级率 46% 落在目标区间，行政房售出 '+sold+' 间、几乎填满且不溢出，加权均价 ¥'+wADR.toFixed(1)+' 最高。']);
+    else if(v===200) vd.push(['warn','方向对但还偏小。升级率 58% 仍高于目标上限，想升级 '+want+' 人超过 45 间房量，仍有 '+over+' 人溢出。']);
+    else if(v===160) vd.push(['bad','价差偏小。升级率 72%，溢出 '+over+' 人——行政房瞬间卖空，本可以卖更贵的钱没收到。']);
+    else vd.push(['bad','价差更小只会更糟：升级率 78%，溢出 '+over+' 人，等于把溢价白白送掉。']);
+    return {rows:rows, v:vd};
+  }
+  function pick(v){
+    var bs=document.querySelectorAll('#opts .opt');
+    for(var i=0;i<bs.length;i++){ bs[i].disabled=true; }
+    var r=R(v);
+    var t='';
+    for(var i=0;i<r.rows.length;i++){ t+=r.rows[i][0]+'：'+r.rows[i][1]+'\n'; }
+    document.getElementById('calc').textContent=t;
+    var vh='';
+    for(var i=0;i<r.v.length;i++){ vh+='<div class="verdict '+r.v[i][0]+'">'+r.v[i][1]+'</div>'; }
+    document.getElementById('verdicts').innerHTML=vh;
+    document.getElementById('result').style.display='block';
+    document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  var ACT="";
+  if(ACT){ document.getElementById('actual').innerHTML='<b>'+ACT+'</b>'; }
+</script>
+
+
+
+
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>场景化锻炼 · 房型价差与房型开关（练判断）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 豪华房 ¥720、行政房 ¥880，价差 ¥160。近期行政房升级率高达 72%——价差合理吗？</a>
+<a href="#toc-2">第一步：您把价差调到多少？</a>
+<a href="#toc-3">2. 决策结果核算</a>
+<a href="#toc-4">3. 对照 · 价格体系 · 价差校准</a>
+<a href="#toc-5">4. 讲师出题提示</a></div>
+</nav>
+
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open')});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');
+  });});
+})();
+</script>
+<style>
+/* tguide */
+.tguide{max-width:920px;margin:26px auto 10px;padding:0 16px;font-size:13.5px}
+.tguide summary{cursor:pointer;font-weight:700;color:#2b4f7a;background:#eef4fb;border:1px solid #cddcf0;border-radius:8px;padding:10px 14px;list-style:none}
+.tguide summary::-webkit-details-marker{display:none}
+.tguide summary::before{content:'▸ ';}
+.tguide[open] summary::before{content:'▾ ';}
+.tguide .tg{border:1px solid #cddcf0;border-top:0;border-radius:0 0 8px 8px;padding:14px 18px;background:#fff;line-height:1.8}
+.tguide h4{margin:12px 0 6px;color:#2b4f7a;font-size:13.8px}
+.tguide .tg h4:first-of-type{margin-top:2px}
+.tguide ol,.tguide ul{margin:4px 0 8px;padding-left:20px}
+.tguide li{margin:5px 0}
+.tguide .tg-pos{background:#f6f9fd;border-left:3px solid #2b4f7a;padding:8px 12px;margin:2px 0 10px;border-radius:0 6px 6px 0}
+@media print{.tguide{display:none}}
+</style>
+<details class="tguide"><summary>教师引导页 · 这局怎么带（导入流程 / 讨论题 / 卡点话术）</summary>
+<div class="tg">
+<p class="tg-pos"><b>定位：</b>练房型价差与房型开关的判断。适合讲完房型分级后练，核心：价差拉不开时开高价房、价差合理时锁低卖高——开关的不是房间，是价差结构。</p>
+<h4>怎么带（课堂流程）</h4><ol>
+<li><b>导入（2 分钟）</b>：给背景：豪华房卖剩很多、高级房快没。问：把豪华房按高级价卖出去行不行？全班举手。</li>
+<li><b>进行（5 分钟）</b>：学生作答。盯两类：无脑升级讨好客人的、死守价差一间不放的。</li>
+<li><b>复盘（5 分钟）</b>：算两笔账：免费升级一次的「习惯成本」 vs 高级房售罄后的空置损失。落到判据：看价差是否还撑得住升级。</li>
+</ol><h4>讨论什么</h4><ol>
+<li>高级 620 / 豪华 720，价差 100 元。客人要多付 100 买豪华的理由是什么？这个价差合理吗？</li>
+<li>把豪华房按高级价卖，是「送人情」还是「打穿价差」？下次客人还愿意付 720 吗？</li>
+<li>高级房只剩 3 间时，是继续卖高级还是把需求引到豪华？怎么引导？</li>
+<li>行政房长期卖不动，该降价还是关掉改他用？两条路的代价各是什么？</li>
+</ol><h4>常见卡点与引导话术</h4><ul>
+<li><b>卡点：</b>学生觉得免费升级总是好事，客人开心就好。<br><b>话术：</b>请他算明年的账：这次被升级的客人，下次还接受付豪华全价吗？升级是工具，不是策略。</li>
+<li><b>卡点：</b>学生关高价房型时说不清判据。<br><b>话术：</b>追问：关它是因为卖不动，还是因为卖动了要保护低价房库存？两种「关」方向完全相反。</li>
+</ul><h4>课后衔接</h4><p>课后衔接：对照房型与升级判定表；进阶玩「scene-bundle 套餐设计」看房型怎么进打包；理论对应房型管理一章。</p>
+</div></details>
+</body>
+</html>
