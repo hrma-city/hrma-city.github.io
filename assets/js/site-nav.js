@@ -39,8 +39,8 @@
      按身份找入口的人仍有退路，但不再占主导航首位。 */
   var MORE = [
     ['tour.html', '全站导览'],
-    ['theory.html', '理论（学理）'],
-    ['cases-hub.html', '案例（看别人怎么做）'],
+    ['theory.html', '理论'],
+    ['cases-hub.html', '案例'],
     ['hotelier.html', '酒店人'],
     ['teacher.html', '教师'],
     ['student.html', '学生'],
