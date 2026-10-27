@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>RMCity 公众号自动发文 · 排版预览与接入指南</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f3f4f6;font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;color:#1f2937;}
+.wrap{max-width:1060px;margin:0 auto;padding:32px 20px 60px;}
+header{text-align:center;margin-bottom:28px;}
+header .tag{display:inline-block;background:#ecfdf5;color:#059669;border:1px solid #a7f3d0;font-size:13px;padding:4px 14px;border-radius:999px;margin-bottom:12px;}
+header h1{font-size:26px;margin:0 0 8px;}
+header p{color:#6b7280;font-size:14px;margin:0;}
+.grid{display:grid;grid-template-columns:400px 1fr;gap:24px;align-items:start;}
+@media(max-width:900px){.grid{grid-template-columns:1fr;}}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.07);padding:22px;}
+.card h2{font-size:16px;margin:0 0 14px;color:#059669;}
+.card ol{padding-left:20px;margin:0;}
+.card li{margin-bottom:12px;font-size:14px;line-height:1.8;}
+.card code{background:#f3f4f6;padding:1px 6px;border-radius:4px;font-size:12.5px;color:#065f46;}
+.warn{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.7;margin-top:16px;}
+.warn b{color:#b45309;}
+.phone{width:390px;max-width:100%;background:#fff;border-radius:22px;box-shadow:0 8px 40px rgba(0,0,0,.16);overflow:hidden;margin:0 auto;}
+.bar{background:#ededed;padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #ddd;}
+.bar .t{font-size:14px;color:#555;flex:1;text-align:center;}
+.account{padding:20px 16px 8px;display:flex;align-items:center;gap:10px;}
+.account .avatar{width:38px;height:38px;border-radius:6px;background:#059669;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px;}
+.account .name{font-size:13px;color:#576b95;}
+.meta{padding:8px 20px 0;}
+h1.title{font-size:21px;font-weight:600;color:#111;line-height:1.4;margin:14px 0 10px;}
+.dig{font-size:13px;color:#999;margin-bottom:14px;}
+.content{padding:6px 20px 30px;}
+.foot{padding:14px 20px 30px;color:#bbb;font-size:12px;text-align:center;border-top:1px solid #f0f0f0;}
+.flow{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+.flow .step{display:flex;gap:12px;align-items:flex-start;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:12px 14px;}
+.flow .num{min-width:26px;height:26px;border-radius:50%;background:#059669;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;font-weight:bold;}
+.flow .step b{font-size:14px;display:block;margin-bottom:2px;}
+.flow .step span{font-size:13px;color:#6b7280;line-height:1.6;}
+footer{text-align:center;color:#9ca3af;font-size:12px;margin-top:32px;}
+</style></head><body><div class="wrap">
+<header>
+  <div class="tag">个人订阅号 · 官方 API · 95% 自动化</div>
+  <h1>RMCity 公众号自动发文</h1>
+  <p>左侧：文章真实排版效果（与草稿箱内一致） · 右侧：接入步骤与日常流程</p>
+</header>
+<div class="grid">
+
+<div class="card" style="padding:18px">
+  <h2>排版效果预览 ·《为什么满房的酒店，也可能在亏钱》</h2>
+  <div class="phone">
+    <div class="bar"><span style="color:#333">‹</span><span class="t">RMCity</span><span style="color:#ccc">⋯</span></div>
+    <div class="account"><div class="avatar">R</div><div class="name">RMCity · 收益管理社区</div></div>
+    <div class="meta">
+      <h1 class="title">为什么满房的酒店，也可能在亏钱</h1>
+      <div class="dig">客房全满不等于赚钱。这是收益管理教会我们的第一笔账：出租率只是表象，每一间房卖给了谁、卖在什么价位，才是结果背后真正的故事。</div>
+    </div>
+    <div class="content"><section id="wx-outer" style="font-size:15px;color:#3f3f3f;line-height:1.85;letter-spacing:0.5px;word-break:break-word;-apple-system-font,BlinkMacSystemFont,'Helvetica Neue',sans-serif;"><p style="margin:0 0 14px;">走进一家酒店，前厅经理兴冲冲地汇报：「昨晚满房了！」这句话听起来像业绩，但在收益管理的账本上，满房可能是一个昂贵的错误。</p>
+<section style="font-size:17px;font-weight:bold;color:#059669;margin:28px 0 12px;padding-left:10px;border-left:4px solid #059669;line-height:1.4;">一笔很多人都算错的账</section>
+<p style="margin:0 0 14px;">衡量一家酒店卖得好不好，大多数人的第一反应是<strong style="color:#059669;font-weight:bold;">出租率</strong>（Occupancy）。出租率 100%，看起来无可挑剔。</p>
+<p style="margin:0 0 14px;">但收益管理者会再追问两个问题：</p>
+<ul style="margin:0 0 14px;padding-left:22px;">
+<li style="margin:0 0 6px;">这些房间，<strong style="color:#059669;font-weight:bold;">平均每间卖多少钱</strong>（ADR，平均房价）？</li>
+<li style="margin:0 0 6px;">每间可供出租的客房，<strong style="color:#059669;font-weight:bold;">平均贡献了多少收入</strong>（RevPAR，每间可售房收入）？</li>
+</ul>
+<p style="margin:0 0 14px;">三者的关系，一行公式就说完了：</p>
+<section style="margin:0 0 14px;padding:10px 14px;background:#ecfdf5;border-left:4px solid #10b981;color:#065f46;font-size:14px;">
+<p style="margin:0 0 14px;">RevPAR = 出租率 × 平均房价（ADR）</p>
+</section>
+<p style="margin:0 0 14px;">同样的满房，可能是 800 元一间的商务客带来的，也可能是 300 元一间的特价团购带来的。<strong style="color:#059669;font-weight:bold;">前者是赚钱，后者可能连清洁一间房的成本都覆盖不住。</strong></p>
+<section style="font-size:17px;font-weight:bold;color:#059669;margin:28px 0 12px;padding-left:10px;border-left:4px solid #059669;line-height:1.4;">低价填房，为什么会越填越亏</section>
+<p style="margin:0 0 14px;">每多卖一间房，酒店并不是白捡收入，还要付出对应的成本：</p>
+<table style="width:100%%;border-collapse:collapse;margin:0 0 16px;">
+<thead style="padding:8px 10px;border:1px solid #d1d5db;background:#059669;color:#ffffff;text-align:left;font-size:13px;">
+<tr>
+<th style="padding:8px 10px;border:1px solid #d1d5db;background:#059669;color:#ffffff;text-align:left;font-size:13px;">成本类型</th>
+<th style="padding:8px 10px;border:1px solid #d1d5db;background:#059669;color:#ffffff;text-align:left;font-size:13px;">举例</th>
+<th style="padding:8px 10px;border:1px solid #d1d5db;background:#059669;color:#ffffff;text-align:left;font-size:13px;">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding:8px 10px;border:1px solid #e5e7eb;font-size:13px;">变动成本</td>
+<td style="padding:8px 10px;border:1px solid #e5e7eb;font-size:13px;">布草洗涤、客耗、早餐、佣金</td>
+<td style="padding:8px 10px;border:1px solid #e5e7eb;font-size:13px;">每多住一间就多一份</td>
+</tr>
+<tr>
+<td style="padding:8px 10px;border:1px solid #e5e7eb;font-size:13px;">固定成本</td>
+<td style="padding:8px 10px;border:1px solid #e5e7eb;font-size:13px;">折旧、房租、底薪</td>
+<td style="padding:8px 10px;border:1px solid #e5e7eb;font-size:13px;">不管住不住都在发生</td>
+</tr>
+</tbody>
+</table>
+<p style="margin:0 0 14px;">如果一间的净收入低于它的变动成本，那么这间房卖得越多，亏得越多。满房的「热闹」，掩盖的是每间房的质量。</p>
+<section style="font-size:17px;font-weight:bold;color:#059669;margin:28px 0 12px;padding-left:10px;border-left:4px solid #059669;line-height:1.4;">收益管理的第一个动作</section>
+<p style="margin:0 0 14px;">所以，成熟的收益管理者从不追求「满房」，而是追求<strong style="color:#059669;font-weight:bold;">每一间房都卖给了愿意出更高价的人</strong>。日常的做法可以归纳成三步：</p>
+<ol style="margin:0 0 14px;padding-left:22px;">
+<li style="margin:0 0 6px;"><strong style="color:#059669;font-weight:bold;">看数</strong>：每天盯出租率、ADR、RevPAR 三件套，以及未来的预订进度；</li>
+<li style="margin:0 0 6px;"><strong style="color:#059669;font-weight:bold;">比对</strong>：拿当前价格和需求热度、竞对价格、历史同期做对照；</li>
+<li style="margin:0 0 6px;"><strong style="color:#059669;font-weight:bold;">调价</strong>：需求旺就关低价、抬价格；需求弱才考虑用低价「垫底」，而不是常态化促销。</li>
+</ol>
+<section style="font-size:17px;font-weight:bold;color:#059669;margin:28px 0 12px;padding-left:10px;border-left:4px solid #059669;line-height:1.4;">写在最后</section>
+<p style="margin:0 0 14px;">满房是一个结果，不是目标。目标只有一个：<strong style="color:#059669;font-weight:bold;">让每一间房，在每一个晚上，都处于它能实现的最优价格上。</strong></p>
+<p style="margin:0 0 14px;">这是 RMCity（收益管理社区）的第一篇短文。之后我们会把收益管理的日常决策，拆成一张张可以直接照着做的表——不靠天赋，靠方法。</p></section></div>
+    <div class="foot">—— RMCity · 收益管理社区 ——</div>
+  </div>
+</div>
+
+<div>
+  <div class="card">
+    <h2>① 一次性接入（约 5 分钟）</h2>
+    <ol>
+      <li>登录 <code>mp.weixin.qq.com</code> → 设置与开发 → 基本配置 → 复制 <b>AppID</b>；点「重置」生成 <b>AppSecret</b>（只显示一次）。</li>
+      <li>把两个字段发我，或自己填进 <code>wxbot/credentials.json</code>（本地保存，不会部署上线）。</li>
+      <li>终端跑 <code>curl ifconfig.me</code> 查本机公网 IP → 在「基本配置 → IP 白名单」把它加进去。IP 变了脚本会报错并提示新 IP，补加即可。</li>
+    </ol>
+    <div class="warn"><b>边界说明：</b>2025 年 7 月起微信回收了个人主体账号的「发布」接口权限。因此个人订阅号的极限是 <b>草稿全自动、发表手动点一下</b>（手机订阅号助手，约 10 秒）。认证企业号才可全自动群发。</div>
+  </div>
+  <div class="card" style="margin-top:20px">
+    <h2>② 之后的日常流程（我负责 1–4，你只做 5）</h2>
+    <div class="flow">
+      <div class="step"><div class="num">1</div><div><b>写稿</b><span>按 RMCity 定位生成 Markdown 文章（标题套路、绿色主题排版、表格/引用自动美化）</span></div></div>
+      <div class="step"><div class="num">2</div><div><b>传图</b><span>自动生成封面图，正文配图自动上传微信替换链接</span></div></div>
+      <div class="step"><div class="num">3</div><div><b>建草稿</b><span>调用官方接口写入公众号草稿箱</span></div></div>
+      <div class="step"><div class="num">4</div><div><b>提醒你</b><span>文章进了草稿箱，附预览链接</span></div></div>
+      <div class="step"><div class="num">5</div><div><b>你点「发表」</b><span>手机订阅号助手 → 草稿箱 → 预览 → 发表（约 10 秒）</span></div></div>
+    </div>
+  </div>
+</div>
+
+</div>
+<footer>RMCity · 收益管理社区 — 本页含 noindex，不会被搜索引擎收录</footer>
+</div></body></html>
