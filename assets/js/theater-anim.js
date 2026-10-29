@@ -273,7 +273,7 @@
       box.innerHTML = h;
       var nodes = box.querySelectorAll(".c");
       for (var i = 0; i < nodes.length; i++) {
-        (function (n, d) { setTimeout(function () { n.classList.add("on"); }, 320 * d); })(nodes[i], i);
+        (function (n, d) { setTimeout(function () { n.classList.add("on"); }, 300 * d); })(nodes[i], i);
       }
     },
 

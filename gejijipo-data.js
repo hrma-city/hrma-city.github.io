@@ -112,10 +112,10 @@ var ILLU = {
   /* 天平：left/right = {l, v} */
   balance:function(left,right,cap){
     return svg(
-      '<line x1="320" y1="90" x2="320" y2="250" stroke="'+C.navy+'" stroke-width="4"/>'+
+      '<line x1="300" y1="90" x2="300" y2="250" stroke="'+C.navy+'" stroke-width="4"/>'+
       '<line x1="150" y1="110" x2="490" y2="110" stroke="'+C.navy+'" stroke-width="4"/>'+
-      '<path d="M320 250 l-14 -18 h28 z" fill="'+C.navy+'"/>'+
-      '<circle cx="320" cy="92" r="8" fill="'+C.gold+'"/>'+
+      '<path d="M300 250 l-14 -18 h28 z" fill="'+C.navy+'"/>'+
+      '<circle cx="300" cy="92" r="8" fill="'+C.gold+'"/>'+
       '<line x1="150" y1="110" x2="150" y2="140" stroke="'+C.navy2+'" stroke-width="2"/>'+
       '<line x1="490" y1="110" x2="490" y2="140" stroke="'+C.navy2+'" stroke-width="2"/>'+
       '<rect x="96" y="140" width="108" height="86" rx="12" fill="'+C.soft+'" stroke="'+C.gold+'"/>'+
@@ -202,10 +202,10 @@ var ILLU = {
   /* 时钟（1 分钟主题） */
   clock:function(text){
     return svg(
-      '<circle cx="320" cy="180" r="96" fill="'+C.white+'" stroke="'+C.gold+'" stroke-width="6"/>'+
-      '<circle cx="320" cy="180" r="6" fill="'+C.navy+'"/>'+
-      '<line x1="320" y1="180" x2="320" y2="116" stroke="'+C.navy+'" stroke-width="5" stroke-linecap="round"/>'+
-      '<line x1="320" y1="180" x2="368" y2="180" stroke="'+C.gold+'" stroke-width="5" stroke-linecap="round"/>'+
+      '<circle cx="300" cy="180" r="96" fill="'+C.white+'" stroke="'+C.gold+'" stroke-width="6"/>'+
+      '<circle cx="300" cy="180" r="6" fill="'+C.navy+'"/>'+
+      '<line x1="300" y1="180" x2="300" y2="116" stroke="'+C.navy+'" stroke-width="5" stroke-linecap="round"/>'+
+      '<line x1="300" y1="180" x2="368" y2="180" stroke="'+C.gold+'" stroke-width="5" stroke-linecap="round"/>'+
       txt(320,310,text||'微课堂，讲清一个概念',16,C.navy,700)
     );
   }

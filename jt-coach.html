@@ -156,7 +156,7 @@ body{display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box}
    }
   ],
   "decision_logic": "以预测 OCC 为行、Pickup 偏差为列查矩阵得价格动作；与表 B 库存动作配套；受表 O 优先级约束（价格优先级 3）。",
-  "basis": "阈值基于中高端全服务酒店通用起点；OCC 分母=可售房晚。演示：OCC=(265+40)/320=95.3%→≥95%行；Pickup=(265-240)/240=+10.4%→领先>10%列→↑20%；BAR 680×1.20=816。",
+  "basis": "阈值基于中高端全服务酒店通用起点；OCC 分母=可售房晚。演示：OCC=(265+40)/300=95.3%→≥95%行；Pickup=(265-240)/240=+10.4%→领先>10%列→↑20%；BAR 680×1.20=816。",
   "pitfalls": "单日同方向累计≤20%；24h 内同方向≤2 次；每次≥3%（低于 3% 市场无感知）；调价后 30min 核查 OTA 挂牌价；D1 峰值日须 L3 审批；每次写入《调价台账》注明依据表 A。",
   "data_needs": [
    "occ_forecast",
@@ -572,7 +572,7 @@ body{display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box}
     "type": "number",
     "unit": "间",
     "range": "",
-    "example": 320
+    "example": 300
    },
    {
     "name": "peak_flag",
@@ -628,7 +628,7 @@ body{display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box}
    }
   ],
   "decision_logic": "三步走：查基准率 → 乘修正系数 → 卡硬上限（≤5% 且 ≤15 间；步行 30min 内无同档备用酒店再减半）。",
-  "basis": "超售间数=可售房量×超售率（向下取整）。演示：合计 15%→基准 3%；D1→×0.5=1.5%；320×1.5%=4.8→4 间；硬上限 4≤16 且 ≤15 通过。",
+  "basis": "超售间数=可售房量×超售率（向下取整）。演示：合计 15%→基准 3%；D1→×0.5=1.5%；300×1.5%=4.8→4 间；硬上限 4≤16 且 ≤15 通过。",
   "pitfalls": ">30% 基准率须 L3 审批；硬上限三条须同时满足；到店无房走表 L《步行客人预案》。",
   "data_needs": [
    "noshow_cancel_rate",

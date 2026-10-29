@@ -145,7 +145,7 @@ window.HRMA_PAY = {
     <h2 id="toc-1">国庆次日，前厅打来电话：“今天订满了，还能不能再接几间？”</h2>
     <p>您是收益课上的“当日收益官”。桌上没有 RMS 系统，只有一张日报和一张判定表（表 E）。请基于以下信息做决策：</p>
     <div class="data">
-      <div class="cell"><b>320</b><span>可售房量（间）</span></div>
+      <div class="cell"><b>300</b><span>可售房量（间）</span></div>
       <div class="cell"><b>308</b><span>当前已确认预订（间）</span></div>
       <div class="cell"><b>11%</b><span>历史 No-show 率（今日预期）</span></div>
       <div class="cell"><b>¥680</b><span>每间空置的机会成本（房费贡献）</span></div>
@@ -179,7 +179,7 @@ window.HRMA_PAY = {
     <h2 id="toc-5">第二步（加深）：跑 200 晚，看平均账</h2>
     <p>上面一晚是"揭晓答案"式的单次决策；这里把同一个决定放跑 <b>200 晚</b>——每晚 No-show 在历史区间 8%–14% 内随机波动，看哪个超售量<b>平均</b>最赚、walk 多久出一次。单次靠运气，两百晚靠期望，这才是超售该有的算法。</p>
     <div class="data">
-      <div class="cell"><b>320</b><span>每晚可售房量（间）</span></div>
+      <div class="cell"><b>300</b><span>每晚可售房量（间）</span></div>
       <div class="cell"><b>308</b><span>每晚已确认预订（间）</span></div>
       <div class="cell"><b>8%–14%</b><span>No-show 率波动区间</span></div>
       <div class="cell"><b>¥680 / ¥1,200</b><span>空置成本 / walk 成本</span></div>
@@ -196,7 +196,7 @@ window.HRMA_PAY = {
       <thead><tr><th>超售量</th><th>平均净贡献/晚</th><th>出现 walk 的晚数</th><th>最好一晚</th><th>最差一晚</th><th>解读</th></tr></thead>
       <tbody></tbody>
     </table>
-    <p class="note">口径：每晚 No-show 数 = round(308 × 均匀随机[8%,14%])；净贡献 = min(320, 到店)×680 − max(0, 到店−320)×1200；到店 = 308 + 超售量 − No-show。期望思维：不看单晚盈亏，看 200 晚平均与 walk 频率。</p>
+    <p class="note">口径：每晚 No-show 数 = round(308 × 均匀随机[8%,14%])；净贡献 = min(300, 到店)×680 − max(0, 到店−300)×1200；到店 = 308 + 超售量 − No-show。期望思维：不看单晚盈亏，看 200 晚平均与 walk 频率。</p>
   </div>
 
   <div class="card">
@@ -209,14 +209,14 @@ window.HRMA_PAY = {
   // 固定实际 No-show = 34 间（= 308×11%，取整），保证课堂可复现、可讲解
   var NO_SHOW = 34;
   document.getElementById('actual').innerHTML = '<b>本期实际 No-show 揭晓：' + NO_SHOW + ' 间</b>（系统揭晓前，学生应先用预期值 34 估上限）。';
-  var ROOMS = 320, BOOKED = 308, EMPTY_COST = 680, WALK_COST = 1200;
+  var ROOMS = 300, BOOKED = 308, EMPTY_COST = 680, WALK_COST = 1200;
 
   function choose(n){
     var opts = document.querySelectorAll('#opts .opt');
     opts.forEach(function(b){ b.disabled = true; });
     var accepted = BOOKED + n;            // 接受预订总数
     var showUp = accepted - NO_SHOW;      // 实际到店
-    var sold = Math.min(ROOMS, showUp);   // 实际售出（封顶 320）
+    var sold = Math.min(ROOMS, showUp);   // 实际售出（封顶 300）
     var empty = Math.max(0, ROOMS - showUp);
     var walk = Math.max(0, showUp - ROOMS);
     var revenue = sold * EMPTY_COST;      // 房费贡献
@@ -229,7 +229,7 @@ window.HRMA_PAY = {
     var calc =
       '接受预订   = 308 + ' + n + ' = ' + accepted + ' 间\n' +
       '实际到店   = ' + accepted + ' − 34(No-show) = ' + showUp + ' 间\n' +
-      '实际售出   = min(320, ' + showUp + ') = ' + sold + ' 间\n' +
+      '实际售出   = min(300, ' + showUp + ') = ' + sold + ' 间\n' +
       '空置房     = ' + empty + ' 间  × ¥680 = ¥' + (empty*EMPTY_COST).toLocaleString() + '\n' +
       '拒住(walk) = ' + walk + ' 间  × ¥1,200 = ¥' + (walk*WALK_COST).toLocaleString() + '\n' +
       '净贡献     = ' + sold + '×680 − ' + walk + '×1200 = ¥' + net.toLocaleString();

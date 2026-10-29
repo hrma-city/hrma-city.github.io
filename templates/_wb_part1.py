@@ -176,9 +176,9 @@ def build_01(path):
         else:
             lvl = "D3"
         occ = min(0.97, 0.58 * uplift * (1 + RNG.uniform(-0.05, 0.05)))
-        rn = round(320 * occ)
+        rn = round(300 * occ)
         adr = round(540 * (1 + (uplift - 1) * 0.55) * (1 + RNG.uniform(-0.03, 0.03)))
-        demo.append(dict(date=d, lvl=lvl, avail=320, rn=rn, rev=rn * adr))
+        demo.append(dict(date=d, lvl=lvl, avail=300, rn=rn, rev=rn * adr))
 
     for i in range(31):
         r = FIRST + i
@@ -269,7 +269,7 @@ def build_01(path):
                 [
                     ("A", "日期", "输入", "—", "经营日；本月累计按此列自动归月"),
                     ("C", "需求等级", "输入", "D1/D2/D3/D4", "SPEC 2.5，决定价格系数与目标 OCC"),
-                    ("D", "可售房量", "输入", "默认 320", "剔除装修/OOO 房后的可卖房量"),
+                    ("D", "可售房量", "输入", "默认 300", "剔除装修/OOO 房后的可卖房量"),
                     ("E", "已售房晚", "输入", "—", "含免费房的房晚"),
                     ("G", "客房收入", "输入", "—", "含服务费、不含增值税"),
                     ("J/K", "竞争组合 OCC/ADR", "输入", "—", "5 家竞对按房量加权（见 03 号工作簿）"),
@@ -370,7 +370,7 @@ def build_02(path):
         """演示在手房晚：越接近到达日在手越高。"""
         snap = 89 - j                      # 该目标日在快照日的提前天数
         f_final = build_factor(min(tier, snap))
-        final = 320 * (0.70 + 0.14 * ((j % 7) in (4, 5)) + RNG.uniform(-0.06, 0.06))
+        final = 300 * (0.70 + 0.14 * ((j % 7) in (4, 5)) + RNG.uniform(-0.06, 0.06))
         return max(0, int(round(final * f_final)))
 
     def build_factor(d):
@@ -432,7 +432,7 @@ def build_02(path):
             (f'=IFERROR(去年同期对照!{col}{R0 + len(TIERS) - 1},"")', "f", INT),
             (f'=IFERROR(($E{r}-$F{r})/$F{r},"")', "f", PCT1),
             (f'=IFERROR($G{r}*(1+$H{r}),"")', "f", NUM1),
-            (320, "i", INT),
+            (300, "i", INT),
             (f'=IFERROR($I{r}/$J{r},"")', "f", PCT1),
             (round(0.78 + 0.10 * ((j % 7) in (4, 5)), 3), "i", PCT1),
             (f'=IFERROR(($K{r}-$L{r})*100,"")', "f", NUM1),

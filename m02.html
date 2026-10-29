@@ -204,7 +204,7 @@
         <tr><td><code>EXE-T</code></td><td>行政双床房</td><td class="num">5</td><td class="num">45㎡</td><td>1.2m×2</td><td class="num">¥990</td><td class="num">145</td></tr>
         <tr><td><code>STE-B</code></td><td>商务套房</td><td class="num">8</td><td class="num">65㎡</td><td>2.0m 大床</td><td class="num">¥1,280</td><td class="num">180</td></tr>
         <tr><td><code>STE-E</code></td><td>行政套房</td><td class="num">2</td><td class="num">88㎡</td><td>2.0m 大床</td><td class="num">¥1,880</td><td class="num">265</td></tr>
-        <tr><td colspan="2"><b>合计</b></td><td class="num"><b>320</b></td><td class="num">—</td><td>—</td><td class="num">—</td><td class="num">—</td></tr>
+        <tr><td colspan="2"><b>合计</b></td><td class="num"><b>300</b></td><td class="num">—</td><td>—</td><td class="num">—</td><td class="num">—</td></tr>
       </tbody>
     </table>
   </div>
@@ -212,7 +212,7 @@
   <div class="callout callout-warn">
     <span class="co-t">房型代码的 3 个取数纪律</span>
     <p>1. <b>房型代码必须写全，不许简写。</b>「高级房」是 SUP-K + SUP-T 两个代码共 100 间，写「高级房」会让房晚统计差 40 间。<br>
-    2. <b>间数合计必须等于 320。</b>导出报表后先做合计校验，不等于 320 说明有房型被漏选或重复。<br>
+    2. <b>间数合计必须等于 300。</b>导出报表后先做合计校验，不等于 300 说明有房型被漏选或重复。<br>
     3. <b>12 间无障碍连通房不单列房型代码。</b>它们分布在 STD 与 SUP 房型内，通过「房态属性/房间特征」字段标记，取数时用该属性过滤，不要自建房型代码。</p>
   </div>
 
@@ -485,7 +485,7 @@
       <thead><tr><th class="num">#</th><th>字段</th><th>来源</th><th>格式</th><th>为什么必须抓（不抓会怎样）</th></tr></thead>
       <tbody>
         <tr><td class="num">1</td><td>统计日期</td><td>P</td><td>YYYY-MM-DD</td><td>缺了无法与去年同期对齐，Pickup 偏差算不出来</td></tr>
-        <tr><td class="num">2</td><td>总房量</td><td>P</td><td>整数</td><td>云璟固定 320，但装修期会变，必须每日取实际值</td></tr>
+        <tr><td class="num">2</td><td>总房量</td><td>P</td><td>整数</td><td>云璟固定 300，但装修期会变，必须每日取实际值</td></tr>
         <tr><td class="num">3</td><td>OOO 房晚</td><td>P</td><td>整数</td><td>不抓则 OCC 分母错（M01 陷阱 1）</td></tr>
         <tr><td class="num">4</td><td>可售房晚</td><td>P</td><td>整数</td><td>= 字段 2 − 字段 3，OCC / RevPAR / TrevPAR / GOPPAR 的共同分母</td></tr>
         <tr><td class="num">5</td><td>已售房晚</td><td>P</td><td>整数</td><td>OCC 分子、ADR 分母的基数</td></tr>
@@ -551,7 +551,7 @@
 
     <h4>时段一 · 07:30 前完成（耗时上限 20 min）</h4>
     <ul class="checklist">
-      <li>PMS 导出昨日房晚统计，确认总房量 − OOO = 可售房晚，且房型间数合计 = 320</li>
+      <li>PMS 导出昨日房晚统计，确认总房量 − OOO = 可售房晚，且房型间数合计 = 300</li>
       <li>PMS 导出昨日 Comp / House Use 房晚，与已售房晚核对（Comp + House Use ≤ 已售）</li>
       <li>财务系统取昨日客房收入 / 餐饮收入 / 其他收入 / GOP，口径确认：含服务费、不含增值税</li>
       <li>PMS 导出分渠道房晚（DIR / LOY / CORP / OTA / OTA-I / GDS / WHO），7 项合计 = 已售房晚</li>
@@ -679,7 +679,7 @@
 
     <h4>07:30 · 抓取昨日（10 月 15 日）经营数据</h4>
     <div class="kv">
-      <div class="kv-row"><div class="kv-k">PMS 导出</div><div class="kv-v">总房量 320、OOO 8、可售房晚 312、已售房晚 234、Comp 6、House Use 2</div></div>
+      <div class="kv-row"><div class="kv-k">PMS 导出</div><div class="kv-v">总房量 300、OOO 8、可售房晚 312、已售房晚 234、Comp 6、House Use 2</div></div>
       <div class="kv-row"><div class="kv-k">财务系统</div><div class="kv-v">客房收入 ¥163,800、餐饮收入 ¥78,000、其他收入 ¥8,400、GOP ¥87,360</div></div>
       <div class="kv-row"><div class="kv-k">渠道导出</div><div class="kv-v">DIR 70 / LOY 24 / CORP 46 / OTA 70 / OTA-I 0 / GDS 24 / WHO 0 = <b>234</b> ✓ 与已售房晚一致</div></div>
       <div class="kv-row"><div class="kv-k">房型导出</div><div class="kv-v">STD-K 58 / STD-T 40 / SUP-K 46 / SUP-T 30 / DLX-K 28 / DLX-V 9 / EXE-K 16 / EXE-T 2 / STE-B 4 / STE-E 1 = <b>234</b> ✓</div></div>
@@ -709,7 +709,7 @@
       <div class="kv-row"><div class="kv-k">去年同期同窗口在手</div><div class="kv-v">199 间</div></div>
       <div class="kv-row"><div class="kv-k">Pickup 偏差</div><div class="kv-v">(187 − 199) ÷ 199 × 100% = <b>落后 6.0%</b></div></div>
       <div class="kv-row"><div class="kv-k">预测增量</div><div class="kv-v">57 间</div></div>
-      <div class="kv-row"><div class="kv-k">预测 OCC</div><div class="kv-v">（187 + 57）÷ 312 = 244 ÷ 312 = <b>78.2%</b></div></div>
+      <div class="kv-row"><div class="kv-k">预测 OCC</div><div class="kv-v">（187 + 57）÷ 292 = 244 ÷ 292 = <b>83.6%</b></div></div>
     </div>
 
     <h4>发现问题三：疑似团队拆分</h4>
@@ -757,9 +757,9 @@
 
   <div class="ex-q">
     <div class="q-t">跟练 2 · 房型代码与价差</div>
-    <div class="q-b">导出某日房型房晚：STD-K 68、STD-T 48、SUP-K 55、SUP-T 38、DLX-K 42、DLX-V 14、EXE-K 24、EXE-T 5、STE-B 8、STE-E 2。请做两件事：（1）校验合计是否为 320；（2）指出这份数据其实不是「房晚」而是「可售间数」，说明理由。</div>
+    <div class="q-b">导出某日房型房晚：STD-K 68、STD-T 48、SUP-K 55、SUP-T 38、DLX-K 42、DLX-V 14、EXE-K 24、EXE-T 5、STE-B 8、STE-E 2。请做两件事：（1）校验合计是否为 300；（2）指出这份数据其实不是「房晚」而是「可售间数」，说明理由。</div>
     <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
-      （1）合计 = 68+48+55+38+42+14+24+5+8+2 = <b>304</b>，<b>不等于 320</b> → 数据不完整，有 16 间缺失。<br>
+      （1）合计 = 68+48+55+38+42+14+24+5+8+2 = <b>304</b>，<b>不等于 300</b> → 数据不完整，有 16 间缺失。<br>
       （2）理由：每个房型的数字都≤该房型的总间数（STD-K 68 ≤ 70、SUP-K 55 ≤ 60…），且没有出现 0，这更像是「可售间数」而非「已售房晚」。已售房晚通常会明显低于总间数且可能出现 0（如 STE-E 只有 2 间，淡季完全可能售 0）。<br>
       <b>处置：回到 PMS 重新选择报表的「统计口径」字段——选「Sold Room Nights 已售房晚」，不要选「Available Rooms 可售间数」。这是最常见的取数事故之一。</b>
     </div></details>
@@ -850,11 +850,11 @@
 
   <div class="ex-q">
     <div class="q-t">第 3 题</div>
-    <div class="q-b">下表是某日导出数据，请先做恒等式自检，再回答：能否进入 08:30 查表环节？<br>总房量 320、OOO 8、可售房晚 312、已售房晚 240、房型合计 240、渠道合计 240、细分合计 240、客房收入 ¥163,200、细分收入合计 ¥163,200。</div>
+    <div class="q-b">下表是某日导出数据，请先做恒等式自检，再回答：能否进入 08:30 查表环节？<br>总房量 300、OOO 8、可售房晚 312、已售房晚 240、房型合计 240、渠道合计 240、细分合计 240、客房收入 ¥163,200、细分收入合计 ¥163,200。</div>
     <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
       恒等式 1：已售 240 = 房型 240 = 渠道 240 = 细分 240 ✓<br>
       恒等式 2：客房收入 163,200 = 细分收入 163,200 ✓<br>
-      恒等式 3：可售 312 = 320 − 8 ✓；已售 240 ≤ 可售 312 ✓<br>
+      恒等式 3：可售 292 = 300 − 8 ✓；已售 240 ≤ 可售 292 ✓<br>
       恒等式 4：本题未给竞对数据，需补充后跑（MPI/ARI/RGI 三项）。<br>
       <b>结论：在补充竞对数据、跑完恒等式 4 之前，不能进入查表环节。</b>因为《法典》表 C（ARI）需要竞争组合加权 ADR 作为输入，缺了它表 C 无法查，而表 C 与表 A 的冲突仲裁（《法典》表 O）也就无从进行。
     </div></details>
