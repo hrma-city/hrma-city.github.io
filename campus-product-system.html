@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>院校产品与订阅体系设计 · 从卖一个包到按年续费</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--gold2:#f5d78e;--ink:#1f2a37;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb;--red:#c0503f}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--ink);line-height:1.82;font-size:15px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px 80px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:34px 0 30px}
+.hero .wrap{padding-bottom:0}
+.hero .tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);color:var(--gold2);font-size:12.5px;border-radius:999px;padding:3px 13px;margin-bottom:12px}
+.hero h1{font-size:26px;line-height:1.45}
+.hero p{color:#b9d0e6;font-size:14px;margin-top:10px;max-width:840px}
+h2{font-size:19px;color:var(--navy);margin:36px 0 8px;padding-left:12px;border-left:4px solid var(--gold)}
+h3{font-size:15.5px;color:var(--navy2);margin:20px 0 6px}
+.lead{color:var(--mut);font-size:13.5px;margin:0 0 12px;padding-left:12px}
+p{margin:9px 0}
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:10px;overflow:hidden;margin:12px 0}
+th{background:var(--navy);color:#fff;text-align:left;padding:9px 11px;font-size:12.5px;font-weight:600}
+td{padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:#fafcfe}
+td.k{font-weight:700;color:var(--navy);white-space:nowrap}
+td.c{text-align:center;color:var(--mut)}
+.quote{border-left:3px solid var(--gold);background:#fffcf2;padding:12px 16px;border-radius:0 10px 10px 0;font-size:13.5px;color:#5b4a12;margin:14px 0}
+.warn{background:#fdf1ef;border:1px solid #eecac4;border-radius:10px;padding:12px 16px;font-size:13.5px;color:#8a3a2e;margin:12px 0}
+.ok{background:#eef3f9;border:1px solid #ccdcee;border-radius:10px;padding:12px 16px;font-size:13.5px;color:#1c4a77;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:14px 0}
+.mini{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.mini b{display:block;color:var(--navy);font-size:14px;margin-bottom:4px}
+.mini span{font-size:12.5px;color:var(--mut);display:block;line-height:1.7}
+.ladder{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+.rung{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:10px;padding:12px 16px}
+.rung .lv{font-size:12px;font-weight:700;color:#7a5c12;background:#fdf6e3;border-radius:6px;padding:3px 9px;white-space:nowrap}
+.rung .nm{font-weight:700;color:var(--navy);font-size:14px;flex:1}
+.rung .pr{font-size:13px;color:var(--navy2);font-weight:700;white-space:nowrap}
+.rung .ds{font-size:12.5px;color:var(--mut);flex:1.4}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 0}
+.nav a{font-size:13px;text-decoration:none;color:var(--navy);border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px}
+.nav a:hover{background:var(--navy);color:#fff}
+.foot{text-align:center;color:var(--mut);font-size:12.5px;margin-top:36px;padding-top:16px;border-top:1px solid var(--line)}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+@media (min-width:1100px){body.toc-open{padding-left:312px}body.toc-open .site-nav,body.toc-open .topbar{left:312px}}
+body{transition:padding-left .25s ease}
+</style>
+</head>
+<body>
+<div class="hero"><div class="wrap">
+<div class="tag">RMCity · 院校业务 · 产品与订阅体系设计 v1</div>
+<h1>从「卖一个包」到「按年续费」</h1>
+<p>教学包是敲门砖，不是商品主体。真正能续费的，是老师每学期都要重走一遍的那条流程——包只走一次，流程每学期都走。</p>
+</div></div>
+
+<div class="wrap">
+
+<h2 id="toc-1">一、先给结论</h2>
+<p class="lead">三句话说完这套体系。</p>
+<div class="grid">
+<div class="mini"><b>① 包不卖断</b><span>教学包只作为首年交付物，第二年起的报价单上不再出现"包"这个商品，只出现"平台与服务"。续费因此是默认动作，不是二次销售。</span></div>
+<div class="mini"><b>② 绑定点在学期，不在内容</b><span>课程码、班级、成绩单、学情报告都以学期为单位重置。老师开学第一件事是"复制上学期班级"——那一秒就是续费按钮。</span></div>
+<div class="mini"><b>③ 老师确实教不动，但要卖的是"要交的东西"</b><span>进度表、试卷、评分细则、申报书、评估材料——这些有截止日期的东西才付得出钱，"指导"两个字付不出钱。</span></div>
+</div>
+
+<h2 id="toc-2">二、关键洞察：预算科目决定产品形态</h2>
+<div class="quote">院校不是不愿花钱，是<b>没有"买一份文件"这个科目</b>。资料费难报销、金额小、还要走资产登记；而"软件服务费""实践教学建设经费""师资培训费"是现成科目，金额大、按年列支、还能跨年续签。</div>
+<table>
+<thead><tr><th style="width:150px">形态</th><th>学校记什么科目</th><th>能不能按年</th><th>单笔上限</th></tr></thead>
+<tbody>
+<tr><td class="k">教学包（文件 / U 盘）</td><td>资料费、办公费</td><td>不能，一次性</td><td>几千元，超过要招标</td></tr>
+<tr><td class="k">平台年费（账号 / 服务）</td><td>软件服务费、信息化运维</td><td>能，写进年度预算</td><td>几万至几十万</td></tr>
+<tr><td class="k">教研服务（培训 / 共建）</td><td>师资培训费、专业建设费</td><td>能，按项目分期</td><td>几万</td></tr>
+<tr><td class="k">课程共建（人才培养方案）</td><td>教改项目经费</td><td>按项目</td><td>十万级</td></tr>
+</tbody></table>
+<p>所以产品形态的结论很清楚：<b>教学包必须"藏"在年费里，不能单独挂在价目表的第一行。</b>你要卖的是那张能进年度预算的发票，不是那个能被拷走的文件夹。</p>
+
+<h2 id="toc-3">三、为什么"卖包"必然不续费</h2>
+<p class="lead">四个衰减点，每一个都足以让第二年归零。</p>
+<table>
+<thead><tr><th style="width:130px">衰减点</th><th>具体表现</th><th>后果</th></tr></thead>
+<tbody>
+<tr><td class="k">内容会过期</td><td>教材从 32 章扩到 41 章就是现成证据；数据口径、平台规则、AI 工具每 12 个月都要改一遍</td><td>老师第一次拿到很新鲜，第二年手里就是旧版</td></tr>
+<tr><td class="k">包不承载过程</td><td>教案是静态文档，批改、成绩、学情都不在里面</td><td>第二学期开学，老师还是从零开始备课</td></tr>
+<tr><td class="k">没有沉没成本</td><td>包躺在硬盘里，换老师就跟着 U 盘走了</td><td>你的客户是"某个老师"，不是"某个院系"</td></tr>
+<tr><td class="k">交付即终点</td><td>一次性收款后，再联系就变成推销</td><td>没有服务触点，就没有续费理由</td></tr>
+</tbody></table>
+<div class="warn"><b>一句话：能复制的东西卖不出年费。</b>文件天生可复制，所以文件必须变成"账号"，才可能被续费。</div>
+
+<h2 id="toc-4">四、产品阶梯：五层，包在第二层</h2>
+<p class="lead">越往下越像服务，越往上越像文件。钱在下面，钩子在上面。</p>
+<div class="ladder">
+<div class="rung"><span class="lv">L0</span><span class="nm">免费试讲包</span><span class="ds">2 章教案 + 1 套判定表 + 1 份数据集 + AI 教练诊断</span><span class="pr">¥0</span></div>
+<div class="rung"><span class="lv">L1</span><span class="nm">完整教学包（41 章）</span><span class="ds">教师个人 / 小院系；<b>只作为首年交付物，不单独续费</b></span><span class="pr">¥3,980 / 专业·首年</span></div>
+<div class="rung"><span class="lv">L2</span><span class="nm">院校平台年费</span><span class="ds">41 章内容 + 在线练习 + 课堂游戏 + 考核 + 学情报告（主收入）</span><span class="pr">¥28,000 起 / 年</span></div>
+<div class="rung"><span class="lv">L3</span><span class="nm">教研服务</span><span class="ds">磨课、命题、评卷、申报辅导、教学比赛陪跑</span><span class="pr">¥20,000–60,000 / 年</span></div>
+<div class="rung"><span class="lv">L4</span><span class="nm">共建</span><span class="ds">人才培养方案、课程矩阵、联合课题、师资基地</span><span class="pr">¥80,000+ / 项目</span></div>
+</div>
+<div class="ok"><b>阶梯的关键设计：</b>L1 定价故意"不便宜但不贵"（3980），目的是让老师自己掏得起、能先试一个学期。一旦他用满一个学期，L2 的报价就不是"再买一次"，而是"把你下学期要用的东西搬上平台"。</div>
+
+<h2 id="toc-5">五、绑定的正确位置：不是内容，是学期</h2>
+<p class="lead">老师一学期 18 周的真实工作流，网站插在 7 个点上。第 7 个点是续费按钮。</p>
+<table>
+<thead><tr><th style="width:80px">阶段</th><th>老师要做什么</th><th>网站插在哪</th><th>断掉的后果</th></tr></thead>
+<tbody>
+<tr><td class="k">开学前</td><td>排课、定大纲、报教材</td><td>建课程、生成课程码、下发学期大纲</td><td>学生进不来，第一节课就卡住</td></tr>
+<tr><td class="k">每周</td><td>备课、布置练习</td><td>章节练习一键派发、自动判分</td><td>老师要自己出题、自己批 200 份</td></tr>
+<tr><td class="k">课堂</td><td>讲、组织对抗</td><td>投屏沙盘、随机点名、课堂投票</td><td>少了互动抓手，回到念 PPT</td></tr>
+<tr><td class="k">期中</td><td>出卷、监考、评分</td><td>题库组卷、在线考试、防切屏</td><td>手工组一套卷要两天</td></tr>
+<tr><td class="k">期末</td><td>成绩、作品集评审</td><td>成绩单导出、量规评分、双评复核</td><td>成绩无法归档，教务要纸质表</td></tr>
+<tr><td class="k">学期末</td><td>教学总结、教改申报</td><td>学情报告、课程质量数据包</td><td>申报材料没数据，只能写空话</td></tr>
+<tr><td class="k" style="color:var(--red)">下学期</td><td>再来一遍</td><td><b>一键复制上学期班级与作业</b></td><td>全部重建，于是开始考虑"换个平台试试"</td></tr>
+</tbody></table>
+<div class="quote">绝大多数教育产品死在第六行和第七行之间：学期末拿不出报告，下学期又要重来。<b>把这两件事做顺，续费就不需要销售。</b></div>
+
+<h2 id="toc-6">六、在线练习 / 游戏 / 考核怎么设计</h2>
+
+<h3 id="toc-7">6.1 练习：41 章 × 861 条判定项，转成三种题型</h3>
+<table>
+<thead><tr><th style="width:100px">题型</th><th>长什么样</th><th style="width:110px">判分</th><th style="width:80px">每章题量</th></tr></thead>
+<tbody>
+<tr><td class="k">判定题</td><td>给一个场景（"竞对降到 520，你跟不跟"），选动作 + 选依据</td><td>客观比对</td><td class="c">8 题</td></tr>
+<tr><td class="k">算题</td><td>给数据算净价 / 打平量 / 保护位 / 置换贡献</td><td>数值容差 ±2%</td><td class="c">4 题</td></tr>
+<tr><td class="k">排序题</td><td>把 5 个动作排成正确顺序（先算什么、再做什么）</td><td>顺序比对</td><td class="c">2 题</td></tr>
+</tbody></table>
+<p><b>关键设计：每题必须挂"依据回链"。</b>学生答错，页面直接跳到教案第几节第几段。这一条是老师最认的——学生错了，老师不用再讲一遍，系统替他把人拉回原文。</p>
+
+<h3 id="toc-8">6.2 游戏：4 个，一局 10 分钟，可投屏</h3>
+<table>
+<thead><tr><th style="width:120px">游戏</th><th>玩什么</th><th style="width:80px">对应章</th><th>课堂用法</th></tr></thead>
+<tbody>
+<tr><td class="k">价格战对抗</td><td>两组各定价，系统实时算市场份额与利润，看谁先撑不住</td><td class="c">5–8</td><td>讲完价格弹性打一局，学生自己发现"降价不一定多赚"</td></tr>
+<tr><td class="k">保护位争夺</td><td>两个团队同时抢同一批散客与团队房，看谁留对房</td><td class="c">12、15</td><td>分组对抗，输的一组要解释为什么</td></tr>
+<tr><td class="k">超售博弈</td><td>决定超售几间，系统按真实到店率生成"走客"事件与赔偿</td><td class="c">11</td><td>单人闯关，班级排行榜</td></tr>
+<tr><td class="k">渠道净价竞标</td><td>三个渠道同时报价，算真实到手与间夜质量</td><td class="c">13、33</td><td>小组竞标，价高者不一定赚</td></tr>
+</tbody></table>
+
+<h3 id="toc-9">6.3 考核：一学期四次，成绩能直接导出给教务</h3>
+<table>
+<thead><tr><th style="width:100px">考核</th><th style="width:100px">时点</th><th>形式</th><th style="width:60px">权重</th></tr></thead>
+<tbody>
+<tr><td class="k">章测 ×8</td><td>每 5 章一次</td><td>在线 20 题 / 20 分钟 / 当堂完成</td><td class="c">20%</td></tr>
+<tr><td class="k">期中</td><td>第 9 周</td><td>组卷 40 题 + 1 道案例判断</td><td class="c">25%</td></tr>
+<tr><td class="k">期末</td><td>第 17 周</td><td>组卷 50 题 + 1 道综合算（置换 / 预算）</td><td class="c">35%</td></tr>
+<tr><td class="k">作品集</td><td>学期内</td><td>6 件：判定表、日报、置换分析、渠道体检、预算、复盘</td><td class="c">20%</td></tr>
+</tbody></table>
+
+<h3 id="toc-10">6.4 学情报告：这才是老师的续费理由</h3>
+<div class="grid">
+<div class="mini"><b>掌握度热力图</b><span>41 章 × 班级掌握率，一眼看出哪几章没讲透</span></div>
+<div class="mini"><b>错题归因</b><span>区分"概念错 / 算术错 / 没看依据"，对应不同补课动作</span></div>
+<div class="mini"><b>讲错预警</b><span>某题 70% 学生答错 → 提示这段要重讲，并给纠偏话术</span></div>
+<div class="mini"><b>一键导出</b><span>成绩单 Excel（对接教务格式）+ 教学总结 PDF（可直接进教改申报）</span></div>
+</div>
+
+<h2 id="toc-11">七、老师还需要人：六类真实求助</h2>
+<p class="lead">教学包解决"讲什么"，这六件事解决"交不出来"。每一件都有截止日期，所以每一件都付得出钱。</p>
+<table>
+<thead><tr><th>场景</th><th style="width:80px">自己能解决吗</th><th>我们提供什么</th><th style="width:100px">归属</th></tr></thead>
+<tbody>
+<tr><td>第一次开这门课，84 课时不知道从哪排</td><td class="c">勉强</td><td>排课工作坊 2 小时，给 32/48/64/84 四套进度表并现场定稿</td><td>L3 起步包</td></tr>
+<tr><td>学生追问"这条判定凭什么这么定"</td><td class="c">不能</td><td>861 条判定依据卡 + 追问库（每条附行业机理）</td><td>L2 内含</td></tr>
+<tr><td>期中出卷不会控难度</td><td class="c">不能</td><td>命题服务：按难度分布（易 4 / 中 4 / 难 2）出一套卷 + 答案 + 评分细则</td><td>L3 按次</td></tr>
+<tr><td>学生作品集不会评分、怕被质疑</td><td class="c">不能</td><td>量规 + 双评 + 抽样复核，出评分说明备查</td><td>L3 按次</td></tr>
+<tr><td>要报教改项目 / 教学能力比赛</td><td class="c">不能</td><td>用平台真实学情数据写申报书（课程质量报告 + 学生增值数据）</td><td>L3 年度</td></tr>
+<tr><td>专业评估要人才培养方案与课程矩阵</td><td class="c">不能</td><td>方案共建：能力映射、学时分配、课程矩阵、佐证材料清单</td><td>L4 项目</td></tr>
+</tbody></table>
+<div class="quote"><b>老师不怕没资料，怕的是"要交的东西交不出来"。</b>所以咨询服务不要包装成"指导老师怎么教"——那是居高临下，老师不买；要包装成"替你把要交的材料做出来"，那是同一条船上的人。</div>
+
+<h2 id="toc-12">八、定价：三档院校 + 个人教师入口</h2>
+<table>
+<thead><tr><th style="width:80px">档位</th><th style="width:120px">年费</th><th>包含</th><th style="width:150px">适合</th></tr></thead>
+<tbody>
+<tr><td class="k">基础</td><td>¥28,000</td><td>41 章教学包 + 5 教师席 + 200 学生席 + 练习/游戏/考核/学情报告</td><td>单专业 2–4 个班</td></tr>
+<tr><td class="k">标准</td><td>¥58,000</td><td>+ 不限学生席 + 2 次教师培训 + 命题 2 套 + 作品集评审支持</td><td>专业群 / 3–6 个班</td></tr>
+<tr><td class="k">旗舰</td><td>¥128,000</td><td>+ 驻校磨课 4 次 + 人才培养方案共建 + 教改申报辅导 + 联合课题</td><td>学院 / 示范校</td></tr>
+</tbody></table>
+
+<h3 id="toc-13">8.1 单位经济（按标准档一所院校）</h3>
+<table>
+<thead><tr><th>项目</th><th style="width:120px">首年</th><th style="width:120px">第 2 年</th></tr></thead>
+<tbody>
+<tr><td>收入</td><td class="c">¥58,000</td><td class="c">¥58,000</td></tr>
+<tr><td>交付成本（培训 2 次 + 定制 + 命题）</td><td class="c">¥12,000</td><td class="c">¥6,000</td></tr>
+<tr><td>平台边际成本（服务器 + 短信）</td><td class="c">¥800</td><td class="c">¥800</td></tr>
+<tr><td>毛利</td><td class="c"><b>¥45,200（78%）</b></td><td class="c"><b>¥51,200（88%）</b></td></tr>
+<tr><td>获客成本（试点成本 ÷ 转化率 1/3）</td><td class="c">¥9,000</td><td class="c">¥0</td></tr>
+</tbody></table>
+<p>续费率假设：合同期内 100%（首年），第二年 75%，第三年 85%。越到高年级越依赖平台——因为学生的作业、成绩、作品集都在里面，换平台等于重来。</p>
+
+<h3 id="toc-14">8.2 ARR 情景</h3>
+<table>
+<thead><tr><th style="width:100px">院校数</th><th style="width:110px">平均年费</th><th style="width:110px">ARR</th><th>前提条件</th></tr></thead>
+<tbody>
+<tr><td class="k">10 所</td><td>¥38,000</td><td><b>¥38 万</b></td><td>验证期，纯靠人脉与行业口碑</td></tr>
+<tr><td class="k">30 所</td><td>¥45,000</td><td><b>¥135 万</b></td><td>有 3 个可公开的标杆案例与学情报告</td></tr>
+<tr><td class="k">60 所</td><td>¥52,000</td><td><b>¥312 万</b></td><td>有渠道：教材推广、教指委、师资培训合作方</td></tr>
+<tr><td class="k">100 所</td><td>¥55,000</td><td><b>¥550 万</b></td><td>需要 2–3 人客户成功团队，否则续费率会崩</td></tr>
+</tbody></table>
+
+<h3 id="toc-15">8.3 别人怎么收钱（四条参照）</h3>
+<table>
+<thead><tr><th style="width:130px">模型</th><th style="width:130px">代表</th><th>怎么收</th><th>对我们的启示</th></tr></thead>
+<tbody>
+<tr><td class="k">教材配套资源</td><td>高教社 / 人大社</td><td>书款内含，不单独收费</td><td>资源本身不赚钱，它是书的赠品——别指望靠"资料"收年费</td></tr>
+<tr><td class="k">课程平台按校年费</td><td>超星 / 智慧树</td><td>每校 5–30 万 / 年，按课程数与学生数分档</td><td>院校已习惯为"平台 + 服务"付年费，这是最顺的路</td></tr>
+<tr><td class="k">软件按规模订阅</td><td>IDeaS / OneYield</td><td>按房间数 / 月计费</td><td>计费单位要跟客户规模挂钩，否则大校觉得亏</td></tr>
+<tr><td class="k">认证与培训</td><td>行业协会</td><td>按人头收费</td><td>学历教育内不能做"资格认证"，只能做"课程能力证书"，别越线</td></tr>
+</tbody></table>
+
+<h2 id="toc-16">九、怎么卖：三个买单人，四个触发点</h2>
+<div class="grid">
+<div class="mini"><b>专业负责人</b><span>最容易被说服。他关心"这门课我开得出来、学生别投诉"。</span></div>
+<div class="mini"><b>教务 / 实验中心</b><span>关心"有没有平台、能不能统计、数据能不能导出"。</span></div>
+<div class="mini"><b>继续教育学院</b><span>关心"能不能对外招生、能不能收培训费"。</span></div>
+</div>
+<p><b>四个触发点（这四件事发生时，钱最好拿）：</b></p>
+<table>
+<thead><tr><th style="width:170px">触发点</th><th>学校当时的痛点</th><th>我们递什么</th></tr></thead>
+<tbody>
+<tr><td class="k">专业评估 / 一流专业申报</td><td>要课程质量数据与佐证材料</td><td>学情报告 + 课程质量数据包</td></tr>
+<tr><td class="k">教师教学能力比赛</td><td>要课堂设计、要影像素材、要创新点</td><td>课堂游戏录屏 + 教学设计包 + 数据支撑</td></tr>
+<tr><td class="k">新专业 / 新方向申报</td><td>要人才培养方案与课程矩阵</td><td>L4 方案共建</td></tr>
+<tr><td class="k">教材选用季（4–6 月 / 10–12 月）</td><td>要配套资源、要教师用书</td><td>L1 教学包 + 试讲</td></tr>
+</tbody></table>
+<div class="ok"><b>推荐路径：不投标。</b>先给 1 个班免费试点一学期 → 学期末交一份学情报告 + 一册学生作品集 → 拿这份报告去谈院系单。<b>报告比 PPT 好卖</b>，因为报告里有真实学生数据，PPT 里只有承诺。</div>
+
+<h2 id="toc-17">十、90 天落地清单</h2>
+<table>
+<thead><tr><th style="width:100px">阶段</th><th>做什么</th><th style="width:90px">产出</th></tr></thead>
+<tbody>
+<tr><td class="k">第 1–30 天</td><td>① 41 章教案转站内可读版（已完成）② 选 3 所院校各找 1 位老师做试点班 ③ 上线课程码 + 班级 + 章节练习</td><td>3 个试点班开课</td></tr>
+<tr><td class="k">第 31–60 天</td><td>① 4 个课堂游戏先上 2 个（价格战、保护位）② 组卷 + 在线考试 + 成绩导出 ③ 学情报告模板定稿</td><td>第一次章测跑通</td></tr>
+<tr><td class="k">第 61–90 天</td><td>① 拿试点数据谈第一单（目标 1 所基础档）② 出 L3 服务价目表 ③ 固化"首年含包、次年只卖平台"的报价结构</td><td>首单 + 价目表</td></tr>
+</tbody></table>
+
+<h2 id="toc-18">十一、风险与合规</h2>
+<table>
+<thead><tr><th style="width:140px">风险</th><th>怎么处理</th></tr></thead>
+<tbody>
+<tr><td class="k">证书口径</td><td>只能叫「课程能力证书」，不得称"资格认证""持证上岗""行业认证"。宣传物料与证书模板都要过一遍词。</td></tr>
+<tr><td class="k">学生数据归属</td><td>合同写明：作答与成绩数据归院校所有，我方仅用于教学服务，不对外商用、不做二次分发。</td></tr>
+<tr><td class="k">停费即停课的反弹</td><td>教学内容必须能离线交付（PDF + Excel）。合同写明"到期后院校可导出全部数据与教案"，把威胁感降到最低——反而更容易续。</td></tr>
+<tr><td class="k">定价锚点错位</td><td>不要按"每章多少钱"报价（41 章 × 100 元 = 4100，会被拿去和书价比）。按"每学期每班多少钱"报，老师听得懂、教务也好折算。</td></tr>
+</tbody></table>
+
+<h2 id="toc-19">十二、一句话收口</h2>
+<div class="quote" style="font-size:15px">包卖的是「我帮你备好了课」，一次性；订阅卖的是「这学期你不用自己扛」，每学期都要重买一次。<br><b>所以真正的产品不是那 41 份教案，是那 18 周。</b></div>
+
+<div class="nav"><a href="teach-package-41.html">← 完整教学包目录（41 章）</a><a href="membership.html">社区会员三档</a><a href="campus-micro-course-plan.html">院校微课方案</a><a href="index.html">回首页</a></div>
+
+<div class="foot">RMCity · 酒店收益管理社区 · 院校产品与订阅体系设计 v1 · 本站为门内页面</div>
+</div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>院校产品与订阅体系设计 · 从卖一个包到按年续费</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">一、先给结论</a>
+<a href="#toc-2">二、关键洞察：预算科目决定产品形态</a>
+<a href="#toc-3">三、为什么&quot;卖包&quot;必然不续费</a>
+<a href="#toc-4">四、产品阶梯：五层，包在第二层</a>
+<a href="#toc-5">五、绑定的正确位置：不是内容，是学期</a>
+<a href="#toc-6">六、在线练习 / 游戏 / 考核怎么设计</a>
+<a href="#toc-7" class="lv3">6.1 练习：41 章 × 861 条判定项，转成三种题型</a>
+<a href="#toc-8" class="lv3">6.2 游戏：4 个，一局 10 分钟，可投屏</a>
+<a href="#toc-9" class="lv3">6.3 考核：一学期四次，成绩能直接导出给教务</a>
+<a href="#toc-10" class="lv3">6.4 学情报告：这才是老师的续费理由</a>
+<a href="#toc-11">七、老师还需要人：六类真实求助</a>
+<a href="#toc-12">八、定价：三档院校 + 个人教师入口</a>
+<a href="#toc-13" class="lv3">8.1 单位经济（按标准档一所院校）</a>
+<a href="#toc-14" class="lv3">8.2 ARR 情景</a>
+<a href="#toc-15" class="lv3">8.3 别人怎么收钱（四条参照）</a>
+<a href="#toc-16">九、怎么卖：三个买单人，四个触发点</a>
+<a href="#toc-17">十、90 天落地清单</a>
+<a href="#toc-18">十一、风险与合规</a>
+<a href="#toc-19">十二、一句话收口</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open');document.body.classList.toggle('toc-open',d.classList.contains('open'))});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open');document.body.classList.remove('toc-open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');document.body.classList.remove('toc-open');
+  });});
+})();
+</script>
+</body>
+</html>
