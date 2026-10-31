@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>院校报价单模板 · 可填写（RMCity）</title>
+<style>
+:root{--navy:#0f2a4a;--gold:#e8b84b;--ink:#1f2a37;--mut:#5b6a7d;--line:#d8dee6;--bg:#f4f7fb;--ok:#1d7a4f}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:14.5px}
+.wrap{max-width:920px;margin:0 auto;padding:24px 20px 60px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.bar h1{font-size:19px;color:var(--navy);margin-right:auto}
+.btn{font-size:13px;border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:8px;padding:7px 15px;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--navy)}
+.btn:hover{opacity:.9}
+.sheet{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+.hd{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--navy);padding-bottom:12px;margin-bottom:16px}
+.hd .l{font-size:20px;font-weight:700;color:var(--navy)}
+.hd .r{font-size:12.5px;color:var(--mut);text-align:right}
+.sec{margin:16px 0}
+.sec .t{font-size:13px;font-weight:700;color:var(--navy);background:#f0f5fb;border-left:3px solid var(--gold);padding:5px 10px;margin-bottom:10px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 18px}
+.fld{display:flex;flex-direction:column;gap:3px}
+.fld label{font-size:12px;color:var(--mut)}
+.fld input,.fld select{border:1px solid var(--line);border-radius:6px;padding:6px 9px;font-size:14px;font-family:inherit;color:var(--ink);background:#fff}
+.fld input:focus,.fld select:focus{outline:2px solid #cfe0f3;border-color:var(--navy)}
+.opts{display:flex;gap:18px;flex-wrap:wrap}
+.opts label{font-size:14px;display:flex;align-items:center;gap:6px;cursor:pointer}
+.opts input{width:16px;height:16px;accent-color:var(--navy)}
+table.bill{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+table.bill th{background:#f0f5fb;color:var(--navy);text-align:left;padding:7px 9px;font-weight:600;border:1px solid var(--line)}
+table.bill td{padding:7px 9px;border:1px solid var(--line);vertical-align:top}
+table.bill td.chk{width:34px;text-align:center}
+table.bill td.amt{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+table.bill tr.sub td{background:#fafcfe;font-weight:600;color:var(--navy);font-size:13px}
+table.bill input[type=checkbox]{width:16px;height:16px;accent-color:var(--navy)}
+table.bill .note{font-size:11.5px;color:var(--mut)}
+.total{display:flex;justify-content:flex-end;align-items:baseline;gap:14px;margin-top:14px;padding:12px 16px;background:#0f2a4a;color:#fff;border-radius:10px}
+.total .lab{font-size:14px;color:#b9d0e6}
+.total .val{font-size:28px;font-weight:700;color:var(--gold)}
+.total .yr{font-size:12px;color:#9fb8d2}
+.kpi{background:#fffcf2;border:1px solid #ecd9a0;border-radius:10px;padding:11px 14px;font-size:13px;color:#5b4a12;margin-top:12px}
+.kpi b{color:#7a5c12}
+.sign{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px;border-top:1px dashed var(--line);padding-top:16px}
+.sign .b{font-size:13px}
+.sign .b div{border-bottom:1px solid var(--line);height:30px;margin-top:18px}
+@media print{
+  .bar{display:none}.wrap{padding:0;max-width:none}
+  .sheet{border:none;border-radius:0}
+  body{background:#fff}
+  table.bill input[type=checkbox]{appearance:none}
+  .total{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style></head>
+<body>
+<div class="wrap">
+<div class="bar">
+<h1>院校报价单 · 可填写模板</h1>
+<button class="btn ghost" onclick="window.print()">🖨 打印 / 存 PDF</button>
+<button class="btn" onclick="resetForm()">清空重填</button>
+</div>
+
+<div class="sheet">
+<div class="hd">
+<div class="l">RMCity 酒店收益管理 · 院校合作报价单</div>
+<div class="r" id="docno">编号：RMC-YYYYMMDD-__<br>日期：<span id="today"></span></div>
+</div>
+
+<div class="sec">
+<div class="t">一、院校信息</div>
+<div class="grid2">
+<div class="fld"><label>院校全称</label><input id="i_school" placeholder="如：××旅游职业学院"></div>
+<div class="fld"><label>院系 / 专业</label><input id="i_dept" placeholder="如：酒店管理学院 · 酒店管理"></div>
+<div class="fld"><label>联系人 / 职务</label><input id="i_person" placeholder="如：李老师 / 系主任"></div>
+<div class="fld"><label>联系电话</label><input id="i_tel" placeholder="手机号"></div>
+<div class="fld"><label>在校学生数（本专业）</label><input id="i_stu" placeholder="如：120"></div>
+<div class="fld"><label>计划开课学期</label><input id="i_term" placeholder="如：2027 春 / 第一学期"></div>
+</div>
+</div>
+
+<div class="sec">
+<div class="t">二、平台档位（L2 · 主收入 · 可续年）</div>
+<div class="opts" id="tier">
+<label><input type="radio" name="tier" value="28000" checked onchange="calc()"> 基础档 ¥28,000/年</label>
+<label><input type="radio" name="tier" value="58000" onchange="calc()"> 标准档 ¥58,000/年</label>
+<label><input type="radio" name="tier" value="128000" onchange="calc()"> 旗舰档 ¥128,000/年</label>
+</div>
+<div class="kpi" id="tierHint">标准档含：全平台账号 + 41 章在线练习 + 4 个课堂游戏 + 学期考核 + 学情报告 + 一键复制班级（续费点）。基础档限单专业、无游戏；旗舰档含多专业与优先客服。</div>
+</div>
+
+<div class="sec">
+<div class="t">三、教学包（L1 · 仅首年赠送，不单列续费）</div>
+<div class="opts" id="yr">
+<label><input type="radio" name="yr" value="first" checked onchange="calc()"> 首年（含教学包 ¥3,980，赠送）</label>
+<label><input type="radio" name="yr" value="renew" onchange="calc()"> 续年（不含包，只卖平台）</label>
+</div>
+<div class="kpi">⚠️ 续费时报价单上<b>不出现「教学包」</b>这一行——它首年已交付，次年只续平台与服务。这是把一次性买卖变年费的关键。</div>
+</div>
+
+<div class="sec">
+<div class="t">四、教研服务（L3 · 可勾选累加，或选年包）</div>
+<table class="bill">
+<thead><tr><th class="chk"></th><th>服务项目</th><th>交付物</th><th class="amt">基准价</th></tr></thead>
+<tbody>
+<tr class="sub"><td colspan="4">A. 按次服务（可多选）</td></tr>
+<tr><td class="chk"><input type="checkbox" class="l3" value="8000" onchange="calc()"></td><td>章测题库（41 章判定项转题）</td><td class="note">判定题/算题/排序题，每题挂依据回链</td><td class="amt">¥8,000</td></tr>
+<tr><td class="chk"><input type="checkbox" class="l3" value="6000" onchange="calc()"></td><td>期中/期末试卷（A/B 卷）</td><td class="note">答案 + 评分细则 + 难度分布 4/4/2</td><td class="amt">¥6,000/套</td></tr>
+<tr><td class="chk"><input type="checkbox" class="l3" value="5000" onchange="calc()"></td><td>作品集量规定制</td><td class="note">rubric + 双评 + 抽样复核说明</td><td class="amt">¥5,000</td></tr>
+<tr><td class="chk"><input type="checkbox" class="l3" value="15000" onchange="calc()"></td><td>学生作品集双评（1 班 40 人）</td><td class="note">双评 + 抽样复核 + 评分说明</td><td class="amt">¥15,000</td></tr>
+<tr><td class="chk"><input type="checkbox" class="l3" value="25000" onchange="calc()"></td><td>教改项目申报书</td><td class="note">研究设计 + 预期成果 + 数据支撑</td><td class="amt">¥25,000</td></tr>
+<tr><td class="chk"><input type="checkbox" class="l3" value="35000" onchange="calc()"></td><td>一流课程 / 课程思政申报</td><td class="note">申报书 + 佐证框架</td><td class="amt">¥35,000</td></tr>
+<tr><td class="chk"><input type="checkbox" class="l3" value="3000" onchange="calc()"></td><td>单次磨课</td><td class="note">听课 + 评课 + 改教学设计</td><td class="amt">¥3,000/次</td></tr>
+<tr><td class="chk"><input type="checkbox" class="l3" value="18000" onchange="calc()"></td><td>教学比赛全程陪跑（6 次）</td><td class="note">逐版教学设计稿 + 评委反馈</td><td class="amt">¥18,000</td></tr>
+<tr><td class="chk"><input type="checkbox" class="l3" value="20000" onchange="calc()"></td><td>人才培养方案修订</td><td class="note">能力矩阵 + 课时映射</td><td class="amt">¥20,000</td></tr>
+<tr><td class="chk"><input type="checkbox" class="l3" value="40000" onchange="calc()"></td><td>专业评估材料包</td><td class="note">自评 + 支撑材料目录</td><td class="amt">¥40,000</td></tr>
+<tr class="sub"><td colspan="4">B. 教研年包（三选一，选了则忽略上面勾选）</td></tr>
+<tr><td class="chk"><input type="radio" name="l3pkg" value="0" checked onchange="calc()"></td><td>不签年包（按上面勾选累加）</td><td class="note">—</td><td class="amt">¥0</td></tr>
+<tr><td class="chk"><input type="radio" name="l3pkg" value="20000" onchange="calc()"></td><td>基础教研年包</td><td class="note">排课工作坊+命题包+量规+磨课2次</td><td class="amt">¥20,000</td></tr>
+<tr><td class="chk"><input type="radio" name="l3pkg" value="40000" onchange="calc()"></td><td>标准教研年包</td><td class="note">基础包+申报书1份+磨课4次+评卷1班</td><td class="amt">¥40,000</td></tr>
+<tr><td class="chk"><input type="radio" name="l3pkg" value="60000" onchange="calc()"></td><td>旗舰教研年包</td><td class="note">标准包+评估材料+磨课不限+人培修订</td><td class="amt">¥60,000</td></tr>
+</tbody></table>
+</div>
+
+<div class="sec">
+<div class="t">五、报价合计</div>
+<table class="bill">
+<tbody>
+<tr><td>L2 院校平台年费（所选档位）</td><td class="amt" id="o_tier">¥28,000</td></tr>
+<tr><td>L1 教学包（仅首年）</td><td class="amt" id="o_pack">¥3,980</td></tr>
+<tr><td>L3 教研服务（年包或按次累加）</td><td class="amt" id="o_l3">¥0</td></tr>
+</tbody>
+</table>
+<div class="total">
+<span class="lab">合计（含税，人民币）</span>
+<span class="val" id="o_total">¥31,980</span>
+<span class="yr" id="o_year">· 首年</span>
+</div>
+<div class="kpi" id="kpi">预算科目建议：院校平台年费 → <b>软件服务费 / 实践教学经费</b>（可续年）；教学包首年随年费赠送、不单列（资料费难报销）；L3 服务 → <b>师资培训费 / 教改专项 / 考试考务费 / 专业建设费</b>。所有科目均可进年度预算，便于续签。</div>
+</div>
+
+<div class="sec">
+<div class="t">六、商务条款（提示）</div>
+<ul style="font-size:12.5px;color:var(--mut);padding-left:18px">
+<li>首年含 L1 教学包交付（41 章教案+模板+数据+判定表）；次年续费仅含 L2 平台与所选 L3 服务。</li>
+<li>L3 交付的是「材料与工具」，由院校老师署名、院校盖章；不提供「保过」「代签」类承诺。</li>
+<li>报价为基准价，年包可下浮，最终以商务终批为准。</li>
+</ul>
+</div>
+
+<div class="sign">
+<div class="b">甲方（院校）：<div></div>签字 / 盖章：<div></div>日期：<div></div></div>
+<div class="b">乙方（RMCity）：<div></div>签字 / 盖章：<div></div>日期：<div></div></div>
+</div>
+
+</div>
+</div>
+
+<script>
+function fmt(n){return '¥'+n.toLocaleString('zh-CN');}
+function calc(){
+  var tier=+document.querySelector('input[name=tier]:checked').value;
+  var yr=document.querySelector('input[name=yr]:checked').value;
+  var pack=yr==='first'?3980:0;
+  var pkg=+document.querySelector('input[name=l3pkg]:checked').value;
+  var l3 = pkg>0 ? pkg : Array.from(document.querySelectorAll('.l3:checked')).reduce((s,e)=>s+ +e.value,0);
+  var total=tier+pack+l3;
+  document.getElementById('o_tier').textContent=fmt(tier);
+  document.getElementById('o_pack').textContent=pack>0?fmt(pack):'—（续年不含）';
+  document.getElementById('o_l3').textContent=fmt(l3);
+  document.getElementById('o_total').textContent=fmt(total);
+  document.getElementById('o_year').textContent=yr==='first'?'· 首年':'· 续年';
+  // tier hint
+  var th=document.getElementById('tierHint');
+  if(tier===28000) th.innerHTML='基础档含：单专业账号 + 41 章在线练习 + 学期考核 + 学情报告。不含游戏与多专业。';
+  else if(tier===58000) th.innerHTML='标准档含：全平台账号 + 41 章在线练习 + 4 个课堂游戏 + 学期考核 + 学情报告 + 一键复制班级（续费点）。';
+  else th.innerHTML='旗舰档含：多专业账号 + 标准档全部 + 优先客服 + 共建接口。';
+  // kpi科目
+  var k=document.getElementById('kpi');
+  var subj='软件服务费 / 实践教学经费';
+  if(l3>0) subj+='；L3 → 师资培训费 / 教改专项 / 考试考务费 / 专业建设费';
+  k.innerHTML='预算科目建议：院校平台年费 → <b>'+subj.split('；')[0]+'</b>（可续年）'+(pack>0?'；教学包首年随年费赠送、不单列（资料费难报销）':'；续年无包')+(l3>0?'；L3 服务 → <b>师资培训费 / 教改专项 / 考试考务费 / 专业建设费</b>':'')+'。所有科目均可进年度预算，便于续签。';
+}
+function resetForm(){
+  document.querySelectorAll('input[type=text],input:not([type])').forEach(e=>e.value='');
+  document.querySelectorAll('.l3').forEach(e=>e.checked=false);
+  document.querySelector('input[name=tier][value="28000"]').checked=true;
+  document.querySelector('input[name=yr][value="first"]').checked=true;
+  document.querySelector('input[name=l3pkg][value="0"]').checked=true;
+  calc();
+}
+// init
+(function(){
+  var d=new Date();
+  var s=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  document.getElementById('today').textContent=s;
+  document.getElementById('docno').innerHTML='编号：RMC-'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-__<br>日期：'+s;
+  calc();
+})();
+</script>
+</body></html>
