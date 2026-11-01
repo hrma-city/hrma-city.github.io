@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>表H 渠道开关 · 速查卡 · RMCity</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#faf9f7;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:#1a1a1a;-webkit-font-smoothing:antialiased}
+.card{max-width:480px;margin:14px auto;background:#fff;border:1px solid #e8e4dd;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(26,26,26,.06)}
+header{background:#1a1a1a;color:#fff;padding:22px 22px 18px}
+.kicker{font-size:11px;letter-spacing:3px;color:#b08d57;font-weight:700}
+h1{margin:6px 0 6px;font-size:21px;color:#fff;font-weight:700}
+.lead{margin:0;font-size:13px;color:#cfc6b8;line-height:1.6}
+section{padding:16px 20px;border-bottom:1px solid #f0ece4}
+section:last-of-type{border-bottom:none}
+h2{font-size:14px;color:#8a6d3b;margin:0 0 10px;font-weight:700;letter-spacing:.5px}
+.calc .row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.calc label{flex:0 0 92px;font-size:13px;color:#5a5249}
+.calc input{flex:1;border:1px solid #e8e4dd;border-radius:9px;padding:9px 11px;font:inherit;font-size:15px;min-width:0}
+.calc input:focus{outline:none;border-color:#b08d57}
+.calc .u{flex:0 0 22px;color:#9a9082;font-size:12px}
+.out{margin-top:6px;background:#f7f3ea;border:1px solid #ecd9a0;border-radius:10px;padding:11px 13px;font-size:13.5px;line-height:1.7;min-height:44px;color:#3a3327}
+.out b{color:#8a6d3b}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{border:1px solid #e8e4dd;padding:6px 5px;text-align:center;vertical-align:middle}
+thead th{background:#1a1a1a;color:#b08d57;font-weight:700;font-size:11px}
+tbody th{background:#f5f1e9;color:#5a5249;font-weight:600;text-align:left;font-size:11.5px;white-space:nowrap}
+tr.hit{background:#fbf3e0}
+tr.hit th{background:#f0e2c4}
+.legend{font-size:11px;color:#9a9082;margin:8px 0 0;line-height:1.6}
+.example p{font-size:13px;line-height:1.7;margin:0 0 7px;color:#3a3327}
+.example b{color:#8a6d3b}
+.example .res{background:#f7f3ea;border-left:3px solid #b08d57;padding:8px 12px;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.7}
+.cta{background:#1a1a1a;color:#f3ece0}
+.cta p{margin:0;font-size:13px;line-height:1.7}
+.cta b{color:#b08d57}
+footer{background:#fff;color:#b3a998;font-size:11px;text-align:center;padding:12px 16px;line-height:1.5}
+</style></head><body>
+<div class="card">
+  <header>
+    <div class="kicker">收益管理判定表 · 速查卡 ③</div>
+    <h1>表 H · 渠道开关</h1>
+    <p class="lead">按预测 OCC 决定各渠道开还是关。房好卖时关贵渠道，房难卖时全开。逻辑来自《操作法典》表 H。</p>
+  </header>
+
+  <section class="calc">
+    <div class="row"><label>预测 OCC</label><input id="occ" type="number" inputmode="decimal" placeholder="例如 92"><span class="u">%</span></div>
+    <div class="out" id="out">填写 OCC，看各渠道今天开还是关。</div>
+  </section>
+
+  <section>
+    <h2>渠道开关配置</h2>
+    <table id="cfg">
+      <thead><tr><th>OCC 区间</th><th>OTA 国内</th><th>OTA 国际</th><th>GDS / TMC</th><th>批发商 / 包房</th><th>直销 / 会员</th></tr></thead>
+      <tbody>
+        <tr data-row="0" data-min="95"><th>≥95%</th><td>仅留 1 家产量最高</td><td>关</td><td>关</td><td>关</td><td>全开 + 会员专享价</td></tr>
+        <tr data-row="1" data-min="90"><th>90–95%</th><td>开 2 家</td><td>关</td><td>开</td><td>关</td><td>全开</td></tr>
+        <tr data-row="2" data-min="85"><th>85–90%</th><td>开 3 家</td><td>开 1 家</td><td>开</td><td>关</td><td>全开</td></tr>
+        <tr data-row="3" data-min="70"><th>70–85%</th><td>全开</td><td>全开</td><td>开</td><td>限价开（≤BAR×75%）</td><td>全开 + 早鸟</td></tr>
+        <tr data-row="4" data-min="55"><th>55–70%</th><td>全开 + 促销</td><td>全开</td><td>开</td><td>开</td><td>全开 + 闪购/套餐</td></tr>
+        <tr data-row="5" data-min="-1"><th>&lt;55%</th><td>全开 + 深折</td><td>全开</td><td>开 + 商务套餐</td><td>开 + 打包产品</td><td>全开 + 长住/团购</td></tr>
+      </tbody>
+    </table>
+    <p class="legend">批发商成本最高（约 26%），房好卖时第一个关。直销 / 会员成本最低（3–4%），永远全开。</p>
+  </section>
+
+  <section class="example">
+    <h2>算一算</h2>
+    <p>某日预测 OCC = <b>92%</b> → 命中第 2 行（90–95%）。</p>
+    <p class="res">→ OTA 国内 <b>开 2 家</b>　OTA 国际 <b>关</b>　GDS/TMC <b>开</b>　批发商 <b>关</b>　直销/会员 <b>全开</b>。</p>
+  </section>
+
+  <section class="cta">
+    <p>想要 5 张表的可交互版（填数自动出结果）+ 另外 10 张判定表？关注 <b>RMCity</b>，回复「判定表」领取。</p>
+  </section>
+
+  <footer>RMCity · 收益管理社区　|　完整 15 张判定表见《操作法典》</footer>
+</div>
+<script>
+var H=[
+ {min:95,c:['仅留 1 家产量最高','关','关','关','全开 + 会员专享价']},
+ {min:90,c:['开 2 家','关','开','关','全开']},
+ {min:85,c:['开 3 家','开 1 家','开','关','全开']},
+ {min:70,c:['全开','全开','开','限价开（≤BAR×75%）','全开 + 早鸟']},
+ {min:55,c:['全开 + 促销','全开','开','开','全开 + 闪购/套餐']},
+ {min:-1,c:['全开 + 深折','全开','开 + 商务套餐','开 + 打包产品','全开 + 长住/团购']}
+];
+function render(){
+  var o=parseFloat(document.getElementById('occ').value);
+  var out=document.getElementById('out');
+  document.querySelectorAll('#cfg tr').forEach(function(tr){tr.classList.remove('hit');});
+  if(!(o>=0)){out.innerHTML='填写 OCC，看各渠道今天开还是关。';return;}
+  var ri=0;for(var i=0;i<H.length;i++){if(o>=H[i].min){ri=i;break;}}
+  var r=H[ri];
+  document.querySelector('#cfg tr[data-row="'+ri+'"]').classList.add('hit');
+  var ch=['OTA 国内','OTA 国际','GDS/TMC','批发商','直销/会员'];
+  var parts=[];
+  for(var k=0;k<ch.length;k++){parts.push(ch[k]+' <b>'+r.c[k]+'</b>');}
+  out.innerHTML='OCC <b>'+o+'%</b> → '+parts.join('　');
+}
+document.getElementById('occ').addEventListener('input',render);
+render();
+</script>
+</body></html>

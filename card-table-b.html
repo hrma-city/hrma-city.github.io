@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>表B 库存限制 · 速查卡 · RMCity</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#faf9f7;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:#1a1a1a;-webkit-font-smoothing:antialiased}
+.card{max-width:480px;margin:14px auto;background:#fff;border:1px solid #e8e4dd;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(26,26,26,.06)}
+header{background:#1a1a1a;color:#fff;padding:22px 22px 18px}
+.kicker{font-size:11px;letter-spacing:3px;color:#b08d57;font-weight:700}
+h1{margin:6px 0 6px;font-size:21px;color:#fff;font-weight:700}
+.lead{margin:0;font-size:13px;color:#cfc6b8;line-height:1.6}
+section{padding:16px 20px;border-bottom:1px solid #f0ece4}
+section:last-of-type{border-bottom:none}
+h2{font-size:14px;color:#8a6d3b;margin:0 0 10px;font-weight:700;letter-spacing:.5px}
+.calc .row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.calc label{flex:0 0 92px;font-size:13px;color:#5a5249}
+.calc input{flex:1;border:1px solid #e8e4dd;border-radius:9px;padding:9px 11px;font:inherit;font-size:15px;min-width:0}
+.calc input:focus{outline:none;border-color:#b08d57}
+.calc .u{flex:0 0 22px;color:#9a9082;font-size:12px}
+.out{margin-top:6px;background:#f7f3ea;border:1px solid #ecd9a0;border-radius:10px;padding:11px 13px;font-size:13.5px;line-height:1.7;min-height:44px;color:#3a3327}
+.out b{color:#8a6d3b}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{border:1px solid #e8e4dd;padding:6px 5px;text-align:center;vertical-align:middle}
+thead th{background:#1a1a1a;color:#b08d57;font-weight:700;font-size:11px}
+tbody th{background:#f5f1e9;color:#5a5249;font-weight:600;text-align:left;font-size:11.5px;white-space:nowrap}
+tr.hit{background:#fbf3e0}
+tr.hit th{background:#f0e2c4}
+.legend{font-size:11px;color:#9a9082;margin:8px 0 0;line-height:1.6}
+.example p{font-size:13px;line-height:1.7;margin:0 0 7px;color:#3a3327}
+.example b{color:#8a6d3b}
+.example .res{background:#f7f3ea;border-left:3px solid #b08d57;padding:8px 12px;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.7}
+.cta{background:#1a1a1a;color:#f3ece0}
+.cta p{margin:0;font-size:13px;line-height:1.7}
+.cta b{color:#b08d57}
+footer{background:#fff;color:#b3a998;font-size:11px;text-align:center;padding:12px 16px;line-height:1.5}
+</style></head><body>
+<div class="card">
+  <header>
+    <div class="kicker">收益管理判定表 · 速查卡 ②</div>
+    <h1>表 B · 库存与限制</h1>
+    <p class="lead">价格定完立刻配库存。库存动作优先级高于价格动作。逻辑来自《操作法典》表 B。</p>
+  </header>
+
+  <section class="calc">
+    <div class="row"><label>预测 OCC</label><input id="occ" type="number" inputmode="decimal" placeholder="例如 92"><span class="u">%</span></div>
+    <div class="out" id="out">填写 OCC，看今天的库存限制。</div>
+  </section>
+
+  <section>
+    <h2>库存限制配置</h2>
+    <table id="cfg">
+      <thead><tr><th>OCC 区间</th><th>MinLOS</th><th>CTA</th><th>Stop Sell（低价渠道）</th><th>超售</th></tr></thead>
+      <tbody>
+        <tr data-row="0" data-min="95"><th>≥95%</th><td>2 晚（D1 峰值日 3 晚）</td><td>启用</td><td>关闭尾房特惠 / 团购 / 批发商</td><td>不超售</td></tr>
+        <tr data-row="1" data-min="90"><th>90–95%</th><td>2 晚</td><td>仅 D1 日启用</td><td>关闭尾房特惠</td><td>≤ 2 间</td></tr>
+        <tr data-row="2" data-min="85"><th>85–90%</th><td>1–2 晚（周末 2 晚）</td><td>否</td><td>保留</td><td>按表 E</td></tr>
+        <tr data-row="3" data-min="70"><th>70–85%</th><td>1 晚</td><td>否</td><td>全开</td><td>按表 E</td></tr>
+        <tr data-row="4" data-min="-1"><th>&lt;70%</th><td>不设限</td><td>否</td><td>全开 + 上促销</td><td>不超售</td></tr>
+      </tbody>
+    </table>
+    <p class="legend">MinLOS=最少住期（挡短住拉客单）　CTA=不可入住（保护满房日到店）　Stop Sell=关停低价渠道。所有限制须设到期自动解除。</p>
+  </section>
+
+  <section class="example">
+    <h2>算一算</h2>
+    <p>某日预测 OCC = <b>92%</b> → 命中第 2 行（90–95%）。</p>
+    <p class="res">→ MinLOS <b>2 晚</b>　CTA <b>仅 D1 启用</b>　Stop <b>关闭尾房特惠</b>　超售 <b>≤ 2 间</b>。</p>
+  </section>
+
+  <section class="cta">
+    <p>想要 5 张表的可交互版（填数自动出结果）+ 另外 10 张判定表？关注 <b>RMCity</b>，回复「判定表」领取。</p>
+  </section>
+
+  <footer>RMCity · 收益管理社区　|　完整 15 张判定表见《操作法典》</footer>
+</div>
+<script>
+var B=[
+ {min:95,minlos:'2 晚（D1 峰值日 3 晚）',cta:'启用',stop:'关闭尾房特惠 / 团购 / 批发商',os:'不超售'},
+ {min:90,minlos:'2 晚',cta:'仅 D1 日启用',stop:'关闭尾房特惠',os:'≤ 2 间'},
+ {min:85,minlos:'1–2 晚（周末 2 晚）',cta:'否',stop:'保留',os:'按表 E'},
+ {min:70,minlos:'1 晚',cta:'否',stop:'全开',os:'按表 E'},
+ {min:-1,minlos:'不设限',cta:'否',stop:'全开 + 上促销',os:'不超售'}
+];
+function render(){
+  var o=parseFloat(document.getElementById('occ').value);
+  var out=document.getElementById('out');
+  document.querySelectorAll('#cfg tr').forEach(function(tr){tr.classList.remove('hit');});
+  if(!(o>=0)){out.innerHTML='填写 OCC，看今天的库存限制。';return;}
+  var ri=0;for(var i=0;i<B.length;i++){if(o>=B[i].min){ri=i;break;}}
+  var r=B[ri];
+  document.querySelector('#cfg tr[data-row="'+ri+'"]').classList.add('hit');
+  out.innerHTML='OCC <b>'+o+'%</b> → MinLOS <b>'+r.minlos+'</b>　CTA <b>'+r.cta+'</b>　Stop <b>'+r.stop+'</b>　超售 <b>'+r.os+'</b>';
+}
+document.getElementById('occ').addEventListener('input',render);
+render();
+</script>
+</body></html>
