@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>选课超市（原型）· 教师按需选，你零边际生产</title>
+<style>:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--gold2:#f5d78e;--ink:#1f2a37;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb;--teal:#1f7a6d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px 120px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:30px 0 26px}
+.hero .wrap{padding-bottom:0}
+.tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);color:var(--gold2);font-size:12.5px;border-radius:999px;padding:3px 13px;margin-bottom:10px}
+.hero h1{font-size:25px;line-height:1.4}
+.hero p{color:#b9d0e6;font-size:14px;margin-top:9px;max-width:880px}
+.note{background:#fffcf2;border:1px solid #f0e2bc;border-radius:10px;color:#5b4a12;font-size:13px;padding:10px 15px;margin:14px 0}
+h2{font-size:18px;color:var(--navy);margin:30px 0 6px;padding-left:12px;border-left:4px solid var(--gold)}
+.lead{color:var(--mut);font-size:13px;margin:0 0 10px;padding-left:12px}
+.bundles{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:12px 0}
+.bun{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px;display:flex;flex-direction:column;gap:6px}
+.bun b{color:var(--navy);font-size:14px}
+.bun .rng{font-size:12px;color:var(--mut)}
+.bun .pr{color:var(--teal);font-weight:700;font-size:17px}
+.bun button{margin-top:2px;border:none;background:var(--navy);color:#fff;border-radius:8px;padding:7px;font-size:13px;cursor:pointer}
+.bun button.on{background:var(--teal)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:11px;margin:10px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:11px;padding:12px 13px;position:relative}
+.card.dis{opacity:.5}
+.card .no{font-size:11px;color:var(--mut)}
+.card h4{font-size:14.5px;color:var(--navy);margin:3px 0 6px;line-height:1.4;min-height:38px}
+.card .meta{font-size:11.5px;color:var(--mut);display:flex;gap:10px;margin-bottom:8px}
+.card .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.card .pr{color:var(--teal);font-weight:700;font-size:15px}
+.card button{margin-top:2px;border:1px solid var(--navy);background:#fff;color:var(--navy);border-radius:7px;padding:5px 10px;font-size:12.5px;cursor:pointer}
+.card button.on{background:var(--navy);color:#fff}
+.card .up{display:block;margin-top:7px;font-size:11px;color:var(--gold2);background:var(--navy);border-radius:6px;padding:4px 8px;text-align:center;text-decoration:none}
+.card .cov{position:absolute;top:8px;right:8px;font-size:10px;background:var(--teal);color:#fff;border-radius:5px;padding:1px 6px}
+.upbar{position:fixed;left:0;right:0;bottom:0;background:#0f2a4a;color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;z-index:50;box-shadow:0 -3px 14px rgba(0,0,0,.2)}
+.upbar .info{font-size:13px}
+.upbar .info b{color:var(--gold2);font-size:18px}
+.upbar .acts{display:flex;gap:8px}
+.upbar button{border:none;border-radius:8px;padding:9px 16px;font-size:13.5px;cursor:pointer}
+.upbar .chk{background:var(--gold);color:#1a1a1a;font-weight:700}
+.upbar .clr{background:rgba(255,255,255,.15);color:#fff}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 0}
+.nav a{font-size:13px;text-decoration:none;color:var(--navy);border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px}
+.foot{text-align:center;color:var(--mut);font-size:12px;margin-top:30px;padding-top:14px;border-top:1px solid var(--line)}</style></head><body>
+<div class="hero"><div class="wrap"><div class="tag">RMCity · 选课超市原型</div>
+<h1>选课超市：41 章随便挑，老师按需买</h1>
+<p>生产一次、无限卖。老师自助下单，你不为谁单独生产。每一章都留升级入口——卡住了再升年费 / L3 服务。</p></div></div>
+<div class="wrap">
+<div class="note">⚠️ 这是原型页（门内演示）。买的是<b>持续访问权</b>：在线可读 + 每季度随教材改版更新 + 数据模板同步 + 社群答疑——不是一份静态 PDF。下方价格与支付为示意，接支付时再接微信/支付宝。</div>
+<h2>一、先选打包（更划算）</h2><p class="lead">模块包 / 篇包一键加入；加了的章会自动从单章里剔除，不重复计费。</p>
+<div class="bundles" id="bundles"></div>
+<h2>二、逐章自选（单章 ¥99）</h2><p class="lead">点"加入"就把这一章放进购物车。被篇包/模块包覆盖的章会变灰，无需再选。</p>
+<h3 style="color:var(--navy2);margin:22px 0 4px;font-size:15.5px">第一篇 · 认知篇　<span style="color:var(--mut);font-size:12.5px;font-weight:400">本质与衡量</span></h3>
+<div class="grid" id="g1"></div>
+<h3 style="color:var(--navy2);margin:22px 0 4px;font-size:15.5px">第二篇 · 决策篇　<span style="color:var(--mut);font-size:12.5px;font-weight:400">定价 / 库存 / 客源渠道</span></h3>
+<div class="grid" id="g5"></div>
+<h3 style="color:var(--navy2);margin:22px 0 4px;font-size:15.5px">第三篇 · 运营篇　<span style="color:var(--mut);font-size:12.5px;font-weight:400">节奏、流程与支撑</span></h3>
+<div class="grid" id="g17"></div>
+<h3 style="color:var(--navy2);margin:22px 0 4px;font-size:15.5px">第四篇 · 组织篇　<span style="color:var(--mut);font-size:12.5px;font-weight:400">人、成本、系统</span></h3>
+<div class="grid" id="g25"></div>
+<h3 style="color:var(--navy2);margin:22px 0 4px;font-size:15.5px">第五篇 · 延伸篇　<span style="color:var(--mut);font-size:12.5px;font-weight:400">餐饮会议、跨业态、误区</span></h3>
+<div class="grid" id="g29"></div>
+<h3 style="color:var(--navy2);margin:22px 0 4px;font-size:15.5px">第六篇 · 现实篇　<span style="color:var(--mut);font-size:12.5px;font-weight:400">中国渠道、连锁、AI、危机、职业、变革</span></h3>
+<div class="grid" id="g33"></div>
+<h3 style="color:var(--navy2);margin:22px 0 4px;font-size:15.5px">第七篇 · 视野篇　<span style="color:var(--mut);font-size:12.5px;font-weight:400">周期、人工智能、可持续</span></h3>
+<div class="grid" id="g39"></div>
+<div class="note" style="margin-top:24px">📌 老师卡住时（出卷 / 评卷 / 申报 / 磨课 / 人培 / 评估）点任一章的「升级」入口，进入 L3 教研服务（价目表已建）。绝大多数老师自助，少数升级——重生产压力被分摊掉，续费逻辑保住。</div>
+<div class="nav"><a href="campus-dual-channel.html">← 双通道商业模式总图</a><a href="campus-product-system.html">院校产品与订阅体系设计</a><a href="deliverables-index.html">产出物总目录</a></div>
+<div class="foot">RMCity · 酒店收益管理社区 · 选课超市原型 · 本站为门内页面</div>
+</div>
+<div class="upbar"><div class="info">已选 <span id="cnt">0</span> 项 · 合计 <b id="tot">¥0</b>　<span style="opacity:.7;font-size:11.5px">（持续访问权，按年续）</span></div><div class="acts"><button class="clr" onclick="clearAll()">清空</button><button class="chk" onclick="checkout()">去结算</button></div></div>
+<script>
+const CH = [[1, "收益管理是什么：一句话与底层逻辑", 3, 23], [2, "三个核心指标：OCC、ADR、RevPAR", 3, 20], [3, "竞争三件套：MPI、ARI、RGI", 2, 20], [4, "价格弹性：降多少价能换多少量", 2, 21], [5, "什么时候涨价", 2, 21], [6, "竞品降价：跟还是不跟", 2, 21], [7, "折扣与促销：什么时候该让", 2, 21], [8, "套餐与锚定：让客人觉得划算", 2, 21], [9, "房型价差：差价定多少才合理", 2, 21], [10, "最短住期 MinLOS：用条件把客群分开", 2, 22], [11, "超额预订：卖出去的比有的多", 2, 23], [12, "库存分配与保护位：给谁留多少房", 2, 22], [13, "渠道净价：到手多少钱才算数", 2, 21], [14, "客源细分：把客人分成几堆来卖", 2, 21], [15, "团队置换：这个团该不该接", 2, 23], [16, "直销与会员：把客人变成自己的", 2, 21], [17, "运营全景：从年到日的节奏", 2, 21], [18, "每日实操流程：一天具体做什么", 2, 20], [19, "执行标准与收益例会", 2, 19], [20, "预测与需求日历", 2, 23], [21, "年度预算：把一年拆到每天", 2, 21], [22, "价格体系 BAR：所有价格的锚", 2, 21], [23, "报表体系：每天该看哪几张表", 2, 20], [24, "OTA 与点评：评分就是价格", 2, 23], [25, "岗位与组织：谁来干这件事", 2, 20], [26, "成本与利润：降价的底线在哪", 2, 21], [27, "系统与数据：工具能替你做什么", 2, 21], [28, "淡旺季与事件日：一年里最容易赚的钱", 2, 24], [29, "餐饮收益：RevPASH 与翻台", 2, 22], [30, "会议宴会：不只算房，算总贡献", 2, 22], [31, "其他业态与跨行业参数", 2, 22], [32, "常见误区：30 个坑，别再踩", 2, 14], [33, "中国渠道生态：平台、私域、买断与直播", 2, 22], [34, "连锁与中央预订：总部定价，门店做什么", 2, 26], [35, "AI 工具做收益分析", 2, 21], [36, "危机与极端场景", 2, 21], [37, "收益岗位与职业发展", 2, 22], [38, "变革篇：收益管理正在发生的五件事", 2, 19], [39, "周期与不确定性下的收益管理", 2, 20], [40, "人工智能与收益管理（科普）", 2, 17], [41, "绿色收益管理与可持续", 2, 17]];
+const BUNDLES = [{"type": "part", "id": "P1", "name": "第一篇 · 认知篇", "sub": "本质与衡量", "chs": [1, 2, 3, 4], "price": 336}, {"type": "part", "id": "P5", "name": "第二篇 · 决策篇", "sub": "定价 / 库存 / 客源渠道", "chs": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], "price": 998}, {"type": "part", "id": "P17", "name": "第三篇 · 运营篇", "sub": "节奏、流程与支撑", "chs": [17, 18, 19, 20, 21, 22, 23, 24], "price": 662}, {"type": "part", "id": "P25", "name": "第四篇 · 组织篇", "sub": "人、成本、系统", "chs": [25, 26, 27, 28], "price": 336}, {"type": "part", "id": "P29", "name": "第五篇 · 延伸篇", "sub": "餐饮会议、跨业态、误区", "chs": [29, 30, 31, 32], "price": 336}, {"type": "part", "id": "P33", "name": "第六篇 · 现实篇", "sub": "中国渠道、连锁、AI、危机、职业、变革", "chs": [33, 34, 35, 36, 37, 38], "price": 494}, {"type": "part", "id": "P39", "name": "第七篇 · 视野篇", "sub": "周期、人工智能、可持续", "chs": [39, 40, 41], "price": 297}, {"type": "module", "id": "CH05-08", "name": "定价决策模块", "sub": "CH05-08", "chs": [5, 6, 7, 8], "price": 299}, {"type": "module", "id": "CH09-12", "name": "库存决策模块", "sub": "CH09-12", "chs": [9, 10, 11, 12], "price": 299}, {"type": "module", "id": "CH13-16", "name": "客源与渠道决策模块", "sub": "CH13-16", "chs": [13, 14, 15, 16], "price": 299}, {"type": "module", "id": "CH20-24", "name": "计划与支撑模块", "sub": "CH20-24", "chs": [20, 21, 22, 23, 24], "price": 379}, {"type": "module", "id": "CH33-38", "name": "现实篇精华模块", "sub": "CH33-38", "chs": [33, 34, 35, 36, 37, 38], "price": 499}];
+const selCh = new Set(), selB = new Set();
+const CHMAP = {}; CH.forEach(c => CHMAP[c[0]] = c);
+const BMAP = {}; BUNDLES.forEach(b => BMAP[b.id] = b);
+function covered(){const s=new Set(); selB.forEach(id=>BMAP[id].chs.forEach(n=>s.add(n))); return s;}
+function renderBundles(){
+  const el=document.getElementById('bundles'); el.innerHTML='';
+  BUNDLES.forEach(b=>{
+    const on=selB.has(b.id);
+    const d=document.createElement('div'); d.className='bun';
+    d.innerHTML='<b>'+b.name+'</b><span class="rng">'+b.sub+' · '+b.chs.length+' 章</span><span class="pr">¥'+b.price+'</span><button class="'+(on?'on':'')+'" onclick="toggleB(\''+b.id+'\')">'+(on?'已加入 ✓':'加入')+'</button>';
+    el.appendChild(d);
+  });
+}
+function renderChapters(){
+  const cov=covered();
+  cov.forEach(n=>selCh.delete(n));
+  const parts=[[1,4],[5,16],[17,24],[25,28],[29,32],[33,38],[39,41]];
+  parts.forEach(([a,b])=>{
+    const g=document.getElementById('g'+a); if(!g) return; g.innerHTML='';
+    for(let n=a;n<=b;n++){const c=CHMAP[n]; if(!c) continue;
+      const isCov=cov.has(n), on=selCh.has(n);
+      const d=document.createElement('div'); d.className='card'+(isCov?' dis':'');
+      d.innerHTML='<div class="no">第 '+n+' 章</div><h4>'+c[1]+'</h4>'+
+        '<div class="meta"><span>⏱ '+c[2]+'课时</span><span>☑ '+c[3]+'判定项</span></div>'+
+        '<div class="row"><span class="pr">¥99</span>'+
+        '<button class="'+(on?'on':'')+'" '+(isCov?'disabled':'')+' onclick="toggleC('+n+')">'+(isCov?'已含':(on?'已加入 ✓':'加入'))+'</button></div>'+
+        (isCov?'<span class="cov">已含于打包</span>':'')+
+        '<a class="up" href="campus-l3-pricelist.html">卡住？升级 L3 →</a>';
+      g.appendChild(d);
+    }
+  });
+}
+function toggleC(n){if(selCh.has(n))selCh.delete(n);else selCh.add(n); renderChapters(); renderCart();}
+function toggleB(id){if(selB.has(id))selB.delete(id);else selB.add(id); renderBundles(); renderChapters(); renderCart();}
+function renderCart(){
+  const cov=covered(); let cnt=selB.size, tot=0;
+  selB.forEach(id=>tot+=BMAP[id].price);
+  let single=0; selCh.forEach(n=>{if(!cov.has(n)){single++; tot+=99;}});
+  cnt+=single;
+  document.getElementById('cnt').textContent=cnt;
+  document.getElementById('tot').textContent='¥'+tot.toLocaleString();
+}
+function clearAll(){selCh.clear(); selB.clear(); renderBundles(); renderChapters(); renderCart();}
+function checkout(){
+  const cov=covered(); const lines=[];
+  selB.forEach(id=>lines.push(BMAP[id].name+' ¥'+BMAP[id].price));
+  let s=0; selCh.forEach(n=>{if(!cov.has(n))s++;});
+  if(s) lines.push('单章 ×'+s+' ¥'+(s*99));
+  if(!lines.length){alert('还没选任何内容'); return;}
+  alert('结算示意（原型）\n\n'+lines.join('\n')+'\n\n合计已显示在底部。\n接支付后此处跳转微信/支付宝，并开通“持续访问权”。');
+}
+renderBundles(); renderChapters(); renderCart();
+</script>
+</body></html>
