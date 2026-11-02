@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="assets/js/site-nav.js?v=v24"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>产教融合 · 岗课赛证 · RMC收益管理社区</title>
+<style>
+:root{--navy:#0f2a4a;--ink:#1a2330;--ink2:#5a6675;--line:#d8dee6;--bg:#f4f6f9;--gold:#e8b84b}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.7}
+.wrap{max-width:1000px;margin:0 auto;padding:76px 20px 60px}
+.hero{background:linear-gradient(160deg,#13385f,#0c2542);border:1px solid #244a72;border-radius:14px;padding:26px 28px;margin-bottom:18px;color:#fff}
+.hero .ey{font-size:12.5px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:6px}
+.hero h1{margin:0 0 8px;font-size:24px}
+.hero p{margin:0;color:#c3d4e8;font-size:13.5px;max-width:780px}
+/* 闭环条：课 → 岗 → 赛 → 证 → 反哺 */
+.loop{display:flex;align-items:stretch;gap:0;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 12px;margin-bottom:22px;flex-wrap:wrap}
+.loop .node{flex:1;min-width:150px;text-align:center;padding:10px 6px;position:relative}
+.loop .node b{display:block;font-size:15px;color:var(--navy);margin-bottom:2px}
+.loop .node span{font-size:12px;color:var(--ink2)}
+.loop .arr{align-self:center;color:var(--gold);font-size:20px;font-weight:700;padding:0 2px}
+.loop .back{flex-basis:100%;text-align:center;font-size:12px;color:#8a6a1a;border-top:1px dashed #e3d9bd;margin-top:8px;padding-top:6px}
+h2.cat{font-size:16px;color:var(--navy);margin:26px 0 12px;border-left:4px solid var(--gold);padding-left:10px}
+.ring{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0;margin-bottom:10px;overflow:hidden}
+.ring summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:14px 18px}
+.ring summary::-webkit-details-marker{display:none}
+.ring summary .ic{font-size:20px}
+.ring summary b{font-size:15px;color:var(--navy)}
+.ring summary .one{font-size:12.5px;color:var(--ink2);margin-left:auto;text-align:right}
+.ring summary .tg{display:inline-block;font-size:11px;background:#eef2f7;color:#33517a;border-radius:4px;padding:1px 7px;white-space:nowrap}
+.ring[open] summary{border-bottom:1px solid #edf1f5}
+.ring .body{padding:12px 18px 16px;font-size:13px;color:var(--ink2)}
+.ring .body ul{margin:6px 0 0;padding-left:18px}
+.ring .body li{margin:4px 0}
+.ring .body a{color:#1b4a7a;text-decoration:none}
+.ring .body a:hover{text-decoration:underline}
+.ring .get{margin-top:10px;background:#f6f9fc;border:1px solid #e2eaf2;border-radius:8px;padding:8px 12px;font-size:12.8px;color:#24425f}
+.ring .get b{color:#8a6a1a}
+table.win{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px}
+table.win th{background:#eef2f7;color:#33517a;text-align:left;padding:9px 12px;font-size:12.8px}
+table.win td{border-top:1px solid #edf1f5;padding:9px 12px;vertical-align:top;color:var(--ink)}
+table.win td:first-child{white-space:nowrap;color:var(--navy);font-weight:700}
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:6px}
+.steps .st{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.steps .st .no{display:inline-block;background:var(--navy);color:#fff;border-radius:50%;width:22px;height:22px;line-height:22px;text-align:center;font-size:12px;margin-bottom:6px}
+.steps .st b{display:block;color:var(--navy);font-size:14px;margin-bottom:3px}
+.steps .st span{font-size:12.5px;color:var(--ink2)}
+.cta{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:18px}
+.cta a{display:block;background:#fff;border:1px solid var(--gold);border-radius:10px;padding:13px 15px;text-decoration:none;color:var(--ink);transition:.15s}
+.cta a:hover{background:#fffdf4}
+.cta a b{display:block;color:#8a6a1a;font-size:14.5px;margin-bottom:2px}
+.cta a span{font-size:12.5px;color:var(--ink2)}
+.motto{margin:22px 0 4px;text-align:center;font-size:13px;color:var(--ink2)}
+.motto b{color:#8a6a1a}
+.foot{margin-top:22px;font-size:12.5px;color:var(--ink2)}
+</style>
+</head><body><div class="wrap">
+
+<div class="hero">
+  <div class="ey">INDUSTRY–EDUCATION</div>
+  <h1>产教融合 · 一门能闭环的收益管理课</h1>
+  <p>把课堂上的练习，变成岗位上的决策、赛场上的方案、手里的证书——按「岗课赛证」四环组织，环环相扣，学校、教师、学生各取所需。这一页写给专业负责人与院系领导：三分钟看懂闭环怎么转。</p>
+</div>
+
+<div class="loop">
+  <div class="node"><b>课</b><span>教材 + 教练<br>教师开课</span></div>
+  <div class="arr">→</div>
+  <div class="node"><b>岗</b><span>真实数据<br>岗位决策</span></div>
+  <div class="arr">→</div>
+  <div class="node"><b>赛</b><span>案例展<br>成果检验</span></div>
+  <div class="arr">→</div>
+  <div class="node"><b>证</b><span>三级认证<br>能力凭证</span></div>
+  <div class="back">↺ 结业成果与认证数据反哺下一轮课程建设，逐年迭代</div>
+</div>
+
+<h2 class="cat">四环各是什么 · 点开看细目</h2>
+
+<details class="ring" open>
+  <summary><span class="ic">📘</span><b>课 —— 教师能开出来的课</b>
+    <span class="one"><span class="tg">根基</span><br>教师最小成本开课</span></summary>
+  <div class="body">
+    41 章系列教材（学生版 / 教师版 / 成书版齐备）、逐章教学装（课件 · 案例 · 实验数据 · 思政 · 看板），配教学教练：怎么讲、查哪张表、这道题怎么解，随时可问。
+    <ul>
+      <li><a href="textbook.html">教材总览（textbook）</a> · <a href="textbook-teacher.html">教师版</a> · <a href="textbook-student.html">学生版</a></li>
+      <li><a href="ai-coach-teacher.html">教学教练</a> · <a href="teach.html">教学馆</a></li>
+      <li>师资训练营：八周带教，第七周交《我的开课计划》——结业即可开课</li>
+    </ul>
+    <div class="get"><b>教师得到：</b>现成教案与数据表，第一学期就能开课；<b>学校得到：</b>一门产业认可的新课。</div>
+  </div>
+</details>
+
+<details class="ring">
+  <summary><span class="ic">🏨</span><b>岗 —— 真实岗位的决策任务</b>
+    <span class="one"><span class="tg">实战</span><br>学生像收益经理一样决策</span></summary>
+  <div class="body">
+    学生不做假题：用脱敏酒店的真实数据（出租率、房价、渠道、团队询价），按 15 张判定表做每日决策——涨价还是降价、接不接受团队、开哪家渠道，每一张表都是行业真实打法。
+    <ul>
+      <li><a href="decision-tables.html">判定表实战工具包（5 张可交互）</a> · <a href="codex.html">操作法典（15 张全表）</a></li>
+      <li><a href="jt-coach.html">实战教练</a>：把经营情况一句话说清，AI 给决策动作 + 依据 + 红线</li>
+      <li><a href="games-hub.html">游戏馆</a>：26 个互动教具，课堂即练</li>
+    </ul>
+    <div class="get"><b>学生得到：</b>可以写进简历的岗位技能；<b>企业得到：</b>上来就能用的准员工。</div>
+  </div>
+</details>
+
+<details class="ring">
+  <summary><span class="ic">🏆</span><b>赛 —— 开课案例展与成果检验</b>
+    <span class="one"><span class="tg">检验</span><br>方案被真实标准评判</span></summary>
+  <div class="body">
+    学期内组织收益管理案例展：学生用判定表产出的方案，按行业真实标准（RevPAR、超售红线、渠道成本）评审；优秀方案进入案例库，成为下一届教材素材。
+    <ul>
+      <li>案例展方案评审以《操作法典》判定表为统一标尺，公平可复现</li>
+      <li>优秀学生方案 + 开课数据沉淀为「开课成果包」，可直接用于专业建设与申报材料</li>
+      <li><a href="cases-hub.html">案例库</a>：298 张案例卡，含教师讨论包</li>
+    </ul>
+    <div class="get"><b>学校得到：</b>看得见的产教融合成果；<b>教师得到：</b>可展示、可申报的教学成果。</div>
+  </div>
+</details>
+
+<details class="ring">
+  <summary><span class="ic">🎖️</span><b>证 —— 行业认可的能力凭证</b>
+    <span class="one"><span class="tg">凭证</span><br>学生与教师双线认证</span></summary>
+  <div class="body">
+    学生线：L1 / L2 / L3 三级收益管理师认证，学课程、练模块、打真题，合格发证。教师线：师资培训合格证书，与教材、教案、训练营打通。
+    <ul>
+      <li><a href="cert.html">认证体系 L1 / L2 / L3</a> · 76 套真题演练</li>
+      <li>认证成绩可作为案例展评审与课程考核的外部参照</li>
+    </ul>
+    <div class="get"><b>学生得到：</b>就业筹码；<b>学校得到：</b>可量化的培养质量凭证。</div>
+  </div>
+</details>
+
+<h2 class="cat">三方各得什么</h2>
+<table class="win">
+  <tr><th>角色</th><th>付出</th><th>得到</th></tr>
+  <tr><td>学校 / 领导</td><td>支持一门课的开设</td><td>产教融合落地案例、可申报的成果包、专业特色与认证数据</td></tr>
+  <tr><td>教师</td><td>参加训练营、按教案开课</td><td>现成教材与教练陪跑、最小成本开课、可展示的教学成果</td></tr>
+  <tr><td>学生</td><td>完成课程与岗位任务</td><td>真实决策能力、三级认证证书、写进简历的实战履历</td></tr>
+</table>
+
+<h2 class="cat">落地三步</h2>
+<div class="steps">
+  <div class="st"><span class="no">1</span><b>第一学期 · 开课</b><span>教师入训练营，八周带教；用现成教材与教学装开出本专业课。</span></div>
+  <div class="st"><span class="no">2</span><b>学期中 · 实战</b><span>学生用真实数据按判定表做岗位决策，期末办案例展，评出优秀方案。</span></div>
+  <div class="st"><span class="no">3</span><b>学年末 · 归档</b><span>学生认证出成绩，开课成果包归档；成果与数据反哺下一轮课程迭代。</span></div>
+</div>
+
+<div class="motto">闭环不是设计出来的，是<b>一届一届学生跑出来的</b>。我们提供全部素材与陪跑，学校只需要让这门课开起来。</div>
+
+<h2 class="cat">下一步</h2>
+<div class="cta">
+  <a href="campus.html"><b>院校师资陪跑 →</b><span>课程共建 · 申报材料 · 年度陪跑</span></a>
+  <a href="training-camp.html"><b>标准课训练营 →</b><span>八周带教 · 结业开课</span></a>
+  <a href="contact.html"><b>联系我们 →</b><span>把这一页转给院系领导即可开始对话</span></a>
+</div>
+
+<div class="foot">RMC收益管理社区 · 本页可直接转发给专业负责人与院系领导。</div>
+
+</div></body></html>
