@@ -156,8 +156,9 @@ details>summary{cursor:pointer;font-size:13.5px;color:var(--navy);font-weight:60
 <script src="textbook_quiz.js?v=4"></script>
 <script>
 /* ============================================================
-   在线学习页：正文与题目都取自 textbook.html 本体
-   ——教材改一次，这里自动跟着改，不会出现两套内容。
+   在线学习页：正文与题目统一取自《酒店收益管理》教材全本
+   （textbook-merged.html，成书 41 章）——教材改一次，这里自动
+   跟着改，且不再引用旧版 32 章 textbook.html，杜绝「两套内容」。
    ============================================================ */
 var PARTS=[
   ['开篇',[0]],
@@ -186,40 +187,30 @@ function stripTags(s){ return String(s||'').replace(/<[^>]+>/g,''); }
 function pad2(n){ return (n<10?'0':'')+n; }
 
 /* ---------- 1. 载入教材，抽出每章结构 ---------- */
+/* 统一从《酒店收益管理》教材全本（textbook-merged.html，成书 41 章）抽取：
+   · 第 1–32 章：教材原有结构化学习块（promise/pts/fml/judge/case/tip），走结构化分支；
+   · 第 33–41 章：成书新增的现实篇/视野篇，正文为散文式排版，按原生 HTML 渲染（raw）。
+   单一来源，杜绝旧版 32 章 textbook.html 与全本两套内容并存。 */
 function loadBook(){
-  return fetch('textbook.html?x='+Date.now()).then(function(r){ return r.text(); }).then(function(t){
+  return fetch('textbook-merged.html?x='+Date.now()).then(function(r){ return r.text(); }).then(function(t){
     var doc=new DOMParser().parseFromString(t,'text/html');
-    var hs=[].slice.call(doc.querySelectorAll('h2.ch[id^=ch]'));
-    hs.forEach(function(h,i){
-      var no=parseInt(h.id.replace('ch',''),10);
-      /* 逐个兄弟节点收集，直到下一章 h2 —— 保留教材原有的小节结构 */
-      var buf=[], n=h.nextElementSibling;
-      while(n && !(n.tagName==='H2')){ buf.push(n.outerHTML); n=n.nextElementSibling; }
-      var wrap=doc.createElement('div'); wrap.innerHTML=buf.join('');
-      CH[no]={no:no, title:stripTags(h.textContent).replace(/^第\s*\d+\s*章/,'').trim(), el:wrap};
-      ORDER.push(no);
-    });
-    /* 开篇：教材正文开头（两张图 + 学法说明），没有单独锚点，单独存 */
-    var first=doc.querySelector('#ch01'), pre=doc.createElement('div'), k=first;
-    while(k){ if(k.tagName==='H1'||k.tagName==='H2') break; pre.appendChild(k.cloneNode(true)); k=k.previousElementSibling; }
+    /* 开篇：第一个章节 details 之前的内容（封面 / 学法说明 / 篇目导览），无单独锚点，单独存 */
+    var first=doc.querySelector('#mch01'), pre=doc.createElement('div'), k=first?first.previousElementSibling:null;
+    while(k){ if(k.tagName==='H1') break; pre.appendChild(k.cloneNode(true)); k=k.previousElementSibling; }
     CH[0]={no:0,title:'开篇：先看全貌，再学细节',el:pre};
-    ORDER.unshift(0);
-    /* 33–41 现实篇：正文在成书全本 textbook-merged.html（details 折叠结构） */
-    return fetch('textbook-merged.html?x='+Date.now()).then(function(r){ return r.text(); }).then(function(t2){
-      var d2=new DOMParser().parseFromString(t2,'text/html');
-      [].slice.call(d2.querySelectorAll('details.chp[id^=mch]')).forEach(function(d){
-        var no=parseInt(d.id.replace('mch',''),10);
-        if(!(no>=33&&no<=41)) return;
-        var sm=d.querySelector('summary');
-        var tt=sm?stripTags(sm.textContent):'';
-        tt=tt.replace(/^第\s*\d+\s*章/,'').replace(/新增/g,'').trim();
-        var body=d.querySelector('.cbody')||d;
-        /* 复制成不带 summary 的容器 */
-        var wrap=d2.createElement('div');
-        [].slice.call(body.childNodes).forEach(function(nd){ wrap.appendChild(d2.importNode(nd,true)); });
-        CH[no]={no:no, title:tt, el:wrap, raw:true};
-        ORDER.push(no);
-      });
+    ORDER.push(0);
+    /* 第 1–41 章：统一取自教材全本 */
+    [].slice.call(doc.querySelectorAll('details.chp[id^=mch]')).forEach(function(d){
+      var no=parseInt(d.id.replace('mch',''),10);
+      var sm=d.querySelector('summary');
+      var tt=sm?stripTags(sm.textContent):'';
+      tt=tt.replace(/第\s*\d+\s*章/,'').replace(/新增/g,'').replace(/\s+/g,' ').trim();
+      var body=d.querySelector('.cbody')||d;
+      var wrap=doc.createElement('div');
+      [].slice.call(body.childNodes).forEach(function(nd){ wrap.appendChild(doc.importNode(nd,true)); });
+      /* 1–32 为教材结构化章；33–41 为成书新增散文章，按原生 HTML 渲染 */
+      CH[no]={no:no, title:tt, el:wrap, raw:(no<1||no>32)};
+      ORDER.push(no);
     });
   });
 }
