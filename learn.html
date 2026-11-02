@@ -272,10 +272,10 @@ function renderLearn(n){
   if(ex){
     h+='<div class="blk"><div class="bt">教材原练习（动笔算一遍）</div>'
       +'<div class="story">'+ex.innerHTML+'</div>'
-      +'<div class="hint" style="margin-top:6px">答案在教材附录 B：<a href="textbook.html#appB" target="_blank">打开附录 B</a></div></div>';
+      +'<div class="hint" style="margin-top:6px">答案在教材附录 B：<a href="textbook-merged.html#appB" target="_blank">打开附录 B</a></div></div>';
   }
   h+='<div class="act">'
-    +'<a class="btn ghost" href="textbook.html#'+(n===0?'ch01':'ch'+pad2(n))+'" target="_blank">在教材里翻这一章</a>'
+    +'<a class="btn ghost" href="textbook-merged.html#mch'+pad2(n)+'" target="_blank">在教材里翻这一章</a>'
     +'<button class="btn'+(isRead?'':' gold')+'" id="markRead" data-n="'+n+'">'
     +(isRead?'✓ 本章已学完（点击撤销）':'我学完了，标记本章')+'</button>'
     +'<span class="hint">学完标记会同步到学习路径页</span></div></div>';
@@ -487,7 +487,7 @@ function renderStat(){
     +(last?(last.got+' / '+last.total):'未参加')+'</b>。记录存在本机浏览器里，换设备不同步。</div>'
     +'<table><tr><td>章</td><td>标题</td><td>学习</td><td>速测</td></tr>'+rows+'</table>'
     +'<div class="act"><button class="btn ghost" id="clr">清空学习记录</button>'
-    +'<a class="btn ghost" href="textbook.html" target="_blank">打开教材（翻阅用）</a></div></div>';
+    +'<a class="btn ghost" href="textbook-merged.html" target="_blank">打开教材全本（翻阅用）</a></div></div>';
   document.getElementById('clr').addEventListener('click',function(){
     if(confirm('清空本章页的学习与测验记录？（学习路径页的完成标记会一起清）')){
       setState({read:[],score:{}}); syncPath(); renderStat(); renderProg();
@@ -573,7 +573,7 @@ loadBook().then(function(){
   syncPath();
 }).catch(function(e){
   document.getElementById('main').innerHTML='<div class="card"><h2 id="toc-7">载入失败</h2>'
-    +'<p>没能读到教材正文（'+esc(e.message)+'）。请刷新重试，或直接 <a href="textbook.html">打开教材</a>。</p></div>';
+    +'<p>没能读到教材正文（'+esc(e.message)+'）。请刷新重试，或直接 <a href="textbook-merged.html">打开教材全本</a>。</p></div>';
 });
 </script>
 <script src="assets/js/site-nav.js?v=v24"></script>
