@@ -1,0 +1,231 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<script>window.HRMA_PREFIX="../";</script>
+<meta charset="utf-8">
+<script src="../assets/js/site-nav.js?v=v24"></script>
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js?v=gate20261013"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<meta name="robots" content="noindex, nofollow">
+<title>IP 内核与多载体渲染框架 · 收益管理内容产品化</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:#f4f6f9;color:#1c2430;line-height:1.9;font-size:15px}
+.book{max-width:900px;margin:0 auto;background:#fff;box-shadow:0 4px 20px rgba(20,30,70,.08)}
+.cover{background:linear-gradient(150deg,#0f2a4a,#16406e 65%,#1d6fb8);color:#fff;padding:50px 46px 42px}
+.cover .ser{font-size:12px;letter-spacing:3px;opacity:.8}
+.cover h1{font-size:31px;font-weight:800;margin:14px 0 10px;line-height:1.3}
+.cover .sub{font-size:16px;color:#ffe9bd;line-height:1.6}
+.cover .for{margin-top:24px;font-size:13px;opacity:.85;line-height:1.9}
+.body{padding:30px 46px 50px}
+.loc{display:inline-block;font-size:11.5px;color:#8494a8;letter-spacing:.5px;margin:24px 0 4px;padding:2px 9px;background:#f4f7fa;border-radius:5px;border:1px solid #e6eaf1}
+h2.pt{font-size:24px;font-weight:800;color:#fff;background:linear-gradient(135deg,#0f2a4a,#1d6fb8);margin:42px 0 0;padding:15px 24px;border-radius:12px 12px 0 0}
+.ptmap{background:#eef3f9;border:1px solid #d4e0ee;border-top:none;border-radius:0 0 12px 12px;padding:14px 22px;margin-bottom:10px;font-size:14px;color:#3a4b60;line-height:1.85}
+h3.ch{font-size:19px;font-weight:800;color:#0f2a4a;margin:20px 0 4px;padding-top:13px;border-top:3px solid #e8b84b}
+.ch p{font-size:14.4px;color:#2a3a4d;margin:6px 0;line-height:1.9}
+.ch ul{margin:6px 0 0 22px}
+.ch li{margin:5px 0;font-size:14.2px;color:#2a3a4d}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.cards .c{background:#fbfcfe;border:1px solid #d4e0ee;border-radius:11px;padding:14px 16px}
+.cards .c b{color:#16406e;font-size:14.5px;display:block;margin-bottom:5px}
+.cards .c span{font-size:13.2px;color:#3a4b60;line-height:1.7}
+.flow{background:#fbfcfe;border:1px solid #d4e0ee;border-radius:12px;padding:16px 20px;margin:14px 0;font-size:14px;color:#34465c;line-height:1.9}
+.flow b{color:#16406e}
+.note{background:#fff8e8;border-left:4px solid #e8b84b;padding:14px 18px;margin:24px 0;border-radius:0 8px 8px 0;font-size:13.6px;color:#5a4a1f;line-height:1.9}
+.note b{color:#0f2a4a}
+.foot{margin-top:30px;font-size:12px;color:#9aa7b6;text-align:center;line-height:1.8}
+</style>
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+@media (min-width:1100px){body.toc-open{padding-left:312px}body.toc-open .site-nav,body.toc-open .topbar{left:312px}}
+body{transition:padding-left .25s ease}
+</style>
+</head>
+<body>
+<div class="book">
+  <div class="cover">
+    <div class="ser">内部战略文档 · 门内评审</div>
+    <h1>IP 内核与多载体渲染框架</h1>
+    <div class="sub">一个内核，四种渲染<br>15 张判定表如何长出书、游戏、漫剧、社区</div>
+    <div class="for">配套文档：产品战略总纲（战略文档·一）<br>密级：门内 · 不公开索引</div>
+  </div>
+  <div class="body">
+
+    <div class="loc">战略文档 · 二（v0.1 · 工作稿）</div>
+
+    <h2 id="toc-1" class="pt">一、内核唯一：15 张判定表是 IP 本身</h2>
+    <div class="ptmap">IP 不是头像、不是口号，是「别人抄不走的那套方法」。我们的 IP 内核就是 15 张判定表——一套能力编码。</div>
+    <h3 id="toc-1" class="ch">1.1 内核是「结构」，不是「内容」</h3>
+    <p>书是内容、漫剧是内容、游戏是内容，但撑起它们的<b>是同一套结构</b>：到了 X 条件，执行 Y。这个 if-then 结构被 15 张表固化，是 IP 真正不可复制的部分。</p>
+    <h3 id="toc-2" class="ch">1.2 为什么 AI 编不出</h3>
+    <p>AI 能写关于收益管理的文章，但写不出「基于中国酒店真实运营、经十几年校验的判定边界」。那需要数据沉淀和一线验证——是 time-bound 的资产，不是 prompt 能生成的。</p>
+    <div class="note"><b>纪律</b>：任何新载体上线前，先问「它渲染的是哪张表、哪个分支？」答不上来就不做。载体可以无限多，内核必须唯一。</div>
+
+    <h2 id="toc-2" class="pt">二、四类载体：同一内核的四种渲染</h2>
+    <div class="ptmap">书=规格说明，漫剧=情绪引流，游戏=动手试错，社区=数据反哺。四种渲染覆盖「认知—兴趣—练习—沉淀」全链路。</div>
+    <div class="cards">
+      <div class="c"><b>书（spec）</b><span>把 15 表编码成文字，建立信任与权威。深度读者在此完成「懂」。</span></div>
+      <div class="c"><b>漫剧（引流）</b><span>把判定表藏进剧情，弱 AI 角色带着用户「被需要」，完成「感兴趣」。</span></div>
+      <div class="c"><b>游戏（试错）</b><span>把表变成可玩决策卡，用户在安全环境里练手感，完成「会做」。</span></div>
+      <div class="c"><b>社区（反哺）</b><span>用户带真实场景进来，落回某张表，补全边界，完成「进化」。</span></div>
+    </div>
+    <h3 id="toc-3" class="ch">2.1 渲染不重写内核</h3>
+    <p>漫剧第 3 集讲「超售」——它渲染的是表 E，不是另起一套逻辑。游戏第 8 关讲「渠道净价」——渲染表 H。各载体互相引用、互不冲突，读者从任意入口进来都能接上同一套表。</p>
+    <h3 id="toc-4" class="ch">2.2 载体间的引用网</h3>
+    <p>书里每个判定表标注「想看剧情版 → 漫剧第 X 集；想动手练 → 游戏第 Y 关」。漫剧片尾放「完整表见《操作指南》附录」。社区每条讨论挂「对应表 Z」。一张网，越用越紧。</p>
+
+    <h2 id="toc-3" class="pt">三、社区反哺机制：飞轮的闭合</h2>
+    <div class="ptmap">没有反哺，飞轮转半圈就停。社区是让「用户帮你写 v2」的轻运营设计。</div>
+    <h3 id="toc-5" class="ch">3.1 锚定内核，不建空群</h3>
+    <p>社区不聊「今天生意好不好」这种发散话题，而是以 15 表为骨架：每个板块对应一张表，用户带着真实案例进来，讨论「表 E 在我这家店怎么落地」。</p>
+    <h3 id="toc-6" class="ch">3.2 数据如何变成书</h3>
+    <div class="flow"><b>反哺路径：</b>用户案例 → 标注「对应表 X 分支 Y」→ 高频同类场景进入「待补全清单」→ 季度评审后写入书的新版附录 → 书蜕 v2。你不用写，只需审。</div>
+    <div class="note"><b>轻运营关键</b>：你不做「群主灌水」，只做「结构维护者」。帖子按表归档、高频问题定期提炼，劳动量随规模近似线性而非指数增长。</div>
+
+    <h2 id="toc-4" class="pt">四、弱 AI 设计原则（来自方法论启示）</h2>
+    <div class="ptmap">漫剧与社区尤其要「弱」：别让角色开口教你做人，别让用户感觉在被审视。一旦狗开口说教，就不萌了。</div>
+    <h3 id="toc-7" class="ch">4.1 漫剧：角色扮弱，用户变强</h3>
+    <p>主角不是全知导师，而是和你一样会犯错的酒店人。判定表以「主角踩坑→翻书→破局」的方式自然露出，用户跟着主角一起「发现自己能用表解决问题」，获得被需要感。</p>
+    <h3 id="toc-8" class="ch">4.2 社区：戒尊戒魅</h3>
+    <p>运营者不摆专家架子，不制造「你不行、得跟我学」的距离感。社区的氛围是「同行互相补表」，不是「大师授课」。这样真实数据才愿意沉淀。</p>
+    <h3 id="toc-9" class="ch">4.3 不说教的产品语言</h3>
+    <p>书可以直给（它是工具），但漫剧/游戏/社区要用「弱」的姿态。硬知识用萌的形式包裹，注意力才留得住，飞轮才转得动。</p>
+
+    <h2 id="toc-5" class="pt">五、版本蜕壳：别等完美才动</h2>
+    <div class="ptmap">先出 v1 启动飞轮，社区反馈来了再蜕 v2。根基是「活」的，不是一次做死。</div>
+    <h3 id="toc-10" class="ch">5.1 蜕壳节奏</h3>
+    <ul>
+      <li>v1：三本书正文 + 大纲上线（当前阶段），内核完整但案例有限。</li>
+      <li>v1.5：漫剧首季 + 游戏重包装，引流开始。</li>
+      <li>v2：吸收社区半年沉淀，补全 15 表的新场景/边界，书出修订版。</li>
+    </ul>
+    <h3 id="toc-11" class="ch">5.2 蜕壳的纪律</h3>
+    <p>每次蜕壳只动「被数据证明该动」的部分。没社区反馈前，不瞎改内核——这保护了 15 表的稳定性，也让读者不用担心「昨天学的今天作废」。</p>
+
+    <h2 id="toc-6" class="pt">六、一句话框架</h2>
+    <div class="flow"><b>内核（15 表）→ 四载体渲染（书/漫剧/游戏/社区）→ 社区反哺蜕壳 → 更强内核。</b><br>载体无限，内核唯一；先出 v1，靠飞轮长厚。这就是 IP 的活法。</div>
+
+    <h2 id="toc-7" class="pt">七、载体生产规范（给执行者的 SOP）</h2>
+    <div class="ptmap">内核稳定后，任何新载体的生产都走同一套规范，确保「渲染不跑偏」。</div>
+    <h3 id="toc-12" class="ch">7.1 新载体立项三问</h3>
+    <ul>
+      <li>它渲染的是哪张表、哪个分支？（答不上 = 不做）</li>
+      <li>它覆盖飞轮的哪一环：认知 / 兴趣 / 练习 / 沉淀？（重复环节要解释差异）</li>
+      <li>它弱不弱？会不会开口说教？（说教 = 推翻弱 AI 原则）</li>
+    </ul>
+    <h3 id="toc-13" class="ch">7.2 各载体产出 checklist</h3>
+    <div class="cards">
+      <div class="c"><b>书</b><span>每章挂判定表引用；附录完整 15 表；成书后跑 jsdom 点击级自检。</span></div>
+      <div class="c"><b>漫剧</b><span>每集片尾标「完整表见《操作指南》」；主角踩坑→翻表→破局结构不变。</span></div>
+      <div class="c"><b>游戏</b><span>每关对应一张表；判定反馈直接引用表分支；不重新发明逻辑。</span></div>
+      <div class="c"><b>社区</b><span>板块按 15 表分；帖子自动归档到对应表；高频问题进「待补全清单」。</span></div>
+    </div>
+    <h3 id="toc-14" class="ch">7.3 反哺节奏</h3>
+    <p>社区「待补全清单」每月汇总一次，季度评审后写入书的新版附录，书蜕 v2。你不做写手，只做「结构维护者」——审、不写。</p>
+    <div class="note"><b>红线</b>：任何载体不得自立一套逻辑去「优化」判定表。表的进化只来自社区数据 + 你的季度评审，不来自单个载体的创作冲动。</div>
+
+    <h2 id="toc-8" class="pt">八、内核稳定性检查（实例）</h2>
+    <div class="ptmap">每季度评审时，用下面这个虚构但典型的检查，验证内核没被悄悄改坏。</div>
+    <h3 id="toc-15" class="ch">8.1 检查样例</h3>
+    <div class="box"><b>提问</b>：某漫剧集想让主角「靠直觉」定高价，不翻表——这集能拍吗？<br><b>判定</b>：不能。它违反了「载体渲染内核、不自立逻辑」原则。主角可以暂时忘带表，但必须翻表破局，否则观众学到的是「凭感觉」，与内核相悖。<br><b>处置</b>：改剧本——主角先错、再翻表、再破局。</div>
+    <h3 id="toc-16" class="ch">8.2 检查样例</h3>
+    <div class="box"><b>提问</b>：社区里有人提「表 A 该加一个『节假日特殊分支』」——接不接？<br><b>判定</b>：先记入「待补全清单」，看同类反馈频次。单条个案不进表；季度内同场景出现 ≥3 次，才在评审时写进表 A 例外备注。<br><b>处置</b>：维护者记录，不即时改内核。</div>
+    <div class="note"><b>红线重申</b>：内核的每一次变动都必须有「数据 + 频次 + 评审」三重背书，任何单点创作冲动都不足以改动它。</div>
+
+    <h2 id="toc-9" class="pt">九、版本号与发布纪律</h2>
+    <div class="ptmap">内核与载体用不同的版本号，避免「书 v2 了游戏还是 v1 逻辑」的混乱。</div>
+    <h3 id="toc-17" class="ch">9.1 双版本轨</h3>
+    <ul>
+      <li><b>内核版本（K 轨）</b>：15 表整体版本，如 K1.0 / K1.5 / K2.0。所有载体标注自己基于哪个 K 版本。</li>
+      <li><b>载体版本（C 轨）</b>：书 v1 / 漫剧 S1 / 游戏 G1，各自独立迭代，但都指向同一 K。</li>
+    </ul>
+    <h3 id="toc-18" class="ch">9.2 发布铁律</h3>
+    <p>内核升 K 时，所有引用它的载体必须在下一周期内同步标注新版本，旧载体标注「基于 Kx，部分表已更新」以示差异。绝不允许载体 silently 用旧逻辑冒充新内核。</p>
+    <div class="note"><b>一句话</b>：内核一变，全员可见；载体可以慢半拍，但不能假装没变。</div>
+
+    <h2 id="toc-10" class="pt">十、常见误区（提前排雷）</h2>
+    <div class="ptmap">这些坑在实操里反复出现，提前写明，少走弯路。</div>
+    <h3 id="toc-19" class="ch">10.1 「内核」被做成内容</h3>
+    <p>误把某一本书、某一集漫剧当成 IP 本身，结果载体一改，内核跟着改。记住：内核是 15 表的 if-then 结构，载体只是它的影子。</p>
+    <h3 id="toc-20" class="ch">10.2 社区变灌水群</h3>
+    <p>为了「活跃」而运营，话题散掉、不再锚定 15 表，数据就沉淀不下来。活跃度是结果，不是目标；目标是「真实场景进表」。这比多做十个载体都重要，因为沉淀不下来的社区，只是又一个会冷掉的群。</p>
+    <h3 id="toc-21" class="ch">10.3 抢完美再发布</h3>
+    <p>等内核「打磨到无懈可击」才动，等于永远不动。v1 先出、社区反馈蜕 v2，才是活法。市场不会等你准备好，它只会奖赏先出场、再迭代的人。</p>
+    <div class="note"><b>红线</b>：以上三条，任何一条出现，立即回结构，不做修补式运营。内核稳、载体轻、社区真——九个字，是这套框架能不能活过第一年的全部秘密。</div>
+
+    <div class="foot">IP 内核与多载体渲染框架 v0.1 · 门内评审稿 · 内容以正式发布为准</div>
+  </div>
+</div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>IP 内核与多载体渲染框架 · 收益管理内容产品化</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">一、内核唯一：15 张判定表是 IP 本身</a>
+<a href="#toc-1" class="lv3">1.1 内核是「结构」，不是「内容」</a>
+<a href="#toc-2" class="lv3">1.2 为什么 AI 编不出</a>
+<a href="#toc-2">二、四类载体：同一内核的四种渲染</a>
+<a href="#toc-3" class="lv3">2.1 渲染不重写内核</a>
+<a href="#toc-4" class="lv3">2.2 载体间的引用网</a>
+<a href="#toc-3">三、社区反哺机制：飞轮的闭合</a>
+<a href="#toc-5" class="lv3">3.1 锚定内核，不建空群</a>
+<a href="#toc-6" class="lv3">3.2 数据如何变成书</a>
+<a href="#toc-4">四、弱 AI 设计原则（来自方法论启示）</a>
+<a href="#toc-7" class="lv3">4.1 漫剧：角色扮弱，用户变强</a>
+<a href="#toc-8" class="lv3">4.2 社区：戒尊戒魅</a>
+<a href="#toc-9" class="lv3">4.3 不说教的产品语言</a>
+<a href="#toc-5">五、版本蜕壳：别等完美才动</a>
+<a href="#toc-10" class="lv3">5.1 蜕壳节奏</a>
+<a href="#toc-11" class="lv3">5.2 蜕壳的纪律</a>
+<a href="#toc-6">六、一句话框架</a>
+<a href="#toc-7">七、载体生产规范（给执行者的 SOP）</a>
+<a href="#toc-12" class="lv3">7.1 新载体立项三问</a>
+<a href="#toc-13" class="lv3">7.2 各载体产出 checklist</a>
+<a href="#toc-14" class="lv3">7.3 反哺节奏</a>
+<a href="#toc-8">八、内核稳定性检查（实例）</a>
+<a href="#toc-15" class="lv3">8.1 检查样例</a>
+<a href="#toc-16" class="lv3">8.2 检查样例</a>
+<a href="#toc-9">九、版本号与发布纪律</a>
+<a href="#toc-17" class="lv3">9.1 双版本轨</a>
+<a href="#toc-18" class="lv3">9.2 发布铁律</a>
+<a href="#toc-10">十、常见误区（提前排雷）</a>
+<a href="#toc-19" class="lv3">10.1 「内核」被做成内容</a>
+<a href="#toc-20" class="lv3">10.2 社区变灌水群</a>
+<a href="#toc-21" class="lv3">10.3 抢完美再发布</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open');document.body.classList.toggle('toc-open',d.classList.contains('open'))});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open');document.body.classList.remove('toc-open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');document.body.classList.remove('toc-open');
+  });});
+})();
+</script>
+</body></html>
