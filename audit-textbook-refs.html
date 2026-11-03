@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>全站教材引用盘点 · 32/23章对齐41章 | RMC收益管理社区</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<link rel="stylesheet" href="assets/css/main.css?v=v2">
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<script src="assets/js/site-nav.js?v=v24"></script>
+<style>
+.cs-wrap{max-width:1000px;margin:0 auto;padding:22px 18px 70px}
+.cs-hero{background:linear-gradient(135deg,#12314f,#2C5282);color:#fff;border-radius:16px;padding:28px 30px;margin-bottom:20px}
+.cs-hero .ey{font-size:12px;letter-spacing:1.5px;opacity:.75;margin-bottom:8px}
+.cs-hero h1{margin:0 0 10px;font-size:27px;line-height:1.35}
+.cs-hero .lead{margin:0;font-size:15.5px;line-height:1.8;opacity:.95}
+.cs-banner{background:#eef3f8;border:1px solid #cdd9e6;border-radius:10px;padding:11px 16px;font-size:13px;color:#1B3A5C;margin-bottom:16px}
+.cs-banner b{color:#12314f}
+h2.cs-h{font-size:20px;color:#0f2a4a;margin:30px 0 12px;padding-left:11px;border-left:4px solid #e8b84b}
+.cs-card{background:#fff;border:1px solid #E1E5EA;border-radius:13px;padding:18px 20px;margin-bottom:14px}
+.cs-card p{margin:0 0 8px;font-size:14px;line-height:1.78;color:#2b3a4d}
+.cs-key{color:#9a6a12;font-weight:700}
+table.cs-t{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+table.cs-t th{background:#eef3f8;color:#12314f;text-align:left;padding:8px 10px;border-bottom:2px solid #d6e0ec;font-weight:700}
+table.cs-t td{padding:8px 10px;border-bottom:1px solid #eceff3;vertical-align:top;line-height:1.6}
+.cs-tag{display:inline-block;font-size:11px;background:#eef3f8;color:#1B3A5C;padding:2px 9px;border-radius:20px;margin:2px 4px 2px 0}
+.cs-tag.g{background:#e9f5ee;color:#1c6b3f}
+.cs-tag.r{background:#fdecec;color:#a02c4a}
+.cs-tag.y{background:#fff4e0;color:#9a6a12}
+ul.cs-ul{margin:6px 0 0;padding-left:20px;font-size:14px;line-height:1.85;color:#2b3a4d}
+ul.cs-ul li{margin-bottom:5px}
+.cs-note{font-size:12.5px;color:#5a6a80;margin-top:10px;line-height:1.7}
+</style>
+</head>
+<body data-auth="protected">
+<div class="cs-wrap">
+
+  <div class="cs-banner">📌 盘点时间 2026-11-03 · 范围 <b>hrma/crm 全站</b> · 目标：确认无「旧版 32/23 章教材被当作最新教材引用」，可见链接统一指向 <b>教材全本·41章（textbook-merged.html）</b>。</div>
+
+  <div class="cs-hero">
+    <div class="ey">RMC · 教材体系自查</div>
+    <h1>全站教材引用盘点报告</h1>
+    <p class="lead">
+      结论：全站<strong>无「旧版被冒充最新」的致命残留</strong>。两处把 32 章 <code>textbook.html</code> 当作主线教材链接的页面（learn-path / teacher 推荐用法）已修复为 41 章 <code>textbook-merged.html</code>。其余出现「32章 / 23章 / textbook.html」的位置，均为合规的源文件、显式标注的旧版、或复盘文档，应保留。
+    </p>
+  </div>
+
+  <h2 class="cs-h">一、关键发现：两套锚点方案不同</h2>
+  <div class="cs-card">
+    <p>对齐 41 章不是「改文件名」那么简单——两本书的章节锚点 id 命名不同：</p>
+    <table class="cs-t">
+      <thead><tr><th>文件</th><th>章数</th><th>章节锚点</th><th>练习锚点</th><th>附录锚点</th></tr></thead>
+      <tbody>
+        <tr><td><code>textbook.html</code>（三源·学生版）</td><td>32</td><td><code>#chNN</code></td><td><code>#exNN</code></td><td><code>#appX</code></td></tr>
+        <tr><td><code>textbook-merged.html</code>（教材全本）</td><td>41</td><td><code>#mchNN</code></td><td><code>#exNN</code></td><td><code>#appX</code></td></tr>
+      </tbody>
+    </table>
+    <p class="cs-note"><span class="cs-key">因此正确做法是 <code>textbook.html#chNN → textbook-merged.html#mchNN</code>（章锚点改前缀）；练习/附录锚点方案一致，直接换文件名即可。</span>盲目全文替换文件名会让 33–41 章链接直接失效。</p>
+  </div>
+
+  <h2 class="cs-h">二、本次已修复（A 类）</h2>
+  <div class="cs-card">
+    <table class="cs-t">
+      <thead><tr><th style="width:200px">文件</th><th>位置</th><th>修复内容</th></tr></thead>
+      <tbody>
+        <tr><td><code>learn-path.html</code></td><td>学生路径 15 章链接 + 5 附录 + JS 逻辑（line 438/575/599）</td><td><code>textbook.html#chNN</code> → <code>textbook-merged.html#mchNN</code>；<code>#ex/#app</code> 同步换文件；JS 动态拼接改为 <code>mch</code> 前缀。修复前 33–41 章链到 32 章文件是断的，现已能命中全本。</td></tr>
+        <tr><td><code>teacher.html</code></td><td>line 231 推荐用法</td><td>「配 <code>textbook.html</code>」→「配 <code>textbook-merged.html</code>（教材全本·41章）」</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="cs-h">三、合规保留（B 类：显式标注旧版）</h2>
+  <div class="cs-card">
+    <p>以下位置出现 <code>textbook.html</code> 或「32章」，但<strong>已显式标注为旧版/分册</strong>，符合「特指旧版须显式标注版本」的口径，保留：</p>
+    <table class="cs-t">
+      <thead><tr><th>文件</th><th>标注情况</th></tr></thead>
+      <tbody>
+        <tr><td><code>go.html</code> line 102</td><td>「教材翻阅版 · 五篇三十二章全文」——明确写 32 章，链接即 32 章分册，无误导</td></tr>
+        <tr><td><code>textbook-review.html</code></td><td>复盘文档，通篇讨论 <code>textbook.html</code> 作为「正典 32 章」的构件评估，属有意记录</td></tr>
+        <tr><td><code>deliverables-ledger.html</code> line 87</td><td>台账说明「学生在线学习版 textbook.html；三源 textbook-student / textbook-teacher」，明确区分三源与生成物</td></tr>
+        <tr><td><code>all-in-one.html</code> / <code>lines.html</code></td><td>「① 学生线 · 教材五篇三十二章」——描述学生线确为 32 章主线，表述准确</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="cs-h">四、有意保留（C 类：三源与生成器）</h2>
+  <div class="cs-card">
+    <ul class="cs-ul">
+      <li><span class="cs-tag">三源</span><code>textbook.html</code> / <code>textbook-teacher.html</code> / <code>textbook-student.html</code> 是不可改的原始文件，<b>不得改动</b>；它们与生成物（merged/print/sample）共存是设计如此。</li>
+      <li><span class="cs-tag">生成器</span><code>build_textbook_quiz.py</code> 等从三源抽取生成 <code>*.js</code>，引用三源路径属正常构建依赖。</li>
+      <li><span class="cs-tag">早期稿</span><code>textbook-early/</code> 内的「第23章」是早期完整版章节编号，非对外教材口径，保留作史料。</li>
+      <li><span class="cs-tag">教师总纲</span><code>CH00-教师总纲.md</code> / <code>teach/资源包清单.md</code> 仍按「五篇三十二章」编排教案——这是教师备课的分章索引，与 41 章全本不冲突（32 章为原理主线 + 现实篇 33–41 增补）。如需统一，应另起 41 章版总纲，不在本次范围。</li>
+    </ul>
+  </div>
+
+  <h2 class="cs-h">五、遗留与建议</h2>
+  <div class="cs-card">
+    <ul class="cs-ul">
+      <li><span class="cs-tag y">待办</span><code>CH00-教师总纲.md</code> 与 <code>teach/plans/CH00-教师总纲.md</code> 仍标注「五篇三十二章」——若后续把全本当教师主教材，建议补一份 41 章版总纲，避免备课索引与全本错位。</li>
+      <li><span class="cs-tag y">待办</span><code>learn.html</code> 已在注释中声明「不再引用旧版 32 章 textbook.html」，其内部章节锚点建议同样核查是否命中 <code>mchNN</code>（本次未改 learn.html，因其自述已切全本，需另测）。</li>
+      <li><span class="cs-tag g">已闭环</span>hotelier.html 曾「标 41 章却链 32 章」的问题已于 2026-11-03 清零，本次复查无复发。</li>
+    </ul>
+    <p class="cs-note">口径铁律（2026-11-03 立，仍有效）：<b>旧版教材（textbook.html 32章 / textbook-student.html 23章）不得作为「最新教材」引用；可见链接统一改指 textbook-merged.html（41章全本）；特指旧版须显式标注版本。</b></p>
+  </div>
+
+</div>
+<script src="assets/js/app.js?v=v2"></script>
+</body>
+</html>
