@@ -54,6 +54,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .selftest .q{font-size:13.6px;margin:9px 0 3px;font-weight:600;color:#1f2a37}
 .selftest .a{font-size:12.8px;color:#2f7d4f;margin:0 0 4px;padding-left:14px;border-left:2px solid #cdeccf}
 .foot{margin-top:26px;font-size:12px;color:#9aa7b6;text-align:center;line-height:1.8}
+.print-btn{margin-left:10px;background:#0f2a4a;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer}
+.print-btn:hover{background:#1d6fb8}
+@media print{
+ body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#fff!important}
+ .toolbar,.print-btn{display:none!important}
+ .appendix{page-break-before:always}
+ body.print-hide-appendix .appendix{display:none!important}
+ h2.pt{page-break-before:always}
+ .chx,.lvl-open,.selftest,.redline{page-break-inside:avoid}
+ .access-gate,.gate-mask,.gate-modal{display:none!important}
+}
 </style></head>
 <body><div class="book">
 <div class="cover">
@@ -68,6 +79,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <button data-lvl="2" onclick="setLvl(2)">L2 主管</button>
 <button data-lvl="3" onclick="setLvl(3)">L3 经理</button>
 <button data-lvl="0" class="active" onclick="setLvl(0)">全览（全部 36 章）</button>
+<button class="print-btn" onclick="printLvl()">🖨 打印当前难度版</button>
 <span class="hint" id="lvlHint">当前：全览</span>
 </div>
 <div class="body">
@@ -1162,7 +1174,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 </div></div>
 <script>
 var LABELS={1:"L1 执行专员（7 章核心）",2:"L2 主管（24 章）",3:"L3 经理（36 章全量）",0:"全览（全部 36 章 · 三档要点并列）"};
+var CUR=0;
 function setLvl(L){
+  CUR=L;
   document.querySelectorAll('.chx').forEach(function(s){var d=+s.dataset.level; s.style.display=(L===0||d<=L)?'':'none';});
   document.querySelectorAll('.lvl-open[data-level]').forEach(function(s){s.style.display=(L===0||+s.dataset.level<=L)?'block':'none';});
   document.querySelectorAll('.chx').forEach(function(s){ s.querySelectorAll('.lvl-note').forEach(function(n){ var nl=+n.dataset.lvl; n.style.display=(L===0)?'block':(nl===L?'block':'none'); }); });
@@ -1173,5 +1187,11 @@ function setLvl(L){
   if(L!==0) window.scrollTo(0,0);
 }
 setLvl(0);
+function printLvl(){
+  setLvl(CUR); /* 确保打印的是当前难度所见即所得 */
+  document.body.classList.toggle('print-hide-appendix', CUR!==0); /* 非全览时隐藏 15 张附录全量表，聚焦本档 */
+  window.print();
+}
+window.onafterprint=function(){ document.body.classList.remove('print-hide-appendix'); };
 </script>
 </body></html></div>
