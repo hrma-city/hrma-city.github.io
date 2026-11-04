@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>1+X 逐条映射大表 · 41章 / 861判定项 / 16赛项 ↔ 官方等级标准</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--gold2:#f5d78e;--ink:#1f2a37;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb;--teal:#1f7a6d;--rust:#a8442a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;font-size:14px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 90px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:30px 0 26px}
+.hero .wrap{padding-bottom:0}
+.tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);color:var(--gold2);font-size:12.5px;border-radius:999px;padding:3px 13px;margin-bottom:11px}
+.hero h1{font-size:22px;line-height:1.4}
+.hero p{color:#b9d0e6;font-size:13.5px;margin-top:9px;max-width:960px}
+.hero a{color:var(--gold2)}
+.box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 17px;margin:13px 0;box-shadow:0 2px 9px rgba(15,42,74,.05)}
+.box b{color:var(--navy)}
+h2{font-size:17px;color:var(--navy);margin:28px 0 5px;padding-left:11px;border-left:4px solid var(--gold)}
+.lead{color:var(--mut);font-size:12.5px;margin:0 0 9px;padding-left:11px}
+.num{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px;margin:12px 0}
+.num div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 13px}
+.num b{display:block;font-size:21px;color:var(--navy);line-height:1.3}
+.num span{font-size:11.5px;color:var(--mut)}
+.bar{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 8px}
+.bar button{font-family:inherit;font-size:12.5px;border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:5px 13px;cursor:pointer}
+.bar button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.bar button.exp{background:#fff8e8;border-color:#f0dcae;color:#8a6a1a}
+.tblw{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:auto;margin:10px 0;box-shadow:0 2px 9px rgba(15,42,74,.05)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:880px}
+th{background:var(--navy);color:#fff;text-align:left;padding:8px 9px;font-size:11.5px;font-weight:600;position:sticky;top:0;white-space:nowrap}
+td{padding:6px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafcfe}
+tr:hover td{background:#f2f7fd}
+td.c{text-align:center;white-space:nowrap}
+td.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:var(--navy2);white-space:nowrap}
+td.note{color:#46566c;font-size:12px;min-width:250px}
+tr.sum td{background:#fff8e8!important;font-weight:700;color:var(--navy);border-top:2px solid var(--gold)}
+.lv{display:inline-block;font-size:10.5px;border-radius:4px;padding:1px 6px;white-space:nowrap;font-weight:700}
+.l1{background:#e6f4f1;color:var(--teal)}
+.l2{background:#eaf1fa;color:var(--navy2)}
+.l3{background:#fff3d6;color:#8a6a1a}
+.lx{background:#f3f4f6;color:#6b7280}
+.quote{background:#fff8e8;border:1px solid #f0dcae;border-left:3px solid var(--gold);border-radius:0 9px 9px 0;padding:11px 14px;margin:12px 0;font-size:13px}
+.ob{background:#fff;border-left:3px solid var(--rust);border-radius:0 9px 9px 0;padding:10px 13px;margin:9px 0;font-size:13px}
+.ob b{color:var(--rust)}
+.ok{background:#fff;border-left:3px solid var(--teal);border-radius:0 9px 9px 0;padding:10px 13px;margin:9px 0;font-size:13px}
+.ok b{color:var(--teal)}
+.mini{display:flex;gap:12px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px 13px;margin:8px 0;font-size:13px}
+.mini b{color:var(--navy);min-width:88px;flex-shrink:0}
+.src{font-size:12px;color:var(--mut);line-height:1.9}
+.src a{color:var(--navy2)}
+.nav{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0 0}
+.nav a{font-size:12.5px;text-decoration:none;color:var(--navy);border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 13px}
+.foot{text-align:center;color:var(--mut);font-size:12px;margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}
+@media print{.hero,.bar,.nav,.foot{display:none!important}.wrap{max-width:none;padding:0}.tblw{overflow:visible}table{min-width:0;font-size:10px}th{position:static}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="wrap">
+<div class="tag">RMCity · 课证融通逐条映射 · 2026-11-04</div>
+<h1>1+X 逐条映射大表：41 章 / 861 判定项 / 16 赛项 ↔ 官方等级标准</h1>
+<p>把我们的教材、判定项与赛项，逐条对到<b>《酒店收益管理职业技能等级标准》（2021 年 2.0 版，标准代码 540002，北京三快在线科技/美团制定）</b>6.2 节的官方任务编号。用途：教师照表备课、学生照表备考、组织者照表出题、院系照表写课证融通。所有官方编号均可回溯到标准原文，未覆盖处明确标注，不硬凑。</p>
+</div></div>
+<div class="wrap">
+
+<h2>一、口径与本表的数字</h2>
+<div class="num" id="nums"></div>
+<div class="box"><b>编号规则：</b><span class="code">P / M / S</span> = 初级 / 中级 / 高级（Primary / Middle / Senior），后接标准 6.2 表内原始编号，如 <span class="code">S-4.1.7</span> 即「高级 4.1 酒店价格优化」第 7 条「能制定最佳可用房价 BAR」。三级均存在 <span class="code">1.1</span> 等相同编号，故必须带级别前缀，否则会串级。<b>官方三级「高级别涵盖低级别」，大量条目编号相同，本表按表内实际出现次数统计，不去重。</b></div>
+<div class="ob"><b>版本风险（务必核）：</b>公开检索存在同名《酒店收益管理职业技能等级标准（2021 年 1.0 版）》另一文本，其工作领域为「出租情况分析 / 销售监测分析」等，与本表采用的第四批 68 号 2.0 版<b>结构不同</b>。院校报考前须确认本校考点采用哪一版、哪一评价组织，本表仅对 2.0 版（标准代码 540002）成立。</div>
+
+<h2>二、官方 30 个工作任务逐条清单</h2>
+<p class="lead">按标准 6.2 表 1 / 表 2 / 表 3 逐行抄录任务名称与技能要求条目数，并标注对应教材章与赛项。点击筛选。</p>
+<div class="bar" id="barT"></div>
+<div class="tblw"><table id="tblT"><thead><tr><th>级别</th><th>任务编号</th><th>工作任务（原文）</th><th>条目数</th><th>对应教材章</th><th>对应赛项</th><th>与本资产的关系</th></tr></thead><tbody></tbody></table></div>
+
+<h2>三、41 章逐章映射大表（全量）</h2>
+<p class="lead">课时与判定项数取自教材实际统计（合计 84 课时 / 861 判定项），每章给出官方任务编号、适配级别、支撑赛项与一句实质说明。「拓展」= 官方标准未覆盖或超出适用范围，不参与备考。</p>
+<div class="bar" id="barC"></div>
+<div class="tblw"><table id="tblC"><thead><tr><th>章</th><th>章标题</th><th>课时</th><th>判定项</th><th>适配级别</th><th>官方任务编号</th><th>赛项</th><th>映射说明</th></tr></thead><tbody></tbody><tfoot id="footC"></tfoot></table></div>
+
+<h2>四、16 赛项 ↔ 官方条款逐条映射</h2>
+<p class="lead">每个赛项标明判分方式、官方任务依据、适配级别、支撑章节与判分要点；自建部分明确标注。</p>
+<div class="tblw"><table id="tblE"><thead><tr><th>编号</th><th>赛项名称</th><th>类别</th><th>判分</th><th>官方任务依据</th><th>适配级别</th><th>支撑章</th><th>判分要点</th></tr></thead><tbody></tbody></table></div>
+
+<h2>五、覆盖率与结论</h2>
+<div id="stats"></div>
+<div class="ok"><b>结论一（可直接写进申报材料）：</b>教材 41 章中，<b id="covN"></b> 章可直接对标 1+X 官方条款，覆盖初/中/高三级共 30 个工作任务中的绝大多数；教师用这套教材上课，即同时在覆盖 1+X 考核范围，不需要另开一门考证辅导课。</div>
+<div class="quote"><b>结论二（差异化在哪）：</b>标准未覆盖的 <b id="uncN"></b> 章（跨行业延展、误区审计、危机与黑天鹅、趋势与 ESG）恰恰是我们 C 类论证赛项与 D 类抗压赛项的素材来源。<b>1+X 考的是「会不会按流程做」，我们的赛项考的是「扰动下还能不能做对」</b>——这不是重复，是补层。对外口径应为「以教材覆盖 1+X 考核范围，以赛项提供超出标准的高阶能力评价」。</div>
+<div class="ob"><b>结论三（口径纠偏）：</b>本表只做<b>能力对标</b>，不代表 1+X 官方认可、不等同考核大纲、不构成本校学分认定依据。我们自建的 L1/L2/L3 是能力刻度，<b>不是 1+X 的初/中/高</b>，两者不可混用；既有页面中「L1 抵学分」「对接 1+X」应统一改为「拟对接，以本校教务与 1+X 考核站点认定为准」。</div>
+
+<h2>六、院校四种用法</h2>
+<div class="mini"><b>备课</b><span>按第三节逐章表，每章直接看到对应官方任务编号与适配级别；84 课时排完即覆盖备考范围，零额外备课。</span></div>
+<div class="mini"><b>备考</b><span>按第二节官方任务清单反查章与赛项；报名条件要求「学习酒店收益管理课程或相关培训满 32 课时」的同学，可据课时列出具课时证明。</span></div>
+<div class="mini"><b>办赛</b><span>按第四节把赛项判分点对齐官方条款，校赛成绩即成为课证融通的过程性证据；建议优先用三级重复条款（如 B3 超额预订 P/M/S-1.1.4）做首批赛题，最容易被教务接受。</span></div>
+<div class="mini"><b>申报</b><span>整表可直接作为人才培养方案「课证融通一览表」的附件；配合院系立项申报材料页，说明课程、赛项、证书三者同源。</span></div>
+
+<h2>七、边界与待核</h2>
+<div class="tblw"><table style="min-width:0"><thead><tr><th style="width:26%">项目</th><th>状态</th></tr></thead><tbody>
+<tr><td>官方标准文本</td><td>已核：2021 年 2.0 版 / 标准代码 540002 / 17 页 / 6.2 节三表，本文全部编号可回溯</td></tr>
+<tr><td>版本冲突</td><td><b>待核</b>：存在同名 2021 年 1.0 版（结构不同），院校须确认本校采用版本</td></tr>
+<tr><td>团体标准</td><td><b>待核</b>：《酒店收益管理人员职业能力要求》（2019-08-01 实施）仅核到名称、起草方与实施日期，条款细分未公开，本表未编造其条款号；祖长生「酒店收益管理师」（中国贸促会商业行业委员会发证）与该标准同源，宜另做对照</td></tr>
+<tr><td>考点与规模</td><td>官方未公布实施院校总数；本表不涉及院校数</td></tr>
+<tr><td>判定项</td><td>861 为教材逐章判定项统计合计（84 课时），非官方条款数；本表只给逐章数量，不虚构逐条内容</td></tr>
+<tr><td>本表性质</td><td>RMCity 自建能力对标工具，非官方发布物，仅供院校内部课证融通设计参考</td></tr>
+</tbody></table></div>
+
+<h2>八、需联动修订的既有页面</h2>
+<div class="box">证书模板页、L1 校赛达标包、B1 正式赛项、课赛证映射大表、试点洽谈一页纸、试点 MOU、院系立项申报材料共 7 页：凡「技能等级证书 / 抵学分 / 对接 1+X」处改为「达标证明 / 拟对接，以本校教务与考核站点认定为准」；自定 60/80/92 分数线加注「能力刻度，非 1+X 分数线」。详见 <a href="campus-intel-cert-competition.html">竞争态势研判页</a>第六节。</div>
+
+<h2>九、信源</h2>
+<div class="src">
+1. 《酒店收益管理职业技能等级标准》（2021 年 2.0 版，标准代码 540002，北京三快在线科技有限公司，2021-12 发布，17 页）· <a href="http://oss.ouchn.cn/xfyh/%E8%81%8C%E4%B8%9A%E6%8A%80%E8%83%BD%E7%AD%89%E7%BA%A7%E6%A0%87%E5%87%86/68.%E9%85%92%E5%BA%97%E6%94%B6%E7%9B%8A%E7%AE%A1%E7%90%86%E8%81%8C%E4%B8%9A%E6%8A%80%E8%83%BD%E7%AD%89%E7%BA%A7%E6%A0%87%E5%87%86.pdf" target="_blank">国家开放大学托管 PDF 原文</a>（本表 6.2 节全部编号来源）<br>
+2. 1+X 酒店收益管理职业技能等级证书申报说明（含报名条件「满 32 课时」）· <a href="https://kyc.gxgsxy.edu.cn/__local/F/0A/00/A183AF6A7DC259F9FAB2D383838_3FDDC1D7_5FA89.pdf?e=.pdf" target="_blank">链接</a><br>
+3. 1+X 证书学习网（颁证机构、机考 60 分合格、5/11 月考试、16 学时、建议学分 1.0、考点片段）· <a href="https://www.xzhengshu.cn/certificate/detail/1608654998768816129" target="_blank">链接</a><br>
+4. 教材内部统计：41 章 / 84 课时 / 861 判定项（<span style="font-family:monospace">/tmp/ch41.json</span>，与 <a href="campus-course-event-map.html">课赛证映射大表</a>同源）<br>
+5. 16 赛项定义与判分方式：<a href="campus-competition-events.html">赛项库详细页</a>
+</div>
+
+<div class="bar"><button id="btnCsv">导出 41 章映射表 CSV</button><button onclick="window.print()">打印本页</button></div>
+
+<div class="nav">
+<a href="campus-intel-cert-competition.html">← 竞争态势研判（1+X × 晨鸟杯）</a>
+<a href="campus-course-event-map.html">课赛证映射大表</a>
+<a href="campus-competition-events.html">赛项库详细页</a>
+<a href="campus-certificate-template.html">校赛证书电子模板</a>
+<a href="campus-competition-engine.html">赛事引擎（总览）</a>
+<a href="deliverables-index.html">产出物总目录</a>
+</div>
+<div class="foot">RMCity · 课证融通逐条映射（门内）· 2026-11-04 · 官方编号可回溯，自建部分已标注</div>
+</div>
+
+<script>
+const CH=[[1, "收益管理是什么：一句话与底层逻辑", 3, 23, "初级", "P-1.1", "A1", "官方无独立「认知」考核任务；按 P-1.1 对预订政策与流程的理解要求对标，属基础支撑"], [2, "三个核心指标：OCC、ADR、RevPAR", 3, 20, "初级/中级", "P-1.1.7 / M-3.2.3", "A2", "预订报表读取与系统报表分析；OCC/ADR/RevPAR 是全部条款的数据底座"], [3, "竞争三件套：MPI、ARI、RGI", 2, 20, "中级/高级", "M-2.2.6 / S-3.1.1", "A2", "竞对价格变化收集与比较、竞争对手经营资料；MPI/ARI/RGI 为对标口径"], [4, "价格弹性：降多少价能换多少量", 2, 21, "高级", "S-4.1.6", "B1", "需求的价格弹性分析进行价格优化；B1 判分中弹性系数的直接官方依据"], [5, "什么时候涨价", 2, 21, "高级", "S-4.2.2", "B1", "按市场需求变化关闭和开放不同等级价格；对应提价时机判断"], [6, "竞品降价：跟还是不跟", 2, 21, "中级/高级", "M-2.2.6 / S-4.1.2", "B1", "实时收集竞对价格并做出价格调整决策；竞争导向定价法"], [7, "折扣与促销：什么时候该让", 2, 21, "初级/高级", "P-1.1.6 / S-4.1.3", "B1", "制订预订方式促销方案提升不同市场状况下客房收益；渗透定价策略"], [8, "套餐与锚定：让客人觉得划算", 2, 21, "初级/高级", "P-1.1.5 / S-4.1.4", "B1", "升降档销售法、附加价值法；声望定价与溢价策略"], [9, "房型价差：差价定多少才合理", 2, 21, "中级/高级", "M-1.4.1 / S-4.1.5", "B1,B2", "差别定价与嵌套/非嵌套控制；房型价差即跨细分市场的容量配置"], [10, "最短住期 MinLOS：用条件把客群分开", 2, 22, "初级/中级", "P-1.1.5 / M-1.4.1", "B2", "条件预订法、住宿时间限制法（MinLOS）；容量控制基本方法之一"], [11, "超额预订：卖出去的比有的多", 2, 23, "初级/中级/高级", "P-1.1.4 / M-1.1.4 / S-1.1.4", "B3", "三级标准均明列「正确从事超额预订以减少或避免客房空耗损失」；walk≤0.5% 红线为我们的判分细化"], [12, "库存分配与保护位：给谁留多少房", 2, 22, "中级/高级", "M-1.4.1 / S-1.4.2", "B2,B3", "预留保护法、嵌套控制法进行客房容量配置与预订进度管控；保护位判分依据"], [13, "渠道净价：到手多少钱才算数", 2, 21, "中级/高级", "M-2.2.9 / S-2.2.9", "B4", "与分销商签订合同并核定预付、返现、佣金以控制渠道成本；净价口径的官方出处"], [14, "客源细分：把客人分成几堆来卖", 2, 21, "中级/高级", "M-1.4.5 / S-3.1.3", "A3,B1", "按不同细分市场需求优化分配客房；细分市场产品结构占比与价格分布"], [15, "团队置换：这个团该不该接", 2, 23, "中级/高级", "M-1.4.2 / S-1.4.3", "B5", "应用团队置换分析方法评估团队预订是否接受；B5 与官方条款逐字对应"], [16, "直销与会员：把客人变成自己的", 2, 21, "中级", "M-2.3.3 / M-2.1.4", "B4", "构建酒店会员系统；统计直销与分销渠道比例变化并分析"], [17, "运营全景：从年到日的节奏", 2, 21, "初级/中级", "P-2.2 / M-4.2", "B6", "处理部门日常业务、部门文书与会议纪要；年度到日的运营节奏"], [18, "每日实操流程：一天具体做什么", 2, 20, "初级/中级", "P-2.2.2 / M-3.2.2", "B1–B6", "部门会议记录；系统录入市场需求变化、管理动态定价日历（每日决策日课）"], [19, "执行标准与收益例会", 2, 19, "高级", "S-5.1.1 / S-5.1.2 / S-5.1.3", "C2", "组织收益例会、晨会、月度会议，汇报 KPI、预测误差与下期举措；C2 答辩场景的官方原型"], [20, "预测与需求日历", 2, 23, "高级", "S-3.2.1", "A4,B1", "预测无限制需求量、预订量、预订进度、销售价格、超订量、分配数量与市场份额"], [21, "年度预算：把一年拆到每天", 2, 21, "高级", "S-3.1.2 / S-3.2.3", "A4", "收集历年经营与客史资料；衡量预测误差并将误差控制在一定范围内"], [22, "价格体系 BAR：所有价格的锚", 2, 21, "高级", "S-4.1.7 / S-4.2.1", "B1,B2", "制定最佳可用房价 BAR；确保价格体系准确体现在各销售渠道（价格一致性判分依据）"], [23, "报表体系：每天该看哪几张表", 2, 20, "初级/中级/高级", "P-1.1.7 / M-3.2.3 / S-3.1.3", "A2,C1", "读取或制作预订报表；分析系统生成报表发现需求波动；C1 经营分析报告的数据源"], [24, "OTA 与点评：评分就是价格", 2, 23, "初级/中级", "P-1.3 / M-2.2.5", "B4", "网络口碑管控 8 条技能要求；据 OTA 客户点评反馈运营并提升点评分"], [25, "岗位与组织：谁来干这件事", 2, 20, "高级", "S-5.3.2", "C2", "按酒店规模类型组建收益团队，确定成员职责、任职资格与绩效考核指标"], [26, "成本与利润：降价的底线在哪", 2, 21, "中级/高级", "M-2.2.9 / S-4.1.2", "B1,C1", "成本导向定价法；渠道成本核定；降价底线与利润归因"], [27, "系统与数据：工具能替你做什么", 2, 21, "中级/高级", "M-3.1.1 / S-5.3.1", "C2", "掌握收益系统运行原理与后台操作；搭建收益系统实现实时性"], [28, "淡旺季与事件日：一年里最容易赚的钱", 2, 24, "高级", "S-3.1.1 / S-4.2.3", "A4,B1", "收集城市事件、市场季节性变化；依据需求预测建立动态定价日历"], [29, "餐饮收益：RevPASH 与翻台", 2, 22, "高级", "S-5.2.3", "B6", "与餐饮部共同协作制定餐饮收益策略；RevPASH 与翻台的多资源判分落点"], [30, "会议宴会：不只算房，算总贡献", 2, 22, "高级", "S-5.2.3 / S-3.1.3", "B6", "跨部门协作与细分市场产品结构占比分析；会议宴会算总贡献"], [31, "其他业态与跨行业参数", 2, 22, "拓展", "—", "B6", "超出 1+X 标准适用范围（标准 4 章适用专业与第 5 章岗位群均限住宿业态）；属教材延展与跨行业赛项素材"], [32, "常见误区：30 个坑，别再踩", 2, 14, "拓展", "—", "C3", "官方 6.2 三表未设「审计/误区识别」任务；对应 C3 收益审计，属我们自建高阶能力"], [33, "中国渠道生态：平台、私域、买断与直播", 2, 22, "中级", "M-2.3.7 / M-2.1.1", "B4", "官网、APP、微平台、搜索引擎及社媒直销渠道管理；渠道类型与优劣势分析"], [34, "连锁与中央预订：总部定价，门店做什么", 2, 26, "中级/高级", "M-2.1.3 / S-5.2.1 / S-5.2.2", "B4,C2", "中间商评估与优化调整；与前厅部、销售部深度沟通协作达成共识"], [35, "AI 工具做收益分析", 2, 21, "中级/高级", "M-3.1.1 / S-3.2.2", "C2", "系统后台操作与更新；运用大数据思维、方法和工具提升无限制需求预测精准度"], [36, "危机与极端场景", 2, 21, "拓展", "—", "D1,D2", "官方条款为静态业务能力描述，未覆盖突发/极端扰动场景；D1/D2 属我们自建抗压赛项"], [37, "收益岗位与职业发展", 2, 22, "高级", "S-5.3.2", "C2", "收益管理团队成员任职资格、工作职责与工作绩效考核指标；对应岗位与职业发展"], [38, "变革篇：收益管理正在发生的五件事", 2, 19, "拓展", "—", "C3,C2", "官方标准未设趋势判断任务；变革五件事属视野延展，用于 C3 审计中的趋势论证"], [39, "周期与不确定性下的收益管理", 2, 20, "高级", "S-3.2.4 / S-4.2.5", "D3", "借助大数据修正预测；跟踪价格执行情况及时反馈修正；不确定性与多目标权衡"], [40, "人工智能与收益管理（科普）", 2, 17, "高级", "S-3.2.2", "C3", "运用大数据思维、方法和工具收集市场信息、分析顾客购买行为"], [41, "绿色收益管理与可持续", 2, 17, "拓展", "—", "C3", "标准未覆盖 ESG / 可持续收益权衡；属自建视野章，不参与 1+X 备考"]];
+const TASKS=[["初级", "1.1", "散客订房", 8, "CH01,07,08,10,11,23", "A1,B1,B3", "含超额预订 1.1.4、升降档/条件预订/住期限制 1.1.5、预订报表 1.1.7，是 B3 与 B2 的直接官方依据"], ["初级", "1.2", "团体订房", 5, "CH15,18", "B5", "团体销售合同审核、房间供给量与取消情况监控；团队置换分析的前置业务"], ["初级", "1.3", "网络口碑管控", 8, "CH24", "B4", "售前预期管理、点评分析与回复、口碑激励；B4 中口碑定价的依据"], ["初级", "2.1", "档案与业务数据管理", 3, "CH17,23", "A2", "收集市场信息、整理客户与业务档案、统计预订/渠道/收益数据"], ["初级", "2.2", "处理部门日常业务", 2, "CH17,18", "B6", "部门文书与会议记录；每日实操流程的行政侧"], ["中级", "1.1", "散客预订", 7, "CH01,07,11,23", "A1,B1,B3", "较初级删去升档销售条目，保留超额预订与促销方案；接受/拒绝预订方法"], ["中级", "1.2", "团队预订", 7, "CH15,30", "B5", "新增分析团队市场利弊与开发、优化团队入住模式"], ["中级", "1.3", "网络口碑管控", 8, "CH24", "B4", "与初级同名同条目，体现「高级别涵盖低级别」"], ["中级", "1.4", "容量控制", 6, "CH09,10,12,15", "B2,B3,B5", "预留保护法、嵌套控制法、团队置换分析、按细分市场优化分配客房并衡量效果"], ["中级", "2.1", "销售渠道选择", 4, "CH13,16,33,34", "B4", "直销/分销优劣势、中间商评估、直销分销比例统计"], ["中级", "2.2", "OTA 运营", 12, "CH13,24,33", "B4", "OTA 后台与产品包装、竞对价格调整、佣金与渠道成本核定、流量与转化、数据挖掘"], ["中级", "2.3", "私域流量运营", 7, "CH16,33", "B4", "会员系统构建、公域引流、私域激活裂变、直销渠道维护"], ["中级", "3.1", "收益系统后台操作", 2, "CH27,35", "C2", "系统运行原理、后台操作与更新、与供应商沟通"], ["中级", "3.2", "市场与数据分析", 3, "CH02,18,23,28", "A2,A4", "市场事件录入、动态定价日历维护、分析系统报表发现需求波动"], ["中级", "4.1", "档案与业务数据管理", 3, "CH17,23", "A2", "与初级 2.1 同内容，编号随工作领域顺延"], ["中级", "4.2", "处理部门日常业务", 2, "CH17,18", "B6", "与初级 2.2 同内容"], ["高级", "1.1", "散客预订", 7, "CH01,07,11", "A1,B3", "与中级 1.1 同条目；三级重复的典型"], ["高级", "1.2", "团队预订", 7, "CH15,30", "B5", "与中级 1.2 同条目"], ["高级", "1.3", "网络口碑管控", 8, "CH24", "B4", "与初/中级同条目"], ["高级", "1.4", "容量控制", 7, "CH09,10,12,15", "B2,B3,B5", "较中级新增独立列出决策模型理解，共 7 条；含团队置换评估与效果衡量"], ["高级", "2.1", "销售渠道选择", 4, "CH13,16,33", "B4", "与中级 2.1 同条目"], ["高级", "2.2", "OTA 运营", 12, "CH13,24,33", "B4", "与中级 2.2 同条目；2.2.6 竞对价格与开放/关闭价格等级是 B1 直接考点"], ["高级", "2.3", "私域流量运营", 7, "CH16,33", "B4", "与中级 2.3 同条目"], ["高级", "3.1", "经营数据收集与分析", 3, "CH02,03,21,23,28", "A2,A4,C1", "历史/现在/未来市场资料、历年经营与客史、按细分市场与渠道监督价格策略并分析收益率"], ["高级", "3.2", "预测与纠偏", 4, "CH20,21,35,39,40", "A4,B1", "定量与定性预测、大数据提升无限制需求预测精度、衡量并控制预测误差、修正预测"], ["高级", "4.1", "酒店价格优化", 7, "CH04,06,07,08,09,22,26", "B1", "成本/需求/竞争导向定价、撇脂与渗透、声望溢价、差别定价、价格弹性优化、制定 BAR"], ["高级", "4.2", "实施动态定价", 5, "CH05,20,22,28,39", "B1", "价格体系在渠道准确呈现、按需求开关价格等级、动态定价日历、价格歧视、执行跟踪与修正"], ["高级", "5.1", "组织收益例会", 3, "CH19,25", "C2", "收益管理会议汇报 KPI 与下期举措、晨会处理突发问题、月度会讨论预测误差与收益举措"], ["高级", "5.2", "跨部门协作", 4, "CH29,30,34", "B6,C2", "与前厅、销售、餐饮、财务四部门协作；餐饮收益策略与每日夜审"], ["高级", "5.3", "收益系统与团队搭建", 2, "CH25,27,37", "C2", "搭建收益系统实现实时性；按规模类型组建团队、定职责与绩效指标"]];
+const EVENTS=[["A1", "概念辨析赛", "理解", "机评", "P-1.1 / M-1.1", "初级/中级", "CH01", "按预订政策与流程判断概念正误；官方无独立认知任务，属基础支撑"], ["A2", "指标计算赛", "理解", "机评", "P-1.1.7 / M-3.2.3 / S-3.1.3", "三级", "CH02,03,23", "读取预订报表并计算 OCC/ADR/RevPAR、MPI/ARI/RGI；分析报表发现需求波动"], ["A3", "市场细分识别赛", "理解", "机评", "M-1.4.5 / S-3.1.3", "中级/高级", "CH14", "按细分市场结构占比与价格分布识别客群；细分市场优化分配客房的前置"], ["A4", "需求预测读图赛", "理解", "机评", "S-3.2.1 / S-3.2.3", "高级", "CH20,21,28", "预测无限制需求、预订进度、超订量；衡量预测误差并控制在范围内"], ["B1", "动态定价决策", "决策", "模拟器机评", "S-4.1.1–4.1.7 / S-4.2.1–4.2.5 / M-2.2.6", "高级为主", "CH04–09,22,26,28", "BAR 制定、价格体系渠道一致性、需求弹性优化、按需求开关价格等级、动态定价日历、竞对价格调整"], ["B2", "房量分配与保护位", "决策", "模拟器机评", "M-1.4.1 / S-1.4.2 / S-4.1.5", "中级/高级", "CH09,10,12,22", "预留保护法与嵌套控制、MinLOS/条件预订、差别定价下的保护位设置"], ["B3", "超额预订设置", "决策", "模拟器机评", "P-1.1.4 / M-1.1.4 / S-1.1.4", "三级", "CH11,12", "三级标准唯一逐字重复的决策条款；判分细化到取消率+No-show 基准与 walk≤0.5% 红线"], ["B4", "渠道与批量管控", "决策", "模拟器机评", "P-1.3 / M-2.1.x / M-2.2.6,2.2.9 / M-2.3.x", "三级", "CH13,16,24,33,34", "净价扣佣、直销分销比例、佣金与预付返现核定、私域会员、口碑点评分、竞对价格响应"], ["B5", "置换分析决策", "决策", "案例+模拟（机评+人评）", "M-1.4.2 / S-1.4.3 / S-1.4.4", "中级/高级", "CH15", "应用团队置换分析评估团队预订是否接受；分析团队市场利弊并优化入住模式"], ["B6", "多资源产能分配（RevPASH）", "决策", "模拟器机评", "S-5.2.3 / P-2.2 / M-4.2", "高级为主", "CH17,29,30,31", "与餐饮部协作制定餐饮收益策略；RevPASH/翻台；跨行业部分超出 1+X 适用范围"], ["C1", "经营分析报告", "论证", "人评", "M-3.2.3 / S-3.1.3 / S-5.1.3", "中级/高级", "CH23,26", "系统报表分析需求波动、按细分市场与渠道分析收益率、月度会汇报收益举措"], ["C2", "方案陈述答辩", "论证", "人评", "S-5.1.1–5.1.3 / S-5.2.x / S-5.3.2", "高级", "CH19,25,27,34,35,37", "收益例会 KPI 汇报、跨部门协作方案、系统搭建与团队职责绩效设计"], ["C3", "收益审计", "论证", "人评+机评", "S-4.2.5（跟踪执行反馈修正）", "高级（部分自建）", "CH32,38,40,41", "官方未设审计任务；以价格执行跟踪、误区清单、趋势与 ESG 权衡构成自建高阶能力"], ["D1", "突发事件应对", "抗压", "机评", "S-5.1.2（晨会讨论突发问题）", "高级（部分自建）", "CH36", "官方仅覆盖晨会讨论突发问题；限时扰动下的决策稳定性为自建判分"], ["D2", "黑天鹅压力测试", "抗压", "机评", "S-3.2.4 / S-4.2.5", "高级（部分自建）", "CH36", "借助大数据修正预测、跟踪价格执行及时反馈修正；长周期扰动为自建判分"], ["D3", "多目标冲突权衡", "抗压", "机评+人评", "S-5.2.1–5.2.4 / S-3.2.3", "高级（部分自建）", "CH39", "跨部门目标冲突与预测误差控制；宏观不确定性下的权衡为自建判分"]];
+const $=function(id){return document.getElementById(id);};
+const esc=function(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
+function lvTag(s){
+  if(s.indexOf('拓展')>=0)return '<span class="lv lx">拓展</span>';
+  var out='';
+  if(s.indexOf('初级')>=0)out+='<span class="lv l1">初</span> ';
+  if(s.indexOf('中级')>=0)out+='<span class="lv l2">中</span> ';
+  if(s.indexOf('高级')>=0)out+='<span class="lv l3">高</span>';
+  return out||esc(s);
+}
+var fT='全部',fC='全部';
+function renderT(){
+  var rows=TASKS.filter(function(r){return fT==='全部'||r[0]===fT;});
+  $('tblT').querySelector('tbody').innerHTML=rows.map(function(r){
+    return '<tr><td class="c">'+lvTag(r[0])+'</td><td class="code">'+esc(r[0].charAt(0)==='初'?'P':r[0].charAt(0)==='中'?'M':'S')+'-'+esc(r[1])+'</td><td><b>'+esc(r[2])+'</b></td><td class="c">'+r[3]+'</td><td class="code">'+esc(r[4])+'</td><td class="code">'+esc(r[5])+'</td><td class="note">'+esc(r[6])+'</td></tr>';
+  }).join('')+'<tr class="sum"><td colspan="3">当前筛选：'+esc(fT)+' · 任务数 '+rows.length+'</td><td class="c">'+rows.reduce(function(a,r){return a+r[3];},0)+'</td><td colspan="3">条技能要求</td></tr>';
+}
+function renderC(){
+  var rows=CH.filter(function(r){return fC==='全部'||r[4].indexOf(fC)>=0;});
+  $('tblC').querySelector('tbody').innerHTML=rows.map(function(r){
+    return '<tr><td class="c"><b>CH'+String(r[0]).padStart(2,'0')+'</b></td><td>'+esc(r[1])+'</td><td class="c">'+r[2]+'</td><td class="c">'+r[3]+'</td><td class="c">'+lvTag(r[4])+'</td><td class="code">'+esc(r[5])+'</td><td class="code">'+esc(r[6])+'</td><td class="note">'+esc(r[7])+'</td></tr>';
+  }).join('');
+  var h=rows.reduce(function(a,r){return a+r[2];},0),q=rows.reduce(function(a,r){return a+r[3];},0);
+  $('footC').innerHTML='<tr class="sum"><td colspan="2">合计（'+rows.length+' 章 / 筛选：'+esc(fC)+'）</td><td class="c">'+h+'</td><td class="c">'+q+'</td><td colspan="4">全表基准：41 章 / 84 课时 / 861 判定项</td></tr>';
+}
+function renderE(){
+  $('tblE').querySelector('tbody').innerHTML=EVENTS.map(function(r){
+    return '<tr><td class="c"><b>'+esc(r[0])+'</b></td><td>'+esc(r[1])+'</td><td class="c">'+esc(r[2])+'</td><td class="c">'+esc(r[3])+'</td><td class="code">'+esc(r[4])+'</td><td class="c">'+lvTag(r[5])+'</td><td class="code">'+esc(r[6])+'</td><td class="note">'+esc(r[7])+'</td></tr>';
+  }).join('');
+}
+function initBar(id,opts,cur,cb){
+  $(id).innerHTML=opts.map(function(o){return '<button data-v="'+esc(o)+'" class="'+(o===cur?'on':'')+'">'+esc(o)+'</button>';}).join('');
+  $(id).addEventListener('click',function(e){
+    if(e.target.tagName!=='BUTTON')return;
+    var v=e.target.getAttribute('data-v');
+    Array.prototype.forEach.call(this.children,function(b){b.className=(b.getAttribute('data-v')===v?'on':'');});
+    cb(v);
+  });
+}
+function stats(){
+  var cov=CH.filter(function(r){return r[5]!=='—';});
+  var unc=CH.filter(function(r){return r[5]==='—';});
+  var byLv={'初级':0,'中级':0,'高级':0};
+  CH.forEach(function(r){Object.keys(byLv).forEach(function(k){if(r[4].indexOf(k)>=0)byLv[k]++;});});
+  var items=[['41','教材章节'],['84','课时'],['861','教材判定项'],['167','官方技能要求条目'],['30','官方工作任务'],['16','赛事赛项'],[cov.length,'可对标官方条款的章'],[unc.length,'标准未覆盖的章']];
+  $('nums').innerHTML=items.map(function(x){return '<div><b>'+x[0]+'</b><span>'+x[1]+'</span></div>';}).join('');
+  $('covN').textContent=cov.length;
+  $('uncN').textContent=unc.length;
+  $('stats').innerHTML='<div class="box"><b>覆盖结构：</b>41 章中 <b>'+cov.length+'</b> 章有官方条款对应（'+(cov.length/41*100).toFixed(1)+'%），<b>'+unc.length+'</b> 章属标准未覆盖/超出适用范围；按级别计，涉及初级的章 '+byLv['初级']+' 章、中级 '+byLv['中级']+' 章、高级 '+byLv['高级']+' 章（章可同时适配多级）。官方 30 个工作任务中，本表已逐条给出对应章与赛项，无空行。</div>';
+}
+function csv(){
+  var h='章,章标题,课时,判定项数,适配级别,官方任务编号,对应赛项,映射说明\n';
+  var q=function(v){return '"'+String(v==null?'':v).replace(/"/g,'""')+'"';};
+  var body=CH.map(function(r){return [('CH'+String(r[0]).padStart(2,'0')),r[1],r[2],r[3],r[4],r[5],r[6],r[7]].map(q).join(',');}).join('\n');
+  var blob=new Blob(['\ufeff'+h+body],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='1X课证融通映射表_41章.csv';document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+}
+initBar('barT',['全部','初级','中级','高级'],fT,function(v){fT=v;renderT();});
+initBar('barC',['全部','初级','中级','高级','拓展'],fC,function(v){fC=v;renderC();});
+$('btnCsv').addEventListener('click',csv);
+renderT();renderC();renderE();stats();
+</script>
+</body>
+</html>
