@@ -7,7 +7,7 @@
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<title>校赛证书电子模板 · 批量签发（赛事引擎十一）</title>
+<title>校赛达标证明电子模板 · 批量生成（赛事引擎十一）</title>
 <style>
 :root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--gold2:#f5d78e;--ink:#1f2a37;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb;--teal:#1f7a6d;--rust:#a8442a}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -80,13 +80,14 @@ button:hover{filter:brightness(1.06)}
 </head>
 <body>
 <div class="hero"><div class="wrap">
-<div class="tag">RMCity · 校赛证书电子模板 · 赛事引擎十一</div>
-<h1>校赛证书电子模板：粘贴成绩，批量签发</h1>
-<p>配套 <a href="campus-b1-event.html">B1 正式赛项页</a> 与 <a href="campus-pilot-runbook.html">首场校赛执行清单</a>。赛后把导出的成绩 CSV 粘进来，系统按分数线自动判级、生成证书编号与验真码，一键打印或导出签发台账。证书样式为可打印版式，正式证书由院校盖章、教务备案后生效。</p>
+<div class="tag">RMCity · 校赛达标证明电子模板 · 赛事引擎十一</div>
+<h1>校赛达标证明电子模板：粘贴成绩，批量生成</h1>
+<p>配套 <a href="campus-b1-event.html">B1 正式赛项页</a> 与 <a href="campus-pilot-runbook.html">首场校赛执行清单</a>。赛后把导出的成绩 CSV 粘进来，系统按分数线自动判级、生成证书编号与验真码，一键打印或导出签发台账。本页生成的是<b>校本达标证明</b>版式，非国家职业技能等级证书；经院校盖章、教务备案后方可作为校内过程性评价材料。</p>
 </div></div>
 
 <div class="wrap">
 
+<div style="background:#fff8e8;border:1px solid #f0dcae;border-left:3px solid #e8b84b;border-radius:0 9px 9px 0;padding:11px 14px;margin:14px 0;font-size:12.5px;line-height:1.8;color:#3a4658"><b>口径声明（2026-11-04 统一修订）：</b>本页出现的 L1/L2/L3 是 RMCity 自建<b>能力等级</b>；「证书 / 发证 / 证书线」均指<b>校本达标证明</b>及其能力刻度，<b>不是</b> 1+X 酒店收益管理职业技能等级证书（北京三快在线科技 / 美团颁证，标准代码 540002），也不等同其初 / 中 / 高级。学分认定、1+X 与学分银行换算一律为<b>拟对接</b>，以本校教务部门与 1+X 考核站点正式认定为准。详见 <a href="campus-cert-wording.html">统一口径说明</a> 与 <a href="campus-1x-mapping.html">1+X 逐条映射大表</a>。</div>
 <h2>一、字段规范（与成绩导出对齐）</h2>
 <p class="lead">B1 正式赛项页「导出全部成绩 CSV」的字段可直接粘贴，无需改格式。</p>
 <table class="tbl">
@@ -94,20 +95,20 @@ button:hover{filter:brightness(1.06)}
 <tbody>
 <tr><td>1</td><td>姓名</td><td>持证人姓名，与报名身份一致</td></tr>
 <tr><td>2</td><td>院校</td><td>参赛院校全称</td></tr>
-<tr><td>3</td><td>学号</td><td>用于教务存档与抵学分核对</td></tr>
+<tr><td>3</td><td>学号</td><td>用于教务存档与学分认定核对（认定以本校教务为准）</td></tr>
 <tr><td>4</td><td>赛项</td><td>如 <code>B1 动态定价决策（校赛）</code>；达标包可写 <code>L1 校赛达标包</code></td></tr>
 <tr><td>5</td><td>综合得分</td><td>0–100，判级依据</td></tr>
 <tr><td>6</td><td>净 RevPAR</td><td>可选，印在证书上作成绩佐证；缺失留空即可</td></tr>
 </tbody>
 </table>
-<div class="quote">首行为表头时会自动跳过；允许只填前 5 列。低于 L1 线的选手<b>不生成证书</b>，单列进「未达标名单」，避免误发。</div>
+<div class="quote">首行为表头时会自动跳过；允许只填前 5 列。低于 L1 线的选手<b>不生成达标证明</b>，单列进「未达标名单」，避免误发。</div>
 
 <h2>二、签发规则</h2>
-<div class="mini"><b>判级</b><span>综合得分 ≥ L3 线 → L3 高级；≥ L2 线 → L2 中级；≥ L1 线 → L1 初级；低于 L1 线不发证。默认 60 / 80 / 92，与 <a href="campus-b1-event.html">编排台证书线</a> 一致，可现场调整后重新生成。</span></div>
+<div class="mini"><b>判级</b><span>综合得分 ≥ L3 线 → L3 高级；≥ L2 线 → L2 中级；≥ L1 线 → L1 初级；低于 L1 线不出具证明。默认 60 / 80 / 92 为<b>自建能力刻度，非 1+X 分数线</b>，与 <a href="campus-b1-event.html">编排台能力等级线</a> 一致，可现场调整后重新生成。</span></div>
 <div class="mini"><b>达标包口径</b><span>若使用 <a href="campus-l1-package.html">L1 校赛达标包</a>，除综合得分外还需 A 类（A1–A4）每项正确率 ≥ 70%、且至少 1 项决策类（B1/B2/B4）≥ 60；组织者在签发前按 L1 准入线复核。</span></div>
 <div class="mini"><b>编号</b><span><code>RMC-年份-级别-四位序号</code>，如 <code>RMC-2026-L1-0001</code>。编号连续、不重号，作废须留痕不复用。</span></div>
 <div class="mini"><b>验真</b><span>每证附 6 位验真码，由「姓名＋编号＋得分」生成，供院校自查与用人单位核验。正式部署时改由赛事引擎后端签发、落库、提供在线验真页。</span></div>
-<div class="mini"><b>学分</b><span>L1 达标可抵「收益管理实务」课程相应模块学分；证书级与 <a href="campus-course-event-map.html">课赛证映射大表</a> 的 L1/L2/L3 一致，对接 1+X 与学分银行。</span></div>
+<div class="mini"><b>学分（拟）</b><span>L1 达标可作为「收益管理实务」课程模块的过程性评价佐证；是否抵学分、如何换算 1+X 与学分银行，由本校教务与 1+X 考核站点认定。能力等级与 <a href="campus-course-event-map.html">课赛证映射大表</a> 的 L1/L2/L3 一致。</span></div>
 
 <h2>三、批量签发台</h2>
 <div class="panel no-print">
@@ -137,7 +138,7 @@ button:hover{filter:brightness(1.06)}
 <div id="certOut"></div>
 
 <h2>四、编号与台账</h2>
-<p class="lead">签发后台账须归档，作为抵学分、1+X 换算与专业建设佐证材料。</p>
+<p class="lead">生成后台账须归档，作为过程性评价、拟对接 1+X 与专业建设的佐证材料；学分认定以本校教务为准。</p>
 <table class="tbl">
 <thead><tr><th style="width:24%">项目</th><th>规则</th></tr></thead>
 <tbody>
@@ -150,8 +151,8 @@ button:hover{filter:brightness(1.06)}
 </table>
 
 <h2>五、边界与正式落地</h2>
-<div class="ob"><b>本页是模板与签发样式演示。</b>证书在无院校盖章、未备案前不构成正式资格证明。正式落地需：① 院校审定证书样式与署名；② 教务/继续教育部门备案并纳入学分认定目录；③ 对接 1+X 考核站点完成模块映射；④ 由赛事引擎后端签发、生成在线验真页与可核验二维码。</div>
-<div class="box">这也是给试点院校的<b>交付物之一</b>：证书样式、编号规则、台账格式三件事一次给全，院校不用从零设计。配套见 <a href="campus-pilot-mou.html">试点 MOU 模板</a>（证书学分对接条款）与 <a href="campus-pilot-runbook.html">执行清单</a>（T+3 签发、T+7 导出）。</div>
+<div class="ob"><b>本页是模板与生成样式演示。</b>所生成的证明在无院校盖章、未备案前不构成正式资格证明，且不是 1+X 职业技能等级证书。正式落地需：① 院校审定证书样式与署名；② 教务/继续教育部门备案并纳入学分认定目录；③ 对接 1+X 考核站点完成模块映射；④ 由赛事引擎后端签发、生成在线验真页与可核验二维码。</div>
+<div class="box">这也是给试点院校的<b>交付物之一</b>：证书样式、编号规则、台账格式三件事一次给全，院校不用从零设计。配套见 <a href="campus-pilot-mou.html">试点 MOU 模板</a>（达标证明与学分拟对接条款）与 <a href="campus-pilot-runbook.html">执行清单</a>（T+3 签发、T+7 导出）。</div>
 
 <div class="nav">
 <a href="campus-b1-event.html">← B1 正式赛项（成绩来源）</a>
@@ -161,7 +162,7 @@ button:hover{filter:brightness(1.06)}
 <a href="campus-competition-engine.html">赛事引擎（总览）</a>
 <a href="deliverables-index.html">产出物总目录</a>
 </div>
-<div class="foot">RMCity · 赛事引擎系列（十一）· 门内资料 · 证书以院校盖章备案件为准</div>
+<div class="foot">RMCity · 赛事引擎系列（十一）· 门内资料 · 达标证明以院校盖章备案件为准，非 1+X 证书</div>
 </div>
 
 <script>

@@ -73,7 +73,7 @@ tr:nth-child(even) td{background:#fafcfe}
 <div class="hero"><div class="wrap">
 <div class="tag">RMCity · 赛事引擎（六）· B1 正式赛项 · 门内</div>
 <h1>B1 动态定价决策 · 正式赛项：登录 / 编排 / 证书</h1>
-<p>在 <a href="campus-b1-prototype.html" style="color:var(--gold2)">最小可跑原型</a> 之上，补齐赛事产品三件套：① <b>登录</b>（站点门 + 参赛者身份采集）；② <b>赛制编排</b>（组织者设名称/级别/评分权重/证书线）；③ <b>证书对接</b>（完赛按阈值发 L1/L2/L3 证书卡、入本地排行榜、可导出成绩表）。这是赛事引擎首个"能端到端跑"的招牌赛项。</p>
+<p>在 <a href="campus-b1-prototype.html" style="color:var(--gold2)">最小可跑原型</a> 之上，补齐赛事产品三件套：① <b>登录</b>（站点门 + 参赛者身份采集）；② <b>赛制编排</b>（组织者设名称/级别/评分权重/证书线）；③ <b>达标证明对接</b>（完赛按阈值出具 L1/L2/L3 能力等级卡、入本地排行榜、可导出成绩表）。这是赛事引擎首个"能端到端跑"的招牌赛项。</p>
 </div></div>
 <div class="wrap">
 
@@ -81,11 +81,12 @@ tr:nth-child(even) td{background:#fafcfe}
 <div><b>① 门登录</b><span>已通过本站登录门；下方采集参赛者身份</span></div>
 <div><b>② 编排</b><span>组织者设定赛项参数与证书线</span></div>
 <div><b>③ 比赛</b><span>14 天逐日定价，系统机评</span></div>
-<div><b>④ 证书</b><span>按阈值发级，入榜可导出</span></div>
+<div><b>④ 达标证明</b><span>按阈值出具能力等级，入榜可导出</span></div>
 </div>
 
+<div style="background:#fff8e8;border:1px solid #f0dcae;border-left:3px solid #e8b84b;border-radius:0 9px 9px 0;padding:11px 14px;margin:14px 0;font-size:12.5px;line-height:1.8;color:#3a4658"><b>口径声明（2026-11-04 统一修订）：</b>本页出现的 L1/L2/L3 是 RMCity 自建<b>能力等级</b>；「证书 / 发证 / 证书线」均指<b>校本达标证明</b>及其能力刻度，<b>不是</b> 1+X 酒店收益管理职业技能等级证书（北京三快在线科技 / 美团颁证，标准代码 540002），也不等同其初 / 中 / 高级。学分认定、1+X 与学分银行换算一律为<b>拟对接</b>，以本校教务部门与 1+X 考核站点正式认定为准。详见 <a href="campus-cert-wording.html">统一口径说明</a> 与 <a href="campus-1x-mapping.html">1+X 逐条映射大表</a>。</div>
 <h2>一、赛制编排（组织者控制台）</h2>
-<p class="lead">设定一次赛事实例。保存后，参赛者进入即按此规则计分与发证。多场赛事按"赛事名称"隔离成绩。</p>
+<p class="lead">设定一次赛事实例。保存后，参赛者进入即按此规则计分与出具达标证明。多场赛事按"赛事名称"隔离成绩。</p>
 <div class="panel">
   <div class="fld"><label>赛事名称</label><input id="cfgName" value="2026 春季校赛 · B1 动态定价" maxlength="40"></div>
   <div class="fld"><label>比赛级别</label>
@@ -95,7 +96,7 @@ tr:nth-child(even) td{background:#fafcfe}
   <div class="fld"><label>评分权重</label>
     <div class="row"><span>RevPAR 达成率</span><input id="cfgWA" type="number" value="60" min="0" max="100" style="width:70px"><span>% / 价格一致性</span><input id="cfgWC" type="number" value="40" min="0" max="100" style="width:70px"><span>%</span></div>
   </div>
-  <div class="fld"><label>证书分数线</label>
+  <div class="fld"><label>能力等级线（自建刻度，非 1+X 分数线）</label>
     <div class="row"><span>L1 达标</span><input id="cfgL1" type="number" value="60" style="width:64px"><span>L2</span><input id="cfgL2" type="number" value="80" style="width:64px"><span>L3</span><input id="cfgL3" type="number" value="92" style="width:64px"><span class="note">（综合得分 0–100）</span></div>
   </div>
   <div style="margin-top:10px"><button class="btn sm" id="saveCfg">保存编排</button><button class="btn sm ghost" id="loadCfg">载入已存编排</button><span class="note" id="cfgMsg"></span></div>
@@ -127,7 +128,7 @@ tr:nth-child(even) td{background:#fafcfe}
 </div>
 
 <div class="panel hidden" id="resultPanel">
-  <h2 style="margin-top:0">成绩与证书</h2>
+  <h2 style="margin-top:0">成绩与达标证明</h2>
   <div class="stat" id="scoreStat"></div>
   <div id="certBox"></div>
   <div style="margin-top:12px">
@@ -136,11 +137,11 @@ tr:nth-child(even) td{background:#fafcfe}
     <button class="btn sm ghost" id="replayBtn">换一批市场，再赛一局</button>
   </div>
   <h3>本赛事排行榜（本地）</h3>
-  <table id="leaderboard"><thead><tr><th>名次</th><th>姓名</th><th>院校</th><th>综合得分</th><th>证书级</th><th>净RevPAR</th></tr></thead><tbody></tbody></table>
+  <table id="leaderboard"><thead><tr><th>名次</th><th>姓名</th><th>院校</th><th>综合得分</th><th>能力等级</th><th>净RevPAR</th></tr></thead><tbody></tbody></table>
 </div>
 
-<h2>三、证书怎么对接（给院校）</h2>
-<div class="quote">完赛综合得分 ≥ L1 线即发 <b>L1 初级</b> 证书；≥ L2 / L3 线对应升级。证书级与 <a href="campus-course-event-map.html" style="color:#8a6a1a">课赛证映射大表</a> 的 L1/L2/L3 一致，可直接对接 1+X 与学分银行。本原型在浏览器内生成证书卡并保存成绩；正式部署时，证书签发与成绩入库由赛事引擎后端 + 贵校教务系统完成——本页即"接口规范"演示。</div>
+<h2>三、达标证明怎么对接（给院校）</h2>
+<div class="quote">完赛综合得分 ≥ L1 线即出具 <b>L1 初级</b> 达标证明；≥ L2 / L3 线对应升级。能力等级与 <a href="campus-course-event-map.html" style="color:#8a6a1a">课赛证映射大表</a> 的 L1/L2/L3 一致，能力范围已逐条对标 1+X（见 <a href="campus-1x-mapping.html">映射大表</a>）；学分认定与 1+X 换算均为拟对接，以本校教务与考核站点认定为准。本原型在浏览器内生成证书卡并保存成绩；正式部署时，证书签发与成绩入库由赛事引擎后端 + 贵校教务系统完成——本页即"接口规范"演示。</div>
 
 <div class="nav">
 <a href="campus-b1-prototype.html">← B1 最小原型</a>
@@ -226,7 +227,7 @@ function finish(){
   const name=$('pName').value||'参赛者'; const school=$('pSchool').value||'—';
   $('certBox').innerHTML=
     '<div class="cert"><div class="seal">RMCity<br>认证</div>'+
-    '<h3>酒店收益管理 · 技能证书</h3>'+
+    '<h3>酒店收益管理 · 校本达标证明（能力等级）</h3>'+
     '<div class="ev">'+cfg.name+'</div>'+
     '<div class="meta2">参赛者：'+name+'<br>院校：'+school+'<br>赛项：B1 动态定价决策（'+cfg.level+'）<br>综合得分：'+score.toFixed(1)+' ｜ 净 RevPAR：'+yourRevPAR.toFixed(1)+'<br>签发日期：'+dt+'</div>'+
     '<div class="lvtag">'+level+'</div></div>';
@@ -252,7 +253,7 @@ $('saveResult').addEventListener('click',()=>{
 $('exportBtn').addEventListener('click',()=>{
   const arr=loadLeaderboard();
   if(!arr.length){alert('暂无成绩可导出');return;}
-  let csv='赛事名称,级别,姓名,院校,学号,综合得分,证书级,净RevPAR,日期\n';
+  let csv='赛事名称,级别,姓名,院校,学号,综合得分,能力等级,净RevPAR,日期\n';
   arr.forEach(r=>{csv+=['"'+cfg.name+'"','"'+cfg.level+'"','"'+r.name+'"','"'+r.school+'"','"'+r.sid+'"',r.score,'"'+r.level+'"',r.revpar,'"'+r.dt+'"'].join(',')+'\n';});
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
