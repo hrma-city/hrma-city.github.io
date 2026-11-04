@@ -80,8 +80,60 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .selftest .a{font-size:13.2px;color:#2f7d4f;margin:0 0 4px;padding-left:14px;border-left:2px solid #cdeccf}
 .toc-in{background:#fbfaf6;border:1px solid #e6e0d8;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13.5px;color:#3a4b60}
 .toc-in b{color:#8a6d3b}
+
+/* === 左侧目录抽屉 === */
+.toc-fab{position:fixed;left:14px;top:14px;z-index:60;background:#0f2a4a;color:#ffe9bd;border:1px solid #e8b84b;border-radius:10px;padding:9px 13px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 3px 12px rgba(20,30,70,.3)}
+.toc-fab:hover{background:#16365c}
+.toc-drawer{position:fixed;left:0;top:0;height:100%;width:286px;max-width:84vw;background:#0f2a4a;color:#e9eef5;z-index:70;transform:translateX(-100%);transition:transform .25s ease;overflow-y:auto;box-shadow:6px 0 24px rgba(0,0,0,.32);padding:0 0 30px}
+.toc-drawer.open{transform:translateX(0)}
+.toc-head{position:sticky;top:0;background:#0c2440;padding:14px 16px;font-weight:800;font-size:15px;color:#ffe9bd;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #e8b84b}
+.toc-sub{font-size:11.5px;font-weight:600;color:#9fb4cc;padding:0 16px 8px}
+.toc-close{background:none;border:none;color:#ffe9bd;font-size:22px;cursor:pointer;line-height:1}
+.toc-list{list-style:none;margin:0;padding:8px 0}
+.toc-part{margin:2px 0}
+.toc-part-t{display:block;padding:9px 16px;font-weight:800;font-size:13px;color:#ffe9bd;cursor:pointer;line-height:1.5}
+.toc-part-t:hover{background:#16365c}
+.toc-part>ul{list-style:none;margin:0;padding:0 0 4px}
+.toc-ch a{display:flex;align-items:flex-start;gap:7px;padding:6px 16px 6px 22px;color:#dfe7f0;font-size:12.6px;text-decoration:none;line-height:1.5}
+.toc-ch a:hover{background:#16365c;color:#fff}
+.toc-ch.active>a{background:#1d6fb8;color:#fff;font-weight:700}
+.toc-ch .lv{font-size:9.5px;font-weight:800;padding:1px 6px;border-radius:8px;flex:0 0 auto;margin-top:2px}
+.toc-ch .lv.l1{background:#2f9e44;color:#fff}.toc-ch .lv.l2{background:#1d6fb8;color:#fff}.toc-ch .lv.l3{background:#8a5a2b;color:#fff}
+.toc-ch .t{flex:1}
+.toc-group{margin:10px 0 2px}.toc-group-t{padding:9px 16px;font-weight:800;font-size:13px;color:#ffe9bd;border-top:1px solid #234a73;cursor:pointer}
+.toc-group>ul{list-style:none;margin:0;padding:0 0 4px}
+.toc-link a{display:block;padding:6px 16px 6px 22px;color:#cdd9e8;font-size:12.6px;text-decoration:none}
+.toc-link a:hover{background:#16365c;color:#fff}
+.chx,.appendix,.selftest,.pocket-integration{scroll-margin-top:66px}
+.appendix h2{scroll-margin-top:66px}
+/* === 速查卡整合区（仅三合一页） === */
+.pocket-integration{margin:32px 0 8px;padding:18px;background:#f7f9fc;border:1px solid #d4e0ee;border-radius:14px}
+.pocket-integration .appx-h{font-size:20px;color:#0f2a4a;border-bottom:2px solid #e8b84b;padding-bottom:8px;margin-bottom:8px}
+.pk-intro{font-size:13px;color:#3a4b60;margin-bottom:14px}
+.pk-card{margin:0 0 14px;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;background:#fff}
+.pk-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#0f2a4a;color:#fff}
+.pk-head .pk-badge{font-size:12.5px;font-weight:800;padding:3px 10px;border-radius:10px}
+.pk-head .pk-badge.l1{background:#2f9e44}.pk-head .pk-badge.l2{background:#1d6fb8}.pk-head .pk-badge.l3{background:#8a5a2b}
+.pk-head .pk-tag{font-size:12px;color:#cdd9e8}
+.pk-head .pk-acts{margin-left:auto;display:flex;gap:8px}
+.pk-head .pk-acts a{font-size:12px;color:#0f2a4a;background:#ffe9bd;padding:4px 10px;border-radius:8px;text-decoration:none;font-weight:700}
+.pk-head .pk-acts a:hover{background:#fff}
+.pk-body{padding:14px}
+@media print{
+ .toc-drawer,.toc-fab{display:none!important}
+ .pocket-integration{display:none!important}
+}
+
 </style></head>
 <body><div class="book">
+<button class="toc-fab" id="tocFab">☰ 目录</button>
+<nav class="toc-drawer" id="tocDrawer">
+ <div class="toc-head"><span>目录</span><button class="toc-close" id="tocClose" aria-label="关闭">×</button></div>
+<div class="toc-sub">本册对应 L1 能力体系</div> <ul class="toc-list">
+<li class="toc-part"><span class="toc-part-t">第一篇 算清账：指标与报表（入门必读）</span><ul><li class="toc-ch" data-level="1" data-target="ch1"><a href="#ch1"><span class="t">第 1 章 收益管理一句话：为什么它决定酒店赚不赚钱</span></a></li><li class="toc-ch" data-level="1" data-target="ch2"><a href="#ch2"><span class="t">第 2 章 三个核心指标：OCC、ADR、RevPAR，每天看哪个</span></a></li><li class="toc-ch" data-level="1" data-target="ch3"><a href="#ch3"><span class="t">第 4 章 报表体系：每天该看哪几张表</span></a></li></ul></li><li class="toc-part"><span class="toc-part-t">第四篇 一年怎么排兵布阵（周期节奏）</span><ul><li class="toc-ch" data-level="1" data-target="ch4"><a href="#ch4"><span class="t">第 20 章 运营全景：从年到日的节奏</span></a></li></ul></li><li class="toc-part"><span class="toc-part-t">第六篇 让机制转起来（组织与系统）</span><ul><li class="toc-ch" data-level="1" data-target="ch5"><a href="#ch5"><span class="t">第 30 章 系统与数据：工具能替你做什么</span></a></li><li class="toc-ch" data-level="1" data-target="ch6"><a href="#ch6"><span class="t">第 31 章 每日实操流程与收益例会（表 M）</span></a></li><li class="toc-ch" data-level="1" data-target="ch7"><a href="#ch7"><span class="t">第 32 章 常见误区：高频 12 坑，别再踩</span></a></li></ul></li>  <li class="toc-group"><span class="toc-group-t">附录与练习</span><ul><li class="toc-link"><a href="#appx">附录 · 判定表 A–O</a></li><li class="toc-link"><a href="#selftest">自测题</a></li></ul></li>
+ </ul>
+</nav>
+
 <div class="cover">
 <div class="ser">收益管理实战书系 · 操作指南分级版</div>
 <h1>收益管理操作指南<br>L1 执行专员版</h1>
@@ -103,7 +155,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 </ol>
 </div>
 <div class="toc-in"><b>本版收录章节：</b>第 1、2、4、20、30、31、32 章（包含式递进：L2 含 L1 基本功，L3 含全部章节的决策视角）。判定表 A–O 见《操作法典》，本版附录内嵌本档所需表。</div>
-<h2 class="pt">第一篇　算清账：指标与报表（入门必读）</h2><div class="ptmap">本版在该篇下收录：第 1、2、4 章</div><section class="chx">
+<h2 class="pt" id="part1">第一篇　算清账：指标与报表（入门必读）</h2><div class="ptmap">本版在该篇下收录：第 1、2、4 章</div><section class="chx" id="ch1">
 <h3 class="ch"><span class="cn">第 1 章</span>　收益管理一句话：为什么它决定酒店赚不赚钱</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>说清收益管理在做什么、为谁创造价值</li><li>理解它和「填满房」的本质区别</li></ul></div>
 <p>同一家 300 间房的酒店，两个价值不同的房间卖同一个价，就是利润在漏。收益管理只做一件事：<b>把有限的库存（房、餐位、会场），卖给愿意出最高价的人，在最有价值的时点</b>。</p>
@@ -111,7 +163,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
     <div class="box"><b>记住一句话</b>：收益管理不是「把房填满」，是「在填满的同时，把价卖对」。出租率高 ≠ 赚得多，单价和份额同样要紧。</div>
 <div class="summary"><span class="sm">小结</span>收益管理不是把房填满，而是在填满的同时把价卖对；同样的出租率，单价与份额决定每天多赚还是少赚。</div>
 <div class="lvl-note">▶ 执行专员照本页做即可。涉及判定：<b>—</b>（表 A/B/E 见本书附录，其余见《操作法典》）。</div>
-</section><section class="chx">
+</section><section class="chx" id="ch2">
 <h3 class="ch"><span class="cn">第 2 章</span>　三个核心指标：OCC、ADR、RevPAR，每天看哪个</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>区分 OCC / ADR / RevPAR 各自衡量什么</li><li>记住 RevPAR = ADR × OCC 及每日该盯哪个</li></ul></div>
 <p>所有决策都建立在这三个数上，先分清谁管什么：</p>
@@ -125,7 +177,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
     <div class="note"><b>每日动作</b>：早盘第一眼只看 RevPAR 同比/环比。它掉了，再拆是 ADR 掉还是 OCC 掉，才能对症下药。</div>
 <div class="summary"><span class="sm">小结</span>RevPAR 是总账：它掉了先拆是 ADR 掉还是 OCC 掉，再对症下药，别被单一指标骗了。</div>
 <div class="lvl-note">▶ 执行专员照本页做即可。涉及判定：<b>—</b>（表 A/B/E 见本书附录，其余见《操作法典》）。</div>
-</section><section class="chx">
+</section><section class="chx" id="ch3">
 <h3 class="ch"><span class="cn">第 4 章</span>　报表体系：每天该看哪几张表</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>按角色列出每日/周/月必看报表</li><li>理解「看数」是查表的前提</li></ul></div>
 <p>信息过载会让人什么都不看。按角色给清单，多了不看：</p>
@@ -139,28 +191,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
     <p>这些报表的数据，正是后面各章判定表的输入。看数这一步做对了，查表才有意义。</p>
 <div class="summary"><span class="sm">小结</span>报表看多了等于没看；按角色给清单，每日第一眼只看 RevPAR 波动，数据才成为查表的原料。</div>
 <div class="lvl-note">▶ 执行专员照本页做即可。涉及判定：<b>—</b>（表 A/B/E 见本书附录，其余见《操作法典》）。</div>
-</section><h2 class="pt">第四篇　一年怎么排兵布阵（周期节奏）</h2><div class="ptmap">本版在该篇下收录：第 20 章</div><section class="chx">
+</section><h2 class="pt" id="part2">第四篇　一年怎么排兵布阵（周期节奏）</h2><div class="ptmap">本版在该篇下收录：第 20 章</div><section class="chx" id="ch4">
 <h3 class="ch"><span class="cn">第 20 章</span>　运营全景：从年到日的节奏</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>建立从年到日的运营节奏感</li><li>理解年度目标如何拆到每天</li></ul></div>
 <p>一张链路上通下达：<b>年度预算 → 月度策略 → 周度执行 → 每日操作</b>。</p>
     <div class="box"><b>纪律</b>：预算定天花板/地板，月策略定方向，周执行定动作，日操作定价格。别只盯当天，忘了全年目标。每天定价的天花板来自预算。</div>
 <div class="summary"><span class="sm">小结</span>年度目标要拆到每天才有抓手；节奏感来自「年→季→月→周→日」一层层往下落。</div>
 <div class="lvl-note">▶ 执行专员照本页做即可。涉及判定：<b>—</b>（表 A/B/E 见本书附录，其余见《操作法典》）。</div>
-</section><h2 class="pt">第六篇　让机制转起来（组织与系统）</h2><div class="ptmap">本版在该篇下收录：第 30、31、32 章</div><section class="chx">
+</section><h2 class="pt" id="part3">第六篇　让机制转起来（组织与系统）</h2><div class="ptmap">本版在该篇下收录：第 30、31、32 章</div><section class="chx" id="ch5">
 <h3 class="ch"><span class="cn">第 30 章</span>　系统与数据：工具能替你做什么</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>知道系统能替你做什么</li><li>守住「系统算不替你决策」</li></ul></div>
 <p>PMS 管房态、RMS 管定价建议、渠道系统管开关。系统给建议，<b>不替你拍板</b>。</p>
     <div class="box"><b>纪律</b>：数据口径要统一（如 OCC 定义一致），否则报表互相打架。定期校验数据源，垃圾进垃圾出。系统是人手的延伸，不是人脑的替代。</div>
 <div class="summary"><span class="sm">小结</span>系统替你算、替你跑，但不替你决策；把系统当放大器，别当替身。</div>
 <div class="lvl-note">▶ 执行专员照本页做即可。涉及判定：<b>—</b>（表 A/B/E 见本书附录，其余见《操作法典》）。</div>
-</section><section class="chx">
+</section><section class="chx" id="ch6">
 <h3 class="ch"><span class="cn">第 31 章</span>　每日实操流程与收益例会（表 M）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>跑通每日实操流程与例会</li><li>把例会当成节奏锚点</li></ul></div>
 <p>一天标准动作：早盘看 RevPAR → 查预订进度 → 按表 A 调价 → 午间复盘接单 → 傍晚看竞品 → 收尾记日志。</p>
     <div class="box"><b>纪律</b>：用表 M 照表执行，新人也能上手，不依赖个人经验。收益例会固定议题、固定时间，避免「有事才开会」变成救火。<br>对应判定表：<b>表 M（每日流水线）</b>。</div>
 <div class="summary"><span class="sm">小结</span>每日流程与例会是节奏锚点（表 M）；SOP 跑顺了，异常才显眼、决策才及时。</div>
 <div class="lvl-note">▶ 执行专员照本页做即可。涉及判定：<b>—</b>（表 A/B/E 见本书附录，其余见《操作法典》）。</div>
-</section><section class="chx">
+</section><section class="chx" id="ch7">
 <h3 class="ch"><span class="cn">第 32 章</span>　常见误区：高频 12 坑，别再踩</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>识别高频 12 个误区</li><li>避免反复踩同一个坑</li></ul></div>
 <p>行业最常犯的错误，每条都是真金白银的教训：</p>
@@ -354,5 +406,50 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <li><b>超售算出来不是赌出来</b>：没有 No-show 率数据就别超，宁可少接。</li>
 <li><b>BAR 是总锚</b>：任何渠道价不得长期低于 BAR 的 8 折。</li>
 <li><b>日报不漏填</b>：当天动作记进《调价台账》，月底才能复盘。</li>
-</ul></div><div class="selftest"><h2>自测 · 过关即点亮对应能力徽章</h2><div class="q">1. 每日早盘第一眼应盯哪个指标？</div><div class="a">答：RevPAR（看它同比/环比波动），其他指标是拆因用的。</div><div class="q">2. RevPAR 掉了，第一步怎么拆？</div><div class="a">答：先拆成 ADR 掉还是 OCC 掉，再对症下药，别被单一指标骗。</div><div class="q">3. 安全超售量怎么算？超过怎么办？</div><div class="a">答：已订房数 × 历史 No-show 率；超了即关阀停接散客、转升级兜底。</div><div class="q">4. walk（被迫转客）红线是多少？</div><div class="a">答：≤0.5%；超过即违规。</div><div class="q">5. 价格一致性指什么？</div><div class="a">答：各渠道挂牌价须与 BAR/系统价同步，调价后 30 分钟内核查 OTA。</div><div class="q">6. 折扣什么时候才能开？</div><div class="a">答：只在需求走低、进度滞后时，且必须带条件（连住/含早/末单）。</div><div class="q">7. MinLOS 应该在什么日子用？</div><div class="a">答：只在高需求日（周末/展会），平峰日一律放开，否则自断流量。</div><div class="q">8. 报表看太多有什么后果？</div><div class="a">答：信息过载等于没看；按角色给清单，每日第一眼只看 RevPAR。</div><div class="q">9. 收益管理的本质一句话？</div><div class="a">答：在填满房的同时把价卖对，不是单纯填满房。</div><div class="q">10. 净价和挂牌价有什么区别？</div><div class="a">答：净价是扣完佣金/买断成本后到手的钱，渠道比的是净价不是挂牌价。</div></div><div class="foot">收益管理实战书系 · 操作指南L1 执行专员版 · 门内评审稿 · 以 L1/L2/L3 能力体系为蓝本，判定表贯穿所有产品</div>
-</div></div></body></html>
+</ul></div><div class="selftest" id="selftest"><h2>自测 · 过关即点亮对应能力徽章</h2><div class="q">1. 每日早盘第一眼应盯哪个指标？</div><div class="a">答：RevPAR（看它同比/环比波动），其他指标是拆因用的。</div><div class="q">2. RevPAR 掉了，第一步怎么拆？</div><div class="a">答：先拆成 ADR 掉还是 OCC 掉，再对症下药，别被单一指标骗。</div><div class="q">3. 安全超售量怎么算？超过怎么办？</div><div class="a">答：已订房数 × 历史 No-show 率；超了即关阀停接散客、转升级兜底。</div><div class="q">4. walk（被迫转客）红线是多少？</div><div class="a">答：≤0.5%；超过即违规。</div><div class="q">5. 价格一致性指什么？</div><div class="a">答：各渠道挂牌价须与 BAR/系统价同步，调价后 30 分钟内核查 OTA。</div><div class="q">6. 折扣什么时候才能开？</div><div class="a">答：只在需求走低、进度滞后时，且必须带条件（连住/含早/末单）。</div><div class="q">7. MinLOS 应该在什么日子用？</div><div class="a">答：只在高需求日（周末/展会），平峰日一律放开，否则自断流量。</div><div class="q">8. 报表看太多有什么后果？</div><div class="a">答：信息过载等于没看；按角色给清单，每日第一眼只看 RevPAR。</div><div class="q">9. 收益管理的本质一句话？</div><div class="a">答：在填满房的同时把价卖对，不是单纯填满房。</div><div class="q">10. 净价和挂牌价有什么区别？</div><div class="a">答：净价是扣完佣金/买断成本后到手的钱，渠道比的是净价不是挂牌价。</div></div><div class="foot">收益管理实战书系 · 操作指南L1 执行专员版 · 门内评审稿 · 以 L1/L2/L3 能力体系为蓝本，判定表贯穿所有产品</div>
+</div></div>
+<script>
+(function(){
+ var drawer=document.getElementById('tocDrawer');
+ var fab=document.getElementById('tocFab');
+ var closeBtn=document.getElementById('tocClose');
+ if(!drawer) return;
+ function openT(){drawer.classList.add('open');if(fab)fab.style.display='none';}
+ function closeT(){drawer.classList.remove('open');if(fab)fab.style.display='';}
+ if(fab) fab.addEventListener('click',openT);
+ if(closeBtn) closeBtn.addEventListener('click',closeT);
+ document.querySelectorAll('#tocDrawer a[href^="#"]').forEach(function(a){
+   a.addEventListener('click',function(e){
+     e.preventDefault();
+     var id=this.getAttribute('href').slice(1);
+     var el=document.getElementById(id);
+     if(el){el.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'','#'+id);}
+     closeT();
+   });
+ });
+ function updateToc(){
+   var ab=document.querySelector('.toolbar button.active');
+   var L=ab?(+ab.dataset.lvl):0;
+   document.querySelectorAll('#tocDrawer .toc-ch').forEach(function(li){
+     var lv=+li.dataset.level;
+     li.style.display=(L===0||lv<=L)?'':'none';
+   });
+   document.querySelectorAll('#tocDrawer .toc-part').forEach(function(p){
+     var any=false;
+     p.querySelectorAll('.toc-ch').forEach(function(li){if(li.style.display!=='none')any=true;});
+     p.style.display=any?'':'none';
+   });
+ }
+ var _s=window.setLvl;
+ if(typeof _s==='function'){window.setLvl=function(L){_s(L);updateToc();};}
+ function spy(){
+   var pos=window.scrollY+130,cur=null;
+   document.querySelectorAll('.chx').forEach(function(s){if(s.getBoundingClientRect().top+window.scrollY<=pos)cur=s.id;});
+   document.querySelectorAll('#tocDrawer .toc-ch').forEach(function(li){li.classList.toggle('active',li.dataset.target===cur);});
+ }
+ window.addEventListener('scroll',spy,{passive:true});
+ updateToc();spy();
+})();
+</script>
+
+</body></html>

@@ -67,8 +67,84 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
  .chx,.lvl-open,.selftest,.redline{page-break-inside:avoid}
  .access-gate,.gate-mask,.gate-modal{display:none!important}
 }
+
+/* === 左侧目录抽屉 === */
+.toc-fab{position:fixed;left:14px;top:14px;z-index:60;background:#0f2a4a;color:#ffe9bd;border:1px solid #e8b84b;border-radius:10px;padding:9px 13px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 3px 12px rgba(20,30,70,.3)}
+.toc-fab:hover{background:#16365c}
+.toc-drawer{position:fixed;left:0;top:0;height:100%;width:286px;max-width:84vw;background:#0f2a4a;color:#e9eef5;z-index:70;transform:translateX(-100%);transition:transform .25s ease;overflow-y:auto;box-shadow:6px 0 24px rgba(0,0,0,.32);padding:0 0 30px}
+.toc-drawer.open{transform:translateX(0)}
+.toc-head{position:sticky;top:0;background:#0c2440;padding:14px 16px;font-weight:800;font-size:15px;color:#ffe9bd;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #e8b84b}
+.toc-sub{font-size:11.5px;font-weight:600;color:#9fb4cc;padding:0 16px 8px}
+.toc-close{background:none;border:none;color:#ffe9bd;font-size:22px;cursor:pointer;line-height:1}
+.toc-list{list-style:none;margin:0;padding:8px 0}
+.toc-part{margin:2px 0}
+.toc-part-t{display:block;padding:9px 16px;font-weight:800;font-size:13px;color:#ffe9bd;cursor:pointer;line-height:1.5}
+.toc-part-t:hover{background:#16365c}
+.toc-part>ul{list-style:none;margin:0;padding:0 0 4px}
+.toc-ch a{display:flex;align-items:flex-start;gap:7px;padding:6px 16px 6px 22px;color:#dfe7f0;font-size:12.6px;text-decoration:none;line-height:1.5}
+.toc-ch a:hover{background:#16365c;color:#fff}
+.toc-ch.active>a{background:#1d6fb8;color:#fff;font-weight:700}
+.toc-ch .lv{font-size:9.5px;font-weight:800;padding:1px 6px;border-radius:8px;flex:0 0 auto;margin-top:2px}
+.toc-ch .lv.l1{background:#2f9e44;color:#fff}.toc-ch .lv.l2{background:#1d6fb8;color:#fff}.toc-ch .lv.l3{background:#8a5a2b;color:#fff}
+.toc-ch .t{flex:1}
+.toc-group{margin:10px 0 2px}.toc-group-t{padding:9px 16px;font-weight:800;font-size:13px;color:#ffe9bd;border-top:1px solid #234a73;cursor:pointer}
+.toc-group>ul{list-style:none;margin:0;padding:0 0 4px}
+.toc-link a{display:block;padding:6px 16px 6px 22px;color:#cdd9e8;font-size:12.6px;text-decoration:none}
+.toc-link a:hover{background:#16365c;color:#fff}
+.chx,.appendix,.selftest,.pocket-integration{scroll-margin-top:66px}
+.appendix h2{scroll-margin-top:66px}
+/* === 速查卡整合区（仅三合一页） === */
+.pocket-integration{margin:32px 0 8px;padding:18px;background:#f7f9fc;border:1px solid #d4e0ee;border-radius:14px}
+.pocket-integration .appx-h{font-size:20px;color:#0f2a4a;border-bottom:2px solid #e8b84b;padding-bottom:8px;margin-bottom:8px}
+.pk-intro{font-size:13px;color:#3a4b60;margin-bottom:14px}
+.pk-card{margin:0 0 14px;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;background:#fff}
+.pk-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#0f2a4a;color:#fff}
+.pk-head .pk-badge{font-size:12.5px;font-weight:800;padding:3px 10px;border-radius:10px}
+.pk-head .pk-badge.l1{background:#2f9e44}.pk-head .pk-badge.l2{background:#1d6fb8}.pk-head .pk-badge.l3{background:#8a5a2b}
+.pk-head .pk-tag{font-size:12px;color:#cdd9e8}
+.pk-head .pk-acts{margin-left:auto;display:flex;gap:8px}
+.pk-head .pk-acts a{font-size:12px;color:#0f2a4a;background:#ffe9bd;padding:4px 10px;border-radius:8px;text-decoration:none;font-weight:700}
+.pk-head .pk-acts a:hover{background:#fff}
+.pk-body{padding:14px}
+@media print{
+ .toc-drawer,.toc-fab{display:none!important}
+ .pocket-integration{display:none!important}
+}
+
+.pk-embed .role{background:#eef3f9;border:1px solid #d4e0ee;border-radius:8px;padding:9px 12px;margin:0 0 10px;font-size:12px;color:#23425e}
+.pk-embed .role b{color:#0f2a4a}
+.pk-embed .h2{font-size:14px;font-weight:800;color:#0f2a4a;margin:12px 0 6px;padding-left:9px;border-left:4px solid #e8b84b}
+.pk-embed .chk{list-style:none;margin:0 0 4px}
+.pk-embed .chk li{padding:5px 0 5px 26px;position:relative;border-bottom:1px dotted #e3e8ef;font-size:12.3px}
+.pk-embed .chk li:before{content:"☐";position:absolute;left:4px;top:4px;font-size:14px;color:#1d6fb8}
+.pk-embed .rl{list-style:none;margin:0}
+.pk-embed .rl li{background:#fff3f2;border-left:4px solid #c0392b;padding:5px 9px;margin:5px 0;font-size:12px;color:#7a2a22;border-radius:0 6px 6px 0}
+.pk-embed .rl li b{color:#c0392b}
+.pk-embed table.qa{width:100%;border-collapse:collapse;font-size:11.6px;margin-top:4px}
+.pk-embed table.qa th,.pk-embed table.qa td{border:1px solid #d4e0ee;padding:5px 7px;vertical-align:top;text-align:left;line-height:1.55}
+.pk-embed table.qa th{background:#0f2a4a;color:#fff;font-weight:700;font-size:11px}
+.pk-embed table.qa td.phen{font-weight:700;color:#0f2a4a;width:34%}
+.pk-embed .box{background:#fbfcfe;border:1px solid #d4e0ee;border-radius:8px;padding:9px 12px;margin:8px 0;font-size:12px;color:#34465c}
+.pk-embed .box b{color:#16406e}
+.pk-embed .kpi{display:flex;gap:9px;margin:8px 0;flex-wrap:wrap}
+.pk-embed .kpi .k{flex:1;min-width:80px;background:#f4f8fc;border:1px solid #cfe0f5;border-radius:8px;padding:8px 10px;text-align:center}
+.pk-embed .kpi .k .n{font-size:13px;font-weight:800;color:#1d6fb8}
+.pk-embed .kpi .k .l{font-size:10.5px;color:#5a6678;margin-top:2px}
+.pk-embed .tip{font-size:10.5px;color:#8494a8;margin-top:6px;font-style:italic}
+.pk-embed .page{width:100%;min-height:auto;box-shadow:none;padding:0;margin:0;background:transparent;position:static;font-size:12.5px}
+.pk-embed .phead{display:none}
+.pk-embed .foot{display:none}
+
 </style></head>
 <body><div class="book">
+<button class="toc-fab" id="tocFab">☰ 目录</button>
+<nav class="toc-drawer" id="tocDrawer">
+ <div class="toc-head"><span>目录</span><button class="toc-close" id="tocClose" aria-label="关闭">×</button></div>
+ <ul class="toc-list">
+<li class="toc-part"><span class="toc-part-t">第一篇 算清账：指标与报表（入门必读）</span><ul><li class="toc-ch" data-level="1" data-target="ch1"><a href="#ch1"><span class="lv l1">L1</span><span class="t">第 1 章 收益管理一句话：为什么它决定酒店赚不赚钱</span></a></li><li class="toc-ch" data-level="1" data-target="ch2"><a href="#ch2"><span class="lv l1">L1</span><span class="t">第 2 章 三个核心指标：OCC、ADR、RevPAR，每天看哪个</span></a></li><li class="toc-ch" data-level="3" data-target="ch3"><a href="#ch3"><span class="lv l3">L3</span><span class="t">第 3 章 竞争三件套：MPI、ARI、RGI，你在市场排第几</span></a></li><li class="toc-ch" data-level="1" data-target="ch4"><a href="#ch4"><span class="lv l1">L1</span><span class="t">第 4 章 报表体系：每天该看哪几张表</span></a></li></ul></li><li class="toc-part"><span class="toc-part-t">第二篇 每天怎么定价（定价操作）</span><ul><li class="toc-ch" data-level="2" data-target="ch5"><a href="#ch5"><span class="lv l2">L2</span><span class="t">第 5 章 价格弹性：降多少价能换多少量</span></a></li><li class="toc-ch" data-level="2" data-target="ch6"><a href="#ch6"><span class="lv l2">L2</span><span class="t">第 6 章 什么时候该涨价：表 A 涨价分支</span></a></li><li class="toc-ch" data-level="2" data-target="ch7"><a href="#ch7"><span class="lv l2">L2</span><span class="t">第 7 章 竞品降价：跟还是不跟（表 A 竞品分支）</span></a></li><li class="toc-ch" data-level="2" data-target="ch8"><a href="#ch8"><span class="lv l2">L2</span><span class="t">第 8 章 折扣与促销：什么时候该让（表 A 折扣分支）</span></a></li><li class="toc-ch" data-level="2" data-target="ch9"><a href="#ch9"><span class="lv l2">L2</span><span class="t">第 9 章 套餐与锚定：让客人觉得划算</span></a></li><li class="toc-ch" data-level="2" data-target="ch10"><a href="#ch10"><span class="lv l2">L2</span><span class="t">第 10 章 房型价差：差价定多少合理（表 F）</span></a></li><li class="toc-ch" data-level="2" data-target="ch11"><a href="#ch11"><span class="lv l2">L2</span><span class="t">第 11 章 价格体系 BAR：所有价格的锚</span></a></li></ul></li><li class="toc-part"><span class="toc-part-t">第三篇 房留给谁（库存与限制）</span><ul><li class="toc-ch" data-level="2" data-target="ch12"><a href="#ch12"><span class="lv l2">L2</span><span class="t">第 12 章 最短住期 MinLOS：把客群分开（表 B）</span></a></li><li class="toc-ch" data-level="2" data-target="ch13"><a href="#ch13"><span class="lv l2">L2</span><span class="t">第 13 章 超额预订：卖出去的比有的多（表 E）</span></a></li><li class="toc-ch" data-level="2" data-target="ch14"><a href="#ch14"><span class="lv l2">L2</span><span class="t">第 14 章 库存分配与保护位：给谁留多少房（表 B）</span></a></li><li class="toc-ch" data-level="2" data-target="ch15"><a href="#ch15"><span class="lv l2">L2</span><span class="t">第 15 章 免费升级与房型置换（表 J）</span></a></li><li class="toc-ch" data-level="2" data-target="ch16"><a href="#ch16"><span class="lv l2">L2</span><span class="t">第 16 章 客源细分：把客人分堆来卖</span></a></li><li class="toc-ch" data-level="3" data-target="ch17"><a href="#ch17"><span class="lv l3">L3</span><span class="t">第 17 章 团队置换：这个团该不该接（表 G）</span></a></li><li class="toc-ch" data-level="2" data-target="ch18"><a href="#ch18"><span class="lv l2">L2</span><span class="t">第 18 章 渠道净价与开关：到手多少钱才算数（表 H）</span></a></li><li class="toc-ch" data-level="3" data-target="ch19"><a href="#ch19"><span class="lv l3">L3</span><span class="t">第 19 章 直销与会员：把客人变成自己的（表 H）</span></a></li></ul></li><li class="toc-part"><span class="toc-part-t">第四篇 一年怎么排兵布阵（周期节奏）</span><ul><li class="toc-ch" data-level="1" data-target="ch20"><a href="#ch20"><span class="lv l1">L1</span><span class="t">第 20 章 运营全景：从年到日的节奏</span></a></li><li class="toc-ch" data-level="2" data-target="ch21"><a href="#ch21"><span class="lv l2">L2</span><span class="t">第 21 章 预测与需求日历（表 I）</span></a></li><li class="toc-ch" data-level="3" data-target="ch22"><a href="#ch22"><span class="lv l3">L3</span><span class="t">第 22 章 年度预算：把一年拆到每天</span></a></li><li class="toc-ch" data-level="2" data-target="ch23"><a href="#ch23"><span class="lv l2">L2</span><span class="t">第 23 章 淡旺季与事件日：最容易赚的钱</span></a></li><li class="toc-ch" data-level="2" data-target="ch24"><a href="#ch24"><span class="lv l2">L2</span><span class="t">第 24 章 周度与月度节奏把控（表 N）</span></a></li></ul></li><li class="toc-part"><span class="toc-part-t">第五篇 把钱算到总盘（多业态与利润）</span><ul><li class="toc-ch" data-level="2" data-target="ch25"><a href="#ch25"><span class="lv l2">L2</span><span class="t">第 25 章 成本与利润：降价的底线在哪</span></a></li><li class="toc-ch" data-level="3" data-target="ch26"><a href="#ch26"><span class="lv l3">L3</span><span class="t">第 26 章 餐饮收益：RevPASH 与翻台</span></a></li><li class="toc-ch" data-level="3" data-target="ch27"><a href="#ch27"><span class="lv l3">L3</span><span class="t">第 27 章 会议宴会：不只算房，算总贡献（表 K）</span></a></li><li class="toc-ch" data-level="3" data-target="ch28"><a href="#ch28"><span class="lv l3">L3</span><span class="t">第 28 章 其他业态与跨行业参数</span></a></li></ul></li><li class="toc-part"><span class="toc-part-t">第六篇 让机制转起来（组织与系统）</span><ul><li class="toc-ch" data-level="3" data-target="ch29"><a href="#ch29"><span class="lv l3">L3</span><span class="t">第 29 章 岗位与组织：谁来干这件事（表 O）</span></a></li><li class="toc-ch" data-level="1" data-target="ch30"><a href="#ch30"><span class="lv l1">L1</span><span class="t">第 30 章 系统与数据：工具能替你做什么</span></a></li><li class="toc-ch" data-level="1" data-target="ch31"><a href="#ch31"><span class="lv l1">L1</span><span class="t">第 31 章 每日实操流程与收益例会（表 M）</span></a></li><li class="toc-ch" data-level="1" data-target="ch32"><a href="#ch32"><span class="lv l1">L1</span><span class="t">第 32 章 常见误区：高频 12 坑，别再踩</span></a></li><li class="toc-ch" data-level="3" data-target="ch33"><a href="#ch33"><span class="lv l3">L3</span><span class="t">第 33 章 中国渠道生态：平台、私域、买断与直播（表 H）</span></a></li><li class="toc-ch" data-level="3" data-target="ch34"><a href="#ch34"><span class="lv l3">L3</span><span class="t">第 34 章 连锁与中央预订：总部定价，门店做什么</span></a></li><li class="toc-ch" data-level="3" data-target="ch35"><a href="#ch35"><span class="lv l3">L3</span><span class="t">第 35 章 危机与极端场景（表 L）</span></a></li><li class="toc-ch" data-level="3" data-target="ch36"><a href="#ch36"><span class="lv l3">L3</span><span class="t">第 36 章 优先级与冲突仲裁（表 O）</span></a></li></ul></li>  <li class="toc-group"><span class="toc-group-t">附录与练习</span><ul><li class="toc-link"><a href="#appx">附录 · 判定表 A–O</a></li><li class="toc-link"><a href="#pocket">速查卡（口袋卡）</a></li><li class="toc-link"><a href="#selftest">自测题</a></li></ul></li>
+ </ul>
+</nav>
+
 <div class="cover">
 <div class="ser">收益管理实战书系 · 操作指南分级版</div>
 <h1>收益管理操作指南<br>三档合一 · 难度切换</h1>
@@ -108,7 +184,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <li><b>裁冲突</b>：多张表结论打架时查表 O 仲裁。</li>
 <li><b>带组织</b>：岗位与组织、渠道生态、连锁中央定价边界。</li>
 <li><b>讲经营</b>：向总经理汇报「结果/原因/要什么决定」。</li></ol></div>
-<h2 class="pt">第一篇　算清账：指标与报表（入门必读）</h2><section class="chx" data-level="1">
+<h2 class="pt" id="part1">第一篇　算清账：指标与报表（入门必读）</h2><section class="chx" id="ch1" data-level="1">
 <h3 class="ch"><span class="cn">第 1 章</span>　收益管理一句话：为什么它决定酒店赚不赚钱</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>说清收益管理在做什么、为谁创造价值</li><li>理解它和「填满房」的本质区别</li></ul></div>
 <p>同一家 300 间房的酒店，两个价值不同的房间卖同一个价，就是利润在漏。收益管理只做一件事：<b>把有限的库存（房、餐位、会场），卖给愿意出最高价的人，在最有价值的时点</b>。</p>
@@ -118,7 +194,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="1">
+</section><section class="chx" id="ch2" data-level="1">
 <h3 class="ch"><span class="cn">第 2 章</span>　三个核心指标：OCC、ADR、RevPAR，每天看哪个</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>区分 OCC / ADR / RevPAR 各自衡量什么</li><li>记住 RevPAR = ADR × OCC 及每日该盯哪个</li></ul></div>
 <p>所有决策都建立在这三个数上，先分清谁管什么：</p>
@@ -134,7 +210,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="3">
+</section><section class="chx" id="ch3" data-level="3">
 <h3 class="ch"><span class="cn">第 3 章</span>　竞争三件套：MPI、ARI、RGI，你在市场排第几</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>用 MPI / ARI / RGI 量化市场排位</li><li>会读三者组合判断价盘健康度</li></ul></div>
 <p>光看自己不够，得看「我和竞品比怎么样」。三个指数把模糊的「行情」量化：</p>
@@ -148,7 +224,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 C/D</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 C/D</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="1">
+</section><section class="chx" id="ch4" data-level="1">
 <h3 class="ch"><span class="cn">第 4 章</span>　报表体系：每天该看哪几张表</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>按角色列出每日/周/月必看报表</li><li>理解「看数」是查表的前提</li></ul></div>
 <p>信息过载会让人什么都不看。按角色给清单，多了不看：</p>
@@ -164,7 +240,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><h2 class="pt">第二篇　每天怎么定价（定价操作）</h2><section class="chx" data-level="2">
+</section><h2 class="pt" id="part2">第二篇　每天怎么定价（定价操作）</h2><section class="chx" id="ch5" data-level="2">
 <h3 class="ch"><span class="cn">第 5 章</span>　价格弹性：降多少价能换多少量</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>算清降价换量是否划算</li><li>区分高/低弹性时段的降价策略</li></ul></div>
 <p>降价不是越多越好。每降 10% 价，要换来多少量才划算？这叫<b>价格弹性</b>。粗略算法：</p>
@@ -174,7 +250,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 A</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 A</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="2">
+</section><section class="chx" id="ch6" data-level="2">
 <h3 class="ch"><span class="cn">第 6 章</span>　什么时候该涨价：表 A 涨价分支</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>识别进入涨价分支的触发条件</li><li>掌握分两批涨价的动作纪律</li></ul></div>
 <p>每日开盘先比对：预订进度是否高于去年同期/上周？库存是否收紧（可售房跌破预警线）？两个条件都中，进入<b>涨价分支</b>。</p>
@@ -184,7 +260,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 A</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 A</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="2">
+</section><section class="chx" id="ch7" data-level="2">
 <h3 class="ch"><span class="cn">第 7 章</span>　竞品降价：跟还是不跟（表 A 竞品分支）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>判断竞品降价时跟还是不跟</li><li>记住竞品动作是输入而非指令</li></ul></div>
 <p>竞品跳水，先别慌。看自己的进度：</p>
@@ -198,7 +274,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 A</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 A</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="2">
+</section><section class="chx" id="ch8" data-level="2">
 <h3 class="ch"><span class="cn">第 8 章</span>　折扣与促销：什么时候该让（表 A 折扣分支）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>知道何时开折扣及带什么条件</li><li>守住「折扣是药不是饭」</li></ul></div>
 <p>折扣只在<b>需求走低、进度滞后</b>时开，且必须带条件：连住 2 晚、含早、末单清仓。无差别打折只培养低价客，稀释价盘。</p>
@@ -208,7 +284,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 A</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 A</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="2">
+</section><section class="chx" id="ch9" data-level="2">
 <h3 class="ch"><span class="cn">第 9 章</span>　套餐与锚定：让客人觉得划算</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>用套餐+锚定提升感知价值</li><li>确认套餐净价仍并入 RevPAR</li></ul></div>
 <p>「房+餐」「房+景区票」套餐拉高感知价值，让客人觉得占了便宜；<b>锚定价</b>：先展示高价全包方案，再给标准价，主产品就显得便宜。</p>
@@ -217,7 +293,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 A/F</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 A/F</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="2">
+</section><section class="chx" id="ch10" data-level="2">
 <h3 class="ch"><span class="cn">第 10 章</span>　房型价差：差价定多少合理（表 F）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>定出合理的房型价差区间</li><li>理解散客/会员/团队的溢价差异</li></ul></div>
 <p>高级房比标准房贵多少客人仍会买？这决定了你的溢价空间。经验区间：散客 +8%~15%、会员略低、团队更低。</p>
@@ -226,7 +302,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 F</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 F</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="2">
+</section><section class="chx" id="ch11" data-level="2">
 <h3 class="ch"><span class="cn">第 11 章</span>　价格体系 BAR：所有价格的锚</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>理解 BAR 是所有价格的锚</li><li>知道折扣与促销都从 BAR 打折</li></ul></div>
 <p>最佳可用价（<b>BAR</b>）是全渠道价格的基准。会员价、协议价、OTA 价都围绕它排布：会员约 9 折、协议约 85 折、OTA 挂牌常高于 BAR（含佣）。</p>
@@ -235,7 +311,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 F</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 F</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><h2 class="pt">第三篇　房留给谁（库存与限制）</h2><section class="chx" data-level="2">
+</section><h2 class="pt" id="part3">第三篇　房留给谁（库存与限制）</h2><section class="chx" id="ch12" data-level="2">
 <h3 class="ch"><span class="cn">第 12 章</span>　最短住期 MinLOS：把客群分开（表 B）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>用 MinLOS 把客群分开</li><li>在连住需求日拉高最短住期</li></ul></div>
 <p>周末、展会设最短住期 2 晚，挡住只占一晚的低价值客，把房留给连住高价客。设了 MinLOS 的日子，系统自动拒掉 1 晚订单。</p>
@@ -244,7 +320,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 B</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 B</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="2">
+</section><section class="chx" id="ch13" data-level="2">
 <h3 class="ch"><span class="cn">第 13 章</span>　超额预订：卖出去的比有的多（表 E）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>算出安全超售量</li><li>知道超限即转升级兜底</li></ul></div>
 <p>超售是利润也是雷。<b>安全超售量 = 已订房数 × 历史 No-show 率（表 E）</b>。如 300 房已订 295，No-show 率 3%，可再接约 9 间。</p>
@@ -254,7 +330,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 E</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 E</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="2">
+</section><section class="chx" id="ch14" data-level="2">
 <h3 class="ch"><span class="cn">第 14 章</span>　库存分配与保护位：给谁留多少房（表 B）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>给高价客源留保护位</li><li>用关阀保护高价值库存</li></ul></div>
 <p>不同客源分池管理：散客池、会员池、协议池、团队池。给高价值客源留<b>保护位</b>——提前 7 天锁定，不到时点不对低价开放，避免被低价团占满导致高价客无房。</p>
@@ -263,7 +339,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 B</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 B</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="2">
+</section><section class="chx" id="ch15" data-level="2">
 <h3 class="ch"><span class="cn">第 15 章</span>　免费升级与房型置换（表 J）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>用免费升级安抚超售/满房</li><li>守住升级成本上限</li></ul></div>
 <p>满房或超售时，用<b>免费升级</b>安抚：升 1–2 档，配欢迎礼，成本低于赔款且体验更好。</p>
@@ -272,7 +348,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 B</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 B</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="2">
+</section><section class="chx" id="ch16" data-level="2">
 <h3 class="ch"><span class="cn">第 16 章</span>　客源细分：把客人分堆来卖</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>把客人按价值分堆定价</li><li>针对不同细分用不同弹性策略</li></ul></div>
 <p>散客、会员、协议、团队、OTA 价格逻辑各异：散客价最高最灵活，会员有黏性给中价，协议价稳量，团队价低但带餐，OTA 量大佣高。</p>
@@ -281,7 +357,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 B/H</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 B/H</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="3">
+</section><section class="chx" id="ch17" data-level="3">
 <h3 class="ch"><span class="cn">第 17 章</span>　团队置换：这个团该不该接（表 G）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>用净贡献判断是否接团</li><li>记住被挤掉散客的机会成本</li></ul></div>
 <p>低价大团看着间夜多，却可能挤掉高价散客。判断的唯一准绳是<b>净贡献</b>：</p>
@@ -290,7 +366,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 E/B</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 E/B</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="2">
+</section><section class="chx" id="ch18" data-level="2">
 <h3 class="ch"><span class="cn">第 18 章</span>　渠道净价与开关：到手多少钱才算数（表 H）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>算出各渠道到手净价</li><li>按净价而非表面价排渠道优先级</li></ul></div>
 <p>OTA 量大但佣金高。看挂牌价会误判，必须看<b>净价</b>（扣佣后）。</p>
@@ -299,7 +375,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 H</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 H</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="3">
+</section><section class="chx" id="ch19" data-level="3">
 <h3 class="ch"><span class="cn">第 19 章</span>　直销与会员：把客人变成自己的（表 H）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>提升直销与会员占比</li><li>理解会员是低成本重复客</li></ul></div>
 <p>自有渠道成本低、可复购。会员体系用积分、专属价、升级权益，把 OTA 客转成直销客。</p>
@@ -308,7 +384,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 H</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 H</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><h2 class="pt">第四篇　一年怎么排兵布阵（周期节奏）</h2><section class="chx" data-level="1">
+</section><h2 class="pt" id="part4">第四篇　一年怎么排兵布阵（周期节奏）</h2><section class="chx" id="ch20" data-level="1">
 <h3 class="ch"><span class="cn">第 20 章</span>　运营全景：从年到日的节奏</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>建立从年到日的运营节奏感</li><li>理解年度目标如何拆到每天</li></ul></div>
 <p>一张链路上通下达：<b>年度预算 → 月度策略 → 周度执行 → 每日操作</b>。</p>
@@ -317,7 +393,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="2">
+</section><section class="chx" id="ch21" data-level="2">
 <h3 class="ch"><span class="cn">第 21 章</span>　预测与需求日历（表 I）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>做需求预测与需求日历</li><li>把预测作为定价的输入</li></ul></div>
 <p>看<b>提前预订进度（pick-up）</b>判断某天会不会爆满或空置。进度低于同期 70% 即预警、启动引流；高于 110% 即收折扣、准备涨价。</p>
@@ -326,7 +402,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="3">
+</section><section class="chx" id="ch22" data-level="3">
 <h3 class="ch"><span class="cn">第 22 章</span>　年度预算：把一年拆到每天</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>把一年营收拆到每天</li><li>用预算作基线而非枷锁</li></ul></div>
 <p>把全年 RevPAR 目标拆到各月、各天。旺季给高目标、淡季保底。</p>
@@ -335,7 +411,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="2">
+</section><section class="chx" id="ch23" data-level="2">
 <h3 class="ch"><span class="cn">第 23 章</span>　淡旺季与事件日：最容易赚的钱</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>锁定淡旺季与事件日窗口</li><li>抓「最易赚的钱」</li></ul></div>
 <p>展会、节假日、本地大事件是最容易赚的钱。提前 60 天锁价、设 MinLOS、关低佣渠道；<b>别在旺季还卖着淡季价</b>。</p>
@@ -344,7 +420,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 A</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 A</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="2">
+</section><section class="chx" id="ch24" data-level="2">
 <h3 class="ch"><span class="cn">第 24 章</span>　周度与月度节奏把控（表 N）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>把握周度与月度节奏</li><li>周度看进度、月度看结构</li></ul></div>
 <p>周一至周日需求曲线不同：周五六高、周二三低。月初冲量开 OTA，月末守价保 RevPAR。</p>
@@ -353,7 +429,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><h2 class="pt">第五篇　把钱算到总盘（多业态与利润）</h2><section class="chx" data-level="2">
+</section><h2 class="pt" id="part5">第五篇　把钱算到总盘（多业态与利润）</h2><section class="chx" id="ch25" data-level="2">
 <h3 class="ch"><span class="cn">第 25 章</span>　成本与利润：降价的底线在哪</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>算出降价的成本底线</li><li>知道价不能低于变动成本</li></ul></div>
 <p><b>变动成本线就是降价的铁底</b>。每降一块钱，从边际利润里扣。算清每间房的变动成本（水电、布草、耗品），低于它宁可空着也别卖。</p>
@@ -362,7 +438,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="3">
+</section><section class="chx" id="ch26" data-level="3">
 <h3 class="ch"><span class="cn">第 26 章</span>　餐饮收益：RevPASH 与翻台</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>用翻台与 RevPASH 提餐饮效</li><li>把餐位也当库存经营</li></ul></div>
 <p>餐饮看 <b>RevPASH（每餐位每小时收入）</b> 与翻台。午市翻台慢就推套餐提速；晚市高价位推精品。</p>
@@ -371,7 +447,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="3">
+</section><section class="chx" id="ch27" data-level="3">
 <h3 class="ch"><span class="cn">第 27 章</span>　会议宴会：不只算房，算总贡献（表 K）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>算会议宴会的总贡献</li><li>别只算房费漏掉高毛利增量</li></ul></div>
 <p>会议不只算房，算总贡献：客房 + 餐饮 + 停车 + 茶歇。一个 200 人会议带动的餐饮利润可能超过房费。</p>
@@ -380,7 +456,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="3">
+</section><section class="chx" id="ch28" data-level="3">
 <h3 class="ch"><span class="cn">第 28 章</span>　其他业态与跨行业参数</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>理解跨业态收益参数</li><li>抓住通用思路、适配本地参数</li></ul></div>
 <p>公寓、民宿、景区住宿通用同一套逻辑，参数不同：公寓长住看月租等效、民宿看周末溢价、景区看客流峰值。</p>
@@ -389,7 +465,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><h2 class="pt">第六篇　让机制转起来（组织与系统）</h2><section class="chx" data-level="3">
+</section><h2 class="pt" id="part6">第六篇　让机制转起来（组织与系统）</h2><section class="chx" id="ch29" data-level="3">
 <h3 class="ch"><span class="cn">第 29 章</span>　岗位与组织：谁来干这件事（表 O）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>明确收益岗位与组织分工</li><li>理解收益是组织能力非个人</li></ul></div>
 <p>小酒店总经理兼、大集团设专职收益总监。跨部门收益例会每周开，销售、前厅、餐饮对齐目标与动作。</p>
@@ -398,7 +474,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="1">
+</section><section class="chx" id="ch30" data-level="1">
 <h3 class="ch"><span class="cn">第 30 章</span>　系统与数据：工具能替你做什么</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>知道系统能替你做什么</li><li>守住「系统算不替你决策」</li></ul></div>
 <p>PMS 管房态、RMS 管定价建议、渠道系统管开关。系统给建议，<b>不替你拍板</b>。</p>
@@ -407,7 +483,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="1">
+</section><section class="chx" id="ch31" data-level="1">
 <h3 class="ch"><span class="cn">第 31 章</span>　每日实操流程与收益例会（表 M）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>跑通每日实操流程与例会</li><li>把例会当成节奏锚点</li></ul></div>
 <p>一天标准动作：早盘看 RevPAR → 查预订进度 → 按表 A 调价 → 午间复盘接单 → 傍晚看竞品 → 收尾记日志。</p>
@@ -416,7 +492,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="1">
+</section><section class="chx" id="ch32" data-level="1">
 <h3 class="ch"><span class="cn">第 32 章</span>　常见误区：高频 12 坑，别再踩</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>识别高频 12 个误区</li><li>避免反复踩同一个坑</li></ul></div>
 <p>行业最常犯的错误，每条都是真金白银的教训：</p>
@@ -440,7 +516,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>—</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>—</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="3">
+</section><section class="chx" id="ch33" data-level="3">
 <h3 class="ch"><span class="cn">第 33 章</span>　中国渠道生态：平台、私域、买断与直播（表 H）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>理解中国渠道生态格局</li><li>看到私域+直播的新战场</li></ul></div>
 <p>国内特有格局：OTA 双寡头博弈、微信私域复购、直播带货引流、协议买断包量。</p>
@@ -449,7 +525,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 H</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 H</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="3">
+</section><section class="chx" id="ch34" data-level="3">
 <h3 class="ch"><span class="cn">第 34 章</span>　连锁与中央预订：总部定价，门店做什么</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>理解连锁中央预订机制</li><li>用一致性防价格战</li></ul></div>
 <p>集团中央定价下，单店收益经理的发力点在三处：本地动态调价、库存协调、本地事件响应。</p>
@@ -458,7 +534,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 A/B</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 A/B</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="3">
+</section><section class="chx" id="ch35" data-level="3">
 <h3 class="ch"><span class="cn">第 35 章</span>　危机与极端场景（表 L）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>应对危机与极端场景</li><li>极端日保现金流优先</li></ul></div>
 <p>疫情、自然灾害、突发封控下，先保现金流：长住客锁价、短住客退改宽松换口碑、转本地周边游套餐。</p>
@@ -467,7 +543,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 O</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 O</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><section class="chx" data-level="3">
+</section><section class="chx" id="ch36" data-level="3">
 <h3 class="ch"><span class="cn">第 36 章</span>　优先级与冲突仲裁（表 O）</h3>
 <div class="goal"><span class="gl">本章目标</span><ul><li>在多目标冲突时排序</li><li>用表 O 做冲突仲裁</li></ul></div>
 <p>当定价、库存、团队、渠道互相打架，按以下顺序裁决：</p>
@@ -479,7 +555,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="lvl-note" data-lvl="1"><span class="badge">L1 执行</span>照本页做即可。涉及判定：<b>表 O</b>（见附录表 A/B/E）。</div>
 <div class="lvl-note" data-lvl="2"><span class="badge">L2 主管</span>把今日动作记入《调价台账》，注明依据表 <b>表 O</b>；决策有依据、有记录。</div>
 <div class="lvl-note" data-lvl="3"><span class="badge">L3 经理</span>本页动作与表 O 冲突时以表 O 仲裁，其余记《观察清单》。</div>
-</section><div class="appendix"><h2>附录 · 全部判定表 A–O（输入条件→输出动作）</h2><div class="codex-block"><div class="codex-head">
+</section><div class="appendix"><h2 id="appx">附录 · 全部判定表 A–O（输入条件→输出动作）</h2><div class="codex-block"><div class="codex-head">
     <h3 id="toc-1">表 A · 每日价格调整判定表</h3>
     <span class="pill pill-red">最常用</span>
   </div>
@@ -1173,7 +1249,225 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <li><b>RGI>1 是终极目标</b>：RGI 与 MPI 都低先解决产品定位。</li>
 <li><b>危机优先升级安抚</b>：超售/满房用免费升级而非拒客赔歉。</li>
 <li><b>连锁中央定锚、门店微调</b>：超范围须走审批。</li>
-<li><b>汇报三要素</b>：结果/原因/要什么决定。</li></ul></div><div class="selftest" data-level="1"><h2>自测 L1 · 过关即点亮对应能力徽章</h2><div class="q">1. 每日早盘第一眼应盯哪个指标？</div><div class="a">答：RevPAR（看同比/环比波动），其他指标是拆因用的。</div><div class="q">2. RevPAR 掉了，第一步怎么拆？</div><div class="a">答：先拆成 ADR 掉还是 OCC 掉，再对症下药。</div><div class="q">3. 安全超售量怎么算？</div><div class="a">答：已订房数 × 历史 No-show 率；超了即关阀停接散客、转升级兜底。</div><div class="q">4. walk 红线是多少？</div><div class="a">答：≤0.5%；超过即违规。</div><div class="q">5. 价格一致性指什么？</div><div class="a">答：各渠道挂牌价须与 BAR/系统价同步，调价后 30 分钟内核查 OTA。</div><div class="q">6. 折扣什么时候才能开？</div><div class="a">答：只在需求走低、进度滞后时，且必须带条件（连住/含早/末单）。</div><div class="q">7. MinLOS 应该在什么日子用？</div><div class="a">答：只在高需求日（周末/展会），平峰日一律放开。</div><div class="q">8. 收益管理的本质一句话？</div><div class="a">答：在填满房的同时把价卖对，不是单纯填满房。</div><div class="q">9. 净价和挂牌价区别？</div><div class="a">答：净价是扣完佣金/买断成本后到手的钱，渠道比的是净价。</div><div class="q">10. 报表看太多后果？</div><div class="a">答：信息过载等于没看；每日第一眼只看 RevPAR。</div></div><div class="selftest" data-level="2"><h2>自测 L2 · 过关即点亮对应能力徽章</h2><div class="q">1. 涨价为什么分两批？</div><div class="a">答：先涨 3% 观察 2 小时，再涨 3%–5%；一次性调完把高价客锁低档。</div><div class="q">2. 竞品降价第一反应该看什么？</div><div class="a">答：看自己进度是否健康，而非盲目跟；竞品动作是输入不是指令。</div><div class="q">3. 接团唯一准绳？</div><div class="a">答：净贡献为正才接，不能只看间夜数。</div><div class="q">4. BAR 铁律？</div><div class="a">答：任何渠道价不得长期低于 BAR 的 8 折；改 BAR 须走审批。</div><div class="q">5. 房型价差经验区间？</div><div class="a">答：散客 +8%~15%、会员略低、团队更低。</div><div class="q">6. 库存动作和价格动作谁优先？</div><div class="a">答：库存动作优先级高于价格动作（表 O）。</div><div class="q">7. 渠道净价红线？</div><div class="a">答：净价低于直销 95% 即关。</div><div class="q">8. 旺季渠道策略？</div><div class="a">答：高峰日关低佣渠道、留高佣但限价。</div><div class="q">9. 降价底线？</div><div class="a">答：不能低于变动成本。</div><div class="q">10. 周度与月度分别看什么？</div><div class="a">答：周度看进度是否达标，月度看结构（细分/渠道贡献）。</div><div class="q">11. 留痕要求？</div><div class="a">答：每次调价写入《调价台账》注明依据表 X。</div></div><div class="selftest" data-level="3"><h2>自测 L3 · 过关即点亮对应能力徽章</h2><div class="q">1. 表 O 的作用？</div><div class="a">答：多张表冲突时查表 O 定优先级，只执行最高优先级那条。</div><div class="q">2. RGI/ARI/MPI 怎么读组合？</div><div class="a">答：RGI>1 终极目标；RGI高ARI低=价盘有上行空间。</div><div class="q">3. 年度预算定位？</div><div class="a">答：是基线不是枷锁，跑偏时按需求重分配。</div><div class="q">4. 团队置换本质？</div><div class="a">答：用净贡献判断是否接团，被挤掉散客机会成本必须算。</div><div class="q">5. 直销会员战略意义？</div><div class="a">答：直销占比每升 10%，省下佣金就是纯利。</div><div class="q">6. 多业态（餐饮 RevPASH）？</div><div class="a">答：把餐位当库存，用翻台与 RevPASH 提效。</div><div class="q">7. 危机极端场景优先？</div><div class="a">答：走表 O 与预案，优先用升级而非拒客赔歉。</div><div class="q">8. 连锁中央定价边界？</div><div class="a">答：中央定锚与规则，门店范围内微调，冲突查表 O。</div><div class="q">9. 向总经理汇报讲什么？</div><div class="a">答：结果/原因/要什么决定（资源或授权）。</div><div class="q">10. 渠道生态（中国）关注点？</div><div class="a">答：净价、直销占比、佣金结构、私域不破价盘。</div></div><div class="foot">收益管理实战书系 · 操作指南三档合一 · 门内评审稿 · 以 L1/L2/L3 能力体系为蓝本，判定表贯穿所有产品</div>
+<li><b>汇报三要素</b>：结果/原因/要什么决定。</li></ul></div><div class="selftest" id="selftest" data-level="1"><h2>自测 L1 · 过关即点亮对应能力徽章</h2><div class="q">1. 每日早盘第一眼应盯哪个指标？</div><div class="a">答：RevPAR（看同比/环比波动），其他指标是拆因用的。</div><div class="q">2. RevPAR 掉了，第一步怎么拆？</div><div class="a">答：先拆成 ADR 掉还是 OCC 掉，再对症下药。</div><div class="q">3. 安全超售量怎么算？</div><div class="a">答：已订房数 × 历史 No-show 率；超了即关阀停接散客、转升级兜底。</div><div class="q">4. walk 红线是多少？</div><div class="a">答：≤0.5%；超过即违规。</div><div class="q">5. 价格一致性指什么？</div><div class="a">答：各渠道挂牌价须与 BAR/系统价同步，调价后 30 分钟内核查 OTA。</div><div class="q">6. 折扣什么时候才能开？</div><div class="a">答：只在需求走低、进度滞后时，且必须带条件（连住/含早/末单）。</div><div class="q">7. MinLOS 应该在什么日子用？</div><div class="a">答：只在高需求日（周末/展会），平峰日一律放开。</div><div class="q">8. 收益管理的本质一句话？</div><div class="a">答：在填满房的同时把价卖对，不是单纯填满房。</div><div class="q">9. 净价和挂牌价区别？</div><div class="a">答：净价是扣完佣金/买断成本后到手的钱，渠道比的是净价。</div><div class="q">10. 报表看太多后果？</div><div class="a">答：信息过载等于没看；每日第一眼只看 RevPAR。</div></div><div class="selftest" data-level="2"><h2>自测 L2 · 过关即点亮对应能力徽章</h2><div class="q">1. 涨价为什么分两批？</div><div class="a">答：先涨 3% 观察 2 小时，再涨 3%–5%；一次性调完把高价客锁低档。</div><div class="q">2. 竞品降价第一反应该看什么？</div><div class="a">答：看自己进度是否健康，而非盲目跟；竞品动作是输入不是指令。</div><div class="q">3. 接团唯一准绳？</div><div class="a">答：净贡献为正才接，不能只看间夜数。</div><div class="q">4. BAR 铁律？</div><div class="a">答：任何渠道价不得长期低于 BAR 的 8 折；改 BAR 须走审批。</div><div class="q">5. 房型价差经验区间？</div><div class="a">答：散客 +8%~15%、会员略低、团队更低。</div><div class="q">6. 库存动作和价格动作谁优先？</div><div class="a">答：库存动作优先级高于价格动作（表 O）。</div><div class="q">7. 渠道净价红线？</div><div class="a">答：净价低于直销 95% 即关。</div><div class="q">8. 旺季渠道策略？</div><div class="a">答：高峰日关低佣渠道、留高佣但限价。</div><div class="q">9. 降价底线？</div><div class="a">答：不能低于变动成本。</div><div class="q">10. 周度与月度分别看什么？</div><div class="a">答：周度看进度是否达标，月度看结构（细分/渠道贡献）。</div><div class="q">11. 留痕要求？</div><div class="a">答：每次调价写入《调价台账》注明依据表 X。</div></div><div class="selftest" data-level="3"><h2>自测 L3 · 过关即点亮对应能力徽章</h2><div class="q">1. 表 O 的作用？</div><div class="a">答：多张表冲突时查表 O 定优先级，只执行最高优先级那条。</div><div class="q">2. RGI/ARI/MPI 怎么读组合？</div><div class="a">答：RGI>1 终极目标；RGI高ARI低=价盘有上行空间。</div><div class="q">3. 年度预算定位？</div><div class="a">答：是基线不是枷锁，跑偏时按需求重分配。</div><div class="q">4. 团队置换本质？</div><div class="a">答：用净贡献判断是否接团，被挤掉散客机会成本必须算。</div><div class="q">5. 直销会员战略意义？</div><div class="a">答：直销占比每升 10%，省下佣金就是纯利。</div><div class="q">6. 多业态（餐饮 RevPASH）？</div><div class="a">答：把餐位当库存，用翻台与 RevPASH 提效。</div><div class="q">7. 危机极端场景优先？</div><div class="a">答：走表 O 与预案，优先用升级而非拒客赔歉。</div><div class="q">8. 连锁中央定价边界？</div><div class="a">答：中央定锚与规则，门店范围内微调，冲突查表 O。</div><div class="q">9. 向总经理汇报讲什么？</div><div class="a">答：结果/原因/要什么决定（资源或授权）。</div><div class="q">10. 渠道生态（中国）关注点？</div><div class="a">答：净价、直销占比、佣金结构、私域不破价盘。</div></div><section class="pocket-integration" id="pocket">
+ <h2 class="appx-h">附 · 三档速查卡（口袋卡）</h2>
+ <p class="pk-intro">三档口袋速查卡已整合进本页（速读版）。完整可打印 A4 版与 PDF 见各卡右上角按钮。</p>
+ <div class="pk-embed"><div class="pk-card" data-level="1"><div class="pk-head"><span class="pk-badge l1">L1 执行专员</span><span class="pk-tag">7 章核心 · 会算会查</span><span class="pk-acts"><a href="guide-l1-pocket.html" target="_blank">网页版</a><a href="guide-l1-pocket.pdf" target="_blank">PDF</a></span></div><div class="pk-body"><div class="page">
+
+
+<div class="role"><b>你是谁：</b>收益执行专员——坐在值班室/收益台，把数据看准、把动作做对、把记录记全。你不直接定策略，但你是整条收益链的<b>第一道关</b>。对谁负责：收益主管 / 当班经理。</div>
+
+<div class="h2">一、每日必做 5 件事（逐项打勾）</div>
+<ul class="chk">
+<li><b>早盘</b>：开经营日报 + 今日预订进度，第一眼只看 <b>RevPAR</b> 波动（掉了先拆 ADR/OCC）。</li>
+<li><b>跟拍</b>：按运营节奏跟住一天，到点核对房量、价格、预订进度。</li>
+<li><b>查表</b>：拿不准翻附录表 A/B/E，照条件执行，不靠拍脑袋。</li>
+<li><b>红线</b>：walk≤0.5%、价格一致、净价口径、日报不漏填——四条碰都不能碰。</li>
+<li><b>记录</b>：当天动作记进《调价台账》/日志，月底才能复盘。</li>
+</ul>
+
+<div class="h2">二、不可踩的 8 条红线</div>
+<ul class="rl">
+<li><b>walk≤0.5%</b>：超售翻车用升级兜底，绝不赔款伤客。</li>
+<li><b>价格一致性</b>：调价后 30 分钟内核查 OTA 挂牌价同步。</li>
+<li><b>净价口径</b>：渠道比的是到手净价（扣佣后），不是挂牌价。</li>
+<li><b>折扣带条件</b>：只在需求走低+进度滞后时开，带连住/含早/末单。</li>
+<li><b>MinLOS 只在高需求日</b>：平峰日放开，否则自断流量。</li>
+<li><b>超售算出来不是赌出来</b>：无 No-show 率数据就别超。</li>
+<li><b>BAR 是总锚</b>：任何渠道价不得长期低于 BAR 的 8 折。</li>
+<li><b>日报不漏填</b>：当天动作记进《调价台账》。</li>
+</ul>
+
+<div class="kpi">
+<div class="k"><div class="n">RevPAR = ADR × OCC</div><div class="l">早盘第一眼</div></div>
+<div class="k"><div class="n">超售 = 已订 × No-show 率</div><div class="l">超了即关阀</div></div>
+</div>
+<div class="tip">提示：信息过载等于没看。每天第一眼只盯 RevPAR，其余指标是拆因用的。</div>
+
+</div>
+
+<div class="page">
+
+
+<div class="h2">三、异常 → 动作 速查</div>
+<table class="qa">
+<thead><tr><th>现场现象</th><th>第一时间动作</th></tr></thead>
+<tbody>
+<tr><td class="phen">RevPAR 同比/环比掉了</td><td>先拆 ADR 掉还是 OCC 掉：ADR 掉=价盘问题，OCC 掉=流量/转化问题，再对症下药。</td></tr>
+<tr><td class="phen">预订进度落后目标</td><td>先看是不是平峰日（平峰不慌）；高需求日落后才考虑带条件折扣，且必须连住/含早/末单。</td></tr>
+<tr><td class="phen">已订房数逼近甚至超过可售房</td><td>算超售量=已订×No-show 率；超了即关阀停接散客、转升级兜底，绝不赔款。</td></tr>
+<tr><td class="phen">竞品突然降价</td><td>先看自己进度是否健康，不盲目跟；竞品动作是输入不是指令。</td></tr>
+<tr><td class="phen">某渠道价格对不上</td><td>30 分钟内核查 OTA 挂牌价与 BAR/系统价同步；长期低于 BAR 8 折即上报。</td></tr>
+<tr><td class="phen">有人要团队/大单低价</td><td>上报主管，由主管按净贡献判定（团价贡献−被挤掉散客利润为正才接）。</td></tr>
+<tr><td class="phen">高需求日还有大量低价空房</td><td>开 MinLOS（连住最少晚数），别在平峰日开。</td></tr>
+</tbody></table>
+
+<div class="h2">四、判定表速查（详见附录全量 A–O）</div>
+<div class="box"><b>表 A</b> · 价格带/涨跌判定：进度落后+需求走低才降，分两批涨（先 3% 观察再 3%–5%）。</div>
+<div class="box"><b>表 B</b> · 库存分配：库存动作优先于价格动作（见下表 O）；高需求日关低佣渠道。</div>
+<div class="box"><b>表 E</b> · 净价/渠道：净价低于直销 95% 即关；比价永远比到手净价。</div>
+
+<div class="h2">五、周 / 月必做（给主管留痕，你配合）</div>
+<ul class="chk">
+<li><b>每周</b>：配合主管更新预测与需求日历；本周《调价台账》交主管复核。</li>
+<li><b>每月</b>：整理本月异常事件与日报，归档供月度结构分析用。</li>
+<li><b>任何变动</b>：价格/库存一动，立刻写《调价台账》注明依据哪张表。</li>
+</ul>
+<div class="tip">本卡只覆盖 L1 执行核心（7 章）。主管/经理级动作见《操作指南 L2/L3 全文》与三档合一版。</div>
+
+</div></div></div><div class="pk-card" data-level="2"><div class="pk-head"><span class="pk-badge l2">L2 主管</span><span class="pk-tag">24 章 · 会定会留痕</span><span class="pk-acts"><a href="guide-l2-pocket.html" target="_blank">网页版</a><a href="guide-l2-pocket.pdf" target="_blank">PDF</a></span></div><div class="pk-body"><div class="page">
+
+
+<div class="role"><b>你是谁：</b>收益管理主管——从「把动作做对」升级到「判断该不该动、动多少、谁去动」。对上承接经理的目标，对下带 L1 执行。你交付的不是数据，是<b>有依据的建议</b>。</div>
+
+<div class="h2">一、周节奏（五个固定动作，每周必走）</div>
+<ul class="chk">
+<li><b>周一 · 预测与需求日历</b>：按表 I 更新未来 90 天 pickup，标出高需求日、事件日、节假日前后错峰。</li>
+<li><b>周二 · 价格带审核</b>：按表 A 复核 BAR 与各房型价差（表 F），判断本周是否需要分批调、调到第几档。</li>
+<li><b>周三 · 渠道体检</b>：按表 H 看各渠道净价与产量，关掉「净价倒挂」与「低产高佣」两类渠道。</li>
+<li><b>周四 · 团队与置换</b>：按表 G 判团队净贡献，不能只看房价，要看被挤掉的散客利润。</li>
+<li><b>周五 · 下周预判 + 周报</b>：一页写清本周动作、结果、下周计划，交经理复核。</li>
+</ul>
+
+<div class="h2">二、月节奏（三个节点，别漏）</div>
+<ul class="chk">
+<li><b>月初</b>：上月细分市场 RevPAR 贡献分析；把本月目标拆到周，标出关键周。</li>
+<li><b>月中</b>：进度纠偏——落后先查是「量不足」还是「价偏低」，再决定动渠道还是动价。</li>
+<li><b>月末</b>：异常事件复盘 + 判定表使用记录归档，供季度结构分析。</li>
+</ul>
+
+<div class="h2">三、带人：把 L1 的五件事分下去，你只复核三样</div>
+<div class="box"><b>分下去：</b>早盘 / 跟拍 / 查表 / 守红线 / 记台账。<b>你复核：</b>① 红线有没有破（walk、价格一致性、净价口径）；② 台账有没有漏（每个调价写清依据哪张表）；③ 判断有没有依据（口头结论不算，要能指到表）。</div>
+
+<div class="h2">四、报告怎么读（顺序错了等于没读）</div>
+<div class="box"><b>RevPAR 结论 → 拆 ADR / OCC → 再看细分市场贡献 → 最后看渠道结构。</b>不要一上来念数字：先说「钱从哪来、丢在哪」，再说下一步三个动作。</div>
+
+<div class="h2">五、周会必带三个数（没这三个数，会开不成决策会）</div>
+<ul class="chk">
+<li><b>进度差</b>：当前 pickup 对比目标进度，差几个百分点、差在哪个客源。</li>
+<li><b>净价差</b>：主力渠道到手净价 vs 直销净价，差多少、是否已破 95% 底线。</li>
+<li><b>结构差</b>：团队/散客、直销/OTA 占比的变化，是不是靠低价客撑起来的量。</li>
+</ul>
+<div class="box"><b>周会三句话：</b>① 本周比目标快还是慢、为什么；② 我建议动什么、依据哪张表；③ 需要谁配合、什么时候给结果。</div>
+
+<div class="h2">六、调价建议怎么写（让经理一眼能批）</div>
+<div class="box"><b>四要素：</b>动什么（BAR/某房型/某渠道）· 动多少（具体金额或幅度）· 依据（表 A 的哪一分支 + 数据）· 兜底（不达预期几天内回退）。缺一条就别提，提了也会被打回。</div>
+
+<div class="kpi">
+<div class="k"><div class="n">RGI = MPI × ARI</div><div class="l">份额与价格的合成</div></div>
+<div class="k"><div class="n">净贡献 = 房价 − 佣金 − 服务成本</div><div class="l">渠道/团队都按这个比</div></div>
+</div>
+
+</div>
+
+<div class="page">
+
+
+<div class="h2">五、异常 → 动作 速查</div>
+<table class="qa">
+<thead><tr><th>现场现象</th><th>判读与动作</th></tr></thead>
+<tbody>
+<tr><td class="phen">pickup 落后目标，但离入住还有 3 周以上</td><td>先别动价。按表 I 判断是「时间没到」还是「需求真弱」；真弱才动，动就先动渠道结构，不动 BAR。</td></tr>
+<tr><td class="phen">pickup 落后且已临近入住</td><td>按表 A 降价，但分两批、带条件（连住/含早/末单）；一次降到底最伤价盘且换不回量。</td></tr>
+<tr><td class="phen">竞对集体降价</td><td>按表 A 竞品分支：看自己 RGI 与进度。份额没丢就不跟；丢了才跟，且只对目标客群跟，不全面降。</td></tr>
+<tr><td class="phen">某渠道产量高但净价最低</td><td>按表 H 算净贡献，低于直销净价 95% 即关或提价；产量高不等于赚钱。</td></tr>
+<tr><td class="phen">团队询价压到 BAR 六折</td><td>按表 G 算置换：团价贡献 − 被挤掉散客利润。为正才接，为负就报经理，别自己让。</td></tr>
+<tr><td class="phen">已订房逼近可售房（超售风险）</td><td>按表 E 算超售量（已订×No-show 率），先关低价渠道与 OTA 房量，再备升级兜底，绝不赔款了事。</td></tr>
+<tr><td class="phen">房型价差被投诉或出现倒挂</td><td>按表 F 重排价差，保证「高一级 ≥ 低一级 + 差价下限」；倒挂说明价盘设计有问题，不是销售问题。</td></tr>
+<tr><td class="phen">工作日与周末价差拉不开</td><td>按表 N 检查周内节奏；周末溢价要提前 2–3 周建立，临近才涨等于没涨。</td></tr>
+</tbody></table>
+
+<div class="h2">六、判定表速查（全量见附录 A–O）</div>
+<div class="box"><b>表 A</b> 涨跌判定：进度 + 需求双条件；涨价分两批（先 3% 观察，再 3%–5%）。<b>表 B</b> 库存：库存动作优先于价格动作。</div>
+<div class="box"><b>表 F</b> 房型价差：先定价差档位再定价。<b>表 G</b> 团队置换：净贡献为正才接。<b>表 H</b> 渠道净价：只比到手净价。</div>
+<div class="box"><b>表 I</b> 预测与需求日历：先有日历再谈策略。<b>表 N</b> 周内节奏：周末溢价提前建仓。</div>
+
+<div class="h2">七、主管红线（越一条就上报）</div>
+<ul class="rl">
+<li><b>不越权定价</b>：超出授权折扣带、破 BAR 底线，必须上报经理，不能先做后说。</li>
+<li><b>不无据调整</b>：任何调价/关渠道都要能指到一张表，口头「感觉」不算依据。</li>
+<li><b>不让单一大客户破价盘</b>：一个团救不了全年，破了价全年都收不回来。</li>
+<li><b>不掩盖异常</b>：pickup 崩、渠道倒挂、walk 超线，当天上报，不能等月底。</li>
+<li><b>不漏台账</b>：调价不记录，等于没做，季度复盘时无从解释。</li>
+</ul>
+<div class="tip">本卡覆盖 L2 主管核心（24 章含 L1 全部）。经理级战略与仲裁见 L3 速查卡与三档合一版。</div>
+
+</div></div></div><div class="pk-card" data-level="3"><div class="pk-head"><span class="pk-badge l3">L3 经理</span><span class="pk-tag">36 章全量 · 会权衡会汇报</span><span class="pk-acts"><a href="guide-l3-pocket.html" target="_blank">网页版</a><a href="guide-l3-pocket.pdf" target="_blank">PDF</a></span></div><div class="pk-body"><div class="page">
+
+
+<div class="role"><b>你是谁：</b>收益管理经理——对 RevPAR / RGI 与全年预算结果负责。你的产出不是「今天调了几次价」，而是<b>结构</b>：市场定位、价格体系、渠道结构、组织分工。你定规则，主管在规则内决策。</div>
+
+<div class="h2">一、年度节奏（四个节点，错过就补不回来）</div>
+<ul class="chk">
+<li><b>预算季（10–12 月）</b>：按表 I + 第 22 章把年目标拆到月/周/日，含淡旺季系数与事件日加成；预算不是平均数。</li>
+<li><b>旺季前 6–8 周</b>：保价、缩折扣、建 MinLOS、锁高价值客群；旺季降价是最贵的错误。</li>
+<li><b>淡季前 4–6 周</b>：设计套餐/连住/长住，先保量后保价，但守净价底线，不做无底线甩卖。</li>
+<li><b>季度复盘</b>：MPI / ARI / RGI 三件套定位，回答「我们在市场排第几、靠什么赢、下季改什么」。</li>
+</ul>
+
+<div class="h2">二、战略三问（每季必答，答不出就是没战略）</div>
+<div class="box"><b>① 定位</b>：我们卖给谁？凭什么收溢价？（第 3、16、19 章）——客群不清，所有定价都是猜。</div>
+<div class="box"><b>② 价格体系</b>：BAR 锚在哪、价差分几档、折扣权限给到谁？（第 10、11 章）——权限不清，价盘必乱。</div>
+<div class="box"><b>③ 渠道结构</b>：直销占比目标多少、OTA 净价底线多少、买断/直播碰不碰？（第 18、19、33 章）——结构决定长期成本。</div>
+
+<div class="h2">三、汇报口径（对上、对业主通用）</div>
+<div class="box"><b>结论先行：</b>RevPAR 增减 → 拆 ADR/OCC → 拆细分市场 → 拆渠道 → 三个下一步动作 + 需要的资源。<b>一句话说清钱从哪来、丢在哪</b>，不要报流水账。</div>
+
+<div class="h2">四、预算怎么拆（不是把年目标除以 365）</div>
+<ul class="chk">
+<li><b>第一步 · 拆到月</b>：按历史淡旺季系数分配，旺季月份承担更高增量，淡季不背不现实的指标。</li>
+<li><b>第二步 · 拆到周</b>：标出事件日、节假日、大型会展；这些日子的目标要单独定，不摊平。</li>
+<li><b>第三步 · 拆到日</b>：只对关键日（高需求日/事件日）做日级目标，其余按周控。</li>
+<li><b>第四步 · 留缓冲</b>：全年指标留 3%–5% 弹性，用于对冲不可控事件；不设缓冲的预算一定会失真。</li>
+</ul>
+
+<div class="h2">五、组织与分工（第 29 章 / 表 O）</div>
+<div class="box"><b>谁定策略、谁执行、谁复核要分开。</b>定价权不能既当运动员又当裁判；没有复核机制的收益管理，等于一个人的手感。</div>
+
+<div class="h2">六、三件套怎么读（季度定位的三个数）</div>
+<div class="box"><b>MPI（入住率指数）</b>：我们卖得比市场好还是差 → 看量的竞争力。<b>ARI（均价指数）</b>：我们卖得比市场贵还是便宜 → 看价的定价力。</div>
+<div class="box"><b>RGI（收益指数）= MPI × ARI</b>：综合份额。<b>读法：</b>RGI 涨但靠 ARI 涨 = 定价力在提升（健康）；RGI 涨但靠 MPI 涨、ARI 跌 = 拿价换量（警惕）；RGI 跌而 ARI 涨 = 定价过高丢量（要回调）。</div>
+
+</div>
+
+<div class="page">
+
+
+<div class="h2">五、场景速查（八个高频两难）</div>
+<table class="qa">
+<thead><tr><th>场景</th><th>决策要点</th></tr></thead>
+<tbody>
+<tr><td class="phen">保 RevPAR 还是保 OCC</td><td>按表 O 仲裁顺序：先保净收益，再保市场份额，最后保入住率。三者冲突时，入住率是结果不是目标。</td></tr>
+<tr><td class="phen">危机 / 极端场景（灾害、断供、舆情）</td><td>按表 L 分级响应：先保客人与现金，再谈价格；危机期定价以「不伤害长期价盘」为底线。</td></tr>
+<tr><td class="phen">大会议 / 宴会询价</td><td>按表 K 算总贡献（房 + 餐 + 场租 + 附加消费），不看单房房价；但要用置换口径扣掉被挤掉的散客。</td></tr>
+<tr><td class="phen">连锁总部压价 vs 门店收益</td><td>第 34 章：总部定框架、门店定执行；用数据申请例外，不用情绪对抗。</td></tr>
+<tr><td class="phen">淡季要不要打价格战</td><td>先算降价底线（第 25 章边际成本）：打不赢就别打，改打套餐、客群与渠道，价格战只对成本领先者有利。</td></tr>
+<tr><td class="phen">买断 / 直播超低价</td><td>第 33 章：先算「增量是否真增量」，避免左右手互博；吃掉的是自己的存量，就不是增量。</td></tr>
+<tr><td class="phen">团队占比过高拉低均价</td><td>设团队占比上限（按淡旺季分别设），逐团按表 G 审；占比失控比单价低更危险。</td></tr>
+<tr><td class="phen">系统数据不可信</td><td>第 30 章：先治数据口径再谈模型；脏数据跑出来的策略，比没有策略更糟。</td></tr>
+</tbody></table>
+
+<div class="h2">六、经理红线（破了就是经营事故）</div>
+<ul class="rl">
+<li><b>不为冲单日数字牺牲全年价盘</b>：短期好看、长期掉价，是最典型的收益管理失败。</li>
+<li><b>不为单一大客户破价格体系</b>：一个客户撑不起全年，破一次价全年都要补。</li>
+<li><b>不让净价底线</b>：渠道净价底线一旦松动，所有渠道都会来要。</li>
+<li><b>不破 walk 红线（≤0.5%）</b>：超售是算出来的，不是赌出来的。</li>
+<li><b>不做无表可依的决策</b>：重大调价/渠道变更必须有判定表依据与留痕，否则无法复盘。</li>
+</ul>
+
+<div class="h2">七、季度自查（四个问题）</div>
+<ul class="chk">
+<li>我们的 RGI 是在涨还是在跌？涨/跌是靠价还是靠量？</li>
+<li>直销占比是升还是降？获客成本是升还是降？</li>
+<li>价格体系这季被破过几次？是谁破的？权限设计要不要改？</li>
+<li>淡旺季系数与预算偏差多少？下季预算按什么修正？</li>
+</ul>
+<div class="tip">本卡覆盖 L3 经理核心决策（36 章全量）。执行细节见 L1/L2 卡与三档合一版。</div>
+
+</div></div></div></div>
+</section>
+<div class="foot">收益管理实战书系 · 操作指南三档合一 · 门内评审稿 · 以 L1/L2/L3 能力体系为蓝本，判定表贯穿所有产品</div>
 </div></div>
 <script>
 var LABELS={1:"L1 执行专员（7 章核心）",2:"L2 主管（24 章）",3:"L3 经理（36 章全量）",0:"全览（全部 36 章 · 三档要点并列）"};
@@ -1208,6 +1502,9 @@ function exportHtml(){
  clone.querySelectorAll('.selftest[data-level]').forEach(function(s){s.style.display=(L===0||+s.dataset.level<=L)?'block':'none';});
  clone.querySelectorAll('.redline[data-level]').forEach(function(s){s.style.display=(L===0||+s.dataset.level<=L)?'block':'none';});
  var tb=clone.querySelector('.toolbar'); if(tb) tb.remove();
+ var _td=clone.querySelector('.toc-drawer'); if(_td) _td.remove();
+ var _tf=clone.querySelector('.toc-fab'); if(_tf) _tf.remove();
+ var _pk=clone.querySelector('.pocket-integration'); if(_pk) _pk.remove();
  var css=''; document.querySelectorAll('style').forEach(function(st){css+=st.innerHTML+'\n';});
  var html='<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><title>'+title+'</title><style>'+css+'</style></head><body>'+clone.outerHTML+'</body></html>';
  var blob=new Blob([html],{type:'text/html;charset=utf-8'});
@@ -1216,4 +1513,49 @@ function exportHtml(){
  setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
 }
 </script>
+
+<script>
+(function(){
+ var drawer=document.getElementById('tocDrawer');
+ var fab=document.getElementById('tocFab');
+ var closeBtn=document.getElementById('tocClose');
+ if(!drawer) return;
+ function openT(){drawer.classList.add('open');if(fab)fab.style.display='none';}
+ function closeT(){drawer.classList.remove('open');if(fab)fab.style.display='';}
+ if(fab) fab.addEventListener('click',openT);
+ if(closeBtn) closeBtn.addEventListener('click',closeT);
+ document.querySelectorAll('#tocDrawer a[href^="#"]').forEach(function(a){
+   a.addEventListener('click',function(e){
+     e.preventDefault();
+     var id=this.getAttribute('href').slice(1);
+     var el=document.getElementById(id);
+     if(el){el.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'','#'+id);}
+     closeT();
+   });
+ });
+ function updateToc(){
+   var ab=document.querySelector('.toolbar button.active');
+   var L=ab?(+ab.dataset.lvl):0;
+   document.querySelectorAll('#tocDrawer .toc-ch').forEach(function(li){
+     var lv=+li.dataset.level;
+     li.style.display=(L===0||lv<=L)?'':'none';
+   });
+   document.querySelectorAll('#tocDrawer .toc-part').forEach(function(p){
+     var any=false;
+     p.querySelectorAll('.toc-ch').forEach(function(li){if(li.style.display!=='none')any=true;});
+     p.style.display=any?'':'none';
+   });
+ }
+ var _s=window.setLvl;
+ if(typeof _s==='function'){window.setLvl=function(L){_s(L);updateToc();};}
+ function spy(){
+   var pos=window.scrollY+130,cur=null;
+   document.querySelectorAll('.chx').forEach(function(s){if(s.getBoundingClientRect().top+window.scrollY<=pos)cur=s.id;});
+   document.querySelectorAll('#tocDrawer .toc-ch').forEach(function(li){li.classList.toggle('active',li.dataset.target===cur);});
+ }
+ window.addEventListener('scroll',spy,{passive:true});
+ updateToc();spy();
+})();
+</script>
+
 </body></html></div>
