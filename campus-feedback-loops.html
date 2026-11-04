@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<title>低带宽回流口 · 让系统自己积累经验（RMCity 赛事引擎）</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--gold2:#f5d78e;--ink:#1f2a37;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb;--teal:#1f7a6d;--rust:#a8442a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:14px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px 90px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:30px 0 26px}
+.hero .wrap{padding-bottom:0}
+.tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);color:var(--gold2);font-size:12.5px;border-radius:999px;padding:3px 13px;margin-bottom:11px}
+.hero h1{font-size:21px;line-height:1.4}
+.hero p{color:#b9d0e6;font-size:13px;margin-top:9px;max-width:840px}
+.hero a{color:var(--gold2)}
+h2{font-size:17px;color:var(--navy);margin:28px 0 5px;padding-left:11px;border-left:4px solid var(--gold)}
+.lead{color:var(--mut);font-size:12.5px;margin:0 0 9px;padding-left:11px}
+.box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 17px;margin:13px 0;box-shadow:0 2px 9px rgba(15,42,74,.05)}
+.box b{color:var(--navy)}
+.tblw{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:auto;margin:10px 0}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:640px}
+th{background:var(--navy);color:#fff;text-align:left;padding:8px 10px;font-size:11.5px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafcfe}
+td:first-child{font-weight:600;color:var(--navy)}
+.no{color:var(--rust)}.yes{color:var(--teal);font-weight:600}
+.ok{background:#fff;border-left:3px solid var(--teal);border-radius:0 9px 9px 0;padding:10px 13px;margin:9px 0;font-size:13px}
+.ok b{color:var(--teal)}
+.ob{background:#fff;border-left:3px solid var(--rust);border-radius:0 9px 9px 0;padding:10px 13px;margin:9px 0;font-size:13px}
+.ob b{color:var(--rust)}
+.loop{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:13px 0;box-shadow:0 2px 9px rgba(15,42,74,.05)}
+.loop .hd{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.loop .hd .k{flex:0 0 auto;background:var(--navy);color:var(--gold2);font-size:12px;font-weight:700;border-radius:999px;padding:3px 11px}
+.loop .hd h3{font-size:15.5px;color:var(--navy)}
+.loop p{font-size:13px;color:var(--ink)}
+.form{background:#fdfbf4;border:1px dashed #cdb985;border-radius:10px;padding:14px 16px;margin:11px 0}
+.form .ft{font-size:12px;color:var(--mut);margin-bottom:8px;font-weight:600}
+.frow{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;margin:5px 0}
+.frow .f{flex:1 1 220px}
+.frow .f .lab{color:var(--mut);font-size:11.5px}
+.frow .f .val{border-bottom:1px solid #b9a36a;min-height:20px;padding:1px 2px;color:var(--ink)}
+.frow .f .val.sm{font-size:12px;color:var(--mut)}
+.cl{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;background:#0f2a4a;color:#dfeaf6;border-radius:8px;padding:10px 13px;margin:9px 0;white-space:pre-wrap;line-height:1.7}
+.nav{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0 0}
+.nav a{font-size:12.5px;text-decoration:none;color:var(--navy);border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 13px}
+.foot{text-align:center;color:var(--mut);font-size:12px;margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}
+@media print{.hero,.nav,.foot{display:none!important}.wrap{max-width:none;padding:0}.box,.loop,.tblw,.form{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="wrap">
+<div class="tag">RMCity · 赛事引擎 · 低带宽回流</div>
+<h1>三个低带宽回流口：让系统自己积累经验</h1>
+<p>不建第二平台、不接实时 API、不养运营团队。三个回流口都靠邮件与表格回流，单位成本极低，却能把"每次办赛"变成"可复用的经验资产"。</p>
+</div></div>
+<div class="wrap">
+
+<div class="box">战略依据：下一轮分化在"谁让系统自己积累经验"。赛事引擎每跑一场校赛，都会产生三类信号——<b>用了什么、错在哪里、改了什么</b>。把它们低成本收回来，教材修订、赛项权重、洽谈话术就会越跑越准，而边际成本趋近于零。</div>
+
+<div class="loop">
+<div class="hd"><span class="k">回流口一</span><h3>用途回执 · 学校用了什么</h3></div>
+<p>每场校赛或每门课结课后，院校填一张回执发回。它回答"我们的内容真的被用进了哪门课、哪个赛项"，是验证"进既有流程"主张的最低成本证据。一行即可，不强制、不考核。</p>
+<div class="form">
+<div class="ft">【用途回执 · 可打印 / 可邮件回复】</div>
+<div class="frow">
+<div class="f"><div class="lab">院校名称</div><div class="val">&nbsp;</div></div>
+<div class="f"><div class="lab">填报教师</div><div class="val">&nbsp;</div></div>
+<div class="f"><div class="lab">日期（年-月）</div><div class="val sm">YYYY-MM</div></div>
+</div>
+<div class="frow">
+<div class="f"><div class="lab">使用赛项（A/B/C/D 编号，可多选）</div><div class="val">&nbsp;</div></div>
+<div class="f"><div class="lab">对应教材章（如 第 12–15 章）</div><div class="val">&nbsp;</div></div>
+</div>
+<div class="frow">
+<div class="f"><div class="lab">挂接课程（如 收益管理实务 / 前厅营运）</div><div class="val">&nbsp;</div></div>
+<div class="f"><div class="lab">参与学生数</div><div class="val sm">___ 人</div></div>
+</div>
+<div class="frow">
+<div class="f" style="flex:1 1 100%"><div class="lab">一句话备注（哪些好用 / 哪些要改）</div><div class="val">&nbsp;</div></div>
+</div>
+</div>
+<div class="cl">回流方式：邮件主题「用途回执-院校名-YYYYMM」→ 收件箱。季度汇总成一张表，反哺洽谈一页纸的"已落地院校"清单。</div>
+</div>
+
+<div class="loop">
+<div class="hd"><span class="k">回流口二</span><h3>成绩汇总 · 错得最多的判定项</h3></div>
+<p>每次校赛平台机评都会导出成绩 CSV（861 判定项逐题对错）。把多场 CSV 汇总，统计<b>错得最多的判定项 Top N</b>，直接定位教材薄弱章与赛项权重偏差——这是"压成本"与"提质量"的交汇点：改对地方，比加新内容省钱。</p>
+<div class="tblw"><table>
+<thead><tr><th style="width:16%">判定项编号</th><th style="width:16%">所属章</th><th style="width:12%">错次</th><th style="width:12%">错率</th><th>归因 / 修订动作</th></tr></thead>
+<tbody>
+<tr><td>J-0307</td><td>第 7 章 超售</td><td>142</td><td>38%</td><td class="no">walk 红线概念混淆 → 教材加图例</td></tr>
+<tr><td>J-0512</td><td>第 12 章 动态定价</td><td>118</td><td>31%</td><td class="no">净价口径漏扣佣金 → 赛项提示强化</td></tr>
+<tr><td>J-0219</td><td>第 4 章 预测</td><td>96</td><td>25%</td><td class="no">Pace 读图弱 → 补微课</td></tr>
+<tr><td colspan="5" style="color:var(--mut);font-weight:400">（表为模板占位，实际 Top N 由各场成绩 CSV 汇总生成；判定项编号体系见课赛证映射大表）</td></tr>
+</tbody></table></div>
+<div class="cl">回流方式：校赛成绩 CSV 归档至共享目录 → 季度跑一次汇总脚本 → 输出 Top N 表，进教材修订 backlog 与赛项权重复盘。</div>
+</div>
+
+<div class="loop">
+<div class="hd"><span class="k">回流口三</span><h3>版本日志 · 改了什么、因何而改</h3></div>
+<p>每次改版（教材、赛项、口径、页面）留一行日志，标注<b>变更点、影响页、回流来源</b>。院校可追溯，我们也能看清"哪些改动真的来自一线反馈"，避免闭门造车。</p>
+<div class="tblw"><table>
+<thead><tr><th style="width:12%">版本</th><th style="width:14%">日期</th><th style="width:34%">变更点</th><th style="width:22%">影响页</th><th>回流来源</th></tr></thead>
+<tbody>
+<tr><td>v1.4</td><td>2026-11-04</td><td>7 页证书口径统一为达标证明 / 能力等级</td><td>证书模板 / L1包 / B1 / 洽谈 / MOU / 申报 / 映射</td><td>情报研判（1+X×晨鸟杯）</td></tr>
+<tr><td>v1.3</td><td>2026-11-04</td><td>41章/861项↔1+X 官方 167 条逐条对标</td><td>1+X 映射大表 / 课赛证映射</td><td>标准文本提取</td></tr>
+<tr><td>v1.2</td><td>2026-11-02</td><td>课证融通附件纳入培养方案引用</td><td>附件包（待建）</td><td>战略复盘</td></tr>
+<tr><td colspan="5" style="color:var(--mut);font-weight:400">（本页为 v1.5 新增；日志持续追加，最新在前）</td></tr>
+</tbody></table></div>
+<div class="cl">回流方式：改版即追加一行至版本日志（Markdown / 表格均可），与用途回执、成绩汇总三方互证——"反馈驱动改动"才闭环。</div>
+</div>
+
+<h2>三个口如何拼成经验回路</h2>
+<div class="ok"><b>回执（用了什么）</b>告诉我们内容进了哪门课；<b>成绩汇总（错在哪里）</b>告诉我们哪章最弱；<b>版本日志（改了什么）</b>把前两者变成可追溯的修订。三者都靠邮件 / 表格，不依赖任何平台，单场校赛的回流成本≈0；但累积一年，就形成"教材越用越准、赛项越跑越稳"的自进化资产。</div>
+
+<div class="ob"><b>边界：</b>回流口只收集"用途、错项、版本"三类中性信号，不采集学生个人隐私、不锁定院校数据；回流来的成绩仅用于内部修订与权重复盘，对外只出聚合结论。</div>
+
+<div class="nav">
+<a href="campus-talent-plan-attachment.html">课证融通附件包 →</a>
+<a href="campus-cost-ledger.html">15 页成本盘点</a>
+<a href="campus-cert-wording.html">统一口径说明</a>
+<a href="campus-competition-engine.html">赛事引擎（总览）</a>
+<a href="deliverables-index.html">产出物总目录</a>
+</div>
+<div class="foot">RMCity · 低带宽回流口（门内）· 2026-11-05 · 让系统自己积累经验</div>
+</div>
+</body>
+</html>
