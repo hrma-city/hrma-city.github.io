@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>校赛证书电子模板 · 批量签发（赛事引擎十一）</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--gold2:#f5d78e;--ink:#1f2a37;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb;--teal:#1f7a6d;--rust:#a8442a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--ink);line-height:1.72;font-size:14.5px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px 90px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:30px 0 26px}
+.hero .wrap{padding-bottom:0}
+.tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);color:var(--gold2);font-size:12.5px;border-radius:999px;padding:3px 13px;margin-bottom:11px}
+.hero h1{font-size:22px;line-height:1.4}
+.hero p{color:#b9d0e6;font-size:13.5px;margin-top:9px;max-width:840px}
+.hero a{color:var(--gold2)}
+.box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin:13px 0;box-shadow:0 2px 9px rgba(15,42,74,.05)}
+.box b{color:var(--navy)}
+h2{font-size:17px;color:var(--navy);margin:28px 0 5px;padding-left:11px;border-left:4px solid var(--gold)}
+.lead{color:var(--mut);font-size:12.5px;margin:0 0 9px;padding-left:11px}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:10px;overflow:hidden;margin:11px 0}
+.tbl th{background:var(--navy);color:#fff;text-align:left;padding:8px 11px;font-size:12px;font-weight:600}
+.tbl td{padding:7px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even) td{background:#fafcfe}
+code{background:#eef3fa;border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-size:12px;color:var(--navy2)}
+.mini{display:flex;gap:12px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:0 9px 9px 0;padding:9px 13px;margin:8px 0;font-size:13px}
+.mini b{color:var(--navy);min-width:78px;flex-shrink:0}
+.quote{background:#fff8e8;border:1px solid #f0dcae;border-left:3px solid var(--gold);border-radius:0 9px 9px 0;padding:11px 14px;margin:12px 0;font-size:13px}
+.ob{background:#fff;border-left:3px solid var(--rust);border-radius:0 9px 9px 0;padding:9px 13px;margin:9px 0;font-size:13px}
+.ob b{color:var(--rust)}
+.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin:13px 0;box-shadow:0 2px 9px rgba(15,42,74,.05)}
+.panel label{font-size:12.5px;color:var(--mut);display:block;margin-bottom:5px}
+textarea{width:100%;min-height:132px;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.7;color:var(--ink);resize:vertical}
+textarea:focus,input:focus{outline:2px solid #c9dcf2;border-color:var(--navy2)}
+.cfg{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin:12px 0}
+.cfg .f{display:flex;flex-direction:column;gap:4px}
+.cfg input{width:88px;border:1px solid var(--line);border-radius:7px;padding:6px 9px;font-size:13px}
+.btns{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0 4px}
+button{font-family:inherit;font-size:13px;font-weight:600;border-radius:8px;padding:9px 16px;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--navy)}
+button.pri{background:var(--navy);color:#fff;border-color:var(--navy)}
+button.gold{background:linear-gradient(135deg,#d9a53c,#e8b84b);color:#231a05;border-color:#c99a34}
+button:hover{filter:brightness(1.06)}
+.hint{font-size:12px;color:var(--mut);margin-top:7px}
+#msg{font-size:12.5px;margin-top:9px;color:var(--teal);min-height:18px}
+#msg.warn{color:var(--rust)}
+/* 证书 */
+.cert{position:relative;background:#fff;border:9px solid var(--navy);outline:2px solid var(--gold);outline-offset:-15px;padding:30px 38px 24px;margin:16px 0;min-height:420px;box-shadow:0 6px 22px rgba(15,42,74,.13);text-align:center;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.cert .wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-18deg);font-size:150px;font-weight:900;color:rgba(15,42,74,.035);letter-spacing:16px;pointer-events:none;white-space:nowrap}
+.cert .org{font-size:13px;letter-spacing:5px;color:var(--mut);margin-bottom:9px}
+.cert h3{font-size:26px;letter-spacing:7px;color:var(--navy);font-weight:800;margin-bottom:4px}
+.cert .en{font-size:11px;letter-spacing:2.5px;color:#9aa8ba;margin-bottom:16px;text-transform:uppercase}
+.cert .lv{display:inline-block;background:linear-gradient(135deg,#f7e6bb,#e8b84b);color:#4a3410;border:1px solid #d9a53c;border-radius:999px;padding:4px 20px;font-size:14px;font-weight:800;letter-spacing:1px;margin-bottom:15px}
+.cert .who{font-size:31px;font-weight:800;color:var(--ink);letter-spacing:3px;margin:2px 0 4px}
+.cert .line{width:76px;height:2px;background:var(--gold);margin:9px auto 13px}
+.cert .txt{font-size:13.5px;color:#41506a;line-height:2;max-width:660px;margin:0 auto}
+.cert .txt b{color:var(--navy)}
+.cert .meta3{display:flex;justify-content:center;gap:26px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin-top:15px}
+.cert .sign{display:flex;justify-content:space-between;align-items:flex-end;margin-top:22px;font-size:12px;color:var(--mut);text-align:left}
+.cert .sign .s{width:38%}
+.cert .sign .stamp{width:78px;height:78px;border:2px dashed #d3b7c0;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9aab4;font-size:11px;text-align:center;line-height:1.4}
+.cert .sign .blank{border-bottom:1px solid #9aa8ba;display:block;height:20px;margin-bottom:4px}
+.nav{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0 0}
+.nav a{font-size:12.5px;text-decoration:none;color:var(--navy);border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 13px}
+.foot{text-align:center;color:var(--mut);font-size:12px;margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}
+@media print{
+  body{background:#fff}
+  .hero,.no-print,.nav,.foot,h2,.lead,.box,.panel,.quote,.ob,.tbl,.mini{display:none!important}
+  .wrap{max-width:none;padding:0}
+  #certOut{display:block}
+  .cert{page-break-after:always;break-after:page;box-shadow:none;margin:0;border-width:8px;min-height:92vh}
+  .cert:last-child{page-break-after:auto;break-after:auto}
+}
+</style>
+</head>
+<body>
+<div class="hero"><div class="wrap">
+<div class="tag">RMCity · 校赛证书电子模板 · 赛事引擎十一</div>
+<h1>校赛证书电子模板：粘贴成绩，批量签发</h1>
+<p>配套 <a href="campus-b1-event.html">B1 正式赛项页</a> 与 <a href="campus-pilot-runbook.html">首场校赛执行清单</a>。赛后把导出的成绩 CSV 粘进来，系统按分数线自动判级、生成证书编号与验真码，一键打印或导出签发台账。证书样式为可打印版式，正式证书由院校盖章、教务备案后生效。</p>
+</div></div>
+
+<div class="wrap">
+
+<h2>一、字段规范（与成绩导出对齐）</h2>
+<p class="lead">B1 正式赛项页「导出全部成绩 CSV」的字段可直接粘贴，无需改格式。</p>
+<table class="tbl">
+<thead><tr><th style="width:22%">列</th><th style="width:26%">字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>姓名</td><td>持证人姓名，与报名身份一致</td></tr>
+<tr><td>2</td><td>院校</td><td>参赛院校全称</td></tr>
+<tr><td>3</td><td>学号</td><td>用于教务存档与抵学分核对</td></tr>
+<tr><td>4</td><td>赛项</td><td>如 <code>B1 动态定价决策（校赛）</code>；达标包可写 <code>L1 校赛达标包</code></td></tr>
+<tr><td>5</td><td>综合得分</td><td>0–100，判级依据</td></tr>
+<tr><td>6</td><td>净 RevPAR</td><td>可选，印在证书上作成绩佐证；缺失留空即可</td></tr>
+</tbody>
+</table>
+<div class="quote">首行为表头时会自动跳过；允许只填前 5 列。低于 L1 线的选手<b>不生成证书</b>，单列进「未达标名单」，避免误发。</div>
+
+<h2>二、签发规则</h2>
+<div class="mini"><b>判级</b><span>综合得分 ≥ L3 线 → L3 高级；≥ L2 线 → L2 中级；≥ L1 线 → L1 初级；低于 L1 线不发证。默认 60 / 80 / 92，与 <a href="campus-b1-event.html">编排台证书线</a> 一致，可现场调整后重新生成。</span></div>
+<div class="mini"><b>达标包口径</b><span>若使用 <a href="campus-l1-package.html">L1 校赛达标包</a>，除综合得分外还需 A 类（A1–A4）每项正确率 ≥ 70%、且至少 1 项决策类（B1/B2/B4）≥ 60；组织者在签发前按 L1 准入线复核。</span></div>
+<div class="mini"><b>编号</b><span><code>RMC-年份-级别-四位序号</code>，如 <code>RMC-2026-L1-0001</code>。编号连续、不重号，作废须留痕不复用。</span></div>
+<div class="mini"><b>验真</b><span>每证附 6 位验真码，由「姓名＋编号＋得分」生成，供院校自查与用人单位核验。正式部署时改由赛事引擎后端签发、落库、提供在线验真页。</span></div>
+<div class="mini"><b>学分</b><span>L1 达标可抵「收益管理实务」课程相应模块学分；证书级与 <a href="campus-course-event-map.html">课赛证映射大表</a> 的 L1/L2/L3 一致，对接 1+X 与学分银行。</span></div>
+
+<h2>三、批量签发台</h2>
+<div class="panel no-print">
+  <label>粘贴成绩 CSV（每行一人：姓名,院校,学号,赛项,综合得分,净RevPAR）</label>
+  <textarea id="csvIn" spellcheck="false">姓名,院校,学号,赛项,综合得分,净RevPAR
+林知远,示范职业技术学院,20240118,B1 动态定价决策（校赛）,86.5,412.3
+陈曦,示范职业技术学院,20240135,B1 动态定价决策（校赛）,72.8,388.6
+周颖,示范职业技术学院,20240152,B1 动态定价决策（校赛）,58.4,351.2
+苏杭,示范职业技术学院,20240207,L1 校赛达标包,94.1,436.7</textarea>
+  <div class="cfg">
+    <div class="f"><label>L1 达标线</label><input id="l1" type="number" value="60" min="0" max="100"></div>
+    <div class="f"><label>L2 线</label><input id="l2" type="number" value="80" min="0" max="100"></div>
+    <div class="f"><label>L3 线</label><input id="l3" type="number" value="92" min="0" max="100"></div>
+    <div class="f"><label>赛事名称（印于证书）</label><input id="evName" type="text" value="首届酒店收益管理校赛" style="width:230px"></div>
+    <div class="f"><label>联合署名单位</label><input id="orgName" type="text" value="示范职业技术学院 × RMCity" style="width:250px"></div>
+  </div>
+  <div class="btns">
+    <button class="pri" id="btnGen">批量生成证书</button>
+    <button class="gold" id="btnPrint">打印全部证书</button>
+    <button id="btnLedger">导出签发台账 CSV</button>
+    <button id="btnReset">还原示例</button>
+  </div>
+  <div class="hint">打印时用浏览器「打印 → 另存为 PDF」，每张证书自动独占一页；建议横向、勾掉页眉页脚。</div>
+  <div id="msg"></div>
+</div>
+
+<div id="certOut"></div>
+
+<h2>四、编号与台账</h2>
+<p class="lead">签发后台账须归档，作为抵学分、1+X 换算与专业建设佐证材料。</p>
+<table class="tbl">
+<thead><tr><th style="width:24%">项目</th><th>规则</th></tr></thead>
+<tbody>
+<tr><td>编号结构</td><td><code>RMC-2026-L1-0001</code>：RMC 固定前缀 / 签发年份 / 级别码 / 四位流水号</td></tr>
+<tr><td>台账字段</td><td>证书编号、姓名、院校、学号、赛项、综合得分、证书级、净 RevPAR、签发日期、验真码</td></tr>
+<tr><td>存档</td><td>院校教务处存 CSV + 证书 PDF 一份；RMCity 存签发记录用于标准共建统计（成绩数据归院校，<b>不锁数据</b>）</td></tr>
+<tr><td>作废</td><td>填错不删号，标记「作废」并注明原因，流水号不复用</td></tr>
+<tr><td>复核</td><td>签发前由组织者核对身份与 L1 准入线，签发后公示 3 个工作日再报教务</td></tr>
+</tbody>
+</table>
+
+<h2>五、边界与正式落地</h2>
+<div class="ob"><b>本页是模板与签发样式演示。</b>证书在无院校盖章、未备案前不构成正式资格证明。正式落地需：① 院校审定证书样式与署名；② 教务/继续教育部门备案并纳入学分认定目录；③ 对接 1+X 考核站点完成模块映射；④ 由赛事引擎后端签发、生成在线验真页与可核验二维码。</div>
+<div class="box">这也是给试点院校的<b>交付物之一</b>：证书样式、编号规则、台账格式三件事一次给全，院校不用从零设计。配套见 <a href="campus-pilot-mou.html">试点 MOU 模板</a>（证书学分对接条款）与 <a href="campus-pilot-runbook.html">执行清单</a>（T+3 签发、T+7 导出）。</div>
+
+<div class="nav">
+<a href="campus-b1-event.html">← B1 正式赛项（成绩来源）</a>
+<a href="campus-pilot-runbook.html">首场校赛执行清单</a>
+<a href="campus-l1-package.html">L1 校赛达标包</a>
+<a href="campus-program-proposal.html">院系立项/申报材料 →</a>
+<a href="campus-competition-engine.html">赛事引擎（总览）</a>
+<a href="deliverables-index.html">产出物总目录</a>
+</div>
+<div class="foot">RMCity · 赛事引擎系列（十一）· 门内资料 · 证书以院校盖章备案件为准</div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var SAMPLE="姓名,院校,学号,赛项,综合得分,净RevPAR\n林知远,示范职业技术学院,20240118,B1 动态定价决策（校赛）,86.5,412.3\n陈曦,示范职业技术学院,20240135,B1 动态定价决策（校赛）,72.8,388.6\n周颖,示范职业技术学院,20240152,B1 动态定价决策（校赛）,58.4,351.2\n苏杭,示范职业技术学院,20240207,L1 校赛达标包,94.1,436.7";
+  var $=function(id){return document.getElementById(id);};
+  var esc=function(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');};
+  var ledger=[];
+  function today(){var d=new Date();var p=function(n){return (n<10?'0':'')+n;};return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());}
+  function year(){return String(new Date().getFullYear());}
+  function verify(str){var h=5381;for(var i=0;i<str.length;i++){h=((h<<5)+h+str.charCodeAt(i))>>>0;}return String(h%1000000).padStart(6,'0');}
+  function lines(){
+    var t=$('csvIn').value.replace(/\r/g,'').split('\n'),out=[];
+    for(var i=0;i<t.length;i++){
+      var raw=t[i].trim();if(!raw)continue;
+      var c=raw.split(',');
+      if(c.length&&/姓\s*名/.test(c[0]))continue;
+      for(var j=0;j<c.length;j++)c[j]=String(c[j]).trim();
+      out.push({name:c[0]||'',school:c[1]||'',sid:c[2]||'',event:c[3]||'',score:parseFloat(c[4]),rev:c[5]||''});
+    }
+    return out;
+  }
+  function levelOf(s,l1,l2,l3){
+    if(!isFinite(s))return null;
+    if(s>=l3)return {code:'L3',name:'L3 高级'};
+    if(s>=l2)return {code:'L2',name:'L2 中级'};
+    if(s>=l1)return {code:'L1',name:'L1 初级'};
+    return null;
+  }
+  function certHTML(r,idx){
+    var ev=$('evName').value||'酒店收益管理校赛',org=$('orgName').value||'RMCity';
+    var num='RMC-'+year()+'-'+r.lv.code+'-'+String(idx).padStart(4,'0');
+    var vc=verify(r.name+num+r.score);
+    r.num=num;r.vc=vc;r.date=today();r.level=r.lv.name;
+    var rev=(r.rev!==''&&isFinite(parseFloat(r.rev)))?'　｜　净 RevPAR <b>'+esc(r.rev)+'</b>':'';
+    return '<div class="cert">'+
+      '<div class="wm">RMC</div>'+
+      '<div class="org">'+esc(org)+'</div>'+
+      '<h3>酒店收益管理技能等级证书</h3>'+
+      '<div class="en">Hotel Revenue Management · Skill Certificate</div>'+
+      '<div class="lv">'+esc(r.lv.name)+'</div>'+
+      '<div class="who">'+esc(r.name)+'</div>'+
+      '<div class="line"></div>'+
+      '<div class="txt">在 <b>'+esc(ev)+'</b> 中完成 <b>'+esc(r.event)+'</b> 赛项，综合得分 <b>'+r.score.toFixed(1)+'</b>'+rev+
+      '，经评定达到 <b>'+esc(r.lv.name)+'</b> 标准，特发此证。</div>'+
+      '<div class="meta3"><span>证书编号　'+esc(num)+'</span><span>验真码　'+esc(vc)+'</span><span>签发日期　'+esc(r.date)+'</span></div>'+
+      '<div class="sign">'+
+        '<div class="s">院校（盖章）<span class="blank"></span>经办人：＿＿＿＿＿</div>'+
+        '<div class="stamp">院校<br>公章</div>'+
+        '<div class="s" style="text-align:right">RMCity 标准共建<br><span class="blank"></span>签发人：＿＿＿＿＿</div>'+
+      '</div>'+
+    '</div>';
+  }
+  function generate(){
+    var l1=parseFloat($('l1').value),l2=parseFloat($('l2').value),l3=parseFloat($('l3').value);
+    if(!(isFinite(l1)&&isFinite(l2)&&isFinite(l3))||!(l1<l2&&l2<l3)){$('msg').className='warn';$('msg').textContent='分数线需为递增数字（L1 < L2 < L3）。';return;}
+    var rows=lines();if(!rows.length){$('msg').className='warn';$('msg').textContent='没有读到有效成绩行。';return;}
+    var html='',ok=[],fail=[],seq=0;
+    for(var i=0;i<rows.length;i++){
+      var r=rows[i],lv=levelOf(r.score,l1,l2,l3);
+      if(!lv){fail.push(r.name||'（未填姓名）');continue;}
+      r.lv=lv;seq++;html+=certHTML(r,seq);ok.push(r);
+    }
+    $('certOut').innerHTML=html||'<div class="box">没有达到 L1 线的选手，未生成证书。</div>';
+    ledger=ok;
+    var m='已签发 '+ok.length+' 张（';
+    var c1=ok.filter(function(x){return x.lv.code==='L1';}).length;
+    var c2=ok.filter(function(x){return x.lv.code==='L2';}).length;
+    var c3=ok.filter(function(x){return x.lv.code==='L3';}).length;
+    m+='L1 '+c1+' / L2 '+c2+' / L3 '+c3+'）';
+    if(fail.length)m+='；未达标 '+fail.length+' 人：'+fail.join('、')+'（不发证）';
+    $('msg').className=fail.length?'warn':'';$('msg').textContent=m+'。可打印全部或导出签发台账。';
+  }
+  function exportLedger(){
+    if(!ledger.length){$('msg').className='warn';$('msg').textContent='请先批量生成证书，再导出台账。';return;}
+    var h='证书编号,姓名,院校,学号,赛项,综合得分,证书级,净RevPAR,签发日期,验真码\n';
+    var q=function(v){return '"'+String(v==null?'':v).replace(/"/g,'""')+'"';};
+    var body=ledger.map(function(r){return [r.num,r.name,r.school,r.sid,r.event,r.score.toFixed(1),r.level,r.rev,r.date,r.vc].map(q).join(',');}).join('\n');
+    var blob=new Blob(['\ufeff'+h+body],{type:'text/csv;charset=utf-8'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='证书签发台账_'+today()+'.csv';document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+    $('msg').className='';$('msg').textContent='签发台账已导出（'+ledger.length+' 条），请交教务处归档。';
+  }
+  $('btnGen').addEventListener('click',generate);
+  $('btnPrint').addEventListener('click',function(){if(!ledger.length){generate();}if(ledger.length){window.print();}});
+  $('btnLedger').addEventListener('click',exportLedger);
+  $('btnReset').addEventListener('click',function(){$('csvIn').value=SAMPLE;$('certOut').innerHTML='';ledger=[];$('msg').textContent='已还原示例数据。';$('msg').className='';});
+  generate();
+})();
+</script>
+</body>
+</html>
