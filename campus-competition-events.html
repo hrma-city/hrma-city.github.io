@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>赛项库 · 酒店收益管理比赛赛项详细设计</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--gold2:#f5d78e;--ink:#1f2a37;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb;--teal:#1f7a6d;--rust:#a8442a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--ink);line-height:1.78;font-size:15px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px 90px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:34px 0 30px}
+.hero .wrap{padding-bottom:0}
+.tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);color:var(--gold2);font-size:12.5px;border-radius:999px;padding:3px 13px;margin-bottom:11px}
+.hero h1{font-size:25px;line-height:1.4}
+.hero p{color:#b9d0e6;font-size:14px;margin-top:9px;max-width:900px}
+h2{font-size:19px;color:var(--navy);margin:36px 0 7px;padding-left:12px;border-left:4px solid var(--gold)}
+.lead{color:var(--mut);font-size:13px;margin:0 0 12px;padding-left:12px}
+h3{font-size:15.5px;color:var(--navy2);margin:18px 0 6px}
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:10px;overflow:hidden;margin:10px 0}
+th{background:var(--navy);color:#fff;text-align:left;padding:9px 11px;font-size:12.5px;font-weight:600}
+td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:#fafcfe}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin:12px 0}
+.mini{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.mini b{display:block;color:var(--navy);font-size:14px;margin-bottom:4px}
+.mini .k{display:inline-block;font-size:10.5px;background:var(--teal);color:#fff;border-radius:5px;padding:1px 7px;margin-bottom:6px}
+.mini span{font-size:12.5px;color:var(--mut);display:block}
+
+/* 四维概述条 */
+.dims{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.dim{background:#fff;border:1px solid var(--line);border-top:4px solid var(--c);border-radius:0 0 12px 12px;padding:14px 16px}
+.dim b{display:block;color:var(--navy);font-size:15px;margin-bottom:3px}
+.dim span{font-size:12.5px;color:var(--mut)}
+.dim .en{font-size:11px;color:var(--c);font-weight:700;letter-spacing:1px}
+
+/* 赛项卡片 */
+.ring{background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;overflow:hidden}
+.ring summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:13px 16px;background:#fbfdff}
+.ring summary::-webkit-details-marker{display:none}
+.ring summary .code{display:inline-block;background:var(--navy);color:#fff;border-radius:6px;font-size:12px;font-weight:700;padding:2px 8px;white-space:nowrap}
+.ring summary b{font-size:14.5px;color:var(--navy)}
+.ring summary .dg{margin-left:auto;font-size:11px;color:#33517a;background:#eef2f7;border-radius:4px;padding:1px 7px}
+.ring summary .au{font-size:11px;border-radius:4px;padding:1px 7px;color:#fff;white-space:nowrap}
+.ring[open] summary{border-bottom:1px solid var(--line)}
+.ring .body{padding:6px 16px 16px;font-size:13px}
+.fld{display:grid;grid-template-columns:72px 1fr;gap:8px;padding:7px 0;border-bottom:1px dashed #eef1f5}
+.fld:last-child{border-bottom:none}
+.fld .lab{color:var(--navy);font-weight:700;font-size:12px}
+.fld .val{color:var(--ink);font-size:13px}
+.fld .val ul{margin:2px 0 0;padding-left:18px}
+.fld .val li{margin:2px 0}
+
+/* 样例 */
+.sample{background:#fffcf2;border:1px solid #ecdcb4;border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:13px 16px;margin:13px 0;font-size:13px}
+.sample h4{color:#8a6a1a;font-size:14px;margin:0 0 6px}
+.sample .sc{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:8px 0;font-size:12.8px;color:var(--ink)}
+.sample .rb{font-size:12.8px;color:#5b4a12}
+.sample .rb b{color:#8a6a1a}
+
+.quote{border-left:3px solid var(--gold);background:#fffcf2;padding:11px 15px;border-radius:0 10px 10px 0;font-size:13.5px;color:#5b4a12;margin:13px 0}
+.step{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);margin:12px 0;border-radius:10px;overflow:hidden}
+.step div{background:#fff;padding:12px 14px}
+.step b{display:block;color:var(--navy);font-size:13px}
+.step span{font-size:12px;color:var(--mut)}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:12px 0}
+.kpi div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px}
+.kpi b{display:block;color:var(--teal);font-size:21px}
+.kpi span{font-size:11.5px;color:var(--mut)}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 0}
+.nav a{font-size:13px;text-decoration:none;color:var(--navy);border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px}
+.foot{text-align:center;color:var(--mut);font-size:12px;margin-top:34px;padding-top:14px;border-top:1px solid var(--line)}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+@media (min-width:1100px){body.toc-open{padding-left:312px}body.toc-open .site-nav,body.toc-open .topbar{left:312px}}
+body{transition:padding-left .25s ease}
+</style>
+</head>
+<body>
+<div class="hero"><div class="wrap">
+<div class="tag">RMCity · 赛事引擎（二）· 赛项库详细页 · 门内</div>
+<h1>赛项库：覆盖「理解—决策—论证—抗压」全过程</h1>
+<p>这是赛事引擎的细化页。引擎页讲了"为什么要做、和其他比赛差在哪、办赛形态与现场联网"；这一页落到"具体比什么"——把酒店收益管理拆成 16 个赛项，每个都有项目说明、规则、流程、评判标准，并给出可上手的样例。它同时是「岗课赛证」里"赛"这一环的实体内容。</p>
+</div></div>
+<div class="wrap">
+
+<h2 id="toc-1">一、全球产教融合办赛经验，借来三条设计原则</h2>
+<p class="lead">WorldSkills、全国职业院校技能大赛、1+X 证书制度、HSMAI / 康奈尔案例赛——它们的共性做法，决定了本赛项库的骨架。</p>
+<table><thead><tr><th style="width:24%">经验来源</th><th>可借鉴的做法</th><th>落到本赛项库</th></tr></thead><tbody>
+<tr><td><b>世界技能大赛</b><br>WorldSkills</td><td>赛项规程以<b>行业真实标准</b>为尺，不是老师拍脑袋；评分 rubric 公开、可复现</td><td>全部赛项以《操作法典》判定表 + 酒店真实经营指标（RevPAR / 超售红线 / 渠道成本）为判分标尺</td></tr>
+<tr><td><b>职业院校技能大赛</b></td><td><b>分层办赛</b>：校赛→省赛→国赛；海选广覆盖、决赛高规格</td><td>初赛线上海选（自动判分）+ 决赛现场联网（对抗+答辩+压力）</td></tr>
+<tr><td><b>1+X 证书制度</b><br>岗课赛证综合育人</td><td><b>赛证融通</b>：赛项成绩可抵扣证书模块；课、岗、赛、证共用一套能力标准</td><td>赛项与教材 41 章、三级认证一一映射，成绩可换算证书学分（见<a href="campus-gksz-design.html">岗课赛证融通设计</a>）</td></tr>
+<tr><td><b>HSMAI / 康奈尔案例赛</b></td><td>用<b>真实数据集</b>做决策对抗，结果由市场数字说话，可机评</td><td>收益管理是旅游类专业里<b>唯一能模拟器自动判分</b>的赛项，本库把这一点做满</td></tr>
+</tbody></table>
+<div class="quote">一句话：别人比"会不会做"（人评、现场），我们比"做得对不对、赚不赚钱"（机评、可联网）。这是收益管理能做成平台型赛事的独有窗口。</div>
+
+<h2 id="toc-2">二、四大能力维度：赛项怎么覆盖全过程</h2>
+<p class="lead">把职业能力拆成四个递进层级，每个赛项归属一个主维度，但都可能顺带考到其他维度。下表是赛项库的"目录"。</p>
+<div class="dims">
+<div class="dim" style="--c:var(--teal)"><span class="en">UNDERSTAND</span><b>理解</b><span>知识层 · 概念、指标、原理、读图。考"懂不懂"。</span></div>
+<div class="dim" style="--c:var(--navy)"><span class="en">DECIDE</span><b>决策</b><span>技能层 · 在给定情境下做正确经营决策。考"对不对"。自动判分核心。</span></div>
+<div class="dim" style="--c:var(--gold)"><span class="en">ARGUE</span><b>论证</b><span>思维层 · 用数据与逻辑为自己的决策辩护、发现问题。考"讲不讲得清"。</span></div>
+<div class="dim" style="--c:var(--rust)"><span class="en">WITHSTAND</span><b>抗压</b><span>素养层 · 不确定、突发、多目标冲突下保持稳健。考"稳不稳"。</span></div>
+</div>
+
+<table><thead><tr><th style="width:10%">编号</th><th style="width:26%">赛项</th><th>主维度</th><th style="width:14%">形态</th><th style="width:12%">判分</th></tr></thead><tbody>
+<tr><td>A1</td><td>概念辨析赛</td><td>理解</td><td>客观题</td><td>机评</td></tr>
+<tr><td>A2</td><td>指标计算赛</td><td>理解</td><td>客观题</td><td>机评</td></tr>
+<tr><td>A3</td><td>市场细分识别赛</td><td>理解</td><td>数据判读</td><td>机评</td></tr>
+<tr><td>A4</td><td>需求预测读图赛</td><td>理解</td><td>快决</td><td>机评</td></tr>
+<tr><td>B1</td><td>动态定价决策</td><td>决策</td><td>模拟器</td><td>机评</td></tr>
+<tr><td>B2</td><td>房量分配与保护位</td><td>决策</td><td>模拟器</td><td>机评</td></tr>
+<tr><td>B3</td><td>超额预订设置</td><td>决策</td><td>模拟器</td><td>机评</td></tr>
+<tr><td>B4</td><td>渠道与批量管控</td><td>决策</td><td>模拟器</td><td>机评</td></tr>
+<tr><td>B5</td><td>置换分析决策</td><td>决策</td><td>案例+模拟</td><td>机评+人评</td></tr>
+<tr><td>B6</td><td>多资源产能分配（RevPASH）</td><td>决策</td><td>模拟器</td><td>机评</td></tr>
+<tr><td>C1</td><td>经营分析报告</td><td>论证</td><td>报告</td><td>人评</td></tr>
+<tr><td>C2</td><td>方案陈述答辩</td><td>论证</td><td>答辩</td><td>人评</td></tr>
+<tr><td>C3</td><td>收益审计</td><td>论证</td><td>找茬</td><td>人评+机评</td></tr>
+<tr><td>D1</td><td>突发事件应对</td><td>抗压</td><td>应激限时</td><td>机评</td></tr>
+<tr><td>D2</td><td>黑天鹅压力测试</td><td>抗压</td><td>长周期扰动</td><td>机评</td></tr>
+<tr><td>D3</td><td>多目标冲突权衡</td><td>抗压</td><td>权衡抉择</td><td>机评+人评</td></tr>
+</tbody></table>
+
+<h2 id="toc-3">三、理解类赛项（知识层 · 机评）</h2>
+<p class="lead">低成本、广覆盖，适合海选与校赛。客观题由平台即时判分，正确率与速度共同计入。</p>
+
+<details class="ring" open>
+<summary><span class="code">A1</span><b>概念辨析赛</b><span class="dg">理解</span><span class="au" style="background:var(--teal)">机评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">区分"收益管理"与"促销打折""满减引流"的本质差异；判断某业务是否适用收益管理（固定成本为主、产能易逝、可细分、可预测）。</div></div>
+<div class="fld"><div class="lab">比赛规则</div><div class="val"><ul><li>限时 20 分钟，40 道单选/多选/判断</li><li>题干含真实经营情境，不只考定义</li><li>错选扣分、不答不扣，防瞎蒙</li></ul></div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">正确率 70% + 速度 30%（在正确前提下，越快分越高）。</div></div>
+</div>
+</details>
+
+<details class="ring">
+<summary><span class="code">A2</span><b>指标计算赛</b><span class="dg">理解</span><span class="au" style="background:var(--teal)">机评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">OCC / ADR / RevPAR / RevPASH 互算；净价换算（含早、含渠道佣金）；打平量（覆盖变动成本所需出租量）计算。以云璟口径为基准（300 间、OCC 68%、ADR ¥620、RevPAR ¥422、变动成本 ¥95/客）。</div></div>
+<div class="fld"><div class="lab">比赛规则</div><div class="val"><ul><li>给定原始经营数据，要求反推与互算，15 题</li><li>保留 2 位小数；单位、口径须标注</li></ul></div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">每题答对得满分；RevPAR 量价拆解题需写出"量贡献+价贡献"两步，只给结果不得步骤分。</div></div>
+</div>
+</details>
+
+<details class="ring">
+<summary><span class="code">A3</span><b>市场细分识别赛</b><span class="dg">理解</span><span class="au" style="background:var(--teal)">机评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">给定一批预订行为数据（提前期、渠道、价格敏感度、取消率），识别价格敏感度不同的细分市场，指出哪些该保护、哪些可低价走量。</div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">细分合理性（是否抓住价格弹性差异）+ 与后续定价动作的一致性。</div></div>
+</div>
+</details>
+
+<details class="ring">
+<summary><span class="code">A4</span><b>需求预测读图赛</b><span class="dg">理解</span><span class="au" style="background:var(--teal)">机评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">限时读历史曲线，判断趋势、季节性、异常点；给出未来 7/30/90 天预订进度（pace）是否健康。</div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">趋势判断正确 + 异常点捕捉；抢答式计分，先对先得。</div></div>
+</div>
+</details>
+
+<h2 id="toc-4">四、决策类赛项（技能层 · 模拟器机评 · 核心）</h2>
+<p class="lead">赛事引擎的招牌。统一沙盘（同一市场、同一初始条件），选手决策实时上传，系统按 RevPAR 达成、walk 率合规、GOP、满意度综合判分。</p>
+
+<details class="ring">
+<summary><span class="code">B1</span><b>动态定价决策</b><span class="dg">决策</span><span class="au" style="background:var(--navy)">机评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">在给定需求弹性与竞对价格下，为不同提前期、不同细分设置 BAR 与折扣梯度。考"该不该降、降多少、对谁降"。</div></div>
+<div class="fld"><div class="lab">比赛规则</div><div class="val"><ul><li>模拟 90 天经营，每日一次定价决策</li><li>顾客按价格敏感度选择，竞对动态调价</li><li>违反价格一致性（同条件不同价）扣分</li></ul></div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">RevPAR 达成率（目标线 60%）+ 净价口径正确（扣渠道佣金/含早 30%）+ 价格一致性合规（20%）。盲目降价冲量、损 ADR 者低分。</div></div>
+</div>
+</details>
+
+<details class="ring">
+<summary><span class="code">B2</span><b>房量分配与保护位</b><span class="dg">决策</span><span class="au" style="background:var(--navy)">机评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">高低价房型之间、散客与团队之间设置保护位（protected rooms），防止低价早订吃掉了高价晚订的房。</div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">高价需求满足率（保护位设够不得低分）+ 低价房未过度闲置（平衡 20%）；典型错误是保护位设太多导致空置、或设太少导致 displacement。</div></div>
+</div>
+</details>
+
+<details class="ring">
+<summary><span class="code">B3</span><b>超额预订设置</b><span class="dg">决策</span><span class="au" style="background:var(--navy)">机评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">分房型设置超售量，留升级池，控制 walk 率≤0.5% 红线。基于历史取消率 + No-show 率，按紧俏日、到店确认比例、周边替代房、团队占比调节（CH11 真实逻辑）。</div></div>
+<div class="fld"><div class="lab">比赛规则</div><div class="val"><ul><li>须分房型给出超售上限与总可售数</li><li>须说明升级池与 walk 安置逻辑</li><li>walk 率超 0.5% 且无缓冲方案 → 直接不及格</li></ul></div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">计算正确性 40% + 分房型逻辑 30% + 红线意识 20% + 升级池/安置说明 10%。</div></div>
+</div>
+</details>
+
+<details class="ring">
+<summary><span class="code">B4</span><b>渠道与批量管控</b><span class="dg">决策</span><span class="au" style="background:var(--navy)">机评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">决定开/关哪些渠道、给各渠道多少批量（allocation）、设最低连住夜数（minLOS），平衡"走量"与"渠道佣金成本"。</div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">净收益（扣佣金后）最大化 + 渠道结构健康（不过度依赖高佣金 OTA）+ 批量关闭时机合理。</div></div>
+</div>
+</details>
+
+<details class="ring">
+<summary><span class="code">B5</span><b>置换分析决策</b><span class="dg">决策</span><span class="au" style="background:var(--navy)">机评+人评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">大团队低价长住询价 vs 散客高价短住，做 displacement（置换）测算，决定接不接、接多少。</div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">置换净收益计算正确（机评 60%）+ 决策理由商业合理（人评 40%，防"只算数不讲业务"）。</div></div>
+</div>
+</details>
+
+<details class="ring">
+<summary><span class="code">B6</span><b>多资源产能分配（RevPASH）</b><span class="dg">决策</span><span class="au" style="background:var(--navy)">机评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">餐厅台位、会议室时段等"每座位每小时"产能的最优分配，最大化 RevPASH；可延展到餐饮/景区/航空等跨行业场景。</div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">RevPASH 达成率 + 高峰产能利用率 + 长尾时段填充策略。</div></div>
+</div>
+</details>
+
+<h2 id="toc-5">五、论证类赛项（思维层 · 人评为主）</h2>
+<p class="lead">比"讲不讲得清"。这类赛项让学校看到学生的商业表达能力，也天然成为教师教学成果展示环节。</p>
+
+<details class="ring">
+<summary><span class="code">C1</span><b>经营分析报告</b><span class="dg">论证</span><span class="au" style="background:var(--gold)">人评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">给定两期经营数据，做量价归因，解释 RevPAR 变动来自"量"还是"价"，并给下期建议。</div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">归因方法正确 35% + 数据引用准确 25% + 竞对参照 20% + 建议可行 20%。典型错误：只报"涨了"不分量价，或把涨全归为降价。</div></div>
+</div>
+</details>
+
+<details class="ring">
+<summary><span class="code">C2</span><b>方案陈述答辩</b><span class="dg">论证</span><span class="au" style="background:var(--gold)">人评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">"该不该降价""保护位设多少""要不要接这个团队"——限时陈述 + 评委追问答辩。</div></div>
+<div class="fld"><div class="lab">比赛规则</div><div class="val">陈述 5 分钟 + 答辩 5 分钟；评委按 rubric 打分，去掉最高最低取平均。</div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">逻辑性 30% + 数据支撑 30% + 可行性 25% + 表达 15%。</div></div>
+</div>
+</details>
+
+<details class="ring">
+<summary><span class="code">C3</span><b>收益审计</b><span class="dg">论证</span><span class="au" style="background:var(--gold)">人评+机评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">给一份"有问题的"经营报表/定价记录，找出收益漏洞（如该关未关的渠道、超售失控、保护位缺失）并论证修复方案。</div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">漏洞识别准确率（机评 50%）+ 修复方案可行性（人评 50%）。</div></div>
+</div>
+</details>
+
+<h2 id="toc-6">六、抗压类赛项（素养层 · 机评）</h2>
+<p class="lead">在扰动与冲突下考定力。这类赛项是收益管理区别于普通"背题比赛"的关键，也是企业最看重的实战素养。</p>
+
+<details class="ring">
+<summary><span class="code">D1</span><b>突发事件应对</b><span class="dg">抗压</span><span class="au" style="background:var(--rust)">机评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">模拟经营中途注入突发事件（大活动临时取消 / 系统故障 / 超售失控），限时做应对方案。</div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">处置时效（前 48h 动作占 40%）+ 收益回撤幅度（越小越高 40%）+ 客户影响可控（20%）。</div></div>
+</div>
+</details>
+
+<details class="ring">
+<summary><span class="code">D2</span><b>黑天鹅压力测试</b><span class="dg">抗压</span><span class="au" style="background:var(--rust)">机评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">长周期需求塌陷（会展取消+天气预警），在手预订取消率骤升、竞对集体降价。要求给出 14 天止损与重启方案，并记录决策后系统回撤。</div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">扰动下 RevPAR 回撤幅度（50%）+ 处置时效（20%）+ 现金流安全不断供（15%）+ 需求恢复后爬坡速度（15%）。</div></div>
+</div>
+</details>
+
+<details class="ring">
+<summary><span class="code">D3</span><b>多目标冲突权衡</b><span class="dg">抗压</span><span class="au" style="background:var(--rust)">机评+人评</span></summary>
+<div class="body">
+<div class="fld"><div class="lab">项目说明</div><div class="val">出租率 vs 口碑 vs 短期收益 vs 员工负荷四目标冲突时，给出带优先级与取舍理由的方案。</div></div>
+<div class="fld"><div class="lab">评判标准</div><div class="val">取舍逻辑清晰（人评 50%）+ 关键指标未崩盘（机评 50%，如口碑分不跌破阈值）。</div></div>
+</div>
+</details>
+
+<h2 id="toc-7">七、样例（可直接拿去出题）</h2>
+<p class="lead">三个完整样例，覆盖决策、论证、抗压。每例含情境、任务、评分要点与红线。</p>
+
+<div class="sample">
+<h4>样例 1 · B3 超额预订设置（决策类）</h4>
+<div class="sc"><b>情境：</b>云璟 300 间可售，目标周五历史取消率 8%、No-show 率 4%；当日已确认预订 285 间，其中"到店确认"（预付/担保）占 60%、普通占 40%；周边 3 公里替代房 40 间（协议价 ¥580，可升级/walk 安置）；升级池预留 15 间；红线 walk 率 ≤ 0.5%。<br><b>任务：</b>给出该日各房型超售上限与总可售数，并说明升级池与 walk 安置逻辑。</div>
+<div class="rb"><b>标准解（评分要点）：</b><br>
+• 基准超售量 = 可售房 ×（取消率 + No-show 率）= 300 × 12% = 36 间（理论值）<br>
+• 按房型拆分：紧俏房型少超、余量房型多超；升级池 15 间不计入可超售基数<br>
+• 到店确认 60% 大幅降低该部分 No-show → 担保房单独算（取消+NS 约 2%）<br>
+• 总可售上限 = 300 + 可控超售（扣升级池与担保房后约 20–25 间），且 walk 风险 ≤ 0.5%（≤1.5 间/300），留周边房 40 间作缓冲<br>
+<b>评分：</b>计算正确 40% + 分房型逻辑 30% + 红线意识 20% + 升级池/安置说明 10%。<b>红线：</b>walk 率超 0.5% 且无缓冲方案 → 直接不及格。</div>
+</div>
+
+<div class="sample">
+<h4>样例 2 · C1 经营分析报告（论证类）</h4>
+<div class="sc"><b>材料：</b>云璟 6 月 RevPAR ¥422（OCC 68% / ADR ¥620），7 月 RevPAR ¥453（OCC 71% / ADR ¥638）；竞对同期 ADR 涨 3%。<br><b>任务：</b>做量价归因，指出增长主因，给 8 月建议。</div>
+<div class="rb"><b>评分要点：</b><br>
+• 量价拆解：7 月量 +3pt、价 +¥18（+2.9%）→ 量价双升、量略主导（方法正确 35%）<br>
+• 数据引用准确，不混淆 OCC 与 ADR（25%）<br>
+• 竞对参照：我方价涨幅 2.9% 接近竞对 3%，跟涨合理非盲目降价（20%）<br>
+• 建议可行：维持 BAR、关注 OCC 触顶、可测试小幅提价（20%）<br>
+<b>典型错误：</b>只报"涨了"不分量价；或把 RevPAR 涨全归为降价（方向相反）。</div>
+</div>
+
+<div class="sample">
+<h4>样例 3 · D2 黑天鹅压力测试（抗压类）</h4>
+<div class="sc"><b>情境：</b>模拟第 30 天突发区域性需求塌陷（会展取消 + 天气预警），未来 14 天在手预订取消率骤升至 35%，竞对集体降价 15%。<br><b>任务：</b>给出 14 天止损与重启方案（价格/渠道/团队/现金流），记录决策后系统回撤。</div>
+<div class="rb"><b>评分：</b>扰动下 RevPAR 回撤幅度（越小越高 50%）+ 处置时效（前 48h 动作 20%）+ 现金流安全不断供（15%）+ 需求恢复后爬坡速度（15%）。<br><b>看点：</b>不是比"谁亏得少"，而是比"谁先稳、谁先回"。慌乱降价到底、或死扛不动作的，回撤都大。</div>
+</div>
+
+<h2 id="toc-8">八、赛事总流程与评判框架</h2>
+<p class="lead">分层办赛 + 现场联网，既广覆盖又保公信力。</p>
+<div class="step">
+<div><b>① 报名实名</b><span>院校集体报名，一人一机一账号，绑定设备指纹</span></div>
+<div><b>② 初赛线上</b><span>海选：A 类 + B 类轻量，系统自动判分，按比例晋级</span></div>
+<div><b>③ 复赛</b><span>案例 + 系统混合，引入 C 类陈述</span></div>
+<div><b>④ 决赛现场联网</b><span>系统决策 + 专家答辩 + 压力情景，平台判分 + 人复核可疑</span></div>
+<div><b>⑤ 颁奖与认证</b><span>对接三级认证与学分（赛证融通）</span></div>
+</div>
+<div class="quote">现场不是"人肉监考"，是"联网裁判 + 人做异常复核"。平台干判分的活，人只处理算法标记的少数可疑情况——比纯人评省力，比纯线上可信。</div>
+
+<h3 id="toc-9">评判标准总框架（权重可随赛级调节）</h3>
+<table><thead><tr><th style="width:22%">维度</th><th style="width:14%">权重</th><th>核心指标</th></tr></thead><tbody>
+<tr><td><b>决策</b></td><td>50%</td><td>RevPAR 达成率、walk 率合规、GOP、净价口径、价格一致性</td></tr>
+<tr><td><b>论证</b></td><td>20%</td><td>归因方法、数据支撑、逻辑性、可行性（人评 rubric）</td></tr>
+<tr><td><b>理解</b></td><td>15%</td><td>正确率 + 速度（机评）</td></tr>
+<tr><td><b>抗压</b></td><td>15%</td><td>扰动下回撤幅度、处置时效、现金流安全</td></tr>
+</tbody></table>
+<p class="lead" style="margin-top:8px">海选偏"理解+决策"（机评、低成本）；决赛加重"论证+抗压"（人评+机评、高规格）。</p>
+
+<h2 id="toc-10">九、这页与"岗课赛证"的关系</h2>
+<p class="lead">本页是"赛"环的实体。要让赛项真正服务院校教学，需与"课"（教材）、"岗"（岗位能力）、"证"（认证）打通。</p>
+<div class="kpi">
+<div><b>课</b><span>41 章教材 = 赛项的知识底座</span></div>
+<div><b>岗</b><span>真实岗位任务 = 赛题来源</span></div>
+<div><b>赛</b><span>本页 16 赛项 = 检验标尺</span></div>
+<div><b>证</b><span>三级认证 = 成绩可换算学分</span></div>
+</div>
+<div class="quote">下一步：把每个赛项反向标注"由教材哪几章支撑、对应哪个岗位任务、可抵扣哪级证书模块"——这就是<a href="campus-gksz-design.html">岗课赛证融通设计</a>要做的事。赛项库提供"比什么"，融通设计提供"四环怎么扣起来"。</div>
+
+<div class="nav">
+<a href="campus-competition-engine.html">← 赛事引擎（总览）</a>
+<a href="campus-gksz-design.html">岗课赛证融通设计 →</a>
+<a href="industry-education.html">产教融合 · 岗课赛证（领导叙事）</a>
+<a href="deliverables-index.html">产出物总目录</a>
+</div>
+<div class="foot">RMCity · 酒店收益管理社区 · 赛项库详细设计（赛事引擎二）· 本站为门内页面</div>
+</div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>赛项库 · 酒店收益管理比赛赛项详细设计</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">一、全球产教融合办赛经验，借来三条设计原则</a>
+<a href="#toc-2">二、四大能力维度：赛项怎么覆盖全过程</a>
+<a href="#toc-3">三、理解类赛项（知识层 · 机评）</a>
+<a href="#toc-4">四、决策类赛项（技能层 · 模拟器机评 · 核心）</a>
+<a href="#toc-5">五、论证类赛项（思维层 · 人评为主）</a>
+<a href="#toc-6">六、抗压类赛项（素养层 · 机评）</a>
+<a href="#toc-7">七、样例（可直接拿去出题）</a>
+<a href="#toc-8">八、赛事总流程与评判框架</a>
+<a href="#toc-9" class="lv3">1. 评判标准总框架（权重可随赛级调节）</a>
+<a href="#toc-10">九、这页与&quot;岗课赛证&quot;的关系</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open');document.body.classList.toggle('toc-open',d.classList.contains('open'))});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open');document.body.classList.remove('toc-open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');document.body.classList.remove('toc-open');
+  });});
+})();
+</script>
+</body>
+</html>
