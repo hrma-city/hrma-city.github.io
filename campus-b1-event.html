@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>B1 正式赛项 · 登录 / 编排 / 证书</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--gold2:#f5d78e;--ink:#1f2a37;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb;--teal:#1f7a6d;--rust:#a8442a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px 90px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:34px 0 30px}
+.hero .wrap{padding-bottom:0}
+.tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);color:var(--gold2);font-size:12.5px;border-radius:999px;padding:3px 13px;margin-bottom:11px}
+.hero h1{font-size:25px;line-height:1.4}
+.hero p{color:#b9d0e6;font-size:14px;margin-top:9px;max-width:940px}
+h2{font-size:19px;color:var(--navy);margin:34px 0 7px;padding-left:12px;border-left:4px solid var(--gold)}
+.lead{color:var(--mut);font-size:13px;margin:0 0 12px;padding-left:12px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
+.daybar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.daybar .d{font-size:30px;font-weight:800;color:var(--navy);line-height:1}
+.daybar .meta{font-size:13px;color:var(--mut)}
+.daybar .pill{background:#eef3fa;color:#1d4e7e;border:1px solid #cfe0f3;border-radius:999px;padding:4px 12px;font-size:12.5px;font-weight:600}
+.daybar .pill.w{background:#fdeceb;color:#a8442a;border-color:#f2cdd2}
+.daybar .pill.p{background:#fff3d6;color:#8a6a1a;border-color:#ecd9a0}
+.price-ctl{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:8px 0 4px}
+.price-ctl input[type=range]{flex:1;min-width:220px;accent-color:var(--navy)}
+.price-ctl .num{width:110px;font-size:22px;font-weight:800;color:var(--navy);border:1px solid var(--line);border-radius:10px;padding:6px 10px;text-align:center}
+.price-ctl .unit{font-size:13px;color:var(--mut)}
+.btn{background:linear-gradient(135deg,#e8b84b,#d9a52f);color:#3a2c08;border:none;border-radius:10px;padding:11px 22px;font-size:14.5px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(216,165,47,.35)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line);box-shadow:none}
+.btn.sm{padding:7px 14px;font-size:13px}
+.proj{font-size:12.5px;color:var(--mut);margin:6px 0 0}
+.proj b{color:var(--teal)}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:10px 0}
+.stat div{background:#fafcfe;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.stat b{display:block;font-size:20px;color:var(--navy)}
+.stat span{font-size:11.5px;color:var(--mut)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border-radius:10px;overflow:hidden;margin:10px 0}
+th{background:var(--navy);color:#fff;text-align:left;padding:8px 10px;font-size:12px;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:#fafcfe}
+.win{background:#fff8e6 !important;font-weight:700}
+.fld{display:grid;grid-template-columns:130px 1fr;gap:8px;margin:6px 0}
+.fld label{font-size:13px;color:var(--mut)}
+.fld input,.fld select{font-size:14px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;width:100%}
+.fld .row{display:flex;gap:8px;align-items:center}
+.cert{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;border-radius:16px;padding:26px 28px;max-width:520px;margin:14px auto;position:relative;border:2px solid var(--gold)}
+.cert .seal{position:absolute;right:22px;top:22px;width:64px;height:64px;border-radius:50%;border:2px solid var(--gold2);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold2);text-align:center;transform:rotate(-12deg)}
+.cert h3{color:var(--gold2);font-size:15px;margin:0 0 4px}
+.cert .ev{font-size:22px;font-weight:800;margin:6px 0}
+.cert .meta2{font-size:13px;color:#cfe0f3;line-height:1.9}
+.cert .lvtag{display:inline-block;background:var(--gold);color:#3a2c08;font-weight:800;border-radius:8px;padding:4px 14px;font-size:15px;margin-top:10px}
+.quote{border-left:3px solid var(--gold);background:#fffcf2;padding:11px 15px;border-radius:0 10px 10px 0;font-size:13px;color:#5b4a12;margin:13px 0}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 0}
+.nav a{font-size:13px;text-decoration:none;color:var(--navy);border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px}
+.foot{text-align:center;color:var(--mut);font-size:12px;margin-top:34px;padding-top:14px;border-top:1px solid var(--line)}
+.hidden{display:none}
+.note{color:var(--mut);font-size:11.5px}
+.step{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);margin:12px 0;border-radius:10px;overflow:hidden}
+.step div{background:#fff;padding:12px 14px}
+.step b{display:block;color:var(--navy);font-size:13px}
+.step span{font-size:12px;color:var(--mut)}
+</style>
+</head>
+<body>
+<div class="hero"><div class="wrap">
+<div class="tag">RMCity · 赛事引擎（六）· B1 正式赛项 · 门内</div>
+<h1>B1 动态定价决策 · 正式赛项：登录 / 编排 / 证书</h1>
+<p>在 <a href="campus-b1-prototype.html" style="color:var(--gold2)">最小可跑原型</a> 之上，补齐赛事产品三件套：① <b>登录</b>（站点门 + 参赛者身份采集）；② <b>赛制编排</b>（组织者设名称/级别/评分权重/证书线）；③ <b>证书对接</b>（完赛按阈值发 L1/L2/L3 证书卡、入本地排行榜、可导出成绩表）。这是赛事引擎首个"能端到端跑"的招牌赛项。</p>
+</div></div>
+<div class="wrap">
+
+<div class="step">
+<div><b>① 门登录</b><span>已通过本站登录门；下方采集参赛者身份</span></div>
+<div><b>② 编排</b><span>组织者设定赛项参数与证书线</span></div>
+<div><b>③ 比赛</b><span>14 天逐日定价，系统机评</span></div>
+<div><b>④ 证书</b><span>按阈值发级，入榜可导出</span></div>
+</div>
+
+<h2>一、赛制编排（组织者控制台）</h2>
+<p class="lead">设定一次赛事实例。保存后，参赛者进入即按此规则计分与发证。多场赛事按"赛事名称"隔离成绩。</p>
+<div class="panel">
+  <div class="fld"><label>赛事名称</label><input id="cfgName" value="2026 春季校赛 · B1 动态定价" maxlength="40"></div>
+  <div class="fld"><label>比赛级别</label>
+    <select id="cfgLevel"><option>校赛</option><option>省赛选拔</option><option>国赛选拔</option></select>
+  </div>
+  <div class="fld"><label>轮次天数</label><div class="row"><input id="cfgRounds" type="number" value="14" min="7" max="30" disabled><span class="note">（默认 14 天，已由赛规锁定）</span></div></div>
+  <div class="fld"><label>评分权重</label>
+    <div class="row"><span>RevPAR 达成率</span><input id="cfgWA" type="number" value="60" min="0" max="100" style="width:70px"><span>% / 价格一致性</span><input id="cfgWC" type="number" value="40" min="0" max="100" style="width:70px"><span>%</span></div>
+  </div>
+  <div class="fld"><label>证书分数线</label>
+    <div class="row"><span>L1 达标</span><input id="cfgL1" type="number" value="60" style="width:64px"><span>L2</span><input id="cfgL2" type="number" value="80" style="width:64px"><span>L3</span><input id="cfgL3" type="number" value="92" style="width:64px"><span class="note">（综合得分 0–100）</span></div>
+  </div>
+  <div style="margin-top:10px"><button class="btn sm" id="saveCfg">保存编排</button><button class="btn sm ghost" id="loadCfg">载入已存编排</button><span class="note" id="cfgMsg"></span></div>
+</div>
+
+<h2>二、参赛身份（登录后采集）</h2>
+<p class="lead">成绩与证书绑定到参赛者。本原型在浏览器本地保存身份与成绩（演示用）；正式部署对接贵校统一身份认证与成绩库。</p>
+<div class="panel">
+  <div class="fld"><label>姓名</label><input id="pName" placeholder="如：张三" maxlength="20"></div>
+  <div class="fld"><label>院校</label><input id="pSchool" placeholder="如：XX 职业技术学院" maxlength="40"></div>
+  <div class="fld"><label>学号</label><input id="pSid" placeholder="如：2023010123" maxlength="30"></div>
+  <div style="margin-top:8px"><button class="btn" id="enterBtn">进入比赛 →</button><span class="note" id="pMsg"></span></div>
+</div>
+
+<div class="panel hidden" id="gamePanel">
+  <div class="daybar">
+    <div class="d" id="dayNum">1</div>
+    <div class="meta">/ 14 天 · 酒店 100 间<br>今日竞对牌价：<b id="compPrice">—</b> 元</div>
+    <div class="pill" id="demPill">需求：—</div>
+    <div class="pill p">累计净 RevPAR：<b id="cumRev">0.0</b></div>
+  </div>
+  <div class="price-ctl">
+    <input type="range" id="priceSlider" min="300" max="900" step="5" value="500">
+    <input type="number" id="priceInput" class="num" min="300" max="900" value="500">
+    <span class="unit">元 / 间夜（BAR 公开价）</span>
+  </div>
+  <div class="proj" id="projLine">移动滑块查看预计售卖间夜与净收入…</div>
+  <div style="margin-top:14px"><button class="btn" id="confirmBtn">确认当日定价，进入下一天 →</button></div>
+</div>
+
+<div class="panel hidden" id="resultPanel">
+  <h2 style="margin-top:0">成绩与证书</h2>
+  <div class="stat" id="scoreStat"></div>
+  <div id="certBox"></div>
+  <div style="margin-top:12px">
+    <button class="btn sm" id="saveResult">保存成绩到本机排行榜</button>
+    <button class="btn sm ghost" id="exportBtn">导出全部成绩 CSV</button>
+    <button class="btn sm ghost" id="replayBtn">换一批市场，再赛一局</button>
+  </div>
+  <h3>本赛事排行榜（本地）</h3>
+  <table id="leaderboard"><thead><tr><th>名次</th><th>姓名</th><th>院校</th><th>综合得分</th><th>证书级</th><th>净RevPAR</th></tr></thead><tbody></tbody></table>
+</div>
+
+<h2>三、证书怎么对接（给院校）</h2>
+<div class="quote">完赛综合得分 ≥ L1 线即发 <b>L1 初级</b> 证书；≥ L2 / L3 线对应升级。证书级与 <a href="campus-course-event-map.html" style="color:#8a6a1a">课赛证映射大表</a> 的 L1/L2/L3 一致，可直接对接 1+X 与学分银行。本原型在浏览器内生成证书卡并保存成绩；正式部署时，证书签发与成绩入库由赛事引擎后端 + 贵校教务系统完成——本页即"接口规范"演示。</div>
+
+<div class="nav">
+<a href="campus-b1-prototype.html">← B1 最小原型</a>
+<a href="campus-course-event-map.html">课赛证映射大表</a>
+<a href="campus-competition-events.html">赛项库详细页</a>
+<a href="campus-gksz-design.html">融通设计详页</a>
+<a href="campus-competition-engine.html">赛事引擎总览</a>
+<a href="deliverables-index.html">产出物总目录</a>
+</div>
+<div class="foot">RMCity · 酒店收益管理社区 · B1 正式赛项（赛事引擎六）· 本站为门内页面</div>
+</div>
+
+<script>
+const N=14, CAP=100, COMM=0.85, MARKET=120;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+let comp=[], dem=[], noise=[], playerPrices=[];
+let day=0, totalNet=0, log=[];
+let cfg={name:"2026 春季校赛 · B1 动态定价",level:"校赛",wA:60,wC:40,l1:60,l2:80,l3:92};
+
+function genMarket(){
+  comp=[];dem=[];noise=[];playerPrices=[];day=0;totalNet=0;log=[];
+  let cp=500;
+  for(let d=0;d<N;d++){
+    cp=clamp(cp*(1+(Math.random()-0.5)*0.08),420,580);
+    comp.push(Math.round(cp));
+    let base=1.0+0.28*Math.sin(d/N*Math.PI*1.5);
+    dem.push(base*(1+(Math.random()-0.5)*0.08));
+    noise.push(1+(Math.random()-0.5)*0.06);
+  }
+}
+function idealRatio(d){return dem[d]>=1.0?1.03:0.95;}
+function calcRev(price,d){
+  let cap=MARKET*dem[d]*Math.pow(comp[d]/price,1.3)*noise[d];
+  const sold=Math.round(clamp(cap,0,CAP));
+  return {sold, net:sold*price*COMM};
+}
+function demLabel(d){const v=dem[d];return v>=1.1?'旺（高需求）':(v>=0.95?'平（正常）':'淡（低需求）');}
+const $=id=>document.getElementById(id);
+
+function render(){
+  $('dayNum').textContent=day+1;
+  $('compPrice').textContent=comp[day];
+  const dp=$('demPill'); dp.textContent='需求：'+demLabel(day);
+  dp.className='pill '+(dem[day]>=1.1?'w':(dem[day]<0.95?'':'p'));
+  $('cumRev').textContent=(totalNet/((day)*CAP||1)).toFixed(1);
+  updateProj();
+}
+function updateProj(){
+  const p=clamp(parseInt($('priceInput').value)||500,300,900);
+  $('priceSlider').value=p;
+  const r=calcRev(p,day);
+  $('projLine').innerHTML='若定价 <b>'+p+'</b> 元：预计售出约 <b>'+r.sold+'</b> 间，当日净收入约 <b>'+Math.round(r.net).toLocaleString()+'</b> 元（已扣佣金）';
+}
+function confirmDay(){
+  const p=clamp(parseInt($('priceInput').value)||500,300,900);
+  const r=calcRev(p,day);
+  playerPrices[day]=p; totalNet+=r.net;
+  log.push({day:day+1,comp:comp[day],price:p,sold:r.sold,net:r.net,cum:totalNet/((day+1)*CAP)});
+  day++; if(day>=N) finish(); else render();
+}
+
+function botRev(strategy){let t=0;for(let d=0;d<N;d++)t+=calcRev(strategy(d),d).net;return t/(N*CAP);}
+function finish(){
+  $('gamePanel').classList.add('hidden');
+  $('resultPanel').classList.remove('hidden');
+  const yourRevPAR=totalNet/(N*CAP);
+  const benchRevPAR=botRev(d=>Math.round(comp[d]*idealRatio(d)));
+  const ach=clamp(yourRevPAR/benchRevPAR,0,1.3);
+  let s=0;for(let d=0;d<N;d++)s+=Math.abs(playerPrices[d]/comp[d]-idealRatio(d));
+  const cons=clamp(100-(s/N)*260,0,100);
+  const score=clamp(cfg.wA/100*ach*100+cfg.wC/100*cons,0,100);
+  let level='未达标', lvNum=0;
+  if(score>=cfg.l3){level='L3 高级';lvNum=3;}
+  else if(score>=cfg.l2){level='L2 中级';lvNum=2;}
+  else if(score>=cfg.l1){level='L1 初级';lvNum=1;}
+  $('scoreStat').innerHTML=
+    '<div><b>'+score.toFixed(1)+'</b><span>综合得分（满分100）</span></div>'+
+    '<div><b>'+yourRevPAR.toFixed(1)+'</b><span>净 RevPAR</span></div>'+
+    '<div><b>'+(ach*100).toFixed(0)+'%</b><span>RevPAR 达成率（vs 理性基准）</span></div>'+
+    '<div><b>'+cons.toFixed(0)+'</b><span>价格一致性合规分</span></div>';
+  const d=new Date();
+  const dt=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  const name=$('pName').value||'参赛者'; const school=$('pSchool').value||'—';
+  $('certBox').innerHTML=
+    '<div class="cert"><div class="seal">RMCity<br>认证</div>'+
+    '<h3>酒店收益管理 · 技能证书</h3>'+
+    '<div class="ev">'+cfg.name+'</div>'+
+    '<div class="meta2">参赛者：'+name+'<br>院校：'+school+'<br>赛项：B1 动态定价决策（'+cfg.level+'）<br>综合得分：'+score.toFixed(1)+' ｜ 净 RevPAR：'+yourRevPAR.toFixed(1)+'<br>签发日期：'+dt+'</div>'+
+    '<div class="lvtag">'+level+'</div></div>';
+  window._lastResult={name,school,sid:$('pSid').value||'—',score:+score.toFixed(1),level,revpar:+yourRevPAR.toFixed(1),dt};
+  renderLeaderboard();
+}
+function leadKey(){return 'rmc_b1_lead_'+(cfg.name||'default');}
+function loadLeaderboard(){try{return JSON.parse(localStorage.getItem(leadKey())||'[]');}catch(e){return [];}}
+function renderLeaderboard(){
+  const arr=loadLeaderboard().sort((a,b)=>b.score-a.score);
+  const tb=$('leaderboard').querySelector('tbody'); tb.innerHTML='';
+  if(!arr.length){tb.innerHTML='<tr><td colspan="6" class="note">暂无记录，完赛后点"保存成绩到本机排行榜"。</td></tr>';return;}
+  arr.forEach((r,i)=>{const tr=document.createElement('tr');tr.innerHTML='<td>'+(i+1)+'</td><td>'+r.name+'</td><td class="note">'+r.school+'</td><td><b>'+r.score+'</b></td><td>'+r.level+'</td><td>'+r.revpar+'</td>';tb.appendChild(tr);});
+}
+$('saveResult').addEventListener('click',()=>{
+  if(!window._lastResult){return;}
+  const arr=loadLeaderboard();
+  arr.push(window._lastResult);
+  localStorage.setItem(leadKey(),JSON.stringify(arr));
+  renderLeaderboard();
+  alert('已保存到本机排行榜（赛事：'+cfg.name+'）');
+});
+$('exportBtn').addEventListener('click',()=>{
+  const arr=loadLeaderboard();
+  if(!arr.length){alert('暂无成绩可导出');return;}
+  let csv='赛事名称,级别,姓名,院校,学号,综合得分,证书级,净RevPAR,日期\n';
+  arr.forEach(r=>{csv+=['"'+cfg.name+'"','"'+cfg.level+'"','"'+r.name+'"','"'+r.school+'"','"'+r.sid+'"',r.score,'"'+r.level+'"',r.revpar,'"'+r.dt+'"'].join(',')+'\n';});
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=cfg.name.replace(/[^\w\u4e00-\u9fa5]/g,'_')+'_成绩表.csv';a.click();
+});
+$('priceSlider').addEventListener('input',e=>{$('priceInput').value=e.target.value;updateProj();});
+$('priceInput').addEventListener('input',e=>{updateProj();});
+$('confirmBtn').addEventListener('click',confirmDay);
+$('replayBtn').addEventListener('click',()=>{genMarket();$('resultPanel').classList.add('hidden');$('gamePanel').classList.remove('hidden');render();});
+
+// 编排
+$('saveCfg').addEventListener('click',()=>{
+  cfg.name=$('cfgName').value||cfg.name;
+  cfg.level=$('cfgLevel').value;
+  cfg.wA=clamp(parseInt($('cfgWA').value)||60,0,100);
+  cfg.wC=clamp(parseInt($('cfgWC').value)||40,0,100);
+  cfg.l1=clamp(parseInt($('cfgL1').value)||60,0,100);
+  cfg.l2=clamp(parseInt($('cfgL2').value)||80,0,100);
+  cfg.l3=clamp(parseInt($('cfgL3').value)||92,0,100);
+  localStorage.setItem('rmc_b1_cfg',JSON.stringify(cfg));
+  $('cfgMsg').textContent='已保存：'+cfg.name;
+});
+$('loadCfg').addEventListener('click',()=>{
+  try{const c=JSON.parse(localStorage.getItem('rmc_b1_cfg'));if(c){cfg=c;
+    $('cfgName').value=cfg.name;$('cfgLevel').value=cfg.level;$('cfgWA').value=cfg.wA;$('cfgWC').value=cfg.wC;$('cfgL1').value=cfg.l1;$('cfgL2').value=cfg.l2;$('cfgL3').value=cfg.l3;
+    $('cfgMsg').textContent='已载入：'+cfg.name;}}catch(e){}
+});
+// 进入比赛
+$('enterBtn').addEventListener('click',()=>{
+  if(!$('pName').value.trim()){$('pMsg').textContent='请填写姓名';return;}
+  $('pMsg').textContent='';
+  genMarket();
+  $('gamePanel').classList.remove('hidden');
+  $('resultPanel').classList.add('hidden');
+  render();
+  $('gamePanel').scrollIntoView({behavior:'smooth'});
+});
+// 初始化
+try{const c=JSON.parse(localStorage.getItem('rmc_b1_cfg'));if(c){cfg=c;$('cfgName').value=cfg.name;$('cfgLevel').value=cfg.level;$('cfgWA').value=cfg.wA;$('cfgWC').value=cfg.wC;$('cfgL1').value=cfg.l1;$('cfgL2').value=cfg.l2;$('cfgL3').value=cfg.l3;}}catch(e){}
+</script>
+</body>
+</html>
