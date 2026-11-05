@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js?v=gate20261013"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<!-- 本页自带左侧固定目录，幂等键 id="rm-toc-drawer" 视为已存在：目录注入脚本跳过，勿重复注入抽屉 -->
+<title>作品提交与回传口规范 · RMC v2026.1</title>
+<style>
+:root{--bg:#FAF9F6;--paper:#FFFFFF;--ink:#2E3B40;--ink2:#55666C;
+--line:#E2E8E7;--line2:#EEF2F1;--accent:#3E5C6B;--accent2:#2C4753;
+--soft:#EDF3F3;--clay:#B98B6E;--gold:#A8915F;--muted:#F4F7F7;}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;font-size:15.2px;line-height:1.82}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--line)}
+a:hover{color:var(--accent2)}
+.wrap{display:flex;align-items:flex-start;max-width:1320px;margin:0 auto}
+nav#toc{position:sticky;top:0;width:250px;flex:0 0 250px;height:100vh;overflow-y:auto;padding:40px 18px 60px 26px;border-right:1px solid var(--line);background:var(--muted)}
+nav#toc .toc-t{font-family:"Songti SC",serif;font-size:15px;font-weight:700;color:var(--accent2);letter-spacing:.06em;margin:0 0 4px}
+nav#toc .toc-s{font-size:12px;color:var(--ink2);margin:0 0 20px;line-height:1.6}
+nav#toc ol{list-style:none;margin:0;padding:0;counter-reset:t}
+nav#toc li{counter-increment:t;margin:0 0 2px}
+nav#toc a{display:block;padding:5px 8px 5px 11px;border:0;border-left:2px solid transparent;color:var(--ink2);font-size:12.8px;line-height:1.5;border-radius:0 3px 3px 0}
+nav#toc a::before{content:counter(t,cjk-ideographic) "、";color:var(--gold);font-size:11px}
+nav#toc a:hover{background:var(--soft);border-left-color:var(--accent);color:var(--accent2)}
+nav#toc .toc-foot{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink2);line-height:1.7}
+main{flex:1;min-width:0;padding:48px 60px 96px;max-width:960px}
+section{scroll-margin-top:76px;margin:0 0 52px}
+.hd{border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:38px}
+.kicker{font-size:12px;letter-spacing:.16em;color:var(--clay);margin:0 0 10px}
+h1{font-family:"Songti SC",serif;font-size:31px;line-height:1.4;font-weight:700;margin:0 0 12px}
+.sub{font-size:14px;color:var(--ink2);margin:0}
+.brandline{font-size:12.2px;color:var(--ink2);margin:14px 0 0;padding-top:12px;border-top:1px solid var(--line2)}
+h2{font-family:"Songti SC",serif;font-size:23px;font-weight:700;color:var(--accent2);margin:0 0 8px}
+h2 .num{font-family:"PingFang SC",sans-serif;font-size:12px;color:var(--gold);letter-spacing:.1em;display:block;margin-bottom:7px}
+h3{font-size:16px;font-weight:700;color:var(--accent2);margin:26px 0 9px;padding-left:10px;border-left:3px solid var(--clay)}
+h4{font-size:14.2px;color:var(--accent2);margin:16px 0 6px}
+p{margin:0 0 12px} strong{color:var(--accent2);font-weight:700}
+ul,ol{margin:0 0 14px;padding-left:22px} li{margin:0 0 6px}
+table{width:100%;border-collapse:collapse;margin:16px 0 22px;font-size:13.2px;background:var(--paper);border:1px solid var(--line)}
+th,td{border-bottom:1px solid var(--line2);border-right:1px solid var(--line2);padding:9px 11px;text-align:left;vertical-align:top;line-height:1.68}
+th{background:var(--soft);color:var(--accent2);font-weight:700;font-size:12.8px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0} td:last-child,th:last-child{border-right:0}
+.card{background:var(--paper);border:1px solid var(--line);padding:18px 22px;margin:16px 0 20px;border-radius:3px}
+.card .ct{font-size:11.8px;letter-spacing:.08em;color:var(--clay);margin:0 0 7px;font-weight:700}
+.card p:last-child{margin-bottom:0}
+.note{font-size:13px;color:var(--ink2);background:var(--muted);padding:12px 16px;border-left:2px solid var(--gold);margin:14px 0 22px;line-height:1.75}
+.tag{display:inline-block;font-size:11.5px;padding:2px 8px;border:1px solid var(--line);border-radius:2px;color:var(--accent);background:var(--soft);margin:0 4px 4px 0}
+.tag.c{color:#9A6E52;background:#F9F1EC;border-color:#EFE0D4}
+.tag.g{color:#8A7448;background:#F8F4EA;border-color:#EBE2CC}
+.blank{display:inline-block;min-width:110px;border-bottom:1px solid var(--clay);color:transparent}
+.rows{background:var(--paper);border:1px solid var(--line);padding:12px 16px;margin:10px 0 18px;line-height:2.1;font-size:13.6px}
+.rows div{border-bottom:1px dashed var(--line2);padding:1px 0}
+.rows div:last-child{border-bottom:0}
+.mini{font-size:12.4px;color:var(--ink2)}
+.try{background:var(--soft);border:1px solid var(--line);padding:20px 24px;border-radius:3px}
+.tips{border-top:1px solid var(--line);margin-top:30px;padding-top:18px;font-size:13.8px;color:var(--ink2)}
+pre{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--accent);padding:14px 16px;overflow-x:auto;font-size:12.6px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+code{font-family:Menlo,Consolas,monospace;font-size:12.4px;background:var(--muted);padding:1px 4px}
+.filters{background:var(--paper);border:1px solid var(--line);padding:14px 18px;margin:16px 0 20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.filters label{font-size:12.8px;color:var(--ink2)}
+select,input[type=text],textarea,button{font-family:inherit;font-size:13.2px;padding:6px 9px;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:2px}
+button{cursor:pointer;background:var(--accent);color:#fff;border-color:var(--accent)}
+button.ghost{background:var(--paper);color:var(--accent)}
+button:hover{background:var(--accent2)}
+.stat{display:inline-block;background:var(--soft);border:1px solid var(--line);padding:6px 12px;margin:0 8px 10px 0;font-size:12.8px}
+.stat b{font-size:17px;color:var(--accent2);margin-right:5px}
+.item{border:1px solid var(--line);background:var(--paper);padding:12px 16px;margin:0 0 10px;border-radius:3px}
+.item .no{display:inline-block;background:var(--soft);color:var(--accent2);font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:2px;margin-right:8px}
+.warn{background:#FBF3EA;border:1px solid #EBDCC4;color:#8A6338;padding:10px 14px;font-size:13px;margin:12px 0}
+details{background:var(--paper);border:1px solid var(--line);padding:10px 14px;margin:10px 0}
+summary{cursor:pointer;color:var(--accent);font-size:13.2px}
+@media(max-width:900px){.wrap{display:block} nav#toc{position:relative;width:auto;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:20px}
+nav#toc .toc-foot{display:none} main{padding:28px 20px 60px} h1{font-size:26px} table{font-size:12.2px}}
+@media print{nav#toc{display:none} main{padding:0;max-width:none} body{background:#fff} .a4{max-width:210mm;margin:0 auto}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<nav id="toc">
+  <p class="toc-t">目录</p>
+  <p class="toc-s">RMC 优化方案落地<br>v2026.1 · 2026-11-05</p>
+  <ol><li><a href="#s0">进度判定改造</a></li><li><a href="#s1">互评流程</a></li><li><a href="#s2">脱敏与署名</a></li></ol>
+  <div class="toc-foot">本轮全部为新建版本，未覆盖任何原有资料。<br>零额度：纯文本与脚本派生。</div>
+</nav>
+<main>
+<div class="hd">
+  <p class="kicker">第 6 项 · 回传口 / 社区作品沉淀</p>
+  <h1>作品提交与回传口规范</h1>
+  <p class="sub">交作业才计进度；引用表号互评；脱敏后进案例库</p>
+  <p class="brandline">RMC · v2026.1 · 2026-11-05 · 门内 noindex · 新建版本（原有资料保持原样，见<a href="v2026-1-legacy-index.html">原有资料索引</a>）</p>
+</div>
+<section id="s0"><h2><span class="num">00</span>进度判定：从「看过」改为「交一份」</h2><p>站内现有进度记录是「点开看过即计入」，记录的是消费行为。本版规范把它改成<strong>交一份带数据的决策作业</strong>才计入。此页是规范与流程，<strong>未改动</strong>现有认证馆与进度页的代码。</p><table><thead><tr><th style="width:22%">作业类型</th><th style="width:46%">交什么</th><th style="width:32%">判分标尺</th></tr></thead><tbody><tr><td>一张调价台账</td><td>13 必填字段齐全，⑧依据表编号不为空</td><td>rubric 检查项 3</td></tr><tr><td>一页定价方案</td><td>决策 → 判定表 → 解释三段链，引用 A–O 表号</td><td>rubric 检查项 2</td></tr><tr><td>一段补写的剧本对白</td><td>8–12 句对白 + 表号 + 30 字内结论</td><td><a href="v2026-1-drama-homework-answers.html">参考答案</a>三条评分要点</td></tr></tbody></table></section><section id="s1"><h2><span class="num">01</span>互评：引用表号，不收感觉分</h2><p>评价格式固定为「<strong>引用表号 + 一句理由</strong>」。例如：「表 D 检查项 1 未通过——没有列出近 7 日同房型 Pickup 的取数日期。」不写「讲得挺好」这类纯感觉分。</p><table><thead><tr><th style="width:14%">环节</th><th style="width:56%">动作</th><th style="width:30%">产物</th></tr></thead><tbody><tr><td>提交</td><td>脱敏后上传作品，标注章号 / 表号 / 级别</td><td>作品条目</td></tr><tr><td>互评</td><td>同行按 15 表 rubric 至少评 2 份，引用表号</td><td>互评记录</td></tr><tr><td>收录</td><td>优秀作品脱敏后进案例库</td><td>案例库条目</td></tr><tr><td>回流</td><td>给第二版教材、陪跑演示、漫剧新一集供料</td><td>修订记录具名</td></tr></tbody></table></section><section id="s2"><h2><span class="num">02</span>脱敏与署名</h2><ul><li>去校名、去人名、去真实经营数据；房量统一 300 间口径或注明已替换。</li><li>署名可用化名；贡献者在下一版修订记录列出。</li><li>案例库只收教学案例，不收逐校定制诊断。</li><li>社区开「导演投稿口」：学生提交的分镜与对白经互评后，可成为下一季剧本素材。</li></ul><div class="note">社区从内容消费改为作品沉淀：会员留下的是作品与数据，不是阅读记录。本页与 <a href="v2026-1-adaptation-license.html">改编授权</a>、<a href="v2026-1-errata.html">勘误页</a> 共用同一套署名规则。</div></section>
+</main>
+</div>
+
+</body>
+</html>

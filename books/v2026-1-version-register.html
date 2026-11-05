@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js?v=gate20261013"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<!-- 本页自带左侧固定目录，幂等键 id="rm-toc-drawer" 视为已存在：目录注入脚本跳过，勿重复注入抽屉 -->
+<title>版本登记表 · v2026.1 · RMC v2026.1</title>
+<style>
+:root{--bg:#FAF9F6;--paper:#FFFFFF;--ink:#2E3B40;--ink2:#55666C;
+--line:#E2E8E7;--line2:#EEF2F1;--accent:#3E5C6B;--accent2:#2C4753;
+--soft:#EDF3F3;--clay:#B98B6E;--gold:#A8915F;--muted:#F4F7F7;}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;font-size:15.2px;line-height:1.82}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--line)}
+a:hover{color:var(--accent2)}
+.wrap{display:flex;align-items:flex-start;max-width:1320px;margin:0 auto}
+nav#toc{position:sticky;top:0;width:250px;flex:0 0 250px;height:100vh;overflow-y:auto;padding:40px 18px 60px 26px;border-right:1px solid var(--line);background:var(--muted)}
+nav#toc .toc-t{font-family:"Songti SC",serif;font-size:15px;font-weight:700;color:var(--accent2);letter-spacing:.06em;margin:0 0 4px}
+nav#toc .toc-s{font-size:12px;color:var(--ink2);margin:0 0 20px;line-height:1.6}
+nav#toc ol{list-style:none;margin:0;padding:0;counter-reset:t}
+nav#toc li{counter-increment:t;margin:0 0 2px}
+nav#toc a{display:block;padding:5px 8px 5px 11px;border:0;border-left:2px solid transparent;color:var(--ink2);font-size:12.8px;line-height:1.5;border-radius:0 3px 3px 0}
+nav#toc a::before{content:counter(t,cjk-ideographic) "、";color:var(--gold);font-size:11px}
+nav#toc a:hover{background:var(--soft);border-left-color:var(--accent);color:var(--accent2)}
+nav#toc .toc-foot{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink2);line-height:1.7}
+main{flex:1;min-width:0;padding:48px 60px 96px;max-width:960px}
+section{scroll-margin-top:76px;margin:0 0 52px}
+.hd{border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:38px}
+.kicker{font-size:12px;letter-spacing:.16em;color:var(--clay);margin:0 0 10px}
+h1{font-family:"Songti SC",serif;font-size:31px;line-height:1.4;font-weight:700;margin:0 0 12px}
+.sub{font-size:14px;color:var(--ink2);margin:0}
+.brandline{font-size:12.2px;color:var(--ink2);margin:14px 0 0;padding-top:12px;border-top:1px solid var(--line2)}
+h2{font-family:"Songti SC",serif;font-size:23px;font-weight:700;color:var(--accent2);margin:0 0 8px}
+h2 .num{font-family:"PingFang SC",sans-serif;font-size:12px;color:var(--gold);letter-spacing:.1em;display:block;margin-bottom:7px}
+h3{font-size:16px;font-weight:700;color:var(--accent2);margin:26px 0 9px;padding-left:10px;border-left:3px solid var(--clay)}
+h4{font-size:14.2px;color:var(--accent2);margin:16px 0 6px}
+p{margin:0 0 12px} strong{color:var(--accent2);font-weight:700}
+ul,ol{margin:0 0 14px;padding-left:22px} li{margin:0 0 6px}
+table{width:100%;border-collapse:collapse;margin:16px 0 22px;font-size:13.2px;background:var(--paper);border:1px solid var(--line)}
+th,td{border-bottom:1px solid var(--line2);border-right:1px solid var(--line2);padding:9px 11px;text-align:left;vertical-align:top;line-height:1.68}
+th{background:var(--soft);color:var(--accent2);font-weight:700;font-size:12.8px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0} td:last-child,th:last-child{border-right:0}
+.card{background:var(--paper);border:1px solid var(--line);padding:18px 22px;margin:16px 0 20px;border-radius:3px}
+.card .ct{font-size:11.8px;letter-spacing:.08em;color:var(--clay);margin:0 0 7px;font-weight:700}
+.card p:last-child{margin-bottom:0}
+.note{font-size:13px;color:var(--ink2);background:var(--muted);padding:12px 16px;border-left:2px solid var(--gold);margin:14px 0 22px;line-height:1.75}
+.tag{display:inline-block;font-size:11.5px;padding:2px 8px;border:1px solid var(--line);border-radius:2px;color:var(--accent);background:var(--soft);margin:0 4px 4px 0}
+.tag.c{color:#9A6E52;background:#F9F1EC;border-color:#EFE0D4}
+.tag.g{color:#8A7448;background:#F8F4EA;border-color:#EBE2CC}
+.blank{display:inline-block;min-width:110px;border-bottom:1px solid var(--clay);color:transparent}
+.rows{background:var(--paper);border:1px solid var(--line);padding:12px 16px;margin:10px 0 18px;line-height:2.1;font-size:13.6px}
+.rows div{border-bottom:1px dashed var(--line2);padding:1px 0}
+.rows div:last-child{border-bottom:0}
+.mini{font-size:12.4px;color:var(--ink2)}
+.try{background:var(--soft);border:1px solid var(--line);padding:20px 24px;border-radius:3px}
+.tips{border-top:1px solid var(--line);margin-top:30px;padding-top:18px;font-size:13.8px;color:var(--ink2)}
+pre{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--accent);padding:14px 16px;overflow-x:auto;font-size:12.6px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+code{font-family:Menlo,Consolas,monospace;font-size:12.4px;background:var(--muted);padding:1px 4px}
+.filters{background:var(--paper);border:1px solid var(--line);padding:14px 18px;margin:16px 0 20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.filters label{font-size:12.8px;color:var(--ink2)}
+select,input[type=text],textarea,button{font-family:inherit;font-size:13.2px;padding:6px 9px;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:2px}
+button{cursor:pointer;background:var(--accent);color:#fff;border-color:var(--accent)}
+button.ghost{background:var(--paper);color:var(--accent)}
+button:hover{background:var(--accent2)}
+.stat{display:inline-block;background:var(--soft);border:1px solid var(--line);padding:6px 12px;margin:0 8px 10px 0;font-size:12.8px}
+.stat b{font-size:17px;color:var(--accent2);margin-right:5px}
+.item{border:1px solid var(--line);background:var(--paper);padding:12px 16px;margin:0 0 10px;border-radius:3px}
+.item .no{display:inline-block;background:var(--soft);color:var(--accent2);font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:2px;margin-right:8px}
+.warn{background:#FBF3EA;border:1px solid #EBDCC4;color:#8A6338;padding:10px 14px;font-size:13px;margin:12px 0}
+details{background:var(--paper);border:1px solid var(--line);padding:10px 14px;margin:10px 0}
+summary{cursor:pointer;color:var(--accent);font-size:13.2px}
+@media(max-width:900px){.wrap{display:block} nav#toc{position:relative;width:auto;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:20px}
+nav#toc .toc-foot{display:none} main{padding:28px 20px 60px} h1{font-size:26px} table{font-size:12.2px}}
+@media print{nav#toc{display:none} main{padding:0;max-width:none} body{background:#fff} .a4{max-width:210mm;margin:0 auto}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<nav id="toc">
+  <p class="toc-t">目录</p>
+  <p class="toc-s">RMC 优化方案落地<br>v2026.1 · 2026-11-05</p>
+  <ol><li><a href="#s0">本版资产登记</a></li><li><a href="#s1">命名与升号规则</a></li><li><a href="#s2">旧资产标注建议</a></li></ol>
+  <div class="toc-foot">本轮全部为新建版本，未覆盖任何原有资料。<br>零额度：纯文本与脚本派生。</div>
+</nav>
+<main>
+<div class="hd">
+  <p class="kicker">第 6 项 · 版本与勘误</p>
+  <h1>版本登记表 · v2026.1</h1>
+  <p class="sub">命名规范 / 升号规则 / 本版资产登记 / 旧资产不动</p>
+  <p class="brandline">RMC · v2026.1 · 2026-11-05 · 门内 noindex · 新建版本（原有资料保持原样，见<a href="v2026-1-legacy-index.html">原有资料索引</a>）</p>
+</div>
+<section id="s0"><h2><span class="num">00</span>本版资产登记（21 个新文件）</h2><p>本轮所有产物均为<strong>新建文件</strong>，文件名带 <code>v2026-1-</code> 前缀；原有资料保持原名、原路径、原内容。下表由目录扫描自动生成。</p><table><thead><tr><th style="width:48%">文件</th><th style="width:10%">状态</th><th style="width:12%">版本</th><th style="width:14%">日期</th><th style="width:16%">说明</th></tr></thead><tbody><tr><td>v2026-1-index.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-chapter-tags.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-assembler.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-chapter-openers.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-two-column-examples.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-leader-onepager.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-teacher-case-notes.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-teacher-hours-map.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-drama-homework.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-drama-homework-answers.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-rubric-15.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-result-card.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-version-register.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-errata.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-adaptation-license.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-submission-portal.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-scenario-chapter-index.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-ai-prompt-templates.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-legacy-index.html</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-chapter-tags.json</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr><tr><td>v2026-1-rubric.json</td><td>新建</td><td>v2026.1</td><td>2026-11-05</td><td>本版交付</td></tr></tbody></table></section><section id="s1"><h2><span class="num">01</span>命名、版本与升号规则</h2><ul><li><strong>命名规范</strong>：<code>RMC-{线别}-{名称}-{版本}.pdf</code>，如 <code>RMC-学生线-收益管理教材-v2026.1.pdf</code>。线别四选一：学生 / 教师 / 酒店人 / 领导。</li><li><strong>版本号</strong>：年.序（v2026.1）。任何正文修订、数据口径更新、判定表勘误都升号，页脚与封面同步标注。</li><li><strong>页脚统一标注</strong>：<code>RMC · v2026.1 · 2026-11-05 · 门内 noindex</code>。本版 19 个页面已全部带上。</li><li><strong>勘误页</strong>：每本书末固定一页「本版修订记录」，列出条目、日期、来源；每年一次集中勘误。</li><li><strong>发布节奏</strong>：教材与配套包按学期发布（开课前 4 周到校）；口袋书与判定卡随修订随时更新；题库随认证批次更新。</li></ul></section><section id="s2"><h2><span class="num">02</span>旧资产的版本标注建议（不改动旧文件）</h2><p>下列原有资料是母本，本版<strong>不重命名、不覆盖</strong>。若日后统一页脚，可在其新版本里加 v2026.1 标注。</p><table><thead><tr><th style="width:40%">母本</th><th style="width:18%">规模</th><th style="width:42%">本版用途</th></tr></thead><tbody><tr><td><a href="../textbook-merged.html">textbook-merged.html</a></td><td>41 章</td><td>唯一事实源</td></tr><tr><td><a href="../codex.html">codex.html</a></td><td>15 表 A–O</td><td>判定表母本 / rubric 依据</td></tr><tr><td><a href="drama-script-full.html">drama-script-full.html</a></td><td>36 集</td><td>作业包母本</td></tr><tr><td><a href="../deliverables-ledger.html">deliverables-ledger.html</a></td><td>产出物总台账</td><td>登记本批新条目</td></tr><tr><td><a href="rmc-content-optimization.html">rmc-content-optimization.html</a></td><td>优化方案</td><td>本轮执行依据（原文未改）</td></tr></tbody></table></section>
+</main>
+</div>
+
+</body>
+</html>

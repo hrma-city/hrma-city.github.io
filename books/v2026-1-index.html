@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js?v=gate20261013"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<!-- 本页自带左侧固定目录，幂等键 id="rm-toc-drawer" 视为已存在：目录注入脚本跳过，勿重复注入抽屉 -->
+<title>优化方案落地总索引 · v2026.1 · RMC v2026.1</title>
+<style>
+:root{--bg:#FAF9F6;--paper:#FFFFFF;--ink:#2E3B40;--ink2:#55666C;
+--line:#E2E8E7;--line2:#EEF2F1;--accent:#3E5C6B;--accent2:#2C4753;
+--soft:#EDF3F3;--clay:#B98B6E;--gold:#A8915F;--muted:#F4F7F7;}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;font-size:15.2px;line-height:1.82}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--line)}
+a:hover{color:var(--accent2)}
+.wrap{display:flex;align-items:flex-start;max-width:1320px;margin:0 auto}
+nav#toc{position:sticky;top:0;width:250px;flex:0 0 250px;height:100vh;overflow-y:auto;padding:40px 18px 60px 26px;border-right:1px solid var(--line);background:var(--muted)}
+nav#toc .toc-t{font-family:"Songti SC",serif;font-size:15px;font-weight:700;color:var(--accent2);letter-spacing:.06em;margin:0 0 4px}
+nav#toc .toc-s{font-size:12px;color:var(--ink2);margin:0 0 20px;line-height:1.6}
+nav#toc ol{list-style:none;margin:0;padding:0;counter-reset:t}
+nav#toc li{counter-increment:t;margin:0 0 2px}
+nav#toc a{display:block;padding:5px 8px 5px 11px;border:0;border-left:2px solid transparent;color:var(--ink2);font-size:12.8px;line-height:1.5;border-radius:0 3px 3px 0}
+nav#toc a::before{content:counter(t,cjk-ideographic) "、";color:var(--gold);font-size:11px}
+nav#toc a:hover{background:var(--soft);border-left-color:var(--accent);color:var(--accent2)}
+nav#toc .toc-foot{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink2);line-height:1.7}
+main{flex:1;min-width:0;padding:48px 60px 96px;max-width:960px}
+section{scroll-margin-top:76px;margin:0 0 52px}
+.hd{border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:38px}
+.kicker{font-size:12px;letter-spacing:.16em;color:var(--clay);margin:0 0 10px}
+h1{font-family:"Songti SC",serif;font-size:31px;line-height:1.4;font-weight:700;margin:0 0 12px}
+.sub{font-size:14px;color:var(--ink2);margin:0}
+.brandline{font-size:12.2px;color:var(--ink2);margin:14px 0 0;padding-top:12px;border-top:1px solid var(--line2)}
+h2{font-family:"Songti SC",serif;font-size:23px;font-weight:700;color:var(--accent2);margin:0 0 8px}
+h2 .num{font-family:"PingFang SC",sans-serif;font-size:12px;color:var(--gold);letter-spacing:.1em;display:block;margin-bottom:7px}
+h3{font-size:16px;font-weight:700;color:var(--accent2);margin:26px 0 9px;padding-left:10px;border-left:3px solid var(--clay)}
+h4{font-size:14.2px;color:var(--accent2);margin:16px 0 6px}
+p{margin:0 0 12px} strong{color:var(--accent2);font-weight:700}
+ul,ol{margin:0 0 14px;padding-left:22px} li{margin:0 0 6px}
+table{width:100%;border-collapse:collapse;margin:16px 0 22px;font-size:13.2px;background:var(--paper);border:1px solid var(--line)}
+th,td{border-bottom:1px solid var(--line2);border-right:1px solid var(--line2);padding:9px 11px;text-align:left;vertical-align:top;line-height:1.68}
+th{background:var(--soft);color:var(--accent2);font-weight:700;font-size:12.8px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0} td:last-child,th:last-child{border-right:0}
+.card{background:var(--paper);border:1px solid var(--line);padding:18px 22px;margin:16px 0 20px;border-radius:3px}
+.card .ct{font-size:11.8px;letter-spacing:.08em;color:var(--clay);margin:0 0 7px;font-weight:700}
+.card p:last-child{margin-bottom:0}
+.note{font-size:13px;color:var(--ink2);background:var(--muted);padding:12px 16px;border-left:2px solid var(--gold);margin:14px 0 22px;line-height:1.75}
+.tag{display:inline-block;font-size:11.5px;padding:2px 8px;border:1px solid var(--line);border-radius:2px;color:var(--accent);background:var(--soft);margin:0 4px 4px 0}
+.tag.c{color:#9A6E52;background:#F9F1EC;border-color:#EFE0D4}
+.tag.g{color:#8A7448;background:#F8F4EA;border-color:#EBE2CC}
+.blank{display:inline-block;min-width:110px;border-bottom:1px solid var(--clay);color:transparent}
+.rows{background:var(--paper);border:1px solid var(--line);padding:12px 16px;margin:10px 0 18px;line-height:2.1;font-size:13.6px}
+.rows div{border-bottom:1px dashed var(--line2);padding:1px 0}
+.rows div:last-child{border-bottom:0}
+.mini{font-size:12.4px;color:var(--ink2)}
+.try{background:var(--soft);border:1px solid var(--line);padding:20px 24px;border-radius:3px}
+.tips{border-top:1px solid var(--line);margin-top:30px;padding-top:18px;font-size:13.8px;color:var(--ink2)}
+pre{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--accent);padding:14px 16px;overflow-x:auto;font-size:12.6px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+code{font-family:Menlo,Consolas,monospace;font-size:12.4px;background:var(--muted);padding:1px 4px}
+.filters{background:var(--paper);border:1px solid var(--line);padding:14px 18px;margin:16px 0 20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.filters label{font-size:12.8px;color:var(--ink2)}
+select,input[type=text],textarea,button{font-family:inherit;font-size:13.2px;padding:6px 9px;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:2px}
+button{cursor:pointer;background:var(--accent);color:#fff;border-color:var(--accent)}
+button.ghost{background:var(--paper);color:var(--accent)}
+button:hover{background:var(--accent2)}
+.stat{display:inline-block;background:var(--soft);border:1px solid var(--line);padding:6px 12px;margin:0 8px 10px 0;font-size:12.8px}
+.stat b{font-size:17px;color:var(--accent2);margin-right:5px}
+.item{border:1px solid var(--line);background:var(--paper);padding:12px 16px;margin:0 0 10px;border-radius:3px}
+.item .no{display:inline-block;background:var(--soft);color:var(--accent2);font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:2px;margin-right:8px}
+.warn{background:#FBF3EA;border:1px solid #EBDCC4;color:#8A6338;padding:10px 14px;font-size:13px;margin:12px 0}
+details{background:var(--paper);border:1px solid var(--line);padding:10px 14px;margin:10px 0}
+summary{cursor:pointer;color:var(--accent);font-size:13.2px}
+@media(max-width:900px){.wrap{display:block} nav#toc{position:relative;width:auto;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:20px}
+nav#toc .toc-foot{display:none} main{padding:28px 20px 60px} h1{font-size:26px} table{font-size:12.2px}}
+@media print{nav#toc{display:none} main{padding:0;max-width:none} body{background:#fff} .a4{max-width:210mm;margin:0 auto}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<nav id="toc">
+  <p class="toc-t">目录</p>
+  <p class="toc-s">RMC 优化方案落地<br>v2026.1 · 2026-11-05</p>
+  <ol><li><a href="#s0">执行范围与状态</a></li><li><a href="#s1">补充交付</a></li><li><a href="#s2">口径校正说明</a></li><li><a href="#s3">新旧并存与数据来源</a></li><li><a href="#s4">Have a Try</a></li><li><a href="#s5">Tips</a></li></ol>
+  <div class="toc-foot">本轮全部为新建版本，未覆盖任何原有资料。<br>零额度：纯文本与脚本派生。</div>
+</nav>
+<main>
+<div class="hd">
+  <p class="kicker">产品与内容 · 优化方案落地</p>
+  <h1>优化方案落地总索引 · v2026.1</h1>
+  <p class="sub">按方案六项优先级逐条执行 · 新建版本 · 不覆盖原有资料</p>
+  <p class="brandline">RMC · v2026.1 · 2026-11-05 · 门内 noindex · 新建版本（原有资料保持原样，见<a href="v2026-1-legacy-index.html">原有资料索引</a>）</p>
+</div>
+<section id="s0"><h2><span class="num">00</span>执行范围与状态</h2><p>按《<a href="rmc-content-optimization.html">RMC 产品与内容优化方案</a>》05 节六项优先级逐条自动执行，另补齐 01/03/04 节迁移动作与 07 节 Have a Try 三条。全部为文本、标签、模板与脚本派生，<strong>零额度</strong>，未调用视频／图片／3D 生成。</p><table><thead><tr><th style="width:5%">序</th><th style="width:27%">方案动作</th><th style="width:56%">本版交付物（均为新建文件）</th><th style="width:12%">状态</th></tr></thead><tbody><tr><td>1</td><td>41 章标签表 + 装配器</td><td><a href="v2026-1-chapter-tags.html">标签总表</a> · <a href="v2026-1-assembler.html">装配器</a> · <a href="v2026-1-chapter-tags.json">chapter-tags.json</a> · 四线目录（装配器内切换）</td><td>完成</td></tr><tr><td>2</td><td>章首四件套模板 + 两栏算例</td><td><a href="v2026-1-chapter-openers.html">41 章章首四件套</a> · <a href="v2026-1-two-column-examples.html">两栏算例（41 章）</a></td><td>完成</td></tr><tr><td>3</td><td>领导一页纸 + 教师案例教学笔记</td><td><a href="v2026-1-leader-onepager.html">领导一页纸</a> · <a href="v2026-1-teacher-case-notes.html">41 章案例教学笔记</a> · <a href="v2026-1-teacher-hours-map.html">课时映射</a></td><td>完成</td></tr><tr><td>4</td><td>36 集派生补写作业包 + 参考答案</td><td><a href="v2026-1-drama-homework.html">36 集作业包</a> · <a href="v2026-1-drama-homework-answers.html">36 集教师参考答案</a></td><td>完成</td></tr><tr><td>5</td><td>15 表 rubric 化 + 三段式结果卡</td><td><a href="v2026-1-rubric-15.html">15 表 60 条 rubric</a> · <a href="v2026-1-rubric.json">rubric.json</a> · <a href="v2026-1-result-card.html">三段式结果卡</a></td><td>完成</td></tr><tr><td>6</td><td>版本号、勘误页、改编授权与回传口</td><td><a href="v2026-1-version-register.html">版本登记</a> · <a href="v2026-1-errata.html">勘误页</a> · <a href="v2026-1-adaptation-license.html">改编授权</a> · <a href="v2026-1-submission-portal.html">提交与回传口</a></td><td>完成</td></tr></tbody></table><div class="note">本轮共新建 19 个页面 + 2 个 JSON 数据文件，全部带 <code>v2026-1-</code> 前缀。原有资料一个字节都没有改动，见<a href="v2026-1-legacy-index.html">原有资料索引</a>（含各文件校验值）。</div></section><section id="s1"><h2><span class="num">01</span>补充交付（01 / 03 / 04 节迁移动作）</h2><table><thead><tr><th style="width:30%">项</th><th style="width:70%">交付物</th></tr></thead><tbody><tr><td>章 ↔ 情境 / 剧集双向索引</td><td><a href="v2026-1-scenario-chapter-index.html">41 章交叉索引</a>（真实剧集 / 案例 / 沙盒页 / 教材模块域）</td></tr><tr><td>AI 三条纪律提示词模板</td><td><a href="v2026-1-ai-prompt-templates.html">只问不答 · 引用表号 · 不给结论给解释</a></td></tr><tr><td>旧版可查</td><td><a href="v2026-1-legacy-index.html">原有资料索引</a>：全部旧文件在线可点、附 md5 校验</td></tr><tr><td>台账</td><td><a href="../deliverables-ledger.html">产出物总台账</a> 已新增本批条目</td></tr></tbody></table></section><section id="s2"><h2><span class="num">02</span>口径校正说明（重要，未改动方案页）</h2><p>方案页「示范样例一」把 B / D / H 三表括注为「竞争组合挂牌价 / Pickup 偏差 / 团队房决策」。核对 <a href="../codex.html">codex.html 母本</a> 后，15 张表的真实定义是：</p><table><thead><tr><th style="width:12%">表号</th><th style="width:88%">codex 母本表名</th></tr></thead><tbody><tr><td>A</td><td>每日价格调整判定表</td></tr><tr><td>B</td><td>库存与限制条件配置表</td></tr><tr><td>C</td><td>价格指数（ARI）判定表</td></tr><tr><td>D</td><td>市场渗透指数（MPI）判定表</td></tr><tr><td>E</td><td>超额预订标准表</td></tr><tr><td>F</td><td>房型价差阶梯表</td></tr><tr><td>G</td><td>团队／协议询价接受判定表</td></tr><tr><td>H</td><td>渠道开关判定表</td></tr><tr><td>I</td><td>预订窗口分档监控表</td></tr><tr><td>J</td><td>免费升级规则表</td></tr><tr><td>K</td><td>会议／宴会综合收益联动表</td></tr><tr><td>L</td><td>异常事件应急判定表</td></tr><tr><td>M</td><td>每日收益操作流水线（时间表）</td></tr><tr><td>N</td><td>周度／月度节奏表</td></tr><tr><td>O</td><td>决策优先级与冲突仲裁表</td></tr></tbody></table><div class="note">本轮新产物<strong>一律以 codex.html 母本表名为准</strong>。按「不覆盖旧的」要求，方案页原文保持原样未作修改，此处仅作口径校正说明。</div></section><section id="s3"><h2><span class="num">03</span>新旧并存与数据来源</h2><p>新文件统一 <code>v2026-1-*</code>，旧文件原名原路径、原内容。装配器、rubric.json、chapter-tags.json 均为可复用数据接口，后续年度修订只改标签与版本，不改三源教材 <code>text*/</code>。</p><table><thead><tr><th style="width:46%">来源</th><th style="width:14%">规模</th><th style="width:40%">用途</th></tr></thead><tbody><tr><td>textbook-merged.html（41 章，未改动）</td><td>41 章</td><td>章标题、篇章、模块域</td></tr><tr><td>codex.html（15 表 A–O，未改动）</td><td>15 张</td><td>表名、输入、rubric 依据</td></tr><tr><td>books/drama-script-full.html（未改动）</td><td>36 集</td><td>作业包与参考答案母本</td></tr><tr><td>assets/data/cases-index.json</td><td>302 卡</td><td>章首决策困境场景</td></tr><tr><td>assets/data/workbook-index.json</td><td>253 题</td><td>章级题库模块挂接</td></tr><tr><td>assets/data/papers-index.json</td><td>76 真题</td><td>L1/L2/L3 真题号挂接</td></tr><tr><td>wb.html《调价台账》</td><td>13 必填字段</td><td>三段式结果卡字段对齐</td></tr></tbody></table><p><span class="stat"><b>41</b>章</span><span class="stat"><b>15</b>表</span><span class="stat"><b>36</b>集</span><span class="stat"><b>60</b>条 rubric</span><span class="stat"><b>94</b>学时（标签表合计）</span></p></section><section id="s4"><h2><span class="num">04</span>Have a Try</h2><div class="try"><ol><li>打开<a href="v2026-1-assembler.html">装配器</a>，把群体切到「领导线」，看 7 章一页纸目录能否直接用于院校沟通。</li><li>挑<a href="v2026-1-chapter-openers.html">第 1 章四件套</a>，用本校数据填一次空位，检查是否自然落到「需要陪跑」。</li><li>用<a href="v2026-1-result-card.html">三段式结果卡</a>生成一条反馈，确认它引用了表号。</li></ol></div></section><section id="s5"><h2><span class="num">05</span>Tips</h2><p class="tips">这一轮没有新增内容量，只给既有内容加了接口：标签、空位、作业、rubric、版本。接口立住，分级与分群体就能靠装配生成，不必各写一套书。</p><p class="tips">需要解释时：RMC即RMCity（即Revenue Management Community收益管理社区）。</p></section>
+</main>
+</div>
+
+</body>
+</html>

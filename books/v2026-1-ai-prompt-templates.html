@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js?v=gate20261013"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<!-- 本页自带左侧固定目录，幂等键 id="rm-toc-drawer" 视为已存在：目录注入脚本跳过，勿重复注入抽屉 -->
+<title>AI 三条纪律 · 提示词模板 · RMC v2026.1</title>
+<style>
+:root{--bg:#FAF9F6;--paper:#FFFFFF;--ink:#2E3B40;--ink2:#55666C;
+--line:#E2E8E7;--line2:#EEF2F1;--accent:#3E5C6B;--accent2:#2C4753;
+--soft:#EDF3F3;--clay:#B98B6E;--gold:#A8915F;--muted:#F4F7F7;}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;font-size:15.2px;line-height:1.82}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--line)}
+a:hover{color:var(--accent2)}
+.wrap{display:flex;align-items:flex-start;max-width:1320px;margin:0 auto}
+nav#toc{position:sticky;top:0;width:250px;flex:0 0 250px;height:100vh;overflow-y:auto;padding:40px 18px 60px 26px;border-right:1px solid var(--line);background:var(--muted)}
+nav#toc .toc-t{font-family:"Songti SC",serif;font-size:15px;font-weight:700;color:var(--accent2);letter-spacing:.06em;margin:0 0 4px}
+nav#toc .toc-s{font-size:12px;color:var(--ink2);margin:0 0 20px;line-height:1.6}
+nav#toc ol{list-style:none;margin:0;padding:0;counter-reset:t}
+nav#toc li{counter-increment:t;margin:0 0 2px}
+nav#toc a{display:block;padding:5px 8px 5px 11px;border:0;border-left:2px solid transparent;color:var(--ink2);font-size:12.8px;line-height:1.5;border-radius:0 3px 3px 0}
+nav#toc a::before{content:counter(t,cjk-ideographic) "、";color:var(--gold);font-size:11px}
+nav#toc a:hover{background:var(--soft);border-left-color:var(--accent);color:var(--accent2)}
+nav#toc .toc-foot{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink2);line-height:1.7}
+main{flex:1;min-width:0;padding:48px 60px 96px;max-width:960px}
+section{scroll-margin-top:76px;margin:0 0 52px}
+.hd{border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:38px}
+.kicker{font-size:12px;letter-spacing:.16em;color:var(--clay);margin:0 0 10px}
+h1{font-family:"Songti SC",serif;font-size:31px;line-height:1.4;font-weight:700;margin:0 0 12px}
+.sub{font-size:14px;color:var(--ink2);margin:0}
+.brandline{font-size:12.2px;color:var(--ink2);margin:14px 0 0;padding-top:12px;border-top:1px solid var(--line2)}
+h2{font-family:"Songti SC",serif;font-size:23px;font-weight:700;color:var(--accent2);margin:0 0 8px}
+h2 .num{font-family:"PingFang SC",sans-serif;font-size:12px;color:var(--gold);letter-spacing:.1em;display:block;margin-bottom:7px}
+h3{font-size:16px;font-weight:700;color:var(--accent2);margin:26px 0 9px;padding-left:10px;border-left:3px solid var(--clay)}
+h4{font-size:14.2px;color:var(--accent2);margin:16px 0 6px}
+p{margin:0 0 12px} strong{color:var(--accent2);font-weight:700}
+ul,ol{margin:0 0 14px;padding-left:22px} li{margin:0 0 6px}
+table{width:100%;border-collapse:collapse;margin:16px 0 22px;font-size:13.2px;background:var(--paper);border:1px solid var(--line)}
+th,td{border-bottom:1px solid var(--line2);border-right:1px solid var(--line2);padding:9px 11px;text-align:left;vertical-align:top;line-height:1.68}
+th{background:var(--soft);color:var(--accent2);font-weight:700;font-size:12.8px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0} td:last-child,th:last-child{border-right:0}
+.card{background:var(--paper);border:1px solid var(--line);padding:18px 22px;margin:16px 0 20px;border-radius:3px}
+.card .ct{font-size:11.8px;letter-spacing:.08em;color:var(--clay);margin:0 0 7px;font-weight:700}
+.card p:last-child{margin-bottom:0}
+.note{font-size:13px;color:var(--ink2);background:var(--muted);padding:12px 16px;border-left:2px solid var(--gold);margin:14px 0 22px;line-height:1.75}
+.tag{display:inline-block;font-size:11.5px;padding:2px 8px;border:1px solid var(--line);border-radius:2px;color:var(--accent);background:var(--soft);margin:0 4px 4px 0}
+.tag.c{color:#9A6E52;background:#F9F1EC;border-color:#EFE0D4}
+.tag.g{color:#8A7448;background:#F8F4EA;border-color:#EBE2CC}
+.blank{display:inline-block;min-width:110px;border-bottom:1px solid var(--clay);color:transparent}
+.rows{background:var(--paper);border:1px solid var(--line);padding:12px 16px;margin:10px 0 18px;line-height:2.1;font-size:13.6px}
+.rows div{border-bottom:1px dashed var(--line2);padding:1px 0}
+.rows div:last-child{border-bottom:0}
+.mini{font-size:12.4px;color:var(--ink2)}
+.try{background:var(--soft);border:1px solid var(--line);padding:20px 24px;border-radius:3px}
+.tips{border-top:1px solid var(--line);margin-top:30px;padding-top:18px;font-size:13.8px;color:var(--ink2)}
+pre{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--accent);padding:14px 16px;overflow-x:auto;font-size:12.6px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+code{font-family:Menlo,Consolas,monospace;font-size:12.4px;background:var(--muted);padding:1px 4px}
+.filters{background:var(--paper);border:1px solid var(--line);padding:14px 18px;margin:16px 0 20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.filters label{font-size:12.8px;color:var(--ink2)}
+select,input[type=text],textarea,button{font-family:inherit;font-size:13.2px;padding:6px 9px;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:2px}
+button{cursor:pointer;background:var(--accent);color:#fff;border-color:var(--accent)}
+button.ghost{background:var(--paper);color:var(--accent)}
+button:hover{background:var(--accent2)}
+.stat{display:inline-block;background:var(--soft);border:1px solid var(--line);padding:6px 12px;margin:0 8px 10px 0;font-size:12.8px}
+.stat b{font-size:17px;color:var(--accent2);margin-right:5px}
+.item{border:1px solid var(--line);background:var(--paper);padding:12px 16px;margin:0 0 10px;border-radius:3px}
+.item .no{display:inline-block;background:var(--soft);color:var(--accent2);font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:2px;margin-right:8px}
+.warn{background:#FBF3EA;border:1px solid #EBDCC4;color:#8A6338;padding:10px 14px;font-size:13px;margin:12px 0}
+details{background:var(--paper);border:1px solid var(--line);padding:10px 14px;margin:10px 0}
+summary{cursor:pointer;color:var(--accent);font-size:13.2px}
+@media(max-width:900px){.wrap{display:block} nav#toc{position:relative;width:auto;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:20px}
+nav#toc .toc-foot{display:none} main{padding:28px 20px 60px} h1{font-size:26px} table{font-size:12.2px}}
+@media print{nav#toc{display:none} main{padding:0;max-width:none} body{background:#fff} .a4{max-width:210mm;margin:0 auto}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<nav id="toc">
+  <p class="toc-t">目录</p>
+  <p class="toc-s">RMC 优化方案落地<br>v2026.1 · 2026-11-05</p>
+  <ol><li><a href="#s0">三条纪律与共用资产</a></li><li><a href="#s1">模板一 · 只问不答</a></li><li><a href="#s2">模板二 · 引用表号</a></li><li><a href="#s3">模板三 · 结果卡</a></li><li><a href="#s4">边界</a></li></ol>
+  <div class="toc-foot">本轮全部为新建版本，未覆盖任何原有资料。<br>零额度：纯文本与脚本派生。</div>
+</nav>
+<main>
+<div class="hd">
+  <p class="kicker">补充项 · 03 节第 5 层</p>
+  <h1>AI 三条纪律 · 提示词模板</h1>
+  <p class="sub">只问不答 / 引用表号 / 不给结论给解释，教学与产品共用</p>
+  <p class="brandline">RMC · v2026.1 · 2026-11-05 · 门内 noindex · 新建版本（原有资料保持原样，见<a href="v2026-1-legacy-index.html">原有资料索引</a>）</p>
+</div>
+<section id="s0"><h2><span class="num">00</span>三条纪律与共用资产</h2><p>站上已有 AI 教案校验器、AI 教练、收益沙盒与智能体五层白皮书。本版不新增模型调用，只统一<strong>提示词与输出规范</strong>；教学与产品共用同一份 <a href="v2026-1-rubric.json">rubric.json</a>。</p><table><thead><tr><th style="width:20%">纪律</th><th style="width:46%">含义</th><th style="width:34%">落地</th></tr></thead><tbody><tr><td>只问不答</td><td>教练用追问引导学生说出该查哪张表</td><td>追问式提示词模板</td></tr><tr><td>引用表号</td><td>任何反馈必须引用 A–O 表号与检查项</td><td>rubric 检查项 2</td></tr><tr><td>不给结论给解释</td><td>输出三段式结果卡，可核对可复核</td><td><a href="v2026-1-result-card.html">结果卡组件</a></td></tr></tbody></table></section><section id="s1"><h2><span class="num">01</span>模板一 · 只问不答（教练）</h2><pre>【系统提示词 · 教练模式】
+你是 RMC 收益管理教学教练。纪律：只问不答。
+1. 学生提出调价 / 接团 / 开关渠道等决策问题时，不直接给动作结论。
+2. 用追问引导学生说出「该查哪张表、这张表要哪几个输入」。
+3. 追问最多 3 轮；每轮只问一件事。
+4. 学生说出表号后，让他自己写出三段链：决策 → 判定表 → 解释。
+【追问示例】
+「你先查的是哪张表？表号是什么？」
+「这张表要的输入你取了哪几个数？取数日期？」
+「如果 Pickup 反向变化，结论还成立吗？该改查哪张表？」
+【反例 · 禁止】
+「建议降价 5%。」（直接给答案，违反只问不答）</pre></section><section id="s2"><h2><span class="num">02</span>模板二 · 引用表号（反馈）</h2><pre>【系统提示词 · 反馈模式】
+任何反馈必须引用 A–O 判定表表号与检查项编号。
+输出格式固定为三段式：
+  ① 决策：&lt;学生做了什么&gt;
+  ② 判定表：表 X · 检查项 N（见 rubric.json 的 R-X-0N）
+  ③ 解释：一句话，指出漏了哪个变量 / 该补哪个输入
+不通过时按 rubric 的 fail 模板输出，不说「再想想」。
+【示例】
+「本次决定未通过表 D「输入齐全」检查——请补看近 7 日同房型 Pickup 并注明取数日期，重答。」
+【反例 · 禁止】
+「思路不太对，再考虑一下。」（无表号、无检查项、无具体缺口）</pre></section><section id="s3"><h2><span class="num">03</span>模板三 · 不给结论给解释（结果卡）</h2><pre>【系统提示词 · 结果输出】
+不给结论给解释：输出「决策 — 判定表 — 解释」三段式结果卡。
+- 判定表段必须含表号 + 检查项 + 通过标准。
+- 解释段一句话，可核对、可复核。
+- 每次决策同时产出一条调价台账记录（13 必填字段，⑧依据表编号不为空）。
+- 教学（沙盒 / 题库 / 认证）与产品（智能体）共用同一份 rubric.json。
+【反例 · 禁止】
+「综合判断，建议维持原价。」（无表号、无依据、不可复核）</pre></section><section id="s4"><h2><span class="num">04</span>边界</h2><ul><li>提示词模板文件统一维护，教学与产品共用；15 表 rubric 是<strong>唯一评分标尺</strong>。</li><li>不新增模型调用、不新增「会聊天的教练」。</li><li>可运行算例优先做教材里频次最高的两类：Pickup 追踪与竞对调价联动；其余章节后置。</li></ul></section>
+</main>
+</div>
+
+</body>
+</html>
