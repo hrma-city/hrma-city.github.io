@@ -175,7 +175,7 @@
         '<a class="brand-mark" href="' + href("index.html") + '">' +
           '<span class="gem">收</span><span>RMC 收益管理社区</span>' +
         "</a>" +
-        '<div class="brand-sub">RMC (Revenue Management Community)<br>学院 · 游戏 · 社区 · 认证 · 剧院</div>' +
+        '<div class="brand-sub">RMC即RMCity（即Revenue Management Community收益管理社区）<br>学院 · 游戏 · 社区 · 认证 · 剧院</div>' +
       "</div>";
 
     NAV.forEach(function (sec) {

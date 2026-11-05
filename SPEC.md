@@ -8,7 +8,7 @@
 
 ## 一、学院定位与教学哲学
 
-**学院名称**：RMC 收益管理社区 · RMC (Revenue Management Community)（RMC）
+**学院名称**：RMC 收益管理社区 · RMC即RMCity（即Revenue Management Community收益管理社区）（RMC）
 
 **一句话定位**：把收益管理经理的脑子，拆成一张张可以查的表。
 

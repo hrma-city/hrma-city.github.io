@@ -285,7 +285,7 @@ class Deck:
         self._oval(s, SW - 1.9, 4.6, 3.2, "20486B")
 
         b = _Box(s, ML + 0.10, 1.05, 9.6, 0.4)
-        b.para("RMC 收益管理社区 · RMC (Revenue Management Community)", 13,
+        b.para("RMC 收益管理社区 · RMC即RMCity（即Revenue Management Community收益管理社区）", 13,
                GOLD, bold=True, line=1.0)
 
         badge = self._rect(s, ML + 0.10, 1.66, 1.28, 0.52, GOLD,
