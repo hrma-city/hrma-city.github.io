@@ -1,4 +1,4 @@
-# RMCity 学院官网 · Supabase 鉴权配置指南
+# RMC 学院官网 · Supabase 鉴权配置指南
 
 本站采用「审核制」登录：访客在 `register.html` 提交申请 → 资料进入 `profiles` 表、状态为 `pending`
 → 管理员在 `admin.html` 审批 → 通过后用户方可在 `login.html` 登录，访问全部受保护内容。
@@ -160,9 +160,9 @@ serve(async (req) => {
       method: "POST",
       headers: { "Authorization": `Bearer ${RESEND_KEY}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: "RMCity <onboarding@resend.dev>",
+        from: "RMC <onboarding@resend.dev>",
         to: [ADMIN_EMAIL],
-        subject: "[RMCity] 新的账号申请待审核",
+        subject: "[RMC] 新的账号申请待审核",
         text,
       }),
     });

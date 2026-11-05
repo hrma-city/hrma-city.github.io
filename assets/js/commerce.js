@@ -1,5 +1,5 @@
 /* ==========================================================================
- * RMCity 收益管理社群 · 商业变现数据层
+ * RMC 收益管理社区 · 商业变现数据层
  * 依赖：supabase-js（window.supabase）、auth-config.js（window.HRMA_SUPABASE）、auth.js（window.HRMAuth）
  * 自建一个与 auth.js 共享 localStorage 会话的客户端，专做商业层读写。
  * 所有用户内容渲染前必须经 esc() 转义，防止 XSS。

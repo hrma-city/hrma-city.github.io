@@ -1,4 +1,4 @@
-# RMCity 收益管理社群（RMCity）主规范 · SPEC
+# RMC 收益管理社区（RMC）主规范 · SPEC
 
 > 本文件是所有产出物的唯一真相来源（Single Source of Truth）。
 > 任何课件、模板、考题、游戏、案例中的**酒店原型、术语、指标口径、判定阈值、配色**都必须与此文件一致。
@@ -8,7 +8,7 @@
 
 ## 一、学院定位与教学哲学
 
-**学院名称**：RMCity 收益管理社群 · RMCity (Revenue Management Community)（RMCity）
+**学院名称**：RMC 收益管理社区 · RMC (Revenue Management Community)（RMC）
 
 **一句话定位**：把收益管理经理的脑子，拆成一张张可以查的表。
 

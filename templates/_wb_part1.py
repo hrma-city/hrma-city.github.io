@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-RMCity · 工作簿 01-04 生成器
+RMC · 工作簿 01-04 生成器
 01 每日收益日报 / 02 Pickup 预订速度追踪表 / 03 竞争比价监测表 / 04 调价台账
 """
 import datetime as dt

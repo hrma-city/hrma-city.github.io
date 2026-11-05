@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RMCity 访问门 · 登录逻辑 v3（邮箱 + 密码 + 管理员审核）
+   RMC 访问门 · 登录逻辑 v3（邮箱 + 密码 + 管理员审核）
    --------------------------------------------------------------------------
    v3 相对 v2 修掉的 4 个真实漏洞：
 
@@ -371,7 +371,7 @@
         if (res.error) {
           /* 门口不泄露任何细节：不提恢复码、不提设备、不提重设流程。
              具体原因只写进控制台，供排查用。 */
-          if (window.console && console.info) console.info('[RMCity login] fail:', res.error);
+          if (window.console && console.info) console.info('[RMC login] fail:', res.error);
           say('邮箱或密码不对。', 'bad');
           return;
         }
@@ -379,7 +379,7 @@
         setTimeout(function () { enter(res.user, res.pwHash); }, 350);
       }).catch(function (e) {
         busy(false);
-        if (window.console && console.error) console.error('[RMCity login]', e);
+        if (window.console && console.error) console.error('[RMC login]', e);
         say('登录失败，请稍后重试。', 'bad');
       });
     });

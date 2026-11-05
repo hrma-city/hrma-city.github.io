@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-RMCity 讲师版 PPT 组装器
+RMC 讲师版 PPT 组装器
 ======================
 用 deck.Deck 版式框架 + codex 数据层，生成 L1/L2/L3 三套可投影授课的 PPT。
 阈值全部来自 codex.py（逐字照抄 SPEC.md），本文件只负责组织与讲授。
@@ -555,7 +555,7 @@ def build_l1():
           "不要在这里推销 L2，让学员自己想来。",
           extra="提醒：阈值是通用起点，不是圣经。上岗后必须校准。"))
 
-    path = os.path.join(OUT, "RMCity-L1-收益执行专员-讲师版.pptx")
+    path = os.path.join(OUT, "RMC-L1-收益执行专员-讲师版.pptx")
     n = d.save(path)
     return path, n, d
 
@@ -1023,7 +1023,7 @@ def build_l2():
           "不要急着推销 L3，让学员先回去实践。"),
     )
 
-    path = os.path.join(OUT, "RMCity-L2-收益管理主管-讲师版.pptx")
+    path = os.path.join(OUT, "RMC-L2-收益管理主管-讲师版.pptx")
     n = d.save(path)
     return path, n, d
 
@@ -1574,7 +1574,7 @@ def build_l3():
           extra="最后一句很重要：教给别人，才是真正的掌握。"),
     )
 
-    path = os.path.join(OUT, "RMCity-L3-收益管理经理-讲师版.pptx")
+    path = os.path.join(OUT, "RMC-L3-收益管理经理-讲师版.pptx")
     n = d.save(path)
     return path, n, d
 
@@ -1588,7 +1588,7 @@ def main():
         results.append((tag, os.path.basename(path), n, size, d))
 
     print("=" * 68)
-    print("RMCity 讲师版 PPT 生成完毕")
+    print("RMC 讲师版 PPT 生成完毕")
     print("=" * 68)
     for tag, name, n, size, d in results:
         print("  %s  %-42s %3d 页   %7.1f KB" % (tag, name, n, size))
@@ -1631,7 +1631,7 @@ def main():
     # ---- 生成讲师手册 ----
     manual = [os.path.join(OUT, "讲师手册.md")]
     with open(manual[0], "w", encoding="utf-8") as f:
-        f.write("# RMCity 讲师手册\n\n")
+        f.write("# RMC 讲师手册\n\n")
         f.write("> 三套讲师版 PPT 的页面结构、讲授时长、备注要点与常见问题。\n")
         f.write("> 本文件由 `_build.py` 自动生成，与 PPT 内容同步。\n\n")
         for tag, name, n, size, d in results:
