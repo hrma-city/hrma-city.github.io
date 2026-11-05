@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-HRMA · Excel 实操模板包 构建脚本
+RMCity · Excel 实操模板包 构建脚本
 
 用法：
     /Users/abc/.workbuddy/binaries/python/envs/default/bin/python \
@@ -56,7 +56,7 @@ def check(path, expect_sheets):
 
 def main():
     print("=" * 78)
-    print("HRMA Excel 实操模板包 · 构建")
+    print("RMCity Excel 实操模板包 · 构建")
     print("=" * 78)
     bad = 0
     for fname, builder, sheets in SPECS:

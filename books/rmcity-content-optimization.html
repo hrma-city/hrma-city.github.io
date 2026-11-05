@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js?v=gate20261013"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<!-- 本页自带左侧固定目录，幂等键 id="rm-toc-drawer" 视为已存在：目录注入脚本跳过，勿重复注入抽屉 -->
+<title>RMCity 产品与内容优化方案 · 对标世界先进做法</title>
+<style>
+:root{
+  --bg:#FAF9F6; --paper:#FFFFFF; --ink:#2E3B40; --ink2:#55666C;
+  --line:#E2E8E7; --line2:#EEF2F1; --accent:#3E5C6B; --accent2:#2C4753;
+  --soft:#EDF3F3; --clay:#B98B6E; --gold:#A8915F; --muted:#F4F7F7;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+  font-size:15.5px;line-height:1.85;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--line)}
+a:hover{color:var(--accent2);border-bottom-color:var(--accent)}
+.wrap{display:flex;align-items:flex-start;max-width:1320px;margin:0 auto}
+/* 左侧目录 */
+nav#toc{position:sticky;top:0;width:252px;flex:0 0 252px;height:100vh;overflow-y:auto;
+  padding:44px 20px 60px 28px;border-right:1px solid var(--line);background:var(--muted)}
+nav#toc .toc-t{font-family:"Songti SC","STSong",serif;font-size:15px;font-weight:700;
+  color:var(--accent2);letter-spacing:.06em;margin:0 0 4px}
+nav#toc .toc-s{font-size:12px;color:var(--ink2);margin:0 0 22px;line-height:1.6}
+nav#toc ol{list-style:none;margin:0;padding:0;counter-reset:t}
+nav#toc li{counter-increment:t;margin:0 0 2px}
+nav#toc a{display:block;padding:6px 10px 6px 12px;border:0;border-left:2px solid transparent;
+  color:var(--ink2);font-size:13.2px;line-height:1.55;border-radius:0 3px 3px 0}
+nav#toc a::before{content:counter(t,cjk-ideographic) "、";color:var(--gold);font-size:11.5px}
+nav#toc a:hover{background:var(--soft);border-left-color:var(--accent);color:var(--accent2)}
+nav#toc .toc-foot{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:11.5px;color:var(--ink2);line-height:1.7}
+main{flex:1;min-width:0;padding:52px 64px 100px;max-width:940px}
+section{scroll-margin-top:76px;margin:0 0 58px}
+.hd{border-bottom:1px solid var(--line);padding-bottom:30px;margin-bottom:44px}
+.kicker{font-size:12px;letter-spacing:.16em;color:var(--clay);margin:0 0 12px}
+h1{font-family:"Songti SC","STSong",serif;font-size:34px;line-height:1.4;font-weight:700;
+  margin:0 0 14px;letter-spacing:.02em}
+.sub{font-size:14px;color:var(--ink2);margin:0}
+.brandline{font-size:12.5px;color:var(--ink2);margin:16px 0 0;padding-top:14px;
+  border-top:1px solid var(--line2)}
+h2{font-family:"Songti SC","STSong",serif;font-size:24px;font-weight:700;color:var(--accent2);
+  margin:0 0 8px;letter-spacing:.02em}
+h2 .num{font-family:"PingFang SC",sans-serif;font-size:12px;color:var(--gold);
+  letter-spacing:.1em;display:block;margin-bottom:8px;font-weight:600}
+.lede{color:var(--ink2);font-size:14px;margin:0 0 26px;line-height:1.8}
+h3{font-size:16.5px;font-weight:700;color:var(--accent2);margin:30px 0 10px;
+  padding-left:11px;border-left:3px solid var(--clay)}
+p{margin:0 0 14px}
+strong{color:var(--accent2);font-weight:700}
+em{font-style:normal;background:linear-gradient(transparent 62%,#E8EFEA 62%);font-weight:600}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin:0 0 7px}
+table{width:100%;border-collapse:collapse;margin:18px 0 24px;font-size:13.6px;
+  background:var(--paper);border:1px solid var(--line)}
+th,td{border-bottom:1px solid var(--line2);border-right:1px solid var(--line2);
+  padding:11px 13px;text-align:left;vertical-align:top;line-height:1.7}
+th{background:var(--soft);color:var(--accent2);font-weight:700;font-size:13px;
+  border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+td:last-child,th:last-child{border-right:0}
+tbody tr:hover{background:#FCFDFC}
+.card{background:var(--paper);border:1px solid var(--line);padding:22px 26px;
+  margin:20px 0 24px;border-radius:3px}
+.card .ct{font-size:12px;letter-spacing:.1em;color:var(--clay);margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.tag{display:inline-block;font-size:11.5px;padding:2px 9px;border:1px solid var(--line);
+  border-radius:2px;color:var(--accent);background:var(--soft);margin:0 5px 5px 0}
+.tag.g{color:#8A7448;background:#F8F4EA;border-color:#EBE2CC}
+.tag.c{color:#9A6E52;background:#F9F1EC;border-color:#EFE0D4}
+.note{font-size:13px;color:var(--ink2);background:var(--muted);padding:13px 17px;
+  border-left:2px solid var(--gold);margin:16px 0 24px;line-height:1.75}
+.rule{height:1px;background:var(--line);margin:40px 0}
+.mini{font-size:12.5px;color:var(--ink2)}
+.try{background:var(--soft);border:1px solid var(--line);padding:24px 28px;border-radius:3px}
+.try ol{padding-left:20px;margin:0}
+.tips{border-top:1px solid var(--line);margin-top:34px;padding-top:20px;
+  font-size:14px;color:var(--ink2)}
+.src{font-size:12.8px;color:var(--ink2);line-height:1.9}
+.src b{color:var(--accent2)}
+@media(max-width:900px){
+  .wrap{display:block} nav#toc{position:relative;width:auto;height:auto;
+    border-right:0;border-bottom:1px solid var(--line);padding:24px 20px}
+  nav#toc .toc-foot{display:none} main{padding:32px 22px 70px} h1{font-size:27px}
+  table{font-size:12.5px} th,td{padding:9px}
+}
+</style>
+</head>
+<body>
+<script>window.HRMA_PREFIX="";</script>
+<div class="wrap">
+<nav id="toc">
+  <p class="toc-t">目录</p>
+  <p class="toc-s">RMCity 产品与内容优化方案<br>2026-11-05</p>
+  <ol>
+    <li><a href="#s0">结论先行</a></li>
+    <li><a href="#s1">六个维度：世界先进做法</a></li>
+    <li><a href="#s2">五个判断：真正的优化点</a></li>
+    <li><a href="#s3">内容调整：六层具体动作</a></li>
+    <li><a href="#s4">书系调整：分级与分群体</a></li>
+    <li><a href="#s5">优先级与第一阶段</a></li>
+    <li><a href="#s6">风险与边界</a></li>
+    <li><a href="#s7">Have a Try</a></li>
+    <li><a href="#s8">Tips</a></li>
+    <li><a href="#s9">资料来源</a></li>
+  </ol>
+  <div class="toc-foot">全篇为零额度的文本与脚本工作。<br>不改三源教材，不新增未核实数据。</div>
+</nav>
+<main>
+
+<div class="hd">
+  <p class="kicker">产品与内容 · 优化方案</p>
+  <h1>RMCity 产品与内容优化方案</h1>
+  <p class="sub">对标世界先进做法：教学、教材、专业教育社区、个人 IP、AI 影视资料、AI 互动教学</p>
+  <p class="brandline">RMCity（Revenue Management Community，收益管理社群）　·　2026-11-05　·　内部方案</p>
+</div>
+
+<section id="s0">
+  <h2><span class="num">00</span>结论先行</h2>
+  <p class="lede">资产已经够多。缺的不是新内容，是把现有内容串成一条能反复卖、能自动装配、能自己长出陪跑需求的结构。</p>
+  <table>
+    <thead><tr><th style="width:22%">问题</th><th>结论</th></tr></thead>
+    <tbody>
+      <tr><td>还能怎么优化</td><td>不是「多做内容」，而是做三件事：<strong>把教材变成可改编的开放教材</strong>、<strong>把 15 张判定表升级为带版本与勘误的标准</strong>、<strong>让 AI 影视与互动教学都落到「学生交作业」而不是「学生看内容」</strong>。</td></tr>
+      <tr><td>内容怎么调整</td><td>按<strong>章 / 节 / 练习 / 资料 / AI / 反馈</strong>六层改。核心是每章补「决策困境开场 + 判定表锚点 + 三级练习标签 + 一个可填装的空位」。</td></tr>
+      <tr><td>书系怎么调整</td><td><strong>分级、分群体，但一本都不重写</strong>。41 章教材是唯一母本，加一层章节标签表，用已有生成器装配出学生线、教师线、酒店人线、领导线。现有三线 PDF 是雏形，接上即可。</td></tr>
+      <tr><td>第一步做什么</td><td>只做一件事：<strong>给 41 章打标签，建装配表</strong>。零额度、不动三源、一次做完，后面全部复用它。</td></tr>
+    </tbody>
+  </table>
+  <div class="note">本方案全部是文本与脚本工作，不调用任何按次计费的生成工具。所有数字沿用已核实口径：教材 41 章、判定表 15 张、真题 76 套、漫剧剧本 36 集、房量 300 间、ADR 618、RevPAR 445、OCC 72%。</div>
+</section>
+
+<div class="rule"></div>
+
+<section id="s1">
+  <h2><span class="num">01</span>六个维度：世界先进做法与可迁移点</h2>
+  <p class="lede">下表每个维度只取一个真实做法，看它的机制，再看 RMCity 手里已经有什么。</p>
+  <table>
+    <thead><tr><th style="width:13%">维度</th><th style="width:29%">世界先进做法</th><th style="width:24%">机制</th><th style="width:34%">RMCity 可迁移点 / 现有资产</th></tr></thead>
+    <tbody>
+      <tr><td><strong>教学</strong></td><td>可汗学院（Khan Academy）掌握式学习与即时反馈；HBS 案例教学以「决策困境」而非知识点组织课堂；Khanmigo 用苏格拉底式提问，不给答案。</td><td>先给一个必须做决定的场景，学习发生在「做决定—被追问—修正」的循环里。</td><td>教材已有 41 章与算例，但章首仍以概念开场。改成<em>决策困境开场</em>；游戏包、沙盒已有决策场景，可直接当章首素材。</td></tr>
+      <tr><td><strong>教材</strong></td><td>OpenStax（莱斯大学）开放教材配全套教师资源；Rebus Foundation 的 ROTEL 项目让 70 位教师按本地学情<strong>改编与混编</strong>开放教材，产出 27 本新教材，并把学生共创案例写进第二版；BCcampus 自出版教材把作者变成出版者。</td><td>教材不是封闭成品，是<strong>可被教师改写的母本</strong>；改编过程本身就是教研，改编成果回流成下一版内容。</td><td>三源 <code>text*/</code> 与 <code>_build_textbook_*.py</code> 已经是母本 + 生成器结构。缺的只是<em>改编授权、改编指南、空位模板</em>与回传机制。</td></tr>
+      <tr><td><strong>专业教育社区</strong></td><td>HSMAI 的 CRME 认证与行业社群；Cornell eCornell 收益管理证书配仿真练习；Reforge、CXL 一类会员社群以<strong>实战模板库 + 同行评审</strong>为核心，不靠内容量。</td><td>会员留下的是作品与数据，不是阅读记录；社群产物沉淀为可复用资产。</td><td>认证馆学员版 L1–L3 + 76 套真题、讲师版四步考、15 张判定表速查卡已有。缺<em>作品提交与互评</em>这一环。</td></tr>
+      <tr><td><strong>个人 IP</strong></td><td>《中国出版传媒商报》2026 年 10 月专题：助学图书从「借流量」转向「造资产」——个人 IP 升级为产品 IP、单品种升级为书课体系、公域流量沉淀为私域用户池、建立常态化教研迭代与年度勘误。</td><td>让用户记住产品而不是记住人；把方法论固化为<strong>可年年修订的产品矩阵</strong>。</td><td>「绝不暴露真名、统一行业权威专家」已是这一路线；<strong>RMCity 品牌统一是基础设施</strong>。下一步是给判定表与教材加版本号、勘误页、年度修订记录。</td></tr>
+      <tr><td><strong>AI 影视资料</strong></td><td>浙江大学俞彬《越千年·中华经济改革史》AI 短剧，把课本知识放进历史现场，「在碎片化时间里打开一扇进入系统知识的门」，教授带 6 位本科生做文献考据；丽水学院胶片岛短剧社让师范生把课文「翻译」成 AI 微短剧脚本，学生当导演，反复研读文本；福州高校 AI+OPC 社区以项目驱动跨专业小团队量产 AI 漫剧。</td><td>深度学习发生在<strong>学生把文本改写成脚本</strong>的创作过程，不发生在观看过程。</td><td>36 集漫剧剧本已含分镜、对白、旁白、判定表结论，是现成<em>脚本母本</em>。改成「补写式作业包」即可，零额度、零拍摄。</td></tr>
+      <tr><td><strong>AI 互动教学</strong></td><td>Khanmigo 只问不答；Duolingo 用间隔重复与数据迭代；商业模拟沙盒给出「决策—后果—复盘」闭环；交互式教材用可运行算例替代静态例题。</td><td>价值在<strong>反馈</strong>，不在讲解。系统要能指出「你漏了哪个变量」。</td><td>AI 教案校验器、AI 教练、收益沙盒、游戏包、智能体五层白皮书都已有。缺的是<em>统一评分标尺</em>：15 张判定表作为 rubric。</td></tr>
+    </tbody>
+  </table>
+  <div class="card">
+    <p class="ct">共同点</p>
+    <p>六个维度的先进做法都指向同一件事：<strong>学习者的产出，比供给方的内容更重要</strong>。教师改编教材、学生写脚本、会员交模板、AI 给反馈——都是让使用者产出可沉淀的东西。RMCity 现有资产几乎全是「供给方内容」，这是唯一的结构性缺口。</p>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<section id="s2">
+  <h2><span class="num">02</span>五个判断：真正的优化点</h2>
+
+  <h3>判断一 · 把教材做成可改编的开放教材，让书自己长出陪跑需求</h3>
+  <p>ROTEL 项目里，教师改编教材要回答一个具体问题：这门课在我这里怎么上。改编必然遇到本校数据、本校学时、本校学生基础的差异，差异就是咨询需求。</p>
+  <p>现有商业模式里，「逐校定制诊断绝不写进书，留作陪跑钩子」已经定过。开放改编把这条纪律从一句话变成机制：教材里留<strong>可填装的空位</strong>——案例数据表留一列空白、每章末留一道「用本校数据重算」的题、教案留一个「本校学时映射」格。教师填不动，就 naturally 落到 1 对 1 陪跑；填得好的，改编成果回传，成为第二版教材的真实案例。</p>
+  <p>这样书 → 陪跑 → 书形成闭环，比现在的「书 → 游戏/漫剧 → 社区」更贴近变现路径。三个载体不动，只是加一层回传。</p>
+
+  <h3>判断二 · 产品 IP 优先于个人 IP，把 15 张判定表升级为「标准」</h3>
+  <p>助学图书行业的结论是：个人热度要沉淀为可独立存续的产品资产，并靠年度勘误、随政策修订、持续收学情反馈，做到「年年复用、代代适用」。RMCity 不露真名，天然没有个人绑定风险，品牌统一已经完成。</p>
+  <p>还差一步：<strong>把内容变成有版本号的对象</strong>。15 张判定表（A–O）目前是「护城河与付费入口」，但它是静态文档。给它加三样东西——版本号、勘误页、年度修订记录——它就从「一份资料」变成「一套标准」。标准才有被引用的资格，被引用才进得了院校的课程标准和职业技能等级认定。</p>
+
+  <h3>判断三 · AI 影视不是拍给你看，是让学生当导演</h3>
+  <p>丽水学院的师范生要把《竹节人》改成分镜脚本，必须反复研读原文才能写出镜头；浙大的本科生要先厘清从先秦到明清的经济思想脉络，才敢写桑弘羊的台词。理解发生在改写，不发生在播放。</p>
+  <p>36 集剧本已经写完了。把它反过来用：<strong>隐去其中一集的关键决策段，让学生补写对白与判定表结论</strong>。同一份母本，一次产出三样东西——教材的章末作业、教师配套包的作业与参考答案、社区的投稿素材。不需要生成任何视频，不消耗额度。</p>
+
+  <h3>判断四 · AI 互动补的是反馈闭环，不是再做一个教练</h3>
+  <p>站上已有 AI 教案校验器、AI 教练、收益沙盒、六类情境游戏、智能体五层白皮书。再做一个会聊天的教练是重复建设。</p>
+  <p>缺的是<strong>判分依据</strong>：学生在沙盒里把价调高了，系统要能说清「你没查 B 表的竞争组合挂牌价，也没看 D 表的 Pickup 偏差」。把 15 张判定表写成 rubric，每一次系统反馈都引用表号。这同时完成白皮书里给判定表定的位——护栏、解释模板、训练与评估基准——教学与产品共用同一套资产。</p>
+
+  <h3>判断五 · 社区从内容消费改为作品沉淀</h3>
+  <p>Reforge 一类社群的核心资产是模板库和同行评审，不是文章更新频率。目前站内「点开看过即计入进度」，记录的是消费。</p>
+  <p>改成<strong>交一份带数据的决策作业</strong>才计入：一张调价台账、一页定价方案、一段补写的剧本。用判定表互评，优秀作品脱敏后进案例库。这一步同时给认证、给陪跑、给第二版教材供料，且不增加内容生产量。</p>
+  <div class="note">五个判断共用一个动作：给现有内容加<strong>结构化接口</strong>（空位、版本、作业、rubric、投稿口）。接口是标签与模板，不是新章节，工作量可控。</div>
+</section>
+
+<div class="rule"></div>
+
+<section id="s3">
+  <h2><span class="num">03</span>内容调整：六层具体动作</h2>
+  <p class="lede">按教材的实际结构分六层，每层给现状、改法、落地文件与工作量。工作量按「是否要重写正文」估算，全部不改三源 <code>text*/</code>。</p>
+
+  <h3>第 1 层 · 章</h3>
+  <table>
+    <thead><tr><th style="width:16%">项</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>现状</td><td>41 章按知识体系排，章首多为概念与定义。</td></tr>
+      <tr><td>改法</td><td>每章固定四件套：<strong>①决策困境开场</strong>（一段具体场景或对话，300 间房、ADR 618、RevPAR 445、OCC 72% 口径）；<strong>②本章判定表锚点</strong>（列出 A–O 中本章用到的表号）；<strong>③三级练习标签</strong>（L1 认得出 / L2 算得对 / L3 敢决策）；<strong>④一个可填装空位</strong>（「用本校数据重算」）。</td></tr>
+      <tr><td>落地</td><td>生成器 <code>_build_textbook_merged.py</code> 增加章首模板块；章级元数据进 <code>chapter-tags.json</code>。</td></tr>
+      <tr><td>工作量</td><td><span class="tag">中</span>模板一次写好，41 章自动套用；章首场景可从已有案例包与游戏包抽取，不新写故事。</td></tr>
+    </tbody>
+  </table>
+
+  <h3>第 2 层 · 节</h3>
+  <table>
+    <thead><tr><th style="width:16%">项</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>现状</td><td>节内为讲解 + 算例 + 结论。</td></tr>
+      <tr><td>改法</td><td>每个算例改成<strong>两栏</strong>：左栏为书上数据（固定口径），右栏为「你的数据」空白栏；结论句后面加一句「如果 X 变了，查第几张表」。空位是改编授权的落点，也是陪跑钩子。</td></tr>
+      <tr><td>落地</td><td>教材 HTML 与打印版生成器同步；打印版保留手写空白栏。</td></tr>
+      <tr><td>工作量</td><td><span class="tag">中</span>版式改造，正文不重写。</td></tr>
+    </tbody>
+  </table>
+
+  <h3>第 3 层 · 练习</h3>
+  <table>
+    <thead><tr><th style="width:16%">项</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>现状</td><td>76 套真题、251 题演练题库、认证馆 L1–L3，题目与章节、判定表之间无双向索引。</td></tr>
+      <tr><td>改法</td><td>每题打三个标签：<strong>章号 / 表号 / 级别</strong>；答案页统一改成「决策—判定表—解释」三段式，引用表号说明理由；L3 题挂沙盒回放链接。</td></tr>
+      <tr><td>落地</td><td><code>chapter-tags.json</code> 增加题目索引；题库页按标签筛选。</td></tr>
+      <tr><td>工作量</td><td><span class="tag g">小</span>批量打标签可脚本化，题目本身不动。</td></tr>
+    </tbody>
+  </table>
+
+  <h3>第 4 层 · 资料（AI 影视资料的文本化复用）</h3>
+  <table>
+    <thead><tr><th style="width:16%">项</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>现状</td><td>36 集完整剧本，每集含分镜、对白（小棠 + 阿表）、旁白、判定表结论；定位是引流钩子。</td></tr>
+      <tr><td>改法</td><td>派生<strong>补写式作业包</strong>：每集隐去关键决策段，留场景与人物，要求学生补 8–12 句对白 + 写出所查表号 + 一句结论；配一份教师参考答案（用原剧本）；社区开放投稿口。</td></tr>
+      <tr><td>落地</td><td><code>books/drama-script-full.html</code> 增加「作业版」入口；教师配套包增一份参考答案。</td></tr>
+      <tr><td>工作量</td><td><span class="tag g">小</span>从已有剧本派生，不写新剧本，不生成视频。</td></tr>
+    </tbody>
+  </table>
+
+  <h3>第 5 层 · AI</h3>
+  <table>
+    <thead><tr><th style="width:16%">项</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>现状</td><td>AI 教案校验器、AI 教练已上线；智能体白皮书定义五层内核与治理层。</td></tr>
+      <tr><td>改法</td><td>三条纪律：<strong>只问不答</strong>（教练用追问引导学生说出该查哪张表）；<strong>引用表号</strong>（任何反馈必须引用 A–O 表号）；<strong>不给结论给解释</strong>（智能体输出「决策—判定表—解释」三段式）。</td></tr>
+      <tr><td>落地</td><td>提示词模板文件统一维护，教学与产品共用；15 表 rubric 作为唯一评分标尺。</td></tr>
+      <tr><td>工作量</td><td><span class="tag g">小</span>提示词与输出规范，不新增模型调用。</td></tr>
+    </tbody>
+  </table>
+
+  <h3>第 6 层 · 反馈</h3>
+  <table>
+    <thead><tr><th style="width:16%">项</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>现状</td><td>沙盒、游戏、题库、认证各有各的结果页，格式不统一。</td></tr>
+      <tr><td>改法</td><td>全站统一<strong>「决策 → 判定表 → 解释」</strong>三段式结果卡；每次决策留一条可回看的记录（日期、目标日、房型、渠道、依据表号、复核人），与《调价台账》13 个必填字段对齐。</td></tr>
+      <tr><td>落地</td><td>结果卡组件复用；记录进社区作品库。</td></tr>
+      <tr><td>工作量</td><td><span class="tag">中</span>组件一次写好，多处复用。</td></tr>
+    </tbody>
+  </table>
+  <div class="note">六层里，第 1、2、6 层是版式与模板改造，第 3、4、5 层是打标签与派生。<strong>没有一层要求重写教材正文</strong>。</div>
+</section>
+
+<div class="rule"></div>
+
+<section id="s4">
+  <h2><span class="num">04</span>书系调整：分级与分群体</h2>
+  <p class="lede">结论：要分级，要分群体，但<strong>一本都不重写</strong>。按群体各写一套书是线性工作量，与「写一次、卖多次」相悖。</p>
+
+  <h3>一个母本，两层装配</h3>
+  <p>41 章教材是唯一事实源。加一张<strong>章节标签表</strong>（<code>chapter-tags.json</code>），每条记录包含：章号、级别、适用群体、判定表号、案例号、剧集号、学时长、真题号。已有生成器按标签装配出不同版本，正文一行不动。</p>
+  <div class="card">
+    <p class="ct">装配关系</p>
+    <p>母本（41 章） + 标签表 + 体裁模板 → 学生教材 / 教师配套包 / 酒店人速查本 / 领导一页纸 / 口袋书 / 判定卡 / 题库 / 作业包</p>
+  </div>
+  <p>站上已有 <code>RMCity学生线-教材完整版.pdf</code>、<code>RMCity教师线-开课教案完整版.pdf</code>、<code>RMCity酒店人线-认证模块完整版.pdf</code> 三线雏形。方案不是另起炉灶，是给这三条线补上统一母本与自动装配，让三份文件不再各自维护。</p>
+
+  <h3>纵向：分三级，不拆三本</h3>
+  <table>
+    <thead><tr><th style="width:12%">级别</th><th style="width:26%">能力口径</th><th style="width:30%">内容取法</th><th>出口</th></tr></thead>
+    <tbody>
+      <tr><td><strong>L1</strong></td><td>认得出：术语、指标、单表判断</td><td>母本概念段 + 单个算例 + 基础题</td><td>学员版 L1 认证、判定卡速查</td></tr>
+      <tr><td><strong>L2</strong></td><td>算得对：多表联动、完整流程</td><td>母本全章 + 两栏算例 + 流程题</td><td>学员版 L2、沙盒练习、题库</td></tr>
+      <tr><td><strong>L3</strong></td><td>敢决策：异常处置、答辩、复盘</td><td>母本 + 决策困境 + 补写作业 + 答辩题</td><td>学员版 L3、76 真题、讲师版四步考</td></tr>
+    </tbody>
+  </table>
+  <p>分级落在<strong>练习与出口</strong>上，不落在正本上。同一章对 L1 只要求认得出，对 L3 要求能答辩。这样一章服务三级，教材仍是一本，学生仍只买一本。</p>
+
+  <h3>横向：分四群体，只换装配不换正文</h3>
+  <table>
+    <thead><tr><th style="width:14%">群体</th><th style="width:15%">角色</th><th style="width:36%">装配内容</th><th>现状 / 缺口</th></tr></thead>
+    <tbody>
+      <tr><td><strong>学生线</strong></td><td>使用者、购书人</td><td>41 章教材 + 三级练习 + 认证路径 + 空位栏</td><td>已有教材与打印版，缺三级练习标签</td></tr>
+      <tr><td><strong>教师线</strong></td><td>客户、开课者</td><td>教案、课件、题库与答案、案例教学笔记、课时映射、开课自检表、作业参考答案</td><td>已有大部分，缺<strong>案例教学笔记</strong>与课时映射</td></tr>
+      <tr><td><strong>酒店人线</strong></td><td>从业者、继续教育</td><td>15 表速查 + 岗位 SOP + 脱敏案例 + 认证模块</td><td>已有认证模块与判定卡，缺岗位 SOP 索引</td></tr>
+      <tr><td><strong>领导线</strong></td><td>买单人</td><td>一页纸：为什么开这门课、需要多少学时与预算、结业怎么验收、成果口径</td><td><strong>目前最缺</strong>，且成本最低，一页即可</td></tr>
+    </tbody>
+  </table>
+  <p>客户是教师，买单人已明确是领导。给领导的阅读材料必须与给教师的教案分开：教师看怎么教，领导看值不值得开。这一页不进教材、不进书系，单独作为院校沟通材料。</p>
+
+  <h3>体裁矩阵</h3>
+  <table>
+    <thead><tr><th style="width:20%">体裁</th><th style="width:16%">主用途</th><th style="width:16%">收费位置</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>教材（41 章）</td><td>学生上课</td><td>版税主引擎</td><td>唯一母本，一本不拆</td></tr>
+      <tr><td>教师配套包</td><td>教师开课</td><td>随教材 / 陪跑交付</td><td>决定「最小成本开课」能否成立</td></tr>
+      <tr><td>口袋书、判定卡</td><td>引流、速查</td><td>免费或低价</td><td>公开引流速查卡已有</td></tr>
+      <tr><td>题库与真题</td><td>认证</td><td>认证费</td><td>76 套真题、251 题演练题库</td></tr>
+      <tr><td>剧本作业包</td><td>课堂练习、社区投稿</td><td>配套 / 免费</td><td>由 36 集剧本派生，新增</td></tr>
+      <tr><td>领导一页纸</td><td>院校决策</td><td>不单独收费</td><td>新增，成本最低</td></tr>
+    </tbody>
+  </table>
+
+  <h3>版本、勘误与改编授权</h3>
+  <ul>
+    <li>教材、15 张判定表、题库各有<strong>版本号与修订记录</strong>，页脚统一标注；每年一次集中勘误，随院校反馈与行业口径更新。</li>
+    <li>随教材附<strong>改编授权与改编指南</strong>：允许教师按本校学情替换案例数据（房量口径不变）、调整章节顺序、补本校案例；要求保留表号与来源标注。</li>
+    <li>设<strong>回传口</strong>：改编成果与优秀学生作业经脱敏后进案例库，署名规则写进指南；被收录者在下一版修订记录里列出。</li>
+    <li>回传内容只做教学案例，<strong>逐校定制诊断不写进书</strong>，仍留在 1 对 1 陪跑。</li>
+  </ul>
+  <div class="note">这套书系与商业模型逐条对应：学生教材产生版税（写一次、卖多次）；教师配套包与领导一页纸降低开课决策成本；改编与回传把逐校差异转成陪跑需求；1 对 1 陪跑仍是主力现金流。没有新增训练营，没有新增服务型交付。</div>
+</section>
+
+<div class="rule"></div>
+
+<section id="s5">
+  <h2><span class="num">05</span>优先级与第一阶段</h2>
+  <table>
+    <thead><tr><th style="width:6%">序</th><th style="width:32%">动作</th><th style="width:12%">投入</th><th style="width:30%">收益</th><th style="width:10%">额度</th><th style="width:10%">阶段</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>41 章标签表 + 装配器</strong></td><td>小</td><td>后面所有分级、分群体、题库索引、剧本挂章都依赖它</td><td>零</td><td>第一阶段</td></tr>
+      <tr><td>2</td><td>章首四件套模板 + 两栏算例</td><td>中</td><td>教材从「讲知识」变「练决策」，同时开出改编空位</td><td>零</td><td>第二阶段</td></tr>
+      <tr><td>3</td><td>领导一页纸 + 教师案例教学笔记</td><td>小</td><td>直接降低院校决策与开课成本，离成交最近</td><td>零</td><td>第二阶段</td></tr>
+      <tr><td>4</td><td>36 集派生补写作业包 + 参考答案</td><td>小</td><td>一份母本产出教材作业、教师配套、社区投稿三样</td><td>零</td><td>第二阶段</td></tr>
+      <tr><td>5</td><td>15 表 rubric 化 + 三段式结果卡</td><td>中</td><td>教学与智能体共用评分标尺，沙盒反馈可解释</td><td>零</td><td>第三阶段</td></tr>
+      <tr><td>6</td><td>版本号、勘误页、改编授权与回传口</td><td>中</td><td>内容升级为标准，社区从消费转作品沉淀</td><td>零</td><td>第三阶段</td></tr>
+    </tbody>
+  </table>
+  <p><strong>第一阶段只做第 1 项。</strong>它是一张表加一个脚本，不动三源教材，一次做完，后面五项都从它派生。按「一次只给一件事」的节奏，不并行铺开。</p>
+  <div class="note">全部六项均为文本、标签、模板与脚本工作，<strong>不调用视频、图片或 3D 生成</strong>。若后续要把补写作业包做成影像，须另行报单价与次数。</div>
+</section>
+
+<div class="rule"></div>
+
+<section id="s6">
+  <h2><span class="num">06</span>风险与边界</h2>
+  <table>
+    <thead><tr><th style="width:26%">边界</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>三源教材 <code>text*/</code></td><td>绝不改动。所有派生走生成器与标签表。</td></tr>
+      <tr><td>旧生成器</td><td>不重跑 <code>build_slides</code> / <code>build_rm_game</code>，源码仍为 32 章，会回退。</td></tr>
+      <tr><td>数据口径</td><td>房量统一 300 间；ADR 618、RevPAR 445、OCC 72% 不变。CSV 与习题中的 320 可能是真实 RevPAR 或独立房量，逐文件判断，不批量替换。</td></tr>
+      <tr><td>数字真实性</td><td>不新增未核实数据、不写「首个 / 首创」、不出现真名，统一「行业权威专家」。</td></tr>
+      <tr><td>商业模型</td><td>不卖训练营；逐校定制诊断不写进书；产品型优先，不增加服务型交付量。</td></tr>
+      <tr><td>额度</td><td>本方案零额度。任何按次计费的生成操作另行请示。</td></tr>
+      <tr><td>部署</td><td>本页门内、noindex；含定价与谈判底线的材料仍仅本地。</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="rule"></div>
+
+<section id="s7">
+  <h2><span class="num">07</span>Have a Try</h2>
+  <div class="try">
+    <ol>
+      <li>新建 <code>chapter-tags.json</code>，先只填 5 章：章号、级别、群体、判定表号。填完看装配器能不能跑出学生线与教师线两个目录。</li>
+      <li>挑教材第 1 章，按四件套补一个章首：一段决策困境、表号锚点、三级练习标签、一个「用本校数据重算」空位。</li>
+      <li>写一页给院校领导的纸：为什么开这门课、多少学时、怎么验收。只写事实与数字，不写主张。</li>
+    </ol>
+  </div>
+</section>
+
+<section id="s8">
+  <h2><span class="num">08</span>Tips</h2>
+  <p class="tips">世界先进做法的差别不在内容量，在结构：教材可被改编、练习可被判分、作品可被沉淀。RMCity 的内容已经够厚，下一步是给它加接口。</p>
+  <p class="tips">分级与分群体都可以靠一张标签表完成，不必各写一套书。标签立住，书系自然成形。</p>
+</section>
+
+<section id="s9">
+  <h2><span class="num">09</span>资料来源</h2>
+  <p class="src">
+    <b>教学与教材</b>：Khan Academy / Khanmigo 掌握式学习与苏格拉底式辅导；HBS 案例教学；OpenStax（莱斯大学）开放教材与教师资源；Rebus Foundation 的 ROTEL 项目与开放教学法（Pressbooks，70 位教师改编、27 本新教材）；BCcampus 自出版教材指南。<br>
+    <b>专业教育社区</b>：HSMAI 的 CRME 认证体系；Cornell eCornell 收益管理证书；Reforge / CXL 会员社群的模板库与同行评审机制。<br>
+    <b>个人 IP 与出版</b>：《中国出版传媒商报》2026 年 10 月「名人效应赋能助学图书出版」「从借流量到造资产」专题（个人 IP→产品 IP、书课体系、私域转化、常态化教研迭代）；同刊 2026 年 6 月少儿出版转型研究（内容场景化、服务产品化、运营生态化，UGC 与共创内容池）。<br>
+    <b>AI 影视资料</b>：浙江大学《越千年·中华经济改革史》AI 短剧（澎湃新闻，2026）；丽水学院胶片岛短剧社 AI 微短剧融入语文教学（中国网，2026-08）；福州高校 AI+OPC 社区与 AI 漫剧产教融合（网易 / 海峡网，2026-09）。<br>
+    <b>AI 互动教学</b>：Duolingo 间隔重复与数据迭代；商业模拟沙盒与交互式教材的可运行算例。<br>
+    <b>内部依据</b>：教材 41 章、15 张判定表（A–O）、76 套真题、36 集漫剧剧本、AI 教案校验器与教练、认证馆 L1–L3、收益管理智能体产品白皮书、创业申报叙事稿。
+  </p>
+  <p class="mini" style="margin-top:22px">以上案例仅取可迁移的机制，未引入其商业数据。本页所列动作均为文本与脚本工作。</p>
+</section>
+
+</main>
+</div>
+</body>
+</html>

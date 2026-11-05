@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-HRMA · 模拟数据集生成器
+RMCity · 模拟数据集生成器
 ======================
 生成杭州滨江云璟酒店（300 间房，中高端全服务）的仿真经营数据，供学员实操与考试使用。
 
@@ -424,7 +424,7 @@ def main():
     revpar = rev / avail
 
     print("=" * 70)
-    print("HRMA 模拟数据集生成完毕 ->", DATA)
+    print("RMCity 模拟数据集生成完毕 ->", DATA)
     print("=" * 70)
     print(f"  01 历史日度经营数据      {len(daily):5d} 行 × {len(daily[0])} 列")
     print(f"  02 分渠道分细分历史数据  {len(seg):5d} 行 × {len(seg[0])} 列")
@@ -455,7 +455,7 @@ def main():
 
     # ---- README ----
     with open(os.path.join(DATA, "README.md"), "w", encoding="utf-8") as f:
-        f.write("# HRMA 模拟数据集 · 使用说明\n\n")
+        f.write("# RMCity 模拟数据集 · 使用说明\n\n")
         f.write("> 全部数据基于**杭州滨江云璟酒店**（虚构）：300 间客房，中高端全服务酒店。\n")
         f.write("> 生成脚本：`templates/../data/_gen_data.py`，随机种子 `20250903`，可完全复现。\n\n")
         f.write("## 文件清单\n\n| 文件 | 行数 | 用途 |\n|---|---|---|\n")

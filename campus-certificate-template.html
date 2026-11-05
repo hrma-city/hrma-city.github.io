@@ -106,7 +106,7 @@ button:hover{filter:brightness(1.06)}
 <h2>二、签发规则</h2>
 <div class="mini"><b>判级</b><span>综合得分 ≥ L3 线 → L3 高级；≥ L2 线 → L2 中级；≥ L1 线 → L1 初级；低于 L1 线不出具证明。默认 60 / 80 / 92 为<b>自建能力刻度，非 1+X 分数线</b>，与 <a href="campus-b1-event.html">编排台能力等级线</a> 一致，可现场调整后重新生成。</span></div>
 <div class="mini"><b>达标包口径</b><span>若使用 <a href="campus-l1-package.html">L1 校赛达标包</a>，除综合得分外还需 A 类（A1–A4）每项正确率 ≥ 70%、且至少 1 项决策类（B1/B2/B4）≥ 60；组织者在签发前按 L1 准入线复核。</span></div>
-<div class="mini"><b>编号</b><span><code>RMC-年份-级别-四位序号</code>，如 <code>RMC-2026-L1-0001</code>。编号连续、不重号，作废须留痕不复用。</span></div>
+<div class="mini"><b>编号</b><span><code>RMCity-年份-级别-四位序号</code>，如 <code>RMCity-2026-L1-0001</code>。编号连续、不重号，作废须留痕不复用。</span></div>
 <div class="mini"><b>验真</b><span>每证附 6 位验真码，由「姓名＋编号＋得分」生成，供院校自查与用人单位核验。正式部署时改由赛事引擎后端签发、落库、提供在线验真页。</span></div>
 <div class="mini"><b>学分（拟）</b><span>L1 达标可作为「收益管理实务」课程模块的过程性评价佐证；是否抵学分、如何换算 1+X 与学分银行，由本校教务与 1+X 考核站点认定。能力等级与 <a href="campus-course-event-map.html">课赛证映射大表</a> 的 L1/L2/L3 一致。</span></div>
 
@@ -142,7 +142,7 @@ button:hover{filter:brightness(1.06)}
 <table class="tbl">
 <thead><tr><th style="width:24%">项目</th><th>规则</th></tr></thead>
 <tbody>
-<tr><td>编号结构</td><td><code>RMC-2026-L1-0001</code>：RMC 固定前缀 / 签发年份 / 级别码 / 四位流水号</td></tr>
+<tr><td>编号结构</td><td><code>RMCity-2026-L1-0001</code>：RMCity 固定前缀 / 签发年份 / 级别码 / 四位流水号</td></tr>
 <tr><td>台账字段</td><td>证书编号、姓名、院校、学号、赛项、综合得分、证书级、净 RevPAR、签发日期、验真码</td></tr>
 <tr><td>存档</td><td>院校教务处存 CSV + 证书 PDF 一份；RMCity 存签发记录用于标准共建统计（成绩数据归院校，<b>不锁数据</b>）</td></tr>
 <tr><td>作废</td><td>填错不删号，标记「作废」并注明原因，流水号不复用</td></tr>
@@ -195,12 +195,12 @@ button:hover{filter:brightness(1.06)}
   }
   function certHTML(r,idx){
     var ev=$('evName').value||'酒店收益管理校赛',org=$('orgName').value||'RMCity';
-    var num='RMC-'+year()+'-'+r.lv.code+'-'+String(idx).padStart(4,'0');
+    var num='RMCity-'+year()+'-'+r.lv.code+'-'+String(idx).padStart(4,'0');
     var vc=verify(r.name+num+r.score);
     r.num=num;r.vc=vc;r.date=today();r.level=r.lv.name;
     var rev=(r.rev!==''&&isFinite(parseFloat(r.rev)))?'　｜　净 RevPAR <b>'+esc(r.rev)+'</b>':'';
     return '<div class="cert">'+
-      '<div class="wm">RMC</div>'+
+      '<div class="wm">RMCity</div>'+
       '<div class="org">'+esc(org)+'</div>'+
       '<h3>酒店收益管理技能等级证书</h3>'+
       '<div class="en">Hotel Revenue Management · Skill Certificate</div>'+

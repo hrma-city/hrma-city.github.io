@@ -1,5 +1,5 @@
 /* ==========================================================================
-   HRMA 学院官网 · 共享脚本
+   RMCity 学院官网 · 共享脚本
    - 注入侧边栏导航（按 data-page 高亮）
    - 自动适配根目录 / 子目录，链接不会错层
    - 移动端菜单
@@ -173,9 +173,9 @@
     var html =
       '<div class="brand">' +
         '<a class="brand-mark" href="' + href("index.html") + '">' +
-          '<span class="gem">收</span><span>RMC收益管理社区</span>' +
+          '<span class="gem">收</span><span>RMCity 收益管理社群</span>' +
         "</a>" +
-        '<div class="brand-sub">RMC Revenue Management Community<br>学院 · 游戏 · 社区 · 认证 · 剧院</div>' +
+        '<div class="brand-sub">RMCity (Revenue Management Community)<br>学院 · 游戏 · 社区 · 认证 · 剧院</div>' +
       "</div>";
 
     NAV.forEach(function (sec) {
@@ -359,7 +359,7 @@
     var logo = document.querySelector(".sn-logo");
     if (logo) {
       logo.setAttribute("href", href("index.html"));
-      logo.innerHTML = '<span class="gem">收</span><span>RMC收益管理社区</span>';
+      logo.innerHTML = '<span class="gem">收</span><span>RMCity 收益管理社群</span>';
     }
     var cta = document.querySelector(".sn-cta");
     if (cta) { cta.setAttribute("href", href("games.html")); cta.textContent = "开始练"; }
@@ -522,7 +522,7 @@
     drawer.id = "mbDrawer"; drawer.className = "mb-drawer";
     var dHead =
       '<div class="mb-drawer-head"><div class="brand"><span class="gem">收</span>' +
-      '<span>RMC收益管理社区</span></div>' +
+      '<span>RMCity 收益管理社群</span></div>' +
       '<button class="mb-close" id="mbClose" aria-label="关闭">×</button></div>';
     var dBody = '<a class="mb-link" href="' + href("index.html") + '"><span class="n">首</span>社区首页</a>';
     BOARDS.forEach(function (b) {

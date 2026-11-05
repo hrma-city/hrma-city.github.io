@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-HRMA · Excel 实操模板包 —— 公共样式与辅助函数
+RMCity · Excel 实操模板包 —— 公共样式与辅助函数
 所有配色取自 SPEC 7.1；所有术语/阈值取自 SPEC 三、四章。
 """
 
@@ -319,7 +319,7 @@ def write_intro(ws, book_no, book_name, purpose, dict_rows, steps, codex,
                 r = para(ws, r, line, last_col, height=18)
 
     r += 1
-    r = para(ws, r, "杭州滨江云璟酒店 · 300 间房 · 中高端全服务 ｜ RMC收益管理社区 ｜ 口径以 SPEC.md 为准",
+    r = para(ws, r, "杭州滨江云璟酒店 · 300 间房 · 中高端全服务 ｜ RMCity 收益管理社群 ｜ 口径以 SPEC.md 为准",
              last_col, height=18, kind="n")
     return ws
 

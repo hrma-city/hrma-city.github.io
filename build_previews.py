@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-HRMA · 表格内联预览 构建脚本
+RMCity · 表格内联预览 构建脚本
 把 templates/*.xlsx 与 data/*.csv 预渲染成自包含的 HTML 预览文件，
 放到 assets/previews/，并生成 assets/previews-map.js（原始 href -> 预览路径）。
 

@@ -77,7 +77,7 @@
     var html = "";
     if (!legacy) {
       html += '<button class="ux-close" aria-label="关闭">✕</button>' +
-        '<div class="ux-brand">RMC 收益管理社区<small>随时跳转到任意板块 / 视频 / 判定表</small></div>';
+        '<div class="ux-brand">RMCity 收益管理社群<small>随时跳转到任意板块 / 视频 / 判定表</small></div>';
       // 板块
       html += '<div class="ux-sec"><div class="ux-h">板块</div>';
       SECTIONS.forEach(function (s) {

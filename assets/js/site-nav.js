@@ -1,4 +1,4 @@
-/* HRMA 全站统一导航栏 v23（2026-10-25 大改：培训→认证；资料库后增「社区」「服务」两个主标签，社区从更多升主位；服务页 services.html 汇总全部产品与陪跑服务）
+/* RMCity 全站统一导航栏 v23（2026-10-25 大改：培训→认证；资料库后增「社区」「服务」两个主标签，社区从更多升主位；服务页 services.html 汇总全部产品与陪跑服务）
    （原 v13 2026-10-11 起历次版本：v15 更多加全站导览/面包屑；v19 知识库合并理论+案例；v22 六馆+教练馆）
    在 v12 身份制基础上增加：
    ①「更多 ▾」加入「全站导览」(tour.html)，一次看清所有板块/系列/行业课/工具；
@@ -87,7 +87,7 @@ var AOFF = a('color:#d4e2f2');
     + 'border-bottom:1px solid #1d3a5c;padding:7px 12px;display:flex;gap:6px;align-items:center;'
     + 'flex-wrap:wrap;font-family:' + F + '">';
   bar += '<a href="javascript:void(0)" id="hrmaBack" title="返回上一页" style="' + a('color:#e8b84b;font-weight:700;margin-right:2px') + '">←</a>';
-  bar += '<a href="' + P + 'index.html" style="' + a('color:#fff;font-weight:800;margin-right:6px;font-size:14.5px') + '">RMC<span style="color:#e8b84b">收益管理</span>社区</a>';
+  bar += '<a href="' + P + 'index.html" style="' + a('color:#fff;font-weight:800;margin-right:6px;font-size:14.5px') + '">RMCity<span style="color:#e8b84b">收益管理</span>社区</a>';
   MAIN.forEach(function (n) { bar += link(n); });
 
   /* 搜索框：直达资料库检索 */

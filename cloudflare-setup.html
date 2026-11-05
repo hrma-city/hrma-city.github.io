@@ -13,7 +13,7 @@
 <script src="auth-config.js?v=gate20261013"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cloudflare 私有化操作步骤 · HRMA 站点</title>
+<title>Cloudflare 私有化操作步骤 · RMCity 站点</title>
 <style>
   :root{ --ink:#0f2a4a; --blue:#1d6fb8; --gold:#e8b84b; --line:#dde3ea; --mute:#5b6b7c; }
   *{box-sizing:border-box}
@@ -43,8 +43,8 @@
   .chk li:before{content:"☐";position:absolute;left:0;color:var(--blue);font-size:16px}
   footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--mute);font-size:12px}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC Revenue Management Community","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMCity 收益管理社群","alternateName":["RMCity (Revenue Management Community)","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMCity 收益管理社群","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"cloudflare-setup","item":"https://hrma-city.github.io/cloudflare-setup.html"}]}</script>
 
 
@@ -74,7 +74,7 @@
 <body>
 <div class="wrap">
 
-<h1>把 HRMA 站点变成「只有您能进」</h1>
+<h1>把 RMCity 站点变成「只有您能进」</h1>
 <div class="sub">方案：Cloudflare Pages 托管 + Cloudflare Access 登录 · 全程免费 · <b>第一次做请预留 30–60 分钟</b>（含注册账号与邮箱验证）· 我已把坑填好，分 3 段做完</div><div class="warn" style="margin-top:14px"><b>先把话说在前面，别指望 15 分钟就搞定。</b><br>· <b>我不能保证一次成功</b>。Cloudflare 的界面每年都在改，如果某一步的名字对不上，说明是我这份手册过时了，不是您的问题。<br>· <b>最坏情况不会丢资料</b>：代码在 GitHub 仓库里，任何时候都能重新发布。<br>· <b>顺序很重要</b>：先把新地址验证能用，<b>最后</b>才关 GitHub Pages。中途失败老地址照旧，风险为零。<br>· 真正省时间的地方：我已经把文件都备好了，您只是照着点，不用配置任何代码。</div>
 
 <div class="callout">
@@ -162,7 +162,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 <div class="d">左侧 <span class="path">Access</span> → <span class="path">Applications</span> → <span class="path">+ Add new</span> → <span class="path">Add self-hosted</span>。<br>
 填：
 <ul>
-<li><b>Application name</b>：HRMA 私有站</li>
+<li><b>Application name</b>：RMCity 私有站</li>
 <li><b>Application domain / Subdomain</b>：点 <span class="path">Select domain</span>，在列表里挑您的 <span class="path">hrma-private.pages.dev</span></li>
 </ul>
 <div>点 <span class="path">Next</span>。</div>
@@ -184,7 +184,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 <div class="t">以后放行「审核通过的人」</div>
 <div class="d">有人想进 → 他先通过<b>站外</b>渠道找您申请（微信 / 邮件 / 您公开的 contact 页留邮箱，见下方「他人如何申请」）→ 您判断无误后：
 <ul>
-<li>回到 <span class="path">Zero Trust → Access → Applications → HRMA 私有站 → Policies</span></li>
+<li>回到 <span class="path">Zero Trust → Access → Applications → RMCity 私有站 → Policies</span></li>
 <li>编辑「仅白名单可进」这条 → <span class="path">Include → + Add include → Email addresses</span> → 填对方邮箱 → <span class="path">Apply</span></li>
 </ul>
 加完即刻生效，对方下次用那个邮箱 + 验证码就能进。<b>拒绝谁 = 不把他加进列表</b>，无需额外操作。
@@ -248,7 +248,7 @@ Cloudflare Access 是<b>服务端</b>拦截：请求还没到文件就被挡住�
 </div>
 
 <footer>
-HRMA 站点私有化 · 全程免费（Cloudflare 免费版 Access 不限用户数、不限规则数）<br>
+RMCity 站点私有化 · 全程免费（Cloudflare 免费版 Access 不限用户数、不限规则数）<br>
 全程不需要改任何代码，sync_gh.sh 的发布流程完全不变。
 </footer>
 
@@ -261,7 +261,7 @@ HRMA 站点私有化 · 全程免费（Cloudflare 免费版 Access 不限用户�
 
 <button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
 <nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>Cloudflare 私有化操作步骤 · HRMA 站点</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-h"><b>Cloudflare 私有化操作步骤 · RMCity 站点</b><button class="toc-close" aria-label="关闭">&times;</button></div>
   <div class="toc-body"><a href="#toc-1">1. 第 0 段 · 迁移前，先确认老地址进得去（必须做）</a>
 <a href="#toc-2">2. 第 1 段 · 注册 Cloudflare（约 3 分钟）</a>
 <a href="#toc-3">3. 第 2 段 · 部署到 Cloudflare Pages（约 2 分钟）</a>

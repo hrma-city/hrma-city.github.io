@@ -47,7 +47,7 @@
 
 ```js
 window.HRMA_PAY = {
-  payee: "RMC收益管理社区",
+  payee: "RMCity 收益管理社群",
   contact: "rm-community@qq.com",
   wechatQR: "",   // 微信收款码图片地址
   alipayQR: "",   // 支付宝收款码图片地址
