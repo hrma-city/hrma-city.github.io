@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js?v=gate20261013"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<!-- 顶部模块条即目录，幂等键 id="rm-toc-drawer" 已存在 -->
+<title>M12　会议与汇报 · v2026.4 · RMC</title>
+<style>/* ============================================================
+   RMC 收益管理社区 · 主样式表
+   浅色主题 / 深海军蓝 + 金 / 系统字体
+   ============================================================ */
+
+:root{
+  --navy:#1B3A5C;
+  --navy-2:#2C5282;
+  --navy-3:#3D6BA5;
+  --gold:#B8894A;
+  --gold-2:#D4A96A;
+  --gold-soft:#F7F0E4;
+  --teal:#2E7D74;
+  --teal-soft:#E6F2F0;
+  --up:#C0392B;      /* 涨/提升 —— 红 */
+  --down:#2F7A3E;    /* 跌/下降 —— 绿 */
+  --amber:#D98324;
+  --amber-soft:#FDF3E4;
+  --danger:#C0392B;
+  --danger-soft:#FBEAE8;
+  --ink:#1F2933;
+  --ink-2:#52606D;
+  --ink-3:#7B8794;
+  --line:#E1E5EA;
+  --line-2:#CBD2D9;
+  --bg:#FAFAF8;
+  --bg-2:#F2F0EB;
+  --white:#fff;
+  --shadow:0 1px 3px rgba(27,58,92,.06),0 1px 2px rgba(27,58,92,.04);
+  --shadow-md:0 4px 14px rgba(27,58,92,.08);
+  --mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --sidebar:260px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  font-size:15px; line-height:1.75; color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--navy-2);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4,h5{color:var(--navy);line-height:1.35;margin:0 0 .6em;font-weight:650}
+h1{font-size:30px;letter-spacing:-.3px}
+h2{font-size:22px;margin-top:2em;padding-bottom:.45em;border-bottom:2px solid var(--line)}
+h3{font-size:18px;margin-top:1.6em}
+h4{font-size:15.5px;margin-top:1.3em;color:var(--navy-2)}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.4em}
+li{margin:.3em 0}
+strong{font-weight:650;color:var(--navy)}
+code{font-family:var(--mono);font-size:.9em;background:var(--bg-2);padding:.12em .4em;border-radius:4px;color:var(--navy)}
+hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}
+
+/* ---------- 布局 ---------- */
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:var(--sidebar);flex:0 0 var(--sidebar);
+  background:var(--navy);color:#fff;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  padding:0 0 40px;
+}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:3px}
+.brand{padding:22px 22px 16px;border-bottom:1px solid rgba(255,255,255,.12)}
+.brand-mark{
+  display:flex;align-items:center;gap:10px;
+  font-size:16px;font-weight:700;letter-spacing:.4px;color:#fff;
+}
+.brand-mark:hover{text-decoration:none}
+.brand-mark .gem{
+  width:32px;height:32px;flex:0 0 32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--gold-2),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;color:#fff;font-weight:700;
+}
+.brand-sub{font-size:11.5px;color:rgba(255,255,255,.55);margin-top:5px;line-height:1.5;letter-spacing:.2px}
+.nav-section{padding:16px 22px 4px}
+.nav-section-title{
+  font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;
+  color:rgba(255,255,255,.42);font-weight:700;margin-bottom:8px;
+}
+.nav-link{
+  display:flex;align-items:center;gap:9px;
+  padding:7px 12px;margin:1px -12px;border-radius:6px;
+  color:rgba(255,255,255,.8);font-size:13.5px;line-height:1.45;
+}
+.nav-link:hover{background:rgba(255,255,255,.08);color:#fff;text-decoration:none}
+.nav-link.active{background:var(--gold);color:#fff;font-weight:600}
+.nav-link .n{
+  font-family:var(--mono);font-size:11px;opacity:.65;flex:0 0 22px;
+}
+
+.main{flex:1;min-width:0}
+.wrap{max-width:1080px;margin:0 auto;padding:36px 40px 90px}
+.wrap-wide{max-width:1320px}
+
+/* 面包屑 */
+.crumb{font-size:12.5px;color:var(--ink-3);margin-bottom:14px}
+.crumb a{color:var(--ink-2)}
+.crumb span{margin:0 7px;color:var(--ink-3)}
+
+/* 页头 */
+.page-head{margin-bottom:30px}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.page-title{font-size:31px;margin:0 0 12px;letter-spacing:-.4px}
+.page-lede{font-size:16px;color:var(--ink-2);line-height:1.7;margin:0;max-width:820px}
+.hero-band{
+  background:linear-gradient(120deg,var(--navy) 0%,#27517C 100%);
+  color:#fff;border-radius:12px;padding:34px 38px;margin-bottom:32px;
+}
+.hero-band h1{color:#fff;margin:0 0 10px;font-size:27px}
+.hero-band p{color:rgba(255,255,255,.82);margin:0;font-size:15px;line-height:1.75}
+
+/* ---------- 徽章 ---------- */
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11.5px;font-weight:650;letter-spacing:.3px;
+  padding:3px 10px;border-radius:20px;
+  background:var(--bg-2);color:var(--ink-2);border:1px solid var(--line);
+}
+.badge-l1{background:#E8F1F9;color:#1F5C8F;border-color:#C3DCEF}
+.badge-l2{background:var(--gold-soft);color:#8A5F26;border-color:#E8D5B5}
+.badge-l3{background:#EDE7F6;color:#5B3E96;border-color:#D5C9EC}
+.badge-codex{
+  background:var(--navy);color:#fff;font-family:var(--mono);
+  font-size:11px;padding:3px 9px;border-radius:4px;letter-spacing:.5px;
+}
+.badge-core{background:var(--danger);color:#fff;border-color:var(--danger)}
+.badge-new{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* 状态 pill */
+.pill{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:4px;background:var(--bg-2);color:var(--ink-2);border:1px solid var(--line)}
+.pill-teal{background:var(--teal-soft);color:var(--teal);border-color:#BEDDD8}
+.pill-amber{background:var(--amber-soft);color:#A6601A;border-color:#F0D9B5}
+.pill-red{background:var(--danger-soft);color:var(--danger);border-color:#F0C8C3}
+.pill-navy{background:#E8F1F9;color:var(--navy-2);border-color:#C3DCEF}
+
+/* 涨跌 */
+.up{color:var(--up);font-weight:650}
+.down{color:var(--down);font-weight:650}
+.flat{color:var(--ink-3);font-weight:600}
+
+/* ---------- 卡片 ---------- */
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:22px 24px;margin:0 0 18px;box-shadow:var(--shadow);
+}
+.card-title{font-size:16.5px;margin:0 0 14px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.card-title .ic{
+  width:26px;height:26px;flex:0 0 26px;border-radius:6px;background:var(--gold-soft);
+  display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--gold);
+}
+.card-note{font-size:13px;color:var(--ink-3);margin:12px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+
+.grid{display:grid;gap:16px;margin-bottom:18px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+
+/* ---------- 表格 ---------- */
+.tbl-wrap{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:10px;background:var(--white)}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+.tbl caption{
+  caption-side:top;text-align:left;padding:14px 18px 10px;
+  font-size:14.5px;font-weight:650;color:var(--navy);
+}
+.tbl caption .cap-note{display:block;font-size:12px;font-weight:400;color:var(--ink-3);margin-top:3px}
+.tbl th,.tbl td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tbl thead th{
+  background:var(--bg-2);font-weight:650;color:var(--navy);
+  font-size:12.5px;letter-spacing:.2px;border-bottom:2px solid var(--line-2);white-space:nowrap;
+}
+.tbl tbody tr:last-child td{border-bottom:0}
+.tbl tbody tr:hover{background:#FCFCFA}
+.tbl td.num,.tbl th.num{text-align:right;font-family:var(--mono);font-size:13px;white-space:nowrap}
+.tbl td.mid,.tbl th.mid{text-align:center}
+
+/* 判定矩阵：首行首列高亮，命中格加粗 */
+.tbl-matrix th.rowh{background:var(--bg-2);font-weight:650;color:var(--navy);white-space:nowrap}
+.tbl-matrix thead th{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tbl-matrix tbody th{background:var(--bg-2)}
+.tbl-matrix td{text-align:center;font-size:13px}
+.tbl-matrix td.hit{background:var(--gold-soft);font-weight:700;color:#8A5F26;box-shadow:inset 0 0 0 2px var(--gold)}
+.tbl-matrix td.keep{color:var(--ink-3)}
+.tbl-matrix td.up-cell{color:var(--up);font-weight:650}
+.tbl-matrix td.down-cell{color:var(--down);font-weight:650}
+
+/* 法典表 */
+.codex-block{
+  background:var(--white);border:1px solid var(--line);border-left:4px solid var(--gold);
+  border-radius:10px;padding:20px 24px 22px;margin:0 0 20px;box-shadow:var(--shadow);
+}
+.codex-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.codex-head h3{margin:0;font-size:17.5px}
+.codex-desc{font-size:13.5px;color:var(--ink-2);margin:6px 0 14px}
+.codex-meta{font-size:12px;color:var(--ink-3);margin:14px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+
+/* ---------- 提示框 ---------- */
+.callout{
+  border-radius:8px;padding:14px 18px;margin:0 0 16px;font-size:14px;line-height:1.72;
+  background:var(--bg-2);border-left:4px solid var(--line-2);
+}
+.callout p:last-child{margin-bottom:0}
+.callout .co-t{font-weight:650;display:block;margin-bottom:4px}
+.callout-key{background:#E8F1F9;border-left-color:var(--navy-2)}
+.callout-key .co-t{color:var(--navy)}
+.callout-warn{background:var(--amber-soft);border-left-color:var(--amber)}
+.callout-warn .co-t{color:#A6601A}
+.callout-danger{background:var(--danger-soft);border-left-color:var(--danger)}
+.callout-danger .co-t{color:var(--danger)}
+.callout-do{background:var(--teal-soft);border-left-color:var(--teal)}
+.callout-do .co-t{color:var(--teal)}
+.callout-gold{background:var(--gold-soft);border-left-color:var(--gold)}
+.callout-gold .co-t{color:#8A5F26}
+
+/* ---------- 指标块 ---------- */
+.metric{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px 18px;text-align:center}
+.metric-val{font-size:26px;font-weight:700;color:var(--navy);font-family:var(--mono);letter-spacing:-.5px;line-height:1.2}
+.metric-label{font-size:12px;color:var(--ink-3);margin-top:5px}
+.metric-sub{font-size:11.5px;margin-top:6px}
+
+/* ---------- 步骤条 ---------- */
+.step{display:flex;gap:16px;margin:0 0 18px;align-items:flex-start}
+.step-num{
+  flex:0 0 30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-top:2px;
+}
+.step-body{flex:1;min-width:0}
+.step-body h4{margin:0 0 5px;font-size:15.5px}
+.step-body p{margin:0 0 .5em;font-size:14px}
+
+/* 横向流程 */
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:0 0 20px}
+.flow-item{
+  flex:1;min-width:150px;background:var(--white);border:1px solid var(--line);
+  padding:14px 16px;position:relative;
+}
+.flow-item:first-child{border-radius:8px 0 0 8px}
+.flow-item:last-child{border-radius:0 8px 8px 0}
+.flow-arrow{
+  display:flex;align-items:center;padding:0 8px;color:var(--gold);font-size:17px;
+  background:transparent;border:0;flex:0 0 auto;
+}
+.flow-item .fi-t{font-weight:650;font-size:13.5px;color:var(--navy);margin-bottom:4px}
+.flow-item .fi-d{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+
+/* ---------- 公式 ---------- */
+.formula{
+  background:var(--bg-2);border:1px solid var(--line);border-radius:8px;
+  padding:14px 18px;margin:0 0 16px;
+  font-family:var(--mono);font-size:14px;color:var(--navy);
+  overflow-x:auto;line-height:1.9;
+}
+.formula .f-label{display:block;font-family:inherit;font-size:11.5px;letter-spacing:.6px;color:var(--ink-3);text-transform:uppercase;margin-bottom:4px}
+.formula .f-out{color:var(--gold);font-weight:700}
+
+/* ---------- 键值 ---------- */
+.kv{margin:0 0 14px;font-size:14px}
+.kv-row{display:flex;gap:14px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.kv-row:last-child{border-bottom:0}
+.kv-k{flex:0 0 150px;color:var(--ink-2);font-size:13.5px}
+.kv-v{flex:1}
+
+/* ---------- 清单 ---------- */
+.checklist{list-style:none;padding:0;margin:0 0 16px}
+.checklist li{
+  padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line);font-size:14px;
+}
+.checklist li:last-child{border-bottom:0}
+.checklist li::before{
+  content:"☐";position:absolute;left:2px;top:7px;
+  font-size:16px;color:var(--navy-3);line-height:1.4;
+}
+.checklist.done li::before{content:"☑";color:var(--teal)}
+
+/* ---------- 目录 ---------- */
+.toc{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin:0 0 24px}
+.toc-title{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-bottom:10px}
+.toc ol{margin:0;padding-left:1.3em;font-size:14px}
+.toc li{margin:.28em 0}
+.toc-2{list-style:none;padding-left:0;margin:6px 0 0 4px;font-size:13px;color:var(--ink-2)}
+
+/* ---------- 练习题 ---------- */
+.ex-q{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:16px 20px;margin:0 0 14px;
+}
+.ex-q .q-t{font-weight:650;color:var(--navy);font-size:14.5px;margin-bottom:8px}
+.ex-q .q-b{font-size:14px;color:var(--ink-2)}
+details.ex-a{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+details.ex-a summary{
+  cursor:pointer;font-size:13px;color:var(--navy-2);font-weight:600;list-style:none;
+  display:inline-flex;align-items:center;gap:6px;user-select:none;
+}
+details.ex-a summary::-webkit-details-marker{display:none}
+details.ex-a summary::before{content:"▸";transition:transform .15s;display:inline-block}
+details.ex-a[open] summary::before{transform:rotate(90deg)}
+details.ex-a .a-body{
+  margin-top:10px;padding:12px 16px;background:#F7FAFC;border-left:3px solid var(--teal);
+  border-radius:0 6px 6px 0;font-size:13.5px;line-height:1.75;
+}
+
+/* ---------- 法典筛选 ---------- */
+.codex-filter{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:16px 20px;margin:0 0 22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+  position:sticky;top:0;z-index:50;box-shadow:var(--shadow);
+}
+.codex-filter input[type=text]{
+  flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--line-2);border-radius:6px;
+  font-size:14px;font-family:inherit;
+}
+.codex-filter input[type=text]:focus{outline:0;border-color:var(--navy-3);box-shadow:0 0 0 3px rgba(61,107,165,.12)}
+.chip{
+  padding:5px 13px;border-radius:20px;border:1px solid var(--line-2);background:var(--white);
+  font-size:12.5px;cursor:pointer;color:var(--ink-2);font-family:inherit;
+}
+.chip:hover{border-color:var(--navy-3);color:var(--navy-2)}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ---------- 时间轴 ---------- */
+.timeline{position:relative;padding-left:26px;margin:0 0 20px}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-item::before{
+  content:"";position:absolute;left:-23px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--white);border:2.5px solid var(--gold);
+}
+.tl-time{font-family:var(--mono);font-size:12.5px;color:var(--gold);font-weight:650}
+.tl-body{font-size:14px;margin-top:2px}
+.tl-body b{color:var(--navy)}
+
+/* ---------- 对话 / 角色扮演 ---------- */
+.dialogue{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:0 0 18px;background:var(--white)}
+.dlg-row{display:flex;gap:0;border-bottom:1px solid var(--line)}
+.dlg-row:last-child{border-bottom:0}
+.dlg-who{
+  flex:0 0 128px;background:var(--bg-2);padding:12px 14px;font-size:13px;font-weight:650;
+  color:var(--navy);border-right:1px solid var(--line);
+}
+.dlg-text{flex:1;padding:12px 16px;font-size:14px;line-height:1.7}
+
+/* ---------- 游戏卡牌 ---------- */
+.cards-deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin:0 0 20px}
+.card-game{
+  border:1px solid var(--line);border-radius:10px;background:var(--white);
+  padding:14px 16px;box-shadow:var(--shadow);border-top:4px solid var(--navy);
+  display:flex;flex-direction:column;min-height:180px;
+}
+.card-game.t-atk{border-top-color:var(--danger)}
+.card-game.t-def{border-top-color:var(--teal)}
+.card-game.t-evt{border-top-color:var(--amber)}
+.card-game.t-wild{border-top-color:var(--gold)}
+.cg-id{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.5px}
+.cg-name{font-size:15px;font-weight:700;color:var(--navy);margin:4px 0 8px;line-height:1.35}
+.cg-body{font-size:12.5px;color:var(--ink-2);line-height:1.65;flex:1}
+.cg-foot{margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-3)}
+.cg-stat{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--gold)}
+
+/* ---------- 评分卡 ---------- */
+.score-box{
+  border:1px solid var(--line);border-radius:10px;background:var(--white);
+  padding:18px 22px;margin:0 0 16px;
+}
+.sb-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px}
+.sb-name{font-weight:650;color:var(--navy);font-size:15px}
+.sb-score{font-family:var(--mono);font-size:14px;color:var(--ink-2)}
+.sb-bar{height:8px;background:var(--bg-2);border-radius:4px;overflow:hidden}
+.sb-fill{height:100%;background:linear-gradient(90deg,var(--navy-3),var(--navy));border-radius:4px}
+.sb-items{margin:12px 0 0;padding:0;list-style:none;font-size:13px}
+.sb-items li{padding:5px 0 5px 20px;position:relative;color:var(--ink-2)}
+.sb-items li::before{content:"—";position:absolute;left:0;color:var(--line-2)}
+
+/* ---------- 页脚导航 ---------- */
+.pager{display:flex;gap:14px;margin-top:48px;padding-top:26px;border-top:2px solid var(--line)}
+.pager a{
+  flex:1;padding:14px 18px;border:1px solid var(--line);border-radius:10px;background:var(--white);
+  display:block;transition:.15s;box-shadow:var(--shadow);
+}
+.pager a:hover{border-color:var(--navy-3);text-decoration:none;box-shadow:var(--shadow-md)}
+.pager .p-dir{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
+.pager .p-title{font-weight:650;color:var(--navy);font-size:14.5px}
+.pager .p-next{text-align:right}
+
+/* ---------- 首页专用 ---------- */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,#2A5680 55%,#356B96 100%);
+  color:#fff;padding:56px 60px;border-radius:0 0 0 0;margin:-36px -40px 34px;
+  position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;right:-70px;top:-70px;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(184,137,74,.28),transparent 70%);
+}
+.hero .eyebrow{font-size:12px;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold-2);font-weight:700;margin-bottom:14px}
+.hero h1{color:#fff;font-size:38px;margin:0 0 14px;letter-spacing:-.8px;line-height:1.25}
+.hero .sub{font-size:16.5px;color:rgba(255,255,255,.85);max-width:700px;line-height:1.75;margin:0 0 24px}
+.hero-stats{display:flex;gap:34px;flex-wrap:wrap;margin-top:26px;position:relative;z-index:1}
+.hero-stat .hs-v{font-size:26px;font-weight:700;color:var(--gold-2);font-family:var(--mono);line-height:1.2}
+.hero-stat .hs-l{font-size:12.5px;color:rgba(255,255,255,.7);margin-top:3px}
+
+.loop-band{background:var(--gold-soft);border:1px solid #E8D5B5;border-radius:12px;padding:26px 30px;margin:0 0 30px}
+.loop-band h2{margin:0 0 6px;border:0;padding:0;font-size:20px}
+.loop-band .lb-sub{font-size:13.5px;color:#8A5F26;margin:0 0 18px}
+
+.level-card{
+  background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;
+}
+.level-card .lc-head{padding:16px 20px;color:#fff}
+.level-card.l1 .lc-head{background:linear-gradient(120deg,#2C5282,#3D6BA5)}
+.level-card.l2 .lc-head{background:linear-gradient(120deg,#A8762F,#C99B52)}
+.level-card.l3 .lc-head{background:linear-gradient(120deg,#6B4FA0,#8B6FBF)}
+.lc-head .lc-tag{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;opacity:.85;font-weight:700}
+.lc-head h3{color:#fff;margin:3px 0 0;font-size:19px}
+.lc-body{padding:18px 20px;flex:1}
+.lc-body .lc-meta{display:flex;gap:16px;font-size:12.5px;color:var(--ink-3);margin-bottom:12px}
+.lc-body ul{margin:0;padding-left:1.2em;font-size:13.5px}
+.lc-foot{padding:13px 20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-2);background:#FCFCFA}
+.lc-foot b{color:var(--navy)}
+
+.mod-link{
+  display:flex;align-items:center;gap:12px;padding:11px 16px;border:1px solid var(--line);
+  border-radius:8px;background:var(--white);transition:.15s;
+}
+.mod-link:hover{border-color:var(--navy-3);box-shadow:var(--shadow);text-decoration:none}
+.mod-link .ml-n{font-family:var(--mono);font-size:11.5px;color:var(--gold);font-weight:700;flex:0 0 28px}
+.mod-link .ml-t{flex:1;font-size:14px;color:var(--navy);font-weight:600}
+.mod-link .ml-h{font-size:11.5px;color:var(--ink-3);flex:0 0 auto}
+
+/* ---------- 打印 ---------- */
+@media print{
+  .sidebar,.codex-filter,.pager{display:none!important}
+  .main,.wrap{max-width:100%;padding:0}
+  body{background:#fff;font-size:11pt}
+  .card,.codex-block,.tbl-wrap{break-inside:avoid;box-shadow:none}
+  details.ex-a{display:block}
+  details.ex-a .a-body{display:block!important}
+  .hero{margin:0 0 20px;padding:24px;background:var(--navy)!important;-webkit-print-color-adjust:exact}
+}
+
+/* ---------- 响应式 ---------- */
+.menu-btn{
+  display:none;position:fixed;top:14px;left:14px;z-index:200;
+  background:var(--navy);color:#fff;border:0;border-radius:8px;width:40px;height:40px;font-size:18px;cursor:pointer;
+}
+@media(max-width:900px){
+  .sidebar{
+    position:fixed;left:0;top:0;z-index:150;transform:translateX(-100%);
+    transition:transform .22s ease;box-shadow:4px 0 20px rgba(0,0,0,.2);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .menu-btn{display:block}
+  .wrap{padding:20px 18px 70px}
+  .hero{margin:-20px -18px 24px;padding:36px 24px}
+  .hero h1{font-size:27px}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  h1{font-size:24px}
+  .flow-item{border-radius:8px!important;margin-bottom:6px}
+  .flow-arrow{display:none}
+  .codex-filter{position:static}
+  .tbl{font-size:12.5px}
+  .tbl th,.tbl td{padding:8px 10px}
+}
+
+
+/* ---- v2026.4+ 统一外壳（沿用 main.css 变量，不另起一套配色） ---- */
+.modbar{position:sticky;top:0;z-index:80;background:#0A2138;display:flex;align-items:center;
+  gap:2px;padding:0 18px;overflow-x:auto;box-shadow:0 2px 8px rgba(10,33,56,.18)}
+.modbar a{flex:0 0 auto;display:block;padding:12px 13px;color:#AFC6DD;font-size:13px;
+  font-weight:600;text-decoration:none;letter-spacing:.3px}
+.modbar a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.modbar a.on{background:#F5D08A;color:#0A2138;font-weight:700;border-radius:5px 5px 0 0}
+.modbar .mb-tail{margin-left:auto;color:#7FA6CF;font-size:12px;padding:12px 6px;white-space:nowrap}
+.cert-wrap{max-width:1080px;margin:0 auto;padding:26px 26px 80px}
+.cert-crumb{font-size:12.5px;color:var(--ink-3);margin:0 0 16px}
+.cert-crumb a{color:var(--ink-2)}
+.cert-crumb span{margin:0 7px;color:var(--ink-3)}
+.cert-head{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:24px}
+.cert-head h1{font-size:29px;color:var(--navy);margin:10px 0 10px}
+.cert-lede{font-size:15.5px;color:var(--ink-2);line-height:1.8;margin:0;max-width:860px}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.rev{background:var(--key_bg);border-left:4px solid var(--navy-2);border-radius:8px;
+  padding:14px 18px;margin:0 0 22px;font-size:13.6px;line-height:1.8}
+.rev .rv-t{font-weight:700;color:var(--navy);display:block;margin-bottom:5px}
+.rev ul{margin:6px 0 0;padding-left:20px}
+.rev li{margin:3px 0}
+.unit{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--gold);
+  border-radius:10px;padding:22px 26px;margin:26px 0 30px;box-shadow:var(--shadow)}
+.unit .u-k{font-size:11.8px;letter-spacing:1px;color:var(--gold);font-weight:700;margin:0 0 6px}
+.unit h2{font-size:21px;color:var(--navy);border-bottom:1px solid var(--line);
+  padding-bottom:10px;margin:0 0 16px}
+.unit h3{font-size:16.5px;color:var(--navy);margin:20px 0 8px}
+.unit h4{font-size:15px;color:var(--navy-2);margin:16px 0 6px}
+.unit p{font-size:14.3px;line-height:1.82;margin:0 0 11px}
+.unit ul,.unit ol{font-size:14.3px;line-height:1.8;padding-left:22px;margin:0 0 14px}
+.unit li{margin:0 0 5px}
+.cert-foot{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);
+  font-size:12.2px;color:var(--ink-3);line-height:1.9}
+.cert-foot a{color:var(--navy-2)}
+.tag-v{display:inline-block;background:var(--gold-soft);color:#8A5F26;border:1px solid #E8D5B5;
+  border-radius:4px;padding:1px 7px;font-size:11.5px;font-weight:650}
+@media print{.modbar{display:none}.cert-wrap{padding:0;max-width:none}
+  .unit{page-break-inside:avoid;border-radius:0;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="modbar"><a href="v2026-4-cert-m01.html">M01</a><a href="v2026-4-cert-m02.html">M02</a><a href="v2026-4-cert-m03.html">M03</a><a href="v2026-4-cert-m04.html">M04</a><a href="v2026-4-cert-m05.html">M05</a><a href="v2026-4-cert-m06.html">M06</a><a href="v2026-4-cert-m07.html">M07</a><a href="v2026-4-cert-m08.html">M08</a><a href="v2026-4-cert-m09.html">M09</a><a href="v2026-4-cert-m10.html">M10</a><a href="v2026-4-cert-m11.html">M11</a><a class="on" href="v2026-4-cert-m12.html">M12</a><a href="v2026-4-cert-m13.html">M13</a><a href="v2026-4-cert-m14.html">M14</a><a href="v2026-4-cert-index.html">总索引 →</a><span class="mb-tail">RMC 行业实操认证培训 · v2026.4</span></div>
+<div class="cert-wrap" id="top">
+<div class="cert-crumb"><a href="v2026-4-cert-index.html">学院首页</a> / <a href="v2026-4-cert-pathway.html">教案总纲</a> / L3 模块 12</div>
+
+<div class="crumb">
+  <a href="v2026-4-cert-index.html">学院首页</a><span>/</span>
+  <a href="../curriculum.html">教案总纲</a><span>/</span>
+  L3 模块十二
+</div>
+
+<div class="page-head">
+  <div class="badge-row">
+    <span class="badge badge-l3">L3 收益管理经理</span>
+    <span class="badge">模块 M12</span>
+    <span class="badge">6 课时 / 270 min</span>
+    <span class="badge">认证权重 20%</span>
+  </div>
+  <h1 class="page-title">会议与汇报：驱动组织行动</h1>
+  <p class="page-lede">
+    数据再对，说不出来也白搭。这一模块给您现成的会议议程和话术脚本——
+    <b>学完就能用，用了就有效。</b>
+  </p>
+</div>
+
+<div class="rev"><span class="rv-t">本版修订 · v2026.4</span><ul><li>综合贡献与置换成本统一为全口径（客房 + 非客房）。</li><li>补 wash 率、肩部夜、房型蚕食与空间机会成本。</li><li>会议×团队按表 O 唯一裁决；业主汇报改用结果指标。</li></ul><div style="margin-top:8px;font-size:12.6px;color:#52606D">关联校正编号：RM-04、RM-12、RM-15、SYS-15　｜　关联判定表：表 G / K / O / N</div></div>
+<div class="card">
+  <div class="card-title"><span class="ic">◎</span>学习目标</div>
+  <ul>
+    <li>能<b>独立主持</b>每日收益晨会、每周收益例会、每月经营分析会</li>
+    <li>能<b>独立写出</b>给业主的一页纸汇报（四个数字 + 三个动作 + 一个请求）</li>
+    <li>能<b>照念</b>四段标准话术，应对未达标、拒绝团队、拒绝降价、要求配合四种场合</li>
+    <li>能<b>说出</b>数据可视化的 5 条铁律，并指出违规图表错在哪</li>
+  </ul>
+  <p class="card-note">前置要求：M11 年度预算（要会做量差价差归因）。本模块是 L3 最实用的部分之一。</p>
+</div>
+
+<div class="toc">
+  <div class="toc-title">本模块目录</div>
+  <ol>
+    <li><a href="#s0">核心概念区</a></li>
+    <li><a href="#s1">三层会议体系</a></li>
+    <li><a href="#s2">《法典》表 N：周期节奏</a></li>
+    <li><a href="#s3">一页纸法则</a></li>
+    <li><a href="#s4">四段话术脚本</a></li>
+    <li><a href="#s5">数据可视化五条铁律</a></li>
+    <li><a href="#s6">讲师示范：月度经营分析会</a></li>
+    <li><a href="#s7">学员跟练</a></li>
+    <li><a href="#quiz">随堂测</a></li>
+    <li><a href="#memo">判定表默写清单</a></li>
+  </ol>
+</div>
+
+<div class="card" id="s0" style="margin-top:4px">
+  <div class="card-title"><span class="ic">◈</span>核心概念区（本模块 5 个新概念）</div>
+  <div class="grid grid-2">
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">三层会议</div><div class="kv-v">晨会管今天、周会管这周、月会管这个月，目的与产出各不相同</div></div>
+      <div class="kv-row"><div class="kv-k">一页纸</div><div class="kv-v">给业主的汇报 = 4 个数字 + 3 个动作 + 3 个计划 + 1 个请求</div></div>
+      <div class="kv-row"><div class="kv-k">话术四步</div><div class="kv-v">共情 → 算账 → 给方案 → 留余地，任何场景都能套</div></div>
+    </div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">可视化铁律</div><div class="kv-v">一图一结论、红涨绿跌带箭头、禁双轴、表≤7 行、纵轴从 0</div></div>
+      <div class="kv-row"><div class="kv-k">表 N</div><div class="kv-v">周/月节奏表，把三层会议嵌进一张无法跳过的日历</div></div>
+    </div>
+  </div>
+  <p class="card-note">这些概念在前序模块都出现过，本模块是把它们<b>组织成「开得了会、说得了话、拿得到资源」的动作</b>。</p>
+</div>
+
+<!-- ============ 一、三层会议 ============ -->
+<h2 id="s1">一、三层会议体系</h2>
+<p>
+  收益经理开三种会：<b>晨会解决今天，周会解决这周，月会解决这个月。</b>
+  三种会的目的、参会人、议程、铁律完全不同，不能用同一种方式开。
+</p>
+
+<h3 id="toc-1">1. 每日收益晨会（15 分钟）</h3>
+<div class="tbl-wrap">
+  <table class="tbl">
+    <caption>每日收益晨会<span class="cap-note">站着开，15 分钟必须结束</span></caption>
+    <thead><tr><th class="mid" style="width:90px">项</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td><b>时间</b></td><td>每日 10:05–10:20（收益动作执行完毕后）</td></tr>
+      <tr><td><b>参会</b></td><td>收益、销售、前厅、预订　<b>四个人必须到</b></td></tr>
+      <tr><td><b>议程</b></td><td>
+        ① 昨日实绩（OCC / ADR / RevPAR，1 分钟）<br>
+        ② 今日动作清单（我改了哪些价、设了哪些限制，3 分钟）<br>
+        ③ 未来 7 天风险提示（哪天在手落后、哪天可能满房，3 分钟）<br>
+        ④ 销售带来的大单 / 询价（需要收益当场报价，3 分钟）<br>
+        ⑤ 前厅的现场情况（客人反馈、满房压力、投诉，2 分钟）<br>
+        ⑥ 需要谁配合什么（明确到人，2 分钟）
+      </td></tr>
+      <tr><td><b>产出</b></td><td>会议纪要（一页，当天发群）</td></tr>
+      <tr><td><b>铁律</b></td><td><b>站着开。</b>站着开不会超时。有人坐下就说明跑题了。</td></tr>
+      <tr><td><b>超时怎么办</b></td><td>第 14 分钟主持人直接喊停，未完事项转为「会后单独聊」</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3 id="toc-2">2. 每周收益例会（60 分钟）</h3>
+<div class="tbl-wrap">
+  <table class="tbl">
+    <caption>每周收益例会<span class="cap-note">会上只做决策，不做讨论</span></caption>
+    <thead><tr><th class="mid" style="width:90px">项</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td><b>时间</b></td><td>每周一 14:00–15:00</td></tr>
+      <tr><td><b>参会</b></td><td>收益（主持）、销售总监、前厅经理、市场、财务</td></tr>
+      <tr><td><b>议程</b></td><td>
+        ① 上周实绩 vs 预算 vs 去年（5 分钟）<br>
+        ② 本周三维诊断：RGI / MPI / ARI（8 分钟）<br>
+        ③ 未来 8 周预测更新（8 分钟）<br>
+        ④ 房型价差校验结果（表 F，5 分钟）<br>
+        ⑤ 渠道结构调整（表 H，8 分钟）<br>
+        ⑥ 团队 / 会议询价决策（表 G / 表 K，10 分钟）<br>
+        ⑦ 竞争动态（谁降价了、谁新开业，5 分钟）<br>
+        ⑧ 风险与机会清单（5 分钟）<br>
+        ⑨ 本周行动项分配（明确到人 + 截止时间，4 分钟）<br>
+        ⑩ 下周同期预告（2 分钟）
+      </td></tr>
+      <tr><td><b>产出</b></td><td>《周度收益报告》+ 行动项清单</td></tr>
+      <tr><td><b>铁律</b></td><td><b>会上只做决策，不做讨论。</b>需要讨论的议题，会前先一对一谈拢，会上只确认。</td></tr>
+      <tr><td><b>超时怎么办</b></td><td>⑥⑦ 两项最容易超时。设闹钟，超时直接顺延到下周并标注「连续未决」。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3 id="toc-3">3. 每月经营分析会（90 分钟）</h3>
+<div class="tbl-wrap">
+  <table class="tbl">
+    <caption>每月经营分析会<span class="cap-note">每个数字后面必须跟一个动作</span></caption>
+    <thead><tr><th class="mid" style="width:90px">项</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td><b>时间</b></td><td>每月 10 日 09:00–10:30</td></tr>
+      <tr><td><b>参会</b></td><td>总经理（主持）+ 全体部门负责人，<b>业主列席</b></td></tr>
+      <tr><td><b>议程</b></td><td>
+        ① 上月核心数字：OCC / ADR / RevPAR / GOP（实际 vs 预算 vs 去年，8 分钟）<br>
+        ② 三维诊断：RGI / MPI / ARI（10 分钟）<br>
+        ③ 量差价差归因（10 分钟）<br>
+        ④ 客源结构分析（细分占比 + 渠道成本 + NRevPAR，12 分钟）<br>
+        ⑤ 上月动作复盘：调价命中率（8 分钟）<br>
+        ⑥ 下月需求预测与策略（12 分钟）<br>
+        ⑦ 各部门协同事项（8 分钟）<br>
+        ⑧ 资源需求（8 分钟）<br>
+        ⑨ 风险与机会（6 分钟）<br>
+        ⑩ 行动项分配（5 分钟）<br>
+        ⑪ 一页纸摘要发放（2 分钟）<br>
+        ⑫ 下月会议时间确认（1 分钟）
+      </td></tr>
+      <tr><td><b>产出</b></td><td>《月度收益复盘报告》+ <b>一页纸摘要</b>（给业主）</td></tr>
+      <tr><td><b>铁律</b></td><td><b>每个数字后面必须跟一个动作。</b>只报数字不给动作的，会被总经理打断——这是好事，说明他在听。</td></tr>
+      <tr><td><b>超时怎么办</b></td><td>④⑦ 容易超时。提前把这两项做成书面材料发群里，会上只讲结论。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="callout callout-key">
+  <span class="co-t">主持人的开场台词（每周例会，可直接照念）</span>
+  <p>
+    「各位，今天是 X 月 X 日的收益例会，60 分钟。议程我已经发群里了。<br>
+    先说规矩：今天会上只做决策，不做讨论。有需要讨论的，我们散会后单独约。<br>
+    先从数字开始——上周 RevPAR ¥XXX，比预算<span class="up">↑3.2%</span>，比去年<span class="up">↑5.8%</span>。
+    拆开看，量差 +X 万，价差 −X 万。我的判断是……」
+  </p>
+</div>
+
+<!-- ============ 二、表 N ============ -->
+<h2 id="s2">二、《法典》表 N：周期节奏</h2>
+<p>三层会议不是孤立的，它们嵌在一整套周期节奏里。<b>漏掉任何一项，体系就会出现漏洞。</b></p>
+
+<div class="tbl-wrap">
+  <table class="tbl">
+    <caption>表 N　周度／月度节奏表</caption>
+    <thead><tr><th>周期</th><th>动作</th><th>产出物</th><th class="mid">承接会议</th></tr></thead>
+    <tbody>
+      <tr><td><b>每周一</b></td><td>房型价差校验（表 F）、未来 8 周预测更新、渠道开关复核（表 H）</td><td>《周度收益报告》</td><td class="mid">周例会</td></tr>
+      <tr><td><b>每周三</b></td><td>竞争组合深度比价（含套餐 / 含早 / 取消政策）</td><td>比价深度表</td><td class="mid">—</td></tr>
+      <tr><td><b>每周五</b></td><td>下周 D1/D2 日重点盯防、周末策略确认</td><td>《周末作战表》</td><td class="mid">—</td></tr>
+      <tr><td><b>每月 1 日</b></td><td>上月复盘（RGI / MPI / ARI 三维诊断）、滚动预测更新</td><td>《月度收益复盘报告》</td><td class="mid">月会预备</td></tr>
+      <tr><td><b>每月 5 日</b></td><td>客源结构分析、渠道贡献与净 RevPAR 分析</td><td>《客源渠道报告》</td><td class="mid">月会预备</td></tr>
+      <tr><td><b>每月 10 日</b></td><td>业主 / 管理层汇报</td><td>汇报 PPT + 一页纸摘要</td><td class="mid">月会</td></tr>
+      <tr><td><b>每季度</b></td><td>竞争组合复核、价格体系重构、协议客户分级</td><td>《季度策略文件》</td><td class="mid">季度会</td></tr>
+      <tr><td><b>每年 9 月</b></td><td>下年度预算编制</td><td>《年度预算文件》</td><td class="mid">预算会</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="callout callout-warn">
+  <span class="co-t">新手最容易漏的三项</span>
+  <ol style="margin:6px 0 0">
+    <li><b>每周五的周末作战表</b>——周末是营收大头，周五不定策略，周一就只能复盘后悔。</li>
+    <li><b>每月 5 日的客源渠道报告</b>——只盯 OCC/ADR 会忽略渠道成本失控，NRevPAR 才是真相。</li>
+    <li><b>每季度的竞争组合复核</b>——竞对会开新店、会换档次，一年不看就失效了。</li>
+  </ol>
+</div>
+
+<!-- ============ 三、一页纸 ============ -->
+<h2 id="s3">三、给业主的一页纸法则</h2>
+<p>
+  业主看您的报告的时间通常<b>不超过 3 分钟</b>。超过一页，他就不会看；不看，您就拿不到资源。
+</p>
+
+<div class="card">
+  <div class="card-title"><span class="ic">▤</span>这一页纸上只能有四样东西</div>
+  <div class="step"><div class="step-num">1</div><div class="step-body">
+    <h4>四个核心数字</h4>
+    <p>OCC / ADR / RevPAR / GOP，每个都要三组对比：<b>实际 vs 预算 vs 去年同期</b>。</p>
+  </div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-body">
+    <h4>三个动作</h4>
+    <p>上个月我做了什么、效果如何。<b>只写三个</b>，多了记不住。</p>
+  </div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-body">
+    <h4>下个月我要做什么</h4>
+    <p>同样三个，每条要能对应到一个具体数字目标。</p>
+  </div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-body">
+    <h4>一个请求</h4>
+    <p>需要业主或总经理批准、支持的一件事。<b>只写一个</b>——写多了等于一个都不提。</p>
+  </div></div>
+</div>
+
+<div class="grid grid-2">
+  <div class="card">
+    <div class="card-title">✕ 反面示例</div>
+    <p style="font-size:13.5px;color:var(--ink-2);margin:0">
+      一份 18 页的 PPT，第 1 页封面，第 2–3 页目录与说明，第 4–15 页是 12 张图表，
+      第 16 页是下月计划，第 17–18 页附录。业主翻到第 4 页就放下了。<br><br>
+      <b>问题：没有结论，没有请求。</b>
+    </p>
+  </div>
+  <div class="card">
+    <div class="card-title">✓ 正面示例（云璟酒店 10 月）</div>
+    <div class="kv" style="margin:0">
+      <div class="kv-row"><div class="kv-k">OCC</div><div class="kv-v">85.2%　预算 85.0%　去年 82.1%</div></div>
+      <div class="kv-row"><div class="kv-k">ADR</div><div class="kv-v">¥706　预算 ¥700　去年 ¥672</div></div>
+      <div class="kv-row"><div class="kv-k">RevPAR</div><div class="kv-v">¥602　预算 ¥595　去年 ¥552</div></div>
+      <div class="kv-row"><div class="kv-k">GOP</div><div class="kv-v">¥298 万　预算 ¥290 万　去年 ¥261 万</div></div>
+    </div>
+    <p style="font-size:13px;margin:10px 0 0;color:var(--ink-2)">
+      <b>做了：</b>① 国庆 7 天提前 30 天锁价，ADR <span class="up">↑18%</span>；
+      ② 关掉批发商，省佣金 ¥12 万；③ 协议客户分级，砍掉 8 家低效客户。<br>
+      <b>下月：</b>① 11 月会展周提价 12%；② OTA 占比从 31% 压到 28%；③ 上线会员专享价。<br>
+      <b>请求：</b>批准 ¥8 万预算，用于小程序直销改造（预计 6 个月回本）。
+    </p>
+  </div>
+</div>
+
+<div class="callout callout-danger">
+  <span class="co-t">最容易被忽略的第四项</span>
+  <p>
+    很多人的汇报停在「下个月我要做什么」，<b>忘了提请求</b>。
+    但月度汇报是您<b>唯一能稳定拿到资源的场合</b>——不提请求，等于放弃了这个机会。<br>
+    请求要具体、要小、要能算回本周期。「给我 8 万做直销改造，6 个月回本」比「希望公司重视直销」强一百倍。
+  </p>
+</div>
+
+<!-- ============ 四、话术 ============ -->
+<h2 id="s4">四、四段话术脚本（可直接照念）</h2>
+<p>
+  这四段话是 L3 学员回去立刻用得上、且别人教不了的东西。
+  <b>课上要让学员站起来念一遍</b>——光看没用，必须开口。
+</p>
+
+<div class="dialogue">
+  <div class="dlg-row">
+    <div class="dlg-who">场景一<br>向总经理汇报未达标</div>
+    <div class="dlg-text">
+      <b>收益：</b>「王总，上月 RevPAR 差预算 6.2%，我先把原因说清楚。」<br>
+      <b>总经理：</b>「差多少？」（打断）<br>
+      <b>收益：</b>「拆开看：量差 −19 万，价差 +11 万，净差 −8 万。<b>是提价提早了，把量打没了。</b>」<br>
+      <b>总经理：</b>「那您为什么提早提价？」<br>
+      <b>收益：</b>「当时 30 天窗口在手领先去年 12%，按表 A 应该提 5%。但后来展会取消了，
+      这部分在手退掉了——这是表 L 的异常事件，我识别晚了两天。」<br>
+      <b>总经理：</b>「这个月怎么办？」<br>
+      <b>收益：</b>「一分为二：前半月保量，按表 A 降到 −3%；后半月会展周按表 A 提到 +12%。
+      目标 RevPAR ¥560，比预算低 2%，但比上月<span class="up">↑9%</span>。」<br>
+      <b>总经理：</b>「行。下周把数据给我看。」<br>
+      <b>收益：</b>「好。另外我需要一件事：展会这类信息，能否让销售每周同步一次给我？」
+    </div>
+  </div>
+</div>
+
+<div class="callout callout-key">
+  <span class="co-t">这段好在哪</span>
+  <p>① 先认账，不找借口；② 用<b>量差价差</b>把问题拆成技术语言，不带情绪；
+  ③ 主动承认自己识别晚了两天的失误（<b>主动认错比被追问出错误体面得多</b>）；
+  ④ 给具体动作和数字目标；⑤ 最后提请求。</p>
+</div>
+
+<div class="dialogue">
+  <div class="dlg-row">
+    <div class="dlg-who">场景二<br>拒绝销售的团队价</div>
+    <div class="dlg-text">
+      <b>销售：</b>「这个团 80 间，¥380 一间，客户跟了三年了，不能拒。」<br>
+      <b>收益：</b>「李总，这个客户我知道，跟了很久，您的辛苦我清楚。」<br>
+      <b>销售：</b>「那您签不签？」<br>
+      <b>收益：</b>「我算笔账给您听：那天预测 OCC 88%，预期散客 ADR ¥680。
+      按表 G，比率 R = 380 ÷ 680 = 56%，落在「55–65%」这一行、OCC&gt;85% 这一列——<b>这一格是拒绝。</b>」<br>
+      <b>销售：</b>「您这是拿表压我。」<br>
+      <b>收益：</b>「不是压您，是给您弹药。您回去跟客户说：80 间 ×（680−380）= <b>置换成本 2 万 4</b>。
+      谈到 ¥520 我立刻签，或者减到 30 间、¥380 也行。」<br>
+      <b>销售：</b>「客户不可能加到 520。」<br>
+      <b>收益：</b>「那就减到 30 间。或者换个日期——11 号那天 OCC 预测只有 61%，¥380 我能给 60 间。」<br>
+      <b>销售：</b>「……行，我先去谈。」
+    </div>
+  </div>
+</div>
+
+<div class="callout callout-do">
+  <span class="co-t">关键技巧：把立场之争变成算术题</span>
+  <p>
+    不要说「公司规定不能接」——这会让销售觉得您在拿制度压人。<br>
+    <b>要说「置换成本 2 万 4，谈到 520 我立刻签」</b>——这把问题变成了客户的报价问题，
+    您和销售站到了同一边。
+  </p>
+</div>
+
+<div class="dialogue">
+  <div class="dlg-row">
+    <div class="dlg-who">场景三<br>解释为什么不跟竞对降价</div>
+    <div class="dlg-text">
+      <b>总经理：</b>「隔壁亚朵 S 降到 480 了，我们还在 620，要不要跟？」<br>
+      <b>收益：</b>「先说数据：我们 MPI 105，份额还在涨——<b>说明客人并没有被他抢走。</b>」<br>
+      <b>总经理：</b>「但他便宜 140 块。」<br>
+      <b>收益：</b>「是。但我们算了：如果跟到 480，全年少收约 300 万。而现在我们的 ARI 是 91，
+      本来就已经略低于竞争组合了，再降就掉到 75 以下——表 C 判定「严重偏低」。」<br>
+      <b>总经理：</b>「那客人跑了怎么办？」<br>
+      <b>收益：</b>「不跟价，<b>加价值</b>：含双早（成本 ¥68/人）、免费升级一档、延迟退房到 14 点。
+      成本不到 ¥150，但客人感知价值超过降价 140。而且不会破坏价格体系。」<br>
+      <b>总经理：</b>「能撑多久？」<br>
+      <b>收益：</b>「给我两周。两周后我拿 MPI 和 Pickup 数据回来复盘，如果份额掉了，我们再议降价。」
+    </div>
+  </div>
+</div>
+
+<div class="dialogue">
+  <div class="dlg-row">
+    <div class="dlg-who">场景四<br>要求前厅配合升级</div>
+    <div class="dlg-text">
+      <b>前厅：</b>「客人是金卡，都站前台了，您不给他升级说不过去吧？」<br>
+      <b>收益：</b>「按表 J，顺序是钻石 &gt; 铂金 &gt; 金 &gt; 银。今天在住的有两位铂金还没升。」<br>
+      <b>前厅：</b>「那两位还没到店啊。」<br>
+      <b>收益：</b>「他们在 18 点前会到。金卡客人我给您另一个方案：<b>双早 + 延迟退房</b>，
+      成本 ¥136，比升级一档（¥140 差价）还低一点，但客人感受到的是两样东西。」<br>
+      <b>前厅：</b>「每次都要找您确认，太麻烦了。」<br>
+      <b>收益：</b>「不用找我。我把表 J 做成一张卡片贴在您们工位上，照着执行就行。
+      只有套房升级才需要问我——每天最多 3 间。」<br>
+      <b>前厅：</b>「那行吧。」<br>
+      <b>收益：</b>「另外，配合得好的话，我月度会上会点名表扬前厅。这个月升级投诉
+      已经从 11 起降到 3 起了，是您们的功劳。」
+    </div>
+  </div>
+</div>
+
+<div class="callout callout-warn">
+  <span class="co-t">四段话术的共同结构</span>
+  <div class="flow" style="margin-top:10px">
+    <div class="flow-item"><div class="fi-t">① 共情</div><div class="fi-d">先承认对方的立场和辛苦</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item"><div class="fi-t">② 算账</div><div class="fi-d">用数据和表说话，不带情绪</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item"><div class="fi-t">③ 给方案</div><div class="fi-d">不只说不行，要给替代方案</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item"><div class="fi-t">④ 留余地</div><div class="fi-d">给观察期、给条件、给台阶</div></div>
+  </div>
+  <p style="margin:10px 0 0"><b>记住这个顺序，任何场景都能套。</b></p>
+</div>
+
+<!-- ============ 五、可视化 ============ -->
+<h2 id="s5">五、数据可视化五条铁律</h2>
+
+<div class="step"><div class="step-num">1</div><div class="step-body">
+  <h4>一图一结论</h4>
+  <p>每张图下面必须写一句话结论。<b>没有结论的图删掉。</b>如果一句话说不清，说明这张图没想清楚。</p>
+</div></div>
+<div class="step"><div class="step-num">2</div><div class="step-body">
+  <h4>涨跌配色：红涨绿跌，且必须带箭头</h4>
+  <p>中国习惯：<span class="up">上涨用红</span>，<span class="down">下跌用绿</span>。
+  但<b>不能只靠颜色</b>——色盲和黑白打印都会失效，所以每个数字都要带 ↑↓ 箭头。</p>
+</div></div>
+<div class="step"><div class="step-num">3</div><div class="step-body">
+  <h4>禁止双轴</h4>
+  <p>OCC 和 ADR 画在一张图用两个纵轴，会让两条线的交点看起来有意义，其实纯属巧合——
+  这是在误导读者。<b>要么分两张图，要么改用 RevPAR 一个指标。</b></p>
+</div></div>
+<div class="step"><div class="step-num">4</div><div class="step-body">
+  <h4>表格不超过 7 行</h4>
+  <p>超过 7 行没人看。<b>要突出重点就只列前 5 名 + 其他 + 合计。</b>
+  完整数据放附件。</p>
+</div></div>
+<div class="step"><div class="step-num">5</div><div class="step-body">
+  <h4>纵轴从 0 开始</h4>
+  <p>截断纵轴会把 2% 的波动画成 50% 的悬崖，这叫<b>图表撒谎</b>。
+  想突出细节，改用表格或标注具体数值。</p>
+</div></div>
+
+<div class="callout callout-key">
+  <span class="co-t">讲师示范：指出这张图错在哪</span>
+  <p>
+    「某酒店月度汇报：一张双轴图，左轴 OCC（50%–90%），右轴 ADR（¥500–¥750），
+    两条线在 7 月交叉。结论写的是『7 月出现拐点，房价与出租率背离』。」<br><br>
+    <b>错在三处：</b>① 用了双轴（违反铁律 3）；② 两个纵轴都截断了（违反铁律 5）；
+    ③ 结论是看图说话，不是看数说话——7 月 OCC 70%、ADR ¥580，RevPAR ¥406，
+    比 6 月的 ¥471 低，<b>真正的问题是 RevPAR 掉了 14%，不是什么「背离」</b>。
+  </p>
+</div>
+
+<!-- ============ 六、讲师示范 ============ -->
+<h2 id="s6">六、讲师示范：一场完整的月度经营分析会</h2>
+<p>以云璟酒店 10 月为例，完整走一遍月会。记住月会铁律：<b>每个数字后面必须跟一个动作</b>。</p>
+<div class="tbl-wrap">
+  <table class="tbl">
+    <caption>云璟 10 月月会 · 90 分钟全流程</caption>
+    <thead><tr><th class="mid" style="width:64px">环节</th><th>讲师动作（可直接照念）</th><th class="mid" style="width:54px">用时</th></tr></thead>
+    <tbody>
+      <tr><td><b>开场</b></td><td>「各位，10 月复盘，90 分钟。我只报结论和动作，细节看群里材料。」</td><td class="mid">1′</td></tr>
+      <tr><td><b>数字</b></td><td>OCC 85.2%（预算 85.0%）<span class="up">达标</span>；ADR ¥706（预算 ¥700）<span class="up">↑0.9%</span>；RevPAR ¥602（预算 ¥595）<span class="up">↑1.2%</span>；GOP ¥298 万（预算 ¥290 万）<span class="up">↑2.8%</span>。</td><td class="mid">8′</td></tr>
+      <tr><td><b>诊断</b></td><td>RGI = 本店 RevPAR ¥602 ÷ 组合 RevPAR ¥545 ×100 = <b>110.5</b> → 综合竞争力领先；MPI 105、ARI 91（略低）。</td><td class="mid">10′</td></tr>
+      <tr><td><b>归因</b></td><td>量差 +¥9 万（国庆锁价提量），价差 −¥3 万（批发商占比偏高），净差 +¥6 万。</td><td class="mid">10′</td></tr>
+      <tr><td><b>动作 1</b></td><td>国庆 7 天提前 30 天锁价，ADR <span class="up">↑18%</span> → <b>延续写进明年预算</b>。</td><td class="mid">12′</td></tr>
+      <tr><td><b>动作 2</b></td><td>OTA 占比 31% 偏高、NRevPAR 被佣金吃掉 → <b>下月压到 28%，申请直销改造预算</b>。</td><td class="mid">12′</td></tr>
+      <tr><td><b>风险</b></td><td>11 月展会周预测 OCC 96%，但竞对 B 新开 40 间 → <b>已设 MinLOS 2 + 关批发商</b>。</td><td class="mid">6′</td></tr>
+      <tr><td><b>请求</b></td><td>「请批准 ¥8 万小程序直销改造预算，6 个月回本。」</td><td class="mid">5′</td></tr>
+      <tr><td><b>收尾</b></td><td>发一页纸摘要，确认下月 10 日会议时间。</td><td class="mid">2′</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="callout callout-key">
+  <span class="co-t">示范要点</span>
+  <p>① 开场先定规矩（只报结论）；② 四个数字都带「实际 vs 预算」；③ 诊断用 RGI / MPI / ARI 三指标；
+  ④ 归因用「量差价差」避免情绪化；⑤ 两个动作都对应具体数字；⑥ 最后落到「一个请求」——这是拿资源的关键。</p>
+</div>
+
+<h2 id="s7">七、学员跟练（4 题）</h2>
+<p>用云璟真实数据独立练。答案在折叠里，<b>先自己做再对</b>。</p>
+
+<div class="ex-q">
+  <div class="q-t">跟练 1</div>
+  <div class="q-b">给您一组数字：本月 OCC 79.0%（预算 82.0%）、ADR ¥612（预算 ¥610）、GOP ¥241 万（预算 ¥255 万）。月会上您先报哪句话？为什么？</div>
+  <details class="ex-a"><summary>参考思路</summary><div class="a-body">
+    先报结论：<b>OCC 差预算 3 个百分点、GOP 差 14 万，是本月主要缺口</b>；ADR 基本达标，所以问题在「量」不在「价」。
+    按话术四步：共情（承认没达标）→ 算账（量差为主）→ 给方案（保量：开闪购 / 长住产品）→ 留余地（两周后复盘 MPI 与 Pickup）。
+  </div></details>
+</div>
+
+<div class="ex-q">
+  <div class="q-t">跟练 2</div>
+  <div class="q-b">总经理要求把月报从 18 页 PPT 改成「一页纸」。您保留哪四样？如果只能留两个数字，留哪两个？</div>
+  <details class="ex-a"><summary>参考思路</summary><div class="a-body">
+    保留四样：① 四个核心数字（OCC / ADR / RevPAR / GOP 各带实际 vs 预算 vs 去年）；② 三个动作；③ 下月三个计划；④ 一个请求。<br><br>
+    若只留两个数字，留 <b>RevPAR</b>（第一指标）和 <b>GOP</b>（最终考核）——一个看收益效率，一个看赚钱能力，业主最关心后者。
+  </div></details>
+</div>
+
+<div class="ex-q">
+  <div class="q-t">跟练 3</div>
+  <div class="q-b">周会上销售拿来一个 60 间、¥430 的团，入住日预测 OCC 90%、预期散客 ADR ¥700。按表 G 您当场怎么判？话术第一步说什么？</div>
+  <details class="ex-a"><summary>参考思路</summary><div class="a-body">
+    R = 430 ÷ 700 = <b>61.4%</b>，落在「55% ≤ R &lt; 65%」行；预测 OCC 90% 落在「&gt;85%」列 → <b>拒绝</b>（表 G）。<br><br>
+    话术第一步<b>共情</b>：「这个客户跟您很久，您的辛苦我清楚。」<br>
+    第二步<b>算账</b>：置换成本 = 60 ×(700−430) = 1 万 6，谈到 ¥560 我立刻签，或减到 20 间、¥430 也行。
+  </div></details>
+</div>
+
+<div class="ex-q">
+  <div class="q-t">跟练 4</div>
+  <div class="q-b">一张月报图：双轴，左轴 OCC、右轴 ADR，两条线 8 月交叉，结论写「8 月量价背离」。您作为听众第一句问什么？</div>
+  <details class="ex-a"><summary>参考思路</summary><div class="a-body">
+    第一句：<b>「RevPAR 8 月是多少？比 7 月高还是低？」</b>——把问题拉回唯一指标。<br><br>
+    若 8 月 OCC 72%、ADR ¥590，RevPAR = ¥425，比 7 月 ¥471 低 9.8%，则真实结论是「RevPAR 下滑近 10%，需查表 L 是否有异常事件」，而不是什么「背离」。
+    这正好命中可视化铁律 1（一图一结论）和铁律 3（禁双轴）。
+  </div></details>
+</div>
+
+<!-- ============ 随堂测 ============ -->
+<h2 id="quiz">八、随堂测（5 题）</h2>
+
+<div class="ex-q">
+  <div class="q-t">第 1 题</div>
+  <div class="q-b">每日收益晨会的铁律是什么？为什么要这样规定？</div>
+  <details class="ex-a"><summary>查看答案</summary><div class="a-body">
+    <b>站着开，15 分钟必须结束。</b><br>
+    原因：站着开人会有时间压力，不会跑题、不会超时。有人坐下就说明话题已经偏离日常执行，
+    应该转为会后单独讨论。晨会的目的是<b>同步信息和分配动作</b>，不是讨论问题。
+  </div></details>
+</div>
+
+<div class="ex-q">
+  <div class="q-t">第 2 题</div>
+  <div class="q-b">给业主的一页纸上必须有哪四样东西？哪一样最容易被忽略？</div>
+  <details class="ex-a"><summary>查看答案</summary><div class="a-body">
+    ① 四个核心数字（OCC / ADR / RevPAR / GOP，实际 vs 预算 vs 去年）；
+    ② 三个动作（上月做了什么、效果）；③ 下月要做什么；④ <b>一个请求</b>。<br><br>
+    <b>第四项「一个请求」最容易被忽略。</b>但月度汇报是唯一能稳定拿到资源的场合，
+    不提请求等于放弃机会。请求要具体、要小、要能算出回本周期。
+  </div></details>
+</div>
+
+<div class="ex-q">
+  <div class="q-t">第 3 题</div>
+  <div class="q-b">销售拿来一个 80 间 ¥380 的团，入住日预测 OCC 88%、预期散客 ADR ¥680。
+  按《法典》表 G 该怎么判？您准备怎么跟销售说？</div>
+  <details class="ex-a"><summary>查看答案</summary><div class="a-body">
+    比率 R = 380 ÷ 680 = <b>55.9%</b>，落在「55% ≤ R &lt; 65%」这一行；
+    预测 OCC 88% 落在「&gt;85%」这一列 → <b>拒绝</b>（依据《法典》表 G）。<br><br>
+    跟销售说：<b>先共情</b>（「这个客户跟了三年，您的辛苦我清楚」）→
+    <b>再算账</b>（「置换成本 = 80 ×(680−380) = 2 万 4」）→
+    <b>给方案</b>（「谈到 ¥520 我立刻签，或者减到 30 间，或者换到 11 号那天 OCC 61% 的日子」）→
+    <b>留余地</b>（「如果战略意义大，我们报 L3 一起评估」）。
+  </div></details>
+</div>
+
+<div class="ex-q">
+  <div class="q-t">第 4 题</div>
+  <div class="q-b">总经理要求跟竞对降价到 ¥480（本店现价 ¥620，竞争组合均价 ¥680）。
+  按《法典》表 C 现在本店 ARI 是多少？跟降到 480 后 ARI 会变成多少、判定是什么？</div>
+  <details class="ex-a"><summary>查看答案</summary><div class="a-body">
+    现在 ARI = 620 ÷ 680 × 100 = <b>91.2</b> → 落在「90–97」档，判定<b>略低</b>；
+    预测 OCC ≥80% 才提 3%，否则维持。<br><br>
+    跟降到 480 后 ARI = 480 ÷ 680 × 100 = <b>70.6</b> → 落在「&lt;80」档，判定<b>严重偏低</b>，
+    按表 C 反而应该<b>提价 8%</b>。<br><br>
+    <b>所以不该跟。</b>正确做法是加价值（含早、升级、延迟退房）而不是降价，
+    并给总经理一个两周的观察期，用 MPI 和 Pickup 数据复盘。
+  </div></details>
+</div>
+
+<div class="ex-q">
+  <div class="q-t">第 5 题</div>
+  <div class="q-b">指出这张图的问题：「双轴图，左轴 OCC 50%–90%，右轴 ADR ¥500–¥750，
+  7 月两线交叉，结论写『7 月出现拐点，房价与出租率背离』」。</div>
+  <details class="ex-a"><summary>查看答案</summary><div class="a-body">
+    违反三条铁律：<br>
+    ① <b>用了双轴</b>（铁律 3）——两条线的交点纯属坐标巧合，没有业务含义；<br>
+    ② <b>两个纵轴都截断</b>（铁律 5）——把小幅波动画成了悬崖，属于图表撒谎；<br>
+    ③ <b>结论是看图说话</b>（铁律 1）——真正的数字是：7 月 OCC 70%、ADR ¥580、
+    RevPAR ¥406，比 6 月 ¥471 低 14%。<b>结论应该是「7 月 RevPAR 下滑 14%，
+    量价双失，需查表 L 是否有异常事件」，而不是什么「背离」。</b>
+  </div></details>
+</div>
+
+<h2 id="memo">九、判定表默写清单</h2>
+<p>本模块结业前，必须能不翻资料默写以下条目：</p>
+<ul class="checklist">
+  <li>三层会议时间铁律：晨会每日 10:05 站着 15′；周会周一 14:00「只决策不讨论」；月会每月 10 日 09:00「数字后必跟动作」。</li>
+  <li>一页纸四要素：4 个数字（实际 vs 预算 vs 去年）+ 3 个动作 + 3 个计划 + 1 个请求；最易漏的是「请求」。</li>
+  <li>话术四步顺序：共情 → 算账 → 给方案 → 留余地；把立场之争变成算术题。</li>
+  <li>表 N 三件最易漏：周五周末作战表、每月 5 日客源渠道报告（看 NRevPAR）、每季度竞争组合复核。</li>
+  <li>可视化五铁律：一图一结论、红涨绿跌带箭头、禁双轴、表≤7 行、纵轴从 0。</li>
+</ul>
+
+<div class="callout callout-do">
+  <span class="co-t">本模块产出物</span>
+  <ul style="margin:6px 0 0">
+    <li>三份会议议程（晨会 / 周会 / 月会）——可直接打印使用</li>
+    <li>一份给业主的一页纸汇报（用您酒店上月真实数据）</li>
+    <li>四段话术——<b>课上站起来各念一遍</b></li>
+  </ul>
+</div>
+
+<div class="pager">
+  <a href="v2026-4-cert-m11.html"><div class="p-dir">← 上一模块</div><div class="p-title">M11 年度预算与滚动预测</div></a>
+  <a href="v2026-4-cert-m13.html" class="p-next"><div class="p-dir">下一模块 →</div><div class="p-title">M13 跨部门协同与变革推动</div></a>
+</div>
+
+
+<div class="unit" id="unit"><div class="u-k">增补授课单元 · v2026.4</div><h2>全口径置换成本与业主汇报</h2><p>原有会议收益与汇报结构继续有效。本版把「综合贡献」与「置换成本」统一到同一口径，补上 wash、肩部夜与空间机会成本，并给出会议×团队的唯一裁决。</p><h3>分子分母必须同为全口径</h3><p>旧材料里综合贡献含餐饮会场，破例阈值却是纯客房口径，导致「用表 G 拒掉会议、白白丢掉十几万餐饮收入」。本版要求分子（客房 + 非客房综合贡献）与分母（被挤掉的全部收入，含非客房）同为全口径，并计入空间机会成本。</p><h3>团体询价要逐日算</h3><p>团队报价须拆到肩部夜，按历史估计 wash 率（未实际到店 / 取消比例），核算房型蚕食与非客房贡献；跨越不同需求等级的多日团队逐日分别判定，不得按平均 OCC 一次裁决。</p><h3>业主汇报用结果指标</h3><p>汇报口径改为 GOPPAR、NRevPAR、Flow-Through 与净贡献，不用 OCC 或 RevPAR 单独解释策略成败；同时给出预测误差 MAPE 与调价命中率，说明策略如何被复盘与校准。</p><h3>报价单要拆到日</h3><p>会议与团队报价常常只给一个总价和总间夜，这不足以做置换分析。须按日拆客房需求、会场占用时段、餐饮保底与预计 wash，才能和逐日的容量机会成本对齐。跨 D1–D4 不同需求等级的多日团队，逐日分别判定；把高需求日与低需求日平均成一个 OCC，会系统性低估高需求日的挤占损失。</p><h3>汇报材料的结构</h3><p>给业主的材料先给结论指标（GOPPAR、Flow-Through、净贡献），再给驱动拆解（客源、渠道、价格、成本），最后给预测质量与执行质量（MAPE、调价命中率、冲突裁决次数）。每段都带上期对比与下一步校准动作。只报 OCC 与 RevPAR 的汇报，无法解释「增收不增利」，也无法证明策略可被复盘。</p><div class="tbl-wrap"><table class="tbl"><caption>表 U12-1　会议 / 团队综合贡献与置换成本<span class="cap-note">两表共用同一置换成本定义</span></caption><thead><tr><th>项</th><th>计入</th><th>口径</th></tr></thead><tbody><tr><td>客房收入</td><td>分子</td><td>团队报价 × 间夜 × (1 − wash 率)</td></tr><tr><td>餐饮 / 会场 / 其他</td><td>分子</td><td>按保底与实际孰低，逐日拆分</td></tr><tr><td>肩部夜贡献</td><td>分子</td><td>前后夜的额外需求或空档损失</td></tr><tr><td>被挤掉的散客收入</td><td>分母</td><td>按房型与需求等级逐日估</td></tr><tr><td>被挤掉的非客房收入</td><td>分母</td><td>同一时段其他活动的贡献</td></tr><tr><td>容量机会成本</td><td>分母</td><td>bid price：留给高需求散客的边际收益</td></tr><tr><td>空间机会成本</td><td>分母</td><td>RevPASH / RevPAM：场地改作他用的贡献</td></tr></tbody></table></div><div class="formula"><span class="f-label">算例 U12-A　接受条件</span>期望净贡献 = 客房 + 非客房 + 肩部夜 − wash 损失<br>综合置换成本 = 被挤掉的散客 + 非客房 + 容量机会成本 + 空间机会成本<br>接受条件：期望净贡献 ≥ 综合置换成本 + 安全余量　→　<span class="f-out">接受 / 还盘 / 拒绝</span></div><div class="callout callout-danger"><span class="co-t">口径不一致的判定无效</span>分子用全口径、分母用纯客房，会系统性高估会议价值；发现即退回重算，不得按平均 OCC 一次裁决。</div><div class="callout callout-key"><span class="co-t">会议×团队冲突</span>表 G 与表 K 同日竞争房量时按表 O 的「会议×团队」组裁决，不各自单独接受；未采纳结论写入观察清单。</div><div class="callout callout-do"><span class="co-t">业主汇报三件套</span>结果指标（GOPPAR / Flow-Through）、预测质量（MAPE）、执行质量（调价命中率）；每项都给出上期对比与校准动作。</div><h3>课堂练习与参考答案</h3><div class="ex-q"><p><b>练习 1　</b>团队报价含餐饮 ¥120,000，置换成本只算客房 ¥80,000，能否接受？</p><p class="card-note"><b>答案与评分要点</b>　不能判定。须把非客房收入、容量与空间机会成本一并计入分母，统一全口径后重算。</p></div><div class="ex-q"><p><b>练习 2　</b>写出 wash 率与肩部夜为什么要进团队判定。</p><p class="card-note"><b>答案与评分要点</b>　团队未实际到店会高估间夜；前后夜需求变化会改变真实机会成本，不拆会误接亏本团。</p></div><div class="ex-q"><p><b>练习 3　</b>汇报时 RevPAR 上升但 Flow-Through 下降，怎么解释？</p><p class="card-note"><b>答案与评分要点</b>　说明增收未转成增利，可能是渠道成本上升或折扣泄漏；须给出净贡献与渠道结构拆解。</p></div><p style="font-size:12.8px;color:#7B8794;margin-top:18px">关联资产：表 G / K / O / N · v2026-2-decision-tables.html 表 G / K　｜　应用校正：RM-04、RM-12、RM-15、SYS-15</p></div>
+<div class="cert-foot">RMC · v2026.4 · 行业实操认证培训 · 2026-11-07 · 门内 noindex · 先备份再出新版本，原有资料未覆盖 · <span style="color:#7B8794">RMC即RMCity（即Revenue Management Community收益管理社区）</span> · <a href="v2026-4-cert-index.html">培训总索引</a> · <a href="v2026-4-cert-pathway.html">L123 认证路径</a> · <a href="v2026-4-cert-exam.html">考评规范</a> · <a href="v2026-2-rules.json">唯一真源</a> · <a href="../curriculum.html">旧版教案总纲</a> · <a href="../deliverables-ledger.html">产出物总台账</a></div>
+</div>
+<div id="rm-toc-drawer" style="display:none"></div>
+</body>
+</html>
