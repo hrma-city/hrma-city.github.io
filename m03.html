@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>M03 每日操作流水线 · RMC 收益管理社区</title>
 <link rel="stylesheet" href="assets/css/main.css?v=v2">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC 收益管理社区","alternateName":["RMC即RMCity（即Revenue Management Community收益管理社区）","CRMC"],"url":"https://hrma-city.github.io/","description":"RMC 收益管理社区。覆盖住宿、餐饮、航空、景区、娱乐、剧院六大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC 收益管理社区","alternateName":["RMC即RMCity（即Revenue Management Community收益管理社区）","CRMC"],"url":"https://hrma-city.github.io/","description":"RMC 收益管理社区。覆盖住宿、餐饮、航空、景区、娱乐、剧院六大行业，提供知识体系教学、情境游戏、行业交流、三级课程结业证明与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC 收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"courses","item":"https://hrma-city.github.io/m03.html"},{"@type":"ListItem","position":3,"name":"m03-dailyops","item":"https://hrma-city.github.io/m03.html"}]}</script>
 <link rel="stylesheet" href="assets/css/auth.css">
@@ -73,7 +73,7 @@
     <ul>
       <li>能<b>背出</b> 《法典》表 M 的 9 个时段、每个时段的动作、产出物与耗时上限，逐字不差</li>
       <li>能<b>背出</b> 《法典》表 A（6 行 × 5 列价格调整判定矩阵）与表 B（5 行库存与限制条件配置表）的全部格值，10 分钟内默完</li>
-      <li>能<b>独立执行</b> 从「看数」到「记录」的完整四步闭环：给定目标日的预测 OCC 与 Pickup 偏差，查表读出唯一动作，算出新价格，并落位到 7 档房型</li>
+      <li>能<b>独立执行</b> 从「看数」到「记录」的完整四步闭环：给定目标日的预测 OCC 与 Pace 偏差，查表读出唯一动作，算出新价格，并落位到 7 档房型</li>
       <li>能<b>独立执行</b> 4 类动作的系统无关落位：调价、设 MinLOS、关渠道、开超售（含《法典》表 E 的三步计算）</li>
       <li>能<b>独立执行</b> 价格一致性（Rate Parity）6 步核查，并在发现违规时按整改 SOP 完成处置与留痕</li>
       <li>能<b>填写</b> 《今日动作清单》与《调价台账》，做到每条动作都能追溯到触发表编号</li>
@@ -176,7 +176,7 @@
   <div class="card">
     <div class="card-title"><span class="ic">2</span>07:50　抓取未来 30 天在手 + Pickup<span class="pill pill-navy">上限 20 min</span></div>
     <div class="kv">
-      <div class="kv-row"><div class="kv-k">做什么</div><div class="kv-v">导出未来 30 天逐日在手房晚与去年同期同一提前窗口在手房晚，计算 Pickup 偏差与预测 OCC</div></div>
+      <div class="kv-row"><div class="kv-k">做什么</div><div class="kv-v">导出未来 30 天逐日在手房晚与去年同期同一提前窗口在手房晚，计算 Pace 偏差与预测 OCC</div></div>
       <div class="kv-row"><div class="kv-k">看哪些数</div><div class="kv-v">当日可售房晚、当前在手、去年同期同窗口在手、Pickup 绝对增量、预测增量、需求等级代号（D1–D4）、当前 10 个房型 BAR</div></div>
       <div class="kv-row"><div class="kv-k">查哪张表</div><div class="kv-v"><b>《法典》表 I</b>（预订窗口分档监控表）：按 0–3 / 4–7 / 8–14 / 15–30 / 31–60 / &gt;60 天六个窗口，分别用「落后 10% / 10% / 15% / 20% / 25% / 30%」的阈值判定是否需要关注</div></div>
       <div class="kv-row"><div class="kv-k">产出什么</div><div class="kv-v">Pickup 表更新（30 行，每行含：目标日 / 可售 / 在手 / 去年同期 / 偏差 / 预测增量 / 预测 OCC / 需求等级）</div></div>
@@ -213,7 +213,7 @@
     <div class="card-title"><span class="ic">4</span>08:30　逐日查表 A/B/C/H，得出动作清单<span class="pill pill-amber">上限 40 min · 本模块核心</span></div>
     <div class="kv">
       <div class="kv-row"><div class="kv-k">做什么</div><div class="kv-v">对需要动作的目标日，依次查表 A（价格）、表 B（库存）、表 C（ARI）、表 H（渠道），用《法典》表 O 仲裁冲突，生成《今日动作清单》</div></div>
-      <div class="kv-row"><div class="kv-k">看哪些数</div><div class="kv-v">预测 OCC、Pickup 偏差、当前 BAR、ARI、MPI、需求等级、当前 MinLOS / CTA / 渠道开关状态</div></div>
+      <div class="kv-row"><div class="kv-k">看哪些数</div><div class="kv-v">预测 OCC、Pace 偏差、当前 BAR、ARI、MPI、需求等级、当前 MinLOS / CTA / 渠道开关状态</div></div>
       <div class="kv-row"><div class="kv-k">查哪张表</div><div class="kv-v"><b>表 A → 表 B → 表 C → 表 H</b>（按《法典》表 O 的优先级 2/3/4/5 顺序查），冲突时按表 O 仲裁；另行核查表 L（异常事件）是否触发</div></div>
       <div class="kv-row"><div class="kv-k">产出什么</div><div class="kv-v">《今日动作清单》（每条含：目标日 / 动作类型 / 触发表编号 / 调整前 / 调整后 / 执行人 / 是否需 L3 审批）</div></div>
       <div class="kv-row"><div class="kv-k">合格标准</div><div class="kv-v"><ul class="checklist" style="margin:0">
@@ -266,7 +266,7 @@
     <div class="card-title"><span class="ic">7</span>09:55　写入《调价台账》<span class="pill pill-navy">上限 10 min</span></div>
     <div class="kv">
       <div class="kv-row"><div class="kv-k">做什么</div><div class="kv-v">把当日全部动作逐条写入《调价台账》，11 个必填字段齐全（字段设计详见 M04）</div></div>
-      <div class="kv-row"><div class="kv-k">看哪些数</div><div class="kv-v">日期 / 目标日 / 动作类型 / 调整前 / 调整后 / 触发表编号 / OCC 预测 / Pickup 偏差 / 执行人 / 复核人 / 结果回填</div></div>
+      <div class="kv-row"><div class="kv-k">看哪些数</div><div class="kv-v">日期 / 目标日 / 动作类型 / 调整前 / 调整后 / 触发表编号 / OCC 预测 / Pace 偏差 / 执行人 / 复核人 / 结果回填</div></div>
       <div class="kv-row"><div class="kv-k">查哪张表</div><div class="kv-v">不查表；若本日存在多表冲突，备注栏必须写明仲裁依据（表 O）与被搁置的动作</div></div>
       <div class="kv-row"><div class="kv-k">产出什么</div><div class="kv-v">《调价台账》当日新增条目</div></div>
       <div class="kv-row"><div class="kv-k">合格标准</div><div class="kv-v"><ul class="checklist" style="margin:0">
@@ -317,15 +317,15 @@
   <div class="callout callout-key">
     <span class="co-t">两个输入（缺一不可）</span>
     <p><b>输入 1 · 目标日当前预测 OCC</b> =（在手房晚 + 预测增量房晚）÷ 可售房晚 × 100%　→ 决定<b>行</b><br>
-    <b>输入 2 · Pickup 偏差</b> =（当前在手房晚 − 去年同期同一提前窗口在手房晚）÷ 去年同期在手房晚 × 100%　→ 决定<b>列</b></p>
+    <b>输入 2 · Pace 偏差</b> =（当前在手房晚 − 去年同期同一提前窗口在手房晚）÷ 去年同期在手房晚 × 100%　→ 决定<b>列</b></p>
   </div>
 
   <div class="tbl-wrap">
     <table class="tbl tbl-matrix">
-      <caption><span class="badge-codex">表 A</span>　每日价格调整判定表（双因子矩阵）<span class="cap-note">行＝预测 OCC（6 档），列＝Pickup 偏差（5 档），共 30 格。格内为 BAR 调整幅度</span></caption>
+      <caption><span class="badge-codex">表 A</span>　每日价格调整判定表（双因子矩阵）<span class="cap-note">行＝预测 OCC（6 档），列＝Pace 偏差（5 档），共 30 格。格内为 BAR 调整幅度</span></caption>
       <thead>
         <tr>
-          <th>预测 OCC ＼ Pickup 偏差</th>
+          <th>预测 OCC ＼ Pace 偏差</th>
           <th>落后 &gt;10%</th><th>落后 3–10%</th><th>持平 ±3%</th><th>领先 3–10%</th><th>领先 &gt;10%</th>
         </tr>
       </thead>
@@ -424,12 +424,12 @@
 
   <div class="step"><div class="step-num">1</div><div class="step-body">
     <h4>取两个输入</h4>
-    <p>预测 OCC（保留一位小数）、Pickup 偏差（保留一位小数，写明「落后 / 领先」）。两个数都来自 07:50 的 Pickup 表。</p>
+    <p>预测 OCC（保留一位小数）、Pace 偏差（保留一位小数，写明「落后 / 领先」）。两个数都来自 07:50 的 Pickup 表。</p>
   </div></div>
 
   <div class="step"><div class="step-num">2</div><div class="step-body">
     <h4>定行、定列、读格</h4>
-    <p>预测 OCC → 行；Pickup 偏差 → 列；交点即动作。<b>用手指或光标物理地沿着行列划过去</b>，不要凭印象跳读——这是新人最常犯的错。</p>
+    <p>预测 OCC → 行；Pace 偏差 → 列；交点即动作。<b>用手指或光标物理地沿着行列划过去</b>，不要凭印象跳读——这是新人最常犯的错。</p>
   </div></div>
 
   <div class="step"><div class="step-num">3</div><div class="step-body">
@@ -609,8 +609,8 @@
       <span class="f-label">输入 1 · 预测 OCC</span>
       预测 OCC =（在手 187 + 预测增量 57）÷ 可售 292 × 100% = 244 ÷ 292 × 100% → <span class="f-out">83.6%</span><br>
       <br>
-      <span class="f-label">输入 2 · Pickup 偏差</span>
-      Pickup 偏差 =（187 − 199）÷ 199 × 100% = −12 ÷ 199 × 100% → <span class="f-out">落后 6.0%</span>
+      <span class="f-label">输入 2 · Pace 偏差</span>
+      Pace 偏差 =（187 − 199）÷ 199 × 100% = −12 ÷ 199 × 100% → <span class="f-out">落后 6.0%</span>
     </div>
 
     <h4>第 2 步 · 查表 A</h4>
@@ -702,7 +702,7 @@
           <tr><td>调整后</td><td>SUP-K/SUP-T ¥660（7 档整表见截图 F1016-02）</td></tr>
           <tr><td>触发表编号</td><td><b>表 A</b>（行 70–85% × 列 落后 3–10%）</td></tr>
           <tr><td>OCC 预测</td><td>78.2%</td></tr>
-          <tr><td>Pickup 偏差</td><td>落后 6.0%</td></tr>
+          <tr><td>Pace 偏差</td><td>落后 6.0%</td></tr>
           <tr><td>执行人</td><td>收益专员 XXX（L1）</td></tr>
           <tr><td>复核人</td><td>收益主管 XXX（L2）— 非 D1 日，无需 L3 审批</td></tr>
           <tr><td>结果回填</td><td>（30 天后回填：实际 OCC / 实际 ADR / 是否命中）</td></tr>
@@ -734,7 +734,7 @@
       <span class="f-label">输入 1 · 预测 OCC</span>
       （302 + 5）÷ 300 × 100% = 307 ÷ 300 × 100% → <span class="f-out">102.3%</span><br>
       <br>
-      <span class="f-label">输入 2 · Pickup 偏差</span>
+      <span class="f-label">输入 2 · Pace 偏差</span>
       （302 − 266）÷ 266 × 100% = 36 ÷ 266 × 100% → <span class="f-out">领先 13.5%</span>
     </div>
 
@@ -836,7 +836,7 @@
       <span class="f-label">输入 1 · 预测 OCC</span>
       （118 + 17）÷ 300 × 100% = 135 ÷ 300 × 100% → <span class="f-out">45.0%</span><br>
       <br>
-      <span class="f-label">输入 2 · Pickup 偏差</span>
+      <span class="f-label">输入 2 · Pace 偏差</span>
       （118 − 141）÷ 141 × 100% = −23 ÷ 141 × 100% → <span class="f-out">落后 16.3%</span>
     </div>
 
@@ -942,7 +942,7 @@
       <span class="f-label">输入 1 · 预测 OCC</span>
       （285 + 10）÷ 300 × 100% = 295 ÷ 300 × 100% → <span class="f-out">98.3%</span><br>
       <br>
-      <span class="f-label">输入 2 · Pickup 偏差</span>
+      <span class="f-label">输入 2 · Pace 偏差</span>
       （285 − 282）÷ 282 × 100% = 3 ÷ 282 × 100% → <span class="f-out">领先 1.1%</span>
     </div>
 
@@ -1240,9 +1240,9 @@
 
   <div class="ex-q">
     <div class="q-t">场景 1 · 平峰日综合查表</div>
-    <div class="q-b">目标日：11 月 12 日（周三，D3 平峰日）。可售房晚 300（OOO 0）；当前在手 210；去年同期同窗口在手 224；预测增量 30；当前 SUP-K/SUP-T BAR ¥680；竞争组合加权 ADR ¥691.7、加权 OCC 70.0%。<br>请：① 算预测 OCC 与 Pickup 偏差；② 查表 A 得出动作与新价（7 档房型）；③ 查表 B 得出 4 项库存配置；④ 查表 C 与表 D，并按表 O 仲裁；⑤ 写出该日超售上限（表 E，已知 No-show+24h 取消 = 8%，担保占比 55%，会议团队 20%，协议集中度 45%，有备用酒店）。</div>
+    <div class="q-b">目标日：11 月 12 日（周三，D3 平峰日）。可售房晚 300（OOO 0）；当前在手 210；去年同期同窗口在手 224；预测增量 30；当前 SUP-K/SUP-T BAR ¥680；竞争组合加权 ADR ¥691.7、加权 OCC 70.0%。<br>请：① 算预测 OCC 与 Pace 偏差；② 查表 A 得出动作与新价（7 档房型）；③ 查表 B 得出 4 项库存配置；④ 查表 C 与表 D，并按表 O 仲裁；⑤ 写出该日超售上限（表 E，已知 No-show+24h 取消 = 8%，担保占比 55%，会议团队 20%，协议集中度 45%，有备用酒店）。</div>
     <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
-      <b>①</b> 预测 OCC =（210+30）÷300 = 240÷300 = <b>80.0%</b>；Pickup 偏差 =（210−224）÷224 = −14÷224 = <b>落后 6.3%</b><br>
+      <b>①</b> 预测 OCC =（210+30）÷300 = 240÷300 = <b>80.0%</b>；Pace 偏差 =（210−224）÷224 = −14÷224 = <b>落后 6.3%</b><br>
       <b>② 表 A：</b>行「70–85%」× 列「落后 3–10%」→ <span class="down">↓3%</span>。新价 SUP = 680×0.97 = 659.6 → <b>¥660</b>。7 档同步：STD ¥563 / SUP ¥660 / DLX ¥795 / DLX-V ¥931 / EXE ¥960 / STE-B ¥1,242 / STE-E ¥1,824。<br>
       约束校验：累计 ↓3% ≤20% ✓；第 1 次 ✓；3% ≥3% ✓；30min 核查 ✓；非 D1 无需 L3 ✓ → <b>可执行</b>。<br>
       <b>③ 表 B（70–85% 行）：</b>MinLOS <b>1 晚（清空）</b>；CTA <b>否</b>；低价渠道 <b>全开</b>；超售 <b>按表 E</b>。<br>
@@ -1256,7 +1256,7 @@
     <div class="q-t">场景 2 · 峰值日 + L3 审批</div>
     <div class="q-b">目标日：5 月 2 日（五一假期第 2 天，D1 峰值日）。可售 300；在手 300；去年同期同窗口在手 268；预测增量 8；当前 SUP BAR ¥1,020；竞争组合加权 ADR ¥1,060、加权 OCC 93.0%。<br>请：① 查表 A 并算出新价；② 逐条过 5 条执行约束，指出哪一条是前置条件；③ 查表 B 与表 H（≥95% 行）写出全部动作；④ 若表 C 判定为「略低 → 预测 OCC≥80% → 提 3%」，请按表 O 说明是否执行。</div>
     <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
-      <b>①</b> 预测 OCC =（300+8）÷300 = 308÷300 = <b>102.7%</b> →「≥95%」行；Pickup 偏差 =（300−268）÷268 = 32÷268 = <b>领先 11.9%</b> →「领先 &gt;10%」列。<br>
+      <b>①</b> 预测 OCC =（300+8）÷300 = 308÷300 = <b>102.7%</b> →「≥95%」行；Pace 偏差 =（300−268）÷268 = 32÷268 = <b>领先 11.9%</b> →「领先 &gt;10%」列。<br>
       表 A 读格 → <span class="up">↑20%</span>。新价 = 1,020×1.20 = <b>¥1,224</b>。<br>
       <b>② 五条约束：</b>1) 累计 ↑20% = 上限，<b>通过但当日不得再上调</b>；2) 第 1 次 ✓；3) 20%≥3% ✓；4) 30min 内核查 ✓；<b>5) 本日为 D1 峰值日 → 必须 L3 审批，且是「前置条件」——未取得审批不得落位</b>。<br>
       <b>③ 表 B（≥95%）：</b>MinLOS = <b>3 晚</b>（D1 峰值日）；CTA <b>启用</b>；关闭<b>尾房特惠 / 团购 / 批发商</b>；<b>不超售</b>。<br>
@@ -1269,7 +1269,7 @@
     <div class="q-t">场景 3 · 低谷日 + 表 A 与表 D 冲突</div>
     <div class="q-b">目标日：1 月 14 日（周二，D4 低谷日）。可售 300；在手 96；去年同期同窗口在手 120；预测增量 24；当前 SUP BAR ¥520；竞争组合加权 ADR ¥600、加权 OCC 52.0%；48h Pickup 落后 18.0%。<br>请：① 查表 A 得出动作与新价；② 查表 B 与表 H；③ 查表 C 与表 D；④ 按表 O 仲裁，并说明表 D 组合包中哪些动作执行、哪些不执行。</div>
     <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
-      <b>①</b> 预测 OCC =（96+24）÷300 = 120÷300 = <b>40.0%</b> →「<b>&lt;40%</b>」行；Pickup 偏差 =（96−120）÷120 = −24÷120 = <b>落后 20.0%</b> →「落后 &gt;10%」列。<br>
+      <b>①</b> 预测 OCC =（96+24）÷300 = 120÷300 = <b>40.0%</b> →「<b>&lt;40%</b>」行；Pace 偏差 =（96−120）÷120 = −24÷120 = <b>落后 20.0%</b> →「落后 &gt;10%」列。<br>
       表 A 读格 → <span class="down">↓20%</span>。新价 = 520×0.80 = <b>¥416</b>。<br>
       约束：累计 ↓20% = 上限 ✓；第 1 次 ✓；20%≥3% ✓；非 D1 无需 L3 ✓。<br>
       <b>注意：</b>新价 ¥416 已低于 D4 系数下限（680×70% = ¥476），说明需求显著偏离常规低谷。<b>核查表 L：48h Pickup 落后 18.0%，未达「&gt;40%」阈值 → 不触发表 L 需求暴跌</b>，继续按表 A 执行。<br>

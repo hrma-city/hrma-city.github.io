@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>M06 价格体系设计 · RMC 收益管理社区</title>
 <link rel="stylesheet" href="assets/css/main.css?v=v2">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC 收益管理社区","alternateName":["RMC即RMCity（即Revenue Management Community收益管理社区）","CRMC"],"url":"https://hrma-city.github.io/","description":"RMC 收益管理社区。覆盖住宿、餐饮、航空、景区、娱乐、剧院六大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC 收益管理社区","alternateName":["RMC即RMCity（即Revenue Management Community收益管理社区）","CRMC"],"url":"https://hrma-city.github.io/","description":"RMC 收益管理社区。覆盖住宿、餐饮、航空、景区、娱乐、剧院六大行业，提供知识体系教学、情境游戏、行业交流、三级课程结业证明与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC 收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"courses","item":"https://hrma-city.github.io/m06.html"},{"@type":"ListItem","position":3,"name":"m06-pricing","item":"https://hrma-city.github.io/m06.html"}]}</script>
 <link rel="stylesheet" href="assets/css/auth.css">
@@ -77,7 +77,7 @@
       <li>能<b>算出</b>会员价、协议价、早鸟价、最后一刻价、套餐价、长住价六类衍生价格，并说出各自的定价公式</li>
       <li>能<b>判断</b>任意折扣应由哪一级审批（L1 / L2 / L3），并说出 D1 峰值日的特殊审批规则</li>
     </ul>
-    <p class="card-note">前置要求：M01 指标语言（ADR／RevPAR 口径）、M05 需求预测（预测 OCC 与 Pickup 偏差是本模块定档系数的输入）。</p>
+    <p class="card-note">前置要求：M01 指标语言（ADR／RevPAR 口径）、M05 需求预测（预测 OCC 与 Pace 偏差是本模块定档系数的输入）。</p>
   </div>
 
   <!-- ===== 目录 ===== -->
@@ -490,12 +490,12 @@
   <!-- ================= 五 ================= -->
   <h2 id="s5">五、四档需求等级的价格系数取值判定</h2>
 
-  <p>打完标还不算完——每个等级给的是一个<b>区间</b>（如 D3 是 95–110%），具体取哪个值必须有判据。判据统一用 M05 算出的 <b>Pickup 偏差</b>，与《法典》表 A 的列的划分完全一致，做到"两个数、两张表，一套口径"。</p>
+  <p>打完标还不算完——每个等级给的是一个<b>区间</b>（如 D3 是 95–110%），具体取哪个值必须有判据。判据统一用 M05 算出的 <b>Pace 偏差</b>，与《法典》表 A 的列的划分完全一致，做到"两个数、两张表，一套口径"。</p>
 
   <div class="tbl-wrap">
     <table class="tbl tbl-matrix">
-      <caption>表 6-8　四档需求等级的价格系数取值判定表<span class="cap-note">行＝需求等级，列＝Pickup 偏差（与《法典》表 A 的列划分一致）</span></caption>
-      <thead><tr><th>需求等级 ＼ Pickup 偏差</th><th>落后 &gt;10%</th><th>落后 3–10%</th><th>持平 ±3%</th><th>领先 3–10%</th><th>领先 &gt;10%</th></tr></thead>
+      <caption>表 6-8　四档需求等级的价格系数取值判定表<span class="cap-note">行＝需求等级，列＝Pace 偏差（与《法典》表 A 的列划分一致）</span></caption>
+      <thead><tr><th>需求等级 ＼ Pace 偏差</th><th>落后 &gt;10%</th><th>落后 3–10%</th><th>持平 ±3%</th><th>领先 3–10%</th><th>领先 &gt;10%</th></tr></thead>
       <tbody>
         <tr><th class="rowh">D1 峰值日（150–200%）</th><td class="mid">150%</td><td class="mid">160%</td><td class="mid">175%</td><td class="mid" data-hit>190%</td><td class="mid">200%</td></tr>
         <tr><th class="rowh">D2 高涨日（120–150%）</th><td class="mid">120%</td><td class="mid">128%</td><td class="mid">135%</td><td class="mid">142%</td><td class="mid">150%</td></tr>
@@ -521,7 +521,7 @@
 
   <div class="tbl-wrap">
     <table class="tbl">
-      <caption>表 6-9　云璟酒店全房型价格表（按需求等级 × Pickup 偏差）<span class="cap-note">基准：校验后平峰 BAR 序列（表 6-6）；表 A 调价系数取 1.00</span></caption>
+      <caption>表 6-9　云璟酒店全房型价格表（按需求等级 × Pace 偏差）<span class="cap-note">基准：校验后平峰 BAR 序列（表 6-6）；表 A 调价系数取 1.00</span></caption>
       <thead>
         <tr><th>房型</th><th class="num">平峰 BAR</th><th class="num">D4<br>落后&gt;10%<br>70%</th><th class="num">D4<br>持平<br>80%</th><th class="num">D3<br>持平<br>100%</th><th class="num">D3<br>领先&gt;10%<br>110%</th><th class="num">D2<br>持平<br>135%</th><th class="num">D2<br>领先&gt;10%<br>150%</th><th class="num">D1<br>持平<br>175%</th><th class="num">D1<br>领先&gt;10%<br>200%</th></tr>
       </thead>
@@ -753,15 +753,15 @@
   <div class="card">
     <div class="card-title"><span class="ic">▶</span>示范：2026-10-16（周五，D2 高涨日）全房型价格表生成</div>
     <div class="kv">
-      <div class="kv-row"><div class="kv-k">场景设定</div><div class="kv-v">目标日 2026-10-16（周五），《SPEC》2.5「旺季（9–10 月）周五」→ <b>D2 高涨日</b>。M05 预测得：预测 OCC 91.0%，Pickup 偏差 +6.0%（领先 3–10%）。无突发事件。基准使用表 6-6 校验后平峰 BAR 序列。</div></div>
+      <div class="kv-row"><div class="kv-k">场景设定</div><div class="kv-v">目标日 2026-10-16（周五），《SPEC》2.5「旺季（9–10 月）周五」→ <b>D2 高涨日</b>。M05 预测得：预测 OCC 91.0%，Pace 偏差 +6.0%（领先 3–10%）。无突发事件。基准使用表 6-6 校验后平峰 BAR 序列。</div></div>
     </div>
 
     <h4>① 看数</h4>
-    <div class="formula">预测 OCC = 91.0%；Pickup 偏差 = +6.0%；需求等级 = D2；可用房晚 = 300</div>
+    <div class="formula">预测 OCC = 91.0%；Pace 偏差 = +6.0%；需求等级 = D2；可用房晚 = 300</div>
 
     <h4>② 查表定价</h4>
     <p><b>定需求等级系数</b>：D2 行 × 领先 3–10% 列 → 查表 6-8 得 <b>142%</b>。<br>
-    <b>查《法典》表 A</b>：预测 OCC 91.0% → 85–95% 行；Pickup 偏差 +6.0% → 领先 3–10% 列 → 结论 <b>+10%</b>。</p>
+    <b>查《法典》表 A</b>：预测 OCC 91.0% → 85–95% 行；Pace 偏差 +6.0% → 领先 3–10% 列 → 结论 <b>+10%</b>。</p>
 
     <div class="callout callout-warn">
       <span class="co-t">这里最容易犯的错：把两个系数相乘</span>
@@ -810,7 +810,7 @@
     </div>
 
     <h4>⑤ 记录</h4>
-    <p>写入《调价台账》：目标日 2026-10-16 / 需求等级 D2 / 预测 OCC 91.0% / Pickup 偏差 +6.0% / 等级系数 142% / 表 A 结论 +10% / 实际执行系数 150%（触顶）/ 原 BAR 序列 → 新 BAR 序列 / 依据《法典》表 A + 《SPEC》2.5 / 备注「触顶回调，未执行部分记入《观察清单》；同日执行表 B 90–95% 档与表 H 90–95% 档」。</p>
+    <p>写入《调价台账》：目标日 2026-10-16 / 需求等级 D2 / 预测 OCC 91.0% / Pace 偏差 +6.0% / 等级系数 142% / 表 A 结论 +10% / 实际执行系数 150%（触顶）/ 原 BAR 序列 → 新 BAR 序列 / 依据《法典》表 A + 《SPEC》2.5 / 备注「触顶回调，未执行部分记入《观察清单》；同日执行表 B 90–95% 档与表 H 90–95% 档」。</p>
 
     <h4>⑥ 审批判定</h4>
     <p>该日为 D2 而非 D1，按《法典》表 A 约束 4 <b>无需</b> L3 事前审批，但因触及 D2 区间上限，按本模块表 6-15 的复核要求，由 <b>L3 事后 24 小时内复核签字</b>。</p>
@@ -821,19 +821,19 @@
 
   <div class="ex-q">
     <div class="q-t">第 1 题　全房型价格表（D3 平峰日 · 领先）</div>
-    <div class="q-b">目标日 2026-10-20（周二），D3 平峰日。M05 预测得：预测 OCC 78.1%，Pickup 偏差 +23.1%（领先 &gt;10%）。基准使用表 6-6 校验后平峰 BAR 序列。请给出该日全部 7 个房型的执行 BAR（取整到 ¥10），并说明表 A 的 +8% 作用在哪里。</div>
+    <div class="q-b">目标日 2026-10-20（周二），D3 平峰日。M05 预测得：预测 OCC 78.1%，Pace 偏差 +23.1%（领先 &gt;10%）。基准使用表 6-6 校验后平峰 BAR 序列。请给出该日全部 7 个房型的执行 BAR（取整到 ¥10），并说明表 A 的 +8% 作用在哪里。</div>
     <details class="ex-a">
       <summary>查看答案与解析</summary>
-      <div class="a-body">答案：<b>STD ¥630 / SUP ¥730 / DLX ¥880 / DLX-V ¥1,040 / EXE ¥1,120 / STE-B ¥1,510 / STE-E ¥2,030</b>（取整前分别为 625.7、734.4、885.6、1036.8、1123.2、1512、2030.4）。<br>解析：D3 行 × 领先&gt;10% 列 → 查表 6-8 得等级系数 <b>110%</b>。表 A：预测 OCC 78.1% → 70–85% 行；Pickup 偏差 +23.1% → 领先&gt;10% 列 → <b>+8%</b>。表 A 作用在前一次落位价（= 平峰 BAR × 110%）上，不是作用在平峰 BAR 上：<br>STD：580 × 1.10 = 638 → × 1.08 = 689.0 → <b>¥690</b>？<br><b>更正</b>：正确顺序是先定基准 BAR（平峰 BAR × 110%），再把表 A 的 +8% 作用在基准 BAR 上。<br>STD：638 × 1.08 = 689.0 → <b>¥690</b>；SUP：748 × 1.08 = 807.8 → <b>¥810</b>；DLX：902 × 1.08 = 974.2 → <b>¥970</b>；DLX-V：1056 × 1.08 = 1140.5 → <b>¥1,140</b>；EXE：1144 × 1.08 = 1235.5 → <b>¥1,240</b>；STE-B：1540 × 1.08 = 1663.2 → <b>¥1,660</b>；STE-E：2068 × 1.08 = 2233.4 → <b>¥2,230</b>。<br><b>上限校验</b>：D3 区间 95–110%，实际总系数 = 110% × 108% = <b>118.8% &gt; 110%，超限</b>。须回调至平峰 BAR × 110%：STD ¥640（取整 ¥640）／SUP ¥750／DLX ¥900／DLX-V ¥1,060／EXE ¥1,140／STE-B ¥1,540／STE-E ¥2,070。<br><b>结论</b>：本日表 A 的 +8% <b>不得执行</b>，因需求等级系数已取到 D3 区间上限 110%。未执行部分记入《观察清单》，改用非价格手段（表 H 70–85% 档：批发商限价开 ≤BAR×75%、直销上早鸟）承接超额需求。</div>
+      <div class="a-body">答案：<b>STD ¥630 / SUP ¥730 / DLX ¥880 / DLX-V ¥1,040 / EXE ¥1,120 / STE-B ¥1,510 / STE-E ¥2,030</b>（取整前分别为 625.7、734.4、885.6、1036.8、1123.2、1512、2030.4）。<br>解析：D3 行 × 领先&gt;10% 列 → 查表 6-8 得等级系数 <b>110%</b>。表 A：预测 OCC 78.1% → 70–85% 行；Pace 偏差 +23.1% → 领先&gt;10% 列 → <b>+8%</b>。表 A 作用在前一次落位价（= 平峰 BAR × 110%）上，不是作用在平峰 BAR 上：<br>STD：580 × 1.10 = 638 → × 1.08 = 689.0 → <b>¥690</b>？<br><b>更正</b>：正确顺序是先定基准 BAR（平峰 BAR × 110%），再把表 A 的 +8% 作用在基准 BAR 上。<br>STD：638 × 1.08 = 689.0 → <b>¥690</b>；SUP：748 × 1.08 = 807.8 → <b>¥810</b>；DLX：902 × 1.08 = 974.2 → <b>¥970</b>；DLX-V：1056 × 1.08 = 1140.5 → <b>¥1,140</b>；EXE：1144 × 1.08 = 1235.5 → <b>¥1,240</b>；STE-B：1540 × 1.08 = 1663.2 → <b>¥1,660</b>；STE-E：2068 × 1.08 = 2233.4 → <b>¥2,230</b>。<br><b>上限校验</b>：D3 区间 95–110%，实际总系数 = 110% × 108% = <b>118.8% &gt; 110%，超限</b>。须回调至平峰 BAR × 110%：STD ¥640（取整 ¥640）／SUP ¥750／DLX ¥900／DLX-V ¥1,060／EXE ¥1,140／STE-B ¥1,540／STE-E ¥2,070。<br><b>结论</b>：本日表 A 的 +8% <b>不得执行</b>，因需求等级系数已取到 D3 区间上限 110%。未执行部分记入《观察清单》，改用非价格手段（表 H 70–85% 档：批发商限价开 ≤BAR×75%、直销上早鸟）承接超额需求。</div>
     </details>
   </div>
 
   <div class="ex-q">
     <div class="q-t">第 2 题　全房型价格表（D4 低谷日 · 落后）</div>
-    <div class="q-b">目标日 2027-01-15（周五），D4 低谷日（1 月淡季）。预测 OCC 59.3%，Pickup 偏差 −7.9%（落后 3–10%）。基准使用表 6-6 校验后平峰 BAR 序列。请给出全部 7 个房型的执行 BAR（取整到 ¥10）。</div>
+    <div class="q-b">目标日 2027-01-15（周五），D4 低谷日（1 月淡季）。预测 OCC 59.3%，Pace 偏差 −7.9%（落后 3–10%）。基准使用表 6-6 校验后平峰 BAR 序列。请给出全部 7 个房型的执行 BAR（取整到 ¥10）。</div>
     <details class="ex-a">
       <summary>查看答案与解析</summary>
-      <div class="a-body">答案：<b>STD ¥400 / SUP ¥470 / DLX ¥570 / DLX-V ¥660 / EXE ¥720 / STE-B ¥970 / STE-E ¥1,300</b>。<br>解析：D4 行 × 落后 3–10% 列 → 查表 6-8 得等级系数 <b>75%</b>。表 A：预测 OCC 59.3% → 55–70% 行；Pickup 偏差 −7.9% → 落后 3–10% 列 → <b>−5%</b>。<br>基准 BAR：STD 580×0.75 = 435；SUP 510；DLX 615；DLX-V 720；EXE 780；STE-B 1,050；STE-E 1,410。<br>执行 BAR（×0.95）：STD 413.3 → <b>¥410</b>；SUP 484.5 → <b>¥480</b>；DLX 584.3 → <b>¥580</b>；DLX-V 684 → <b>¥680</b>；EXE 741 → <b>¥740</b>；STE-B 997.5 → <b>¥1,000</b>；STE-E 1339.5 → <b>¥1,340</b>。<br><b>上限／下限校验</b>：实际总系数 = 75% × 95% = <b>71.25%</b>，在 D4 区间 70–85% 内 → <span class="pill pill-teal">未触底，可执行</span>。<br><b>取整复校</b>：取整后相邻房型价差分别为 SUP/STD = 17.1%、DLX/SUP = 20.8%、DLX-V/DLX = 17.2%、EXE/DLX-V = 8.8%、STE-B/EXE = 35.1%（略超 35%）→ STE-B 取整须下调至 <b>¥990</b>（（990−740）÷740 = 33.8% ✓）。最终 STE-B = <b>¥990</b>。</div>
+      <div class="a-body">答案：<b>STD ¥400 / SUP ¥470 / DLX ¥570 / DLX-V ¥660 / EXE ¥720 / STE-B ¥970 / STE-E ¥1,300</b>。<br>解析：D4 行 × 落后 3–10% 列 → 查表 6-8 得等级系数 <b>75%</b>。表 A：预测 OCC 59.3% → 55–70% 行；Pace 偏差 −7.9% → 落后 3–10% 列 → <b>−5%</b>。<br>基准 BAR：STD 580×0.75 = 435；SUP 510；DLX 615；DLX-V 720；EXE 780；STE-B 1,050；STE-E 1,410。<br>执行 BAR（×0.95）：STD 413.3 → <b>¥410</b>；SUP 484.5 → <b>¥480</b>；DLX 584.3 → <b>¥580</b>；DLX-V 684 → <b>¥680</b>；EXE 741 → <b>¥740</b>；STE-B 997.5 → <b>¥1,000</b>；STE-E 1339.5 → <b>¥1,340</b>。<br><b>上限／下限校验</b>：实际总系数 = 75% × 95% = <b>71.25%</b>，在 D4 区间 70–85% 内 → <span class="pill pill-teal">未触底，可执行</span>。<br><b>取整复校</b>：取整后相邻房型价差分别为 SUP/STD = 17.1%、DLX/SUP = 20.8%、DLX-V/DLX = 17.2%、EXE/DLX-V = 8.8%、STE-B/EXE = 35.1%（略超 35%）→ STE-B 取整须下调至 <b>¥990</b>（（990−740）÷740 = 33.8% ✓）。最终 STE-B = <b>¥990</b>。</div>
     </details>
   </div>
 

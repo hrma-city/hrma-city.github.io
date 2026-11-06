@@ -232,7 +232,7 @@ window.RMCQuestData = {
             { id: "c", label: "只看 RGI 就够了", ok: false,
               hint: "RGI 低于 100 时，必须靠 MPI 和 ARI 才能判断是'量不够'还是'价不够'。" }
           ],
-          why: "STR 三指数：MPI（市场渗透指数）看份额、ARI（平均房价指数）看溢价、RGI（收入生成指数）= MPI × ARI 看综合。低于 100 即跑输市场。"
+          why: "STR 三指数：MPI（市场渗透指数）看份额、ARI（平均房价指数）看溢价、RGI（收入生成指数）= MPI × ARI ÷ 100 看综合。低于 100 即跑输市场。"
         },
         {
           step: "指数诊断",
@@ -243,9 +243,9 @@ window.RMCQuestData = {
               hint: "ARI > 100 说明价格并不低；此时降价只会进一步损失收益。" },
             { id: "b", label: "量不够（MPI 偏低），该提升的是出租率而非降价，去查曝光、转化与口碑", ok: true },
             { id: "c", label: "数据算错了", ok: false,
-              hint: "RGI ≈ MPI × ARI，88 ≈ 76.5 × 1.15，数据自洽，确实是量的问题。" }
+              hint: "RGI ≈ MPI × ARI ÷ 100，88 ≈ 76.5 × 1.15，数据自洽，确实是量的问题。" }
           ],
-          why: "RGI = MPI × ARI。ARI 高而 RGI 低，说明 MPI 必然低，病因在'量'（市场份额），应查曝光、转化、口碑与渠道覆盖，而不是降价。"
+          why: "RGI = MPI × ARI ÷ 100。ARI 高而 RGI 低，说明 MPI 必然低，病因在'量'（市场份额），应查曝光、转化、口碑与渠道覆盖，而不是降价。"
         },
         {
           step: "需求弹性",

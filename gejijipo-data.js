@@ -364,7 +364,7 @@ var GJP_EPISODES = [
       {illu:ILLU.title('综合收益指数 RGI','本店 RevPAR ÷ 竞组平均 RevPAR'),cap:'定义',say:'RGI 是综合收益指数，把量和价合成一个最终标尺。'},
       {illu:ILLU.metric('115','RGI','量价合一的终局',C.gold),cap:'公式',say:'它等于本店 RevPAR 除以竞组平均 RevPAR，大于 100 就是全面领先。'},
       {illu:ILLU.bars([['我院',115,C.gold],['竞组',100,C.navy2]],'RGI（100＝持平）'),cap:'看指数',say:'我院 RGI 115，说明在量价综合上跑赢了整个对标组。'},
-      {illu:ILLU.note('★','RGI＝MPI × ARI 的实质：它已经包含了份额和价格两层信息。','最该盯的数'),cap:'为什么最牛',say:'RGI 本质是 MPI 和 ARI 的综合，所以最该每天盯。'},
+      {illu:ILLU.note('★','RGI＝MPI × ARI ÷ 100 的实质：它已经包含了份额和价格两层信息。','最该盯的数'),cap:'为什么最牛',say:'RGI 本质是 MPI 和 ARI 的综合，所以最该每天盯。'},
       {illu:ILLU.note('✓','RGI＝本店 RevPAR ÷ 竞组平均 RevPAR，量价合一的最终标尺。','>100 全面领先'),cap:'一句话记住',say:'一句话：RGI 是终极标尺，大于 100 说明您既抢到量又卖好价。'}
     ]
   },

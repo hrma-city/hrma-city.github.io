@@ -553,7 +553,7 @@ details.ex-a .a-body{
       <li>能<b>使用</b> 《主流系统操作路径映射表》，在任意一套 PMS/RMS/OTA 后台中定位「价格日历 / 房晚报表 / MinLOS / Stop Sell / 超售」5 个通用功能</li>
       <li>能<b>完成</b> 4 条数据一致性恒等式自检，且在发现不等时说出排查顺序</li>
     </ul>
-    <p class="card-note">前置要求：M01 指标与计算（必须能独立算出 OCC/ADR/RevPAR/Pace 与 Pickup 双信号）。<br>本模块对应《法典》：表 M（每日收益操作流水线 07:30 / 07:50 / 08:10 三个取数时段）、表 I（预订窗口分档监控表）。</p>
+    <p class="card-note">前置要求：M01 指标与计算（必须能独立算出 OCC/ADR/RevPAR/Pace 偏差）。<br>本模块对应《法典》：表 M（每日收益操作流水线 07:30 / 07:50 / 08:10 三个取数时段）、表 I（预订窗口分档监控表）。</p>
   </div>
 
   <!-- ===== 目录 ===== -->
@@ -594,7 +594,7 @@ details.ex-a .a-body{
     </div>
     <div class="card">
       <div class="card-title"><span class="ic">3</span>原因三</div>
-      <p style="margin:0">《法典》判定表的输入是<b>字段值</b>（预测 OCC、Pace 与 Pickup 双信号、在手房晚），不是菜单。学会抓字段，换系统当天就能上岗。</p>
+      <p style="margin:0">《法典》判定表的输入是<b>字段值</b>（预测 OCC、Pace 偏差、在手房晚），不是菜单。学会抓字段，换系统当天就能上岗。</p>
     </div>
   </div>
 
@@ -961,7 +961,7 @@ details.ex-a .a-body{
       <caption>表 2-8　昨日经营数据字段清单<span class="cap-note">来源层级：P = PMS，R = RMS，F = 财务，O = OTA 后台</span></caption>
       <thead><tr><th class="num">#</th><th>字段</th><th>来源</th><th>格式</th><th>为什么必须抓（不抓会怎样）</th></tr></thead>
       <tbody>
-        <tr><td class="num">1</td><td>统计日期</td><td>P</td><td>YYYY-MM-DD</td><td>缺了无法与去年同期对齐，Pace 与 Pickup 双信号算不出来</td></tr>
+        <tr><td class="num">1</td><td>统计日期</td><td>P</td><td>YYYY-MM-DD</td><td>缺了无法与去年同期对齐，Pace 偏差算不出来</td></tr>
         <tr><td class="num">2</td><td>总房量</td><td>P</td><td>整数</td><td>云璟固定 300，但装修期会变，必须每日取实际值</td></tr>
         <tr><td class="num">3</td><td>OOO 房晚</td><td>P</td><td>整数</td><td>不抓则 OCC 分母错（M01 陷阱 1）</td></tr>
         <tr><td class="num">4</td><td>可售房晚</td><td>P</td><td>整数</td><td>= 字段 2 − 字段 3，OCC / RevPAR / TrevPAR / GOPPAR 的共同分母</td></tr>
@@ -1041,7 +1041,7 @@ details.ex-a .a-body{
     <ul class="checklist">
       <li>PMS / RMS 导出未来 30 天逐日在手房晚（On the Books）</li>
       <li>导出去年同期同一提前窗口在手房晚（30 天，逐日对齐）</li>
-      <li>计算 30 天逐日 Pace 与 Pickup 双信号，标记落后 / 领先及幅度（保留一位小数）</li>
+      <li>计算 30 天逐日 Pace 偏差，标记落后 / 领先及幅度（保留一位小数）</li>
       <li>导出近 24h Pickup 绝对增量（可为负）</li>
       <li>RMS 导出各目标日预测增量房晚，算出预测 OCC =（在手 + 预测增量）÷ 可售</li>
       <li>标注 30 天中每一天的 D1/D2/D3/D4 需求等级（对照《SPEC》2.5 需求日历与年度月度基准）</li>
@@ -1141,7 +1141,7 @@ details.ex-a .a-body{
 
   <div class="callout callout-danger">
     <span class="co-t">脏数据的共同危害：它们全都会污染《法典》表 A 的输入</span>
-    <p>· 重复订单 → 在手房晚虚高 → Pace 与 Pickup 双信号虚高 → 本该降价却读成「维持」或「提价」。<br>
+    <p>· 重复订单 → 在手房晚虚高 → Pace 偏差虚高 → 本该降价却读成「维持」或「提价」。<br>
     · 团队拆分 → 散客可售量虚低 → 预测 OCC 虚高 → 落错表 A 的行。<br>
     · 渠道错配 → NRevPAR 错 → 表 H 渠道开关判错。<br>
     · 免费房混入 → ADR 与 ARI 错 → 表 C 判错。<br>
@@ -1184,7 +1184,7 @@ details.ex-a .a-body{
       <div class="kv-row"><div class="kv-k">目标日</div><div class="kv-v">10 月 30 日（周四，D3 平峰日）</div></div>
       <div class="kv-row"><div class="kv-k">当前在手</div><div class="kv-v">187 间</div></div>
       <div class="kv-row"><div class="kv-k">去年同期同窗口在手</div><div class="kv-v">199 间</div></div>
-      <div class="kv-row"><div class="kv-k">Pace 与 Pickup 双信号</div><div class="kv-v">(187 − 199) ÷ 199 × 100% = <b>落后 6.0%</b></div></div>
+      <div class="kv-row"><div class="kv-k">Pace 偏差</div><div class="kv-v">(187 − 199) ÷ 199 × 100% = <b>落后 6.0%</b></div></div>
       <div class="kv-row"><div class="kv-k">预测增量</div><div class="kv-v">57 间</div></div>
       <div class="kv-row"><div class="kv-k">预测 OCC</div><div class="kv-v">（187 + 57）÷ 292 = 244 ÷ 292 = <b>83.6%</b></div></div>
     </div>
@@ -1389,7 +1389,7 @@ details.ex-a .a-body{
 
 
 <div class="unit" id="unit"><div class="u-k">增补授课单元 · v2026.4</div><h2>数据字典与单一真源：让每个数字都能追溯</h2><p>本模块原有系统导航与取数路径继续有效。增补解决的是「同一个数字在不同页面不一样」：先把口径写进数据字典，再把所有页面改为从同一份真源派生，最后补 AI 内容与数据脱敏的边界。</p><h3>数据字典先于系统操作</h3><p>取数之前必须约定六件事：分母是否剔除 OOO、免费房与自用房如何计入、金额含不含税与服务费、币种、日切时间、取消与 no-show 的计入窗口。这六项不写死，同一个「昨日 OCC」在 PMS、报表和收益系统会得到三个值，后面全部判定表都会跟着错。</p><h3>单一真源与派生关系</h3><p>v2026-2-rules.json 是机器真源，SPEC.md 改称业务口径说明。页面不再各自手写常数：题量由题库 ID 计数得出，房量与基线由 baseline 节点读出，15 表的字段名与生效日由 tables 节点读出。改口径的顺序是「先备份 → 改真源 → 重跑生成器 → 回归门禁 → 另起版本文件」。</p><h3>AI 与数据边界</h3><p>AI 可用于出题、改写案例与生成讲解草稿，但生成内容必须标注来源、经人工复核后才能进母本；学员数据、院校经营数据与竞组非公开数据不得进入外部模型。幻觉防护靠「可复算」：凡 AI 给出的数值，必须能用真源里的公式重算一次。</p><div class="tbl-wrap"><table class="tbl"><caption>表 U2-1　经营口径声明（每份报表页脚都要带）<span class="cap-note">口径一经选定，每月保持一致；变更须另起版本并登记</span></caption><thead><tr><th>项</th><th>本版约定</th><th>常见错误</th></tr></thead><tbody><tr><td>房量</td><td>300 间为唯一标准（全年 109,500 可售房晚）</td><td>混用 320 间口径的 116,800</td></tr><tr><td>OCC 分母</td><td>可售房晚，剔除 OOO / 装修房</td><td>用总房量 300 作分母</td></tr><tr><td>免费房 / 自用房</td><td>计入已售房晚，收入按 ¥0，单独标注</td><td>从分子分母同时剔除</td></tr><tr><td>ADR 口径</td><td>客房收入 ÷ 已售房晚；含服务费、不含增值税</td><td>把餐饮收入并入分子</td></tr><tr><td>币种与单位</td><td>CNY / 元；百分比保留一位小数</td><td>同一报告混用万元与元</td></tr><tr><td>日切</td><td>按本店夜审时点，跨店比较须先对齐</td><td>用自然日 00:00 直接横比</td></tr><tr><td>取消 / no-show</td><td>按定义窗口计入 Pickup 净增与超售模型</td><td>只在月底一次性冲销</td></tr><tr><td>竞组数据</td><td>只采集合法公开挂牌价，逐家列房量与权重</td><td>用一个「加权均价」代替明细</td></tr></tbody></table></div><div class="tbl-wrap"><table class="tbl"><caption>表 U2-2　真源节点与派生资产<span class="cap-note">页面不写死常数，全部由真源读出</span></caption><thead><tr><th>真源节点</th><th>内容</th><th>派生到</th></tr></thead><tbody><tr><td>metrics</td><td>13 项指标定义、公式、平价与口径</td><td>指标公式卡 / 各模块算例</td></tr><tr><td>baseline</td><td>300 间、72%、¥618、48,723,120 等</td><td>预算模块 / 报表模块 / 题库解析</td></tr><tr><td>tables</td><td>15 表校正定义、生效日、复审日</td><td>新版判定表 / 各模块联动</td></tr><tr><td>competency</td><td>L1–L3 名称、学时、通过线</td><td>认证路径 / 开课手册</td></tr><tr><td>item_bank</td><td>练习题 253 / 真题 76 / 唯一答案</td><td>考评规范 / 组卷</td></tr><tr><td>corrections</td><td>31 条原值与校正值</td><td>勘误补丁 / 本版修订卡</td></tr></tbody></table></div><div class="formula"><span class="f-label">算例 U2-A　可售房晚的三个口径</span>无 OOO：300 间 × 365 天 = <span class="f-out">109,500</span> 房晚<br>3 间 OOO 的单日：300 − 3 = <span class="f-out">297</span> 间；12 间装修：<span class="f-out">288</span> 间<br>旧题库写「3 间 OOO 可售 317」是把减法写成加法，本版一律按 297。</div><div class="callout callout-warn"><span class="co-t">两个「唯一真相来源」已合并</span>SPEC.md 与旧版本登记页曾各自宣称唯一。本版明确：SPEC.md 是业务口径说明，v2026-2-rules.json 是机器真源，冲突时以真源的校验结果为准。</div><div class="callout callout-key"><span class="co-t">回归门禁</span>v2026-2-regression.py 的 15 条断言覆盖公式、算术、口径、题量、措辞、版本状态与备份完整性；任一 FAIL 阻断部署。改完数据先跑门禁再发布。</div><div class="callout callout-do"><span class="co-t">课堂动作</span>让学员在同一天的 PMS 截图上，分别按「含 OOO」「不含 OOO」「含免费房」三种口径算 OCC，把三个结果写进对照表并说明哪个能进台账。</div><h3>课堂练习与参考答案</h3><div class="ex-q"><p><b>练习 1　</b>列出报表页脚必须出现的四项口径声明。</p><p class="card-note"><b>答案与评分要点</b>　房量与可售房晚、OCC 分母规则、金额含税与币种、日切时间。另需标注取消 / no-show 的计入窗口与竞组数据来源。</p></div><div class="ex-q"><p><b>练习 2　</b>为什么「练习题 253 题」不应写在页面正文里？</p><p class="card-note"><b>答案与评分要点</b>　页面写死常数会与题库脱节。应由题库 ID 计数得出，页面只显示计数结果；题量变化只改题库与真源。</p></div><div class="ex-q"><p><b>练习 3　</b>AI 生成了一段「本店昨日 RevPAR ¥452」的讲解，能否直接进教案？</p><p class="card-note"><b>答案与评分要点</b>　不能。须标注 AI 生成、用真源公式复算一次（客房收入 ÷ 可售房晚）、人工复核口径后方可使用；学员与经营数据不得外传。</p></div><p style="font-size:12.8px;color:#7B8794;margin-top:18px">关联资产：表 B / D / M / N · v2026-2-rules.json / v2026-2-regression.py　｜　应用校正：RM-02、RM-10、RM-13、SYS-06、SYS-11、SYS-13、SYS-16</p></div>
-<div class="cert-foot">RMC · v2026.4 · 行业实操认证培训 · 2026-11-07 · 门内 noindex · 先备份再出新版本，原有资料未覆盖 · <span style="color:#7B8794">RMC即RMCity（即Revenue Management Community收益管理社区）</span> · <a href="v2026-4-cert-index.html">培训总索引</a> · <a href="v2026-4-cert-pathway.html">L123 认证路径</a> · <a href="v2026-4-cert-exam.html">考评规范</a> · <a href="v2026-2-rules.json">唯一真源</a> · <a href="../curriculum.html">旧版教案总纲</a> · <a href="../deliverables-ledger.html">产出物总台账</a></div>
+<div class="cert-foot">RMC · v2026.4 · 行业实操认证培训 · 2026-11-07 · 门内 noindex · 先备份再出新版本，原有资料未覆盖 · <span style="color:#7B8794">RMC即RMCity（即Revenue Management Community收益管理社区）</span> · <a href="v2026-4-cert-index.html">培训总索引</a> · <a href="v2026-4-cert-pathway.html">L123 认证路径</a> · <a href="v2026-4-cert-exam.html">考评规范</a> · <a href="v2026-2-rules.json">唯一真源</a> · <a href="v2026-5-l123-crosswalk.html">两条 L123 线的区别</a> · <a href="guide-combined.html">操作指南分级手册</a> · <a href="../curriculum.html">旧版教案总纲</a> · <a href="../deliverables-ledger.html">产出物总台账</a></div>
 </div>
 <div id="rm-toc-drawer" style="display:none"></div>
 </body>

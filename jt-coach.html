@@ -76,7 +76,7 @@ body{display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box}
 @media (max-height:520px){.quick{display:none}}
 
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC 收益管理社区","alternateName":["RMC即RMCity（即Revenue Management Community收益管理社区）","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC 收益管理社区","alternateName":["RMC即RMCity（即Revenue Management Community收益管理社区）","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级课程结业证明与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC 收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"jt-coach","item":"https://hrma-city.github.io/jt-coach.html"}]}</script>
 </head>
@@ -127,7 +127,7 @@ body{display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box}
    "BAR",
    "峰值日"
   ],
-  "trigger": "每日 09:10 执行调价前，依据目标日预测 OCC 与 Pickup 偏差确定 BAR 动作",
+  "trigger": "每日 09:10 执行调价前，依据目标日预测 OCC 与 Pace 偏差确定 BAR 动作",
   "preconditions": "已知目标日当前预测 OCC、去年同期同一提前窗口在手房晚、预测增量",
   "inputs": [
    {
@@ -140,7 +140,7 @@ body{display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box}
    },
    {
     "name": "pickup_bias",
-    "desc": "Pickup 偏差 =(当前在手−去年同期在手)/去年同期在手×100%",
+    "desc": "Pace 偏差 =(当前在手−去年同期在手)/去年同期在手×100%",
     "type": "number",
     "unit": "%",
     "range": "-100~+100",
@@ -155,7 +155,7 @@ body{display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box}
     "example": "↑20%"
    }
   ],
-  "decision_logic": "以预测 OCC 为行、Pickup 偏差为列查矩阵得价格动作；与表 B 库存动作配套；受表 O 优先级约束（价格优先级 3）。",
+  "decision_logic": "以预测 OCC 为行、Pace 偏差为列查矩阵得价格动作；与表 B 库存动作配套；受表 O 优先级约束（价格优先级 3）。",
   "basis": "阈值基于中高端全服务酒店通用起点；OCC 分母=可售房晚。演示：OCC=(265+40)/300=95.3%→≥95%行；Pickup=(265-240)/240=+10.4%→领先>10%列→↑20%；BAR 680×1.20=816。",
   "pitfalls": "单日同方向累计≤20%；24h 内同方向≤2 次；每次≥3%（低于 3% 市场无感知）；调价后 30min 核查 OTA 挂牌价；D1 峰值日须 L3 审批；每次写入《调价台账》注明依据表 A。",
   "data_needs": [
@@ -171,7 +171,7 @@ body{display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box}
   "tables": [
    {
     "type": "matrix",
-    "caption": "行＝预测 OCC 列＝Pickup 偏差 单元格＝价格动作",
+    "caption": "行＝预测 OCC 列＝Pace 偏差 单元格＝价格动作",
     "cols": [
      "落后 >10%",
      "落后 3–10%",
@@ -242,7 +242,7 @@ body{display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box}
      }
     ],
     "row_axis": "预测 OCC",
-    "col_axis": "Pickup 偏差",
+    "col_axis": "Pace 偏差",
     "cell_meaning": "价格动作"
    }
   ]
@@ -461,7 +461,7 @@ body{display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box}
     "example": 98
    }
   ],
-  "decision_logic": "按 MPI 五档判定份额；偏诊断少出动作（表 O 优先级最低 6）；与 ARI 配合做三角诊断（MPI×ARI=RGI）。",
+  "decision_logic": "按 MPI 五档判定份额；偏诊断少出动作（表 O 优先级最低 6）；与 ARI 配合做三角诊断（MPI×ARI ÷ 100=RGI）。",
   "basis": "MPI=本店OCC÷竞争组合OCC×100；三角诊断：MPI高+ARI高=还能提；MPI高+ARI低=该收割提价；MPI低+ARI高=太贵卖不动；MPI低+ARI低=产品/口碑问题。",
   "pitfalls": "单独看 MPI 或 ARI 都会误判，需三角诊断一起看。",
   "data_needs": [

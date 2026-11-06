@@ -92,7 +92,7 @@
   footer{margin-top:36px;text-align:center;color:#8494a8;font-size:12.5px;line-height:1.9}
   @media print{header,.panel,.noprint{display:none}body{background:#fff}.tw{border:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC 收益管理社区","alternateName":["RMC即RMCity（即Revenue Management Community收益管理社区）","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC 收益管理社区","alternateName":["RMC即RMCity（即Revenue Management Community收益管理社区）","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级课程结业证明与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC 收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"rm-engine","item":"https://hrma-city.github.io/rm-engine.html"}]}</script>
 
@@ -463,7 +463,7 @@ var ADV = [
    a:"预测用 <b>Pick-up 法（No.12）</b>：未来已售 = 当前在手(OTB, No.13) + 同周期历史增量。引擎的预订偏差 dev = 实际 pickup − 预期，dev ≤ −10 说明预订落后要加曝光，≥ +10 说明超前可继续抬价。预测永远有误差，用区间而非单点，决策留缓冲。",
    f:"Pick-up 预测 · 净在手预订"},
   {k:["mpi","rgi","对标","市场份额","渗透","指数","比别人"],t:["指标","竞品"],
-   a:"<b>MPI（No.8）</b> 看份额 = 您 OCC ÷ 市场 OCC，> 100 说明比市场卖得好；<b>ARI（No.9）</b> 看价 = 您价 ÷ 竞品价；<b>RGI（No.10）</b> 看综合收益 = MPI × ARI，> 100 说明赚到该赚的。若 MPI 高但 RGI 低，说明卖得多却卖便宜了，该提价。这正是指引引擎定目标 ARI 的逻辑（OCC ≥ 90% → 目标 108 …）。",
+   a:"<b>MPI（No.8）</b> 看份额 = 您 OCC ÷ 市场 OCC，> 100 说明比市场卖得好；<b>ARI（No.9）</b> 看价 = 您价 ÷ 竞品价；<b>RGI（No.10）</b> 看综合收益 = MPI × ARI ÷ 100，> 100 说明赚到该赚的。若 MPI 高但 RGI 低，说明卖得多却卖便宜了，该提价。这正是指引引擎定目标 ARI 的逻辑（OCC ≥ 90% → 目标 108 …）。",
    f:"MPI · ARI · RGI"},
   {k:["弹性","elastic","敏感","灵敏","需求弹性"],t:["弹性","定价"],
    a:"<b>价格弹性（No.15）</b> = 需求量变动% ÷ 价格变动%。需求越满（OCC 高）越不敏感（刚性，涨也少丢量）；越空越敏感（降一点能多卖很多）。引擎用三档：≥ 85% → −0.7，70–85% → −1.0，< 70% → −1.5。这是<b>最优价求解（No.17）</b>的核心输入——弹性决定您能涨 / 该降多少。",
@@ -493,7 +493,7 @@ var ADV = [
    a:"先跑一遍上方引擎看机会金额——那是最该赚的钱。然后学三件事：① 指标（OCC / ADR / RevPAR No.1–3）② 对标（MPI / ARI / RGI No.8–10）③ 执行（最优价 / 弹性 / 超售 No.15–20）。完整体系在 <a href='formulas.html'>formulas.html</a>（32 公式）和 <a href='coach.html'>coach.html</a>（372 条问答）。记住：收益管理是先动价再动库存，每天看 Pickup。",
    f:"基础指标 · 指数 · 执行公式"},
   {k:["数据","csv","上传","准备","表头","字段","怎么导入","怎么用"],t:["数据","入门"],
-   a:"两份即可：① 未来在手预订（入住日、星期、在手房晚、预测增量、预测 OCC、目标 OCC、Pickup 偏差、事件）② 竞品价格（入住日、竞争组合加权均价、本店 BAR）。按 data/03、data/04 表头准备 CSV 上传，引擎自动算。没有就点载入示例数据先看效果。",
+   a:"两份即可：① 未来在手预订（入住日、星期、在手房晚、预测增量、预测 OCC、目标 OCC、Pace 偏差、事件）② 竞品价格（入住日、竞争组合加权均价、本店 BAR）。按 data/03、data/04 表头准备 CSV 上传，引擎自动算。没有就点载入示例数据先看效果。",
    f:"数据准备 · Pick-up"},
   {k:["负","不准","为什么","引擎","怀疑","错","乱","不对","奇怪"],t:["原理","定价"],
    a:"机会金额永不为负——候选集含维持现状，所以引擎只报比现状更好的价（已扣量损）。若您看着某天建议降觉得亏，是因为那天 OCC 低、弹性大，降一点换的量 > 单价损失。若和您的 PMS 对不上，多半是竞品均价口径或 No-show 率设置问题，可调参数重跑。<b>价格由公式算，AI 只解读</b>——具体数看上方决策卡。",

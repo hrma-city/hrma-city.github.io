@@ -553,7 +553,7 @@ details.ex-a .a-body{
       <li>能<b>指出</b> 5 个最常见的指标算错场景并给出正确算法</li>
       <li>能<b>独立执行</b> 一次「指标体检」：看到异常指标，列出 3–5 个成因并说出下一步查什么、查哪张表</li>
     </ul>
-    <p class="card-note">前置要求：无。本模块为零基础起点。<br>本模块对应《收益管理操作法典》的内容：无独立判定表，但表 C（ARI）、表 D（MPI）、表 A（Pace 与 Pickup 双信号）全部以本模块公式为输入。</p>
+    <p class="card-note">前置要求：无。本模块为零基础起点。<br>本模块对应《收益管理操作法典》的内容：无独立判定表，但表 C（ARI）、表 D（MPI）、表 A（Pace 偏差）全部以本模块公式为输入。</p>
   </div>
 
   <!-- ===== 目录 ===== -->
@@ -583,7 +583,7 @@ details.ex-a .a-body{
 
   <p>本学院的核心动作是四步闭环：<strong>看数 → 查表 → 执行 → 记录</strong>。在这四步里，「看数」是第一步，也是唯一一步错了会导致后面三步全部白做的环节。</p>
 
-  <p>《收益管理操作法典》表 A（每日价格调整判定表）需要两个输入：目标日预测 OCC，以及 Pace 与 Pickup 双信号。这两个数字只要算错一个百分点，查表读出的动作就会从「维持」跳到「<span class="up">↑10%</span>」或者从「<span class="down">↓5%</span>」跳到「<span class="down">↓10%</span>」。所以本模块不是理论课，是<strong>防错课</strong>。</p>
+  <p>《收益管理操作法典》表 A（每日价格调整判定表）需要两个输入：目标日预测 OCC，以及 Pace 偏差。这两个数字只要算错一个百分点，查表读出的动作就会从「维持」跳到「<span class="up">↑10%</span>」或者从「<span class="down">↓5%</span>」跳到「<span class="down">↓10%</span>」。所以本模块不是理论课，是<strong>防错课</strong>。</p>
 
   <div class="flow">
     <div class="flow-item"><div class="fi-t">看数</div><div class="fi-d">按取数清单抓固定字段（M02 详讲）</div></div>
@@ -668,7 +668,7 @@ details.ex-a .a-body{
 
   <div class="callout callout-danger">
     <span class="co-t">为什么 1.9 个百分点很致命</span>
-    <p>《法典》表 A 的行边界是 70%、85%、95%。若真实 OCC 是 85.0%（落在「85–95%」行），用错分母算成 83.1% 就会落到「70–85%」行。同样一个 Pace 与 Pickup 双信号「领先 3–10%」，前者读出 <span class="up">↑10%</span>，后者读出 <span class="up">↑5%</span>。<strong>一次分母错误，等于把该赚的钱少赚一半。</strong></p>
+    <p>《法典》表 A 的行边界是 70%、85%、95%。若真实 OCC 是 85.0%（落在「85–95%」行），用错分母算成 83.1% 就会落到「70–85%」行。同样一个 Pace 偏差「领先 3–10%」，前者读出 <span class="up">↑10%</span>，后者读出 <span class="up">↑5%</span>。<strong>一次分母错误，等于把该赚的钱少赚一半。</strong></p>
   </div>
 
   <h3 id="toc-3">3.3 分子的三种边缘情况</h3>
@@ -927,31 +927,31 @@ details.ex-a .a-body{
     <b>触发规则：当两个方案 RevPAR 差值 ≤ 3% 时，一律选 NRevPAR 更高的那个。</b>《法典》表 H 在高 OCC 时关闭 OTA、只留直销与会员，本质就是这条规则。</p>
   </div>
 
-  <h3 id="toc-14">8.2 Pickup（预订增量）与 Pace 与 Pickup 双信号</h3>
+  <h3 id="toc-14">8.2 Pickup（预订增量）与 Pace 偏差</h3>
 
   <p>Pickup 是《法典》表 A 的第二个输入，也是本模块唯一一个「不是比率」的指标。必须区分两个概念：</p>
 
   <div class="tbl-wrap">
     <table class="tbl">
-      <caption>表 1-5　Pickup 与 Pace 与 Pickup 双信号的区别<span class="cap-note">表 A 用的是「偏差」，不是绝对增量——这是新手第一大错</span></caption>
+      <caption>表 1-5　Pickup 与 Pace 偏差的区别<span class="cap-note">表 A 用的是「偏差」，不是绝对增量——这是新手第一大错</span></caption>
       <thead><tr><th>概念</th><th>定义</th><th>单位</th><th>示例</th><th>用途</th></tr></thead>
       <tbody>
         <tr><td><b>Pickup（绝对增量）</b></td><td>某目标日在某时间段内新增的预订房晚数（负值＝取消净额）</td><td>间夜</td><td>昨日新增 38 间夜</td><td>画预订曲线（M05）</td></tr>
-        <tr><td><b>Pace 与 Pickup 双信号</b></td><td>（当前在手房晚 − 去年同期同一提前窗口在手房晚）÷ 去年同期在手房晚 × 100%</td><td>%</td><td>落后 6.0%</td><td><b>查《法典》表 A</b></td></tr>
+        <tr><td><b>Pace 偏差</b></td><td>（当前在手房晚 − 去年同期同一提前窗口在手房晚）÷ 去年同期在手房晚 × 100%</td><td>%</td><td>落后 6.0%</td><td><b>查《法典》表 A</b></td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="formula">
-    <span class="f-label">Pace 与 Pickup 双信号公式（《SPEC》表 A 原文定义）</span>
-    Pace 与 Pickup 双信号 =（当前在手房晚 − 去年同期同一提前窗口在手房晚）÷ 去年同期在手房晚 × 100%
+    <span class="f-label">Pace 偏差公式（《SPEC》表 A 原文定义）</span>
+    Pace 偏差 =（当前在手房晚 − 去年同期同一提前窗口在手房晚）÷ 去年同期在手房晚 × 100%
   </div>
 
   <div class="formula">
     <span class="f-label">示例 · 目标日 10 月 15 日，提前窗口 14 天</span>
     当前在手房晚（10 月 15 日）= 187 间<br>
     去年同期同一提前窗口在手房晚 = 199 间<br>
-    Pace 与 Pickup 双信号 = (187 − 199) ÷ 199 × 100% = −12 ÷ 199 × 100% → <span class="f-out">落后 6.0%</span>
+    Pace 偏差 = (187 − 199) ÷ 199 × 100% = −12 ÷ 199 × 100% → <span class="f-out">落后 6.0%</span>
   </div>
 
   <div class="callout callout-danger">
@@ -991,7 +991,7 @@ details.ex-a .a-body{
         </tr>
         <tr>
           <td>4</td>
-          <td><b>Pace 与 Pickup 双信号分母写反</b></td>
+          <td><b>Pace 偏差分母写反</b></td>
           <td>(187 − 199) ÷ <b>187</b> = 落后 6.4%</td>
           <td>(187 − 199) ÷ <b>199</b> = <b>落后 6.0%</b></td>
           <td>本例未跨列，但若真实值 −9.5%/−10.5%，会跨过「3–10%」与「&gt;10%」的分界</td>
@@ -1149,7 +1149,7 @@ details.ex-a .a-body{
     <h4>第 7 步：把这些数变成查表输入</h4>
     <div class="kv">
       <div class="kv-row"><div class="kv-k">表 A 输入 1</div><div class="kv-v">预测 OCC =（在手房晚 + 预测增量房晚）÷ 可售房晚 =（187 + 57）÷ 292 = 244 ÷ 292 = <b>83.6%</b></div></div>
-      <div class="kv-row"><div class="kv-k">表 A 输入 2</div><div class="kv-v">Pace 与 Pickup 双信号 =（187 − 199）÷ 199 × 100% = <b>落后 6.0%</b></div></div>
+      <div class="kv-row"><div class="kv-k">表 A 输入 2</div><div class="kv-v">Pace 偏差 =（187 − 199）÷ 199 × 100% = <b>落后 6.0%</b></div></div>
       <div class="kv-row"><div class="kv-k">查表结果</div><div class="kv-v">表 A：行「70–85%」× 列「落后 3–10%」→ <span class="down">↓3%</span>（M03 详讲完整查表动作）</div></div>
       <div class="kv-row"><div class="kv-k">表 C 输入</div><div class="kv-v">ARI = 100.0 → 落「97–103 健康」→ 维持</div></div>
       <div class="kv-row"><div class="kv-k">表 D 输入</div><div class="kv-v">MPI = 110.3 → 落「&gt;110 份额领先」→ 优先提价</div></div>
@@ -1263,11 +1263,11 @@ details.ex-a .a-body{
   </div>
 
   <div class="ex-q">
-    <div class="q-t">第 9 题（综合 · Pace 与 Pickup 双信号与查表前置）</div>
-    <div class="q-b">目标日 10 月 15 日：当前在手房晚 187 间，去年同期同一提前窗口在手房晚 199 间。求 Pace 与 Pickup 双信号。若该日预测 OCC 为 78.0%，请写出查《法典》表 A 时的「行」和「列」分别落在哪一档（不要求给出动作）。</div>
+    <div class="q-t">第 9 题（综合 · Pace 偏差与查表前置）</div>
+    <div class="q-b">目标日 10 月 15 日：当前在手房晚 187 间，去年同期同一提前窗口在手房晚 199 间。求 Pace 偏差。若该日预测 OCC 为 78.0%，请写出查《法典》表 A 时的「行」和「列」分别落在哪一档（不要求给出动作）。</div>
     <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
-      Pace 与 Pickup 双信号 = (187 − 199) ÷ 199 × 100% = −12 ÷ 199 × 100% = <b>落后 6.0%</b>（保留一位小数为 6.0%）<br>
-      查表定位：预测 OCC 78.0% → 落在「<b>70–85%</b>」行；Pace 与 Pickup 双信号 落后 6.0% → 落在「<b>落后 3–10%</b>」列。<br>
+      Pace 偏差 = (187 − 199) ÷ 199 × 100% = −12 ÷ 199 × 100% = <b>落后 6.0%</b>（保留一位小数为 6.0%）<br>
+      查表定位：预测 OCC 78.0% → 落在「<b>70–85%</b>」行；Pace 偏差 落后 6.0% → 落在「<b>落后 3–10%</b>」列。<br>
       解析：写答案时必须写「落后 6.0%」而不是「−6.0%」。若分母误用当前在手 187，会算成落后 6.4%，本例未跨列，但真实业务中 −9.8% 与 −10.2% 会分属两列，动作从 <span class="down">↓3%</span> 变成 <span class="down">↓5%</span>。
     </div></details>
   </div>
@@ -1301,7 +1301,7 @@ details.ex-a .a-body{
       <li>ARI = 本店 ADR ÷ 竞对 ADR × 100</li>
       <li>RGI = 本店 RevPAR ÷ 竞对 RevPAR × 100 = <b>MPI × ARI ÷ 100</b></li>
       <li>NRevPAR = RevPAR ×（1 − <b>渠道综合成本率</b>）</li>
-      <li>Pace 与 Pickup 双信号 =（当前在手 − <b>去年同期同一提前窗口在手</b>）÷ 去年同期在手 × 100%</li>
+      <li>Pace 偏差 =（当前在手 − <b>去年同期同一提前窗口在手</b>）÷ 去年同期在手 × 100%</li>
     </ol>
   </div>
 
@@ -1362,8 +1362,8 @@ details.ex-a .a-body{
     <div class="q-b">判断改错：某收益专员在日报中写道「昨日 OCC 73.1%，比目标 75.0% 落后 1.9 个百分点，因此判定需求偏弱，计划下调价格」。已知昨日有 8 间 OOO。请指出这段话的计算错误、逻辑错误，并给出正确结论。</div>
     <details class="ex-a"><summary>查看答案与解析</summary><div class="a-body">
       <b>计算错误：</b>未剔除 OOO。若已售房晚为 234，正确 OCC = 234 ÷ 292 = 80.1%，已达目标，不存在落后。<br>
-      <b>逻辑错误（两条）：</b>① 判断需求强弱不能只看 OCC，必须同时看 Pace 与 Pickup 双信号与 ARI；② 「计划下调价格」没有触发条件——按《法典》表 A，调价必须由「预测 OCC」+「Pace 与 Pickup 双信号」两个输入共同决定，且优先级低于表 B（库存）与表 L（应急）。<br>
-      <b>正确结论：</b>先用可售房晚 312 重算 OCC = 75.0%，判定达成目标；再取该目标日的 Pace 与 Pickup 双信号，代入《法典》表 A 查表；表 A 若给出「维持」，则不调价，把结论写入《调价台账》并注明「本日无动作，原因：表 A 判定维持」。<br>
+      <b>逻辑错误（两条）：</b>① 判断需求强弱不能只看 OCC，必须同时看 Pace 偏差与 ARI；② 「计划下调价格」没有触发条件——按《法典》表 A，调价必须由「预测 OCC」+「Pace 偏差」两个输入共同决定，且优先级低于表 B（库存）与表 L（应急）。<br>
+      <b>正确结论：</b>先用可售房晚 312 重算 OCC = 75.0%，判定达成目标；再取该目标日的 Pace 偏差，代入《法典》表 A 查表；表 A 若给出「维持」，则不调价，把结论写入《调价台账》并注明「本日无动作，原因：表 A 判定维持」。<br>
       解析：这是本模块最重要的一题——<b>算错一个数，就会凭空造出一个本来不存在的降价动作</b>。
     </div></details>
   </div>
@@ -1393,7 +1393,7 @@ details.ex-a .a-body{
 
 
 <div class="unit" id="unit"><div class="u-k">增补授课单元 · v2026.4</div><h2>指标口径升级：从「算对」到「算得能进决策」</h2><p>本模块原有 10 个指标的定义与公式继续有效。本次增补解决三件事：指标分成过程与结果两层、Pace 与 Pickup 拆成两个信号、竞组口径必须可复算。三者都会直接改写表 A 与表 C / D 的输入。</p><h3>结果指标与过程指标分层</h3><p>RevPAR 只回答「每间可售房收了多少钱」，不回答「赚了多少」。同样 ¥445 的 RevPAR，走 OTA（成本率 16%）与走直销（成本率 3%）的净贡献相差 ¥58 以上。本版把 GOPPAR、NRevPAR、CPOR、Flow-Through 定为结果指标，RevPAR 降为过程监控指标；判定表的目标函数一律写净贡献 / GOPPAR。</p><h3>Pace 与 Pickup 是两个信号</h3><p>Pace 看位置：当前在手与去年同期同窗口在手相比差多少。Pickup 看速度：定义窗口内新增预订房晚减去取消房晚。二者可以反向——Pace 落后 8% 但 Pickup 连续三天加速，说明需求正在追上来，此时按旧口径把两个信号混成一个名称而降价，会把后面高价需求提前贱卖。表 A 现在要求两个字段并列，结论矛盾时不自动调价，转人工。</p><h3>竞组口径必须能被学生复算</h3><p>旧材料写「竞争组合加权均价 ¥680」却没给权重；5 家挂牌价等权平均恰好是 ¥680，按房量加权是 ¥691.68。本版统一表述为「竞争组合等权均价 ¥680」，补齐竞组 OCC 68.0% 与竞组 RevPAR ¥462.40，学生可独立复算 MPI、ARI、RGI。</p><div class="tbl-wrap"><table class="tbl"><caption>表 U1-1　指标分层与判定用途<span class="cap-note">结果指标优先；过程指标只用于监控与解释</span></caption><thead><tr><th>层级</th><th>指标</th><th>公式要点</th><th>判定用途</th></tr></thead><tbody><tr><td>过程</td><td>OCC / ADR / RevPAR</td><td>分母分别为可售房晚 / 已售房晚 / 可售房晚</td><td>监控与解释，不单独触发决策</td></tr><tr><td>结果</td><td>GOPPAR</td><td>GOP ÷ 可售房晚</td><td>最终考核；预算与业主汇报</td></tr><tr><td>结果</td><td>NRevPAR</td><td>(客房收入 − 直接获客成本) ÷ 可售房晚</td><td>渠道与客源取舍</td></tr><tr><td>结果</td><td>CPOR</td><td>客房部费用 ÷ 已售房晚</td><td>低于此价卖房即毁损价值</td></tr><tr><td>结果</td><td>Flow-Through</td><td>ΔGOP ÷ ΔRevenue × 100%</td><td>增收是否转成增利</td></tr><tr><td>竞争</td><td>MPI / ARI / RGI</td><td>RGI = MPI × ARI ÷ 100</td><td>相对位置，禁止自动跟价</td></tr><tr><td>增量</td><td>Pace / Pickup</td><td>同比位置 / 窗口净增房晚</td><td>表 A 的两个独立触发字段</td></tr></tbody></table></div><div class="tbl-wrap"><table class="tbl"><caption>表 U1-2　Pace 与 Pickup 对照<span class="cap-note">看位置与看速度，不可互相替代</span></caption><thead><tr><th>项</th><th>Pace 同比位置</th><th>Pickup 窗口净增</th></tr></thead><tbody><tr><td>定义</td><td>(当前在手 − 去年同期同窗口在手) ÷ 去年同期同窗口在手 × 100%</td><td>定义窗口内新增预订房晚 − 取消房晚</td></tr><tr><td>回答</td><td>我比去年同期多卖了还是少卖了</td><td>最近这几天需求来得快还是慢</td></tr><tr><td>数据来源</td><td>PMS 在手快照 + 去年同窗</td><td>PMS 增量流水</td></tr><tr><td>典型误用</td><td>被旧材料误当作同一个指标</td><td>被当成同比位置使用</td></tr><tr><td>矛盾处理</td><td>两者结论不一致时</td><td>不自动调价，转人工并写入决策日志</td></tr></tbody></table></div><div class="formula"><span class="f-label">算例 U1-A　净贡献改写价格结论</span>OTA 报价 ¥600，成本率 16% → 净贡献 = 600 × (1 − 0.16) = <span class="f-out">¥504</span><br>直销报价 ¥530，成本率 3% → 净贡献 = 530 × (1 − 0.03) = <span class="f-out">¥514</span><br>结论：便宜 ¥70 反而多赚 ¥10；按 RevPAR 看会选 OTA，按净贡献看应选直销。</div><div class="formula"><span class="f-label">算例 U1-B　RGI 恒等式验算（÷100）</span>本店 OCC 75.0% / ADR ¥680 → RevPAR ¥510.0；竞组 OCC 68.0% / ADR ¥700 → RevPAR ¥476.0<br>MPI = 75.0 ÷ 68.0 × 100 = 110.3；ARI = 680 ÷ 700 × 100 = 97.1<br>RGI 直接算 = 510.0 ÷ 476.0 × 100 = <span class="f-out">107.1</span><br>RGI 恒等式 = 110.3 × 97.1 ÷ 100 = <span class="f-out">107.1</span>　✓ 恒等式成立</div><div class="callout callout-danger"><span class="co-t">旧式 RGI 少了 ÷100</span>漏掉 ÷100 的旧写法会算出 10,713 而不是 107.1，相差 100 倍。100 代表公平份额；本版所有页面统一为 MPI × ARI ÷ 100。</div><div class="callout callout-key"><span class="co-t">本模块统一计算约定（全学院适用）</span>百分比保留一位小数；金额单位为元、保留一位小数；房晚一律向下取整；MPI / ARI / RGI 保留一位小数，不四舍五入到整数；价格调整结果四舍五入到整数元，此为执行口径而非判定阈值。</div><div class="callout callout-warn"><span class="co-t">分母口径</span>可售房晚须剔除 OOO 与装修房：300 间扣 3 间 OOO → 297；扣 12 间装修 → 288。免费房与自用房计入已售房晚但不产生收入，须在台账单独标注。</div><h3>课堂练习与参考答案</h3><div class="ex-q"><p><b>练习 1　</b>某日 300 间房、3 间 OOO、已售 240 间，求 OCC（保留一位小数）。</p><p class="card-note"><b>答案与评分要点</b>　可售房晚 = 300 − 3 = 297；OCC = 240 ÷ 297 × 100% = 80.8%。误用 300 得 80.0%，差 0.8 个百分点。</p></div><div class="ex-q"><p><b>练习 2　</b>MPI 110.3、ARI 97.1，写出 RGI 的两种算法并说明为何必须一致。</p><p class="card-note"><b>答案与评分要点</b>　直接法：本店 RevPAR ÷ 竞组 RevPAR × 100 = 107.1；恒等式法：110.3 × 97.1 ÷ 100 = 107.1。两者不等说明至少一个原始数据错了，是最快的自查手段。</p></div><div class="ex-q"><p><b>练习 3　</b>OTA 净贡献 ¥504、直销 ¥514，但 OTA 带来的 OCC 更高，是否应优先开 OTA？</p><p class="card-note"><b>答案与评分要点</b>　不自动开。先算边际净贡献与直销占比下限；OCC 是过程指标，净贡献是结果指标。写出取舍理由并登记决策日志。</p></div><p style="font-size:12.8px;color:#7B8794;margin-top:18px">关联资产：表 A / C / D / H · v2026-2-rules.json · metrics / baseline / comp_set　｜　应用校正：RM-01、RM-03、RM-09、RM-13、SYS-01</p></div>
-<div class="cert-foot">RMC · v2026.4 · 行业实操认证培训 · 2026-11-07 · 门内 noindex · 先备份再出新版本，原有资料未覆盖 · <span style="color:#7B8794">RMC即RMCity（即Revenue Management Community收益管理社区）</span> · <a href="v2026-4-cert-index.html">培训总索引</a> · <a href="v2026-4-cert-pathway.html">L123 认证路径</a> · <a href="v2026-4-cert-exam.html">考评规范</a> · <a href="v2026-2-rules.json">唯一真源</a> · <a href="../curriculum.html">旧版教案总纲</a> · <a href="../deliverables-ledger.html">产出物总台账</a></div>
+<div class="cert-foot">RMC · v2026.4 · 行业实操认证培训 · 2026-11-07 · 门内 noindex · 先备份再出新版本，原有资料未覆盖 · <span style="color:#7B8794">RMC即RMCity（即Revenue Management Community收益管理社区）</span> · <a href="v2026-4-cert-index.html">培训总索引</a> · <a href="v2026-4-cert-pathway.html">L123 认证路径</a> · <a href="v2026-4-cert-exam.html">考评规范</a> · <a href="v2026-2-rules.json">唯一真源</a> · <a href="v2026-5-l123-crosswalk.html">两条 L123 线的区别</a> · <a href="guide-combined.html">操作指南分级手册</a> · <a href="../curriculum.html">旧版教案总纲</a> · <a href="../deliverables-ledger.html">产出物总台账</a></div>
 </div>
 <div id="rm-toc-drawer" style="display:none"></div>
 </body>
