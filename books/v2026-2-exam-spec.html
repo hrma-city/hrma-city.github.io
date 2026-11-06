@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js?v=gate20261013"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<!-- 本页自带左侧固定目录，幂等键 id="rm-toc-drawer" 视为已存在：目录注入脚本跳过 -->
+<title>v2026.2 新版考评与题库规范 · v2026.2 · RMC</title>
+<style>
+:root{--bg:#FAF9F6;--paper:#FFFFFF;--ink:#2E3B40;--ink2:#55666C;
+--line:#E2E8E7;--line2:#EEF2F1;--accent:#3E5C6B;--accent2:#2C4753;
+--soft:#EDF3F3;--clay:#B98B6E;--gold:#A8915F;--muted:#F4F7F7;}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;font-size:15.2px;line-height:1.82}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--line)}
+a:hover{color:var(--accent2)}
+.wrap{display:flex;align-items:flex-start;max-width:1320px;margin:0 auto}
+nav#toc{position:sticky;top:0;width:250px;flex:0 0 250px;height:100vh;overflow-y:auto;padding:40px 18px 60px 26px;border-right:1px solid var(--line);background:var(--muted)}
+nav#toc .toc-t{font-family:"Songti SC",serif;font-size:15px;font-weight:700;color:var(--accent2);letter-spacing:.06em;margin:0 0 4px}
+nav#toc .toc-s{font-size:12px;color:var(--ink2);margin:0 0 20px;line-height:1.6}
+nav#toc ol{list-style:none;margin:0;padding:0;counter-reset:t}
+nav#toc li{counter-increment:t;margin:0 0 2px}
+nav#toc a{display:block;padding:5px 8px 5px 11px;border:0;border-left:2px solid transparent;color:var(--ink2);font-size:12.8px;line-height:1.5;border-radius:0 3px 3px 0}
+nav#toc a::before{content:counter(t,cjk-ideographic) "、";color:var(--gold);font-size:11px}
+nav#toc a:hover{background:var(--soft);border-left-color:var(--accent);color:var(--accent2)}
+nav#toc .toc-foot{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink2);line-height:1.7}
+main{flex:1;min-width:0;padding:48px 60px 96px;max-width:960px}
+section{scroll-margin-top:76px;margin:0 0 52px}
+.hd{border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:38px}
+.kicker{font-size:12px;letter-spacing:.16em;color:var(--clay);margin:0 0 10px}
+h1{font-family:"Songti SC",serif;font-size:31px;line-height:1.4;font-weight:700;margin:0 0 12px}
+.sub{font-size:14px;color:var(--ink2);margin:0}
+.brandline{font-size:12.2px;color:var(--ink2);margin:14px 0 0;padding-top:12px;border-top:1px solid var(--line2)}
+h2{font-family:"Songti SC",serif;font-size:23px;font-weight:700;color:var(--accent2);margin:0 0 8px}
+h2 .num{font-family:"PingFang SC",sans-serif;font-size:12px;color:var(--gold);letter-spacing:.1em;display:block;margin-bottom:7px}
+h3{font-size:16px;font-weight:700;color:var(--accent2);margin:26px 0 9px;padding-left:10px;border-left:3px solid var(--clay)}
+h4{font-size:14.2px;color:var(--accent2);margin:16px 0 6px}
+p{margin:0 0 12px} strong{color:var(--accent2);font-weight:700}
+ul,ol{margin:0 0 14px;padding-left:22px} li{margin:0 0 6px}
+table{width:100%;border-collapse:collapse;margin:16px 0 22px;font-size:13.2px;background:var(--paper);border:1px solid var(--line)}
+th,td{border-bottom:1px solid var(--line2);border-right:1px solid var(--line2);padding:9px 11px;text-align:left;vertical-align:top;line-height:1.68}
+th{background:var(--soft);color:var(--accent2);font-weight:700;font-size:12.8px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0} td:last-child,th:last-child{border-right:0}
+.card{background:var(--paper);border:1px solid var(--line);padding:18px 22px;margin:16px 0 20px;border-radius:3px}
+.card .ct{font-size:11.8px;letter-spacing:.08em;color:var(--clay);margin:0 0 7px;font-weight:700}
+.card p:last-child{margin-bottom:0}
+.note{font-size:13px;color:var(--ink2);background:var(--muted);padding:12px 16px;border-left:2px solid var(--gold);margin:14px 0 22px;line-height:1.75}
+.tag{display:inline-block;font-size:11.5px;padding:2px 8px;border:1px solid var(--line);border-radius:2px;color:var(--accent);background:var(--soft);margin:0 4px 4px 0}
+.tag.c{color:#9A6E52;background:#F9F1EC;border-color:#EFE0D4}
+.tag.g{color:#8A7448;background:#F8F4EA;border-color:#EBE2CC}
+.blank{display:inline-block;min-width:110px;border-bottom:1px solid var(--clay);color:transparent}
+.rows{background:var(--paper);border:1px solid var(--line);padding:12px 16px;margin:10px 0 18px;line-height:2.1;font-size:13.6px}
+.rows div{border-bottom:1px dashed var(--line2);padding:1px 0}
+.rows div:last-child{border-bottom:0}
+.mini{font-size:12.4px;color:var(--ink2)}
+.try{background:var(--soft);border:1px solid var(--line);padding:20px 24px;border-radius:3px}
+.tips{border-top:1px solid var(--line);margin-top:30px;padding-top:18px;font-size:13.8px;color:var(--ink2)}
+pre{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--accent);padding:14px 16px;overflow-x:auto;font-size:12.6px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+code{font-family:Menlo,Consolas,monospace;font-size:12.4px;background:var(--muted);padding:1px 4px}
+.filters{background:var(--paper);border:1px solid var(--line);padding:14px 18px;margin:16px 0 20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.filters label{font-size:12.8px;color:var(--ink2)}
+select,input[type=text],textarea,button{font-family:inherit;font-size:13.2px;padding:6px 9px;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:2px}
+button{cursor:pointer;background:var(--accent);color:#fff;border-color:var(--accent)}
+button.ghost{background:var(--paper);color:var(--accent)}
+button:hover{background:var(--accent2)}
+.stat{display:inline-block;background:var(--soft);border:1px solid var(--line);padding:6px 12px;margin:0 8px 10px 0;font-size:12.8px}
+.stat b{font-size:17px;color:var(--accent2);margin-right:5px}
+.item{border:1px solid var(--line);background:var(--paper);padding:12px 16px;margin:0 0 10px;border-radius:3px}
+.item .no{display:inline-block;background:var(--soft);color:var(--accent2);font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:2px;margin-right:8px}
+.warn{background:#FBF3EA;border:1px solid #EBDCC4;color:#8A6338;padding:10px 14px;font-size:13px;margin:12px 0}
+details{background:var(--paper);border:1px solid var(--line);padding:10px 14px;margin:10px 0}
+summary{cursor:pointer;color:var(--accent);font-size:13.2px}
+@media(max-width:900px){.wrap{display:block} nav#toc{position:relative;width:auto;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:20px}
+nav#toc .toc-foot{display:none} main{padding:28px 20px 60px} h1{font-size:26px} table{font-size:12.2px}}
+@media print{nav#toc{display:none} main{padding:0;max-width:none} body{background:#fff} .a4{max-width:210mm;margin:0 auto}}
+
+/* 体检报告专属 */
+.verdict{background:#F2F7F6;border:1px solid #D9E6E3;border-left:3px solid var(--accent);
+padding:18px 22px;margin:18px 0 26px;border-radius:3px}
+.verdict .vt{font-size:11.8px;letter-spacing:.08em;color:var(--accent);font-weight:700;margin:0 0 9px}
+.verdict p{margin:0 0 8px;font-size:14px} .verdict p:last-child{margin-bottom:0}
+.issue{background:var(--paper);border:1px solid var(--line);margin:0 0 22px;padding:18px 22px;border-radius:3px}
+.issue .ih{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--line2);padding-bottom:10px;margin-bottom:14px}
+.issue .no{font-family:"PingFang SC",sans-serif;font-size:11.5px;font-weight:700;letter-spacing:.06em;
+padding:2px 9px;border-radius:2px;white-space:nowrap}
+.lv0{background:#FBEDEA;border:1px solid #EBCFC7;color:#9A4A38}
+.lv1{background:#FBF3EA;border:1px solid #EBDCC4;color:#8A6338}
+.lv2{background:var(--soft);border:1px solid var(--line);color:var(--accent)}
+.issue h3{font-size:16px;border:0;padding:0;margin:0;color:var(--accent2)}
+.issue h4{font-size:12.5px;letter-spacing:.04em;color:var(--clay);margin:14px 0 6px}
+.issue p{font-size:13.5px;margin:0 0 9px}
+.issue ul,.issue ol{margin:0 0 10px;padding-left:20px;font-size:13.3px}
+.issue li{margin:0 0 5px}
+.issue table{font-size:12.6px;margin:8px 0 14px}
+.issue th,.issue td{padding:7px 9px}
+code{font-family:"SFMono-Regular",Menlo,monospace;font-size:12.2px;background:var(--muted);
+padding:1px 5px;border:1px solid var(--line2);border-radius:2px;color:var(--accent2)}
+.ev{background:var(--muted);border-left:2px solid var(--gold);padding:10px 14px;margin:8px 0 12px;
+font-size:12.8px;line-height:1.85}
+.ev b{color:var(--accent2)}
+.fix{background:#F2F7F6;border:1px solid #D9E6E3;padding:10px 14px;font-size:13px;margin:8px 0 0;line-height:1.8}
+.no2{background:#FBF3EA;border:1px solid #EBDCC4;color:#8A6338;padding:12px 16px;font-size:13px;margin:14px 0 22px;line-height:1.8}
+.foot{margin-top:52px;padding-top:16px;border-top:1px solid var(--line);font-size:11.6px;color:var(--ink2);line-height:1.8}
+.mini{font-size:12.2px;color:var(--ink2);line-height:1.8}
+
+.ev{font-size:13.2px;color:#6B4B3B;background:#FBF6F2;border-left:3px solid #B98B6E;padding:11px 15px;margin:12px 0 18px;line-height:1.78}
+.verdict{background:#EDF3F3;border:1px solid #E2E8E7;border-left:3px solid #3E5C6B;padding:18px 22px;margin:16px 0 22px}
+.verdict .vt{font-size:12px;letter-spacing:.08em;color:#3E5C6B;font-weight:700;margin:0 0 8px}
+.no2{background:#F8F4EA;border:1px solid #EBE2CC;padding:14px 18px;margin:16px 0 22px;font-size:13.4px;line-height:1.8}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid #E2E8E7;font-size:12px;color:#6B7B80;line-height:1.9}
+.issue{background:#FFFFFF;border:1px solid #E2E8E7;padding:16px 20px;margin:14px 0 20px}
+.issue .ih{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.issue .ih h3{margin:0;border:0;padding:0;font-size:15.4px}
+.issue .no{font-size:11.4px;color:#8A7448;background:#F8F4EA;border:1px solid #EBE2CC;padding:2px 8px;border-radius:2px}
+.calc{background:#FFFFFF;border:1px solid #E2E8E7;padding:16px 20px;margin:14px 0 20px}
+.calc input{width:96px;padding:5px 8px;border:1px solid #E2E8E7;border-radius:2px;font-size:13.5px;color:#2E3B40;background:#FAF9F6}
+.calc button{padding:6px 14px;border:1px solid #3E5C6B;background:#3E5C6B;color:#FFFFFF;font-size:13px;border-radius:2px;cursor:pointer;margin-left:8px}
+.calc .res{margin-top:11px;font-size:14px;color:#2C4753;font-weight:700;min-height:22px}
+@media print{nav#toc{display:none}.wrap{display:block}main{padding:0;max-width:none} .issue{page-break-inside:avoid}section{break-inside:auto}}</style>
+</head>
+<body>
+<div class="wrap">
+<nav id="toc"><p class="toc-t">目录</p><p class="toc-s">253 练习 / 76 真题 / 统一答案<br>v2026.2 · 2026-11-06</p><ol><li><a href="#s0">统一口径</a></li><li><a href="#s1">题库结构与 ID</a></li><li><a href="#s2">76 真题交付与曝光控制</a></li><li><a href="#s3">效度、信度与等值</a></li><li><a href="#s4">评分一致性与 rubric 结构化</a></li><li><a href="#s5">复评与申诉</a></li><li><a href="#s6">结业证明与免责声明</a></li><li><a href="#s7">答案勘误表</a></li><li><a href="#s8">Have a Try / Tips</a></li></ol><div class="toc-foot">门内 noindex · 内部修正版，不对外分发。<br>先备份再出新版本；原有资料未覆盖、未改名、未删除。</div></nav>
+<main>
+<div class="hd"><p class="kicker">实体资产 · 测评</p><h1>v2026.2 新版考评与题库规范</h1><p class="brandline">RMC即RMCity（即Revenue Management Community收益管理社区）　·　v2026.2　·　2026-11-06　·　门内 noindex / 修正后实体版　·　真源：<code>v2026-2-rules.json</code>　·　原有资料见<a href="v2026-1-legacy-index.html">原有资料索引</a></p></div>
+<section id="s0"><h2><span class="num">00</span>统一口径</h2><p><strong>这是修正后的考评规范与题库口径</strong>，不是错题清单。旧版四套题量、两处互斥答案并存，本版只保留一套。</p><table><thead><tr><th style="width:18%">项</th><th style="width:42%">统一口径</th><th style="width:40%">历史口径（存档）</th></tr></thead><tbody><tr><td>练习题</td><td><strong>253</strong> 题，由题库 ID 计数</td><td>237 / 251 / 253 / 623</td></tr><tr><td>真题</td><td><strong>76</strong> 题，抽题组卷交付</td><td>整包交付（本版禁止）</td></tr><tr><td>判断题分母</td><td><strong>288</strong></td><td>papers.md:83 = 288；training.html:239 = 308（作废）</td></tr><tr><td>题量来源</td><td>页面不写死常数，一律由题库 ID 计数得出</td><td>各页手写常数</td></tr></tbody></table><div class="note">wb.html 237 / certification.html 251 / training.html 253 / marketing-plan.html 623；v2026.2 统一由题库 ID 计数得出，页面不写死常数</div></section><section id="s1"><h2><span class="num">01</span>题库结构与 ID</h2><table><thead><tr><th style="width:12%">层级</th><th style="width:24%">ID 规则</th><th style="width:36%">字段</th><th style="width:28%">说明</th></tr></thead><tbody><tr><td>练习题</td><td>WB-&lt;模块&gt;-&lt;序号&gt;</td><td>题干 / 选项 / 答案 / 解析 / 表号 / 章号 / 难度 / 曝光计数</td><td>共 253 题；按章与表号双向挂接</td></tr><tr><td>真题</td><td>EX-&lt;年份&gt;-&lt;序号&gt;</td><td>同上 + 开考码绑定 / 曝光阈值</td><td>共 76 题；不整包交付</td></tr><tr><td>rubric</td><td>RB-&lt;表号&gt;-&lt;序号&gt;</td><td>表号 / 评分点 / 分值 / 达标描述 / 常见错误</td><td>60 条，与 15 表逐表对应；剔除说明文字与自指</td></tr><tr><td>答案冲突</td><td>按题干指纹去重</td><td>题干 / 两处来源 / 校正值 / 依据</td><td>同一判断题只保留一个正确答案</td></tr></tbody></table></section><section id="s2"><h2><span class="num">02</span>76 真题交付与曝光控制</h2><p>76 真题不整包交付：抽题组卷 + 曝光阈值自动退役 + 一次性开考码 + IP 白名单</p><table><thead><tr><th style="width:16%">环节</th><th style="width:58%">规则</th><th style="width:26%">目的</th></tr></thead><tbody><tr><td>组卷</td><td>按章、表号、难度分层抽题，复本之间题目重叠率设上限</td><td>避免背题</td></tr><tr><td>曝光计数</td><td>每题累计曝光次数写入题库字段；达阈值自动退役</td><td>控制题目泄漏</td></tr><tr><td>开考码</td><td>一次性开考码，绑定考试场次与考生名单</td><td>防止提前取题</td></tr><tr><td>访问边界</td><td>IP 白名单 + 考务实名 + 教师身份验证</td><td>校级授权的技术下限</td></tr><tr><td>考后</td><td>答案不回传，解析在成绩发布后统一讲解</td><td>复用题目</td></tr></tbody></table><div class="note">现有纯前端登录门不足以承载商业授权；校级入口、白名单与水印指纹见 <a href="v2026-1-licensing-playbook.html">授权层实施手册</a> V0 方案。</div></section><section id="s3"><h2><span class="num">03</span>效度、信度与等值</h2><table><thead><tr><th style="width:16%">维度</th><th style="width:54%">本版要求</th><th style="width:30%">证据形式</th></tr></thead><tbody><tr><td>内容效度</td><td>每题映射到能力单元与判定表，双向覆盖检查</td><td>题目—能力—表号三列矩阵</td></tr><tr><td>构念效度</td><td>L1/L2/L3 分别对应执行 / 决策 / 治理，不混考</td><td>三级双向细目表</td></tr><tr><td>评分信度</td><td>实操题双人评分，不一致时第三方复核</td><td>一致性记录</td></tr><tr><td>等值</td><td>不同学期复本须有锚题并做等值处理</td><td>锚题清单与等值报告</td></tr><tr><td>分数解释</td><td>明确通过线含义与误判风险，不宣称预测工作绩效</td><td>分数解释说明</td></tr><tr><td>公平性</td><td>多元命题人、题意与语境复核，避免无关背景知识</td><td>命题与复核记录</td></tr></tbody></table><div class="note">对标 AERA/APA/NCME《教育与心理测验标准》与人员认证的通行做法；本版建立的是可执行规范，实证数据仍需在真实开课后积累。</div></section><section id="s4"><h2><span class="num">04</span>评分一致性与 rubric 结构化</h2><p>60 条 rubric 与 15 表一一对应：每表 4 条，共 60 条。旧版 rubric 混入说明文字与自指条目，本版改为机器可读字段。</p><table><thead><tr><th style="width:16%">字段</th><th style="width:40%">定义</th><th style="width:44%">示例（表 D）</th></tr></thead><tbody><tr><td>表号</td><td>A–O</td><td>D</td></tr><tr><td>评分点</td><td>可观察的判定动作</td><td>RGI 复算使用 ÷100</td></tr><tr><td>分值</td><td>该点满分</td><td>2</td></tr><tr><td>达标描述</td><td>得分需满足的具体行为</td><td>写出 MPI×ARI÷100 并能用竞组 OCC 复算</td></tr><tr><td>常见错误</td><td>对应的已知错法</td><td>写成 MPI×ARI=RGI，或竞组 OCC 缺失仍给结论</td></tr></tbody></table><div class="note">rubric 由真源派生，页面不手写条目；修改评分点须改真源并重跑回归。</div></section><section id="s5"><h2><span class="num">05</span>复评与申诉</h2><div class="rows"><div>1　成绩发布后 7 个工作日内可申请复评，须写明题号与理由。</div><div>2　实操题由第二位评分人独立重评；两人分差超阈值时第三方复核。</div><div>3　复评结论与依据书面回传，申诉记录归档，不改变题库内容本身。</div><div>4　若复评暴露题目歧义或答案错误，按勘误补丁流程另起版本修订，旧卷保留。</div></div></section><section id="s6"><h2><span class="num">06</span>结业证明与免责声明</h2><div class="card"><div class="ct">统一措辞</div><p><strong>课程结业证明 / 能力等级证明（L1 / L2 / L3）</strong></p><p>自建学习成果证明，无外部背书，不等同国家职业资格或职业技能等级认定</p></div><h3>禁用词清单（仅作排查用，非本版表述）</h3><p><span class="tag c">三级资格认证</span> <span class="tag c">资格认证证书</span> <span class="tag c">从业资格证</span> <span class="tag c">职业技能等级证书</span> <span class="tag c">行业认证证书</span> <span class="tag c">持证上岗</span> <span class="tag c">受行业认可的职业资质</span></p></section><section id="s7"><h2><span class="num">07</span>答案勘误表</h2><p>旧卷与旧题库保留原值，本表给出唯一正确答案；引用时须标明版本。</p><table><thead><tr><th style="width:26%">题目 / 位置</th><th style="width:12%">来源 A</th><th style="width:12%">来源 B</th><th style="width:13%">唯一答案</th><th style="width:37%">依据</th></tr></thead><tbody><tr><td>判断题第 2 题（分母）</td><td>288</td><td>308</td><td><strong>288</strong></td><td>300 间 − 12 间装修/OOO = 288；且 wb.html:295 的 317 应为 297（3 间 OOO 的另一题）</td></tr><tr><td>可售房晚（300 间 − 3 间 OOO）</td><td>317</td><td>—</td><td><strong>297</strong></td><td>wb.html:295 写成 317，应为 297</td></tr><tr><td>可售房晚（300 间 − 12 间 OOO）</td><td>—</td><td>—</td><td><strong>288</strong></td><td>exam/papers.md:83 答案 288 正确</td></tr><tr><td>M11 客房收入（109,500 × 444.96）</td><td>51,971,328</td><td>—</td><td><strong>48,723,120</strong></td><td>51,971,328 属 320 间口径（116,800 × 444.96）；与 SPEC 取整口径差 4,380</td></tr><tr><td>RGI 复算题（MPI 110、ARI 95）</td><td>10,450</td><td>—</td><td><strong>104.50</strong></td><td>旧式 MPI × ARI 缺 ÷100；本版按 MPI × ARI ÷ 100，100 为公平份额</td></tr><tr><td>M11 与 SPEC 的差额说明</td><td>¥6,000</td><td>—</td><td><strong>取整差 4,380 / 320 间旧值差 3,243,828</strong></td><td>training.html:238 把两种口径的差额混写为 6,000；本版分别登记</td></tr><tr><td>竞组均价（5 家 BAR）</td><td>¥680「加权」</td><td>—</td><td><strong>等权 ¥680 / 房量加权 ¥691.68</strong></td><td>SPEC.md:134 未给权重；5 家等权恰为 680，按房量加权为 691.68</td></tr></tbody></table></section><section id="s8"><h2><span class="num">08</span>Have a Try / Tips</h2><h3>Have a Try（明天能做的三件事）</h3><div class="try"><ol><li>把题库题量改为按 ID 计数，页面不再写死 237 / 251 / 253 / 623 中的任何一个常数。</li><li>为 76 真题加曝光计数字段与退役阈值，并配一次性开考码。</li><li>用答案勘误表核对所有仍写 308、317 或 51,971,328 的解析页。</li></ol></div><h3>Tips</h3><p class="tips">题量统一不是改一个数字，是让所有页面从同一份题库里数出来。</p><p class="tips">答案错了不能悄悄改，要留勘误表和旧卷，才查得清谁按哪版学过。</p><p class="tips">需要解释时：RMC即RMCity（即Revenue Management Community收益管理社区）。</p></section>
+<div class="foot">RMC · v2026.2 · 实体资产 · 2026-11-06 · 门内 noindex · 先备份再出新版本，原有资料未覆盖 · <a href="v2026-2-assets-index.html">实体资产总索引</a> · <a href="v2026-2-fix-index.html">修正包总索引</a> · <a href="v2026-2-rules.json">唯一真源</a> · <a href="v2026-2-regression-report.html">回归报告</a> · <a href="v2026-1-legacy-index.html">原有资料索引</a> · <a href="../deliverables-ledger.html">产出物总台账</a></div>
+</main>
+</div>
+<div id="rm-toc-drawer" style="display:none"></div>
+</body>
+</html>
