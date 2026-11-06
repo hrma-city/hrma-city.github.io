@@ -1,0 +1,798 @@
+{
+  "version": "v2026.2",
+  "generated_at": "2026-11-06 22:59:23",
+  "principle": "重要资料永远不直接替换：先整包备份并校验，再新建 v2026-2-* 版本文件；旧文件原名原路径原内容保留且在线可查",
+  "backup": {
+    "dir": "/Users/abc/WorkBuddy/2026-09-03-08-48-09/outputs/backups/pre-v2026-2-fix-20261106-2247",
+    "file_count": 84,
+    "total_bytes": 11306411,
+    "manifest": "MANIFEST.json",
+    "verified": true
+  },
+  "scope": {
+    "professional_findings": 15,
+    "system_findings": 16,
+    "total": 31,
+    "order": "先修专业性体检 15 条，再修体系体检 16 条"
+  },
+  "metrics": {
+    "OCC": {
+      "name": "出租率",
+      "formula": "已售房晚 ÷ 可售房晚 × 100%",
+      "note": "分母为可售房晚，须剔除 OOO / 装修房；免费房与自用房按政策单独声明"
+    },
+    "ADR": {
+      "name": "平均房价",
+      "formula": "客房收入 ÷ 已售房晚",
+      "note": "含服务费、不含增值税；币种 CNY；口径一经选定每月保持一致"
+    },
+    "RevPAR": {
+      "name": "每间可售房收入",
+      "formula": "客房收入 ÷ 可售房晚 = OCC × ADR",
+      "note": "过程指标，不等于经营利润"
+    },
+    "MPI": {
+      "name": "市场渗透指数",
+      "formula": "本店 OCC ÷ 竞争组合 OCC × 100",
+      "parity": 100
+    },
+    "ARI": {
+      "name": "平均房价指数",
+      "formula": "本店 ADR ÷ 竞争组合 ADR × 100",
+      "parity": 100
+    },
+    "RGI": {
+      "name": "收入生成指数",
+      "formula": "本店 RevPAR ÷ 竞争组合 RevPAR × 100 = MPI × ARI ÷ 100",
+      "parity": 100,
+      "v1_error": "codex.html:325 / jt-engine.html:451 / textbook.html:520,524 写作 MPI × ARI = RGI（缺 ÷100）",
+      "correction": "全站新版本统一为 MPI × ARI ÷ 100；旧版保留原样"
+    },
+    "NRevPAR": {
+      "name": "净 RevPAR",
+      "formula": "(客房收入 − 直接获客成本) ÷ 可售房晚",
+      "note": "渠道成本率见 channel_cost；扣哪些成本须先约定并每月一致"
+    },
+    "TRevPAR": {
+      "name": "每间可售房总营收",
+      "formula": "总营收 ÷ 可售房晚"
+    },
+    "GOPPAR": {
+      "name": "每间可售房经营毛利",
+      "formula": "GOP ÷ 可售房晚",
+      "note": "结果指标。v1 中 SPEC.md:163-169 已写明「最终考核指标」，但未进入任何判定表"
+    },
+    "CPOR": {
+      "name": "每间已售房成本",
+      "formula": "客房部费用 ÷ 已售房晚",
+      "note": "低于此价卖房即毁损价值；v1 全库零命中，v2026.2 补入"
+    },
+    "FlowThrough": {
+      "name": "利润转化",
+      "formula": "ΔGOP ÷ ΔRevenue × 100%"
+    },
+    "Pace": {
+      "name": "预订进度同比",
+      "formula": "(当前在手 − 去年同期同窗口在手) ÷ 去年同期同窗口在手 × 100%",
+      "note": "看位置。v1 codex.html:143 把它误命名为 Pickup 偏差"
+    },
+    "Pickup": {
+      "name": "预订净增量",
+      "formula": "定义窗口内新增预订房晚 − 取消房晚",
+      "note": "看速度。与 SPEC.md:170 一致；与 Pace 必须拆成两个字段"
+    }
+  },
+  "channel_cost": {
+    "直销": 0.03,
+    "会员直订": 0.04,
+    "协议公司": 0.08,
+    "GDS_TMC": 0.13,
+    "OTA_国内": 0.16,
+    "OTA_国际": 0.18,
+    "批发商": 0.26
+  },
+  "baseline": {
+    "rooms": 300,
+    "days": 365,
+    "available_room_nights": 109500,
+    "sold_room_nights": 78840,
+    "occ": 0.72,
+    "adr": 618,
+    "revpar_exact": 444.96,
+    "revpar_rounded": 445,
+    "room_revenue_exact": 48723120,
+    "room_revenue_rounded": 48727500,
+    "rounding_gap": 4380,
+    "rounding_note": "SPEC 采用 RevPAR 整值 445 反推收入；精算 444.96 口径差 4,380，属口径差异不是算错，须书面说明",
+    "v1_m11_error": "training.html:238 写 109,500 × 444.96 = ¥51,971,328（实为 116,800 × 444.96，320 间口径）；并称与 SPEC 差 ¥6,000，实差 3,243,828",
+    "ooo_examples": [
+      {
+        "rooms": 300,
+        "ooo": 3,
+        "available": 297,
+        "v1_wrong": 317,
+        "source": "wb.html:295 写成 317，应为 297"
+      },
+      {
+        "rooms": 300,
+        "ooo": 12,
+        "available": 288,
+        "v1_wrong": null,
+        "source": "exam/papers.md:83 答案 288 正确"
+      }
+    ],
+    "segment_weighted_adr": 581.08,
+    "segment_baseline_adr": 618,
+    "segment_gap": 36.92,
+    "segment_note": "客源结构按占比加权 ADR 为 581.08，与基线 618 差 36.92；v2026.2 不静默改数，作为口径差异登记",
+    "channel_cost_classes": 7,
+    "segment_classes": 7,
+    "structure_note": "渠道成本 7 类与客源结构 8 类不对齐；FIT-WI / GRP / LNG 缺成本率，NRevPAR 无法按客源完整计算，须补映射表",
+    "monthly_occ_note": "12 个月 OCC 简单平均 74.8% 与年度 72.0% 不一致，须按各月天数加权；v2026.2 登记口径，不静默改数",
+    "comp_set": {
+      "members": [
+        {
+          "id": "A",
+          "name": "竞对A",
+          "rooms": 280,
+          "bar": 650
+        },
+        {
+          "id": "B",
+          "name": "竞对B",
+          "rooms": 240,
+          "bar": 690
+        },
+        {
+          "id": "C",
+          "name": "竞对C",
+          "rooms": 300,
+          "bar": 560
+        },
+        {
+          "id": "D",
+          "name": "竞对D",
+          "rooms": 350,
+          "bar": 880
+        },
+        {
+          "id": "E",
+          "name": "竞对E",
+          "rooms": 200,
+          "bar": 620
+        }
+      ],
+      "equal_weight_bar": 680.0,
+      "room_weighted_bar": 691.68,
+      "comp_occ": 0.68,
+      "comp_revpar": 462.4,
+      "weight_policy": "等权简单平均（5 家）",
+      "note": "SPEC.md:134 称「加权均价 ¥680」但无权重定义；5 家等权恰为 680，按房量加权为 691.68。v2026.2 把表述校正为「竞争组合等权均价 ¥680」，并补齐竞组 OCC 68.0%（取自 wb.html:424 既有算例）"
+    }
+  },
+  "tables": [
+    {
+      "code": "A",
+      "title": "每日价格调整判定表",
+      "v1_inputs": "预测 OCC、Pickup 偏差",
+      "added_inputs_v2026_2": "Pace 与 Pickup 分列、预测置信度/误差门槛、净贡献、合规溢价区间、审批人",
+      "decision_v2026_2": "先校验 Pace 与 Pickup 是否矛盾；预测误差超门槛时禁止自动调价；调价幅度以净贡献改善为准",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    },
+    {
+      "code": "B",
+      "title": "库存与限制条件配置表",
+      "v1_inputs": "预测 OCC",
+      "added_inputs_v2026_2": "被挡需求价值估算、解除触发条件、CTD 可执行规则、房型可售量",
+      "decision_v2026_2": "限制条件须先估算被挡需求净价值，低于保留容量价值才设置，并写明解除时点",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    },
+    {
+      "code": "C",
+      "title": "价格指数（ARI）判定表",
+      "v1_inputs": "ARI、MPI、RGI、预测 OCC",
+      "added_inputs_v2026_2": "竞组权重与 OCC 来源、公开挂牌价边界、需求弹性、不得自动跟价",
+      "decision_v2026_2": "ARI 只作相对位置信息；动作需同时看净贡献与竞组构成，不得自动跟价",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    },
+    {
+      "code": "D",
+      "title": "市场渗透指数（MPI）判定表",
+      "v1_inputs": "MPI、竞组 OCC",
+      "added_inputs_v2026_2": "竞组 OCC 来源、无约束需求重建、份额与净贡献并列",
+      "decision_v2026_2": "MPI 与 ARI 成套诊断，RGI 统一按 MPI×ARI÷100；竞组数据须可复算",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    },
+    {
+      "code": "E",
+      "title": "超额预订标准表",
+      "v1_inputs": "No-show+24h 取消率、可售房量、担保/团队/协议占比、备用酒店",
+      "added_inputs_v2026_2": "walk 成本、安置酒店协议价、赔偿标准、OOO 扣除、房型可售量、升级成本、期望损失",
+      "decision_v2026_2": "超售间数由「期望空房损失 vs 期望拒入住损失」决定；保留 5% / 15 间硬上限",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    },
+    {
+      "code": "F",
+      "title": "房型价差阶梯表",
+      "v1_inputs": "高级房 BAR=100 与固定系数",
+      "added_inputs_v2026_2": "需求系数、rate fence（提前购/不可退/会员/套餐）、BAR 阶梯与关闭规则",
+      "decision_v2026_2": "房型价差 = 基准价差 × 需求系数；每个折扣价必须绑定栅栏条件与关闭规则",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    },
+    {
+      "code": "G",
+      "title": "团队／协议询价接受判定表",
+      "v1_inputs": "R=团队报价÷预期散客 ADR、预测 OCC",
+      "added_inputs_v2026_2": "wash 率、肩部夜、房型蚕食、非客房贡献、统一口径综合置换成本、hurdle / bid price",
+      "decision_v2026_2": "期望净贡献（含 wash / 肩部夜 / 非客房）≥ 综合置换成本 + 容量机会成本 → 接受",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    },
+    {
+      "code": "H",
+      "title": "渠道开关判定表",
+      "v1_inputs": "预测 OCC",
+      "added_inputs_v2026_2": "渠道净贡献排序、直销占比下限、CAC、平台规则与价格一致性",
+      "decision_v2026_2": "按渠道净贡献 = 报价×(1−成本率)−变动成本 排序开关，并监控直销占比",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    },
+    {
+      "code": "I",
+      "title": "预订窗口分档监控表",
+      "v1_inputs": "提前天数",
+      "added_inputs_v2026_2": "窗口需求不确定性、事件日历、预测误差",
+      "decision_v2026_2": "监控频率随窗口需求不确定性调整，事件日升级为每日两次",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    },
+    {
+      "code": "J",
+      "title": "免费升级规则表",
+      "v1_inputs": "超售腾房、高档房空置、会员权益",
+      "added_inputs_v2026_2": "升级占用的房型机会成本、房型可售量",
+      "decision_v2026_2": "升级仅在「升级收益 > 占用房型的机会成本」时执行",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    },
+    {
+      "code": "K",
+      "title": "会议／宴会综合收益联动表",
+      "v1_inputs": "会议规模、客房需求、餐饮保底",
+      "added_inputs_v2026_2": "空间机会成本、RevPASH / RevPAM、与表 G 统一的综合置换成本口径",
+      "decision_v2026_2": "综合贡献 ≥ 综合置换成本 × 系数（分子分母同为全口径），并计入空间机会成本",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    },
+    {
+      "code": "L",
+      "title": "异常事件应急判定表",
+      "v1_inputs": "事件信号",
+      "added_inputs_v2026_2": "降级流程、暂停自动改价、预测模型接管规则",
+      "decision_v2026_2": "异常触发先暂停自动改价与自动同步，转人工并记录，事后 7 天复盘",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    },
+    {
+      "code": "M",
+      "title": "每日收益操作流水线（时间表）",
+      "v1_inputs": "schedule_time",
+      "added_inputs_v2026_2": "17:30 回溯步、审批权限矩阵、决策日志字段、异常日降级流程",
+      "decision_v2026_2": "每日收市前回溯：依据表号、审批人、预期与实际、命中标记",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    },
+    {
+      "code": "N",
+      "title": "周度／月度节奏表",
+      "v1_inputs": "period",
+      "added_inputs_v2026_2": "预测误差复盘、阈值校准、季度策略评估",
+      "decision_v2026_2": "每月复盘预测误差与调价命中率，按真实数据校准阈值；每季评估策略影响",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    },
+    {
+      "code": "O",
+      "title": "决策优先级与冲突仲裁表",
+      "v1_inputs": "冲突表及动作（仅 6 表入序列）",
+      "added_inputs_v2026_2": "15 表两两冲突矩阵、需求等级日历、会议×团队 / 团队×渠道 / 渠道×价格一致性三组裁决",
+      "decision_v2026_2": "按 15 表冲突矩阵唯一裁决；最高优先级为「维持」时顺延；冲突写入台账备注",
+      "objective": "净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控",
+      "basis": "codex.html 母本表名；专业缺口与行业对标见 v2026-2-rm-domain-audit.html",
+      "effective_date": "2026-11-06",
+      "review_due": "2027-11-06（最长不超过 5 年，教学资产按学年复审）",
+      "owner": "<待指派>",
+      "calibration": "阈值须用本店真实数据回填校准；教学脚手架，不是行业标准"
+    }
+  ],
+  "competency": [
+    {
+      "level": "L1",
+      "title": "收益执行专员",
+      "en": "Revenue Executive",
+      "weeks": 4,
+      "hours": 16,
+      "observable": "独立完成每日取数、查表、执行、记录全流程",
+      "prerequisite": "无",
+      "pass": "笔试≥80、实操≥85、出勤≥90%",
+      "certificate": "课程结业证明（L1）"
+    },
+    {
+      "level": "L2",
+      "title": "收益管理主管",
+      "en": "Revenue Supervisor",
+      "weeks": 8,
+      "hours": 32,
+      "observable": "独立完成预测、定价决策、周度策略、渠道管理",
+      "prerequisite": "L1 或 1 年相关经验",
+      "pass": "笔试≥80、实操≥85、出勤≥90%",
+      "certificate": "课程结业证明（L2）"
+    },
+    {
+      "level": "L3",
+      "title": "收益管理经理",
+      "en": "Revenue Manager",
+      "weeks": 8,
+      "hours": 32,
+      "observable": "预算、年度策略、跨部门领导、业主汇报、团队管理",
+      "prerequisite": "L2 + 3 年相关经验",
+      "pass": "笔试≥80、实操≥85、出勤≥90%、答辩≥75",
+      "certificate": "课程结业证明（L3）"
+    }
+  ],
+  "item_bank": {
+    "unified_practice_count": 253,
+    "unified_real_exam_count": 76,
+    "legacy_counts": [
+      237,
+      251,
+      253,
+      623
+    ],
+    "legacy_note": "wb.html 237 / certification.html 251 / training.html 253 / marketing-plan.html 623；v2026.2 统一由题库 ID 计数得出，页面不写死常数",
+    "answer_conflicts": [
+      {
+        "item": "判断题第 2 题（分母）",
+        "papers_md": 288,
+        "training_html": 308,
+        "corrected": 288,
+        "basis": "300 间 − 12 间装修/OOO = 288；且 wb.html:295 的 317 应为 297（3 间 OOO 的另一题）"
+      }
+    ],
+    "paper_note": "76 真题不整包交付：抽题组卷 + 曝光阈值自动退役 + 一次性开考码 + IP 白名单"
+  },
+  "editions": [
+    {
+      "file": "textbook-merged.html",
+      "chapters": 41,
+      "status": "现行",
+      "note": "唯一事实源；章级派生以此为准"
+    },
+    {
+      "file": "textbook.html",
+      "chapters": 32,
+      "status": "历史存档",
+      "note": "旧版，:251 引用第 41 章属越界，新版校正说明中标注"
+    },
+    {
+      "file": "textbook-student.html",
+      "chapters": 23,
+      "status": "历史存档",
+      "note": "旧版，:120 称 32 章版「完整版」属误标"
+    }
+  ],
+  "wording": {
+    "banned": [
+      "三级资格认证",
+      "资格认证证书",
+      "从业资格证",
+      "职业技能等级证书",
+      "行业认证证书",
+      "持证上岗",
+      "受行业认可的职业资质"
+    ],
+    "replacement": "课程结业证明 / 能力等级证明（L1 / L2 / L3）",
+    "disclaimer": "自建学习成果证明，无外部背书，不等同国家职业资格或职业技能等级认定",
+    "v1_conflict": "micro-course.html:82,419 已列禁用词，但 cert.html:15、leaderboard.html、quiz.html 与全站 JSON-LD 仍使用「三级资格认证」"
+  },
+  "corrections": [
+    {
+      "id": "RM-01",
+      "batch": "专业",
+      "title": "目标函数错位",
+      "old": "SPEC.md:163-169 称 GOPPAR 最终考核指标，15 表无一含净收益/成本/CPOR 输入；CPOR 全库零命中",
+      "corrected": "以净贡献 / GOPPAR 为结果目标；A/G/H 三表增净贡献输入；CPOR、NRevPAR、Flow-Through 写入数据字典",
+      "basis": "USALI 12th / HSMAI NRevPAR / 行业 KPI 框架",
+      "target": "v2026-2-rm-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "RM-02",
+      "batch": "专业",
+      "title": "预测是黑盒",
+      "old": "codex.html:142「预测增量」无生成方法；OTB 零命中；MAPE 只在教材正文",
+      "corrected": "拆出预测规范：数据源、日期×房型×客源×渠道粒度、无约束需求重建、刷新节奏、MAPE/WAPE 门槛、超限人工接管、签发责任人",
+      "basis": "unconstrained demand / demand censoring / 滚动预测与多模型择优",
+      "target": "v2026-2-rm-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "RM-03",
+      "batch": "专业",
+      "title": "Pickup 与 Pace 混用",
+      "old": "codex.html:143 = 与去年同期同窗口在手对比（Pace）；SPEC.md:170 = 窗口内净新增（Pickup）；表 A 用前者",
+      "corrected": "拆为 Pace Variance（%）与 Pickup（窗口净新增房晚）两个字段；表 A 标注依据字段，增「Pace 落后但 Pickup 加速」分支",
+      "basis": "行业 KPI 框架对 Booking Pace 与 Pickup 的区分",
+      "target": "v2026-2-rules.json / v2026-2-rm-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "RM-04",
+      "batch": "专业",
+      "title": "团队决策缺置换分析",
+      "old": "表 G 仅 R×OCC；codex.html:503-505 综合贡献含餐饮、阈值却是纯客房口径；:512 置换成本含非客房，三者不一致",
+      "corrected": "改为期望净贡献 vs 容量机会成本；补 wash、肩部夜、房型蚕食、非客房贡献、hurdle/bid price；阈值统一为综合置换成本全口径",
+      "basis": "一团一议 + 置换分析 + EMSR / bid price + 周度 yield meeting",
+      "target": "v2026-2-rm-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "RM-05",
+      "batch": "专业",
+      "title": "超售是经验百分比",
+      "old": "表 E 基准率×修正系数，缺 walk 成本、安置协议、赔偿、OOO、房型库存、升级成本、法律条款",
+      "corrected": "保留 5% / 15 间硬上限；增期望损失字段与备用房检查项；表 L 补偿包补金额与审批人",
+      "basis": "no-show 分布 vs denied service 期望损失；国内保守实操",
+      "target": "v2026-2-rm-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "RM-06",
+      "batch": "专业",
+      "title": "房型价差固定、缺栅栏",
+      "old": "表 F 固定系数 100/120/…/265；D1–D4 只作用于整店 BAR；rate fence 全库零命中",
+      "corrected": "房型价差 = 基准价差 × 需求系数；新建价格架构：BAR 分层、8–10 个带栅栏价格点、关闭规则",
+      "basis": "rate fence / BAR ladder / 折扣适用条件",
+      "target": "v2026-2-rm-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "RM-07",
+      "batch": "专业",
+      "title": "渠道开关只看 OCC",
+      "old": "codex.html:565-570 已算对净价（OTA 600→504、直销 530→514），表 H 仍只按预测 OCC 开关",
+      "corrected": "表 H 增渠道净贡献排序、直销占比下限、CAC 与平台规则；把净价算例写成判定示例",
+      "basis": "Net RevPAR / 渠道净贡献 / 单一平台依赖风险",
+      "target": "v2026-2-rm-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "RM-08",
+      "batch": "专业",
+      "title": "住期限制无反作用权衡",
+      "old": "表 B 有 MinLOS/CTA/StopSell 与撤除机制，无被挡需求价值；CTD 仅概念；副作用只在 m07.html",
+      "corrected": "增被挡需求价值估算列与解除触发条件；CTD 补成可执行规则；写入四条副作用注意事项",
+      "basis": "LOS 控制保护多晚高价值客、淡季解除",
+      "target": "v2026-2-rm-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "RM-09",
+      "batch": "专业",
+      "title": "竞组口径不完整",
+      "old": "SPEC.md:134「加权均价¥680」无权重（等权恰 680）；竞组 OCC 全文未给，MPI/RGI 不可复算",
+      "corrected": "校正为「竞争组合等权均价 ¥680」；登记按房量加权为 ¥691.68；补竞组 OCC 68.0%（取自 wb.html:424 既有算例）；表 C 注明仅用公开挂牌价",
+      "basis": "CoStar/STR 竞组构成；RealPage 案数据来源边界",
+      "target": "v2026-2-rules.json / v2026-2-rm-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "RM-10",
+      "batch": "专业",
+      "title": "数据字典与基线不自洽",
+      "old": "wb.html:295 把 300−3 写成 317（应 297）；客源加权 ADR 581.08 vs 基线 618；渠道 7 类 vs 客源 8 类；月度 OCC 74.8% vs 年度 72%；取整差 4,380",
+      "corrected": "建数据字典：分母、含税/服务费、免费房/自用房、OOO、取消与 no-show、日切、竞组权重；重算基线并把差异作为口径说明登记，不静默改数",
+      "basis": "USALI 统一口径与「定义选定后每月保持一致」",
+      "target": "v2026-2-rules.json / v2026-2-corrections.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "RM-11",
+      "batch": "专业",
+      "title": "闭环治理不在表里",
+      "old": "表 M/N 输入仅时间/周期；审批权限矩阵零命中；异常降级只在表 L 一行；MAPE 只在教材",
+      "corrected": "表 M 增 17:30 回溯步、表 N 增月度误差复盘；新建权限矩阵（调价幅度/超售间数/团队折扣分级）、异常降级 SOP、决策日志字段",
+      "basis": "日看 7–14 天 pace / 周评 90 天预测 / 月复盘准确度 / 季评估策略",
+      "target": "v2026-2-rm-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "RM-12",
+      "batch": "专业",
+      "title": "缺容量机会成本",
+      "old": "15 表孤立按日判定；表 J 升级不算机会成本；表 I 固定频率",
+      "corrected": "引入最低可接受净价 hurdle 作为 G/J/B 共同前置；补「单晚高价 vs 三晚中价」算例",
+      "basis": "bid price / EMSR / 网络与连住视角",
+      "target": "v2026-2-rm-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "RM-13",
+      "batch": "专业",
+      "title": "客源结构缺净贡献",
+      "old": "SPEC.md:102-110 只有占比与 ADR；CPOR/ALOS 零命中",
+      "corrected": "客源表扩展为占比/ADR/渠道成本率/取消率/ALOS/附加消费/净贡献七列",
+      "basis": "ALOS 与 CPOR 联动、CAC/LTV",
+      "target": "v2026-2-rm-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "RM-14",
+      "batch": "专业",
+      "title": "缺中国定价合规",
+      "old": "表 A 的 24h≤2 次未讲理由；无明码标价、平台规则、数据合规范畴",
+      "corrected": "新建定价合规页：调价次数三条理由、节假日溢价区间与审批、已确认订单不得强制取消、公开挂牌价边界、客群数据合规",
+      "basis": "中国旅游新闻网律师观点 / 平台行政指导 / 2026 行业合规趋势",
+      "target": "v2026-2-rm-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "RM-15",
+      "batch": "专业",
+      "title": "非客房与冲突矩阵缺位",
+      "old": "TRevPAR/GOPPAR 未进任何表；表 K 只覆盖会议宴会；表 O 仅 6 表入序列且与表 K 决策顺序冲突",
+      "corrected": "表 K 增空间机会成本与 RevPASH/RevPAM；表 O 扩为 15 表两两冲突矩阵，覆盖会议×团队、团队×渠道、渠道×价格一致性",
+      "basis": "Total Revenue Management / 周度 yield meeting",
+      "target": "v2026-2-rm-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-01",
+      "batch": "体系",
+      "title": "RGI 公式少 ÷100",
+      "old": "codex.html:325、jt-engine.html:451、textbook.html:520,524 写 MPI × ARI = RGI",
+      "corrected": "MPI × ARI ÷ 100（与 SPEC.md:168、wb.html:285、exam/papers.md、行业口径一致）",
+      "basis": "RGI = 本店 RevPAR ÷ 竞组 RevPAR × 100",
+      "target": "v2026-2-rules.json / v2026-2-corrections.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-02",
+      "batch": "体系",
+      "title": "M11 解析算术与口径串台",
+      "old": "training.html:238 写 109,500 × 444.96 = ¥51,971,328，称与 SPEC 差 ¥6,000",
+      "corrected": "109,500 × 444.96 = 48,723,120；445 × 109,500 = 48,727,500；差 4,380（0.009%）。51,971,328 属 116,800 分母的 320 间口径",
+      "basis": "算术重算 + SPEC 整值口径说明",
+      "target": "v2026-2-rules.json / v2026-2-corrections.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-03",
+      "batch": "体系",
+      "title": "认证命名自我违规",
+      "old": "micro-course.html:82,419 列禁用词，cert.html:15、leaderboard.html、quiz.html 与全站 JSON-LD 仍用「三级资格认证」",
+      "corrected": "统一改称「课程结业证明（L1/L2/L3）」，附「无外部背书、不等同国家职业资格」声明；禁用词上线前扫描 0 命中",
+      "basis": "自建学习成果证明不得暗示职业资格",
+      "target": "v2026-2-system-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-04",
+      "batch": "体系",
+      "title": "L1/L2/L3 三套名称两套算分",
+      "old": "certification.html / cert.html / course-ruler.html / assembler / micro-course.html 名称不一；通过线两套",
+      "corrected": "统一能力地图：收益执行专员 / 收益管理主管 / 收益管理经理；可观察行为、先修、通过线、证书名、有效期七列",
+      "basis": "PISA 能力等级描述性定义 / 认研中心课程确认",
+      "target": "v2026-2-rules.json / v2026-2-system-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-05",
+      "batch": "体系",
+      "title": "题量与答案口径混乱",
+      "old": "237 / 251 / 253 / 623 四套；76 既指真题又指 L1 模块题；判断题答案 288(papers.md) vs 308(training.html)",
+      "corrected": "题库唯一 ID，题量由脚本计数；练习题 253、真题 76；判断题分母统一 288（300−12）；317 校正为 297（300−3）",
+      "basis": "题库元数据与答案唯一性",
+      "target": "v2026-2-rules.json / v2026-2-corrections.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-06",
+      "batch": "体系",
+      "title": "无单一真源 + 两个唯一并存",
+      "old": "SPEC.md:3 与 v2026-1-version-register.html 各称唯一；jt-engine 内嵌 JSON 未被其它生成器读取",
+      "corrected": "v2026-2-rules.json 为唯一机器真源；SPEC 改称业务口径说明；所有派生页由生成器读取真源",
+      "basis": "规则治理单一真源 / 元数据可追溯",
+      "target": "v2026-2-rules.json / v2026-2-system-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-07",
+      "batch": "体系",
+      "title": "阈值无出处/生效日/复审",
+      "old": "codex.html:91 仅「阈值版本 v1.0」；15 表无文献引用与日期",
+      "corrected": "每表补依据类型、出处、生效日 2026-11-06、复审日 2027-11-06、责任人、校准记录；教学资产按学年复审、最长 5 年",
+      "basis": "ISO / ASTM 至少每 5 年系统性复审",
+      "target": "v2026-2-rules.json",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-08",
+      "batch": "体系",
+      "title": "测评缺效度/等值/信度实证",
+      "old": "常模样本 N 空白；无信度系数、DIF、等值报告；曝光控制只在建议文字",
+      "corrected": "测评规范：考试蓝图、锚题与等值计划、评分者一致性抽检、DIF 公平性检查、申诉台账；题库加 exposure_count 与 retire_threshold；样本不足时如实写「常模未建立」",
+      "basis": "ETS 公平性原则 / PISA IRT 等值与 DIF",
+      "target": "v2026-2-system-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-09",
+      "batch": "体系",
+      "title": "教材三版在线且标注混乱",
+      "old": "41/32/23 章同时在线；textbook-student.html:120 称 32 章版「完整版」；textbook.html:251 引用第 41 章",
+      "corrected": "版本状态页：41 章现行、32/23 章历史存档；明确不可作最新引用；章号越界用回归断言拦截",
+      "basis": "标准版本状态（现行/废止/存档）",
+      "target": "v2026-2-rules.json / v2026-2-system-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-10",
+      "batch": "体系",
+      "title": "贡献者协议缺位",
+      "old": "v2026-1-adaptation-license.html 与 submission-portal.html 无「非合作作品/非委托创作/不主张版税」字样",
+      "corrected": "补贡献者协议条款：保留原创版权、授予非独占可转授权许可、非合作作品/非委托创作/不主张版税、署名与撤名、素材不侵权且已脱敏；提交口勾选前置",
+      "basis": "著作权法 14/19/29 条；BCcampus/UBC 贡献者 MOU",
+      "target": "v2026-2-system-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-11",
+      "batch": "体系",
+      "title": "AI 政策缺位",
+      "old": "AI 三条纪律只有教学边界；无生成内容标注、人工复核、幻觉防护、数据脱敏条款",
+      "corrected": "补 AI 政策：生成内容标注、人工复核责任人与抽检比例、禁用场景（评分/发证/最终决策）、学生与经营数据脱敏不入模、日志留存",
+      "basis": "国内 AI 数据治理「来源可考/质量可控/安全可溯」/ GB/T 45674—2025",
+      "target": "v2026-2-system-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-12",
+      "batch": "体系",
+      "title": "参考文献仅 1 条",
+      "old": "textbook-print.html 参考文献只列 HSMAI；无文献矩阵、证据等级、同行评审记录",
+      "corrected": "按指标定义/阈值/教学法/测评四类建文献矩阵，每条标来源、版本、证据等级；建外部审阅日志",
+      "basis": "ISO 共识与征求意见 / 开放教材同行评审",
+      "target": "v2026-2-system-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-13",
+      "batch": "体系",
+      "title": "术语/无障碍/币种缺声明",
+      "old": "voc 系列无版本号；codex-en.html 无版本对应；WCAG 与币种口径未声明",
+      "corrected": "统一术语表（中/英/缩写/定义/版本/对应表号）由真源生成；补无障碍与币种口径声明（¥ / CNY、含税与否、日期时区）",
+      "basis": "EDUCAUSE 采购的 accessibility 与 legal review",
+      "target": "v2026-2-system-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-14",
+      "batch": "体系",
+      "title": "rubric 混入说明文字与自指",
+      "old": "R-A-01 把母本说明整段当检查项；R-O-04「按表 O 说明优先级」自指",
+      "corrected": "重写为结构化字段：检查项 ID / 输入字段清单 / 判定表达式 / 通过标准 / 不通过反馈模板 / 证据位置；说明性文字与自指项删除",
+      "basis": "AAC&U VALUE rubric / 评分者一致性校准",
+      "target": "v2026-2-system-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-15",
+      "batch": "体系",
+      "title": "表 O 只纳 6 表",
+      "old": "优先级序列 L>B>A>C>H>D，其余 9 表无冲突规则",
+      "corrected": "扩为 15 表两两冲突矩阵；每格写谁优先/是否可并行/台账备注；与专业修复的会议×团队等三组裁决合并",
+      "basis": "标准文本的适用范围与例外完整枚举",
+      "target": "v2026-2-system-fixed.html",
+      "status": "已在新版校正（旧版保留原样）"
+    },
+    {
+      "id": "SYS-16",
+      "batch": "体系",
+      "title": "md5 基线过期",
+      "old": "v2026-1-legacy-md5.json 有 3 个文件与线上不符（08:00 sync_gh.sh 全站补门所致）",
+      "corrected": "本次先做整包备份并生成新基线 v2026-2-baseline.json（含生成时间、对应备份、每文件 md5）；旧基线存档不删；发布后自动重算基线",
+      "basis": "配置管理基线随发布更新 / 变更记录与影响清单",
+      "target": "v2026-2-baseline.json",
+      "status": "已在新版校正（旧版保留原样）"
+    }
+  ],
+  "regression_assertions": [
+    "RGI 公式为 MPI × ARI ÷ 100，且不含「MPI × ARI = RGI」",
+    "109,500 × 72% × 618 = 48,723,120；取整口径差 4,380 有书面说明",
+    "300−3(OOO)=297、300−12(装修)=288；不再出现 317 作为正确答案",
+    "Pace 与 Pickup 为两个独立字段",
+    "竞组等权均价 680、房量加权 691.68、竞组 OCC 68.0% 均可复算",
+    "客源加权 ADR 581.08 与基线 618 的差 36.92 已登记为口径差异",
+    "15 表每张都有新增专业输入、生效日与复审日",
+    "证书禁用词在新版 0 命中，替代措辞为课程结业证明",
+    "练习题 253 / 真题 76 唯一口径；判断题分母 288",
+    "41/32/23 章版本状态明确，32 章版不得引用第 41 章",
+    "31 条校正记录逐条有 old / corrected / basis / target",
+    "备份 MANIFEST 中每个文件 md5 与源一致，且源文件未被改动",
+    "旧版内容资料 md5 与备份一致（证明未覆盖）",
+    "全站解释串为定稿写法，无旧形态残留",
+    "所有新建页面带登录门、noindex、左侧目录与版本页脚"
+  ],
+  "boundary": {
+    "not_changed": "codex.html / SPEC.md / training.html / wb.html / cert.html 等所有原有资料均未修改",
+    "external_confirm": [
+      "市场主体注册（路径 B 前提）",
+      "合同与税务由执业律师/税务师审阅",
+      "三档授权一口价金额由用户填写"
+    ],
+    "note": "本真源只承载校正后的口径与定义；不替代法律、税务与测评专业意见"
+  }
+}
