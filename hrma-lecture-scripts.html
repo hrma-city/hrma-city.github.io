@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HRMA 授课脚本 · 14 模块教师可直接照读版</title>
+<style>
+  :root{
+    --navy:#1B3A5C; --navy2:#2C5282; --gold:#B8894A; --gold-soft:#F5EDE0;
+    --teal:#2E7D74; --ink:#1F2933; --ink2:#52606D; --line:#E1E5EA; --bg:#FAFAF8; --bg2:#F2F0EB; --white:#fff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font:16px/1.85 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding:44px 18px}
+  .wrap{max-width:900px;margin:0 auto}
+  h1{color:var(--navy);font-size:27px;letter-spacing:.5px}
+  .sub{color:var(--ink2);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;margin:4px 0 6px}
+  .lede{color:var(--ink2);font-size:14.5px;margin-bottom:22px}
+  .use{background:var(--gold-soft);border:1px solid var(--gold);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14px;color:var(--ink)}
+  .use b{color:var(--navy)}
+  h2{color:var(--navy);font-size:21px;margin:38px 0 4px;padding:10px 0;border-top:2px solid var(--gold)}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+  .pill{font-size:12.5px;background:var(--navy);color:#fff;border-radius:20px;padding:2px 11px}
+  .pill-g{font-size:12.5px;background:var(--gold);color:#1B3A5C;font-weight:700;border-radius:20px;padding:2px 11px}
+  h3{color:var(--navy2);font-size:16px;margin:16px 0 6px}
+  .blk{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:6px;padding:12px 16px;margin:10px 0}
+  .blk b{color:var(--navy)}
+  .say{background:var(--bg2);border-radius:6px;padding:12px 16px;margin:10px 0;font-style:normal;color:#2a3b2a}
+  .say::before{content:"🗣 教师话术　";font-style:normal;font-weight:700;color:var(--gold)}
+  .warn{background:#fdeee2;border-left:4px solid #D98324;border-radius:6px;padding:12px 16px;margin:10px 0;font-size:14.5px}
+  .warn b{color:#9a5a16}
+  ul{margin:8px 0 8px 22px} li{margin:5px 0;color:var(--ink)}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--navy);color:#fff;font-weight:600}
+  .to-teacher{background:#eef3f8;border-left:4px solid var(--navy2);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:14px;color:var(--ink)}
+  .to-teacher b{color:var(--navy2)}
+  footer{margin-top:38px;border-top:1px solid var(--line);padding-top:14px;color:var(--ink2);font-size:12.5px}
+  .page-break{page-break-before:always}
+  @media print{body{background:#fff;padding:0}.use,.blk,.say,.warn,.to-teacher{break-inside:avoid}}
+</style>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+@media (min-width:1100px){body.toc-open{padding-left:312px}body.toc-open .site-nav,body.toc-open .topbar{left:312px}}
+body{transition:padding-left .25s ease}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>HRMA 授课脚本（教师可直接照读版）</h1>
+<div class="sub">Hotel Revenue Management Academy · Lecture Scripts</div>
+<p class="lede">14 个模块的逐页讲授话术。供<strong>非收益管理专业</strong>的院校教师使用——你不需要先学会收益管理，按脚本讲、按指令带演练即可。所有判断已固化在《操作法典》15 张表里，你只需引导学生"查表"。</p>
+
+<div class="use">
+<b>给教师的三句话：</b>① 你不是收益专家，你是"带学生查表的人"；② 凡是学生问"为什么是这个数"，回答一律是"查《法典》表 X"，不要自己编；③ 脚本里的 🗣 是你可以直接念的文字，<b>不用背，照读即可</b>。原型酒店统一为「杭州滨江云璟酒店」（300 间，OCC 68% / ADR ¥620 / RevPAR ¥422）。
+</div>
+
+<p class="lede"><b>本文件补齐的是教学包的"授课脚本"缺口。</b>课件 PPT、251 题库、教师手册、模拟器、游戏教具、Excel 模板、考核标准均已存在，本脚本与之配套使用：PPT 决定"放什么"，本脚本决定"讲什么、怎么讲"。</p>
+
+<!-- ============ M01 ============ -->
+<h2 id="toc-1" class="page-break">M01 · 收益管理的语言：指标与计算（L1 · 2 课时）</h2>
+<div class="meta"><span class="pill">L1</span><span class="pill">2 课时</span><span class="pill-g">核心交付：指标卡 + Excel 计算器</span></div>
+<div class="to-teacher"><b>课前准备：</b>打开 SPEC §3.1 核心指标表、§2.3 经营基线。准备好「云璟酒店年度基线」数字：年可售房晚 109,500、售出 74,460、OCC 68%、ADR ¥620、RevPAR ¥422。</div>
+
+<h3 id="toc-2">教学目标</h3>
+<ul>
+<li>能说出 OCC / ADR / RevPAR / TrevPAR / MPI / ARI / RGI / NRevPAR 的定义与公式</li>
+<li>能用云璟数据手算 RevPAR = OCC × ADR</li>
+<li>能分清三个口径陷阱（可售 vs 总房晚、免费房、净 RevPAR）</li>
+</ul>
+
+<h3 id="toc-3">开场（直接念）</h3>
+<div class="say">今天这节课不教你怎么定价，先教你怎么"说话"。收益管理这门课，最怕每个人嘴里的"出租率""房价"不是一回事。我们先统一八个词。以后你们在酒店里，只要说出这八个词，全行业都听得懂——这就是普通话。</div>
+
+<h3 id="toc-4">核心讲解话术</h3>
+<div class="blk"><b>① 三个最基础的指标（必讲，用云璟数字带）</b>
+<ul>
+<li>OCC 出租率 = 已售房晚 ÷ 可售房晚。云璟：74,460 ÷ 109,500 = <b>68%</b>。分母一定是"可售"房晚，装修房、OUT-OF-ORDER 房要剔除。</li>
+<li>ADR 平均房价 = 客房收入 ÷ 已售房晚。云璟：客房收入 ÷ 74,460 = <b>¥620</b>。</li>
+<li>RevPAR 每间可售房收入 = 客房收入 ÷ 可售房晚 = OCC × ADR。云璟：0.68 × 620 = <b>¥422</b>。这是收益管理第一指标，记住它。</li>
+</ul>
+</div>
+<div class="blk"><b>② 全服务酒店要看总营收：TrevPAR</b> 客房只是酒店一部分。云璟总营收 ¥76,405,000，TrevPAR = 76,405,000 ÷ 109,500 = <b>¥698</b>。全服务酒店（有餐饮会议）必须同时看 RevPAR 和 TrevPAR，否则会做出伤害餐饮的傻事。</div>
+<div class="blk"><b>③ 和竞争对手比：MPI / ARI / RGI</b>
+<ul>
+<li>MPI 市场渗透 = 本店 OCC ÷ 竞对组合 OCC ×100。&gt;100 表示你份额领先。</li>
+<li>ARI 价格指数 = 本店 ADR ÷ 竞对 ADR ×100。&gt;100 表示你卖得比对手贵。</li>
+<li>RGI 收入生成 = MPI × ARI ÷ 100，综合竞争力。云璟 Comp Set 加权均价 ¥680，本店 ARI = 620÷680×100 = <b>91</b>（略偏低），这是后面要修的。</li>
+</ul>
+</div>
+<div class="blk"><b>④ 看净的：NRevPAR</b> 携程一单抽你 16%。NRevPAR = RevPAR ×(1−渠道综合成本率)。卖得贵的渠道不一定赚得多——这句话是全课程反复出现的。</div>
+
+<h3 id="toc-5">课堂互动</h3>
+<div class="to-teacher"><b>演练指令：</b>发"指标体检表"，让学生用云璟数字填八个指标。巡场时只检查一件事：谁的 OCC 分母写成了 300×365 以外的值（提示：可售房晚=109,500）。</div>
+
+<div class="warn"><b>易错点（开场就讲）：</b>① 分母用"总房晚"而非"可售房晚"——这是 90% 算错的根源；② 免费房/自用房按 0 计入房晚但收入 0；③ 只看 RevPAR 不看 NRevPAR，会误判渠道好坏。</div>
+
+<h3 id="toc-6">小结（直接念）</h3>
+<div class="say">指标是这门课的普通话。今天你们记住一句话就够了：以后不管谁跟你谈收益，先问他"你说的 OCC 分母是可售还是总房晚"。能问出这句话，你已经是半个行家。</div>
+
+<!-- ============ M02 ============ -->
+<h2 id="toc-7" class="page-break">M02 · 系统与数据：PMS/RMS/OTA 后台导航（L1 · 2 课时）</h2>
+<div class="meta"><span class="pill">L1</span><span class="pill">2 课时</span><span class="pill-g">核心交付：取数清单 + 系统映射表</span></div>
+<div class="to-teacher"><b>课前准备：</b>打开 SPEC §3.2 系统名词表、§2 取数清单。本课不碰具体系统按钮（系统无关），只讲"去哪找数、找到的数叫什么"。</div>
+
+<h3 id="toc-8">教学目标</h3>
+<ul><li>能照《取数清单》抓固定字段，不多抓不少抓</li><li>能说出通用术语对应的系统字段（房型/Room Type、价格代码/Rate Code…）</li><li>能识别五种脏数据</li></ul>
+
+<h3 id="toc-9">开场</h3>
+<div class="say">上一节课我们统一了语言，这节课统一"找数"。你们将来用的可能是 Opera、石基、西软，甚至 Excel。系统千差万别，但有一件事不变：你每天要抓的数字，永远是那十几个。系统无关，是这套方法能落地到任何酒店的根本。</div>
+
+<h3 id="toc-10">核心讲解话术</h3>
+<div class="blk"><b>① 每日取数清单（背下来这串）</b> 昨日经营数据 → 未来 30 天在手 + Pickup → 竞争组合 5 家价格。就这三组，不多一个不少一个。多了是浪费时间，少了决策没依据。</div>
+<div class="blk"><b>② 通用术语 × 系统字段（对照表念）</b> 房型=Room Type；价格代码=Rate Code/Rate Plan；限制条件=Restriction；关房=Stop Sell；最少住期=MinLOS；不可入住=CTA；超售=Overbooking。告诉学生：记住通用名，到任何系统都能对上。</div>
+<div class="blk"><b>③ 五种脏数据</b> ① 房态不同步（PMS 显示有房，渠道已售罄）；② 免费房混入已售；③ 渠道成本率填错；④ 竞争价格抓的是含早价而非净价；⑤ 日期窗口错位（拿今天的手对比去年同提前量）。</div>
+
+<h3 id="toc-11">课堂互动</h3>
+<div class="to-teacher"><b>演练指令：</b>给学生一份"脏数据样本"，让他们逐项排查并指出错在哪。答案不唯一的，用《法典》口径判。</div>
+<div class="warn"><b>易错点：</b>学生最常把"在手预订"和"已售"混为一谈。强调：在手=还没来的订单，已售=已入住或确定会来。Pickup 算的是在手的变化。</div>
+<h3 id="toc-12">小结</h3>
+<div class="say">找得到，才算得出。数据不准，后面所有表都白查。你们回酒店第一周，先把取数清单跑顺，比学任何高级方法都重要。</div>
+
+<!-- ============ M03 ============ -->
+<h2 id="toc-13" class="page-break">M03 · 每日收益操作流水线（L1 · 6 课时 · ★核心）</h2>
+<div class="meta"><span class="pill">L1</span><span class="pill">6 课时</span><span class="pill-g">核心交付：表 M 流水线 + 动作清单模板</span></div>
+<div class="to-teacher"><b>课前准备：</b>打印表 M（时间表）、表 A（双因子矩阵）、表 B（库存限制）贴在教室。本课是 L1 的灵魂，分 3 次 90 分钟讲完：第1次讲表 M+表 A，第2次讲表 A 执行约束+表 B，第3次两次完整示范+跟练。</div>
+
+<h3 id="toc-14">教学目标</h3>
+<ul><li>能默画出表 M 的 07:30–10:05 时间表</li><li>能对着表 A 双因子矩阵，输入 OCC 和 Pickup 偏差，读出调价幅度</li><li>能说出表 A 的 5 条执行约束</li><li>能在模拟数据集上产出一份《今日动作清单》</li></ul>
+
+<h3 id="toc-15">开场（第1次课）</h3>
+<div class="say">这节课是你们上岗后每天要做的全部内容，浓缩成一张表——表 M。记住一句话：收益经理每天不是"想"怎么定价，是"按表"走一遍。你们看云璟酒店一个普通工作日的早晨，从 07:30 到 10:05，一共 9 个动作，2 小时 35 分。学会了这个，你就学会了这份工作 70% 的内容。</div>
+
+<h3 id="toc-16">核心讲解话术</h3>
+<div class="blk"><b>① 表 M 时间表（逐行念，要求学生抄）</b>
+07:30 抓昨日数据（20分）→ 07:50 抓未来30天在手+Pickup（20分）→ 08:10 采竞对5家价（20分）→ <b>08:30 查表A/B/C/H 出动作清单（40分，本课重点）</b> → 09:10 系统落位（30分）→ 09:40 价格一致性核查（15分）→ 09:55 写调价台账（10分）→ 10:05 收益晨会（25分）→ 17:00 二次巡检尾房（15分）。</div>
+<div class="blk"><b>② 表 A 双因子矩阵（这是全课程最高频的一张表）</b> 两个输入：目标日预测 OCC、Pickup 偏差（=(在手−去年同期同窗口在手)÷去年同期×100%）。举例：云璟某日预测 OCC 85%、Pickup 领先 5% → 查矩阵第2行第4列 → <b>调价 +10%</b>。再举一反例：OCC 50%、Pickup 落后 15% → 第5行第2列 → <b>−10%</b>。</div>
+<div class="blk"><b>③ 表 A 五条执行约束（必须同时遵守）</b> 一、单日同方向累计不超 20%，24小时内同方向不超 2 次；二、每次幅度不低于 3%（低于无感知）；三、调价后 30 分钟内查 OTA 挂牌是否同步；四、D1 峰值日调价须 L3 审批；五、全部写入调价台账。</div>
+<div class="blk"><b>④ 表 B 库存限制（第2次课）</b> OCC≥95% 设 MinLOS 2 晚、CTA 启用、关批发商；OCC&lt;70% 不设限、全开+上促销。让学生记住：库存安全优先于价格。</div>
+
+<h3 id="toc-17">讲师示范（第3次课，直接念思路）</h3>
+<div class="say">现在我用云璟 9 月 28 日（国庆前高峰）走一遍：抓数后预测 OCC 96%、Pickup 领先 12%——查表 A 第1行第5列，+20%。但表 A 约束一写明单日累计不超 20%，所以今天就+20%，不再加。再看表 B：OCC 96% ≥95%，MinLOS 设 3 晚（D1 规则）、CTA 启用、关批发商。最后查价格一致性：调完 30 分钟内确认 6 个渠道挂牌同步。动作清单就三行：① 全房型 +20%；② MinLOS 3 晚；③ 关批发商。写进台账。</div>
+
+<h3 id="toc-18">课堂互动</h3>
+<div class="to-teacher"><b>跟练指令：</b>给一组模拟数据（预测 OCC 78%、Pickup 持平），要求学生查表 A 得出 +5%、再查表 B 得出"不设限/全开"，产出《今日动作清单》。巡场核对：谁的幅度低于 3% 或超 20%。</div>
+<div class="warn"><b>易错点：</b>① Pickup 偏差分母除的是"去年"不是"今年"；② 矩阵行列看反（OCC 是行、Pickup 是列）；③ 忘了表 A 约束一（累计上限 20%）。</div>
+<h3 id="toc-19">小结</h3>
+<div class="say">把这张流程练成肌肉记忆。上岗前三个月，你照表做，至少保 80 分下限。三个月后你有了自己的数据，才谈得上改表。死板，是这门课的优点的开始。</div>
+
+<!-- ============ M04 ============ -->
+<h2 id="toc-20" class="page-break">M04 · 报表与台账：让决策可追溯（L1 · 2 课时）</h2>
+<div class="meta"><span class="pill">L1</span><span class="pill">2 课时</span><span class="pill-g">核心交付：日报/周报/月报/调价台账</span></div>
+<div class="to-teacher"><b>课前准备：</b>打开 templates/04_调价台账.xlsx、07_周报月报模板.xlsx。本课讲"记录"这一步为什么值钱。</div>
+<h3 id="toc-21">教学目标</h3>
+<ul><li>能说出《调价台账》的核心字段</li><li>理解"调价命中率"怎么算、为什么是资产</li></ul>
+<h3 id="toc-22">开场</h3>
+<div class="say">前面三节课你们一直在"查表、执行"。这节课讲最后一步——记录。很多人觉得记台账是行政活，错了。你今天降了 5%，三个月后怎么知道降得对不对？靠的就是台账。记下来，才叫经验；不记，只是又过了一天。</div>
+<h3 id="toc-23">核心讲解话术</h3>
+<div class="blk"><b>① 调价台账字段</b> 日期、目标日、依据表、输入条件、动作、幅度、执行人、复盘结果。每条调价必须留痕。</div>
+<div class="blk"><b>② 调价命中率</b> = 调价后实际结果符合预期的次数 ÷ 总调价次数。云璟跑三个月能算出基线。这是你向老板证明价值的唯一硬证据，也是续费/内推的资本。</div>
+<h3 id="toc-24" class="warn">易错点：学生常漏填"输入条件"——只记"降了5%"不记"为什么降"。强调：没有输入条件的台账等于没记。</div>
+<h3>小结</h3>
+<div class="say">从今天起，你的每一个决定都有据可查。这不仅是习惯，是你和"拍脑袋定价"的同行之间最硬的护城河。</div>
+
+<!-- ============ M05 ============ -->
+<h2 id="toc-25" class="page-break">M05 · 需求预测：Pickup 与预订曲线（L2 · 8 课时 · ★）</h2>
+<div class="meta"><span class="pill">L2</span><span class="pill">8 课时</span><span class="pill-g">核心交付：Pickup 表 + 预测修正模型</span></div>
+<div class="to-teacher"><b>课前准备：</b>表 I 预订窗口分档表、templates/02_Pickup追踪表.xlsx、_private_files/data 里的在手预订快照。分两次：第1次讲表 I+Pickup 读法，第2次讲推算示范+修正。</div>
+<h3 id="toc-26">教学目标</h3>
+<ul><li>能按表 I 分档监控不同提前量窗口</li><li>能用 Pickup 推算目标日在手</li><li>能做"落后触发"判断</li></ul>
+<h3 id="toc-27">开场</h3>
+<div class="say">L1 你们学会了"今天怎么做"。L2 第一节，学"下周、下个月怎么做"——这就是预测。预测不是算命，是有方法的推算：看已经来的订单在以多快的速度增长，再按历史规律外推。</div>
+<h3 id="toc-28">核心讲解话术</h3>
+<div class="blk"><b>① 表 I 预订窗口分档</b> 0–3天每日2次盯、4–7天每日1次、8–14天查落后15%触发调价、15–30天落后20%复盘、31–60天落后25%拜访协议客户、&gt;60天每月1次。让学生记住：越临近，盯得越密。</div>
+<div class="blk"><b>② Pickup 读法</b> Pickup = 某目标日在某时段新增的预订房晚。云璟 10月1日，距今天 30 天，在手 180 间；去年同期同窗口在手 200 间 → Pickup 偏差 = (180−200)/200 = <b>落后10%</b>。查表 I：15–30天窗口落后20%才触发，现在只落后10%，先观察。</div>
+<div class="blk"><b>③ 推算 10月1日出租率（示范）</b> 在手180 + 未来30天按历史曲线预计新增 90 = 270 间；可售300 → OCC 90%。再叠表 A：OCC 90%、Pickup 落后10% → 矩阵第2行第2列 → <b>维持</b>（不调）。这就是"预测→查表"的闭环。</div>
+<h3 id="toc-29" class="warn">易错点：学生把"在手"当"已售"，直接拿 180÷300=60% 当 OCC。强调：在手是还没来的，必须加预测增量才是目标日 OCC。</div>
+<h3>小结</h3>
+<div class="say">预测是有方法的推算，不是瞎猜。你们上岗后老板问"国庆能卖多少"，你要拿出的不是一个数，是这张 Pickup 表加推算过程。</div>
+
+<!-- ============ M06 ============ -->
+<h2 id="toc-30" class="page-break">M06 · 价格体系设计：BAR 与价差阶梯（L2 · 6 课时）</h2>
+<div class="meta"><span class="pill">L2</span><span class="pill">6 课时</span><span class="pill-g">核心交付：价格体系表 + 表 F</span></div>
+<div class="to-teacher"><b>课前准备：</b>表 F 房型价差阶梯表、§2.1 房型结构、D1–D4 需求日历。本课讲"价格不是一个数，是一套体系"。</div>
+<h3 id="toc-31">教学目标</h3>
+<ul><li>能按表 F 算出云璟各房型 BAR</li><li>能执行价差校验规则</li><li>能把 D1–D4 需求日历转成价格系数</li></ul>
+<h3 id="toc-32">开场</h3>
+<div class="say">你们在 M01 学了 ADR 是一个平均价。但真实酒店有 10 个房型、几十个价格码。怎么让它们不打架？靠一套价差阶梯。价格是体系，不是数字。</div>
+<h3 id="toc-33">核心讲解话术</h3>
+<div class="blk"><b>① 表 F 价差阶梯（云璟实例）</b> 以高级房 SUP BAR ¥680 为 100：豪华房 DLX ×120 = ¥820（对，SPEC 写 ¥820）、豪华江景 ×140 = ¥952≈¥960、行政 ×145 = ¥986≈¥990、商务套房 ×180 = ¥1,224（SPEC ¥1,280，含溢价）、行政套房 ×265 = ¥1,802（SPEC ¥1,880）。让学生验算：相邻价差必须 ≥8%。</div>
+<div class="blk"><b>② 价差校验（每周一执行）</b> 相邻价差&lt;8% 要拉开；&gt;35% 要收敛；套房与最高房型价差&lt;60% 要提套房价。云璟 DLX-V(¥960) 与 EXE(¥990) 价差仅 3% → 必须拉开。</div>
+<div class="blk"><b>③ D1–D4 需求日历</b> 峰值日 PEAK 价格系数 150–200%、高涨 HIGH 120–150%、平峰 SHOULDER 95–110%、低谷 LOW 70–85%。这是 BAR 的日历化基础——同一间房，国庆和周二不是一个价。</div>
+<h3 id="toc-34" class="warn">易错点：高级房 SUP 是云璟基准（无 STD 档），学生拿通用 STD 档(85)硬套会算错。强调：云璟自 SUP 起算。</div>
+<h3>小结</h3>
+<div class="say">房型价差乱的酒店，客人会自己挑便宜的住，你的溢价全漏了。价差校验每周一做，十分钟，保你全年价格体系不塌。</div>
+
+<!-- ============ M07 ============ -->
+<h2 id="toc-35" class="page-break">M07 · 库存与限制条件战术（L2 · 6 课时）</h2>
+<div class="meta"><span class="pill">L2</span><span class="pill">6 课时</span><span class="pill-g">核心交付：限制条件配置 + 表 B/E</span></div>
+<div class="to-teacher"><b>课前准备：</b>表 E 超额预订标准表、表 J 免费升级规则表（表 B 已在 M03 讲过，此处复习）。本课讲"库存是安全，不是赌博"。</div>
+<h3 id="toc-36">教学目标</h3>
+<ul><li>能用表 E 三步法算出超售间数</li><li>能说出表 J 升级的执行顺序与限制</li></ul>
+<h3 id="toc-37">开场</h3>
+<div class="say">价格讲完讲库存。库存管两件事：旺季别把房便宜卖了（限制条件），和满房那天别真把客人拒之门外（超售）。一个是别贱卖，一个是别拒客——都是安全。库存是安全，不是赌博。</div>
+<h3 id="toc-38">核心讲解话术</h3>
+<div class="blk"><b>① 表 E 超售三步法（示范云璟 300 间，平日）</b> 第一步：历史 No-show+取消 12% → 基准超售率 3%。第二步：修正系数连乘——假设担保预订占比 65%(&gt;60% → ×0.5)、无大型会议 → 3%×0.5=1.5%。第三步：硬上限——超售间数不超可售 5%(15间)且不超 15 间，取小 → 300×1.5%=4.5→<b>4 间</b>。结论：云璟平日可超售 4 间。</div>
+<div class="blk"><b>② 表 J 免费升级</b> 触发三条件（超售腾房/高档房空置&gt;20%/会员兑现）；执行顺序严格：会员等级→预订价高→住长→复购多；每次最多升 1 档；套房升级每日≤3 间须 L3 批。</div>
+<h3 id="toc-39" class="warn">易错点：学生忘了第二步修正系数连乘，直接拿 3% 当答案；或忽略"D1峰值日×0.5"——旺季反而要少超售。</div>
+<h3>小结</h3>
+<div class="say">超售不是赌，是算出来的容错。算错最多拒客一次，不算才是天天漏钱。把表 E 贴在你工位上。</div>
+
+<!-- ============ M08 ============ -->
+<h2 id="toc-40" class="page-break">M08 · 渠道与分销管理（L2 · 6 课时）</h2>
+<div class="meta"><span class="pill">L2</span><span class="pill">6 课时</span><span class="pill-g">核心交付：渠道矩阵 + 表 H</span></div>
+<div class="to-teacher"><b>课前准备：</b>表 H 渠道开关判定表、§2.3 渠道成本率、价格一致性红线。本课讲"看净收入，别看流水"。</div>
+<h3 id="toc-41">教学目标</h3>
+<ul><li>能按表 H 在不同 OCC 下开关节点渠道</li><li>能复述价格一致性四条红线</li></ul>
+<h3 id="toc-42">开场</h3>
+<div class="say">云璟 ADR ¥620，但如果这间房来自 OTA，渠道抽 16%，你净拿 ¥520。如果来自直销，只花 3%，净拿 ¥601。同样卖一间房，差 80 块。渠道管理，就是决定这 80 块归谁。</div>
+<h3 id="toc-43">核心讲解话术</h3>
+<div class="blk"><b>① 渠道成本真相（用云璟算）</b> ADR ¥618 下：直销净 ¥599、会员 ¥593、协议 ¥569、OTA 国内 ¥519、OTA 国际 ¥507、批发商 ¥457。让学生排序：渠道不看流水看净收。</div>
+<div class="blk"><b>② 表 H 开关逻辑</b> OCC≥95% 只留1家产量最高OTA、关国际/批发、直销全开+会员专享；OCC&lt;55% 全开+深折+长住/团购。一句话：满房关贵渠道保利润，空房开全渠道抢量。</div>
+<div class="blk"><b>③ 价格一致性四条红线</b> 一、直销价不得高于任一 OTA 挂牌价；二、会员价可低于 OTA 但仅限登录会员可见；三、批发净价不得公开挂牌；四、违者 24h 内整改并记考核。</div>
+<h3 id="toc-44" class="warn">易错点：学生以为"关 OTA"就是全关——表 H 写的是分梯度，满房只关低产/贵渠道，不是一刀切。</div>
+<h3>小结</h3>
+<div class="say">看净收入，别看流水。一个 300 间酒店，渠道结构优化 2 个点，一年就是几十万。这是老板最容易看见你价值的地方。</div>
+
+<!-- ============ M09 ============ -->
+<h2 id="toc-45" class="page-break">M09 · 竞争监测与市场定位（L2 · 6 课时）</h2>
+<div class="meta"><span class="pill">L2</span><span class="pill">6 课时</span><span class="pill-g">核心交付：比价表 + 表 C/D</span></div>
+<div class="to-teacher"><b>课前准备：</b>表 C ARI、表 D MPI、表 O 优先级、§2.4 Comp Set。本课讲"别人是参考，表 O 是裁判"。</div>
+<h3 id="toc-46">教学目标</h3>
+<ul><li>能算 ARI / MPI / RGI 并给云璟定位</li><li>能用表 O 仲裁多表冲突</li></ul>
+<h3 id="toc-47">开场</h3>
+<div class="say">前面你们会了自己定自己的价。现在加一个维度：竞争对手。云璟周围 5 家酒店，你的价是高了还是低了？份额是领先还是落后？用两张表说话。</div>
+<h3 id="toc-48">核心讲解话术</h3>
+<div class="blk"><b>① 三角诊断法</b> 云璟 ARI=91（略低）、MPI 假设 103（健康）→ RGI = 91×103÷100 = <b>94</b>。RGI&lt;100 说明综合竞争力弱于组合——问题出在"卖便宜了"。查表 C：ARI 90–97 且 OCC≥80% → 提 3%。</div>
+<div class="blk"><b>② 表 O 冲突仲裁（关键）</b> 当表 A 说"维持"、表 C 说"提3%"打架时：表 O 优先级 表A(价格) &gt; 表C(ARI)。但表 A 是"维持"=无动作，顺延执行下一优先级 → 执行表 C 提 3%。让学生记住：表 O 是"不纠结"的最后保障。</div>
+<h3 id="toc-49" class="warn">易错点：学生遇冲突直接拍脑袋选一个。强制规则：必须报出表 O 优先级顺序，用规则说话，不是讲师给答案。</div>
+<h3>小结</h3>
+<div class="say">别人是参考，表 O 是裁判。以后任何两张表打架，先别慌，翻到表 O，顺序一读，结论就出来了。这就是"不纠结"三个字的全部含义。</div>
+
+<!-- ============ M10 ============ -->
+<h2 id="toc-50" class="page-break">M10 · 客源细分战略（L3 · 6 课时）</h2>
+<div class="meta"><span class="pill">L3</span><span class="pill">6 课时</span><span class="pill-g">核心交付：客源结构规划 + 置换分析</span></div>
+<div class="to-teacher"><b>课前准备：</b>表 G 团队/协议接受判定表、表 K 会议宴会联动表、§2.3 客源结构。本课讲"不是所有生意都值得做"。</div>
+<h3 id="toc-51">教学目标</h3>
+<ul><li>能按表 G 接受/拒绝团队询价</li><li>能算置换成本、判断会议团队综合贡献</li></ul>
+<h3 id="toc-52">开场</h3>
+<div class="say">L1 L2 你们学会了把房卖贵、卖满。L3 第一节讲一个反直觉的：有时候，拒绝一笔生意比接它更赚。销售拿一个 450 块的团队价来找你，你接不接？查表 G。</div>
+<h3 id="toc-53">核心讲解话术</h3>
+<div class="blk"><b>① 表 G 置换分析（云璟实例）</b> 团队报价 ÷ 预期散客 ADR = 比率 R。云璟预期散客 ADR 约 ¥620，团队报 ¥450 → R=73%。若当日预测 OCC 78%（70–85%档）→ 查矩阵 R73%×OCC78% → <b>接受（≤30间）</b>。若 OCC 90% → 该格"上报 L3"。</div>
+<div class="blk"><b>② 置换成本公式</b> = 被挤占房晚 ×(散客ADR−团队价) + 被挤占餐饮边际。云璟让 30 间给团队少赚 (620−450)×30=¥5,100，但团队带来餐饮——算综合贡献。</div>
+<div class="blk"><b>③ 表 K 会议联动</b> 会议价值=客房+餐饮+会场+其他。中型会议(31–120人)餐饮保底 ¥30,000。云璟宴会厅 1200㎡，这是全服务酒店真正的利润池，别只盯着客房。</div>
+<h3 id="toc-54" class="warn">易错点：学生只看客房价拒绝团队，忽略餐饮/会场综合贡献。表 G 附注：综合贡献≥占用房晚×散客ADR×85% 时即使 R&lt;55% 也可接（L3批）。</div>
+<h3>小结</h3>
+<div class="say">不是所有生意都值得做，但也不是所有便宜生意都不能做。算综合贡献，让销售心服口服——这句话是你们和销售的谈判核武器。</div>
+
+<!-- ============ M11 ============ -->
+<h2 id="toc-55" class="page-break">M11 · 年度预算与滚动预测（L3 · 8 课时 · ★）</h2>
+<div class="meta"><span class="pill">L3</span><span class="pill">8 课时</span><span class="pill-g">核心交付：预算模型 + 月度分解</span></div>
+<div class="to-teacher"><b>课前准备：</b>§2.3 月度需求基准表（OCC/ADR 按月）、templates/06_年度预算与月度分解.xlsx。本课讲"预算是对明年一整年的判断"。</div>
+<h3 id="toc-56">教学目标</h3>
+<ul><li>能按月度基准推全年预算</li><li>能量差价差归因（预算没完成谁的责任）</li></ul>
+<h3 id="toc-57">开场</h3>
+<div class="say">L3 你们开始对明年的数字负责。年度预算不是财务的事，是收益经理的事——因为明年的房价、出租率、渠道结构，是你定的。预算，就是你给老板的一张明年成绩单。</div>
+<h3 id="toc-58">核心讲解话术</h3>
+<div class="blk"><b>① 从月度基准推全年（云璟实例）</b> 12 个月 OCC（58%…85%…68%）加权平均约 73%、ADR 加权约 ¥620。年可售 109,500 × 73% × ¥620 ≈ 客房收入 ¥49.6M。叠餐饮 26.4M、其他 3.84M → 总营收约 ¥79.8M。GOP 率 32% → GOP ¥25.5M。</div>
+<div class="blk"><b>② 量差价差归因</b> 预算没完成，要么"量"没到（OCC 低）、要么"价"没到（ADR 低）。分开看：量差 = (实际OCC−预算OCC)×预算ADR×可售；价差 = (实际ADR−预算ADR)×实际OCC×可售。谁大谁就是主因，责任清楚。</div>
+<h3 id="toc-59" class="warn">易错点：学生把预算当"拍个数"。强调：预算起点是 §2.3 月度需求基准（历史节律），不是凭空想。</div>
+<h3>小结</h3>
+<div class="say">预算是对明年一整年的判断。你们交出的不是一张表，是你对这家酒店明年每天怎么卖的全部设想。想不清楚，表就做不对。</div>
+
+<!-- ============ M12 ============ -->
+<h2 id="toc-60" class="page-break">M12 · 会议与汇报：驱动组织行动（L3 · 6 课时）</h2>
+<div class="meta"><span class="pill">L3</span><span class="pill">6 课时</span><span class="pill-g">核心交付：三层会议体系 + 汇报模板</span></div>
+<div class="to-teacher"><b>课前准备：</b>表 N 周度/月度节奏表、§2.4 Comp Set、M11 预算。本课讲"说不出来，等于没想清楚"。</div>
+<h3 id="toc-61">教学目标</h3>
+<ul><li>能按表 N 排布周/月节奏</li><li>能用"四段话术"向业主汇报</li></ul>
+<h3 id="toc-62">开场</h3>
+<div class="say">你们会查表、会算账，但如果讲不明白，老板和销售根本不会动。收益管理的最后一环不是定价，是让组织按你的判断行动。说不出来，等于没想清楚。</div>
+<h3 id="toc-63">核心讲解话术</h3>
+<div class="blk"><b>① 表 N 节奏</b> 周一价差校验+8周预测、周三深度比价、周五周末作战、每月1日月度复盘、5日客源分析、10日向管理层汇报。让学生记住：节奏固定，不靠临时起意。</div>
+<div class="blk"><b>② 给业主一页纸法则</b> 一页纸 = 本月 RGI/MPI/ARI 三数 + 一个核心结论 + 一个要老板拍板的事。不许超过一页。</div>
+<div class="blk"><b>③ 四段话术（可照念）</b> "本月 RGI 94，比组合弱 6 个点（事实）→ 主因是 ARI 偏低、价格保守（判断）→ 建议下月散客提 3%、关低价渠道（动作）→ 预计 RGI 回到 100，多赚约 XX 万（预期）。"</div>
+<h3 id="toc-64" class="warn">易错点：学生汇报堆数据不讲结论。强制：每次汇报先说结论，再给数据。</div>
+<h3>小结</h3>
+<div class="say">数据让人服，话术让人动。你们的价值，一半在算对，一半在讲清。把四段话术练熟，老板会开始主动找你。</div>
+
+<!-- ============ M13 ============ -->
+<h2 id="toc-65" class="page-break">M13 · 跨部门协同与变革推动（L3 · 6 课时）</h2>
+<div class="meta"><span class="pill">L3</span><span class="pill">6 课时</span><span class="pill-g">核心交付：协同 SOP + 异议应对</span></div>
+<div class="to-teacher"><b>课前准备：</b>§2.2 配套设施、M09/M10 已讲。本课讲"数据让人服，利益让人动"。</div>
+<h3 id="toc-66">教学目标</h3>
+<ul><li>能说出六个部门各自要什么、你要他们做什么</li><li>能用异议应对库处理销售/前厅抵触</li></ul>
+<h3 id="toc-67">开场</h3>
+<div class="say">你们的方法再对，销售不配合、前厅不执行，也是零。L3 最后一门软课：怎么让一群不归你管的人，按你的表干活。</div>
+<h3 id="toc-68">核心讲解话术</h3>
+<div class="blk"><b>① 六个部门</b> 前厅（要房态准，你要他们及时更房态）、销售（要业绩，你给他置换成本让他自己算）、餐饮（要上座，你用表 K 算综合贡献）、财务（要 GOP，你用净 RevPAR 说话）、IT（要稳定，你提系统映射）、业主（要回报，你用 RGI 汇报）。</div>
+<div class="blk"><b>② 异议应对库</b> 销售说"这团队价太低不能接" → 你答"查表 G 综合贡献够，接了餐饮多赚 X 万"。前厅说"关房影响我的入住体验" → 你答"满房日只关低价渠道，高价值客照常"。给学生几句可直接用的话。</div>
+<div class="blk"><b>③ 变革落地六步</b> 从"没人听你的"到"他们主动找你"：先赢小胜（调价命中率）→ 晒数据 → 给工具（表 G 给销售）→ 树标杆（某部门先受益）→ 扩范围 → 固化成 SOP。</div>
+<h3 id="toc-69" class="warn">易错点：学生想用"这是规定"压人。纠正：规定没人听，利益才有人动。</div>
+<h3>小结</h3>
+<div class="say">数据让人服，利益让人动。你不需要有权，你需要让每个部门都从你的方法里得到他们想要的东西。</div>
+
+<!-- ============ M14 ============ -->
+<h2 id="toc-70" class="page-break">M14 · 收益管理系统与自动化（L3 · 6 课时）</h2>
+<div class="meta"><span class="pill">L3</span><span class="pill">6 课时</span><span class="pill-g">核心交付：RMS 选型 / 参数 / 人工干预规则</span></div>
+<div class="to-teacher"><b>课前准备：</b>§2.1 云璟参数、M03–M09 全部表。本课讲"系统放大你，不是替代你"。</div>
+<h3 id="toc-71">教学目标</h3>
+<ul><li>能说出 RMS 四模块</li><li>能列出 12 个必配参数（用云璟值）</li><li>能界定人机边界</li></ul>
+<h3 id="toc-72">开场</h3>
+<div class="say">最后一门课。你们学完 15 张表，可能会想：那我直接买个系统不就完了？错了。系统参数就是这些表，配错了比手工还糟。系统放大你，不是替代你。</div>
+<h3 id="toc-73">核心讲解话术</h3>
+<div class="blk"><b>① RMS 四模块</b> 预测引擎、定价引擎、库存/限制引擎、渠道管理。对应你们 L2 学的预测、价格、库存、渠道。</div>
+<div class="blk"><b>② 12 个必配参数（云璟值）</b> 房量 300、BAR 基准、价差阶梯(表F)、超售率 3%、MinLOS 规则、渠道成本率(直销3%/OTA16%…)、Comp Set 5家价、需求日历 D1–D4 系数、Pickup 监控频率、价格一致性红线、表 O 优先级、人工干预阈值。</div>
+<div class="blk"><b>③ 人机边界（白名单/黑名单）</b> 白名单（系统自动）：日常调价±10%内、常规渠道开关、库存限制。黑名单（必须人工）：D1峰值日、表 L 应急事件、超售过度补偿、任何偏离表 O 的冲突。让学生记住：系统管常规，人管异常。</div>
+<h3 id="toc-74" class="warn">易错点：学生以为上了 RMS 就不用学表。纠正：RMS 输入的就是这些表，你不懂表，系统就是黑箱，出事你背锅。</div>
+<h3>小结</h3>
+<div class="say">从会查表的人，到能让整个组织、甚至系统都按表运转的人——这就是 L3 的终点。你们毕业了。</div>
+
+<footer>HRMA 授课脚本 · 配套 SPEC.md 与 15 张《操作法典》判定表 · 原型统一为杭州滨江云璟酒店 · 所有数字口径以 SPEC 为准 · 本脚本供院校教师直接使用，无需先修收益管理</footer>
+</div>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>HRMA 授课脚本 · 14 模块教师可直接照读版</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. M01 · 收益管理的语言：指标与计算（L1 · 2 课时）</a>
+<a href="#toc-2" class="lv3">1.1 教学目标</a>
+<a href="#toc-3" class="lv3">1.2 开场（直接念）</a>
+<a href="#toc-4" class="lv3">1.3 核心讲解话术</a>
+<a href="#toc-5" class="lv3">1.4 课堂互动</a>
+<a href="#toc-6" class="lv3">1.5 小结（直接念）</a>
+<a href="#toc-7">2. M02 · 系统与数据：PMS/RMS/OTA 后台导航（L1 · 2 课时）</a>
+<a href="#toc-8" class="lv3">2.1 教学目标</a>
+<a href="#toc-9" class="lv3">2.2 开场</a>
+<a href="#toc-10" class="lv3">2.3 核心讲解话术</a>
+<a href="#toc-11" class="lv3">2.4 课堂互动</a>
+<a href="#toc-12" class="lv3">2.5 小结</a>
+<a href="#toc-13">3. M03 · 每日收益操作流水线（L1 · 6 课时 · ★核心）</a>
+<a href="#toc-14" class="lv3">3.1 教学目标</a>
+<a href="#toc-15" class="lv3">3.2 开场（第1次课）</a>
+<a href="#toc-16" class="lv3">3.3 核心讲解话术</a>
+<a href="#toc-17" class="lv3">3.4 讲师示范（第3次课，直接念思路）</a>
+<a href="#toc-18" class="lv3">3.5 课堂互动</a>
+<a href="#toc-19" class="lv3">3.6 小结</a>
+<a href="#toc-20">4. M04 · 报表与台账：让决策可追溯（L1 · 2 课时）</a>
+<a href="#toc-21" class="lv3">4.1 教学目标</a>
+<a href="#toc-22" class="lv3">4.2 开场</a>
+<a href="#toc-23" class="lv3">4.3 核心讲解话术</a>
+<a href="#toc-24" class="lv3">4.4 易错点：学生常漏填&quot;输入条件&quot;——只记&quot;降了5%&quot;不记&quot;为什么降&quot;。强调：没有输入条件的台账等于没记。 小结</a>
+<a href="#toc-25">5. M05 · 需求预测：Pickup 与预订曲线（L2 · 8 课时 · ★）</a>
+<a href="#toc-26" class="lv3">5.1 教学目标</a>
+<a href="#toc-27" class="lv3">5.2 开场</a>
+<a href="#toc-28" class="lv3">5.3 核心讲解话术</a>
+<a href="#toc-29" class="lv3">5.4 易错点：学生把&quot;在手&quot;当&quot;已售&quot;，直接拿 180÷300=60% 当 OCC。强调：在手是还没来的，必须加预测增量才是目标日 OCC。 小结</a>
+<a href="#toc-30">6. M06 · 价格体系设计：BAR 与价差阶梯（L2 · 6 课时）</a>
+<a href="#toc-31" class="lv3">6.1 教学目标</a>
+<a href="#toc-32" class="lv3">6.2 开场</a>
+<a href="#toc-33" class="lv3">6.3 核心讲解话术</a>
+<a href="#toc-34" class="lv3">6.4 易错点：高级房 SUP 是云璟基准（无 STD 档），学生拿通用 STD 档(85)硬套会算错。强调：云璟自 SUP 起算。 小结</a>
+<a href="#toc-35">7. M07 · 库存与限制条件战术（L2 · 6 课时）</a>
+<a href="#toc-36" class="lv3">7.1 教学目标</a>
+<a href="#toc-37" class="lv3">7.2 开场</a>
+<a href="#toc-38" class="lv3">7.3 核心讲解话术</a>
+<a href="#toc-39" class="lv3">7.4 易错点：学生忘了第二步修正系数连乘，直接拿 3% 当答案；或忽略&quot;D1峰值日×0.5&quot;——旺季反而要少超售。 小结</a>
+<a href="#toc-40">8. M08 · 渠道与分销管理（L2 · 6 课时）</a>
+<a href="#toc-41" class="lv3">8.1 教学目标</a>
+<a href="#toc-42" class="lv3">8.2 开场</a>
+<a href="#toc-43" class="lv3">8.3 核心讲解话术</a>
+<a href="#toc-44" class="lv3">8.4 易错点：学生以为&quot;关 OTA&quot;就是全关——表 H 写的是分梯度，满房只关低产/贵渠道，不是一刀切。 小结</a>
+<a href="#toc-45">9. M09 · 竞争监测与市场定位（L2 · 6 课时）</a>
+<a href="#toc-46" class="lv3">9.1 教学目标</a>
+<a href="#toc-47" class="lv3">9.2 开场</a>
+<a href="#toc-48" class="lv3">9.3 核心讲解话术</a>
+<a href="#toc-49" class="lv3">9.4 易错点：学生遇冲突直接拍脑袋选一个。强制规则：必须报出表 O 优先级顺序，用规则说话，不是讲师给答案。 小结</a>
+<a href="#toc-50">10. M10 · 客源细分战略（L3 · 6 课时）</a>
+<a href="#toc-51" class="lv3">10.1 教学目标</a>
+<a href="#toc-52" class="lv3">10.2 开场</a>
+<a href="#toc-53" class="lv3">10.3 核心讲解话术</a>
+<a href="#toc-54" class="lv3">10.4 易错点：学生只看客房价拒绝团队，忽略餐饮/会场综合贡献。表 G 附注：综合贡献≥占用房晚×散客ADR×85% 时即使 R&lt;55% 也可接（L3批）。 小结</a>
+<a href="#toc-55">11. M11 · 年度预算与滚动预测（L3 · 8 课时 · ★）</a>
+<a href="#toc-56" class="lv3">11.1 教学目标</a>
+<a href="#toc-57" class="lv3">11.2 开场</a>
+<a href="#toc-58" class="lv3">11.3 核心讲解话术</a>
+<a href="#toc-59" class="lv3">11.4 易错点：学生把预算当&quot;拍个数&quot;。强调：预算起点是 §2.3 月度需求基准（历史节律），不是凭空想。 小结</a>
+<a href="#toc-60">12. M12 · 会议与汇报：驱动组织行动（L3 · 6 课时）</a>
+<a href="#toc-61" class="lv3">12.1 教学目标</a>
+<a href="#toc-62" class="lv3">12.2 开场</a>
+<a href="#toc-63" class="lv3">12.3 核心讲解话术</a>
+<a href="#toc-64" class="lv3">12.4 易错点：学生汇报堆数据不讲结论。强制：每次汇报先说结论，再给数据。 小结</a>
+<a href="#toc-65">13. M13 · 跨部门协同与变革推动（L3 · 6 课时）</a>
+<a href="#toc-66" class="lv3">13.1 教学目标</a>
+<a href="#toc-67" class="lv3">13.2 开场</a>
+<a href="#toc-68" class="lv3">13.3 核心讲解话术</a>
+<a href="#toc-69" class="lv3">13.4 易错点：学生想用&quot;这是规定&quot;压人。纠正：规定没人听，利益才有人动。 小结</a>
+<a href="#toc-70">14. M14 · 收益管理系统与自动化（L3 · 6 课时）</a>
+<a href="#toc-71" class="lv3">14.1 教学目标</a>
+<a href="#toc-72" class="lv3">14.2 开场</a>
+<a href="#toc-73" class="lv3">14.3 核心讲解话术</a>
+<a href="#toc-74" class="lv3">14.4 易错点：学生以为上了 RMS 就不用学表。纠正：RMS 输入的就是这些表，你不懂表，系统就是黑箱，出事你背锅。 小结</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open');document.body.classList.toggle('toc-open',d.classList.contains('open'))});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open');document.body.classList.remove('toc-open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');document.body.classList.remove('toc-open');
+  });});
+})();
+</script>
+</body>
+</html>

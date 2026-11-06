@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HRMA 内容池 · 最小启动版设计</title>
+<style>
+  :root{--ink:#1a1a1a;--gold:#b08d57;--gold-deep:#8a6d3b;--cream:#FAF9F6;--line:#d9d2c5;--muted:#6b6258;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+    line-height:1.85;font-size:16px;}
+  .wrap{max-width:900px;margin:0 auto;padding:48px 28px 80px;}
+  header{border-bottom:2px solid var(--gold);padding-bottom:22px;}
+  h1{font-size:29px;margin:0 0 6px;font-weight:800;letter-spacing:.5px;}
+  .sub{color:var(--muted);font-size:13px;letter-spacing:2px;text-transform:uppercase;}
+  .lede{color:var(--muted);font-size:15px;margin-top:14px;}
+  h2{font-size:20px;margin:44px 0 14px;padding-left:12px;border-left:4px solid var(--gold);}
+  h3{font-size:16.5px;margin:22px 0 8px;color:var(--gold-deep);}
+  p{margin:10px 0;}
+  .gold{color:var(--gold-deep);font-weight:700;}
+  .callout{background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);
+    padding:16px 20px;margin:20px 0;border-radius:4px;font-size:14.5px;color:#3a352d;}
+  .callout b{color:var(--gold-deep);}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px;background:#fff;border:1px solid var(--line);}
+  th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;text-align:left;}
+  th{background:#f3ede1;font-weight:700;font-size:13.5px;}
+  .num{font-variant-numeric:tabular-nums;color:var(--gold-deep);font-weight:700;}
+  .tpl{background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);padding:18px 22px;margin:16px 0;border-radius:4px;}
+  .tpl h4{margin:0 0 10px;font-size:15.5px;color:var(--ink);}
+  .tpl ol{margin:8px 0;padding-left:20px;}
+  .tpl li{margin:6px 0;font-size:14.5px;}
+  .tpl .meta{font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px;margin-top:12px;}
+  .steps{counter-reset:s;list-style:none;padding:0;margin:14px 0;}
+  .steps li{counter-increment:s;position:relative;padding:12px 0 12px 50px;border-bottom:1px dashed var(--line);}
+  .steps li:before{content:counter(s);position:absolute;left:0;top:10px;width:32px;height:32px;background:var(--ink);
+    color:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;}
+  .try{background:var(--ink);color:#f3ede1;border-radius:6px;padding:22px 26px;margin:40px 0 0;}
+  .try h2{color:var(--gold);border:none;padding:0;margin:0 0 14px;font-size:19px;}
+  .try ol{margin:0;padding-left:20px;}
+  .try li{margin:9px 0;}
+  .tips{margin-top:26px;padding:16px 20px;border-top:1px solid var(--line);color:var(--muted);font-size:14.5px;}
+  footer{margin-top:38px;text-align:center;color:var(--muted);font-size:12.5px;letter-spacing:1px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="sub">HRMA · 共创社区启动设计</div>
+  <h1>内容池最小启动版</h1>
+  <p class="lede">两层结构怎么摆 · 第一份种子模板长什么样 · 贡献者凭什么交出做法。</p>
+</header>
+
+<div class="callout">
+  <b>这份设计要解决三件事：</b>① 让会员贡献的"做法"不稀释《操作法典》的唯一权威；② 让第一批人愿意交出第一份做法；③ 让贡献者取回的比给出的多。
+</div>
+
+<h2>一、两层结构：法典是主干，做法是分支</h2>
+
+<p>内容池必须切成两层。混在一起，HRMA 的"不纠结"就被拆掉了。</p>
+
+<table>
+  <tr><th>层</th><th>谁定</th><th>性质</th><th>能否并存多个</th></tr>
+  <tr><td><b>法典层</b></td><td><b>你定</b></td><td>标准、唯一、权威（表 A–O + 四步闭环）</td><td>❌ 唯一</td></tr>
+  <tr><td><b>做法层</b></td><td>会员贡献</td><td>案例、模板、流程、坑</td><td>✅ 多元</td></tr>
+</table>
+
+<p><span class="gold">社区贡献的是"案例"，不是"标准"。</span> 就像法律和判例——法律只有一部，判例可以有一千个。判例丰富了，法律更鲜活，但法律不会被判例取代。</p>
+
+<h3>核心机制：每份做法必须"挂载"到某一张法典表</h3>
+
+<p>这是防止稀释的关键设计。<b>做法不能独立存在，它必须是"表 X 的一种用法"。</b></p>
+
+<p>用户看到的永远是：</p>
+<div class="tpl">
+  <h4>表 A · 每日价格调整判定表</h4>
+  <ol>
+    <li>法典原文（唯一权威，不可改）</li>
+    <li><b>真实用法 · 5 种</b> ← 会员贡献区
+      <br><span style="color:#6b6258;font-size:13.5px;">杭州某 300 间全服务酒店 · 王经理 ｜ 成都某 240 间中高端 · 匿名 ｜ …</span></li>
+  </ol>
+  <div class="meta">主干永远是法典，做法是挂在主干上的分支。这样池子越厚，法典越可信，而不会互相打架。</div>
+</div>
+
+<h2>二、每份做法的固定结构</h2>
+
+<p>不规定结构，质量一定参差。所有做法强制填这 6 项：</p>
+
+<table>
+  <tr><th>字段</th><th>要求</th><th>为什么</th></tr>
+  <tr><td>① 来自哪家</td><td>城市 + 档次 + 房量区间，<b>店名不公开</b></td><td>保住竞对顾虑</td></tr>
+  <tr><td>② 挂载哪张表</td><td>必填，如「表 A」</td><td>防稀释</td></tr>
+  <tr><td>③ 解决什么问题</td><td>一句话场景</td><td>可被检索</td></tr>
+  <tr><td>④ 具体做法</td><td>分步骤，每步带触发条件</td><td>符合三不原则</td></tr>
+  <tr><td>⑤ 坑与注意</td><td>至少写 1 条</td><td>最有价值的部分</td></tr>
+  <tr><td>⑥ 授权</td><td>署名 + 可署名使用</td><td>规则前置，避免后期争议</td></tr>
+</table>
+
+<div class="callout">
+  <b>红线：不分享绝对值数据。</b> 只分享做法、流程、结构。<b>数据 = 竞争情报，做法 = 非竞争情报。</b>
+</div>
+
+<h2>三、第一份种子模板（你先发，立标杆）</h2>
+
+<p>你不是"喂饭"，是<b>示范什么叫好做法</b>。建议用 HRMA 现成的表 M（每日流水线）改写，不用新写。</p>
+
+<div class="tpl">
+  <h4>种子模板：《一家 300 间全服务酒店的收益晨会：从取数到动作清单的 90 分钟》</h4>
+  <ol>
+    <li><b>来自</b>：华东某城市 · 中高端全服务 · 280–320 间（匿名）</li>
+    <li><b>挂载</b>：表 M（每日流水线）＋ 表 A（调价）＋ 表 O（冲突仲裁）</li>
+    <li><b>解决什么</b>：每天早上的动作是怎么从"一堆数据"变成"一条可执行指令"的</li>
+    <li><b>具体做法</b>：
+      <br>07:30 抓昨日经营数据 → 07:50 抓未来 30 天在手与 Pickup → 08:10 采 5 家竞对价格
+      <br>→ 08:30 逐日查表得出动作清单 → 09:10 系统落位 → 09:40 六渠道价格一致性核查 → 09:55 写入台账 → 10:05 收益晨会
+    </li>
+    <li><b>坑</b>：表 A 与表 C 同日同时给出动作时，<b>只执行优先级更高的那条</b>（表 A &gt; 表 C），其余写进观察清单——这一步最容易被跳过，一跳过就前后矛盾</li>
+    <li><b>授权</b>：署名发布，可署名使用</li>
+  </ol>
+  <div class="meta">这份种子的作用是定标准：照这个格式来，你的做法才会被收录。</div>
+</div>
+
+<h2>四、贡献者凭什么交出做法：取回 &gt; 给出</h2>
+
+<p>障碍已经不是"怕竞对"，而是<b>面子（我的做法太粗糙）+ 无回报（凭什么白给）</b>。解法只有一条：让他取回的比给出的多。</p>
+
+<h3>即时回馈（比积分更重要）</h3>
+<p><span class="gold">提交即刻解锁"看所有人的做法"——以换代给，立刻兑现，不设审核等待。</span> 先给权限，后审质量。</p>
+
+<h3>贡献值（游戏化）</h3>
+<table>
+  <tr><th>行为</th><th>分值</th></tr>
+  <tr><td>提交 1 份做法</td><td class="num">+10</td></tr>
+  <tr><td>被收录进精选</td><td class="num">+20</td></tr>
+  <tr><td>做法被他人采用并反馈</td><td class="num">+5 / 次</td></tr>
+  <tr><td><b>触发法典修订</b></td><td class="num">+50</td></tr>
+</table>
+
+<h3>兑换什么（真实权益，不是虚拟勋章）</h3>
+<table>
+  <tr><th>分值</th><th>权益</th></tr>
+  <tr><td class="num">30</td><td>解锁全部做法库</td></tr>
+  <tr><td class="num">50</td><td>案例署名 + 电子收录证书</td></tr>
+  <tr><td class="num">100</td><td><b>参与下一版《操作法典》修订（署名进编委会）</b> ← 对收益经理最值钱</td></tr>
+  <tr><td class="num">150</td><td>认证考试免审直通 / 讲师候选资格</td></tr>
+  <tr><td class="num">200</td><td>岗位内推优先</td></tr>
+</table>
+
+<h3>被看见（非金钱，往往最有效）</h3>
+<p>《法典月报》公开点名 → "本月最佳做法"置顶 → <b>触发法典修订的人，在修订记录里永久留名</b>。</p>
+
+<h2>五、第一批人从哪来</h2>
+
+<p>优先找<b>没有竞对顾虑、且有互补动机</b>的四类人：</p>
+
+<ol class="steps">
+  <li><b>院校教师</b>——有理论缺场景，天然愿意用理论换真实案例。<span class="gold">最优第一批共创者</span>。</li>
+  <li><b>已转行 / 已晋升的收益经理</b>——不在原商圈竞争，无顾虑。</li>
+  <li><b>集团总部收益总监</b>——管多店，视角在集团层面，不暴露单店底牌。</li>
+  <li><b>想做讲师的人</b>——贡献做法 = 换取讲师候选资格，动机最直接。</li>
+</ol>
+
+<h2>六、规则（第一天就要写清，否则半年后必炸）</h2>
+
+<div class="callout">
+  <b>贡献即授权署名使用，你的名字永远跟着你的做法。</b><br>
+  说在前面是共创，说在后面是白嫖。这条必须写在提交按钮旁边，不是藏在协议里。
+</div>
+
+<table>
+  <tr><th>规则</th><th>内容</th></tr>
+  <tr><td>只分享做法</td><td>不分享绝对值数据（OCC/ADR/客源占比）</td></tr>
+  <tr><td>必须挂载</td><td>每份做法挂到一张法典表，否则不收录</td></tr>
+  <tr><td>匿名可控</td><td>城市+档次+房量区间公开，店名不公开</td></tr>
+  <tr><td>标准不动</td><td>做法不能挑战法典；有争议走"公开迭代"通道</td></tr>
+  <tr><td>署名授权</td><td>贡献即授权署名使用，永久留名</td></tr>
+</table>
+
+<h2>七、第一个月只盯一个指标</h2>
+
+<p><span class="gold">30 天内，有没有人交出第一份做法。</span></p>
+
+<table>
+  <tr><th>指标</th><th>目标</th></tr>
+  <tr><td>做法总数</td><td class="num">≥ 20 份</td></tr>
+  <tr><td>贡献人数</td><td class="num">≥ 8 人</td></tr>
+  <tr><td>触发法典讨论</td><td class="num">≥ 3 份</td></tr>
+</table>
+
+<p>达不到，说明取回机制不够——不是内容不够，是 incentives 不对。</p>
+
+<div class="try">
+  <h2>Have a Try · 这一周能做的三件事</h2>
+  <ol>
+    <li>把<b>种子模板</b>按上面 6 项格式改出来（直接用表 M 改写，不用新写），先立标杆。</li>
+    <li>写一份<b>贡献规则</b>（就是第六节那张表），贴在提交入口旁边——尤其是"署名授权"那条。</li>
+    <li>列 10 个人的名单：院校教师 + 已转行收益经理 + 集团总监，<b>逐个私聊邀请</b>，不要群发。</li>
+  </ol>
+</div>
+
+<div class="tips">
+  <b>Tips.</b> 这个池子能不能转起来，不看你的内容有多好，看第一个月有没有人愿意交出第一份做法。冷启动期，一个真实的粗糙做法，比一百个精致的官方模板更有号召力——因为它证明"普通人也能交"。
+</div>
+
+<footer>HRMA · 共创社区启动设计 · 内部参考</footer>
+</div>
+</body>
+</html>
