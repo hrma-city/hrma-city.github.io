@@ -46,6 +46,17 @@ except Exception:
 INPUT_BG = "FFF7D6"   # 输入区浅黄
 REF_BG = "EDEDED"     # 参考区灰
 
+# 浅色版调色板（与全站 11-07 定稿一致）：深蓝标题/强调、米灰表头、暖白底
+NAVY = "1B3A5C"
+MED_BLUE = "2C5282"
+# xlsx 自带花哨填充 → 浅色版中性/语义色映射（消除难看的青蓝/花绿等）
+_FILL_MAP = {
+    "BDD7EE": "E8F1F9",   # 浅蓝 → 浅蓝语义框
+    "E2EFDA": "E6F2F0",   # 浅绿 → 浅绿语义框
+    "FFF2CC": "FFF7D6",   # 浅黄 → 输入区浅黄
+    "F5EDE0": "FDF3E4",   # 浅杏 → 杏色语义框
+}
+
 CSS = """
 <style>
 *{box-sizing:border-box}
@@ -105,15 +116,44 @@ def fmt_num(v, nf):
     except Exception:
         return v
 
-def cell_bg(ws, coord):
+def raw_fill(ws, coord):
+    """返回单元格填充前景色（去掉 ARGB 前两位 alpha），无填充返回 None。"""
     try:
         fg = ws[coord].fill.fgColor.rgb
         if isinstance(fg, str):
-            fg = fg.replace("FF", "", 1) if fg.startswith("FF") else fg
-            return fg.upper()
+            s = fg.upper()
+            if len(s) == 8 and s[:2] in ("FF", "00"):
+                s = s[2:]
+            return s
     except Exception:
         return None
     return None
+
+def fill_style(ws, coord):
+    """把 xlsx 自带填充归一到浅色版调色板，返回 {bg, color, cls}。"""
+    c = raw_fill(ws, coord)
+    if c is None or c in ("FFFFFF", "000000"):
+        return None
+    if c == INPUT_BG:
+        return {"bg": INPUT_BG, "color": None, "cls": "inp"}
+    if c == REF_BG:
+        return {"bg": None, "color": None, "cls": "ref"}
+    if c in (NAVY, MED_BLUE):
+        return {"bg": NAVY, "color": "#FFFFFF", "cls": ""}
+    if c in _FILL_MAP:
+        return {"bg": _FILL_MAP[c], "color": None, "cls": ""}
+    # 未知填充 → 浅色版中性米灰，避免任何花哨色意外出现
+    return {"bg": "F2F0EB", "color": None, "cls": ""}
+
+def _style_str(fs):
+    if not fs:
+        return ""
+    parts = []
+    if fs.get("bg"):
+        parts.append("background:#%s" % fs["bg"])
+    if fs.get("color"):
+        parts.append("color:%s" % fs["color"])
+    return ";".join(parts)
 
 def render_xlsx(path, rel):
     wb = openpyxl.load_workbook(path, data_only=False)
@@ -148,8 +188,9 @@ def render_xlsx(path, rel):
                     cs = mc - c + 1
                     # 合并区只渲染左上角
                     val = read_val(ws, coord, comp)
-                    cls = cell_class(ws, coord)
-                    style = "background:#%s" % cell_bg(ws, coord) if cell_bg(ws, coord) else ""
+                    fs = fill_style(ws, coord)
+                    cls = (fs["cls"] if fs else "") or cell_class(ws, coord)
+                    style = _style_str(fs)
                     cells.append('<td rowspan="%d" colspan="%d" class="%s" style="%s">%s</td>'
                                  % (rs, cs, cls, style, esc_cell(val)))
                     c = mc + 1
@@ -164,8 +205,9 @@ def render_xlsx(path, rel):
                     c += 1
                     continue
                 val = read_val(ws, coord, comp)
-                cls = cell_class(ws, coord)
-                style = "background:#%s" % cell_bg(ws, coord) if cell_bg(ws, coord) else ""
+                fs = fill_style(ws, coord)
+                cls = (fs["cls"] if fs else "") or cell_class(ws, coord)
+                style = _style_str(fs)
                 tag = "th" if r == 1 else "td"
                 cells.append('<%s class="%s" style="%s">%s</%s>' % (tag, cls, style, esc_cell(val), tag))
                 c += 1
@@ -195,14 +237,9 @@ def read_val(ws, coord, comp):
     return cc.value
 
 def cell_class(ws, coord):
-    bg = cell_bg(ws, coord)
     cc = ws[coord]
     if cc.data_type == "f":
         return "calc"
-    if bg == INPUT_BG:
-        return "inp"
-    if bg == REF_BG:
-        return "ref"
     return ""
 
 def esc_cell(v):
