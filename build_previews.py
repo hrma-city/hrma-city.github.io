@@ -20,6 +20,15 @@ import html as _html
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "templates"))
 
+# 口径对齐：复用全站 v2026.5 同步引擎的同一套校正（唯一真源 v2026-2-rules.json），
+# 让每次重新生成的预览 HTML 也保持口径一致，不被生成过程覆盖回旧值。
+try:
+    sys.path.insert(0, '/Users/abc/WorkBuddy/2026-09-03-08-48-09/outputs')
+    import _v2026_5_site_sync as _syncer
+    _caliber_fix = _syncer.transform
+except Exception:
+    _caliber_fix = None
+
 PY = "/Users/abc/.workbuddy/binaries/python/envs/default/bin/python"
 OUT_DIR = os.path.join(HERE, "assets", "previews")
 os.makedirs(OUT_DIR, exist_ok=True)
@@ -283,6 +292,9 @@ def write_html(out, title, tabs, sheets, note):
             "document.querySelectorAll('.sheet').forEach(function(s){s.classList.remove('on')});" \
             "b.classList.add('on');document.querySelectorAll('.sheet')[+b.dataset.i].classList.add('on');}});</script>"
     html += "</body></html>"
+    # 口径对齐：套用全站唯一真源校正（Pickup→Pace、题量 251→253 等），与站点其他页面一致
+    if _caliber_fix is not None:
+        html, _hits = _caliber_fix(html)
     with open(out, "w", encoding="utf-8") as f:
         f.write(html)
 
