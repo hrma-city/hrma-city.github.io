@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js?v=gate20261013"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<!-- 本页自带左侧固定目录，幂等键 id="rm-toc-drawer" 视为已存在 -->
+<title>第五篇 · 延伸篇 · 正式授课版（4 讲） · v2026.3 · RMC</title>
+<style>
+:root{--navy:#0f2a4a;--gold:#e8b84b;--ink:#1f2a37;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+ background:var(--bg);color:var(--ink);line-height:1.85;font-size:14.6px}
+.wrap{max-width:920px;margin:0 auto;padding:0 18px 60px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:26px 0 20px}
+.hero .wrap{padding-bottom:0}
+.tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);
+ color:#f5d78e;font-size:12.3px;border-radius:999px;padding:3px 12px;margin-bottom:9px}
+h1{font-size:22px;line-height:1.45}
+.hero p{color:#b9d0e6;font-size:13.4px;margin-top:8px}
+.tools{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid var(--line);
+ box-shadow:0 1px 6px rgba(0,0,0,.06);padding:8px 0}
+.tools .wrap{padding-top:0;padding-bottom:0;display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.tb{border:1px solid var(--line);background:#f8fafc;border-radius:8px;padding:5px 11px;font-size:13px;
+ cursor:pointer;color:var(--navy);font-weight:600;text-decoration:none;display:inline-block}
+.tb:hover{background:#eef4fa}
+.tb.p{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tb.p:hover{background:#16406e}
+h2.pt{font-size:18.5px;color:var(--navy);margin:26px 0 8px;padding-left:12px;border-left:4px solid var(--gold)}
+.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:15px 18px;margin-bottom:11px}
+details{border:1px solid var(--line);border-radius:12px;margin-bottom:9px;background:#fff;overflow:hidden}
+summary{cursor:pointer;padding:12px 16px;font-weight:700;color:var(--navy);list-style:none;font-size:14.6px}
+summary::-webkit-details-marker{display:none}
+.pill{display:inline-block;background:var(--navy);color:#fff;font-size:11.8px;border-radius:6px;padding:2px 8px;margin-right:6px;font-weight:700}
+.newbadge{background:#1d6b4c;color:#fff;font-size:11px;border-radius:5px;padding:1px 7px}
+.cbody{padding:12px 18px 16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+.pc{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 13px;font-size:13.4px}
+.pc b{color:var(--navy)}
+.key{font-size:15px;color:#7a5b00;font-weight:700}
+.mini{color:var(--mut);font-size:12.6px}
+h4{font-size:13.6px;color:var(--navy);margin:14px 0 6px;padding-left:8px;border-left:3px solid var(--gold)}
+.box.mind svg{width:100%;height:auto}
+details.sub{margin:10px 0;border:1px dashed #cfdcea}
+details.sub>summary{font-size:13.6px;font-weight:600;color:#3a5b80;background:#f8fafc}
+.qrw{display:flex;gap:16px;flex-wrap:wrap}
+.qr{text-align:center;font-size:12.2px;color:var(--mut)}
+.qr svg{width:104px;height:104px;border:1px solid var(--line);border-radius:8px;background:#fff}
+.qr span{display:block;margin-top:3px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+th{background:var(--navy);color:#fff;text-align:left;padding:7px 10px}
+td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+ul,ol{margin:6px 0 6px 20px;font-size:13.5px}
+.chapnav{display:flex;gap:14px;justify-content:space-between;border-top:1px solid var(--line);
+ padding-top:9px;margin-top:14px;font-size:13px}
+.chapnav a{color:#1d6fb8;text-decoration:none}
+.foot{color:var(--mut);font-size:12px;text-align:center;margin-top:26px;border-top:1px solid var(--line);padding-top:12px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:14px 18px;margin-bottom:12px}
+.panel h3{font-size:15px;color:var(--navy);margin:0 0 8px}
+.tocgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:4px 14px}
+.tocgrid a{font-size:13px;color:#1d6fb8;text-decoration:none;padding:2px 0;display:block}
+.tocgrid a:hover{text-decoration:underline}
+.tocpart{grid-column:1/-1;font-size:12.6px;color:var(--mut);font-weight:700;margin-top:8px}
+.idxrow{display:flex;gap:8px;flex-wrap:wrap;font-size:12.9px;padding:4px 0;border-bottom:1px dotted var(--line)}
+.idxrow b{color:var(--navy);min-width:96px}
+.idxrow a{color:#1d6fb8;text-decoration:none}
+#top{position:absolute;top:0}
+/* ---- 左侧目录侧栏 ---- */
+#side{position:fixed;top:0;left:0;bottom:0;width:254px;overflow-y:auto;background:#0e2340;
+ color:#dbe7f4;padding:12px 10px 40px;z-index:70}
+#side .sh{color:#f5d78e;font-size:13px;font-weight:800;padding:4px 8px 8px;letter-spacing:1px}
+#side .sp{color:#7f9fbd;font-size:11.4px;font-weight:700;margin:9px 6px 2px}
+#side a{display:block;color:#cfe0f2;font-size:12.7px;padding:3px 8px;border-radius:6px;
+ text-decoration:none;line-height:1.55}
+#side a:hover{background:rgba(255,255,255,.1);color:#fff}
+body{padding-left:254px}
+@media(max-width:1020px){
+ #side{transform:translateX(-105%);transition:transform .18s ease}
+ body.side-open #side{transform:none;box-shadow:8px 0 30px rgba(0,0,0,.35)}
+ body{padding-left:0}
+}
+@media print{
+ .tools,#side,.chapnav,.qrw,.hero .tag{display:none!important}
+ body{background:#fff;font-size:11.4pt;line-height:1.7;padding-left:0}
+ .wrap{max-width:none;padding:0}
+ details{border:0;break-inside:auto}
+ summary{font-size:12pt;padding:2pt 0;border-bottom:.5pt solid #999}
+ details:not([open])>*:not(summary){display:block!important}
+ details.sub>summary{display:none}
+ h2.pt{break-before:page;break-after:avoid}
+ .chp{break-before:page}
+ .chp:first-of-type{break-before:auto}
+ h4{break-after:avoid}
+ table,figure,.box.mind{break-inside:avoid}
+ a{color:#000;text-decoration:none}
+ .foot,.panel{break-inside:avoid}
+}
+body.pv .tools{position:static}
+body.pv .wrap{max-width:820px}
+body.pv details:not([open])>*:not(summary){display:block!important}
+body.pv .chapnav,body.pv .qrw{display:none}
+
+.cbody *{box-sizing:border-box;margin:0;padding:0}
+.cbody{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:#f4f6f9;color:#1c2430;line-height:1.85;font-size:15px}
+.cbody .book{max-width:840px;margin:0 auto;background:#fff;box-shadow:0 4px 20px rgba(20,30,70,.08)}
+.cbody .cover{background:linear-gradient(150deg,#0f2a4a,#16406e 65%,#1d6fb8);color:#fff;padding:52px 44px 44px}
+.cbody .cover .ser{font-size:12px;letter-spacing:3px;opacity:.8}
+.cbody .cover h1{font-size:36px;font-weight:800;margin:16px 0 10px;line-height:1.3}
+.cbody .cover .sub{font-size:17px;color:#ffe9bd;line-height:1.6}
+.cbody .cover .for{margin-top:26px;font-size:13px;opacity:.8;line-height:1.8}
+.cbody .body{padding:26px 44px 40px}
+/* 开篇与篇结构 */
+.cbody h2.pt{font-size:27px;font-weight:800;color:#fff;background:linear-gradient(135deg,#0f2a4a,#1d6fb8);margin:44px 0 0;padding:18px 24px;border-radius:12px 12px 0 0}
+.cbody .ptmap{background:#eef3f9;border:1px solid #d4e0ee;border-top:none;border-radius:0 0 12px 12px;padding:16px 22px;margin-bottom:18px}
+.cbody .ptmap .q{font-size:15.5px;color:#0f2a4a;font-weight:800;margin-bottom:6px}
+.cbody .ptmap .d{font-size:13.8px;color:#3a4b60;line-height:1.8}
+.cbody .ptmap .rel{margin-top:9px;padding-top:9px;border-top:1px dashed #c6d4e4;font-size:13.2px;color:#3a4b60}
+.cbody .ptmap .rel b{color:#0f2a4a}
+.cbody .ptmap .out{margin-top:8px;font-size:13.4px;color:#16432a;background:#eefaf3;border-radius:8px;padding:8px 12px}
+.cbody h3.pmod{font-size:17px;font-weight:800;color:#1d6fb8;margin:26px 0 4px;padding-left:12px;border-left:5px solid #1d6fb8}
+.cbody .pmodnote{font-size:12.8px;color:#8494a8;margin:0 0 12px 17px}
+.cbody .loc{display:inline-block;font-size:11.5px;color:#8494a8;letter-spacing:.5px;margin:22px 0 2px;padding:2px 9px;background:#f4f7fa;border-radius:5px;border:1px solid #e6eaf1}
+.cbody h2.ch{font-size:22px;font-weight:800;color:#0f2a4a;margin:6px 0 6px;padding-top:6px;border-top:3px solid #e8b84b}
+.cbody h2.ch .cn{font-size:13px;color:#a8801f;display:block;margin-bottom:4px;letter-spacing:1px}
+.cbody .promise{background:#fff8e8;border-left:4px solid #e8b84b;padding:12px 16px;margin:12px 0;font-size:15px;font-weight:700;color:#0f2a4a;border-radius:0 8px 8px 0}
+.cbody h4{font-size:15.5px;color:#0f2a4a;margin:16px 0 7px;font-weight:800;padding-left:9px;border-left:3px solid #1d6fb8}
+.cbody p{margin:9px 0}
+.cbody .story{background:#f7f9fc;border-left:4px solid #1d6fb8;padding:12px 16px;margin:11px 0;font-size:14px;color:#3a4b60;border-radius:0 8px 8px 0}
+.cbody .story .who{font-size:12.5px;color:#1d6fb8;font-weight:800;margin-bottom:4px}
+.cbody .pts{background:#fbfcfe;border:1px solid #e2e8ef;border-radius:10px;padding:12px 16px;margin:11px 0}
+.cbody .pts li{margin:5px 0;font-size:14.2px}
+.cbody .fml{background:#fffdf6;border:2px solid #e8cf94;border-radius:11px;padding:14px 17px;margin:13px 0}
+.cbody .fml .fn{font-size:12.5px;color:#a8801f;font-weight:800;margin-bottom:6px}
+.cbody .fml .fe{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:15px;font-weight:700;color:#0f2a4a;background:#fff;border:1px solid #f0dcae;border-radius:7px;padding:9px 12px;line-height:1.7}
+.cbody .fml .ex{margin-top:9px;font-size:13.8px;color:#3a4b60}
+.cbody .judge{background:#eef3f9;border:1px solid #d4e0ee;border-radius:11px;padding:13px 16px;margin:13px 0}
+.cbody .judge .jt{font-size:12.5px;color:#1d6fb8;font-weight:800;margin-bottom:7px;letter-spacing:.5px}
+.cbody .judge table{width:100%;border-collapse:collapse;font-size:13.2px}
+.cbody .judge td{padding:6px 8px;border-top:1px solid #dde5ef}
+.cbody .judge td:first-child{font-weight:700;color:#0f2a4a;white-space:nowrap}
+.cbody .case{background:#fbfcfe;border:1px solid #e2e8ef;border-radius:11px;padding:13px 16px;margin:12px 0;font-size:14px}
+.cbody .case .ct{font-size:13.5px;font-weight:800;color:#0f2a4a;margin-bottom:5px}
+.cbody .case .num{color:#3a4b60;font-size:13.6px}
+.cbody .case .end{margin-top:8px;padding-top:8px;border-top:1px dashed #dde3ec;font-size:13.6px;color:#0f2a4a}
+.cbody .tip{background:#eefaf3;border:1px solid #bfe6cf;border-radius:10px;padding:11px 15px;margin:12px 0;font-size:13.4px;color:#1f5b3a}
+.cbody .tip b{color:#16432a}
+.cbody .ex{background:#f7f9fc;border:1px solid #e2e8ef;border-radius:10px;padding:12px 16px;margin:12px 0}
+.cbody .ex .et{font-size:13px;font-weight:800;color:#0f2a4a;margin-bottom:5px}
+.cbody .ex ol{margin-left:18px;font-size:13.8px}
+.cbody .ex li{margin:4px 0}
+.cbody .app{background:#0f2a4a;color:#cfe0f0;border-radius:12px;padding:18px 22px;margin:30px 0 0;font-size:13.6px;line-height:1.8}
+.cbody .app h3{color:#e8b84b;font-size:17px;margin:14px 0 8px}
+.cbody .app b{color:#e8b84b}
+.cbody .app table{width:100%;border-collapse:collapse;font-size:13px;margin:9px 0}
+.cbody .app th{background:rgba(255,255,255,.1);color:#fff;padding:7px 9px;text-align:left;font-size:12.5px}
+.cbody .app td{padding:7px 9px;border-top:1px solid rgba(255,255,255,.15)}
+.cbody .app .rv-t td{color:#cfe0f0}
+.cbody .app h4{color:#fff;border-left-color:#e8b84b}
+.cbody .app ol, .cbody .app ul{margin-left:18px;font-size:13.3px}
+@media(max-width:640px){.cbody .body, .cbody .cover{padding-left:20px;padding-right:20px}}
+.cbody .toc{background:#f7f9fc;padding:22px 44px;border-bottom:1px solid #e2e8ef}
+.cbody .toc h3{font-size:15px;color:#0f2a4a;margin-bottom:9px}
+.cbody .rv-wrap{margin:26px 0 34px;padding:18px 20px;background:#f7fafd;border:1px solid #d8e4f0;border-radius:8px;page-break-inside:avoid}
+.cbody .rv-h{font-size:17px;color:#0f2a4a;margin:0 0 12px;padding-left:9px;border-left:4px solid #e8b84b}
+.cbody .rv-t{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0 6px}
+.cbody .rv-t th{background:#0f2a4a;color:#fff;padding:7px 9px;text-align:left;font-weight:600}
+.cbody .rv-t td{border-bottom:1px solid #e4ecf4;padding:6px 9px;vertical-align:top;color:#223349}
+.cbody .rv-qh{font-size:14px;font-weight:bold;color:#1d6fb8;margin:14px 0 8px}
+.cbody .rv-q{margin:0;padding-left:20px;font-size:13.5px;color:#223349}
+.cbody .rv-q li{margin-bottom:9px}
+.cbody .rv-qq{font-weight:600}
+.cbody .rv-aa{color:#5a6a80;font-size:13px;margin-top:3px}
+.cbody .rv-link{margin-top:12px;padding:9px 12px;background:#fff8e8;border-left:3px solid #e8b84b;font-size:13px;color:#5a4a20}
+.cbody .task, .cbody .var, .cbody .neg{background:#fbfcfe;border:1px solid #e2e8ef;border-left:4px solid #1d6fb8;border-radius:0 10px 10px 0;padding:13px 16px;margin:13px 0;font-size:14px}
+.cbody .tk, .cbody .vk{font-size:14.5px;font-weight:800;color:#0f2a4a;margin-bottom:6px}
+.cbody .nk{font-size:14.5px;font-weight:800;color:#a32d2d;margin-bottom:6px}
+.cbody .neg{border-left-color:#a32d2d;background:#fffafa}
+.cbody .tsc{background:#f4f7fa;border-radius:8px;padding:9px 12px;font-size:13.5px;color:#3a4b60;margin-bottom:8px}
+.cbody .tdo, .cbody .vwhy, .cbody .twhy, .cbody .nend{font-size:13.5px;color:#3a4b60;margin-top:6px}
+.cbody .task table, .cbody .neg table{width:100%;border-collapse:collapse;font-size:13px;margin-top:7px}
+.cbody .task td{border-bottom:1px solid #eef2f6;padding:6px 9px}
+.cbody .tans summary{cursor:pointer;color:#1d6fb8;font-weight:700;font-size:13.5px}
+.cbody .var ul{padding-left:18px;margin:4px 0}
+.cbody .var li{margin:5px 0}
+.cbody .vq{color:#5a6b7c;font-size:13px}
+.cbody #rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+.cbody #rm-toc-drawer.open{transform:translateX(0)}
+.cbody #rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+.cbody #rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+.cbody #rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+.cbody #rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+.cbody #rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cbody #rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+.cbody #rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+.cbody #rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+.cbody #rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+.cbody #rm-toc-toggle:hover{background:#1d4e7e}
+@media print{.cbody #rm-toc-drawer, .cbody #rm-toc-toggle{display:none!important}}
+/* ===== 屏幕：A4 纸张预览 + 打印指引 ===== */
+@media screen{.cbody{background:#e8ebf0 !important;}
+.cbody .rm-print-tip{max-width:210mm;margin:0 auto 14px;background:#fff8e8;border:1px solid #e8cf94;
+    border-radius:9px;padding:11px 16px;font:13px/1.75 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:#6b5a2a}}
+.cbody @page{ size:A4; margin:16mm 14mm; }
+@media print{.cbody html, .cbody{background:#fff !important;padding:0 !important;margin:0 !important;width:auto !important}
+.cbody .rm-print-tip{display:none !important}
+/* 关键：强制打印背景色，否则深蓝标题=白字白底整片消失 */
+.cbody *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important }
+/* 表格 / 卡片 / 规则块不被拦腰截断 */
+.cbody table, .cbody pre, .cbody blockquote, .cbody img, .cbody .card, .cbody .panel, .cbody .rule, .cbody .mod, .cbody .step-item, .cbody .tl-item{
+     break-inside:avoid; page-break-inside:avoid }
+.cbody thead{ display:table-header-group }
+/* 标题不与正文分离 */
+.cbody h1, .cbody h2, .cbody h3, .cbody h4{ break-after:avoid; page-break-after:avoid }
+/* 浮动导航在打印时不占位 */
+.cbody .site-nav, .cbody .topbar, .cbody #rm-toc-drawer, .cbody #rm-toc-toggle{position:static !important;box-shadow:none !important}
+.cbody a{color:#0f2a4a !important;text-decoration:none}}.cbody *{box-sizing:border-box}
+.cbody{margin:0;background:#eef2f6;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:#223349;line-height:1.8}
+.cbody .book{max-width:900px;margin:0 auto;background:#fff;padding:0 0 40px}
+.cbody .body{padding:0 34px}
+.cbody .cover{background:#0f2a4a;color:#fff;padding:40px 38px;margin-bottom:26px}
+.cbody .cover h1{font-size:25px;margin:0 0 8px;color:#fff}
+.cbody .cover .sub{font-size:15px;color:#cfe0f0}
+.cbody .cover .tag{display:inline-block;margin-top:14px;padding:6px 13px;background:#e8b84b;color:#0f2a4a;font-weight:bold;border-radius:4px;font-size:13.5px}
+.cbody h2.pt{font-size:20px;color:#fff;background:#0f2a4a;padding:9px 14px;border-radius:5px;margin:30px 0 14px}
+.cbody h2.ch{font-size:18px;color:#0f2a4a;margin:26px 0 4px;padding-bottom:7px;border-bottom:2px solid #e8b84b}
+.cbody .pmod{font-size:15px;color:#1d6fb8;margin:16px 0 8px;padding-left:9px;border-left:3px solid #1d6fb8}
+.cbody .loc{font-size:12.5px;color:#6a7a90;background:#f2f5f8;padding:4px 10px;border-radius:3px;margin:6px 0 12px;display:inline-block}
+.cbody h4{font-size:14.5px;color:#0f2a4a;margin:14px 0 6px}
+.cbody p{font-size:14px;margin:8px 0}
+.cbody ul, .cbody ol{font-size:14px;margin:8px 0;padding-left:22px}
+.cbody li{margin-bottom:5px}
+.cbody table{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0}
+.cbody th{background:#0f2a4a;color:#fff;padding:7px 10px;text-align:left;font-weight:600}
+.cbody td{border-bottom:1px solid #e4ecf4;padding:7px 10px;vertical-align:top}
+.cbody .lead{background:#f7fafd;border:1px solid #d8e4f0;border-radius:6px;padding:14px 18px;font-size:14px;margin:12px 0}
+.cbody .note{background:#fff8e8;border-left:4px solid #e8b84b;padding:10px 15px;font-size:13.5px;color:#5a4a20;margin:12px 0}
+.cbody .app{border-top:2px solid #0f2a4a;padding-top:16px;margin-top:30px}
+.cbody .app h3{color:#0f2a4a;font-size:17px;margin:8px 0}
+/* 教师版专用 */
+.cbody .tch{border:1px solid #dfe8f1;border-radius:7px;padding:14px 17px;margin:14px 0;background:#fff}
+.cbody .tch-n{font-size:16px;color:#1d6fb8;margin:0 0 8px}
+.cbody .tm{margin:9px 0;font-size:13.5px}
+.cbody .tl{display:inline-block;background:#0f2a4a;color:#fff;font-size:12.5px;padding:2px 9px;border-radius:3px;margin-right:8px;font-weight:600}
+.cbody .tl2{display:inline-block;background:#e8b84b;color:#0f2a4a;font-size:12.5px;padding:2px 9px;border-radius:3px;margin-right:8px;font-weight:600}
+.cbody .tm ul{margin:5px 0;padding-left:20px}
+.cbody .tm li{margin-bottom:4px}
+.cbody .gr{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.cbody .gr div{flex:1;min-width:180px;border-radius:5px;padding:8px 11px;font-size:13px}
+.cbody .gA{background:#f0f8f2;border-left:3px solid #3a9a5c}
+.cbody .gB{background:#f7fafd;border-left:3px solid #1d6fb8}
+.cbody .gC{background:#fdf3f3;border-left:3px solid #c0392b}
+.cbody .gr b{display:block;font-size:12.5px;margin-bottom:3px}
+.cbody .map{background:#f2f7fb;border-left:3px solid #1d6fb8;padding:8px 12px;font-size:13px;color:#223349;margin-top:8px}
+@media print{.cbody{background:#fff}
+.cbody .book{box-shadow:none}}
+.cbody .tnote{background:#fff8e8;border-left:4px solid #e8b84b;border-radius:0 8px 8px 0;padding:10px 14px;margin:12px 0;font-size:13.5px;color:#3a4b60}
+.cbody .tref{background:#eef3f9;border-left:4px solid #1d6fb8;border-radius:0 8px 8px 0;padding:10px 14px;margin:12px 0;font-size:13.5px;color:#3a4b60}
+.cbody .neg{background:#fffafa;border:1px solid #f0d5d5;border-left:4px solid #a32d2d;border-radius:0 10px 10px 0;padding:13px 16px;margin:13px 0;font-size:14px}
+.cbody .nk{font-size:14.5px;font-weight:800;color:#a32d2d;margin-bottom:6px}
+.cbody .nnum, .cbody .nend{font-size:13.5px;color:#3a4b60;margin-top:6px}
+.cbody #rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+.cbody #rm-toc-drawer.open{transform:translateX(0)}
+.cbody #rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+.cbody #rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+.cbody #rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+.cbody #rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+.cbody #rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cbody #rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+.cbody #rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+.cbody #rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+.cbody #rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+.cbody #rm-toc-toggle:hover{background:#1d4e7e}
+@media print{.cbody #rm-toc-drawer, .cbody #rm-toc-toggle{display:none!important}}
+/* ===== 屏幕：A4 纸张预览 + 打印指引 ===== */
+@media screen{.cbody{background:#e8ebf0 !important;}
+.cbody .rm-print-tip{max-width:210mm;margin:0 auto 14px;background:#fff8e8;border:1px solid #e8cf94;
+    border-radius:9px;padding:11px 16px;font:13px/1.75 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:#6b5a2a}}
+.cbody @page{ size:A4; margin:16mm 14mm; }
+@media print{.cbody html, .cbody{background:#fff !important;padding:0 !important;margin:0 !important;width:auto !important}
+.cbody .rm-print-tip{display:none !important}
+/* 关键：强制打印背景色，否则深蓝标题=白字白底整片消失 */
+.cbody *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important }
+/* 表格 / 卡片 / 规则块不被拦腰截断 */
+.cbody table, .cbody pre, .cbody blockquote, .cbody img, .cbody .card, .cbody .panel, .cbody .rule, .cbody .mod, .cbody .step-item, .cbody .tl-item{
+     break-inside:avoid; page-break-inside:avoid }
+.cbody thead{ display:table-header-group }
+/* 标题不与正文分离 */
+.cbody h1, .cbody h2, .cbody h3, .cbody h4{ break-after:avoid; page-break-after:avoid }
+/* 浮动导航在打印时不占位 */
+.cbody .site-nav, .cbody .topbar, .cbody #rm-toc-drawer, .cbody #rm-toc-toggle{position:static !important;box-shadow:none !important}
+.cbody a{color:#0f2a4a !important;text-decoration:none}}
+.cbody .proj{border:1px solid #d8dee6;border-radius:10px;padding:14px 16px;margin:10px 0;background:#fbfcfe}
+.cbody .proj h4{margin:0 0 6px;color:#0f2a4a}
+.cbody .pmeta{font-size:12px;color:#5a6675;margin-bottom:6px}
+.cbody .pnum{background:#fff;border:1px dashed #c9d4e0;border-radius:8px;padding:8px 12px;font-size:13px;margin-bottom:6px}
+.cbody .ptask ol{margin:4px 0 0;padding-left:20px}
+.cbody .ptask li{margin:3px 0}
+.cbody .pkey{background:#f2f8f3;border-left:3px solid #2a7d4f;padding:6px 10px;border-radius:6px;font-size:12.8px;margin-top:8px}
+.cbody .ptrap{background:#fdf3f2;border-left:3px solid #c0392b;padding:6px 10px;border-radius:6px;font-size:12.8px;margin-top:6px}.cbody :root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--ink:#1f2a37;--mut:#5b6a7d;
+  --ok:#2a9d5f;--blue:#3d8bd4;--red:#c0503f;--line:#e3e9f1;--bg:#f4f7fb}
+.cbody *{box-sizing:border-box;margin:0;padding:0}
+.cbody{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.85;font-size:15px}
+.cbody .wrap{max-width:900px;margin:0 auto;padding:0 20px 70px}
+.cbody .hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:30px 0 26px}
+.cbody .hero .wrap{padding-bottom:0}
+.cbody .hero h1{font-size:24px;line-height:1.45}
+.cbody .hero p{color:#b9d0e6;font-size:13.5px;margin-top:9px}
+.cbody .hero .meta{margin-top:12px;font-size:12.5px;color:#dbe8f5}
+.cbody h2.part{font-size:17px;color:#fff;background:var(--navy);border-radius:10px;padding:9px 15px;margin:34px 0 14px}
+.cbody h2.ch{font-size:19px;color:var(--navy);margin:34px 0 8px;padding-bottom:6px;border-bottom:2px solid var(--gold);
+  page-break-before:always}
+.cbody h3{font-size:15.5px;color:var(--navy);margin:18px 0 5px}
+.cbody p{margin:9px 0}
+.cbody .box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:12px 0;font-size:13.5px}
+.cbody .box b{color:var(--navy)}
+.cbody .box.mind{background:#fbfcfe;text-align:center}
+.cbody .box.goal{background:#f2f8fd;border-left:3px solid var(--blue)}
+.cbody .box.case{background:#fffcf2;border-left:3px solid var(--gold)}
+.cbody .box.exp{background:#f4fbf6;border-left:3px solid var(--ok)}
+.cbody .box.wrong{background:#fdf1ef;border-left:3px solid var(--red);margin-top:10px}
+.cbody .box.key{background:linear-gradient(90deg,#fff8e6,#fdf3d3);border-left:3px solid var(--gold);font-weight:700;color:#6b4e0e}
+.cbody .box.tbl{background:#fff;border:1px solid var(--line)}
+.cbody .box.tbl .dl{font-size:12px;color:var(--mut);margin:6px 0 8px}
+.cbody table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:10px;overflow:hidden;margin:10px 0}
+.cbody th{background:var(--navy);color:#fff;text-align:left;padding:7px 10px}
+.cbody td{padding:7px 10px;border-bottom:1px solid var(--line)}
+.cbody tr:nth-child(even) td{background:#fafcfe}
+.cbody table.ft td{background:#fff}
+.cbody .qrbox{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;padding-top:10px;border-top:1px dashed var(--line)}
+.cbody .qrbox .qri{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);
+  border-radius:10px;padding:8px 12px}
+.cbody .qrbox img{width:84px;height:84px;display:block}
+.cbody .qrbox .qri b{font-size:13px;color:var(--navy)}
+.cbody .qrbox .qri span{font-size:11.5px;color:var(--mut);line-height:1.5}
+.cbody .toc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:18px 0 6px;font-size:13.5px}
+.cbody .toc b{color:var(--navy)}
+.cbody .toc .g{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.cbody .toc .g span{background:#eef3f9;border-radius:8px;padding:3px 10px}
+.cbody .foot{color:#5b6a7d;font-size:12px;text-align:center;margin-top:34px}
+.cbody a.lnk{color:#2f6fb2;text-decoration:none;border-bottom:1px dotted #9dbdd8}
+.cbody a.lnk:hover{color:#0f2a4a;border-bottom-color:#0f2a4a}
+.cbody a.dlk{color:#8a6a1c;text-decoration:none;border-bottom:1px dashed #d8bc7a;font-weight:600}
+.cbody a.dlk:hover{color:#5c470f;border-bottom-color:#8a6a1c}
+@media print{.cbody{background:#fff}
+.cbody .hero{background:#0f2a4a !important;-webkit-print-color-adjust:exact}}
+.cbody #rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+.cbody #rm-toc-drawer.open{transform:translateX(0)}
+.cbody #rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+.cbody #rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px}
+.cbody #rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+.cbody #rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+.cbody #rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cbody #rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+.cbody #rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+.cbody #rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+.cbody #rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+.cbody #rm-toc-toggle:hover{background:#1d4e7e}
+@media print{.cbody #rm-toc-drawer, .cbody #rm-toc-toggle{display:none!important}}
+/* ===== 屏幕：A4 纸张预览 + 打印指引 ===== */
+@media screen{.cbody{background:#e8ebf0 !important;}
+.cbody .rm-print-tip{max-width:210mm;margin:0 auto 14px;background:#fff8e8;border:1px solid #e8cf94;
+    border-radius:9px;padding:11px 16px;font:13px/1.75 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:#6b5a2a}}
+.cbody @page{ size:A4; margin:16mm 14mm; }
+@media print{.cbody html, .cbody{background:#fff !important;padding:0 !important;margin:0 !important;width:auto !important}
+.cbody .rm-print-tip{display:none !important}
+/* 关键：强制打印背景色，否则深蓝标题=白字白底整片消失 */
+.cbody *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important }
+/* 表格 / 卡片 / 规则块不被拦腰截断 */
+.cbody table, .cbody pre, .cbody blockquote, .cbody img, .cbody .card, .cbody .panel, .cbody .rule, .cbody .mod, .cbody .step-item, .cbody .tl-item{
+     break-inside:avoid; page-break-inside:avoid }
+.cbody thead{ display:table-header-group }
+/* 标题不与正文分离 */
+.cbody h1, .cbody h2, .cbody h3, .cbody h4{ break-after:avoid; page-break-after:avoid }
+/* 浮动导航在打印时不占位 */
+.cbody .site-nav, .cbody .topbar, .cbody #rm-toc-drawer, .cbody #rm-toc-toggle{position:static !important;box-shadow:none !important}
+.cbody a{color:#0f2a4a !important;text-decoration:none}}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+.cbody .ct{fill:#ffffff;font-size:15px;font-weight:700;text-anchor:middle}
+.cbody .nd{fill:#1f2a37;font-size:12.5px;text-anchor:middle}
+
+/* ---- 统一两个来源内容的观感（覆盖源样式） ---- */
+.cbody h3,.cbody h4{color:var(--navy);font-family:var(--hei);margin:16px 0 7px;
+ padding-left:9px;border-left:3px solid var(--gold);font-size:15px}
+.cbody h2{color:var(--navy);font-family:var(--hei);font-size:18px;margin:20px 0 8px}
+.cbody table{width:100%;border-collapse:collapse;font-size:13.2px;margin:10px 0}
+.cbody .gv,.pbody .gv{border-left:3px solid #2b4f7a;background:#eef4fb;padding:11px 14px;margin:14px 0;border-radius:0 6px 6px 0;font-size:13.4px;line-height:1.75}
+.cbody .gv .gvt,.pbody .gv .gvt{font-weight:700;color:#2b4f7a;margin-bottom:5px}
+.cbody .gv p,.pbody .gv p{margin:5px 0}
+.cbody table th{background:var(--navy);color:#fff;padding:7px 10px;font-weight:700;text-align:left}
+.cbody table td{padding:7px 10px;border-bottom:1px solid var(--line)}
+.cbody table tr:nth-child(even) td{background:#faf8f4}
+.cbody .box,.cbody div[class*="box"]{background:#faf8f4;border:1px solid var(--line);
+ border-left:4px solid var(--gold);border-radius:6px;padding:11px 14px;margin:11px 0;font-size:14px}
+.cbody .box.mind,.cbody div[class*="box mind"]{background:#f2f6fa;border-left:4px solid var(--navy2);padding:10px}
+.cbody .box.mind svg{width:100%;height:auto}
+.cbody .loc,.cbody div.loc{color:var(--mut);font-size:12.4px;letter-spacing:.5px;margin:6px 0}
+.cbody .promise,.cbody div.promise{background:#f5f9fc;border-left:4px solid var(--navy2);
+ border-radius:6px;padding:11px 14px;margin:10px 0;font-size:14px}
+.cbody .ct,.cbody div.ct{color:var(--navy);font-weight:700;font-size:14.4px;margin:10px 0 4px}
+.cbody .num,.cbody div.num{display:none}
+.cbody .end,.cbody div.end{background:#fbf7ef;border-left:4px solid var(--gold);
+ border-radius:6px;padding:10px 13px;margin:8px 0;font-size:13.8px}
+.cbody .pmod,.cbody div.pmod{color:var(--navy);font-size:16px;font-weight:800;margin:14px 0 4px}
+.cbody .pmodnote,.cbody div.pmodnote{color:var(--mut);font-size:13px;margin-bottom:8px}
+.cbody .judge,.cbody div.judge{background:#f4f8f5;border-left:4px solid #4a8f6b;
+ border-radius:6px;padding:11px 14px;margin:11px 0}
+.cbody .fml,.cbody div.fml{background:#fbf9f5;border:1px dashed var(--line);border-radius:6px;
+ padding:10px 13px;margin:10px 0;font-size:14px}
+.cbody .ex,.cbody div.ex{background:#fff;border:1px solid var(--line);border-radius:6px;
+ padding:11px 14px;margin:10px 0}
+.cbody .tip,.cbody div.tip{color:#6b5a2a;background:#fdf8ec;border-radius:6px;padding:9px 12px;margin:9px 0}
+.cbody .qri,.cbody img[alt*="二维码"]{width:92px;height:92px;border:1px solid var(--line);
+ border-radius:6px;background:#fff}
+.cbody a{color:#1d6fb8}
+
+
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+@media (min-width:1100px){body.toc-open{padding-left:312px}body.toc-open .site-nav,body.toc-open .topbar{left:312px}}
+body{transition:padding-left .25s ease}
+
+
+:root{--navy:#3E5C6B;--gold:#A8915F;--ink:#2E3B40;--mut:#55666C;
+--line:#E2E8E7;--bg:#FAF9F6;--paper:#FFFFFF;--soft:#EDF3F3;--clay:#B98B6E}
+body{background:var(--bg);color:var(--ink)}
+.hero{background:linear-gradient(135deg,#EDF3F3,#F8F4EA);color:#2C4753}
+.hero p,.hero .wrap p{color:var(--mut)}
+.tag{background:#F8F4EA;border-color:#EBE2CC;color:#8A7448}
+.pill{background:var(--navy);color:#FFFFFF}
+.tb{background:var(--paper);border-color:var(--line);color:var(--navy)}
+.tb.p{background:var(--navy);color:#FFFFFF}
+h2.pt{color:#2C4753;border-left-color:var(--clay)}
+h4{color:#2C4753;border-left-color:var(--clay)}
+summary{color:#2C4753}
+details{border-color:var(--line)}
+.card,.pc{background:var(--paper);border-color:var(--line)}
+.key{color:#8A7448}
+
+
+.cw{display:flex;align-items:flex-start;max-width:1380px;margin:0 auto}
+.cnav{position:sticky;top:0;width:258px;flex:0 0 258px;height:100vh;overflow-y:auto;
+ padding:36px 16px 60px 24px;border-right:1px solid #E2E8E7;background:#F4F7F7}
+.cnav .t{font-family:"Songti SC",serif;font-size:15px;font-weight:700;color:#2C4753;margin:0 0 4px}
+.cnav .s{font-size:12px;color:#55666C;margin:0 0 18px;line-height:1.6}
+.cnav ol{list-style:none;margin:0;padding:0;counter-reset:cc}
+.cnav li{counter-increment:cc;margin:0 0 2px}
+.cnav a{display:block;padding:5px 8px 5px 10px;border:0;border-left:2px solid transparent;
+ color:#55666C;font-size:12.6px;line-height:1.5;border-radius:0 3px 3px 0}
+.cnav a::before{content:counter(cc,cjk-ideographic) "、";color:#A8915F;font-size:11px}
+.cnav a:hover{background:#EDF3F3;border-left-color:#3E5C6B;color:#2C4753}
+.cnav .cf{margin-top:22px;padding-top:14px;border-top:1px solid #E2E8E7;font-size:11.4px;color:#55666C;line-height:1.7}
+.cmain{flex:1;min-width:0;padding:44px 54px 90px;max-width:1000px}
+.chd{border-bottom:1px solid #E2E8E7;padding-bottom:22px;margin-bottom:32px}
+.chd .k{font-size:12px;letter-spacing:.14em;color:#B98B6E;margin:0 0 9px}
+.chd h1{font-family:"Songti SC",serif;font-size:30px;line-height:1.4;font-weight:700;margin:0 0 10px;color:#2C4753}
+.chd .bl{font-size:12.2px;color:#55666C;margin:12px 0 0;padding-top:11px;border-top:1px solid #EEF2F1}
+.lesson{background:#FFFFFF;border:1px solid #E2E8E7;border-radius:3px;padding:0 0 26px;
+ margin:0 0 42px;scroll-margin-top:76px}
+.lhead{background:#EDF3F3;border-bottom:1px solid #E2E8E7;padding:18px 24px}
+.lhead .no{font-size:11.8px;letter-spacing:.1em;color:#B98B6E;font-weight:700}
+.lhead h2{font-family:"Songti SC",serif;font-size:21px;color:#2C4753;margin:5px 0 9px}
+.lhead .meta{font-size:12.4px;color:#55666C;line-height:1.8}
+.lbody{padding:0 24px}
+.shell{border-left:3px solid #B98B6E;background:#FAF9F6;padding:14px 18px;margin:18px 0 22px}
+.shell .st{font-size:11.8px;letter-spacing:.08em;color:#B98B6E;font-weight:700;margin:0 0 8px}
+.shell p{margin:0 0 9px}
+.shell p:last-child{margin-bottom:0}
+.shell ul,.shell ol{margin:0 0 8px;padding-left:20px}
+.shell li{margin:0 0 5px}
+.core{margin:20px 0 26px;border-top:1px solid #E2E8E7;padding-top:18px}
+.core .ct{font-size:12px;letter-spacing:.08em;color:#3E5C6B;font-weight:700;margin:0 0 12px}
+.mtable{width:100%;border-collapse:collapse;margin:12px 0 18px;font-size:13.2px;background:#FFFFFF}
+.mtable th,.mtable td{border:1px solid #E2E8E7;padding:8px 10px;text-align:left;vertical-align:top;line-height:1.7}
+.mtable th{background:#EDF3F3;color:#2C4753;font-weight:700;font-size:12.8px}
+.qbox{border:1px dashed #D8E2E1;background:#FFFFFF;padding:12px 15px;margin:10px 0 14px;font-size:13.4px}
+.qbox .qn{font-size:11.6px;color:#B98B6E;font-weight:700}
+.blank{display:inline-block;min-width:96px;border-bottom:1px solid #B98B6E;color:transparent}
+.cfoot{margin-top:46px;padding-top:16px;border-top:1px solid #E2E8E7;font-size:12px;color:#6B7B80;line-height:1.9}
+.note{font-size:13px;color:#55666C;background:#F4F7F7;padding:11px 15px;border-left:2px solid #A8915F;margin:14px 0 20px;line-height:1.75}
+.try{background:#EDF3F3;border:1px solid #E2E8E7;padding:18px 22px;border-radius:3px}
+.tips{border-top:1px solid #E2E8E7;margin-top:26px;padding-top:16px;font-size:13.6px;color:#55666C}
+pre{background:#FFFFFF;border:1px solid #E2E8E7;border-left:3px solid #3E5C6B;padding:12px 15px;
+ overflow-x:auto;font-size:12.6px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+@media print{.cnav{display:none}.cw{display:block}.cmain{padding:0;max-width:none}
+ .lesson{page-break-before:always;border:0} .lesson:first-of-type{page-break-before:avoid}}
+</style>
+</head>
+<body>
+<div class="cw">
+<nav class="cnav"><p class="t">目录</p><p class="s">第五篇 · 延伸篇 · 4 讲 / 8 学时<br>v2026.3 · 2026-11-07</p><ol><li><a href="#s0">本册使用说明</a></li><li><a href="#lesson-29">第 29 讲 · 餐饮收益：RevPASH 与翻台</a></li><li><a href="#lesson-30">第 30 讲 · 会议宴会：不只算房，算总贡献</a></li><li><a href="#lesson-31">第 31 讲 · 其他业态与跨行业参数</a></li><li><a href="#lesson-32">第 32 讲 · 常见误区：30 个坑，别再踩</a></li><li><a href="#sx">Have a Try / Tips</a></li></ol><div class="cf">门内 noindex · 正式授课版。<br>先备份再出新版本；原有资料未覆盖。<br>正文来自 41 章现行教材，已应用 v2026.2 校正。</div></nav>
+<main class="cmain">
+<div class="chd"><p class="k">正式开课课程 · 第 5 册</p><h1>第五篇 · 延伸篇 · 正式授课版（4 讲）</h1><p class="bl">RMC即RMCity（即Revenue Management Community收益管理社区）　·　v2026.3　·　2026-11-07　·　门内 noindex / 正式授课版　·　真源：<code>v2026-2-rules.json</code>　·　母本：<code>textbook-merged.html（41 章 · 现行）</code></p></div>
+<section id="s0"><h2>本册使用说明</h2><div class="shell"><div class="st">这一册是什么</div><p><strong>第五篇 · 延伸篇　·　4 讲　·　8 学时</strong>。每讲保留 41 章现行教材的完整正文（思维导图、案例导入、讲解、算例与折叠答案块），外面套统一授课外壳：目标、导入案例、校正版算例、课堂练习、参考答案与评分、教师提示与三级深度、作业与预告。</p><p>这是<strong>可以直接拿去上课的内容</strong>，不是对照表或规格说明。教师按第 07 板块的时间分配讲，学生按第 05 / 08 板块练。</p></div><div class="shell"><div class="st">版本与校正</div><p>母本：<code>textbook-merged.html</code>（41 章 · 现行）。真源：<code>v2026-2-rules.json</code>。本版对正文与题库应用 v2026.2 校正：证书措辞、OOO 分母 297、题库中因 OOO 分母写错而算错的一道练习题已按 297 重算为 80.8%、OOO 8 间分母 292、RGI 统一 ÷100、51,971,328 改为 48,723,120。</p><p>旧版教材与旧题库<strong>保留原样并在线</strong>；引用时须写明版本。</p></div><table class="mtable"><thead><tr><th style="width:8%">讲次</th><th style="width:50%">标题</th><th style="width:8%">学时</th><th style="width:20%">关联判定表</th><th style="width:14%">题库模块</th></tr></thead><tbody><tr><td>29</td><td>餐饮收益：RevPASH 与翻台</td><td>2</td><td>K/J</td><td>M10</td></tr><tr><td>30</td><td>会议宴会：不只算房，算总贡献</td><td>2</td><td>K/G</td><td>M10</td></tr><tr><td>31</td><td>其他业态与跨行业参数</td><td>2</td><td>C/D/O</td><td>M11</td></tr><tr><td>32</td><td>常见误区：30 个坑，别再踩</td><td>2</td><td>O/L</td><td>M11</td></tr></tbody></table></section><section class="lesson" id="lesson-29"><div class="lhead"><div class="no">LESSON 29　·　v2026.3</div><h2>第 29 讲　餐饮收益：RevPASH 与翻台</h2><div class="meta">第 29 讲 / 共 41 讲　·　第五篇 · 延伸篇　·　2 学时（90 分钟）　·　适用 L1 / L2 / L3　·　关联判定表 K/J　·　配套案例 C005　·　题库模块 M10</div></div><div class="lbody"><div class="shell"><div class="st">01　本讲学习目标</div><p><strong>教材原定目标</strong>　读完这章您能把收益管理的思路用在餐厅上。</p><p><strong>本讲结束后学生应能</strong></p><ol><li>说清本讲核心概念与分母、含税、币种口径（<code>K</code> 表输入：会议规模与客房需求、餐饮保底与非客房收入）。</li><li>按表 K 的判定式完成一次课堂算例：综合贡献 ≥ 综合置换成本 × 系数（分子分母同为全口径），并计入空间机会成本。</li><li>独立完成课堂练习三题，并按参考答案说明取舍理由。</li></ol><p class="mini">三级共用本讲，深度分层见第 07 板块；本讲已应用 v2026.2 校正：RM-04、RM-12、RM-15。</p></div><div class="shell"><div class="st">02　导入情境 · 真实案例卡 C005</div><p><strong>两间房卖 1000，和一间卖 1000，ADR 一样但差了一倍收入</strong>　<span class="mini">类型 概念 / 难度 进阶</span></p><p>新人小马问：“ADR 是已售房晚的收入除以房间数，那为什么不含儿童加床费、不含餐饮？”林岚给了个例子：A 方案两间房各卖 500，ADR 500，收入 1000；B 方案一间房卖 1000，ADR 1000，收入 1000——但 A 方案多卖了一间房夜，会带来早餐 2 份、洗衣、mini bar 等间夜衍生消费，实际贡献更高。所以业内有句话：ADR 只管房价，不管客人在店里花多少。要算“这间房到底带来多少”，看的是 NRevPAR 和 GOPPAR。</p><p><strong>课堂提问</strong>　① 这个情境里，决策人手上有哪些数据？② 如果只看出租率会做出什么动作？③ 换成净贡献口径，结论会不会变？</p><p class="mini">案例卡原文见 <a href="../cases-lib.html">案例库</a>；母本正文另有「案例导入」小节，两者配合：本卡用于开场讨论，母本案例用于讲解推进。</p></div><div class="core"><div class="ct">03　核心讲解 · 教材正文全文（v2026.3 校正版）</div>
+<div class="grid2">
+  <div class="pc"><b>学完这章你能</b><p>读完这章您能把收益管理的思路用在餐厅上。</p></div>
+  <div class="pc"><b>本章口诀</b><p class="key">上座率升到 65%</p></div>
+</div>
+
+<h4>① 思维导图</h4>
+<div class="box mind"><svg viewBox="0 0 820 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto"><rect x="16" y="49.0" width="230" height="52" rx="10" fill="#0f2a4a"/><text x="131" y="81.0" fill="#fff" font-size="15" font-weight="700" text-anchor="middle">餐饮收益：RevPASH 与翻</text><path d="M246 75 C 320 75, 330 41.0, 402 41.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="26.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="46.0" fill="#1f3550" font-size="13">案例 · 周一的问题</text><circle cx="402" cy="41.0" r="3.4" fill="#1d6fb8"/><path d="M246 75 C 320 75, 330 75.0, 402 75.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="60.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="80.0" fill="#1f3550" font-size="13">案例三 · 菜单工程的发现</text><circle cx="402" cy="75.0" r="3.4" fill="#1d6fb8"/><path d="M246 75 C 320 75, 330 109.0, 402 109.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="94.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="114.0" fill="#1f3550" font-size="13">案例四 · 一间餐厅的时段改造（含数据）</text><circle cx="402" cy="109.0" r="3.4" fill="#1d6fb8"/></svg></div>
+
+<h4>② 案例导入</h4>
+<div class="story"><div class="who">您一定踩过的坑</div>
+<p>餐厅周末排队、周一空一半。经理的办法是"周末多安排人、周一少安排人"——<b>只调了成本，没调需求。</b></p>
+<p>收益管理的思路是：<b>用价格和时间差把周一的客人请过来</b>，而不是被动地接受空桌。</p>
+<p>很多人以为收益管理只属于客房。其实餐厅的产能比客房更易逝——<b>一小时卖不掉就是零</b>，连"今晚"都没有。</p>
+</div>
+
+<details class="sub"><summary>③ 正文全文（3 个决策现场 · 含判定与留痕）</summary>
+<div class="promise">读完这章您能把收益管理的思路用在餐厅上。</div>
+
+<div class="story"><div class="who">您一定踩过的坑</div>
+<p>餐厅周末排队、周一空一半。经理的办法是"周末多安排人、周一少安排人"——<b>只调了成本，没调需求。</b></p>
+<p>收益管理的思路是：<b>用价格和时间差把周一的客人请过来</b>，而不是被动地接受空桌。</p>
+<p>很多人以为收益管理只属于客房。其实餐厅的产能比客房更易逝——<b>一小时卖不掉就是零</b>，连"今晚"都没有。</p>
+</div><p><b>后来呢：</b>餐厅经理起初抵触："我们做的是菜品和服务，搞这些数字干嘛？"<br>直到店长把 RevPASH 按<b>时段</b>拆开给他看：<br>周一晚餐 RevPASH 只有 12，而周六晚餐是 46。<br>同一个餐厅、同一批人，产出差了近 4 倍。<br>经理看完沉默了一会儿说："我一直以为周一就是没人，原来是<b>我没把人请来</b>。"<br><b>结论：拆开看，才会发现"淡"不是命运，是没做动作。</b></p>
+
+<h4>三要点</h4>
+<div class="pts"><ul>
+<li><b>餐厅的产能是"座位 × 时间"</b>，比客房更易逝：一小时卖不掉即归零，无法储存。</li>
+<li><b>RevPASH ＝ 每可用座位每小时收入</b>，是餐饮的核心指标（对应客房的 RevPAR）。</li>
+<li><b>调节手段</b>：时段定价（早鸟/下午茶）、限时用餐、套餐、预约配额——<b>本质都是"用条件换价格"。</b></li>
+</ul></div><h4>三要点怎么用（各配一例）</h4><div class="pts"><ul>
+<li><b>产能＝座位×时间</b>——例：100 个座位营业 8 小时 = 800 个"座位小时"。<b>每空一小时就永久损失一小时。</b></li>
+<li><b>RevPASH</b>——例：当日收入 24,000 ÷ 800 = 30 元。<b>把它按午/晚、周中/周末拆开，问题立刻现形。</b></li>
+<li><b>调节手段</b>——例：闲时推"下午茶套餐"（限 14:00–17:00），忙时提客单（推荐、套餐），必要时设用餐时限。</li>
+</ul></div>
+
+<div class="fml"><div class="fn">核心公式</div><div class="fe">RevPASH = 餐饮收入 ÷ (座位数 × 营业小时数)
+翻台率 = 就餐批次 ÷ 座位数（提高翻台＝提高产能利用率）
+人均消费 × 翻台率 × 座位数 = 时段收入</div>
+<div class="ex" id="ex29"><b>算例 1：</b>100 个座位，营业 8 小时，当日收入 24,000。<br>
+RevPASH = 24,000 ÷ (100 × 8) = <b>30 元</b>。<br>
+若通过限时 90 分钟把翻台从 2 次提到 2.5 次，收入可升到 30,000 → RevPASH <b>37.5</b>。<br>
+<b>注意：限时不能太狠，否则降低客单价与体验（会反噬评分）。</b><br><br>
+<b>算例 2（闲时）：</b>周一至周三晚餐上座率仅 35%。推出工作日双人套餐（原价 400，套餐 288，限周一至周三）。<br>
+上座率升到 65%，RevPASH 从 18 升到 29，且带动酒水消费。</div></div><div class="fml"><div class="fn">算例 3 · 翻台与客单的取舍</div><div class="fe">100 座，晚餐 3 小时
+方案甲（慢翻台）：翻台 1.5 次 × 客单 200 = 300/座·晚
+方案乙（快翻台）：翻台 2.2 次 × 客单 160 = 352/座·晚</div>
+<div class="ex" id="ex29b">快翻台收入更高，但<b>客单下降 20%</b>，且可能影响体验与评分（第 24 章）。<br>
+<b>折中做法：</b>通过限时 90 分钟 + 优化出餐速度提升翻台，<b>而不靠压缩客单</b>。<br>
+<b>结论：翻台要以"不损伤客单与体验"为前提，否则评分下降的损失会超过翻台收益。</b></div></div>
+
+<div class="judge"><div class="jt">本章判定表 · 餐饮收益动作</div>
+<table>
+<tr><td>核心指标</td><td>用 <b>RevPASH</b>，不用"上座率"（上座率高但客单低也可能亏）</td></tr>
+<tr><td>闲时怎么做</td><td>时段折扣（早鸟/下午茶/工作日套餐），<b>必须限时</b>（栅栏）</td></tr>
+<tr><td>忙时怎么做</td><td>提高客单（推荐、套餐），而非赶人；必要时设用餐时限</td></tr>
+<tr><td>预约配额</td><td>给不同渠道设配额（如 OTA 餐饮券限量）</td></tr>
+<tr><td>菜单工程</td><td>分析每道菜的<b>贡献额与受欢迎度</b>，砍掉"高成本低利润"的菜</td></tr>
+<tr><td>与客房联动</td><td>住客早餐、套餐含餐要计入整体贡献（第 30 章）</td></tr>
+<tr><td>红线</td><td>不得因赶翻台损害体验（会反噬评分，第 24 章）</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>每天算一次 RevPASH，并按"时段"拆分（午/晚、周中/周末）——<b>拆开后您会发现，亏损往往集中在某几个时段。</b></div></div><h4>填表示例 · 周一晚餐怎么办</h4><div class="judge"><div class="jt">场景：周一晚餐上座率仅 32%，RevPASH 12</div>
+<table>
+<tr><td>核心指标</td><td>RevPASH 12（周末 46）→ <b>差距明显</b></td></tr>
+<tr><td>闲时促销</td><td>推"周一至周三双人套餐"288（原价 400）✓</td></tr>
+<tr><td>有栅栏吗？</td><td>限周一至周三、限 17:30 前入座 → ✓</td></tr>
+<tr><td>会侵蚀周末吗？</td><td>周末不可用 → <b>不会</b> ✓</td></tr>
+<tr><td>成本真实吗？</td><td>已与厨房核算套餐成本 → ✓</td></tr>
+<tr><td>预约配额</td><td>每日限量 30 份 → ✓</td></tr>
+<tr><td>是否赶翻台</td><td><b>不设时限</b>（避免伤体验）✓</td></tr>
+<tr><td>预期</td><td>上座率 32%→55%，RevPASH 12→20（客单降但总量升）</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：做闲时套餐，但带栅栏、限量、不动周末。</b><br><b>关键：套餐的目的是"填满闲时产能"，不是"降价"——两者区别在于有没有栅栏。</b></div></div>
+
+<div class="case"><div class="ct">案例 · 周一的问题</div>
+<div class="num">某店周一至周三晚餐上座率仅 35%。推出"工作日双人套餐"（原价 400，套餐 288，限周一至周三）。</div>
+<div class="end">上座率升到 65%。虽然客单降了，但 RevPASH 从 18 升到 29，且带动了酒水消费。<br>
+<b>关键：套餐只在工作日可用（栅栏），周末客人无法占用，不侵蚀周末收入。</b><br>
+<b>这正是客房"淡季加栅栏促销"的同一套逻辑。</b></div></div><div class="case"><div class="ct">案例三 · 菜单工程的发现</div>
+<div class="num">某餐厅按"销量"排菜单，把卖得最好的菜放在最显眼位置。</div>
+<div class="end">改用"贡献额 × 受欢迎度"两维分析后发现：销量第一的菜<b>贡献额其实很低</b>（食材成本高、制作耗时）；而一道销量中等的菜贡献额排第一。<br>
+调整后（把高贡献菜前置、重排菜单、优化低贡献菜），<b>人均贡献提升 8%，而客人几乎没察觉变化。</b><br>
+<b>结论：销量不等于利润。菜单工程就是餐饮版的"客源结构优化"（第 14 章）——看贡献，不看数量。</b></div></div><div class="case"><div class="ct">案例四 · 一间餐厅的时段改造（含数据）</div>
+<div class="num">某酒店餐厅 120 座，改造前 RevPASH 全天平均 22，周末晚 46、周一晚 12。<br>
+<b>改造动作：</b><br>
+① 按午/晚、周中/周末拆开看 RevPASH → 锁定"周一至周三晚餐"为最大洼地<br>
+② 推"工作日双人套餐"288（原价 400），限 17:30 前入座、每日 30 份<br>
+③ 菜单工程：把高贡献菜前置，砍掉两道高成本低利润菜<br>
+④ 忙时（周末晚）不赶翻台，改为提客单（套餐推荐）</div>
+<div class="end">三个月后：周一至周三晚餐上座率 32%→58%，RevPASH 12→21；周末晚维持 46。<br>
+<b>全天平均 RevPASH 从 22 升到 29（+32%）</b>，而厨房人力未增加。<br>
+<b>结论：餐饮收益的关键动作是"拆分时段找洼地"——整体看RevPASH只会看到平均值，拆开才会看到问题在哪一顿。</b></div></div>
+
+<h4>常见错误</h4>
+<div class="pts"><ul>
+<li><b>用上座率当核心指标</b>。上座率高但客单低仍可能亏损。</li>
+<li><b>闲时促销不限时</b>。会被周末客人占用，侵蚀高峰收入。</li>
+<li><b>只看收入不看食材成本</b>。餐饮的变动成本占比远高于客房。</li>
+</ul></div><h4>常见错误（续）</h4><div class="pts"><ul>
+<li><b>只算收入不算食材成本率</b>——餐饮的变动成本占比远高于客房，收入高不代表赚钱。</li>
+<li><b>套餐内容与厨房能力脱节</b>——推了套餐但出餐慢，反而拖累翻台与体验。</li>
+</ul></div>
+
+<h4>与前后章的联系</h4>
+<div class="pts"><ul>
+<li><b>往上（第 2 章）</b>：RevPASH 就是餐饮版的 RevPAR。</li>
+<li><b>往上（第 8 章）</b>：套餐逻辑与客房完全一致。</li>
+<li><b>往上（第 26 章）</b>：餐饮变动成本占比高，底线更硬。</li>
+<li><b>往下（第 31 章）</b>：这是跨行业迁移的第一个例子。</li>
+</ul></div>
+
+<div class="tip"><b>自学者提示：</b>餐厅和客房的收益管理<b>完全相通</b>——产能易逝、需求波动、客群分层、用栅栏隔开。学会客房，餐饮自然通；反过来也一样。</div>
+
+<div class="ex" id="ex29c"><div class="et">练习</div><ol>
+<li>120 座，营业 6 小时，收入 18,000，求 RevPASH。</li>
+<li>为什么餐饮不能用"上座率"当核心指标？</li>
+<li>设计一个闲时促销（写出栅栏条件）。</li>
+<li>为什么"限时用餐"要谨慎？</li>
+<li>菜单工程要分析哪两个维度？</li>
+</ol></div>
+
+<div class="gv"><div class="gvt">国际视角 · 餐饮的 RevPASH</div>
+<p>餐饮收益的国际通用指标是 <b>RevPASH（Revenue Per Available Seat Hour，每可用座位小时收入）</b>：收入 ÷（座位数 × 营业小时数）。它把"座位"和"时间"同时放进分母，因此能同时反映上座率与翻台效率。另有 <b>RevPAM</b>（每可用平方米收入）用于面积效率。</p>
+<p>与客房类比：RevPAR 管"房间 × 一天"，RevPASH 管"座位 × 一小时"。两者的共同点是<b>把闲置资源放进分母</b>，因此空着的座位和空着的房间一样，都是已发生的损失。</p>
+<p><b>对照本章：</b>本书的餐饮收益口径与国际一致；可直接用 RevPASH 做时段化管理（如区分午市与晚市分别优化）。</p></div><h4>本章小结（5 条，可复述）</h4><div class="pts"><ol>
+<li><b>产能＝座位 × 时间</b>；比客房更易逝（一小时卖不掉即归零）。</li>
+<li><b>RevPASH</b>＝收入 ÷(座位数 × 营业小时)；对应客房的 RevPAR。</li>
+<li><b>核心动作是拆时段</b>——整体平均值会掩盖洼地。</li>
+<li><b>闲时促销必须带栅栏</b>（限时段、限份数），否则侵蚀高峰。</li>
+<li><b>菜单工程看"贡献额 × 受欢迎度"</b>，销量高不等于利润高。</li>
+</ol></div>
+<div class="ex" id="ex29d"><div class="et">练习（进阶）</div><ol start="6">
+<li>120 座、营业 6 小时、收入 1.8 万，求 RevPASH；若拆时段后周一晚只有 12，说明什么？</li>
+<li>为什么"赶翻台"要谨慎？它与评分有什么关系？</li>
+<li>用菜单工程分析您熟悉的一家餐厅（列出两道该前置、两道该砍的菜）。</li>
+</ol></div><h4>常见场景速查</h4><div class="judge"><div class="jt">遇到下面这些情况，直接按"动作"做</div>
+<table>
+<tr><td>周一晚上没人</td><td>不要只调人手 → 推<b>限时段</b>的工作日套餐</td></tr>
+<tr><td>上座率很高但没钱赚</td><td>算 <b>RevPASH</b>与食材成本率；上座率不是利润指标</td></tr>
+<tr><td>想提高翻台</td><td>优先<b>优化出餐</b>与限时 90 分钟；不要靠压客单</td></tr>
+<tr><td>菜单怎么排</td><td>按<b>贡献额 × 受欢迎度</b>；销量第一 ≠ 贡献第一</td></tr>
+<tr><td>闲时促销会不会影响周末</td><td>只要<b>限时段</b>（如仅周一至周三），就不会侵蚀高峰</td></tr>
+</table></div><div class="loc">第五篇 · 延伸篇 ｜ 迁移与自查 ｜ 第 30 章</div>
+<div class="task"><div class="tk">课堂任务卡 · 第 29 章</div><div class="tsc"><b>情境：</b>某店周一至周三晚餐上座率仅 35%。推出"工作日双人套餐"（原价 400，套餐 288，限周一至周三）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出您的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>核心指标</td><td>用 RevPASH，不用"上座率"（上座率高但客单低也可能亏）</td></tr><tr><td>闲时怎么做</td><td>时段折扣（早鸟/下午茶/工作日套餐），必须限时（栅栏）</td></tr><tr><td>忙时怎么做</td><td>提高客单（推荐、套餐），而非赶人；必要时设用餐时限</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>上座率升到 65%。虽然客单降了，但 RevPASH 从 18 升到 29，且带动了酒水消费。 关键：套餐只在工作日可用（栅栏），周末客人无法占用，不侵蚀周末收入。 这正是客房"淡季加栅栏促销"的同一套逻辑。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div>
+
+<div class="neg"><div class="nk">反面案例 · 用「上座率」判断餐饮好坏</div><div class="nnum">某餐厅以「上座率高」为荣，并按「销量」排菜单——把卖得最好的菜放在最显眼位置。</div><div class="nend">代价：上座率高但客单低也可能亏（判定表第 1 行）；改用「贡献额 × 受欢迎度」两维分析后发现，销量第一的菜贡献额其实很低（食材成本高、制作耗时），而一道销量中等的菜贡献额排第一——等于把最好赚的位置让给了最不赚钱的菜。<br><b>判定表怎么说：</b>核心指标用 RevPASH，不用上座率；菜单按「贡献额 × 受欢迎度」排，销量第一 ≠ 贡献第一；红线是不得因赶翻台损害体验（会反噬评分，见第 24 章）。<br><b>正确做法：</b>把高贡献菜前置、重排菜单、优化低贡献菜 → 人均贡献提升 8%，而客人几乎无感。</div></div>
+</details>
+
+<details class="sub"><summary>④ 教学装：怎么讲 / 课堂活动 / 易错点 / 怎么判分</summary><div class="tch">
+<h4 class="tch-n">教学目标（可考核）</h4><ul>
+<li>理解 RevPASH 与翻台的含义</li>
+<li>能算出餐饮的时段收益</li>
+<li>知道餐饮的抓手是时长与时段而非提价</li>
+</ul>
+<div class="tm"><span class="tl">怎么讲</span>类比：客房卖「间夜」，餐饮卖「座位×时段」→ 讲 RevPASH = 收入 ÷（座位数 × 营业小时）→ 讲抓手是<b>提高翻台与拉平时段</b>，不是一味提价。</div>
+<div class="tm"><span class="tl2">课堂活动</span><b>给这家餐厅排一张时段定价表</b>（25 分钟）</div>
+<div class="tm" style="padding-left:12px"><b>材料：</b>餐厅座位、翻台、各时段客流数据</div>
+<div class="tm" style="padding-left:12px"><b>步骤：</b></div><ol>
+<li>发数据：80 座、午晚两市、平均用餐时长 90 分钟</li>
+<li>算各时段 RevPASH</li>
+<li>设计时段差异（下午场优惠／高峰限时）</li>
+<li>讨论：限时会不会赶客？怎么措辞？</li>
+</ol>
+<div class="tm" style="padding-left:12px"><b>产出：</b>时段定价表 + 一句对客话术</div>
+<h4>学生易错点</h4><table><tr><th style="width:44%">典型错误</th><th>怎么纠正</th></tr>
+<tr><td>照搬 RevPAR</td><td>说明产能单位不同</td></tr>
+<tr><td>只靠提价</td><td>指出流失风险大于收益</td></tr>
+<tr><td>限时措辞生硬</td><td>提醒话术决定体验</td></tr>
+</table>
+<h4>怎么判分</h4><div class="gr">
+<div class="gA"><b>A 档（优秀）</b>RevPASH 算对，时段设计合理且话术得体</div>
+<div class="gB"><b>B 档（合格）</b>算对但设计单一</div>
+<div class="gC"><b>C 档（需重做）</b>仍用客房思路</div>
+</div>
+<div class="map"><b>对应学生版：</b>学生版第 29 章；练习第 1–5 题；判定表「餐饮收益」</div>
+</div></details>
+
+<details class="sub"><summary>⑤ 实验与数据表（可下载）</summary>
+<p>用 <a href="../teach-data.html">教学数据工坊</a> 的云璟 90 天数据做一遍本章动作；判定表与模板在
+<a href="../campus-resources.html">院校专区 · 七件套</a> 领取。没有 RMS 的学校，用 Excel 模板即可跑通。</p>
+<ul><li>动作清单：按本章判定表逐格执行，写下依据</li><li>交付物：一页 <a href="../onepager-logic.html">方法论一页纸</a> + 一份留痕台账</li><li>验收：依据正确性（不是"算对了没有"）</li></ul>
+</details>
+
+<h4>⑥ 本章小结</h4>
+<ul><li>上座率升到 65%。虽然客单降了，但 RevPASH 从 18 升到 29，且带动了酒水消费。 关键：套餐只在工作日可用（栅栏），周末客人无法占用，不侵蚀周</li><li>改用"贡献额 × 受欢迎度"两维分析后发现：销量第一的菜贡献额其实很低（食材成本高、制作耗时）；而一道销量中等的菜贡献额排第一。 调整后（把高贡献菜前置、重</li><li>三个月后：周一至周三晚餐上座率 32%→58%，RevPASH 12→21；周末晚维持 46。 全天平均 RevPASH 从 22 升到 29（+32%），</li></ul>
+
+<div class="pc"><b>思政融入点 · 反对浪费</b><p>翻台之外还有食品安全与光盘责任。</p><p class="mini">课堂追问：翻台快了，食材浪费多了吗？</p></div>
+<div class="pc"><b>数据看板</b><p>本章关键口径：<b>RevPASH、RevPAR、变动成本</b></p><p class="mini">看板位置：多业态看板 · 分业态并列区｜口径来源：云璟 90 天数据 v2026.1｜每学分 ≥100 题的题库由判定表映射组卷</p></div>
+
+<h4>⑦ 本章实训（课堂活动）</h4>
+<div></span><b>给这家餐厅排一张时段定价表</b>（25 分钟）</div>
+<div class="tm" style="padding-left:12px"><b>材料：</b>餐厅座位、翻台、各时段客流数据</div>
+<div class="tm" style="padding-left:12px"><b>步骤：</b></div><ol>
+<li>发数据：80 座、午晚两市、平均用餐时长 90 分钟</li>
+<li>算各时段 RevPASH</li>
+<li>设计时段差异（下午场优惠／高峰限时）</li>
+<li>讨论：限时会不会赶客？怎么措辞？</li>
+</ol>
+<div class="tm" style="padding-left:12px"><b>产出：</b>时段定价表 + 一句对客话术</div>
+<h4>⑧ 配套资源二维码</h4>
+<div class="qrw"><div class="qr"><svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="题库二维码"><use href="#qr-tk"/></svg><span>题库二维码</span></div><div class="qr"><svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="知识灯二维码"><use href="#qr-kd"/></svg><span>知识灯二维码</span></div></div>
+
+</div><div class="shell"><div class="st">04　本讲算例（可复算 · v2026.2 校正）</div><p><strong>统一经营基线（v2026.2 唯一口径）</strong>：房量 300 间，OCC 72.0%，ADR ¥618，RevPAR 精算 444.96，客房收入 48,723,120 元；OOO 3 间 → 可售 297，装修 12 间 → 288；RGI = MPI × ARI ÷ 100。</p><p><strong>本讲判定式</strong>　综合贡献 ≥ 综合置换成本 × 系数（分子分母同为全口径），并计入空间机会成本</p><p><strong>抽查分支</strong>　与表 G 团队询价同日竞争 → 按表 O「会议×团队」组裁决，不各自单独接受</p><p><strong>关键输入</strong>　会议规模与客房需求（宴会询价单）；餐饮保底与非客房收入（宴会系统）；空间机会成本（RevPASH / RevPAM）</p><table class="mtable"><thead><tr><th style="width:18%">复核项</th><th style="width:40%">本版值</th><th style="width:42%">旧版已知问题</th></tr></thead><tbody><tr><td>目标函数</td><td>净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控</td><td>综合贡献含餐饮会场，破例阈值却是纯客房口径；缺空间机会成本与 RevPASH/RevPAM；与表 G 未共用置换成本定义。</td></tr><tr><td>依据表</td><td>表 K · 会议／宴会综合收益联动表</td><td><code>codex.html:659-703</code></td></tr><tr><td>生效 / 复审</td><td>2026-11-06 / 2027-11-06</td><td>旧法典无生效日与复审日</td></tr></tbody></table><div class="note">数值可复算工具见 <a href="v2026-2-metrics-formulas.html">指标与公式卡</a>；阈值须用本店真实数据回填，十五张判定表是教学脚手架，不是行业标准。</div></div><div class="shell"><div class="st">05　课堂练习（三题 · 可当堂批改）</div><p>题目取自 <code>assets/data/workbook-index.json</code> 的 M10 模块；按章轮转抽取，41 讲不重复同一组题。本讲已对题库中的已知错解应用 v2026.2 重算。</p><div class="qbox"><div class="qn">练习 1 · M10 · 基础</div><p>按《法典》表 K，小型会议（≤30 人）的餐饮保底要求是：<br>≥¥8,000　≥¥30,000　≥¥80,000　≥¥150,000</p><p>作答：<span class="blank">____</span>　依据表号：<span class="blank">____</span>　净贡献是否改善：<span class="blank">____</span></p></div><div class="qbox"><div class="qn">练习 2 · M10 · 进阶</div><p>某团队占用 40 间夜，团队价 ¥480，该日预期散客 ADR ¥680。① 求客房置换成本；② 若该团队还会挤占本店餐饮及其他边际收益 ¥3,000，求完整置换成本。</p><p>作答：<span class="blank">____</span>　依据表号：<span class="blank">____</span>　净贡献是否改善：<span class="blank">____</span></p></div><div class="qbox"><div class="qn">练习 3 · M10 · 基础</div><p>某日预期散客 ADR ¥680，团队报价分别为 ¥520、¥420、¥600、¥340。分别求四个报价对应的比率 R（保留一位小数），并指出各自落在《法典》表 G 的哪一行。</p><p>作答：<span class="blank">____</span>　依据表号：<span class="blank">____</span>　净贡献是否改善：<span class="blank">____</span></p></div></div><div class="shell"><div class="st">06　参考答案与评分要点</div><table class="mtable"><thead><tr><th style="width:10%">题号</th><th style="width:10%">答案</th><th style="width:80%">解析与依据（v2026.2 校正后）</th></tr></thead><tbody><tr><td>练习 1</td><td><strong>≥¥8,000</strong></td><td>依据：《法典》表 K<br> 解析：表 K 餐饮保底序列：小型 ≤30 人 ≥¥8,000；中型 31–120 人 ≥¥30,000；大型 121–300 人 ≥¥80,000；超大型 &gt;300 人 ≥¥150,000。<br> 客房需求对应：小型 ≤15 间夜；中型 16–60 间夜；大型 61–150 间夜；超大型 &gt;150 间夜。<br> 红线：餐饮毛利率 &lt;55% 的会议，须 L3 审批。</td></tr><tr><td>练习 2</td><td><strong>-1</strong></td><td>答案：① ¥8,000；② ¥11,000。<br> 依据：《法典》表 G 置换成本公式<br> 解析：<br> ① 置换成本 = 被挤占房晚数 ×（预期散客 ADR − 团队价）= 40 ×（680 − 480）= 40 × 200 = ¥8,000<br> ② 完整置换成本 = 8,000 ＋ 被挤占的餐饮/其他边际收益 3,000 = ¥11,000<br> 解读：接受该团队的真实代价是 ¥11,000，不是表面上「少收的 ¥8,000 房费」。全服务酒店必须把餐饮与其他边际收益一并计入，否则会系统性高估团队的价值。</td></tr><tr><td>练习 3</td><td><strong>-1</strong></td><td>答案：¥520 → 76.5%（75% ≤ R &lt; 85% 行）；¥420 → 61.8%（55% ≤ R &lt; 65% 行）；¥600 → 88.2%（R ≥ 85% 行）；¥340 → 50.0%（R &lt; 55% 行）。<br> 依据：《法典》表 G 输入 1<br> 解析：<br> 520 ÷ 680 × 100 = 76.5% → 75% ≤ R &lt; 85% 行<br> 420 ÷ 680 × 100 = 61.8% → 55% ≤ R &lt; 65% 行<br> 600 ÷ 680 × 100 = 88.2% → R ≥ 85% 行<br> 340 ÷ 680 × 100 = 50.0% → R &lt; 55% 行<br> 提示：¥340 落在 R&lt;55% 行，普通团队一律拒绝；只有会议团队且满足表 G 附加条款（综合贡献 ≥ 占用房晚 × 预期散客 ADR × 85%）时才有例外通道。</td></tr></tbody></table><p><strong>评分口径</strong>　按 <code>v2026-2-exam-spec.html</code> 的 60 条 rubric：答案正确得基础分，写出依据表号与分母口径得满分，只写结论不写取舍理由扣一半；实操题双人评分，不一致时第三方复核。</p></div><div class="shell"><div class="st">07　教师提示 · 时间分配与三级深度</div><p><strong>课时 2 学时 / 90 分钟</strong>　导入 15 分 → 讲解 45 分 → 算例 15 分 → 练习与批改 11 分 → 小结与作业 4 分。</p><p><strong>本讲最常见的错法（来自表 K 的已知问题）</strong>　综合贡献含餐饮会场，破例阈值却是纯客房口径；缺空间机会成本与 RevPASH/RevPAM；与表 G 未共用置换成本定义。</p><p><strong>例外与前置条件</strong></p><ul><li>新手常见错误：用表 G 把会议拒掉，丢掉餐饮收入；新版要求两表共用全口径。</li><li>跨日会议必须按日分别判定，不得用总贡献一次裁决；肩部夜的空档损失单独计入。</li></ul><p><strong>三级深度分层</strong></p><ol><li><strong>L1 执行层</strong>　会取数与执行：核对 会议规模与客房需求、餐饮保底与非客房收入，按表 K 产出动作，并按 13 字段写决策日志。</li><li><strong>L2 决策层</strong>　会解释与复算：说清「与表 G 团队询价同日竞争」为什么导出「按表 O「会议×团队」组裁决，不各自单独接受」，并用竞组 OCC 68.0% 复核指数。</li><li><strong>L3 治理层</strong>　会定目标与校准：以 净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控 评估结果，为表 K 设生效日、复审日与阈值校准记录，并说明异常日降级路径。</li></ol><p class="mini">板书建议：左写口径与分母，右写判定式，中间留净贡献复算区；涉及旧值时明确标 v1.0，涉及本版值时标 v2026.3。</p></div><div class="shell"><div class="st">08　课后作业与下讲预告</div><ol><li>用案例卡 C005 写 200 字诊断：列出决策人当时手上的三个数据，并说明净贡献口径下的结论。</li><li>补写式作业：第 11 集、第 16 集、第 20 集 的对白空位，按本讲判定式补全并注明依据表号。</li><li>完成题库 M10 模块本讲未抽到的剩余题目；错题按第 06 板块的解析订正，写清错在口径还是算术。</li></ol><p><strong>下一讲</strong>　会议宴会：不只算房，算总贡献　·　需先预习：会议宴会：不只算房，算总贡献 涉及的判定表与分母口径。</p></div></div></section><section class="lesson" id="lesson-30"><div class="lhead"><div class="no">LESSON 30　·　v2026.3</div><h2>第 30 讲　会议宴会：不只算房，算总贡献</h2><div class="meta">第 30 讲 / 共 41 讲　·　第五篇 · 延伸篇　·　2 学时（90 分钟）　·　适用 L1 / L2 / L3　·　关联判定表 K/G　·　配套案例 C164　·　题库模块 M10</div></div><div class="lbody"><div class="shell"><div class="st">01　本讲学习目标</div><p><strong>教材原定目标</strong>　读完这章您能评估：一个会议该不该接——看的是综合贡献，不是房价。</p><p><strong>本讲结束后学生应能</strong></p><ol><li>说清本讲核心概念与分母、含税、币种口径（<code>K</code> 表输入：会议规模与客房需求、餐饮保底与非客房收入）。</li><li>按表 K 的判定式完成一次课堂算例：综合贡献 ≥ 综合置换成本 × 系数（分子分母同为全口径），并计入空间机会成本。</li><li>独立完成课堂练习三题，并按参考答案说明取舍理由。</li></ol><p class="mini">三级共用本讲，深度分层见第 07 板块；本讲已应用 v2026.2 校正：RM-04、RM-12、RM-15。</p></div><div class="shell"><div class="st">02　导入情境 · 真实案例卡 C164</div><p><strong>一场 800 人的宴会，房间该给多少价？</strong>　<span class="mini">类型 综合情境 / 难度 挑战</span></p><p>广州琶洲会展酒店（400 间）接到一场 800 人的行业年会：需要 200 间房（2 晚）+ 800 人宴会 + 6 个分会场。客房报价 480、宴会 1280/人（共 102.4 万）、会场 8 万。销售的算法：200×2×480 + 102.4 + 8 = 129.6 万，“必须接”。收益经理做了三笔置换：① 房晚置换：这两天是展会档期（D1），散客可卖 380 间夜 × 880 = 33.4 万；接团队后散客只剩 400×2−400 = 400?（按…</p><p><strong>课堂提问</strong>　① 这个情境里，决策人手上有哪些数据？② 如果只看出租率会做出什么动作？③ 换成净贡献口径，结论会不会变？</p><p class="mini">案例卡原文见 <a href="../cases-lib.html">案例库</a>；母本正文另有「案例导入」小节，两者配合：本卡用于开场讨论，母本案例用于讲解推进。</p></div><div class="core"><div class="ct">03　核心讲解 · 教材正文全文（v2026.3 校正版）</div>
+<div class="grid2">
+  <div class="pc"><b>学完这章你能</b><p>读完这章您能评估：一个会议该不该接——看的是综合贡献，不是房价。</p></div>
+  <div class="pc"><b>本章口诀</b><p class="key">旺季周末：散客净价 650，挤掉散客损失大，且餐饮场</p></div>
+</div>
+
+<h4>① 思维导图</h4>
+<div class="box mind"><svg viewBox="0 0 820 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto"><rect x="16" y="49.0" width="230" height="52" rx="10" fill="#0f2a4a"/><text x="131" y="81.0" fill="#fff" font-size="15" font-weight="700" text-anchor="middle">会议宴会：不只算房，算总贡献</text><path d="M246 75 C 320 75, 330 41.0, 402 41.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="26.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="46.0" fill="#1f3550" font-size="13">案例 · 旺季拒接，淡季接</text><circle cx="402" cy="41.0" r="3.4" fill="#1d6fb8"/><path d="M246 75 C 320 75, 330 75.0, 402 75.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="60.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="80.0" fill="#1f3550" font-size="13">案例三 · 阶梯报价救了一单</text><circle cx="402" cy="75.0" r="3.4" fill="#1d6fb8"/><path d="M246 75 C 320 75, 330 109.0, 402 109.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="94.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="114.0" fill="#1f3550" font-size="13">案例四 · 一次会议改期的谈判（含对话）</text><circle cx="402" cy="109.0" r="3.4" fill="#1d6fb8"/></svg></div>
+
+<h4>② 案例导入</h4>
+<div class="story"><div class="who">您一定踩过的坑</div>
+<p>销售接了个 200 人的会议，房价压到 300（低于散客），但很得意——"还有宴会和场地收入呢"。</p>
+<p>财务一算：宴会成本极高、场地占用导致散客被挤走，<b>综合下来还不如不接。</b></p>
+<p>会议的价值必须用"总贡献"算，不能用"房价"算——<b>这是本章与第一课（第 1 章）遥相呼应的地方：不要只看一个数字。</b></p>
+</div>
+
+<details class="sub"><summary>③ 正文全文（3 个决策现场 · 含判定与留痕）</summary>
+<div class="promise">读完这章您能评估：一个会议该不该接——看的是综合贡献，不是房价。</div>
+
+<div class="story"><div class="who">您一定踩过的坑</div>
+<p>销售接了个 200 人的会议，房价压到 300（低于散客），但很得意——"还有宴会和场地收入呢"。</p>
+<p>财务一算：宴会成本极高、场地占用导致散客被挤走，<b>综合下来还不如不接。</b></p>
+<p>会议的价值必须用"总贡献"算，不能用"房价"算——<b>这是本章与第一课（第 1 章）遥相呼应的地方：不要只看一个数字。</b></p>
+</div><p><b>后来呢：</b>后来该店建立了一条规矩：<b>任何会议报价前，必须先填一张"综合贡献表"。</b><br>表上有四行：客房贡献、餐饮贡献、场地贡献、被挤散客的期望损失。<br>销售起初嫌麻烦，用了三个月后说："现在我报价更有底气了——因为我知道底线在哪，也知道该跟客户谈什么条件。"<br><b>结论：综合贡献表不只是控制工具，它还是销售的谈判工具。</b></p>
+
+<h4>三要点</h4>
+<div class="pts"><ul>
+<li><b>会议要算综合贡献</b>：客房 + 餐饮 + 场地 + 其他消费，减去全部变动成本。</li>
+<li><b>要算机会成本</b>：会议室和客房被占用，挤掉了什么？（置换分析，第 15 章）</li>
+<li><b>会议常能填淡季</b>：这是它最大的价值——<b>填的是本来会空的日子。</b></li>
+</ul></div><h4>三要点怎么用（各配一例）</h4><div class="pts"><ul>
+<li><b>综合贡献</b>——例：房价让利 150/间，但餐饮与场地带来 200/间 → <b>整体仍划算。</b></li>
+<li><b>机会成本</b>——例：宴会厅被占用，挤掉了一个更高价的婚宴 → <b>要把这部分算进损失。</b></li>
+<li><b>填淡季</b>——例：周中本要空 60 间，会议填进来就是净增。<b>这是会议最大的价值。</b></li>
+</ul></div>
+
+<div class="fml"><div class="fn">核心公式</div><div class="fe">会议综合贡献 = 客房贡献 + 餐饮贡献 + 场地贡献 − 被挤掉的散客期望收益
+判定：综合贡献 &gt; 0 且高于替代方案 → 接</div>
+<div class="ex" id="ex30"><b>算例：</b>某会议 100 间夜 @350（散客净价 500），餐饮 80,000，场地 30,000。<br>
+客房少赚：100 × (500 − 350) = <b>15,000</b>。<br>
+餐饮贡献（按 35% 边际）：<b>28,000</b>；场地贡献（按 70%）：<b>21,000</b>。<br>
+综合 = −15,000 + 28,000 + 21,000 = <b>+34,000</b> → 可接。<br>
+<b>若该会议在旺季（散客需求强），还要再扣被挤散客的机会成本——结论可能反转。</b></div></div><div class="fml"><div class="fn">算例 3 · 一次会议的完整测算</div><div class="fe">会议：80 间夜 @380，餐饮 6 万，场地 2.5 万
+客房让利：80 × (520−380) = 11,200（负）
+餐饮贡献：60,000 × 35% = 21,000
+场地贡献：25,000 × 70% = 17,500
+挤出散客：旺季散客期望 30 间 × 520 = 15,600（负）
+综合 = −11,200 + 21,000 + 17,500 − 15,600 = <b>+11,700</b></div>
+<div class="ex" id="ex30b">若为旺季，挤出损失大 → 仅 +11,700，风险不小；若改到淡季（挤出损失≈0）→ 综合可达 <b>+27,300</b>。<br>
+<b>结论：同一个会议，换到淡季价值翻倍。这正是"会议最佳用途是填淡季"的算术依据。</b></div></div>
+
+<div class="judge"><div class="jt">本章判定表 · 会议该不该接</div>
+<table>
+<tr><td>是否填淡季</td><td>淡季/平季 → 放宽；旺季 → 严格（散客更值）</td></tr>
+<tr><td>综合贡献</td><td>必须为正且高于替代方案（不能只看房价）</td></tr>
+<tr><td>占用多少可售房</td><td>占用 &gt;30% 可售房 → 谨慎（挤散客风险大）</td></tr>
+<tr><td>餐饮与场地贡献</td><td>必须实际核算，不能"感觉有"</td></tr>
+<tr><td>取消与缩减风险</td><td>会议常临时缩规模 → <b>合同须约定阶梯与违约</b></td></tr>
+<tr><td>是否需要会议室</td><td>占用会议室可能挤掉其他高价值宴会，要一起算</td></tr>
+<tr><td>最佳用途</td><td><b>用会议填淡季与周中</b>——这是它最正确的用法</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>会议报价不要一口价。<b>做阶梯报价（房量、餐饮、场地分开报）</b>，便于调整组合，也避免客户只挑便宜的部分。</div></div><h4>填表示例 · 这个会议接不接</h4><div class="judge"><div class="jt">场景：旺季周五，会议要 60 间 @400 + 宴会</div>
+<table>
+<tr><td>填淡季吗？</td><td>周五旺季 → <b>不是</b> ✗</td></tr>
+<tr><td>综合贡献</td><td>初步算 +8,000 → 为正但不高 △</td></tr>
+<tr><td>占可售房比例</td><td>60/100 = 60% → <b>远超 30% 警戒线</b> ✗</td></tr>
+<tr><td>挤出散客</td><td>旺季散客期望 45 间 × 560 = 25,200 → <b>损失大</b> ✗</td></tr>
+<tr><td>会议室冲突</td><td>当天有婚宴询价（场地贡献更高）→ <b>冲突</b> ✗</td></tr>
+<tr><td>缩减风险</td><td>无违约条款 → ✗</td></tr>
+<tr><td>建议动作</td><td><b>① 改期到周中/淡季；② 或提价到 520；③ 或只接 30 间</b></td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：原方案不接，给出三个替代方案。</b><br><b>给销售的话术：</b>"周五我们只能给 30 间或按 520；如果您能调整到周中，60 间可以按 400。"</div></div>
+
+<div class="case"><div class="ct">案例 · 旺季拒接，淡季接</div>
+<div class="num">同一家公司两个会：一个在旺季周末（要 80 间 @380），一个在淡季周三（要 80 间 @380）。</div>
+<div class="end">旺季周末：散客净价 650，挤掉散客损失大，且餐饮场地贡献补不回 → <b>婉拒或提价</b>。<br>
+淡季周三：散客需求弱，原本要空 80 间 → <b>接，且综合贡献为正</b>。<br>
+<b>结论：同一个价、同一个客户，在不同日子是两笔完全不同的生意。</b></div></div><div class="case"><div class="ct">案例三 · 阶梯报价救了一单</div>
+<div class="num">某客户要求"一口价"。销售改为阶梯报价：房量 30/50/80 分别对应 480/430/390，餐饮与场地单列。</div>
+<div class="end">客户最终选了 50 间 @430 + 精简餐饮，比原一口价方案<b>总贡献更高</b>，且客户觉得"可以自己选，很灵活"。<br>
+<b>结论：阶梯报价既保护了收益（量越大价越低但可控），又给了客户选择感——比一口价更容易成交。</b></div></div><div class="case"><div class="ct">案例四 · 一次会议改期的谈判（含对话）</div>
+<div class="num"><b>销售与客户的对话：</b><br>
+客户："我们要 80 间，周五到周日，400 一间。"<br>
+销售："周五是旺季，全天满房风险高。这个日期我们最多给 30 间 @480。"<br>
+客户："那太少了。"<br>
+销售："如果改到<b>周日至周二</b>，80 间可以按 380，而且会议室免费升级。"<br>
+客户："改期有点难……但便宜不少。"<br>
+销售："另外，周中的餐饮我们可以给更好的方案，因为厨房不忙。"<br>
+客户："那我回去商量一下。"</div>
+<div class="end">结果：客户改到周日至周二，80 间 @380 + 会议室升级。<br>
+酒店侧核算：旺季周五的散客机会成本很高（约 520/间），改到周中后机会成本近乎为零 → <b>综合贡献反而更高，且客户更满意（价格更低 + 会议室升级）。</b><br>
+<b>结论：会议谈判的最佳筹码不是价格，是"日期"。会算机会成本的销售，能用"改期"同时满足客户和酒店。</b></div></div>
+
+<h4>常见错误</h4>
+<div class="pts"><ul>
+<li><b>只看房价判断会议</b>。必须用综合贡献。</li>
+<li><b>忽略会议挤掉的散客</b>。旺季尤其危险。</li>
+<li><b>合同无缩减/违约条款</b>。会议缩规模很常见，酒店承担全部损失。</li>
+</ul></div><h4>常见错误（续）</h4><div class="pts"><ul>
+<li><b>场地收入按 100% 计入贡献</b>——场地有布置、能耗、人工成本，应按净贡献算（通常 60–75%）。</li>
+<li><b>只算会议当天</b>——会议常带来前后日的延伸住宿，这部分也应计入。</li>
+</ul></div>
+
+<h4>与前后章的联系</h4>
+<div class="pts"><ul>
+<li><b>往上（第 15 章）</b>：会议是置换分析在大宗生意上的应用。</li>
+<li><b>往上（第 26 章）</b>：贡献要扣变动成本。</li>
+<li><b>往上（第 29 章）</b>：餐饮贡献要按实际边际算。</li>
+<li><b>往上（第 14 章）</b>：会议是客源之一，看贡献非间夜。</li>
+</ul></div>
+
+<div class="tip"><b>自学者提示：</b>会议报价不要一口价。<b>做阶梯报价（房量、餐饮、场地分开报）</b>，便于调整组合，也避免客户只挑便宜的部分——这是销售的常识，也是收益的防线。</div>
+
+<div class="ex" id="ex30c"><div class="et">练习</div><ol>
+<li>会议 80 间夜 @360，散客净价 520，餐饮贡献 25,000，场地贡献 18,000。综合贡献多少？</li>
+<li>为什么同一个会议在旺季和淡季结论不同？</li>
+<li>会议合同为什么要约定缩减与违约条款？</li>
+<li>为什么会议报价要做阶梯报价？</li>
+<li>占用会议室可能挤掉什么？如何计入？</li>
+</ol></div>
+
+<div class="gv"><div class="gvt">国际视角 · 宴会看总贡献</div>
+<p>会议宴会类业务，国际上不只看会议室租金，而是算 <b>总贡献（total contribution）</b>：客房 + 餐饮 + 场地 + 视听设备 + 其他消费，扣掉对应的直接成本（人力、食材、能耗、布置）。原因很简单——一场宴会可能场地租金不高，但带动的客房与餐饮远高于租金本身。</p>
+<p>另一个常用判断是看它<b>占用了什么</b>：宴会占用的是会议室与宴会厅的时段，可能与高价值的客房需求冲突（例如旺季周末，宴会挤掉了高价的散客房）。这时的取舍要用置换逻辑算，而不是比谁的营收数字大。</p>
+<p><b>对照本章：</b>本书的思路与国际一致；落地时建议把"总贡献"写成销售与收益共用的同一张表。</p></div><h4>本章小结（5 条，可复述）</h4><div class="pts"><ol>
+<li><b>综合贡献</b>＝客房 + 餐饮 + 场地 − 被挤散客的期望收益。</li>
+<li><b>不能只看房价</b>——房价让利可能由餐饮与场地补回。</li>
+<li><b>会议最佳用途是填淡季与周中</b>（机会成本近乎为零）。</li>
+<li><b>占用 &gt;30% 可售房要谨慎</b>；旺季尤其要控团量。</li>
+<li><b>阶梯报价 + 违约条款</b>：便于组合调整，也防临时缩规模。</li>
+</ol></div>
+<div class="ex" id="ex30d"><div class="et">练习（进阶）</div><ol start="6">
+<li>为什么"改期"比"降价"更好的谈判筹码？</li>
+<li>某会议在旺季 vs 淡季，综合贡献差多少？按本章算例说明。</li>
+<li>设计一份阶梯报价（三个房量档 + 餐饮场地单列）。</li>
+</ol></div><h4>常见场景速查</h4><div class="judge"><div class="jt">遇到下面这些情况，直接按"动作"做</div>
+<table>
+<tr><td>销售问这个会接不接</td><td>填<b>综合贡献表</b>：客房+餐饮+场地−被挤散客期望收益</td></tr>
+<tr><td>客户要的量太大</td><td>给<b>三个替代方案</b>：减量 / 提价 / 改期</td></tr>
+<tr><td>旺季周末来会议</td><td>挤出散客损失大 → <b>谨慎</b>；优先建议改期到周中</td></tr>
+<tr><td>客户要一口价</td><td>改<b>阶梯报价</b>（房量/餐饮/场地分列）——更易成交且保收益</td></tr>
+<tr><td>会议临时缩规模</td><td>合同必须约定<b>阶梯与违约</b></td></tr>
+<tr><td>场地收入怎么算贡献</td><td>按<b>净贡献</b>（通常 60–75%），不是按全额</td></tr>
+</table></div><div class="loc">第五篇 · 延伸篇 ｜ 迁移与自查 ｜ 第 31 章</div>
+<div class="task"><div class="tk">课堂任务卡 · 第 30 章</div><div class="tsc"><b>情境：</b>同一家公司两个会：一个在旺季周末（要 80 间 @380），一个在淡季周三（要 80 间 @380）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出您的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>是否填淡季</td><td>淡季/平季 → 放宽；旺季 → 严格（散客更值）</td></tr><tr><td>综合贡献</td><td>必须为正且高于替代方案（不能只看房价）</td></tr><tr><td>占用多少可售房</td><td>占用 &gt;30% 可售房 → 谨慎（挤散客风险大）</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>旺季周末：散客净价 650，挤掉散客损失大，且餐饮场地贡献补不回 → 婉拒或提价。 淡季周三：散客需求弱，原本要空 80 间 → 接，且综合贡献为正。 结论：同一个价、同一个客户，在不同日子是两笔完全不同的生意。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div>
+<div class="neg"><div class="nk">反面案例 · 案例四 · 一次会议改期的谈判（含对话）</div><div class="nnum">销售与客户的对话： 客户："我们要 80 间，周五到周日，400 一间。" 销售："周五是旺季，全天满房风险高。这个日期我们最多给 30 间 @480。" 客户："那太少了。" 销售："如果改到周日至周二，80 间可以按 380，而且会议室免费升级。" 客户："改期有点难……但便宜不少。" 销售："另外，周中的餐饮我们可以给更好的方案，因为厨房不忙。" 客户："那我回去商量一下。"</div><div class="nend">结果：客户改到周日至周二，80 间 @380 + 会议室升级。 酒店侧核算：旺季周五的散客机会成本很高（约 520/间），改到周中后机会成本近乎为零 → 综合贡献反而更高，且客户更满意（价格更低 + 会议室升级）。 结论：会议谈判的最佳筹码不是价格，是"日期"。会算机会成本的销售，能用"改期"同时满足客户和酒店。</div></div>
+</details>
+
+<details class="sub"><summary>④ 教学装：怎么讲 / 课堂活动 / 易错点 / 怎么判分</summary><div class="tch">
+<h4 class="tch-n">教学目标（可考核）</h4><ul>
+<li>理解会议宴会要算总贡献</li>
+<li>能算出场地+餐饮+客房的打包贡献</li>
+<li>知道单看场地收入会算错</li>
+</ul>
+<div class="tm"><span class="tl">怎么讲</span>先给一场会议报价单 → 问：接不接？→ 学生多只看场地费 → 加上餐饮与客房后结论反转 → 讲<b>总贡献 = 各项收入 − 变动成本 − 机会成本</b>。</div>
+<div class="tm"><span class="tl2">课堂活动</span><b>这场宴会接不接</b>（30 分钟）</div>
+<div class="tm" style="padding-left:12px"><b>材料：</b>宴会报价单、成本表、同期客房预测</div>
+<div class="tm" style="padding-left:12px"><b>步骤：</b></div><ol>
+<li>发报价单（场地、餐饮、用房）</li>
+<li>算总贡献</li>
+<li>减去被占用客房与场地的机会成本</li>
+<li>给出结论与附加条件</li>
+</ol>
+<div class="tm" style="padding-left:12px"><b>产出：</b>总贡献计算表 + 结论</div>
+<h4>学生易错点</h4><table><tr><th style="width:44%">典型错误</th><th>怎么纠正</th></tr>
+<tr><td>只看场地收入</td><td>会被餐饮与客房的连带价值打脸</td></tr>
+<tr><td>不算机会成本</td><td>紧俏日接低贡献宴会是净损失</td></tr>
+<tr><td>忽略撤场与翻场时间</td><td>提醒时间也是产能</td></tr>
+</table>
+<h4>怎么判分</h4><div class="gr">
+<div class="gA"><b>A 档（优秀）</b>总贡献与机会成本都算对，结论有依据</div>
+<div class="gB"><b>B 档（合格）</b>算对总贡献但漏机会成本</div>
+<div class="gC"><b>C 档（需重做）</b>只看场地收入</div>
+</div>
+<div class="map"><b>对应学生版：</b>学生版第 30 章；练习第 1–5 题；判定表「会议宴会」</div>
+</div></details>
+
+<details class="sub"><summary>⑤ 实验与数据表（可下载）</summary>
+<p>用 <a href="../teach-data.html">教学数据工坊</a> 的云璟 90 天数据做一遍本章动作；判定表与模板在
+<a href="../campus-resources.html">院校专区 · 七件套</a> 领取。没有 RMS 的学校，用 Excel 模板即可跑通。</p>
+<ul><li>动作清单：按本章判定表逐格执行，写下依据</li><li>交付物：一页 <a href="../onepager-logic.html">方法论一页纸</a> + 一份留痕台账</li><li>验收：依据正确性（不是"算对了没有"）</li></ul>
+</details>
+
+<h4>⑥ 本章小结</h4>
+<ul><li>旺季周末：散客净价 650，挤掉散客损失大，且餐饮场地贡献补不回 → 婉拒或提价。 淡季周三：散客需求弱，原本要空 80 间 → 接，且综合贡献为正。 结论</li><li>客户最终选了 50 间 @430 + 精简餐饮，比原一口价方案总贡献更高，且客户觉得"可以自己选，很灵活"。 结论：阶梯报价既保护了收益（量越大价越低但可控</li><li>结果：客户改到周日至周二，80 间 @380 + 会议室升级。 酒店侧核算：旺季周五的散客机会成本很高（约 520/间），改到周中后机会成本近乎为零 → 综</li></ul>
+
+<div class="pc"><b>思政融入点 · 契约精神</b><p>宴会合同与取消条款要写得双方认可。</p><p class="mini">课堂追问：这一条款，双方都认可吗？</p></div>
+<div class="pc"><b>数据看板</b><p>本章关键口径：<b>变动成本</b></p><p class="mini">看板位置：多业态看板 · 分业态并列区｜口径来源：云璟 90 天数据 v2026.1｜每学分 ≥100 题的题库由判定表映射组卷</p></div>
+
+<h4>⑦ 本章实训（课堂活动）</h4>
+<div></span><b>这场宴会接不接</b>（30 分钟）</div>
+<div class="tm" style="padding-left:12px"><b>材料：</b>宴会报价单、成本表、同期客房预测</div>
+<div class="tm" style="padding-left:12px"><b>步骤：</b></div><ol>
+<li>发报价单（场地、餐饮、用房）</li>
+<li>算总贡献</li>
+<li>减去被占用客房与场地的机会成本</li>
+<li>给出结论与附加条件</li>
+</ol>
+<div class="tm" style="padding-left:12px"><b>产出：</b>总贡献计算表 + 结论</div>
+<h4>⑧ 配套资源二维码</h4>
+<div class="qrw"><div class="qr"><svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="题库二维码"><use href="#qr-tk"/></svg><span>题库二维码</span></div><div class="qr"><svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="知识灯二维码"><use href="#qr-kd"/></svg><span>知识灯二维码</span></div></div>
+
+</div><div class="shell"><div class="st">04　本讲算例（可复算 · v2026.2 校正）</div><p><strong>统一经营基线（v2026.2 唯一口径）</strong>：房量 300 间，OCC 72.0%，ADR ¥618，RevPAR 精算 444.96，客房收入 48,723,120 元；OOO 3 间 → 可售 297，装修 12 间 → 288；RGI = MPI × ARI ÷ 100。</p><p><strong>本讲判定式</strong>　综合贡献 ≥ 综合置换成本 × 系数（分子分母同为全口径），并计入空间机会成本</p><p><strong>抽查分支</strong>　综合贡献 ≥ 综合置换成本 × 系数 + 空间机会成本 → 接受</p><p><strong>关键输入</strong>　会议规模与客房需求（宴会询价单）；餐饮保底与非客房收入（宴会系统）；空间机会成本（RevPASH / RevPAM）</p><table class="mtable"><thead><tr><th style="width:18%">复核项</th><th style="width:40%">本版值</th><th style="width:42%">旧版已知问题</th></tr></thead><tbody><tr><td>目标函数</td><td>净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控</td><td>综合贡献含餐饮会场，破例阈值却是纯客房口径；缺空间机会成本与 RevPASH/RevPAM；与表 G 未共用置换成本定义。</td></tr><tr><td>依据表</td><td>表 K · 会议／宴会综合收益联动表</td><td><code>codex.html:659-703</code></td></tr><tr><td>生效 / 复审</td><td>2026-11-06 / 2027-11-06</td><td>旧法典无生效日与复审日</td></tr></tbody></table><div class="note">数值可复算工具见 <a href="v2026-2-metrics-formulas.html">指标与公式卡</a>；阈值须用本店真实数据回填，十五张判定表是教学脚手架，不是行业标准。</div></div><div class="shell"><div class="st">05　课堂练习（三题 · 可当堂批改）</div><p>题目取自 <code>assets/data/workbook-index.json</code> 的 M10 模块；按章轮转抽取，41 讲不重复同一组题。本讲已对题库中的已知错解应用 v2026.2 重算。</p><div class="qbox"><div class="qn">练习 1 · M10 · 进阶</div><p>某中型会议（80 人）占用 45 间夜，团队价 ¥450，该日预期散客 ADR ¥680；餐饮收入 ¥30,000，会场租金 ¥15,000，无其他收入。
+ ① 求会议团队价值（综合贡献）；② 求客房置换成本；③ 查表 K 求该会议的接受底线；④ 是否达到接受底线？</p><p>作答：<span class="blank">____</span>　依据表号：<span class="blank">____</span>　净贡献是否改善：<span class="blank">____</span></p></div><div class="qbox"><div class="qn">练习 2 · M10 · 基础</div><p>某月杭州滨江云璟酒店售出 6,200 房晚，客源结构严格按《SPEC》2.3 执行（FIT-WI 8% / FIT-DIR 17% / FIT-OTA 31% / CORP 22% / LOY 12% / GRP 8% / LNG 2%）。
+ ① 求七个细分各自的房晚数（取整，合计须等于 6,200）；② 按各细分平均 ADR（¥720 / ¥650 / ¥598 / ¥520 / ¥580 / ¥450 / ¥380）求该月客房收入；③ 求该月综合 ADR（保留一位小数）。</p><p>作答：<span class="blank">____</span>　依据表号：<span class="blank">____</span>　净贡献是否改善：<span class="blank">____</span></p></div><div class="qbox"><div class="qn">练习 3 · M10 · 基础</div><p>情景：承接第 11 题的中型会议（80 人，45 间夜，团队价 ¥450，餐饮 ¥30,000，会场租金 ¥15,000）。该日预期散客 ADR ¥680，预测 OCC 78%。
+ 按《法典》表 K 的决策顺序完整走一遍，给出最终处置结论与后续动作。</p><p>作答：<span class="blank">____</span>　依据表号：<span class="blank">____</span>　净贡献是否改善：<span class="blank">____</span></p></div></div><div class="shell"><div class="st">06　参考答案与评分要点</div><table class="mtable"><thead><tr><th style="width:10%">题号</th><th style="width:10%">答案</th><th style="width:80%">解析与依据（v2026.2 校正后）</th></tr></thead><tbody><tr><td>练习 1</td><td><strong>-1</strong></td><td>答案：① ¥65,250；② ¥10,350；③ 中型会议底线 = 置换成本 × 1.0 = ¥10,350；④ 达到（65,250 ≥ 10,350）。<br> 依据：《法典》表 K ＋ 表 G 置换成本公式<br> 解析：<br> ① 综合贡献 = 客房收入 ＋ 餐饮收入 ＋ 会场租金 ＋ 其他 =（45 × 450）＋ 30,000 ＋ 15,000 ＋ 0 = 20,250 ＋ 45,000 = ¥65,250<br> ② 置换成本 = 45 ×（680 − 450）= 45 × 230 = ¥10,350<br> ③ 会议规模 80 人 → 中型（31–120 人），客房需求 45 间夜落在中型区间（16–60 间夜），匹配。表 K 中型接受底线 = 置换成本 × 1.0 = ¥10,350。<br> ④ 65,250 ÷ 10,350 = 6.3 倍 ≥ 1.0 → 达到底线。<br> 餐饮保底复核：中型会议餐饮保底 ≥¥30,000，实际 ¥30,000 </td></tr><tr><td>练习 2</td><td><strong>-1</strong></td><td>答案：① 496 / 1,054 / 1,922 / 1,364 / 744 / 496 / 124；② ¥3,602,696；③ ¥581.1。<br> 依据：《SPEC》二 · 2.3 客源结构<br> 解析：<br> ① 房晚数：FIT-WI = 6,200 × 8% = 496；FIT-DIR = 6,200 × 17% = 1,054；FIT-OTA = 6,200 × 31% = 1,922；CORP = 6,200 × 22% = 1,364；LOY = 6,200 × 12% = 744；GRP = 6,200 × 8% = 496；LNG = 6,200 × 2% = 124。合计 = 496＋1,054＋1,922＋1,364＋744＋496＋124 = 6,200 ✓<br> ② 客房收入：496×720 = 357,120；1,054×650 = 685,100；1,922×598 = 1,149,356；1,364×520 =</td></tr><tr><td>练习 3</td><td><strong>-1</strong></td><td>答案：综合贡献达标，但表 G 判「上报 L3」→ 最终处置＝上报 L3 决策，L3 依据综合贡献 ¥65,250 ≥ 底线 ¥10,350（6.3 倍）且餐饮保底达标，建议接受。<br> 依据：《法典》表 K（决策顺序）＋ 表 G ＋ 表 G 置换成本公式<br> 解析（严格按表 K 决策顺序三步）：<br> 第 1 步　问餐饮/宴会承接能力：80 人属中型会议（31–120 人），餐饮保底要求 ≥¥30,000，本单 ¥30,000 → 达标。同时须检查餐饮毛利率：表 K 红线「餐饮毛利率 &lt;55% 的会议，须 L3 审批」，本单未给毛利率，必须先向餐饮部索取毛利率数据；若 &lt;55%，直接触发 L3 审批。本店承接能力：1,200㎡ 无柱大宴会厅 + 6 间多功能厅，80 人规模无压力。<br> 第 2 步　算综合贡献：= 45×450 ＋ 30,000 ＋ 15,000 = ¥65,250；客房置换成本 = 45 ×（680−450）=</td></tr></tbody></table><p><strong>评分口径</strong>　按 <code>v2026-2-exam-spec.html</code> 的 60 条 rubric：答案正确得基础分，写出依据表号与分母口径得满分，只写结论不写取舍理由扣一半；实操题双人评分，不一致时第三方复核。</p></div><div class="shell"><div class="st">07　教师提示 · 时间分配与三级深度</div><p><strong>课时 2 学时 / 90 分钟</strong>　导入 15 分 → 讲解 45 分 → 算例 15 分 → 练习与批改 11 分 → 小结与作业 4 分。</p><p><strong>本讲最常见的错法（来自表 K 的已知问题）</strong>　综合贡献含餐饮会场，破例阈值却是纯客房口径；缺空间机会成本与 RevPASH/RevPAM；与表 G 未共用置换成本定义。</p><p><strong>例外与前置条件</strong></p><ul><li>新手常见错误：用表 G 把会议拒掉，丢掉餐饮收入；新版要求两表共用全口径。</li><li>跨日会议必须按日分别判定，不得用总贡献一次裁决；肩部夜的空档损失单独计入。</li></ul><p><strong>三级深度分层</strong></p><ol><li><strong>L1 执行层</strong>　会取数与执行：核对 会议规模与客房需求、餐饮保底与非客房收入，按表 K 产出动作，并按 13 字段写决策日志。</li><li><strong>L2 决策层</strong>　会解释与复算：说清「综合贡献 ≥ 综合置换成本 × 系数 + 空间机会成本」为什么导出「接受」，并用竞组 OCC 68.0% 复核指数。</li><li><strong>L3 治理层</strong>　会定目标与校准：以 净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控 评估结果，为表 K 设生效日、复审日与阈值校准记录，并说明异常日降级路径。</li></ol><p class="mini">板书建议：左写口径与分母，右写判定式，中间留净贡献复算区；涉及旧值时明确标 v1.0，涉及本版值时标 v2026.3。</p></div><div class="shell"><div class="st">08　课后作业与下讲预告</div><ol><li>用案例卡 C164 写 200 字诊断：列出决策人当时手上的三个数据，并说明净贡献口径下的结论。</li><li>补写式作业：第 14 集、第 16 集、第 18 集 的对白空位，按本讲判定式补全并注明依据表号。</li><li>完成题库 M10 模块本讲未抽到的剩余题目；错题按第 06 板块的解析订正，写清错在口径还是算术。</li></ol><p><strong>下一讲</strong>　其他业态与跨行业参数　·　需先预习：其他业态与跨行业参数 涉及的判定表与分母口径。</p></div></div></section><section class="lesson" id="lesson-31"><div class="lhead"><div class="no">LESSON 31　·　v2026.3</div><h2>第 31 讲　其他业态与跨行业参数</h2><div class="meta">第 31 讲 / 共 41 讲　·　第五篇 · 延伸篇　·　2 学时（90 分钟）　·　适用 L1 / L2 / L3　·　关联判定表 C/D/O　·　配套案例 C302　·　题库模块 M11</div></div><div class="lbody"><div class="shell"><div class="st">01　本讲学习目标</div><p><strong>教材原定目标</strong>　读完这章您能迁移：把收益管理用到酒店之外。</p><p><strong>本讲结束后学生应能</strong></p><ol><li>说清本讲核心概念与分母、含税、币种口径（<code>C</code> 表输入：本店 ADR 与竞组 ADR、竞组构成与权重）。</li><li>按表 C 的判定式完成一次课堂算例：ARI 只作相对位置信息；动作需同时看净贡献与竞组构成，不得自动跟价。</li><li>独立完成课堂练习三题，并按参考答案说明取舍理由。</li></ol><p class="mini">三级共用本讲，深度分层见第 07 板块；本讲已应用 v2026.2 校正：RM-09、RM-14、RM-15、SYS-01、SYS-07、SYS-15。</p></div><div class="shell"><div class="st">02　导入情境 · 真实案例卡 C302</div><p><strong>《案例集》57 个</strong>　<span class="mini">类型 业态 / 难度 进阶</span></p><p>《案例集》57 个 上篇按 7 个板块，下篇按 7 个业态（奢华/商务/度假/中档/经济/民宿/公寓） 案例集 业态 奢华 商务 度假 中档 经济 民宿 公寓 板块 业态 多业态</p><p><strong>课堂提问</strong>　① 这个情境里，决策人手上有哪些数据？② 如果只看出租率会做出什么动作？③ 换成净贡献口径，结论会不会变？</p><p class="mini">案例卡原文见 <a href="../cases-lib.html">案例库</a>；母本正文另有「案例导入」小节，两者配合：本卡用于开场讨论，母本案例用于讲解推进。</p></div><div class="core"><div class="ct">03　核心讲解 · 教材正文全文（v2026.3 校正版）</div>
+<div class="grid2">
+  <div class="pc"><b>学完这章你能</b><p>读完这章您能迁移：把收益管理用到酒店之外。</p></div>
+  <div class="pc"><b>本章口诀</b><p class="key">旺季短租月化可达 300 × 30 × 85.0% </p></div>
+</div>
+
+<h4>① 思维导图</h4>
+<div class="box mind"><svg viewBox="0 0 820 176" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto"><rect x="16" y="62.0" width="230" height="52" rx="10" fill="#0f2a4a"/><text x="131" y="94.0" fill="#fff" font-size="15" font-weight="700" text-anchor="middle">其他业态与跨行业参数</text><path d="M246 88 C 320 88, 330 37.0, 402 37.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="22.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="42.0" fill="#1f3550" font-size="13">案例一 · 长短租配比（公寓）</text><circle cx="402" cy="37.0" r="3.4" fill="#1d6fb8"/><path d="M246 88 C 320 88, 330 71.0, 402 71.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="56.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="76.0" fill="#1f3550" font-size="13">案例二 · 健身房的一次"收益管理"</text><circle cx="402" cy="71.0" r="3.4" fill="#1d6fb8"/><path d="M246 88 C 320 88, 330 105.0, 402 105.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="90.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="110.0" fill="#1f3550" font-size="13">案例三 · 一次失败的迁移</text><circle cx="402" cy="105.0" r="3.4" fill="#1d6fb8"/><path d="M246 88 C 320 88, 330 139.0, 402 139.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="124.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="144.0" fill="#1f3550" font-size="13">案例四 · 一次成功的迁移：共享自习室</text><circle cx="402" cy="139.0" r="3.4" fill="#1d6fb8"/></svg></div>
+
+<h4>② 案例导入</h4>
+<div class="story"><div class="who">您一定踩过的坑</div>
+<p>学完收益管理，以为只能在酒店用。</p>
+<p>其实<b>所有"产能易逝 + 需求波动 + 客群分层"的生意都适用</b>：航空、租车、影院、剧场、停车场、健身房、医美预约、生鲜零售、共享充电宝……</p>
+<p>您甚至能靠这个技能跨行业就业——因为<b>换的是参数，不是逻辑。</b></p>
+</div>
+
+<details class="sub"><summary>③ 正文全文（4 个决策现场 · 含判定与留痕）</summary>
+<div class="promise">读完这章您能迁移：把收益管理用到酒店之外。</div>
+
+<div class="story"><div class="who">您一定踩过的坑</div>
+<p>学完收益管理，以为只能在酒店用。</p>
+<p>其实<b>所有"产能易逝 + 需求波动 + 客群分层"的生意都适用</b>：航空、租车、影院、剧场、停车场、健身房、医美预约、生鲜零售、共享充电宝……</p>
+<p>您甚至能靠这个技能跨行业就业——因为<b>换的是参数，不是逻辑。</b></p>
+</div><p><b>后来呢：</b>那位学员后来真的把这套方法用到了医美诊所：把"医生时间"当作产能，按时段定价（工作日下午便宜）、设预约配额、用"预付不可退"做栅栏。<br>三个月后诊所的<b>闲置时段减少了 28%</b>，而客单价没有下降。<br>他后来总结：<b>"我以前以为我学的是酒店，其实我学的是'怎么把会过期的东西卖得更值'。"</b><br>这句话，就是这门学科的真正边界。</p>
+
+<h4>三要点</h4>
+<div class="pts"><ul>
+<li><b>套用第 1 章判定表</b>：易逝、固定、波动、可分层——四条全中即可用。</li>
+<li><b>换的是参数，不是逻辑</b>：把"房晚"换成"座位/车位/机位/时段"，逻辑完全一样。</li>
+<li><b>行业差异在栅栏形式</b>：酒店用"提前订/不可退"，影院用"时段"，健身房用"年卡/次卡"。</li>
+</ul></div><h4>三要点怎么用（各配一例）</h4><div class="pts"><ul>
+<li><b>套判定表</b>——例：共享自习室——座位易逝 ✓、短期固定 ✓、需求波动 ✓、可分层（月卡/次卡）✓ → 适用。</li>
+<li><b>换参数</b>——例：把"房晚"换成"座位小时"，RevPAR 换成 RevPASH。<b>公式结构完全不变。</b></li>
+<li><b>找天然栅栏</b>——例：健身房的栅栏是"时段"，医美的栅栏是"预付不可退"，影院的栅栏是"场次"。<b>每个行业都有天然的，要去找。</b></li>
+</ul></div>
+
+<div class="fml"><div class="fn">迁移公式（通用）</div><div class="fe">产能单位：房晚 → 座位 / 车位 / 机位 / 时段 / 舱位
+核心指标：RevPAR → RevPASH（餐饮）/ RASM（航空）/ 单位时段收入
+控制阀门：价格 + 可得性（开关某价档 / 加限制条件）</div>
+<div class="ex" id="ex31"><b>算例（停车场）：</b>产能＝车位×小时，易逝、固定；需求早晚高峰波动；客群分临停/月租/预约。<br>
+做法：高峰提价、闲时套餐（夜间包月）、月租限量、预约配额。<br>
+<b>完全对应酒店的：旺季守价、淡季套餐、团队置换、渠道配额。</b></div></div><div class="fml"><div class="fn">算例 3 · 停车场的完整迁移</div><div class="fe">产能＝车位×小时（易逝、固定）
+需求＝早晚高峰 vs 夜间（波动）
+客群＝临停 / 月租 / 预约（可分层）
+栅栏＝时段（夜间包月不可白天用）
+指标＝车位小时收入（对应 RevPAR）
+动作＝高峰提价、闲时包月、月租限量、预约配额</div>
+<div class="ex" id="ex31b"><b>六项全部对应酒店的六个概念</b>——产能易逝、需求波动、客群分层、栅栏、指标、动作。<br>
+<b>结论：迁移的不是公式，是这六个问题的答案。答出这六个，任何行业都能用。</b></div></div>
+
+<div class="judge"><div class="jt">本章判定表 · 这个行业能不能用（回到第 1 章）</div>
+<table>
+<tr><td>产能是否易逝</td><td>过期作废 → 可；可储存 → 不可</td></tr>
+<tr><td>产能是否短期固定</td><td>无法快速扩产 → 可</td></tr>
+<tr><td>需求是否波动</td><td>有明显时段/季节差 → 可</td></tr>
+<tr><td>客群是否可分层</td><td>支付意愿不同 → 可</td></tr>
+<tr><td>能否提前预订</td><td>能 → 可做预测与保护位；不能 → 只能现场定价</td></tr>
+<tr><td>栅栏是什么</td><td>找出该行业天然的"限制条件"（时段/会员/不可退/资质）</td></tr>
+<tr><td>指标怎么换</td><td>把 RevPAR 换成"单位产能单位时间的收入"</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>拿到一个新行业，先填这七项。<b>前五项全中，就一定能用；第六项决定您用什么栅栏。</b></div></div><h4>填表示例 · 一个新行业能不能用</h4><div class="judge"><div class="jt">场景：有人问"剧本杀门店"能做收益管理吗</div>
+<table>
+<tr><td>产能是否易逝？</td><td>一场卖不掉即归零 → <b>是</b> ✓</td></tr>
+<tr><td>产能是否固定？</td><td>房间数与场次短期固定 → <b>是</b> ✓</td></tr>
+<tr><td>需求是否波动？</td><td>周末与工作日晚间差异极大 → <b>是</b> ✓</td></tr>
+<tr><td>客群可分层？</td><td>有拼场客、包场客、会员 → <b>是</b> ✓</td></tr>
+<tr><td>能否提前预订？</td><td>可线上预约 → <b>是</b> ✓</td></tr>
+<tr><td>天然栅栏？</td><td><b>场次 + 时段</b>（工作日场更便宜）✓</td></tr>
+<tr><td>指标怎么换？</td><td>每房每小时收入（对应 RevPAR）✓</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：全中 → 完全适用。</b><br>具体打法：工作日场降价（带栅栏）、周末场守价、拼场与包场分设保护位（第 12 章）、会员锁客（第 16 章）。</div></div>
+
+<div class="case"><div class="ct">案例一 · 长短租配比（公寓）</div>
+<div class="num">某公寓 50 套。长租月租 4,000（稳定），短租日均 300（波动，淡季常空）。</div>
+<div class="end">旺季短租月化可达 300 × 30 × 85.0% = 7,650 &gt; 4,000 → <b>旺季增量转短租</b>。<br>
+淡季短租月化约 300 × 30 × 40.0% = 3,600 &lt; 4,000 → <b>淡季转长租</b>。<br>
+<b>关键：保留长租基本盘（如 70%），用剩余 30% 做短租弹性。</b></div></div>
+
+<div class="case"><div class="ct">案例二 · 健身房的一次"收益管理"</div>
+<div class="num">健身房晚 7–9 点器械排队，下午 2–5 点几乎没人。</div>
+<div class="end">做法：推出"午后卡"（价格低 40%，限工作日 14:00–17:00 入场）。<br>
+结果：闲时利用率提升，晚间拥挤缓解，<b>且年卡价格体系未被侵蚀（因为栅栏是"时段"）</b>。<br>
+<b>这正是酒店的"淡季套餐 + 栅栏"逻辑——换了个产能单位而已。</b></div></div><div class="case"><div class="ct">案例三 · 一次失败的迁移</div>
+<div class="num">某学员把酒店的做法直接搬到生鲜超市：对临期商品"提前预订打折"。</div>
+<div class="end">失败原因：生鲜的问题不是"卖给谁"，而是"损耗速度不可控"——产能确实易逝，但<b>需求预测精度极低</b>，且客群分层不明显（所有人都要便宜的）。<br>
+判定表第 3、4 项实际不满足。<br>
+<b>结论：判定表不是走过场。前四项中任一项不满足，迁移就会失败——这能帮您省下试错成本。</b></div></div><div class="case"><div class="ct">案例四 · 一次成功的迁移：共享自习室</div>
+<div class="num">某学员把酒店收益管理搬到共享自习室，逐项对应：<br>
+· <b>产能单位</b>：座位小时（替代房晚）<br>
+· <b>易逝性</b>：晚上没卖出的座位永久归零 ✓<br>
+· <b>指标</b>：每座每小时收入（替代 RevPAR）<br>
+· <b>客群分层</b>：月卡学员 / 次卡用户 / 临时客 ✓<br>
+· <b>天然栅栏</b>：<b>时段</b>——工作日白天便宜、晚间与考试季贵<br>
+· <b>保护位</b>：为月卡学员保留固定比例座位，次卡与临时客限量<br>
+· <b>超售</b>：按历史 No-show 率超售（预约未到的常见）</div>
+<div class="end">六个月后：晚间与考试季满座率提升，月卡续费率从 58% 升到 71%，<b>单位座位小时收入提升 26%。</b><br>
+<b>结论：迁移成功的标志不是"用了同样的术语"，而是"六问都答得出来"——产能、易逝、波动、分层、栅栏、指标。</b></div></div>
+
+<h4>常见错误</h4>
+<div class="pts"><ul>
+<li><b>认为收益管理只属于酒店</b>。它属于所有易逝产能行业。</li>
+<li><b>照搬栅栏形式</b>。每个行业的天然栅栏不同，要重新找。</li>
+<li><b>忽略产能单位的定义</b>。定义错了（如把"座位"当产能而忽略"时间"），指标就错了。</li>
+</ul></div><h4>常见错误（续）</h4><div class="pts"><ul>
+<li><b>照搬酒店的具体做法</b>——应搬逻辑（六问），不是搬形式（房型、MinLOS 等）。</li>
+<li><b>忽略行业的监管与习俗</b>——如医疗、教育行业的价格调整受更多限制。</li>
+</ul></div>
+
+<h4>与前后章的联系</h4>
+<div class="pts"><ul>
+<li><b>往上（第 1 章）</b>：本章就是第 1 章判定表的迁移应用。</li>
+<li><b>往上（第 29、30 章）</b>：餐饮与会议是酒店内的第一次迁移。</li>
+<li><b>全书收束</b>：41 章的逻辑，在这一章被抽象成可复用的方法论。</li>
+</ul></div>
+
+<div class="tip"><b>自学者提示：</b>练习迁移最好的方法：挑一个您熟悉的行业，把它的<b>产能单位、易逝性、客群分层、天然栅栏</b>写下来，然后套用第 12 章的保护位和第 10 章的栅栏。<b>您能迁移成功一次，就真正掌握了这门学科。</b></div>
+
+<div class="ex" id="ex31c"><div class="et">练习</div><ol>
+<li>用判定表判断：医美诊所预约是否适用收益管理？</li>
+<li>航空业的核心指标 RASM 对应酒店的什么？</li>
+<li>举一个"产能可储存、因此不适用"的生意。</li>
+<li>停车场的天然栅栏是什么？</li>
+<li>挑一个您熟悉的行业，写出它的产能单位与三个客群分层。</li>
+</ol></div>
+
+<div class="gv"><div class="gvt">国际视角 · 其他行业的同一套逻辑</div>
+<p>收益管理的方法在多个行业独立存在且互通：<b>航空</b>（舱位控制与超售）、<b>租车</b>（按取还车时间与地点定价）、<b>邮轮</b>（舱房等级与航次）、<b>剧院与体育赛事</b>（分区定价与动态调价）、<b>停车场与机场</b>（按时段与提前期定价）。近年短租平台（如 Airbnb）也为主机提供动态定价建议。</p>
+<p>共性有三条：<b>库存固定且会失效</b>、<b>需求随时间波动</b>、<b>客人对同一产品的支付意愿不同</b>。只要三条同时成立，收益管理的工具就适用。</p>
+<p><b>对照本章：</b>本书的跨行业参数可对照这些行业；借鉴时优先借用"库存控制"类方法（如超售与保护位），其次是定价方法。</p></div><h4>本章小结（5 条，可复述）</h4><div class="pts"><ol>
+<li><b>迁移六问</b>：产能单位、是否易逝、是否波动、能否分层、天然栅栏、指标怎么换。</li>
+<li><b>前四项全中才适用</b>；后两项决定"用什么栅栏、看什么指标"。</li>
+<li><b>搬逻辑，不搬形式</b>——房型、MinLOS 是酒店的形式，不是逻辑本身。</li>
+<li><b>每个行业都有天然栅栏</b>：时段、会员、预付不可退、场次——要去找。</li>
+<li><b>判定表能帮您省下试错成本</b>：不满足就不要硬搬。</li>
+</ol></div>
+<div class="ex" id="ex31d"><div class="et">练习（进阶）</div><ol start="6">
+<li>用六问分析"医美诊所预约"是否适用。</li>
+<li>为什么直接照搬酒店做法（如 MinLOS）在多数行业会失败？</li>
+<li>挑一个您熟悉的行业，写出它的产能单位与三个客群分层。</li>
+</ol></div><h4>常见场景速查</h4><div class="judge"><div class="jt">要把这套方法用到新行业，先答这六个问题</div>
+<table>
+<tr><td>① 产能单位是什么？</td><td>房晚 → 座位 / 车位 / 机位 / 时段 / 诊位</td></tr>
+<tr><td>② 是否过期作废？</td><td>是 → 需收益管理；可储存 → 不适用</td></tr>
+<tr><td>③ 需求是否波动？</td><td>有明显时段差 → 适用</td></tr>
+<tr><td>④ 客群能否分层？</td><td>支付意愿不同 → 适用</td></tr>
+<tr><td>⑤ 天然栅栏是什么？</td><td>时段 / 会员 / 预付不可退 / 场次——要去找</td></tr>
+<tr><td>⑥ 指标怎么换？</td><td>改成"单位产能单位时间的收入"</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>前四项全中才适用。</b>答不全就不要硬搬——判定表能帮您省下试错成本。</div></div><div class="loc">第五篇 · 延伸篇 ｜ 迁移与自查 ｜ 第 32 章</div>
+<div class="task"><div class="tk">课堂任务卡 · 第 31 章</div><div class="tsc"><b>情境：</b>某公寓 50 套。长租月租 4,000（稳定），短租日均 300（波动，淡季常空）。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出您的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>产能是否易逝</td><td>过期作废 → 可；可储存 → 不可</td></tr><tr><td>产能是否短期固定</td><td>无法快速扩产 → 可</td></tr><tr><td>需求是否波动</td><td>有明显时段/季节差 → 可</td></tr></table><div class="twhy2"><b>该情境的实际结果：</b>旺季短租月化可达 300 × 30 × 85.0% = 7,650 &gt; 4,000 → 旺季增量转短租。 淡季短租月化约 300 × 30 × 40.0% = 3,600 &lt; 4,000 → 淡季转长租。 关键：保留长租基本盘（如 70%），用剩余 30% 做短租弹性。</div><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div>
+<div class="neg"><div class="nk">反面案例 · 案例三 · 一次失败的迁移</div><div class="nnum">某学员把酒店的做法直接搬到生鲜超市：对临期商品"提前预订打折"。</div><div class="nend">失败原因：生鲜的问题不是"卖给谁"，而是"损耗速度不可控"——产能确实易逝，但需求预测精度极低，且客群分层不明显（所有人都要便宜的）。 判定表第 3、4 项实际不满足。 结论：判定表不是走过场。前四项中任一项不满足，迁移就会失败——这能帮您省下试错成本。</div></div>
+</details>
+
+<details class="sub"><summary>④ 教学装：怎么讲 / 课堂活动 / 易错点 / 怎么判分</summary><div class="tch">
+<h4 class="tch-n">教学目标（可考核）</h4><ul>
+<li>掌握四个迁移条件</li>
+<li>能判断一个新行业是否适用</li>
+<li>能说明参数如何替换</li>
+</ul>
+<div class="tm"><span class="tl">怎么讲</span>讲四个条件：易逝性、成本结构、可预测性、支付意愿分化 → 逐条举例（航空、租车、影院、球场、医美时段）→ 讲<b>四个都成立才能迁移，缺一要重新设计参数</b>。</div>
+<div class="tm"><span class="tl2">课堂活动</span><b>这个行业能用吗</b>（25 分钟）</div>
+<div class="tm" style="padding-left:12px"><b>材料：</b>五个行业背景卡</div>
+<div class="tm" style="padding-left:12px"><b>步骤：</b></div><ol>
+<li>每组领一个行业（影院／租车／球场／医美／共享办公）</li>
+<li>逐条核验四个条件</li>
+<li>不适用的说明缺哪一条、能否补救</li>
+<li>适用的说出对应的指标替换（如 RevPAR → RevPASH）</li>
+</ol>
+<div class="tm" style="padding-left:12px"><b>产出：</b>五行「行业 → 四条件 → 结论」</div>
+<h4>学生易错点</h4><table><tr><th style="width:44%">典型错误</th><th>怎么纠正</th></tr>
+<tr><td>认为收益管理只属于酒店</td><td>说明判据通用</td></tr>
+<tr><td>忽略可预测性</td><td>缺历史数据就谈不上预测</td></tr>
+<tr><td>照搬指标名称</td><td>要求按产能单位重新定义指标</td></tr>
+</table>
+<h4>怎么判分</h4><div class="gr">
+<div class="gA"><b>A 档（优秀）</b>五个行业判断正确，且指标替换合理</div>
+<div class="gB"><b>B 档（合格）</b>判断正确但指标未替换</div>
+<div class="gC"><b>C 档（需重做）</b>认为只属于酒店</div>
+</div>
+<div class="map"><b>对应学生版：</b>学生版第 31 章；练习第 1–5 题；判定表「跨行业迁移」</div>
+</div></details>
+
+<details class="sub"><summary>⑤ 实验与数据表（可下载）</summary>
+<p>用 <a href="../teach-data.html">教学数据工坊</a> 的云璟 90 天数据做一遍本章动作；判定表与模板在
+<a href="../campus-resources.html">院校专区 · 七件套</a> 领取。没有 RMS 的学校，用 Excel 模板即可跑通。</p>
+<ul><li>动作清单：按本章判定表逐格执行，写下依据</li><li>交付物：一页 <a href="../onepager-logic.html">方法论一页纸</a> + 一份留痕台账</li><li>验收：依据正确性（不是"算对了没有"）</li></ul>
+</details>
+
+<h4>⑥ 本章小结</h4>
+<ul><li>旺季短租月化可达 300 × 30 × 85.0% = 7,650 &gt; 4,000 → 旺季增量转短租。 淡季短租月化约 300 × 30 × 40.0% </li><li>做法：推出"午后卡"（价格低 40%，限工作日 14:00–17:00 入场）。 结果：闲时利用率提升，晚间拥挤缓解，且年卡价格体系未被侵蚀（因为栅栏是"时</li><li>失败原因：生鲜的问题不是"卖给谁"，而是"损耗速度不可控"——产能确实易逝，但需求预测精度极低，且客群分层不明显（所有人都要便宜的）。 判定表第 3、4 项</li></ul>
+
+<div class="pc"><b>思政融入点 · 合规底线</b><p>跨行业应用先讲合法合规。</p><p class="mini">课堂追问：这套做法，在那个行业合规吗？</p></div>
+<div class="pc"><b>数据看板</b><p>本章关键口径：<b>RevPAR、RevPASH、No-show</b></p><p class="mini">看板位置：多业态看板 · 分业态并列区｜口径来源：云璟 90 天数据 v2026.1｜每学分 ≥100 题的题库由判定表映射组卷</p></div>
+
+<h4>⑦ 本章实训（课堂活动）</h4>
+<div></span><b>这个行业能用吗</b>（25 分钟）</div>
+<div class="tm" style="padding-left:12px"><b>材料：</b>五个行业背景卡</div>
+<div class="tm" style="padding-left:12px"><b>步骤：</b></div><ol>
+<li>每组领一个行业（影院／租车／球场／医美／共享办公）</li>
+<li>逐条核验四个条件</li>
+<li>不适用的说明缺哪一条、能否补救</li>
+<li>适用的说出对应的指标替换（如 RevPAR → RevPASH）</li>
+</ol>
+<div class="tm" style="padding-left:12px"><b>产出：</b>五行「行业 → 四条件 → 结论」</div>
+<h4>⑧ 配套资源二维码</h4>
+<div class="qrw"><div class="qr"><svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="题库二维码"><use href="#qr-tk"/></svg><span>题库二维码</span></div><div class="qr"><svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="知识灯二维码"><use href="#qr-kd"/></svg><span>知识灯二维码</span></div></div>
+
+</div><div class="shell"><div class="st">04　本讲算例（可复算 · v2026.2 校正）</div><p><strong>统一经营基线（v2026.2 唯一口径）</strong>：房量 300 间，OCC 72.0%，ADR ¥618，RevPAR 精算 444.96，客房收入 48,723,120 元；OOO 3 间 → 可售 297，装修 12 间 → 288；RGI = MPI × ARI ÷ 100。</p><p><strong>本讲判定式</strong>　ARI 只作相对位置信息；动作需同时看净贡献与竞组构成，不得自动跟价</p><p><strong>抽查分支</strong>　与表 A 结论冲突 → 按表 O 裁决：A 优先级 3 &gt; C 优先级 4，同一天只执行一条</p><p><strong>关键输入</strong>　本店 ADR 与竞组 ADR（STR / 公开挂牌价）；竞组构成与权重（comp_set 数据字典）；ARI（指标字典）</p><table class="mtable"><thead><tr><th style="width:18%">复核项</th><th style="width:40%">本版值</th><th style="width:42%">旧版已知问题</th></tr></thead><tbody><tr><td>目标函数</td><td>净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控</td><td>把 ARI 当作调价触发器，且 v1 母本同一段包含 RGI 少 ÷100 的错误；竞组 ADR 权重未定义，需求弹性与公开挂牌价边界缺位。</td></tr><tr><td>依据表</td><td>表 C · 价格指数（ARI）判定表</td><td><code>codex.html:256-301</code></td></tr><tr><td>生效 / 复审</td><td>2026-11-06 / 2027-11-06</td><td>旧法典无生效日与复审日</td></tr></tbody></table><div class="note">数值可复算工具见 <a href="v2026-2-metrics-formulas.html">指标与公式卡</a>；阈值须用本店真实数据回填，十五张判定表是教学脚手架，不是行业标准。</div></div><div class="shell"><div class="st">05　课堂练习（三题 · 可当堂批改）</div><p>题目取自 <code>assets/data/workbook-index.json</code> 的 M11 模块；按章轮转抽取，41 讲不重复同一组题。本讲已对题库中的已知错解应用 v2026.2 重算。</p><div class="qbox"><div class="qn">练习 1 · M11 · 基础</div><p>情景：业主提出下年度 RevPAR 目标在上年 ¥445 基础上 ↑8%。您是 L3 收益经理，须把目标拆成 OCC 与 ADR 三条路径，并说明各路径的可行性约束。
+ 求：① 目标 RevPAR；② 路径 A（全靠提价，OCC 维持 72.0%）所需 ADR；③ 路径 B（全靠放量，ADR 维持 ¥618）所需 OCC；④ 路径 C（ADR 与 OCC 各承担一半涨幅）所需 ADR 与 OCC；⑤ 三条路径的约束与推荐。</p><p>作答：<span class="blank">____</span>　依据表号：<span class="blank">____</span>　净贡献是否改善：<span class="blank">____</span></p></div><div class="qbox"><div class="qn">练习 2 · M11 · 基础</div><p>情景：预算年度本店目标 OCC 74.0%、ADR ¥640.0；预计竞争组合 OCC 71.0%、ADR ¥660.0。
+ ① 求本店与组合的目标 RevPAR；② 求 MPI、ARI、RGI（各保留一位小数）；③ 查表 C 与表 D 给出判定与动作；④ 写一段给业主的三维结论（不超过 80 字，必须含三个指数与一个动作）。</p><p>作答：<span class="blank">____</span>　依据表号：<span class="blank">____</span>　净贡献是否改善：<span class="blank">____</span></p></div><div class="qbox"><div class="qn">练习 3 · M11 · 基础</div><p>情景：4 月 1 日做上月复盘（表 N 每月 1 日），发现 3 月实绩 OCC 70.0%（目标 74.0%）、ADR ¥590（目标 ¥600）。
+ ① 求 3 月 RevPAR 实绩与目标的差额（保留一位小数）；② 用量差价差口径分解该差额（保留两位小数）；③ 指出该缺口按《法典》表 I 应落入哪个监控窗口、触发什么动作；④ 写出滚动预测更新的三条具体后续动作。</p><p>作答：<span class="blank">____</span>　依据表号：<span class="blank">____</span>　净贡献是否改善：<span class="blank">____</span></p></div></div><div class="shell"><div class="st">06　参考答案与评分要点</div><table class="mtable"><thead><tr><th style="width:10%">题号</th><th style="width:10%">答案</th><th style="width:80%">解析与依据（v2026.2 校正后）</th></tr></thead><tbody><tr><td>练习 1</td><td><strong>-1</strong></td><td>答案：① ¥480.6；② ADR ¥667.5；③ OCC 77.8%；④ ADR ¥642.7、OCC 74.8%；⑤ 推荐路径 C。<br> 依据：《SPEC》二 · 2.3／2.4 ＋《法典》表 C<br> 解析：<br> ① 目标 RevPAR = 445 ×（1 ＋ 8%）= 445 × 1.08 = ¥480.6<br> ② 路径 A：OCC 维持 72.0% → ADR = 480.6 ÷ 72.0% = ¥667.5（较 ¥618 ↑8.0%）<br> 　约束：ARI = 667.5 ÷ 680 = 98.2 → 落「97–103 健康」，可行。ARI 上限：本店目标 ARI ≈100，且「103–110 略高」仍属可接受，对应 ADR 上限 = 680 × 1.10 = ¥748。667.5 &lt; 748，安全。<br> ③ 路径 B：ADR 维持 ¥618 → OCC = 480.6 ÷ 618 = 77.8%（较 72.0% ↑5.8 </td></tr><tr><td>练习 2</td><td><strong>-1</strong></td><td>答案：① 本店 ¥473.6，组合 ¥468.6；② MPI 104.2、ARI 97.0、RGI 101.1；③ 表 C「97–103 健康」→ 维持；表 D「100–110 健康」→ 维持；④ 见下。<br> 依据：《SPEC》三 · 3.1 ＋《法典》表 C ＋ 表 D<br> 解析：<br> ① 本店 RevPAR = 74.0% × 640 = ¥473.6；组合 RevPAR = 71.0% × 660 = ¥468.6<br> ② MPI = 74.0 ÷ 71.0 × 100 = 104.2；ARI = 640 ÷ 660 × 100 = 97.0；<br> 　RGI = 473.6 ÷ 468.6 × 100 = 101.1；交叉验算：MPI × ARI ÷ 100 = 104.2 × 97.0 ÷ 100 = 101.07 ≈ 101.1 ✓<br> ③ 表 C：ARI 97.0 落「97–103 健康」（97 为下限，含）→ 动作维持。<br> 　</td></tr><tr><td>练习 3</td><td><strong>-1</strong></td><td>答案：① 实绩 ¥413.0，目标 ¥444.0，差额 ↓¥31.0；② 量差 ↓¥24.00，价差 ↓¥7.00；③ 落「&gt;60 天」窗口（4 月 1 日距 Q2–Q4 均 &gt;60 天），落后 30% 以上才触发上报 L3——本例落后未达，但须按「每月 1 次」频率持续监控；④ 三条后续动作见下。<br> 依据：《法典》表 N ＋ 表 I ＋ 量差价差口径<br> 解析：<br> ① 3 月实绩 RevPAR = 70.0% × 590 = ¥413.0；目标 RevPAR = 74.0% × 600 = ¥444.0；<br> 　差额 = 413.0 − 444.0 = ↓¥31.0（↓7.0%）<br> ② 量差 =（OCC₁ − OCC₀）× ADR₀ =（70.0% − 74.0%）× 600 = −0.04 × 600 = ↓¥24.00<br> 　价差 =（ADR₁ − ADR₀）× OCC₁ =（590 − 600）× 70.0% = </td></tr></tbody></table><p><strong>评分口径</strong>　按 <code>v2026-2-exam-spec.html</code> 的 60 条 rubric：答案正确得基础分，写出依据表号与分母口径得满分，只写结论不写取舍理由扣一半；实操题双人评分，不一致时第三方复核。</p></div><div class="shell"><div class="st">07　教师提示 · 时间分配与三级深度</div><p><strong>课时 2 学时 / 90 分钟</strong>　导入 15 分 → 讲解 45 分 → 算例 15 分 → 练习与批改 11 分 → 小结与作业 4 分。</p><p><strong>本讲最常见的错法（来自表 C 的已知问题）</strong>　把 ARI 当作调价触发器，且 v1 母本同一段包含 RGI 少 ÷100 的错误；竞组 ADR 权重未定义，需求弹性与公开挂牌价边界缺位。</p><p><strong>例外与前置条件</strong></p><ul><li>表 C 与表 A 不得叠加执行。</li><li>竞组来源涉及第三方数据时须复核授权边界。</li></ul><p><strong>三级深度分层</strong></p><ol><li><strong>L1 执行层</strong>　会取数与执行：核对 本店 ADR 与竞组 ADR、竞组构成与权重，按表 C 产出动作，并按 13 字段写决策日志。</li><li><strong>L2 决策层</strong>　会解释与复算：说清「与表 A 结论冲突」为什么导出「按表 O 裁决：A 优先级 3 &gt; C 优先级 4，同一天只执行一条」，并用竞组 OCC 68.0% 复核指数。</li><li><strong>L3 治理层</strong>　会定目标与校准：以 净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控 评估结果，为表 C 设生效日、复审日与阈值校准记录，并说明异常日降级路径。</li></ol><p class="mini">板书建议：左写口径与分母，右写判定式，中间留净贡献复算区；涉及旧值时明确标 v1.0，涉及本版值时标 v2026.3。</p></div><div class="shell"><div class="st">08　课后作业与下讲预告</div><ol><li>用案例卡 C302 写 200 字诊断：列出决策人当时手上的三个数据，并说明净贡献口径下的结论。</li><li>补写式作业：第 3 集、第 4 集、第 13 集 的对白空位，按本讲判定式补全并注明依据表号。</li><li>完成题库 M11 模块本讲未抽到的剩余题目；错题按第 06 板块的解析订正，写清错在口径还是算术。</li></ol><p><strong>下一讲</strong>　常见误区：30 个坑，别再踩　·　需先预习：常见误区：30 个坑，别再踩 涉及的判定表与分母口径。</p></div></div></section><section class="lesson" id="lesson-32"><div class="lhead"><div class="no">LESSON 32　·　v2026.3</div><h2>第 32 讲　常见误区：30 个坑，别再踩</h2><div class="meta">第 32 讲 / 共 41 讲　·　第五篇 · 延伸篇　·　2 学时（90 分钟）　·　适用 L1 / L2 / L3　·　关联判定表 O/L　·　配套案例 C177　·　题库模块 M11</div></div><div class="lbody"><div class="shell"><div class="st">01　本讲学习目标</div><p><strong>教材原定目标</strong>　读完这章您能自查：这 30 个错误，您犯了几个。</p><p><strong>本讲结束后学生应能</strong></p><ol><li>说清本讲核心概念与分母、含税、币种口径（<code>O</code> 表输入：15 表两两冲突矩阵、需求等级日历）。</li><li>按表 O 的判定式完成一次课堂算例：按 15 表冲突矩阵唯一裁决；最高优先级为「维持」时顺延；冲突写入台账备注。</li><li>独立完成课堂练习三题，并按参考答案说明取舍理由。</li></ol><p class="mini">三级共用本讲，深度分层见第 07 板块；本讲已应用 v2026.2 校正：RM-11、RM-14、RM-15、SYS-15。</p></div><div class="shell"><div class="st">02　导入情境 · 真实案例卡 C177</div><p><strong>凌晨 2 点到店的客人，房晚算今天还是明天？</strong>　<span class="mini">类型 业态 / 难度 入门</span></p><p>机场酒店最大的口径问题：凌晨到店。某店规定凌晨 2 点后到店算次日房晚，结果：① 客人 23:50 下单“今晚”，01:30 到店 → 前台按“次日”入账，当天报表少 1 间夜、次日多 1 间夜，OCC 天天对不上；② 更严重的是库存计算错误：系统以为当晚还有房（因为凌晨单算次日），实际已被占用 → 出现重复预订。该店最终定了三条规则：① PMS 里“营业日”统一为 凌晨 4:00 切日（而非 0:00 或 2:00）；② 凌晨到店单在 OTA 上默认售“…</p><p><strong>课堂提问</strong>　① 这个情境里，决策人手上有哪些数据？② 如果只看出租率会做出什么动作？③ 换成净贡献口径，结论会不会变？</p><p class="mini">案例卡原文见 <a href="../cases-lib.html">案例库</a>；母本正文另有「案例导入」小节，两者配合：本卡用于开场讨论，母本案例用于讲解推进。</p></div><div class="core"><div class="ct">03　核心讲解 · 教材正文全文（v2026.3 校正版）</div>
+<div class="grid2">
+  <div class="pc"><b>学完这章你能</b><p>读完这章您能自查：这 30 个错误，您犯了几个。</p></div>
+  <div class="pc"><b>本章口诀</b><p class="key">读完这章您能自查：这 30 个错误，您犯了几个。</p></div>
+</div>
+
+<h4>① 思维导图</h4>
+<div class="box mind"><svg viewBox="0 0 820 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto"><rect x="16" y="49.0" width="230" height="52" rx="10" fill="#0f2a4a"/><text x="131" y="81.0" fill="#fff" font-size="15" font-weight="700" text-anchor="middle">常见误区：30 个坑，别再踩</text><path d="M246 75 C 320 75, 330 75.0, 402 75.0" fill="none" stroke="#9bb2cc" stroke-width="1.6"/><rect x="402" y="60.0" width="392" height="30" rx="8" fill="#eef4fa" stroke="#c9d9e8"/><text x="416" y="80.0" fill="#1f3550" font-size="13">本章主线</text><circle cx="402" cy="75.0" r="3.4" fill="#1d6fb8"/></svg></div>
+
+<h4>② 案例导入</h4>
+<div class="story"><div class="who">为什么用误区收尾</div>
+<p>这一章不讲故事了——因为下面每一条，都是真实工作中反复出现的错误。</p>
+<p>学完整本书，最容易发生的不是"不会做"，而是<b>慢慢变形</b>：判定表不用了、记录不写了、又开始凭感觉。</p>
+<p><b>建议每过一个月回来对照一遍。</b>把犯过的画上记号，三个月后您会知道自己的薄弱点在哪。</p>
+</div>
+
+<details class="sub"><summary>③ 正文全文（0 个决策现场 · 含判定与留痕）</summary><div><div>
+<div class="promise">读完这章您能自查：这 30 个错误，您犯了几个。</div>
+
+<div class="story"><div class="who">为什么用误区收尾</div>
+<p>这一章不讲故事了——因为下面每一条，都是真实工作中反复出现的错误。</p>
+<p>学完整本书，最容易发生的不是"不会做"，而是<b>慢慢变形</b>：判定表不用了、记录不写了、又开始凭感觉。</p>
+<p><b>建议每过一个月回来对照一遍。</b>把犯过的画上记号，三个月后您会知道自己的薄弱点在哪。</p>
+</div><p><b>怎么用这一章：</b>不要把它当成"读一遍就懂"的清单。<br>建议的做法是：<b>每月最后一天花 15 分钟，对照六项自检逐条打勾。</b><br>三个月后您会发现，自己反复犯的就那么两三样——<b>那就是您的薄弱点，也是您最该投入的地方。</b><br>学习收益管理最大的陷阱，是以为"知道"就等于"做到"。这 30 条误区，就是"知道"与"做到"之间的那道沟。</p>
+
+
+<div class="gv"><div class="gvt">国际视角 · 全球共同的误区</div>
+<p>国际教材与 HSMAI 课程反复纠正的误区，与本地实践高度重合，主要有几条：<b>把收益管理等同于涨价</b>（它管理的是价格与库存两项）、<b>只看 RevPAR</b>（漏掉非房收入与利润）、<b>把预测当成一次性答案</b>（预测是循环，必须算误差）、<b>渠道只看挂牌价</b>（应看净价）、<b>认为系统能替代判断</b>（系统不承担后果）。</p>
+<p>另一条国际上的高频误区是<b>把折扣当作促销工具</b>：没有栅栏的折扣会直接侵蚀高价客源，短期出租率好看，长期价格体系被磨平。</p>
+<p><b>对照本章：</b>本书列出的误区与国际清单高度一致，说明这些坑具有跨市场的共性——它们来自方法本身，而非某个市场的特殊性。</p></div><h4>一、指标类误区</h4>
+<div class="pts"><ol>
+<li><b>把出租率当目标</b>——出租率是手段，RevPAR 是结果，GOP 才是目的。</li>
+<li><b>用平均房价代替实际到手价</b>——必须扣渠道佣金看净价。</li>
+<li><b>只看自己不看市场</b>——市场普跌时您跌得少，就是赢（看 RGI）。</li>
+<li><b>用单一年份算月指数</b>——要用 2–3 年加权并剔除异常年。</li>
+<li><b>竞争群随手选</b>——选错对标对象，三个指数全是假的。</li>
+<li><b>用 RevPAR 代替利润</b>——收入涨、利润跌的情况很常见。</li>
+</ol></div>
+
+<h4>二、定价类误区</h4>
+<div class="pts"><ol start="7">
+<li><b>把收益管理等同于涨价</b>——是"该低时低得下去、该高时守得住"。</li>
+<li><b>降价不带栅栏</b>——等于永久降价，还会让高价客下移。</li>
+<li><b>降了就涨不回去</b>——价格一旦下去，恢复极难。</li>
+<li><b>竞品降价就跟着降</b>——先看原因，首选加价值而非降价格。</li>
+<li><b>价格低于变动成本还在卖</b>——卖一间亏一间。</li>
+<li><b>公开价高于协议/会员价</b>——违反公平性，引发投诉。</li>
+<li><b>价格档位越加越多</b>——每一档都是漏洞。</li>
+</ol></div>
+
+<h4>三、库存类误区</h4>
+<div class="pts"><ol start="14">
+<li><b>超售拍脑袋</b>——必须按历史取消与 No-show 率算，并留缓冲。</li>
+<li><b>旺季不设保护位</b>——低价早早卖光，高价客来了没房。</li>
+<li><b>保护位定死不释放</b>——临近时高价需求没来，也不放开，白白空房。</li>
+<li><b>不设房型价差或价差过小</b>——所有人都挤在高房型，酒店少赚。</li>
+<li><b>接团不算置换损失</b>——出租率上去、收入下来。</li>
+<li><b>"先卖掉再说"</b>——这是库存分配最常见的失败模式。</li>
+</ol></div>
+
+<h4>四、流程类误区</h4>
+<div class="pts"><ol start="20">
+<li><b>只盯今天不盯未来</b>——能管的是预订曲线，不是当天结果。</li>
+<li><b>事件日当天才知道</b>——不建需求日历，等于放弃最容易赚的钱。</li>
+<li><b>临时改价不留记录</b>——无法复盘，也无法归因。</li>
+<li><b>不开收益例会</b>——靠临时救火，永远被动。</li>
+<li><b>销售现场放价绕过收益岗</b>——价格体系最大的漏洞。</li>
+<li><b>预算平均分成十二份</b>——必须用月指数。</li>
+<li><b>只看日报不做年月</b>——方向从未被校准。</li>
+</ol></div>
+
+<h4>五、认知类误区</h4>
+<div class="pts"><ol start="27">
+<li><b>以为上了系统就解决问题</b>——系统只是放大器。</li>
+<li><b>以为收益管理只是收益岗的事</b>——需要前厅、销售、市场、财务配合。</li>
+<li><b>以为收益管理只在酒店有用</b>——所有易逝产能行业都适用。</li>
+<li><b>产品口碑落后时猛降价</b>——先修评分，降价是最贵的解法。</li>
+<li><b>用"填满房"当成绩</b>——填满不值得填的房，是负资产。</li>
+<li><b>追求 100% 出租率</b>——旺季应追求收入最大化，不是住满。</li>
+<li><b>把客源细分当贴标签</b>——不配栅栏的细分等于没分。</li>
+<li><b>认为预测没用</b>——预测精度就是收益管理的天花板。</li>
+</ol></div>
+
+<div class="judge"><div class="jt">月度自检 · 六项检查（每月一次，对照本书）</div>
+<table>
+<tr><td>指标口径</td><td>是否用 RevPAR / RGI / 净价，而非出租率 / 平均房价</td></tr>
+<tr><td>价格体系</td><td>BAR 是否唯一、各渠道是否同价、前台能否现场放价（第 22 章）</td></tr>
+<tr><td>栅栏</td><td>每个低价档是否都有条件限制（第 7、10 章）</td></tr>
+<tr><td>流程</td><td>是否有日报/周报/月报、例会、留痕（第 18、19、23 章）</td></tr>
+<tr><td>前置动作</td><td>需求日历是否更新、事件日是否提前布价（第 20、28 章）</td></tr>
+<tr><td>成本底线</td><td>是否知道每间房的变动成本（第 26 章）</td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>用法：</b>每月最后一天花 15 分钟过这六项。<b>任一项不合格，下月第一件事就是补它。</b></div></div><h4>填表示例 · 一次完整的月度自检</h4><div class="judge"><div class="jt">场景：月末 15 分钟，逐项打勾</div>
+<table>
+<tr><td>指标口径</td><td>本月汇报用了 RevPAR 与 RGI → ✓；仍有人只报出租率 → △</td></tr>
+<tr><td>价格体系</td><td>BAR 唯一、各渠道同价 → ✓；前台仍可现场改价 → <b>✗ 待改</b></td></tr>
+<tr><td>栅栏</td><td>两个促销都有限制条件 → ✓</td></tr>
+<tr><td>流程</td><td>日报 28 天、例会 4 次 → ✓；记录完整 → ✓</td></tr>
+<tr><td>前置动作</td><td>日历更新 4 次 → ✓；事件日提前布价 2 次 → <b>△ 偏少</b></td></tr>
+<tr><td>成本底线</td><td>已知变动成本 130 → ✓</td></tr>
+<tr><td><b>本月结论</b></td><td><b>下月第一件事：收回前台改价权限；第二件事：加强事件日提前布价</b></td></tr>
+</table>
+<div class="ex" style="font-size:13px;color:#3a4b60;margin-top:8px"><b>结论：自检的价值在最后一行——把"发现的问题"变成"下月的第一件事"。</b><br>只打勾不改进行动的自检，和没做一样。</div></div>
+
+<div class="tip"><b>自学者提示：</b>把这 30 条打印出来贴在桌上。<b>每犯一次就在后面画一笔</b>——三个月后您会知道自己的薄弱点在哪。这比再读一遍书有用。</div>
+
+<div class="ex" id="ex32"><div class="et">练习（全书综合）</div><ol>
+<li>挑出您最容易犯的三条误区，说明原因。</li>
+<li>用第 1 章判定表判断您所在（或实习）的酒店是否具备做收益管理的条件。</li>
+<li>为某一天写一份完整的收益决策记录（看数 → 判断 → 动作 → 留痕）。</li>
+<li>用本章的月度自检六项，给自己所在的团队打分。</li>
+<li>用一句话向一个外行解释：收益管理到底是什么。（提示：回到第 1 章）</li>
+<li>不看目录，默写出五篇的名称与各自解决的问题。</li></ol></div>
+<h4>全书收束 · 一张图回忆 41 章</h4><div class="pts"><ol>
+<li><b>第一篇·认知</b>（1–4）：是什么（机会成本）、怎么衡量（RevPAR）、相对位置（RGI）、弹性（该不该降）。</li>
+<li><b>第二篇·决策</b>（5–16）：定价（涨/跟/折/套餐）、库存（价差/限制/超售/保护位）、客源渠道（净价/细分/置换/直销）。</li>
+<li><b>第三篇·运营</b>（17–24）：五层节奏 → 每日四阶段 → 执行标准与例会 → 预测与日历 → 预算 → BAR → 报表 → 评分。</li>
+<li><b>第四篇·组织</b>（25–28）：谁来做（授权）、底线在哪（成本）、靠什么做（系统）、淡旺与事件日。</li>
+<li><b>第五篇·延伸</b>（29–32）：餐饮、会议、跨行业、误区自检。</li>
+</ol></div>
+<div class="tip"><b>如果只能记住三句话：</b><br>
+① <b>卖与不卖，比的都是机会成本</b>（第 1 章）——这是全部决策的根。<br>
+② <b>先动可得性，后动价格</b>（第 5、10 章）——可得性更精准、代价更小。<br>
+③ <b>每个决策都要能指到判定表的某一行</b>（第 19 章）——指不到，就是在凭经验。<br>
+<b>学完这本书，您最大的变化不该是"会调价"，而是"不再凭感觉"。</b></div>
+<div class="tip"><b>给教师的话（如果您用这本书上课）：</b><br>
+① <b>不要按 1→41 章顺序讲</b>。建议先用开篇两张图讲清全貌，再按"认知→决策→运营"推进，组织与延伸可选择性讲。<br>
+② <b>每章的"填表示例"就是最好的课堂活动</b>——让学生分组逐行勾选，再对照结论。<br>
+③ <b>每章末尾的"本章小结 5 条"可作为复习提纲</b>，课前默写、课后对照。<br>
+④ <b>练习 8 题分层</b>：基础 5 题用于课后，进阶 3 题用于课堂讨论或小组作业。<br>
+⑤ <b>判定表可当考核工具</b>：让学生就一个真实场景填表并说明依据——答案不唯一，但必须能指到某一行。<br><br>
+<b>给自学者的话：</b>如果您没有老师，按"第一篇打底 → 第二篇查工具 → 第三篇学流程"的顺序读。每读完一章，做一遍练习再对答案；错的回到该章判定表复核。<b>这本书的设计前提，就是"没有老师也能读懂"。</b></div>
+<div class="rv-wrap">
+<h3 id="toc-20" class="rv-h">本篇回顾 · 第五篇 · 延伸篇</h3>
+<svg viewBox="0 0 700 72" width="100%" height="72" style="display:block;margin:10px 0"><rect x="0.0" y="8" width="164.5" height="42" rx="5" fill="#0f2a4a" stroke="none"/><text x="82.2" y="27" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">餐饮</text><text x="82.2" y="43" text-anchor="middle" font-size="11" fill="#dbe9f5">29 · RevPASH 与翻台</text><path d="M 165.5 29 L 175.5 29" stroke="#e8b84b" stroke-width="2" fill="none"/><path d="M 176.5 29 l -5 -4 l 0 8 Z" fill="#e8b84b" stroke="none"/><rect x="178.5" y="8" width="164.5" height="42" rx="5" fill="#1d6fb8" stroke="none"/><text x="260.8" y="27" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">会议宴会</text><text x="260.8" y="43" text-anchor="middle" font-size="11" fill="#dbe9f5">30 · 算总贡献</text><path d="M 344.0 29 L 354.0 29" stroke="#e8b84b" stroke-width="2" fill="none"/><path d="M 355.0 29 l -5 -4 l 0 8 Z" fill="#e8b84b" stroke="none"/><rect x="357.0" y="8" width="164.5" height="42" rx="5" fill="#2b8ac9" stroke="none"/><text x="439.2" y="27" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">其他业态</text><text x="439.2" y="43" text-anchor="middle" font-size="11" fill="#dbe9f5">31 · 参数迁移</text><path d="M 522.5 29 L 532.5 29" stroke="#e8b84b" stroke-width="2" fill="none"/><path d="M 533.5 29 l -5 -4 l 0 8 Z" fill="#e8b84b" stroke="none"/><rect x="535.5" y="8" width="164.5" height="42" rx="5" fill="#3f9fd6" stroke="none"/><text x="617.8" y="27" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">收束</text><text x="617.8" y="43" text-anchor="middle" font-size="11" fill="#dbe9f5">32 · 30 个坑</text><text x="350.0" y="68" text-anchor="middle" font-size="12" font-style="italic" fill="#5a6a80">延伸篇做两件事：把方法迁移出客房（29–31），再把全书收束成一张可复述的清单（32）</text></svg>
+<table class="rv-t"><tr><th style="width:88px">章</th><th>这一章解决什么</th></tr>
+<tr><td><b>29</b></td><td>餐饮收益：RevPASH 与翻台——把「每座位每小时收益」当指标，用时段定价与时长管理替代一味提价</td></tr>
+<tr><td><b>30</b></td><td>会议宴会：不只算房，算总贡献——场地 + 餐饮 + 客房的打包贡献与机会成本</td></tr>
+<tr><td><b>31</b></td><td>其他业态与跨行业参数：同一套判据换参数即可迁移（易逝性、成本结构、可预测性、弹性分化）</td></tr>
+<tr><td><b>32</b></td><td>常见误区 30 个坑：全书收束；如果只能记住三句话——机会成本、先动可得性、指到判定表某行</td></tr>
+</table>
+<div class="rv-qh">本篇自测（先别翻答案，能答出三条即算掌握本篇）</div>
+<ol class="rv-q">
+<li><div class="rv-qq">餐饮为什么不直接用 RevPAR？</div><div class="rv-aa">答：餐饮的产能是「座位 × 时段」，不是「房间 × 夜」。对应指标是 RevPASH（每可用座位每小时收益），抓手是翻台率与时段定价，而不是简单提价。</div></li>
+<li><div class="rv-qq">一场会议报价，怎么判断值不值得接？</div><div class="rv-aa">答：算总贡献：场地 + 餐饮 + 客房 + 其他消费，扣变动成本；再减去被占用的客房与场地的机会成本。单看场地收入或单看房价都会算错。</div></li>
+<li><div class="rv-qq">这套方法能用到酒店之外吗？判据是什么？</div><div class="rv-aa">答：看四个条件：库存是否易逝、是否高固定低变动、需求是否可预测、支付意愿是否分化。四个都成立即可迁移（航空、租车、影院、球场、医美时段等）。</div></li>
+<li><div class="rv-qq">学完全书，如果只能记住三句话，是哪三句？</div><div class="rv-aa">答：① 卖与不卖比的是机会成本，不是能卖多少；② 先动可得性，后动价格；③ 任何决定都要能指到判定表的某一行，说不出依据的决定不算决定。</div></li>
+<li><div class="rv-qq">怎么检验自己真的学会了？</div><div class="rv-aa">答：合上目录，默写出五篇及其回答的问题；再任取一个真实场景，能独立填出对应的判定表并说明依据。做到这两点，才算提纲挈领。</div></li>
+</ol>
+<div class="rv-link">全书正文到此结束。后面是四个工具性附录（判定表索引 / 练习答案 / 术语表 / 题库索引）与两个新增附录（综合实训 / 全书一页纸总览）。建议先把附录 F 的「一页纸总览」读一遍，再回头补薄弱章节。</div>
+</div>
+<div class="app"><h3 id="appA">附录 A · 判定表全集索引（按篇章结构编排）</h3>
+<p>全书 32 章各有一张判定表，共 32 张。下面按<b>五篇结构</b>编排，并标注"我要决定的事"——工作时可直接按场景查。</p>
+<table>
+<tr><th>所在位置</th><th>我要决定的事</th><th>章</th></tr>
+<tr><td colspan="3" style="background:rgba(232,184,75,.2);color:#e8b84b;font-weight:800">第一篇 · 认知篇</td></tr>
+<tr><td>本质与衡量</td><td>这个生意要不要做收益管理</td><td>1</td></tr>
+<tr><td>本质与衡量</td><td>用哪个指标评价经营</td><td>2</td></tr>
+<tr><td>本质与衡量</td><td>RGI 不达标怎么归因</td><td>3</td></tr>
+<tr><td>本质与衡量</td><td>该不该降这一档价</td><td>4</td></tr>
+<tr><td colspan="3" style="background:rgba(232,184,75,.2);color:#e8b84b;font-weight:800">第二篇 · 决策篇</td></tr>
+<tr><td>模块 A 定价</td><td>今天要不要涨价</td><td>5</td></tr>
+<tr><td>模块 A 定价</td><td>竞品降价跟不跟</td><td>6</td></tr>
+<tr><td>模块 A 定价</td><td>这个折扣该不该做</td><td>7</td></tr>
+<tr><td>模块 A 定价</td><td>套餐设计是否合格</td><td>8</td></tr>
+<tr><td>模块 B 库存</td><td>房型价差合不合理</td><td>9</td></tr>
+<tr><td>模块 B 库存</td><td>要不要设 MinLOS / CTA / CTD</td><td>10</td></tr>
+<tr><td>模块 B 库存</td><td>超售超多少</td><td>11</td></tr>
+<tr><td>模块 B 库存</td><td>低价能卖几间（保护位）</td><td>12</td></tr>
+<tr><td>模块 C 客源渠道</td><td>这个渠道给多少量</td><td>13</td></tr>
+<tr><td>模块 C 客源渠道</td><td>客源结构是否健康</td><td>14</td></tr>
+<tr><td>模块 C 客源渠道</td><td>这个团接不接</td><td>15</td></tr>
+<tr><td>模块 C 客源渠道</td><td>直销怎么做才有效</td><td>16</td></tr>
+<tr><td colspan="3" style="background:rgba(232,184,75,.2);color:#e8b84b;font-weight:800">第三篇 · 运营篇</td></tr>
+<tr><td>模块 D 节奏与流程</td><td>各周期该做什么（年/季/月/周/日）</td><td>17</td></tr>
+<tr><td>模块 D 节奏与流程</td><td>一天的完整时间轴与红线</td><td>18</td></tr>
+<tr><td>模块 D 节奏与流程</td><td>执行是否合格 · 例会标准议程</td><td>19</td></tr>
+<tr><td>模块 E 计划与支撑</td><td>需求日历怎么用</td><td>20</td></tr>
+<tr><td>模块 E 计划与支撑</td><td>预算做得对不对</td><td>21</td></tr>
+<tr><td>模块 E 计划与支撑</td><td>价格体系是否健康</td><td>22</td></tr>
+<tr><td>模块 E 计划与支撑</td><td>报表是否合格</td><td>23</td></tr>
+<tr><td>模块 E 计划与支撑</td><td>点评与收益的关系</td><td>24</td></tr>
+<tr><td colspan="3" style="background:rgba(232,184,75,.2);color:#e8b84b;font-weight:800">第四篇 · 组织篇</td></tr>
+<tr><td>组织与支撑</td><td>收益职能是否真落地</td><td>25</td></tr>
+<tr><td>组织与支撑</td><td>这个价能不能卖（成本底线）</td><td>26</td></tr>
+<tr><td>组织与支撑</td><td>该不该上系统</td><td>27</td></tr>
+<tr><td>组织与支撑</td><td>当前该用淡季还是旺季打法</td><td>28</td></tr>
+<tr><td colspan="3" style="background:rgba(232,184,75,.2);color:#e8b84b;font-weight:800">第五篇 · 延伸篇</td></tr>
+<tr><td>迁移与自查</td><td>餐饮收益动作</td><td>29</td></tr>
+<tr><td>迁移与自查</td><td>会议该不该接（综合贡献）</td><td>30</td></tr>
+<tr><td>迁移与自查</td><td>这个行业能不能用</td><td>31</td></tr>
+<tr><td>迁移与自查</td><td>月度自检（30 条误区）</td><td>32</td></tr>
+</table><h3 id="appB">附录 B · 练习答案</h3><p>按<b>新章号</b>编排。建议做完一章练习再对答案，错题回到该章判定表复核。</p><p><b>第 1 章</b></p><ol>
+<li>下午场需求弱、晚场需求强，且座位产能易逝（一场卖不掉即归零），属典型的时段差别定价。</li>
+<li>原 100 间×60%×400 = 24,000；新 100×70%×360 = 25,200 → <b>收入上升</b>。</li>
+<li>如：家电制造（产能可储存、可扩产）、粮食贸易——不需要收益管理。</li><li>逐项勾选：① 产能易逝 ✓（一个时段没客人即归零）；② 产能固定 ✓（工位与理发师短期固定）；③ 需求波动 ✓（周末与下班后高峰、工作日上午清淡）；④ 客群分层 △（有会员价与老人优惠，但差异不如酒店明显）；⑤ 可提前预订 ✓；⑥ 固定成本为主 ✓；⑦ 历史数据 通常较少 △；⑧ 能否拒绝生意 ✗（客人到店即需服务）。<b>结论：可适用部分方法（时段定价、闲时引导、预约配额），但难以做复杂的保护位与预测。</b></li>
+<li>因为填满往往靠低价，而这些房本可以留给愿意付更高价的客人。若降价 300 元卖出 40 间、而这 40 间本可卖 500，就损失 8,000 元潜在收入；更糟的是，低价会<b>拉低客人对这家酒店的价格预期</b>，之后涨回去极难（价格黏性，第 6 章）。</li>
+<li><b>参考答法：</b>"收益管理是把会过期的东西，在它还值钱的时候卖给最需要它的人。"降价填满的错误在于：这 40 间本可留给愿意付更高价的客人，低价卖掉等于把差额白白送人——前提是高价需求有足够概率出现（第 12 章）。</li>
+<li>若这 40 间本可以 500 卖出，机会成本 = 40 ×(500−200) = <b>12,000 元</b>。若高价需求出现概率只有 50%，期望机会成本 = 40×300×50% = <b>6,000 元</b>。<b>关键：要乘概率，不能只看差价。</b></li>
+<li>开放题。参考：酒店房晚、电影院座位、会议室时段、停车场车位、健身房团课名额。<b>判定标准：是否易逝、短期固定、需求波动、客群可分层。</b></li></ol><p><b>第 2 章</b></p><ol>
+<li>OCC = 84/120 = 70%；ADR = 380；RevPAR = 70%×380 = 266。</li>
+<li>OCC = RevPAR ÷ ADR = 300/400 = 80%。</li>
+<li>设原 OCC 为 x，需 x'×450 = x×500 → 出租率需提升 11.1% 相对值（如原 60% 需升到 66.7%）。</li><li>A 店 = 80%×400 = <b>300</b>；B 店 = 60%×550 = <b>330</b>。<b>B 店更高</b>——它出租率低 20 个百分点，但房价高 150。<b>再次说明：不能只看出租率。</b></li>
+<li>因为出租率只能通过"多卖房"提升，而最快的多卖方式就是降价。<b>考核出租率＝鼓励低价甩房</b>，会同时拉低 ADR 与 RevPAR。应改考核 <b>RevPAR 或 RGI</b>（第 2 章填表示例）。</li>
+<li>上月 RevPAR = 82%×450 = <b>369</b>；本月 = 76%×510 = <b>387.6</b>。本月出租率低 6 个点，但 <b>RevPAR 高 18.6（+5%）→ 本月更好</b>。</li>
+<li>因为出租率只能通过"多卖房"提升，而最快的多卖方式就是降价。<b>考核什么就得到什么</b>——考核出租率必然诱发低价甩房，进而拉低 ADR 与 RevPAR（第 2 章案例二）。</li>
+<li>现 RevPAR = 65%×600 = 390。降价后 ADR 540，需 OCC ≥ 390/540 = <b>72.2%</b>（即从 65% 提升 <b>7.2 个百分点</b>，相对提升约 11.1%）。</li></ol><p><b>第 3 章</b></p><ol>
+<li>MPI = 65/75 = 86.7%；ARI = 480/400 = 120%；RGI ≈ 86.7%×120% = 104 → <b>量不够但价有优势，整体达标</b>，应补渠道与客流。</li>
+<li>量低于市场，但靠高房价把 RGI 拉到 105 —— <b>靠价补量</b>，需警惕量持续下滑。</li>
+<li>竞争群是分母。分母错了，三个指数全部失真，据此做的决策也会错。</li><li>设市场原 100、您原 100（RGI 100）。市场跌 20% → 80；您跌 15% → 85。<b>RGI = 85/80 = 106 → 上升</b>。<b>您跌了，但跑赢了市场——这就是赢。</b></li>
+<li>MPI 110（量很好）、ARI 85（价很低）→ <b>优先提价</b>。量已不是问题，继续促销只会让 ARI 更低。动作：关低价档、收紧协议价、用套餐替代裸降价（第 3 章填表示例）。</li>
+<li>RGI：上月 400/420 = 95；本月 410/450 = <b>91</b>。<b>您的 RevPAR 涨了，但相对位置退步了</b>——市场涨得更快。</li>
+<li>MPI 105（量好）、ARI 88（价低）→ <b>优先提价</b>。补量已不是问题。动作：① 关低价档；② 收紧协议价；③ 用套餐替代裸降价（第 8 章）；④ 加 MinLOS（第 10 章）。</li>
+<li>因为 RevPAR 是绝对值，市场普涨时您涨得慢也会"看起来在涨"。<b>只有 RGI 能反映您在市场中是进是退</b>（第 3 章）。</li></ol><p><b>第 4 章</b></p><ol>
+<li>降 15% → 需量涨超过 1/0.85 − 1 = 17.6%。</li>
+<li>原 100×500 = 50,000；新 130×400 = 52,000 → <b>上升 4%</b>。</li>
+<li>它给低价附加了"时间承诺"和"不可反悔"的代价，时间敏感的高价客不愿接受这些条件，因此不会下移。</li><li>降 25% → 需量涨超过 1/(1−0.25) − 1 = <b>33.3%</b> 才回本。若量只能涨 20%，跟降就是亏的（收入变动 = 1.20×0.75 − 1 = −10%）。</li>
+<li>参考三条：① <b>加赠早餐</b>（成本约 30，客人感知约 88）；② <b>免费房型升级券</b>（成本约 20，感知约 150）；③ <b>延迟退房 / 会员积分加倍</b>（成本近乎 0，感知 50–100）。<b>合计成本约 50，可对冲约 150 的价差感知。</b></li>
+<li>收入变动 = 1.30 × 0.75 − 1 = <b>−2.5%</b> → <b>不划算</b>（还差一点：需量涨超 33.3% 才回本）。</li>
+<li>步骤：① 选一个代表性时段（如 3 个连续淡季周末）；② 只在限定渠道、限量放出带栅栏的折扣；③ 统计新增间夜；④ 计算弹性 = 量变动% ÷ 价变动%；⑤ 若弹性 &gt;1 则可做，但必须保留栅栏。</li>
+<li>提前 21 天对商务客（通常提前 1–3 天订）几乎不可用，因此<b>筛选力度更强</b>；提前 7 天仍可能被临时出差的商务客使用。<b>栅栏越严，buy-down 越少</b>（第 7 章算例 3）。</li></ol><p><b>第 5 章</b></p><ol>
+<li>不该涨。在手高但 pickup 慢，可能是团队虚高或预订集中在早期，需先看构成再决定。</li>
+<li>保守。剩 1 天时高价客出现的概率已很低，宁可卖掉也不要空房。</li>
+<li>关低价档不改变公开价，客人感知不到"被宰"，只是可选房型变少；直接提价则会影响口碑与转化。</li><li><b>一般不宜再涨。</b>判定表第 4 行：已高于竞品 15% 以上 → 再涨会流失。此时应停在可得性动作（关低价档、加限制），而不是继续提价；除非您能说明产品力明显更强（评分、位置）。</li>
+<li><b>立即回撤。</b>pickup 是市场对您定价的直接反馈。正确顺序是"小步调 → 观察 24 小时 → 变慢即回撤"，不要硬扛到入住日（第 5 章三要点第 3 条）。</li>
+<li>在手 ✓（高 30%）；pickup ✗（慢）；剩 12 天 ✓。<b>缺第二条 → 不涨。</b>在手高但 pickup 慢，常见于"早期一个大团队撑起了在手"，散客后劲不足，涨价只会把散客吓走。</li>
+<li>因为一次涨到位会<b>失去观察市场反应的机会</b>。分档小步调可以：① 每步后看 pickup；② 变慢就停或回撤；③ 避免因一次判断失误造成不可逆损失（第 5 章案例三）。</li>
+<li><b>应该回撤。</b>pickup 是市场对您定价的直接反馈，硬扛到入住日通常导致空房。<b>正确顺序：小步调 → 观察 24 小时 → 变慢立即回撤。</b>把"判断正确"与"市场接受"分开验证。</li></ol><p><b>第 6 章</b></p><ol>
+<li>需量涨超过 1/0.7 − 1 = <b>42.9%</b>。</li>
+<li>通常 3–6 个月（爬坡期后会回调价格）。此时跟价得不偿失。</li>
+<li>客人会形成价格锚点，且竞品与平台记录会固化您的低价形象，恢复原价会大量流失。</li><li>说明<b>您并没有真正丢量</b>——客人在比价，但多数最终仍选择您（通常因评分、位置或会员权益更优）。销售感到的"客人在问价"是真实现象，但<b>问价 ≠ 流失</b>。<b>用 MPI 判断，不用感受判断。</b></li>
+<li>参考：① 维持公开价不动；② 加赠早餐（成本 30）+ 升级券（20）+ 延迟退房（0），成本约 50，客人感知约 +150；③ 官网会员专享（限量、提前 7 天不可退）作为第二层；④ 观察 4 周 MPI。<b>成本约为跟降的一半，且价格体系完好。</b></li>
+<li>MPI 103 说明<b>实际没有丢量</b>——客人在比价，但最终仍选择您（通常因评分或位置）。销售感到的"客人在问价"是真实现象，但<b>问价不等于流失</b>。用 MPI 判断，不用感受判断。</li>
+<li>参考方案：① 维持公开价不动；② 加赠早餐（成本 30）+ 升级券（20）+ 延迟退房（0），成本约 50，客人感知价值约 +150；③ 官网会员专享（限量、提前 7 天不可退）作为第二层；④ 观察 4 周 MPI。预期：成本约为跟降的一半，且价格体系完好。</li>
+<li>因为<b>观察的成本几乎为零</b>（只需每周看一次 MPI），而<b>冲动跟降的成本可能是一整年</b>——价格一旦下移，恢复极难（价格黏性）。两周的数据足以区分"真丢量"与"只是紧张"。</li></ol><p><b>第 7 章</b></p><ol>
+<li>无栅栏，所有客人（含全价客）都能拿到，等于永久降价且不可逆。</li>
+<li>原本愿意付全价的客人也享受了折扣，这部分损失就是 buy-down。靠栅栏（提前期/不可退/会员）避免。</li>
+<li>参考：官网会员专享、提前 7 天预订、不可取消、限量 50 间、限工作日。</li><li>表面成本 = 80×120 = 9,600；buy-down 损失 = 80×50 = 4,000。<b>真实成本 = 13,600 元。</b>（若加栅栏使 buy-down 降到 15 间，真实成本降为 9,600 + 1,200 = 10,800。）</li>
+<li>因为提前 21 天对<b>商务客几乎不可用</b>（他们通常提前 1–3 天订），筛选力度更强；提前 7 天仍可能被临时出差的商务客使用。<b>栅栏越严，buy-down 越少</b>——第 7 章算例 3 显示，三重栅栏可使真实成本下降 23%。</li>
+<li>参考方案：改为"<b>每年 6 间、需提前申请、仅限本人及直系亲属、房价不打折但含双早与延迟退房</b>"。既保留福利感知，又不产生低于 BAR 的裸价，且数量可控、可追溯。</li>
+<li>让利 100 × 200 = 20,000（表面）；其中 70 间本会全价购买 → buy-down 损失 70 × 100 = 7,000。<b>真实成本 = 27,000 元。</b>（对比：若有栅栏使 buy-down 降到 20 间，真实成本仅 22,000）。</li>
+<li>因为<b>损失取决于"多少间享受了折扣"，不是"打了多少折"</b>。一个 5 折但只有 5 间房量的促销，损失可能远小于一个 9 折但不限量的促销。<b>控制剂量比控制幅度更有效。</b></li></ol><p><b>第 8 章</b></p><ol>
+<li>参考定价 680–700（房价 500 + 感知价值 188 的约六到七折），成本仅 530。</li>
+<li>低于纯房价等于变相降价，会侵蚀 BAR 与价格体系。</li>
+<li>客人靠对比判断贵贱。先展示更高价选项（套房/含更多权益），中价就显得合理。预订页应把最贵选项放在首位。</li><li>利润空间 = 套餐价 − 房价 − 附加成本 = 720 − 600 − 60 = <b>60 元/间</b>。<b>注意还要校验"拆开算"：若附加项市价合计 &gt; 120，则客人拆开更贵，设计合格；否则需提价。</b></li>
+<li>因为套餐一旦常态化，就失去了稀缺性，<b>变成新的"正常价"</b>——既不再有促销效果，又把客人锚定在低价上。<b>套餐应有期限或限量（第 8 章七项判定第 5 行）。</b></li>
+<li><b>不合格。</b>拆开算：600（房）+ 176（早市价）= 776 &gt; 700 → 客人拆开更贵？不，776 &gt; 700 意味着<b>套餐比拆开便宜 76</b> → 客人可以通过"订套餐"变相获得低于 BAR 的房价（相当于房价降到约 524）。<b>违反"套餐价不可低于拆算值"的原则，应提价到 730 以上。</b></li>
+<li>因为堆砌会增加<b>成本</b>却未必增加<b>感知价值</b>。客人只会对 2–3 项有明确感知；多余的项目提高了成本、拖慢出餐，还让套餐显得复杂难懂。<b>精选高感知项优先。</b></li>
+<li>因为<b>锚定效应</b>——客人靠对比判断贵贱。先展示最贵的，后面的选项显得合理甚至便宜；若从便宜的开始，客人会一路选最便宜的。<b>展示顺序本身就是定价工具。</b></li></ol><p><b>第 9 章</b></p><ol>
+<li>标准→豪华：60/400 = 15%（合理）；豪华→行政：240/460 = 52%（<b>过大</b>，除非有硬价值支撑）。</li>
+<li>说明价差太小，高房型被"抢购"。应拉大价差。</li>
+<li>紧俏日需求强，拉大价差能让高房型卖出更高价，提升整体收入。</li><li>因为升级池是<b>服务补救的保险</b>：会员权益升级、设施故障换房、重要客人照顾，都需要预留高房型。把最高房型 100% 卖光，等于放弃了所有补救余地（第 9 章案例三：因此产生 3 条差评）。损失的可售房量仅 2–3%，远小于补救价值。</li>
+<li>开放题。方法：① 列出各房型价格并算价差率；② 连续观察一周售罄顺序；③ 正常应"由低到高"；④ 若高房型最先售罄 → 价差太小或该房型数量太少；⑤ 若低房型长期剩余 → 价差太大或低房型体验差。<b>售罄顺序是最便宜的诊断工具。</b></li>
+<li>两种可能：① <b>价差太小</b>——核算价差率，若 &lt;10% 应拉大；② <b>该房型数量太少</b>——若价差率正常（如 25%）仍最先售罄，说明供给不足，应降价或改造房型。第 9 章案例四正是后者。</li>
+<li>淡季客人在意<b>性价比</b>，价差太大时他们会直接选最便宜的，高房型空置。收窄后，一部分客人愿意加一点钱升级，<b>把原本会空置的高价值库存卖出去了</b>——总收入反而上升（第 28 章案例三）。</li>
+<li>售价差 = 700−520 = 180（34.6%）；毛利差 = (700−190) −(520−90) = 510 − 430 = <b>80</b>（18.6%）。<b>售价差看起来很大，但毛利差只有一半左右</b>——因为行政房权益成本高。</li></ol><p><b>第 10 章</b></p><ol>
+<li>该设。周六紧俏、周日空，设 MinLOS=2 可带动周日。周日还可设 CTA。</li>
+<li>CTA 不让某天入住（保护从前一日开始的连住）；CTD 不让某天离店（保护向后延伸的连住）。</li>
+<li>它不提高客人看到的数字价格，只是增加一个条件，心理抵触小。</li><li>先判断幅度：若下滑 30% 但仍在可接受范围，可<b>降低限制强度</b>（如从 3 晚改为 2 晚）；若下滑过大（如 &gt;50%），应<b>立即撤除</b>并复盘——多半是条件太重或方向判断错了（第 10 章案例三）。</li>
+<li><b>通常不必设。</b>两天都满房意味着需求<b>对称</b>，连住客相对单晚客的价值优势消失，限制只会减少订单而没有补偿收益（第 10 章算例 2）。</li>
+<li><b>通常不必设。</b>三天都紧俏意味着需求<b>对称</b>，连住客相对单晚客的价值优势消失——限制只会减少订单而不带来补偿收益（第 10 章算例 2）。</li>
+<li>客人若在官网订了（没标注限制），到店才发现要住两晚，会认为是<b>被隐瞒</b> → 投诉 + 差评。反之若三处（页面/房型名/确认短信）都写明，客人投诉率极低。<b>问题从来不是限制本身，是"没被告知"。</b></li>
+<li>参考：D-14 周五设 MinLOS=2、周日设 CTA，各渠道标注"两晚起"；D-10 前台培训；D-7 看 pickup（应上升）；D-3 收回 OTA 余量；D-1 确认短信；活动后<b>撤除</b>并复盘系数。</li></ol><p><b>第 11 章</b></p><ol>
+<li>100×(6%+4%) = 10 间，减缓冲 4 间 → <b>超 6 间</b>。</li>
+<li>紧俏日 walk 概率高、安置困难、口碑损失大，超售的期望收益不划算。</li>
+<li>差评对 OTA 评分的长期影响、客人流失、员工处理的时间成本、团队士气。</li><li>因为各房型的<b>可替代性不同</b>：标准房可多超（walk 时可升级到行政房解决），套房通常不超（无更高房型可换，walk 只能外送，代价极高）。<b>超售不是"总数"问题，是"结构"问题</b>（第 11 章填表示例：标准房 6、套房 0）。</li>
+<li>因为到店确认把"不确定的 No-show"变成了"确定的信息"：确认过的订单不再计入 No-show 预期，超售额度随之下降。实践中可把 No-show 率从 5% 降到 3%，超售额度下降约 40%，<b>walk 大幅减少而出租率不变</b>（第 11 章案例四）。</li>
+<li>因为<b>增量收益递减、walk 风险递增</b>：从 6 间到 10 间收益 +1,200 而风险 +6 个点；从 10 间到 14 间收益仅 +600 而风险 +12 个点。<b>第 11 间以后性价比急剧下降</b>，所以最优点在理论值减半附近。</li>
+<li>套房数量少、<b>无法用升级替代</b>（没有更高房型可换），一旦 walk 只能外送他店，代价极高（赔房费+交通+口碑）。所以标准做法是<b>套房不超售</b>（第 11 章填表示例）。</li>
+<li>流程：① 入住前 1 天短信确认（附确认链接）；② 未回复的电话跟进；③ 团队提前 3 天要最终名单；④ 已确认的订单不再计入 No-show 预期，据此<b>下调超售额度</b>。效果：No-show 率可降约三分之一（第 11 章案例四）。</li></ol><p><b>第 12 章</b></p><ol>
+<li>保护位 18–22 间 → 低价最多卖 <b>18–22 间</b>（40 − 保护位）。</li>
+<li>逐步下调保护位、放开低价填量——保护位是动态值。</li>
+<li>因为高价客的期望收益高于低价客，只要高价需求有足够概率出现，等待就是划算的。</li><li>当<b>高价客出现的概率足够高</b>时，"等待"的期望收益大于"现在低价卖掉"的确定收益。形式化：低价 ≥ 高价 × P(高价需求会来) 才卖；若 400 &lt; 700×70% = 490，则不该卖低价，应保护（第 12 章算例 1）。<b>"空着"不是浪费，是在等高价客。</b></li>
+<li><b>意义不大，应少保护。</b>保护位的收益来自"高低价差"；价差仅 100 元时，为等高价客而承担空房风险的性价比很低。此时更应优先卖掉（第 12 章判定表第 4 行：价差越大越该保护，反之亦然）。</li>
+<li>高价期望 = 20 间（已含概率）→ 保护位 20 → 低价上限 = 40−20 = <b>20 间</b>。若严格按 Littlewood 判据：低价 380 ≥ 700×60% = 420？<b>380 &lt; 420 → 不该卖低价</b>，应把保护位提高到高价期望并按判据收紧。<b>两个方法结论一致：少放低价。</b></li>
+<li>因为高价需求没出现时，保护位留出的房会<b>白白空置</b>——这是保护位最常见的失败模式（案例一）。正确机制：从 D-7 起<b>每天按剩余期望需求重算</b>，D-2 明显不足即降到 5–8 间并放开低价。</li>
+<li>第 1 章说"卖与不卖比机会成本"，但机会成本是抽象的；第 12 章把它变成<b>可计算的两个数</b>：机会成本 = 高价 × P(高价需求会来)，保护位 = 高价客源的期望需求。<b>于是"该不该卖"变成了"低价 ≥ 机会成本吗"这样一个可勾选的判断。</b></li></ol><p><b>第 13 章</b></p><ol>
+<li>600×(1−18%)−600×2% = 492 − 12 = <b>480</b>。</li>
+<li>若只是把本来会直销的客人转到 OTA，酒店白付佣金，净收入下降。</li>
+<li>低价渠道若不限量，会挤占直销与高价渠道的库存，拉低整体净价。</li><li>转移间夜 = 2,000 ×(35%−20%) = 300 间；月增收 = 300 × 75 = <b>22,500 元/月</b>（年化约 27 万）。</li>
+<li>常被忽略的有：① <b>平台返现/补贴</b>；② <b>积分兑换成本</b>；③ 参与平台促销的<b>额外折扣</b>；④ 信用卡/支付手续费；⑤ <b>结算账期</b>带来的资金占用；⑥ 对账与管理的<b>人工成本</b>。<b>真实成本通常比合同佣金高 5–10 个百分点。</b></li>
+<li>三个抓手：① <b>配额</b>（每日限量）换曝光与紧迫感；② <b>阶梯佣金</b>（按取消率/直销占比浮动）换订单质量；③ <b>禁止未报备补贴</b>保住价格体系。<b>绝不拿"裸价"去谈</b>——那会同时损失佣金与体系。</li>
+<li>12% + 3% + 5% = <b>20%</b>。若售价 500，净价 = 500×0.80 = 400，而非按合同佣金算出的 440。<b>差额 40 元/间就是"看不见的成本"。</b></li>
+<li>因为低价渠道有上限后，客人在该渠道找不到房时会<b>转向官网或电话预订</b>——直销入口因此被"逼"出来。第 13 章案例三中，设限后直销占比从 14% 升到 27%。</li></ol><p><b>第 14 章</b></p><ol>
+<li>依赖风险高：该客源一旦波动（如某大客户流失），整体收入大幅下滑，且议价权丧失。</li>
+<li>因为会员直销需要长期投入（权益体系、复购运营），见效慢，多数酒店投入不足。</li>
+<li>不隔离的话，高价值客也能拿到低价，细分就失去了意义（buy-down）。</li><li>单位贡献差 = 440（会员）− 270（团队）= <b>170 元/间</b>；200 间夜 → 贡献增加 <b>34,000 元</b>。（按第 14 章算例的口径：会员净价 520、变动成本 80 → 440；团队净价 350、变动成本 80 → 270。）</li>
+<li>因为标签无法<b>直接对应栅栏设计</b>。应换成行为维度：提前 1–2 天订、住 1 晚、不可退、公司付费、对价格不敏感。<b>只有行为才能设计价档与限制条件</b>（第 14 章三要点第 1 条）。</li>
+<li>"商务客"是<b>人群标签</b>，无法直接对应栅栏设计。应换成<b>行为维度</b>：提前 1–2 天订、住 1 晚、不可退、公司付费、对价格不敏感——这样才能设计出对应的价档与限制条件（第 14 章三要点）。</li>
+<li>说明<b>间夜多但单位贡献低</b>（典型如团队/批发）。动作：压缩该客源占比，把释放的房量投向单位贡献更高的客源；同时检查其价格是否偏低、栅栏是否失效（第 14 章填表示例：团队 44% 压到 32%）。</li>
+<li>4 × 520 = 2,080/年；3 年 = 6,240；扣 10% 维护成本 → <b>约 5,616 元</b>。对比：OTA 客年均 1.2 次 × 425 = 510/年，2 年 ≈ 1,020。<b>会员终身价值约为 OTA 客的 5.5 倍</b>（第 14 章算例 3）。</li></ol><p><b>第 15 章</b></p><ol>
+<li>团队收入 30×400 = 12,000；散客期望 20×600 = 12,000 → 相等，临界。<b>考虑到团队取消风险，倾向少接或不接</b>。</li>
+<li>因为散客需求不确定，用实际收入会高估被挤掉的损失（或低估），只有期望值才可比。</li>
+<li>淡季散客期望需求低，被挤掉的损失小，团队的机会成本更低。</li><li>最优团量 = 60 − 20 = <b>40 间</b>（临界）；实操留 10–20% 余量 → <b>接 32–36 间</b>。若客户坚持 50 间，则提价：50×P ≥ 20×600 = 12,000 → P ≥ 240；考虑机会成本通常报 400–450。</li>
+<li>会把"客房让利"变成"<b>综合贡献为正</b>"：餐饮与场地的贡献可以补回房价损失。因此含餐含会的团队，即使房价比散客低很多，也可能值得接——<b>这就是为什么必须算综合贡献（第 30 章）</b>。</li>
+<li>最优团量 = 60 − 20 = <b>40 间</b>（临界）；实操留 10–20% 余量 → <b>接 32–36 间</b>。若客户坚持 50 间，则按"团收入 ≥ 被挤散客期望收益"倒推提价：50×P ≥ 20×600 = 12,000 → P ≥ <b>240</b>；考虑机会成本应更高，通常报到 400–450。</li>
+<li>因为几乎不存在"全接最优"或"全拒最优"——<b>最优解几乎总是部分接受</b>。问"接不接"会让您在两个极端里选，问"接多少"才能找到真正的最大值（第 15 章算例 3）。</li>
+<li>参考：周五 30 间 @480（旺季保护散客）、周六 15 间 @480、周日 40 间 @380（淡日放量）。<b>或：</b>若客户改到周日至周二，80 间 @380 全给 + 会议室升级。<b>用"日期"当筹码，比用"价格"划算</b>（第 30 章案例四）。</li></ol><p><b>第 16 章</b></p><ol>
+<li>15,000×10% × 480 × 16% = <b>115,200 元</b>。</li>
+<li>会引发 OTA 不满（可能降权），且拉低整体价格体系，长期损害收益。</li>
+<li>参考：延迟退房、免费房型升级、专属客服、生日礼遇、积分加速。</li><li>因为没有分层就<b>没有升级路径</b>，会员只是一张打折卡——得不到忠诚，只有搭便车。分层给了客人"往上走"的理由：第 16 章案例三显示，分层后金卡会员年均入住从 2.8 次升到 4.1 次。</li>
+<li>因为<b>复购客人才是直销的主力</b>：他们已体验过产品，转化率与客单价更高，获客成本近乎为零。OTA 拉来的新客复购率通常不到 8%，而会员可达 40–55%（第 14、16 章）。</li>
+<li>两个后果：① <b>OTA 降权</b>——平台检测到价差会降低您的曝光，OTA 渠道间夜大跌；② <b>价格锚定</b>——客人习惯"官网更便宜"后，整体价格体系被拉低。半年后总 RevPAR 反而下降（第 16 章案例二）。<b>正确做法：同价 + 官网独有权益。</b></li>
+<li>参考：<b>银卡</b> 95 折 + 延迟退房 14 点（成本约 0）；<b>金卡</b> 9 折 + 免费升级（成本约 20）+ 双早（成本 60）；<b>白金</b> 85 折 + 套房升级（成本 60）+ 专属客服 + 生日礼遇。<b>关键是逐级递增，给客人"往上走"的理由。</b></li>
+<li>转移间夜 = 20,000 × 12% = 2,400；节约 = 2,400 × 480 × 16% = <b>184,300 元/年</b>。扣除会员权益投入（通常数万元），净收益仍相当可观。</li></ol><p><b>第 17 章</b></p><ol>
+<li>年＝定目标建日历；季＝换挡与滚动重算；月＝校准偏差；周＝布动作；日＝执行与记录。</li>
+<li>年度目标没拆到日，每天就没有"该卖多少"的判据，只能凭当天情况临时反应——这就是救火。</li>
+<li>一次，在 7 月（年中滚动重算）。频繁修订等于没有预算。</li><li>参考：先补"<b>周</b>层的日历更新"——它最便宜（每周 30 分钟）、见效最快。第 17 章案例二显示，只补这一层，当月 RevPAR 就提升 4.2%。若时间允许，其次补"年"层的日目标。</li>
+<li>连通方式：<b>年目标拆到日</b>（让每天有判据），<b>月报回头修正年假设</b>（让方向可校准）。例：8 月目标 325 万 → 拆到某周六 RevPAR 目标 1,050；若连续两周在手低于目标 20%，则在月报中修正 8 月剩余日的目标与策略。</li>
+<li>参考分责：<b>年层</b>——总经理+收益（目标、日历、BAR 年审）；<b>季层</b>——收益+销售（滚动重算、大客户预谈）；<b>月层</b>——收益+市场（月报、渠道复盘）；<b>周层</b>——收益+市场（日历更新、竞品周报）；<b>日层</b>——收益+前厅（取数、早会、超售执行）。</li>
+<li>年度 3,000 万 → 8 月指数 1.3 → 8 月目标 = 250×1.3 = <b>325 万</b>；8 月 31 天 → 日均 10.48 万；某周六按星期几加权（约 1.2）→ 日目标约 <b>12.6 万</b>；可售 120 间 → 该日 RevPAR 目标 ≈ <b>1,050</b>。</li>
+<li>因为频繁修订会让团队不再把预算当真（"反正完不成会改"）。<b>只留一次正式修订，会逼您把偏差连同补救措施一起讲清楚</b>，而不是随手改数字（第 21 章算例 3）。</li></ol><p><b>第 18 章</b></p><ol>
+<li>① 取数 → ② 判表 → ③ 执行 → ④ 收口。最容易漏掉的是<b>收口</b>（记录与交接）和<b>滚动未来窗</b>（只看当天）。</li>
+<li>因为能管理的是<b>预订曲线</b>而非当天结果。只看当天，所有动作都挤在最后 48 小时，此时要么已卖光、要么只能贱卖。</li>
+<li>① 价格 ≥ 变动成本——防"多卖多亏"；② 超售 ≤ walk 容忍率——防赔客户、毁口碑；③ 不破 BAR 层级——公开价不得高于协议/会员价，防失公平、引投诉。</li><li>因为<b>可得性动作代价更小、更易回撤</b>：关掉低价档不改变客人看到的价格，只是减少可选房型；而提价会直接影响转化与口碑。第 18 章判定表中，"先关最低价档 → 再上调 BAR"的顺序正是为此。</li>
+<li>参考 5 个数字：① 今日在手；② 昨日实际 vs 预测；③ 未来 7 日在手 vs 去年同期；④ 竞品最低价；⑤ 昨日取消/No-show 数。<b>每个都要带基准（预算或去年同期），否则无法判断高低。</b></li>
+<li>开放题。要点：必须包含① 6 个数字及其基准；② 判表过程（对照哪张表、满足哪几项）；③ 具体动作与顺序；④ 收口记录（改了什么/为什么/谁批）。<b>缺任一项都不算完整。</b></li>
+<li>因为它是<b>唯一一个"在问题变大之前处理它"的环节</b>。当天发现的问题通常已来不及（只剩 48 小时），而未来窗能在 D-7/D-3 从容修正。第 18 章案例显示：只补这一层，RevPAR 提升 9%。</li>
+<li>参考：<b>① 取数 + 判表</b>（决定今天做什么）；<b>② 收口</b>（留下复盘依据）。若只能再选一个，加"滚动未来窗"。<b>执行动作可以简化，但判断与记录不能省。</b></li></ol><p><b>第 19 章</b></p><ol>
+<li>A 档·可直接用（达全部必达项）；B 档·需小改（缺 1–2 项，给 3 条意见）；C 档·需重做（结构性问题，给返工指引）。限制一页是因为<b>长篇个性化反馈是精力黑洞</b>，且标准不统一、无法复用。</li>
+<li>看数 10′ → 找缺口 10′ → 定动作 15′ → 分责任 5′ → 记结论 5′。产出：缺口清单 + 具体动作 + 责任人 + 会议纪要（下次例会首项复查）。</li>
+<li>判定表把"人之间的争论"变成"条件之间的核对"：逐行勾选后，结论由条件决定而非由嗓门或资历决定，因此凭感觉的意见会自然失效。</li><li>因为它是让例会<b>产生闭环</b>的唯一机制。没有复查，例会会退化成"只通报情况、不定动作"或"定了动作无人跟进"。<b>开十次没有复查的例会，等于零次。</b></li>
+<li>开放题。四项：① 有无<b>留痕</b>（能否查到调价原因与批准人）；② 有无<b>用表</b>（决策能否指到判定表某行）；③ 有无<b>例会</b>（近 12 周开了几次）；④ 有无<b>复盘</b>（上月预测偏差有记录吗）。<b>缺 2 项以上即形同虚设。</b></li>
+<li>因为长篇个性化反馈① 是<b>精力黑洞</b>；② <b>标准不统一</b>——每次说法不同，对方无从遵循；③ 无法复用。改成"判定表勾选 + 3 条意见（各指到第几项）"后，自己轻松、对方明确（第 19 章案例二）。</li>
+<li>开放题。标准流程：① 列出七项（成本底线/栅栏/离入住天数/竞品/期限/客群/能否恢复）；② 逐项勾选并注明依据；③ 统计满足项；④ 不满足 ≥2 项 → 否决并给替代方案。<b>关键：结论由条件决定，不由人决定。</b></li>
+<li>例会会退化成<b>汇报会</b>——只通报情况、不定动作，或定了动作无人跟进。<b>"上次结论复查"是让例会产生闭环的唯一机制</b>，缺了它，开十次等于零次。</li></ol><p><b>第 20 章</b></p><ol>
+<li>55% × 1.4 = 77%。应提前 30–60 天上调 BAR、设 MinLOS=2、收紧低价渠道。</li>
+<li>因为事件会临时新增或变更，且需要持续往后补充新日期。</li>
+<li>本地展会、考试季（高考/考研）、演唱会、航班换季、学校寒暑假、大型会议。</li><li>说明<b>预测模型需要重建</b>：MAPE &lt;10% 为良好，&gt;20% 意味着预测基本不可用。常见原因：历史数据含异常年、口径不统一、未剔除已取消的团队单、未按星期几分组。</li>
+<li>至少 5 类：① <b>法定节假日</b>；② <b>本地展会/会议</b>（展馆、会议中心）；③ <b>演出与赛事</b>（体育馆、剧院）；④ <b>学校考试季与寒暑假</b>；⑤ <b>航班/高铁换季</b>；⑥ 大型考试、招聘会、医院学术会等本地活动。<b>最有价值的常常不在通用日历上。</b></li>
+<li>因为预订是<b>渐进发生</b>的：很多客人在临近才订（尤其散客）。在手低常常只是"还没到时候"，而非"需求弱"。第 20 章案例四中，D-21 在手仅 30 间，但最终 95 间——增长集中在 D-10 到 D-2。</li>
+<li>第一反应应该是<b>查原因</b>，而不是改数字。常见原因：事件取消/新增、某渠道配额关闭、竞品异常动作、口径错误。<b>偏差本身就是最重要的信号</b>（第 20 章填表示例）。</li>
+<li>行 = 星期几（周一至周日）；列 = 提前期（D-30、D-29……D-0）；单元格 = 该星期几在该提前期的<b>历史平均新增预订量</b>。用时：当前在手 + 剩余各列之和 = 预测最终量。<b>每天用实际值替换对应单元格，预测即自动收敛。</b></li></ol><p><b>第 21 章</b></p><ol>
+<li>200 × 1.45 = <b>290 万</b>。</li>
+<li>只有收入目标时，"降价换量"也能完成收入，但会伤害利润；双目标能防止蒙混。</li>
+<li>频繁修订会让预算失去约束力，变成"完成不了的就改目标"。</li><li>用<b>低价换量</b>：降价冲出租率，收入数字照样能"完成目标"，但利润受损。这正是必须设<b>双目标（OCC+ADR）</b>的原因——第 21 章案例中，某店出租率升到 81% 而 RevPAR 反降 6%。</li>
+<li>五条：① 用了<b>月指数</b>（非平均分成 12 份）；② 历史 2–3 年加权并<b>剔除异常年</b>；③ 有<b>双目标</b>（OCC+ADR）；④ <b>拆到日</b>（按星期几加权）；⑤ 写明<b>市场假设</b>与修订机制（仅 7 月一次）。</li>
+<li>年度 3,200 万 → 全年月均约 266.7 万；8 月目标 = 266.7 × 1.32 = <b>352 万</b>；8 月 31 天 → 日均 11.35 万；某周六按星期几加权 1.2 → 日目标约 <b>13.6 万</b>；可售 120 间 → RevPAR 目标 ≈ <b>1,135</b>（对应如 OCC 92% × ADR 1,234）。</li>
+<li>因为只有收入目标时，"降价换量"也能完成收入，但会伤害利润。<b>双目标能堵住这个漏洞</b>——第 21 章案例中，A 店出租率升到 81% 但 RevPAR 反而降 6%，正是只有收入目标的后果。</li>
+<li>参考：<b>前厅</b>领 OCC（全年 76%，8 月 90%）+ 配合超售与升级池；<b>销售</b>领 ADR（全年 520，协议价不低于 460）；<b>市场</b>领渠道结构（直销 20%→28%）；<b>收益</b>负责拆到日 + 每周复查缺口。</li></ol><p><b>第 22 章</b></p><ol>
+<li>参考：会员价 522–551（BAR×0.90–0.95）；协议价 464–522（BAR×0.80–0.90，需资质）；行政房 696–754（BAR+20%–30%）。</li>
+<li>BAR 是所有价格的锚，两个最低价会让客人与员工都无所适从，体系崩塌。</li>
+<li>违反公平性，老客户与协议客户会认为被歧视，引发投诉与流失。</li><li>可能问题：① 多个"最低价"并存 → <b>等于没有 BAR</b>；② 历史遗留价档无人复核 → 漏洞入口；③ 各渠道价格不一致 → 客人比价不满；④ 前台可自由改价 → 体系失控。<b>治理：</b>停用零使用档 → 遗留档改"需审批" → 合并同类项 → 收回前台改价权。</li>
+<li>因为它是<b>绕过体系的最直接通道</b>：收益岗定好的价档，前台一句"给客人便宜点"就失效，且不留痕、不可复盘。第 22 章案例三显示：约 <b>70% 的现场降价并非客人要求</b>，而是员工为促成成交主动让利。</li>
+<li>步骤（由省力到费力）：① <b>停用零使用档</b>（最省力，通常占 1/3）；② 把历史遗留档改为"<b>需审批</b>"；③ 合并同类项；④ <b>收回前台自由改价权</b>并配快速审批通道（阻力最大但收益最高）。</li>
+<li>BAR 580 → 660：会员(0.92) = 607；协议(0.85) = 561；行政房(1.25) = 825。<b>只改 BAR 一个数，三档自动联动</b>（第 22 章算例 3）。</li>
+<li>因为大部分现场降价<b>并非客人要求</b>，而是员工为了"促成成交"主动让利（第 22 章案例三：约 70% 属于此类）。收回权限 + 提供 30 秒审批通道后，改价订单降 72% 而投诉率未升。</li></ol><p><b>第 23 章</b></p><ol>
+<li>参考：今日在手、昨日实际、未来 7 日在手、竞品最低价、昨日取消数。</li>
+<li>没有基准的数字无法判断"高还是低"，也就无法触发动作。</li>
+<li>没人看、且不能指向任何动作的报表。</li><li><b>日报</b>看动作（今天该做什么）；<b>周报</b>看趋势（未来两周的缺口）；<b>月报</b>看结构（量的问题还是价的问题）。</li>
+<li>因为两套数字会引发"哪个数是对的"的争论，挤掉真正的议题；更严重的是，<b>收益部的数据会失去财务与管理层的信任</b>，此后所有分析都不被采信（第 23 章案例三）。<b>口径统一是收益岗最该先解决的"政治问题"。</b></li>
+<li>参考改造："本月 RevPAR 359（<b>基准</b>：预算 372 差 −3.5%、去年同期 341 高 +5.3%、RGI 103）。<b>动作</b>：量略低于预算但跑赢市场 → 不降价，补渠道曝光即可。"<b>三要素齐全：数值 + 基准 + 动作。</b></li>
+<li>因为两套数字会让经营会陷入"哪个数是对的"的争论，挤掉真正的议题；更严重的是，<b>收益部的数据会失去财务与管理层的信任</b>，后续所有分析都不被采信（第 23 章案例三）。</li>
+<li>参考 5 个数字：① 今日在手（基准：去年同期/预算）；② pickup 新增（基准：历史同期）；③ 取消/No-show（基准：历史均值）；④ 竞品 BAR（基准：昨日）；⑤ 未来 7 日在手（基准：去年同期）。<b>每个数字都要带基准。</b></li></ol><p><b>第 24 章</b></p><ol>
+<li>先修口碑。产品力落后时降价是"用利润补产品"，成本最高且不可持续。</li>
+<li>公开回复是给<b>潜在客人</b>看的，展示整改态度能挽回转化。</li>
+<li>评分提升意味着客人支付意愿提高，不上调价格就等于白白放弃了这部分收益。</li><li>原订单 = 15,000 × 3% = 450；新订单 = 15,000 × 3.5% = 525。<b>月增 75 单。</b>若净价 400，月增收 30,000 元。<b>这就是评分提升的直接价值。</b></li>
+<li>因为① <b>违规风险</b>：平台会检测并处罚（降权、扣分甚至下架）；② <b>不可持续</b>：假评分掩盖了真问题，服务不会真正改善；③ <b>反噬口碑</b>：一旦被识破，信任崩塌的代价远大于收益。<b>得不偿失。</b></li>
+<li>转化率 3.6%→3.0%：订单从 432 降到 360，少 72 单；月损失 = 72 × 400 = <b>28,800 元/月</b>（年化约 34.6 万）。若再用降价补救，损失更大。<b>这就是"先修评分"的算术依据。</b></li>
+<li>因为评分提升意味着<b>客人的支付意愿提高了</b>；如果不通过价格兑现，这部分提升就没有转化为收入。<b>"稳一稳"在这里不是谨慎，是漏赚</b>（第 24 章案例三：竞品 ADR 高出 11%）。</li>
+<li>参考：① 归因（噪音 14 / 早餐 9 / 卫生 5）→ 锁定噪音；② 整改（隔音条+耳塞+背街优先）+ 24h 内回复全部差评；③ 暂停降价促销；④ 评分稳定在 4.6 后<b>分两次上调 BAR 共 +6%</b>。</li></ol><p><b>第 25 章</b></p><ol>
+<li>收益岗沦为做表文员，价格体系失控（各部门各自放价），收益管理形同虚设。</li>
+<li>考核出租率会诱发低价填房；RGI 同时考量与价的相对表现，更接近经营目标。</li>
+<li>见本章"45 分钟议程"，产出是：缺口清单 + 动作 + 责任人 + 纪要。</li><li>开放题，但多数从业者会选"<b>授权</b>"——因为没有授权，留痕与用表都只是形式（决定权在别人手里）。其次是"总经理支持"，因为跨部门责任需要高层在场才落得下去。</li>
+<li>标准处理：① 拿出<b>判定表逐项勾选</b>；② 不满足项 ≥2 则否决，并给出替代方案（如限量、加栅栏、改期）；③ 若销售坚持，走<b>书面申诉</b>（申诉期间执行原决定）；④ 月度统计申诉采纳率，作为校准依据。</li>
+<li>因为销售仍被<b>考核间夜</b>，他们的最优解依然是压价拿单——授权形同虚设。<b>必须把考核改为"贡献"</b>，销售才会主动谈高价值客户。第 25 章案例四中，改考核后销售反而开始挑客户。</li>
+<li>参考：① <b>决策权</b>——价格与可得性归收益岗，销售可书面申诉；② <b>考核</b>——销售从"间夜"改为"贡献"，收益岗考核 RevPAR/RGI；③ <b>申诉通道</b>——申诉期间先执行原决定，30 分钟内响应，月度统计申诉采纳率（健康区间约 20–40%）。</li>
+<li>补六项基础：① 拿到<b>决策权</b>；② 建立<b>每周例会</b>；③ 推动<b>考核改 RevPAR/RGI</b>；④ <b>统一口径</b>（与财务）；⑤ 建立<b>留痕</b>；⑥ 争取<b>总经理每月参加一次例会</b>。<b>在错误的组织基础上做正确的方法，结果仍然是零。</b></li></ol><p><b>第 26 章</b></p><ol>
+<li>260 − 130 = 130 &gt; 0 → <b>该卖</b>（比空着好）。</li>
+<li>短期看边际贡献为正就该卖；但若还有高价客可能来，还要比较机会成本，底线应更高。</li>
+<li>RevPAR 不扣成本与佣金，可能"收入涨、利润跌"；GOPPAR 才反映真实经营成果。</li><li>每间边际贡献 = 400 − 100 = 300；需卖间数 = 500,000 ÷ 300 ≈ <b>1,667 间/月</b>；日均 = 1,667 ÷ 30 ≈ 56 间 → <b>保本出租率 ≈ 56%</b>。</li>
+<li>因为<b>售价不是您实际收到的钱</b>：OTA 佣金、返现、促销折扣都要扣掉。用售价算贡献会<b>高估利润</b>，可能让您误以为某笔生意赚钱、实际在亏（第 13、26 章）。</li>
+<li>边际贡献 = 252 − 150 = 102 &gt; 0，<b>比空着好</b>；但机会成本 = 480 − 252 = 228/间，远大于边际贡献。<b>结论：不应保留（或应提价/限量）。</b>第 26 章案例四中，提价到 380 并限量后月贡献从 30,600 升到 82,500。</li>
+<li>因为 RevPAR 不扣<b>渠道佣金</b>与<b>运营成本</b>。若 A 店 70% 走 OTA（佣金 15%），净 RevPAR 约 285；B 店直销占 45%，净 RevPAR 约 305。<b>同样的 RevPAR，扣完成本后 GOPPAR 可差 20。</b></li>
+<li>开放题（行动项）：今天就去做，并把这个数写在判定表顶部。<b>没有它，所有降价决策都是在赌。</b></li></ol><p><b>第 27 章</b></p><ol>
+<li>房量 &gt;80–100 间、2 年以上干净数据、有专人负责、手工流程已跑通。</li>
+<li>系统的作用是接管已验证的流程；流程未跑通就上系统，只会把混乱自动化。</li>
+<li>系统预测会偏差（尤其事件日与异常年），判定表能发现"这次建议不对"。</li><li><b>通常不建议。</b>房量 &lt;80 间、无专职收益岗 → 系统省下的时间无人承接，预测改善有限，而年费要数万。<b>先用 Excel + 判定表跑通流程</b>（第 27 章算例：系统值不值，取决于"省下的时间有没有人用"）。</li>
+<li><b>上了系统但流程没改</b>，系统沦为昂贵的报表工具；或<b>盲目信任建议价</b>、不再用判定表复核，导致决策质量下降。<b>根因几乎都是"手工流程没先跑通"。</b></li>
+<li><b>不建议。</b>房量 &lt;80 间、无专职收益岗 → 系统省下的时间无人承接，预测改善有限，年费却要数万。<b>先用 Excel + 判定表跑通流程</b>，等有专人或房量增长后再评估（第 27 章算例）。</li>
+<li>三个原因：① <b>流程没先跑通</b>（最常见）；② 数据不干净导致建议不可信；③ 无人负责维护与复核。<b>系统只是放大器——流程混乱时，它把混乱也自动化了，且从此看不出哪里乱。</b></li>
+<li>三个关键问题：① 能否<b>导入我们的历史数据</b>并统一口径？② 能否<b>导出建议及依据</b>（便于用判定表复核）？③ 能否<b>记录"为什么不采纳"</b>？<b>销售答不上来的，直接淘汰。</b></li></ol><p><b>第 28 章</b></p><ol>
+<li>旺季剩余房的机会成本高，降价清掉的收益低于守住高价等待的期望收益。</li>
+<li>套餐是"加价值"（成本低于感知），不侵蚀 BAR；裸降价会破坏价格体系且不可逆。</li>
+<li>整改评分、重谈协议价、打磨系统数据、培训人员——为下一个旺季做准备。</li><li>预估 = 300 × 1.5 = <b>450</b>。分阶段：D-60 上调一档 → D-30 再调一档并设 MinLOS=2 → D-14 关低价档 → D-7 视 pickup 决定是否再调。<b>每阶段后必须看 pickup，放缓就停。</b></li>
+<li>因为事件日<b>散客支付意愿远高于团队价</b>：把房留给散客收益更高；同时团队常占用多晚，会挤占宝贵的库存。<b>这是"旺季严控团队"的具体体现</b>（第 28 章填表示例第 6 行）。</li>
+<li>六类动作：<b>价格</b>（BAR 下调 8–12%）、<b>限制</b>（撤除 MinLOS/CTA）、<b>渠道</b>（恢复配额、推会员专享）、<b>产品</b>（上淡季套餐）、<b>客源</b>（放宽团队、加大会议）、<b>内务</b>（整改评分、重谈协议、治理数据、培训）。</li>
+<li>因为淡季<b>客流少、客房与餐饮压力小</b>，正是做隔音、早餐升级、设备检修、员工培训的最佳窗口；而这些恰是评分的主要扣分点。<b>把淡季当"整改季"，是收益管理里被最严重低估的策略。</b></li>
+<li>参考：D-60 BAR 500→560（观察 pickup）；D-30 →620 并设 MinLOS=2（pickup 略快）；D-14 →700 并关低价档（pickup 仍快）；D-7 pickup 放缓 → <b>维持 700 不再上调</b>。<b>关键在最后一步：看到放缓就停。</b></li></ol><p><b>第 29 章</b></p><ol>
+<li>18,000 ÷ (120×6) = <b>25 元</b>。</li>
+<li>上座率高但客单低仍可能亏损；RevPASH 同时反映座位、时间与收入。</li>
+<li>参考：工作日 14:00–17:00 下午茶套餐，限周一至周五，需提前预约。</li><li>因为限时往往伴随<b>服务品质下降与客人体验受损</b> → 差评 → 评分下降 → 反过来需要降价才能维持转化（第 24 章）。<b>翻台收益可能远小于评分损失。</b>正确做法：优化出餐流程 + 温和限时（如 90 分钟），不压客单。</li>
+<li>两个维度：① <b>贡献额</b>（售价 − 食材成本）；② <b>受欢迎度</b>（销量）。据此四类：高贡献高销量（主推）、高贡献低销量（前置推荐）、低贡献高销量（提价或改配方）、低贡献低销量（砍掉）。</li>
+<li>RevPASH = 18,000 ÷(120×6) = <b>25 元</b>。周一晚只有 12（全天平均 22，周末晚 46）→ 说明<b>问题集中在"周一至周三晚餐"这个时段</b>，而不是"生意整体不好"。<b>拆时段才能定位洼地。</b></li>
+<li>因为赶翻台常伴随<b>压缩用餐时间与降低服务品质</b>，会引发差评 → 评分下降 → 反过来需要降价才能维持转化（第 24 章）。<b>翻台收益可能远小于评分损失。</b>正确做法：优化出餐与限时 90 分钟，不压客单。</li>
+<li>开放题。方法：列出各菜品的<b>食材成本</b>与<b>销量</b>，算贡献额 = 售价 − 成本，再按"贡献额 × 受欢迎度"两维排序。<b>前置：高贡献且受欢迎；砍掉：低贡献（无论销量高低）。</b></li></ol><p><b>第 30 章</b></p><ol>
+<li>客房少赚 80×(520−360) = 12,800；综合 = −12,800 + 25,000 + 18,000 = <b>+30,200</b> → 可接（若在旺季还需扣机会成本）。</li>
+<li>旺季散客机会成本高，淡季机会成本近乎为零，同一笔生意结论相反。</li>
+<li>会议缩规模与取消很常见，无条款则酒店承担全部空置损失。</li><li>因为阶梯报价① <b>便于客户组合</b>（房量、餐饮、场地可自由搭配）；② <b>保护收益</b>（量越大价越低但可控）；③ <b>避免客户只挑便宜的部分</b>。第 30 章案例三显示，阶梯报价既提高总贡献，又让客户觉得"可以自己选"。</li>
+<li>可能挤掉<b>更高价的宴会/婚宴</b>。计入方式：把被挤掉活动的<b>场地净贡献</b>（通常按 60–75% 计）作为机会成本，从会议综合贡献中扣除（第 30 章判定表第 5 行）。</li>
+<li>因为降价是<b>純让利</b>（双方都受损一方），而改期是<b>双赢</b>：客户拿到更低价与更好的会议室，酒店的机会成本则大幅下降（周中散客需求本就低）。<b>会算机会成本的销售，能用"日期"同时满足双方。</b></li>
+<li>按本章算例：旺季综合 +11,700（挤出散客 15,600）；淡季挤出损失≈0 → <b>+27,300</b>。<b>差约 15,600 元</b>——这正是"同一个会换到淡季价值翻倍"的算术依据。</li>
+<li>参考：房量 30 间 @520 / 50 间 @470 / 80 间 @430；餐饮按人均 120（三档可选）单列；场地 8,000（满 50 间免半、满 80 间全免）。<b>分列让客户可组合，也避免只挑便宜的部分。</b></li></ol><p><b>第 31 章</b></p><ol>
+<li>300 × 30 × 60.0% = 5,400 &gt; 3,800 → 短租期望更高，<b>可转</b>（但需考虑空置风险与清洁成本）。</li>
+<li>分散定价会让自家房源互相压价，整体 ADR 被自己打下去。</li>
+<li>车位易逝（小时）、短期固定、需求早晚高峰波动、客群分临停/月租 → <b>适用</b>。</li><li>停车场的天然栅栏是<b>时段</b>：例如"夜间包月卡"仅限 20:00–8:00 使用，白天不可用。此外还有"月租 vs 临停"的身份分层、"预约车位"的提前期栅栏。<b>每个行业都有自己的天然栅栏，要去找。</b></li>
+<li>开放题。参考：健身房——产能＝器械位×时段；分层＝年卡/季卡/次卡；栅栏＝时段（午后卡）；指标＝单位时段使用收入。<b>答出这六项，迁移就成功了一半。</b></li>
+<li>① 产能＝<b>医生/诊位 × 时段</b>；② 过期作废 ✓（当天未约满即归零）；③ 需求波动 ✓（周末与工作日下午差异大）；④ 客群分层 ✓（初诊/复诊/不同项目）；⑤ 天然栅栏＝<b>时段 + 预付定金不可退</b>；⑥ 指标＝每诊位每小时收入。<b>四前提全中 → 适用。</b></li>
+<li>因为 MinLOS、房型价差等是<b>酒店特有的形式</b>，搬到别的行业往往找不到对应物。应该搬的是<b>逻辑六问</b>（产能/易逝/波动/分层/栅栏/指标），再按新行业的形态重新表达（第 31 章案例三）。</li>
+<li>开放题。参考：健身房——产能＝器械位×时段；分层＝年卡/季卡/次卡；栅栏＝时段（午后卡）；指标＝单位时段使用收入。</li></ol><p><b>第 32 章</b></p>
+<ol>
+<li><b>开放题。</b>做法：从第 32 章的 30 条误区里圈出自己反复犯的 2–3 条，再按"常见错误"所在章节回到对应判定表。例如"只看出租率"→ 回第 2 章；"降价不带栅栏"→ 回第 7 章；"超售不预留升级池"→ 回第 11 章。<b>评分标准：能指到具体章节与判定表某一行，才算答对。</b></li>
+<li><b>开放题。</b>按第 1 章判定表逐项核验四个条件：① 库存是否易逝（当晚作废）；② 是否固定成本高、边际成本低；③ 需求是否可预测（有无历史数据与 pickup 曲线）；④ 支付意愿是否分化（能否用栅栏把客群分开）。<b>四项全中才值得做收益管理</b>；若只中两项（如需求不可预测），应先补数据与客源分层，而不是急着调价。</li>
+<li><b>开放题。</b>必须包含四段：取数（在手 / pickup / 竞品 / 去年同期 / 事件日 / 成本，共 6 类）→ 判表（指到哪张表、哪几项、结论是什么）→ 动作（顺序必须是可得性先于价格）→ 留痕（改了什么 / 为什么 / 谁批 / 明天复核什么）。<b>四段缺一不算完整。</b></li>
+<li><b>开放题。</b>按本章"月度自检六项"逐项打 0–2 分（0 未做 / 1 部分 / 2 做到），加总后对应：10–12 分体系健康；6–9 分有 1–2 项短板，优先补最低分项；0–5 分需重建。<b>关键不是总分，而是找出最低的那两项</b>——短板决定天花板。</li>
+<li><b>开放题。</b>参考口径：回到第 1 章的"机会成本"——"把会过期的东西，卖给最需要它的人，而不是最便宜卖掉。"若对方还想听一句，补上五篇的定位：第一篇认知（这是什么）、第二篇决策（每个决定怎么做）、第三篇运营（怎么天天运转）、第四篇组织（谁来做、底线在哪）、第五篇延伸（还能用在哪）。<b>关键是用判定表里的概念，而不是凭感觉。</b></li>
+<li><b>开放题。</b>参考答案：第一篇·认知（这是什么、怎么衡量，第 1–4 章）；第二篇·决策（面对一个决定怎么做，第 5–16 章）；第三篇·运营（怎么串成天天能运转的流程，第 17–24 章）；第四篇·组织（谁来做、底线在哪、靠什么工具，第 25–28 章）；第五篇·延伸（还能用在哪 + 30 个误区收束，第 29–32 章）。<b>默不出五篇，说明还没真正提纲挈领——回到开篇的两张全景图重看一遍。</b></li></ol><h3 id="appC">附录 C · 术语表</h3>
+<table>
+<tr><th>缩写 / 术语</th><th>中文</th><th>含义</th><th>章</th></tr>
+<tr><td>OCC</td><td>出租率</td><td>已售房 ÷ 可售房</td><td>2</td></tr>
+<tr><td>ADR</td><td>平均房价</td><td>客房收入 ÷ 已售房</td><td>2</td></tr>
+<tr><td>RevPAR</td><td>每可售房收入</td><td>OCC × ADR，核心经营指标</td><td>2</td></tr>
+<tr><td>GOPPAR</td><td>每可售房经营毛利</td><td>扣成本与佣金后的经营成果</td><td>26</td></tr>
+<tr><td>MPI</td><td>市场渗透指数</td><td>您的出租率 ÷ 竞争群出租率</td><td>3</td></tr>
+<tr><td>ARI</td><td>平均房价指数</td><td>您的房价 ÷ 竞争群房价</td><td>3</td></tr>
+<tr><td>RGI</td><td>收入产生指数</td><td>您的 RevPAR ÷ 竞争群 RevPAR</td><td>3</td></tr>
+<tr><td>BAR</td><td>最佳可用房价</td><td>公开可订的最低无限制价，价格体系的锚</td><td>22</td></tr>
+<tr><td>BOH</td><td>在手房量</td><td>某日已订出的房量</td><td>5</td></tr>
+<tr><td>Pickup</td><td>预订进度</td><td>某提前期新增的预订量</td><td>20</td></tr>
+<tr><td>MinLOS</td><td>最短住期</td><td>要求最少连住 N 晚</td><td>10</td></tr>
+<tr><td>CTA / CTD</td><td>关闭到达 / 关闭离店</td><td>限制某日入住或离店</td><td>10</td></tr>
+<tr><td>Walk</td><td>超额预订失控</td><td>客人到店无房，需安置他处</td><td>11</td></tr>
+<tr><td>No-show</td><td>未到店</td><td>已订未取消也未到店</td><td>11</td></tr>
+<tr><td>Protection Level</td><td>保护位</td><td>为高价客源保留的房量</td><td>12</td></tr>
+<tr><td>Buy-down</td><td>客群下移</td><td>高价值客占了低价档</td><td>4、7</td></tr>
+<tr><td>Fence</td><td>价格栅栏</td><td>用条件隔离不同支付意愿客群</td><td>4、10</td></tr>
+<tr><td>Displacement</td><td>置换分析</td><td>接团队前算被挤散客的期望损失</td><td>15</td></tr>
+<tr><td>Shadow Price</td><td>影子价格</td><td>一间房留给未来高价客的期望收益</td><td>12</td></tr>
+<tr><td>RevPASH</td><td>每可用座位小时收入</td><td>餐饮核心指标</td><td>29</td></tr>
+<tr><td>OTA</td><td>在线旅行社</td><td>携程、美团等分销渠道</td><td>13、24</td></tr>
+<tr><td>RMS</td><td>收益管理系统</td><td>自动预测与建议价的系统</td><td>27</td></tr>
+<tr><td>ALOS</td><td>平均停留时长</td><td>总间夜 ÷ 总订单数</td><td>23</td></tr>
+<tr><td>MAPE</td><td>平均绝对百分比误差</td><td>预测准确度指标，&lt;10% 为良好</td><td>20</td></tr>
+</table><h3 id="appD">附录 D · 自测题库索引</h3>
+<p>配套题库共 251 题，按<b>五篇结构</b>分布如下。建议学完一篇立即做对应题目，错题回到判定表复核。</p>
+<table>
+<tr><th>篇章</th><th>章</th><th>题量</th></tr>
+<tr><td>第一篇 · 认知篇</td><td>1–4</td><td>32</td></tr>
+<tr><td>第二篇 · 决策篇</td><td>5–16</td><td>96</td></tr>
+<tr><td>第三篇 · 运营篇</td><td>17–24</td><td>64</td></tr>
+<tr><td>第四篇 · 组织篇</td><td>25–28</td><td>32</td></tr>
+<tr><td>第五篇 · 延伸篇</td><td>29–32</td><td>27</td></tr>
+</table>
+<p style="margin-top:10px">题库与配套资源（课件、12 个实训游戏、4 套脱敏数据、20 个案例）通过书内<b>资源码</b>解锁，见封底。</p></div></div></div><div class="app"><h3 id="appE">附录 E · 跨篇综合实训（8 个项目）</h3>
+<p>前四轮的练习都是<b>单章</b>的。这 8 个项目故意<b>横跨多篇</b>——因为真实工作从来不是"第 12 章的问题"，而是"一个要同时用到五章知识的决定"。</p>
+<p style="margin-top:8px">用法：建议学完全书后做，或在授课时作为期末综合作业。每个项目约 90 分钟，可个人完成也可分组；<b>评分标准不是"答案对不对"，而是"能不能指到判定表的某一行"。</b></p>
+<div class="proj"><h4>E1 · 周一早晨：把一天完整地走一遍</h4>
+<div class="pmeta">用到：第 2、3、5、12、18、19、20 章 ｜ 建议 90 分钟 ｜ 个人完成</div>
+<div class="pnum">您是某城市商务酒店（200 间房）的收益负责人。今天是周一 07:30，手上的数据：<br>
+① 今天在手 120 间；去年同期同星期几最终卖到 165 间；<br>
+② 竞品群今日 BAR 均价 620，本店 580；<br>
+③ 周三、周四是本地大型展会，两日预测满房；周五骤降；<br>
+④ 本店 OTA 评分 4.5，竞品群均值 4.6。</div>
+<div class="ptask"><b>任务</b><ol>
+<li>按第 18 章，列出 09:00 前必须取到的 6 个数，并说明每个数对应哪个判断。</li>
+<li>用第 2、3 章算：今天的问题是"量"还是"价"？ MPI 与 ARI 各约多少？</li>
+<li>用第 5 章判定表决定：今天是否上调 BAR？上调几档？给出您勾选的每一行信号。</li>
+<li>用第 12 章算周三、周四的保护位，并说明 D-2 该如何释放。</li>
+<li>按第 19 章格式，写一段今天的"收口记录"（改了什么 / 为什么 / 谁批 / 明天复核什么）。</li>
+</ol></div>
+<div class="pkey"><b>判定要点：</b>先诊断后动手；可得性优先于价格；每个决定都要能指到判定表某一行；收口必须写清"明天复核什么"，否则等于没做。</div>
+<div class="ptrap"><b>常见跑偏：</b>只盯着今天 120 间（今天就该那样，真正该管的是周三周四）；看到评分 4.5 就直接降价（第 24 章：降价掩盖问题且不可逆）；调完价不记录，三天后无法复盘。</div></div>
+<div class="proj"><h4>E2 · 展会周：从 60 天前布到当天</h4>
+<div class="pmeta">用到：第 5、10、12、20、22、28 章 ｜ 建议 120 分钟 ｜ 分组完成</div>
+<div class="pnum">今天是 10 月 12 日。全市车展将在 12 月 11–13 日举行，往届数据显示：11、12 两日全城满房，13 日午后客流骤降。本店 200 间房，当前 12 月 BAR 尚未调整。</div>
+<div class="ptask"><b>任务</b><ol>
+<li>用第 28 章给这个事件日分级，并说明应该提前多久把它标进需求日历。</li>
+<li>用第 20 章列一张"事件日检查表"：D-60 / D-30 / D-14 / D-7 各看什么数、触发什么动作。</li>
+<li>用第 5 章与第 22 章决定：BAR 何时开始上调、分几档上调、上限在哪。要求给出阶段表。</li>
+<li>用第 10 章判断：13 日要不要设 MinLOS 或 CTA？如果要，设几晚、在哪些渠道生效、如何页面明示？</li>
+<li>用第 12 章算 11 日的保护位，并说明它在 D-7 / D-3 / D-1 分别应释放到多少。</li>
+</ol></div>
+<div class="pkey"><b>判定要点：</b>分阶段布价，每阶段看 pickup，<b>放缓就停</b>；限制条件从最轻剂量（2 晚）开始且必须提前明示；保护位必须随时间递减而非一成不变。</div>
+<div class="ptrap"><b>常见跑偏：</b>D-60 就一次性把价提到顶（pickup 会被吓停，且无从判断是价格问题还是需求问题）；设了 MinLOS 事后忘记撤，持续损失订单；保护位设了不释放，13 日大量空房。</div></div>
+<div class="proj"><h4>E3 · 团队置换：这个团到底接不接</h4>
+<div class="pmeta">用到：第 12、14、15、22、26 章 ｜ 建议 90 分钟 ｜ 分组对抗（销售 vs 收益）</div>
+<div class="pnum">销售部接到一个团：40 间 × 3 晚（11 月 15–17 日，周三至周五），出价 380 元含早。<br>
+同期数据：散客 BAR 620；该三日为平季，预测散客 OCC 约 65%（即每晚约有 70 间空）；单间变动成本 90 元，早餐成本 25 元；团队客人人均另有餐饮消费约 60 元/天。<br>
+<b>再假设第二种情形：</b>同样的团改到 12 月 11–13 日（展会日，预测满房）。</div>
+<div class="ptask"><b>任务</b><ol>
+<li>按第 26 章核对：380 元是否高于底线？（给出底线金额与计算过程）</li>
+<li>按第 15 章算<b>总贡献</b>：房价 + 餐饮 − 变动成本，注意不要只算房。</li>
+<li>算<b>机会成本</b>：被挤占的"期望散客间夜"是多少？提示：要用预测空房量（70 间/晚）而不是满房（200 间）来算挤占。</li>
+<li>给出两种情形下的结论（11 月 / 12 月），并说明各自应附加什么条件（截止日期、押金、置换比例）。</li>
+<li>用第 22 章说明：接这个团会不会破坏 BAR 层级？如何避免团队价外溢到散客渠道？</li>
+</ol></div>
+<div class="pkey"><b>判定要点：</b>算总贡献而非单看房价；机会成本用"期望散客需求"而非"满房"；紧俏日应拒或提价，淡季可接但要设截止日期与置换比例。</div>
+<div class="ptrap"><b>常见跑偏：</b>直接比房价（380 &lt; 620 就拒）——忽略了这 40 间在平季本来也卖不掉；忘了餐饮与其他消费；不设截止日期导致销售一直压着房不确认；团队价流入 OTA 造成体系崩塌。</div></div>
+<div class="proj"><h4>E4 · 竞品降价三连：跟还是不跟</h4>
+<div class="pmeta">用到：第 3、4、6、22、24 章 ｜ 建议 90 分钟 ｜ 分组完成</div>
+<div class="pnum">过去三周，竞品 A 连续降价：620 → 580 → 550 → 520。<br>
+本店数据：MPI 从 102 跌到 88（量被抢走），ARI 保持 101（价格相对位置没变），RGI 从 103 跌到 89。<br>
+同期：本店 OTA 评分 4.5（竞品 A 为 4.4）；全城酒店的平均 pickup 同比下降 6%。</div>
+<div class="ptask"><b>任务</b><ol>
+<li>用第 3 章判断：这是"量的问题"还是"价的问题"？给出 MPI / ARI / RGI 的读法。</li>
+<li>用第 6 章流程判断<b>原因</b>：是竞品抢客、还是全城需求下滑？提示：看全城 pickup 与本店评分。</li>
+<li>分情形给结论：① 若全城需求下滑 → 跟降有用吗？② 若只是本店被抢 → 该动什么？</li>
+<li>若决定试探性降价：用第 4 章设计一个"小范围弹性测试"（限量、限时、限渠道），并说明测什么、看多久、什么信号算失败。</li>
+<li>用第 24 章说明：本店评分 4.5 高于竞品 A，这个优势该如何转化为定价能力？</li>
+</ol></div>
+<div class="pkey"><b>判定要点：</b>MPI 单独下降 ≠ 要降价，先看全城数据判断是需求侧还是竞争侧；用权益与产品优势承接，而不是裸价跟降；任何降价都要做成可撤回的小范围测试。</div>
+<div class="ptrap"><b>常见跑偏：</b>直接跟到 520（破坏 BAR 层级、引发价格战、且不可逆）；不看全城数据就归因；用"全场降价"做测试（无法归因，无法撤回）。</div></div>
+
+<div class="proj"><h4>E5 · 淡季救市：不降价的八件事</h4>
+<div class="pmeta">用到：第 3、4、7、8、16、24、28 章 ｜ 建议 90 分钟 ｜ 分组完成</div>
+<div class="pnum">1 月，本店 200 间房，出租率 38%，预测未来两周仍在 35–42% 区间。<br>
+销售部提出："全场降价 20%，先把量做起来。"<br>
+已知：竞品群同期 OCC 约 45%，MPI 88、ARI 99；本店 OTA 评分 4.4（竞品 4.6）；本地 1 月无大型事件。</div>
+<div class="ptask"><b>任务</b><ol>
+<li>用第 3 章判断：这是量的问题还是价的问题？本店与竞品的差距主要在哪一项？</li>
+<li>用第 4 章说明：降价 20% 一定能换来量吗？在什么条件下降价是无效的？</li>
+<li>列出<b>不动 BAR 的八件替代动作</b>，并为每项标注：预计见效周期、大致成本、主要风险。</li>
+<li>从这八件里挑两项本周就做，按第 4 章设计成"小范围测试"（限量、限时、限渠道）。</li>
+<li>如果最终仍决定降价：用第 7 章说明必须配哪几道栅栏，以及为什么"没有栅栏的促销等于永久降价"。</li>
+</ol></div>
+<div class="pkey"><b>判定要点：</b>先分清"需求不存在"与"需求够不着"——前者降价无效（应做产品与渠道），后者才值得动价；任何促销必须配栅栏；降价不可逆，是最后手段而非第一反应。</div>
+<div class="ptrap"><b>常见跑偏：</b>全场裸价降 20%（永久降价 + 高价客 buy-down + 竞品立即跟进）；促销不设提前期与不可退条件；只看出租率不看净 RevPAR；忽略评分 4.4 才是转化率低的真正原因（第 24 章）。</div></div>
+<div class="proj"><h4>E6 · 评分掉了 0.3：修复与回升</h4>
+<div class="pmeta">用到：第 5、22、24 章 ｜ 建议 60 分钟 ｜ 个人完成</div>
+<div class="pnum">本店 OTA 评分近三个月从 4.6 跌到 4.3。近 30 天 12 条差评，集中在两个问题：① 前台办理等待超过 10 分钟（7 条）；② 客房空调制冷不足（5 条）。<br>
+同期：转化率为同商圈平均的 82%，MPI 由 101 降到 91。</div>
+<div class="ptask"><b>任务</b><ol>
+<li>用第 24 章把损失<b>量化</b>：按"评分每降 0.1 需降价 2–5% 才能维持转化"的经验值，0.3 相当于多少定价能力损失？换算成本店年收入约多少？</li>
+<li>列出整改顺序，并说明为什么"先修因、再修分"而不是反过来。</li>
+<li>给这 12 条差评设计回复策略：回复时限、回复对象（写给谁看）、哪些必须私下跟进。</li>
+<li>评分回升到 4.5 之后，必须同步做什么动作？（提示：第 5 章与第 22 章）</li>
+<li>明确列出<b>绝对不能做的三件事</b>，并说明违规风险。</li>
+</ol></div>
+<div class="pkey"><b>判定要点：</b>评分是价格——差 0.1 分要用 2–5% 的价格去补，所以修分比降价划算得多；公开回复是写给<b>潜在客人</b>看的；评分回升后必须同步上调 BAR 3–5%，否则等于白修。</div>
+<div class="ptrap"><b>常见跑偏：</b>立刻降价补转化（掩盖问题 + 不可逆，且修好后价也涨不回去）；刷评与诱导好评（平台违规，风险远大于收益）；只回复不整改，评分继续跌。</div></div>
+<div class="proj"><h4>E7 · 年度预算：把 1200 万拆到每一天</h4>
+<div class="pmeta">用到：第 17、20、21、28 章 ｜ 建议 120 分钟 ｜ 分组完成</div>
+<div class="pnum">本店 200 间房，明年房晚收入目标 1,200 万元。<br>
+可用间夜 = 200 × 365 = 73,000 间夜；去年实际 RevPAR 148，今年目标约提升 11%。<br>
+历史月指数（去年）：1 月 0.62、2 月 0.71、3 月 0.88、4 月 0.95、5 月 1.02、6 月 0.97、7 月 0.93、8 月 0.96、9 月 1.05、10 月 1.18、11 月 0.92、12 月 0.81。</div>
+<div class="ptask"><b>任务</b><ol>
+<li>先算全年的平均 RevPAR 要求，并验证它与"提升 11%"是否一致。</li>
+<li>用第 21 章的月指数法，把 1,200 万拆到 12 个月（写出计算式与每月目标）。</li>
+<li>说明"平均分成十二份"为什么是错的：用 1 月（0.62）与 10 月（1.18）举例说明后果。</li>
+<li>再往下拆一层：给某个月加上星期几系数（假设本店商务型：周一至周四 1.08、周五 0.95、周六 0.86、周日 0.83），算出该月某一周各天的 RevPAR 目标。</li>
+<li>用第 28 章把已知事件日叠加进去，说明叠加后哪些日子的目标需要上调、哪些需要下调。</li>
+<li>说明这个目标是<b>双目标</b>（房量 + 房价）的理由，并给出该月的 OCC 与 ADR 分解。</li>
+</ol></div>
+<div class="pkey"><b>判定要点：</b>月指数 × 星期几系数 × 事件日三层叠加；严禁平均分成十二份；目标必须同时给 OCC 与 ADR，否则执行时无法判断"是量没做到还是价没做到"。</div>
+<div class="ptrap"><b>常见跑偏：</b>1,200 万 ÷ 12 = 每月 100 万（1 月必然完不成、10 月必然浪费）；只给收入目标不给 OCC/ADR 分解；把预算当成"预测"而不是"目标"，做完就锁进抽屉不看。</div></div>
+<div class="proj"><h4>E8 · 开一家新店：从零搭起价格体系</h4>
+<div class="pmeta">用到：第 9、13、14、20、22、26、27 章 ｜ 建议 120 分钟 ｜ 综合大作业</div>
+<div class="pnum">新开商务酒店，150 间房，三个房型（标准 90 间 / 高级 45 间 / 行政 15 间），三个月后开业。<br>
+<b>没有任何历史数据。</b>已知：竞品群三家，BAR 分别 560 / 620 / 680，均分 4.5–4.7；本店定位略高于竞品均值；单间变动成本约 95 元。</div>
+<div class="ptask"><b>任务</b><ol>
+<li>用第 22 章建立 BAR 层级：给出本店 BAR 建议值与理由（定位、竞品、成本三者的关系）。</li>
+<li>用第 9 章定房型价差：标准 → 高级 → 行政分别是多少？价差率是否落在合理区间？行政房是否要留"升级池"？</li>
+<li>用第 14 章做客源细分：列出至少四堆客源，分别给什么价档与什么条件（提前期 / 可否取消 / 最少住几晚）。</li>
+<li>用第 13 章算渠道净价：OTA 佣金 15%、协议 8%、直销 2%，各渠道到手多少？据此给出渠道结构建议（各渠道占比上限）。</li>
+<li>用第 26 章定价格底线：最低可卖到多少？在什么情形下可以破例？</li>
+<li>用第 27 章与第 20 章回答：<b>没有历史数据，预测怎么做？</b>给出第一版需求日历的做法。</li>
+</ol></div>
+<div class="pkey"><b>判定要点：</b>价格体系必须先于调价——先有 BAR 层级才有折扣空间；比较渠道必须用到手净价而非挂牌价；无历史数据时，用竞品群与城市级数据做替代预测，并在开业后 90 天内完成第一轮校准。</div>
+<div class="ptrap"><b>常见跑偏：</b>先定"开业特价 399"再回头补体系（体系一旦被特价撕开，后期极难收回）；房型价差拍整数（应按价值差与售罄顺序校准）；只看挂牌价不看净价，导致 OTA 占比失控；预售期把房一次性放完，没有保护位概念。</div></div></div>
+
+<div class="app"><h3 id="appF">附录 F · 全书一页纸总览</h3>
+<p>这一页是给<b>已经读完一遍的人</b>用的：用它回忆整本书，用它定位该翻哪章，也用它检验自己是否真的提纲挈领。</p>
+<p style="margin-top:8px"><b>用法：</b>合上目录，先只看第三列「判定表关键词」，试着默写出它对应的判断；想不起来的，就是您的薄弱章节。</p>
+<div style="margin:10px 0 4px"><svg viewBox="0 0 700 72" width="100%" height="72" style="display:block;margin:10px 0"><rect x="0.0" y="8" width="128.8" height="42" rx="5" fill="#0f2a4a" stroke="none"/><text x="64.4" y="27" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">认知篇</text><text x="64.4" y="43" text-anchor="middle" font-size="11" fill="#dbe9f5">看懂数字 1–4</text><path d="M 129.8 29 L 139.8 29" stroke="#e8b84b" stroke-width="2" fill="none"/><path d="M 140.8 29 l -5 -4 l 0 8 Z" fill="#e8b84b" stroke="none"/><rect x="142.8" y="8" width="128.8" height="42" rx="5" fill="#1d6fb8" stroke="none"/><text x="207.2" y="27" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">决策篇</text><text x="207.2" y="43" text-anchor="middle" font-size="11" fill="#dbe9f5">一个决定 5–16</text><path d="M 272.6 29 L 282.6 29" stroke="#e8b84b" stroke-width="2" fill="none"/><path d="M 283.6 29 l -5 -4 l 0 8 Z" fill="#e8b84b" stroke="none"/><rect x="285.6" y="8" width="128.8" height="42" rx="5" fill="#2b8ac9" stroke="none"/><text x="350.0" y="27" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">运营篇</text><text x="350.0" y="43" text-anchor="middle" font-size="11" fill="#dbe9f5">天天运转 17–24</text><path d="M 415.4 29 L 425.4 29" stroke="#e8b84b" stroke-width="2" fill="none"/><path d="M 426.4 29 l -5 -4 l 0 8 Z" fill="#e8b84b" stroke="none"/><rect x="428.4" y="8" width="128.8" height="42" rx="5" fill="#3f9fd6" stroke="none"/><text x="492.8" y="27" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">组织篇</text><text x="492.8" y="43" text-anchor="middle" font-size="11" fill="#dbe9f5">人钱器 25–28</text><path d="M 558.2 29 L 568.2 29" stroke="#e8b84b" stroke-width="2" fill="none"/><path d="M 569.2 29 l -5 -4 l 0 8 Z" fill="#e8b84b" stroke="none"/><rect x="571.2" y="8" width="128.8" height="42" rx="5" fill="#5ab0dd" stroke="none"/><text x="635.6" y="27" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">延伸篇</text><text x="635.6" y="43" text-anchor="middle" font-size="11" fill="#dbe9f5">迁移与收束 29–32</text><text x="350.0" y="68" text-anchor="middle" font-size="12" font-style="italic" fill="#5a6a80">五篇的逻辑顺序：先看得懂 → 再会判断 → 再串成流程 → 再有人有工具 → 最后迁移出客房</text></svg></div><table class="rv-t"><tr><th style="width:52px">章</th><th>这一章一句话</th><th style="width:230px">判定表关键词</th></tr><tr><td><b>1</b></td><td>把今晚卖不掉就作废的房，在合适的时间卖给愿意多付的人——判据是机会成本</td><td>机会成本：留给后面的值多少</td></tr><tr><td><b>2</b></td><td>OCC、ADR、RevPAR 三个指标，RevPAR 才是总成绩</td><td>RevPAR = OCC × ADR</td></tr><tr><td><b>3</b></td><td>MPI 看量、ARI 看价、RGI 看总；先看哪个决定您该动什么</td><td>MPI 低动渠道 / ARI 低动价档</td></tr><tr><td><b>4</b></td><td>降价能换多少量？弹性要小范围测，不能猜</td><td>|E| &gt; 1 才值得降</td></tr><tr><td><b>5</b></td><td>什么时候涨价：四条信号齐了才动，不能凭感觉</td><td>在手 + pickup + 紧俏度 + 竞品</td></tr><tr><td><b>6</b></td><td>竞品降价跟不跟：先看原因与 MPI，跟错比不跟更贵</td><td>先看全城数据，再看本店</td></tr><tr><td><b>7</b></td><td>折扣与促销必须配栅栏，没有栅栏的促销等于永久降价</td><td>提前期 / 不可退 / 会员</td></tr><tr><td><b>8</b></td><td>用套餐与锚定让客人觉得划算，而不是直接降裸价</td><td>加价值，不加折扣</td></tr><tr><td><b>9</b></td><td>房型价差按价值差定档，售罄顺序是最便宜的诊断工具</td><td>售罄应由低到高</td></tr><tr><td><b>10</b></td><td>MinLOS 用条件分开客群，剂量从最轻的 2 晚开始</td><td>前后日不对称才设</td></tr><tr><td><b>11</b></td><td>超售按历史取消率定额度，分房型设置并留升级池</td><td>理论值减半 + 分房型</td></tr><tr><td><b>12</b></td><td>保护位给高价客留房，低价上限 = 可用房 − 保护位，必须动态释放</td><td>保护位随时间递减</td></tr><tr><td><b>13</b></td><td>渠道要比较到手净价，不是挂牌价</td><td>净价 = 售价 × (1 − 佣金率)</td></tr><tr><td><b>14</b></td><td>把客人分成几堆来卖，不同堆给不同价与条件</td><td>细分 → 价档 → 栅栏</td></tr><tr><td><b>15</b></td><td>团队接不接：算总贡献，再减机会成本</td><td>总贡献 − 被挤占的期望散客</td></tr><tr><td><b>16</b></td><td>直销与会员：给权益，不给裸价折扣</td><td>节约佣金 − 权益成本</td></tr><tr><td><b>17</b></td><td>运营全景：年 → 季 → 月 → 周 → 日，先看清整条链路</td><td>先有节奏，体系才有落点</td></tr><tr><td><b>18</b></td><td>一天四阶段：取数 → 判表 → 执行 → 收口</td><td>下午看未来 7–14 天</td></tr><tr><td><b>19</b></td><td>执行标准与例会：每个决定指到某行，例会 45 分钟</td><td>改了什么 / 为什么 / 谁批</td></tr><tr><td><b>20</b></td><td>预测与需求日历：预测精度就是收益天花板</td><td>pickup 曲线而非当日 OCC</td></tr><tr><td><b>21</b></td><td>年度预算用月指数法拆到每天，严禁平均分成十二份</td><td>月指数 × 星期几 × 事件日</td></tr><tr><td><b>22</b></td><td>价格体系 BAR 是所有价格的锚，先有层级才有折扣空间</td><td>BAR 层级不可现场破坏</td></tr><tr><td><b>23</b></td><td>报表体系：每张表必须对应一个动作，否则就是废表</td><td>看表 → 动作 → 复核</td></tr><tr><td><b>24</b></td><td>OTA 与点评：评分就是价格，差 0.1 分要 2–5% 的价去补</td><td>先修因，回升后上调 BAR</td></tr><tr><td><b>25</b></td><td>岗位与组织：谁裁决、与前后厅销售的协作边界</td><td>优先级仲裁定冲突</td></tr><tr><td><b>26</b></td><td>成本与利润：变动成本是价格底线，净 RevPAR 才是成绩</td><td>价 &gt; 变动成本</td></tr><tr><td><b>27</b></td><td>系统与数据：工具替代计算，替代不了判断</td><td>无系统也能开课</td></tr><tr><td><b>28</b></td><td>淡旺季与事件日：一年里最容易赚的钱，提前 6–12 个月标注</td><td>D-60/30/14/7 分阶段</td></tr><tr><td><b>29</b></td><td>餐饮收益：RevPASH 与翻台，抓手是时段与时长</td><td>每座位每小时收益</td></tr><tr><td><b>30</b></td><td>会议宴会：算总贡献而不是单看场地或房价</td><td>场地 + 餐饮 + 客房</td></tr><tr><td><b>31</b></td><td>其他业态：四个条件成立即可迁移</td><td>易逝·成本·可预测·分化</td></tr><tr><td><b>32</b></td><td>常见误区 30 个坑——全书收束</td><td>三句话：机会成本 · 可得性优先 · 指到某行</td></tr></table>
+<div class="rv-link" style="margin-top:14px"><b>全书如果只能记住三句话：</b><br>
+① 卖与不卖，比的都是<b>机会成本</b>——不看能卖多少，看留给后面的客人值多少；<br>
+② 先动<b>可得性</b>，后动价格——关低价档不降 BAR 也能把客群往上推，且可逆；降价不可逆。<br>
+③ 任何决定都要能<b>指到判定表的某一行</b>；说不出依据的决定不算决定，只是感觉。</div>
+<div class="rv-link" style="margin-top:10px;background:#f2f7fb;border-left-color:#1d6fb8;color:#223349"><b>检验自己是否真懂（两道题）：</b><br>
+① 合上目录，默写出五篇及其各回答的问题；<br>
+② 任取一个真实场景，独立填出对应的判定表并说明依据。<br>
+做到这两点，这本书才算读完。</div>
+</div>
+
+
+
+
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>《酒店收益管理》合并正典稿 · 在线阅读版</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1" class="lv3">1. 怎么读这本书（按身份选路径）</a>
+<a href="#toc-2" class="lv3">2. 关键词索引（点章号直达）</a>
+<a href="#toc-3" class="lv3">3. 判定表索引 · 15 张表出现在哪些章</a>
+<a href="#toc-4">第一篇 · 认知篇</a>
+<a href="v2026-3-course-index.html#lesson-1">第 1 章 · 收益管理是什么：一句话与底层逻辑</a>
+<a href="v2026-3-course-index.html#lesson-2">第 2 章 · 三个核心指标：OCC、ADR、RevPAR</a>
+<a href="v2026-3-course-index.html#lesson-3">第 3 章 · 竞争三件套：MPI、ARI、RGI</a>
+<a href="v2026-3-course-index.html#lesson-4">第 4 章 · 价格弹性：降多少价能换多少量</a>
+<a href="#toc-5" class="lv3">本篇回顾 · 第一篇 · 认知篇</a>
+<a href="#toc-5">第二篇 · 决策篇</a>
+<a href="v2026-3-course-index.html#lesson-5">第 5 章 · 什么时候涨价</a>
+<a href="v2026-3-course-index.html#lesson-6">第 6 章 · 竞品降价：跟还是不跟</a>
+<a href="v2026-3-course-index.html#lesson-7">第 7 章 · 折扣与促销：什么时候该让</a>
+<a href="v2026-3-course-index.html#lesson-8">第 8 章 · 套餐与锚定：让客人觉得划算</a>
+<a href="v2026-3-course-index.html#lesson-9">第 9 章 · 房型价差：差价定多少才合理</a>
+<a href="v2026-3-course-index.html#lesson-10">第 10 章 · 最短住期 MinLOS：用条件把客群分开</a>
+<a href="v2026-3-course-index.html#lesson-11">第 11 章 · 超额预订：卖出去的比有的多</a>
+<a href="v2026-3-course-index.html#lesson-12">第 12 章 · 库存分配与保护位：给谁留多少房</a>
+<a href="v2026-3-course-index.html#lesson-13">第 13 章 · 渠道净价：到手多少钱才算数</a>
+<a href="v2026-3-course-index.html#lesson-14">第 14 章 · 客源细分：把客人分成几堆来卖</a>
+<a href="v2026-3-course-index.html#lesson-15">第 15 章 · 团队置换：这个团该不该接</a>
+<a href="v2026-3-course-index.html#lesson-16">第 16 章 · 直销与会员：把客人变成自己的</a>
+<a href="#toc-10" class="lv3">本篇回顾 · 第二篇 · 决策篇</a>
+<a href="#toc-6">第三篇 · 运营篇</a>
+<a href="v2026-3-course-index.html#lesson-17">第 17 章 · 运营全景：从年到日的节奏</a>
+<a href="v2026-3-course-index.html#lesson-18">第 18 章 · 每日实操流程：一天具体做什么</a>
+<a href="v2026-3-course-index.html#lesson-19">第 19 章 · 执行标准与收益例会</a>
+<a href="v2026-3-course-index.html#lesson-20">第 20 章 · 预测与需求日历</a>
+<a href="v2026-3-course-index.html#lesson-21">第 21 章 · 年度预算：把一年拆到每天</a>
+<a href="v2026-3-course-index.html#lesson-22">第 22 章 · 价格体系 BAR：所有价格的锚</a>
+<a href="v2026-3-course-index.html#lesson-23">第 23 章 · 报表体系：每天该看哪几张表</a>
+<a href="v2026-3-course-index.html#lesson-24">第 24 章 · OTA 与点评：评分就是价格</a>
+<a href="#toc-14" class="lv3">本篇回顾 · 第三篇 · 运营篇</a>
+<a href="#toc-7">第四篇 · 组织篇</a>
+<a href="v2026-3-course-index.html#lesson-25">第 25 章 · 岗位与组织：谁来干这件事</a>
+<a href="v2026-3-course-index.html#lesson-26">第 26 章 · 成本与利润：降价的底线在哪</a>
+<a href="v2026-3-course-index.html#lesson-27">第 27 章 · 系统与数据：工具能替您做什么</a>
+<a href="v2026-3-course-index.html#lesson-28">第 28 章 · 淡旺季与事件日：一年里最容易赚的钱</a>
+<a href="#toc-17" class="lv3">本篇回顾 · 第四篇 · 组织篇</a>
+<a href="#toc-8">第五篇 · 延伸篇</a>
+<a href="v2026-3-course-index.html#lesson-29">第 29 章 · 餐饮收益：RevPASH 与翻台</a>
+<a href="v2026-3-course-index.html#lesson-30">第 30 章 · 会议宴会：不只算房，算总贡献</a>
+<a href="v2026-3-course-index.html#lesson-31">第 31 章 · 其他业态与跨行业参数</a>
+<a href="v2026-3-course-index.html#lesson-32">第 32 章 · 常见误区：30 个坑，别再踩</a>
+<a href="#toc-20" class="lv3">本篇回顾 · 第五篇 · 延伸篇</a>
+<a href="#appA" class="lv3">附录 A · 判定表全集索引（按篇章结构编排）</a>
+<a href="#appB" class="lv3">附录 B · 练习答案</a>
+<a href="#appC" class="lv3">附录 C · 术语表</a>
+<a href="#appD" class="lv3">附录 D · 自测题库索引</a>
+<a href="#appE" class="lv3">附录 E · 跨篇综合实训（8 个项目）</a>
+<a href="#appF" class="lv3">附录 F · 全书一页纸总览</a>
+<a href="#toc-9">第六篇 · 现实篇：连锁、AI、危机与职业</a>
+<a href="v2026-3-course-index.html#lesson-33">第 33 章 · 中国渠道生态：平台、私域、买断与直播 新增</a>
+<a href="#toc-54" class="lv3">33.1 三类平台的角色差异</a>
+<a href="#toc-55" class="lv3">33.2 包房买断与代理切房：算净价，不算牌价</a>
+<a href="#toc-56" class="lv3">33.3 直播预售：三类冲突与隔离规则</a>
+<a href="v2026-3-course-index.html#lesson-34">第 34 章 · 连锁与中央预订：总部定价，门店做什么 新增</a>
+<a href="#toc-98" class="lv3">34.1 定价权分布：谁定什么</a>
+<a href="#toc-99" class="lv3">34.2 门店收益岗位的三件事</a>
+<a href="#toc-100" class="lv3">34.3 有限服务酒店的简化收益动作</a>
+<a href="v2026-3-course-index.html#lesson-35">第 35 章 · AI 工具做收益分析 新增</a>
+<a href="#toc-102" class="lv3">35.1 三条铁律</a>
+<a href="#toc-103" class="lv3">35.2 合格提示词的四要素</a>
+<a href="#toc-104" class="lv3">35.3 三类可用任务与抽核方法</a>
+<a href="v2026-3-course-index.html#lesson-36">第 36 章 · 危机与极端场景 新增</a>
+<a href="#toc-106" class="lv3">36.1 四类极端场景与冲击路径</a>
+<a href="#toc-107" class="lv3">36.2 取消与改期政策的梯度设计</a>
+<a href="#toc-108" class="lv3">36.3 危机中的价格处置两条原则</a>
+<a href="v2026-3-course-index.html#lesson-37">第 37 章 · 收益岗位与职业发展 新增</a>
+<a href="#toc-110" class="lv3">37.1 四类岗位形态</a>
+<a href="#toc-111" class="lv3">37.2 能力雷达：六个维度</a>
+<a href="#toc-112" class="lv3">37.3 晋升路径与门槛</a>
+<a href="#toc-113" class="lv3">37.4 面试最常问的三类问题</a>
+<a href="v2026-3-course-index.html#lesson-38">第 38 章 · 变革篇：收益管理正在发生的五件事 新增</a>
+<a href="#toc-116" class="lv3">38.1 算法化：人从&quot;调价的&quot;变成&quot;管调价系统的&quot;</a>
+<a href="#toc-117" class="lv3">38.2 全域化：收益管理的半径超出客房</a>
+<a href="#toc-118" class="lv3">38.3 战略化：从定价文员到进管理层</a>
+<a href="#toc-119" class="lv3">38.4 渠道透明化：比价从&quot;提前一周&quot;变成&quot;扫码即比&quot;</a>
+<a href="#toc-120" class="lv3">38.5 需求重构：别迷信&quot;历史同期&quot;</a>
+<a href="#toc-10">第七篇 · 视野篇：周期、人工智能与可持续</a>
+<a href="v2026-3-course-index.html#lesson-39">第 39 章 · 周期与不确定性下的收益管理 新增</a>
+<a href="v2026-3-course-index.html#lesson-40">第 40 章 · 人工智能与收益管理（科普） 新增</a>
+<a href="v2026-3-course-index.html#lesson-41">第 41 章 · 绿色收益管理与可持续 新增</a>
+<a href="#toc-11">附录 A · 国际口径（HSMAI 体系）与本书做法对照</a>
+<a href="#toc-122" class="lv3">4. A.1 一致的部分（可以直接对应）</a>
+<a href="#toc-123" class="lv3">5. A.2 五个关键差异，以及为什么国内要这么做</a>
+<a href="#toc-124" class="lv3">6. A.3 术语对照速查</a>
+<a href="#toc-12">附录 B · 国际教学范式对照</a>
+<a href="#toc-13" class="lv3">7. 三种教学范式对照</a></div>
+</nav>
+
+</body></html>
+<div class="task"><div class="tk">课堂任务卡 · 第 32 章</div><div class="tsc"><b>情境：</b>用法：每月最后一天花 15 分钟过这六项。任一项不合格，下月第一件事就是补它。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出您的动作与依据（第几行）。<b>写完再展开答案。</b></div><details class="tans"><summary>答案与判据（写完再看）</summary><table><tr><td>指标口径</td><td>是否用 RevPAR / RGI / 净价，而非出租率 / 平均房价</td></tr><tr><td>价格体系</td><td>BAR 是否唯一、各渠道是否同价、前台能否现场放价（第 22 章）</td></tr><tr><td>栅栏</td><td>每个低价档是否都有条件限制（第 7、10 章）</td></tr></table><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></details></div>
+</details>
+
+<details class="sub"><summary>④ 教学装：怎么讲 / 课堂活动 / 易错点 / 怎么判分</summary><div class="tch">
+<h4 class="tch-n">教学目标（可考核）</h4><ul>
+<li>能识别最常见的误区</li>
+<li>能给自己做一份月度自检</li>
+<li>能说出全书的三句话</li>
+</ul>
+<div class="tm"><span class="tl">怎么讲</span>本课是收束课。做法：把 30 个误区做成<b>判断题</b>让学生抢答 → 错得最多的三条重点讲 → 最后回到三句话（机会成本／可得性优先／指到判定表某行）。</div>
+<div class="tm"><span class="tl2">课堂活动</span><b>30 题误区抢答</b>（30 分钟）</div>
+<div class="tm" style="padding-left:12px"><b>材料：</b>30 张判断题卡</div>
+<div class="tm" style="padding-left:12px"><b>步骤：</b></div><ol>
+<li>发 30 张判断题卡（或投屏）</li>
+<li>小组抢答并说明理由</li>
+<li>统计错得最多的三条，逐一精讲</li>
+<li>每人写下自己最容易犯的一条</li>
+</ol>
+<div class="tm" style="padding-left:12px"><b>产出：</b>错题清单 + 每人一句「我最容易犯的是」</div>
+<h4>学生易错点</h4><table><tr><th style="width:44%">典型错误</th><th>怎么纠正</th></tr>
+<tr><td>把本课当复习课</td><td>强调是纠错课，要暴露错误</td></tr>
+<tr><td>只讲答案不追问理由</td><td>说不出依据等于没真懂</td></tr>
+<tr><td>上完就结束</td><td>必须回到三句话做收束</td></tr>
+</table>
+<h4>怎么判分</h4><div class="gr">
+<div class="gA"><b>A 档（优秀）</b>能指出自己最易犯的误区并说出对应的判定表章节</div>
+<div class="gB"><b>B 档（合格）</b>能判断但说不出章节</div>
+<div class="gC"><b>C 档（需重做）</b>仍有大量误判</div>
+</div>
+<div class="map"><b>对应学生版：</b>学生版第 32 章；练习第 1–6 题；判定表「常见误区」</div>
+</div></details>
+
+<details class="sub"><summary>⑤ 实验与数据表（可下载）</summary>
+<p>用 <a href="../teach-data.html">教学数据工坊</a> 的云璟 90 天数据做一遍本章动作；判定表与模板在
+<a href="../campus-resources.html">院校专区 · 七件套</a> 领取。没有 RMS 的学校，用 Excel 模板即可跑通。</p>
+<ul><li>动作清单：按本章判定表逐格执行，写下依据</li><li>交付物：一页 <a href="../onepager-logic.html">方法论一页纸</a> + 一份留痕台账</li><li>验收：依据正确性（不是"算对了没有"）</li></ul>
+</details>
+
+<h4>⑥ 本章小结</h4>
+<p>读完这章您能自查：这 30 个错误，您犯了几个。</p>
+
+<div class="pc"><b>思政融入点 · 职业操守</b><p>避坑的第一条是别投机取巧。</p><p class="mini">课堂追问：这个"技巧"，敢公开讲吗？</p></div>
+<div class="pc"><b>数据看板</b><p>本章关键口径：<b>RevPAR、BAR、RGI、MPI、在手、OCC</b></p><p class="mini">看板位置：多业态看板 · 分业态并列区｜口径来源：云璟 90 天数据 v2026.1｜每学分 ≥100 题的题库由判定表映射组卷</p></div>
+
+<h4>⑦ 本章实训（课堂活动）</h4>
+<div></span><b>30 题误区抢答</b>（30 分钟）</div>
+<div class="tm" style="padding-left:12px"><b>材料：</b>30 张判断题卡</div>
+<div class="tm" style="padding-left:12px"><b>步骤：</b></div><ol>
+<li>发 30 张判断题卡（或投屏）</li>
+<li>小组抢答并说明理由</li>
+<li>统计错得最多的三条，逐一精讲</li>
+<li>每人写下自己最容易犯的一条</li>
+</ol>
+<div class="tm" style="padding-left:12px"><b>产出：</b>错题清单 + 每人一句「我最容易犯的是」</div>
+<h4>⑧ 配套资源二维码</h4>
+<div class="qrw"><div class="qr"><svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="题库二维码"><use href="#qr-tk"/></svg><span>题库二维码</span></div><div class="qr"><svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="知识灯二维码"><use href="#qr-kd"/></svg><span>知识灯二维码</span></div></div>
+
+</div><div class="shell"><div class="st">04　本讲算例（可复算 · v2026.2 校正）</div><p><strong>统一经营基线（v2026.2 唯一口径）</strong>：房量 300 间，OCC 72.0%，ADR ¥618，RevPAR 精算 444.96，客房收入 48,723,120 元；OOO 3 间 → 可售 297，装修 12 间 → 288；RGI = MPI × ARI ÷ 100。</p><p><strong>本讲判定式</strong>　按 15 表冲突矩阵唯一裁决；最高优先级为「维持」时顺延；冲突写入台账备注</p><p><strong>抽查分支</strong>　出现异常事件信号 → 表 L 优先，全部自动动作暂停</p><p><strong>关键输入</strong>　15 表两两冲突矩阵（v2026.2 冲突矩阵）；需求等级日历（需求等级日历）；会议×团队裁决（表 G/K）</p><table class="mtable"><thead><tr><th style="width:18%">复核项</th><th style="width:40%">本版值</th><th style="width:42%">旧版已知问题</th></tr></thead><tbody><tr><td>目标函数</td><td>净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控</td><td>只把 6 张表纳入优先级序列，其余 9 张表冲突时无裁决规则；缺会议×团队、团队×渠道、渠道×价格一致性三组具体裁决。</td></tr><tr><td>依据表</td><td>表 O · 决策优先级与冲突仲裁表</td><td><code>codex.html:864-915</code></td></tr><tr><td>生效 / 复审</td><td>2026-11-06 / 2027-11-06</td><td>旧法典无生效日与复审日</td></tr></tbody></table><div class="note">数值可复算工具见 <a href="v2026-2-metrics-formulas.html">指标与公式卡</a>；阈值须用本店真实数据回填，十五张判定表是教学脚手架，不是行业标准。</div></div><div class="shell"><div class="st">05　课堂练习（三题 · 可当堂批改）</div><p>题目取自 <code>assets/data/workbook-index.json</code> 的 M11 模块；按章轮转抽取，41 讲不重复同一组题。本讲已对题库中的已知错解应用 v2026.2 重算。</p><div class="qbox"><div class="qn">练习 1 · M11 · 基础</div><p>按本题库口径，量差 =（OCC₁ − OCC₀）× ADR₀。<br>对　错</p><p>作答：<span class="blank">____</span>　依据表号：<span class="blank">____</span>　净贡献是否改善：<span class="blank">____</span></p></div><div class="qbox"><div class="qn">练习 2 · M11 · 基础</div><p>杭州滨江云璟酒店年可售房晚 109,500 = 300 间 × 365 天。<br>对　错</p><p>作答：<span class="blank">____</span>　依据表号：<span class="blank">____</span>　净贡献是否改善：<span class="blank">____</span></p></div><div class="qbox"><div class="qn">练习 3 · M11 · 基础</div><p>按《法典》表 N，下年度预算编制在每年 9 月完成。<br>对　错</p><p>作答：<span class="blank">____</span>　依据表号：<span class="blank">____</span>　净贡献是否改善：<span class="blank">____</span></p></div></div><div class="shell"><div class="st">06　参考答案与评分要点</div><table class="mtable"><thead><tr><th style="width:10%">题号</th><th style="width:10%">答案</th><th style="width:80%">解析与依据（v2026.2 校正后）</th></tr></thead><tbody><tr><td>练习 1</td><td><strong>对</strong></td><td>依据：本节页首量差价差分解口径<br> 解析：量差用基期 ADR（ADR₀）作权重，衡量「出租率变化带来多少 RevPAR」；价差用报告期 OCC（OCC₁）作权重，衡量「房价变化带来多少 RevPAR」。此口径下量差与价差之和恰好等于 RevPAR 总变动，无残差项，答案唯一。</td></tr><tr><td>练习 2</td><td><strong>对</strong></td><td>依据：《SPEC》二 · 2.3 经营基线<br> 解析：300 × 365 = 109,500，为&lt;strong&gt;教学演示用示例酒店&lt;/strong&gt;的固定分母（注：正典《SPEC》2.3 杭州滨江云璟酒店为 300 间、年可售房晚 109,500；本练习册例题沿用 300 间演示口径，请勿与 300 系混算）。该数是本店所有年度指标的固定分母：RevPAR、TrevPAR、GOPPAR 均除以它。<br> 注意：若当年有装修停业或新增房量，须按实际可售房晚重算，不得沿用 109,500。</td></tr><tr><td>练习 3</td><td><strong>对</strong></td><td>依据：《法典》表 N<br> 解析：表 N「每年 9 月」行：动作＝下年度预算编制，产出物＝《年度预算文件》。选择 9 月的原因是为 10 月业主汇报（每月 10 日）与 Q4 的协议客户续签留出前置时间。</td></tr></tbody></table><p><strong>评分口径</strong>　按 <code>v2026-2-exam-spec.html</code> 的 60 条 rubric：答案正确得基础分，写出依据表号与分母口径得满分，只写结论不写取舍理由扣一半；实操题双人评分，不一致时第三方复核。</p></div><div class="shell"><div class="st">07　教师提示 · 时间分配与三级深度</div><p><strong>课时 2 学时 / 90 分钟</strong>　导入 15 分 → 讲解 45 分 → 算例 15 分 → 练习与批改 11 分 → 小结与作业 4 分。</p><p><strong>本讲最常见的错法（来自表 O 的已知问题）</strong>　只把 6 张表纳入优先级序列，其余 9 张表冲突时无裁决规则；缺会议×团队、团队×渠道、渠道×价格一致性三组具体裁决。</p><p><strong>例外与前置条件</strong></p><ul><li>裁决结果必须写入台账备注，不能只记录最终动作。</li><li>冲突矩阵未覆盖的表组合按表 L 转人工裁决，不得自行推断优先级；事后补进矩阵并另起版本。</li></ul><p><strong>三级深度分层</strong></p><ol><li><strong>L1 执行层</strong>　会取数与执行：核对 15 表两两冲突矩阵、需求等级日历，按表 O 产出动作，并按 13 字段写决策日志。</li><li><strong>L2 决策层</strong>　会解释与复算：说清「出现异常事件信号」为什么导出「表 L 优先，全部自动动作暂停」，并用竞组 OCC 68.0% 复核指数。</li><li><strong>L3 治理层</strong>　会定目标与校准：以 净贡献 / GOPPAR（结果指标），RevPAR 仅作过程监控 评估结果，为表 O 设生效日、复审日与阈值校准记录，并说明异常日降级路径。</li></ol><p class="mini">板书建议：左写口径与分母，右写判定式，中间留净贡献复算区；涉及旧值时明确标 v1.0，涉及本版值时标 v2026.3。</p></div><div class="shell"><div class="st">08　课后作业与下讲预告</div><ol><li>用案例卡 C177 写 200 字诊断：列出决策人当时手上的三个数据，并说明净贡献口径下的结论。</li><li>补写式作业：第 12 集、第 13 集、第 30 集 的对白空位，按本讲判定式补全并注明依据表号。</li><li>完成题库 M11 模块本讲未抽到的剩余题目；错题按第 06 板块的解析订正，写清错在口径还是算术。</li></ol><p><strong>下一讲</strong>　（本册结束，见课程总纲的下一册）　·　需先预习：（本册结束，见课程总纲的下一册） 涉及的判定表与分母口径。</p></div></div></section><section id="sx"><h2>Have a Try / Tips</h2><h3>Have a Try（明天能做的三件事）</h3><div class="try"><ol><li>按第 07 板块的时间分配试讲本册第一讲，用第 05 板块当堂批改三题。</li><li>把第 04 板块的算例用本店真实数据替换一遍，记录阈值与原值的差异。</li><li>用第 06 板块的评分口径核对两位教师的批改结果是否一致。</li></ol></div><h3>Tips</h3><p class="tips">教材正文是内容，教学外壳是把内容变成一节课；两者都在这一页里，不必再去对照另一份说明。</p><p class="tips">每讲都按同一套八板块写，换教师、换学校也不会漏掉练习或答案。</p><p class="tips">需要解释时：RMC即RMCity（即Revenue Management Community收益管理社区）。</p></section>
+<div class="cfoot">RMC · v2026.3 · 正式开课课程 · 2026-11-07 · 门内 noindex · 先备份再出新版本，原有资料未覆盖 · <a href="v2026-3-course-index.html">课程总纲</a> · <a href="v2026-2-assets-index.html">修正后实体资产</a> · <a href="v2026-2-rules.json">唯一真源</a> · <a href="v2026-1-legacy-index.html">原有资料索引</a> · <a href="../deliverables-ledger.html">产出物总台账</a></div>
+</main>
+</div>
+<div id="rm-toc-drawer" style="display:none"></div>
+</body>
+</html>
