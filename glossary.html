@@ -51,10 +51,10 @@ table.gt tr:nth-child(even) td{background:rgba(0,0,0,.015)}
       <tr><td class="g">超售爆仓赔付</td><td>walk 客人</td><td>DB 拒载</td><td>等位超时</td><td>预约超售补偿</td><td>超售补偿</td><td>多卖后无法履约的补偿</td></tr>
       <tr><td class="g">No-show</td><td>订而不来</td><td>误机/退票</td><td>放鸽子</td><td>爽约</td><td>缺席</td><td>预订了却未消费</td></tr>
       <tr><td class="g">保护水平</td><td>高价房保留量</td><td>舱位保护</td><td>保留位/包场</td><td>留票/团队预留</td><td>留座</td><td>为高价客群保留的最低库存</td></tr>
-      <tr><td class="g">最低住期</td><td>MLOS</td><td>最短停留</td><td>最低消费/最低点单</td><td>最低预约时长</td><td>最低购票张数</td><td>用门槛筛低价客而非涨价</td></tr>
+      <tr><td class="g">最低住期</td><td>MinLOS</td><td>最短停留</td><td>最低消费/最低点单</td><td>最低预约时长</td><td>最低购票张数</td><td>用门槛筛低价客而非涨价</td></tr>
       <tr><td class="g">价格体系</td><td>BAR</td><td>公布运价</td><td>分时定价</td><td>淡旺梯度价</td><td>档位票价</td><td>基准价 + 多档差别定价</td></tr>
       <tr><td class="g">价格一致性</td><td>Rate Parity</td><td>全渠道同价</td><td>同价政策</td><td>渠道同价</td><td>同价政策</td><td>各渠道价格一致防客转投</td></tr>
-      <tr><td class="g">需求增量</td><td>Pickup</td><td>Booking Pace</td><td>翻台 pace</td><td>预约 pace</td><td>售票 pace</td><td>某时段新增的需求量</td></tr>
+      <tr><td class="g">需求增量</td><td>Pickup（窗口内净新增）</td><td>新增订座</td><td>翻台 pace</td><td>预约 pace</td><td>售票 pace</td><td>某时段新增的需求量</td></tr>
       <tr><td class="g">预订进度</td><td>Booking Pace</td><td>Sell-through</td><td>预订进度</td><td>放票进度</td><td>售票进度</td><td>当前累计 ÷ 历史同期</td></tr>
       <tr><td class="g">份额指数</td><td>MPI</td><td>MPI</td><td>份额指数</td><td>MPI</td><td>MPI</td><td>您的 OCC ÷ 竞争 OCC ×100</td></tr>
       <tr class="g2"><td class="g">价格指数</td><td>ARI</td><td>ARI</td><td>ARI</td><td>ARI</td><td>ARI</td><td>您的 ADR ÷ 竞争 ADR ×100</td></tr>
@@ -77,6 +77,21 @@ table.gt tr:nth-child(even) td{background:rgba(0,0,0,.015)}
       <tr><td class="g">日报监控</td><td>收益晨会</td><td>收益例会</td><td>开店复盘</td><td>运营晨会</td><td>票房例会</td><td>每日过 pickup/价/库存对齐</td></tr>
     </tbody>
   </table>
+
+  <h3 style="color:#1B3A5C;margin:22px 0 8px">专业术语补遗 · v2026.6</h3>
+  <p style="font-size:13px;color:#52606D">下表补齐国际通行收益管理术语；原有 6 列对照表不动。阈值须用本店数据校准。</p>
+  <table><thead><tr><th>术语</th><th>英文 / 缩写</th><th>定义与口径</th></tr></thead><tbody>
+    <tr><td>价格栅栏</td><td>rate fence</td><td>用提前预订、不可退、会员、连住等条件把同一房价拆成不同客群，防止高价客下沉到低价档。非价格歧视，是条件约束。</td></tr>
+    <tr><td>洗房率</td><td>wash rate</td><td>团队实际未到/取消比例；实际到店房晚 = 申请量 × (1 − wash)。忽略 wash 会高估团队占用与置换量。</td></tr>
+    <tr><td>肩部夜</td><td>shoulder nights</td><td>团队入住前后夜的额外需求或空档损失，须逐日判定，不能一刀切按主夜结论外推。</td></tr>
+    <tr><td>保留价 / 门槛价</td><td>bid price / hurdle rate</td><td>把一间房留给未来更高价业务的期望边际收益。置换的散客房按 MAX(散客净贡献, bid price) 计价。</td></tr>
+    <tr><td>置换因子</td><td>displacement factor ρ</td><td>真置换比例，通常以团队到店夜的预测出租率代替；真置换 = MIN(G_eff×ρ, 约束置换)。修正「100% 置换」假设。</td></tr>
+    <tr><td>每间已售房成本</td><td>CPOR</td><td>客房部费用 ÷ 已售房晚，含固定分摊，用于成本对标；接单判据应为边际/变动成本，低于 CPOR 但高于变动成本仍增加贡献。</td></tr>
+    <tr><td>每可售房毛利润</td><td>GOPPAR</td><td>GOP ÷ 可售房晚。利润侧结果指标；RevPAR 只作收入侧过程监控。</td></tr>
+    <tr><td>净 RevPAR</td><td>NRevPAR</td><td>(客房收入 − 直接获客成本) ÷ 可售房晚。扣哪些渠道成本须先约定并每月一致。</td></tr>
+    <tr><td>预测精度</td><td>MAPE / WAPE</td><td>平均绝对百分比误差 / 加权绝对百分比误差；预测须带签发人、时间、窗口与误差值才可触发自动动作。</td></tr>
+    <tr><td>最短住期</td><td>MinLOS</td><td>以入住天数门槛筛掉低价短住需求；与 MLOS 为同一概念，本站统一用 MinLOS。</td></tr>
+  </tbody></table>
 
   <p class="cm-hint" style="margin-top:14px">提示：表格按"通用概念"归并，跨行业交流时先找左列的概念，再看对应行业用词。</p>
 

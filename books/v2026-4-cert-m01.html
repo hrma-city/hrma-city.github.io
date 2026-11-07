@@ -647,7 +647,7 @@ details.ex-a .a-body{
     可售房晚 = 总房量 − OOO 房晚（维修 / 装修 / 不可用）
   </div>
 
-  <p><strong>口径铁律 1：分母是「可售」房晚，不是总房晚。</strong>云璟酒店总房量 300 间，若某日有 8 间处于 OOO（Out of Order，维修房）状态，当日可售房晚就是 312，不是 300。</p>
+  <p><strong>口径铁律 1：分母是「可售」房晚，不是总房晚。</strong>云璟酒店总房量 300 间，若某日有 8 间处于 OOO（Out of Order，维修房）状态，当日可售房晚就是 292，不是 300。</p>
 
   <h3 id="toc-2">3.2 用云璟真实数字手算</h3>
 
@@ -1097,7 +1097,7 @@ details.ex-a .a-body{
     </div>
     <div class="callout callout-warn">
       <span class="co-t">停一下：如果这里用 300 会怎样</span>
-      <p>234 ÷ 300 = 78.0%。《法典》表 A 的行边界是 70% / 85%。本例 75.0% 与 73.1% 都落在「70–85%」行，<b>本例恰好没跨行</b>。但如果当日 OOO 是 20 间（可售 300），真实 OCC = 234 ÷ 300 = 78.0%，误算成 73.1% 仍然同行；再极端一点，可售 280（40 间 OOO，大修期常见），真实 OCC = 83.6%（仍属 70–85% 行），误算 73.1% 也同行——<b>但这不代表可以偷懒</b>：一旦可售房量降到 275 以下，真实 OCC 就跨进「85–95%」行，动作完全不同。OOO 数字必须从系统取当日实际值，不允许沿用昨天。</p>
+      <p>234 ÷ 300 = 78.0%（误用总房量作分母）。《法典》表 A 的行边界是 70% / 85%。正确值 80.1% 与误算值 78.0% 都落在「70–85%」行，<b>本例恰好没跨行</b>。但如果当日 OOO 是 20 间（可售 280），真实 OCC = 234 ÷ 280 = 83.6%，误算 78.0% 仍然同行；再极端一点，可售 260（40 间 OOO，大修期常见），真实 OCC = 234 ÷ 260 = 90.0%（已属「85–95%」行），误算 78.0% 却仍落在「70–85%」行——<b>动作完全不同</b>：一旦可售房量降到 275 以下，真实 OCC 就跨进「85–95%」行。OOO 数字必须从系统取当日实际值，不允许沿用昨天。</p>
     </div>
 
     <h4>第 2 步：算 ADR（先定口径）</h4>
@@ -1112,20 +1112,20 @@ details.ex-a .a-body{
     <h4>第 3 步：算 RevPAR</h4>
     <div class="formula">
       <span class="f-label">计算（两法互验）</span>
-      收入法：RevPAR = 163,800 ÷ 312 → <span class="f-out">¥525.0</span><br>
-      乘法式：RevPAR = 75.0% × 700.0（用同口径 ADR）→ <span class="f-out">¥525.0</span>　✓
+      收入法：RevPAR = 163,800 ÷ 292 → <span class="f-out">¥561.0</span><br>
+      乘法式：RevPAR = 80.1% × 700.0（用同口径 ADR）→ <span class="f-out">¥561.0</span>　✓
     </div>
     <div class="callout callout-key">
       <span class="co-t">互验规则</span>
-      <p>用乘法式验算时，ADR 必须与 OCC 同一口径：若 OCC 分子含 Comp，ADR 就要用含 Comp 口径（¥700.0），两式才相等。若混用（75.0% × 724.8 = ¥543.6）会与收入法 ¥525.0 差 ¥18.6。<b>两式不等 = 口径串了，必须重算，不许取平均值。</b></p>
+      <p>用乘法式验算时，ADR 必须与 OCC 同一口径：若 OCC 分子含 Comp，ADR 就要用含 Comp 口径（¥700.0），两式才相等。若混用（80.1% × 724.8 ≈ ¥580.8）会与收入法 ¥561.0 差约 ¥19.8。<b>两式不等 = 口径串了，必须重算，不许取平均值。</b></p>
     </div>
 
     <h4>第 4 步：算 TrevPAR 与 GOPPAR</h4>
     <div class="formula">
       <span class="f-label">计算</span>
       总营收 = 163,800 + 78,000 + 8,400 = ¥250,200<br>
-      TrevPAR = 250,200 ÷ 312 → <span class="f-out">¥801.9</span><br>
-      GOPPAR = 87,360 ÷ 312 → <span class="f-out">¥280.0</span><br>
+      TrevPAR = 250,200 ÷ 292 → <span class="f-out">¥856.8</span><br>
+      GOPPAR = 87,360 ÷ 292 → <span class="f-out">¥299.2</span><br>
       GOP 率 = 87,360 ÷ 250,200 × 100% → <span class="f-out">34.9%</span>
     </div>
 
@@ -1134,16 +1134,16 @@ details.ex-a .a-body{
       <span class="f-label">计算</span>
       加权成本点数和 = 70×3 + 24×4 + 46×8 + 70×16 + 24×13 = 210 + 96 + 368 + 1,120 + 312 = 2,106<br>
       渠道综合成本率 = 2,106 ÷ 234 → <span class="f-out">9.0%</span><br>
-      NRevPAR = 525.0 × (1 − 9.0%) = 525.0 × 0.91 → <span class="f-out">¥477.8</span>
+      NRevPAR = 561.0 × (1 − 9.0%) = 561.0 × 0.91 → <span class="f-out">¥510.5</span>
     </div>
 
     <h4>第 6 步：算三个竞争指数</h4>
     <div class="formula">
       <span class="f-label">计算</span>
-      MPI = 75.0 ÷ 68.0 × 100 → <span class="f-out">110.3</span><br>
+      MPI = 80.1 ÷ 68.0 × 100 → <span class="f-out">117.8</span><br>
       ARI = 700.0 ÷ 700 × 100 → <span class="f-out">100.0</span>（用含 Comp 口径 ADR，与竞对采集口径一致）<br>
-      RGI 直接算 = 525.0 ÷ 476.0 × 100 → <span class="f-out">110.3</span><br>
-      恒等式验算 = 110.3 × 100.0 ÷ 100 → <span class="f-out">110.3</span>　✓
+      RGI 直接算 = 561.0 ÷ 476.0 × 100 → <span class="f-out">117.9</span><br>
+      恒等式验算 = 117.8 × 100.0 ÷ 100 → <span class="f-out">117.8</span>　✓（0.1 为中间取整差）
     </div>
 
     <h4>第 7 步：把这些数变成查表输入</h4>
@@ -1152,7 +1152,7 @@ details.ex-a .a-body{
       <div class="kv-row"><div class="kv-k">表 A 输入 2</div><div class="kv-v">Pace 偏差 =（187 − 199）÷ 199 × 100% = <b>落后 6.0%</b></div></div>
       <div class="kv-row"><div class="kv-k">查表结果</div><div class="kv-v">表 A：行「70–85%」× 列「落后 3–10%」→ <span class="down">↓3%</span>（M03 详讲完整查表动作）</div></div>
       <div class="kv-row"><div class="kv-k">表 C 输入</div><div class="kv-v">ARI = 100.0 → 落「97–103 健康」→ 维持</div></div>
-      <div class="kv-row"><div class="kv-k">表 D 输入</div><div class="kv-v">MPI = 110.3 → 落「&gt;110 份额领先」→ 优先提价</div></div>
+      <div class="kv-row"><div class="kv-k">表 D 输入</div><div class="kv-v">MPI = 117.8 → 落「&gt;110 份额领先」→ 优先提价</div></div>
       <div class="kv-row"><div class="kv-k">冲突仲裁</div><div class="kv-v">按《法典》表 O：表 A（优先级 3）&gt; 表 C（4）&gt; 表 D（6）→ <b>只执行表 A 的 ↓3%</b>，表 C「维持」与表 D「优先提价」写入《观察清单》，并在《调价台账》备注栏记录冲突过程</div></div>
     </div>
     <p class="card-note">本示范覆盖 10 个指标中的 9 个（Pickup 已单独演示）。学员需在 20 分钟内独立复算全部数值，任一数值与示范相差超过 0.1 即判不通过。</p>
@@ -1193,8 +1193,8 @@ details.ex-a .a-body{
       可售房晚 = 300 − 8 = <b>292</b><br>
       OCC = 234 ÷ 292 × 100% = <b>80.1%</b><br>
       ADR = 163,800 ÷ 234 = <b>¥700.0</b><br>
-      RevPAR = 163,800 ÷ 292 = <b>¥525.0</b><br>
-      误算：OCC = 234 ÷ 300 = <b>78.0%</b>（低估 <b>1.9 个百分点</b>）；RevPAR = 163,800 ÷ 300 = <b>¥511.9</b>（低估 <b>¥13.1</b>）<br>
+      RevPAR = 163,800 ÷ 292 = <b>¥561.0</b><br>
+      误算：OCC = 234 ÷ 300 = <b>78.0%</b>（低估 <b>2.1 个百分点</b>）；RevPAR = 163,800 ÷ 300 = <b>¥546.0</b>（低估 <b>¥15.0</b>）<br>
       解析：ADR 不受分母口径影响（分母是已售房晚），受影响的只有 OCC 与 RevPAR。
     </div></details>
   </div>

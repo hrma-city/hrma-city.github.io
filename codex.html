@@ -257,7 +257,7 @@ body{transition:padding-left .25s ease}
   </div>
   <p class="codex-desc">
     <b>ARI = 本店 ADR ÷ 竞争组合加权 ADR × 100</b>。回答一个问题：<b>我卖得比隔壁贵还是便宜？</b>
-    云璟酒店竞争组合加权均价 ¥680，本店平峰 BAR 也是 ¥680，所以基准 ARI ≈ 100。
+    竞争组合 ADR 口径须明示：5 家平峰 BAR 等权简单平均 ¥680，按房量加权 ¥691.68；本店年度实绩 ADR ¥618 → 基准 ARI = 618 ÷ 680 × 100 = 90.9。挂牌 BAR 与竞组挂牌价对比属 rate shopping，不用于 ARI。
   </p>
 
   <div class="tbl-wrap">
@@ -265,9 +265,9 @@ body{transition:padding-left .25s ease}
       <caption>ARI 七档判定与动作</caption>
       <thead><tr><th>ARI</th><th>判定</th><th>动作</th></tr></thead>
       <tbody>
-        <tr><td class="num">&gt; 120</td><td>严重偏高</td><td>MPI &lt; 95 → <span class="down">↓8%</span>；MPI ≥ 95 → 维持并每日盯 Pickup</td></tr>
+        <tr><td class="num">&gt; 120</td><td>严重偏高</td><td>MPI &lt; 95 → <span class="down">↓8%</span>；MPI ≥ 95 → 维持并每日盯 Pace 偏差</td></tr>
         <tr><td class="num">110 – 120</td><td>偏高</td><td>RGI &lt; 100 → <span class="down">↓5%</span>；RGI ≥ 100 → 维持</td></tr>
-        <tr><td class="num">103 – 110</td><td>略高</td><td>维持，观察 Pickup</td></tr>
+        <tr><td class="num">103 – 110</td><td>略高</td><td>维持，观察 Pace 偏差</td></tr>
         <tr><td class="num">97 – 103</td><td><span class="pill pill-teal">健康</span></td><td>维持</td></tr>
         <tr><td class="num">90 – 97</td><td>略低</td><td>预测 OCC ≥ 80% → <span class="up">↑3%</span>；否则维持</td></tr>
         <tr><td class="num">80 – 90</td><td>偏低</td><td><span class="up">↑5%</span></td></tr>
@@ -383,6 +383,13 @@ body{transition:padding-left .25s ease}
     <li>步行距离 30 分钟内<b>无同档次备用酒店</b>时，超售率<b>再减半</b></li>
   </ul>
 
+  <h4>第四步：期望损失校验（硬上限之外还要过这一关）</h4>
+  <ul>
+    <li>空房损失 spoil cost = <b>预计空置房晚 × 本可实现的散客净贡献</b>；</li>
+    <li>期望 walk 成本 = <b>P(超额到店) × 单次 walk 成本</b>。单次 walk 成本 = 房费差价 + 交通 + 安置 + 补偿 + 口碑/复购损失，实务约为 1 晚房费的 2–3 倍；</li>
+    <li><b>仅当「避免的空房损失 &gt; 期望 walk 成本」时超售才成立</b>；否则即使未触 5% / 15 间硬上限也应下调额度。硬上限是约束，不是目标。</li>
+  </ul>
+
   <div class="callout callout-key">
     <span class="co-t">讲师示范</span>
     <p>
@@ -462,7 +469,7 @@ body{transition:padding-left .25s ease}
   </div>
   <p class="codex-desc">
     销售拿来一个团队价，接不接？<b>不要凭感觉，查这张表。</b>
-    两个输入：① 比率 R = 团队报价 ÷ 该日预期散客 ADR；② 该日预测 OCC。
+    两个输入（教学简化版）：① 比率 R = 团队报价 ÷ 该日预期散客 ADR；② 该日预测 OCC。<b>真实决策须用净贡献口径</b>，见本页文末「v2026.6 口径校正」。
   </p>
 
   <div class="tbl-wrap">
@@ -896,7 +903,7 @@ body{transition:padding-left .25s ease}
   <div class="callout callout-key">
     <span class="co-t">举个例子</span>
     <p>
-      某日：表 A 说「<span class="down">↓5%</span>」（OCC 62%、Pickup 落后 8%），
+      某日：表 A 说「<span class="down">↓5%</span>」（预测 OCC 62%、Pace 偏差落后 8%），
       表 C 说「<span class="up">↑5%</span>」（ARI 92，偏低）。<br>
       查表 O：表 A 优先级 3 &gt; 表 C 优先级 4 → <b>执行 ↓5%</b>，
       把表 C 的提价建议记入《观察清单》，一周后再看。<br>
@@ -1099,5 +1106,7 @@ body{transition:padding-left .25s ease}
   });});
 })();
 </script>
+<div style="max-width:880px;margin:26px auto;padding:14px 18px;background:#E8F1F9;border-left:4px solid #1B3A5C;border-radius:0 6px 6px 0;color:#1F2933;font-size:13px;line-height:1.8"><b style="color:#1B3A5C">口径校正 · v2026.6（2026-11-08）</b><br>本页置换算例沿用「纯房费收入 + 100% 置换」的简化教法，未计变动成本、餐饮/会议等非客房净贡献、团队 wash 率、预测出租率置换因子 ρ 与安全边际，在酒店有余房或低出租率时会误拒合理业务。<br><span style="color:#2C5282">完整推导与可复算模板：<a href="v2026-6-displacement-audit.html" style="color:#1B3A5C;font-weight:600">错误疏漏审计与新计算方案</a> · <a href="calc-displacement-v2026-6.xlsx" style="color:#1B3A5C;font-weight:600">校正版计算器 Excel</a> · <a href="v2026-6-displacement-audit.html" style="color:#1B3A5C;font-weight:600">在线预览</a>。</span></div>
+
 </body>
 </html>

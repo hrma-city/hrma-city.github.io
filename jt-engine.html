@@ -137,13 +137,13 @@ table.jt-tbl tbody tr.hit{background:#fff0b8}
   "derived": [
    {
     "name": "price_action",
-    "formula": "查矩阵：行=OCC区间, 列=Pickup偏差区间",
+    "formula": "查矩阵：行=OCC区间, 列=Pace 偏差区间",
     "desc": "价格动作",
     "example": "↑20%"
    }
   ],
   "decision_logic": "以预测 OCC 为行、Pace 偏差为列查矩阵得价格动作；与表 B 库存动作配套；受表 O 优先级约束（价格优先级 3）。",
-  "basis": "阈值基于中高端全服务酒店通用起点；OCC 分母=可售房晚。演示：OCC=(265+40)/300=95.3%→≥95%行；Pickup=(265-240)/240=+10.4%→领先>10%列→↑20%；BAR 680×1.20=816。",
+  "basis": "阈值基于中高端全服务酒店通用起点；OCC 分母=可售房晚。演示：OCC=(265+40)/300=101.7%→≥95%行；Pace 偏差=(265-240)/240=+10.4%→领先>10%列→↑20%；BAR 680×1.20=816。",
   "pitfalls": "单日同方向累计≤20%；24h 内同方向≤2 次；每次≥3%（低于 3% 市场无感知）；调价后 30min 核查 OTA 挂牌价；D1 峰值日须 L3 审批；每次写入《调价台账》注明依据表 A。",
   "data_needs": [
    "occ_forecast",
@@ -2008,5 +2008,7 @@ $('#loader').style.display='none';
 
 </script>
 <script src="assets/js/site-nav.js?v=v22"></script>
+<div style="max-width:880px;margin:26px auto;padding:14px 18px;background:#E8F1F9;border-left:4px solid #1B3A5C;border-radius:0 6px 6px 0;color:#1F2933;font-size:13px;line-height:1.8"><b style="color:#1B3A5C">口径校正 · v2026.6（2026-11-08）</b><br>本页置换算例沿用「纯房费收入 + 100% 置换」的简化教法，未计变动成本、餐饮/会议等非客房净贡献、团队 wash 率、预测出租率置换因子 ρ 与安全边际，在酒店有余房或低出租率时会误拒合理业务。<br><span style="color:#2C5282">完整推导与可复算模板：<a href="v2026-6-displacement-audit.html" style="color:#1B3A5C;font-weight:600">错误疏漏审计与新计算方案</a> · <a href="calc-displacement-v2026-6.xlsx" style="color:#1B3A5C;font-weight:600">校正版计算器 Excel</a> · <a href="v2026-6-displacement-audit.html" style="color:#1B3A5C;font-weight:600">在线预览</a>。</span></div>
+
 </body>
 </html>
