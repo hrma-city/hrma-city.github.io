@@ -1,0 +1,592 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet"><script>window.HRMA_PREFIX="";</script><script src="auth-config.js?v=gate20261013"></script><script src="assets/js/access-gate.js?v=v12"></script><title>教材改造具体方案 · v2026.7</title>/* ============================================================
+   RMC 收益管理社区 · 主样式表
+   浅色主题 / 深海军蓝 + 金 / 系统字体
+   ============================================================ */
+
+:root{
+  --navy:#1B3A5C;
+  --navy-2:#2C5282;
+  --navy-3:#3D6BA5;
+  --gold:#B8894A;
+  --gold-2:#D4A96A;
+  --gold-soft:#F7F0E4;
+  --teal:#2E7D74;
+  --teal-soft:#E6F2F0;
+  --up:#C0392B;      /* 涨/提升 —— 红 */
+  --down:#2F7A3E;    /* 跌/下降 —— 绿 */
+  --amber:#D98324;
+  --amber-soft:#FDF3E4;
+  --danger:#C0392B;
+  --danger-soft:#FBEAE8;
+  --ink:#1F2933;
+  --ink-2:#52606D;
+  --ink-3:#7B8794;
+  --line:#E1E5EA;
+  --line-2:#CBD2D9;
+  --bg:#FAFAF8;
+  --bg-2:#F2F0EB;
+  --white:#fff;
+  --shadow:0 1px 3px rgba(27,58,92,.06),0 1px 2px rgba(27,58,92,.04);
+  --shadow-md:0 4px 14px rgba(27,58,92,.08);
+  --mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --sidebar:260px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  font-size:15px; line-height:1.75; color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--navy-2);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4,h5{color:var(--navy);line-height:1.35;margin:0 0 .6em;font-weight:650}
+h1{font-size:30px;letter-spacing:-.3px}
+h2{font-size:22px;margin-top:2em;padding-bottom:.45em;border-bottom:2px solid var(--line)}
+h3{font-size:18px;margin-top:1.6em}
+h4{font-size:15.5px;margin-top:1.3em;color:var(--navy-2)}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.4em}
+li{margin:.3em 0}
+strong{font-weight:650;color:var(--navy)}
+code{font-family:var(--mono);font-size:.9em;background:var(--bg-2);padding:.12em .4em;border-radius:4px;color:var(--navy)}
+hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}
+
+/* ---------- 布局 ---------- */
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:var(--sidebar);flex:0 0 var(--sidebar);
+  background:var(--navy);color:#fff;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  padding:0 0 40px;
+}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:3px}
+.brand{padding:22px 22px 16px;border-bottom:1px solid rgba(255,255,255,.12)}
+.brand-mark{
+  display:flex;align-items:center;gap:10px;
+  font-size:16px;font-weight:700;letter-spacing:.4px;color:#fff;
+}
+.brand-mark:hover{text-decoration:none}
+.brand-mark .gem{
+  width:32px;height:32px;flex:0 0 32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--gold-2),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;color:#fff;font-weight:700;
+}
+.brand-sub{font-size:11.5px;color:rgba(255,255,255,.55);margin-top:5px;line-height:1.5;letter-spacing:.2px}
+.nav-section{padding:16px 22px 4px}
+.nav-section-title{
+  font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;
+  color:rgba(255,255,255,.42);font-weight:700;margin-bottom:8px;
+}
+.nav-link{
+  display:flex;align-items:center;gap:9px;
+  padding:7px 12px;margin:1px -12px;border-radius:6px;
+  color:rgba(255,255,255,.8);font-size:13.5px;line-height:1.45;
+}
+.nav-link:hover{background:rgba(255,255,255,.08);color:#fff;text-decoration:none}
+.nav-link.active{background:var(--gold);color:#fff;font-weight:600}
+.nav-link .n{
+  font-family:var(--mono);font-size:11px;opacity:.65;flex:0 0 22px;
+}
+
+.main{flex:1;min-width:0}
+.wrap{max-width:1080px;margin:0 auto;padding:36px 40px 90px}
+.wrap-wide{max-width:1320px}
+
+/* 面包屑 */
+.crumb{font-size:12.5px;color:var(--ink-3);margin-bottom:14px}
+.crumb a{color:var(--ink-2)}
+.crumb span{margin:0 7px;color:var(--ink-3)}
+
+/* 页头 */
+.page-head{margin-bottom:30px}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.page-title{font-size:31px;margin:0 0 12px;letter-spacing:-.4px}
+.page-lede{font-size:16px;color:var(--ink-2);line-height:1.7;margin:0;max-width:820px}
+.hero-band{
+  background:linear-gradient(120deg,var(--navy) 0%,#27517C 100%);
+  color:#fff;border-radius:12px;padding:34px 38px;margin-bottom:32px;
+}
+.hero-band h1{color:#fff;margin:0 0 10px;font-size:27px}
+.hero-band p{color:rgba(255,255,255,.82);margin:0;font-size:15px;line-height:1.75}
+
+/* ---------- 徽章 ---------- */
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11.5px;font-weight:650;letter-spacing:.3px;
+  padding:3px 10px;border-radius:20px;
+  background:var(--bg-2);color:var(--ink-2);border:1px solid var(--line);
+}
+.badge-l1{background:#E8F1F9;color:#1F5C8F;border-color:#C3DCEF}
+.badge-l2{background:var(--gold-soft);color:#8A5F26;border-color:#E8D5B5}
+.badge-l3{background:#EDE7F6;color:#5B3E96;border-color:#D5C9EC}
+.badge-codex{
+  background:var(--navy);color:#fff;font-family:var(--mono);
+  font-size:11px;padding:3px 9px;border-radius:4px;letter-spacing:.5px;
+}
+.badge-core{background:var(--danger);color:#fff;border-color:var(--danger)}
+.badge-new{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* 状态 pill */
+.pill{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:4px;background:var(--bg-2);color:var(--ink-2);border:1px solid var(--line)}
+.pill-teal{background:var(--teal-soft);color:var(--teal);border-color:#BEDDD8}
+.pill-amber{background:var(--amber-soft);color:#A6601A;border-color:#F0D9B5}
+.pill-red{background:var(--danger-soft);color:var(--danger);border-color:#F0C8C3}
+.pill-navy{background:#E8F1F9;color:var(--navy-2);border-color:#C3DCEF}
+
+/* 涨跌 */
+.up{color:var(--up);font-weight:650}
+.down{color:var(--down);font-weight:650}
+.flat{color:var(--ink-3);font-weight:600}
+
+/* ---------- 卡片 ---------- */
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:22px 24px;margin:0 0 18px;box-shadow:var(--shadow);
+}
+.card-title{font-size:16.5px;margin:0 0 14px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.card-title .ic{
+  width:26px;height:26px;flex:0 0 26px;border-radius:6px;background:var(--gold-soft);
+  display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--gold);
+}
+.card-note{font-size:13px;color:var(--ink-3);margin:12px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+
+.grid{display:grid;gap:16px;margin-bottom:18px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+
+/* ---------- 表格 ---------- */
+.tbl-wrap{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:10px;background:var(--white)}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+.tbl caption{
+  caption-side:top;text-align:left;padding:14px 18px 10px;
+  font-size:14.5px;font-weight:650;color:var(--navy);
+}
+.tbl caption .cap-note{display:block;font-size:12px;font-weight:400;color:var(--ink-3);margin-top:3px}
+.tbl th,.tbl td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tbl thead th{
+  background:var(--bg-2);font-weight:650;color:var(--navy);
+  font-size:12.5px;letter-spacing:.2px;border-bottom:2px solid var(--line-2);white-space:nowrap;
+}
+.tbl tbody tr:last-child td{border-bottom:0}
+.tbl tbody tr:hover{background:#FCFCFA}
+.tbl td.num,.tbl th.num{text-align:right;font-family:var(--mono);font-size:13px;white-space:nowrap}
+.tbl td.mid,.tbl th.mid{text-align:center}
+
+/* 判定矩阵：首行首列高亮，命中格加粗 */
+.tbl-matrix th.rowh{background:var(--bg-2);font-weight:650;color:var(--navy);white-space:nowrap}
+.tbl-matrix thead th{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tbl-matrix tbody th{background:var(--bg-2)}
+.tbl-matrix td{text-align:center;font-size:13px}
+.tbl-matrix td.hit{background:var(--gold-soft);font-weight:700;color:#8A5F26;box-shadow:inset 0 0 0 2px var(--gold)}
+.tbl-matrix td.keep{color:var(--ink-3)}
+.tbl-matrix td.up-cell{color:var(--up);font-weight:650}
+.tbl-matrix td.down-cell{color:var(--down);font-weight:650}
+
+/* 法典表 */
+.codex-block{
+  background:var(--white);border:1px solid var(--line);border-left:4px solid var(--gold);
+  border-radius:10px;padding:20px 24px 22px;margin:0 0 20px;box-shadow:var(--shadow);
+}
+.codex-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.codex-head h3{margin:0;font-size:17.5px}
+.codex-desc{font-size:13.5px;color:var(--ink-2);margin:6px 0 14px}
+.codex-meta{font-size:12px;color:var(--ink-3);margin:14px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+
+/* ---------- 提示框 ---------- */
+.callout{
+  border-radius:8px;padding:14px 18px;margin:0 0 16px;font-size:14px;line-height:1.72;
+  background:var(--bg-2);border-left:4px solid var(--line-2);
+}
+.callout p:last-child{margin-bottom:0}
+.callout .co-t{font-weight:650;display:block;margin-bottom:4px}
+.callout-key{background:#E8F1F9;border-left-color:var(--navy-2)}
+.callout-key .co-t{color:var(--navy)}
+.callout-warn{background:var(--amber-soft);border-left-color:var(--amber)}
+.callout-warn .co-t{color:#A6601A}
+.callout-danger{background:var(--danger-soft);border-left-color:var(--danger)}
+.callout-danger .co-t{color:var(--danger)}
+.callout-do{background:var(--teal-soft);border-left-color:var(--teal)}
+.callout-do .co-t{color:var(--teal)}
+.callout-gold{background:var(--gold-soft);border-left-color:var(--gold)}
+.callout-gold .co-t{color:#8A5F26}
+
+/* ---------- 指标块 ---------- */
+.metric{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px 18px;text-align:center}
+.metric-val{font-size:26px;font-weight:700;color:var(--navy);font-family:var(--mono);letter-spacing:-.5px;line-height:1.2}
+.metric-label{font-size:12px;color:var(--ink-3);margin-top:5px}
+.metric-sub{font-size:11.5px;margin-top:6px}
+
+/* ---------- 步骤条 ---------- */
+.step{display:flex;gap:16px;margin:0 0 18px;align-items:flex-start}
+.step-num{
+  flex:0 0 30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-top:2px;
+}
+.step-body{flex:1;min-width:0}
+.step-body h4{margin:0 0 5px;font-size:15.5px}
+.step-body p{margin:0 0 .5em;font-size:14px}
+
+/* 横向流程 */
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:0 0 20px}
+.flow-item{
+  flex:1;min-width:150px;background:var(--white);border:1px solid var(--line);
+  padding:14px 16px;position:relative;
+}
+.flow-item:first-child{border-radius:8px 0 0 8px}
+.flow-item:last-child{border-radius:0 8px 8px 0}
+.flow-arrow{
+  display:flex;align-items:center;padding:0 8px;color:var(--gold);font-size:17px;
+  background:transparent;border:0;flex:0 0 auto;
+}
+.flow-item .fi-t{font-weight:650;font-size:13.5px;color:var(--navy);margin-bottom:4px}
+.flow-item .fi-d{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+
+/* ---------- 公式 ---------- */
+.formula{
+  background:var(--bg-2);border:1px solid var(--line);border-radius:8px;
+  padding:14px 18px;margin:0 0 16px;
+  font-family:var(--mono);font-size:14px;color:var(--navy);
+  overflow-x:auto;line-height:1.9;
+}
+.formula .f-label{display:block;font-family:inherit;font-size:11.5px;letter-spacing:.6px;color:var(--ink-3);text-transform:uppercase;margin-bottom:4px}
+.formula .f-out{color:var(--gold);font-weight:700}
+
+/* ---------- 键值 ---------- */
+.kv{margin:0 0 14px;font-size:14px}
+.kv-row{display:flex;gap:14px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.kv-row:last-child{border-bottom:0}
+.kv-k{flex:0 0 150px;color:var(--ink-2);font-size:13.5px}
+.kv-v{flex:1}
+
+/* ---------- 清单 ---------- */
+.checklist{list-style:none;padding:0;margin:0 0 16px}
+.checklist li{
+  padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line);font-size:14px;
+}
+.checklist li:last-child{border-bottom:0}
+.checklist li::before{
+  content:"☐";position:absolute;left:2px;top:7px;
+  font-size:16px;color:var(--navy-3);line-height:1.4;
+}
+.checklist.done li::before{content:"☑";color:var(--teal)}
+
+/* ---------- 目录 ---------- */
+.toc{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin:0 0 24px}
+.toc-title{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-bottom:10px}
+.toc ol{margin:0;padding-left:1.3em;font-size:14px}
+.toc li{margin:.28em 0}
+.toc-2{list-style:none;padding-left:0;margin:6px 0 0 4px;font-size:13px;color:var(--ink-2)}
+
+/* ---------- 练习题 ---------- */
+.ex-q{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:16px 20px;margin:0 0 14px;
+}
+.ex-q .q-t{font-weight:650;color:var(--navy);font-size:14.5px;margin-bottom:8px}
+.ex-q .q-b{font-size:14px;color:var(--ink-2)}
+details.ex-a{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+details.ex-a summary{
+  cursor:pointer;font-size:13px;color:var(--navy-2);font-weight:600;list-style:none;
+  display:inline-flex;align-items:center;gap:6px;user-select:none;
+}
+details.ex-a summary::-webkit-details-marker{display:none}
+details.ex-a summary::before{content:"▸";transition:transform .15s;display:inline-block}
+details.ex-a[open] summary::before{transform:rotate(90deg)}
+details.ex-a .a-body{
+  margin-top:10px;padding:12px 16px;background:#F7FAFC;border-left:3px solid var(--teal);
+  border-radius:0 6px 6px 0;font-size:13.5px;line-height:1.75;
+}
+
+/* ---------- 法典筛选 ---------- */
+.codex-filter{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:16px 20px;margin:0 0 22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+  position:sticky;top:0;z-index:50;box-shadow:var(--shadow);
+}
+.codex-filter input[type=text]{
+  flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--line-2);border-radius:6px;
+  font-size:14px;font-family:inherit;
+}
+.codex-filter input[type=text]:focus{outline:0;border-color:var(--navy-3);box-shadow:0 0 0 3px rgba(61,107,165,.12)}
+.chip{
+  padding:5px 13px;border-radius:20px;border:1px solid var(--line-2);background:var(--white);
+  font-size:12.5px;cursor:pointer;color:var(--ink-2);font-family:inherit;
+}
+.chip:hover{border-color:var(--navy-3);color:var(--navy-2)}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ---------- 时间轴 ---------- */
+.timeline{position:relative;padding-left:26px;margin:0 0 20px}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-item::before{
+  content:"";position:absolute;left:-23px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--white);border:2.5px solid var(--gold);
+}
+.tl-time{font-family:var(--mono);font-size:12.5px;color:var(--gold);font-weight:650}
+.tl-body{font-size:14px;margin-top:2px}
+.tl-body b{color:var(--navy)}
+
+/* ---------- 对话 / 角色扮演 ---------- */
+.dialogue{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:0 0 18px;background:var(--white)}
+.dlg-row{display:flex;gap:0;border-bottom:1px solid var(--line)}
+.dlg-row:last-child{border-bottom:0}
+.dlg-who{
+  flex:0 0 128px;background:var(--bg-2);padding:12px 14px;font-size:13px;font-weight:650;
+  color:var(--navy);border-right:1px solid var(--line);
+}
+.dlg-text{flex:1;padding:12px 16px;font-size:14px;line-height:1.7}
+
+/* ---------- 游戏卡牌 ---------- */
+.cards-deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin:0 0 20px}
+.card-game{
+  border:1px solid var(--line);border-radius:10px;background:var(--white);
+  padding:14px 16px;box-shadow:var(--shadow);border-top:4px solid var(--navy);
+  display:flex;flex-direction:column;min-height:180px;
+}
+.card-game.t-atk{border-top-color:var(--danger)}
+.card-game.t-def{border-top-color:var(--teal)}
+.card-game.t-evt{border-top-color:var(--amber)}
+.card-game.t-wild{border-top-color:var(--gold)}
+.cg-id{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.5px}
+.cg-name{font-size:15px;font-weight:700;color:var(--navy);margin:4px 0 8px;line-height:1.35}
+.cg-body{font-size:12.5px;color:var(--ink-2);line-height:1.65;flex:1}
+.cg-foot{margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-3)}
+.cg-stat{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--gold)}
+
+/* ---------- 评分卡 ---------- */
+.score-box{
+  border:1px solid var(--line);border-radius:10px;background:var(--white);
+  padding:18px 22px;margin:0 0 16px;
+}
+.sb-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px}
+.sb-name{font-weight:650;color:var(--navy);font-size:15px}
+.sb-score{font-family:var(--mono);font-size:14px;color:var(--ink-2)}
+.sb-bar{height:8px;background:var(--bg-2);border-radius:4px;overflow:hidden}
+.sb-fill{height:100%;background:linear-gradient(90deg,var(--navy-3),var(--navy));border-radius:4px}
+.sb-items{margin:12px 0 0;padding:0;list-style:none;font-size:13px}
+.sb-items li{padding:5px 0 5px 20px;position:relative;color:var(--ink-2)}
+.sb-items li::before{content:"—";position:absolute;left:0;color:var(--line-2)}
+
+/* ---------- 页脚导航 ---------- */
+.pager{display:flex;gap:14px;margin-top:48px;padding-top:26px;border-top:2px solid var(--line)}
+.pager a{
+  flex:1;padding:14px 18px;border:1px solid var(--line);border-radius:10px;background:var(--white);
+  display:block;transition:.15s;box-shadow:var(--shadow);
+}
+.pager a:hover{border-color:var(--navy-3);text-decoration:none;box-shadow:var(--shadow-md)}
+.pager .p-dir{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
+.pager .p-title{font-weight:650;color:var(--navy);font-size:14.5px}
+.pager .p-next{text-align:right}
+
+/* ---------- 首页专用 ---------- */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,#2A5680 55%,#356B96 100%);
+  color:#fff;padding:56px 60px;border-radius:0 0 0 0;margin:-36px -40px 34px;
+  position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;right:-70px;top:-70px;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(184,137,74,.28),transparent 70%);
+}
+.hero .eyebrow{font-size:12px;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold-2);font-weight:700;margin-bottom:14px}
+.hero h1{color:#fff;font-size:38px;margin:0 0 14px;letter-spacing:-.8px;line-height:1.25}
+.hero .sub{font-size:16.5px;color:rgba(255,255,255,.85);max-width:700px;line-height:1.75;margin:0 0 24px}
+.hero-stats{display:flex;gap:34px;flex-wrap:wrap;margin-top:26px;position:relative;z-index:1}
+.hero-stat .hs-v{font-size:26px;font-weight:700;color:var(--gold-2);font-family:var(--mono);line-height:1.2}
+.hero-stat .hs-l{font-size:12.5px;color:rgba(255,255,255,.7);margin-top:3px}
+
+.loop-band{background:var(--gold-soft);border:1px solid #E8D5B5;border-radius:12px;padding:26px 30px;margin:0 0 30px}
+.loop-band h2{margin:0 0 6px;border:0;padding:0;font-size:20px}
+.loop-band .lb-sub{font-size:13.5px;color:#8A5F26;margin:0 0 18px}
+
+.level-card{
+  background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;
+}
+.level-card .lc-head{padding:16px 20px;color:#fff}
+.level-card.l1 .lc-head{background:linear-gradient(120deg,#2C5282,#3D6BA5)}
+.level-card.l2 .lc-head{background:linear-gradient(120deg,#A8762F,#C99B52)}
+.level-card.l3 .lc-head{background:linear-gradient(120deg,#6B4FA0,#8B6FBF)}
+.lc-head .lc-tag{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;opacity:.85;font-weight:700}
+.lc-head h3{color:#fff;margin:3px 0 0;font-size:19px}
+.lc-body{padding:18px 20px;flex:1}
+.lc-body .lc-meta{display:flex;gap:16px;font-size:12.5px;color:var(--ink-3);margin-bottom:12px}
+.lc-body ul{margin:0;padding-left:1.2em;font-size:13.5px}
+.lc-foot{padding:13px 20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-2);background:#FCFCFA}
+.lc-foot b{color:var(--navy)}
+
+.mod-link{
+  display:flex;align-items:center;gap:12px;padding:11px 16px;border:1px solid var(--line);
+  border-radius:8px;background:var(--white);transition:.15s;
+}
+.mod-link:hover{border-color:var(--navy-3);box-shadow:var(--shadow);text-decoration:none}
+.mod-link .ml-n{font-family:var(--mono);font-size:11.5px;color:var(--gold);font-weight:700;flex:0 0 28px}
+.mod-link .ml-t{flex:1;font-size:14px;color:var(--navy);font-weight:600}
+.mod-link .ml-h{font-size:11.5px;color:var(--ink-3);flex:0 0 auto}
+
+/* ---------- 打印 ---------- */
+@media print{
+  .sidebar,.codex-filter,.pager{display:none!important}
+  .main,.wrap{max-width:100%;padding:0}
+  body{background:#fff;font-size:11pt}
+  .card,.codex-block,.tbl-wrap{break-inside:avoid;box-shadow:none}
+  details.ex-a{display:block}
+  details.ex-a .a-body{display:block!important}
+  .hero{margin:0 0 20px;padding:24px;background:var(--navy)!important;-webkit-print-color-adjust:exact}
+}
+
+/* ---------- 响应式 ---------- */
+.menu-btn{
+  display:none;position:fixed;top:14px;left:14px;z-index:200;
+  background:var(--navy);color:#fff;border:0;border-radius:8px;width:40px;height:40px;font-size:18px;cursor:pointer;
+}
+@media(max-width:900px){
+  .sidebar{
+    position:fixed;left:0;top:0;z-index:150;transform:translateX(-100%);
+    transition:transform .22s ease;box-shadow:4px 0 20px rgba(0,0,0,.2);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .menu-btn{display:block}
+  .wrap{padding:20px 18px 70px}
+  .hero{margin:-20px -18px 24px;padding:36px 24px}
+  .hero h1{font-size:27px}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  h1{font-size:24px}
+  .flow-item{border-radius:8px!important;margin-bottom:6px}
+  .flow-arrow{display:none}
+  .codex-filter{position:static}
+  .tbl{font-size:12.5px}
+  .tbl th,.tbl td{padding:8px 10px}
+}
+
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#FAFAF8;color:#1F2933;font-size:15px;line-height:1.85}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px 70px;display:flex;gap:28px;align-items:flex-start}
+.side{width:222px;flex:0 0 222px;position:sticky;top:16px;margin-top:22px;
+  background:#fff;border:1px solid #E1E5EA;border-radius:8px;padding:14px 12px;max-height:calc(100vh - 36px);overflow:auto}
+.side .t{font-size:12px;font-weight:700;color:#1B3A5C;letter-spacing:.5px;margin:0 0 10px}
+.side a{display:block;font-size:12.5px;color:#52606D;text-decoration:none;padding:5px 8px;border-radius:4px;
+  border-left:2px solid transparent;line-height:1.45}
+.side a:hover{background:#E8F1F9;color:#1B3A5C;border-left-color:#B8894A}
+.main{flex:1;min-width:0}
+.hero{background:#1B3A5C;color:#fff;border-radius:0 0 10px 10px;padding:30px 34px 26px;margin-bottom:24px}
+.hero h1{margin:0 0 8px;font-size:26px;line-height:1.35;color:#fff}
+.hero .sub{margin:0;color:#dbe6f0;font-size:13.5px}
+.hero .meta{margin-top:14px;font-size:12px;color:#F5D08A;letter-spacing:.3px}
+section{background:#fff;border:1px solid #E1E5EA;border-radius:8px;padding:20px 24px;margin:0 0 16px;
+  scroll-margin-top:76px}
+h2{color:#1B3A5C;font-size:19px;margin:0 0 12px;padding-left:11px;border-left:5px solid #B8894A}
+h3{color:#2C5282;font-size:15.5px;margin:22px 0 8px}
+h4{color:#1B3A5C;font-size:14px;margin:16px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:22px;margin:10px 0}
+li{margin:6px 0}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px}
+th,td{border:1px solid #E1E5EA;padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#F2F0EB;color:#1B3A5C;font-weight:700}
+tbody tr:nth-child(even){background:#FAFAF8}
+.k{color:#B8894A;font-weight:700}
+.good{color:#2F7A3E;font-weight:700}
+.bad{color:#C0392B;font-weight:700}
+.tag{display:inline-block;background:#F7F0E4;color:#8A6224;border:1px solid #E3CFA8;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-b{display:inline-block;background:#E8F1F9;color:#1B3A5C;border:1px solid #C9DDEC;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-g{display:inline-block;background:#E6F2F0;color:#2F7A3E;border:1px solid #BEDDD6;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-r{display:inline-block;background:#FBEAE8;color:#C0392B;border:1px solid #EBC8C3;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.q{background:#F2F0EB;border-left:4px solid #B8894A;padding:10px 14px;margin:12px 0;
+  font-size:13.5px;color:#52606D}
+.box{border-left:4px solid #1B3A5C;background:#E8F1F9;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-w{border-left:4px solid #B8894A;background:#FDF3E4;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-d{border-left:4px solid #C0392B;background:#FBEAE8;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-g{border-left:4px solid #2F7A3E;background:#E6F2F0;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-gold{border-left:4px solid #B8894A;background:#F7F0E4;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.fml{background:#F2F0EB;border:1px solid #E1E5EA;border-radius:6px;padding:10px 14px;margin:12px 0;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:#1F2933;line-height:1.9}
+.fml b{color:#B8894A}
+.foot{color:#8895a7;font-size:12px;border-top:1px solid #E1E5EA;padding-top:14px;margin-top:26px}
+a{color:#1B3A5C}
+.small{font-size:12.5px;color:#52606D}
+@media(max-width:860px){.wrap{display:block}.side{position:static;width:auto;max-height:none;margin-bottom:16px}.hero{padding:22px}}
+@media print{.side{display:none}.wrap{display:block}section{break-inside:avoid}}
+</style>
+</head><body><div class="hero" style="max-width:1200px;margin:0 auto"><h1>教材改造具体方案 · v2026.7</h1><p class="sub">依据《环境1108》问题 4 原文逐条落地：商业战略框架 / 上游四模块 / 跨学科嵌入 / 项目式期末 / 活页式更新 / 三层次定位</p><div class="meta">v2026.7 · 2026-11-08 · 门内 noindex · 依据《环境1108》问题4 原文逐条落地 · 诊断数据取自 textbook-merged.html（41 章 · 现行）全文计数 · 本页不改任何旧资料</div></div><div class="wrap"><nav class="side"><div class="t">目录</div><a href="#s1">1 · 诊断：七条要求 × 41 章教材的实证缺口</a><a href="#s2">2 · 定位改写：从「战术定价工具课」到「商业战略框架」</a><a href="#s3">3 · 向上游延伸：四个新增讲的完整规格</a><a href="#s4">4 · 跨学科整合：逐讲嵌入点，不做拼盘</a><a href="#s5">5 · 生成式 AI、批判性思维与数据解读：六个可考核落点</a><a href="#s6">6 · 项目式任务取代章节式作业</a><a href="#s7">7 · 真实数据决策循环：脏数据教学包规格</a><a href="#s8">8 · 活页式 + 数字化：切分、更新机制与合同条款</a><a href="#s9">9 · 三层次院校差异化：先纠正一个坐标系错位</a><a href="#s10">10 · 实施顺序与可脚本校验的验收标准</a><a href="#s11">11 · 边界与不承诺</a></nav><div class="main"><section id="s1"><h2>1 · 诊断：七条要求 × 41 章教材的实证缺口</h2>
+<p>下表左列是《环境1108》问题 4 的原文要求，中列是现行唯一事实源
+<span class="tag-b">textbook-merged.html（41 章 · 现行）</span> 的实测状态。计数为全文字符串匹配，
+不是印象判断；「全站」列为 <code>hrma/crm/**/*.html</code> 的命中文件数。</p>
+<table><thead><tr><th>环境1108 要求（原文要点）</th><th>教材实测</th><th>全站</th><th>缺口判定</th><th>本方案落点</th></tr></thead><tbody><tr><td>本科重新定义为<b>商业战略框架</b>下课程</td><td>「商业战略」0 次、「战略框架」0 次；七篇以认知／决策／运营／组织／延伸／现实／视野分篇，第 2 篇决策篇以 15 表查表触发为主线</td><td>仅建议页提及</td><td><span class="bad">定位缺口</span></td><td>§2 定位改写 + 新七篇结构</td></tr><tr><td>以<b>应用分析、优化、AI（含生成式AI）</b>为核心</td><td>「生成式」0、「线性规划」0、「优化」21（多为口语用法）；第 35 讲＝提示词四要素与抽核，第 40 讲标题即「（科普）」</td><td>「生成式AI」<b>0 个文件</b></td><td><span class="bad">核心内容缺位</span></td><td>§3 N5 + §5 六个可考核落点</td></tr><tr><td><b>批判性思维与数据解读</b>作为必备素养</td><td>「批判性」0、「数据解读」0、「假设检验」0、「置信」0、「缺失值」0；「脏数据」2（仅提及）</td><td>「批判性思维」2 文件（均为建议页）</td><td><span class="bad">无可考核落点</span></td><td>§5 落点 2/3/4 + §7 脏数据教学包</td></tr><tr><td>向上游延伸：<b>需求创造</b></td><td>「需求创造」0</td><td>—</td><td><span class="bad">整块缺失</span></td><td>§3 N1</td></tr><tr><td>向上游延伸：<b>渠道组合战略</b></td><td>第 13／16／24／33／34 讲有渠道净价、直销、OTA、中国生态、连锁，但均为单渠道战术；无组合优化、无依赖度、无直签博弈</td><td>零散命中</td><td><span class="bad">有渠道无组合</span></td><td>§3 N2</td></tr><tr><td>向上游延伸：<b>客户终身价值评估</b></td><td>「客户终身价值」0、「CLV」0、「LTV」0；「终身价值」10 次多为口语表述，无公式无算例</td><td>4 文件（剧本／案例，非教材）</td><td><span class="bad">整块缺失</span></td><td>§3 N3</td></tr><tr><td>向上游延伸：<b>竞争博弈分析</b></td><td>「博弈」0；第 6 讲「竞品降价：跟还是不跟」是查表 A/C/D/O 触发，无反应函数、无收益矩阵、无重复博弈</td><td>2 文件（案例库）</td><td><span class="bad">整块缺失</span></td><td>§3 N4</td></tr><tr><td>跨学科：<b>经济学价格弹性</b></td><td>第 4 讲有弹性 14 次，但只到「降多少价换多少量」</td><td>—</td><td><span class="k">有，需加深</span></td><td>§4 弧弹性／交叉弹性／需求曲线估计</td></tr><tr><td>跨学科：<b>统计学预测方法</b></td><td>MAPE 11 次（误差评价已有），但「回归」0、「时间序列」1、「WAPE」0、「假设检验」0；第 20 讲偏「看曲线」</td><td>—</td><td><span class="bad">只有误差指标，无预测方法</span></td><td>§4 移动平均／指数平滑／区间预测</td></tr><tr><td>跨学科：<b>信息科学系统思维</b></td><td>「系统思维」0、「信息科学」0；第 27 讲标题「工具能替您做什么」是工具导航</td><td>—</td><td><span class="bad">拼盘式，未嵌入</span></td><td>§4 数据流／状态机／反馈回路</td></tr><tr><td><b>项目式任务取代章节式作业</b></td><td>每讲统一外壳＝目标／导入／算例／三道练习／答案与评分／教师提示／<b>作业</b>；「期末」0 次、「项目」1 次</td><td>「项目式」1 文件（上轮建议页）</td><td><span class="bad">无全周期作品</span></td><td>§6 + 组件《季度收益方案任务书》</td></tr><tr><td>真实季度／月度收益方案，覆盖<b>市场分析→预测→定价→渠道分配→效果复盘</b></td><td>五阶段散落在第 17–24／28／33 讲，彼此无数据贯通；算例是「打扫干净」的固定数（300 间／ADR 618）</td><td>—</td><td><span class="bad">未串成一条链</span></td><td>§6 五阶段 + 组件 A</td></tr><tr><td><b>活页式 + 数字化持续更新</b>，基础章稳定、快变部分可替换</td><td>「活页」0 次；教材为单一 677 KB 合并 HTML，41 讲无模块边界、无版本号字段</td><td>「活页」10 文件（建议／调研页）</td><td><span class="bad">无切分、无机制</span></td><td>§8 + 组件《活页模块与课程地图》</td></tr><tr><td>每学期／学年由校企合作团队更新；与企业调研和<b>岗位能力标准</b>直接挂钩</td><td>「企业调研」0、「课程标准」0、「1+X」0；「岗位能力」3 次（描述性）</td><td>「岗位能力标准」3 文件</td><td><span class="bad">无对照表、无记录模板</span></td><td>§8 更新八步 + 组件 B</td></tr><tr><td><b>明确不同层次院校差异化定位</b>：中职／高职／本科</td><td>现有 L1／L2／L3 是<b>岗位等级</b>（收益执行专员／主管／经理），能力单元为取数、查表、执行、签发、预算；不是院校层次</td><td>—</td><td><span class="bad">两套坐标系被混用</span></td><td>§9 另设 V／T／U 三档，L 档只留给认证层</td></tr><tr><td>以「1+3 能力增值」评价取代一张试卷</td><td>现行＝笔试≥80 + 实操≥85 + 出勤≥90%（L3 加答辩≥75）；253 练习／76 真题／60 rubric</td><td>—</td><td><span class="k">分数导向，无能力增值</span></td><td>§6 rubric 权重 + 组件 A 分层量规</td></tr></tbody></table><div class="box-d"><b>最需要正视的一点</b><br>《环境1108》明确批评「多数院校改进仍集中于教学方法和实训手段的『术』，距课程知识体系本身的『道』还有相当距离」。现有 41 章教材把「战术执行」写得很扎实——15 张判定表、253 题、76 真题、逐周开课手册齐全——但<b>战略层、上游四模块、跨学科方法、生成式 AI、全周期作品这五块是结构性空白</b>。补这五块不是再加几章科普，而是要改课程目标、章节结构与结业证据。</div></section><section id="s2"><h2>2 · 定位改写：从「战术定价工具课」到「商业战略框架」</h2>
+<h3>2.1 课程目标的三条可考核改写</h3>
+<table><thead><tr><th>项</th><th>现行（从 41 讲与 L1–L3 能力卡反推）</th><th>改为（可观察、可考核）</th></tr></thead><tbody><tr><td>课程性质</td><td>酒店管理专业的收益管理实务课／选修拓展</td><td>本科＝<b>必修商业战略课</b>；高职＝核心专业课；中职＝专业认知模块</td></tr><tr><td>核心问题</td><td>「今天该不该调价、该接不接这个团」</td><td>「在给定的市场、渠道、成本与竞争约束下，<b>本季度如何配置可售房夜以实现净贡献最大化</b>，以及这个判断为何成立」</td></tr><tr><td>结业能力</td><td>按 15 表完成取数、查表、执行、记录（L1）到预算与业主汇报（L3）</td><td>能独立完成一份<b>带数据、带假设、带反事实、带复盘</b>的季度收益方案，并为其中每个数字负责</td></tr><tr><td>必备素养</td><td>（未列）</td><td><b>批判性思维</b>（能对数据与 AI 产出提出反证）＋<b>数据解读</b>（能说清口径、缺陷与不确定性）</td></tr></tbody></table>
+<h3>2.2 七篇重排：保留 41 讲正文，改的是「骨架」不是「字」</h3>
+<p>不推翻现有 41 讲。做法是把 41 讲重新挂到四条主线下，再插入 5 个新讲（编号 N1–N5，
+不占用 1–41 的讲号，避免全站章号引用失效）。现有 41 讲全部保留原讲号、原正文、原算例。</p>
+<table><thead><tr><th>新篇</th><th>篇名（改后）</th><th>承载讲号</th><th>学时</th><th>结构动作</th></tr></thead><tbody><tr><td>Ⅰ</td><td>基础与指标（稳定层）</td><td>1–4、17–19、23、26、32</td><td>20</td><td>原样保留；补「指标是过程指标不是结果指标」的口径说明</td></tr><tr><td>Ⅱ</td><td>需求、预测与优化（方法层）</td><td>5、20、21、28 + <b>N1 需求创造</b></td><td>12</td><td>把预测方法论从「看曲线」升级为可复算模型；N1 插在第 20 讲后</td></tr><tr><td>Ⅲ</td><td>定价与库存决策（稳定层＋活页）</td><td>6–12、14、15、22、24 + <b>N4 竞争博弈</b></td><td>30</td><td>表 A–G/E/K 逻辑不变；把「跟不跟价」接到博弈分析</td></tr><tr><td>Ⅳ</td><td>渠道、客源与总收益（活页层）</td><td>13、16、29、30、33、34 + <b>N2 渠道组合</b> + <b>N3 客户终身价值</b></td><td>22</td><td>快变内容全部改挂活页模块；中国渠道生态按学年替换</td></tr><tr><td>Ⅴ</td><td>组织、预算与治理（稳定层）</td><td>25、27、31、35、37 + <b>N5 生成式 AI 与优化</b></td><td>16</td><td>第 27 讲由工具导航改为系统思维；第 35 讲升级为 N5 前置</td></tr><tr><td>Ⅵ</td><td>不确定性与全周期作品（项目层）</td><td>36、38–41 + <b>《季度收益方案》</b></td><td>14</td><td>新增贯穿一学期的项目链，取代章节式作业为主考核</td></tr><tr><td>附</td><td>国际口径与教学范式对照</td><td>附录 A／B</td><td>—</td><td>补「商业战略框架」与 RevME 国际教学倡议的对照（只作参照，不作背书）</td></tr></tbody></table><div class="box"><b>为什么用 N 编号</b><br>全站 253 道练习题、76 道真题、60 条 rubric、15 张判定表与 41 章映射表都用「第 N 章／第 N 讲」互相挂接。若重排 1–41 的编号，这些引用会整体失效（这正是 <code>textbook.html</code> 32 章旧版曾出现「引用第 41 章越界」的原因）。N1–N5 是插入式编号，旧引用一条都不用改。</div></section><section id="s3"><h2>3 · 向上游延伸：四个新增讲的完整规格</h2>
+<p>以下四个模块对应《环境1108》「系统融入需求创造、渠道组合战略、客户终身价值评估和竞争博弈分析」。
+每一讲都给到<b>可直接排课</b>的粒度：讲号、学时、目标、公式、算例、挂接的判定表、学生产出物。
+算例一律沿用全站唯一基线 <span class="tag">300 间 / ADR 618 / RevPAR 445 / OCC 72%</span>，
+不引入第二套房量口径。</p>
+
+<h3>N1 · 需求创造：收益不是分蛋糕，是把蛋糕做大</h3>
+<table><thead><tr><th>项</th><th>规格</th></tr></thead><tbody><tr><td>插入位置 / 学时</td><td>第 20 讲「预测与需求日历」之后 · 2 学时</td></tr><tr><td>教学目标（可观察动词）</td><td>区分「捕获需求」与「创造需求」；把一次营销支出换算为无约束需求位移；用增量净贡献判断投放是否值得</td></tr><tr><td>核心概念</td><td>需求曲线位移 vs 沿曲线移动；无约束需求（unconstrained demand）；增量性 incrementality；获客成本 CAC；投放边际收益递减</td></tr><tr><td>核心公式</td><td><span class="fml">增量净贡献 = Δ间夜 × (ADR − 变动成本 + 非客房净贡献) − 营销支出<br>投放成立条件：<b>增量净贡献 &gt; 0</b>，且增量间夜 ≤ 可售余房（否则只是置换自己的高价散客）</span></td></tr><tr><td>算例（可复算）</td><td>平峰日可售余房 84 间；投放 ¥30,000，ADR 618、变动成本 120、非客房净贡献 60 → 单间净贡献 558；盈亏平衡增量间夜 = 30,000 ÷ 558 ≈ <b>53.8 间</b>；若实际带来 70 间 → 增量净贡献 = 70×558 − 30,000 = <b>¥9,060</b>；若带来 120 间，其中 36 间挤掉原有散客 → 须按 §3 表 G 的置换逻辑扣减，结论可能反转</td></tr><tr><td>挂接判定表</td><td>表 A（调价触发）、表 G（置换）、表 H（渠道净贡献）、表 I（限制条件）</td></tr><tr><td>学生产出物</td><td>《投放前评估单》：假设、盈亏平衡增量间夜、置换扣减、事后增量核验方式（对照组或差分）</td></tr></tbody></table>
+<h3>N2 · 渠道组合战略：不是逐个算净价，是解一个带约束的配置问题</h3>
+<table><thead><tr><th>项</th><th>规格</th></tr></thead><tbody><tr><td>插入位置 / 学时</td><td>第 33 讲「中国渠道生态」之后 · 3 学时（含 1 学时沙盒）</td></tr><tr><td>教学目标</td><td>用依赖度与集中度衡量渠道风险；在配额、底价与 rate fence 约束下给出组合方案；识别渠道冲突与串价成本</td></tr><tr><td>核心概念</td><td>渠道组合优化；集中度 HHI = Σ(各渠道间夜占比²)；直销占比下限；rate fence（ fence 条件与泄漏成本）；渠道依赖与议价权；LOS/MLOS/CTA 组合</td></tr><tr><td>核心公式</td><td><span class="fml">目标：max Σ<sub>i</sub> [ 间夜<sub>i</sub> × (牌价<sub>i</sub> × (1 − 成本率<sub>i</sub>) − 变动成本 + 非客房净贡献<sub>i</sub>) ]<br>约束：Σ间夜<sub>i</sub> ≤ 可售房夜；直销间夜 ≥ 下限；HHI ≤ 风险上限；同一价档不得跨 fence 泄漏<br><b>渠道净价 = 牌价 × (1 − 成本率)</b>（沿用表 H 七类成本率，口径不改）</span></td></tr><tr><td>算例（可复算）</td><td>300 间、可售 292（8 间 OOO）、预测售出 210 间夜；三渠道：直销成本率 4%、协议 9%、OTA 16%；牌价 618 / 560 / 620 → 净价 593.3 / 509.6 / 520.8。学生须在「直销 ≥ 35%」与「单渠道 ≤ 45%」两条约束下给出组合，并说明为何最高净价不等于最优组合（容量、依赖、fence、长期客户价值）</td></tr><tr><td>挂接判定表</td><td>表 H（渠道开关）、表 F（限制条件）、表 B（库存与保护位）、表 O（冲突仲裁）</td></tr><tr><td>学生产出物</td><td>《季度渠道配额表》＋《fence 泄漏检查表》＋一段 HHI 风险说明（不超过 200 字）</td></tr></tbody></table>
+<h3>N3 · 客户终身价值：把一晚的决策放到一段关系里</h3>
+<table><thead><tr><th>项</th><th>规格</th></tr></thead><tbody><tr><td>插入位置 / 学时</td><td>第 16 讲「直销与会员」与第 14 讲「客源细分」之后 · 2 学时</td></tr><tr><td>教学目标</td><td>计算 CLV；识别「单晚净贡献最大化」与「客户关系价值最大化」冲突的场景；用 CLV 修正协议价与团队置换判定</td></tr><tr><td>核心概念</td><td>留存率 r、贴现、复购频次、获客成本 CAC、流失成本；协议客户 vs 一次性 OTA 客；会员权益的边际成本</td></tr><tr><td>核心公式</td><td><span class="fml">简化 CLV = (年均间夜 × 单间净贡献 × 留存年限) − 获客成本<br>留存年限 ≈ 1 ÷ (1 − r)（r 为年留存率，恒定假设须在作业中显式写出）<br>接单判据：<b>本次净贡献 + ΔCLV ≥ 综合置换成本 + 容量机会成本</b>（对齐表 G v2026.2 口径）</span></td></tr><tr><td>算例（可复算）</td><td>某协议客户年 40 间夜、单间净贡献 558、留存率 60% → 留存年限 2.5 年 → CLV ≈ 40×558×2.5 − CAC 3,000 = <b>¥52,800</b>；对照一次性 OTA 散客单晚净贡献 520.8。结论不是「协议价一定让」，而是把 ΔCLV 折算进本次询价，并明确「客户可能流失」这一假设的证据来源，否则该参数不得进入决策</td></tr><tr><td>挂接判定表</td><td>表 G（团队／协议询价）、表 K（总贡献）、表 H（渠道成本）、表 O（冲突仲裁）</td></tr><tr><td>学生产出物</td><td>《CLV 敏感性表》：r 取 40%／60%／80% 时结论是否翻转；写明假设来源与不可验证处的处理方式</td></tr></tbody></table>
+<h3>N4 · 竞争博弈：从「跟不跟价」到「对方会怎么反应」</h3>
+<table><thead><tr><th>项</th><th>规格</th></tr></thead><tbody><tr><td>插入位置 / 学时</td><td>第 6 讲「竞品降价：跟还是不跟」之后 · 3 学时（含 1 学时对抗演练）</td></tr><tr><td>教学目标</td><td>构造双人收益矩阵；识别重复博弈下的价格战；解释为什么不自动跟价；把竞组权重与 STR 口径写进结论</td></tr><tr><td>核心概念</td><td>反应函数、占优策略、纳什均衡、重复博弈与触发策略、价格领导、竞组构成与加权（按房量加权，非简单平均）、MPI/ARI/RGI 的口径边界</td></tr><tr><td>核心公式</td><td><span class="fml">本店收益(策略<sub>本</sub>, 策略<sub>竞</sub>) = 间夜 × 净贡献 − 置换／walk 期望成本<br>RGI = MPI × ARI ÷ 100 = 本店 RevPAR ÷ 竞组 RevPAR × 100<br>竞组 ADR 须<b>按房量加权</b>：680（等权）与 691.68（加权）会给出不同的 ARI，结论必须写明用了哪一个</span></td></tr><tr><td>算例（可复算）</td><td>竞品降价 8%：本店「跟 / 不跟」× 竞品「真降 / 虚降」构成 2×2 收益矩阵（四格均需用 300 间基线算出数字）；单期占优解可能是跟价，但引入第 2 期报复后，重复博弈的触发策略使「不跟 + 保 fence」成为更优；与第 6 讲表 A/C/D/O 的查表结论对照，说明<b>查表是单期局部规则，博弈是多期全局判断</b></td></tr><tr><td>挂接判定表</td><td>表 A／C／D／O ＋ 表 G（容量机会成本）</td></tr><tr><td>学生产出物</td><td>《2×2 收益矩阵》＋《两期触发策略说明》＋一段「何时查表足够、何时必须上博弈」的判断规则</td></tr></tbody></table><div class="box-w"><b>四讲的共同约束</b><br>新增内容不得自造第二套口径：房量只用 300 间，竞组按房量加权，置换走 v2026.6 净贡献法，涨红跌绿、¥ 计价、阈值须用本店数据校准。每讲末尾都要求写明「本结论的假设与不可验证处」——这是《环境1108》要求的批判性思维在教材里的最低成本落点。</div></section><section id="s4"><h2>4 · 跨学科整合：逐讲嵌入点，不做拼盘</h2>
+<p>《环境1108》要求「经济学中的价格弹性、统计学的预测方法、信息科学的系统思维<b>有机嵌入</b>，而非简单拼盘」。
+判别标准很简单：<b>如果删掉这个学科内容，本讲的决策结论会不会变？</b> 会变才算嵌入，不会变就是拼盘。
+下表逐讲给出嵌入前后的差异与可考核证据。</p>
+<table><thead><tr><th>讲号 / 标题</th><th>学科</th><th>现状（拼盘式）</th><th>嵌入后的具体动作</th><th>可考核证据</th></tr></thead><tbody><tr><td>第 4 讲 价格弹性</td><td>经济学</td><td>点弹性一句话：降 10% 量升多少</td><td>补<b>弧弹性</b>（避免基点选择导致结论反转）、<b>交叉弹性</b>（本店与竞品、房型之间的替代）、由历史数据估计需求曲线；把「降价用除法、涨价用乘法」与弹性统一到同一条需求曲线上</td><td>给定 6 组价量数据，估计弹性并说明弹性为何随价位变化</td></tr><tr><td>第 9 讲 房型价差</td><td>经济学</td><td>按经验给差价</td><td>用<b>替代弹性</b>解释升级销售：价差过大时客人不入高房型、过小时蚕食高房型收入</td><td>给出价差区间的推导，而非直接给一个推荐值</td></tr><tr><td>第 26 讲 成本与利润</td><td>经济学</td><td>变动成本 = 降价底线</td><td>补<b>机会成本</b>与<b>沉没成本</b>：CPOR 是核算口径，不是单笔接单判据；把底价与容量机会成本（bid price）分开</td><td>解释「为什么 ¥504 净贡献仍可能应拒单」</td></tr><tr><td>第 20 讲 预测与需求日历</td><td>统计学</td><td>看 Pickup 曲线、算 MAPE</td><td>补<b>移动平均 / 指数平滑 / 带趋势与季节项的时间序列</b>，用 WAPE 与<b>预测偏差 Bias</b> 双指标；补<b>无约束需求重建</b>与删失数据处理；给出<b>区间预测</b>而非点预测</td><td>同一份数据用两种方法预测，比较 WAPE 与 Bias 并选一个，写出选择理由</td></tr><tr><td>第 21 讲 年度预算</td><td>统计学</td><td>把一年拆到每天</td><td>预算表改为<b>带置信区间的分位数</b>（P50／P75／P25），并说明区间如何进入超售与调价授权</td><td>给出旺季某周的 P50／P25／P75 三档房量与对应动作</td></tr><tr><td>第 5 讲 什么时候涨价</td><td>统计学</td><td>按表 A 触发</td><td>触发阈值须由历史波动估计，附<b>样本量与误触发率</b>；不能只写死一个百分比</td><td>用 12 周数据回测触发规则的命中与误报</td></tr><tr><td>第 27 讲 系统与数据</td><td>信息科学</td><td>「工具能替您做什么」＝工具导航</td><td>改为<b>数据流与状态机</b>：PMS→RMS→渠道→回传的链路、状态一致性、延迟与重试、<b>反馈回路</b>（决策→结果→校准阈值）、单一真源与数据血缘</td><td>画出一条数据从采集到进入决策日志的链路，标出 3 个可能失真的环节与校验点</td></tr><tr><td>第 23 讲 报表体系</td><td>信息科学</td><td>每天该看哪几张表</td><td>补<b>口径字典与数据血缘</b>：同一 OCC 在日报／月报／竞组报里分母是否一致；异常值的自动标记规则</td><td>对同一天三张报表的 OCC 差异给出定位过程</td></tr><tr><td>第 35 讲 AI 工具做收益分析</td><td>信息科学</td><td>提示词四要素 + 抽核</td><td>升级为<b>输入—校验—输出—留痕</b>闭环：AI 只做候选生成，公式须复算、数据须溯源、结论须人工签署（见 §5、N5）</td><td>提交带 AI 产出、复算过程与人工签署的完整决策记录</td></tr><tr><td>第 15 讲 团队置换</td><td>三科交叉</td><td>净贡献法单期算例</td><td>经济学（机会成本）＋统计学（wash 率与 ρ 的估计与不确定性）＋信息科学（逐日状态更新、肩部夜联动）同时进入同一决策</td><td>说明三个学科各改了结论的哪一部分</td></tr></tbody></table><div class="box"><b>检查方法</b><br>改造完成后逐讲做一次「删除测试」：把该讲跨学科段落遮住，若决策流程与数值结论完全不变，则该段属于拼盘，必须重写为参与计算的输入或约束，而不是附注。</div></section><section id="s5"><h2>5 · 生成式 AI、批判性思维与数据解读：六个可考核落点</h2>
+<p>教材现状是「生成式」0 次、全站「生成式AI」0 个文件，而《环境1108》把它列为<b>本科课程的核心内容</b>，
+同时把批判性思维与数据解读列为必备素养。新增 N5 讲（2 学时）承载方法，下面 6 个落点分散到各讲，
+每个落点都有可评分的行为，不停留在「了解 AI」。</p>
+
+<h3>N5 · 生成式 AI 与优化：把 AI 放在校验链里，不放在决策位上</h3>
+<table><thead><tr><th>项</th><th>规格</th></tr></thead><tbody><tr><td>插入位置 / 学时</td><td>第 35 讲之后、第 37 讲之前 · 3 学时（1 讲授 + 2 学时实验）</td></tr><tr><td>教学目标</td><td>用生成式 AI 生成候选方案与反例；识别并举证幻觉；用优化思想表达容量配置问题；对 AI 产出做人工签署</td></tr><tr><td>内容四块</td><td>① 生成式 AI 能做什么／不能做什么（不做数值计算、不掌握本店私有数据）<br>② <b>应用分析与优化</b>：把「给谁留多少房」写成目标函数 + 约束（形式化即可，不要求解线性规划）<br>③ 校验链：公式复算、口径回溯、反事实检验、敏感性分析<br>④ 责任与学术诚信：AI 使用声明、可复现提示词、人工签署</td></tr><tr><td>核心表达</td><td><span class="fml">max Σ 间夜<sub>i</sub> × 净贡献<sub>i</sub>　s.t.　Σ间夜<sub>i</sub> ≤ 可售房夜；超售 ≤ min(5%, 15 间)；24h 调价 ≤ 2 次；fence 不泄漏<br><b>AI 产出 = 候选；复算 + 签署 = 决策</b></span></td></tr></tbody></table>
+<h3>六个可考核落点</h3>
+<table><thead><tr><th>#</th><th>落点</th><th>所在讲</th><th>学生任务</th><th>评分点</th><th>AI 使用边界</th></tr></thead><tbody><tr><td>1</td><td><b>幻觉举证</b></td><td>N5 / 第 35 讲</td><td>让 AI 给出 RGI 与置换净贡献公式，找出错处并给正确式</td><td>能定位漏 ÷100、把收入当净贡献、100% 置换假设三类典型错；写出正确公式并复算</td><td>允许生成，必须逐条复算；不复算不得分</td></tr><tr><td>2</td><td><b>脏数据判断</b></td><td>第 20／23 讲 + §7 包</td><td>在含 8 类缺陷的数据集上做预测，先提交《数据缺陷清单》</td><td>能识别缺失、重复、异常尖峰、渠道串价、OOO 未剔、取消未回冲、口径混用、竞组缺权重</td><td>AI 可用于列初筛规则，缺陷判定须人工确认</td></tr><tr><td>3</td><td><b>口径与不确定性</b></td><td>第 3／20 讲</td><td>对同一指标给出分母、时间窗、置信区间与一句话解释</td><td>能说清「这个数在什么口径下成立、可能错在哪」</td><td>AI 不得代替口径声明</td></tr><tr><td>4</td><td><b>反事实与敏感性</b></td><td>N1／N3／N4</td><td>改动一个假设（r、ρ、竞组权重），说明结论是否翻转</td><td>至少给出 2 个参数的敏感性表与翻转临界值</td><td>AI 可生成候选假设，参数须标注来源</td></tr><tr><td>5</td><td><b>可复现提示词</b></td><td>第 35 讲 / N5</td><td>提交提示词、模型与版本、输入数据、输出全文、复算记录</td><td>他人按记录能复现同一结果；提示词含角色／数据／口径／输出格式四要素</td><td>必须留痕，无留痕视为未使用 AI 或违规</td></tr><tr><td>6</td><td><b>责任归属与伦理</b></td><td>N5 / 第 37 讲</td><td>写 300 字说明：若 AI 建议造成损失，谁签字、谁负责、如何回滚</td><td>能指出人工签署与决策日志（13 字段）是责任载体</td><td>明确「AI 不签字」</td></tr></tbody></table><div class="box-d"><b>不要做成「AI 科普 + 工具清单」</b><br>《环境1108》批评的正是「停留在术的层面」。第 40 讲现有标题就带「（科普）」，改造后应把科普内容压缩为 N5 的前 20 分钟，其余时间全部用于<b>校验链与责任链</b>；评分不看学生会不会用工具，看能不能<b>证明工具错了</b>。</div></section><section id="s6"><h2>6 · 项目式任务取代章节式作业</h2>
+<p>现状：v2026.3 每讲统一外壳含「三道练习 + 答案与评分 + 作业」，41 讲累计 123 道章节练习；
+<code>books/v2026-2-exam-spec.html</code> 的结业是笔试≥80 / 实操≥85 / 出勤≥90%（L3 加答辩≥75），
+253 练习与 76 真题均为知识点级。<b>全站没有「期末作品」</b>。</p>
+<table><thead><tr><th>项</th><th>改前</th><th>改后</th></tr></thead><tbody><tr><td>主考核</td><td>笔试 + 沙盒实操 + 章节作业</td><td><b>《季度收益方案》项目作品 80%</b> + 形成性练习 20%</td></tr><tr><td>章节练习</td><td>41 讲 × 3 题，各自独立</td><td>全部保留（不删旧资料），降为形成性练习，只用于阶段门禁前的技能自检</td></tr><tr><td>76 真题</td><td>结业考试主体</td><td>降为<b>资格门禁</b>：进入项目答辩前须通过（抽题组卷、曝光控制规则不变）</td></tr><tr><td>60 条 rubric</td><td>15 表逐表评分点</td><td>保留为项目各阶段的<b>过程评分点</b>，另建项目总评 rubric（见组件 A）</td></tr><tr><td>时间结构</td><td>按讲推进，讲间无数据贯通</td><td>13 周五阶段，上一阶段的产出是下一阶段的输入；每阶段设门禁，未过不得进入下一阶段</td></tr><tr><td>评价者</td><td>任课教师</td><td>任课教师 + <b>第二评分人</b>（实操题双评，沿用 v2026.2 复评规范）+ 可选企业导师点评</td></tr></tbody></table>
+<h3>五阶段与交付物（详见组件 A《季度收益方案任务书》）</h3>
+<table><thead><tr><th>周次</th><th>阶段</th><th>输入</th><th>必做动作</th><th>交付物</th><th>挂接表</th></tr></thead><tbody><tr><td>W1–2</td><td>市场分析</td><td>竞组数据、历史 13 周、事件日历</td><td>竞组按房量加权；MPI/ARI/RGI 复算；细分与需求画像；写口径声明</td><td>《市场与口径说明》</td><td>C / D / O</td></tr><tr><td>W3–5</td><td>预测</td><td>阶段 1 输出 + 脏数据包</td><td>无约束需求重建；两法比较 WAPE/Bias；给 P50/P25/P75 区间预测</td><td>《预测签发单》</td><td>A / I / L</td></tr><tr><td>W6–8</td><td>定价</td><td>阶段 2 预测</td><td>BAR 与价差阶梯；弹性与调价触发；团队置换净贡献；守住 5%/15 间与 24h≤2 次</td><td>《季度价格与库存策略》</td><td>A / B / E / F / G / K</td></tr><tr><td>W9–11</td><td>渠道分配</td><td>阶段 3 策略</td><td>七类成本率算净价；组合约束求解；fence 与 HHI 风险；直销占比下限</td><td>《渠道配额与 fence 检查表》</td><td>H / F / O</td></tr><tr><td>W12–13</td><td>效果复盘</td><td>前四阶段 + 实际结果</td><td>预测误差归因；调价命中率；阈值回填；反事实「若当初…」；跨部门答辩</td><td>《复盘报告 + 答辩》</td><td>M / N</td></tr></tbody></table><div class="box-g"><b>这一步同时解决霖子1106 的「交付过程」问题</b><br>项目作品是教师能带走、能展示、能向院系交差的<b>证据</b>。它把 RMC 的价值锚从「41 章 + 15 表 + 253 题」移到「一学期里学生完整走过一遍收益管理全周期」，也让续费有了具体理由：每学期换一批真实案例与活页数据，而不是再发一份新资料包。</div></section><section id="s7"><h2>7 · 真实数据决策循环：脏数据教学包规格</h2>
+<p>《环境1108》要求「把真实经营数据变成课堂的常规输入」，让学生经历「缺失值、异常波动、渠道冲突」这些
+模拟系统复现不了的粗糙感；同时该文件也明确承认「真实数据的开放涉及酒店的商业敏感」。
+RMC 的落地方式是<b>构造一份可公开、可复算、故意带缺陷的教学数据集</b>，不承诺拿到任何酒店的真实 PMS 数据。</p>
+<table><thead><tr><th>项</th><th>规格</th></tr></thead><tbody><tr><td>数据集</td><td>DR-01《13 周城市商务酒店经营数据》｜CSV + XLSX 双格式，约 13×7×6 ≈ 546 行房型日粒度记录</td></tr><tr><td>字段</td><td>日期／星期／房型／渠道／可售房夜／售出间夜／牌价／净价／成本率／取消间夜／no-show／OOO／竞组 OCC／竞组 ADR／事件标记</td></tr><tr><td>基线锚点</td><td>总房量 300 间、ADR 618、RevPAR 445、OCC 72%；竞组 OCC 68.0%、竞组 ADR 按房量加权 691.68；涨跌用红／绿</td></tr><tr><td>故意植入的 8 类缺陷</td><td>① 3 处缺失值 ② 2 处重复记录 ③ 1 个异常尖峰（ event 日误录） ④ 渠道串价（同一价档跨 fence） ⑤ OOO 未从分母剔除 ⑥ 取消未回冲 ⑦ 日报／月报分母口径混用 ⑧ 竞组等权 vs 加权未标注</td></tr><tr><td>三层难度</td><td>V 档：只给缺陷 1/2/5，附提示；T 档：给全部 8 类，不给提示；U 档：不告知缺陷数量，须自行提出数据质量假设并论证</td></tr><tr><td>与干净算例的关系</td><td>教材 41 讲现有算例<b>全部保留</b>（用于讲清原理）；脏数据包只在项目阶段使用，并要求学生在报告中对照「用干净数据会得出什么结论」，把差异写成数据解读证据</td></tr><tr><td>脱敏与合规</td><td>全部为合成数据，不含任何真实酒店、真实客人、可识别信息；文件头写明「教学合成数据，非经营实绩」；若未来引入校企合作真实数据，须另签脱敏协议与用途限定条款（已登记待办）</td></tr><tr><td>教师配套</td><td>《缺陷答案表》《缺陷→评分点映射》《常见错误处理》三份；不在学生版露出</td></tr></tbody></table><div class="box-w"><b>边界写清楚</b><br>不承诺「引入企业 PMS 实时数据」、不承诺生产性实训基地轮岗、不代替院校双师制度建设。RMC 能交付的是<b>可复算的数据环境与判断训练</b>，这是《环境1108》里唯一不依赖院校人事改革与商业数据开放的一条。</div></section><section id="s8"><h2>8 · 活页式 + 数字化：切分、更新机制与合同条款</h2>
+<p>现行教材是单一 677 KB 合并 HTML，41 讲无模块边界、无版本字段，改一处要重跑整包。
+《环境1108》给的原则是「核心原理相对稳定地保留在基础章节，定价策略、渠道规则、系统操作等变化快的部分
+做成可替换的活页模块或数字资源包，由校企合作团队每学期或每学年更新一次」，
+且「教材体例和内容必须与企业调研和岗位能力标准直接挂钩」。</p>
+
+<h3>8.1 三分类原则与逐讲切分（完整 41 行见组件 B）</h3>
+<table><thead><tr><th>类别</th><th>判定规则</th><th>讲号（摘要）</th><th>更新周期</th></tr></thead><tbody><tr><td><span class="tag-b">B 基础稳定章</span></td><td>删掉后整个决策链失效的原理、定义、口径、指标与判定逻辑</td><td>1–4、6、11–12、15、17–19、22–23、25–26、30、32、36、39、41（共 20 讲）</td><td>只在勘误或口径变更时更新，须走真源 + 回归门禁</td></tr><tr><td><span class="tag">L 活页模块</span></td><td>随平台规则、渠道政策、系统界面、市场结构变化</td><td>5、7–10、13–14、16、20–21、24、27–29、31、33–35、37–38、40（共 21 讲）+ N1–N5</td><td>每学期 1 次（渠道／系统类），每学年 1 次（战略／方法类）</td></tr><tr><td><span class="tag-g">D 数字资源包</span></td><td>数据、算例、题库、AI 提示卡、勘误</td><td>DR-01 脏数据包、DR-02 沙盒、DR-03 提示卡、DR-04 案例活页、DR-05 勘误表</td><td>随活页同步，独立版本号</td></tr></tbody></table>
+<h3>8.2 更新八步（可直接写进合同附件）</h3>
+<table><thead><tr><th>步</th><th>动作</th><th>责任</th><th>产出 / 验收</th></tr></thead><tbody><tr><td>1</td><td>企业调研：每学期至少 3 家（含 1 家不同业态），记录岗位任务与口径变化</td><td>校企联合</td><td>《企业调研记录表》（字段见组件 B）</td></tr><tr><td>2</td><td>对照岗位能力标准，标出受影响的能力单元与判定表</td><td>课程负责人</td><td>《变更影响清单》</td></tr><tr><td>3</td><td>提出活页变更单（编号 / 版本 / 生效学期 / 旧版归档路径）</td><td>课程负责人</td><td>LP-CN-xxxx 变更单</td></tr><tr><td>4</td><td>改 <code>v2026-2-rules.json</code> 真源，不直接改任何页面</td><td>内容维护</td><td>真源 diff</td></tr><tr><td>5</td><td>跑 15 条回归断言 + 新增的项目 rubric 断言</td><td>自动</td><td><code>v2026-2-regression.py</code> 全绿</td></tr><tr><td>6</td><td>生成新版活页（新文件名带版本前缀），旧版原名原路径保留在线</td><td>内容维护</td><td>新旧对应表 + md5</td></tr><tr><td>7</td><td>教师端发布：更新通知、勘误说明、教案差异 3 页以内</td><td>交付</td><td>《本学期变更说明》</td></tr><tr><td>8</td><td>学期末回收：使用统计、教师反馈、学生作品抽样，进入下轮调研</td><td>交付</td><td>《学期使用统计报告》（已是授权层模板 11）</td></tr></tbody></table>
+<h3>8.3 必须写进授权合同的 6 条</h3>
+<table><thead><tr><th>#</th><th>条款要点</th><th>为什么必须写</th></tr></thead><tbody><tr><td>1</td><td>授权标的＝<b>一学年的资源使用权 + 版本更新 + 认证资格</b>，不是一次性资料包</td><td>沿用 v2026.1 授权层的既有结论，活页更新是续费的实物理由</td></tr><tr><td>2</td><td><b>版本号进合同、不进营销页</b>：合同附件一列明当前 B/L/D 各模块版本；对外只出现一个产品名</td><td>避免再次出现 v2026.1–6 六个平行版本同时在线（霖子1106「五年只打磨一个产品」）</td></tr><tr><td>3</td><td>更新频次与窗口：每学期开学前 30 天交付活页，每学年交付一次战略／方法类活页</td><td>把「动态更新」变成可验收义务，而非宣传语</td></tr><tr><td>4</td><td>勘误 SLA：口径类错误 5 个工作日内出勘误页并写进 DR-05；旧版不删、不下线</td><td>与项目「不覆盖、可回滚」铁律一致</td></tr><tr><td>5</td><td>岗位能力标准对照表作为<b>合同附件三</b>，每次调研后双方确认一次</td><td>落实《环境1108》「体例和内容与岗位能力标准直接挂钩」</td></tr><tr><td>6</td><td>旧版留存与终止处置：到期后已交付活页可继续用于已开课班级，但不再获得更新</td><td>避免院校担心「停付即失联」，也保护母本边界</td></tr></tbody></table><div class="box"><b>与现有资产的关系</b><br><code>v2026-2-rules.json</code> 真源 + 15 条回归断言 + 备份／MANIFEST 流程已经具备，正好就是活页更新机制需要的底座；本轮不新建第二套真源，只把「每学期更新」这个动作接到既有流程上。</div></section><section id="s9"><h2>9 · 三层次院校差异化：先纠正一个坐标系错位</h2>
+<p><b>这是本轮最重要的结构性发现。</b>《环境1108》说的是<b>院校层次</b>（中职／高职／本科），
+而全站现有的 L1／L2／L3 是<b>岗位等级</b>（收益执行专员／主管／经理，见
+<code>v2026-2-curriculum-l123.html</code> 的能力单元：取数、查表、执行、预测签发、预算与业主汇报）。
+把中职直接叫 L1、本科直接叫 L3 会造成两处错误：中职被教成「专员岗前培训」，本科被教成「经理岗位技能」，
+恰恰落回该文件批评的「本科仍停留在教学生如何操作系统」。</p>
+
+<div class="box-d"><b>处理规则</b><br>L1／L2／L3 <b>保留给认证层</b>（职业能力与结业证明），不再承担院校分层；另设 <span class="tag-b">V 中职</span> / <span class="tag-b">T 高职</span> / <span class="tag-b">U 本科</span> 三档课程包，两者用一张映射表关联，不混用名称、不混用通过线。</div><table><thead><tr><th>档</th><th>院校层次</th><th>《环境1108》定位（原文）</th><th>建议讲号</th><th>学时</th><th>教材用法</th><th>结业证据</th><th>与认证层关系</th></tr></thead><tbody><tr><td><b>V</b></td><td>中职</td><td>基础概念和指标认知</td><td>1–3、17–19、23 + 指标卡；<b>不讲</b>表 G 置换、表 E 超售优化、博弈</td><td>16</td><td>只用 B 类基础章 + 图卡；算例只做「算对」，不做决策</td><td>指标认读 + 一份《今日动作清单》</td><td>不接 L 档；不承诺岗位能力</td></tr><tr><td><b>T</b></td><td>高职</td><td>系统操作、预测方法和战术性定价的熟练执行</td><td>1–24、26–28、33–35 + M01–M09 认证模块</td><td>48–64</td><td>B 类全量 + L 类当期活页；重点在 15 表的可复算执行与沙盒</td><td>完整执行版《季度收益方案》（五阶段、偏计算与操作）+ 沙盒实操</td><td>可对接 L1／L2 结业证明，按校自愿</td></tr><tr><td><b>U</b></td><td>本科</td><td><b>战略分析、商业决策和跨部门协调</b>能力</td><td>1–41 全量 + <b>N1–N5 全部</b> + 项目作品</td><td>64–80</td><td>七篇全开；N1–N4 为必修，N5 与项目作品为主考核；快变部分用当期活页</td><td>战略版《季度收益方案》（含博弈、CLV、敏感性、跨部门答辩）+ 复盘答辩</td><td>不把 L3 当结业主线；L3 仅作可选能力证明</td></tr></tbody></table>
+<h3>每档的具体差异（不是同一套内容删减）</h3>
+<table><thead><tr><th>维度</th><th>V 中职</th><th>T 高职</th><th>U 本科</th></tr></thead><tbody><tr><td>数据</td><td>干净算例、固定分母</td><td>干净算例 + 脏数据包前 3 类缺陷</td><td>脏数据包全部 8 类 + 自行提出数据质量假设</td></tr><tr><td>预测</td><td>认读预订曲线</td><td>会算 WAPE / Bias、会签发预测</td><td>会比较两种方法、给区间预测、说明不确定性如何进入决策</td></tr><tr><td>定价</td><td>知道 BAR 与价差</td><td>按表 A–H 执行调价与限制配置</td><td>在博弈、CLV、容量机会成本下解释为何这样定价</td></tr><tr><td>AI</td><td>不涉及</td><td>按第 35 讲四要素使用并抽核</td><td>N5 六落点全做，能举证 AI 幻觉并人工签署</td></tr><tr><td>作业</td><td>章节练习 + 动作清单</td><td>章节练习（形成性）+ 执行版项目</td><td>项目作品 80% + 答辩，章节练习 20%</td></tr><tr><td>评价重点</td><td>算得对</td><td>做得熟、留得下痕</td><td>判断得有依据、能被质疑、能复盘</td></tr><tr><td>禁用表述</td><td>不得写「胜任收益岗位」</td><td>不得写「结业即收益主管」</td><td>不得写「结业即收益经理」「保证就业」</td></tr></tbody></table><div class="box-w"><b>与上海商学院「1+3」的对齐</b><br>《环境1108》提到「1 对标 IDeaS 等主流系统应用技能，3 聚焦案例分析、项目实践和团队协作，并引入企业导师评价」。RMC 不代理任何厂商系统认证，故建议把「1」改写为<b>「1 项可复算的工具体系能力」＝15 张判定表 + 决策日志</b>，「3」＝案例分析、季度项目、跨部门答辩；企业导师点评为可选项，不写进标准交付（避免无法兑现）。</div></section><section id="s10"><h2>10 · 实施顺序与可脚本校验的验收标准</h2>
+<table><thead><tr><th>批次</th><th>做什么</th><th>涉及文件（均为新建或仅注入指引）</th><th>验收断言</th></tr></thead><tbody><tr><td>第 1 批（本轮已做）</td><td>产出改造方案、项目任务书、活页系统与课程地图；给正典页注入 v2026.7 版本指引横幅</td><td>v2026-7-*.html（5 个新页）、textbook-merged.html 等 5 页的横幅</td><td>① 41 章正文 md5 除横幅外不变 ② 新页均有 noindex + 登录门 + 左侧目录 ③ 页尾不套公众号固定小节 ④ 内联 JS 0 错</td></tr><tr><td>第 2 批（待评估）</td><td>写 N1–N5 五讲正文与算例；产出 DR-01 脏数据包（CSV/XLSX）</td><td>新建 v2026-7-unit-n1..n5.html、DR-01 数据文件</td><td>① 每讲含目标／公式／可复算算例／三道练习／答案 ② 所有算例用 300 间基线 ③ pycel 复算与页面数字一致</td></tr><tr><td>第 3 批（待评估）</td><td>项目 rubric 接入 <code>v2026-2-rules.json</code> 真源，扩回归断言</td><td>新建 v2026-7-rules-addendum.json + 回归脚本新版</td><td>① 回归 15 条原断言不回退 ② 新增断言覆盖五阶段权重合计 100 ③ 旧题库 ID 不变</td></tr><tr><td>第 4 批（待评估）</td><td>按 V/T/U 三档生成课程包与逐周手册，接授权层合同附件三</td><td>新建 v2026-7-track-{v,t,u}.html 与活页合同附件</td><td>① 三档讲号无越界（≤41 或 N1–N5） ② 学时合计与手册一致 ③ 禁用表述清单 0 命中</td></tr></tbody></table><div class="box"><b>本轮的边界</b><br>按「不覆盖原有」铁律，<b>41 章教材正文一字未改</b>，只新建带版本前缀的方案与组件，并在正典页加一条可点的版本指引。第 2–4 批已登记到《待评估待办》，未来找时间评估是否做，本轮不执行。</div></section><section id="s11"><h2>11 · 边界与不承诺</h2>
+<table><thead><tr><th>《环境1108》承认的现实约束</th><th>RMC 的立场</th></tr></thead><tbody><tr><td>真实数据开放涉及酒店商业敏感</td><td>只用合成教学数据；不承诺引入企业 PMS 实时数据；未来若合作须另签脱敏与用途限定协议</td></tr><tr><td>双师制度化需要院校人事与职称体系配套改革</td><td>不承接院校人事改革；提供教师用「影子经理」任务清单与教案，由院校自行决定是否采纳</td></tr><tr><td>动态更新依赖持续资金与校企协作投入</td><td>把更新写成授权合同的年度义务与续费理由，不承诺无期限免费更新</td></tr><tr><td>AHLEI / IDeaS 等行业认证与真实系统考核</td><td>RMC 不代理、不背书、不代考；项目里只用「可复算工具体系能力」替代厂商系统认证</td></tr><tr><td>「毕业即具备 2–3 年经验」的期待</td><td>明确不承诺结业即收益经理、不承诺就业与薪资、不承诺缩短养成周期；只承诺「完整走过一遍全周期、理解定价背后的商业逻辑」</td></tr></tbody></table><div class="box-gold"><b>一句话</b><br>把教材从「一张能查的表」改成「一次能被质疑的决策」。前者培养会操作界面的执行者，后者才对着《环境1108》说的「能在数据、市场和组织之间做判断的人」。</div></section><div class="foot">RMC · v2026.7 · 只新建带版本前缀文件，原有 41 章教材与 41 讲课程资料未覆盖、未改名、未删除。本轮起点整包备份见 outputs/backups/pre-v2026-7-textbook-20261108-1043/。</div></div></div></body></html>
