@@ -1,0 +1,546 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet"><script>window.HRMA_PREFIX="";</script><script src="auth-config.js?v=gate20261013"></script><script src="assets/js/access-gate.js?v=v12"></script><title>全球进入执行卡 · v2026.8</title><style>
+/* ============================================================
+   RMC 收益管理社区 · 主样式表
+   浅色主题 / 深海军蓝 + 金 / 系统字体
+   ============================================================ */
+
+:root{
+  --navy:#1B3A5C;
+  --navy-2:#2C5282;
+  --navy-3:#3D6BA5;
+  --gold:#B8894A;
+  --gold-2:#D4A96A;
+  --gold-soft:#F7F0E4;
+  --teal:#2E7D74;
+  --teal-soft:#E6F2F0;
+  --up:#C0392B;      /* 涨/提升 —— 红 */
+  --down:#2F7A3E;    /* 跌/下降 —— 绿 */
+  --amber:#D98324;
+  --amber-soft:#FDF3E4;
+  --danger:#C0392B;
+  --danger-soft:#FBEAE8;
+  --ink:#1F2933;
+  --ink-2:#52606D;
+  --ink-3:#7B8794;
+  --line:#E1E5EA;
+  --line-2:#CBD2D9;
+  --bg:#FAFAF8;
+  --bg-2:#F2F0EB;
+  --white:#fff;
+  --shadow:0 1px 3px rgba(27,58,92,.06),0 1px 2px rgba(27,58,92,.04);
+  --shadow-md:0 4px 14px rgba(27,58,92,.08);
+  --mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --sidebar:260px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  font-size:15px; line-height:1.75; color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--navy-2);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4,h5{color:var(--navy);line-height:1.35;margin:0 0 .6em;font-weight:650}
+h1{font-size:30px;letter-spacing:-.3px}
+h2{font-size:22px;margin-top:2em;padding-bottom:.45em;border-bottom:2px solid var(--line)}
+h3{font-size:18px;margin-top:1.6em}
+h4{font-size:15.5px;margin-top:1.3em;color:var(--navy-2)}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.4em}
+li{margin:.3em 0}
+strong{font-weight:650;color:var(--navy)}
+code{font-family:var(--mono);font-size:.9em;background:var(--bg-2);padding:.12em .4em;border-radius:4px;color:var(--navy)}
+hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}
+
+/* ---------- 布局 ---------- */
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:var(--sidebar);flex:0 0 var(--sidebar);
+  background:var(--navy);color:#fff;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  padding:0 0 40px;
+}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:3px}
+.brand{padding:22px 22px 16px;border-bottom:1px solid rgba(255,255,255,.12)}
+.brand-mark{
+  display:flex;align-items:center;gap:10px;
+  font-size:16px;font-weight:700;letter-spacing:.4px;color:#fff;
+}
+.brand-mark:hover{text-decoration:none}
+.brand-mark .gem{
+  width:32px;height:32px;flex:0 0 32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--gold-2),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;color:#fff;font-weight:700;
+}
+.brand-sub{font-size:11.5px;color:rgba(255,255,255,.55);margin-top:5px;line-height:1.5;letter-spacing:.2px}
+.nav-section{padding:16px 22px 4px}
+.nav-section-title{
+  font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;
+  color:rgba(255,255,255,.42);font-weight:700;margin-bottom:8px;
+}
+.nav-link{
+  display:flex;align-items:center;gap:9px;
+  padding:7px 12px;margin:1px -12px;border-radius:6px;
+  color:rgba(255,255,255,.8);font-size:13.5px;line-height:1.45;
+}
+.nav-link:hover{background:rgba(255,255,255,.08);color:#fff;text-decoration:none}
+.nav-link.active{background:var(--gold);color:#fff;font-weight:600}
+.nav-link .n{
+  font-family:var(--mono);font-size:11px;opacity:.65;flex:0 0 22px;
+}
+
+.main{flex:1;min-width:0}
+.wrap{max-width:1080px;margin:0 auto;padding:36px 40px 90px}
+.wrap-wide{max-width:1320px}
+
+/* 面包屑 */
+.crumb{font-size:12.5px;color:var(--ink-3);margin-bottom:14px}
+.crumb a{color:var(--ink-2)}
+.crumb span{margin:0 7px;color:var(--ink-3)}
+
+/* 页头 */
+.page-head{margin-bottom:30px}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.page-title{font-size:31px;margin:0 0 12px;letter-spacing:-.4px}
+.page-lede{font-size:16px;color:var(--ink-2);line-height:1.7;margin:0;max-width:820px}
+.hero-band{
+  background:linear-gradient(120deg,var(--navy) 0%,#27517C 100%);
+  color:#fff;border-radius:12px;padding:34px 38px;margin-bottom:32px;
+}
+.hero-band h1{color:#fff;margin:0 0 10px;font-size:27px}
+.hero-band p{color:rgba(255,255,255,.82);margin:0;font-size:15px;line-height:1.75}
+
+/* ---------- 徽章 ---------- */
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11.5px;font-weight:650;letter-spacing:.3px;
+  padding:3px 10px;border-radius:20px;
+  background:var(--bg-2);color:var(--ink-2);border:1px solid var(--line);
+}
+.badge-l1{background:#E8F1F9;color:#1F5C8F;border-color:#C3DCEF}
+.badge-l2{background:var(--gold-soft);color:#8A5F26;border-color:#E8D5B5}
+.badge-l3{background:#EDE7F6;color:#5B3E96;border-color:#D5C9EC}
+.badge-codex{
+  background:var(--navy);color:#fff;font-family:var(--mono);
+  font-size:11px;padding:3px 9px;border-radius:4px;letter-spacing:.5px;
+}
+.badge-core{background:var(--danger);color:#fff;border-color:var(--danger)}
+.badge-new{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* 状态 pill */
+.pill{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:4px;background:var(--bg-2);color:var(--ink-2);border:1px solid var(--line)}
+.pill-teal{background:var(--teal-soft);color:var(--teal);border-color:#BEDDD8}
+.pill-amber{background:var(--amber-soft);color:#A6601A;border-color:#F0D9B5}
+.pill-red{background:var(--danger-soft);color:var(--danger);border-color:#F0C8C3}
+.pill-navy{background:#E8F1F9;color:var(--navy-2);border-color:#C3DCEF}
+
+/* 涨跌 */
+.up{color:var(--up);font-weight:650}
+.down{color:var(--down);font-weight:650}
+.flat{color:var(--ink-3);font-weight:600}
+
+/* ---------- 卡片 ---------- */
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:22px 24px;margin:0 0 18px;box-shadow:var(--shadow);
+}
+.card-title{font-size:16.5px;margin:0 0 14px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.card-title .ic{
+  width:26px;height:26px;flex:0 0 26px;border-radius:6px;background:var(--gold-soft);
+  display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--gold);
+}
+.card-note{font-size:13px;color:var(--ink-3);margin:12px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+
+.grid{display:grid;gap:16px;margin-bottom:18px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+
+/* ---------- 表格 ---------- */
+.tbl-wrap{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:10px;background:var(--white)}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+.tbl caption{
+  caption-side:top;text-align:left;padding:14px 18px 10px;
+  font-size:14.5px;font-weight:650;color:var(--navy);
+}
+.tbl caption .cap-note{display:block;font-size:12px;font-weight:400;color:var(--ink-3);margin-top:3px}
+.tbl th,.tbl td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tbl thead th{
+  background:var(--bg-2);font-weight:650;color:var(--navy);
+  font-size:12.5px;letter-spacing:.2px;border-bottom:2px solid var(--line-2);white-space:nowrap;
+}
+.tbl tbody tr:last-child td{border-bottom:0}
+.tbl tbody tr:hover{background:#FCFCFA}
+.tbl td.num,.tbl th.num{text-align:right;font-family:var(--mono);font-size:13px;white-space:nowrap}
+.tbl td.mid,.tbl th.mid{text-align:center}
+
+/* 判定矩阵：首行首列高亮，命中格加粗 */
+.tbl-matrix th.rowh{background:var(--bg-2);font-weight:650;color:var(--navy);white-space:nowrap}
+.tbl-matrix thead th{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tbl-matrix tbody th{background:var(--bg-2)}
+.tbl-matrix td{text-align:center;font-size:13px}
+.tbl-matrix td.hit{background:var(--gold-soft);font-weight:700;color:#8A5F26;box-shadow:inset 0 0 0 2px var(--gold)}
+.tbl-matrix td.keep{color:var(--ink-3)}
+.tbl-matrix td.up-cell{color:var(--up);font-weight:650}
+.tbl-matrix td.down-cell{color:var(--down);font-weight:650}
+
+/* 法典表 */
+.codex-block{
+  background:var(--white);border:1px solid var(--line);border-left:4px solid var(--gold);
+  border-radius:10px;padding:20px 24px 22px;margin:0 0 20px;box-shadow:var(--shadow);
+}
+.codex-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.codex-head h3{margin:0;font-size:17.5px}
+.codex-desc{font-size:13.5px;color:var(--ink-2);margin:6px 0 14px}
+.codex-meta{font-size:12px;color:var(--ink-3);margin:14px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+
+/* ---------- 提示框 ---------- */
+.callout{
+  border-radius:8px;padding:14px 18px;margin:0 0 16px;font-size:14px;line-height:1.72;
+  background:var(--bg-2);border-left:4px solid var(--line-2);
+}
+.callout p:last-child{margin-bottom:0}
+.callout .co-t{font-weight:650;display:block;margin-bottom:4px}
+.callout-key{background:#E8F1F9;border-left-color:var(--navy-2)}
+.callout-key .co-t{color:var(--navy)}
+.callout-warn{background:var(--amber-soft);border-left-color:var(--amber)}
+.callout-warn .co-t{color:#A6601A}
+.callout-danger{background:var(--danger-soft);border-left-color:var(--danger)}
+.callout-danger .co-t{color:var(--danger)}
+.callout-do{background:var(--teal-soft);border-left-color:var(--teal)}
+.callout-do .co-t{color:var(--teal)}
+.callout-gold{background:var(--gold-soft);border-left-color:var(--gold)}
+.callout-gold .co-t{color:#8A5F26}
+
+/* ---------- 指标块 ---------- */
+.metric{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px 18px;text-align:center}
+.metric-val{font-size:26px;font-weight:700;color:var(--navy);font-family:var(--mono);letter-spacing:-.5px;line-height:1.2}
+.metric-label{font-size:12px;color:var(--ink-3);margin-top:5px}
+.metric-sub{font-size:11.5px;margin-top:6px}
+
+/* ---------- 步骤条 ---------- */
+.step{display:flex;gap:16px;margin:0 0 18px;align-items:flex-start}
+.step-num{
+  flex:0 0 30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-top:2px;
+}
+.step-body{flex:1;min-width:0}
+.step-body h4{margin:0 0 5px;font-size:15.5px}
+.step-body p{margin:0 0 .5em;font-size:14px}
+
+/* 横向流程 */
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:0 0 20px}
+.flow-item{
+  flex:1;min-width:150px;background:var(--white);border:1px solid var(--line);
+  padding:14px 16px;position:relative;
+}
+.flow-item:first-child{border-radius:8px 0 0 8px}
+.flow-item:last-child{border-radius:0 8px 8px 0}
+.flow-arrow{
+  display:flex;align-items:center;padding:0 8px;color:var(--gold);font-size:17px;
+  background:transparent;border:0;flex:0 0 auto;
+}
+.flow-item .fi-t{font-weight:650;font-size:13.5px;color:var(--navy);margin-bottom:4px}
+.flow-item .fi-d{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+
+/* ---------- 公式 ---------- */
+.formula{
+  background:var(--bg-2);border:1px solid var(--line);border-radius:8px;
+  padding:14px 18px;margin:0 0 16px;
+  font-family:var(--mono);font-size:14px;color:var(--navy);
+  overflow-x:auto;line-height:1.9;
+}
+.formula .f-label{display:block;font-family:inherit;font-size:11.5px;letter-spacing:.6px;color:var(--ink-3);text-transform:uppercase;margin-bottom:4px}
+.formula .f-out{color:var(--gold);font-weight:700}
+
+/* ---------- 键值 ---------- */
+.kv{margin:0 0 14px;font-size:14px}
+.kv-row{display:flex;gap:14px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.kv-row:last-child{border-bottom:0}
+.kv-k{flex:0 0 150px;color:var(--ink-2);font-size:13.5px}
+.kv-v{flex:1}
+
+/* ---------- 清单 ---------- */
+.checklist{list-style:none;padding:0;margin:0 0 16px}
+.checklist li{
+  padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line);font-size:14px;
+}
+.checklist li:last-child{border-bottom:0}
+.checklist li::before{
+  content:"☐";position:absolute;left:2px;top:7px;
+  font-size:16px;color:var(--navy-3);line-height:1.4;
+}
+.checklist.done li::before{content:"☑";color:var(--teal)}
+
+/* ---------- 目录 ---------- */
+.toc{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin:0 0 24px}
+.toc-title{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-bottom:10px}
+.toc ol{margin:0;padding-left:1.3em;font-size:14px}
+.toc li{margin:.28em 0}
+.toc-2{list-style:none;padding-left:0;margin:6px 0 0 4px;font-size:13px;color:var(--ink-2)}
+
+/* ---------- 练习题 ---------- */
+.ex-q{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:16px 20px;margin:0 0 14px;
+}
+.ex-q .q-t{font-weight:650;color:var(--navy);font-size:14.5px;margin-bottom:8px}
+.ex-q .q-b{font-size:14px;color:var(--ink-2)}
+details.ex-a{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+details.ex-a summary{
+  cursor:pointer;font-size:13px;color:var(--navy-2);font-weight:600;list-style:none;
+  display:inline-flex;align-items:center;gap:6px;user-select:none;
+}
+details.ex-a summary::-webkit-details-marker{display:none}
+details.ex-a summary::before{content:"▸";transition:transform .15s;display:inline-block}
+details.ex-a[open] summary::before{transform:rotate(90deg)}
+details.ex-a .a-body{
+  margin-top:10px;padding:12px 16px;background:#F7FAFC;border-left:3px solid var(--teal);
+  border-radius:0 6px 6px 0;font-size:13.5px;line-height:1.75;
+}
+
+/* ---------- 法典筛选 ---------- */
+.codex-filter{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:16px 20px;margin:0 0 22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+  position:sticky;top:0;z-index:50;box-shadow:var(--shadow);
+}
+.codex-filter input[type=text]{
+  flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--line-2);border-radius:6px;
+  font-size:14px;font-family:inherit;
+}
+.codex-filter input[type=text]:focus{outline:0;border-color:var(--navy-3);box-shadow:0 0 0 3px rgba(61,107,165,.12)}
+.chip{
+  padding:5px 13px;border-radius:20px;border:1px solid var(--line-2);background:var(--white);
+  font-size:12.5px;cursor:pointer;color:var(--ink-2);font-family:inherit;
+}
+.chip:hover{border-color:var(--navy-3);color:var(--navy-2)}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ---------- 时间轴 ---------- */
+.timeline{position:relative;padding-left:26px;margin:0 0 20px}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-item::before{
+  content:"";position:absolute;left:-23px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--white);border:2.5px solid var(--gold);
+}
+.tl-time{font-family:var(--mono);font-size:12.5px;color:var(--gold);font-weight:650}
+.tl-body{font-size:14px;margin-top:2px}
+.tl-body b{color:var(--navy)}
+
+/* ---------- 对话 / 角色扮演 ---------- */
+.dialogue{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:0 0 18px;background:var(--white)}
+.dlg-row{display:flex;gap:0;border-bottom:1px solid var(--line)}
+.dlg-row:last-child{border-bottom:0}
+.dlg-who{
+  flex:0 0 128px;background:var(--bg-2);padding:12px 14px;font-size:13px;font-weight:650;
+  color:var(--navy);border-right:1px solid var(--line);
+}
+.dlg-text{flex:1;padding:12px 16px;font-size:14px;line-height:1.7}
+
+/* ---------- 游戏卡牌 ---------- */
+.cards-deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin:0 0 20px}
+.card-game{
+  border:1px solid var(--line);border-radius:10px;background:var(--white);
+  padding:14px 16px;box-shadow:var(--shadow);border-top:4px solid var(--navy);
+  display:flex;flex-direction:column;min-height:180px;
+}
+.card-game.t-atk{border-top-color:var(--danger)}
+.card-game.t-def{border-top-color:var(--teal)}
+.card-game.t-evt{border-top-color:var(--amber)}
+.card-game.t-wild{border-top-color:var(--gold)}
+.cg-id{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.5px}
+.cg-name{font-size:15px;font-weight:700;color:var(--navy);margin:4px 0 8px;line-height:1.35}
+.cg-body{font-size:12.5px;color:var(--ink-2);line-height:1.65;flex:1}
+.cg-foot{margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-3)}
+.cg-stat{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--gold)}
+
+/* ---------- 评分卡 ---------- */
+.score-box{
+  border:1px solid var(--line);border-radius:10px;background:var(--white);
+  padding:18px 22px;margin:0 0 16px;
+}
+.sb-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px}
+.sb-name{font-weight:650;color:var(--navy);font-size:15px}
+.sb-score{font-family:var(--mono);font-size:14px;color:var(--ink-2)}
+.sb-bar{height:8px;background:var(--bg-2);border-radius:4px;overflow:hidden}
+.sb-fill{height:100%;background:linear-gradient(90deg,var(--navy-3),var(--navy));border-radius:4px}
+.sb-items{margin:12px 0 0;padding:0;list-style:none;font-size:13px}
+.sb-items li{padding:5px 0 5px 20px;position:relative;color:var(--ink-2)}
+.sb-items li::before{content:"—";position:absolute;left:0;color:var(--line-2)}
+
+/* ---------- 页脚导航 ---------- */
+.pager{display:flex;gap:14px;margin-top:48px;padding-top:26px;border-top:2px solid var(--line)}
+.pager a{
+  flex:1;padding:14px 18px;border:1px solid var(--line);border-radius:10px;background:var(--white);
+  display:block;transition:.15s;box-shadow:var(--shadow);
+}
+.pager a:hover{border-color:var(--navy-3);text-decoration:none;box-shadow:var(--shadow-md)}
+.pager .p-dir{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
+.pager .p-title{font-weight:650;color:var(--navy);font-size:14.5px}
+.pager .p-next{text-align:right}
+
+/* ---------- 首页专用 ---------- */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,#2A5680 55%,#356B96 100%);
+  color:#fff;padding:56px 60px;border-radius:0 0 0 0;margin:-36px -40px 34px;
+  position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;right:-70px;top:-70px;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(184,137,74,.28),transparent 70%);
+}
+.hero .eyebrow{font-size:12px;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold-2);font-weight:700;margin-bottom:14px}
+.hero h1{color:#fff;font-size:38px;margin:0 0 14px;letter-spacing:-.8px;line-height:1.25}
+.hero .sub{font-size:16.5px;color:rgba(255,255,255,.85);max-width:700px;line-height:1.75;margin:0 0 24px}
+.hero-stats{display:flex;gap:34px;flex-wrap:wrap;margin-top:26px;position:relative;z-index:1}
+.hero-stat .hs-v{font-size:26px;font-weight:700;color:var(--gold-2);font-family:var(--mono);line-height:1.2}
+.hero-stat .hs-l{font-size:12.5px;color:rgba(255,255,255,.7);margin-top:3px}
+
+.loop-band{background:var(--gold-soft);border:1px solid #E8D5B5;border-radius:12px;padding:26px 30px;margin:0 0 30px}
+.loop-band h2{margin:0 0 6px;border:0;padding:0;font-size:20px}
+.loop-band .lb-sub{font-size:13.5px;color:#8A5F26;margin:0 0 18px}
+
+.level-card{
+  background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;
+}
+.level-card .lc-head{padding:16px 20px;color:#fff}
+.level-card.l1 .lc-head{background:linear-gradient(120deg,#2C5282,#3D6BA5)}
+.level-card.l2 .lc-head{background:linear-gradient(120deg,#A8762F,#C99B52)}
+.level-card.l3 .lc-head{background:linear-gradient(120deg,#6B4FA0,#8B6FBF)}
+.lc-head .lc-tag{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;opacity:.85;font-weight:700}
+.lc-head h3{color:#fff;margin:3px 0 0;font-size:19px}
+.lc-body{padding:18px 20px;flex:1}
+.lc-body .lc-meta{display:flex;gap:16px;font-size:12.5px;color:var(--ink-3);margin-bottom:12px}
+.lc-body ul{margin:0;padding-left:1.2em;font-size:13.5px}
+.lc-foot{padding:13px 20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-2);background:#FCFCFA}
+.lc-foot b{color:var(--navy)}
+
+.mod-link{
+  display:flex;align-items:center;gap:12px;padding:11px 16px;border:1px solid var(--line);
+  border-radius:8px;background:var(--white);transition:.15s;
+}
+.mod-link:hover{border-color:var(--navy-3);box-shadow:var(--shadow);text-decoration:none}
+.mod-link .ml-n{font-family:var(--mono);font-size:11.5px;color:var(--gold);font-weight:700;flex:0 0 28px}
+.mod-link .ml-t{flex:1;font-size:14px;color:var(--navy);font-weight:600}
+.mod-link .ml-h{font-size:11.5px;color:var(--ink-3);flex:0 0 auto}
+
+/* ---------- 打印 ---------- */
+@media print{
+  .sidebar,.codex-filter,.pager{display:none!important}
+  .main,.wrap{max-width:100%;padding:0}
+  body{background:#fff;font-size:11pt}
+  .card,.codex-block,.tbl-wrap{break-inside:avoid;box-shadow:none}
+  details.ex-a{display:block}
+  details.ex-a .a-body{display:block!important}
+  .hero{margin:0 0 20px;padding:24px;background:var(--navy)!important;-webkit-print-color-adjust:exact}
+}
+
+/* ---------- 响应式 ---------- */
+.menu-btn{
+  display:none;position:fixed;top:14px;left:14px;z-index:200;
+  background:var(--navy);color:#fff;border:0;border-radius:8px;width:40px;height:40px;font-size:18px;cursor:pointer;
+}
+@media(max-width:900px){
+  .sidebar{
+    position:fixed;left:0;top:0;z-index:150;transform:translateX(-100%);
+    transition:transform .22s ease;box-shadow:4px 0 20px rgba(0,0,0,.2);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .menu-btn{display:block}
+  .wrap{padding:20px 18px 70px}
+  .hero{margin:-20px -18px 24px;padding:36px 24px}
+  .hero h1{font-size:27px}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  h1{font-size:24px}
+  .flow-item{border-radius:8px!important;margin-bottom:6px}
+  .flow-arrow{display:none}
+  .codex-filter{position:static}
+  .tbl{font-size:12.5px}
+  .tbl th,.tbl td{padding:8px 10px}
+}
+
+</style>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#FAFAF8;color:#1F2933;font-size:15px;line-height:1.85}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px 70px;display:flex;gap:28px;align-items:flex-start}
+.side{width:222px;flex:0 0 222px;position:sticky;top:16px;margin-top:22px;
+  background:#fff;border:1px solid #E1E5EA;border-radius:8px;padding:14px 12px;max-height:calc(100vh - 36px);overflow:auto}
+.side .t{font-size:12px;font-weight:700;color:#1B3A5C;letter-spacing:.5px;margin:0 0 10px}
+.side a{display:block;font-size:12.5px;color:#52606D;text-decoration:none;padding:5px 8px;border-radius:4px;
+  border-left:2px solid transparent;line-height:1.45}
+.side a:hover{background:#E8F1F9;color:#1B3A5C;border-left-color:#B8894A}
+.main{flex:1;min-width:0}
+.hero{background:#1B3A5C;color:#fff;border-radius:0 0 10px 10px;padding:30px 34px 26px;margin-bottom:24px}
+.hero h1{margin:0 0 8px;font-size:26px;line-height:1.35;color:#fff}
+.hero .sub{margin:0;color:#dbe6f0;font-size:13.5px}
+.hero .meta{margin-top:14px;font-size:12px;color:#F5D08A;letter-spacing:.3px}
+section{background:#fff;border:1px solid #E1E5EA;border-radius:8px;padding:20px 24px;margin:0 0 16px;
+  scroll-margin-top:76px}
+h2{color:#1B3A5C;font-size:19px;margin:0 0 12px;padding-left:11px;border-left:5px solid #B8894A}
+h3{color:#2C5282;font-size:15.5px;margin:22px 0 8px}
+h4{color:#1B3A5C;font-size:14px;margin:16px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:22px;margin:10px 0}
+li{margin:6px 0}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px}
+th,td{border:1px solid #E1E5EA;padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#F2F0EB;color:#1B3A5C;font-weight:700}
+tbody tr:nth-child(even){background:#FAFAF8}
+.k{color:#B8894A;font-weight:700}
+.good{color:#2F7A3E;font-weight:700}
+.bad{color:#C0392B;font-weight:700}
+.tag{display:inline-block;background:#F7F0E4;color:#8A6224;border:1px solid #E3CFA8;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-b{display:inline-block;background:#E8F1F9;color:#1B3A5C;border:1px solid #C9DDEC;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-g{display:inline-block;background:#E6F2F0;color:#2F7A3E;border:1px solid #BEDDD6;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-r{display:inline-block;background:#FBEAE8;color:#C0392B;border:1px solid #EBC8C3;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.q{background:#F2F0EB;border-left:4px solid #B8894A;padding:10px 14px;margin:12px 0;
+  font-size:13.5px;color:#52606D}
+.box{border-left:4px solid #1B3A5C;background:#E8F1F9;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-w{border-left:4px solid #B8894A;background:#FDF3E4;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-d{border-left:4px solid #C0392B;background:#FBEAE8;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-g{border-left:4px solid #2F7A3E;background:#E6F2F0;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-gold{border-left:4px solid #B8894A;background:#F7F0E4;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.fml{background:#F2F0EB;border:1px solid #E1E5EA;border-radius:6px;padding:10px 14px;margin:12px 0;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:#1F2933;line-height:1.9}
+.fml b{color:#B8894A}
+.foot{color:#8895a7;font-size:12px;border-top:1px solid #E1E5EA;padding-top:14px;margin-top:26px}
+a{color:#1B3A5C}
+.small{font-size:12.5px;color:#52606D}
+@media(max-width:860px){.wrap{display:block}.side{position:static;width:auto;max-height:none;margin-bottom:16px}.hero{padding:22px}}
+@media print{.side{display:none}.wrap{display:block}section{break-inside:avoid}}
+</style>
+</head><body><div class="hero" style="max-width:1200px;margin:0 auto"><h1>全球进入执行卡 · v2026.8</h1><p class="sub">可复制的进入单元 / 第一年试点四阶段 / 渠道姿态 / 12 条内容选题 / 数据表与同意书 / stop rules</p><div class="meta">v2026.8 · 2026-11-09 · 门内 noindex · 执行卡（内部） · 配套《全球方案融合修订》§9 · 未核验事实一律标「材料口径」</div></div><div class="wrap"><nav class="side"><div class="t">目录</div><a href="#s1">1 · 可复制的进入单元</a><a href="#s2">2 · 第一年：5–10 位教师深度试点的四阶段</a><a href="#s3">3 · 渠道清单与姿态话术</a><a href="#s4">4 · 非销售型内容选题 12 条</a><a href="#s5">5 · 试点数据表与同意书要点</a><a href="#s6">6 · 竞赛与认证备考：非销售型切入</a><a href="#s7">7 · 三年节奏与 stop rules（操作级）</a><a href="#s8">8 · 合规清单（本轮只列，不执行）</a></nav><div class="main"><section id="s1"><h2>1 · 可复制的进入单元</h2>
+<div class="box-gold"><b>全球化的单位不是「国家」，而是：</b>
+一位愿意试点的教师 ＋ 一套可本地化生成的案例 ＋ 一个可对接的认证框架。</div>
+<table><thead><tr><th>要素</th><th>最小可交付</th><th>验收</th></tr></thead><tbody><tr><td>一位教师</td><td>3–5 位有改革意愿的 RM 教师；<b>教师个人课堂就是最小试点单元</b>，不等院系审批</td><td>一学期内至少 4 讲用进真实课堂</td></tr><tr><td>一套案例</td><td>免费课堂组件 1 套 + 本地参数生成 1 例；核心口径不变</td><td>过 8 项门禁 + 本地教师确认 1 次</td></tr><tr><td>一个框架</td><td>认证就绪对齐声明模板 1 份（默认不启用）</td><td>禁用词回归 0 命中</td></tr></tbody></table><div class="box"><b>不以覆盖国家数为目标</b><br>第一年只做 1–2 个语言与文化上相对熟悉的区域（东南亚或中东的英语授课酒店管理学院）。过早讲「服务全球院校」，会稀释产品迭代精力。</div></section><section id="s2"><h2>2 · 第一年：5–10 位教师深度试点的四阶段</h2>
+<table><thead><tr><th>阶段</th><th>动作</th><th>产出</th><th>时限 / 门槛</th></tr></thead><tbody><tr><td>0 · 样品</td><td>先做 <b>1 讲</b> AI 副驾驶样品：教学框架 + 案例讨论卡 + 小测 + 追问提示；跑通 8 项门禁与人工抽检</td><td>1 讲样品 + 门禁报告 + 抽检记录</td><td>样品未过门禁，不进入招募</td></tr><tr><td>1 · 招募</td><td>通过学术社群与教学问题内容触达，找到 3–5 位愿意试点的教师；签《贡献者协议》与数据同意书</td><td>试点名单（匿名 ID）+ 同意书</td><td>不等主体注册、不等机构合同</td></tr><tr><td>2 · 一学期试点</td><td>免费/极低价提供教学助手；每讲记录使用次数、门禁失败原因、教师反馈</td><td>使用日志 + 三指标前后值 + 可公开引用证据</td><td>若 3 位以上教师 4 周内未用进真实课堂 → 先改组件形态，不扩区域</td></tr><tr><td>3 · 证据与转化</td><td>整理试点报告，取得公开引用同意；用试点教师推荐推动院系订阅</td><td>试点效果报告 + 院系订阅报价单（B 轨）</td><td>先选「有改革意愿的单一课程」，不全面铺开</td></tr></tbody></table><div class="box-w"><b>顺序不可颠倒</b><br>样品 → 招募 → 试点 → 证据 → 订阅。材料给的是 12–18 个月的 B2B 周期，一人公司没有销售团队，所以<b>必须让产品本身成为销售</b>；这同时也是「先 1 个样品再谈批量」纪律在全球轨的落地。</div></section><section id="s3"><h2>3 · 渠道清单与姿态话术</h2>
+<table><thead><tr><th>渠道</th><th>姿态</th><th>可说的话</th><th>禁说的话</th></tr></thead><tbody><tr><td>RevME 类学术协会（工作坊/教学演示）</td><td><b>教学工具提供方</b>，不是课程卖家</td><td>「这是给非科班教师的一讲备课脚手架，欢迎拿去改」</td><td>「我们的课程／认证／官方合作」</td></tr><tr><td>ICHRIE 类行业教育竞赛</td><td>备赛教学辅助，不自己办竞赛</td><td>「备赛需要的决策逻辑训练模块，可以按贵校赛程生成」</td><td>「与主办方合作／保过」</td></tr><tr><td>HSMAI CRMA 等既有认证</td><td>对齐层／翻译层</td><td>「帮贵校把现有课程映射到公开能力域，出一份差距清单」</td><td>「授权／背书／代考／通过率」</td></tr><tr><td>LinkedIn / RM 教育邮件列表 / 学术社群</td><td>以教学问题为中心的内容输出</td><td>「如何在 90 分钟内让学生理解动态定价的边际收益逻辑」</td><td>产品广告、限时优惠、发售话术</td></tr><tr><td>SEO / 内容营销</td><td>服务于教师的<b>教学焦虑</b></td><td>可检索的教学难题解答 + 免费组件下载</td><td>公司新闻、版本发布、资料规模宣传</td></tr></tbody></table><div class="box-d"><b>未核验的渠道线索</b><br>材料提到 RevME 2025 年 12 月波士顿年会、ICHRIE × Russell Partnership 500 间虚拟酒店竞赛，本次检索<b>未找到一手来源</b>。列为 F-01 待核验，确认会期与参与方式前，不写进任何对外材料。</div></section><section id="s4"><h2>4 · 非销售型内容选题 12 条</h2>
+<table><thead><tr><th>#</th><th>选题（以教学焦虑为中心）</th><th>对应免费组件</th></tr></thead><tbody><tr><td>1</td><td>90 分钟里让学生理解动态定价的边际收益逻辑</td><td>案例讨论卡 + 视觉笔记</td></tr><tr><td>2</td><td>学生总把 RGI 算成 MPI×ARI，怎么讲才不再错</td><td>小测 + 错法定位卡</td></tr><tr><td>3</td><td>没有真实 PMS 数据，怎么造出「有粗糙感」的课堂数据</td><td>DR-01 脏数据样例 1 讲</td></tr><tr><td>4</td><td>团队置换这道题，为什么纯房费比法会误拒</td><td>案例讨论卡（v2026.6 口径）</td></tr><tr><td>5</td><td>竞组到底该等权还是按房量加权</td><td>视觉笔记 + 权重声明模板</td></tr><tr><td>6</td><td>一学期只有 16 讲，收益管理该砍哪几讲</td><td>V/T/U 课程地图片段</td></tr><tr><td>7</td><td>非科班教师第一次上收益课，前 15 分钟怎么开场</td><td>章首困境 + 追问提示</td></tr><tr><td>8</td><td>怎么给一份季度收益方案打分，而不是只看答案</td><td>100 分 rubric 样例</td></tr><tr><td>9</td><td>学生用 AI 写作业，怎么判他有没有真懂</td><td>AI 使用声明模板 + 复算题</td></tr><tr><td>10</td><td>本地节庆（泼水节／圣诞市场）怎么改案例而不改口径</td><td>本地参数生成示例</td></tr><tr><td>11</td><td>把本校课程对齐到既有框架，需要准备哪几张表</td><td>对齐差距清单样例</td></tr><tr><td>12</td><td>大班教学里，怎么发现谁一直在预测上犯错</td><td>聚合班级能力图谱样例（不收个人信息）</td></tr></tbody></table><div class="box"><b>判断标准</b><br>每条都能对应一份可下载的免费组件，且读完能解决一个具体备课困难。不写「我们发布了 v2026.x」「新增 N 个文件」这类以自我为中心的内容。</div></section><section id="s5"><h2>5 · 试点数据表与同意书要点</h2>
+<table><thead><tr><th>字段组</th><th>字段</th><th>用途</th></tr></thead><tbody><tr><td>标识</td><td>pilot_id / teacher_id_hash / institution_type / region / track</td><td>分组与脱敏，不收姓名邮箱明文入分析表</td></tr><tr><td>使用</td><td>sessions_used / components_used / gate_fail_reason</td><td>判断组件是否被真用、门禁哪里常失败</td></tr><tr><td>三指标</td><td>pre_accuracy / post_accuracy / participation / prep_minutes_before / prep_minutes_after</td><td>效果证据</td></tr><tr><td>同意</td><td>consent_public_quote / consent_retention_days / delete_request</td><td>公开引用与留存/删除</td></tr><tr><td>反馈</td><td>notes / would_recommend / what_to_change</td><td>迭代输入</td></tr></tbody></table>
+<h3>同意书必须写明的五件事</h3>
+<ol>
+<li>采集的是<b>聚合与匿名数据</b>，不采集可识别学生信息；</li>
+<li>用途限定于产品迭代与效果报告，不用于广告画像；</li>
+<li>留存期限与到期删除路径（写明天数，不写「长期保存」）；</li>
+<li>公开引用前须再次确认，且一律脱敏；</li>
+<li>教师可随时要求删除自己的输入数据与本地参数。</li>
+</ol>
+<div class="box-w"><b>跨境合规</b><br>PIPL（中国出境）／GDPR（欧盟）／FERPA（涉美院校学生记录）分别检查；用 Merchant of Record 承接跨境收款与发票，避免逐国注册主体。这五项已登记为待办 F-05，本轮只给清单不执行。</div></section><section id="s6"><h2>6 · 竞赛与认证备考：非销售型切入</h2>
+<table><thead><tr><th>场景</th><th>RMC 提供</th><th>不提供</th><th>为什么是好入口</th></tr></thead><tbody><tr><td>RM 学生竞赛备赛</td><td>备赛课堂模块：决策逻辑训练、案例分析、往季题型归类</td><td>不办竞赛、不承诺名次</td><td>参赛院系本身有内在动力加强 RM 教学，需求是现成的</td></tr><tr><td>既有认证备考</td><td>「认证就绪」大纲 + 能力域差距清单 + 课堂练习</td><td>不代考、不宣称通过率、不发证</td><td>备考是明确需求场景，认证机构乐见教学侧支持</td></tr><tr><td>院系课程改革</td><td>一讲样品 + 三指标试点数据 + 对齐声明</td><td>不替院系做人事/职称改革</td><td>试点数据是最低成本的第三方信任证据</td></tr></tbody></table></section><section id="s7"><h2>7 · 三年节奏与 stop rules（操作级）</h2>
+<table><thead><tr><th>阶段</th><th>做</th><th>量化门槛</th><th>停止 / 转向条件</th></tr></thead><tbody><tr><td>第 1 年</td><td>1–2 个熟悉区域，5–10 位教师深度试点；同期以教学工具演示身份接触学术社群</td><td>≥4 讲/人用进真实课堂；三指标有前后值</td><td>若 3 位以上教师 4 周内未用进课堂 → 改组件形态，不扩区域</td></tr><tr><td>第 2 年</td><td>复制到 2–3 个新区域；认证教师网络开始非主动扩张；案例库与轻量评估跟进</td><td>院系级订阅客户 10–20 个（材料口径，作为内部目标）</td><td>若续费率低于试点转化率一半 → 价值锚错了，回到备课负担本身</td></tr><tr><td>第 3 年+</td><td>认证对齐产品化；评估是否需要外部合规/本地化协作</td><td>按实际产能决定，不预设</td><td>若现有模拟器厂商已补齐教师侧功能且免费 → 收窄到「口径校验 + 认证对齐」</td></tr></tbody></table><div class="box-d"><b>防御不靠功能多</b><br>材料第三约束：hotellab 与 Cesim 完全可能向下兼容加教师侧功能。RMC 的防御是<b>组织形态的不可模仿性</b>——创始人直接维护、AI 驱动、按教师个体需求快速迭代；保持产品「小到不值得被复制」，同时用认证教师网络形成切换成本。一旦开始堆功能、建平台、招团队，这个优势就没了。</div></section><section id="s8"><h2>8 · 合规清单（本轮只列，不执行）</h2>
+<table><thead><tr><th>#</th><th>检查项</th><th>状态</th></tr></thead><tbody><tr><td>1</td><td>材料未核验数字（350+/1500+/96%/94%/波士顿年会/ICHRIE 竞赛）一律不进对外文案</td><td>待办 F-01</td></tr><tr><td>2</td><td>AI 副驾驶 1 讲样品 + 8 项门禁验证</td><td>待办 F-02</td></tr><tr><td>3</td><td>免费课堂组件多语言样品各 1 份</td><td>待办 F-03</td></tr><tr><td>4</td><td>认证就绪对齐声明模板 + 禁用词回归断言（新增「官方授权/合作/背书/通过率/计学分」）</td><td>待办 F-04</td></tr><tr><td>5</td><td>PIPL / GDPR / FERPA 检查表 + MoR 收款路径调研</td><td>待办 F-05</td></tr><tr><td>6</td><td>试点招募与三指标采集表 + 公开引用同意书</td><td>待办 F-06</td></tr><tr><td>7</td><td>A 轨主体注册（仍是国内对公硬前置，B 轨不阻塞）</td><td>原 A-01，优先级已调整</td></tr><tr><td>8</td><td>禁用词全站回归（含 v2026.8 新增项）</td><td>随 F-04 一起跑</td></tr></tbody></table><div class="box-gold"><b>最后一句</b><br>这条路径的启动条件，恰好是一人公司真正拥有的东西：<b>对教学痛点的判断力，以及用 AI 把判断力变成可交付产品的速度</b>。而 RMC 比一般一人公司多出来的，是那套已经跑了三轮回归的真源与口径——把它放在门禁位上，产品才不会「看起来都对」。</div></section><div class="foot">RMC · v2026.8 · 内部执行卡。未核验事实一律标「材料口径」；本轮只登记清单，不执行任何待办。</div></div></div></body></html>
