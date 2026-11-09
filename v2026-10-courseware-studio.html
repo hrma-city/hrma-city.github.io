@@ -1,0 +1,771 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet"><script>window.HRMA_PREFIX="";</script><script src="auth-config.js?v=gate20261013"></script><script src="assets/js/access-gate.js?v=v12"></script><title>课件工作台 · 标答 / 自助双模式 · v2026.10</title><style>
+/* ============================================================
+   RMC 收益管理社区 · 主样式表
+   浅色主题 / 深海军蓝 + 金 / 系统字体
+   ============================================================ */
+
+:root{
+  --navy:#1B3A5C;
+  --navy-2:#2C5282;
+  --navy-3:#3D6BA5;
+  --gold:#B8894A;
+  --gold-2:#D4A96A;
+  --gold-soft:#F7F0E4;
+  --teal:#2E7D74;
+  --teal-soft:#E6F2F0;
+  --up:#C0392B;      /* 涨/提升 —— 红 */
+  --down:#2F7A3E;    /* 跌/下降 —— 绿 */
+  --amber:#D98324;
+  --amber-soft:#FDF3E4;
+  --danger:#C0392B;
+  --danger-soft:#FBEAE8;
+  --ink:#1F2933;
+  --ink-2:#52606D;
+  --ink-3:#7B8794;
+  --line:#E1E5EA;
+  --line-2:#CBD2D9;
+  --bg:#FAFAF8;
+  --bg-2:#F2F0EB;
+  --white:#fff;
+  --shadow:0 1px 3px rgba(27,58,92,.06),0 1px 2px rgba(27,58,92,.04);
+  --shadow-md:0 4px 14px rgba(27,58,92,.08);
+  --mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --sidebar:260px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  font-size:15px; line-height:1.75; color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--navy-2);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4,h5{color:var(--navy);line-height:1.35;margin:0 0 .6em;font-weight:650}
+h1{font-size:30px;letter-spacing:-.3px}
+h2{font-size:22px;margin-top:2em;padding-bottom:.45em;border-bottom:2px solid var(--line)}
+h3{font-size:18px;margin-top:1.6em}
+h4{font-size:15.5px;margin-top:1.3em;color:var(--navy-2)}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.4em}
+li{margin:.3em 0}
+strong{font-weight:650;color:var(--navy)}
+code{font-family:var(--mono);font-size:.9em;background:var(--bg-2);padding:.12em .4em;border-radius:4px;color:var(--navy)}
+hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}
+
+/* ---------- 布局 ---------- */
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:var(--sidebar);flex:0 0 var(--sidebar);
+  background:var(--navy);color:#fff;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  padding:0 0 40px;
+}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:3px}
+.brand{padding:22px 22px 16px;border-bottom:1px solid rgba(255,255,255,.12)}
+.brand-mark{
+  display:flex;align-items:center;gap:10px;
+  font-size:16px;font-weight:700;letter-spacing:.4px;color:#fff;
+}
+.brand-mark:hover{text-decoration:none}
+.brand-mark .gem{
+  width:32px;height:32px;flex:0 0 32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--gold-2),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;color:#fff;font-weight:700;
+}
+.brand-sub{font-size:11.5px;color:rgba(255,255,255,.55);margin-top:5px;line-height:1.5;letter-spacing:.2px}
+.nav-section{padding:16px 22px 4px}
+.nav-section-title{
+  font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;
+  color:rgba(255,255,255,.42);font-weight:700;margin-bottom:8px;
+}
+.nav-link{
+  display:flex;align-items:center;gap:9px;
+  padding:7px 12px;margin:1px -12px;border-radius:6px;
+  color:rgba(255,255,255,.8);font-size:13.5px;line-height:1.45;
+}
+.nav-link:hover{background:rgba(255,255,255,.08);color:#fff;text-decoration:none}
+.nav-link.active{background:var(--gold);color:#fff;font-weight:600}
+.nav-link .n{
+  font-family:var(--mono);font-size:11px;opacity:.65;flex:0 0 22px;
+}
+
+.main{flex:1;min-width:0}
+.wrap{max-width:1080px;margin:0 auto;padding:36px 40px 90px}
+.wrap-wide{max-width:1320px}
+
+/* 面包屑 */
+.crumb{font-size:12.5px;color:var(--ink-3);margin-bottom:14px}
+.crumb a{color:var(--ink-2)}
+.crumb span{margin:0 7px;color:var(--ink-3)}
+
+/* 页头 */
+.page-head{margin-bottom:30px}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.page-title{font-size:31px;margin:0 0 12px;letter-spacing:-.4px}
+.page-lede{font-size:16px;color:var(--ink-2);line-height:1.7;margin:0;max-width:820px}
+.hero-band{
+  background:linear-gradient(120deg,var(--navy) 0%,#27517C 100%);
+  color:#fff;border-radius:12px;padding:34px 38px;margin-bottom:32px;
+}
+.hero-band h1{color:#fff;margin:0 0 10px;font-size:27px}
+.hero-band p{color:rgba(255,255,255,.82);margin:0;font-size:15px;line-height:1.75}
+
+/* ---------- 徽章 ---------- */
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11.5px;font-weight:650;letter-spacing:.3px;
+  padding:3px 10px;border-radius:20px;
+  background:var(--bg-2);color:var(--ink-2);border:1px solid var(--line);
+}
+.badge-l1{background:#E8F1F9;color:#1F5C8F;border-color:#C3DCEF}
+.badge-l2{background:var(--gold-soft);color:#8A5F26;border-color:#E8D5B5}
+.badge-l3{background:#EDE7F6;color:#5B3E96;border-color:#D5C9EC}
+.badge-codex{
+  background:var(--navy);color:#fff;font-family:var(--mono);
+  font-size:11px;padding:3px 9px;border-radius:4px;letter-spacing:.5px;
+}
+.badge-core{background:var(--danger);color:#fff;border-color:var(--danger)}
+.badge-new{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* 状态 pill */
+.pill{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:4px;background:var(--bg-2);color:var(--ink-2);border:1px solid var(--line)}
+.pill-teal{background:var(--teal-soft);color:var(--teal);border-color:#BEDDD8}
+.pill-amber{background:var(--amber-soft);color:#A6601A;border-color:#F0D9B5}
+.pill-red{background:var(--danger-soft);color:var(--danger);border-color:#F0C8C3}
+.pill-navy{background:#E8F1F9;color:var(--navy-2);border-color:#C3DCEF}
+
+/* 涨跌 */
+.up{color:var(--up);font-weight:650}
+.down{color:var(--down);font-weight:650}
+.flat{color:var(--ink-3);font-weight:600}
+
+/* ---------- 卡片 ---------- */
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:22px 24px;margin:0 0 18px;box-shadow:var(--shadow);
+}
+.card-title{font-size:16.5px;margin:0 0 14px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.card-title .ic{
+  width:26px;height:26px;flex:0 0 26px;border-radius:6px;background:var(--gold-soft);
+  display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--gold);
+}
+.card-note{font-size:13px;color:var(--ink-3);margin:12px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+
+.grid{display:grid;gap:16px;margin-bottom:18px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+
+/* ---------- 表格 ---------- */
+.tbl-wrap{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:10px;background:var(--white)}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+.tbl caption{
+  caption-side:top;text-align:left;padding:14px 18px 10px;
+  font-size:14.5px;font-weight:650;color:var(--navy);
+}
+.tbl caption .cap-note{display:block;font-size:12px;font-weight:400;color:var(--ink-3);margin-top:3px}
+.tbl th,.tbl td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tbl thead th{
+  background:var(--bg-2);font-weight:650;color:var(--navy);
+  font-size:12.5px;letter-spacing:.2px;border-bottom:2px solid var(--line-2);white-space:nowrap;
+}
+.tbl tbody tr:last-child td{border-bottom:0}
+.tbl tbody tr:hover{background:#FCFCFA}
+.tbl td.num,.tbl th.num{text-align:right;font-family:var(--mono);font-size:13px;white-space:nowrap}
+.tbl td.mid,.tbl th.mid{text-align:center}
+
+/* 判定矩阵：首行首列高亮，命中格加粗 */
+.tbl-matrix th.rowh{background:var(--bg-2);font-weight:650;color:var(--navy);white-space:nowrap}
+.tbl-matrix thead th{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tbl-matrix tbody th{background:var(--bg-2)}
+.tbl-matrix td{text-align:center;font-size:13px}
+.tbl-matrix td.hit{background:var(--gold-soft);font-weight:700;color:#8A5F26;box-shadow:inset 0 0 0 2px var(--gold)}
+.tbl-matrix td.keep{color:var(--ink-3)}
+.tbl-matrix td.up-cell{color:var(--up);font-weight:650}
+.tbl-matrix td.down-cell{color:var(--down);font-weight:650}
+
+/* 法典表 */
+.codex-block{
+  background:var(--white);border:1px solid var(--line);border-left:4px solid var(--gold);
+  border-radius:10px;padding:20px 24px 22px;margin:0 0 20px;box-shadow:var(--shadow);
+}
+.codex-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.codex-head h3{margin:0;font-size:17.5px}
+.codex-desc{font-size:13.5px;color:var(--ink-2);margin:6px 0 14px}
+.codex-meta{font-size:12px;color:var(--ink-3);margin:14px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+
+/* ---------- 提示框 ---------- */
+.callout{
+  border-radius:8px;padding:14px 18px;margin:0 0 16px;font-size:14px;line-height:1.72;
+  background:var(--bg-2);border-left:4px solid var(--line-2);
+}
+.callout p:last-child{margin-bottom:0}
+.callout .co-t{font-weight:650;display:block;margin-bottom:4px}
+.callout-key{background:#E8F1F9;border-left-color:var(--navy-2)}
+.callout-key .co-t{color:var(--navy)}
+.callout-warn{background:var(--amber-soft);border-left-color:var(--amber)}
+.callout-warn .co-t{color:#A6601A}
+.callout-danger{background:var(--danger-soft);border-left-color:var(--danger)}
+.callout-danger .co-t{color:var(--danger)}
+.callout-do{background:var(--teal-soft);border-left-color:var(--teal)}
+.callout-do .co-t{color:var(--teal)}
+.callout-gold{background:var(--gold-soft);border-left-color:var(--gold)}
+.callout-gold .co-t{color:#8A5F26}
+
+/* ---------- 指标块 ---------- */
+.metric{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px 18px;text-align:center}
+.metric-val{font-size:26px;font-weight:700;color:var(--navy);font-family:var(--mono);letter-spacing:-.5px;line-height:1.2}
+.metric-label{font-size:12px;color:var(--ink-3);margin-top:5px}
+.metric-sub{font-size:11.5px;margin-top:6px}
+
+/* ---------- 步骤条 ---------- */
+.step{display:flex;gap:16px;margin:0 0 18px;align-items:flex-start}
+.step-num{
+  flex:0 0 30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-top:2px;
+}
+.step-body{flex:1;min-width:0}
+.step-body h4{margin:0 0 5px;font-size:15.5px}
+.step-body p{margin:0 0 .5em;font-size:14px}
+
+/* 横向流程 */
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:0 0 20px}
+.flow-item{
+  flex:1;min-width:150px;background:var(--white);border:1px solid var(--line);
+  padding:14px 16px;position:relative;
+}
+.flow-item:first-child{border-radius:8px 0 0 8px}
+.flow-item:last-child{border-radius:0 8px 8px 0}
+.flow-arrow{
+  display:flex;align-items:center;padding:0 8px;color:var(--gold);font-size:17px;
+  background:transparent;border:0;flex:0 0 auto;
+}
+.flow-item .fi-t{font-weight:650;font-size:13.5px;color:var(--navy);margin-bottom:4px}
+.flow-item .fi-d{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+
+/* ---------- 公式 ---------- */
+.formula{
+  background:var(--bg-2);border:1px solid var(--line);border-radius:8px;
+  padding:14px 18px;margin:0 0 16px;
+  font-family:var(--mono);font-size:14px;color:var(--navy);
+  overflow-x:auto;line-height:1.9;
+}
+.formula .f-label{display:block;font-family:inherit;font-size:11.5px;letter-spacing:.6px;color:var(--ink-3);text-transform:uppercase;margin-bottom:4px}
+.formula .f-out{color:var(--gold);font-weight:700}
+
+/* ---------- 键值 ---------- */
+.kv{margin:0 0 14px;font-size:14px}
+.kv-row{display:flex;gap:14px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.kv-row:last-child{border-bottom:0}
+.kv-k{flex:0 0 150px;color:var(--ink-2);font-size:13.5px}
+.kv-v{flex:1}
+
+/* ---------- 清单 ---------- */
+.checklist{list-style:none;padding:0;margin:0 0 16px}
+.checklist li{
+  padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line);font-size:14px;
+}
+.checklist li:last-child{border-bottom:0}
+.checklist li::before{
+  content:"☐";position:absolute;left:2px;top:7px;
+  font-size:16px;color:var(--navy-3);line-height:1.4;
+}
+.checklist.done li::before{content:"☑";color:var(--teal)}
+
+/* ---------- 目录 ---------- */
+.toc{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin:0 0 24px}
+.toc-title{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-bottom:10px}
+.toc ol{margin:0;padding-left:1.3em;font-size:14px}
+.toc li{margin:.28em 0}
+.toc-2{list-style:none;padding-left:0;margin:6px 0 0 4px;font-size:13px;color:var(--ink-2)}
+
+/* ---------- 练习题 ---------- */
+.ex-q{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:16px 20px;margin:0 0 14px;
+}
+.ex-q .q-t{font-weight:650;color:var(--navy);font-size:14.5px;margin-bottom:8px}
+.ex-q .q-b{font-size:14px;color:var(--ink-2)}
+details.ex-a{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+details.ex-a summary{
+  cursor:pointer;font-size:13px;color:var(--navy-2);font-weight:600;list-style:none;
+  display:inline-flex;align-items:center;gap:6px;user-select:none;
+}
+details.ex-a summary::-webkit-details-marker{display:none}
+details.ex-a summary::before{content:"▸";transition:transform .15s;display:inline-block}
+details.ex-a[open] summary::before{transform:rotate(90deg)}
+details.ex-a .a-body{
+  margin-top:10px;padding:12px 16px;background:#F7FAFC;border-left:3px solid var(--teal);
+  border-radius:0 6px 6px 0;font-size:13.5px;line-height:1.75;
+}
+
+/* ---------- 法典筛选 ---------- */
+.codex-filter{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:16px 20px;margin:0 0 22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+  position:sticky;top:0;z-index:50;box-shadow:var(--shadow);
+}
+.codex-filter input[type=text]{
+  flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--line-2);border-radius:6px;
+  font-size:14px;font-family:inherit;
+}
+.codex-filter input[type=text]:focus{outline:0;border-color:var(--navy-3);box-shadow:0 0 0 3px rgba(61,107,165,.12)}
+.chip{
+  padding:5px 13px;border-radius:20px;border:1px solid var(--line-2);background:var(--white);
+  font-size:12.5px;cursor:pointer;color:var(--ink-2);font-family:inherit;
+}
+.chip:hover{border-color:var(--navy-3);color:var(--navy-2)}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ---------- 时间轴 ---------- */
+.timeline{position:relative;padding-left:26px;margin:0 0 20px}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-item::before{
+  content:"";position:absolute;left:-23px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--white);border:2.5px solid var(--gold);
+}
+.tl-time{font-family:var(--mono);font-size:12.5px;color:var(--gold);font-weight:650}
+.tl-body{font-size:14px;margin-top:2px}
+.tl-body b{color:var(--navy)}
+
+/* ---------- 对话 / 角色扮演 ---------- */
+.dialogue{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:0 0 18px;background:var(--white)}
+.dlg-row{display:flex;gap:0;border-bottom:1px solid var(--line)}
+.dlg-row:last-child{border-bottom:0}
+.dlg-who{
+  flex:0 0 128px;background:var(--bg-2);padding:12px 14px;font-size:13px;font-weight:650;
+  color:var(--navy);border-right:1px solid var(--line);
+}
+.dlg-text{flex:1;padding:12px 16px;font-size:14px;line-height:1.7}
+
+/* ---------- 游戏卡牌 ---------- */
+.cards-deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin:0 0 20px}
+.card-game{
+  border:1px solid var(--line);border-radius:10px;background:var(--white);
+  padding:14px 16px;box-shadow:var(--shadow);border-top:4px solid var(--navy);
+  display:flex;flex-direction:column;min-height:180px;
+}
+.card-game.t-atk{border-top-color:var(--danger)}
+.card-game.t-def{border-top-color:var(--teal)}
+.card-game.t-evt{border-top-color:var(--amber)}
+.card-game.t-wild{border-top-color:var(--gold)}
+.cg-id{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.5px}
+.cg-name{font-size:15px;font-weight:700;color:var(--navy);margin:4px 0 8px;line-height:1.35}
+.cg-body{font-size:12.5px;color:var(--ink-2);line-height:1.65;flex:1}
+.cg-foot{margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-3)}
+.cg-stat{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--gold)}
+
+/* ---------- 评分卡 ---------- */
+.score-box{
+  border:1px solid var(--line);border-radius:10px;background:var(--white);
+  padding:18px 22px;margin:0 0 16px;
+}
+.sb-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px}
+.sb-name{font-weight:650;color:var(--navy);font-size:15px}
+.sb-score{font-family:var(--mono);font-size:14px;color:var(--ink-2)}
+.sb-bar{height:8px;background:var(--bg-2);border-radius:4px;overflow:hidden}
+.sb-fill{height:100%;background:linear-gradient(90deg,var(--navy-3),var(--navy));border-radius:4px}
+.sb-items{margin:12px 0 0;padding:0;list-style:none;font-size:13px}
+.sb-items li{padding:5px 0 5px 20px;position:relative;color:var(--ink-2)}
+.sb-items li::before{content:"—";position:absolute;left:0;color:var(--line-2)}
+
+/* ---------- 页脚导航 ---------- */
+.pager{display:flex;gap:14px;margin-top:48px;padding-top:26px;border-top:2px solid var(--line)}
+.pager a{
+  flex:1;padding:14px 18px;border:1px solid var(--line);border-radius:10px;background:var(--white);
+  display:block;transition:.15s;box-shadow:var(--shadow);
+}
+.pager a:hover{border-color:var(--navy-3);text-decoration:none;box-shadow:var(--shadow-md)}
+.pager .p-dir{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
+.pager .p-title{font-weight:650;color:var(--navy);font-size:14.5px}
+.pager .p-next{text-align:right}
+
+/* ---------- 首页专用 ---------- */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,#2A5680 55%,#356B96 100%);
+  color:#fff;padding:56px 60px;border-radius:0 0 0 0;margin:-36px -40px 34px;
+  position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;right:-70px;top:-70px;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(184,137,74,.28),transparent 70%);
+}
+.hero .eyebrow{font-size:12px;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold-2);font-weight:700;margin-bottom:14px}
+.hero h1{color:#fff;font-size:38px;margin:0 0 14px;letter-spacing:-.8px;line-height:1.25}
+.hero .sub{font-size:16.5px;color:rgba(255,255,255,.85);max-width:700px;line-height:1.75;margin:0 0 24px}
+.hero-stats{display:flex;gap:34px;flex-wrap:wrap;margin-top:26px;position:relative;z-index:1}
+.hero-stat .hs-v{font-size:26px;font-weight:700;color:var(--gold-2);font-family:var(--mono);line-height:1.2}
+.hero-stat .hs-l{font-size:12.5px;color:rgba(255,255,255,.7);margin-top:3px}
+
+.loop-band{background:var(--gold-soft);border:1px solid #E8D5B5;border-radius:12px;padding:26px 30px;margin:0 0 30px}
+.loop-band h2{margin:0 0 6px;border:0;padding:0;font-size:20px}
+.loop-band .lb-sub{font-size:13.5px;color:#8A5F26;margin:0 0 18px}
+
+.level-card{
+  background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;
+}
+.level-card .lc-head{padding:16px 20px;color:#fff}
+.level-card.l1 .lc-head{background:linear-gradient(120deg,#2C5282,#3D6BA5)}
+.level-card.l2 .lc-head{background:linear-gradient(120deg,#A8762F,#C99B52)}
+.level-card.l3 .lc-head{background:linear-gradient(120deg,#6B4FA0,#8B6FBF)}
+.lc-head .lc-tag{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;opacity:.85;font-weight:700}
+.lc-head h3{color:#fff;margin:3px 0 0;font-size:19px}
+.lc-body{padding:18px 20px;flex:1}
+.lc-body .lc-meta{display:flex;gap:16px;font-size:12.5px;color:var(--ink-3);margin-bottom:12px}
+.lc-body ul{margin:0;padding-left:1.2em;font-size:13.5px}
+.lc-foot{padding:13px 20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-2);background:#FCFCFA}
+.lc-foot b{color:var(--navy)}
+
+.mod-link{
+  display:flex;align-items:center;gap:12px;padding:11px 16px;border:1px solid var(--line);
+  border-radius:8px;background:var(--white);transition:.15s;
+}
+.mod-link:hover{border-color:var(--navy-3);box-shadow:var(--shadow);text-decoration:none}
+.mod-link .ml-n{font-family:var(--mono);font-size:11.5px;color:var(--gold);font-weight:700;flex:0 0 28px}
+.mod-link .ml-t{flex:1;font-size:14px;color:var(--navy);font-weight:600}
+.mod-link .ml-h{font-size:11.5px;color:var(--ink-3);flex:0 0 auto}
+
+/* ---------- 打印 ---------- */
+@media print{
+  .sidebar,.codex-filter,.pager{display:none!important}
+  .main,.wrap{max-width:100%;padding:0}
+  body{background:#fff;font-size:11pt}
+  .card,.codex-block,.tbl-wrap{break-inside:avoid;box-shadow:none}
+  details.ex-a{display:block}
+  details.ex-a .a-body{display:block!important}
+  .hero{margin:0 0 20px;padding:24px;background:var(--navy)!important;-webkit-print-color-adjust:exact}
+}
+
+/* ---------- 响应式 ---------- */
+.menu-btn{
+  display:none;position:fixed;top:14px;left:14px;z-index:200;
+  background:var(--navy);color:#fff;border:0;border-radius:8px;width:40px;height:40px;font-size:18px;cursor:pointer;
+}
+@media(max-width:900px){
+  .sidebar{
+    position:fixed;left:0;top:0;z-index:150;transform:translateX(-100%);
+    transition:transform .22s ease;box-shadow:4px 0 20px rgba(0,0,0,.2);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .menu-btn{display:block}
+  .wrap{padding:20px 18px 70px}
+  .hero{margin:-20px -18px 24px;padding:36px 24px}
+  .hero h1{font-size:27px}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  h1{font-size:24px}
+  .flow-item{border-radius:8px!important;margin-bottom:6px}
+  .flow-arrow{display:none}
+  .codex-filter{position:static}
+  .tbl{font-size:12.5px}
+  .tbl th,.tbl td{padding:8px 10px}
+}
+
+</style>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#FAFAF8;color:#1F2933;font-size:15px;line-height:1.85}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px 70px;display:flex;gap:28px;align-items:flex-start}
+.side{width:222px;flex:0 0 222px;position:sticky;top:16px;margin-top:22px;
+  background:#fff;border:1px solid #E1E5EA;border-radius:8px;padding:14px 12px;max-height:calc(100vh - 36px);overflow:auto}
+.side .t{font-size:12px;font-weight:700;color:#1B3A5C;letter-spacing:.5px;margin:0 0 10px}
+.side a{display:block;font-size:12.5px;color:#52606D;text-decoration:none;padding:5px 8px;border-radius:4px;
+  border-left:2px solid transparent;line-height:1.45}
+.side a:hover{background:#E8F1F9;color:#1B3A5C;border-left-color:#B8894A}
+.main{flex:1;min-width:0}
+.hero{background:#1B3A5C;color:#fff;border-radius:0 0 10px 10px;padding:30px 34px 26px;margin-bottom:24px}
+.hero h1{margin:0 0 8px;font-size:26px;line-height:1.35;color:#fff}
+.hero .sub{margin:0;color:#dbe6f0;font-size:13.5px}
+.hero .meta{margin-top:14px;font-size:12px;color:#F5D08A;letter-spacing:.3px}
+section{background:#fff;border:1px solid #E1E5EA;border-radius:8px;padding:20px 24px;margin:0 0 16px;
+  scroll-margin-top:76px}
+h2{color:#1B3A5C;font-size:19px;margin:0 0 12px;padding-left:11px;border-left:5px solid #B8894A}
+h3{color:#2C5282;font-size:15.5px;margin:22px 0 8px}
+h4{color:#1B3A5C;font-size:14px;margin:16px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:22px;margin:10px 0}
+li{margin:6px 0}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px}
+th,td{border:1px solid #E1E5EA;padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#F2F0EB;color:#1B3A5C;font-weight:700}
+tbody tr:nth-child(even){background:#FAFAF8}
+.k{color:#B8894A;font-weight:700}
+.good{color:#2F7A3E;font-weight:700}
+.bad{color:#C0392B;font-weight:700}
+.tag{display:inline-block;background:#F7F0E4;color:#8A6224;border:1px solid #E3CFA8;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-b{display:inline-block;background:#E8F1F9;color:#1B3A5C;border:1px solid #C9DDEC;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-g{display:inline-block;background:#E6F2F0;color:#2F7A3E;border:1px solid #BEDDD6;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-r{display:inline-block;background:#FBEAE8;color:#C0392B;border:1px solid #EBC8C3;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.q{background:#F2F0EB;border-left:4px solid #B8894A;padding:10px 14px;margin:12px 0;
+  font-size:13.5px;color:#52606D}
+.box{border-left:4px solid #1B3A5C;background:#E8F1F9;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-w{border-left:4px solid #B8894A;background:#FDF3E4;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-d{border-left:4px solid #C0392B;background:#FBEAE8;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-g{border-left:4px solid #2F7A3E;background:#E6F2F0;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-gold{border-left:4px solid #B8894A;background:#F7F0E4;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.fml{background:#F2F0EB;border:1px solid #E1E5EA;border-radius:6px;padding:10px 14px;margin:12px 0;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:#1F2933;line-height:1.9}
+.fml b{color:#B8894A}
+.foot{color:#8895a7;font-size:12px;border-top:1px solid #E1E5EA;padding-top:14px;margin-top:26px}
+a{color:#1B3A5C}
+.small{font-size:12.5px;color:#52606D}
+@media(max-width:860px){.wrap{display:block}.side{position:static;width:auto;max-height:none;margin-bottom:16px}.hero{padding:22px}}
+@media print{.side{display:none}.wrap{display:block}section{break-inside:avoid}}
+</style>
+</head><body><div class="hero" style="max-width:1200px;margin:0 auto"><h1>课件工作台 · 标答 / 自助双模式 · v2026.10</h1><p class="sub">A 按 46 章教材目录点选给标准课包；B 按教学模块与关键词检索资料并自助组包</p><div class="meta">v2026.10 · 2026-11-09 · 门内 noindex · 课件工作台 · 本地索引驱动、可离线、零额度、<b>非真实模型调用</b> · 教材目录 v2026-10-textbook-full.html（46 章）</div></div><div class="wrap"><nav class="side"><div class="t">目录</div><a href="#s1">1 · 两种模式，两种用法</a><a href="#s2">2 · A · 标答模式：按 46 章目录点选</a><a href="#s3">3 · 索引口径与验收</a></nav><div class="main"><section id="s1"><h2>1 · 两种模式，两种用法</h2>
+<table><thead><tr><th>模式</th><th>给谁</th><th>怎么找</th><th>输出</th></tr></thead><tbody><tr><td><b>A · 标答模式</b>（按教材目录）</td><td>还不知道怎么开课、想直接照着讲的教师</td><td><b>下拉点选章节</b>（7 篇分组、46 章全可选，不再手输）</td><td>该章一讲标准课包：目标／导入／公式／算例／三题与答案／追问卡／配套资产</td></tr><tr><td><b>B · 自助模式</b>（按关键词/教学模块）</td><td>已有自己的课程体系、只想补充素材的教师</td><td>点选教学模块 + 输入关键词 + 筛资料类型</td><td>相关资料卡片（章节、判定表、案例、算例、组件、数据）→ 加入「我的课包」→ 导出</td></tr></tbody></table><div class="box"><b>我为什么把 B 做成「标签 + 检索 + 收集篮」，而不是另一个关键词输入框</b><br>单纯「输入关键词→吐一段内容」容易变成又一个黑盒生成器。教师真正要的是：<b>按自己熟悉的模块找到散布在全站的资料，挑几样带走，拼进自己的课</b>。所以 B 给的是可核对的章节/判定表/组件链接，外加一个可导出的收集篮；A 才给完整的标准答案。两者共用同一套 46 章索引，不会出现两套口径。</div><div class="box-w"><b>边界</b><br>本地索引驱动样品，非真实模型调用、非全文检索；零额度、可离线。章节与资产链接都指向站内真实页面，命中理由（模块/关键词）会显示出来，方便教师自己判断相关性。</div></section><section id="s2"><h2>2 · A · 标答模式：按 46 章目录点选</h2>
+<style>
+.st-tabs{display:flex;gap:8px;margin:14px 0 0;border-bottom:2px solid #E1E5EA}
+.st-tab{padding:9px 18px;border:0;background:transparent;font-size:14px;font-weight:700;color:#52606D;
+ cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;font-family:inherit}
+.st-tab.on{color:#1B3A5C;border-bottom-color:#B8894A}
+.st-pane{display:none;padding-top:16px}
+.st-pane.on{display:block}
+.st-grid{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.st-form{flex:0 0 300px;background:#F2F0EB;border:1px solid #E1E5EA;border-radius:8px;padding:14px}
+.st-form label{display:block;font-size:12.5px;font-weight:700;color:#1B3A5C;margin:10px 0 4px}
+.st-form select,.st-form input{width:100%;padding:7px 9px;border:1px solid #C9D2DA;border-radius:5px;
+ font-size:13px;font-family:inherit;background:#fff;color:#1F2933;box-sizing:border-box}
+.st-btn{margin-top:12px;width:100%;padding:10px;background:#1B3A5C;color:#fff;border:0;border-radius:6px;
+ font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.st-btn:hover{background:#2C5282}
+.st-out{flex:1;min-width:320px}
+.st-card{background:#fff;border:1px solid #E1E5EA;border-left:4px solid #B8894A;border-radius:6px;
+ padding:12px 15px;margin:0 0 11px}
+.st-card h4{margin:0 0 7px;color:#1B3A5C;font-size:14px}
+.st-card p,.st-card li{font-size:13px;margin:5px 0}
+.st-meta{font-size:12px;color:#52606D;margin-bottom:8px}
+.st-chip{display:inline-block;border:1px solid #C9DDEC;background:#E8F1F9;color:#1B3A5C;border-radius:14px;
+ padding:4px 11px;font-size:12.5px;margin:3px 5px 3px 0;cursor:pointer;user-select:none}
+.st-chip.on{background:#1B3A5C;color:#fff;border-color:#1B3A5C}
+.st-chip.t2{border-color:#E3CFA8;background:#F7F0E4;color:#8A6224}
+.st-chip.t2.on{background:#B8894A;color:#fff;border-color:#B8894A}
+.st-res{margin-top:12px}
+.st-hit{background:#fff;border:1px solid #E1E5EA;border-radius:7px;padding:12px 15px;margin:0 0 10px}
+.st-hit h4{margin:0 0 5px;color:#1B3A5C;font-size:14.5px}
+.st-hit .why{font-size:12.5px;color:#B8894A;font-weight:700}
+.st-links{margin-top:8px}
+.st-links a{display:inline-block;font-size:12px;color:#1B3A5C;background:#F2F0EB;border:1px solid #E1E5EA;
+ border-radius:4px;padding:3px 8px;margin:2px 4px 2px 0;text-decoration:none}
+.st-add{float:right;padding:4px 10px;font-size:12px;border:1px solid #1B3A5C;background:#fff;color:#1B3A5C;
+ border-radius:4px;cursor:pointer;font-family:inherit}
+.st-basket{background:#E6F2F0;border:1px solid #BEDDD6;border-radius:7px;padding:12px 15px;margin-top:14px}
+.st-basket h4{margin:0 0 7px;color:#2F7A3E}
+.st-basket li{font-size:12.5px;margin:3px 0}
+.small{font-size:12.5px;color:#52606D}
+@media(max-width:820px){.st-form{flex:1 1 100%}}
+</style>
+
+<div class="st-tabs">
+  <button class="st-tab on" id="tabA">A · 标答模式（按教材目录）</button>
+  <button class="st-tab" id="tabB">B · 自助模式（按关键词 / 教学模块）</button>
+</div>
+<div class="st-pane on" id="paneA">
+<div class="st-grid">
+  <div class="st-form">
+    <label>选择章节（7 篇 · 46 章，点选即可）</label>
+    <select id="chSel"></select>
+    <label>每讲时长</label>
+    <select id="minsSel"><option>45 分钟</option><option selected>90 分钟</option><option>120 分钟</option></select>
+    <label>院校档（V / T / U）</label>
+    <select id="trackSel"><option value="V">V 中职</option><option value="T" selected>T 高职</option><option value="U">U 本科</option></select>
+    <label>本地市场参数</label>
+    <select id="marketSel"><option>中国城市</option><option>曼谷</option><option>迪拜</option><option>柏林</option><option>圣保罗</option></select>
+    <label>输出语言</label>
+    <select id="langSel"><option value="zh">中文</option><option value="en">English（标题英文化）</option></select>
+    <button class="st-btn" id="genA">生成这一讲的标准课包</button>
+    <p class="small" style="margin-top:10px">章节列表来自 <a href="v2026-10-textbook-full.html">46 章成品教材</a>；选任意一章都会给出对应模块的实质内容，不会再出现「输不全就显示不出来」。</p>
+  </div>
+  <div class="st-out" id="outA"></div>
+</div>
+</div>
+<div class="st-pane" id="paneB">
+<div class="st-grid">
+  <div class="st-form">
+    <label>① 点选教学模块（可多选，留空＝全册）</label>
+    <div id="modChips"></div>
+    <label>② 输入关键词（可多个，空格 / 逗号分隔）</label>
+    <input id="kwInput" placeholder="如：置换 / RGI / CLV / 生成式AI / fence">
+    <label>③ 资料类型（可多选）</label>
+    <div id="typeChips"></div>
+    <button class="st-btn" id="clearB">清空筛选</button>
+    <p class="small" style="margin-top:10px">检索范围：46 章教材、15 张判定表、指标公式卡、免费组件、DR-01 数据包、季度任务书、置换校正 Excel。</p>
+  </div>
+  <div class="st-out">
+    <div id="resCount" class="st-meta"></div>
+    <div id="resB" class="st-res"></div>
+    <div class="st-basket" id="basket"></div>
+  </div>
+</div>
+</div>
+
+<script>
+(function(){
+  var CH = [{"n": 1, "title": "收益管理是什么：一句话与底层逻辑", "part": "第一篇 · 认知篇", "old": "原第 1 章", "mods": ["指标与口径"], "main": "指标与口径", "kw": ["收益管理", "判据", "指标与口径", "收益管理是什么：一句话与底层逻辑", "易逝产能"]}, {"n": 2, "title": "三个核心指标：OCC、ADR、RevPAR", "part": "第一篇 · 认知篇", "old": "原第 2 章", "mods": ["指标与口径"], "main": "指标与口径", "kw": ["OOO", "指标与口径", "OCC", "三个核心指标：OCC、ADR、RevPAR", "ADR", "RevPAR", "分母"]}, {"n": 3, "title": "竞争三件套：MPI、ARI、RGI", "part": "第一篇 · 认知篇", "old": "原第 3 章", "mods": ["指标与口径", "竞争分析"], "main": "指标与口径", "kw": ["MPI", "竞争三件套：MPI、ARI、RGI", "竞组", "RGI", "÷100", "指标与口径", "691.68", "竞争分析", "按房量加权", "ARI"]}, {"n": 4, "title": "价格弹性：降多少价能换多少量", "part": "第一篇 · 认知篇", "old": "原第 4 章", "mods": ["动态定价"], "main": "动态定价", "kw": ["需求曲线", "动态定价", "价格弹性：降多少价能换多少量", "弧弹性", "弹性", "交叉弹性"]}, {"n": 5, "title": "什么时候涨价", "part": "第二篇 · 决策篇", "old": "原第 5 章", "mods": ["动态定价"], "main": "动态定价", "kw": ["调价触发", "什么时候涨价", "动态定价", "表A", "误触发率"]}, {"n": 6, "title": "竞品降价：跟还是不跟", "part": "第二篇 · 决策篇", "old": "原第 6 章", "mods": ["竞争分析"], "main": "竞争分析", "kw": ["跟价", "竞品降价", "表C", "竞争分析", "竞品降价：跟还是不跟", "表D"]}, {"n": 7, "title": "竞争博弈分析", "part": "第二篇 · 决策篇", "old": "新增 · N4", "mods": ["竞争分析"], "main": "竞争分析", "kw": ["收益矩阵", "博弈", "纳什", "竞争博弈分析", "竞争分析", "反应函数", "重复博弈"]}, {"n": 8, "title": "折扣与促销：什么时候该让", "part": "第二篇 · 决策篇", "old": "原第 7 章", "mods": ["动态定价"], "main": "动态定价", "kw": ["动态定价", "折扣与促销：什么时候该让"]}, {"n": 9, "title": "套餐与锚定：让客人觉得划算", "part": "第二篇 · 决策篇", "old": "原第 8 章", "mods": ["动态定价"], "main": "动态定价", "kw": ["套餐与锚定：让客人觉得划算", "动态定价"]}, {"n": 10, "title": "房型价差：差价定多少才合理", "part": "第二篇 · 决策篇", "old": "原第 9 章", "mods": ["动态定价"], "main": "动态定价", "kw": ["动态定价", "房型价差：差价定多少才合理"]}, {"n": 11, "title": "最短住期 MinLOS：用条件把客群分开", "part": "第二篇 · 决策篇", "old": "原第 10 章", "mods": ["库存与超售"], "main": "库存与超售", "kw": ["15 间", "超售", "最短住期 MinLOS：用条件把客群分开", "walk 成本", "库存与超售", "5%", "no-show"]}, {"n": 12, "title": "超额预订：卖出去的比有的多", "part": "第二篇 · 决策篇", "old": "原第 11 章", "mods": ["库存与超售"], "main": "库存与超售", "kw": ["bid price", "库存分配", "保护位", "超额预订：卖出去的比有的多", "库存与超售"]}, {"n": 13, "title": "库存分配与保护位：给谁留多少房", "part": "第二篇 · 决策篇", "old": "原第 12 章", "mods": ["库存与超售"], "main": "库存与超售", "kw": ["库存分配与保护位：给谁留多少房", "库存与超售"]}, {"n": 14, "title": "渠道净价：到手多少钱才算数", "part": "第二篇 · 决策篇", "old": "原第 13 章", "mods": ["渠道管理"], "main": "渠道管理", "kw": ["净价", "成本率", "渠道净价：到手多少钱才算数", "渠道管理", "表H", "七类成本率"]}, {"n": 15, "title": "渠道组合战略", "part": "第二篇 · 决策篇", "old": "新增 · N2", "mods": ["渠道管理"], "main": "渠道管理", "kw": ["HHI", "rate fence", "HHH", "渠道组合战略", "渠道组合", "直签", "渠道管理", "fence"]}, {"n": 16, "title": "客源细分：把客人分成几堆来卖", "part": "第二篇 · 决策篇", "old": "原第 14 章", "mods": ["团队置换", "客户价值"], "main": "团队置换", "kw": ["客源细分：把客人分成几堆来卖", "客户价值", "团队置换", "细分市场", "客源细分"]}, {"n": 17, "title": "客户终身价值", "part": "第二篇 · 决策篇", "old": "新增 · N3", "mods": ["团队置换", "客户价值"], "main": "团队置换", "kw": ["CAC", "留存率", "敏感性", "CLV", "团队置换", "客户价值", "客户终身价值"]}, {"n": 18, "title": "团队置换：这个团该不该接", "part": "第二篇 · 决策篇", "old": "原第 15 章", "mods": ["团队置换"], "main": "团队置换", "kw": ["安全边际", "bid price", "团队置换：这个团该不该接", "置换因子", "wash", "团队置换", "肩部夜", "ρ", "净贡献", "置换"]}, {"n": 19, "title": "直销与会员：把客人变成自己的", "part": "第二篇 · 决策篇", "old": "原第 16 章", "mods": ["渠道管理", "客户价值"], "main": "渠道管理", "kw": ["直销与会员：把客人变成自己的", "私域", "会员", "客户价值", "渠道管理", "直销"]}, {"n": 20, "title": "运营全景：从年到日的节奏", "part": "第三篇 · 运营篇", "old": "原第 17 章", "mods": ["预算与治理"], "main": "预算与治理", "kw": ["预算与治理", "运营全景：从年到日的节奏"]}, {"n": 21, "title": "每日实操流程：一天具体做什么", "part": "第三篇 · 运营篇", "old": "原第 18 章", "mods": ["预算与治理"], "main": "预算与治理", "kw": ["预算与治理", "每日实操流程：一天具体做什么"]}, {"n": 22, "title": "执行标准与收益例会", "part": "第三篇 · 运营篇", "old": "原第 19 章", "mods": ["预算与治理"], "main": "预算与治理", "kw": ["预算与治理", "执行标准与收益例会"]}, {"n": 23, "title": "预测与需求日历", "part": "第三篇 · 运营篇", "old": "原第 20 章", "mods": ["需求预测", "数据与实践"], "main": "需求预测", "kw": ["MAPE", "WAPE", "预测", "无约束需求", "Bias", "Pickup", "预测与需求日历", "需求预测", "数据与实践", "Pace"]}, {"n": 24, "title": "需求创造", "part": "第三篇 · 运营篇", "old": "新增 · N1", "mods": ["需求预测", "客户价值"], "main": "需求预测", "kw": ["增量性", "无约束需求", "需求创造", "营销支出", "客户价值", "需求预测", "容量机会成本"]}, {"n": 25, "title": "年度预算：把一年拆到每天", "part": "第三篇 · 运营篇", "old": "原第 21 章", "mods": ["需求预测", "预算与治理"], "main": "需求预测", "kw": ["预算与治理", "需求预测", "年度预算：把一年拆到每天"]}, {"n": 26, "title": "价格体系 BAR：所有价格的锚", "part": "第三篇 · 运营篇", "old": "原第 22 章", "mods": ["动态定价"], "main": "动态定价", "kw": ["动态定价", "价格体系 BAR：所有价格的锚"]}, {"n": 27, "title": "报表体系：每天该看哪几张表", "part": "第三篇 · 运营篇", "old": "原第 23 章", "mods": ["指标与口径", "数据与实践"], "main": "指标与口径", "kw": ["口径字典", "报表体系：每天该看哪几张表", "指标与口径", "数据血缘", "数据与实践", "报表"]}, {"n": 28, "title": "OTA 与点评：评分就是价格", "part": "第三篇 · 运营篇", "old": "原第 24 章", "mods": ["渠道管理"], "main": "渠道管理", "kw": ["OTA 与点评：评分就是价格", "渠道管理"]}, {"n": 29, "title": "岗位与组织：谁来干这件事", "part": "第四篇 · 组织篇", "old": "原第 25 章", "mods": ["预算与治理", "组织与职业"], "main": "预算与治理", "kw": ["预算与治理", "岗位与组织：谁来干这件事", "组织与职业"]}, {"n": 30, "title": "成本与利润：降价的底线在哪", "part": "第四篇 · 组织篇", "old": "原第 26 章", "mods": ["指标与口径"], "main": "指标与口径", "kw": ["CPOR", "成本与利润：降价的底线在哪", "机会成本", "指标与口径", "GOPPAR", "NRevPAR", "变动成本"]}, {"n": 31, "title": "系统与数据：工具能替您做什么", "part": "第四篇 · 组织篇", "old": "原第 27 章", "mods": ["AI 与优化", "数据与实践"], "main": "AI 与优化", "kw": ["数据流", "AI 与优化", "系统思维", "反馈回路", "系统与数据：工具能替您做什么", "数据与实践", "状态机"]}, {"n": 32, "title": "淡旺季与事件日：一年里最容易赚的钱", "part": "第四篇 · 组织篇", "old": "原第 28 章", "mods": ["需求预测", "数据与实践"], "main": "需求预测", "kw": ["需求预测", "数据与实践", "淡旺季与事件日：一年里最容易赚的钱"]}, {"n": 33, "title": "餐饮收益：RevPASH 与翻台", "part": "第五篇 · 延伸篇", "old": "原第 29 章", "mods": ["指标与口径"], "main": "指标与口径", "kw": ["餐饮收益：RevPASH 与翻台", "指标与口径"]}, {"n": 34, "title": "会议宴会：不只算房，算总贡献", "part": "第五篇 · 延伸篇", "old": "原第 30 章", "mods": ["团队置换"], "main": "团队置换", "kw": ["非客房", "总贡献", "会议宴会：不只算房，算总贡献", "会议宴会", "团队置换"]}, {"n": 35, "title": "其他业态与跨行业参数", "part": "第五篇 · 延伸篇", "old": "原第 31 章", "mods": ["指标与口径", "数据与实践"], "main": "指标与口径", "kw": ["数据与实践", "其他业态与跨行业参数", "指标与口径"]}, {"n": 36, "title": "常见误区：30 个坑，别再踩", "part": "第五篇 · 延伸篇", "old": "原第 32 章", "mods": ["指标与口径", "预算与治理", "数据与实践"], "main": "指标与口径", "kw": ["预算与治理", "数据与实践", "常见误区：30 个坑，别再踩", "指标与口径"]}, {"n": 37, "title": "中国渠道生态：平台、私域、买断与直播", "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "old": "原第 33 章", "mods": ["渠道管理"], "main": "渠道管理", "kw": ["中国渠道生态：平台、私域、买断与直播", "OTA", "直播", "私域", "买断", "渠道管理"]}, {"n": 38, "title": "连锁与中央预订：总部定价，门店做什么", "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "old": "原第 34 章", "mods": ["渠道管理"], "main": "渠道管理", "kw": ["渠道管理", "连锁与中央预订：总部定价，门店做什么"]}, {"n": 39, "title": "AI 工具做收益分析", "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "old": "原第 35 章", "mods": ["AI 与优化"], "main": "AI 与优化", "kw": ["四要素", "提示词", "AI 与优化", "AI", "抽核", "AI 工具做收益分析"]}, {"n": 40, "title": "生成式 AI 与优化", "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "old": "新增 · N5", "mods": ["AI 与优化"], "main": "AI 与优化", "kw": ["约束", "复算", "AI 与优化", "签署", "目标函数", "生成式AI", "优化", "大模型", "幻觉", "生成式 AI 与优化"]}, {"n": 41, "title": "危机与极端场景", "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "old": "原第 36 章", "mods": ["组织与职业"], "main": "组织与职业", "kw": ["危机与极端场景", "组织与职业", "极端场景", "取消政策", "危机"]}, {"n": 42, "title": "收益岗位与职业发展", "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "old": "原第 37 章", "mods": ["组织与职业"], "main": "组织与职业", "kw": ["收益岗位与职业发展", "组织与职业"]}, {"n": 43, "title": "变革篇：收益管理正在发生的五件事", "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "old": "原第 38 章", "mods": ["AI 与优化", "组织与职业"], "main": "AI 与优化", "kw": ["变革篇：收益管理正在发生的五件事", "AI 与优化", "组织与职业"]}, {"n": 44, "title": "周期与不确定性下的收益管理", "part": "第七篇 · 视野篇：周期、人工智能与可持续", "old": "原第 39 章", "mods": ["需求预测"], "main": "需求预测", "kw": ["需求预测", "周期与不确定性下的收益管理"]}, {"n": 45, "title": "人工智能与收益管理（科普）", "part": "第七篇 · 视野篇：周期、人工智能与可持续", "old": "原第 40 章", "mods": ["AI 与优化"], "main": "AI 与优化", "kw": ["科普", "人工智能与收益管理（科普）", "AI 与优化", "人工智能"]}, {"n": 46, "title": "绿色收益管理与可持续", "part": "第七篇 · 视野篇：周期、人工智能与可持续", "old": "原第 41 章", "mods": ["数据与实践"], "main": "数据与实践", "kw": ["绿色", "绿色收益管理与可持续", "数据与实践", "可持续"]}], MODS = ["指标与口径", "需求预测", "动态定价", "库存与超售", "渠道管理", "团队置换", "竞争分析", "客户价值", "AI 与优化", "预算与治理", "组织与职业", "数据与实践"], PACK = {"指标与口径": {"goals": ["按指标字典复算 OCC / ADR / RevPAR，并说明分母是否剔除 OOO", "用 MPI / ARI / RGI 做成套诊断，不自动跟价", "写出本结论的口径声明与不可验证处"], "case": "日报显示 OCC 72%、ADR 618、RevPAR 445，竞组 OCC 68.0%、ADR 680。经理问：我们比竞组差在哪？", "formula": "RevPAR = ADR × OCC；MPI = 本店 OCC ÷ 竞组 OCC × 100；ARI = 本店 ADR ÷ 竞组 ADR × 100；RGI = MPI × ARI ÷ 100", "ex": "MPI = 72÷68.0×100 = 105.88；ARI = 618÷680×100 = 90.88；RGI = 96.23；直算 444.96÷462.40×100 = 96.23，两式一致。", "quiz": ["若竞组 ADR 改用按房量加权 691.68，ARI 与 RGI 各是多少？", "OOO 8 间未从分母剔除，OCC 会偏高还是偏低？", "为什么漏 ÷100 会把 96.23 算成 9622.84？"], "ans": ["ARI = 618÷691.68×100 ≈ 89.35；RGI ≈ 94.61，须声明权重口径。", "分母偏大 → OCC 偏低。", "MPI×ARI 是百分数乘积，须除以 100 才回到指数。"], "probes": [["RGI 高分就是赚钱", "利润结果看什么指标？RevPAR 是过程还是结果？"], ["竞组简单平均就行", "五家酒店房量不同，权重该怎么取？"]], "rubric": "口径声明 2 分 / 三指数复算 2 分 / 权重说明 1 分", "tables": "表 C / D / O"}, "需求预测": {"goals": ["用两种方法复算预测并比较 WAPE 与带符号 Bias", "重建无约束需求，说明售罄日为何不是真实需求", "给 P50/P25/P75 并说明如何进入超售授权"], "case": "12 周售出间夜里 3 周满房。教师问：满房那几周，真实需求就是已售间夜吗？", "formula": "WAPE = Σ|实际−预测| ÷ Σ实际；Bias = Σ(预测−实际) ÷ n（保留符号）；P50/P25/P75 为分位数预测", "ex": "同一份数据用移动平均与指数平滑各预测一次；只报 MAPE 会掩盖系统性高估，Bias 的符号才指出方向。", "quiz": ["满房日被拒订单去哪了？", "为什么 Bias 不能取绝对值？", "旺季超售授权该看 P50 还是 P75？"], "ans": ["属于无约束需求，须重建，否则低估。", "取绝对值会丢掉系统性偏差方向。", "看 P75（高需求情形），并守住 5% / 15 间硬上限。"], "probes": [["误差越小越好", "系统性高估和随机波动处理方式一样吗？"], ["给一个预测数就行", "区间预测如何进入调价授权？"]], "rubric": "两法可复算 2 分 / WAPE + 带符号 Bias 2 分 / 区间进入决策 1 分", "tables": "表 A / I / L"}, "动态定价": {"goals": ["用弧弹性复算价量关系，说明基点选择为何改变结论", "把降价与涨价规则统一到同一条需求曲线", "指出结论在什么假设下会翻转"], "case": "平峰余房 84 间，ADR 618。销售提议降到 560 换量；618→590 时售出由 208 升到 224。", "formula": "弧弹性 = (ΔQ ÷ Q̄) ÷ (ΔP ÷ P̄)；Q̄、P̄ 用两端均值；净价 = 牌价 × (1 − 成本率)", "ex": "先用两端均值算弹性，再推 560 的增量间夜；增量间夜须与 84 间余房做容量截断，并扣置换。", "quiz": ["弧弹性的分母用起点值还是两端均值？", "增量间夜超过余房时怎么办？", "写出一个让结论翻转的假设。"], "ans": ["两端均值，避免基点选择导致反转。", "按余房截断，多出部分不产生收入，还可能挤掉高价客。", "竞品同期降价、弹性随价位变化、容量机会成本上升等。"], "probes": [["降价就能多卖", "多出来的间夜有房可卖吗？"], ["弹性是固定的", "高价段与低价段弹性一样吗？"]], "rubric": "弹性算式 2 分 / 容量截断 2 分 / 假设与不可验证处 1 分", "tables": "表 A / F / J"}, "库存与超售": {"goals": ["按 no-show 分布与 walk 成本求期望损失最小的超售间数", "守住 5% / 15 间硬上限", "配置 LOS / MLOS / CTA 并写明解除时点"], "case": "可售 292 间（300 − 8 OOO），预测 no-show 6%。前台问：今天能超售几间？", "formula": "期望净收益(k) = 增加的期望售出 × 单间净贡献 − P(超额到店) × 单次 walk 成本；超售 ≤ min(5%×292, 15) = 14 间", "ex": "单次 walk 成本按 2.5 × ADR 估 ¥1,545；逐 k 计算期望净收益，取最大且未越硬上限者。", "quiz": ["为什么不能只看 no-show 率就定超售数？", "walk 成本只算一晚房费吗？", "CTA 什么时候必须解除？"], "ans": ["还要算超额到店概率与 walk 成本。", "通常含 2–3 倍房费、安置与声誉成本。", "需求转弱或竞品释放库存时解除，须写进决策日志。"], "probes": [["多卖几间总没错", "超额到店一位客人的代价是多少？"], ["5% 是建议值", "这是硬上限还是参考？"]], "rubric": "期望损失表 2 分 / 硬上限 2 分 / 限制条件与解除时点 1 分", "tables": "表 B / E / L"}, "渠道管理": {"goals": ["用七类成本率复算渠道净价，成本率只扣一次", "在容量、直销下限、单渠道上限、fence 四条约束下给出可行组合", "计算 HHI 并解释依赖风险"], "case": "210 间夜要分给直销 618/4%、协议 560/9%、OTA 620/16%。有人说全放净价最高的直销。", "formula": "净价 = 牌价 × (1 − 成本率)；HHI = Σ(渠道占比²)；约束：Σ ≤ 可售、直销 ≥ 35%、单渠道 ≤ 45%、fence 不泄漏", "ex": "净价 593.28 / 509.60 / 520.80；配额 80/60/70 → 满足四条约束，HHI = 0.3379，总净贡献 ¥114,494.40。", "quiz": ["把佣金从净价里再扣一次会怎样？", "为什么最高净价不等于最优组合？", "举一个 fence 泄漏场景。"], "ans": ["重复扣成本，系统性低估渠道收益。", "违反单渠道上限，且 HHI=1、协议与 OTA 入口断掉。", "会员专享价同档出现在公开 OTA，高价客迁移，价格体系失效。"], "probes": [["关掉 OTA 就提高收益", "比价入口断掉后，需求从哪来？"], ["组合就是排个序", "四条约束逐条写了吗？"]], "rubric": "四条约束 2 分 / HHI 与总贡献可复算 2 分 / fence 检查 1 分", "tables": "表 F / H / O"}, "团队置换": {"goals": ["用 v2026.6 净贡献法复算团队询价，分子分母同为全口径", "说明 wash、置换因子 ρ、安全边际各改了结论哪一部分", "写出假设来源与不可验证处"], "case": "团队 50 间、团价 650、餐饮净贡献 180/间；散客 ADR 1000、餐饮 200/间；变动成本 120；wash 10%、预测 OCC 60%、安全边际 10%。", "formula": "净贡献 = (ADR − 变动成本) + 非客房净贡献；真置换 = MAX(0, 散客需求 + 团队量 − 总房量) × ρ × (1 − wash) 并受容量约束", "ex": "团队单间 (650−120)+180 = 710；散客 (1000−120)+200 = 1080；按 v2026.6 校正版 Excel 逐项复算，净贡献 3,488 → 接受。", "quiz": ["为什么不能用纯房费收入比？", "50 间团队一定挤掉 50 间散客吗？", "10% 安全边际缓冲的是什么？"], "ans": ["忽略变动成本与非客房收入，系统性误拒。", "取决于是否满房，用容量约束与 ρ 修正。", "预测误差与需求不确定性。"], "probes": [["团价高就接", "餐饮、会议与变动成本算进去了吗？"], ["净贡献为正就够了", "预测错了拿什么缓冲？"]], "rubric": "多收入流 2 分 / 置换量与 ρ·wash 2 分 / 安全边际与口径一致 1 分", "tables": "表 G / K"}, "竞争分析": {"goals": ["构造 2×2 收益矩阵并用同一套口径算出四格", "用概率算单期期望，指出占优策略", "说明重复博弈如何反转结论"], "case": "竞品 ADR 从 680 降到 625.60（−8%）。按表查触发成立，值班主管准备跟价。", "formula": "净贡献 = 间夜 × (ADR − 变动成本 + 非客房净贡献)；单期期望 = P(真降)×收益 + P(虚降)×收益", "ex": "P(真降)=0.6：不跟 ¥102,114、跟 ¥105,271.92（单期跟价略优 +3,157.92）；加第二期报复后，不跟 +¥26,022.08。", "quiz": ["把 P(真降) 改成 0.9，跟价优势扩大还是缩小？", "若第二期竞品不报复，结论会翻转吗？", "查表与博弈分别适用什么场景？"], "ans": ["扩大到约 9,928。", "会，说明结论依赖报复假设，须标来源。", "查表单期局部规则；博弈多期全局判断。"], "probes": [["竞品降价必须跟", "对方下一期会怎么反应？"], ["收益矩阵填收入就行", "变动成本与非客房收入呢？"]], "rubric": "四格同口径 2 分 / 期望与两期 2 分 / 假设标注 1 分", "tables": "表 A / C / D / O"}, "客户价值": {"goals": ["计算简化 CLV 并写出留存率假设", "识别单晚最大化与关系价值最大化的冲突", "做敏感性分析并说明参数不可验证时怎么办"], "case": "协议客户年 40 间夜、单间净贡献 558、获客成本 3,000；本次置换门槛 50,000。", "formula": "简化 CLV = 年均间夜 × 单间净贡献 × [1÷(1−r)] − 获客成本；接单：本次净贡献 + ΔCLV ≥ 综合置换成本 + 容量机会成本", "ex": "r=40% → 34,200 拒；r=60% → 52,800 接受；r=80% → 108,600 接受；翻转临界 r ≈ 57.44%。", "quiz": ["获客成本改 8,000，r=60% 时结论如何？", "容量机会成本升到 20,000 呢？", "只有 1 年历史、无法估 r 怎么办？"], "ans": ["CLV 47,800 → 拒，结论翻转。", "门槛 62,000，中间档最敏感。", "按最保守档处理或补证据，不得臆造参数。"], "probes": [["协议客户一定该让价", "分子分母口径一致吗？"], ["CLV 是账上数字", "它是估计量还是实绩？"]], "rubric": "三档 CLV 2 分 / 翻转点 2 分 / 假设来源 1 分", "tables": "表 G / H / O"}, "AI 与优化": {"goals": ["用生成式 AI 生成候选并举证其错误", "把容量配置写成目标函数 + 约束", "执行输入—校验—输出—留痕闭环，人工签署"], "case": "学生让 AI 算 RGI，AI 答「MPI 105.88 乘 ARI 90.88 得 9622.84，远超竞组」。", "formula": "max Σ 间夜ᵢ × 净贡献ᵢ　s.t. Σ ≤ 可售 292；超售 ≤ 14；24h 调价 ≤ 2；fence 不泄漏。AI 产出 = 候选；复算 + 签署 = 决策", "ex": "正确 RGI = 105.88×90.88÷100 = 96.23；按净贡献排序分配 180/90/22 得总净贡献 155,544，优于先接团队 152,139.20。", "quiz": ["找出这段 AI 输出的两类错。", "团队净贡献改 600，保护位怎么调？", "谁签字、谁负责、怎么回滚？"], "ans": ["漏 ÷100；把指数当营收结论（还可能是口径不一致）。", "团队升到首位，重排并复核 fence 与渠道约束。", "签署人负责；决策日志 13 字段是载体；按 DR-05 另起版本，旧版不删。"], "probes": [["AI 算得比人快", "你复算了吗？口径回溯了吗？"], ["AI 可以替收益经理决策", "它掌握本店私有数据吗？能签字吗？"]], "rubric": "幻觉举证 2 分 / 优化表达 2 分 / 责任链与回滚 1 分", "tables": "表 A–O 全表 / 决策日志 13 字段"}, "预算与治理": {"goals": ["把年度目标拆到每日并写明口径", "用决策日志 13 字段留痕，识别多表冲突", "按月复盘 MAPE 与调价命中率并回填阈值"], "case": "年度预算会给到 RevPAR 目标，月度复盘发现达标但 GOPPAR 没涨。经理问哪里出了偏差。", "formula": "Flow-Through = ΔGOP ÷ Δ收入；RevPAR 是收入侧过程指标，利润结果看净贡献 / GOPPAR", "ex": "按 300 间基线把年度目标拆到日；用表 M / N 检查决策日志 13 字段完整率与阈值回填依据。", "quiz": ["RevPAR 达标等于经营结果达标吗？", "多张表冲突时谁裁决？", "阈值回填要写什么？"], "ans": ["不等于，须看利润侧。", "按表 O 冲突矩阵唯一裁决并写取舍。", "至少 2 个阈值、各自依据与生效学期。"], "probes": [["报表好看就行", "成本与渠道费用呢？"], ["台账记个结果就够", "谁审批、何时解除、冲突怎么仲裁？"]], "rubric": "目标拆解 2 分 / 13 字段留痕 2 分 / 阈值回填 1 分", "tables": "表 M / N / O"}, "组织与职业": {"goals": ["说清收益岗位与前厅、销售、财务的职责边界", "识别危机中的价格处置两条原则", "写明跨部门协调的证据形式"], "case": "展会展期突然取消，销售要求降价保量，前厅担心超售，财务担心毛利。谁来拍板？", "formula": "决策权属按「谁定什么」表；危机处置：先保价格体系与 fence，再按容量机会成本决定是否放量", "ex": "用能力雷达六维度给岗位画像；跨部门答辩时分别回答前厅、销售、财务各一个质询。", "quiz": ["定价权在总部还是门店？", "危机中先降价还是先保 fence？", "跨部门协调要留什么证据？"], "ans": ["按「谁定什么」表，连锁集权下门店只有执行与上报权。", "先保价格体系与 fence，再按容量机会成本决定是否放量。", "决策日志 13 字段 + 审批人 + 冲突仲裁备注。"], "probes": [["收益经理一个人说了算", "销售与财务的约束写进决策日志了吗？"], ["危机先冲量", "价格体系一旦破了，多久能修回来？"]], "rubric": "职责边界 2 分 / 处置原则 2 分 / 跨部门证据 1 分", "tables": "表 M / O"}, "数据与实践": {"goals": ["识别数据集里的缺失、重复、异常与口径混用", "说明每类缺陷会改变哪个指标与哪个决策", "写出处理方式与《本结论的假设与不可验证处》"], "case": "DR-01 十三周数据表里，OCC 有时接近 0，有时超过 100%。学生说「数据就这样，直接算吧」。", "formula": "OCC = 售出间夜 ÷ 可售房夜；可售房夜 = 房型房量 − OOO，按渠道分配后不得与房型总量混加", "ex": "8 类缺陷：缺失、重复、异常尖峰、渠道串价、OOO 未剔、取消未回冲、分母口径混用、竞组权重未标注；逐类给位置与影响。", "quiz": ["套房 OTA 行 available_rooms 写成 300，会怎样？", "取消未回冲影响哪个指标？", "为什么「数据有问题」四个字不给分？"], "ans": ["OCC 被稀释到接近 0，RevPAR 失真。", "净售出与 Pace/Pickup 失真。", "必须给具体位置、处理方式、对哪个指标与决策的影响。"], "probes": [["清洗就是删掉异常行", "异常行的业务原因查了吗？"], ["干净数据才好教", "学生毕业后遇到的是干净数据吗？"]], "rubric": "缺陷清单 ≥4 类 2 分 / 处理与指标影响 2 分 / 假设说明 1 分", "tables": "表 A / I / L / O"}}, LINKS = [["教材本章", "v2026-10-textbook-full.html#mch{no:02d}"], ["15 张判定表", "decision-tables.html"], ["指标公式卡", "formulas.html"], ["免费课堂组件", "v2026-9-free-components.html"], ["DR-01 脏数据", "v2026-9-dr01-answer-key.html"], ["季度收益方案任务书", "v2026-7-capstone-project.html"], ["置换校正 Excel", "calc-displacement-v2026-6.xlsx"]];
+  var TYPES = ['导入案例','可复算算例','课堂练习','评分量规','判定表','视觉笔记','追问卡','数据包','免费组件'];
+  var TYPE_SET = {}, MOD_SET = {}, basket = [];
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function li(a){ return '<ol>'+a.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ol>'; }
+  function ul(a){ return '<ul>'+a.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>'; }
+
+  // ── Tab 切换 ──
+  function tab(which){
+    ['A','B'].forEach(function(k){
+      $('tab'+k).className = 'st-tab' + (k===which?' on':'');
+      $('pane'+k).className = 'st-pane' + (k===which?' on':'');
+    });
+  }
+  $('tabA').addEventListener('click',function(){tab('A');});
+  $('tabB').addEventListener('click',function(){tab('B');});
+
+  // ── A 标答：章节下拉 ──
+  var sel = $('chSel');
+  var parts = [];
+  CH.forEach(function(c){ if(parts.indexOf(c.part)<0) parts.push(c.part); });
+  parts.forEach(function(p){
+    var g = document.createElement('optgroup'); g.label = p;
+    CH.filter(function(c){return c.part===p;}).forEach(function(c){
+      var o = document.createElement('option');
+      o.value = c.n; o.textContent = '第 '+c.n+' 章 · '+c.title;
+      g.appendChild(o);
+    });
+    sel.appendChild(g);
+  });
+  function lesson(){
+    var c = CH[parseInt(sel.value,10)-1];
+    var p = PACK[c.main] || PACK['数据与实践'];
+    var mins = $('minsSel').value, track = $('trackSel').value;
+    var market = $('marketSel').value, lang = $('langSel').value;
+    var isEn = lang==='en';
+    var meta = '第 '+c.n+' 章 ｜ '+esc(c.part)+' ｜ '+esc(c.old)+' ｜ 主模块：'+esc(c.main)
+             +' ｜ '+mins+' min ｜ '+track+' ｜ '+esc(market);
+    var cards = [];
+    cards.push('<div class="st-card"><h4>'+(isEn?'1 · Learning objectives':'1 · 教学目标')+'</h4>'+li(p.goals)+'</div>');
+    cards.push('<div class="st-card"><h4>'+(isEn?'2 · 15-min case':'2 · 导入案例（15 分钟）')+'</h4><p>'+esc(p.case)+'</p>'
+      +'<div class="st-meta">'+esc(market)+' ｜ 全站基线：300 间 / ADR 618 / OCC 72% / 竞组 OCC 68.0%</div></div>');
+    cards.push('<div class="st-card"><h4>'+(isEn?'3 · Concepts and formula':'3 · 核心概念与公式')+'</h4>'
+      +'<div class="fml" style="font-family:monospace;font-size:12.5px">'+esc(p.formula)+'</div></div>');
+    cards.push('<div class="st-card"><h4>'+(isEn?'4 · Worked example':'4 · 可复算算例')+'</h4><p>'+esc(p.ex)+'</p></div>');
+    cards.push('<div class="st-card"><h4>'+(isEn?'5 · Three exercises':'5 · 三道练习')+'</h4>'+li(p.quiz)+'</div>');
+    cards.push('<div class="st-card"><h4>'+(isEn?'6 · Answers and rubric':'6 · 答案与评分')+'</h4>'+ul(p.ans)
+      +'<div class="st-meta">'+esc(p.rubric)+' ｜ '+esc(p.tables)+'</div></div>');
+    cards.push('<div class="st-card"><h4>'+(isEn?'7 · In-class probes':'7 · 课堂追问卡')+'</h4><ul>'
+      +p.probes.map(function(x){return '<li><b>'+(isEn?'Student: ':'学生：')+'</b>'+esc(x[0])
+        +'<br><b>'+(isEn?'Ask: ':'追问：')+'</b>'+esc(x[1])+'</li>';}).join('')+'</ul></div>');
+    cards.push('<div class="st-card"><h4>'+(isEn?'8 · Linked assets':'8 · 配套资产（可点）')+'</h4><div class="st-links">'
+      +LINKS.map(function(l){return '<a href="'+l[1].replace('{no:02d}',('0'+c.n).slice(-2))+'">'+esc(l[0])+'</a>';}).join('')
+      +'</div></div>');
+    $('outA').innerHTML = '<div class="st-meta"><b>第 '+c.n+' 章 · '+esc(c.title)+'</b><br>'+meta+'</div>'+cards.join('');
+  }
+  $('genA').addEventListener('click', lesson);
+  [sel,$('minsSel'),$('trackSel'),$('marketSel'),$('langSel')].forEach(function(e){
+    e.addEventListener('change', lesson);
+  });
+
+  // ── B 自助：模块 chips + 关键词 + 资料类型 ──
+  function chips(host, arr, store, cls){
+    host.innerHTML = arr.map(function(x){return '<span class="st-chip '+cls+'" data-v="'+esc(x)+'">'+esc(x)+'</span>';}).join('');
+    host.querySelectorAll('.st-chip').forEach(function(el){
+      el.addEventListener('click',function(){
+        var v = el.getAttribute('data-v');
+        if(store[v]){ delete store[v]; el.classList.remove('on'); }
+        else { store[v]=1; el.classList.add('on'); }
+        search();
+      });
+    });
+  }
+  chips($('modChips'), MODS, MOD_SET, '');
+  chips($('typeChips'), TYPES, TYPE_SET, 't2');
+  $('kwInput').addEventListener('input', search);
+  $('clearB').addEventListener('click', function(){
+    MOD_SET={}; TYPE_SET={}; $('kwInput').value='';
+    document.querySelectorAll('.st-chip').forEach(function(e){e.classList.remove('on');});
+    search();
+  });
+
+  function assetsFor(c){
+    return LINKS.slice(0, 4)
+      .concat(TYPE_SET['判定表'] ? [LINKS[1]] : [])
+      .concat(TYPE_SET['数据包'] ? [['DR-01 脏数据','v2026-9-dr01-answer-key.html']] : [])
+      .concat(TYPE_SET['免费组件'] ? [['免费课堂组件','v2026-9-free-components.html']] : []);
+  }
+  function search(){
+    var q = ($('kwInput').value||'').trim().toLowerCase();
+    var activeMods = Object.keys(MOD_SET);
+    var hits = CH.map(function(c){
+      var score = 0, why = [];
+      activeMods.forEach(function(m){ if(c.mods.indexOf(m)>=0){ score += 3; why.push('模块「'+m+'」'); } });
+      if(q){
+        var pool = (c.title+' '+c.kw.join(' ')+' '+c.part+' '+c.old).toLowerCase();
+        q.split(/[\s,，、]+/).filter(Boolean).forEach(function(term){
+          if(pool.indexOf(term)>=0){ score += 2; why.push('关键词「'+term+'」'); }
+        });
+      }
+      if(activeMods.length===0 && !q) score = 1;   // 无筛选时全列
+      return {c:c, score:score, why:why};
+    }).filter(function(x){ return x.score>0; })
+      .sort(function(a,b){ return b.score-a.score || a.c.n-b.c.n; });
+    var shown = hits.slice(0, 18);
+    $('resCount').textContent = '命中 '+hits.length+' 章，显示前 '+shown.length+' 条';
+    if(!shown.length){
+      $('resB').innerHTML = '<div class="st-card">没有命中。试着清空筛选、换一个更短的关键词（如「置换」「预测」「RGI」「CLV」「生成式AI」），或点选一个教学模块。</div>';
+      return;
+    }
+    $('resB').innerHTML = shown.map(function(x){
+      var c=x.c;
+      var links = assetsFor(c).map(function(l){
+        return '<a href="'+l[1].replace('{no:02d}',('0'+c.n).slice(-2))+'">'+esc(l[0])+'</a>'; }).join('');
+      return '<div class="st-hit"><button class="st-add" data-n="'+c.n+'">＋ 加入我的课包</button>'
+        +'<h4>第 '+c.n+' 章 · '+esc(c.title)+'</h4>'
+        +'<div class="st-meta">'+esc(c.part)+' ｜ '+esc(c.old)+' ｜ 模块：'+esc(c.mods.join(' / '))+'</div>'
+        +'<div class="why">'+(x.why.length?esc(x.why.slice(0,3).join(' · ')):'全册浏览')+' ｜ 相关度 '+x.score+'</div>'
+        +'<div class="st-meta" style="margin-top:6px">可用资料：教材本章 / 判定表 / 公式卡 / 案例卡 / 小测 / 评分量规 / 追问卡 / 组件 / 数据包</div>'
+        +'<div class="st-links">'+links+'</div></div>';
+    }).join('');
+    $('resB').querySelectorAll('.st-add').forEach(function(b){
+      b.addEventListener('click',function(){
+        var n=parseInt(b.getAttribute('data-n'),10), c=CH[n-1];
+        if(basket.indexOf(n)<0) basket.push(n);
+        renderBasket(); b.textContent='✓ 已加入';
+      });
+    });
+  }
+  function renderBasket(){
+    if(!basket.length){ $('basket').innerHTML='<h4>我的课包（0 项）</h4><p class="small">在左侧检索结果点「加入我的课包」，把不同章节的资料组合成自己的教学包。</p>'; return; }
+    $('basket').innerHTML='<h4>我的课包（'+basket.length+' 项）</h4><ol>'
+      +basket.map(function(n){var c=CH[n-1];return '<li>第 '+n+' 章 · '+esc(c.title)+' <span class="small">（'+esc(c.old)+'）</span></li>';}).join('')
+      +'</ol><button class="st-btn" id="expB" style="margin-top:8px">导出课包清单（纯文本）</button> '
+      +'<button class="st-btn" id="clrBasket" style="background:#fff;color:#1B3A5C;border:1px solid #C9D2DA;margin-top:8px">清空</button>';
+    $('clrBasket').addEventListener('click',function(){basket=[];renderBasket();search();});
+    $('expB').addEventListener('click',function(){
+      var lines=['RMC 教学资料自助课包 · v2026.10','生成时间：本地导出',''];
+      basket.forEach(function(n){var c=CH[n-1];
+        lines.push('第 '+n+' 章 · '+c.title+'（'+c.old+' / '+c.part+' / 模块：'+c.mods.join('、')+'）');
+        assetsFor(c).forEach(function(l){lines.push('    - '+l[0]+'：'+l[1].replace('{no:02d}',('0'+n).slice(-2)));});
+      });
+      lines.push('','说明：本清单由本地索引生成，不代表已下载全部资料；教材正文见 v2026-10-textbook-full.html。');
+      var blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
+      var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='v2026-10-my-courseware.txt';
+      document.body.appendChild(a);a.click();document.body.removeChild(a);
+    });
+  }
+  renderBasket();
+  lesson();
+  search();
+})();
+</script>
+</section><section id="s3"><h2>3 · 索引口径与验收</h2>
+<table><thead><tr><th>项</th><th>规则</th></tr></thead><tbody><tr><td>目录来源</td><td>v2026-10-textbook-full.html（46 章连续编号、7 篇）＋ outputs/v2026-10-chapter-index.json</td></tr><tr><td>旧章号</td><td>每题结果都标「原第 N 章」或「新增 · Nx 讲」，可用成品教材卷首对照表换算</td></tr><tr><td>模块映射</td><td>12 个教学模块，一章可属多模块；模块只是检索维度，<b>不改变教材篇章归属</b></td></tr><tr><td>关键词</td><td>标题 + 专业词（RGI / CLV / wash / ρ / fence / WAPE / Bias / HHI / 生成式 AI 等）+ 模块名联合匹配</td></tr><tr><td>相关度</td><td>模块命中 +3、关键词每条 +2；同分按章号升序；无筛选时全册浏览</td></tr><tr><td>母本边界</td><td>结果只给站内可点链接与资料清单，不输出 41 章正文全文、不出售题库真题与参考答案</td></tr><tr><td>不做什么</td><td>不调用付费模型、不做账号体系、不采集学生数据、不自己发认证</td></tr></tbody></table><div class="box-gold"><b>自检口径</b><br>jsdom 点击级测试须覆盖：46 个章节选项齐全、切换章节输出随之变化、Tab 切换、模块点选与关键词检索命中、收集篮加入与条目数变化、清空筛选。</div></section><div class="foot">RMC · v2026.10 · 本地索引驱动样品，非真实模型调用。只新建带版本前缀文件；46 章成品教材、旧 41 章母本与 v2026-9 五讲分册均保留在线。</div></div></div></body></html>
