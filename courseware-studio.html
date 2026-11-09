@@ -1,0 +1,892 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet"><script>window.HRMA_PREFIX="";</script><script src="auth-config.js?v=gate20261013"></script><script src="assets/js/access-gate.js?v=v12"></script><title>课件工作台 · 标答 / 自助双模式</title><style>
+/* ============================================================
+   RMC 收益管理社区 · 主样式表
+   浅色主题 / 深海军蓝 + 金 / 系统字体
+   ============================================================ */
+
+:root{
+  --navy:#1B3A5C;
+  --navy-2:#2C5282;
+  --navy-3:#3D6BA5;
+  --gold:#B8894A;
+  --gold-2:#D4A96A;
+  --gold-soft:#F7F0E4;
+  --teal:#2E7D74;
+  --teal-soft:#E6F2F0;
+  --up:#C0392B;      /* 涨/提升 —— 红 */
+  --down:#2F7A3E;    /* 跌/下降 —— 绿 */
+  --amber:#D98324;
+  --amber-soft:#FDF3E4;
+  --danger:#C0392B;
+  --danger-soft:#FBEAE8;
+  --ink:#1F2933;
+  --ink-2:#52606D;
+  --ink-3:#7B8794;
+  --line:#E1E5EA;
+  --line-2:#CBD2D9;
+  --bg:#FAFAF8;
+  --bg-2:#F2F0EB;
+  --white:#fff;
+  --shadow:0 1px 3px rgba(27,58,92,.06),0 1px 2px rgba(27,58,92,.04);
+  --shadow-md:0 4px 14px rgba(27,58,92,.08);
+  --mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --sidebar:260px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  font-size:15px; line-height:1.75; color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--navy-2);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4,h5{color:var(--navy);line-height:1.35;margin:0 0 .6em;font-weight:650}
+h1{font-size:30px;letter-spacing:-.3px}
+h2{font-size:22px;margin-top:2em;padding-bottom:.45em;border-bottom:2px solid var(--line)}
+h3{font-size:18px;margin-top:1.6em}
+h4{font-size:15.5px;margin-top:1.3em;color:var(--navy-2)}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.4em}
+li{margin:.3em 0}
+strong{font-weight:650;color:var(--navy)}
+code{font-family:var(--mono);font-size:.9em;background:var(--bg-2);padding:.12em .4em;border-radius:4px;color:var(--navy)}
+hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}
+
+/* ---------- 布局 ---------- */
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:var(--sidebar);flex:0 0 var(--sidebar);
+  background:var(--navy);color:#fff;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  padding:0 0 40px;
+}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:3px}
+.brand{padding:22px 22px 16px;border-bottom:1px solid rgba(255,255,255,.12)}
+.brand-mark{
+  display:flex;align-items:center;gap:10px;
+  font-size:16px;font-weight:700;letter-spacing:.4px;color:#fff;
+}
+.brand-mark:hover{text-decoration:none}
+.brand-mark .gem{
+  width:32px;height:32px;flex:0 0 32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--gold-2),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;color:#fff;font-weight:700;
+}
+.brand-sub{font-size:11.5px;color:rgba(255,255,255,.55);margin-top:5px;line-height:1.5;letter-spacing:.2px}
+.nav-section{padding:16px 22px 4px}
+.nav-section-title{
+  font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;
+  color:rgba(255,255,255,.42);font-weight:700;margin-bottom:8px;
+}
+.nav-link{
+  display:flex;align-items:center;gap:9px;
+  padding:7px 12px;margin:1px -12px;border-radius:6px;
+  color:rgba(255,255,255,.8);font-size:13.5px;line-height:1.45;
+}
+.nav-link:hover{background:rgba(255,255,255,.08);color:#fff;text-decoration:none}
+.nav-link.active{background:var(--gold);color:#fff;font-weight:600}
+.nav-link .n{
+  font-family:var(--mono);font-size:11px;opacity:.65;flex:0 0 22px;
+}
+
+.main{flex:1;min-width:0}
+.wrap{max-width:1080px;margin:0 auto;padding:36px 40px 90px}
+.wrap-wide{max-width:1320px}
+
+/* 面包屑 */
+.crumb{font-size:12.5px;color:var(--ink-3);margin-bottom:14px}
+.crumb a{color:var(--ink-2)}
+.crumb span{margin:0 7px;color:var(--ink-3)}
+
+/* 页头 */
+.page-head{margin-bottom:30px}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.page-title{font-size:31px;margin:0 0 12px;letter-spacing:-.4px}
+.page-lede{font-size:16px;color:var(--ink-2);line-height:1.7;margin:0;max-width:820px}
+.hero-band{
+  background:linear-gradient(120deg,var(--navy) 0%,#27517C 100%);
+  color:#fff;border-radius:12px;padding:34px 38px;margin-bottom:32px;
+}
+.hero-band h1{color:#fff;margin:0 0 10px;font-size:27px}
+.hero-band p{color:rgba(255,255,255,.82);margin:0;font-size:15px;line-height:1.75}
+
+/* ---------- 徽章 ---------- */
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11.5px;font-weight:650;letter-spacing:.3px;
+  padding:3px 10px;border-radius:20px;
+  background:var(--bg-2);color:var(--ink-2);border:1px solid var(--line);
+}
+.badge-l1{background:#E8F1F9;color:#1F5C8F;border-color:#C3DCEF}
+.badge-l2{background:var(--gold-soft);color:#8A5F26;border-color:#E8D5B5}
+.badge-l3{background:#EDE7F6;color:#5B3E96;border-color:#D5C9EC}
+.badge-codex{
+  background:var(--navy);color:#fff;font-family:var(--mono);
+  font-size:11px;padding:3px 9px;border-radius:4px;letter-spacing:.5px;
+}
+.badge-core{background:var(--danger);color:#fff;border-color:var(--danger)}
+.badge-new{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* 状态 pill */
+.pill{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:4px;background:var(--bg-2);color:var(--ink-2);border:1px solid var(--line)}
+.pill-teal{background:var(--teal-soft);color:var(--teal);border-color:#BEDDD8}
+.pill-amber{background:var(--amber-soft);color:#A6601A;border-color:#F0D9B5}
+.pill-red{background:var(--danger-soft);color:var(--danger);border-color:#F0C8C3}
+.pill-navy{background:#E8F1F9;color:var(--navy-2);border-color:#C3DCEF}
+
+/* 涨跌 */
+.up{color:var(--up);font-weight:650}
+.down{color:var(--down);font-weight:650}
+.flat{color:var(--ink-3);font-weight:600}
+
+/* ---------- 卡片 ---------- */
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:22px 24px;margin:0 0 18px;box-shadow:var(--shadow);
+}
+.card-title{font-size:16.5px;margin:0 0 14px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.card-title .ic{
+  width:26px;height:26px;flex:0 0 26px;border-radius:6px;background:var(--gold-soft);
+  display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--gold);
+}
+.card-note{font-size:13px;color:var(--ink-3);margin:12px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+
+.grid{display:grid;gap:16px;margin-bottom:18px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+
+/* ---------- 表格 ---------- */
+.tbl-wrap{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:10px;background:var(--white)}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+.tbl caption{
+  caption-side:top;text-align:left;padding:14px 18px 10px;
+  font-size:14.5px;font-weight:650;color:var(--navy);
+}
+.tbl caption .cap-note{display:block;font-size:12px;font-weight:400;color:var(--ink-3);margin-top:3px}
+.tbl th,.tbl td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tbl thead th{
+  background:var(--bg-2);font-weight:650;color:var(--navy);
+  font-size:12.5px;letter-spacing:.2px;border-bottom:2px solid var(--line-2);white-space:nowrap;
+}
+.tbl tbody tr:last-child td{border-bottom:0}
+.tbl tbody tr:hover{background:#FCFCFA}
+.tbl td.num,.tbl th.num{text-align:right;font-family:var(--mono);font-size:13px;white-space:nowrap}
+.tbl td.mid,.tbl th.mid{text-align:center}
+
+/* 判定矩阵：首行首列高亮，命中格加粗 */
+.tbl-matrix th.rowh{background:var(--bg-2);font-weight:650;color:var(--navy);white-space:nowrap}
+.tbl-matrix thead th{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tbl-matrix tbody th{background:var(--bg-2)}
+.tbl-matrix td{text-align:center;font-size:13px}
+.tbl-matrix td.hit{background:var(--gold-soft);font-weight:700;color:#8A5F26;box-shadow:inset 0 0 0 2px var(--gold)}
+.tbl-matrix td.keep{color:var(--ink-3)}
+.tbl-matrix td.up-cell{color:var(--up);font-weight:650}
+.tbl-matrix td.down-cell{color:var(--down);font-weight:650}
+
+/* 法典表 */
+.codex-block{
+  background:var(--white);border:1px solid var(--line);border-left:4px solid var(--gold);
+  border-radius:10px;padding:20px 24px 22px;margin:0 0 20px;box-shadow:var(--shadow);
+}
+.codex-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.codex-head h3{margin:0;font-size:17.5px}
+.codex-desc{font-size:13.5px;color:var(--ink-2);margin:6px 0 14px}
+.codex-meta{font-size:12px;color:var(--ink-3);margin:14px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+
+/* ---------- 提示框 ---------- */
+.callout{
+  border-radius:8px;padding:14px 18px;margin:0 0 16px;font-size:14px;line-height:1.72;
+  background:var(--bg-2);border-left:4px solid var(--line-2);
+}
+.callout p:last-child{margin-bottom:0}
+.callout .co-t{font-weight:650;display:block;margin-bottom:4px}
+.callout-key{background:#E8F1F9;border-left-color:var(--navy-2)}
+.callout-key .co-t{color:var(--navy)}
+.callout-warn{background:var(--amber-soft);border-left-color:var(--amber)}
+.callout-warn .co-t{color:#A6601A}
+.callout-danger{background:var(--danger-soft);border-left-color:var(--danger)}
+.callout-danger .co-t{color:var(--danger)}
+.callout-do{background:var(--teal-soft);border-left-color:var(--teal)}
+.callout-do .co-t{color:var(--teal)}
+.callout-gold{background:var(--gold-soft);border-left-color:var(--gold)}
+.callout-gold .co-t{color:#8A5F26}
+
+/* ---------- 指标块 ---------- */
+.metric{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px 18px;text-align:center}
+.metric-val{font-size:26px;font-weight:700;color:var(--navy);font-family:var(--mono);letter-spacing:-.5px;line-height:1.2}
+.metric-label{font-size:12px;color:var(--ink-3);margin-top:5px}
+.metric-sub{font-size:11.5px;margin-top:6px}
+
+/* ---------- 步骤条 ---------- */
+.step{display:flex;gap:16px;margin:0 0 18px;align-items:flex-start}
+.step-num{
+  flex:0 0 30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-top:2px;
+}
+.step-body{flex:1;min-width:0}
+.step-body h4{margin:0 0 5px;font-size:15.5px}
+.step-body p{margin:0 0 .5em;font-size:14px}
+
+/* 横向流程 */
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:0 0 20px}
+.flow-item{
+  flex:1;min-width:150px;background:var(--white);border:1px solid var(--line);
+  padding:14px 16px;position:relative;
+}
+.flow-item:first-child{border-radius:8px 0 0 8px}
+.flow-item:last-child{border-radius:0 8px 8px 0}
+.flow-arrow{
+  display:flex;align-items:center;padding:0 8px;color:var(--gold);font-size:17px;
+  background:transparent;border:0;flex:0 0 auto;
+}
+.flow-item .fi-t{font-weight:650;font-size:13.5px;color:var(--navy);margin-bottom:4px}
+.flow-item .fi-d{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+
+/* ---------- 公式 ---------- */
+.formula{
+  background:var(--bg-2);border:1px solid var(--line);border-radius:8px;
+  padding:14px 18px;margin:0 0 16px;
+  font-family:var(--mono);font-size:14px;color:var(--navy);
+  overflow-x:auto;line-height:1.9;
+}
+.formula .f-label{display:block;font-family:inherit;font-size:11.5px;letter-spacing:.6px;color:var(--ink-3);text-transform:uppercase;margin-bottom:4px}
+.formula .f-out{color:var(--gold);font-weight:700}
+
+/* ---------- 键值 ---------- */
+.kv{margin:0 0 14px;font-size:14px}
+.kv-row{display:flex;gap:14px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.kv-row:last-child{border-bottom:0}
+.kv-k{flex:0 0 150px;color:var(--ink-2);font-size:13.5px}
+.kv-v{flex:1}
+
+/* ---------- 清单 ---------- */
+.checklist{list-style:none;padding:0;margin:0 0 16px}
+.checklist li{
+  padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line);font-size:14px;
+}
+.checklist li:last-child{border-bottom:0}
+.checklist li::before{
+  content:"☐";position:absolute;left:2px;top:7px;
+  font-size:16px;color:var(--navy-3);line-height:1.4;
+}
+.checklist.done li::before{content:"☑";color:var(--teal)}
+
+/* ---------- 目录 ---------- */
+.toc{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin:0 0 24px}
+.toc-title{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-bottom:10px}
+.toc ol{margin:0;padding-left:1.3em;font-size:14px}
+.toc li{margin:.28em 0}
+.toc-2{list-style:none;padding-left:0;margin:6px 0 0 4px;font-size:13px;color:var(--ink-2)}
+
+/* ---------- 练习题 ---------- */
+.ex-q{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:16px 20px;margin:0 0 14px;
+}
+.ex-q .q-t{font-weight:650;color:var(--navy);font-size:14.5px;margin-bottom:8px}
+.ex-q .q-b{font-size:14px;color:var(--ink-2)}
+details.ex-a{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+details.ex-a summary{
+  cursor:pointer;font-size:13px;color:var(--navy-2);font-weight:600;list-style:none;
+  display:inline-flex;align-items:center;gap:6px;user-select:none;
+}
+details.ex-a summary::-webkit-details-marker{display:none}
+details.ex-a summary::before{content:"▸";transition:transform .15s;display:inline-block}
+details.ex-a[open] summary::before{transform:rotate(90deg)}
+details.ex-a .a-body{
+  margin-top:10px;padding:12px 16px;background:#F7FAFC;border-left:3px solid var(--teal);
+  border-radius:0 6px 6px 0;font-size:13.5px;line-height:1.75;
+}
+
+/* ---------- 法典筛选 ---------- */
+.codex-filter{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:16px 20px;margin:0 0 22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+  position:sticky;top:0;z-index:50;box-shadow:var(--shadow);
+}
+.codex-filter input[type=text]{
+  flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--line-2);border-radius:6px;
+  font-size:14px;font-family:inherit;
+}
+.codex-filter input[type=text]:focus{outline:0;border-color:var(--navy-3);box-shadow:0 0 0 3px rgba(61,107,165,.12)}
+.chip{
+  padding:5px 13px;border-radius:20px;border:1px solid var(--line-2);background:var(--white);
+  font-size:12.5px;cursor:pointer;color:var(--ink-2);font-family:inherit;
+}
+.chip:hover{border-color:var(--navy-3);color:var(--navy-2)}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ---------- 时间轴 ---------- */
+.timeline{position:relative;padding-left:26px;margin:0 0 20px}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-item::before{
+  content:"";position:absolute;left:-23px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--white);border:2.5px solid var(--gold);
+}
+.tl-time{font-family:var(--mono);font-size:12.5px;color:var(--gold);font-weight:650}
+.tl-body{font-size:14px;margin-top:2px}
+.tl-body b{color:var(--navy)}
+
+/* ---------- 对话 / 角色扮演 ---------- */
+.dialogue{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:0 0 18px;background:var(--white)}
+.dlg-row{display:flex;gap:0;border-bottom:1px solid var(--line)}
+.dlg-row:last-child{border-bottom:0}
+.dlg-who{
+  flex:0 0 128px;background:var(--bg-2);padding:12px 14px;font-size:13px;font-weight:650;
+  color:var(--navy);border-right:1px solid var(--line);
+}
+.dlg-text{flex:1;padding:12px 16px;font-size:14px;line-height:1.7}
+
+/* ---------- 游戏卡牌 ---------- */
+.cards-deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin:0 0 20px}
+.card-game{
+  border:1px solid var(--line);border-radius:10px;background:var(--white);
+  padding:14px 16px;box-shadow:var(--shadow);border-top:4px solid var(--navy);
+  display:flex;flex-direction:column;min-height:180px;
+}
+.card-game.t-atk{border-top-color:var(--danger)}
+.card-game.t-def{border-top-color:var(--teal)}
+.card-game.t-evt{border-top-color:var(--amber)}
+.card-game.t-wild{border-top-color:var(--gold)}
+.cg-id{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.5px}
+.cg-name{font-size:15px;font-weight:700;color:var(--navy);margin:4px 0 8px;line-height:1.35}
+.cg-body{font-size:12.5px;color:var(--ink-2);line-height:1.65;flex:1}
+.cg-foot{margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-3)}
+.cg-stat{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--gold)}
+
+/* ---------- 评分卡 ---------- */
+.score-box{
+  border:1px solid var(--line);border-radius:10px;background:var(--white);
+  padding:18px 22px;margin:0 0 16px;
+}
+.sb-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px}
+.sb-name{font-weight:650;color:var(--navy);font-size:15px}
+.sb-score{font-family:var(--mono);font-size:14px;color:var(--ink-2)}
+.sb-bar{height:8px;background:var(--bg-2);border-radius:4px;overflow:hidden}
+.sb-fill{height:100%;background:linear-gradient(90deg,var(--navy-3),var(--navy));border-radius:4px}
+.sb-items{margin:12px 0 0;padding:0;list-style:none;font-size:13px}
+.sb-items li{padding:5px 0 5px 20px;position:relative;color:var(--ink-2)}
+.sb-items li::before{content:"—";position:absolute;left:0;color:var(--line-2)}
+
+/* ---------- 页脚导航 ---------- */
+.pager{display:flex;gap:14px;margin-top:48px;padding-top:26px;border-top:2px solid var(--line)}
+.pager a{
+  flex:1;padding:14px 18px;border:1px solid var(--line);border-radius:10px;background:var(--white);
+  display:block;transition:.15s;box-shadow:var(--shadow);
+}
+.pager a:hover{border-color:var(--navy-3);text-decoration:none;box-shadow:var(--shadow-md)}
+.pager .p-dir{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
+.pager .p-title{font-weight:650;color:var(--navy);font-size:14.5px}
+.pager .p-next{text-align:right}
+
+/* ---------- 首页专用 ---------- */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,#2A5680 55%,#356B96 100%);
+  color:#fff;padding:56px 60px;border-radius:0 0 0 0;margin:-36px -40px 34px;
+  position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;right:-70px;top:-70px;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(184,137,74,.28),transparent 70%);
+}
+.hero .eyebrow{font-size:12px;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold-2);font-weight:700;margin-bottom:14px}
+.hero h1{color:#fff;font-size:38px;margin:0 0 14px;letter-spacing:-.8px;line-height:1.25}
+.hero .sub{font-size:16.5px;color:rgba(255,255,255,.85);max-width:700px;line-height:1.75;margin:0 0 24px}
+.hero-stats{display:flex;gap:34px;flex-wrap:wrap;margin-top:26px;position:relative;z-index:1}
+.hero-stat .hs-v{font-size:26px;font-weight:700;color:var(--gold-2);font-family:var(--mono);line-height:1.2}
+.hero-stat .hs-l{font-size:12.5px;color:rgba(255,255,255,.7);margin-top:3px}
+
+.loop-band{background:var(--gold-soft);border:1px solid #E8D5B5;border-radius:12px;padding:26px 30px;margin:0 0 30px}
+.loop-band h2{margin:0 0 6px;border:0;padding:0;font-size:20px}
+.loop-band .lb-sub{font-size:13.5px;color:#8A5F26;margin:0 0 18px}
+
+.level-card{
+  background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;
+}
+.level-card .lc-head{padding:16px 20px;color:#fff}
+.level-card.l1 .lc-head{background:linear-gradient(120deg,#2C5282,#3D6BA5)}
+.level-card.l2 .lc-head{background:linear-gradient(120deg,#A8762F,#C99B52)}
+.level-card.l3 .lc-head{background:linear-gradient(120deg,#6B4FA0,#8B6FBF)}
+.lc-head .lc-tag{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;opacity:.85;font-weight:700}
+.lc-head h3{color:#fff;margin:3px 0 0;font-size:19px}
+.lc-body{padding:18px 20px;flex:1}
+.lc-body .lc-meta{display:flex;gap:16px;font-size:12.5px;color:var(--ink-3);margin-bottom:12px}
+.lc-body ul{margin:0;padding-left:1.2em;font-size:13.5px}
+.lc-foot{padding:13px 20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-2);background:#FCFCFA}
+.lc-foot b{color:var(--navy)}
+
+.mod-link{
+  display:flex;align-items:center;gap:12px;padding:11px 16px;border:1px solid var(--line);
+  border-radius:8px;background:var(--white);transition:.15s;
+}
+.mod-link:hover{border-color:var(--navy-3);box-shadow:var(--shadow);text-decoration:none}
+.mod-link .ml-n{font-family:var(--mono);font-size:11.5px;color:var(--gold);font-weight:700;flex:0 0 28px}
+.mod-link .ml-t{flex:1;font-size:14px;color:var(--navy);font-weight:600}
+.mod-link .ml-h{font-size:11.5px;color:var(--ink-3);flex:0 0 auto}
+
+/* ---------- 打印 ---------- */
+@media print{
+  .sidebar,.codex-filter,.pager{display:none!important}
+  .main,.wrap{max-width:100%;padding:0}
+  body{background:#fff;font-size:11pt}
+  .card,.codex-block,.tbl-wrap{break-inside:avoid;box-shadow:none}
+  details.ex-a{display:block}
+  details.ex-a .a-body{display:block!important}
+  .hero{margin:0 0 20px;padding:24px;background:var(--navy)!important;-webkit-print-color-adjust:exact}
+}
+
+/* ---------- 响应式 ---------- */
+.menu-btn{
+  display:none;position:fixed;top:14px;left:14px;z-index:200;
+  background:var(--navy);color:#fff;border:0;border-radius:8px;width:40px;height:40px;font-size:18px;cursor:pointer;
+}
+@media(max-width:900px){
+  .sidebar{
+    position:fixed;left:0;top:0;z-index:150;transform:translateX(-100%);
+    transition:transform .22s ease;box-shadow:4px 0 20px rgba(0,0,0,.2);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .menu-btn{display:block}
+  .wrap{padding:20px 18px 70px}
+  .hero{margin:-20px -18px 24px;padding:36px 24px}
+  .hero h1{font-size:27px}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  h1{font-size:24px}
+  .flow-item{border-radius:8px!important;margin-bottom:6px}
+  .flow-arrow{display:none}
+  .codex-filter{position:static}
+  .tbl{font-size:12.5px}
+  .tbl th,.tbl td{padding:8px 10px}
+}
+
+</style>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#FAFAF8;color:#1F2933;font-size:15px;line-height:1.85}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px 70px;display:flex;gap:28px;align-items:flex-start}
+.side{width:222px;flex:0 0 222px;position:sticky;top:16px;margin-top:22px;
+  background:#fff;border:1px solid #E1E5EA;border-radius:8px;padding:14px 12px;max-height:calc(100vh - 36px);overflow:auto}
+.side .t{font-size:12px;font-weight:700;color:#1B3A5C;letter-spacing:.5px;margin:0 0 10px}
+.side a{display:block;font-size:12.5px;color:#52606D;text-decoration:none;padding:5px 8px;border-radius:4px;
+  border-left:2px solid transparent;line-height:1.45}
+.side a:hover{background:#E8F1F9;color:#1B3A5C;border-left-color:#B8894A}
+.main{flex:1;min-width:0}
+.hero{background:#1B3A5C;color:#fff;border-radius:0 0 10px 10px;padding:30px 34px 26px;margin-bottom:24px}
+.hero h1{margin:0 0 8px;font-size:26px;line-height:1.35;color:#fff}
+.hero .sub{margin:0;color:#dbe6f0;font-size:13.5px}
+.hero .meta{margin-top:14px;font-size:12px;color:#F5D08A;letter-spacing:.3px}
+section{background:#fff;border:1px solid #E1E5EA;border-radius:8px;padding:20px 24px;margin:0 0 16px;
+  scroll-margin-top:76px}
+h2{color:#1B3A5C;font-size:19px;margin:0 0 12px;padding-left:11px;border-left:5px solid #B8894A}
+h3{color:#2C5282;font-size:15.5px;margin:22px 0 8px}
+h4{color:#1B3A5C;font-size:14px;margin:16px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:22px;margin:10px 0}
+li{margin:6px 0}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px}
+th,td{border:1px solid #E1E5EA;padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#F2F0EB;color:#1B3A5C;font-weight:700}
+tbody tr:nth-child(even){background:#FAFAF8}
+.k{color:#B8894A;font-weight:700}
+.good{color:#2F7A3E;font-weight:700}
+.bad{color:#C0392B;font-weight:700}
+.tag{display:inline-block;background:#F7F0E4;color:#8A6224;border:1px solid #E3CFA8;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-b{display:inline-block;background:#E8F1F9;color:#1B3A5C;border:1px solid #C9DDEC;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-g{display:inline-block;background:#E6F2F0;color:#2F7A3E;border:1px solid #BEDDD6;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-r{display:inline-block;background:#FBEAE8;color:#C0392B;border:1px solid #EBC8C3;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.q{background:#F2F0EB;border-left:4px solid #B8894A;padding:10px 14px;margin:12px 0;
+  font-size:13.5px;color:#52606D}
+.box{border-left:4px solid #1B3A5C;background:#E8F1F9;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-w{border-left:4px solid #B8894A;background:#FDF3E4;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-d{border-left:4px solid #C0392B;background:#FBEAE8;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-g{border-left:4px solid #2F7A3E;background:#E6F2F0;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-gold{border-left:4px solid #B8894A;background:#F7F0E4;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.fml{background:#F2F0EB;border:1px solid #E1E5EA;border-radius:6px;padding:10px 14px;margin:12px 0;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:#1F2933;line-height:1.9}
+.fml b{color:#B8894A}
+.foot{color:#8895a7;font-size:12px;border-top:1px solid #E1E5EA;padding-top:14px;margin-top:26px}
+a{color:#1B3A5C}
+.small{font-size:12.5px;color:#52606D}
+@media(max-width:860px){.wrap{display:block}.side{position:static;width:auto;max-height:none;margin-bottom:16px}.hero{padding:22px}}
+@media print{.side{display:none}.wrap{display:block}section{break-inside:avoid}}
+</style>
+</head><body><div class="hero" style="max-width:1200px;margin:0 auto"><h1>课件工作台 · 标答 / 自助双模式</h1><p class="sub">按 46 章教材目录点选标准课包；按教学主题自助检索资料并导出完整课包</p><div class="meta">第二版 · 按 46 章教材目录点选 / 按教学主题自助检索 · 本地索引驱动、可离线使用 · 全部资源指向站内正式资料</div></div><div class="wrap"><nav class="side"><div class="t">目录</div><a href="#s1">1 · 两种模式 · 两种用法</a><a href="#s2">2 · A · 标答模式：按 46 章目录点选</a><a href="#s3">3 · B · 自助模式：按教学主题检索</a><a href="#s4">4 · 索引口径与边界</a></nav><div class="main"><section id="s1"><h2>1 · 两种模式 · 两种用法</h2><table><thead><tr><th>模式</th><th>给谁</th><th>怎么找</th><th>输出</th></tr></thead><tbody><tr><td><b>A · 标答模式</b></td><td>还不知道怎么开课、想直接照着讲的教师</td><td>下拉点选七篇 46 章中的任意一章；再定时长、院校层次、本地市场与语言</td><td>11 段标准课包：目标／节奏／导入／本地参数／公式／算例／三题／答案／本档处理／追问／本章适用资料</td></tr><tr><td><b>B · 自助模式</b></td><td>已有自己的课程体系、只想补充素材的教师</td><td>默认全库浏览；按教学模块、关键词、资料类型任意组合筛选</td><td>真实资料卡片 → 加入我的课包 → 导出一份可印发、可投影的完整课包 HTML</td></tr></tbody></table><div class="box"><b>这套工作台本来要解决的问题</b><br>教师备课有两件不同的事：<b>照着一套体系开出一门课</b>，和<b>按自己已有的体系找几样素材补进来</b>。A 给前者的标准答案，B 给后者的自助检索。两者共用同一套 46 章索引与同一份资料目录，不会出现两套章号、两套口径。本地索引驱动、可离线使用；不调用付费模型、不采集学生数据。</div><div class="box-w"><b>五个参数分别改变什么（A 模式）</b><br><b>章节</b>决定教学内容与配套资料；<b>时长</b>重排七个环节的分钟数并决定三题做几道；<b>院校层次</b>替换目标深度、课堂练习要求、作业形态与评分侧重；<b>本地市场</b>替换币种、基线 ADR/出租率、竞组、渠道结构与本地化追问；<b>语言</b>切换整套内容（目标、案例、公式、算例、练习、答案、追问、说明），不只是标题。「配套资料」按章节主题挂接，不相关的计算器、数据包与任务书不会出现。</div></section><section id="s2"><h2>2 · A · 标答模式：按 46 章目录点选</h2>
+<style>
+.st-tabs{display:flex;gap:8px;margin:14px 0 0;border-bottom:2px solid #E1E5EA;flex-wrap:wrap}
+.st-tab{padding:9px 18px;border:0;background:transparent;font-size:14px;font-weight:700;color:#52606D;
+ cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;font-family:inherit}
+.st-tab.on{color:#1B3A5C;border-bottom-color:#B8894A}
+.st-pane{display:none;padding-top:16px}.st-pane.on{display:block}
+.st-grid{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.st-form{flex:0 0 292px;background:#F2F0EB;border:1px solid #E1E5EA;border-radius:8px;padding:14px;
+ position:sticky;top:12px}
+.st-form label{display:block;font-size:12.5px;font-weight:700;color:#1B3A5C;margin:10px 0 4px}
+.st-form select,.st-form input{width:100%;padding:7px 9px;border:1px solid #C9D2DA;border-radius:5px;
+ font-size:13px;font-family:inherit;background:#fff;color:#1F2933;box-sizing:border-box}
+.st-btn{margin-top:8px;width:100%;padding:9px;background:#1B3A5C;color:#fff;border:0;border-radius:6px;
+ font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit}
+.st-btn.sec{background:#fff;color:#1B3A5C;border:1px solid #C9D2DA}
+.st-btn:hover{opacity:.88}
+.st-out{flex:1;min-width:320px}
+.st-card{background:#fff;border:1px solid #E1E5EA;border-left:4px solid #B8894A;border-radius:6px;
+ padding:11px 15px;margin:0 0 10px}
+.st-card h4{margin:0 0 7px;color:#1B3A5C;font-size:14px}
+.st-card p,.st-card li{font-size:13px;margin:5px 0}
+.st-meta{font-size:12.3px;color:#52606D;margin-bottom:7px;line-height:1.7}
+.st-chip{display:inline-block;border:1px solid #C9DDEC;background:#E8F1F9;color:#1B3A5C;border-radius:14px;
+ padding:4px 10px;font-size:12.5px;margin:3px 4px 3px 0;cursor:pointer;user-select:none}
+.st-chip.on{background:#1B3A5C;color:#fff;border-color:#1B3A5C}
+.st-chip.t2{border-color:#E3CFA8;background:#F7F0E4;color:#8A6224}
+.st-chip.t2.on{background:#B8894A;color:#fff;border-color:#B8894A}
+.st-links{margin-top:7px}
+.st-links a{display:inline-block;font-size:12px;color:#1B3A5C;background:#F2F0EB;border:1px solid #E1E5EA;
+ border-radius:4px;padding:4px 9px;margin:2px 4px 2px 0;text-decoration:none}
+.st-links a:hover{background:#E8F1F9}
+.st-pace{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px}
+.st-pace th,.st-pace td{border:1px solid #E1E5EA;padding:4px 6px;text-align:center}
+.st-pace th{background:#F2F0EB;color:#1B3A5C}
+.st-res{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px;margin-top:10px}
+.st-hit{background:#fff;border:1px solid #E1E5EA;border-radius:7px;padding:11px 13px;position:relative}
+.st-hit h4{margin:0 30px 5px 0;color:#1B3A5C;font-size:13.6px}
+.st-hit .why{font-size:12px;color:#B8894A;font-weight:700;margin:4px 0}
+.st-hit .sum{font-size:12.4px;color:#52606D;line-height:1.65;margin:5px 0}
+.st-badge{display:inline-block;background:#E8F1F9;color:#1B3A5C;border-radius:4px;
+ padding:1px 7px;font-size:11.5px;font-weight:700;margin-right:5px}
+.st-add{position:absolute;right:9px;top:9px;padding:3px 8px;font-size:11.5px;border:1px solid #1B3A5C;
+ background:#fff;color:#1B3A5C;border-radius:4px;cursor:pointer;font-family:inherit}
+.st-add.on{background:#1B3A5C;color:#fff}
+.st-basket{background:#E6F2F0;border:1px solid #BEDDD6;border-radius:7px;padding:12px 15px;margin-top:14px}
+.st-basket h4{margin:0 0 7px;color:#2F7A3E}
+.st-basket li{font-size:12.5px;margin:3px 0}
+.small{font-size:12.3px;color:#52606D;line-height:1.7}
+@media(max-width:860px){.st-form{flex:1 1 100%;position:static}.st-res{grid-template-columns:1fr}}
+</style>
+
+<div class="st-tabs">
+  <button class="st-tab on" id="tabA">A · 标答模式（按教材目录）</button>
+  <button class="st-tab" id="tabB">B · 自助模式（按教学主题检索）</button>
+</div>
+<div class="st-pane on" id="paneA">
+<div class="st-grid">
+  <div class="st-form">
+    <label>选择章节（七篇 · 46 章，点选即可）</label>
+    <select id="chSel"></select>
+    <label>每讲时长</label>
+    <select id="minsSel"><option value="45">45 分钟</option><option value="90" selected>90 分钟</option><option value="120">120 分钟</option></select>
+    <label>院校层次</label>
+    <select id="trackSel"><option value="V">中职</option><option value="T" selected>高职</option><option value="U">本科</option></select>
+    <label>本地市场</label>
+    <select id="marketSel"><option>中国城市</option><option>曼谷</option><option>迪拜</option><option>柏林</option><option>圣保罗</option></select>
+    <label>输出语言</label>
+    <select id="langSel"><option value="zh">中文</option><option value="en">English（全内容英文）</option></select>
+    <button class="st-btn" id="genA">生成这一讲的标准课包</button>
+    <p class="small" style="margin-top:10px">五个参数都会改变输出：章节决定教学内容，时长重排课堂节奏，
+    院校层次改变目标深度与作业，本地市场替换案例数字与追问，语言切换整套内容的语言。</p>
+  </div>
+  <div class="st-out" id="outA"></div>
+</div>
+</div>
+<div class="st-pane" id="paneB">
+<div class="st-grid">
+  <div class="st-form">
+    <label>① 点选教学模块（可多选）</label><div id="modChips"></div>
+    <label>② 输入关键词（可多个，空格 / 逗号分隔）</label>
+    <input id="kwInput" placeholder="如：置换 / RGI / CLV / 追问 / 数据包">
+    <label>③ 资料类型（可多选）</label><div id="typeChips"></div>
+    <button class="st-btn" id="clearB">清空筛选（回到全部）</button>
+    <p class="small" style="margin-top:10px">默认显示全部资料；三类筛选可任意组合，改任一条件即时重算。
+    结果给的是站内真实资料的名称、说明与可点链接，不是一段生成文字。</p>
+  </div>
+  <div class="st-out">
+    <div id="resCount" class="st-meta"></div>
+    <div id="resB" class="st-res"></div>
+    <div class="st-basket" id="basket"></div>
+  </div>
+</div>
+</div>
+
+<script>
+(function(){
+  var CH=[{"n": 1, "title": "收益管理是什么：一句话与底层逻辑", "part": "第一篇 · 认知篇", "mods": ["指标与口径"], "main": "指标与口径", "level": "V", "kw": ["指标与口径", "易逝产能", "收益管理是什么：一句话与底层逻辑", "收益管理"]}, {"n": 2, "title": "三个核心指标：OCC、ADR、RevPAR", "part": "第一篇 · 认知篇", "mods": ["指标与口径"], "main": "指标与口径", "level": "V", "kw": ["ADR", "分母", "三个核心指标：OCC、ADR、RevPAR", "OCC", "OOO", "RevPAR", "指标与口径"]}, {"n": 3, "title": "竞争三件套：MPI、ARI、RGI", "part": "第一篇 · 认知篇", "mods": ["指标与口径", "竞争分析"], "main": "指标与口径", "level": "V", "kw": ["RGI", "竞组", "竞争三件套：MPI、ARI、RGI", "÷100", "按房量加权", "竞争分析", "ARI", "指标与口径", "MPI"]}, {"n": 4, "title": "价格弹性：降多少价能换多少量", "part": "第一篇 · 认知篇", "mods": ["动态定价"], "main": "动态定价", "level": "T", "kw": ["弧弹性", "动态定价", "需求曲线", "价格弹性：降多少价能换多少量", "弹性"]}, {"n": 5, "title": "什么时候涨价", "part": "第二篇 · 决策篇", "mods": ["动态定价"], "main": "动态定价", "level": "U", "kw": ["误触发率", "什么时候涨价", "调价触发", "动态定价"]}, {"n": 6, "title": "竞品降价：跟还是不跟", "part": "第二篇 · 决策篇", "mods": ["竞争分析"], "main": "竞争分析", "level": "T", "kw": ["跟价", "竞争分析", "竞品降价", "竞品降价：跟还是不跟"]}, {"n": 7, "title": "竞争博弈分析", "part": "第二篇 · 决策篇", "mods": ["竞争分析"], "main": "竞争分析", "level": "U", "kw": ["博弈", "竞争博弈分析", "竞争分析", "重复博弈", "反应函数"]}, {"n": 8, "title": "折扣与促销：什么时候该让", "part": "第二篇 · 决策篇", "mods": ["动态定价"], "main": "动态定价", "level": "T", "kw": ["折扣与促销：什么时候该让", "动态定价"]}, {"n": 9, "title": "套餐与锚定：让客人觉得划算", "part": "第二篇 · 决策篇", "mods": ["动态定价"], "main": "动态定价", "level": "T", "kw": ["套餐与锚定：让客人觉得划算", "动态定价"]}, {"n": 10, "title": "房型价差：差价定多少才合理", "part": "第二篇 · 决策篇", "mods": ["动态定价"], "main": "动态定价", "level": "T", "kw": ["房型价差：差价定多少才合理", "动态定价"]}, {"n": 11, "title": "最短住期 MinLOS：用条件把客群分开", "part": "第二篇 · 决策篇", "mods": ["库存与超售"], "main": "库存与超售", "level": "T", "kw": ["walk 成本", "库存与超售", "no-show", "超售", "最短住期 MinLOS：用条件把客群分开"]}, {"n": 12, "title": "超额预订：卖出去的比有的多", "part": "第二篇 · 决策篇", "mods": ["库存与超售"], "main": "库存与超售", "level": "T", "kw": ["库存与超售", "超额预订：卖出去的比有的多", "bid price", "保护位"]}, {"n": 13, "title": "库存分配与保护位：给谁留多少房", "part": "第二篇 · 决策篇", "mods": ["库存与超售"], "main": "库存与超售", "level": "T", "kw": ["库存与超售", "库存分配与保护位：给谁留多少房"]}, {"n": 14, "title": "渠道净价：到手多少钱才算数", "part": "第二篇 · 决策篇", "mods": ["渠道管理"], "main": "渠道管理", "level": "T", "kw": ["净价", "成本率", "渠道净价：到手多少钱才算数", "渠道管理"]}, {"n": 15, "title": "渠道组合战略", "part": "第二篇 · 决策篇", "mods": ["渠道管理"], "main": "渠道管理", "level": "U", "kw": ["渠道组合战略", "HHI", "渠道组合", "渠道管理", "fence", "rate fence"]}, {"n": 16, "title": "客源细分：把客人分成几堆来卖", "part": "第二篇 · 决策篇", "mods": ["团队置换", "客户价值"], "main": "团队置换", "level": "T", "kw": ["客户价值", "团队置换", "客源细分", "客源细分：把客人分成几堆来卖"]}, {"n": 17, "title": "客户终身价值", "part": "第二篇 · 决策篇", "mods": ["团队置换", "客户价值"], "main": "团队置换", "level": "U", "kw": ["客户价值", "留存率", "CLV", "客户终身价值", "团队置换", "CAC"]}, {"n": 18, "title": "团队置换：这个团该不该接", "part": "第二篇 · 决策篇", "mods": ["团队置换"], "main": "团队置换", "level": "T", "kw": ["肩部夜", "置换因子", "安全边际", "置换", "团队置换", "净贡献", "wash", "团队置换：这个团该不该接"]}, {"n": 19, "title": "直销与会员：把客人变成自己的", "part": "第二篇 · 决策篇", "mods": ["渠道管理", "客户价值"], "main": "渠道管理", "level": "T", "kw": ["客户价值", "会员", "渠道管理", "直销与会员：把客人变成自己的", "直销"]}, {"n": 20, "title": "运营全景：从年到日的节奏", "part": "第三篇 · 运营篇", "mods": ["预算与治理"], "main": "预算与治理", "level": "V", "kw": ["预算与治理", "运营全景：从年到日的节奏"]}, {"n": 21, "title": "每日实操流程：一天具体做什么", "part": "第三篇 · 运营篇", "mods": ["预算与治理"], "main": "预算与治理", "level": "V", "kw": ["预算与治理", "每日实操流程：一天具体做什么"]}, {"n": 22, "title": "执行标准与收益例会", "part": "第三篇 · 运营篇", "mods": ["预算与治理"], "main": "预算与治理", "level": "U", "kw": ["预算与治理", "执行标准与收益例会"]}, {"n": 23, "title": "预测与需求日历", "part": "第三篇 · 运营篇", "mods": ["需求预测", "数据与实践"], "main": "需求预测", "level": "T", "kw": ["预测", "需求预测", "预测与需求日历", "Bias", "数据与实践", "无约束需求", "Pace", "MAPE", "WAPE", "Pickup"]}, {"n": 24, "title": "需求创造", "part": "第三篇 · 运营篇", "mods": ["需求预测", "客户价值"], "main": "需求预测", "level": "U", "kw": ["客户价值", "需求预测", "需求创造", "营销支出", "增量性"]}, {"n": 25, "title": "年度预算：把一年拆到每天", "part": "第三篇 · 运营篇", "mods": ["需求预测", "预算与治理"], "main": "需求预测", "level": "U", "kw": ["预算与治理", "年度预算：把一年拆到每天", "需求预测"]}, {"n": 26, "title": "价格体系 BAR：所有价格的锚", "part": "第三篇 · 运营篇", "mods": ["动态定价"], "main": "动态定价", "level": "T", "kw": ["价格体系 BAR：所有价格的锚", "动态定价"]}, {"n": 27, "title": "报表体系：每天该看哪几张表", "part": "第三篇 · 运营篇", "mods": ["指标与口径", "数据与实践"], "main": "指标与口径", "level": "V", "kw": ["报表", "数据与实践", "报表体系：每天该看哪几张表", "口径字典", "指标与口径"]}, {"n": 28, "title": "OTA 与点评：评分就是价格", "part": "第三篇 · 运营篇", "mods": ["渠道管理"], "main": "渠道管理", "level": "T", "kw": ["OTA 与点评：评分就是价格", "渠道管理"]}, {"n": 29, "title": "岗位与组织：谁来干这件事", "part": "第四篇 · 组织篇", "mods": ["预算与治理", "组织与职业"], "main": "预算与治理", "level": "V", "kw": ["预算与治理", "岗位与组织：谁来干这件事", "组织与职业"]}, {"n": 30, "title": "成本与利润：降价的底线在哪", "part": "第四篇 · 组织篇", "mods": ["指标与口径"], "main": "指标与口径", "level": "U", "kw": ["CPOR", "变动成本", "NRevPAR", "成本与利润：降价的底线在哪", "GOPPAR", "指标与口径"]}, {"n": 31, "title": "系统与数据：工具能替您做什么", "part": "第四篇 · 组织篇", "mods": ["AI 与优化", "数据与实践"], "main": "AI 与优化", "level": "U", "kw": ["系统思维", "系统与数据：工具能替您做什么", "数据与实践", "数据流", "AI 与优化"]}, {"n": 32, "title": "淡旺季与事件日：一年里最容易赚的钱", "part": "第四篇 · 组织篇", "mods": ["需求预测", "数据与实践"], "main": "需求预测", "level": "T", "kw": ["数据与实践", "需求预测", "淡旺季与事件日：一年里最容易赚的钱"]}, {"n": 33, "title": "餐饮收益：RevPASH 与翻台", "part": "第五篇 · 延伸篇", "mods": ["指标与口径"], "main": "指标与口径", "level": "V", "kw": ["餐饮收益：RevPASH 与翻台", "指标与口径"]}, {"n": 34, "title": "会议宴会：不只算房，算总贡献", "part": "第五篇 · 延伸篇", "mods": ["团队置换"], "main": "团队置换", "level": "U", "kw": ["会议宴会", "团队置换", "会议宴会：不只算房，算总贡献", "总贡献"]}, {"n": 35, "title": "其他业态与跨行业参数", "part": "第五篇 · 延伸篇", "mods": ["指标与口径", "数据与实践"], "main": "指标与口径", "level": "V", "kw": ["数据与实践", "其他业态与跨行业参数", "指标与口径"]}, {"n": 36, "title": "常见误区：30 个坑，别再踩", "part": "第五篇 · 延伸篇", "mods": ["指标与口径", "预算与治理", "数据与实践"], "main": "指标与口径", "level": "V", "kw": ["预算与治理", "数据与实践", "常见误区：30 个坑，别再踩", "指标与口径"]}, {"n": 37, "title": "中国渠道生态：平台、私域、买断与直播", "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "mods": ["渠道管理"], "main": "渠道管理", "level": "T", "kw": ["买断", "私域", "中国渠道生态：平台、私域、买断与直播", "渠道管理", "OTA"]}, {"n": 38, "title": "连锁与中央预订：总部定价，门店做什么", "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "mods": ["渠道管理"], "main": "渠道管理", "level": "T", "kw": ["连锁与中央预订：总部定价，门店做什么", "渠道管理"]}, {"n": 39, "title": "AI 工具做收益分析", "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "mods": ["AI 与优化"], "main": "AI 与优化", "level": "T", "kw": ["AI 工具做收益分析", "AI 与优化", "抽核", "提示词"]}, {"n": 40, "title": "生成式 AI 与优化", "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "mods": ["AI 与优化"], "main": "AI 与优化", "level": "U", "kw": ["生成式AI", "大模型", "目标函数", "生成式 AI 与优化", "优化", "AI 与优化", "幻觉", "复算"]}, {"n": 41, "title": "危机与极端场景", "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "mods": ["组织与职业"], "main": "组织与职业", "level": "U", "kw": ["危机与极端场景", "组织与职业", "危机", "取消政策"]}, {"n": 42, "title": "收益岗位与职业发展", "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "mods": ["组织与职业"], "main": "组织与职业", "level": "U", "kw": ["收益岗位与职业发展", "组织与职业"]}, {"n": 43, "title": "变革篇：收益管理正在发生的五件事", "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "mods": ["AI 与优化", "组织与职业"], "main": "AI 与优化", "level": "U", "kw": ["变革篇：收益管理正在发生的五件事", "AI 与优化", "组织与职业"]}, {"n": 44, "title": "周期与不确定性下的收益管理", "part": "第七篇 · 视野篇：周期、人工智能与可持续", "mods": ["需求预测"], "main": "需求预测", "level": "T", "kw": ["周期与不确定性下的收益管理", "需求预测"]}, {"n": 45, "title": "人工智能与收益管理（科普）", "part": "第七篇 · 视野篇：周期、人工智能与可持续", "mods": ["AI 与优化"], "main": "AI 与优化", "level": "V", "kw": ["人工智能与收益管理（科普）", "AI 与优化", "人工智能"]}, {"n": 46, "title": "绿色收益管理与可持续", "part": "第七篇 · 视野篇：周期、人工智能与可持续", "mods": ["数据与实践"], "main": "数据与实践", "level": "V", "kw": ["绿色收益管理与可持续", "绿色", "数据与实践", "可持续"]}], PACK={"指标与口径": {"goals": ["按指标字典复算 OCC / ADR / RevPAR，并说明分母是否剔除 OOO", "用 MPI / ARI / RGI 做成套诊断，不自动跟价", "写出本结论的口径声明与不可验证处"], "case": "日报显示 OCC 72%、ADR 618、RevPAR 445，竞组 OCC 68.0%、ADR 680。经理问：我们比竞组差在哪？", "formula": "RevPAR = ADR × OCC；MPI = 本店 OCC ÷ 竞组 OCC × 100；ARI = 本店 ADR ÷ 竞组 ADR × 100；RGI = MPI × ARI ÷ 100", "ex": "MPI = 72÷68.0×100 = 105.88；ARI = 618÷680×100 = 90.88；RGI = 96.23；直算 444.96÷462.40×100 = 96.23，两式一致。", "quiz": ["若竞组 ADR 改用按房量加权 691.68，ARI 与 RGI 各是多少？", "OOO 8 间未从分母剔除，OCC 会偏高还是偏低？", "为什么漏 ÷100 会把 96.23 算成 9622.84？"], "ans": ["ARI ≈ 89.35；RGI ≈ 94.61，须声明权重口径。", "分母偏大 → OCC 偏低。", "MPI×ARI 是百分数乘积，须除以 100 才回到指数。"], "probes": [["RGI 高分就是赚钱", "利润结果看什么指标？RevPAR 是过程还是结果？"], ["竞组简单平均就行", "五家酒店房量不同，权重该怎么取？"]], "rubric": "口径声明 2 分 / 三指数复算 2 分 / 权重说明 1 分", "tables": "表 C / D / O"}, "需求预测": {"goals": ["用两种方法复算预测并比较 WAPE 与带符号 Bias", "重建无约束需求，说明售罄日为何不是真实需求", "给 P50/P25/P75 并说明如何进入超售授权"], "case": "12 周售出间夜里 3 周满房。教师问：满房那几周，真实需求就是已售间夜吗？", "formula": "WAPE = Σ|实际−预测| ÷ Σ实际；Bias = Σ(预测−实际) ÷ n（保留符号）；P50/P25/P75 为分位数预测", "ex": "同一份数据用移动平均与指数平滑各预测一次；只报 MAPE 会掩盖系统性高估，Bias 的符号才指出方向。", "quiz": ["满房日被拒订单去哪了？", "为什么 Bias 不能取绝对值？", "旺季超售授权该看 P50 还是 P75？"], "ans": ["属于无约束需求，须重建，否则低估。", "取绝对值会丢掉系统性偏差方向。", "看 P75（高需求情形），并守住 5% / 15 间硬上限。"], "probes": [["误差越小越好", "系统性高估和随机波动处理方式一样吗？"], ["给一个预测数就行", "区间预测如何进入调价授权？"]], "rubric": "两法可复算 2 分 / WAPE + 带符号 Bias 2 分 / 区间进入决策 1 分", "tables": "表 A / I / L"}, "动态定价": {"goals": ["用弧弹性复算价量关系，说明基点选择为何改变结论", "把降价与涨价规则统一到同一条需求曲线", "指出结论在什么假设下会翻转"], "case": "平峰余房 84 间，ADR 618。销售提议降到 560 换量；618→590 时售出由 208 升到 224。", "formula": "弧弹性 = (ΔQ ÷ Q̄) ÷ (ΔP ÷ P̄)；Q̄、P̄ 用两端均值；净价 = 牌价 × (1 − 成本率)", "ex": "先用两端均值算弹性，再推 560 的增量间夜；增量间夜须与 84 间余房做容量截断，并扣置换。", "quiz": ["弧弹性的分母用起点值还是两端均值？", "增量间夜超过余房时怎么办？", "写出一个让结论翻转的假设。"], "ans": ["两端均值，避免基点选择导致反转。", "按余房截断，多出部分不产生收入，还可能挤掉高价客。", "竞品同期降价、弹性随价位变化、容量机会成本上升等。"], "probes": [["降价就能多卖", "多出来的间夜有房可卖吗？"], ["弹性是固定的", "高价段与低价段弹性一样吗？"]], "rubric": "弹性算式 2 分 / 容量截断 2 分 / 假设与不可验证处 1 分", "tables": "表 A / F / J"}, "库存与超售": {"goals": ["按 no-show 分布与 walk 成本求期望损失最小的超售间数", "守住 5% / 15 间硬上限", "配置 LOS / MLOS / CTA 并写明解除时点"], "case": "可售 292 间（300 − 8 OOO），预测 no-show 6%。前台问：今天能超售几间？", "formula": "期望净收益(k) = 增加的期望售出 × 单间净贡献 − P(超额到店) × 单次 walk 成本；超售 ≤ min(5%×292, 15) = 14 间", "ex": "单次 walk 成本按 2.5 × ADR 估 ¥1,545；逐 k 计算期望净收益，取最大且未越硬上限者。", "quiz": ["为什么不能只看 no-show 率就定超售数？", "walk 成本只算一晚房费吗？", "CTA 什么时候必须解除？"], "ans": ["还要算超额到店概率与 walk 成本。", "通常含 2–3 倍房费、安置与声誉成本。", "需求转弱或竞品释放库存时解除，须写进决策日志。"], "probes": [["多卖几间总没错", "超额到店一位客人的代价是多少？"], ["5% 是建议值", "这是硬上限还是参考？"]], "rubric": "期望损失表 2 分 / 硬上限 2 分 / 限制条件与解除时点 1 分", "tables": "表 B / E / L"}, "渠道管理": {"goals": ["用七类成本率复算渠道净价，成本率只扣一次", "在容量、直销下限、单渠道上限、fence 四条约束下给出可行组合", "计算 HHI 并解释依赖风险"], "case": "210 间夜要分给直销 618/4%、协议 560/9%、OTA 620/16%。有人说全放净价最高的直销。", "formula": "净价 = 牌价 × (1 − 成本率)；HHI = Σ(渠道占比²)；约束：Σ ≤ 可售、直销 ≥ 35%、单渠道 ≤ 45%、fence 不泄漏", "ex": "净价 593.28 / 509.60 / 520.80；配额 80/60/70 → 满足四条约束，HHI = 0.3379，总净贡献 ¥114,494.40。", "quiz": ["把佣金从净价里再扣一次会怎样？", "为什么最高净价不等于最优组合？", "举一个 fence 泄漏场景。"], "ans": ["重复扣成本，系统性低估渠道收益。", "违反单渠道上限，且 HHI=1、协议与 OTA 入口断掉。", "会员专享价同档出现在公开 OTA，高价客迁移，价格体系失效。"], "probes": [["关掉 OTA 就提高收益", "比价入口断掉后，需求从哪来？"], ["组合就是排个序", "四条约束逐条写了吗？"]], "rubric": "四条约束 2 分 / HHI 与总贡献可复算 2 分 / fence 检查 1 分", "tables": "表 F / H / O"}, "团队置换": {"goals": ["用净贡献法复算团队询价，分子分母同为全口径", "说明 wash、置换因子 ρ、安全边际各改了结论哪一部分", "写出假设来源与不可验证处"], "case": "团队 50 间、团价 650、餐饮净贡献 180/间；散客 ADR 1000、餐饮 200/间；变动成本 120；wash 10%、预测 OCC 60%、安全边际 10%。", "formula": "净贡献 = (ADR − 变动成本) + 非客房净贡献；真置换 = MAX(0, 散客需求 + 团队量 − 总房量) × ρ × (1 − wash) 并受容量约束", "ex": "团队单间 (650−120)+180 = 710；散客 (1000−120)+200 = 1080；按决策计算器逐项复算，净贡献 3,488 → 接受。", "quiz": ["为什么不能用纯房费收入比？", "50 间团队一定挤掉 50 间散客吗？", "10% 安全边际缓冲的是什么？"], "ans": ["忽略变动成本与非客房收入，系统性误拒。", "取决于是否满房，用容量约束与 ρ 修正。", "预测误差与需求不确定性。"], "probes": [["团价高就接", "餐饮、会议与变动成本算进去了吗？"], ["净贡献为正就够了", "预测错了拿什么缓冲？"]], "rubric": "多收入流 2 分 / 置换量与 ρ·wash 2 分 / 安全边际与口径一致 1 分", "tables": "表 G / K"}, "竞争分析": {"goals": ["构造 2×2 收益矩阵并用同一套口径算出四格", "用概率算单期期望，指出占优策略", "说明重复博弈如何反转结论"], "case": "竞品 ADR 从 680 降到 625.60（−8%）。按表查触发成立，值班主管准备跟价。", "formula": "净贡献 = 间夜 × (ADR − 变动成本 + 非客房净贡献)；单期期望 = P(真降)×收益 + P(虚降)×收益", "ex": "P(真降)=0.6：不跟 ¥102,114、跟 ¥105,271.92（单期跟价略优 +3,157.92）；加第二期报复后，不跟 +¥26,022.08。", "quiz": ["把 P(真降) 改成 0.9，跟价优势扩大还是缩小？", "若第二期竞品不报复，结论会翻转吗？", "查表与博弈分别适用什么场景？"], "ans": ["扩大到约 9,928。", "会，说明结论依赖报复假设，须标来源。", "查表单期局部规则；博弈多期全局判断。"], "probes": [["竞品降价必须跟", "对方下一期会怎么反应？"], ["收益矩阵填收入就行", "变动成本与非客房收入呢？"]], "rubric": "四格同口径 2 分 / 期望与两期 2 分 / 假设标注 1 分", "tables": "表 A / C / D / O"}, "客户价值": {"goals": ["计算简化 CLV 并写出留存率假设", "识别单晚最大化与关系价值最大化的冲突", "做敏感性分析并说明参数不可验证时怎么办"], "case": "协议客户年 40 间夜、单间净贡献 558、获客成本 3,000；本次置换门槛 50,000。", "formula": "简化 CLV = 年均间夜 × 单间净贡献 × [1÷(1−r)] − 获客成本；接单：本次净贡献 + ΔCLV ≥ 综合置换成本 + 容量机会成本", "ex": "r=40% → 34,200 拒；r=60% → 52,800 接受；r=80% → 108,600 接受；翻转临界 r ≈ 57.44%。", "quiz": ["获客成本改 8,000，r=60% 时结论如何？", "容量机会成本升到 20,000 呢？", "只有 1 年历史、无法估 r 怎么办？"], "ans": ["CLV 47,800 → 拒，结论翻转。", "门槛 62,000，中间档最敏感。", "按最保守档处理或补证据，不得臆造参数。"], "probes": [["协议客户一定该让价", "分子分母口径一致吗？"], ["CLV 是账上数字", "它是估计量还是实绩？"]], "rubric": "三档 CLV 2 分 / 翻转点 2 分 / 假设来源 1 分", "tables": "表 G / H / O"}, "AI 与优化": {"goals": ["用生成式 AI 生成候选并举证其错误", "把容量配置写成目标函数 + 约束", "执行输入—校验—输出—留痕闭环，人工签署"], "case": "学生让 AI 算 RGI，AI 答「MPI 105.88 乘 ARI 90.88 得 9622.84，远超竞组」。", "formula": "max Σ 间夜ᵢ × 净贡献ᵢ　s.t. Σ ≤ 可售 292；超售 ≤ 14；24h 调价 ≤ 2；fence 不泄漏。AI 产出 = 候选；复算 + 签署 = 决策", "ex": "正确 RGI = 105.88×90.88÷100 = 96.23；按净贡献排序分配 180/90/22 得总净贡献 155,544，优于先接团队 152,139.20。", "quiz": ["找出这段 AI 输出的两类错。", "团队净贡献改 600，保护位怎么调？", "谁签字、谁负责、怎么回滚？"], "ans": ["漏 ÷100；把指数当营收结论。", "团队升到首位，重排并复核 fence 与渠道约束。", "签署人负责；决策日志 13 字段是载体；另起版本，旧版不删。"], "probes": [["AI 算得比人快", "你复算了吗？口径回溯了吗？"], ["AI 可以替收益经理决策", "它掌握本店私有数据吗？能签字吗？"]], "rubric": "幻觉举证 2 分 / 优化表达 2 分 / 责任链与回滚 1 分", "tables": "表 A–O 全表 / 决策日志 13 字段"}, "预算与治理": {"goals": ["把年度目标拆到每日并写明口径", "用决策日志 13 字段留痕，识别多表冲突", "按月复盘 MAPE 与调价命中率并回填阈值"], "case": "年度预算会给到 RevPAR 目标，月度复盘发现达标但 GOPPAR 没涨。经理问哪里出了偏差。", "formula": "Flow-Through = ΔGOP ÷ Δ收入；RevPAR 是收入侧过程指标，利润结果看净贡献 / GOPPAR", "ex": "按 300 间基线把年度目标拆到日；用表 M / N 检查决策日志 13 字段完整率与阈值回填依据。", "quiz": ["RevPAR 达标等于经营结果达标吗？", "多张表冲突时谁裁决？", "阈值回填要写什么？"], "ans": ["不等于，须看利润侧。", "按表 O 冲突矩阵唯一裁决并写取舍。", "至少 2 个阈值、各自依据与生效学期。"], "probes": [["报表好看就行", "成本与渠道费用呢？"], ["台账记个结果就够", "谁审批、何时解除、冲突怎么仲裁？"]], "rubric": "目标拆解 2 分 / 13 字段留痕 2 分 / 阈值回填 1 分", "tables": "表 M / N / O"}, "组织与职业": {"goals": ["说清收益岗位与前厅、销售、财务的职责边界", "识别危机中的价格处置两条原则", "写明跨部门协调的证据形式"], "case": "展会展期突然取消，销售要求降价保量，前厅担心超售，财务担心毛利。谁来拍板？", "formula": "决策权属按「谁定什么」表；危机处置：先保价格体系与 fence，再按容量机会成本决定是否放量", "ex": "用能力雷达六维度给岗位画像；跨部门答辩时分别回答前厅、销售、财务各一个质询。", "quiz": ["定价权在总部还是门店？", "危机中先降价还是先保 fence？", "跨部门协调要留什么证据？"], "ans": ["按「谁定什么」表，连锁集权下门店只有执行与上报权。", "先保价格体系与 fence，再按容量机会成本决定是否放量。", "决策日志 13 字段 + 审批人 + 冲突仲裁备注。"], "probes": [["收益经理一个人说了算", "销售与财务的约束写进决策日志了吗？"], ["危机先冲量", "价格体系一旦破了，多久能修回来？"]], "rubric": "职责边界 2 分 / 处置原则 2 分 / 跨部门证据 1 分", "tables": "表 M / O"}, "数据与实践": {"goals": ["识别数据集里的缺失、重复、异常与口径混用", "说明每类缺陷会改变哪个指标与哪个决策", "写出处理方式与《本结论的假设与不可验证处》"], "case": "十三周经营数据表里，OCC 有时接近 0，有时超过 100%。学生说「数据就这样，直接算吧」。", "formula": "OCC = 售出间夜 ÷ 可售房夜；可售房夜 = 房型房量 − OOO，按渠道分配后不得与房型总量混加", "ex": "8 类缺陷：缺失、重复、异常尖峰、渠道串价、OOO 未剔、取消未回冲、分母口径混用、竞组权重未标注；逐类给位置与影响。", "quiz": ["套房某行 available_rooms 写成 300，会怎样？", "取消未回冲影响哪个指标？", "为什么「数据有问题」四个字不给分？"], "ans": ["OCC 被稀释到接近 0，RevPAR 失真。", "净售出与 Pace/Pickup 失真。", "必须给具体位置、处理方式、对哪个指标与决策的影响。"], "probes": [["清洗就是删掉异常行", "异常行的业务原因查了吗？"], ["干净数据才好教", "学生毕业后遇到的是干净数据吗？"]], "rubric": "缺陷清单 ≥4 类 2 分 / 处理与指标影响 2 分 / 假设说明 1 分", "tables": "表 A / I / L / O"}}, EN={"指标与口径": {"goals": ["Recompute OCC, ADR and RevPAR from the metric dictionary, stating whether OOO rooms leave the denominator", "Run a full MPI / ARI / RGI diagnosis without automatically matching a competitor price", "Write the scope statement and name the inputs that cannot be verified"], "case": "The daily report shows occupancy 72%, ADR 618, RevPAR 445; the competitive set is at 68.0% occupancy and ADR 680. The manager asks: where exactly are we behind?", "formula": "RevPAR = ADR x Occupancy; MPI = hotel OCC / comp-set OCC x 100; ARI = hotel ADR / comp-set ADR x 100; RGI = MPI x ARI / 100", "ex": "MPI = 72 / 68.0 x 100 = 105.88; ARI = 618 / 680 x 100 = 90.88; RGI = 96.23. Direct check: 444.96 / 462.40 x 100 = 96.23. Both routes agree.", "quiz": ["If the comp-set ADR is room-count weighted at 691.68, what are ARI and RGI?", "If 8 out-of-order rooms stay in the denominator, is OCC overstated or understated?", "Why does omitting /100 turn 96.23 into 9622.84?"], "ans": ["ARI about 89.35, RGI about 94.61; the weighting rule must be stated.", "The denominator is too large, so OCC is understated.", "MPI x ARI is a product of two index numbers; divide by 100 to return to an index."], "probes": [["A high RGI means we are profitable", "Which metric shows the profit outcome? Is RevPAR a process or a result?"], ["A simple average of the comp set is fine", "Five hotels have different room counts. Which weights apply?"]], "rubric": "Scope statement 2 pts / three indices recomputed 2 pts / weighting rationale 1 pt", "tables": "Tables C / D / O"}, "需求预测": {"goals": ["Recompute a forecast with two methods and compare WAPE with signed Bias", "Rebuild unconstrained demand and explain why a sold-out day is not true demand", "Produce P50/P25/P75 and show how they enter overbooking authorisation"], "case": "Three of twelve weeks sold out. The instructor asks: on those weeks, was true demand equal to rooms sold?", "formula": "WAPE = sum|actual - forecast| / sum(actual); Bias = sum(forecast - actual) / n, sign retained; P50/P25/P75 are quantile forecasts", "ex": "Forecast once with a moving average and once with exponential smoothing. MAPE alone hides systematic over-forecasting; the sign of Bias reveals the direction.", "quiz": ["Where did the rejected bookings go on sold-out days?", "Why must Bias keep its sign?", "Should peak overbooking use P50 or P75?"], "ans": ["They belong to unconstrained demand and must be rebuilt, or demand is understated.", "Taking the absolute value discards the direction of systematic error.", "Use P75 for the high-demand case, while keeping the 5% / 15-room hard cap."], "probes": [["A smaller error is always better", "Is systematic over-forecasting handled like random noise?"], ["One forecast number is enough", "How do interval forecasts enter a pricing decision?"]], "rubric": "Two reproducible methods 2 pts / WAPE plus signed Bias 2 pts / intervals used in decisions 1 pt", "tables": "Tables A / I / L"}, "动态定价": {"goals": ["Recompute arc elasticity and explain why the base point changes the answer", "Unify price increases and cuts on one demand curve", "Name an assumption that would flip the conclusion"], "case": "Off-peak, 84 rooms remain at ADR 618. Sales proposes 560 to buy volume. When price moved 618 to 590, sold room-nights rose from 208 to 224.", "formula": "Arc elasticity = (dQ / Q-mean) / (dP / P-mean); Q-mean and P-mean use both endpoints; net rate = rate x (1 - cost rate)", "ex": "Compute elasticity from endpoint means, then project incremental room-nights at 560. Cap the increment at 84 available rooms and deduct displacement.", "quiz": ["Does the elasticity denominator use the starting point or the mean of both endpoints?", "What if incremental room-nights exceed available rooms?", "Give one assumption that flips the conclusion."], "ans": ["The mean of both endpoints, to avoid reversal from base-point choice.", "Cap at availability; the excess earns nothing and may displace higher-paying guests.", "A simultaneous competitor cut, elasticity varying by price band, or a higher capacity opportunity cost."], "probes": [["A cut always sells more", "Are the extra rooms available, and who is displaced?"], ["Elasticity is constant", "Is it the same in the high and low price bands?"]], "rubric": "Elasticity formula 2 pts / capacity cap 2 pts / assumptions and unverifiable inputs 1 pt", "tables": "Tables A / F / J"}, "库存与超售": {"goals": ["Minimise expected loss over overbooking levels using the no-show distribution and walk cost", "Respect the 5% / 15-room hard cap", "Set LOS / MLOS / CTA restrictions and state when they are released"], "case": "Available rooms are 292 (300 less 8 out of order), with a 6% no-show forecast. The front desk asks: how many rooms may we overbook today?", "formula": "Expected net gain(k) = extra expected sales x unit contribution - P(walk) x walk cost; overbooking <= min(5% x 292, 15) = 14 rooms", "ex": "Estimate walk cost at 2.5 x ADR = 1,545. Evaluate expected net gain for each k and take the maximum below the hard cap.", "quiz": ["Why is the no-show rate alone insufficient?", "Is walk cost just one night of room revenue?", "When must a closed-to-arrival restriction be released?"], "ans": ["You also need the probability of excess arrivals and the walk cost.", "It usually includes 2-3 times the room rate, relocation and goodwill.", "When demand weakens or a competitor releases inventory; record it in the decision log."], "probes": [["Selling a few extra rooms cannot hurt", "What does one walked guest actually cost?"], ["5% is a guideline", "Is that a hard cap or a suggestion?"]], "rubric": "Expected-loss table 2 pts / hard cap 2 pts / restrictions and release point 1 pt", "tables": "Tables B / E / L"}, "渠道管理": {"goals": ["Recompute channel net rates with seven cost categories, deducting cost exactly once", "Find a feasible mix under capacity, direct minimum, single-channel cap and rate-fence constraints", "Compute HHI and explain concentration risk"], "case": "210 room-nights must be split across direct at 618 / 4%, corporate at 560 / 9% and OTA at 620 / 16%. Someone proposes putting everything into the highest net rate.", "formula": "Net rate = rate x (1 - cost rate); HHI = sum of squared channel shares; constraints: total <= availability, direct >= 35%, any single channel <= 45%, no fence leakage", "ex": "Net rates are 593.28 / 509.60 / 520.80. An 80/60/70 split satisfies all four constraints, HHI = 0.3379, total net contribution 114,494.40.", "quiz": ["What happens if commission is deducted from the net rate a second time?", "Why is the highest net rate not the optimal mix?", "Give one rate-fence leak scenario."], "ans": ["Cost is double counted and channel revenue systematically understated.", "It breaks the single-channel cap and cuts off corporate and OTA demand (HHI = 1).", "A member-only rate appears at the same level on a public OTA, shifting high-yield guests and breaking the price architecture."], "probes": [["Dropping OTA improves profit", "Where does demand come from once the comparison channel is gone?"], ["A mix is just a ranking", "Have all four constraints been written down?"]], "rubric": "Four constraints 2 pts / HHI and total contribution 2 pts / fence check 1 pt", "tables": "Tables F / H / O"}, "团队置换": {"goals": ["Recompute a group enquiry with the contribution method, keeping numerator and denominator in the same scope", "Explain how wash, the displacement factor and the safety margin each change the answer", "State where assumptions come from and what cannot be verified"], "case": "Group: 50 rooms at 650 with F&B net contribution 180 per room. Transient ADR 1,000 with F&B 200; variable cost 120; wash 10%, forecast occupancy 60%, safety margin 10%.", "formula": "Contribution = (ADR - variable cost) + non-room net contribution; true displacement = MAX(0, transient demand + group - capacity) x rho x (1 - wash), capacity-capped", "ex": "Group unit contribution (650-120)+180 = 710; transient (1000-120)+200 = 1,080. Recomputed in the decision calculator: net contribution 3,488, accept.", "quiz": ["Why must we not compare room revenue alone?", "Do 50 group rooms always displace 50 transient rooms?", "What does the 10% safety margin buffer?"], "ans": ["It ignores variable cost and non-room revenue, and systematically rejects good business.", "Only if the hotel would sell out; use the capacity cap and rho.", "Forecast error and demand uncertainty."], "probes": [["A higher group rate means accept", "Have F&B, meetings and variable cost been included?"], ["A positive contribution is enough", "What buffers a wrong forecast?"]], "rubric": "Multiple revenue streams 2 pts / displacement, rho and wash 2 pts / margin and scope consistency 1 pt", "tables": "Tables G / K"}, "竞争分析": {"goals": ["Build a 2x2 payoff matrix and compute all four cells on one consistent basis", "Compute a single-period expectation with probabilities and identify the dominant action", "Explain how repeated play reverses the conclusion"], "case": "A competitor cuts ADR from 680 to 625.60 (-8%). The lookup table says the trigger is met and the duty manager is about to follow.", "formula": "Contribution = room-nights x (ADR - variable cost + non-room contribution); single-period expectation = P(real cut) x payoff + P(feint) x payoff", "ex": "At P(real cut) = 0.6: not following yields 102,114 and following 105,271.92, a small single-period gain of 3,157.92. Adding second-period retaliation makes not following better by 26,022.08.", "quiz": ["If P(real cut) rises to 0.9, does the advantage of following grow or shrink?", "If there is no second-period retaliation, does the conclusion flip?", "When is a lookup table appropriate and when is game analysis?"], "ans": ["It grows to about 9,928.", "Yes, so the conclusion depends on the retaliation assumption, which must be sourced.", "Tables handle single-period local rules; games handle multi-period global judgement."], "probes": [["We must follow a competitor cut", "How will the other side respond next period?"], ["Revenue is enough for the payoff matrix", "What about variable cost and non-room revenue?"]], "rubric": "Four cells on one basis 2 pts / expectation and two periods 2 pts / assumption sourcing 1 pt", "tables": "Tables A / C / D / O"}, "客户价值": {"goals": ["Compute a simplified CLV and state the retention assumption", "Identify the conflict between maximising one night and maximising a relationship", "Run sensitivity analysis and explain what to do when a parameter cannot be verified"], "case": "A corporate account generates 40 room-nights a year at unit contribution 558, with acquisition cost 3,000. The displacement hurdle today is 50,000.", "formula": "Simplified CLV = annual room-nights x unit contribution x [1 / (1 - r)] - acquisition cost; accept if current contribution + change in CLV >= displacement cost + capacity opportunity cost", "ex": "At r = 40% the CLV is 34,200 (decline); at 60% it is 52,800 (accept); at 80% it is 108,600. The switch point is about r = 57.44%.", "quiz": ["If acquisition cost rises to 8,000, what happens at r = 60%?", "What if capacity opportunity cost rises to 20,000?", "With only one year of history, how do you estimate r?"], "ans": ["CLV falls to 47,800 and the decision flips to decline.", "The hurdle becomes 62,000; the middle retention case is most sensitive.", "Use the most conservative case or gather evidence; never invent the parameter."], "probes": [["Corporate accounts always deserve a discount", "Are numerator and denominator in the same scope?"], ["CLV is a number in the ledger", "Is it an estimate or an actual result?"]], "rubric": "Three CLV cases 2 pts / switch point 2 pts / assumption sourcing 1 pt", "tables": "Tables G / H / O"}, "AI 与优化": {"goals": ["Generate candidates with an AI tool and produce evidence of its errors", "Express capacity allocation as an objective plus constraints", "Run the input-check-output-sign-off loop with human accountability"], "case": "A student asks an AI tool for RGI. It answers: MPI 105.88 times ARI 90.88 equals 9622.84, far ahead of the comp set.", "formula": "Maximise sum(room-nights_i x contribution_i) subject to total <= 292 available; overbooking <= 14; at most 2 price changes in 24h; no fence leakage. AI output is a candidate; recomputation plus sign-off is the decision.", "ex": "Correct RGI = 105.88 x 90.88 / 100 = 96.23. Allocating 180/90/22 by contribution yields 155,544, better than taking the group first at 152,139.20.", "quiz": ["Find two distinct errors in that AI answer.", "If the group contribution rises to 600, how do protection levels change?", "Who signs, who is accountable, and how is a rollback done?"], "ans": ["The missing /100, and treating an index as a revenue conclusion.", "The group moves up the ranking; re-run and re-check fence and channel constraints.", "The signatory is accountable; a 13-field decision log is the record; publish a new edition without deleting the old one."], "probes": [["AI is faster than a person", "Did you recompute and trace the scope?"], ["AI can replace the revenue manager", "Does it have the hotel private data, and can it sign?"]], "rubric": "Hallucination evidence 2 pts / optimisation formulation 2 pts / accountability and rollback 1 pt", "tables": "Tables A-O / 13-field decision log"}, "预算与治理": {"goals": ["Break the annual target down to a daily figure and state the scope", "Use a 13-field decision log and detect conflicts across tables", "Review MAPE and price-change hit rate monthly and refill thresholds"], "case": "The annual budget sets a RevPAR target. The monthly review shows RevPAR on plan but GOPPAR flat. The manager asks where the gap came from.", "formula": "Flow-Through = change in GOP / change in revenue; RevPAR is a revenue-side process metric, while the profit result shows in contribution / GOPPAR", "ex": "Break the annual target down to days on the 300-room baseline; use tables M and N to check log completeness and the evidence behind threshold refills.", "quiz": ["Does meeting RevPAR mean meeting the business result?", "Who arbitrates when two tables conflict?", "What must a threshold refill record?"], "ans": ["No; check the profit side.", "The conflict matrix in table O gives one ruling, and the trade-off must be written down.", "At least two thresholds, the evidence for each, and the semester in which they take effect."], "probes": [["A good report is enough", "What about cost and channel expense?"], ["Logging the outcome is enough", "Who approved, when was it released, and how was a conflict resolved?"]], "rubric": "Target breakdown 2 pts / 13-field log 2 pts / threshold refill 1 pt", "tables": "Tables M / N / O"}, "组织与职业": {"goals": ["Explain the boundary between revenue, front office, sales and finance", "Identify the two principles for price decisions in a crisis", "State what evidence cross-functional coordination leaves behind"], "case": "A trade show is cancelled at short notice. Sales wants a cut to protect volume, front office fears walks, finance fears margin. Who decides?", "formula": "Decision rights follow the \"who decides what\" table; in a crisis, protect the rate architecture and fences first, then decide on volume using capacity opportunity cost", "ex": "Use the six-dimension competency radar to profile roles; in a cross-functional defence, answer one challenge from front office, sales and finance.", "quiz": ["Does pricing authority sit with head office or the property?", "In a crisis, cut first or protect fences first?", "What evidence should coordination leave?"], "ans": ["Per the decision-rights table; under centralised chains the property executes and reports.", "Protect the rate architecture and fences, then judge volume against capacity opportunity cost.", "A 13-field decision log plus approver and conflict-arbitration notes."], "probes": [["The revenue manager decides alone", "Were the sales and finance constraints written into the log?"], ["Chase volume first in a crisis", "Once the rate architecture breaks, how long to repair it?"]], "rubric": "Role boundaries 2 pts / handling principles 2 pts / cross-functional evidence 1 pt", "tables": "Tables M / O"}, "数据与实践": {"goals": ["Detect missing values, duplicates, outliers and mixed denominators in a dataset", "Explain which metric and which decision each defect changes", "Write the treatment and a statement of assumptions and unverifiable inputs"], "case": "In a thirteen-week operating dataset, occupancy is sometimes near zero and sometimes above 100%. A student says: that is just the data, let us compute.", "formula": "Occupancy = rooms sold / rooms available; rooms available = room-type inventory minus out-of-order; channel allocations must not be added to room-type totals", "ex": "Eight defect classes: missing, duplicate, spike, cross-channel rate leakage, OOO not removed, cancellations not reversed, mixed denominators, unstated comp-set weights. Each is located and its impact stated.", "quiz": ["One suite row has available_rooms = 300. What happens?", "Which metric does an unreversed cancellation distort?", "Why does \"the data has issues\" earn no credit?"], "ans": ["Occupancy is diluted towards zero and RevPAR is distorted.", "Net rooms sold and Pace / Pickup.", "The answer must give the location, the treatment, and the affected metric and decision."], "probes": [["Cleaning means deleting outliers", "Was the business cause of the outlier investigated?"], ["Clean data is better for teaching", "Will graduates receive clean data at work?"]], "rubric": "At least four defect classes 2 pts / treatment and metric impact 2 pts / assumption statement 1 pt", "tables": "Tables A / I / L / O"}}, RES=[{"id": "r01", "title": "收益决策判定表（15 张）", "type": "判定表", "ch": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], "mods": ["指标与口径", "需求预测", "动态定价", "库存与超售", "渠道管理", "团队置换", "竞争分析", "客户价值", "AI 与优化", "预算与治理", "组织与职业", "数据与实践"], "kw": ["判定表", "阈值", "表A", "表G", "置换", "调价", "超售"], "url": "decision-tables.html", "summary": "A–O 共 15 张判定表，覆盖调价、超售、渠道开关与置换；阈值须用本店数据校准。"}, {"id": "r02", "title": "核心指标与公式卡", "type": "视觉笔记", "ch": [1, 2, 3, 27, 30, 33, 35, 36], "mods": ["指标与口径", "预算与治理"], "kw": ["公式", "OCC", "ADR", "RevPAR", "RGI", "GOPPAR", "口径"], "url": "formulas.html", "summary": "指标定义、恒等式与常见口径陷阱，可打印成课堂速查卡。"}, {"id": "r03", "title": "季度收益方案 · 任务书与评分量规", "type": "评分量规", "ch": [20, 21, 22, 23, 24, 25, 26, 27, 28], "mods": ["数据与实践", "预算与治理", "AI 与优化"], "kw": ["期末", "项目", "量规", "rubric", "复盘", "作品"], "url": "v2026-7-capstone-project.html", "summary": "13 周五阶段任务书与 100 分评分量规，覆盖市场分析到效果复盘。"}, {"id": "r04", "title": "经营数据实训包（含教师参考答案）", "type": "数据包", "ch": [23, 24, 27, 31, 35, 36, 46], "mods": ["数据与实践", "需求预测", "AI 与优化"], "kw": ["脏数据", "缺失", "重复", "异常", "分母", "数据质量", "CSV"], "url": "v2026-9-dr01-answer-key.html", "summary": "十三周经营数据表，内置 8 类缺陷，配教师答案表与逐类影响说明。"}, {"id": "r05", "title": "经营数据实训包 · 学生数据文件", "type": "数据包", "ch": [23, 27, 35], "mods": ["数据与实践"], "kw": ["CSV", "XLSX", "数据集", "下载"], "url": "v2026-9-dr01-dirty-data.csv", "summary": "可直接下载的 CSV 数据文件，供课堂清洗与复算。"}, {"id": "r06", "title": "团队置换决策计算器", "type": "可复算算例", "ch": [17, 18, 34], "mods": ["团队置换", "客户价值"], "kw": ["置换", "净贡献", "wash", "ρ", "安全边际", "Excel", "计算器"], "url": "calc-displacement-v2026-6.xlsx", "summary": "活公式模板：多收入流、洗房率、置换因子与安全边际一次算清。"}, {"id": "r07", "title": "课堂素材包（案例／小测／视觉笔记／追问卡）", "type": "免费组件", "ch": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], "mods": ["指标与口径", "需求预测", "动态定价", "库存与超售", "渠道管理", "团队置换", "竞争分析", "客户价值", "AI 与优化", "预算与治理", "组织与职业", "数据与实践"], "kw": ["案例卡", "小测", "追问卡", "视觉笔记", "素材", "中英"], "url": "v2026-9-free-components.html", "summary": "8 份可直接使用或改编的课堂素材，中英各一组。"}, {"id": "r08", "title": "《酒店收益管理》标准版电子书", "type": "视觉笔记", "ch": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], "mods": ["指标与口径", "需求预测", "动态定价", "库存与超售", "渠道管理", "团队置换", "竞争分析", "客户价值", "AI 与优化", "预算与治理", "组织与职业", "数据与实践"], "kw": ["教材", "电子书", "讲义", "全册", "阅读", "打印"], "url": "book-reader.html", "summary": "七篇 46 章完整正文，左侧目录、可完整打印、可下载 HTML 与 EPUB。"}, {"id": "r09", "title": "分层教学标注版电子书", "type": "视觉笔记", "ch": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], "mods": ["指标与口径", "需求预测", "动态定价", "库存与超售", "渠道管理", "团队置换", "竞争分析", "客户价值", "AI 与优化", "预算与治理", "组织与职业", "数据与实践"], "kw": ["分层", "中职", "高职", "本科", "标签", "院校"], "url": "book-reader-levels.html", "summary": "每章标注适合的院校层次，备课时按颜色挑范围。"}, {"id": "r10", "title": "中职适用版电子书", "type": "视觉笔记", "ch": [1, 2, 3, 20, 21, 27, 29, 33, 35, 36, 45, 46], "mods": ["指标与口径", "组织与职业"], "kw": ["中职", "基础", "指标认知"], "url": "book-reader-vocational.html", "summary": "只保留中职适用章节，附本层次学习目标与学时建议。"}, {"id": "r11", "title": "高职适用版电子书", "type": "视觉笔记", "ch": [1, 2, 3, 4, 6, 8, 9, 10, 11, 12, 13, 14, 16, 18, 19, 20, 21, 23, 26, 27, 28, 29, 32, 33, 35, 36, 37, 38, 39, 44, 45, 46], "mods": ["动态定价", "库存与超售", "渠道管理"], "kw": ["高职", "实操", "战术"], "url": "book-reader-college.html", "summary": "只保留高职适用章节，附本层次学习目标与学时建议。"}, {"id": "r12", "title": "本科适用版电子书", "type": "视觉笔记", "ch": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], "mods": ["竞争分析", "客户价值", "AI 与优化", "预算与治理"], "kw": ["本科", "战略", "答辩"], "url": "book-reader-undergraduate.html", "summary": "完整 46 章，附战略分析与跨部门答辩要求。"}, {"id": "r13", "title": "46 章总索引", "type": "判定表", "ch": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], "mods": ["指标与口径", "需求预测", "动态定价", "库存与超售", "渠道管理", "团队置换", "竞争分析", "客户价值", "AI 与优化", "预算与治理", "组织与职业", "数据与实践"], "kw": ["索引", "目录", "章号", "对照", "关联"], "url": "book-46-chapters-index.html", "summary": "逐章列出教学模块、适用层次、判定表与配套资料入口。"}, {"id": "r14", "title": "分层课程包 · 三档排课与学时", "type": "评分量规", "ch": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], "mods": ["指标与口径", "需求预测", "动态定价", "库存与超售", "渠道管理", "团队置换", "竞争分析", "客户价值", "AI 与优化", "预算与治理", "组织与职业", "数据与实践"], "kw": ["排课", "学时", "中职", "高职", "本科", "逐周"], "url": "v2026-9-track-vtu.html", "summary": "V/T/U 三档逐周排课、结业证据与禁用表述，可直接排进教学计划。"}, {"id": "r15", "title": "活页模块与更新机制", "type": "免费组件", "ch": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], "mods": ["指标与口径", "需求预测", "动态定价", "库存与超售", "渠道管理", "团队置换", "竞争分析", "客户价值", "AI 与优化", "预算与治理", "组织与职业", "数据与实践"], "kw": ["活页", "更新", "模块卡", "替换", "校企合作"], "url": "v2026-9-leaflet-modules.html", "summary": "可替换模块卡、更新触发与验收清单，供每学期局部更新。"}, {"id": "r16", "title": "战略与 AI 五章完整讲义", "type": "导入案例", "ch": [7, 15, 17, 24, 40], "mods": ["竞争分析", "渠道管理", "客户价值", "需求预测", "AI 与优化"], "kw": ["需求创造", "渠道组合", "CLV", "博弈", "生成式AI", "算例"], "url": "v2026-9-textbook-n1-n5.html", "summary": "五讲完整正文：目标、导入、公式、可复算算例、三题与答案、三级深度。"}, {"id": "r17", "title": "AI 教学材料校验工具", "type": "评分量规", "ch": [3, 18, 40], "mods": ["AI 与优化", "指标与口径", "团队置换"], "kw": ["门禁", "校验", "禁用词", "AI", "对齐", "抽检"], "url": "v2026-9-guardrails-and-alignment.html", "summary": "可粘贴文本的 8 项校验器，用于核查 AI 生成教学材料。"}, {"id": "r18", "title": "教学试点记录表模板", "type": "数据包", "ch": [23, 27, 35], "mods": ["数据与实践"], "kw": ["采集表", "CSV", "试点", "匿名"], "url": "v2026-9-pilot-data-template.csv", "summary": "聚合与匿名数据的字段模板，供教学试点记录。"}, {"id": "r19", "title": "指标口径与竞争指数（教材第 1–3 章）", "type": "可复算算例", "ch": [1, 2, 3], "mods": ["指标与口径", "竞争分析"], "kw": ["MPI", "ARI", "RGI", "÷100", "竞组", "OCC"], "url": "book-reader.html#ch01", "summary": "三个核心指标与竞争三件套的复算过程与常见错误。"}, {"id": "r20", "title": "价格弹性与调价触发（教材第 4–5 章）", "type": "可复算算例", "ch": [4, 5, 8], "mods": ["动态定价"], "kw": ["弹性", "弧弹性", "调价", "触发", "阈值"], "url": "book-reader.html#ch04", "summary": "用两端均值算弧弹性，并把降价与涨价统一到同一条需求曲线。"}, {"id": "r21", "title": "超售与库存保护（教材第 11–13 章）", "type": "课堂练习", "ch": [11, 12, 13], "mods": ["库存与超售"], "kw": ["超售", "no-show", "walk", "保护位", "bid price"], "url": "book-reader.html#ch11", "summary": "期望损失最小的超售间数，以及 LOS / MLOS / CTA 的配置练习。"}, {"id": "r22", "title": "渠道净价与组合约束（教材第 14–15 章）", "type": "课堂练习", "ch": [14, 15, 19], "mods": ["渠道管理"], "kw": ["净价", "成本率", "HHI", "fence", "配额"], "url": "book-reader.html#ch14", "summary": "四条约束下的渠道配额计算与 fence 泄漏检查。"}, {"id": "r23", "title": "团队置换与总贡献（教材第 18、34 章）", "type": "导入案例", "ch": [18, 34], "mods": ["团队置换"], "kw": ["置换", "净贡献", "wash", "会议宴会", "肩部夜"], "url": "book-reader.html#ch18", "summary": "从纯房费法到净贡献法的对照，含会议宴会总贡献。"}, {"id": "r24", "title": "预测误差与需求日历（教材第 23–24 章）", "type": "可复算算例", "ch": [23, 24, 25], "mods": ["需求预测", "数据与实践"], "kw": ["WAPE", "Bias", "MAPE", "Pickup", "Pace", "无约束需求"], "url": "book-reader.html#ch23", "summary": "两种预测方法、带符号 Bias 与区间预测进入决策。"}, {"id": "r25", "title": "竞争博弈两期分析（教材第 7 章）", "type": "导入案例", "ch": [6, 7], "mods": ["竞争分析"], "kw": ["博弈", "收益矩阵", "重复博弈", "反应函数"], "url": "book-reader.html#ch07", "summary": "单期跟价与两期报复的结论反转，附敏感性讨论。"}, {"id": "r26", "title": "客户终身价值（教材第 17 章）", "type": "可复算算例", "ch": [16, 17, 19], "mods": ["客户价值"], "kw": ["CLV", "留存率", "CAC", "敏感性", "翻转点"], "url": "book-reader.html#ch17", "summary": "简化 CLV 三档计算、翻转临界留存率与参数不可验证时的处理。"}, {"id": "r27", "title": "生成式 AI 的校验链（教材第 40 章）", "type": "追问卡", "ch": [39, 40, 45], "mods": ["AI 与优化"], "kw": ["生成式AI", "幻觉", "复算", "提示词", "签署", "责任"], "url": "book-reader.html#ch40", "summary": "把 AI 放在候选位而不是决策位，含幻觉举证与签署闭环。"}, {"id": "r28", "title": "追问卡 · 指标与口径", "type": "追问卡", "ch": [1, 2, 3, 27, 30], "mods": ["指标与口径", "预算与治理"], "kw": ["追问", "RGI", "GOPPAR", "口径", "权重"], "url": "v2026-9-free-components.html", "summary": "「RGI 高分就是赚钱」「竞组简单平均就行」两条常见主张的课堂追问。"}, {"id": "r29", "title": "追问卡 · 动态定价与弹性", "type": "追问卡", "ch": [4, 5, 8, 9, 10], "mods": ["动态定价"], "kw": ["追问", "降价", "弹性", "容量", "余房"], "url": "v2026-9-free-components.html", "summary": "「降价就能多卖」「弹性是固定的」两条主张的课堂追问。"}, {"id": "r30", "title": "追问卡 · 团队置换", "type": "追问卡", "ch": [16, 17, 18, 34], "mods": ["团队置换", "客户价值"], "kw": ["追问", "团价", "wash", "安全边际", "非客房"], "url": "v2026-9-free-components.html", "summary": "「团价高就接」「净贡献为正就够了」两条主张的课堂追问。"}, {"id": "r31", "title": "追问卡 · 数据与 AI", "type": "追问卡", "ch": [31, 35, 36, 39, 40, 45], "mods": ["AI 与优化", "数据与实践"], "kw": ["追问", "脏数据", "AI", "复算", "签署"], "url": "v2026-9-free-components.html", "summary": "「清洗就是删异常行」「AI 算得比人快」两条主张的课堂追问。"}, {"id": "r32", "title": "视觉笔记 · 三指数关系图", "type": "视觉笔记", "ch": [1, 2, 3], "mods": ["指标与口径", "竞争分析"], "kw": ["视觉笔记", "MPI", "ARI", "RGI", "图解"], "url": "v2026-9-free-components.html", "summary": "一页图解 MPI / ARI / RGI 的换算关系与 ÷100 位置。"}, {"id": "r33", "title": "视觉笔记 · 渠道净价树", "type": "视觉笔记", "ch": [14, 15, 19], "mods": ["渠道管理"], "kw": ["视觉笔记", "净价", "成本率", "fence", "图解"], "url": "v2026-9-free-components.html", "summary": "一页图解七类成本率与渠道净价，标明只扣一次。"}, {"id": "r34", "title": "视觉笔记 · 置换决策流程", "type": "视觉笔记", "ch": [17, 18, 34], "mods": ["团队置换"], "kw": ["视觉笔记", "置换", "wash", "ρ", "流程图"], "url": "v2026-9-free-components.html", "summary": "从询价到接受的判断流程，标出容量约束与安全边际。"}, {"id": "r35", "title": "评分量规 · 三题与答案（12 模块）", "type": "评分量规", "ch": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], "mods": ["指标与口径", "需求预测", "动态定价", "库存与超售", "渠道管理", "团队置换", "竞争分析", "客户价值", "AI 与优化", "预算与治理", "组织与职业", "数据与实践"], "kw": ["评分", "量规", "答案", "三题", "rubric"], "url": "v2026-9-textbook-n1-n5.html", "summary": "按教学模块组织的三道练习、逐题评分点与参考答案。"}, {"id": "r36", "title": "导入案例 · 经营现场十二则", "type": "导入案例", "ch": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], "mods": ["指标与口径", "需求预测", "动态定价", "库存与超售", "渠道管理", "团队置换", "竞争分析", "客户价值", "AI 与优化", "预算与治理", "组织与职业", "数据与实践"], "kw": ["导入", "案例", "情境", "日报", "询价"], "url": "v2026-9-textbook-n1-n5.html", "summary": "从日报、询价、竞品降价到展会取消的十二个课堂开场情境。"}, {"id": "r37", "title": "课堂练习 · 判定表逐表实操", "type": "课堂练习", "ch": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], "mods": ["动态定价", "库存与超售", "渠道管理", "团队置换"], "kw": ["练习", "判定表", "查表", "阈值", "实操"], "url": "decision-tables.html", "summary": "按表逐条填写输入、判定与依据，训练查表而非背表。"}, {"id": "r38", "title": "判定表 · 调价触发与误触发（表 A）", "type": "判定表", "ch": [4, 5, 8, 26], "mods": ["动态定价"], "kw": ["表A", "调价", "触发", "误触发", "阈值"], "url": "codex.html", "summary": "调价触发的输入、判定分支与误触发率控制，含阈值回填依据。"}, {"id": "r39", "title": "判定表 · 超售与库存保护（表 B / E）", "type": "判定表", "ch": [11, 12, 13], "mods": ["库存与超售"], "kw": ["表B", "表E", "超售", "保护位", "walk"], "url": "books/v2026-2-decision-tables.html", "summary": "超售间数与保护位的完整判定字段，含期望 walk 成本与硬上限。"}, {"id": "r40", "title": "判定表 · 团队询价与渠道开关（表 G / H）", "type": "判定表", "ch": [14, 15, 17, 18, 34], "mods": ["团队置换", "渠道管理"], "kw": ["表G", "表H", "置换", "wash", "渠道开关"], "url": "decision-cards.html", "summary": "公开速查卡：团队询价与渠道开关的输入与判定要点。"}, {"id": "r41", "title": "经营数据实训包 · Excel 数据文件", "type": "数据包", "ch": [23, 27, 35], "mods": ["数据与实践"], "kw": ["XLSX", "Excel", "数据集", "下载"], "url": "v2026-9-dr01-dirty-data.xlsx", "summary": "含字段与口径说明 sheet 的 Excel 数据文件，供课堂清洗。"}, {"id": "r42", "title": "免费课堂组件 · 中英案例卡与小测", "type": "免费组件", "ch": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], "mods": ["指标与口径", "需求预测", "动态定价", "库存与超售", "渠道管理", "团队置换", "竞争分析", "客户价值", "AI 与优化", "预算与治理", "组织与职业", "数据与实践"], "kw": ["免费", "案例卡", "小测", "中英", "素材"], "url": "v2026-9-free-components.html", "summary": "可直接印发或改编的中英双语案例卡与随堂小测。"}, {"id": "r43", "title": "免费课堂组件 · 视觉笔记与追问卡", "type": "免费组件", "ch": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], "mods": ["指标与口径", "需求预测", "动态定价", "库存与超售", "渠道管理", "团队置换", "竞争分析", "客户价值", "AI 与优化", "预算与治理", "组织与职业", "数据与实践"], "kw": ["免费", "视觉笔记", "追问卡", "中英", "素材"], "url": "v2026-9-free-components.html", "summary": "一页图解与课堂追问卡，中英双语，可直接投影。"}, {"id": "r44", "title": "第 1 章 · 导入案例｜收益管理是什么：一句话与底层逻辑", "type": "导入案例", "ch": [1], "mods": ["指标与口径"], "kw": ["收益管理是什么：一句话与底层逻辑", "指标与口径", "导入", "案例"], "url": "book-reader.html#ch01", "summary": "本章开场情境，用于把概念落到具体经营现场。"}, {"id": "r45", "title": "第 1 章 · 可复算算例｜收益管理是什么：一句话与底层逻辑", "type": "可复算算例", "ch": [1], "mods": ["指标与口径"], "kw": ["收益管理是什么：一句话与底层逻辑", "指标与口径", "算例", "复算", "公式"], "url": "book-reader.html#ch01", "summary": "本章公式的逐步复算，数字可自行改动后再验算。"}, {"id": "r46", "title": "第 1 章 · 三道练习｜收益管理是什么：一句话与底层逻辑", "type": "课堂练习", "ch": [1], "mods": ["指标与口径"], "kw": ["收益管理是什么：一句话与底层逻辑", "指标与口径", "练习", "题目"], "url": "book-reader.html#ch01", "summary": "本章三道练习，配答案与评分点。"}, {"id": "r47", "title": "第 1 章 · 课堂追问卡｜收益管理是什么：一句话与底层逻辑", "type": "追问卡", "ch": [1], "mods": ["指标与口径"], "kw": ["收益管理是什么：一句话与底层逻辑", "指标与口径", "追问", "质疑"], "url": "book-reader.html#ch01", "summary": "针对本章常见误解的两轮课堂追问。"}, {"id": "r48", "title": "第 23 章 · 导入案例｜预测与需求日历", "type": "导入案例", "ch": [23], "mods": ["需求预测"], "kw": ["预测与需求日历", "需求预测", "导入", "案例"], "url": "book-reader.html#ch23", "summary": "本章开场情境，用于把概念落到具体经营现场。"}, {"id": "r49", "title": "第 23 章 · 可复算算例｜预测与需求日历", "type": "可复算算例", "ch": [23], "mods": ["需求预测"], "kw": ["预测与需求日历", "需求预测", "算例", "复算", "公式"], "url": "book-reader.html#ch23", "summary": "本章公式的逐步复算，数字可自行改动后再验算。"}, {"id": "r50", "title": "第 23 章 · 三道练习｜预测与需求日历", "type": "课堂练习", "ch": [23], "mods": ["需求预测"], "kw": ["预测与需求日历", "需求预测", "练习", "题目"], "url": "book-reader.html#ch23", "summary": "本章三道练习，配答案与评分点。"}, {"id": "r51", "title": "第 23 章 · 课堂追问卡｜预测与需求日历", "type": "追问卡", "ch": [23], "mods": ["需求预测"], "kw": ["预测与需求日历", "需求预测", "追问", "质疑"], "url": "book-reader.html#ch23", "summary": "针对本章常见误解的两轮课堂追问。"}, {"id": "r52", "title": "第 4 章 · 导入案例｜价格弹性：降多少价能换多少量", "type": "导入案例", "ch": [4], "mods": ["动态定价"], "kw": ["价格弹性：降多少价能换多少量", "动态定价", "导入", "案例"], "url": "book-reader.html#ch04", "summary": "本章开场情境，用于把概念落到具体经营现场。"}, {"id": "r53", "title": "第 4 章 · 可复算算例｜价格弹性：降多少价能换多少量", "type": "可复算算例", "ch": [4], "mods": ["动态定价"], "kw": ["价格弹性：降多少价能换多少量", "动态定价", "算例", "复算", "公式"], "url": "book-reader.html#ch04", "summary": "本章公式的逐步复算，数字可自行改动后再验算。"}, {"id": "r54", "title": "第 4 章 · 三道练习｜价格弹性：降多少价能换多少量", "type": "课堂练习", "ch": [4], "mods": ["动态定价"], "kw": ["价格弹性：降多少价能换多少量", "动态定价", "练习", "题目"], "url": "book-reader.html#ch04", "summary": "本章三道练习，配答案与评分点。"}, {"id": "r55", "title": "第 4 章 · 课堂追问卡｜价格弹性：降多少价能换多少量", "type": "追问卡", "ch": [4], "mods": ["动态定价"], "kw": ["价格弹性：降多少价能换多少量", "动态定价", "追问", "质疑"], "url": "book-reader.html#ch04", "summary": "针对本章常见误解的两轮课堂追问。"}, {"id": "r56", "title": "第 11 章 · 导入案例｜最短住期 MinLOS：用条件把客群分开", "type": "导入案例", "ch": [11], "mods": ["库存与超售"], "kw": ["最短住期 MinLOS：用条件把客群分开", "库存与超售", "导入", "案例"], "url": "book-reader.html#ch11", "summary": "本章开场情境，用于把概念落到具体经营现场。"}, {"id": "r57", "title": "第 11 章 · 可复算算例｜最短住期 MinLOS：用条件把客群分开", "type": "可复算算例", "ch": [11], "mods": ["库存与超售"], "kw": ["最短住期 MinLOS：用条件把客群分开", "库存与超售", "算例", "复算", "公式"], "url": "book-reader.html#ch11", "summary": "本章公式的逐步复算，数字可自行改动后再验算。"}, {"id": "r58", "title": "第 11 章 · 三道练习｜最短住期 MinLOS：用条件把客群分开", "type": "课堂练习", "ch": [11], "mods": ["库存与超售"], "kw": ["最短住期 MinLOS：用条件把客群分开", "库存与超售", "练习", "题目"], "url": "book-reader.html#ch11", "summary": "本章三道练习，配答案与评分点。"}, {"id": "r59", "title": "第 11 章 · 课堂追问卡｜最短住期 MinLOS：用条件把客群分开", "type": "追问卡", "ch": [11], "mods": ["库存与超售"], "kw": ["最短住期 MinLOS：用条件把客群分开", "库存与超售", "追问", "质疑"], "url": "book-reader.html#ch11", "summary": "针对本章常见误解的两轮课堂追问。"}, {"id": "r60", "title": "第 14 章 · 导入案例｜渠道净价：到手多少钱才算数", "type": "导入案例", "ch": [14], "mods": ["渠道管理"], "kw": ["渠道净价：到手多少钱才算数", "渠道管理", "导入", "案例"], "url": "book-reader.html#ch14", "summary": "本章开场情境，用于把概念落到具体经营现场。"}, {"id": "r61", "title": "第 14 章 · 可复算算例｜渠道净价：到手多少钱才算数", "type": "可复算算例", "ch": [14], "mods": ["渠道管理"], "kw": ["渠道净价：到手多少钱才算数", "渠道管理", "算例", "复算", "公式"], "url": "book-reader.html#ch14", "summary": "本章公式的逐步复算，数字可自行改动后再验算。"}, {"id": "r62", "title": "第 14 章 · 三道练习｜渠道净价：到手多少钱才算数", "type": "课堂练习", "ch": [14], "mods": ["渠道管理"], "kw": ["渠道净价：到手多少钱才算数", "渠道管理", "练习", "题目"], "url": "book-reader.html#ch14", "summary": "本章三道练习，配答案与评分点。"}, {"id": "r63", "title": "第 14 章 · 课堂追问卡｜渠道净价：到手多少钱才算数", "type": "追问卡", "ch": [14], "mods": ["渠道管理"], "kw": ["渠道净价：到手多少钱才算数", "渠道管理", "追问", "质疑"], "url": "book-reader.html#ch14", "summary": "针对本章常见误解的两轮课堂追问。"}, {"id": "r64", "title": "第 16 章 · 导入案例｜客源细分：把客人分成几堆来卖", "type": "导入案例", "ch": [16], "mods": ["团队置换"], "kw": ["客源细分：把客人分成几堆来卖", "团队置换", "导入", "案例"], "url": "book-reader.html#ch16", "summary": "本章开场情境，用于把概念落到具体经营现场。"}, {"id": "r65", "title": "第 16 章 · 可复算算例｜客源细分：把客人分成几堆来卖", "type": "可复算算例", "ch": [16], "mods": ["团队置换"], "kw": ["客源细分：把客人分成几堆来卖", "团队置换", "算例", "复算", "公式"], "url": "book-reader.html#ch16", "summary": "本章公式的逐步复算，数字可自行改动后再验算。"}, {"id": "r66", "title": "第 16 章 · 三道练习｜客源细分：把客人分成几堆来卖", "type": "课堂练习", "ch": [16], "mods": ["团队置换"], "kw": ["客源细分：把客人分成几堆来卖", "团队置换", "练习", "题目"], "url": "book-reader.html#ch16", "summary": "本章三道练习，配答案与评分点。"}, {"id": "r67", "title": "第 16 章 · 课堂追问卡｜客源细分：把客人分成几堆来卖", "type": "追问卡", "ch": [16], "mods": ["团队置换"], "kw": ["客源细分：把客人分成几堆来卖", "团队置换", "追问", "质疑"], "url": "book-reader.html#ch16", "summary": "针对本章常见误解的两轮课堂追问。"}, {"id": "r68", "title": "第 3 章 · 导入案例｜竞争三件套：MPI、ARI、RGI", "type": "导入案例", "ch": [3], "mods": ["竞争分析"], "kw": ["竞争三件套：MPI、ARI、RGI", "竞争分析", "导入", "案例"], "url": "book-reader.html#ch03", "summary": "本章开场情境，用于把概念落到具体经营现场。"}, {"id": "r69", "title": "第 3 章 · 可复算算例｜竞争三件套：MPI、ARI、RGI", "type": "可复算算例", "ch": [3], "mods": ["竞争分析"], "kw": ["竞争三件套：MPI、ARI、RGI", "竞争分析", "算例", "复算", "公式"], "url": "book-reader.html#ch03", "summary": "本章公式的逐步复算，数字可自行改动后再验算。"}, {"id": "r70", "title": "第 3 章 · 三道练习｜竞争三件套：MPI、ARI、RGI", "type": "课堂练习", "ch": [3], "mods": ["竞争分析"], "kw": ["竞争三件套：MPI、ARI、RGI", "竞争分析", "练习", "题目"], "url": "book-reader.html#ch03", "summary": "本章三道练习，配答案与评分点。"}, {"id": "r71", "title": "第 3 章 · 课堂追问卡｜竞争三件套：MPI、ARI、RGI", "type": "追问卡", "ch": [3], "mods": ["竞争分析"], "kw": ["竞争三件套：MPI、ARI、RGI", "竞争分析", "追问", "质疑"], "url": "book-reader.html#ch03", "summary": "针对本章常见误解的两轮课堂追问。"}, {"id": "r72", "title": "第 16 章 · 导入案例｜客源细分：把客人分成几堆来卖", "type": "导入案例", "ch": [16], "mods": ["客户价值"], "kw": ["客源细分：把客人分成几堆来卖", "客户价值", "导入", "案例"], "url": "book-reader.html#ch16", "summary": "本章开场情境，用于把概念落到具体经营现场。"}, {"id": "r73", "title": "第 16 章 · 可复算算例｜客源细分：把客人分成几堆来卖", "type": "可复算算例", "ch": [16], "mods": ["客户价值"], "kw": ["客源细分：把客人分成几堆来卖", "客户价值", "算例", "复算", "公式"], "url": "book-reader.html#ch16", "summary": "本章公式的逐步复算，数字可自行改动后再验算。"}, {"id": "r74", "title": "第 16 章 · 三道练习｜客源细分：把客人分成几堆来卖", "type": "课堂练习", "ch": [16], "mods": ["客户价值"], "kw": ["客源细分：把客人分成几堆来卖", "客户价值", "练习", "题目"], "url": "book-reader.html#ch16", "summary": "本章三道练习，配答案与评分点。"}, {"id": "r75", "title": "第 16 章 · 课堂追问卡｜客源细分：把客人分成几堆来卖", "type": "追问卡", "ch": [16], "mods": ["客户价值"], "kw": ["客源细分：把客人分成几堆来卖", "客户价值", "追问", "质疑"], "url": "book-reader.html#ch16", "summary": "针对本章常见误解的两轮课堂追问。"}, {"id": "r76", "title": "第 31 章 · 导入案例｜系统与数据：工具能替您做什么", "type": "导入案例", "ch": [31], "mods": ["AI 与优化"], "kw": ["系统与数据：工具能替您做什么", "AI 与优化", "导入", "案例"], "url": "book-reader.html#ch31", "summary": "本章开场情境，用于把概念落到具体经营现场。"}, {"id": "r77", "title": "第 31 章 · 可复算算例｜系统与数据：工具能替您做什么", "type": "可复算算例", "ch": [31], "mods": ["AI 与优化"], "kw": ["系统与数据：工具能替您做什么", "AI 与优化", "算例", "复算", "公式"], "url": "book-reader.html#ch31", "summary": "本章公式的逐步复算，数字可自行改动后再验算。"}, {"id": "r78", "title": "第 31 章 · 三道练习｜系统与数据：工具能替您做什么", "type": "课堂练习", "ch": [31], "mods": ["AI 与优化"], "kw": ["系统与数据：工具能替您做什么", "AI 与优化", "练习", "题目"], "url": "book-reader.html#ch31", "summary": "本章三道练习，配答案与评分点。"}, {"id": "r79", "title": "第 31 章 · 课堂追问卡｜系统与数据：工具能替您做什么", "type": "追问卡", "ch": [31], "mods": ["AI 与优化"], "kw": ["系统与数据：工具能替您做什么", "AI 与优化", "追问", "质疑"], "url": "book-reader.html#ch31", "summary": "针对本章常见误解的两轮课堂追问。"}, {"id": "r80", "title": "第 20 章 · 导入案例｜运营全景：从年到日的节奏", "type": "导入案例", "ch": [20], "mods": ["预算与治理"], "kw": ["运营全景：从年到日的节奏", "预算与治理", "导入", "案例"], "url": "book-reader.html#ch20", "summary": "本章开场情境，用于把概念落到具体经营现场。"}, {"id": "r81", "title": "第 20 章 · 可复算算例｜运营全景：从年到日的节奏", "type": "可复算算例", "ch": [20], "mods": ["预算与治理"], "kw": ["运营全景：从年到日的节奏", "预算与治理", "算例", "复算", "公式"], "url": "book-reader.html#ch20", "summary": "本章公式的逐步复算，数字可自行改动后再验算。"}, {"id": "r82", "title": "第 20 章 · 三道练习｜运营全景：从年到日的节奏", "type": "课堂练习", "ch": [20], "mods": ["预算与治理"], "kw": ["运营全景：从年到日的节奏", "预算与治理", "练习", "题目"], "url": "book-reader.html#ch20", "summary": "本章三道练习，配答案与评分点。"}, {"id": "r83", "title": "第 20 章 · 课堂追问卡｜运营全景：从年到日的节奏", "type": "追问卡", "ch": [20], "mods": ["预算与治理"], "kw": ["运营全景：从年到日的节奏", "预算与治理", "追问", "质疑"], "url": "book-reader.html#ch20", "summary": "针对本章常见误解的两轮课堂追问。"}, {"id": "r84", "title": "第 29 章 · 导入案例｜岗位与组织：谁来干这件事", "type": "导入案例", "ch": [29], "mods": ["组织与职业"], "kw": ["岗位与组织：谁来干这件事", "组织与职业", "导入", "案例"], "url": "book-reader.html#ch29", "summary": "本章开场情境，用于把概念落到具体经营现场。"}, {"id": "r85", "title": "第 29 章 · 可复算算例｜岗位与组织：谁来干这件事", "type": "可复算算例", "ch": [29], "mods": ["组织与职业"], "kw": ["岗位与组织：谁来干这件事", "组织与职业", "算例", "复算", "公式"], "url": "book-reader.html#ch29", "summary": "本章公式的逐步复算，数字可自行改动后再验算。"}, {"id": "r86", "title": "第 29 章 · 三道练习｜岗位与组织：谁来干这件事", "type": "课堂练习", "ch": [29], "mods": ["组织与职业"], "kw": ["岗位与组织：谁来干这件事", "组织与职业", "练习", "题目"], "url": "book-reader.html#ch29", "summary": "本章三道练习，配答案与评分点。"}, {"id": "r87", "title": "第 29 章 · 课堂追问卡｜岗位与组织：谁来干这件事", "type": "追问卡", "ch": [29], "mods": ["组织与职业"], "kw": ["岗位与组织：谁来干这件事", "组织与职业", "追问", "质疑"], "url": "book-reader.html#ch29", "summary": "针对本章常见误解的两轮课堂追问。"}, {"id": "r88", "title": "第 23 章 · 导入案例｜预测与需求日历", "type": "导入案例", "ch": [23], "mods": ["数据与实践"], "kw": ["预测与需求日历", "数据与实践", "导入", "案例"], "url": "book-reader.html#ch23", "summary": "本章开场情境，用于把概念落到具体经营现场。"}, {"id": "r89", "title": "第 23 章 · 可复算算例｜预测与需求日历", "type": "可复算算例", "ch": [23], "mods": ["数据与实践"], "kw": ["预测与需求日历", "数据与实践", "算例", "复算", "公式"], "url": "book-reader.html#ch23", "summary": "本章公式的逐步复算，数字可自行改动后再验算。"}, {"id": "r90", "title": "第 23 章 · 三道练习｜预测与需求日历", "type": "课堂练习", "ch": [23], "mods": ["数据与实践"], "kw": ["预测与需求日历", "数据与实践", "练习", "题目"], "url": "book-reader.html#ch23", "summary": "本章三道练习，配答案与评分点。"}, {"id": "r91", "title": "第 23 章 · 课堂追问卡｜预测与需求日历", "type": "追问卡", "ch": [23], "mods": ["数据与实践"], "kw": ["预测与需求日历", "数据与实践", "追问", "质疑"], "url": "book-reader.html#ch23", "summary": "针对本章常见误解的两轮课堂追问。"}], MODS=["指标与口径", "需求预测", "动态定价", "库存与超售", "渠道管理", "团队置换", "竞争分析", "客户价值", "AI 与优化", "预算与治理", "组织与职业", "数据与实践"], TYPES=["导入案例", "可复算算例", "课堂练习", "评分量规", "判定表", "视觉笔记", "追问卡", "数据包", "免费组件"], PACING={"45": [6, 7, 10, 10, 6, 3, 3], "90": [12, 14, 20, 20, 12, 7, 5], "120": [15, 18, 25, 32, 15, 10, 5]}, PACING_NOTE={"45": "一节课容量：三道练习只做第 1、2 题，第 3 题留作课后；课堂追问只做一轮。", "90": "标准两课时：三道练习全做，讲评逐题过；追问卡两轮。", "120": "加长课时：三题全做并加一轮小组演练（用本章数据表复算），追问卡两轮 + 当堂收口陈述。"}, TRACKS={"V": ["中职", "基础概念与指标认知", "只要求「算对」：给出干净数据、固定分母，学生复算指标并说清口径；不要求独立做定价决策。", "课堂练习改为教师带算，第 3 题可改为判断题；作业为《今日动作清单》。", "评分只看算式与口径声明是否正确，不考战略假设。"], "T": ["高职", "系统操作、预测方法与战术性定价", "要求「做得熟、留得下痕」：按判定表逐步实操，用给定阈值完成配置，并写决策日志 13 字段。", "三题全做，追加一次数据表实操；作业为阶段交付物 + 决策日志。", "评分侧重步骤完整性、约束逐条检查与可复算性。"], "U": ["本科", "战略分析、商业决策与跨部门协调", "要求「说得出为什么」：从商业逻辑解释数字，做敏感性分析，指出结论在什么假设下翻转，并完成跨部门答辩。", "三题全做，追加反事实题（改一个参数看结论是否翻转）与口头答辩；作业为季度收益方案阶段稿。", "评分侧重假设来源、口径一致性、反事实分析与责任归属。"]}, MARKETS={"中国城市": {"en": "Chinese city", "cur": "¥", "adr": 618, "occ": 72, "comp_occ": 68.0, "comp_adr": 680, "mix": "直销 / 协议 / OTA / 私域", "note": "本地平台与私域并存，渠道串价与 rate fence 泄漏是常见考点；周末与展会周需求差异大。", "probe": "若会员专享价同时出现在公开 OTA，本店价格体系会怎样？"}, "曼谷": {"en": "Bangkok", "cur": "฿", "adr": 4200, "occ": 74, "comp_occ": 70.0, "comp_adr": 4600, "mix": "OTA / 批发 / 直销", "note": "长住与度假客并存、淡旺季由国际航班运力驱动；OTA 与批发占比高，须关注净价与依赖度。", "probe": "若主要客源国航班削减 20%，你的预测与渠道配额要改哪一项？"}, "迪拜": {"en": "Dubai", "cur": "AED", "adr": 760, "occ": 78, "comp_occ": 72.0, "comp_adr": 830, "mix": "直销 / 企业协议 / OTA", "note": "大型展会与事件日主导峰值需求，事件日前后肩部夜明显；旺季容量机会成本高。", "probe": "展会结束次日出现肩部夜空档，团队询价该按哪一晚的机会成本判定？"}, "柏林": {"en": "Berlin", "cur": "€", "adr": 148, "occ": 69, "comp_occ": 66.0, "comp_adr": 162, "mix": "直销 / OTA / 企业协议", "note": "城市展会与周末休闲客叠加，价格透明度高；须注意当地价格展示与税费口径。", "probe": "报价含税与不含税混用时，ARI 与 RGI 的分母要怎么统一？"}, "圣保罗": {"en": "Sao Paulo", "cur": "R$", "adr": 690, "occ": 65, "comp_occ": 62.0, "comp_adr": 740, "mix": "企业协议 / OTA / 直销", "note": "商务需求工作日集中、周末低谷明显；汇率与通胀使历史价不可直接比较。", "probe": "高通胀下，用去年同月名义 ADR 算同比会犯什么错？"}}, CH_ASSETS={"1": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 C / D / O", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "2": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 C / D / O", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "3": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 C / D / O", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "4": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A / F / J", "decision-tables.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "5": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A / F / J", "decision-tables.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "6": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A / C / D / O", "decision-tables.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "7": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A / C / D / O", "decision-tables.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "8": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A / F / J", "decision-tables.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "9": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A / F / J", "decision-tables.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "10": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A / F / J", "decision-tables.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "11": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 B / E / L", "decision-tables.html"]], "12": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 B / E / L", "decision-tables.html"]], "13": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 B / E / L", "decision-tables.html"]], "14": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 F / H / O", "decision-tables.html"]], "15": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 F / H / O", "decision-tables.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"]], "16": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 G / K", "decision-tables.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "17": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 G / K", "decision-tables.html"], ["团队置换决策计算器", "calc-displacement-v2026-6.xlsx"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "18": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 G / K", "decision-tables.html"], ["团队置换决策计算器", "calc-displacement-v2026-6.xlsx"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "19": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 F / H / O", "decision-tables.html"]], "20": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 M / N / O", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"]], "21": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 M / N / O", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"]], "22": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 M / N / O", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"]], "23": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A / I / L", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["经营数据实训包", "v2026-9-dr01-answer-key.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"]], "24": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A / I / L", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["经营数据实训包", "v2026-9-dr01-answer-key.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"]], "25": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A / I / L", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"]], "26": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A / F / J", "decision-tables.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "27": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 C / D / O", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["经营数据实训包", "v2026-9-dr01-answer-key.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "28": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 F / H / O", "decision-tables.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"]], "29": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 M / N / O", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"]], "30": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 C / D / O", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "31": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A–O 全表 / 决策日志 13 字段", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["经营数据实训包", "v2026-9-dr01-answer-key.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "32": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A / I / L", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"]], "33": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 C / D / O", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "34": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 G / K", "decision-tables.html"], ["团队置换决策计算器", "calc-displacement-v2026-6.xlsx"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "35": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 C / D / O", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["经营数据实训包", "v2026-9-dr01-answer-key.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "36": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 C / D / O", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["经营数据实训包", "v2026-9-dr01-answer-key.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "37": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 F / H / O", "decision-tables.html"]], "38": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 F / H / O", "decision-tables.html"]], "39": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A–O 全表 / 决策日志 13 字段", "decision-tables.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "40": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A–O 全表 / 决策日志 13 字段", "decision-tables.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "41": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 M / O", "decision-tables.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"]], "42": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 M / O", "decision-tables.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"]], "43": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A–O 全表 / 决策日志 13 字段", "decision-tables.html"], ["季度收益方案 · 任务书与评分量规", "v2026-7-capstone-project.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "44": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A / I / L", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"]], "45": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A–O 全表 / 决策日志 13 字段", "decision-tables.html"], ["课堂素材包（案例／小测／追问卡）", "v2026-9-free-components.html"]], "46": [["本章讲义", "book-reader.html#ch{no:02d}"], ["分层教学标注版电子书", "book-reader-levels.html#ch{no:02d}"], ["46 章总索引", "book-46-chapters-index.html"], ["收益决策判定表 · 表 A / I / L / O", "decision-tables.html"], ["核心指标与公式卡", "formulas.html"], ["经营数据实训包", "v2026-9-dr01-answer-key.html"]]}, TITLES={"1": "收益管理是什么：一句话与底层逻辑", "2": "三个核心指标：OCC、ADR、RevPAR", "3": "竞争三件套：MPI、ARI、RGI", "4": "价格弹性：降多少价能换多少量", "5": "什么时候涨价", "6": "竞品降价：跟还是不跟", "8": "折扣与促销：什么时候该让", "9": "套餐与锚定：让客人觉得划算", "10": "房型价差：差价定多少才合理", "11": "最短住期 MinLOS：用条件把客群分开", "12": "超额预订：卖出去的比有的多", "13": "库存分配与保护位：给谁留多少房", "14": "渠道净价：到手多少钱才算数", "16": "客源细分：把客人分成几堆来卖", "18": "团队置换：这个团该不该接", "19": "直销与会员：把客人变成自己的", "20": "运营全景：从年到日的节奏", "21": "每日实操流程：一天具体做什么", "22": "执行标准与收益例会", "23": "预测与需求日历", "25": "年度预算：把一年拆到每天", "26": "价格体系 BAR：所有价格的锚", "27": "报表体系：每天该看哪几张表", "28": "OTA 与点评：评分就是价格", "29": "岗位与组织：谁来干这件事", "30": "成本与利润：降价的底线在哪", "31": "系统与数据：工具能替您做什么", "32": "淡旺季与事件日：一年里最容易赚的钱", "33": "餐饮收益：RevPASH 与翻台", "34": "会议宴会：不只算房，算总贡献", "35": "其他业态与跨行业参数", "36": "常见误区：30 个坑，别再踩", "37": "中国渠道生态：平台、私域、买断与直播", "38": "连锁与中央预订：总部定价，门店做什么", "39": "AI 工具做收益分析", "41": "危机与极端场景", "42": "收益岗位与职业发展", "43": "变革篇：收益管理正在发生的五件事", "44": "周期与不确定性下的收益管理", "45": "人工智能与收益管理（科普）", "46": "绿色收益管理与可持续", "7": "竞争博弈分析", "15": "渠道组合战略", "17": "客户终身价值", "24": "需求创造", "40": "生成式 AI 与优化"};var ASSET_EN={"本章讲义": "Chapter reading", "收益决策判定表": "Decision tables", "核心指标与公式卡": "Metric and formula card", "团队置换决策计算器": "Group displacement calculator", "经营数据实训包": "Operating-data practice pack", "季度收益方案 · 任务书与评分量规": "Quarterly revenue plan: brief and rubric", "课堂素材包（案例／小测／追问卡）": "Classroom kit (case / quiz / probes)", "分层教学标注版电子书": "Level-annotated edition", "46 章总索引": "46-chapter index"}, TRACKS_EN={"V": ["Vocational secondary", "Concepts and metric literacy", "Compute correctly on clean data with a fixed denominator; no independent pricing decision is expected.", "Work the exercises with the instructor; the third item may become a judgement question.", "Credit the calculation and the scope statement only."], "T": ["Higher vocational", "System operation, forecasting and tactical pricing", "Execute fluently and leave a trace: follow the decision tables, apply given thresholds, keep the 13-field log.", "All three exercises plus one data-table drill; submit a stage deliverable and a decision log.", "Credit complete steps, every constraint checked, and reproducibility."], "U": ["Undergraduate", "Strategic analysis, business decisions and cross-functional coordination", "Explain the business logic behind the numbers, run sensitivity, state which assumption flips the result, defend it across functions.", "All three exercises plus a counterfactual and an oral defence; submit a stage of the quarterly plan.", "Credit assumption sourcing, scope consistency, counterfactual reasoning and accountability."]}, MNOTE_EN={"中国城市": "Direct, corporate, OTA and private channels coexist; rate-fence leakage is a common teaching point.", "曼谷": "Long-stay and leisure demand with high OTA and wholesale share; watch net rate and concentration.", "迪拜": "Events drive peaks and shoulder nights; capacity opportunity cost is high in peak weeks.", "柏林": "Trade fair and weekend leisure demand overlap; keep tax-inclusive and tax-exclusive rates in one scope.", "圣保罗": "Weekday corporate demand and high inflation; nominal ADR year over year is misleading."}, LEVEL_EN={"V": "Vocational", "T": "Higher vocational", "U": "Undergraduate"};var PART_EN={"第一篇 · 认知篇": "Part 1 · Foundations", "第二篇 · 决策篇": "Part 2 · Decisions", "第三篇 · 运营篇": "Part 3 · Operations", "第四篇 · 组织篇": "Part 4 · Organisation", "第五篇 · 延伸篇": "Part 5 · Extensions", "第六篇 · 现实篇：连锁、AI、危机与职业": "Part 6 · Practice: chains, AI, crises and careers", "第七篇 · 视野篇：周期、人工智能与可持续": "Part 7 · Outlook: cycles, AI and sustainability"}, MOD_EN={"指标与口径": "Metrics and scope", "需求预测": "Demand forecasting", "动态定价": "Dynamic pricing", "库存与超售": "Inventory and overbooking", "渠道管理": "Channel management", "团队置换": "Group displacement", "竞争分析": "Competitive analysis", "客户价值": "Customer value", "AI 与优化": "AI and optimisation", "预算与治理": "Budget and governance", "组织与职业": "Organisation and careers", "数据与实践": "Data and practice"}, MIX_EN={"中国城市": "Direct / corporate / OTA / private", "曼谷": "OTA / wholesale / direct", "迪拜": "Direct / corporate / OTA", "柏林": "Direct / OTA / corporate", "圣保罗": "Corporate / OTA / direct"};
+  var basket=[], LANG_EN=false, EN_TITLES={"1": "What revenue management is", "2": "Occupancy, ADR and RevPAR", "3": "MPI, ARI and RGI", "4": "Price elasticity", "5": "When to raise prices", "6": "Should you follow a competitor cut", "7": "Competitive game analysis", "8": "Discounts and promotions", "9": "Packages and anchoring", "10": "Room-type price gaps", "11": "Minimum length of stay", "12": "Overbooking", "13": "Inventory allocation and protection levels", "14": "Channel net rate", "15": "Channel mix strategy", "16": "Market segmentation", "17": "Customer lifetime value", "18": "Group displacement", "19": "Direct and membership channels", "20": "The operating cycle", "21": "Daily operating routine", "22": "Execution standards and the revenue meeting", "23": "Forecasting and the demand calendar", "24": "Demand creation", "25": "Annual budget", "26": "BAR and the price architecture", "27": "Reporting: which reports matter daily", "28": "OTA and reviews", "29": "Roles and organisation", "30": "Cost and profit: the floor for a cut", "31": "Systems and data", "32": "Seasonality and event days", "33": "Restaurant revenue: RevPASH and table turns", "34": "Meetings and banquets: total contribution", "35": "Other sectors and cross-industry parameters", "36": "Thirty common mistakes", "37": "The channel ecosystem in China", "38": "Chains and central reservations", "39": "AI tools for revenue analysis", "40": "Generative AI and optimisation", "41": "Crisis and extreme scenarios", "42": "Revenue careers", "43": "Five changes reshaping the field", "44": "Cycles and uncertainty", "45": "AI and revenue management: an overview", "46": "Green revenue management and sustainability"};
+  function $(id){return document.getElementById(id);}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function li(a){return '<ol>'+a.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ol>';}
+  function ul(a){return '<ul>'+a.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>';}
+  function activeChips(id){
+    return Array.prototype.slice.call($(id).querySelectorAll('.st-chip.on'))
+      .map(function(e){return e.getAttribute('data-v');});
+  }
+  function tab(k){
+    ['A','B'].forEach(function(x){
+      $('tab'+x).className='st-tab'+(x===k?' on':'');
+      $('pane'+x).className='st-pane'+(x===k?' on':'');
+    });
+  }
+  $('tabA').addEventListener('click',function(){tab('A');});
+  $('tabB').addEventListener('click',function(){tab('B');});
+
+  // ── A · 标答模式 ────────────────────────────────────────────────────
+  var sel=$('chSel'), parts=[];
+  CH.forEach(function(c){if(parts.indexOf(c.part)<0)parts.push(c.part);});
+  parts.forEach(function(p){
+    var g=document.createElement('optgroup');g.label=p;
+    CH.filter(function(c){return c.part===p;}).forEach(function(c){
+      var o=document.createElement('option');o.value=c.n;
+      o.textContent='第 '+c.n+' 章 · '+c.title;g.appendChild(o);
+    });
+    sel.appendChild(g);
+  });
+  function paceTable(mins,isEn){
+    var a=PACING[mins]||PACING['90'];
+    var names=isEn?['Case','Concepts','Example','Exercises','Review','Probes','Wrap']
+                  :['导入','概念','算例','练习','讲评','追问','收口'];
+    var h='<table class="st-pace"><tr><th>'+(isEn?'Segment':'环节')+'</th>'
+      +names.map(function(x){return '<th>'+x+'</th>';}).join('')+'</tr><tr><th>'
+      +(isEn?'Min':'分钟')+'</th>'+a.map(function(x){return '<td>'+x+'</td>';}).join('')+'</tr></table>';
+    return h+'<p class="small" style="margin-top:7px">'+esc(isEn
+      ?({45:'One period: exercises 1-2 in class, item 3 as homework; one probe round.',
+         90:'Standard double period: all three exercises, item-by-item review, two probe rounds.',
+         120:'Extended session: all three exercises plus a group drill on the data table, two probe rounds and a closing statement.'}[mins])
+      :PACING_NOTE[mins])+'</p>';
+  }
+  function lesson(){
+    var c=CH[parseInt(sel.value,10)-1];
+    var mins=$('minsSel').value, track=$('trackSel').value;
+    var market=$('marketSel').value, isEn=($('langSel').value==='en');
+    var p=(isEn?EN[c.main]:PACK[c.main])||PACK['数据与实践'];
+    var tk=isEn?TRACKS_EN[track]:TRACKS[track];
+    var mk=MARKETS[market];
+    var L=function(zh,en){return isEn?en:zh;};
+    var lname=isEn?LEVEL_EN[c.level]:({V:'中职',T:'高职',U:'本科'}[c.level]);
+    var meta=L('第 ','Chapter ')+c.n+L(' 章','')+' ｜ '+esc(isEn?(PART_EN[c.part]||c.part):c.part)
+      +' ｜ '+L('主模块','Module')+'：'+esc(isEn?(MOD_EN[c.main]||c.main):c.main)+' ｜ '+L('适用层次','Level')+'：'+esc(lname)
+      +' ｜ '+mins+' min ｜ '+esc(tk[0])+' ｜ '+esc(isEn?mk.en:market);
+    var cards=[];
+    cards.push('<div class="st-card"><h4>'+L('1 · 教学目标','1 · Learning objectives')+'</h4>'
+      +li(p.goals)+'<p class="small">'+esc(isEn?('Track focus: '+tk[2]):('本档定位：'+tk[2]))+'</p></div>');
+    cards.push('<div class="st-card"><h4>'+L('2 · 课堂节奏（按时长自动排）','2 · Session plan (scaled to duration)')
+      +'</h4>'+paceTable(mins,isEn)+'</div>');
+    cards.push('<div class="st-card"><h4>'+L('3 · 导入案例','3 · Opening case')+'</h4><p>'+esc(p.case)+'</p>'
+      +'<div class="st-meta">'+esc(isEn?mk.en:market)+' ｜ '
+      +esc(isEn?('Local baseline: '+mk.cur+mk.adr+' ADR / '+mk.occ+'% occupancy / comp set '+mk.comp_occ+'% at '+mk.cur+mk.comp_adr)
+               :('本地基线：'+mk.cur+mk.adr+' ADR / 出租率 '+mk.occ+'% / 竞组 '+mk.comp_occ+'% 与 '+mk.cur+mk.comp_adr))+'</div></div>');
+    cards.push('<div class="st-card"><h4>'+L('4 · 本地市场参数','4 · Local market parameters')+'</h4>'
+      +'<div class="st-meta">'+L('币种','Currency')+'：'+esc(mk.cur)+' ｜ '+L('主导渠道','Channel mix')+'：'+esc(isEn?MIX_EN[market]:mk.mix)+'</div>'
+      +'<p>'+esc(isEn?MNOTE_EN[market]:mk.note)+'</p>'
+      +'<p class="small"><b>'+L('本地化追问','Localised probe')+'：</b>'+esc(isEn
+        ?({'中国城市':'If a member-only rate appears on a public OTA, what happens to the rate architecture?',
+           '曼谷':'If inbound flights from a key market fall 20%, which part of the forecast and channel split changes?',
+           '迪拜':'A shoulder night follows the trade show. Which night sets the opportunity cost for a group enquiry?',
+           '柏林':'If tax-inclusive and tax-exclusive quotes are mixed, how do you align the ARI and RGI denominators?',
+           '圣保罗':'Under high inflation, what is wrong with a year-on-year comparison of nominal ADR?'}[market])
+        :mk.probe)+'</p></div>');
+    cards.push('<div class="st-card"><h4>'+L('5 · 核心概念与公式','5 · Concepts and formula')+'</h4>'
+      +'<div style="font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;background:#F2F0EB;'
+      +'border-left:4px solid #B8894A;padding:9px 12px">'+esc(p.formula)+'</div></div>');
+    cards.push('<div class="st-card"><h4>'+L('6 · 可复算算例','6 · Worked example')+'</h4><p>'+esc(p.ex)+'</p></div>');
+    cards.push('<div class="st-card"><h4>'+L('7 · 三道练习','7 · Three exercises')+'</h4>'+li(p.quiz)
+      +'<p class="small">'+esc(tk[3])+'</p></div>');
+    cards.push('<div class="st-card"><h4>'+L('8 · 答案与评分','8 · Answers and rubric')+'</h4>'+ul(p.ans)
+      +'<div class="st-meta">'+esc(p.rubric)+' ｜ '+esc(p.tables)+'</div>'
+      +'<p class="small">'+esc(tk[4])+'</p></div>');
+    cards.push('<div class="st-card"><h4>'+L('9 · 本档教学处理','9 · How this track handles the lesson')+'</h4>'
+      +ul([tk[1],tk[2],tk[3],tk[4]])+'</div>');
+    cards.push('<div class="st-card"><h4>'+L('10 · 课堂追问卡','10 · In-class probes')+'</h4><ul>'
+      +p.probes.map(function(x){return '<li><b>'+L('学生：','Student: ')+'</b>'+esc(x[0])
+        +'<br><b>'+L('追问：','Ask: ')+'</b>'+esc(x[1])+'</li>';}).join('')+'</ul></div>');
+    var assets=CH_ASSETS[String(c.n)]||[];
+    cards.push('<div class="st-card"><h4>'+L('11 · 配套资料（本章适用才列出）','11 · Linked resources (only what applies)')+'</h4>'
+      +'<div class="st-links">'+assets.map(function(l){
+          var base=l[0].split(' · ')[0], suffix=l[0].indexOf(' · ')>0?l[0].slice(l[0].indexOf(' · ')):'';
+          var name=isEn?((ASSET_EN[base]||base)+(suffix.indexOf('表 ')>=0?suffix.replace('表 ','Tables '):'')):l[0];
+          return '<a href="'+l[1].replace('{no:02d}',('0'+c.n).slice(-2))+'">'+esc(name)+'</a>';
+        }).join('')+'</div><p class="small">'+esc(L('资料按本章主题挂接；不相关的计算器、数据包与任务书不会出现。',
+          'Resources are attached by chapter topic; unrelated calculators, data packs and briefs are omitted.'))+'</p></div>');
+    $('outA').innerHTML='<div class="st-meta"><b>'+L('第 ','Chapter ')+c.n+L(' 章 · ',' · ')
+      +esc(isEn?(EN_TITLES[String(c.n)]||c.title):c.title)+'</b><br>'+meta+'</div>'+cards.join('');
+  }
+  $('langSel').addEventListener('change',function(){
+    LANG_EN=($('langSel').value==='en');
+    Array.prototype.slice.call(sel.options).forEach(function(o){
+      var c=CH[parseInt(o.value,10)-1];
+      o.textContent=(LANG_EN?'Chapter ':'第 ')+c.n+(LANG_EN?' · ':' 章 · ')+(LANG_EN?(EN_TITLES[String(c.n)]||c.title):c.title);
+    });
+  });
+  $('genA').addEventListener('click',lesson);
+  [sel,$('minsSel'),$('trackSel'),$('marketSel'),$('langSel')].forEach(function(e){
+    e.addEventListener('change',lesson);
+  });
+
+  // ── B · 自助模式：状态一律从 DOM 读取，杜绝联动失效 ──────────────────
+  function chips(host,arr,cls){
+    host.innerHTML=arr.map(function(x){
+      return '<span class="st-chip '+cls+'" data-v="'+esc(x)+'">'+esc(x)+'</span>';}).join('');
+    host.querySelectorAll('.st-chip').forEach(function(el){
+      el.addEventListener('click',function(){el.classList.toggle('on');search();});
+    });
+  }
+  chips($('modChips'),MODS,'');
+  chips($('typeChips'),TYPES,'t2');
+  $('kwInput').addEventListener('input',search);
+  $('clearB').addEventListener('click',function(){
+    $('kwInput').value='';
+    document.querySelectorAll('.st-chip.on').forEach(function(e){e.classList.remove('on');});
+    search();
+  });
+  function search(){
+    var mods=activeChips('modChips'), types=activeChips('typeChips');
+    var q=($('kwInput').value||'').trim().toLowerCase().split(/[\s,，、]+/).filter(Boolean);
+    var hits=RES.filter(function(r){
+      var okM=!mods.length||r.mods.some(function(m){return mods.indexOf(m)>=0;});
+      var okT=!types.length||types.indexOf(r.type)>=0;
+      var pool=(r.title+' '+r.kw.join(' ')+' '+r.summary+' '+r.ch.join(' ')+' '+r.mods.join(' ')+' '+r.type).toLowerCase();
+      var okQ=!q.length||q.some(function(t){return pool.indexOf(t)>=0;});
+      return okM&&okT&&okQ;
+    });
+    function sc(r){
+      var s=0,pool=(r.title+' '+r.kw.join(' ')+' '+r.summary+' '+r.ch.join(' ')+' '+r.mods.join(' ')+' '+r.type).toLowerCase();
+      mods.forEach(function(m){if(r.mods.indexOf(m)>=0)s+=3;});
+      if(types.indexOf(r.type)>=0)s+=3;
+      q.forEach(function(t){if(pool.indexOf(t)>=0)s+=1;});
+      return s;
+    }
+    hits.sort(function(a,b){return sc(b)-sc(a)||a.title.localeCompare(b.title,'zh');});
+    var why=[];
+    if(mods.length)why.push('模块：'+mods.join('/'));
+    if(types.length)why.push('类型：'+types.join('/'));
+    if(q.length)why.push('关键词：'+q.join('/'));
+    $('resCount').innerHTML='<b>'+hits.length+'</b> 项资料'
+      +(why.length?' ｜ 已选 '+esc(why.join(' · ')):' ｜ 默认显示全部，点左侧标签可筛选')
+      +' ｜ <a href="javascript:void(0)" id="clrInline" style="color:#1B3A5C">清空筛选</a>';
+    $('clrInline').addEventListener('click',function(){$('clearB').click();});
+    if(!hits.length){
+      $('resB').innerHTML='<div class="st-card">没有命中。清空筛选或换一个更短的词，例如「置换」「RGI」「CLV」「追问」「数据包」。</div>';
+      return;
+    }
+    $('resB').innerHTML=hits.map(function(r){
+      var chs=r.ch.length>=40?'全册':(r.ch.slice(0,6).join('、')+(r.ch.length>6?' 等 '+r.ch.length+' 章':''));
+      return '<div class="st-hit"><button class="st-add'+(basket.indexOf(r.id)>=0?' on':'')
+        +'" data-id="'+r.id+'">'+(basket.indexOf(r.id)>=0?'✓ 已加入':'＋ 加入')+'</button>'
+        +'<h4><span class="st-badge">'+esc(r.type)+'</span>'+esc(r.title)+'</h4>'
+        +'<div class="st-meta">适用：'+esc(chs)+' ｜ 模块：'+esc(r.mods.slice(0,3).join(' / '))+'</div>'
+        +'<div class="sum">'+esc(r.summary)+'</div>'
+        +'<div class="why">'+esc(why.length?why.join(' · '):'全库浏览')+' ｜ 相关度 '+sc(r)+'</div>'
+        +'<div class="st-links"><a href="'+esc(r.url)+'">打开资料 →</a></div></div>';
+    }).join('');
+    $('resB').querySelectorAll('.st-add').forEach(function(b){
+      b.addEventListener('click',function(){
+        var id=b.getAttribute('data-id');
+        if(basket.indexOf(id)<0)basket.push(id);
+        renderBasket();b.textContent='✓ 已加入';b.classList.add('on');
+      });
+    });
+  }
+  function renderBasket(){
+    if(!basket.length){
+      $('basket').innerHTML='<h4>我的课包（0 项）</h4><p class="small">在结果卡片点「加入」，把不同章节与类型的资料组合成自己的教学包；'
+        +'导出的是一份可直接印发或投影的完整课包，不是几行清单。</p>';
+      return;
+    }
+    var items=basket.map(function(id){return RES.filter(function(r){return r.id===id;})[0];}).filter(Boolean);
+    var chs={};items.forEach(function(r){r.ch.forEach(function(n){chs[n]=1;});});
+    $('basket').innerHTML='<h4>我的课包（'+items.length+' 项 · 涉及 '+Object.keys(chs).length+' 章）</h4>'
+      +'<ol>'+items.map(function(r){
+        return '<li>'+esc(r.title)+' <span class="small">（'+esc(r.type)+'）'
+          +' <a href="javascript:void(0)" data-del="'+r.id+'" style="color:#B8894A">移除</a></span></li>';
+      }).join('')+'</ol>'
+      +'<button class="st-btn" id="expB">下载完整课包（可打印 HTML）</button> '
+      +'<button class="st-btn sec" id="prevB">预览课包</button> '
+      +'<button class="st-btn sec" id="clrBasket">清空课包</button>';
+    $('basket').querySelectorAll('[data-del]').forEach(function(a){
+      a.addEventListener('click',function(){
+        basket=basket.filter(function(x){return x!==a.getAttribute('data-del');});
+        renderBasket();search();
+      });
+    });
+    $('clrBasket').addEventListener('click',function(){basket=[];renderBasket();search();});
+    $('expB').addEventListener('click',function(){
+      var blob=new Blob([buildPack(items)],{type:'text/html;charset=utf-8'});
+      var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+      a.download='我的教学课包.html';document.body.appendChild(a);a.click();document.body.removeChild(a);
+    });
+    $('prevB').addEventListener('click',function(){
+      var w=window.open('','_blank');
+      if(w){w.document.open();w.document.write(buildPack(items));w.document.close();}
+      else{alert('浏览器拦截了新窗口，请改用「下载完整课包」。');}
+    });
+  }
+  function buildPack(items){
+    var chs={},mods={};
+    items.forEach(function(r){r.ch.forEach(function(n){chs[n]=1;});r.mods.forEach(function(m){mods[m]=1;});});
+    var chapters=Object.keys(chs).map(Number).sort(function(a,b){return a-b;});
+    var modList=Object.keys(mods).filter(function(m){return PACK[m];}).slice(0,8);
+    var packs=modList.map(function(m){
+      var p=PACK[m];
+      return '<section class="pk"><h2>配套标准课包 · '+esc(m)+'</h2>'
+        +'<h3>教学目标</h3>'+li(p.goals)+'<h3>导入案例</h3><p>'+esc(p.case)+'</p>'
+        +'<h3>核心概念与公式</h3><p class="fm">'+esc(p.formula)+'</p>'
+        +'<h3>可复算算例</h3><p>'+esc(p.ex)+'</p>'
+        +'<h3>三道练习</h3>'+li(p.quiz)+'<h3>答案与评分</h3>'+ul(p.ans)
+        +'<p class="small">'+esc(p.rubric)+' ｜ '+esc(p.tables)+'</p>'
+        +'<h3>课堂追问卡</h3><ul>'+p.probes.map(function(x){
+          return '<li><b>学生：</b>'+esc(x[0])+'<br><b>追问：</b>'+esc(x[1])+'</li>';}).join('')+'</ul></section>';
+    }).join('');
+    var rows=items.map(function(r,i){
+      return '<tr><td>'+(i+1)+'</td><td>'+esc(r.title)+'</td><td>'+esc(r.type)+'</td>'
+        +'<td>'+esc(r.ch.length>=40?'全册':r.ch.join('、'))+'</td>'
+        +'<td><a href="'+esc(r.url.indexOf('http')===0?r.url:'https://hrma-city.github.io/'+r.url)+'">打开</a></td></tr>';
+    }).join('');
+    return '<!doctype html><html lang="zh"><head><meta charset="utf-8">'
+      +'<title>我的教学课包 · RMC 课件工作台</title><style>'
+      +'body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;'
+      +'max-width:900px;margin:0 auto;padding:30px 24px 70px;color:#1F2933;line-height:1.85}'
+      +'h1{color:#1B3A5C;border-bottom:3px solid #B8894A;padding-bottom:10px}'
+      +'h2{color:#1B3A5C;margin-top:26px;border-bottom:1px solid #E1E5EA;padding-bottom:6px}'
+      +'h3{color:#1B3A5C;font-size:15px;margin:16px 0 5px}'
+      +'table{border-collapse:collapse;width:100%;margin:12px 0;font-size:13px}'
+      +'th,td{border:1px solid #E1E5EA;padding:6px 9px;text-align:left}th{background:#F2F0EB}'
+      +'.fm{background:#F2F0EB;border-left:4px solid #B8894A;padding:9px 12px;font-family:monospace}'
+      +'.pk{page-break-before:always;padding-top:10px}'
+      +'@media print{@page{size:A4;margin:16mm}body{padding:0;font-size:10.5pt}'
+      +'a{color:#000;text-decoration:none}.pk h2{page-break-after:avoid}}</style></head><body>'
+      +'<h1>我的教学课包</h1><p class="small">RMC 课件工作台 · 生成日期 '
+      +esc(new Date().toISOString().slice(0,10))+' · 共 '+items.length+' 项资料 · 涉及 '
+      +chapters.length+' 章 · 附 '+modList.length+' 套标准课包</p>'
+      +'<h2>一 · 已选资料清单</h2><table><thead><tr><th>#</th><th>资料</th><th>类型</th>'
+      +'<th>适用章</th><th>链接</th></tr></thead><tbody>'+rows+'</tbody></table>'
+      +'<h2>二 · 逐项说明</h2>'+items.map(function(r,i){
+        return '<h3>'+(i+1)+'. '+esc(r.title)+'（'+esc(r.type)+'）</h3><p>'+esc(r.summary)+'</p>';
+      }).join('')
+      +'<h2>三 · 配套标准课包</h2><p class="small">按已选资料涉及的教学模块自动汇入，'
+      +'可直接印发或投影；练习答案与评分点已附在各课包内。</p>'+packs
+      +'<h2>使用说明</h2><p class="small">本页由课件工作台按本地索引生成，链接指向站内正式资料。'
+      +'判定阈值须用本店真实数据校准；课堂使用时请注明资料来源。</p></body></html>';
+  }
+  window.__studio={buildPack:buildPack,search:search,lesson:lesson,RES:RES,CH_ASSETS:CH_ASSETS,
+    state:function(){return {basket:basket.slice(),res:RES.length,ch:CH.length,
+      assets18:CH_ASSETS['18'],assets33:CH_ASSETS['33']};}};
+  function fromHash(){
+    var m=/^#ch(\d{1,2})$/.exec(location.hash||'');
+    if(m){var n=parseInt(m[1],10);
+      if(n>=1&&n<=46){sel.value=String(n);tab('A');lesson();}}
+  }
+  window.addEventListener('hashchange',fromHash);
+  lesson();search();renderBasket();fromHash();
+})();
+</script>
+</section><section id="s3"><h2>3 · B · 自助模式：按教学主题检索</h2><div class="box-gold"><b>这一版改了什么</b><br>① 默认<b>全部显示</b>，不再只出前 18 条；② 关键词、教学模块、资料类型三类筛选可任意组合，改任一条件即时重算，修好了上一版「输过关键词再点选就没反应」；③ 资料按<b>真实条目</b>建模，九类每类都有内容，点「追问卡」会列出全部追问卡，不再空白；④ 导出课包是含资料清单、逐项说明与配套标准课包的完整可打印 HTML，不是几行清单。</div><table><thead><tr><th>资料类型</th><th>条目数</th><th>举例</th></tr></thead><tbody><tr><td>导入案例</td><td>16</td><td>经营现场十二则 / 团队置换与总贡献 / 各章导入案例</td></tr><tr><td>可复算算例</td><td>17</td><td>竞争三件套复算 / 客户终身价值 / 团队置换决策计算器</td></tr><tr><td>课堂练习</td><td>15</td><td>超售与库存保护 / 判定表逐表实操 / 各章三道练习</td></tr><tr><td>评分量规</td><td>4</td><td>季度收益方案任务书 / 三题与答案 / 真源门禁工具</td></tr><tr><td>判定表</td><td>5</td><td>收益决策判定表（15 张）/ 46 章总索引</td></tr><tr><td>视觉笔记</td><td>9</td><td>核心指标与公式卡 / 三指数关系图 / 五版电子书</td></tr><tr><td>追问卡</td><td>17</td><td>指标、定价、置换、数据与 AI 四组 + 各章追问卡</td></tr><tr><td>数据包</td><td>4</td><td>经营数据实训包（答案表 / CSV / XLSX）/ 采集表模板</td></tr><tr><td>免费组件</td><td>4</td><td>课堂素材包 / 活页模块与更新机制</td></tr></tbody></table><div class="box"><b>导出课包里有什么</b><br>封面与统计 → 已选资料清单（含可点链接）→ 逐项说明 → 按所选资料涉及的教学模块自动汇入的<b>标准课包全文</b>（目标／案例／公式／算例／三题／答案与评分／追问卡）→ 使用说明。下载后是单文件 HTML，可直接印发、投影或存为 PDF；站内链接已转为完整网址。</div></section><section id="s4"><h2>4 · 索引口径与边界</h2><table><thead><tr><th>项</th><th>规则</th></tr></thead><tbody><tr><td>目录来源</td><td>《酒店收益管理》第二版 · 七篇连续 46 章；电子书与总索引共用同一套章号</td></tr><tr><td>院校层次</td><td>每章有中职 / 高职 / 本科标签；分层教学标注版电子书可逐章查看</td></tr><tr><td>模块映射</td><td>12 个教学模块，一章可属多模块；模块只是检索维度，不改变教材篇章归属</td></tr><tr><td>配套资料挂接</td><td>按章节主题判定：置换计算器只挂第 17、18、34 章；数据包只挂预测与数据实践相关章；期末任务书只挂运营篇与战略相关章</td></tr><tr><td>资料命名</td><td>一律使用正式名称；站内资料名称不含版本编号、编修状态或内部代号</td></tr><tr><td>母本边界</td><td>结果只给站内可点链接与资料说明，不输出题库真题与参考答案全文</td></tr><tr><td>不做什么</td><td>不调用付费模型、不做账号体系、不采集学生数据、不自行发放认证</td></tr></tbody></table></section><div class="foot">RMC · 第二版 · 本地索引驱动、可离线使用。教材与电子书见 book-library.html；逐章关联见 book-46-chapters-index.html。</div></div></div></body></html>

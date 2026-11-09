@@ -1,0 +1,527 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet"><script>window.HRMA_PREFIX="";</script><script src="auth-config.js?v=gate20261013"></script><script src="assets/js/access-gate.js?v=v12"></script><title>全站资源总目录 · 工具与专业资料</title><style>
+/* ============================================================
+   RMC 收益管理社区 · 主样式表
+   浅色主题 / 深海军蓝 + 金 / 系统字体
+   ============================================================ */
+
+:root{
+  --navy:#1B3A5C;
+  --navy-2:#2C5282;
+  --navy-3:#3D6BA5;
+  --gold:#B8894A;
+  --gold-2:#D4A96A;
+  --gold-soft:#F7F0E4;
+  --teal:#2E7D74;
+  --teal-soft:#E6F2F0;
+  --up:#C0392B;      /* 涨/提升 —— 红 */
+  --down:#2F7A3E;    /* 跌/下降 —— 绿 */
+  --amber:#D98324;
+  --amber-soft:#FDF3E4;
+  --danger:#C0392B;
+  --danger-soft:#FBEAE8;
+  --ink:#1F2933;
+  --ink-2:#52606D;
+  --ink-3:#7B8794;
+  --line:#E1E5EA;
+  --line-2:#CBD2D9;
+  --bg:#FAFAF8;
+  --bg-2:#F2F0EB;
+  --white:#fff;
+  --shadow:0 1px 3px rgba(27,58,92,.06),0 1px 2px rgba(27,58,92,.04);
+  --shadow-md:0 4px 14px rgba(27,58,92,.08);
+  --mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --sidebar:260px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  font-size:15px; line-height:1.75; color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--navy-2);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4,h5{color:var(--navy);line-height:1.35;margin:0 0 .6em;font-weight:650}
+h1{font-size:30px;letter-spacing:-.3px}
+h2{font-size:22px;margin-top:2em;padding-bottom:.45em;border-bottom:2px solid var(--line)}
+h3{font-size:18px;margin-top:1.6em}
+h4{font-size:15.5px;margin-top:1.3em;color:var(--navy-2)}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.4em}
+li{margin:.3em 0}
+strong{font-weight:650;color:var(--navy)}
+code{font-family:var(--mono);font-size:.9em;background:var(--bg-2);padding:.12em .4em;border-radius:4px;color:var(--navy)}
+hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}
+
+/* ---------- 布局 ---------- */
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:var(--sidebar);flex:0 0 var(--sidebar);
+  background:var(--navy);color:#fff;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  padding:0 0 40px;
+}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:3px}
+.brand{padding:22px 22px 16px;border-bottom:1px solid rgba(255,255,255,.12)}
+.brand-mark{
+  display:flex;align-items:center;gap:10px;
+  font-size:16px;font-weight:700;letter-spacing:.4px;color:#fff;
+}
+.brand-mark:hover{text-decoration:none}
+.brand-mark .gem{
+  width:32px;height:32px;flex:0 0 32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--gold-2),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;color:#fff;font-weight:700;
+}
+.brand-sub{font-size:11.5px;color:rgba(255,255,255,.55);margin-top:5px;line-height:1.5;letter-spacing:.2px}
+.nav-section{padding:16px 22px 4px}
+.nav-section-title{
+  font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;
+  color:rgba(255,255,255,.42);font-weight:700;margin-bottom:8px;
+}
+.nav-link{
+  display:flex;align-items:center;gap:9px;
+  padding:7px 12px;margin:1px -12px;border-radius:6px;
+  color:rgba(255,255,255,.8);font-size:13.5px;line-height:1.45;
+}
+.nav-link:hover{background:rgba(255,255,255,.08);color:#fff;text-decoration:none}
+.nav-link.active{background:var(--gold);color:#fff;font-weight:600}
+.nav-link .n{
+  font-family:var(--mono);font-size:11px;opacity:.65;flex:0 0 22px;
+}
+
+.main{flex:1;min-width:0}
+.wrap{max-width:1080px;margin:0 auto;padding:36px 40px 90px}
+.wrap-wide{max-width:1320px}
+
+/* 面包屑 */
+.crumb{font-size:12.5px;color:var(--ink-3);margin-bottom:14px}
+.crumb a{color:var(--ink-2)}
+.crumb span{margin:0 7px;color:var(--ink-3)}
+
+/* 页头 */
+.page-head{margin-bottom:30px}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.page-title{font-size:31px;margin:0 0 12px;letter-spacing:-.4px}
+.page-lede{font-size:16px;color:var(--ink-2);line-height:1.7;margin:0;max-width:820px}
+.hero-band{
+  background:linear-gradient(120deg,var(--navy) 0%,#27517C 100%);
+  color:#fff;border-radius:12px;padding:34px 38px;margin-bottom:32px;
+}
+.hero-band h1{color:#fff;margin:0 0 10px;font-size:27px}
+.hero-band p{color:rgba(255,255,255,.82);margin:0;font-size:15px;line-height:1.75}
+
+/* ---------- 徽章 ---------- */
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11.5px;font-weight:650;letter-spacing:.3px;
+  padding:3px 10px;border-radius:20px;
+  background:var(--bg-2);color:var(--ink-2);border:1px solid var(--line);
+}
+.badge-l1{background:#E8F1F9;color:#1F5C8F;border-color:#C3DCEF}
+.badge-l2{background:var(--gold-soft);color:#8A5F26;border-color:#E8D5B5}
+.badge-l3{background:#EDE7F6;color:#5B3E96;border-color:#D5C9EC}
+.badge-codex{
+  background:var(--navy);color:#fff;font-family:var(--mono);
+  font-size:11px;padding:3px 9px;border-radius:4px;letter-spacing:.5px;
+}
+.badge-core{background:var(--danger);color:#fff;border-color:var(--danger)}
+.badge-new{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* 状态 pill */
+.pill{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:4px;background:var(--bg-2);color:var(--ink-2);border:1px solid var(--line)}
+.pill-teal{background:var(--teal-soft);color:var(--teal);border-color:#BEDDD8}
+.pill-amber{background:var(--amber-soft);color:#A6601A;border-color:#F0D9B5}
+.pill-red{background:var(--danger-soft);color:var(--danger);border-color:#F0C8C3}
+.pill-navy{background:#E8F1F9;color:var(--navy-2);border-color:#C3DCEF}
+
+/* 涨跌 */
+.up{color:var(--up);font-weight:650}
+.down{color:var(--down);font-weight:650}
+.flat{color:var(--ink-3);font-weight:600}
+
+/* ---------- 卡片 ---------- */
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:22px 24px;margin:0 0 18px;box-shadow:var(--shadow);
+}
+.card-title{font-size:16.5px;margin:0 0 14px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.card-title .ic{
+  width:26px;height:26px;flex:0 0 26px;border-radius:6px;background:var(--gold-soft);
+  display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--gold);
+}
+.card-note{font-size:13px;color:var(--ink-3);margin:12px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+
+.grid{display:grid;gap:16px;margin-bottom:18px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+
+/* ---------- 表格 ---------- */
+.tbl-wrap{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:10px;background:var(--white)}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+.tbl caption{
+  caption-side:top;text-align:left;padding:14px 18px 10px;
+  font-size:14.5px;font-weight:650;color:var(--navy);
+}
+.tbl caption .cap-note{display:block;font-size:12px;font-weight:400;color:var(--ink-3);margin-top:3px}
+.tbl th,.tbl td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tbl thead th{
+  background:var(--bg-2);font-weight:650;color:var(--navy);
+  font-size:12.5px;letter-spacing:.2px;border-bottom:2px solid var(--line-2);white-space:nowrap;
+}
+.tbl tbody tr:last-child td{border-bottom:0}
+.tbl tbody tr:hover{background:#FCFCFA}
+.tbl td.num,.tbl th.num{text-align:right;font-family:var(--mono);font-size:13px;white-space:nowrap}
+.tbl td.mid,.tbl th.mid{text-align:center}
+
+/* 判定矩阵：首行首列高亮，命中格加粗 */
+.tbl-matrix th.rowh{background:var(--bg-2);font-weight:650;color:var(--navy);white-space:nowrap}
+.tbl-matrix thead th{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tbl-matrix tbody th{background:var(--bg-2)}
+.tbl-matrix td{text-align:center;font-size:13px}
+.tbl-matrix td.hit{background:var(--gold-soft);font-weight:700;color:#8A5F26;box-shadow:inset 0 0 0 2px var(--gold)}
+.tbl-matrix td.keep{color:var(--ink-3)}
+.tbl-matrix td.up-cell{color:var(--up);font-weight:650}
+.tbl-matrix td.down-cell{color:var(--down);font-weight:650}
+
+/* 法典表 */
+.codex-block{
+  background:var(--white);border:1px solid var(--line);border-left:4px solid var(--gold);
+  border-radius:10px;padding:20px 24px 22px;margin:0 0 20px;box-shadow:var(--shadow);
+}
+.codex-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.codex-head h3{margin:0;font-size:17.5px}
+.codex-desc{font-size:13.5px;color:var(--ink-2);margin:6px 0 14px}
+.codex-meta{font-size:12px;color:var(--ink-3);margin:14px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+
+/* ---------- 提示框 ---------- */
+.callout{
+  border-radius:8px;padding:14px 18px;margin:0 0 16px;font-size:14px;line-height:1.72;
+  background:var(--bg-2);border-left:4px solid var(--line-2);
+}
+.callout p:last-child{margin-bottom:0}
+.callout .co-t{font-weight:650;display:block;margin-bottom:4px}
+.callout-key{background:#E8F1F9;border-left-color:var(--navy-2)}
+.callout-key .co-t{color:var(--navy)}
+.callout-warn{background:var(--amber-soft);border-left-color:var(--amber)}
+.callout-warn .co-t{color:#A6601A}
+.callout-danger{background:var(--danger-soft);border-left-color:var(--danger)}
+.callout-danger .co-t{color:var(--danger)}
+.callout-do{background:var(--teal-soft);border-left-color:var(--teal)}
+.callout-do .co-t{color:var(--teal)}
+.callout-gold{background:var(--gold-soft);border-left-color:var(--gold)}
+.callout-gold .co-t{color:#8A5F26}
+
+/* ---------- 指标块 ---------- */
+.metric{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px 18px;text-align:center}
+.metric-val{font-size:26px;font-weight:700;color:var(--navy);font-family:var(--mono);letter-spacing:-.5px;line-height:1.2}
+.metric-label{font-size:12px;color:var(--ink-3);margin-top:5px}
+.metric-sub{font-size:11.5px;margin-top:6px}
+
+/* ---------- 步骤条 ---------- */
+.step{display:flex;gap:16px;margin:0 0 18px;align-items:flex-start}
+.step-num{
+  flex:0 0 30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-top:2px;
+}
+.step-body{flex:1;min-width:0}
+.step-body h4{margin:0 0 5px;font-size:15.5px}
+.step-body p{margin:0 0 .5em;font-size:14px}
+
+/* 横向流程 */
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:0 0 20px}
+.flow-item{
+  flex:1;min-width:150px;background:var(--white);border:1px solid var(--line);
+  padding:14px 16px;position:relative;
+}
+.flow-item:first-child{border-radius:8px 0 0 8px}
+.flow-item:last-child{border-radius:0 8px 8px 0}
+.flow-arrow{
+  display:flex;align-items:center;padding:0 8px;color:var(--gold);font-size:17px;
+  background:transparent;border:0;flex:0 0 auto;
+}
+.flow-item .fi-t{font-weight:650;font-size:13.5px;color:var(--navy);margin-bottom:4px}
+.flow-item .fi-d{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+
+/* ---------- 公式 ---------- */
+.formula{
+  background:var(--bg-2);border:1px solid var(--line);border-radius:8px;
+  padding:14px 18px;margin:0 0 16px;
+  font-family:var(--mono);font-size:14px;color:var(--navy);
+  overflow-x:auto;line-height:1.9;
+}
+.formula .f-label{display:block;font-family:inherit;font-size:11.5px;letter-spacing:.6px;color:var(--ink-3);text-transform:uppercase;margin-bottom:4px}
+.formula .f-out{color:var(--gold);font-weight:700}
+
+/* ---------- 键值 ---------- */
+.kv{margin:0 0 14px;font-size:14px}
+.kv-row{display:flex;gap:14px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.kv-row:last-child{border-bottom:0}
+.kv-k{flex:0 0 150px;color:var(--ink-2);font-size:13.5px}
+.kv-v{flex:1}
+
+/* ---------- 清单 ---------- */
+.checklist{list-style:none;padding:0;margin:0 0 16px}
+.checklist li{
+  padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line);font-size:14px;
+}
+.checklist li:last-child{border-bottom:0}
+.checklist li::before{
+  content:"☐";position:absolute;left:2px;top:7px;
+  font-size:16px;color:var(--navy-3);line-height:1.4;
+}
+.checklist.done li::before{content:"☑";color:var(--teal)}
+
+/* ---------- 目录 ---------- */
+.toc{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin:0 0 24px}
+.toc-title{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-bottom:10px}
+.toc ol{margin:0;padding-left:1.3em;font-size:14px}
+.toc li{margin:.28em 0}
+.toc-2{list-style:none;padding-left:0;margin:6px 0 0 4px;font-size:13px;color:var(--ink-2)}
+
+/* ---------- 练习题 ---------- */
+.ex-q{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:16px 20px;margin:0 0 14px;
+}
+.ex-q .q-t{font-weight:650;color:var(--navy);font-size:14.5px;margin-bottom:8px}
+.ex-q .q-b{font-size:14px;color:var(--ink-2)}
+details.ex-a{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+details.ex-a summary{
+  cursor:pointer;font-size:13px;color:var(--navy-2);font-weight:600;list-style:none;
+  display:inline-flex;align-items:center;gap:6px;user-select:none;
+}
+details.ex-a summary::-webkit-details-marker{display:none}
+details.ex-a summary::before{content:"▸";transition:transform .15s;display:inline-block}
+details.ex-a[open] summary::before{transform:rotate(90deg)}
+details.ex-a .a-body{
+  margin-top:10px;padding:12px 16px;background:#F7FAFC;border-left:3px solid var(--teal);
+  border-radius:0 6px 6px 0;font-size:13.5px;line-height:1.75;
+}
+
+/* ---------- 法典筛选 ---------- */
+.codex-filter{
+  background:var(--white);border:1px solid var(--line);border-radius:10px;
+  padding:16px 20px;margin:0 0 22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+  position:sticky;top:0;z-index:50;box-shadow:var(--shadow);
+}
+.codex-filter input[type=text]{
+  flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--line-2);border-radius:6px;
+  font-size:14px;font-family:inherit;
+}
+.codex-filter input[type=text]:focus{outline:0;border-color:var(--navy-3);box-shadow:0 0 0 3px rgba(61,107,165,.12)}
+.chip{
+  padding:5px 13px;border-radius:20px;border:1px solid var(--line-2);background:var(--white);
+  font-size:12.5px;cursor:pointer;color:var(--ink-2);font-family:inherit;
+}
+.chip:hover{border-color:var(--navy-3);color:var(--navy-2)}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ---------- 时间轴 ---------- */
+.timeline{position:relative;padding-left:26px;margin:0 0 20px}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-item::before{
+  content:"";position:absolute;left:-23px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--white);border:2.5px solid var(--gold);
+}
+.tl-time{font-family:var(--mono);font-size:12.5px;color:var(--gold);font-weight:650}
+.tl-body{font-size:14px;margin-top:2px}
+.tl-body b{color:var(--navy)}
+
+/* ---------- 对话 / 角色扮演 ---------- */
+.dialogue{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:0 0 18px;background:var(--white)}
+.dlg-row{display:flex;gap:0;border-bottom:1px solid var(--line)}
+.dlg-row:last-child{border-bottom:0}
+.dlg-who{
+  flex:0 0 128px;background:var(--bg-2);padding:12px 14px;font-size:13px;font-weight:650;
+  color:var(--navy);border-right:1px solid var(--line);
+}
+.dlg-text{flex:1;padding:12px 16px;font-size:14px;line-height:1.7}
+
+/* ---------- 游戏卡牌 ---------- */
+.cards-deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin:0 0 20px}
+.card-game{
+  border:1px solid var(--line);border-radius:10px;background:var(--white);
+  padding:14px 16px;box-shadow:var(--shadow);border-top:4px solid var(--navy);
+  display:flex;flex-direction:column;min-height:180px;
+}
+.card-game.t-atk{border-top-color:var(--danger)}
+.card-game.t-def{border-top-color:var(--teal)}
+.card-game.t-evt{border-top-color:var(--amber)}
+.card-game.t-wild{border-top-color:var(--gold)}
+.cg-id{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.5px}
+.cg-name{font-size:15px;font-weight:700;color:var(--navy);margin:4px 0 8px;line-height:1.35}
+.cg-body{font-size:12.5px;color:var(--ink-2);line-height:1.65;flex:1}
+.cg-foot{margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-3)}
+.cg-stat{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--gold)}
+
+/* ---------- 评分卡 ---------- */
+.score-box{
+  border:1px solid var(--line);border-radius:10px;background:var(--white);
+  padding:18px 22px;margin:0 0 16px;
+}
+.sb-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px}
+.sb-name{font-weight:650;color:var(--navy);font-size:15px}
+.sb-score{font-family:var(--mono);font-size:14px;color:var(--ink-2)}
+.sb-bar{height:8px;background:var(--bg-2);border-radius:4px;overflow:hidden}
+.sb-fill{height:100%;background:linear-gradient(90deg,var(--navy-3),var(--navy));border-radius:4px}
+.sb-items{margin:12px 0 0;padding:0;list-style:none;font-size:13px}
+.sb-items li{padding:5px 0 5px 20px;position:relative;color:var(--ink-2)}
+.sb-items li::before{content:"—";position:absolute;left:0;color:var(--line-2)}
+
+/* ---------- 页脚导航 ---------- */
+.pager{display:flex;gap:14px;margin-top:48px;padding-top:26px;border-top:2px solid var(--line)}
+.pager a{
+  flex:1;padding:14px 18px;border:1px solid var(--line);border-radius:10px;background:var(--white);
+  display:block;transition:.15s;box-shadow:var(--shadow);
+}
+.pager a:hover{border-color:var(--navy-3);text-decoration:none;box-shadow:var(--shadow-md)}
+.pager .p-dir{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
+.pager .p-title{font-weight:650;color:var(--navy);font-size:14.5px}
+.pager .p-next{text-align:right}
+
+/* ---------- 首页专用 ---------- */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,#2A5680 55%,#356B96 100%);
+  color:#fff;padding:56px 60px;border-radius:0 0 0 0;margin:-36px -40px 34px;
+  position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;right:-70px;top:-70px;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(184,137,74,.28),transparent 70%);
+}
+.hero .eyebrow{font-size:12px;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold-2);font-weight:700;margin-bottom:14px}
+.hero h1{color:#fff;font-size:38px;margin:0 0 14px;letter-spacing:-.8px;line-height:1.25}
+.hero .sub{font-size:16.5px;color:rgba(255,255,255,.85);max-width:700px;line-height:1.75;margin:0 0 24px}
+.hero-stats{display:flex;gap:34px;flex-wrap:wrap;margin-top:26px;position:relative;z-index:1}
+.hero-stat .hs-v{font-size:26px;font-weight:700;color:var(--gold-2);font-family:var(--mono);line-height:1.2}
+.hero-stat .hs-l{font-size:12.5px;color:rgba(255,255,255,.7);margin-top:3px}
+
+.loop-band{background:var(--gold-soft);border:1px solid #E8D5B5;border-radius:12px;padding:26px 30px;margin:0 0 30px}
+.loop-band h2{margin:0 0 6px;border:0;padding:0;font-size:20px}
+.loop-band .lb-sub{font-size:13.5px;color:#8A5F26;margin:0 0 18px}
+
+.level-card{
+  background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;
+}
+.level-card .lc-head{padding:16px 20px;color:#fff}
+.level-card.l1 .lc-head{background:linear-gradient(120deg,#2C5282,#3D6BA5)}
+.level-card.l2 .lc-head{background:linear-gradient(120deg,#A8762F,#C99B52)}
+.level-card.l3 .lc-head{background:linear-gradient(120deg,#6B4FA0,#8B6FBF)}
+.lc-head .lc-tag{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;opacity:.85;font-weight:700}
+.lc-head h3{color:#fff;margin:3px 0 0;font-size:19px}
+.lc-body{padding:18px 20px;flex:1}
+.lc-body .lc-meta{display:flex;gap:16px;font-size:12.5px;color:var(--ink-3);margin-bottom:12px}
+.lc-body ul{margin:0;padding-left:1.2em;font-size:13.5px}
+.lc-foot{padding:13px 20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-2);background:#FCFCFA}
+.lc-foot b{color:var(--navy)}
+
+.mod-link{
+  display:flex;align-items:center;gap:12px;padding:11px 16px;border:1px solid var(--line);
+  border-radius:8px;background:var(--white);transition:.15s;
+}
+.mod-link:hover{border-color:var(--navy-3);box-shadow:var(--shadow);text-decoration:none}
+.mod-link .ml-n{font-family:var(--mono);font-size:11.5px;color:var(--gold);font-weight:700;flex:0 0 28px}
+.mod-link .ml-t{flex:1;font-size:14px;color:var(--navy);font-weight:600}
+.mod-link .ml-h{font-size:11.5px;color:var(--ink-3);flex:0 0 auto}
+
+/* ---------- 打印 ---------- */
+@media print{
+  .sidebar,.codex-filter,.pager{display:none!important}
+  .main,.wrap{max-width:100%;padding:0}
+  body{background:#fff;font-size:11pt}
+  .card,.codex-block,.tbl-wrap{break-inside:avoid;box-shadow:none}
+  details.ex-a{display:block}
+  details.ex-a .a-body{display:block!important}
+  .hero{margin:0 0 20px;padding:24px;background:var(--navy)!important;-webkit-print-color-adjust:exact}
+}
+
+/* ---------- 响应式 ---------- */
+.menu-btn{
+  display:none;position:fixed;top:14px;left:14px;z-index:200;
+  background:var(--navy);color:#fff;border:0;border-radius:8px;width:40px;height:40px;font-size:18px;cursor:pointer;
+}
+@media(max-width:900px){
+  .sidebar{
+    position:fixed;left:0;top:0;z-index:150;transform:translateX(-100%);
+    transition:transform .22s ease;box-shadow:4px 0 20px rgba(0,0,0,.2);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .menu-btn{display:block}
+  .wrap{padding:20px 18px 70px}
+  .hero{margin:-20px -18px 24px;padding:36px 24px}
+  .hero h1{font-size:27px}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  h1{font-size:24px}
+  .flow-item{border-radius:8px!important;margin-bottom:6px}
+  .flow-arrow{display:none}
+  .codex-filter{position:static}
+  .tbl{font-size:12.5px}
+  .tbl th,.tbl td{padding:8px 10px}
+}
+
+</style>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#FAFAF8;color:#1F2933;font-size:15px;line-height:1.85}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px 70px;display:flex;gap:28px;align-items:flex-start}
+.side{width:222px;flex:0 0 222px;position:sticky;top:16px;margin-top:22px;
+  background:#fff;border:1px solid #E1E5EA;border-radius:8px;padding:14px 12px;max-height:calc(100vh - 36px);overflow:auto}
+.side .t{font-size:12px;font-weight:700;color:#1B3A5C;letter-spacing:.5px;margin:0 0 10px}
+.side a{display:block;font-size:12.5px;color:#52606D;text-decoration:none;padding:5px 8px;border-radius:4px;
+  border-left:2px solid transparent;line-height:1.45}
+.side a:hover{background:#E8F1F9;color:#1B3A5C;border-left-color:#B8894A}
+.main{flex:1;min-width:0}
+.hero{background:#1B3A5C;color:#fff;border-radius:0 0 10px 10px;padding:30px 34px 26px;margin-bottom:24px}
+.hero h1{margin:0 0 8px;font-size:26px;line-height:1.35;color:#fff}
+.hero .sub{margin:0;color:#dbe6f0;font-size:13.5px}
+.hero .meta{margin-top:14px;font-size:12px;color:#F5D08A;letter-spacing:.3px}
+section{background:#fff;border:1px solid #E1E5EA;border-radius:8px;padding:20px 24px;margin:0 0 16px;
+  scroll-margin-top:76px}
+h2{color:#1B3A5C;font-size:19px;margin:0 0 12px;padding-left:11px;border-left:5px solid #B8894A}
+h3{color:#2C5282;font-size:15.5px;margin:22px 0 8px}
+h4{color:#1B3A5C;font-size:14px;margin:16px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:22px;margin:10px 0}
+li{margin:6px 0}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px}
+th,td{border:1px solid #E1E5EA;padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#F2F0EB;color:#1B3A5C;font-weight:700}
+tbody tr:nth-child(even){background:#FAFAF8}
+.k{color:#B8894A;font-weight:700}
+.good{color:#2F7A3E;font-weight:700}
+.bad{color:#C0392B;font-weight:700}
+.tag{display:inline-block;background:#F7F0E4;color:#8A6224;border:1px solid #E3CFA8;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-b{display:inline-block;background:#E8F1F9;color:#1B3A5C;border:1px solid #C9DDEC;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-g{display:inline-block;background:#E6F2F0;color:#2F7A3E;border:1px solid #BEDDD6;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.tag-r{display:inline-block;background:#FBEAE8;color:#C0392B;border:1px solid #EBC8C3;
+  border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+.q{background:#F2F0EB;border-left:4px solid #B8894A;padding:10px 14px;margin:12px 0;
+  font-size:13.5px;color:#52606D}
+.box{border-left:4px solid #1B3A5C;background:#E8F1F9;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-w{border-left:4px solid #B8894A;background:#FDF3E4;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-d{border-left:4px solid #C0392B;background:#FBEAE8;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-g{border-left:4px solid #2F7A3E;background:#E6F2F0;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.box-gold{border-left:4px solid #B8894A;background:#F7F0E4;padding:11px 15px;margin:13px 0;font-size:13.5px}
+.fml{background:#F2F0EB;border:1px solid #E1E5EA;border-radius:6px;padding:10px 14px;margin:12px 0;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:#1F2933;line-height:1.9}
+.fml b{color:#B8894A}
+.foot{color:#8895a7;font-size:12px;border-top:1px solid #E1E5EA;padding-top:14px;margin-top:26px}
+a{color:#1B3A5C}
+.small{font-size:12.5px;color:#52606D}
+@media(max-width:860px){.wrap{display:block}.side{position:static;width:auto;max-height:none;margin-bottom:16px}.hero{padding:22px}}
+@media print{.side{display:none}.wrap{display:block}section{break-inside:avoid}}
+</style>
+</head><body><div class="hero" style="max-width:1200px;margin:0 auto"><h1>全站资源总目录 · 工具与专业资料</h1><p class="sub">逐文件盘点台账登记与站内挂载状态，把未挂出的资料一次性补挂上线</p><div class="meta">第二版 · 46 章统一体系 · 资源盘点与补挂</div></div><div class="wrap"><nav class="side"><div class="t">目录</div><a href="#s1">1 · 盘点结果与补挂说明</a><a href="#s2">2 · 此前未登记且未挂出的资料（已全部补挂）</a><a href="#s3">3 · 已挂出但未登记 / 已登记但未挂出</a><a href="#s4">4 · 其余文件与历史资料</a></nav><div class="main"><section id="s1"><h2>1 · 盘点结果与补挂说明</h2><div class="box"><b>这次盘点做了什么</b><br>逐文件比对三件事：文件是否存在、是否登记在产出物台账、是否出现在站内任一页面的链接里。下面把<b>此前未登记且未挂出</b>的专业资料与工具逐条列出并给出可点链接，等于一次性把它们补挂到网站；本页同时从资料库与产出物总目录进入，并登记进台账。</div><table><thead><tr><th>盘点项</th><th>数量</th><th>处理</th></tr></thead><tbody><tr><td>全站候选文件</td><td>1393</td><td>按类型扫描，排除样式、脚本、预览与备份</td></tr><tr><td>此前未登记且未挂出</td><td>156</td><td>本页逐条挂出可点链接</td></tr><tr><td>其中专业资料与工具</td><td>13</td><td>优先补挂，逐条列于下表</td></tr><tr><td>此前已挂出但未登记</td><td>165</td><td>本页列出，台账 B27 组统一登记</td></tr><tr><td>此前已登记但未挂出</td><td>2</td><td>本页列出可点链接</td></tr><tr><td>本轮新建入口</td><td>9</td><td>教材下载、电子书、工作台、总索引、资源总目录</td></tr></tbody></table></section><section id="s2"><h2>2 · 此前未登记且未挂出的资料（已全部补挂）</h2><div class="box-gold"><b>逐条挂出</b><br>下表列出全部 156 个此前既未登记、也未出现在站内任何链接里的文件，每个文件都可点开。标「优先」的 13 个是表格、数据包、课件与文档类专业资料；其余为历史页面与归档页，一并列全以便核查。</div><table class="idx-tb"><thead><tr><th>文件（可点）</th><th>类型</th><th>位置</th><th>优先级</th></tr></thead><tbody><tr><td><a href="404.html">404.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="RMC-L2-收益管理主管-讲师版.pptx">RMC-L2-收益管理主管-讲师版.pptx</a></td><td>.pptx</td><td>站点根目录</td><td><b style="color:#B8894A">优先</b></td></tr><tr><td><a href="RMC-L3-收益管理经理-讲师版.pptx">RMC-L3-收益管理经理-讲师版.pptx</a></td><td>.pptx</td><td>站点根目录</td><td><b style="color:#B8894A">优先</b></td></tr><tr><td><a href="RMC高校教师开课资料包.zip">RMC高校教师开课资料包.zip</a></td><td>.zip</td><td>站点根目录</td><td><b style="color:#B8894A">优先</b></td></tr><tr><td><a href="_template.html">_template.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="achievements.html">achievements.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="assess-plans/三级项目作品任务书-年度收益提升方案.html">三级项目作品任务书-年度收益提升方案.html</a></td><td>.html</td><td>assess-plans</td><td>—</td></tr><tr><td><a href="bs2.html">bs2.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="cases-ied.html">cases-ied.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="cloud-setup.html">cloud-setup.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="cloudflare-setup.html">cloudflare-setup.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="coaching-ops-manual.html">coaching-ops-manual.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="coll-modules.html">coll-modules.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="coll-ops.html">coll-ops.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="coll-rhythm.html">coll-rhythm.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="coll-scenes.html">coll-scenes.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="coll-theme.html">coll-theme.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="coll-tools.html">coll-tools.html</a></td><td>.html</td><td>站点根目录</td><td><b style="color:#B8894A">优先</b></td></tr><tr><td><a href="conf-case-2026.html">conf-case-2026.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="confirm.html">confirm.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="course-manual/发布包/第01章-发布包.html">第01章-发布包.html</a></td><td>.html</td><td>course-manual/发布包</td><td>—</td></tr><tr><td><a href="course-manual/第01章-为什么这门课现在不开不行.html">第01章-为什么这门课现在不开不行.html</a></td><td>.html</td><td>course-manual</td><td>—</td></tr><tr><td><a href="course-manual/第02章-开不出来的四个障碍.html">第02章-开不出来的四个障碍.html</a></td><td>.html</td><td>course-manual</td><td>—</td></tr><tr><td><a href="course-manual/第03章-一份可以直接改的大纲.html">第03章-一份可以直接改的大纲.html</a></td><td>.html</td><td>course-manual</td><td>—</td></tr><tr><td><a href="course-manual/第04章-32个公式你只需要精讲8个.html">第04章-32个公式你只需要精讲8个.html</a></td><td>.html</td><td>course-manual</td><td>—</td></tr><tr><td><a href="drama-frames.html">drama-frames.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="drama-samples.html">drama-samples.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="entity-setup.html">entity-setup.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="exam-book.html">exam-book.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="files/site-audit.json">site-audit.json</a></td><td>.json</td><td>files</td><td><b style="color:#B8894A">优先</b></td></tr><tr><td><a href="games-pack/收益管理游戏合集.zip">收益管理游戏合集.zip</a></td><td>.zip</td><td>games-pack</td><td><b style="color:#B8894A">优先</b></td></tr><tr><td><a href="handover-index.html">handover-index.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="industries-cruise-c2-forecast.html">industries-cruise-c2-forecast.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="industries-cruise-c5-channel.html">industries-cruise-c5-channel.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="login.html">login.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="m01-min.html">m01-min.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="m12-min.html">m12-min.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="marketing-plan.html">marketing-plan.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="me.html">me.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no01.html">no01.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no02.html">no02.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no03.html">no03.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no04.html">no04.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no05.html">no05.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no06.html">no06.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no07.html">no07.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no08.html">no08.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no09.html">no09.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no10.html">no10.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no11.html">no11.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no12.html">no12.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no13.html">no13.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no14.html">no14.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no15.html">no15.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="no16.html">no16.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="opc-community.html">opc-community.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="optimize-plan-2026.html">optimize-plan-2026.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="outreach-card.html">outreach-card.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no02.html">pocket-no02.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no03.html">pocket-no03.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no04.html">pocket-no04.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no05.html">pocket-no05.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no06.html">pocket-no06.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no07.html">pocket-no07.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no08.html">pocket-no08.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no09.html">pocket-no09.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no10.html">pocket-no10.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no11.html">pocket-no11.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no12.html">pocket-no12.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no13.html">pocket-no13.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no14.html">pocket-no14.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no15.html">pocket-no15.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no16.html">pocket-no16.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no17.html">pocket-no17.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no18.html">pocket-no18.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no19.html">pocket-no19.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no20.html">pocket-no20.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no21.html">pocket-no21.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no22.html">pocket-no22.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no23.html">pocket-no23.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no24.html">pocket-no24.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no25.html">pocket-no25.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no26.html">pocket-no26.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no27.html">pocket-no27.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no28.html">pocket-no28.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no29.html">pocket-no29.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no30.html">pocket-no30.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no31.html">pocket-no31.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no32.html">pocket-no32.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no33.html">pocket-no33.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no34.html">pocket-no34.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no35.html">pocket-no35.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no36.html">pocket-no36.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no37.html">pocket-no37.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no38.html">pocket-no38.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no39.html">pocket-no39.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no40.html">pocket-no40.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="pocket-no41.html">pocket-no41.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="ppt/RMC-L2-收益管理主管-讲师版.pptx">RMC-L2-收益管理主管-讲师版.pptx</a></td><td>.pptx</td><td>ppt</td><td><b style="color:#B8894A">优先</b></td></tr><tr><td><a href="ppt/RMC-L3-收益管理经理-讲师版.pptx">RMC-L3-收益管理经理-讲师版.pptx</a></td><td>.pptx</td><td>ppt</td><td><b style="color:#B8894A">优先</b></td></tr><tr><td><a href="product-marketing-2026.html">product-marketing-2026.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="quest-review.html">quest-review.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="rejected.html">rejected.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="reset-me.html">reset-me.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="review-2026.html">review-2026.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="sandbox.html">sandbox.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="security.html">security.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="series/ops/No01-预测怎么做.html">No01-预测怎么做.html</a></td><td>.html</td><td>series/ops</td><td>—</td></tr><tr><td><a href="series/ops/No02-决策怎么做.html">No02-决策怎么做.html</a></td><td>.html</td><td>series/ops</td><td>—</td></tr><tr><td><a href="series/ops/No03-执行怎么做.html">No03-执行怎么做.html</a></td><td>.html</td><td>series/ops</td><td>—</td></tr><tr><td><a href="series/ops/No04-复盘怎么做.html">No04-复盘怎么做.html</a></td><td>.html</td><td>series/ops</td><td>—</td></tr><tr><td><a href="series/pocket/No01-什么是收益管理.html">No01-什么是收益管理.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No02-三个核心指标.html">No02-三个核心指标.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No03-竞争三件套.html">No03-竞争三件套.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No04-价格弹性.html">No04-价格弹性.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No05-什么时候涨价.html">No05-什么时候涨价.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No06-超额预订.html">No06-超额预订.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No07-房型价差.html">No07-房型价差.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No08-最短住期.html">No08-最短住期.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No09-渠道净价.html">No09-渠道净价.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No10-预测与pickup.html">No10-预测与pickup.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No11-竞品降价.html">No11-竞品降价.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No12-团队置换.html">No12-团队置换.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No13-价格体系.html">No13-价格体系.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No14-客源细分.html">No14-客源细分.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No15-库存分配.html">No15-库存分配.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No16-需求日历.html">No16-需求日历.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No17-年度预算.html">No17-年度预算.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No18-报表体系.html">No18-报表体系.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No19-岗位与组织.html">No19-岗位与组织.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No20-折扣与促销.html">No20-折扣与促销.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No21-直销与会员.html">No21-直销与会员.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No22-OTA与点评.html">No22-OTA与点评.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No23-成本与利润.html">No23-成本与利润.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No24-套餐与锚定.html">No24-套餐与锚定.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No25-淡旺季.html">No25-淡旺季.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No26-事件日定价.html">No26-事件日定价.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No27-餐饮收益.html">No27-餐饮收益.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No28-会议宴会.html">No28-会议宴会.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No29-其他业态.html">No29-其他业态.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No30-系统与数据.html">No30-系统与数据.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No31-跨行业参数.html">No31-跨行业参数.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/pocket/No32-常见误区.html">No32-常见误区.html</a></td><td>.html</td><td>series/pocket</td><td>—</td></tr><tr><td><a href="series/主题全集-16册.html">主题全集-16册.html</a></td><td>.html</td><td>series</td><td>—</td></tr><tr><td><a href="series/主题系列总目.html">主题系列总目.html</a></td><td>.html</td><td>series</td><td>—</td></tr><tr><td><a href="signin.html">signin.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="sl-case-c00.html">sl-case-c00.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="supabase/.temp/linked-project.json">linked-project.json</a></td><td>.json</td><td>supabase/.temp</td><td><b style="color:#B8894A">优先</b></td></tr><tr><td><a href="ta-program.html">ta-program.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="teach-kit.html">teach-kit.html</a></td><td>.html</td><td>站点根目录</td><td><b style="color:#B8894A">优先</b></td></tr><tr><td><a href="teach/RMC教学资源包.zip">RMC教学资源包.zip</a></td><td>.zip</td><td>teach</td><td><b style="color:#B8894A">优先</b></td></tr><tr><td><a href="teach/RMC高校教师开课资料包.zip">RMC高校教师开课资料包.zip</a></td><td>.zip</td><td>teach</td><td><b style="color:#B8894A">优先</b></td></tr><tr><td><a href="textbook-sample.html">textbook-sample.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="training-camp-handouts.html">training-camp-handouts.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="wb-min.html">wb-min.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="酒店收益管理：从原理到决策（学生版 · 五篇框架）.pdf">酒店收益管理：从原理到决策（学生版 · 五篇框架）.pdf</a></td><td>.pdf</td><td>站点根目录</td><td><b style="color:#B8894A">优先</b></td></tr></tbody></table></section><section id="s3"><h2>3 · 已挂出但未登记 / 已登记但未挂出</h2><h3>已挂出但未登记（165）</h3><table class="idx-tb"><tbody><tr><td><a href="01-baseline.xlsx">01-baseline.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="01_历史日度经营数据_2025.csv">01_历史日度经营数据_2025.csv</a></td><td>.csv</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="01_每日收益日报.xlsx">01_每日收益日报.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="02-onbook.xlsx">02-onbook.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="02_Pickup预订速度追踪表.xlsx">02_Pickup预订速度追踪表.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="02_分渠道分细分历史数据_2025.csv">02_分渠道分细分历史数据_2025.csv</a></td><td>.csv</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="03-pace.xlsx">03-pace.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="03_未来90天在手预订快照.csv">03_未来90天在手预订快照.csv</a></td><td>.csv</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="03_竞争比价监测表.xlsx">03_竞争比价监测表.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="04-gate.xlsx">04-gate.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="04_竞争组合90天价格.csv">04_竞争组合90天价格.csv</a></td><td>.csv</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="04_调价台账.xlsx">04_调价台账.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="05-elasticity.xlsx">05-elasticity.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="05_房型价差与价格体系.xlsx">05_房型价差与价格体系.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="06-quota.xlsx">06-quota.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="06_年度预算与月度分解.xlsx">06_年度预算与月度分解.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="07-displacement.xlsx">07-displacement.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="07_周报月报模板.xlsx">07_周报月报模板.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="08-pms-price.xlsx">08-pms-price.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="08_超额预订计算器.xlsx">08_超额预订计算器.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="09-review.xlsx">09-review.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="RMC-L1-收益执行专员-讲师版.pptx">RMC-L1-收益执行专员-讲师版.pptx</a></td><td>.pptx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="RMC学生线-教材完整版.pdf">RMC学生线-教材完整版.pdf</a></td><td>.pdf</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="RMC收益管理书系-下载.zip">RMC收益管理书系-下载.zip</a></td><td>.zip</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="RMC收益管理案例解析.pdf">RMC收益管理案例解析.pdf</a></td><td>.pdf</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="RMC教师线-开课教案完整版.pdf">RMC教师线-开课教案完整版.pdf</a></td><td>.pdf</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="RMC案例解析之名词.pdf">RMC案例解析之名词.pdf</a></td><td>.pdf</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="RMC案例解析之流程.pdf">RMC案例解析之流程.pdf</a></td><td>.pdf</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="RMC酒店人线-认证模块完整版.pdf">RMC酒店人线-认证模块完整版.pdf</a></td><td>.pdf</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="ai-assistant-spec.html">ai-assistant-spec.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="calc-car-rental.xlsx">calc-car-rental.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="calc-competition.xlsx">calc-competition.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="calc-cruise.xlsx">calc-cruise.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="calc-displacement.xlsx">calc-displacement.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="calc-forecast.xlsx">calc-forecast.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="calc-medical-appointment.xlsx">calc-medical-appointment.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="calc-overbooking.xlsx">calc-overbooking.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="calc-pickup.xlsx">calc-pickup.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="calc-rental-apartment.xlsx">calc-rental-apartment.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="calc-research-camp.xlsx">calc-research-camp.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="calc-templates.html">calc-templates.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="calc-treasury.xlsx">calc-treasury.xlsx</a></td><td>.xlsx</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="camp-kit.html">camp-kit.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="consulting-kit.html">consulting-kit.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="data-kit.html">data-kit.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="exp-data/第01章-实验 1-1 指标测算表.csv">第01章-实验 1-1 指标测算表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第02章-实验 2-1 取数清单表.csv">第02章-实验 2-1 取数清单表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第03章-实验 3-1 早晨流水线检查表.csv">第03章-实验 3-1 早晨流水线检查表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第04章-实验 4-1 预测监控表.csv">第04章-实验 4-1 预测监控表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第05章-实验 5-1 表 A 查表记录表.csv">第05章-实验 5-1 表 A 查表记录表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第06章-实验 6-1 房型价差体检表.csv">第06章-实验 6-1 房型价差体检表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第07章-实验 7-1 套餐设计表.csv">第07章-实验 7-1 套餐设计表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第08章-实验 8-1 超售测算表.csv">第08章-实验 8-1 超售测算表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第09章-实验 9-1 渠道成本与一致性表.csv">第09章-实验 9-1 渠道成本与一致性表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第10章-实验 10-1 中国渠道结构体检表.csv">第10章-实验 10-1 中国渠道结构体检表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第11章-实验 11-1 竞争定位诊断表.csv">第11章-实验 11-1 竞争定位诊断表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第12章-实验 12-1 会议决策表.csv">第12章-实验 12-1 会议决策表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第13章-实验 13-1 跨界收益测算表.csv">第13章-实验 13-1 跨界收益测算表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第14章-实验 14-1 降价测算表.csv">第14章-实验 14-1 降价测算表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第15章-实验 15-1 预算拆解表.csv">第15章-实验 15-1 预算拆解表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第16章-实验 16-1 一页纸摘要模板.csv">第16章-实验 16-1 一页纸摘要模板.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第17章-实验 17-1 冲突裁决表.csv">第17章-实验 17-1 冲突裁决表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第18章-实验 18-1 系统参数配置表.csv">第18章-实验 18-1 系统参数配置表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第19章-实验 19-1 门店收益周计划表.csv">第19章-实验 19-1 门店收益周计划表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第20章-实验 20-1 AI 抽核记录表.csv">第20章-实验 20-1 AI 抽核记录表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第21章-实验 21-1 危机处置记录表.csv">第21章-实验 21-1 危机处置记录表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第22章-实验 22-1 能力雷达与改进计划表.csv">第22章-实验 22-1 能力雷达与改进计划表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="exp-data/第23章-实验 23-1 变革适应性诊断表.csv">第23章-实验 23-1 变革适应性诊断表.csv</a></td><td>.csv</td><td>exp-data</td><td>—</td></tr><tr><td><a href="interview-kit.html">interview-kit.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="onboarding-kit.html">onboarding-kit.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="ppt/RMC-L1-收益执行专员-讲师版.pptx">RMC-L1-收益执行专员-讲师版.pptx</a></td><td>.pptx</td><td>ppt</td><td>—</td></tr><tr><td><a href="publish-packs/整包/RMC-公众号发布包-60篇.zip">RMC-公众号发布包-60篇.zip</a></td><td>.zip</td><td>publish-packs/整包</td><td>—</td></tr><tr><td><a href="reader-kit/01-自检表.xlsx">01-自检表.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/02-地图.xlsx">02-地图.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/03-指标.xlsx">03-指标.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/04-加权.xlsx">04-加权.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/05-指数.xlsx">05-指数.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/06-利润.xlsx">06-利润.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/07-预测.xlsx">07-预测.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/08-偏差.xlsx">08-偏差.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/09-pickup.xlsx">09-pickup.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/10-进度.xlsx">10-进度.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/11-日历.xlsx">11-日历.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/12-事件.xlsx">12-事件.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/13-档位.xlsx">13-档位.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/14-BAR.xlsx">14-BAR.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/15-价差.xlsx">15-价差.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/16-触发.xlsx">16-触发.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/17-跟价.xlsx">17-跟价.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/18-折扣.xlsx">18-折扣.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/19-保本.xlsx">19-保本.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/20-价格日历.xlsx">20-价格日历.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/21-套餐.xlsx">21-套餐.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/22-配额.xlsx">22-配额.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/23-MinLOS.xlsx">23-MinLOS.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/24-超售.xlsx">24-超售.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/25-置换.xlsx">25-置换.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/26-客源.xlsx">26-客源.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/27-净值.xlsx">27-净值.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/28-直销.xlsx">28-直销.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/29-点评.xlsx">29-点评.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/30-一致性.xlsx">30-一致性.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/31-每日.xlsx">31-每日.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/32-节奏.xlsx">32-节奏.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/33-仲裁.xlsx">33-仲裁.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/33-仲裁记录.xlsx">33-仲裁记录.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/34-例会.xlsx">34-例会.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/34-例会记录.xlsx">34-例会记录.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/35-预算.xlsx">35-预算.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/36-误区.xlsx">36-误区.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/37-开课.xlsx">37-开课.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/38-边界.xlsx">38-边界.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/39-师资.xlsx">39-师资.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/40-课时.xlsx">40-课时.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/41-大纲.xlsx">41-大纲.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/42-顺序.xlsx">42-顺序.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/43-实训.xlsx">43-实训.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/44-案例.xlsx">44-案例.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/45-活动.xlsx">45-活动.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr><tr><td><a href="reader-kit/46-指标课.xlsx">46-指标课.xlsx</a></td><td>.xlsx</td><td>reader-kit</td><td>—</td></tr></tbody></table><h3>已登记但未挂出（2）</h3><table class="idx-tb"><tbody><tr><td><a href="card-table-b.html">card-table-b.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr><tr><td><a href="card-table-h.html">card-table-h.html</a></td><td>.html</td><td>站点根目录</td><td>—</td></tr></tbody></table></section><section id="s4"><h2>4 · 其余文件与历史资料</h2><div class="box-w"><b>哪些文件刻意不列</b><br>样式表、脚本、预览页、备份快照、以及按原 41 章编号互相挂接的历史题库与分册，不在这次补挂范围：它们要么不是面客资料，要么直接改会破坏引用链。历史资料的章号换算见 <a href="book-46-chapters-index.html">46 章总索引</a>。</div><table><thead><tr><th>类型</th><th>数量</th></tr></thead><tbody><tr><td>.html</td><td>1207</td></tr><tr><td>.xlsx</td><td>116</td></tr><tr><td>.csv</td><td>29</td></tr><tr><td>.pdf</td><td>15</td></tr><tr><td>.zip</td><td>9</td></tr><tr><td>.pptx</td><td>7</td></tr><tr><td>.json</td><td>6</td></tr><tr><td>.docx</td><td>4</td></tr></tbody></table></section><div class="foot">RMC · 第二版 · 资源总目录。章节关联以 46 章总索引为准。</div></div></div></body></html>
