@@ -186,7 +186,7 @@ DATA.forEach(r=>{
 const mt=document.querySelector('#modtable tbody');
 MODSUM.forEach(r=>{
   const tr=document.createElement('tr');
-  tr.innerHTML='<td>'+badge('mod',r[0])+'</td><td class="note">'+r[1]+'</td><td>'+evBadges(r[2].split(/[,\s]+/).filter(Boolean))+
+  tr.innerHTML='<td>'+badge('mod',r[0])+'</td><td class="note">'+r[1]+'</td><td>'+evBadges(r[2].split(/[\s]+/).filter(Boolean))+
     '</td><td>'+lvBadges(r[3].split(/[–\s]+/).filter(Boolean).map(x=>x.replace('L','L'))) +'</td><td class="note">'+r[4]+'</td>';
   mt.appendChild(tr);
 });

@@ -140,7 +140,7 @@ details>summary{cursor:pointer;font-size:13.5px;color:var(--navy);font-weight:60
       <button id="tJudge">判定表全集</button>
       <button id="tStat">学习记录</button>
     </div>
-    <div class="prog"><span id="pgTxt">0 / 41</span><span class="bar"><i id="pgBar"></i></span></div>
+    <div class="prog"><span id="pgTxt">0 / 46</span><span class="bar"><i id="pgBar"></i></span></div>
     <a class="ghost" href="learn-path.html">← 返回学习路径</a>
   </div>
 </header>
@@ -157,7 +157,7 @@ details>summary{cursor:pointer;font-size:13.5px;color:var(--navy);font-weight:60
 <script>
 /* ============================================================
    在线学习页：正文与题目统一取自《酒店收益管理》教材全本
-   （textbook-merged.html，成书 46 章）——教材改一次，这里自动
+   （《酒店收益管理》全本（七篇四十六章））——教材改一次，这里自动
    跟着改，且不再引用旧版 32 章 textbook.html，杜绝「两套内容」。
    ============================================================ */
 var PARTS=[
@@ -184,12 +184,12 @@ function stripTags(s){ return String(s||'').replace(/<[^>]+>/g,''); }
 function pad2(n){ return (n<10?'0':'')+n; }
 
 /* ---------- 1. 载入教材，抽出每章结构 ---------- */
-/* 统一从《酒店收益管理》教材全本（textbook-merged.html，成书 46 章）抽取：
-   · 第 1–32 章：教材原有结构化学习块（promise/pts/fml/judge/case/tip），走结构化分支；
-   · 第 33–46 章：成书新增的现实篇/视野篇，正文为散文式排版，按原生 HTML 渲染（raw）。
+/* 统一从《酒店收益管理》教材全本（《酒店收益管理》全本（七篇四十六章））抽取：
+   · 第 1–36 章：结构化学习块（promise/pts/fml/judge/case/tip），走结构化分支；
+   · 第 37–46 章：现实篇与视野篇，正文为散文式排版，按原生 HTML 渲染（raw）。
    单一来源，杜绝旧版 32 章 textbook.html 与全本两套内容并存。 */
 function loadBook(){
-  return fetch('textbook-merged.html?x='+Date.now()).then(function(r){ return r.text(); }).then(function(t){
+  return fetch('v2026-10-textbook-full.html?x='+Date.now()).then(function(r){ return r.text(); }).then(function(t){
     var doc=new DOMParser().parseFromString(t,'text/html');
     /* 开篇：第一个章节 details 之前的内容（封面 / 学法说明 / 篇目导览），无单独锚点，单独存 */
     var first=doc.querySelector('#mch01'), pre=doc.createElement('div'), k=first?first.previousElementSibling:null;
@@ -205,8 +205,8 @@ function loadBook(){
       var body=d.querySelector('.cbody')||d;
       var wrap=doc.createElement('div');
       [].slice.call(body.childNodes).forEach(function(nd){ wrap.appendChild(doc.importNode(nd,true)); });
-      /* 1–32 为教材结构化章；33–41 为成书新增散文章，按原生 HTML 渲染 */
-      CH[no]={no:no, title:tt, el:wrap, raw:(no<1||no>32)};
+      /* 1–36 为结构化章；37–46 按原生正文渲染 */
+      CH[no]={no:no, title:tt, el:wrap, raw:(no<1||no>36)};
       ORDER.push(no);
     });
   });
@@ -221,10 +221,10 @@ function renderLearn(n){
   var el=c.el;
   var h;
   if(c.raw){
-    /* 33–41 现实篇：自带完整排版（cbody），直接渲染原始正文 */
+    /* 现实篇与视野篇：自带完整排版，直接渲染原始正文 */
     h='<div class="card"><h2 id="toc-2">第 '+n+' 章　'+esc(c.title)+'</h2>'+el.innerHTML
       +'<div class="act">'
-      +'<a class="btn ghost" href="textbook-merged.html#mch'+pad2(n)+'" target="_blank">在教材里翻这一章</a>'
+      +'<a class="btn ghost" href="v2026-10-textbook-full.html#mch'+pad2(n)+'" target="_blank">在教材里翻这一章</a>'
       +'<button class="btn'+(isRead?'':' gold')+'" id="markRead" data-n="'+n+'">'
       +(isRead?'✓ 本章已学完（点击撤销）':'我学完了，标记本章')+'</button>'
       +'<span class="hint">学完标记会同步到学习路径页</span></div></div>';
@@ -263,7 +263,7 @@ function renderLearn(n){
       +'<div class="hint" style="margin-top:6px">答案在教材附录 B：<a href="textbook-merged.html#appB" target="_blank">打开附录 B</a></div></div>';
   }
   h+='<div class="act">'
-    +'<a class="btn ghost" href="textbook-merged.html#mch'+pad2(n)+'" target="_blank">在教材里翻这一章</a>'
+    +'<a class="btn ghost" href="v2026-10-textbook-full.html#mch'+pad2(n)+'" target="_blank">在教材里翻这一章</a>'
     +'<button class="btn'+(isRead?'':' gold')+'" id="markRead" data-n="'+n+'">'
     +(isRead?'✓ 本章已学完（点击撤销）':'我学完了，标记本章')+'</button>'
     +'<span class="hint">学完标记会同步到学习路径页</span></div></div>';
@@ -471,11 +471,11 @@ function renderStat(){
   }).join('');
   var last=ls('hrma_final_v1',null);
   document.getElementById('main').innerHTML='<div class="card"><h2 id="toc-6">学习记录</h2>'
-    +'<div class="tipbox">已学完 <b>'+st.read.length+' / 41</b> 章。综合自测：<b>'
+    +'<div class="tipbox">已学完 <b>'+st.read.length+' / 46</b> 章。综合自测：<b>'
     +(last?(last.got+' / '+last.total):'未参加')+'</b>。记录存在本机浏览器里，换设备不同步。</div>'
     +'<table><tr><td>章</td><td>标题</td><td>学习</td><td>速测</td></tr>'+rows+'</table>'
     +'<div class="act"><button class="btn ghost" id="clr">清空学习记录</button>'
-    +'<a class="btn ghost" href="textbook-merged.html" target="_blank">打开教材全本（翻阅用）</a></div></div>';
+    +'<a class="btn ghost" href="v2026-10-textbook-full.html" target="_blank">打开教材全本（翻阅用）</a></div></div>';
   document.getElementById('clr').addEventListener('click',function(){
     if(confirm('清空本章页的学习与测验记录？（学习路径页的完成标记会一起清）')){
       setState({read:[],score:{}}); syncPath(); renderStat(); renderProg();
@@ -503,7 +503,7 @@ function renderNav(){
 }
 function renderProg(){
   var st=myState(), n=st.read.filter(function(x){ return x>0; }).length;
-  document.getElementById('pgTxt').textContent=n+' / 41';
+  document.getElementById('pgTxt').textContent=n+' / 46';
   document.getElementById('pgBar').style.width=(n/41*100)+'%';
 }
 /* 学完的章写进学习路径页共用的完成名单，两边进度一致 */
@@ -561,7 +561,7 @@ loadBook().then(function(){
   syncPath();
 }).catch(function(e){
   document.getElementById('main').innerHTML='<div class="card"><h2 id="toc-7">载入失败</h2>'
-    +'<p>没能读到教材正文（'+esc(e.message)+'）。请刷新重试，或直接 <a href="textbook-merged.html">打开教材全本</a>。</p></div>';
+    +'<p>没能读到教材正文（'+esc(e.message)+'）。请刷新重试，或直接 <a href="v2026-10-textbook-full.html">打开教材全本</a>。</p></div>';
 });
 </script>
 <script src="assets/js/site-nav.js?v=v24"></script>
@@ -575,5 +575,5 @@ loadBook().then(function(){
 
 
 
-<div style="max-width:880px;margin:18px auto;font-size:12.5px;color:#52606D">旧版（46 章）留存：<a href="learn-41.html">打开历史版本</a>。</div></body>
+</body>
 </html>
