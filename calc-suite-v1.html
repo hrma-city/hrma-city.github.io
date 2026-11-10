@@ -128,12 +128,39 @@ code{font-family:Menlo,Consolas,monospace;font-size:12px;background:var(--grey);
 }
 @media(max-width:900px){#side{display:none}main{padding:20px 14px 60px}.hero{padding:20px}}
 </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC即RMCity（即Revenue Management Community收益管理社区）","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"calc-suite-v1","item":"https://hrma-city.github.io/calc-suite-v1.html"}]}</script>
+
+<style id="rm-toc-style">
+#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
+  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
+  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+#rm-toc-drawer.open{transform:translateX(0)}
+#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
+#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
+#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
+#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
+#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
+  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
+#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
+#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
+#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
+  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
+  display:flex;align-items:center;justify-content:center}
+#rm-toc-toggle:hover{background:#1d4e7e}
+@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
+@media (min-width:1100px){body.toc-open{padding-left:312px}body.toc-open .site-nav,body.toc-open .topbar{left:312px}}
+body{transition:padding-left .25s ease}
+</style>
 </head>
 <body>
 <div class="layout">
 <nav id="side">
   <div class="brand">RMC 收益管理社区</div>
-  <h2>收益管理计算分析工具</h2>
+  <h2 id="toc-1">收益管理计算分析工具</h2>
   <div class="sub">输入参数 · 即时测算</div>
   <div class="grp">计算模块</div>
   <a href="#m1">1　市场指数与对标</a>
@@ -184,7 +211,7 @@ code{font-family:Menlo,Consolas,monospace;font-size:12px;background:var(--grey);
 
 <!-- ============ 模块 1 ============ -->
 <section class="mod" id="m1">
-  <h2>1　市场指数与对标</h2>
+  <h2 id="toc-2">1　市场指数与对标</h2>
   <p class="lead">用 MPI / ARI / RGI 判断份额与价格谁在拉动收入，并自动校验三个指数是否自洽。</p>
   <div class="desc"><b>表格说明</b>　竞争组按「房量加权出租率、房晚加权平均房价、房量加权每可售房收入」汇总；RGI 应恒等于 MPI×ARI÷100。校验差不为 0 说明竞争组口径混用了未加权平均。
     <table><tr><th>字段</th><th>含义</th><th>单位</th></tr>
@@ -192,7 +219,7 @@ code{font-family:Menlo,Consolas,monospace;font-size:12px;background:var(--grey);
     <tr><td>竞争组各店三项数据</td><td>固定成员，中途换店会造成指数跳变</td><td>同上</td></tr>
     <tr><td>MPI / ARI / RGI</td><td>市场渗透 / 平均房价 / 收入产出指数</td><td>点（100 为持平）</td></tr></table>
   </div>
-  <h3>输入参数</h3>
+  <h3 id="toc-3">输入参数</h3>
   <div class="inputs">
     <div class="fld"><label>本店可售房数</label><input id="k_R" type="number" step="any" value="320"></div>
     <div class="fld"><label>本店已售房晚</label><input id="k_Q" type="number" step="any" value="240"></div>
@@ -207,7 +234,7 @@ code{font-family:Menlo,Consolas,monospace;font-size:12px;background:var(--grey);
     <div class="fld"><label>竞品 C 已售房晚</label><input id="k_cQ" type="number" step="any" value="260"></div>
     <div class="fld"><label>竞品 C 客房收入</label><input id="k_cV" type="number" step="any" value="208000"></div>
   </div>
-  <h3>测算结果</h3>
+  <h3 id="toc-4">测算结果</h3>
   <div class="results">
     <div class="ri"><span class="k">本店出租率</span><span class="v" id="k_occ">—</span></div>
     <div class="ri"><span class="k">本店平均房价</span><span class="v" id="k_adr">—</span></div>
@@ -232,7 +259,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
 
 <!-- ============ 模块 2 ============ -->
 <section class="mod" id="m2">
-  <h2>2　预订进度与 Pickup</h2>
+  <h2 id="toc-5">2　预订进度与 Pickup</h2>
   <p class="lead">按同一「距入住天数」窗口对比在手预订，投影最终房晚，并把进度信号交给价格弹性检验后再决定调价。</p>
   <div class="desc"><b>表格说明</b>　净增预订 = 期末在手 − 期初在手（已含取消）。投影终值 = 当前在手 + 预计剩余增量；对新增部分扣除未来流失后得到净投影与预测出租率。
     <table><tr><th>字段</th><th>含义</th><th>单位</th></tr>
@@ -241,7 +268,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
     <tr><td>新增预订流失率 / 目标出租率</td><td>未来取消估计 / 经营目标</td><td>%</td></tr>
     <tr><td>提价步长 / 本店当前房价</td><td>触发调价时的幅度与测算基数</td><td>% / 元</td></tr></table>
   </div>
-  <h3>输入参数</h3>
+  <h3 id="toc-6">输入参数</h3>
   <div class="inputs">
     <div class="fld"><label>可售房量</label><input id="p_R" type="number" step="any" value="320"></div>
     <div class="fld"><label>距入住天数</label><input id="p_dba" type="number" step="any" value="14"></div>
@@ -256,10 +283,10 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
     <div class="fld"><label>本店当前房价（元）</label><input id="p_adr" type="number" step="any" value="820"></div>
   </div>
   <div class="chk"><input type="checkbox" id="p_link" checked><label for="p_link">联动「价格弹性与最优定价」模块的弧弹性测算调价后收入（推荐）</label></div>
-  <h3>分档速度（可逐行修改）</h3>
+  <h3 id="toc-7">分档速度（可逐行修改）</h3>
   <table class="tbl"><thead><tr><th>距入住窗口</th><th>期初在手</th><th>期末在手</th><th>去年同窗口增量</th><th>净增预订</th><th>速度偏差</th><th>判定</th></tr></thead>
   <tbody id="p_pacebody"></tbody></table>
-  <h3>测算结果</h3>
+  <h3 id="toc-8">测算结果</h3>
   <div class="results">
     <div class="ri"><span class="k">提前期档位</span><span class="v" id="p_win" style="font-size:14px">—</span></div>
     <div class="ri"><span class="k">进度比率 Pace</span><span class="v" id="p_pace">—</span></div>
@@ -286,7 +313,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
 
 <!-- ============ 模块 3 ============ -->
 <section class="mod" id="m3">
-  <h2>3　价格弹性与最优定价</h2>
+  <h2 id="toc-9">3　价格弹性与最优定价</h2>
   <p class="lead">用弧弹性判断需求对价格的反应，再用线性需求拟合求最优价；决策看边际贡献，不看流水。</p>
   <div class="desc"><b>表格说明</b>　两点估计用中点法消除涨跌不对称；多期观测用对数回归得出更稳健的弹性与拟合优度。最优价由「使 (价格 − 变动成本) × 销量 最大」反解，并受容量约束。
     <table><tr><th>字段</th><th>含义</th><th>单位</th></tr>
@@ -295,7 +322,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
     <tr><td>容量上限</td><td>该观察窗最多可卖的房晚</td><td>间夜</td></tr>
     <tr><td>多期观测</td><td>至少四期；须剔除节假日与竞争调价期</td><td>元 / 间夜</td></tr></table>
   </div>
-  <h3>输入参数</h3>
+  <h3 id="toc-10">输入参数</h3>
   <div class="inputs">
     <div class="fld"><label>原价（元）</label><input id="e_P1" type="number" step="any" value="480"></div>
     <div class="fld"><label>新价（元）</label><input id="e_P2" type="number" step="any" value="520"></div>
@@ -304,10 +331,10 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
     <div class="fld"><label>单位变动成本（元）</label><input id="e_VC" type="number" step="any" value="120"></div>
     <div class="fld"><label>容量上限（间夜）</label><input id="e_cap" type="number" step="any" value="200"></div>
   </div>
-  <h3>多期观测（价格 / 需求量）</h3>
+  <h3 id="toc-11">多期观测（价格 / 需求量）</h3>
   <table class="tbl"><thead><tr><th>期次</th><th>价格（元）</th><th>需求量（间夜）</th></tr></thead>
   <tbody id="e_obs"></tbody></table>
-  <h3>测算结果</h3>
+  <h3 id="toc-12">测算结果</h3>
   <div class="results">
     <div class="ri"><span class="k">点弹性</span><span class="v" id="e_point">—</span></div>
     <div class="ri best"><span class="k">弧弹性（采用）</span><span class="v" id="e_arc">—</span></div>
@@ -336,7 +363,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
 
 <!-- ============ 模块 4 ============ -->
 <section class="mod" id="m4">
-  <h2>4　超额预订</h2>
+  <h2 id="toc-13">4　超额预订</h2>
   <p class="lead">经验查表法给底线，二项分布经济模型给上限，风控比例定最终执行量。</p>
   <div class="desc"><b>表格说明</b>　净流失率须统一分母：(未到店数 + 当日取消数) ÷ 总预订数。经济模型逐间枚举 0–80 间，计算期望需安置人数与期望净贡献，取最大值对应的超售量；最终执行量不得突破风控绝对上限。
     <table><tr><th>字段</th><th>含义</th><th>单位</th></tr>
@@ -346,7 +373,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
     <tr><td>单间安置成本</td><td>替代酒店差价 + 赔付 + 交通 + 客诉损失</td><td>元</td></tr>
     <tr><td>经验法上限 / 修正系数 / 审批阈值 / 风控上限率</td><td>可按酒店政策调整的参数</td><td>间 / 倍 / %</td></tr></table>
   </div>
-  <h3>输入参数</h3>
+  <h3 id="toc-14">输入参数</h3>
   <div class="inputs">
     <div class="fld"><label>可售房量</label><input id="o_C" type="number" step="any" value="320"></div>
     <div class="fld"><label>已确认预订数</label><input id="o_B" type="number" step="any" value="320"></div>
@@ -360,7 +387,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
     <div class="fld"><label>审批阈值（间数）</label><input id="o_an" type="number" step="any" value="10"></div>
     <div class="fld"><label>风控绝对上限率</label><input id="o_risk" type="number" step="any" value="0.10"></div>
   </div>
-  <h3>测算结果</h3>
+  <h3 id="toc-15">测算结果</h3>
   <div class="results">
     <div class="ri"><span class="k">到店率</span><span class="v" id="o_p">—</span></div>
     <div class="ri"><span class="k">经验法基准超售率</span><span class="v" id="o_base">—</span></div>
@@ -376,7 +403,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
     <div class="ri best"><span class="k">最终执行超售量</span><span class="v" id="o_final">—</span></div>
     <div class="ri wide"><span class="k">结论</span><span class="v" id="o_concl" style="font-size:14px">—</span></div>
   </div>
-  <h3>逐间枚举（0–80 间，全部展开可滚动）</h3>
+  <h3 id="toc-16">逐间枚举（0–80 间，全部展开可滚动）</h3>
   <div class="scroll"><table class="tbl"><thead><tr><th>超售量</th><th>确认预订数</th><th>期望到店</th>
     <th>不发生安置的概率</th><th>期望需安置人数</th><th>期望净贡献</th><th>标记</th></tr></thead>
     <tbody id="o_body"></tbody></table></div>
@@ -387,7 +414,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
 
 <!-- ============ 模块 5 ============ -->
 <section class="mod" id="m5">
-  <h2>5　置换分析</h2>
+  <h2 id="toc-17">5　置换分析</h2>
   <p class="lead">判断一笔低价业务会不会挤掉原本能卖出的高价散客；还价底线由盈亏平衡价给出。</p>
   <div class="desc"><b>表格说明</b>　只有「留给散客的房量小于散客需求」时才会产生置换；决策比较的是双方边际贡献（房价 − 变动成本 + 餐饮净贡献），不是房费流水。
     <table><tr><th>字段</th><th>含义</th><th>单位</th></tr>
@@ -396,7 +423,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
     <tr><td>变动成本</td><td>随出租变动的成本</td><td>元 / 间夜</td></tr>
     <tr><td>散客 / 团队餐饮贡献</td><td>净利润贡献，含宴会与会议室净利；没有填 0</td><td>元 / 间夜</td></tr></table>
   </div>
-  <h3>输入参数</h3>
+  <h3 id="toc-18">输入参数</h3>
   <div class="inputs">
     <div class="fld"><label>总房数</label><input id="d_R" type="number" step="any" value="200"></div>
     <div class="fld"><label>散客需求（间夜）</label><input id="d_Dt" type="number" step="any" value="180"></div>
@@ -408,7 +435,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
     <div class="fld"><label>团队餐饮贡献（元）</label><input id="d_Fg" type="number" step="any" value="180"></div>
   </div>
   <div class="chk"><input type="checkbox" id="d_link"><label for="d_link">散客房价改用「净价与渠道贡献」的加权净房价</label></div>
-  <h3>测算结果</h3>
+  <h3 id="toc-19">测算结果</h3>
   <div class="results">
     <div class="ri"><span class="k">留给散客的房量</span><span class="v" id="d_left">—</span></div>
     <div class="ri"><span class="k">被挤掉散客</span><span class="v" id="d_disp">—</span></div>
@@ -430,7 +457,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
 
 <!-- ============ 模块 6 ============ -->
 <section class="mod" id="m6">
-  <h2>6　净价与渠道贡献</h2>
+  <h2 id="toc-20">6　净价与渠道贡献</h2>
   <p class="lead">把佣金、支付费、返现全部扣掉，看每个渠道真正带来多少收入；加权净房价应回填到置换分析。</p>
   <div class="desc"><b>表格说明</b>　净房价 = 挂牌价 ×(1 − 佣金率 − 支付费率) − 每间返现。净贡献/间 = 净房价 − 变动成本。渠道结构损失 = 若全部房晚都走净房价最高的渠道，可多获得的净收入。
     <table><tr><th>字段</th><th>含义</th><th>单位</th></tr>
@@ -438,11 +465,11 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
     <tr><td>每间返现 / 房晚数</td><td>单间返还金额 / 该渠道成交房晚</td><td>元 / 间夜</td></tr>
     <tr><td>变动成本</td><td>与置换分析保持一致</td><td>元 / 间夜</td></tr></table>
   </div>
-  <h3>输入参数</h3>
+  <h3 id="toc-21">输入参数</h3>
   <div class="inputs"><div class="fld"><label>变动成本（元 / 间夜）</label><input id="n_vc" type="number" step="any" value="120"></div></div>
   <table class="tbl"><thead><tr><th>渠道</th><th>挂牌价</th><th>佣金率</th><th>支付费率</th><th>每间返现</th><th>房晚数</th></tr></thead>
   <tbody id="n_body"></tbody></table>
-  <h3>测算结果</h3>
+  <h3 id="toc-22">测算结果</h3>
   <table class="tbl"><thead><tr><th>渠道</th><th>净房价</th><th>净贡献 / 间</th><th>净收入</th><th>净房价排名</th><th>标记</th></tr></thead>
   <tbody id="n_res"></tbody></table>
   <div class="results">
@@ -459,7 +486,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
 
 <!-- ============ 模块 7 ============ -->
 <section class="mod" id="m7">
-  <h2>7　房型价差校验</h2>
+  <h2 id="toc-23">7　房型价差校验</h2>
   <p class="lead">检查相邻房型之间的价差是否落在健康区间，避免在客人眼里「档次分不清」或「高档不值」。</p>
   <div class="desc"><b>表格说明</b>　价差率 = (高价 − 低价) ÷ 低价。低于下限说明档次区分不清，高于上限说明高档房转化断层；阈值可按酒店定位调整。
     <table><tr><th>字段</th><th>含义</th><th>单位</th></tr>
@@ -467,7 +494,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
     <tr><td>价格圆整步长</td><td>调整价格时按此步长取整</td><td>元</td></tr>
     <tr><td>相邻房型对 / 低价档 / 高价档</td><td>价格阶梯中相邻两档的现行价</td><td>元</td></tr></table>
   </div>
-  <h3>输入参数</h3>
+  <h3 id="toc-24">输入参数</h3>
   <div class="inputs">
     <div class="fld"><label>健康价差下限</label><input id="g_lo" type="number" step="any" value="0.08"></div>
     <div class="fld"><label>健康价差上限</label><input id="g_hi" type="number" step="any" value="0.35"></div>
@@ -475,7 +502,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
   </div>
   <table class="tbl"><thead><tr><th>相邻房型对</th><th>低价档</th><th>高价档</th></tr></thead>
   <tbody id="g_body"></tbody></table>
-  <h3>测算结果</h3>
+  <h3 id="toc-25">测算结果</h3>
   <table class="tbl"><thead><tr><th>相邻房型对</th><th>价差</th><th>价差率</th><th>判定</th><th>建议动作</th></tr></thead>
   <tbody id="g_res"></tbody></table>
   <div class="results">
@@ -490,7 +517,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
 
 <!-- ============ 表格说明 ============ -->
 <section class="sec" id="tables">
-  <h2>表格说明</h2>
+  <h2 id="toc-26">表格说明</h2>
   <p>本页七个模块与 Excel 计算模板中的表一一对应。下表说明每张表解决什么问题、需要填什么。</p>
   <table class="tbl"><thead><tr><th>表名</th><th>解决的问题</th><th>主要输入</th><th>主要输出</th></tr></thead><tbody>
   <tr><td>市场指数与对标</td><td>份额、价格、收入产出谁在起作用</td><td>本店与竞争组的可售房数、已售房晚、客房收入</td><td>MPI / ARI / RGI、恒等式校验、市场诊断与建议动作</td></tr>
@@ -507,14 +534,14 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
 
 <!-- ============ 在线使用说明 ============ -->
 <section class="sec" id="usage">
-  <h2>在线使用说明</h2>
-  <h3>三步开始</h3>
+  <h2 id="toc-27">在线使用说明</h2>
+  <h3 id="toc-28">三步开始</h3>
   <ol>
     <li><b>改黄色输入框</b>：本页每个黄色格子都可以直接编辑。示例参数只是演示，请替换为实际经营数据；输入后结果立即更新，不需要点「计算」按钮。</li>
     <li><b>读浅蓝结果卡</b>：绿色代表可执行或达标，红色代表需谨慎或预警，金色代表最优值。决策类结论同时用文字写明，不依赖颜色判断。</li>
     <li><b>按建议动作执行</b>：结论给出的是基于当前输入的测算，超售、调价、接团这类影响较大的决定，请结合当日实际再复核一次。</li>
   </ol>
-  <h3>填写口径</h3>
+  <h3 id="toc-29">填写口径</h3>
   <ul>
     <li>金额单位为元；比率类输入框填小数，<code>0.05</code> 表示 5%，<code>1.10</code> 表示 1.10 倍。</li>
     <li>客房收入与平均房价须保持同一含税口径；已售房晚不含免费房。</li>
@@ -523,9 +550,9 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
     <li>净流失率统一分母：(未到店数 + 当日取消数) ÷ 总预订数；不要把两套分母的率直接相加。</li>
     <li>预订进度、价格弹性、竞争对标的所有比较，都须放在同一提前期、同一渠道层级、同一观察窗口。</li>
   </ul>
-  <h3>模块之间的联动</h3>
+  <h3 id="toc-30">模块之间的联动</h3>
   <p>「预订进度与 Pickup」默认采用「价格弹性与最优定价」算出的弧弹性来测算调价后收入；「置换分析」可勾选采用「净价与渠道贡献」的加权净房价。改动上游参数，下游结论会一起变化。</p>
-  <h3>保存与打印</h3>
+  <h3 id="toc-31">保存与打印</h3>
   <ul>
     <li>本页是单个 HTML 文件，可直接用浏览器打开，离线可用；也可整页另存或打印为 PDF。</li>
     <li>点击「打印 / 另存为 PDF」会按模块分页，并自动带出目录。</li>
@@ -533,7 +560,7 @@ RGI = 本店每可售房收入 ÷ 竞争组每可售房收入 × 100 = MPI × AR
     <li>本页与 Excel 计算模板一并交付；需要可编辑、可留存的表格时，打开 Excel 模板，改黄色格子即自动重算。</li>
     <li>「恢复示例参数」可把本页所有输入还原到初始状态。</li>
   </ul>
-  <h3>结果边界</h3>
+  <h3 id="toc-32">结果边界</h3>
   <p>弹性测算假设线性需求、其他条件不变；存在季节性或竞争调价时，请用多期观测并剔除混杂期。超额预订模型假设未到店订单仍确认收入，以可取消价为主时须先调整有效到店率与每间净贡献。所有结论均为期望值测算，不构成经营承诺。</p>
 </section>
 
@@ -870,6 +897,62 @@ function exportCSV(){
 buildRows();
 bindAll();
 computeAll();
+</script>
+
+<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
+<nav id="rm-toc-drawer" aria-label="章节目录">
+  <div class="toc-h"><b>RMC 收益管理计算分析工具</b><button class="toc-close" aria-label="关闭">&times;</button></div>
+  <div class="toc-body"><a href="#toc-1">1. 收益管理计算分析工具</a>
+<a href="#toc-2">1 市场指数与对标</a>
+<a href="#toc-3" class="lv3">1.1 输入参数</a>
+<a href="#toc-4" class="lv3">1.2 测算结果</a>
+<a href="#toc-5">2 预订进度与 Pickup</a>
+<a href="#toc-6" class="lv3">1.3 输入参数</a>
+<a href="#toc-7" class="lv3">1.4 分档速度（可逐行修改）</a>
+<a href="#toc-8" class="lv3">1.5 测算结果</a>
+<a href="#toc-9">3 价格弹性与最优定价</a>
+<a href="#toc-10" class="lv3">1.6 输入参数</a>
+<a href="#toc-11" class="lv3">1.7 多期观测（价格 / 需求量）</a>
+<a href="#toc-12" class="lv3">1.8 测算结果</a>
+<a href="#toc-13">4 超额预订</a>
+<a href="#toc-14" class="lv3">1.9 输入参数</a>
+<a href="#toc-15" class="lv3">1.10 测算结果</a>
+<a href="#toc-16" class="lv3">1.11 逐间枚举（0–80 间，全部展开可滚动）</a>
+<a href="#toc-17">5 置换分析</a>
+<a href="#toc-18" class="lv3">1.12 输入参数</a>
+<a href="#toc-19" class="lv3">1.13 测算结果</a>
+<a href="#toc-20">6 净价与渠道贡献</a>
+<a href="#toc-21" class="lv3">1.14 输入参数</a>
+<a href="#toc-22" class="lv3">1.15 测算结果</a>
+<a href="#toc-23">7 房型价差校验</a>
+<a href="#toc-24" class="lv3">1.16 输入参数</a>
+<a href="#toc-25" class="lv3">1.17 测算结果</a>
+<a href="#toc-26">2. 表格说明</a>
+<a href="#toc-27">3. 在线使用说明</a>
+<a href="#toc-28" class="lv3">3.1 三步开始</a>
+<a href="#toc-29" class="lv3">3.2 填写口径</a>
+<a href="#toc-30" class="lv3">模块之间的联动</a>
+<a href="#toc-31" class="lv3">3.3 保存与打印</a>
+<a href="#toc-32" class="lv3">3.4 结果边界</a></div>
+</nav>
+<script id="rm-toc-script">
+(function(){
+  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
+  if(!d||!t)return;
+  var c=d.querySelector('.toc-close');
+  t.addEventListener('click',function(){d.classList.toggle('open');document.body.classList.toggle('toc-open',d.classList.contains('open'))});
+  if(c)c.addEventListener('click',function(){d.classList.remove('open');document.body.classList.remove('toc-open')});
+  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
+  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
+  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
+    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
+    d.classList.remove('open');document.body.classList.remove('toc-open');
+  });});
+})();
 </script>
 </body>
 </html>
