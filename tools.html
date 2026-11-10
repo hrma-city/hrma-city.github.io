@@ -593,8 +593,18 @@ var TOOLS=[
       '<span class="saved" id="saved_'+t.key+'">已自动保存 ✓</span></div>'+
       '</section>';
   });
-  document.getElementById('twToc').innerHTML=toc;
-  document.getElementById('twMain').innerHTML=main;
+  document.getElementById('twToc').innerHTML=toc+
+    '<a href="#calc-suite" data-key="calc-suite">收益管理计算分析套件</a>';
+  document.getElementById('twMain').innerHTML=main+
+    '<section class="tw-card" id="calc-suite">'+
+      '<span class="badge">综合工具</span><h2>收益管理计算分析套件</h2>'+
+      '<p class="desc">市场指数与对标、预订进度与 Pickup、价格弹性与最优定价、超额预订、置换分析、净价与渠道贡献、房型价差校验七个模块，输入参数即时测算，模块之间口径联动。</p>'+
+      '<div class="formula">决策看边际贡献，不看流水；阈值全部可调，所有结果可用独立算例复算。</div>'+
+      '<div class="foot">'+
+        '<a class="save" style="display:inline-block;padding:7px 14px;border-radius:9px;font-size:13px;text-decoration:none;font-weight:600" href="calc-suite-v1.html">打开在线工具</a>'+
+        '<a class="reset" style="display:inline-block;padding:7px 14px;border-radius:9px;font-size:13px;text-decoration:none;font-weight:600" href="calc-suite-offline-v1.html">单文件离线版</a>'+
+        '<a class="copy" style="display:inline-block;padding:7px 14px;border-radius:9px;font-size:13px;text-decoration:none;font-weight:600" href="calc-suite-offline-pack-v1.zip">下载客户离线包</a>'+
+      '</div></section>';
 
   // 初始化：填值（先存后默认值）+ 绑定
   TOOLS.forEach(function(t){
