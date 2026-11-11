@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>收益管理计算口径复核 · 内部存档</title><style>
+:root{--navy:#1B3A5C;--gold:#B8894A;--cream:#FBF6EC;--bg:#FAFAF8;--ink:#1F2933;
+--mut:#5A6B7B;--line:#E1E5EA;--green:#2F7A3E;--red:#C0392B;--blue:#E8F1F9}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
+font-family:"Hiragino Sans GB","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:14px;line-height:1.75}
+#wrap{display:flex;max-width:1400px;margin:0 auto}
+#side{width:220px;flex:0 0 220px;position:sticky;top:0;height:100vh;overflow:auto;background:var(--navy);padding:24px 14px}
+#side .brand{color:#fff;font-weight:700;font-size:15px;margin-bottom:18px}
+#side a{display:block;color:#D8E4EF;text-decoration:none;font-size:12px;padding:5px 9px;border-radius:3px}
+#side a:hover{background:rgba(255,255,255,.08);color:#fff}
+main{flex:1;min-width:0;padding:28px 38px 70px}
+h1{font-size:25px;color:var(--navy);margin:0 0 6px}
+.sub{color:var(--mut);font-size:12.5px;margin-bottom:16px}
+.notice{background:var(--cream);border-left:4px solid var(--gold);padding:10px 15px;font-size:12.5px;margin-bottom:20px}
+h2{font-size:18px;color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:7px;margin:30px 0 14px}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:18px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--navy);color:#fff}
+tr:nth-child(even) td{background:#F7F9FB}
+td.bad{color:var(--red);font-weight:600}td.ok{color:var(--green);font-weight:600}
+.tag{display:inline-block;background:#EEF2F6;padding:1px 7px;border-radius:9px;font-size:10.5px;margin:1px 3px 1px 0}
+ul{font-size:12.5px}li{margin:4px 0}
+.foot{color:var(--mut);font-size:11.5px;margin-top:30px;border-top:1px solid var(--line);padding-top:12px}
+@media print{#side{display:none}main{padding:0}body{font-size:11px}table{font-size:10px}}
+</style></head><body>
+<div id="wrap"><nav id="side"><div class="brand">口径复核 · 内部存档</div>
+<a href="#s1">1　复核范围</a><a href="#s2">2　逐项发现与判定</a>
+<a href="#s3">3　统一口径与分级</a><a href="#s4">4　现行功能清单</a>
+<a href="#s5">5　收敛与下架清单</a><a href="#s6">6　校验记录</a>
+</nav><main>
+<h1>收益管理计算口径复核</h1>
+<div class="sub">复核范围：全站收益管理计算工具、模板与报表 · 结论用于口径统一与页面收敛</div>
+<div class="notice"><b>存档说明</b>　本页仅供内部存档与台账登记，不进入站内导航，不对外展示。对客页面只呈现统一后的最终结果，不出现新旧对照、版本沿革或处置过程。</div>
+<h2 id="s1">1　复核范围</h2>
+<p>扫描站点根目录 949 个文件、758 个 HTML，筛出 36 个含输入控件的交互页；逐一读取 26 个计算类 Excel 的公式单元格、公式手册、判定表规范与 11 个 xlsx 在线预览页，并用独立 Python 复算核对同一组输入下的结果。</p>
+<ul><li>置换分析：<b>7 套</b>不同算法并存；超额预订：<b>5 套</b>；市场指数：4 套；预订进度：3 套；价格弹性：3 套。</li>
+<li>上次交付的在线计算页共 7 个模块，<b>缺需求预测</b>、综合收益指标、跨行业单位产出与每日决策速查。</li>
+<li>11 个 xlsx 在线预览页的缓存值含 <code>#NAME?</code> 等错误。</li></ul>
+<h2 id="s2">2　逐项发现与判定</h2>
+<table><thead><tr><th>功能模块</th><th>原有位置</th><th>原口径 / 问题</th><th>判定</th><th>处置</th></tr></thead><tbody><tr><td><b>置换分析</b></td><td><span class='tag'>tools.html 在线计算器</span></td><td>净贡献 = 团队总贡献 − 被挤掉散客贡献，8 参数；被挤掉散客未加物理上限</td><td><span class=''>算法正确但缺上限</span></td><td>并入中心 A 档，补 MIN(团队量, 约束置换) 上限</td></tr><tr><td><b>置换分析</b></td><td><span class='tag'>calc-displacement.xlsx</span></td><td>同上，另附比例法</td><td><span class=''>正确</span></td><td>并入中心 A 档</td></tr><tr><td><b>置换分析</b></td><td><span class='tag'>calc-displacement-v2026-6.xlsx / 07-displacement.html</span></td><td>多收入流 + wash + ρ + 安全边际 + bid price；但 Displaced=MIN(G_eff×ρ, 约束置换) 使 ρ 在 ρ≥0.63 时完全失效</td><td><span class='bad'>框架最全，ρ 实现有误</span></td><td>采纳框架，ρ 改为直接乘约束置换；保留为 C 档</td></tr><tr><td><b>置换分析</b></td><td><span class='tag'>v2026-6-displacement-audit.html</span></td><td>文字写「净贡献 ≥ 损失×(1+s)」，与 Excel「净贡献 ≥ s×损失」矛盾；还价底线 BEP×(1+s) 把固定成本项也乘了 s</td><td><span class='bad'>文字与公式矛盾</span></td><td>统一为 团队贡献 ≥ (1+s)×损失；还价底线只对变动损失加成</td></tr><tr><td><b>置换分析</b></td><td><span class='tag'>07-displacement.xlsx</span></td><td>纯房费 + 100% 置换（B7=50 硬编码），忽略变动成本与附加贡献</td><td><span class='bad'>错误</span></td><td>下掉，现行入口指向中心置换分析</td></tr><tr><td><b>置换分析</b></td><td><span class='tag'>calc-templates.html 第 10 节</span></td><td>「净贡献 = 收入 − 成本」示例表 20 间×400=6000、20 间×560=8700，数字与口径均不自洽</td><td><span class='bad'>示例不自洽</span></td><td>下掉该示例，统一到中心三档</td></tr><tr><td><b>置换分析</b></td><td><span class='tag'>decision-tables.html 表 G / 08 团队询价决策</span></td><td>比率 R=团队价÷散客 ADR + 预测 OCC 查表；置换成本 = 团队间夜×(散客 ADR − 团队价)</td><td><span class=''>经验查表，与贡献口径不一致</span></td><td>表 G 保留为快速筛查，最终判定改指向中心置换分析</td></tr><tr><td><b>超额预订</b></td><td><span class='tag'>tools.html / calc-overbooking.xlsx</span></td><td>建议超售 = (No-show + 取消)×已售×风险偏好，未除 (1−q)</td><td><span class='bad'>系统性低估</span></td><td>改为 C×q/(1−q)×偏好，作为 A 档闭式解</td></tr><tr><td><b>超额预订</b></td><td><span class='tag'>08_超额预订计算器.xlsx / decision-tables 表 E</span></td><td>基准率六档 × 四修正系数 × 两道硬上限；使用说明含 #NAME? 缓存错误</td><td><span class=''>经验法可用但预览有误值</span></td><td>查表基准率下掉；修正系数保留为 B 档调节；预览错误值随页面收敛</td></tr><tr><td><b>超额预订</b></td><td><span class='tag'>campus-l0-table.html</span></td><td>六步调节法：基准 = 可售×(取消+No-show)，再 ×0.7 ×0.8，walk 率红线 0.5%</td><td><span class='bad'>另一套口径</span></td><td>下掉，统一到中心三档</td></tr><tr><td><b>超额预订</b></td><td><span class='tag'>calc-templates.html 第 11 节</span></td><td>建议超售上限 ≈ 历史 No-show 率，示例 100 房 × 8% = 8 间</td><td><span class=''>忽略取消与分母口径</span></td><td>下掉</td></tr><tr><td><b>超额预订</b></td><td><span class='tag'>calc-suite-v1.html / v1.1 Excel</span></td><td>二项分布经济模型，期望净贡献最大 + 风控上限</td><td><span class=''>最专业</span></td><td>采纳为 C 档；A/B 档为它的闭式近似与调节版</td></tr><tr><td><b>市场指数</b></td><td><span class='tag'>calc-competition.xlsx / calc-templates 1–3 节</span></td><td>MPI/ARI/RGI ÷ 竞组平均</td><td><span class=''>分母口径未写明</span></td><td>统一竞组加权 Σ已售÷Σ可售；补 RGI 恒等式校验</td></tr><tr><td><b>市场指数</b></td><td><span class='tag'>formulas.html No.8–10</span></td><td>定义 ×100，与 Excel 小数比值不一致</td><td><span class=''>显示口径不一致</span></td><td>统一 ×100 指数口径</td></tr><tr><td><b>综合收益指标</b></td><td><span class='tag'>calc-treasury.xlsx</span></td><td>NRevPAR = (总收入 − 净扣除) ÷ 可售房晚</td><td><span class='bad'>口径错误</span></td><td>统一为 (客房收入 − 分销成本) ÷ 可售房晚</td></tr><tr><td><b>综合收益指标</b></td><td><span class='tag'>formulas.html No.5</span></td><td>NRevPAR = (客房收入 − 分销成本) ÷ 可售房晚</td><td><span class=''>正确</span></td><td>采纳为统一口径</td></tr><tr><td><b>价格弹性</b></td><td><span class='tag'>formulas.html No.15</span></td><td>点弹性取绝对值</td><td><span class=''>涨跌不对称、掩盖方向</span></td><td>统一弧弹性（两点均值分母），符号保留为负</td></tr><tr><td><b>需求预测</b></td><td><span class='tag'>calc-forecast.xlsx / tools.html / calc-templates 13 节</span></td><td>整体 Pick-up 与分细分 Pick-up 并存，未含流失与容量约束</td><td><span class=''>口径分散且缺功能</span></td><td>汇总到中心 m3，A 整体 / B 分细分 / C 流失+容量+区间</td></tr><tr><td><b>跨行业 RevPA*</b></td><td><span class='tag'>tools.html 五个业态 / calc-templates 14–18 节 / 五个 xlsx</span></td><td>五个业态各自为政，分母表述不一</td><td><span class=''>口径不统一</span></td><td>汇总到中心 m10，统一「可用产能单位 = 产能×天数」</td></tr><tr><td><b>预订进度 / 净价 / 价差</b></td><td><span class='tag'>03-pace.html、05-elasticity.html、calc-pickup.xlsx 等</span></td><td>阈值硬编码，缺除零保护，模块间无联动</td><td><span class=''>口径分散</span></td><td>阈值参数化，统一到中心并与弹性、净价联动</td></tr><tr><td><b>在线预览</b></td><td><span class='tag'>assets/previews/ 下 11 个 xlsx 预览页</span></td><td>缓存值含 #NAME? 等错误</td><td><span class='bad'>错误值</span></td><td>随旧页面收敛，不再作为现行入口</td></tr></tbody></table>
+<h2 id="s3">3　统一口径与分级</h2>
+<p><b>统一原则</b>：价值尺度一律用净贡献（净房价 − 变动成本 + 附加净贡献），不用房费流水；分母统一为可售房晚；比率分母写明；竞组一律加权；指数统一 ×100；所有阈值参数化。</p>
+<p><b>分级原则</b>：A 基础档、B 标准档、C 精细档共用同一套公式族；高阶参数在基础与标准档自动取退化值（系数 1、比例 0 或 100%、机会成本 0）。因此 <b>A 档是 C 档在退化参数下的严格特例</b>，简版少参数但不多误差。</p>
+<ul>
+<li><b>置换分析 ρ 修正</b>：原版 <code>Displaced = MIN(G_eff×ρ, 约束置换)</code> 在 ρ≥0.63 时 ρ 完全失效；统一为 <code>MIN(G_eff, 约束置换) × ρ</code>，任何取值都改变结果。</li>
+<li><b>安全边际统一</b>：判定统一为「净贡献 ≥ s × 散客损失」，等价于「团队贡献 ≥ (1+s) × 散客损失」；还价底线只对变动的置换损失加成，不对固定成本项重复乘 s。</li>
+<li><b>超额预订闭式解</b>：<code>O = C×q/(1−q)</code>；原式 <code>C×q</code> 忽略超售房本身也会流失，200 房 q=20% 时少算 10 间。B 档调节系数全 1 时与 A 档完全一致；C 档二项分布枚举为经济最优。</li>
+<li><b>NRevPAR 统一</b>：只扣客房分销成本，分子只用客房收入，与公式手册一致。</li>
+<li><b>弹性统一</b>：用弧弹性（两点均值作分母）并保留负号，避免点弹性涨跌不对称与绝对值掩盖方向。</li>
+</ul>
+<h2 id="s4">4　现行功能清单（汇总到单一页面）</h2>
+<table><thead><tr><th>功能模块</th><th>覆盖范围</th></tr></thead><tbody><tr><td><b>市场指数与对标</b></td><td>MPI / ARI / RGI，竞组加权 + 恒等式校验 + 净口径对标</td></tr><tr><td><b>综合收益指标</b></td><td>OCC / ADR / RevPAR / TrevPAR / GOPPAR / NRevPAR</td></tr><tr><td><b>需求预测</b></td><td>整体法 → 分细分 → 流失率、容量约束与预测区间</td></tr><tr><td><b>预订进度与 Pickup</b></td><td>Pace → 净投影 → 联动弹性检验调价后收入</td></tr><tr><td><b>价格弹性与最优定价</b></td><td>弧弹性 → 线性需求最优价 → 对数回归弹性与 R²</td></tr><tr><td><b>超额预订</b></td><td>闭式解 → 五类调节系数 → 二项分布期望净贡献最大</td></tr><tr><td><b>置换分析</b></td><td>净贡献基础 → wash / 多收入流 / 安全边际 → ρ / bid / 肩部夜</td></tr><tr><td><b>净价与渠道贡献</b></td><td>单渠道净价 → 多渠道加权 → 结构损失与置换联动</td></tr><tr><td><b>房型价差校验</b></td><td>单对价差 → 全阶梯健康度 → 升级成本与调整建议</td></tr><tr><td><b>跨行业单位产出</b></td><td>邮轮 / 长租公寓 / 研学营地 / 租车 / 医疗号源，业态切换整套同步</td></tr><tr><td><b>每日决策速查</b></td><td>表 A 价格 / 表 B 库存 / 表 E 超售 / 表 G 团队 / 表 H 渠道 + 优先级</td></tr></tbody></table>
+<p>11 个模块、154 个参数，每个模块 A/B/C 三档；页面含表格说明、使用说明、统一口径字典、三档算法对照，支持在线计算、模块切换、导出、打印与下载。</p>
+<h2 id="s5">5　收敛与下架清单</h2>
+<p>下列旧页面与模板保留文件（整包备份 + MANIFEST 校验），但从资料库可检索数据、站点地图、板块入口与导航中移除，现行入口统一指向汇总页。历史页标注历史版本并给出现行入口，不进入站内导航。</p>
+<table><thead><tr><th>下架文件（保留原文件）</th><th></th><th></th><th></th></tr></thead><tbody><tr><td><span class='tag'>07-displacement.html</span></td><td><span class='tag'>07-displacement.xlsx</span></td><td><span class='tag'>calc-displacement.xlsx</span></td><td><span class='tag'>calc-displacement-v2026-6.xlsx</span></td></tr><tr><td><span class='tag'>calc-overbooking.xlsx</span></td><td><span class='tag'>08_超额预订计算器.xlsx</span></td><td><span class='tag'>calc-templates.html</span></td><td><span class='tag'>campus-l0-table.html</span></td></tr><tr><td><span class='tag'>coll-tools.html</span></td><td><span class='tag'>templates-hub.html</span></td><td><span class='tag'>calc-suite-v1.html</span></td><td><span class='tag'>calc-suite-v1-1.xlsx</span></td></tr><tr><td><span class='tag'>calc-suite-offline-v1.html</span></td><td><span class='tag'>calc-suite-offline-pack-v1.zip</span></td><td><span class='tag'>calc-forecast.xlsx</span></td><td><span class='tag'>calc-pickup.xlsx</span></td></tr><tr><td><span class='tag'>calc-competition.xlsx</span></td><td><span class='tag'>calc-treasury.xlsx</span></td><td><span class='tag'>calc-cruise.xlsx</span></td><td><span class='tag'>calc-rental-apartment.xlsx</span></td></tr><tr><td><span class='tag'>calc-research-camp.xlsx</span></td><td><span class='tag'>calc-car-rental.xlsx</span></td><td><span class='tag'>calc-medical-appointment.xlsx</span></td><td><span class='tag'>decision-tables.html</span></td></tr><tr><td><span class='tag'>v2026-6-displacement-audit.html</span></td><td></td><td></td><td></td></tr></tbody></table>
+<h2 id="s6">6　校验记录</h2>
+<ul>
+<li>统一规范自检：A≡B≡C 退化一致性、ρ 恒生效、置换物理上限、空房零置换、还价底线与判定代数自洽、超额 A≡B、RGI 恒等式、全模块 A 档冒烟 —— 全部通过。</li>
+<li>网页 ↔ 规范交叉校验：33 项关键结果（三档、11 模块）逐项比对，33/33 一致。</li>
+<li>网页真实执行校验：11 模块、154 输入、A/B/C 参数逐级增加且输出互异、卡片切换、隐藏模块仍计算、面客化禁止词 0 命中。</li>
+<li>Excel：14 表、372 个活公式，缓存由公式本身求值注入，372/372 有值、0 非法数值、打开即重算。</li>
+<li>整包备份：71 个文件，逐文件 md5 / 大小 / 源路径，71/71 校验一致后才开始改动。</li>
+</ul>
+<div class="foot">RMC 收益管理社区 · 口径复核内部存档 · 不进站内导航</div>
+</main></div></body></html>

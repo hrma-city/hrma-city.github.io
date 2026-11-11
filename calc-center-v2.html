@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>收益管理计算分析中心</title>
+<meta name="description" content="市场指数、综合收益指标、需求预测、预订进度、价格弹性、超额预订、置换分析、净价与渠道、房型价差、跨行业单位产出与每日决策速查；每个功能模块提供基础、标准、精细三档算法。">
+<style>
+:root{--navy:#1B3A5C;--navy2:#2C5075;--gold:#B8894A;--gold-l:#F7EBD8;--cream:#FBF6EC;
+--bg:#FAFAF8;--ink:#1F2933;--mut:#5A6B7B;--line:#E1E5EA;--blue:#E8F1F9;
+--green:#2F7A3E;--green-l:#E6F2E8;--red:#C0392B;--red-l:#FBEAE8;--white:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans GB","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:14px;line-height:1.72}
+#wrap{display:flex;max-width:1500px;margin:0 auto}
+#side{width:238px;flex:0 0 238px;position:sticky;top:0;height:100vh;overflow:auto;background:var(--navy);padding:26px 16px 40px}
+#side .brand{color:#fff;font-size:16px;font-weight:700;letter-spacing:.04em;line-height:1.5;margin-bottom:4px}
+#side .sub{color:#A9C1D8;font-size:11px;margin-bottom:20px}
+#side a{display:block;color:#D8E4EF;text-decoration:none;font-size:12.5px;padding:5px 10px;border-radius:3px;border-left:2px solid transparent}
+#side a:hover{background:rgba(255,255,255,.08);color:#fff}
+#side a.on{background:rgba(184,137,74,.22);border-left-color:var(--gold);color:#fff}
+#side .grp{color:#8FA9C2;font-size:10.5px;letter-spacing:.12em;margin:16px 10px 6px}
+main{flex:1;min-width:0;padding:30px 40px 80px}
+h1{font-size:27px;color:var(--navy);margin:0 0 6px;letter-spacing:.02em}
+.subtitle{color:var(--mut);font-size:13px;margin-bottom:18px}
+.notice{background:var(--cream);border-left:4px solid var(--gold);padding:11px 16px;margin:0 0 12px;font-size:13px}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px}
+button{font-family:inherit;cursor:pointer;border-radius:4px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:7px 13px;font-size:12.5px}
+button:hover{border-color:var(--gold)}
+button.pri{background:var(--navy);color:#fff;border-color:var(--navy)}
+button.gold{background:var(--gold);color:#fff;border-color:var(--gold)}
+.allbtn.on{background:var(--gold);color:#fff;border-color:var(--gold)}
+.globalbar{background:var(--blue);border-left:3px solid #3A7CA5;padding:9px 14px;font-size:12.5px;color:#3A5A72;margin-bottom:12px}
+.modcards{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin:14px 0 10px}
+.modcard{background:#fff;border:1px solid var(--line);border-top:3px solid var(--navy);border-radius:3px;padding:10px 11px;text-align:left;transition:.15s}
+.modcard:hover{border-top-color:var(--gold);transform:translateY(-2px)}
+.modcard.on{background:var(--gold-l);border-color:var(--gold);border-top-color:var(--gold)}
+.modcard .n{display:block;font-size:10px;color:var(--gold);letter-spacing:.08em;margin-bottom:2px}
+.modcard .t{display:block;font-size:12.5px;font-weight:700;color:var(--navy);line-height:1.4}
+.modcard .d{display:block;font-size:10.5px;color:var(--mut);margin-top:2px;line-height:1.4}
+.switchbar{background:var(--blue);border-left:3px solid #3A7CA5;padding:8px 14px;font-size:12.5px;color:#3A5A72;margin:0 0 24px}
+.mod{background:#fff;border:1px solid var(--line);border-radius:4px;padding:22px 24px;margin:0 0 22px;break-inside:avoid}
+.mod h2{font-size:19px;color:var(--navy);margin:0 0 4px;border-bottom:1px solid var(--line);padding-bottom:9px}
+.mod .badge{display:inline-block;background:var(--gold-l);color:var(--gold);font-size:10.5px;padding:1px 8px;border-radius:9px;margin-right:8px;vertical-align:middle}
+.mod .lead{font-size:12.5px;color:var(--mut);margin:8px 0 14px}
+.lvbar{display:flex;flex-wrap:wrap;gap:7px;align-items:center;background:#F7F9FB;padding:9px 12px;border-radius:3px;margin-bottom:14px}
+.lvbar .lb{font-size:11.5px;color:var(--mut);margin-right:4px}
+.lvbtn{padding:4px 11px;font-size:11.5px}
+.lvbtn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.lvstate{margin-left:auto;font-size:11.5px;color:var(--navy);font-weight:600}
+.params{display:grid;grid-template-columns:repeat(3,1fr);gap:9px 14px;margin-bottom:16px}
+.fld{display:flex;flex-direction:column;gap:3px;background:var(--cream);border:1px solid #EFE6D4;border-radius:3px;padding:7px 10px}
+.fld[hidden]{display:none}
+.fld label{font-size:11.5px;color:var(--navy);font-weight:600}
+.fld .inrow{display:flex;align-items:center;gap:5px}
+.fld input,.fld select{width:100%;min-width:0;border:1px solid #DDD3BE;background:#fff;border-radius:2px;padding:5px 7px;font-size:13px;font-family:inherit;color:var(--ink)}
+.fld input:focus,.fld select:focus{outline:2px solid var(--gold);outline-offset:0}
+.fld .u{font-size:10.5px;color:var(--mut);white-space:nowrap;flex:0 0 auto}
+.fld .hint{font-size:10px;color:#8A8578;line-height:1.4}
+.formula{background:var(--blue);border-left:3px solid #3A7CA5;padding:10px 14px;font-size:12px;color:#2E4D68;white-space:pre-wrap;margin-bottom:14px;line-height:1.75}
+.results{display:grid;grid-template-columns:repeat(2,1fr);gap:0 18px;background:var(--green-l);border:1px solid #D6E7D9;border-radius:3px;padding:8px 14px;margin-bottom:12px}
+.ri{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:5px 2px;border-bottom:1px dashed #CFE0D2;font-size:12.5px}
+.ri .k{color:#3C5B45}
+.ri .v{font-weight:700;color:var(--navy);text-align:right}
+.ri[data-tone="good"] .v{color:var(--green)}
+.ri[data-tone="bad"] .v{color:var(--red)}
+.ri[data-tone="gold"] .v{color:var(--gold)}
+.ri[data-tone="info"] .v{font-weight:500;color:var(--mut)}
+.detail{margin-bottom:12px}
+.mini{width:100%;border-collapse:collapse;font-size:11.5px;margin:6px 0}
+.mini th,.mini td{border:1px solid var(--line);padding:5px 8px;text-align:left}
+.mini th{background:var(--navy);color:#fff;font-weight:600}
+.mini tr:nth-child(even) td{background:#F7F9FB}
+.mini tr.best td{background:var(--gold-l);font-weight:700}
+.callout{background:var(--cream);border-left:3px solid var(--gold);padding:9px 13px;font-size:11.5px;color:#6A5A40}
+.note{font-size:11.5px;color:var(--mut);background:#F7F9FB;padding:8px 12px;border-radius:3px;margin-bottom:12px}
+.spec{font-size:11.5px}
+.spec h4{font-size:12px;color:var(--navy);margin:0 0 6px}
+.spec table{width:100%;border-collapse:collapse;font-size:11px}
+.spec th,.spec td{border:1px solid var(--line);padding:4px 8px;text-align:left}
+.spec th{background:#EEF2F6;color:var(--navy)}
+.bound{font-size:11.5px;color:#6A5A40;background:var(--cream);padding:8px 12px;border-radius:3px;margin-top:10px}
+h2.sec{font-size:20px;color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:8px;margin:36px 0 16px}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:18px}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+.tbl th{background:var(--navy);color:#fff}
+.tbl tr:nth-child(even) td{background:#F7F9FB}
+.tbl td code{background:#EEF2F6;padding:1px 5px;border-radius:2px;font-size:11px}
+.usage{background:#fff;border:1px solid var(--line);padding:20px 24px;border-radius:4px}
+.usage h3{font-size:14px;color:var(--navy);margin:18px 0 7px}
+.usage ol,.usage ul{margin:6px 0;padding-left:22px}
+.usage li{margin:4px 0;font-size:12.5px}
+.print-toc{display:none}
+.foot{color:var(--mut);font-size:11.5px;margin-top:34px;border-top:1px solid var(--line);padding-top:14px}
+@media(max-width:1300px){.modcards{grid-template-columns:repeat(4,1fr)}.params{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){#side{display:none}main{padding:22px 16px 60px}.modcards{grid-template-columns:repeat(2,1fr)}.params,.results{grid-template-columns:1fr}}
+@media print{
+ #side,.toolbar,.modcards,.switchbar,.globalbar,.lvbar,.print-hide{display:none!important}
+ main{padding:0}body{background:#fff;font-size:11px}
+ .mod{display:block!important;page-break-before:always;page-break-inside:avoid;border:none;padding:0;margin:0}
+ .mod:first-of-type{page-break-before:auto}
+ .params{grid-template-columns:repeat(3,1fr)}
+ .fld{background:#fff;border:1px solid #DDD}
+ .print-toc{display:block;page-break-after:always}
+ .print-toc h2{font-size:18px;color:var(--navy)}
+ .print-toc ol{columns:2;font-size:12px}
+ h2.sec{page-break-before:always}
+ @page{margin:16mm 14mm}
+}
+</style></head><body>
+<div id="wrap">
+<nav id="side">
+ <div class="brand">收益管理计算分析中心</div><div class="sub">RMC 收益管理社区</div>
+ <div class="grp">功能模块</div><a href="#sec-m1" data-mod="m1">01　市场指数与对标</a><a href="#sec-m2" data-mod="m2">02　综合收益指标</a><a href="#sec-m3" data-mod="m3">03　需求预测</a><a href="#sec-m4" data-mod="m4">04　预订进度与 Pickup</a><a href="#sec-m5" data-mod="m5">05　价格弹性与最优定价</a><a href="#sec-m6" data-mod="m6">06　超额预订</a><a href="#sec-m7" data-mod="m7">07　置换分析</a><a href="#sec-m8" data-mod="m8">08　净价与渠道贡献</a><a href="#sec-m9" data-mod="m9">09　房型价差校验</a><a href="#sec-m10" data-mod="m10">10　跨行业单位产出</a><a href="#sec-m11" data-mod="m11">11　每日决策速查</a>
+ <div class="grp">说明</div>
+ <a href="#sec-tables">表格说明</a><a href="#sec-levels">三档算法说明</a>
+ <a href="#sec-usage">使用说明</a>
+</nav>
+<main>
+ <h1>收益管理计算分析中心</h1>
+ <div class="subtitle">11 个功能模块，统一口径；每个模块提供基础、标准、精细三档算法，按手上数据选档即可。</div>
+ <div class="notice"><b>怎么用</b>　在模块里改任意数字，结果立即更新。基础档只需最少数据，标准与精细档逐级加入更多参数；三档共用同一套口径，基础档是精细档在高阶参数取默认值时的结果，不会因为简化而算错。</div>
+ <div class="toolbar print-hide">
+   <span class="lb" style="font-size:12px;color:var(--mut)">一键设定全部模块</span>
+   <button type="button" class="allbtn" data-l="A">全部用基础档</button>
+   <button type="button" class="allbtn on" data-l="B">全部用标准档</button>
+   <button type="button" class="allbtn" data-l="C">全部用精细档</button>
+   <span style="width:12px"></span>
+   <button type="button" class="pri" id="btnReset">恢复示例参数</button>
+   <button type="button" id="btnExport">导出测算结果</button>
+   <button type="button" id="btnDownload">下载本页</button>
+   <button type="button" id="btnPrint">打印 / 存 PDF</button>
+ </div>
+ <div class="globalbar print-hide" id="globalState"></div>
+ <div class="modcards print-hide" id="modcards"><button type="button" class="modcard on" data-target="all"><span class="n">全部</span><span class="t">全部功能模块</span><span class="d">11 个模块 · 完整视图</span></button><button type="button" class="modcard" data-target="m1"><span class="n">01 · 指标与对标</span><span class="t">市场指数与对标</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m2"><span class="n">02 · 指标与对标</span><span class="t">综合收益指标</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m3"><span class="n">03 · 预测与进度</span><span class="t">需求预测</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m4"><span class="n">04 · 预测与进度</span><span class="t">预订进度与 Pickup</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m5"><span class="n">05 · 定价与贡献</span><span class="t">价格弹性与最优定价</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m6"><span class="n">06 · 库存与超售</span><span class="t">超额预订</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m7"><span class="n">07 · 团队与置换</span><span class="t">置换分析</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m8"><span class="n">08 · 渠道与净价</span><span class="t">净价与渠道贡献</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m9"><span class="n">09 · 定价与贡献</span><span class="t">房型价差校验</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m10"><span class="n">10 · 跨行业</span><span class="t">跨行业单位产出</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m11"><span class="n">11 · 执行动作</span><span class="t">每日决策速查</span><span class="d">A / B / C 三档</span></button></div>
+ <div class="switchbar print-hide" id="switchState">当前显示：全部功能模块　·　点击卡片可切换到单个模块，点「全部」恢复完整视图</div>
+ <div class="print-toc"><h2>目录</h2><ol><li>01　市场指数与对标</li><li>02　综合收益指标</li><li>03　需求预测</li><li>04　预订进度与 Pickup</li><li>05　价格弹性与最优定价</li><li>06　超额预订</li><li>07　置换分析</li><li>08　净价与渠道贡献</li><li>09　房型价差校验</li><li>10　跨行业单位产出</li><li>11　每日决策速查</li><li>表格说明</li><li>三档算法说明</li><li>使用说明</li></ol></div>
+
+<section class="mod" data-mid="m1" data-level="B" id="sec-m1">
+ <h2><span class="badge">指标与对标</span>01　市场指数与对标</h2>
+ <div class="lead">用同一周期的出租率、平均房价与每可售房收入，判断本店在竞争组里的量、价与综合产出位置。</div>
+ <div class="lvbar"><span class="lb">计算精度</span>
+   <button type="button" class="lvbtn" data-l="A">A 基础</button>
+   <button type="button" class="lvbtn on" data-l="B">B 标准</button>
+   <button type="button" class="lvbtn" data-l="C">C 精细</button>
+   <span class="lvstate" id="m1_state"></span></div>
+ <div class="params"><div class="fld" data-lv="1"><label for="m1_R">本店可售房晚</label><div class="inrow"><input id="m1_R" type="number" step="any" value="320" data-def="320" data-deg="320"><span class="u">间夜</span></div><div class="hint">统计期可售房晚，剔除维修与自用房</div></div><div class="fld" data-lv="1"><label for="m1_Q">本店已售房晚</label><div class="inrow"><input id="m1_Q" type="number" step="any" value="240" data-def="240" data-deg="240"><span class="u">间夜</span></div><div class="hint">同周期已售</div></div><div class="fld" data-lv="1"><label for="m1_Rev">本店客房收入</label><div class="inrow"><input id="m1_Rev" type="number" step="any" value="196800" data-def="196800" data-deg="196800"><span class="u">元</span></div><div class="hint">仅房费，不含餐饮与会务</div></div><div class="fld" data-lv="1"><label for="m1_c1R">对标对象 A 可售房晚</label><div class="inrow"><input id="m1_c1R" type="number" step="any" value="300" data-def="300" data-deg="300"><span class="u">间夜</span></div><div class="hint">最可比的第一家对手</div></div><div class="fld" data-lv="1"><label for="m1_c1Q">对标对象 A 已售房晚</label><div class="inrow"><input id="m1_c1Q" type="number" step="any" value="210" data-def="210" data-deg="210"><span class="u">间夜</span></div><div class="hint">同周期</div></div><div class="fld" data-lv="1"><label for="m1_c1V">对标对象 A 客房收入</label><div class="inrow"><input id="m1_c1V" type="number" step="any" value="168000" data-def="168000" data-deg="168000"><span class="u">元</span></div><div class="hint">同周期</div></div><div class="fld" data-lv="2"><label for="m1_c2R">对标对象 B 可售房晚</label><div class="inrow"><input id="m1_c2R" type="number" step="any" value="280" data-def="280" data-deg="0"><span class="u">间夜</span></div><div class="hint">扩充竞争组</div></div><div class="fld" data-lv="2"><label for="m1_c2Q">对标对象 B 已售房晚</label><div class="inrow"><input id="m1_c2Q" type="number" step="any" value="224" data-def="224" data-deg="0"><span class="u">间夜</span></div><div class="hint">同周期</div></div><div class="fld" data-lv="2"><label for="m1_c2V">对标对象 B 客房收入</label><div class="inrow"><input id="m1_c2V" type="number" step="any" value="190400" data-def="190400" data-deg="0"><span class="u">元</span></div><div class="hint">同周期</div></div><div class="fld" data-lv="2"><label for="m1_c3R">对标对象 C 可售房晚</label><div class="inrow"><input id="m1_c3R" type="number" step="any" value="400" data-def="400" data-deg="0"><span class="u">间夜</span></div><div class="hint">扩充竞争组</div></div><div class="fld" data-lv="2"><label for="m1_c3Q">对标对象 C 已售房晚</label><div class="inrow"><input id="m1_c3Q" type="number" step="any" value="260" data-def="260" data-deg="0"><span class="u">间夜</span></div><div class="hint">同周期</div></div><div class="fld" data-lv="2"><label for="m1_c3V">对标对象 C 客房收入</label><div class="inrow"><input id="m1_c3V" type="number" step="any" value="208000" data-def="208000" data-deg="0"><span class="u">元</span></div><div class="hint">同周期</div></div><div class="fld" data-lv="3"><label for="m1_dist">本店分销成本率</label><div class="inrow"><input id="m1_dist" type="number" step="any" value="10" data-def="10" data-deg="0"><span class="u">%</span></div><div class="hint">佣金 + 支付手续费 + 返现占客房收入比例</div></div><div class="fld" data-lv="3"><label for="m1_cdist">竞组分销成本率</label><div class="inrow"><input id="m1_cdist" type="number" step="any" value="8" data-def="8" data-deg="0"><span class="u">%</span></div><div class="hint">用于净口径对标</div></div></div>
+ <div class="formula" id="m1_formula">竞争组一律加权：OCC_c = Σ已售 ÷ Σ可售，ADR_c = Σ收入 ÷ Σ已售，RevPAR_c = Σ收入 ÷ Σ可售；恒等式 RGI = MPI × ARI ÷ 100</div>
+ <div class="results" id="m1_results"></div>
+ <div class="detail" id="m1_detail"></div>
+ <div class="note" id="m1_note"></div>
+ <div class="spec"><h4>字段说明</h4><table><thead><tr><th>字段</th><th>单位</th><th>起用档位</th><th>填写口径</th></tr></thead><tbody><tr><td>本店可售房晚</td><td>间夜</td><td>基础</td><td>统计期可售房晚，剔除维修与自用房</td></tr><tr><td>本店已售房晚</td><td>间夜</td><td>基础</td><td>同周期已售</td></tr><tr><td>本店客房收入</td><td>元</td><td>基础</td><td>仅房费，不含餐饮与会务</td></tr><tr><td>对标对象 A 可售房晚</td><td>间夜</td><td>基础</td><td>最可比的第一家对手</td></tr><tr><td>对标对象 A 已售房晚</td><td>间夜</td><td>基础</td><td>同周期</td></tr><tr><td>对标对象 A 客房收入</td><td>元</td><td>基础</td><td>同周期</td></tr><tr><td>对标对象 B 可售房晚</td><td>间夜</td><td>标准</td><td>扩充竞争组</td></tr><tr><td>对标对象 B 已售房晚</td><td>间夜</td><td>标准</td><td>同周期</td></tr><tr><td>对标对象 B 客房收入</td><td>元</td><td>标准</td><td>同周期</td></tr><tr><td>对标对象 C 可售房晚</td><td>间夜</td><td>标准</td><td>扩充竞争组</td></tr><tr><td>对标对象 C 已售房晚</td><td>间夜</td><td>标准</td><td>同周期</td></tr><tr><td>对标对象 C 客房收入</td><td>元</td><td>标准</td><td>同周期</td></tr><tr><td>本店分销成本率</td><td>%</td><td>精细</td><td>佣金 + 支付手续费 + 返现占客房收入比例</td></tr><tr><td>竞组分销成本率</td><td>%</td><td>精细</td><td>用于净口径对标</td></tr></tbody></table></div>
+ <div class="bound"><b>适用边界</b>　三家指数必须同周期、同竞争组；竞组不能取各家简单平均。RGI 是结果指标，须拆成 MPI 与 ARI 才能决定动作。</div>
+</section>
+<section class="mod" data-mid="m2" data-level="B" id="sec-m2">
+ <h2><span class="badge">指标与对标</span>02　综合收益指标</h2>
+ <div class="lead">从客房收入一路看到总盘子、经营毛利与落袋净收入，避免只盯 RevPAR。</div>
+ <div class="lvbar"><span class="lb">计算精度</span>
+   <button type="button" class="lvbtn" data-l="A">A 基础</button>
+   <button type="button" class="lvbtn on" data-l="B">B 标准</button>
+   <button type="button" class="lvbtn" data-l="C">C 精细</button>
+   <span class="lvstate" id="m2_state"></span></div>
+ <div class="params"><div class="fld" data-lv="1"><label for="m2_R">可售房晚</label><div class="inrow"><input id="m2_R" type="number" step="any" value="320" data-def="320" data-deg="320"><span class="u">间夜</span></div><div class="hint">统计期</div></div><div class="fld" data-lv="1"><label for="m2_Q">已售房晚</label><div class="inrow"><input id="m2_Q" type="number" step="any" value="240" data-def="240" data-deg="240"><span class="u">间夜</span></div><div class="hint">统计期</div></div><div class="fld" data-lv="1"><label for="m2_room">客房收入</label><div class="inrow"><input id="m2_room" type="number" step="any" value="196800" data-def="196800" data-deg="196800"><span class="u">元</span></div><div class="hint">仅房费</div></div><div class="fld" data-lv="2"><label for="m2_fb">餐饮收入</label><div class="inrow"><input id="m2_fb" type="number" step="any" value="48000" data-def="48000" data-deg="0"><span class="u">元</span></div><div class="hint">餐厅、宴会、酒吧</div></div><div class="fld" data-lv="2"><label for="m2_oth">其他收入</label><div class="inrow"><input id="m2_oth" type="number" step="any" value="16000" data-def="16000" data-deg="0"><span class="u">元</span></div><div class="hint">会场、洗衣、停车等酒店可控部门</div></div><div class="fld" data-lv="2"><label for="m2_cost">营业总成本</label><div class="inrow"><input id="m2_cost" type="number" step="any" value="150000" data-def="150000" data-deg="0"><span class="u">元</span></div><div class="hint">部门成本 + 未分配费用</div></div><div class="fld" data-lv="3"><label for="m2_dist">分销成本</label><div class="inrow"><input id="m2_dist" type="number" step="any" value="12000" data-def="12000" data-deg="0"><span class="u">元</span></div><div class="hint">佣金、支付手续费、渠道返现、会员折扣成本</div></div><div class="fld" data-lv="3"><label for="m2_gmin">经营毛利率参考线</label><div class="inrow"><input id="m2_gmin" type="number" step="any" value="30" data-def="30" data-deg="0"><span class="u">%</span></div><div class="hint">用于结构诊断，可按本店预算调整</div></div></div>
+ <div class="formula" id="m2_formula">TrevPAR = 总收入 ÷ 可售房晚　·　GOPPAR = (总收入 − 营业总成本) ÷ 可售房晚</div>
+ <div class="results" id="m2_results"></div>
+ <div class="detail" id="m2_detail"></div>
+ <div class="note" id="m2_note"></div>
+ <div class="spec"><h4>字段说明</h4><table><thead><tr><th>字段</th><th>单位</th><th>起用档位</th><th>填写口径</th></tr></thead><tbody><tr><td>可售房晚</td><td>间夜</td><td>基础</td><td>统计期</td></tr><tr><td>已售房晚</td><td>间夜</td><td>基础</td><td>统计期</td></tr><tr><td>客房收入</td><td>元</td><td>基础</td><td>仅房费</td></tr><tr><td>餐饮收入</td><td>元</td><td>标准</td><td>餐厅、宴会、酒吧</td></tr><tr><td>其他收入</td><td>元</td><td>标准</td><td>会场、洗衣、停车等酒店可控部门</td></tr><tr><td>营业总成本</td><td>元</td><td>标准</td><td>部门成本 + 未分配费用</td></tr><tr><td>分销成本</td><td>元</td><td>精细</td><td>佣金、支付手续费、渠道返现、会员折扣成本</td></tr><tr><td>经营毛利率参考线</td><td>%</td><td>精细</td><td>用于结构诊断，可按本店预算调整</td></tr></tbody></table></div>
+ <div class="bound"><b>适用边界</b>　NRevPAR 只扣客房分销成本，分子只用客房收入；不要把餐饮等其他收入计入，也不要把直订获客成本混入。</div>
+</section>
+<section class="mod" data-mid="m3" data-level="B" id="sec-m3">
+ <h2><span class="badge">预测与进度</span>03　需求预测</h2>
+ <div class="lead">按同提前期窗口的历史新增率，从在手预订推算最终需求，并给出出租率与房晚缺口。</div>
+ <div class="lvbar"><span class="lb">计算精度</span>
+   <button type="button" class="lvbtn" data-l="A">A 基础</button>
+   <button type="button" class="lvbtn on" data-l="B">B 标准</button>
+   <button type="button" class="lvbtn" data-l="C">C 精细</button>
+   <span class="lvstate" id="m3_state"></span></div>
+ <div class="params"><div class="fld" data-lv="1"><label for="m3_R">可售房晚</label><div class="inrow"><input id="m3_R" type="number" step="any" value="8000" data-def="8000" data-deg="8000"><span class="u">间夜</span></div><div class="hint">如未来 40 天 × 200 间</div></div><div class="fld" data-lv="1"><label for="m3_ob">当前在手房晚</label><div class="inrow"><input id="m3_ob" type="number" step="any" value="5500" data-def="5500" data-deg="5500"><span class="u">间夜</span></div><div class="hint">目标周期累计在手</div></div><div class="fld" data-lv="1"><label for="m3_g">历史同周期新增率</label><div class="inrow"><input id="m3_g" type="number" step="any" value="10" data-def="10" data-deg="10"><span class="u">%</span></div><div class="hint">同一提前期窗口的历史值</div></div><div class="fld" data-lv="2"><label for="m3_s1o">散客 在手</label><div class="inrow"><input id="m3_s1o" type="number" step="any" value="1800" data-def="1800" data-deg="0"><span class="u">间夜</span></div><div class="hint">按客源细分</div></div><div class="fld" data-lv="2"><label for="m3_s1r">散客 新增率</label><div class="inrow"><input id="m3_s1r" type="number" step="any" value="35" data-def="35" data-deg="0"><span class="u">%</span></div><div class="hint">该细分历史新增率</div></div><div class="fld" data-lv="2"><label for="m3_s2o">团队 在手</label><div class="inrow"><input id="m3_s2o" type="number" step="any" value="1200" data-def="1200" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m3_s2r">团队 新增率</label><div class="inrow"><input id="m3_s2r" type="number" step="any" value="15" data-def="15" data-deg="0"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m3_s3o">会员 在手</label><div class="inrow"><input id="m3_s3o" type="number" step="any" value="600" data-def="600" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m3_s3r">会员 新增率</label><div class="inrow"><input id="m3_s3r" type="number" step="any" value="25" data-def="25" data-deg="0"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m3_s4o">OTA 在手</label><div class="inrow"><input id="m3_s4o" type="number" step="any" value="900" data-def="900" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m3_s4r">OTA 新增率</label><div class="inrow"><input id="m3_s4r" type="number" step="any" value="30" data-def="30" data-deg="0"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m3_s5o">协议公司 在手</label><div class="inrow"><input id="m3_s5o" type="number" step="any" value="700" data-def="700" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m3_s5r">协议公司 新增率</label><div class="inrow"><input id="m3_s5r" type="number" step="any" value="20" data-def="20" data-deg="0"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m3_s6o">其他 在手</label><div class="inrow"><input id="m3_s6o" type="number" step="any" value="300" data-def="300" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m3_s6r">其他 新增率</label><div class="inrow"><input id="m3_s6r" type="number" step="any" value="10" data-def="10" data-deg="0"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="3"><label for="m3_loss">未来流失率</label><div class="inrow"><input id="m3_loss" type="number" step="any" value="5" data-def="5" data-deg="0"><span class="u">%</span></div><div class="hint">在手订单的取消与未到店比例</div></div><div class="fld" data-lv="3"><label for="m3_capR">容量上限比例</label><div class="inrow"><input id="m3_capR" type="number" step="any" value="100" data-def="100" data-deg="100"><span class="u">%</span></div><div class="hint">留房、维修等占用的上限</div></div><div class="fld" data-lv="3"><label for="m3_band">预测波动带</label><div class="inrow"><input id="m3_band" type="number" step="any" value="8" data-def="8" data-deg="0"><span class="u">%</span></div><div class="hint">用于给出乐观与保守区间</div></div></div>
+ <div class="formula" id="m3_formula">分细分市场：预测需求_i = 在手_i × (1 + 新增率_i)，合计 = Σ 预测需求_i</div>
+ <div class="results" id="m3_results"></div>
+ <div class="detail" id="m3_detail"></div>
+ <div class="note" id="m3_note"></div>
+ <div class="spec"><h4>字段说明</h4><table><thead><tr><th>字段</th><th>单位</th><th>起用档位</th><th>填写口径</th></tr></thead><tbody><tr><td>可售房晚</td><td>间夜</td><td>基础</td><td>如未来 40 天 × 200 间</td></tr><tr><td>当前在手房晚</td><td>间夜</td><td>基础</td><td>目标周期累计在手</td></tr><tr><td>历史同周期新增率</td><td>%</td><td>基础</td><td>同一提前期窗口的历史值</td></tr><tr><td>散客 在手</td><td>间夜</td><td>标准</td><td>按客源细分</td></tr><tr><td>散客 新增率</td><td>%</td><td>标准</td><td>该细分历史新增率</td></tr><tr><td>团队 在手</td><td>间夜</td><td>标准</td><td>—</td></tr><tr><td>团队 新增率</td><td>%</td><td>标准</td><td>—</td></tr><tr><td>会员 在手</td><td>间夜</td><td>标准</td><td>—</td></tr><tr><td>会员 新增率</td><td>%</td><td>标准</td><td>—</td></tr><tr><td>OTA 在手</td><td>间夜</td><td>标准</td><td>—</td></tr><tr><td>OTA 新增率</td><td>%</td><td>标准</td><td>—</td></tr><tr><td>协议公司 在手</td><td>间夜</td><td>标准</td><td>—</td></tr><tr><td>协议公司 新增率</td><td>%</td><td>标准</td><td>—</td></tr><tr><td>其他 在手</td><td>间夜</td><td>标准</td><td>—</td></tr><tr><td>其他 新增率</td><td>%</td><td>标准</td><td>—</td></tr><tr><td>未来流失率</td><td>%</td><td>精细</td><td>在手订单的取消与未到店比例</td></tr><tr><td>容量上限比例</td><td>%</td><td>精细</td><td>留房、维修等占用的上限</td></tr><tr><td>预测波动带</td><td>%</td><td>精细</td><td>用于给出乐观与保守区间</td></tr></tbody></table></div>
+ <div class="bound"><b>适用边界</b>　新增率必须来自同一提前期窗口；跨旺季与平日套用会失真。区间反映不确定性，不等于承诺值。</div>
+</section>
+<section class="mod" data-mid="m4" data-level="B" id="sec-m4">
+ <h2><span class="badge">预测与进度</span>04　预订进度与 Pickup</h2>
+ <div class="lead">用同窗口对比判断进度快慢，投影最终房晚，并在调价前用价格弹性检验收入是否真的增加。</div>
+ <div class="lvbar"><span class="lb">计算精度</span>
+   <button type="button" class="lvbtn" data-l="A">A 基础</button>
+   <button type="button" class="lvbtn on" data-l="B">B 标准</button>
+   <button type="button" class="lvbtn" data-l="C">C 精细</button>
+   <span class="lvstate" id="m4_state"></span></div>
+ <div class="params"><div class="fld" data-lv="1"><label for="m4_R">可售房晚</label><div class="inrow"><input id="m4_R" type="number" step="any" value="320" data-def="320" data-deg="320"><span class="u">间夜</span></div><div class="hint">目标日可售</div></div><div class="fld" data-lv="1"><label for="m4_ob">当前在手房晚</label><div class="inrow"><input id="m4_ob" type="number" step="any" value="176" data-def="176" data-deg="176"><span class="u">间夜</span></div><div class="hint">同一提前期窗口</div></div><div class="fld" data-lv="1"><label for="m4_ly">去年同窗口在手</label><div class="inrow"><input id="m4_ly" type="number" step="any" value="160" data-def="160" data-deg="160"><span class="u">间夜</span></div><div class="hint">对齐星期与节假日</div></div><div class="fld" data-lv="1"><label for="m4_lyf">去年最终房晚</label><div class="inrow"><input id="m4_lyf" type="number" step="any" value="265" data-def="265" data-deg="265"><span class="u">间夜</span></div><div class="hint">去年该日最终售出</div></div><div class="fld" data-lv="2"><label for="m4_target">目标出租率</label><div class="inrow"><input id="m4_target" type="number" step="any" value="85" data-def="85" data-deg="85"><span class="u">%</span></div><div class="hint">用于判断距目标</div></div><div class="fld" data-lv="2"><label for="m4_loss">未来流失率</label><div class="inrow"><input id="m4_loss" type="number" step="any" value="5" data-def="5" data-deg="0"><span class="u">%</span></div><div class="hint">新增部分的取消与未到店</div></div><div class="fld" data-lv="2"><label for="m4_up">提价窗口阈值</label><div class="inrow"><input id="m4_up" type="number" step="any" value="110" data-def="110" data-deg="110"><span class="u">%</span></div><div class="hint">Pace 达到该比例进入提价窗口</div></div><div class="fld" data-lv="2"><label for="m4_down">促销窗口阈值</label><div class="inrow"><input id="m4_down" type="number" step="any" value="90" data-def="90" data-deg="90"><span class="u">%</span></div><div class="hint">Pace 低于该比例进入促销窗口</div></div><div class="fld" data-lv="3"><label for="m4_adr">当前平均房价</label><div class="inrow"><input id="m4_adr" type="number" step="any" value="820" data-def="820" data-deg="820"><span class="u">元</span></div><div class="hint">用于测算调价前后收入</div></div><div class="fld" data-lv="3"><label for="m4_E">弧弹性 E</label><div class="inrow"><input id="m4_E" type="number" step="any" value="-1.51" data-def="-1.51" data-deg="0"><span class="u"></span></div><div class="hint">来自价格弹性模块，通常为负</div></div><div class="fld" data-lv="3"><label for="m4_step">单次调价幅度</label><div class="inrow"><input id="m4_step" type="number" step="any" value="5" data-def="5" data-deg="0"><span class="u">%</span></div><div class="hint">每次调价的百分比</div></div></div>
+ <div class="formula" id="m4_formula">净投影 = 在手 + 预计剩余增量 × (1 − 流失率)　·　预测出租率 = 净投影 ÷ 可售房晚</div>
+ <div class="results" id="m4_results"></div>
+ <div class="detail" id="m4_detail"></div>
+ <div class="note" id="m4_note"></div>
+ <div class="spec"><h4>字段说明</h4><table><thead><tr><th>字段</th><th>单位</th><th>起用档位</th><th>填写口径</th></tr></thead><tbody><tr><td>可售房晚</td><td>间夜</td><td>基础</td><td>目标日可售</td></tr><tr><td>当前在手房晚</td><td>间夜</td><td>基础</td><td>同一提前期窗口</td></tr><tr><td>去年同窗口在手</td><td>间夜</td><td>基础</td><td>对齐星期与节假日</td></tr><tr><td>去年最终房晚</td><td>间夜</td><td>基础</td><td>去年该日最终售出</td></tr><tr><td>目标出租率</td><td>%</td><td>标准</td><td>用于判断距目标</td></tr><tr><td>未来流失率</td><td>%</td><td>标准</td><td>新增部分的取消与未到店</td></tr><tr><td>提价窗口阈值</td><td>%</td><td>标准</td><td>Pace 达到该比例进入提价窗口</td></tr><tr><td>促销窗口阈值</td><td>%</td><td>标准</td><td>Pace 低于该比例进入促销窗口</td></tr><tr><td>当前平均房价</td><td>元</td><td>精细</td><td>用于测算调价前后收入</td></tr><tr><td>弧弹性 E</td><td>—</td><td>精细</td><td>来自价格弹性模块，通常为负</td></tr><tr><td>单次调价幅度</td><td>%</td><td>精细</td><td>每次调价的百分比</td></tr></tbody></table></div>
+ <div class="bound"><b>适用边界</b>　Pace 必须同一提前期窗口对比；进度领先不等于一定该提价，须用弹性检验调价后收入。</div>
+</section>
+<section class="mod" data-mid="m5" data-level="B" id="sec-m5">
+ <h2><span class="badge">定价与贡献</span>05　价格弹性与最优定价</h2>
+ <div class="lead">用弧弹性衡量需求对价格的反应，再以边际贡献（而非流水）找最合适的价格。</div>
+ <div class="lvbar"><span class="lb">计算精度</span>
+   <button type="button" class="lvbtn" data-l="A">A 基础</button>
+   <button type="button" class="lvbtn on" data-l="B">B 标准</button>
+   <button type="button" class="lvbtn" data-l="C">C 精细</button>
+   <span class="lvstate" id="m5_state"></span></div>
+ <div class="params"><div class="fld" data-lv="1"><label for="m5_p1">调价前价格</label><div class="inrow"><input id="m5_p1" type="number" step="any" value="480" data-def="480" data-deg="480"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="1"><label for="m5_q1">调价前销量</label><div class="inrow"><input id="m5_q1" type="number" step="any" value="100" data-def="100" data-deg="100"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="1"><label for="m5_p2">调价后价格</label><div class="inrow"><input id="m5_p2" type="number" step="any" value="520" data-def="520" data-deg="520"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="1"><label for="m5_q2">调价后销量</label><div class="inrow"><input id="m5_q2" type="number" step="any" value="92" data-def="92" data-deg="92"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="1"><label for="m5_vc">每间变动成本</label><div class="inrow"><input id="m5_vc" type="number" step="any" value="120" data-def="120" data-deg="120"><span class="u">元</span></div><div class="hint">布草、水电、清洁、耗品</div></div><div class="fld" data-lv="2"><label for="m5_cap">可售房量上限</label><div class="inrow"><input id="m5_cap" type="number" step="any" value="200" data-def="200" data-deg="200"><span class="u">间夜</span></div><div class="hint">限制最优价下的销量</div></div><div class="fld" data-lv="3"><label for="m5_o1p">观测 1 价格</label><div class="inrow"><input id="m5_o1p" type="number" step="any" value="420" data-def="420" data-deg="0"><span class="u">元</span></div><div class="hint">多期价格—销量样本</div></div><div class="fld" data-lv="3"><label for="m5_o1q">观测 1 销量</label><div class="inrow"><input id="m5_o1q" type="number" step="any" value="118" data-def="118" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="3"><label for="m5_o2p">观测 2 价格</label><div class="inrow"><input id="m5_o2p" type="number" step="any" value="450" data-def="450" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="3"><label for="m5_o2q">观测 2 销量</label><div class="inrow"><input id="m5_o2q" type="number" step="any" value="110" data-def="110" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="3"><label for="m5_o3p">观测 3 价格</label><div class="inrow"><input id="m5_o3p" type="number" step="any" value="480" data-def="480" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="3"><label for="m5_o3q">观测 3 销量</label><div class="inrow"><input id="m5_o3q" type="number" step="any" value="100" data-def="100" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="3"><label for="m5_o4p">观测 4 价格</label><div class="inrow"><input id="m5_o4p" type="number" step="any" value="500" data-def="500" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="3"><label for="m5_o4q">观测 4 销量</label><div class="inrow"><input id="m5_o4q" type="number" step="any" value="96" data-def="96" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="3"><label for="m5_o5p">观测 5 价格</label><div class="inrow"><input id="m5_o5p" type="number" step="any" value="520" data-def="520" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="3"><label for="m5_o5q">观测 5 销量</label><div class="inrow"><input id="m5_o5q" type="number" step="any" value="92" data-def="92" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="3"><label for="m5_o6p">观测 6 价格</label><div class="inrow"><input id="m5_o6p" type="number" step="any" value="560" data-def="560" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="3"><label for="m5_o6q">观测 6 销量</label><div class="inrow"><input id="m5_o6q" type="number" step="any" value="80" data-def="80" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div></div>
+ <div class="formula" id="m5_formula">线性需求 Q = a − b·P → P* = (a + b·VC) ÷ (2b)，销量受可售房量约束</div>
+ <div class="results" id="m5_results"></div>
+ <div class="detail" id="m5_detail"></div>
+ <div class="note" id="m5_note"></div>
+ <div class="spec"><h4>字段说明</h4><table><thead><tr><th>字段</th><th>单位</th><th>起用档位</th><th>填写口径</th></tr></thead><tbody><tr><td>调价前价格</td><td>元</td><td>基础</td><td>—</td></tr><tr><td>调价前销量</td><td>间夜</td><td>基础</td><td>—</td></tr><tr><td>调价后价格</td><td>元</td><td>基础</td><td>—</td></tr><tr><td>调价后销量</td><td>间夜</td><td>基础</td><td>—</td></tr><tr><td>每间变动成本</td><td>元</td><td>基础</td><td>布草、水电、清洁、耗品</td></tr><tr><td>可售房量上限</td><td>间夜</td><td>标准</td><td>限制最优价下的销量</td></tr><tr><td>观测 1 价格</td><td>元</td><td>精细</td><td>多期价格—销量样本</td></tr><tr><td>观测 1 销量</td><td>间夜</td><td>精细</td><td>—</td></tr><tr><td>观测 2 价格</td><td>元</td><td>精细</td><td>—</td></tr><tr><td>观测 2 销量</td><td>间夜</td><td>精细</td><td>—</td></tr><tr><td>观测 3 价格</td><td>元</td><td>精细</td><td>—</td></tr><tr><td>观测 3 销量</td><td>间夜</td><td>精细</td><td>—</td></tr><tr><td>观测 4 价格</td><td>元</td><td>精细</td><td>—</td></tr><tr><td>观测 4 销量</td><td>间夜</td><td>精细</td><td>—</td></tr><tr><td>观测 5 价格</td><td>元</td><td>精细</td><td>—</td></tr><tr><td>观测 5 销量</td><td>间夜</td><td>精细</td><td>—</td></tr><tr><td>观测 6 价格</td><td>元</td><td>精细</td><td>—</td></tr><tr><td>观测 6 销量</td><td>间夜</td><td>精细</td><td>—</td></tr></tbody></table></div>
+ <div class="bound"><b>适用边界</b>　点弹性在涨价与降价时结果不对称，统一用弧弹性；弹性随提前期、细分市场变化，不能跨期套用。决策看边际贡献，不看流水。</div>
+</section>
+<section class="mod" data-mid="m6" data-level="B" id="sec-m6">
+ <h2><span class="badge">库存与超售</span>06　超额预订</h2>
+ <div class="lead">用净流失率推算可回填房量，逐层加入调节系数与安置成本，得到可执行的超售间数。</div>
+ <div class="lvbar"><span class="lb">计算精度</span>
+   <button type="button" class="lvbtn" data-l="A">A 基础</button>
+   <button type="button" class="lvbtn on" data-l="B">B 标准</button>
+   <button type="button" class="lvbtn" data-l="C">C 精细</button>
+   <span class="lvstate" id="m6_state"></span></div>
+ <div class="params"><div class="fld" data-lv="1"><label for="m6_C">可售房数</label><div class="inrow"><input id="m6_C" type="number" step="any" value="320" data-def="320" data-deg="320"><span class="u">间</span></div><div class="hint">当日可售</div></div><div class="fld" data-lv="1"><label for="m6_q">净流失率</label><div class="inrow"><input id="m6_q" type="number" step="any" value="16.8" data-def="16.8" data-deg="16.8"><span class="u">%</span></div><div class="hint">(未到店 + 24h 取消) ÷ 确认预订总数</div></div><div class="fld" data-lv="1"><label for="m6_alpha">风险偏好</label><div class="inrow"><input id="m6_alpha" type="number" step="any" value="1.0" data-def="1.0" data-deg="1.0"><span class="u"></span></div><div class="hint">保守 0.7 / 标准 1 / 激进 1.3</div></div><div class="fld" data-lv="1"><label for="m6_hard">超售硬上限</label><div class="inrow"><input id="m6_hard" type="number" step="any" value="10" data-def="10" data-deg="10"><span class="u">%</span></div><div class="hint">占可售房比例</div></div><div class="fld" data-lv="2"><label for="m6_peak">峰值日调节系数</label><div class="inrow"><input id="m6_peak" type="number" step="any" value="1.0" data-def="1.0" data-deg="1.0"><span class="u"></span></div><div class="hint">峰值日建议下调</div></div><div class="fld" data-lv="2"><label for="m6_guar">担保占比调节系数</label><div class="inrow"><input id="m6_guar" type="number" step="any" value="1.0" data-def="1.0" data-deg="1.0"><span class="u"></span></div><div class="hint">担保预订占比高时下调</div></div><div class="fld" data-lv="2"><label for="m6_meet">会议团队调节系数</label><div class="inrow"><input id="m6_meet" type="number" step="any" value="1.0" data-def="1.0" data-deg="1.0"><span class="u"></span></div><div class="hint">会议团队占比高时下调</div></div><div class="fld" data-lv="2"><label for="m6_corp">协议集中调节系数</label><div class="inrow"><input id="m6_corp" type="number" step="any" value="1.0" data-def="1.0" data-deg="1.0"><span class="u"></span></div><div class="hint">协议客户集中度高时下调</div></div><div class="fld" data-lv="2"><label for="m6_backup">备用酒店调节系数</label><div class="inrow"><input id="m6_backup" type="number" step="any" value="1.0" data-def="1.0" data-deg="1.0"><span class="u"></span></div><div class="hint">无同档备用酒店时再减半</div></div><div class="fld" data-lv="3"><label for="m6_m">每间净贡献</label><div class="inrow"><input id="m6_m" type="number" step="any" value="700" data-def="700" data-deg="700"><span class="u">元</span></div><div class="hint">房价减变动成本</div></div><div class="fld" data-lv="3"><label for="m6_cw">单间安置成本</label><div class="inrow"><input id="m6_cw" type="number" step="any" value="1200" data-def="1200" data-deg="1200"><span class="u">元</span></div><div class="hint">升房、补偿、差旅与商誉</div></div><div class="fld" data-lv="3"><label for="m6_booked">当前确认预订数</label><div class="inrow"><input id="m6_booked" type="number" step="any" value="320" data-def="320" data-deg="320"><span class="u">间</span></div><div class="hint">超售前的确认预订</div></div><div class="fld" data-lv="3"><label for="m6_maxO">枚举上限</label><div class="inrow"><input id="m6_maxO" type="number" step="any" value="80" data-def="80" data-deg="80"><span class="u">间</span></div><div class="hint">逐间搜索范围</div></div></div>
+ <div class="formula" id="m6_formula">调节后超售 = MIN( 闭式解 × Π五类调节系数 , 硬上限 )；系数全为 1 时与基础档完全一致</div>
+ <div class="results" id="m6_results"></div>
+ <div class="detail" id="m6_detail"></div>
+ <div class="note" id="m6_note"></div>
+ <div class="spec"><h4>字段说明</h4><table><thead><tr><th>字段</th><th>单位</th><th>起用档位</th><th>填写口径</th></tr></thead><tbody><tr><td>可售房数</td><td>间</td><td>基础</td><td>当日可售</td></tr><tr><td>净流失率</td><td>%</td><td>基础</td><td>(未到店 + 24h 取消) ÷ 确认预订总数</td></tr><tr><td>风险偏好</td><td>—</td><td>基础</td><td>保守 0.7 / 标准 1 / 激进 1.3</td></tr><tr><td>超售硬上限</td><td>%</td><td>基础</td><td>占可售房比例</td></tr><tr><td>峰值日调节系数</td><td>—</td><td>标准</td><td>峰值日建议下调</td></tr><tr><td>担保占比调节系数</td><td>—</td><td>标准</td><td>担保预订占比高时下调</td></tr><tr><td>会议团队调节系数</td><td>—</td><td>标准</td><td>会议团队占比高时下调</td></tr><tr><td>协议集中调节系数</td><td>—</td><td>标准</td><td>协议客户集中度高时下调</td></tr><tr><td>备用酒店调节系数</td><td>—</td><td>标准</td><td>无同档备用酒店时再减半</td></tr><tr><td>每间净贡献</td><td>元</td><td>精细</td><td>房价减变动成本</td></tr><tr><td>单间安置成本</td><td>元</td><td>精细</td><td>升房、补偿、差旅与商誉</td></tr><tr><td>当前确认预订数</td><td>间</td><td>精细</td><td>超售前的确认预订</td></tr><tr><td>枚举上限</td><td>间</td><td>精细</td><td>逐间搜索范围</td></tr></tbody></table></div>
+ <div class="bound"><b>适用边界</b>　超售出去的房本身也会流失，所以闭式解要除以 (1−q)；q 的分母统一为确认预订总数。精细档假设未到店相互独立，发生安置时须走步行客人预案。</div>
+</section>
+<section class="mod" data-mid="m7" data-level="B" id="sec-m7">
+ <h2><span class="badge">团队与置换</span>07　置换分析</h2>
+ <div class="lead">判断一笔低价团队业务会不会挤掉更高贡献的散客，比净贡献，不比单价。</div>
+ <div class="lvbar"><span class="lb">计算精度</span>
+   <button type="button" class="lvbtn" data-l="A">A 基础</button>
+   <button type="button" class="lvbtn on" data-l="B">B 标准</button>
+   <button type="button" class="lvbtn" data-l="C">C 精细</button>
+   <span class="lvstate" id="m7_state"></span></div>
+ <div class="params"><div class="fld" data-lv="1"><label for="m7_R">总房数</label><div class="inrow"><input id="m7_R" type="number" step="any" value="300" data-def="300" data-deg="300"><span class="u">间</span></div><div class="hint">可售客房总数，剔除维修房</div></div><div class="fld" data-lv="1"><label for="m7_Dt">散客期望需求</label><div class="inrow"><input id="m7_Dt" type="number" step="any" value="280" data-def="280" data-deg="280"><span class="u">间夜</span></div><div class="hint">按当前散客价预期能卖出的量</div></div><div class="fld" data-lv="1"><label for="m7_Dg">团队申请房晚</label><div class="inrow"><input id="m7_Dg" type="number" step="any" value="60" data-def="60" data-deg="60"><span class="u">间夜</span></div><div class="hint">本笔团队或协议业务</div></div><div class="fld" data-lv="1"><label for="m7_At">散客平均房价</label><div class="inrow"><input id="m7_At" type="number" step="any" value="618" data-def="618" data-deg="618"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="1"><label for="m7_Ag">团队报价</label><div class="inrow"><input id="m7_Ag" type="number" step="any" value="480" data-def="480" data-deg="480"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="1"><label for="m7_VC">每间变动成本</label><div class="inrow"><input id="m7_VC" type="number" step="any" value="120" data-def="120" data-deg="120"><span class="u">元</span></div><div class="hint">仅随出租变动的成本</div></div><div class="fld" data-lv="1"><label for="m7_FBt">散客餐饮净贡献</label><div class="inrow"><input id="m7_FBt" type="number" step="any" value="90" data-def="90" data-deg="90"><span class="u">元/间夜</span></div><div class="hint">净利润贡献，不是流水</div></div><div class="fld" data-lv="1"><label for="m7_FBg">团队餐饮净贡献</label><div class="inrow"><input id="m7_FBg" type="number" step="any" value="70" data-def="70" data-deg="70"><span class="u">元/间夜</span></div><div class="hint">净利润贡献，不是流水</div></div><div class="fld" data-lv="2"><label for="m7_Ot">散客其他净贡献</label><div class="inrow"><input id="m7_Ot" type="number" step="any" value="40" data-def="40" data-deg="0"><span class="u">元/间夜</span></div><div class="hint">会议、健身、停车等</div></div><div class="fld" data-lv="2"><label for="m7_Og">团队其他净贡献</label><div class="inrow"><input id="m7_Og" type="number" step="any" value="30" data-def="30" data-deg="0"><span class="u">元/间夜</span></div><div class="hint">会议、宴会等</div></div><div class="fld" data-lv="2"><label for="m7_wash">团队 wash 率</label><div class="inrow"><input id="m7_wash" type="number" step="any" value="10" data-def="10" data-deg="0"><span class="u">%</span></div><div class="hint">未到店与取消比例</div></div><div class="fld" data-lv="2"><label for="m7_s">安全边际</label><div class="inrow"><input id="m7_s" type="number" step="any" value="10" data-def="10" data-deg="0"><span class="u">%</span></div><div class="hint">覆盖预测不确定性的缓冲</div></div><div class="fld" data-lv="3"><label for="m7_rho">散客兑现概率 ρ</label><div class="inrow"><input id="m7_rho" type="number" step="any" value="92" data-def="92" data-deg="100"><span class="u">%</span></div><div class="hint">被挤掉散客真正会成交的概率</div></div><div class="fld" data-lv="3"><label for="m7_bid">保留房机会成本 bid</label><div class="inrow"><input id="m7_bid" type="number" step="any" value="0" data-def="0" data-deg="0"><span class="u">元/间夜</span></div><div class="hint">留作更高价业务的机会成本</div></div><div class="fld" data-lv="3"><label for="m7_sh">肩部夜净贡献调整</label><div class="inrow"><input id="m7_sh" type="number" step="any" value="0" data-def="0" data-deg="0"><span class="u">元</span></div><div class="hint">正为带来额外肩部夜，负为挤掉可售肩部夜</div></div></div>
+ <div class="formula" id="m7_formula">加入团队实际到店房晚 G_eff = 团队量 × (1 − wash)、其他净贡献与安全边际 s；判定等价于 团队贡献 ≥ (1 + s) × 散客损失</div>
+ <div class="results" id="m7_results"></div>
+ <div class="detail" id="m7_detail"></div>
+ <div class="note" id="m7_note"></div>
+ <div class="spec"><h4>字段说明</h4><table><thead><tr><th>字段</th><th>单位</th><th>起用档位</th><th>填写口径</th></tr></thead><tbody><tr><td>总房数</td><td>间</td><td>基础</td><td>可售客房总数，剔除维修房</td></tr><tr><td>散客期望需求</td><td>间夜</td><td>基础</td><td>按当前散客价预期能卖出的量</td></tr><tr><td>团队申请房晚</td><td>间夜</td><td>基础</td><td>本笔团队或协议业务</td></tr><tr><td>散客平均房价</td><td>元</td><td>基础</td><td>—</td></tr><tr><td>团队报价</td><td>元</td><td>基础</td><td>—</td></tr><tr><td>每间变动成本</td><td>元</td><td>基础</td><td>仅随出租变动的成本</td></tr><tr><td>散客餐饮净贡献</td><td>元/间夜</td><td>基础</td><td>净利润贡献，不是流水</td></tr><tr><td>团队餐饮净贡献</td><td>元/间夜</td><td>基础</td><td>净利润贡献，不是流水</td></tr><tr><td>散客其他净贡献</td><td>元/间夜</td><td>标准</td><td>会议、健身、停车等</td></tr><tr><td>团队其他净贡献</td><td>元/间夜</td><td>标准</td><td>会议、宴会等</td></tr><tr><td>团队 wash 率</td><td>%</td><td>标准</td><td>未到店与取消比例</td></tr><tr><td>安全边际</td><td>%</td><td>标准</td><td>覆盖预测不确定性的缓冲</td></tr><tr><td>散客兑现概率 ρ</td><td>%</td><td>精细</td><td>被挤掉散客真正会成交的概率</td></tr><tr><td>保留房机会成本 bid</td><td>元/间夜</td><td>精细</td><td>留作更高价业务的机会成本</td></tr><tr><td>肩部夜净贡献调整</td><td>元</td><td>精细</td><td>正为带来额外肩部夜，负为挤掉可售肩部夜</td></tr></tbody></table></div>
+ <div class="bound"><b>适用边界</b>　有空房时置换为零，应直接接受；物理上最多挤掉团队实际占用的房晚。基础档把高阶参数取退化值时与精细档完全等价。</div>
+</section>
+<section class="mod" data-mid="m8" data-level="B" id="sec-m8">
+ <h2><span class="badge">渠道与净价</span>08　净价与渠道贡献</h2>
+ <div class="lead">把佣金、支付手续费与返现扣掉，比较各渠道真实落袋的净房价与结构损失。</div>
+ <div class="lvbar"><span class="lb">计算精度</span>
+   <button type="button" class="lvbtn" data-l="A">A 基础</button>
+   <button type="button" class="lvbtn on" data-l="B">B 标准</button>
+   <button type="button" class="lvbtn" data-l="C">C 精细</button>
+   <span class="lvstate" id="m8_state"></span></div>
+ <div class="params"><div class="fld" data-lv="1"><label for="m8_c1pr">直销 挂牌价</label><div class="inrow"><input id="m8_c1pr" type="number" step="any" value="820" data-def="820" data-deg="820"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="1"><label for="m8_c1co">直销 佣金率</label><div class="inrow"><input id="m8_c1co" type="number" step="any" value="0" data-def="0" data-deg="0"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="1"><label for="m8_c1pa">直销 支付费率</label><div class="inrow"><input id="m8_c1pa" type="number" step="any" value="0.6" data-def="0.6" data-deg="0.6"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="1"><label for="m8_c1re">直销 每间返现</label><div class="inrow"><input id="m8_c1re" type="number" step="any" value="0" data-def="0" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="1"><label for="m8_c1ni">直销 房晚</label><div class="inrow"><input id="m8_c1ni" type="number" step="any" value="90" data-def="90" data-deg="90"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c2pr">OTA-A 挂牌价</label><div class="inrow"><input id="m8_c2pr" type="number" step="any" value="820" data-def="820" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c2co">OTA-A 佣金率</label><div class="inrow"><input id="m8_c2co" type="number" step="any" value="15" data-def="15" data-deg="0"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c2pa">OTA-A 支付费率</label><div class="inrow"><input id="m8_c2pa" type="number" step="any" value="1" data-def="1" data-deg="0"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c2re">OTA-A 每间返现</label><div class="inrow"><input id="m8_c2re" type="number" step="any" value="20" data-def="20" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c2ni">OTA-A 房晚</label><div class="inrow"><input id="m8_c2ni" type="number" step="any" value="70" data-def="70" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c3pr">OTA-B 挂牌价</label><div class="inrow"><input id="m8_c3pr" type="number" step="any" value="820" data-def="820" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c3co">OTA-B 佣金率</label><div class="inrow"><input id="m8_c3co" type="number" step="any" value="18" data-def="18" data-deg="0"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c3pa">OTA-B 支付费率</label><div class="inrow"><input id="m8_c3pa" type="number" step="any" value="1" data-def="1" data-deg="0"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c3re">OTA-B 每间返现</label><div class="inrow"><input id="m8_c3re" type="number" step="any" value="0" data-def="0" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c3ni">OTA-B 房晚</label><div class="inrow"><input id="m8_c3ni" type="number" step="any" value="45" data-def="45" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c4pr">协议客户 挂牌价</label><div class="inrow"><input id="m8_c4pr" type="number" step="any" value="700" data-def="700" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c4co">协议客户 佣金率</label><div class="inrow"><input id="m8_c4co" type="number" step="any" value="0" data-def="0" data-deg="0"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c4pa">协议客户 支付费率</label><div class="inrow"><input id="m8_c4pa" type="number" step="any" value="0.6" data-def="0.6" data-deg="0"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c4re">协议客户 每间返现</label><div class="inrow"><input id="m8_c4re" type="number" step="any" value="0" data-def="0" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c4ni">协议客户 房晚</label><div class="inrow"><input id="m8_c4ni" type="number" step="any" value="60" data-def="60" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c5pr">团队批发 挂牌价</label><div class="inrow"><input id="m8_c5pr" type="number" step="any" value="650" data-def="650" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c5co">团队批发 佣金率</label><div class="inrow"><input id="m8_c5co" type="number" step="any" value="0" data-def="0" data-deg="0"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c5pa">团队批发 支付费率</label><div class="inrow"><input id="m8_c5pa" type="number" step="any" value="0" data-def="0" data-deg="0"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c5re">团队批发 每间返现</label><div class="inrow"><input id="m8_c5re" type="number" step="any" value="0" data-def="0" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m8_c5ni">团队批发 房晚</label><div class="inrow"><input id="m8_c5ni" type="number" step="any" value="55" data-def="55" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="3"><label for="m8_tol">结构损失容忍阈值</label><div class="inrow"><input id="m8_tol" type="number" step="any" value="5" data-def="5" data-deg="5"><span class="u">%</span></div><div class="hint">超过则建议收紧低净价渠道</div></div></div>
+ <div class="formula" id="m8_formula">加权净 ADR = Σ各渠道净收入 ÷ Σ房晚　·　结构损失 = 最高净 ADR × 总房晚 − 实际净收入合计</div>
+ <div class="results" id="m8_results"></div>
+ <div class="detail" id="m8_detail"></div>
+ <div class="note" id="m8_note"></div>
+ <div class="spec"><h4>字段说明</h4><table><thead><tr><th>字段</th><th>单位</th><th>起用档位</th><th>填写口径</th></tr></thead><tbody><tr><td>直销 挂牌价</td><td>元</td><td>基础</td><td>—</td></tr><tr><td>直销 佣金率</td><td>%</td><td>基础</td><td>—</td></tr><tr><td>直销 支付费率</td><td>%</td><td>基础</td><td>—</td></tr><tr><td>直销 每间返现</td><td>元</td><td>基础</td><td>—</td></tr><tr><td>直销 房晚</td><td>间夜</td><td>基础</td><td>—</td></tr><tr><td>OTA-A 挂牌价</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>OTA-A 佣金率</td><td>%</td><td>标准</td><td>—</td></tr><tr><td>OTA-A 支付费率</td><td>%</td><td>标准</td><td>—</td></tr><tr><td>OTA-A 每间返现</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>OTA-A 房晚</td><td>间夜</td><td>标准</td><td>—</td></tr><tr><td>OTA-B 挂牌价</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>OTA-B 佣金率</td><td>%</td><td>标准</td><td>—</td></tr><tr><td>OTA-B 支付费率</td><td>%</td><td>标准</td><td>—</td></tr><tr><td>OTA-B 每间返现</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>OTA-B 房晚</td><td>间夜</td><td>标准</td><td>—</td></tr><tr><td>协议客户 挂牌价</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>协议客户 佣金率</td><td>%</td><td>标准</td><td>—</td></tr><tr><td>协议客户 支付费率</td><td>%</td><td>标准</td><td>—</td></tr><tr><td>协议客户 每间返现</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>协议客户 房晚</td><td>间夜</td><td>标准</td><td>—</td></tr><tr><td>团队批发 挂牌价</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>团队批发 佣金率</td><td>%</td><td>标准</td><td>—</td></tr><tr><td>团队批发 支付费率</td><td>%</td><td>标准</td><td>—</td></tr><tr><td>团队批发 每间返现</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>团队批发 房晚</td><td>间夜</td><td>标准</td><td>—</td></tr><tr><td>结构损失容忍阈值</td><td>%</td><td>精细</td><td>超过则建议收紧低净价渠道</td></tr></tbody></table></div>
+ <div class="bound"><b>适用边界</b>　渠道比较必须比净价，不能比挂牌价；餐饮与其他收入若单独核算，可另计入附加贡献，分母口径保持一致。</div>
+</section>
+<section class="mod" data-mid="m9" data-level="B" id="sec-m9">
+ <h2><span class="badge">定价与贡献</span>09　房型价差校验</h2>
+ <div class="lead">逐对检查相邻房档的价差率，落在健康区间内才不会挤压升级或造成价格倒挂。</div>
+ <div class="lvbar"><span class="lb">计算精度</span>
+   <button type="button" class="lvbtn" data-l="A">A 基础</button>
+   <button type="button" class="lvbtn on" data-l="B">B 标准</button>
+   <button type="button" class="lvbtn" data-l="C">C 精细</button>
+   <span class="lvstate" id="m9_state"></span></div>
+ <div class="params"><div class="fld" data-lv="1"><label for="m9_p1a">标准 → 高级 低价档</label><div class="inrow"><input id="m9_p1a" type="number" step="any" value="680" data-def="680" data-deg="680"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="1"><label for="m9_p1b">标准 → 高级 高价档</label><div class="inrow"><input id="m9_p1b" type="number" step="any" value="800" data-def="800" data-deg="800"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="1"><label for="m9_lo">健康下限</label><div class="inrow"><input id="m9_lo" type="number" step="any" value="8" data-def="8" data-deg="8"><span class="u">%</span></div><div class="hint">低于此判为价差过小</div></div><div class="fld" data-lv="2"><label for="m9_p2a">高级 → 豪华 低价档</label><div class="inrow"><input id="m9_p2a" type="number" step="any" value="800" data-def="800" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m9_p2b">高级 → 豪华 高价档</label><div class="inrow"><input id="m9_p2b" type="number" step="any" value="980" data-def="980" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m9_p3a">豪华 → 行政 低价档</label><div class="inrow"><input id="m9_p3a" type="number" step="any" value="980" data-def="980" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m9_p3b">豪华 → 行政 高价档</label><div class="inrow"><input id="m9_p3b" type="number" step="any" value="1180" data-def="1180" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m9_p4a">标准 → 特惠 低价档</label><div class="inrow"><input id="m9_p4a" type="number" step="any" value="620" data-def="620" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m9_p4b">标准 → 特惠 高价档</label><div class="inrow"><input id="m9_p4b" type="number" step="any" value="660" data-def="660" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m9_p5a">行政 → 套房 低价档</label><div class="inrow"><input id="m9_p5a" type="number" step="any" value="1180" data-def="1180" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m9_p5b">行政 → 套房 高价档</label><div class="inrow"><input id="m9_p5b" type="number" step="any" value="1680" data-def="1680" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m9_hi">健康上限</label><div class="inrow"><input id="m9_hi" type="number" step="any" value="35" data-def="35" data-deg="35"><span class="u">%</span></div><div class="hint">高于此判为价差过大</div></div><div class="fld" data-lv="3"><label for="m9_up">每次免费升级边际成本</label><div class="inrow"><input id="m9_up" type="number" step="any" value="80" data-def="80" data-deg="0"><span class="u">元</span></div><div class="hint">用于判断调整是否划算</div></div></div>
+ <div class="formula" id="m9_formula">健康档位占比 = 判定为健康的对数 ÷ 总对数；低于 80% 需重新梳理价格阶梯</div>
+ <div class="results" id="m9_results"></div>
+ <div class="detail" id="m9_detail"></div>
+ <div class="note" id="m9_note"></div>
+ <div class="spec"><h4>字段说明</h4><table><thead><tr><th>字段</th><th>单位</th><th>起用档位</th><th>填写口径</th></tr></thead><tbody><tr><td>标准 → 高级 低价档</td><td>元</td><td>基础</td><td>—</td></tr><tr><td>标准 → 高级 高价档</td><td>元</td><td>基础</td><td>—</td></tr><tr><td>健康下限</td><td>%</td><td>基础</td><td>低于此判为价差过小</td></tr><tr><td>高级 → 豪华 低价档</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>高级 → 豪华 高价档</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>豪华 → 行政 低价档</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>豪华 → 行政 高价档</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>标准 → 特惠 低价档</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>标准 → 特惠 高价档</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>行政 → 套房 低价档</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>行政 → 套房 高价档</td><td>元</td><td>标准</td><td>—</td></tr><tr><td>健康上限</td><td>%</td><td>标准</td><td>高于此判为价差过大</td></tr><tr><td>每次免费升级边际成本</td><td>元</td><td>精细</td><td>用于判断调整是否划算</td></tr></tbody></table></div>
+ <div class="bound"><b>适用边界</b>　健康区间按本店房型结构校准；拉开价差的账面收益可能被免费升级成本吃掉，须净额判断。</div>
+</section>
+<section class="mod" data-mid="m10" data-level="B" id="sec-m10">
+ <h2><span class="badge">跨行业</span>10　跨行业单位产出</h2>
+ <div class="lead">邮轮、长租公寓、研学营地、租车与医疗号源共用同一口径：单位产出 = 周期总收入 ÷ 可用产能单位。</div>
+ <div class="lvbar"><span class="lb">计算精度</span>
+   <button type="button" class="lvbtn" data-l="A">A 基础</button>
+   <button type="button" class="lvbtn on" data-l="B">B 标准</button>
+   <button type="button" class="lvbtn" data-l="C">C 精细</button>
+   <span class="lvstate" id="m10_state"></span></div>
+ <div class="params"><div class="fld" data-lv="1"><label for="m10_kind">业态</label><div class="inrow"><select id="m10_kind" data-def="RevPAC"><option value="RevPAC">邮轮 · 舱位夜</option><option value="RevPAU">长租公寓 · 可出租间夜</option><option value="RevPAS">研学营地 · 营位夜</option><option value="RevPAT">租车 · 车辆·天</option><option value="RevPAA">医疗号源 · 号源</option></select></div><div class="hint">切换业态时整套字段、单位与公式说明同步切换</div></div><div class="fld" data-lv="1"><label for="m10_cap">产能</label><div class="inrow"><input id="m10_cap" type="number" step="any" value="800" data-def="800" data-deg="800"><span class="u">单位</span></div><div class="hint">舱位 / 房间 / 营位 / 车辆 / 号源</div></div><div class="fld" data-lv="1"><label for="m10_days">统计天数</label><div class="inrow"><input id="m10_days" type="number" step="any" value="7" data-def="7" data-deg="7"><span class="u">天</span></div><div class="hint"></div></div><div class="fld" data-lv="1"><label for="m10_sold">已售单位</label><div class="inrow"><input id="m10_sold" type="number" step="any" value="4900" data-def="4900" data-deg="4900"><span class="u">单位</span></div><div class="hint">周期内实际售出</div></div><div class="fld" data-lv="1"><label for="m10_price">单价</label><div class="inrow"><input id="m10_price" type="number" step="any" value="1200" data-def="1200" data-deg="1200"><span class="u">元</span></div><div class="hint">票價 / 月租 / 营费 / 日租 / 单号价值</div></div><div class="fld" data-lv="2"><label for="m10_anc">每单位附加收入</label><div class="inrow"><input id="m10_anc" type="number" step="any" value="280" data-def="280" data-deg="0"><span class="u">元</span></div><div class="hint">餐饮、附加服务等</div></div><div class="fld" data-lv="3"><label for="m10_c1">优惠段占比</label><div class="inrow"><input id="m10_c1" type="number" step="any" value="30" data-def="30" data-deg="0"><span class="u">%</span></div><div class="hint">早鸟、续约优惠等</div></div><div class="fld" data-lv="3"><label for="m10_c2">优惠幅度</label><div class="inrow"><input id="m10_c2" type="number" step="any" value="15" data-def="15" data-deg="0"><span class="u">%</span></div><div class="hint">优惠段相对标准价的折让</div></div><div class="fld" data-lv="3"><label for="m10_c3">流失率</label><div class="inrow"><input id="m10_c3" type="number" step="any" value="8" data-def="8" data-deg="0"><span class="u">%</span></div><div class="hint">爽约、空置或 No-show</div></div><div class="fld" data-lv="3"><label for="m10_c4">可补位单位</label><div class="inrow"><input id="m10_c4" type="number" step="any" value="300" data-def="300" data-deg="0"><span class="u">单位</span></div><div class="hint">超售、加号或补位上限</div></div></div>
+ <div class="formula" id="m10_formula">含附加收入的总营收 = 已售 × (单价 + 每单位附加收入)；有效单价 = 总营收 ÷ 已售</div>
+ <div class="results" id="m10_results"></div>
+ <div class="detail" id="m10_detail"></div>
+ <div class="note" id="m10_note"></div>
+ <div class="spec"><h4>字段说明</h4><table><thead><tr><th>字段</th><th>单位</th><th>起用档位</th><th>填写口径</th></tr></thead><tbody><tr><td>产能</td><td>单位</td><td>基础</td><td>舱位 / 房间 / 营位 / 车辆 / 号源</td></tr><tr><td>统计天数</td><td>天</td><td>基础</td><td>—</td></tr><tr><td>已售单位</td><td>单位</td><td>基础</td><td>周期内实际售出</td></tr><tr><td>单价</td><td>元</td><td>基础</td><td>票價 / 月租 / 营费 / 日租 / 单号价值</td></tr><tr><td>每单位附加收入</td><td>元</td><td>标准</td><td>餐饮、附加服务等</td></tr><tr><td>优惠段占比</td><td>%</td><td>精细</td><td>早鸟、续约优惠等</td></tr><tr><td>优惠幅度</td><td>%</td><td>精细</td><td>优惠段相对标准价的折让</td></tr><tr><td>流失率</td><td>%</td><td>精细</td><td>爽约、空置或 No-show</td></tr><tr><td>可补位单位</td><td>单位</td><td>精细</td><td>超售、加号或补位上限</td></tr></tbody></table></div>
+ <div class="bound"><b>适用边界</b>　分母始终是可用产能单位（产能 × 统计天数），不用已售单位；不同业态的差别只在产能单位名称与附加收入构成。</div>
+</section>
+<section class="mod" data-mid="m11" data-level="B" id="sec-m11">
+ <h2><span class="badge">执行动作</span>11　每日决策速查</h2>
+ <div class="lead">把预测出租率与进度偏差转成当天的价格、库存、超售、团队接拒与渠道动作，并给出优先级。</div>
+ <div class="lvbar"><span class="lb">计算精度</span>
+   <button type="button" class="lvbtn" data-l="A">A 基础</button>
+   <button type="button" class="lvbtn on" data-l="B">B 标准</button>
+   <button type="button" class="lvbtn" data-l="C">C 精细</button>
+   <span class="lvstate" id="m11_state"></span></div>
+ <div class="params"><div class="fld" data-lv="1"><label for="m11_occ">预测出租率</label><div class="inrow"><input id="m11_occ" type="number" step="any" value="92" data-def="92" data-deg="92"><span class="u">%</span></div><div class="hint">目标日预测 OCC</div></div><div class="fld" data-lv="1"><label for="m11_bias">Pace 偏差</label><div class="inrow"><input id="m11_bias" type="number" step="any" value="8" data-def="8" data-deg="8"><span class="u">%</span></div><div class="hint">(当前在手 − 去年同窗在手) ÷ 去年同窗在手</div></div><div class="fld" data-lv="2"><label for="m11_q">净流失率</label><div class="inrow"><input id="m11_q" type="number" step="any" value="16.8" data-def="16.8" data-deg="0"><span class="u">%</span></div><div class="hint">与超额预订模块一致</div></div><div class="fld" data-lv="2"><label for="m11_C">可售房数</label><div class="inrow"><input id="m11_C" type="number" step="any" value="320" data-def="320" data-deg="320"><span class="u">间</span></div><div class="hint"></div></div><div class="fld" data-lv="2"><label for="m11_hard">超售硬上限</label><div class="inrow"><input id="m11_hard" type="number" step="any" value="10" data-def="10" data-deg="10"><span class="u">%</span></div><div class="hint"></div></div><div class="fld" data-lv="3"><label for="m11_ratio">团队报价 / 散客 ADR</label><div class="inrow"><input id="m11_ratio" type="number" step="any" value="75" data-def="75" data-deg="55"><span class="u">%</span></div><div class="hint">比率线以下需综合贡献例外</div></div><div class="fld" data-lv="3"><label for="m11_contrib">综合贡献额</label><div class="inrow"><input id="m11_contrib" type="number" step="any" value="200000" data-def="200000" data-deg="0"><span class="u">元</span></div><div class="hint">客房 + 餐饮 + 会场 + 其他</div></div><div class="fld" data-lv="3"><label for="m11_rooms">占用房晚数</label><div class="inrow"><input id="m11_rooms" type="number" step="any" value="100" data-def="100" data-deg="0"><span class="u">间夜</span></div><div class="hint"></div></div><div class="fld" data-lv="3"><label for="m11_adr">预期散客 ADR</label><div class="inrow"><input id="m11_adr" type="number" step="any" value="800" data-def="800" data-deg="0"><span class="u">元</span></div><div class="hint"></div></div></div>
+ <div class="formula" id="m11_formula">超售动作与超额预订模块同源：建议超售 = MIN( 可售房 × q/(1−q) , 硬上限 )，不另设查表基准率</div>
+ <div class="results" id="m11_results"></div>
+ <div class="detail" id="m11_detail"></div>
+ <div class="note" id="m11_note"></div>
+ <div class="spec"><h4>字段说明</h4><table><thead><tr><th>字段</th><th>单位</th><th>起用档位</th><th>填写口径</th></tr></thead><tbody><tr><td>预测出租率</td><td>%</td><td>基础</td><td>目标日预测 OCC</td></tr><tr><td>Pace 偏差</td><td>%</td><td>基础</td><td>(当前在手 − 去年同窗在手) ÷ 去年同窗在手</td></tr><tr><td>净流失率</td><td>%</td><td>标准</td><td>与超额预订模块一致</td></tr><tr><td>可售房数</td><td>间</td><td>标准</td><td>—</td></tr><tr><td>超售硬上限</td><td>%</td><td>标准</td><td>—</td></tr><tr><td>团队报价 / 散客 ADR</td><td>%</td><td>精细</td><td>比率线以下需综合贡献例外</td></tr><tr><td>综合贡献额</td><td>元</td><td>精细</td><td>客房 + 餐饮 + 会场 + 其他</td></tr><tr><td>占用房晚数</td><td>间夜</td><td>精细</td><td>—</td></tr><tr><td>预期散客 ADR</td><td>元</td><td>精细</td><td>—</td></tr></tbody></table></div>
+ <div class="bound"><b>适用边界</b>　判定表给的是动作起点，须用本店数据校准；团队接拒最终以置换分析的净贡献判定为准，比率线只是快速筛查。</div>
+</section>
+ <h2 class="sec" id="sec-tables">表格说明 · 统一口径字典</h2>
+ <p style="font-size:12.5px;color:var(--mut)">全站所有计算模块共用下列定义。同一符号在不同模块里含义一致，分母与价值尺度不随模块改变。</p>
+ <table class="tbl"><thead><tr><th style="width:22%">术语 / 符号</th><th>定义与口径</th></tr></thead><tbody><tr><td><b>可售房晚</b></td><td>总房量剔除维修房(OOO)、自用房与免费房后的可卖房晚；所有 RevPAR 类指标共用此分母。</td></tr><tr><td><b>平均房价 ADR</b></td><td>客房收入 ÷ 已售房晚；分子只计房费，含套餐时按拆分规则剥离餐饮。</td></tr><tr><td><b>每可售房收入 RevPAR</b></td><td>客房收入 ÷ 可售房晚，等价于 ADR × OCC（两者须同源）。</td></tr><tr><td><b>净房价</b></td><td>挂牌价 × (1 − 佣金率 − 支付费率) − 每间返现；渠道比较与置换分析统一用净价。</td></tr><tr><td><b>边际贡献</b></td><td>(净房价 − 变动成本) + 餐饮净贡献 + 其他净贡献；决策一律看贡献，不看流水。</td></tr><tr><td><b>变动成本</b></td><td>随出租发生的布草、水电、清洁、耗品；不含固定成本与折旧。</td></tr><tr><td><b>净流失率 q</b></td><td>(未到店数 + 24h 取消数) ÷ 确认预订总数；超额预订与每日决策共用。</td></tr><tr><td><b>弧弹性 E</b></td><td>[ΔQ ÷ 平均 Q] ÷ [ΔP ÷ 平均 P]；统一用两点均值作分母，符号为负。</td></tr><tr><td><b>置换量</b></td><td>MIN(团队实际到店房晚, MAX(0, 散客需求 − (总房数 − 团队实际到店房晚))) × 兑现概率 ρ。</td></tr><tr><td><b>安全边际 s</b></td><td>团队净贡献须覆盖 s × 散客损失才接受；等价于 团队贡献 ≥ (1+s) × 散客损失。</td></tr><tr><td><b>可用产能单位</b></td><td>产能 × 统计天数；跨行业 RevPA* 的统一分母，不用已售单位。</td></tr><tr><td><b>指数口径</b></td><td>竞争组一律 Σ已售 ÷ Σ可售 加权，不取各家简单平均；RGI = MPI × ARI ÷ 100。</td></tr></tbody></table>
+ <h2 class="sec" id="sec-levels">三档算法说明</h2>
+ <p style="font-size:12.5px;color:var(--mut)">同一功能模块只有一套口径，三档的差别只是考虑的参数维度逐级增加。基础档可以少填数据，但计算本身完整正确。</p>
+ <table class="tbl"><thead><tr><th style="width:16%">功能模块</th><th>A 基础档</th><th>B 标准档</th><th>C 精细档</th></tr></thead><tbody><tr><td><b>市场指数与对标</b></td><td>MPI = 本店 OCC ÷ 对标对象 OCC × 100　·　ARI = 本店 ADR ÷ 对标对象 ADR × 100　·　RGI = 本店 RevPAR ÷ 对标对象 RevPAR × 100</td><td>竞争组一律加权：OCC_c = Σ已售 ÷ Σ可售，ADR_c = Σ收入 ÷ Σ已售，RevPAR_c = Σ收入 ÷ Σ可售；恒等式 RGI = MPI × ARI ÷ 100</td><td>净 RevPAR = 客房收入 × (1 − 分销成本率) ÷ 可售房晚；净 RGI = 本店净 RevPAR ÷ 竞组净 RevPAR × 100</td></tr><tr><td><b>综合收益指标</b></td><td>OCC = 已售 ÷ 可售　·　ADR = 客房收入 ÷ 已售　·　RevPAR = 客房收入 ÷ 可售</td><td>TrevPAR = 总收入 ÷ 可售房晚　·　GOPPAR = (总收入 − 营业总成本) ÷ 可售房晚</td><td>NRevPAR = (客房收入 − 分销成本) ÷ 可售房晚　·　GOP 率 = (总收入 − 营业总成本) ÷ 总收入</td></tr><tr><td><b>需求预测</b></td><td>预测需求量 = 当前在手 × (1 + 历史同周期新增率)　·　预测出租率 = 预测需求 ÷ 可售房晚</td><td>分细分市场：预测需求_i = 在手_i × (1 + 新增率_i)，合计 = Σ 预测需求_i</td><td>净预测 = 合计 × (1 − 流失率)，再取 MIN(净预测, 可售房晚 × 容量上限)；区间 = 净预测 × (1 ± 波动带)</td></tr><tr><td><b>预订进度与 Pickup</b></td><td>Pace = 当前在手 ÷ 去年同窗口在手　·　预计剩余增量 = 去年剩余增量 × Pace　·　毛投影 = 在手 + 预计剩余增量</td><td>净投影 = 在手 + 预计剩余增量 × (1 − 流失率)　·　预测出租率 = 净投影 ÷ 可售房晚</td><td>调价后收入 ≈ 净投影 × (1 + E × 调幅) × ADR × (1 + 调幅)；E 取价格弹性模块的弧弹性</td></tr><tr><td><b>价格弹性与最优定价</b></td><td>弧弹性 E = [ΔQ ÷ 平均 Q] ÷ [ΔP ÷ 平均 P]（应为负）　·　边际贡献 = (价格 − 变动成本) × 销量</td><td>线性需求 Q = a − b·P → P* = (a + b·VC) ÷ (2b)，销量受可售房量约束</td><td>对数回归 lnQ = α + β·lnP，β 即恒定弹性；R² 检验拟合优度，并与两点弧弹性相互印证</td></tr><tr><td><b>超额预订</b></td><td>净流失率 q = (未到店 + 24h 取消) ÷ 确认预订总数　·　建议超售 = MIN( 可售房 × q/(1−q) × 风险偏好 , 可售房 × 硬上限 )</td><td>调节后超售 = MIN( 闭式解 × Π五类调节系数 , 硬上限 )；系数全为 1 时与基础档完全一致</td><td>X ~ 二项(N, 1−q)，期望安置人数 E[max(X−C,0)]；逐间枚举使 期望净贡献 = m·μ − (m + 单间安置成本)·E[walk] 最大，再与风控上限取小</td></tr><tr><td><b>置换分析</b></td><td>C = (房价 − 变动成本) + 餐饮净贡献　·　被挤掉散客 = MIN(团队量, MAX(0, 散客需求 − (总房数 − 团队量)))　·　净贡献 = 团队总贡献 − 散客损失</td><td>加入团队实际到店房晚 G_eff = 团队量 × (1 − wash)、其他净贡献与安全边际 s；判定等价于 团队贡献 ≥ (1 + s) × 散客损失</td><td>实际置换 = MIN(G_eff, 约束置换) × ρ　·　散客计价 = MAX(C_t, bid price)　·　还价底线 = 变动成本 − 团队附加贡献 + (1+s) × 置换损失 ÷ G_eff</td></tr><tr><td><b>净价与渠道贡献</b></td><td>净 ADR = 挂牌价 × (1 − 佣金率 − 支付费率) − 每间返现　·　净收入 = 净 ADR × 房晚</td><td>加权净 ADR = Σ各渠道净收入 ÷ Σ房晚　·　结构损失 = 最高净 ADR × 总房晚 − 实际净收入合计</td><td>结构损失率 = 结构损失 ÷ 实际净收入合计；超过容忍阈值则收紧低净价渠道，并把加权净 ADR 作为置换分析的散客净房价</td></tr><tr><td><b>房型价差校验</b></td><td>价差率 = (高价档 − 低价档) ÷ 低价档；低于下限为价差过小，高于上限为价差过大</td><td>健康档位占比 = 判定为健康的对数 ÷ 总对数；低于 80% 需重新梳理价格阶梯</td><td>建议调整量把价差拉回健康区间；扣除每次免费升级的边际成本后，净收益为正才建议执行</td></tr><tr><td><b>跨行业单位产出</b></td><td>可用产能单位 = 产能 × 统计天数　·　RevPA* = 总收入 ÷ 可用产能单位　·　利用率 = 已售 ÷ 可用产能单位</td><td>含附加收入的总营收 = 已售 × (单价 + 每单位附加收入)；有效单价 = 总营收 ÷ 已售</td><td>按优惠段拆分收入，并计入流失补位贡献；业态切换时字段名、单位与公式说明整体同步</td></tr><tr><td><b>每日决策速查</b></td><td>按预测出租率行 × Pace 偏差列查价格动作矩阵；同时给出 MinLOS、不可入住、低价渠道与超售态度</td><td>超售动作与超额预订模块同源：建议超售 = MIN( 可售房 × q/(1−q) , 硬上限 )，不另设查表基准率</td><td>团队接拒按置换分析的净贡献口径；综合贡献达到门槛可放宽比率线，但须留档与审批。执行优先级：库存 &gt; 价格 &gt; 渠道</td></tr></tbody></table>
+ <h2 class="sec" id="sec-usage">使用说明</h2>
+ <div class="usage">
+  <h3>三步开始</h3>
+  <ol><li>先选计算精度：数据有限的酒店用基础档，能拿到细分与成本数据的用标准档，需要概率、机会成本与风险缓冲的用精细档。也可以对单个模块单独设定。</li>
+  <li>在黄色输入框填本店实际数据，结果区立即更新；绿色代表可执行、红色代表需谨慎、金色代表最优或关键结论，结论同时用文字写明。</li>
+  <li>用「导出测算结果」保存当前全部模块的输入与结果，或用「打印 / 存 PDF」逐模块分页输出；「下载本页」可保存完整单文件，离线打开照样能算。</li></ol>
+  <h3>档位怎么选</h3>
+  <ul><li><b>A 基础档</b>：只需房量、价格、需求等最核心数据。适用于刚开始做收益管理、或细分与成本数据尚不完整的酒店。</li>
+  <li><b>B 标准档</b>：加入逐家竞对、细分市场、wash 率、多收入流、安全边际、调节系数等常用参数，是日常决策的默认档。</li>
+  <li><b>C 精细档</b>：再加入兑现概率、保留房机会成本、肩部夜、二项分布与回归弹性等，用于高要求酒店的精细化测算。</li>
+  <li>基础档是精细档在高阶参数取退化值时的结果：系数取 1、比例取 0 或 100%、机会成本取 0。因此任何档位都不会因为简化而算错。</li></ul>
+  <h3>填写口径</h3>
+  <ul><li>金额单位为元；百分比填数字，10 表示 10%。</li>
+  <li>变动成本只含随出租变动的成本，不含固定成本；餐饮与其他贡献填净利润贡献，不是流水，没有就填 0。</li>
+  <li>净流失率统一为 (未到店 + 24h 取消) ÷ 确认预订总数；竞组对标一律按总量加权，同周期比较。</li>
+  <li>所有比较须放在同一提前期窗口、同一渠道层级、同一含税口径。</li></ul>
+  <h3>模块之间的联动</h3>
+  <ul><li>价格弹性给出的弧弹性，用于预订进度模块检验调价后收入是否真的增加。</li>
+  <li>净价与渠道模块的加权净 ADR，可直接作为置换分析里的散客净房价，避免用含佣金的挂牌价高估散客价值。</li>
+  <li>每日决策速查的超售动作与超额预订模块同源；团队接拒最终以置换分析的净贡献判定为准。</li></ul>
+  <h3>打印与导出</h3>
+  <ul><li>打印时自动展开全部模块，每个模块单独起页，并在首页附目录。</li>
+  <li>导出结果为 CSV，包含每个模块的当前档位、全部输入值与全部结果项，可直接粘贴到 Excel 复核。</li>
+  <li>切换模块卡片只改变显示范围，不会停止其他模块的计算；导出与打印始终覆盖全部模块。</li></ul>
+  <h3>结果边界</h3>
+  <ul><li>弹性测算假设其他条件不变；超额预订精细档假设未到店相互独立；置换分析的高阶参数须用本店真实数据校准。</li>
+  <li>阈值（安全边际、健康区间、进度窗口、硬上限）是通用起点，上岗后应按本店历史数据回填。</li>
+  <li>结论为基于输入的期望值测算，超售、调价、接团等决定请结合实际复核后执行。</li></ul>
+ </div>
+ <div class="foot">RMC 收益管理社区 · 收益管理计算分析中心</div>
+</main></div>
+<script>window.MODULES = [{"id": "m1", "name": "市场指数与对标", "formulas": {"A": "MPI = 本店 OCC ÷ 对标对象 OCC × 100　·　ARI = 本店 ADR ÷ 对标对象 ADR × 100　·　RGI = 本店 RevPAR ÷ 对标对象 RevPAR × 100", "B": "竞争组一律加权：OCC_c = Σ已售 ÷ Σ可售，ADR_c = Σ收入 ÷ Σ已售，RevPAR_c = Σ收入 ÷ Σ可售；恒等式 RGI = MPI × ARI ÷ 100", "C": "净 RevPAR = 客房收入 × (1 − 分销成本率) ÷ 可售房晚；净 RGI = 本店净 RevPAR ÷ 竞组净 RevPAR × 100"}}, {"id": "m2", "name": "综合收益指标", "formulas": {"A": "OCC = 已售 ÷ 可售　·　ADR = 客房收入 ÷ 已售　·　RevPAR = 客房收入 ÷ 可售", "B": "TrevPAR = 总收入 ÷ 可售房晚　·　GOPPAR = (总收入 − 营业总成本) ÷ 可售房晚", "C": "NRevPAR = (客房收入 − 分销成本) ÷ 可售房晚　·　GOP 率 = (总收入 − 营业总成本) ÷ 总收入"}}, {"id": "m3", "name": "需求预测", "formulas": {"A": "预测需求量 = 当前在手 × (1 + 历史同周期新增率)　·　预测出租率 = 预测需求 ÷ 可售房晚", "B": "分细分市场：预测需求_i = 在手_i × (1 + 新增率_i)，合计 = Σ 预测需求_i", "C": "净预测 = 合计 × (1 − 流失率)，再取 MIN(净预测, 可售房晚 × 容量上限)；区间 = 净预测 × (1 ± 波动带)"}}, {"id": "m4", "name": "预订进度与 Pickup", "formulas": {"A": "Pace = 当前在手 ÷ 去年同窗口在手　·　预计剩余增量 = 去年剩余增量 × Pace　·　毛投影 = 在手 + 预计剩余增量", "B": "净投影 = 在手 + 预计剩余增量 × (1 − 流失率)　·　预测出租率 = 净投影 ÷ 可售房晚", "C": "调价后收入 ≈ 净投影 × (1 + E × 调幅) × ADR × (1 + 调幅)；E 取价格弹性模块的弧弹性"}}, {"id": "m5", "name": "价格弹性与最优定价", "formulas": {"A": "弧弹性 E = [ΔQ ÷ 平均 Q] ÷ [ΔP ÷ 平均 P]（应为负）　·　边际贡献 = (价格 − 变动成本) × 销量", "B": "线性需求 Q = a − b·P → P* = (a + b·VC) ÷ (2b)，销量受可售房量约束", "C": "对数回归 lnQ = α + β·lnP，β 即恒定弹性；R² 检验拟合优度，并与两点弧弹性相互印证"}}, {"id": "m6", "name": "超额预订", "formulas": {"A": "净流失率 q = (未到店 + 24h 取消) ÷ 确认预订总数　·　建议超售 = MIN( 可售房 × q/(1−q) × 风险偏好 , 可售房 × 硬上限 )", "B": "调节后超售 = MIN( 闭式解 × Π五类调节系数 , 硬上限 )；系数全为 1 时与基础档完全一致", "C": "X ~ 二项(N, 1−q)，期望安置人数 E[max(X−C,0)]；逐间枚举使 期望净贡献 = m·μ − (m + 单间安置成本)·E[walk] 最大，再与风控上限取小"}}, {"id": "m7", "name": "置换分析", "formulas": {"A": "C = (房价 − 变动成本) + 餐饮净贡献　·　被挤掉散客 = MIN(团队量, MAX(0, 散客需求 − (总房数 − 团队量)))　·　净贡献 = 团队总贡献 − 散客损失", "B": "加入团队实际到店房晚 G_eff = 团队量 × (1 − wash)、其他净贡献与安全边际 s；判定等价于 团队贡献 ≥ (1 + s) × 散客损失", "C": "实际置换 = MIN(G_eff, 约束置换) × ρ　·　散客计价 = MAX(C_t, bid price)　·　还价底线 = 变动成本 − 团队附加贡献 + (1+s) × 置换损失 ÷ G_eff"}}, {"id": "m8", "name": "净价与渠道贡献", "formulas": {"A": "净 ADR = 挂牌价 × (1 − 佣金率 − 支付费率) − 每间返现　·　净收入 = 净 ADR × 房晚", "B": "加权净 ADR = Σ各渠道净收入 ÷ Σ房晚　·　结构损失 = 最高净 ADR × 总房晚 − 实际净收入合计", "C": "结构损失率 = 结构损失 ÷ 实际净收入合计；超过容忍阈值则收紧低净价渠道，并把加权净 ADR 作为置换分析的散客净房价"}}, {"id": "m9", "name": "房型价差校验", "formulas": {"A": "价差率 = (高价档 − 低价档) ÷ 低价档；低于下限为价差过小，高于上限为价差过大", "B": "健康档位占比 = 判定为健康的对数 ÷ 总对数；低于 80% 需重新梳理价格阶梯", "C": "建议调整量把价差拉回健康区间；扣除每次免费升级的边际成本后，净收益为正才建议执行"}}, {"id": "m10", "name": "跨行业单位产出", "formulas": {"A": "可用产能单位 = 产能 × 统计天数　·　RevPA* = 总收入 ÷ 可用产能单位　·　利用率 = 已售 ÷ 可用产能单位", "B": "含附加收入的总营收 = 已售 × (单价 + 每单位附加收入)；有效单价 = 总营收 ÷ 已售", "C": "按优惠段拆分收入，并计入流失补位贡献；业态切换时字段名、单位与公式说明整体同步"}}, {"id": "m11", "name": "每日决策速查", "formulas": {"A": "按预测出租率行 × Pace 偏差列查价格动作矩阵；同时给出 MinLOS、不可入住、低价渠道与超售态度", "B": "超售动作与超额预订模块同源：建议超售 = MIN( 可售房 × q/(1−q) , 硬上限 )，不另设查表基准率", "C": "团队接拒按置换分析的净贡献口径；综合贡献达到门槛可放宽比率线，但须留档与审批。执行优先级：库存 > 价格 > 渠道"}}];</script>
+<script>/* 收益管理计算分析中心 · 计算引擎
+   口径与统一规范一致：A 档 = B/C 档在高阶参数取退化值时的严格特例 */
+(function () {
+  'use strict';
+  var LV = { A: 1, B: 2, C: 3 };
+  var MOD = window.MODULES || [];
+
+  function el(id) { return document.getElementById(id); }
+  function num(id) { var e = el(id); if (!e) return 0; var v = parseFloat(e.value); return isFinite(v) ? v : 0; }
+  function V(mid, p) { return num(mid + '_' + p); }
+  function lvOf(mid) { var s = document.querySelector('.mod[data-mid="' + mid + '"]'); return (s && s.dataset.level) || 'B'; }
+  function LVN(mid) { return LV[lvOf(mid)] || 2; }
+  function f0(n) { if (!isFinite(n)) return '—'; if (Math.abs(n) < 0.005) n = 0; return Math.round(n).toLocaleString('zh-CN'); }
+  function f2(n) { if (!isFinite(n)) return '—'; if (Math.abs(n) < 0.005) n = 0; return n.toFixed(2); }
+  function yn(n) { return (isFinite(n) ? (n < 0 ? '-' : '') + '¥' + f0(Math.abs(n)) : '—'); }
+  function sgn(n) { return (isFinite(n) ? (n >= 0 ? '+' : '-') + yn(Math.abs(n)) : '—'); }
+  function pct(n, d) { return (isFinite(n) ? (n * 100).toFixed(d === undefined ? 1 : d) + '%' : '—'); }
+  function row(k, v, cls) { return { k: k, v: v, cls: cls || '' }; }
+  function setTxt(id, v) { var e = el(id); if (e) e.textContent = v; }
+  function cls(id, c) { var e = el(id); if (e) e.setAttribute('data-tone', c || ''); }
+
+  /* ---------- 二项分布 ---------- */
+  function binomCDF(k, n, p) {
+    if (k < 0) return 0; if (k >= n) return 1;
+    var s = 0, term = Math.pow(1 - p, n);
+    for (var x = 0; x <= k; x++) { s += term; if (x < k) term *= (n - x) / (x + 1) * p / (1 - p); }
+    return Math.min(1, Math.max(0, s));
+  }
+  function expWalk(n, cap, p) {
+    return Math.max(0, n * p * (1 - binomCDF(cap - 1, n - 1, p)) - cap * (1 - binomCDF(cap, n, p)));
+  }
+
+  /* ================= 模块计算 ================= */
+  var CALC = {};
+
+  /* 1 市场指数与对标 */
+  CALC.m1 = function () {
+    var R = V('m1', 'R'), Q = V('m1', 'Q'), Rev = V('m1', 'Rev'), L = LVN('m1');
+    var cR = 0, cQ = 0, cV = 0, nc = L === 1 ? 1 : 3, src;
+    for (var i = 1; i <= nc; i++) {
+      cR += V('m1', 'c' + i + 'R'); cQ += V('m1', 'c' + i + 'Q'); cV += V('m1', 'c' + i + 'V');
+    }
+    src = nc === 1 ? '单一对标对象' : '三家竞对加权合计';
+    var occ = Q / R, adr = Rev / Q, revpar = Rev / R;
+    var cocc = cQ / cR, cadr = cV / cQ, crev = cV / cR;
+    var mpi = occ / cocc * 100, ari = adr / cadr * 100, rgi = revpar / crev * 100;
+    var rows = [
+      row('本店 OCC', pct(occ, 2)), row('本店 ADR', yn(adr)), row('本店 RevPAR', yn(revpar)),
+      row('竞组口径', src, 'info'), row('竞组 OCC', pct(cocc, 2)), row('竞组 ADR', yn(cadr)),
+      row('竞组 RevPAR', yn(crev)), row('MPI 市场渗透指数', f2(mpi), mpi >= 100 ? 'good' : 'bad'),
+      row('ARI 价格指数', f2(ari), ari >= 100 ? 'good' : 'bad'),
+      row('RGI 综合收益指数', f2(rgi), rgi >= 100 ? 'good' : 'bad')
+    ];
+    var detail = '', note = '';
+    if (L >= 2) {
+      var gap = mpi * ari / 100 - rgi;
+      rows.push(row('恒等式校验 MPI×ARI÷100 − RGI', f2(gap), Math.abs(gap) < 1e-6 ? 'good' : 'bad'));
+      rows.push(row('份额缺口房晚', f0(Math.max(0, (cocc - occ) * R)) + ' 间夜'));
+      rows.push(row('按竞组水平可追回收入', yn(Math.max(0, (crev - revpar) * R))));
+      detail = '<table class="mini"><thead><tr><th>对标对象</th><th>可售房晚</th><th>已售房晚</th><th>客房收入</th><th>OCC</th><th>ADR</th><th>RevPAR</th></tr></thead><tbody>' +
+        '<tr><td>本店</td><td>' + f0(R) + '</td><td>' + f0(Q) + '</td><td>' + yn(Rev) + '</td><td>' + pct(occ, 2) + '</td><td>' + yn(adr) + '</td><td>' + yn(revpar) + '</td></tr>' +
+        '<tr><td>竞组（加权）</td><td>' + f0(cR) + '</td><td>' + f0(cQ) + '</td><td>' + yn(cV) + '</td><td>' + pct(cocc, 2) + '</td><td>' + yn(cadr) + '</td><td>' + yn(crev) + '</td></tr></tbody></table>';
+      note = '竞组一律用 Σ已售÷Σ可售 的加权口径，不用各家简单平均；三者必须同周期、同竞组。';
+    }
+    if (L >= 3) {
+      var d = V('m1', 'dist'), cd = V('m1', 'cdist');
+      var netOwn = Rev * (1 - d) / R, netComp = cV * (1 - cd) / cR;
+      var netRgi = netOwn / netComp * 100;
+      var diag = mpi >= 100 && rgi >= 100 ? '量价双升' : (mpi < 100 && rgi >= 100 ? '靠价撑·份额流失' : (mpi >= 100 ? '有量无价·价格洼地' : '量价双弱'));
+      rows.push(row('本店净 RevPAR', yn(netOwn)), row('竞组净 RevPAR', yn(netComp)));
+      rows.push(row('净口径 RGI', f2(netRgi), netRgi >= 100 ? 'good' : 'bad'));
+      rows.push(row('渠道成本拖累', f2(rgi - netRgi) + ' 点'));
+      rows.push(row('结构诊断', diag, 'gold'));
+      note = '毛口径 RGI 会被高佣金渠道抬高；C 档同时给出扣除分销成本后的净口径对标，两者差距大时应先查渠道结构。';
+    }
+    return { rows: rows, detail: detail, note: note, share: { mpi: mpi, rgi: rgi, rgi_net: L >= 3 ? netRgi : rgi } };
+  };
+
+  /* 2 综合收益指标 */
+  CALC.m2 = function () {
+    var R = V('m2', 'R'), Q = V('m2', 'Q'), room = V('m2', 'room'), L = LVN('m2');
+    var occ = Q / R, adr = room / Q, revpar = room / R;
+    var rows = [row('出租率 OCC', pct(occ, 2)), row('平均房价 ADR', yn(adr)), row('每可售房收入 RevPAR', yn(revpar))];
+    var total = room, detail = '', note = '';
+    if (L >= 2) {
+      var fb = V('m2', 'fb'), oth = V('m2', 'oth'), cost = V('m2', 'cost');
+      total = room + fb + oth;
+      rows.push(row('总收入', yn(total)), row('每可售房总收入 TrevPAR', yn(total / R)));
+      rows.push(row('每可售房经营毛利 GOPPAR', yn((total - cost) / R), (total - cost) > 0 ? 'good' : 'bad'));
+      detail = '<table class="mini"><thead><tr><th>收入项</th><th>金额</th><th>占可售房晚</th></tr></thead><tbody>' +
+        '<tr><td>客房收入</td><td>' + yn(room) + '</td><td>' + yn(room / R) + '</td></tr>' +
+        '<tr><td>餐饮收入</td><td>' + yn(fb) + '</td><td>' + yn(fb / R) + '</td></tr>' +
+        '<tr><td>其他收入</td><td>' + yn(oth) + '</td><td>' + yn(oth / R) + '</td></tr>' +
+        '<tr><td>营业总成本</td><td>' + yn(cost) + '</td><td>' + yn(cost / R) + '</td></tr></tbody></table>';
+      note = 'RevPAR 只看客房；餐饮/会议占比高的酒店应同时看 TrevPAR 与 GOPPAR。';
+    }
+    if (L >= 3) {
+      var dist = V('m2', 'dist'), gmin = V('m2', 'gmin');
+      var nrev = (room - dist) / R, gopRate = (total - V('m2', 'cost')) / total;
+      var anc = (V('m2', 'fb') + V('m2', 'oth')) / total;
+      rows.push(row('净每可售房收入 NRevPAR', yn(nrev)));
+      rows.push(row('经营毛利率 GOP rate', pct(gopRate, 2)));
+      rows.push(row('附加收入占比', pct(anc, 2)));
+      rows.push(row('结构诊断', gopRate >= gmin ? '成本结构健康' : '成本侵蚀，先控成本', gopRate >= gmin ? 'good' : 'bad'));
+      note = 'NRevPAR 统一为（客房收入 − 分销成本）÷ 可售房晚，只扣客房分销成本，不把餐饮等其他收入计入分子。';
+    }
+    return { rows: rows, detail: detail, note: note, share: {} };
+  };
+
+  /* 3 需求预测（补入） */
+  CALC.m3 = function () {
+    var R = V('m3', 'R'), ob = V('m3', 'ob'), g = V('m3', 'g') / 100, L = LVN('m3');
+    var q = ob * (1 + g), rows = [], detail = '', note = '';
+    rows.push(row('当前在手房晚', f0(ob) + ' 间夜'));
+    rows.push(row('历史同周期新增率', pct(g, 1)));
+    if (L >= 2) {
+      var sum = 0, seg = [];
+      for (var i = 1; i <= 6; i++) {
+        var o = V('m3', 's' + i + 'o'), r = V('m3', 's' + i + 'r') / 100;
+        var f = o * (1 + r); sum += f; seg.push([i, o, r, f]);
+      }
+      q = sum;
+      detail = '<table class="mini"><thead><tr><th>细分市场</th><th>在手</th><th>新增率</th><th>预测需求</th></tr></thead><tbody>';
+      var names = ['散客', '团队', '会员', 'OTA', '协议公司', '其他'];
+      for (var j = 0; j < seg.length; j++) detail += '<tr><td>' + names[j] + '</td><td>' + f0(seg[j][1]) + '</td><td>' + pct(seg[j][2], 0) + '</td><td>' + f0(seg[j][3]) + '</td></tr>';
+      detail += '<tr><td>合计</td><td>—</td><td>—</td><td>' + f0(sum) + '</td></tr></tbody></table>';
+      rows.push(row('分细分预测合计', f0(q) + ' 间夜'));
+      rows.push(row('整体法对照', f0(ob * (1 + g)) + ' 间夜', 'info'));
+      note = 'B 档按细分市场分别套用历史新增率再汇总，避免用一个总新增率抹平客源结构差异；整体法对照保留以便核对。';
+    } else {
+      rows.push(row('预测需求量', f0(q) + ' 间夜'));
+    }
+    if (L >= 3) {
+      var loss = V('m3', 'loss') / 100, capR = V('m3', 'capR') / 100, band = V('m3', 'band') / 100;
+      var net = Math.min(q * (1 - loss), R * capR);
+      rows.push(row('整体法对照（在手 × (1 + 新增率)）', f0(ob * (1 + g)) + ' 间夜', 'info'));
+      rows.push(row('当前在手房晚（对照基数）', f0(ob) + ' 间夜', 'info'));
+      rows.push(row('扣流失后净预测', f0(q * (1 - loss)) + ' 间夜'));
+      rows.push(row('容量约束后预测', f0(net) + ' 间夜'));
+      rows.push(row('预测区间（低 / 高）', f0(net * (1 - band)) + ' ~ ' + f0(net * (1 + band)) + ' 间夜'));
+      var occ = net / R;
+      rows.push(row('预测出租率', pct(occ, 2), occ >= 0.9 ? 'good' : ''));
+      rows.push(row('房晚缺口', f0(R - net) + ' 间夜'));
+      rows.push(row('库存动作', occ >= 0.9 ? '收紧低价渠道·价格上移' : (occ >= 0.7 ? '维持价格栅栏' : '开放低价渠道·加大曝光'), 'gold'));
+      rows.push(row('乐观 / 保守出租率', pct(net * (1 + band) / R, 1) + ' / ' + pct(net * (1 - band) / R, 1)));
+      note = 'C 档把流失率、容量上限与预测波动带纳入；区间用于判断是否需要提前布防，不等于承诺值。';
+      q = net;
+    } else {
+      rows.push(row('预测出租率', pct(q / R, 2)));
+      rows.push(row('房晚缺口', f0(R - q) + ' 间夜'));
+    }
+    return { rows: rows, detail: detail, note: note, share: { forecast_occ: q / R } };
+  };
+
+  /* 4 预订进度与 Pickup */
+  CALC.m4 = function () {
+    var R = V('m4', 'R'), ob = V('m4', 'ob'), ly = V('m4', 'ly'), lyf = V('m4', 'lyf'), L = LVN('m4');
+    var p = ob / ly, pick = lyf - ly, rest = pick * p, gross = ob + rest;
+    var rows = [row('去年同窗口在手', f0(ly) + ' 间夜'), row('去年最终房晚', f0(lyf) + ' 间夜'),
+      row('去年剩余增量', f0(pick) + ' 间夜'), row('进度比率 Pace', f2(p), p >= 1 ? 'good' : 'bad'),
+      row('预计剩余增量', f0(rest) + ' 间夜'), row('毛投影房晚', f0(gross) + ' 间夜')];
+    var note = '', detail = '', net = gross, occ = gross / R;
+    if (L >= 2) {
+      var target = V('m4', 'target') / 100, loss = V('m4', 'loss') / 100;
+      net = ob + rest * (1 - loss); occ = net / R;
+      var up = V('m4', 'up') / 100, down = V('m4', 'down') / 100;
+      var sig = p >= up ? '提价窗口' : (p <= down ? '促销窗口' : '持稳');
+      rows.push(row('净投影房晚', f0(net) + ' 间夜'));
+      rows.push(row('预测出租率', pct(occ, 2), occ >= target ? 'good' : 'bad'));
+      rows.push(row('距目标出租率', pct(occ - target, 2)));
+      rows.push(row('进度信号', sig, sig === '持稳' ? '' : 'gold'));
+      note = 'Pace 必须用同一提前期窗口对比；净投影对新增部分扣除未来流失。阈值在本档可调。';
+    }
+    if (L >= 3) {
+      var adr = V('m4', 'adr'), E = V('m4', 'E'), step = V('m4', 'step') / 100;
+      var up3 = V('m4', 'up') / 100, dn3 = V('m4', 'down') / 100;
+      var sig3 = p >= up3 ? 1 : (p <= dn3 ? -1 : 0), adj = sig3 * step;
+      var base = net * adr, after = net * (1 + E * adj) * adr * (1 + adj);
+      rows.push(row('建议调价幅度', pct(adj, 1)));
+      rows.push(row('调价前预测收入', yn(base)));
+      rows.push(row('调价后预测收入', yn(after), after - base > 0 ? 'good' : 'bad'));
+      rows.push(row('收入变化', sgn(after - base), after - base > 0 ? 'good' : 'bad'));
+      rows.push(row('联动结论', after - base > 0 ? '调价可行' : '不建议调价：先补量或先做价格栅栏', after - base > 0 ? 'good' : 'bad'));
+      detail = '<div class="callout">进度领先不等于一定该提价：本例进度触发提价窗口，但按弹性测算后收入反而下降，因此结论是不调价。</div>';
+      note = 'C 档把价格弹性接入进度信号，用「调价后收入」检验价格动作；弹性为负值时涨价会抑制需求。';
+    }
+    return { rows: rows, detail: detail, note: note, share: { pace: p, occ: occ } };
+  };
+
+  /* 5 价格弹性与最优定价 */
+  CALC.m5 = function () {
+    var p1 = V('m5', 'p1'), q1 = V('m5', 'q1'), p2 = V('m5', 'p2'), q2 = V('m5', 'q2'), vc = V('m5', 'vc'), L = LVN('m5');
+    var dp = (p2 - p1) / p1, dq = (q2 - q1) / q1;
+    var point = dq / dp, arc = ((q2 - q1) / ((q1 + q2) / 2)) / ((p2 - p1) / ((p1 + p2) / 2));
+    var tr1 = p1 * q1, tr2 = p2 * q2, cm1 = (p1 - vc) * q1, cm2 = (p2 - vc) * q2;
+    var rows = [row('点弹性（涨跌不对称，仅参考）', f2(point)), row('弧弹性 E（统一口径）', f2(arc), arc < 0 ? 'good' : 'bad'),
+      row('调价前收入 / 贡献', yn(tr1) + ' / ' + yn(cm1)), row('调价后收入 / 贡献', yn(tr2) + ' / ' + yn(cm2)),
+      row('收入变化', sgn(tr2 - tr1), tr2 > tr1 ? 'good' : 'bad'),
+      row('边际贡献变化', sgn(cm2 - cm1), cm2 > cm1 ? 'good' : 'bad'),
+      row('决策依据', tr2 < tr1 && cm2 > cm1 ? '收入下降但贡献上升，应以贡献为准' : '收入与贡献同向', 'gold')];
+    var note = '统一使用弧弹性（两点取均值为分母），避免点弹性在涨价与降价时给出不同结果；弹性符号为负。', detail = '';
+    var b, a, pstar, qstar, cmstar;
+    if (L >= 2) {
+      var cap = V('m5', 'cap');
+      b = (q1 - q2) / (p2 - p1); a = q1 + b * p1;
+      pstar = (a + b * vc) / (2 * b); qstar = Math.max(0, Math.min(a - b * pstar, cap));
+      cmstar = (pstar - vc) * qstar;
+      rows.push(row('线性需求 Q = a − b·P', 'a=' + f0(a) + '，b=' + f2(b)));
+      rows.push(row('贡献最大化最优价 P*', yn(pstar), 'gold'));
+      rows.push(row('最优价下销量（含容量约束）', f0(qstar) + ' 间夜'));
+      rows.push(row('最大边际贡献', yn(cmstar)));
+      rows.push(row('相对当前增量', sgn(cmstar - cm1), cmstar - cm1 > 0 ? 'good' : 'bad'));
+      rows.push(row('建议调幅', pct((pstar - p1) / p1, 2)));
+      note = 'B 档用线性需求拟合求使贡献最大的价格，销量受可售房量约束；定价看边际贡献，不看流水。';
+    }
+    if (L >= 3) {
+      var xs = [], ys = [], obs = [];
+      for (var i = 1; i <= 6; i++) { var px = V('m5', 'o' + i + 'p'), qy = V('m5', 'o' + i + 'q'); xs.push(Math.log(px)); ys.push(Math.log(qy)); obs.push([px, qy]); }
+      var mx = xs.reduce(function (s, x) { return s + x; }, 0) / xs.length, my = ys.reduce(function (s, x) { return s + x; }, 0) / ys.length;
+      var numr = 0, den = 0;
+      for (var k = 0; k < xs.length; k++) { numr += (xs[k] - mx) * (ys[k] - my); den += Math.pow(xs[k] - mx, 2); }
+      var beta = numr / den, sst = 0, ssr = 0;
+      for (var j = 0; j < xs.length; j++) { sst += Math.pow(ys[j] - my, 2); ssr += Math.pow(ys[j] - (my + beta * (xs[j] - mx)), 2); }
+      var r2 = 1 - ssr / sst;
+      rows.push(row('对数回归弹性 β', f2(beta), 'gold'));
+      rows.push(row('拟合优度 R²', f2(r2), r2 > 0.9 ? 'good' : 'bad'));
+      rows.push(row('与两点弧弹性之差', f2(beta - arc)));
+      rows.push(row('一致性诊断', Math.abs(beta - arc) < 0.35 ? '两法一致，可用于定价' : '差异偏大，需补充样本', Math.abs(beta - arc) < 0.35 ? 'good' : 'bad'));
+      detail = '<table class="mini"><thead><tr><th>观测点</th><th>价格</th><th>销量</th></tr></thead><tbody>';
+      for (var t = 0; t < obs.length; t++) detail += '<tr><td>' + (t + 1) + '</td><td>' + yn(obs[t][0]) + '</td><td>' + f0(obs[t][1]) + '</td></tr>';
+      detail += '</tbody></table>';
+      note = 'C 档用多期价格—销量观测做对数回归估计恒定弹性，并给出 R²；样本少于 6 组或跨期套用时结果不可靠。';
+    }
+    return { rows: rows, detail: detail, note: note, share: { arc: arc, pstar: L >= 2 ? pstar : p1 } };
+  };
+
+  /* 6 超额预订 */
+  CALC.m6 = function () {
+    var C = V('m6', 'C'), q = V('m6', 'q') / 100, alpha = V('m6', 'alpha'), hard = V('m6', 'hard') / 100, L = LVN('m6');
+    var p = 1 - q, base = C * q / p * alpha, hardN = Math.floor(C * hard);
+    var rows = [], detail = '', note = '', o = 0;
+    rows.push(row('净流失率 q', pct(q, 2)));
+    rows.push(row('口径说明', 'q =(未到店 + 24h 取消)÷ 确认预订总数', 'info'));
+    rows.push(row('容量回填闭式解 C×q/(1−q)', f0(base) + ' 间'));
+    rows.push(row('硬上限（可售房 × 上限比例）', f0(hardN) + ' 间'));
+    if (L === 1) {
+      o = Math.min(Math.floor(base), hardN);
+      rows.push(row('建议超售量', f0(o) + ' 间', 'gold'));
+      rows.push(row('超售率', pct(o / C, 2)));
+      note = '简版已按正确闭式解计算：超售出去的房同样会流失，因此要除以 (1−q)，不能用 C×q 直接当超售量。';
+    } else if (L === 2) {
+      var fs = [], kk = 1;
+      var fn = ['peak', 'guar', 'meet', 'corp', 'backup'];
+      for (var i = 0; i < fn.length; i++) { var f = V('m6', fn[i]); fs.push(f); kk *= f; }
+      o = Math.min(Math.floor(base * kk), hardN);
+      rows.push(row('五类调节系数', fs.map(function (x) { return f2(x); }).join(' × ')));
+      rows.push(row('系数乘积', f2(kk)));
+      rows.push(row('调节后超售量', f0(o) + ' 间', 'gold'));
+      rows.push(row('超售率', pct(o / C, 2)));
+      rows.push(row('审批要求', o >= 10 || q > 0.30 ? '需 L3 收益经理审批' : '常规授权内', o >= 10 || q > 0.30 ? 'bad' : 'good'));
+      note = '标准档在闭式解上叠加峰值日、担保占比、会议团队、协议集中度、备用酒店五类调节；系数默认 1 时与简版完全一致。';
+    } else {
+      var m = V('m6', 'm'), cw = V('m6', 'cw'), booked = V('m6', 'booked'), maxO = Math.min(120, Math.max(20, Math.round(V('m6', 'maxO'))));
+      var table = [], best = null;
+      for (var oi = 0; oi <= maxO; oi++) {
+        var n = booked + oi, mu = n * p, w = expWalk(n, C, p), cm = m * mu - (m + cw) * w;
+        table.push({ o: oi, mu: mu, w: w, cm: cm });
+        if (!best || cm > best.cm) best = table[table.length - 1];
+      }
+      var risk = Math.floor(C * hard); o = Math.min(best.o, risk);
+      var at = table[o] || table[0];
+      rows.push(row('每间净贡献 / 单间安置成本', yn(m) + ' / ' + yn(cw)));
+      rows.push(row('统一闭式解对照（与基础档同源）', f0(Math.min(Math.floor(base), risk)) + ' 间', 'info'));
+      rows.push(row('经济最优超售量（枚举内）', f0(best.o) + ' 间', 'gold'));
+      rows.push(row('不超售期望贡献', yn(table[0].cm)));
+      rows.push(row('最优期望贡献', yn(best.cm)));
+      rows.push(row('超售增量贡献', sgn(best.cm - table[0].cm), 'good'));
+      rows.push(row('风控上限', f0(risk) + ' 间'));
+      rows.push(row('最终执行超售量', f0(o) + ' 间', 'gold'));
+      rows.push(row('执行点期望需安置人数', f2(at.w) + ' 人'));
+      rows.push(row('执行点发生安置的概率', pct(1 - binomCDF(C, booked + o, p), 3)));
+      detail = '<table class="mini"><thead><tr><th>超售量 O</th><th>期望到店 μ</th><th>期望安置人数</th><th>期望净贡献</th><th>标记</th></tr></thead><tbody>';
+      var picks = [0, 10, 20, 30, Math.min(40, maxO), Math.min(60, maxO), best.o, o];
+      picks = picks.filter(function (x, i, arr) { return arr.indexOf(x) === i && x <= maxO; }).sort(function (a, b) { return a - b; });
+      for (var z = 0; z < picks.length; z++) {
+        var v = table[picks[z]];
+        detail += '<tr' + (v.o === best.o ? ' class="best"' : '') + '><td>' + v.o + '</td><td>' + f2(v.mu) + '</td><td>' + f2(v.w) + '</td><td>' + yn(v.cm) + '</td><td>' + (v.o === best.o ? '经济最优' : (v.o === o ? '执行值' : '')) + '</td></tr>';
+      }
+      detail += '</tbody></table>';
+      note = '精细档把未到店视为二项随机变量，逐间枚举使期望净贡献最大的超售量，再与风控上限取小；闭式解是它忽略安置成本时的保守近似。';
+    }
+    return { rows: rows, detail: detail, note: note, share: { ob_o: o, q: q } };
+  };
+
+  /* 7 置换分析 */
+  CALC.m7 = function () {
+    var L = LVN('m7');
+    var R = V('m7', 'R'), Dt = V('m7', 'Dt'), Dg = V('m7', 'Dg');
+    var At = V('m7', 'At'), Ag = V('m7', 'Ag'), VC = V('m7', 'VC');
+    var FBt = V('m7', 'FBt'), FBg = V('m7', 'FBg');
+    var Ot = L >= 2 ? V('m7', 'Ot') : 0, Og = L >= 2 ? V('m7', 'Og') : 0;
+    var wash = L >= 2 ? V('m7', 'wash') / 100 : 0, s = L >= 2 ? V('m7', 's') / 100 : 0;
+    var rho = L >= 3 ? V('m7', 'rho') / 100 : 1, bid = L >= 3 ? V('m7', 'bid') : 0, sh = L >= 3 ? V('m7', 'sh') : 0;
+    var Ct = (At - VC) + FBt + Ot, Cg = (Ag - VC) + FBg + Og;
+    var G = Dg * (1 - wash), left = R - G, constr = Math.max(0, Dt - left);
+    var disp = Math.min(G, constr) * rho;
+    var unit = Math.max(Ct, bid), loss = disp * unit + Math.max(0, -sh);
+    var team = G * Cg, net = team - loss + Math.max(0, sh), thr = s * loss;
+    var dec = loss <= 0 ? '有空房·直接接受' : (net >= thr ? '接受团队' : '拒绝团队');
+    var bep = G ? VC - FBg - Og + disp * unit / G : 0;
+    var floor = G ? VC - FBg - Og + (1 + s) * disp * unit / G : 0;
+    var rows = [
+      row('散客边际贡献 / 间夜 C_t', yn(Ct)), row('团队边际贡献 / 间夜 C_g', yn(Cg)),
+      row('团队实际到店房晚 G_eff', f0(G) + ' 间夜'), row('留给散客的房量', f0(left) + ' 间'),
+      row('容量约束置换量', f0(constr) + ' 间夜'), row('实际置换散客 Displaced', f2(disp) + ' 间夜'),
+      row('团队总贡献', yn(team)), row('散客损失贡献', yn(loss)),
+      row('净贡献', sgn(net), net > 0 ? 'good' : 'bad'),
+      row('判定结论', dec, dec.indexOf('接受') >= 0 ? 'good' : 'bad'),
+      row('团队盈亏平衡最低价', yn(bep)), row('含安全边际还价底线', yn(floor), 'gold')
+    ];
+    var detail = '', note = '';
+    if (L >= 2) {
+      rows.push(row('安全边际阈值（s × 损失）', yn(thr)));
+      rows.push(row('团队 wash 率', pct(wash, 1)));
+      rows.push(row('散客 / 团队其他净贡献', yn(Ot) + ' / ' + yn(Og)));
+      note = '标准档加入团队未到/取消（wash）、餐饮以外的其他净贡献与安全边际。判定等价于「团队贡献 ≥ (1+s) × 散客损失」。';
+    }
+    if (L >= 3) {
+      rows.push(row('置换因子 ρ（兑现概率）', pct(rho, 1)));
+      rows.push(row('ρ 折减后的置换量', f2(disp) + ' 间夜', 'gold'));
+      rows.push(row('散客计价单位 MAX(C_t, bid)', yn(unit)));
+      rows.push(row('肩部夜净贡献调整', sgn(sh)));
+      detail = '<div class="callout">ρ 直接乘在「容量约束置换量」上，任何取值都会改变结果；物理上最多挤掉团队实际占用的房晚，因此先取 MIN(G_eff, 约束置换)。高档参数全部取退化值（ρ=100%、bid=0、肩部夜=0）时，结果与标准档完全一致。</div>';
+      note = '精细档加入兑现概率 ρ、保留房机会成本 bid price 与肩部夜调整；还价底线只把安全边际乘在变动的置换损失上，不对固定成本项重复加成。';
+    }
+    if (L === 1) note = '基础档用确定性需求、无未到取消、无其他收入与零安全边际；公式仍然正确，且高档取退化值时结果完全一致。';
+    return { rows: rows, detail: detail, note: note, share: { disp: disp, net: net, dec: dec } };
+  };
+
+  /* 8 净价与渠道贡献 */
+  CALC.m8 = function () {
+    var L = LVN('m8'), rows = [], detail = '', note = '';
+    function netOf(i) {
+      var pr = V('m8', 'c' + i + 'pr'), co = V('m8', 'c' + i + 'co') / 100;
+      var pa = V('m8', 'c' + i + 'pa') / 100, re = V('m8', 'c' + i + 're'), ni = V('m8', 'c' + i + 'ni');
+      return { pr: pr, net: pr * (1 - co - pa) - re, ni: ni };
+    }
+    var names = ['直销·官网', 'OTA-A', 'OTA-B', '协议客户', '团队/批发'];
+    var n = L === 1 ? 1 : 5, list = [];
+    for (var i = 1; i <= n; i++) list.push(netOf(i));
+    var first = list[0];
+    rows.push(row('渠道数', f0(n) + ' 个'));
+    rows.push(row('挂牌价 / 佣金 / 支付 / 返现', yn(first.pr) + ' / ' + pct(V('m8', 'c1co') / 100, 0) + ' / ' + pct(V('m8', 'c1pa') / 100, 1) + ' / ' + yn(V('m8', 'c1re'))));
+    rows.push(row('直销净 ADR', yn(first.net), 'gold'));
+    if (L === 1) {
+      rows.push(row('该渠道净收入', yn(first.net * first.ni)));
+      note = '净房价统一为 挂牌价×(1 − 佣金率 − 支付费率) − 返现；渠道比较必须比净价，不能比挂牌价。';
+    }
+    if (L >= 2) {
+      var tot = 0, nights = 0, mx = -Infinity;
+      detail = '<table class="mini"><thead><tr><th>渠道</th><th>挂牌价</th><th>净 ADR</th><th>房晚</th><th>净收入</th></tr></thead><tbody>';
+      for (var j = 0; j < list.length; j++) {
+        var x = list[j]; tot += x.net * x.ni; nights += x.ni; mx = Math.max(mx, x.net);
+        detail += '<tr><td>' + names[j] + '</td><td>' + yn(x.pr) + '</td><td>' + yn(x.net) + '</td><td>' + f0(x.ni) + '</td><td>' + yn(x.net * x.ni) + '</td></tr>';
+      }
+      detail += '</tbody></table>';
+      var wavg = nights ? tot / nights : 0, loss = mx * nights - tot;
+      rows.push(row('合计净收入', yn(tot)));
+      rows.push(row('加权净 ADR', yn(wavg), 'gold'));
+      rows.push(row('最高净 ADR', yn(mx)));
+      rows.push(row('渠道结构损失', yn(loss), loss > 0 ? 'bad' : 'good'));
+      note = '标准档按各渠道房晚加权求净 ADR；结构损失 = 若全部按最高净价售出可得收入 − 实际净收入。';
+    }
+    if (L >= 3) {
+      var tol = V('m8', 'tol') / 100;
+      var tot3 = 0, nights3 = 0, mx3 = -Infinity, rank = [];
+      for (var k = 0; k < list.length; k++) { var y = list[k]; tot3 += y.net * y.ni; nights3 += y.ni; mx3 = Math.max(mx3, y.net); rank.push([names[k], y.net]); }
+      var ratio = tot3 ? (mx3 * nights3 - tot3) / tot3 : 0;
+      rank.sort(function (a, b) { return b[1] - a[1]; });
+      rows.push(row('结构损失率', pct(ratio, 2)));
+      rows.push(row('容忍阈值', pct(tol, 1)));
+      rows.push(row('渠道动作', ratio > tol ? '收紧低净价渠道·回收配额' : '渠道结构健康', ratio > tol ? 'bad' : 'good'));
+      rows.push(row('净价排序', rank.map(function (r) { return r[0]; }).join(' → '), 'info'));
+      rows.push(row('供置换分析的散客净房价', yn(nights3 ? tot3 / nights3 : 0), 'gold'));
+      note = '精细档把加权净 ADR 作为置换分析的散客净房价输入，避免用含佣金的挂牌价高估被挤掉散客的价值。';
+    }
+    return { rows: rows, detail: detail, note: note, share: { net_adr: L >= 2 ? (function () { var t = 0, nn = 0; for (var i = 0; i < list.length; i++) { t += list[i].net * list[i].ni; nn += list[i].ni; } return nn ? t / nn : 0; })() : first.net } };
+  };
+
+  /* 9 房型价差校验 */
+  CALC.m9 = function () {
+    var L = LVN('m9'), rows = [], detail = '', note = '';
+    var lo = V('m9', 'lo') / 100, hi = L >= 2 ? V('m9', 'hi') / 100 : 0.35;
+    var names = ['标准→高级', '高级→豪华', '豪华→行政', '标准→特惠', '行政→套房'];
+    var n = L === 1 ? 1 : 5, pairs = [];
+    for (var i = 1; i <= n; i++) {
+      var a = V('m9', 'p' + i + 'a'), b = V('m9', 'p' + i + 'b');
+      var r = (b - a) / a;
+      var j = r < lo ? '价差过小' : (r > hi ? '价差过大' : '健康');
+      pairs.push({ nm: names[i - 1], a: a, b: b, r: r, j: j });
+    }
+    rows.push(row('健康区间', pct(lo, 0) + ' ~ ' + pct(hi, 0)));
+    if (L === 1) {
+      rows.push(row('价差率', pct(pairs[0].r, 2), pairs[0].j === '健康' ? 'good' : 'bad'));
+      rows.push(row('判定', pairs[0].j, pairs[0].j === '健康' ? 'good' : 'bad'));
+      note = '价差率 = (高价档 − 低价档) ÷ 低价档；阈值可按本店房型结构调整。';
+    }
+    if (L >= 2) {
+      var healthy = pairs.filter(function (p) { return p.j === '健康'; }).length / pairs.length;
+      detail = '<table class="mini"><thead><tr><th>相邻档位</th><th>低价档</th><th>高价档</th><th>价差率</th><th>判定</th></tr></thead><tbody>';
+      for (var j2 = 0; j2 < pairs.length; j2++) { var p2 = pairs[j2]; detail += '<tr><td>' + p2.nm + '</td><td>' + yn(p2.a) + '</td><td>' + yn(p2.b) + '</td><td>' + pct(p2.r, 2) + '</td><td>' + p2.j + '</td></tr>'; }
+      detail += '</tbody></table>';
+      rows.push(row('健康档位占比', pct(healthy, 0)));
+      rows.push(row('价格体系结论', healthy >= 0.8 ? '价格阶梯健康' : '需调整价格阶梯', healthy >= 0.8 ? 'good' : 'bad'));
+      note = '标准档逐对检查全阶梯；健康档位占比低于 80% 时应重新梳理房型价差。';
+    }
+    if (L >= 3) {
+      var up = V('m9', 'up'), fixes = [], gain = 0;
+      for (var k = 0; k < pairs.length; k++) {
+        var p3 = pairs[k], d = 0;
+        if (p3.j === '价差过小') d = p3.a * (1 + lo) - p3.b;
+        else if (p3.j === '价差过大') d = p3.a * (1 + hi) - p3.b;
+        fixes.push([p3.nm, d]); gain += Math.max(0, d);
+      }
+      var netGain = gain - up * fixes.filter(function (x) { return Math.abs(x[1]) > 0.5; }).length;
+      rows.push(row('每次免费升级边际成本', yn(up)));
+      rows.push(row('建议调整量合计', yn(gain)));
+      rows.push(row('扣除升级成本后净收益', sgn(netGain), netGain > 0 ? 'good' : 'bad'));
+      rows.push(row('执行建议', netGain > 0 ? '调整净收益为正，可执行' : '升级成本吃掉价差收益，先控升级量', netGain > 0 ? 'good' : 'bad'));
+      detail += '<table class="mini"><thead><tr><th>档位</th><th>建议调价</th></tr></thead><tbody>';
+      for (var z = 0; z < fixes.length; z++) detail += '<tr><td>' + fixes[z][0] + '</td><td>' + (Math.abs(fixes[z][1]) < 0.5 ? '维持' : sgn(fixes[z][1])) + '</td></tr>';
+      detail += '</tbody></table>';
+      note = '精细档把免费升级的边际成本计入，避免「拉开价差」的账面收益被升级成本吃掉。';
+    }
+    return { rows: rows, detail: detail, note: note, share: {} };
+  };
+
+  /* 10 跨行业单位产出 RevPA* */
+  var KINDS = {
+    RevPAC: { nm: '邮轮', cap: '舱位数', unit: '可用舱位夜', sold: '已售舱位夜', price: '船票单价', extra: '岸上餐饮/消费', c1: '早鸟舱占比', c2: '早鸟折扣', c3: '甩舱占比', c4: '甩舱折扣' },
+    RevPAU: { nm: '长租公寓', cap: '可出租间数', unit: '可出租间夜', sold: '已出租间夜', price: '月租', extra: '其他营收', c1: '续约率', c2: '续约优惠', c3: '免租天数', c4: '空置流失率' },
+    RevPAS: { nm: '研学营地', cap: '营位数', unit: '可用营位夜', sold: '已售营位夜', price: '营费单价', extra: '餐饮摊入', c1: '早鸟营位占比', c2: '早鸟折扣', c3: '尾位占比', c4: '尾位折扣' },
+    RevPAT: { nm: '租车', cap: '车队规模', unit: '可用车辆·天', sold: '已出租车·天', price: '日租金', extra: '附加服务', c1: 'No-show 率', c2: '超售量', c3: '车型升级率', c4: '升级成本' },
+    RevPAA: { nm: '医疗号源', cap: '医生数 × 每医生日号', unit: '可用号源', sold: '已看诊号源', price: '单号价值', extra: '检查治疗摊入', c1: '爽约率', c2: '超约量', c3: '加号率', c4: '加号成本' }
+  };
+  CALC.m10 = function () {
+    var sel = el('m10_kind'), kind = (sel && sel.value) || 'RevPAC', K = KINDS[kind] || KINDS.RevPAC, L = LVN('m10');
+    var cap = V('m10', 'cap'), days = V('m10', 'days'), sold = V('m10', 'sold'), price = V('m10', 'price');
+    var avail = cap * days, rev = sold * price, rows = [], detail = '', note = '';
+    rows.push(row('业态', kind + ' · ' + K.nm, 'info'));
+    rows.push(row(K.unit, f0(avail) + ' 单位'));
+    rows.push(row(K.sold, f0(sold) + ' 单位'));
+    rows.push(row('利用率', pct(sold / avail, 2)));
+    rows.push(row('总收入', yn(rev)));
+    rows.push(row(kind, yn(rev / avail), 'gold'));
+    if (L >= 2) {
+      var anc = V('m10', 'anc');
+      rev = sold * (price + anc);
+      rows.push(row(K.extra + '（每单位）', yn(anc)));
+      rows.push(row('含附加收入的总营收', yn(rev)));
+      rows.push(row('含附加的 ' + kind, yn(rev / avail), 'gold'));
+      rows.push(row('有效单价', yn(rev / sold)));
+      note = '标准档把餐饮、附加服务等非房费收入计入分子；分母始终是可用产能单位，不用已售单位。';
+    }
+    if (L >= 3) {
+      var c1 = V('m10', 'c1') / 100, c2 = V('m10', 'c2') / 100, c3 = V('m10', 'c3') / 100, c4 = V('m10', 'c4');
+      var pe = L >= 2 ? price + V('m10', 'anc') : price;
+      var high = sold * (1 - c1) * pe, disc = sold * c1 * pe * (1 - c2);
+      var late = sold * c3 * pe * (1 - c2);
+      var absorb = Math.min(Math.abs(c4), avail * (c3 || 0.05)) * pe * 0.5;
+      var total = high + disc + absorb;
+      rows.push(row(K.c1, pct(c1, 1)));
+      rows.push(row(K.c2, pct(c2, 1)));
+      rows.push(row(K.c3, pct(c3, 1)));
+      rows.push(row(K.c4, f0(c4) + ' 单位'));
+      rows.push(row('高价段收入', yn(high)));
+      rows.push(row('优惠段收入', yn(disc)));
+      rows.push(row('流失补位贡献', yn(absorb)));
+      rows.push(row('精细口径 ' + kind, yn(total / avail), 'gold'));
+      rows.push(row('与标准档之差', sgn(total / avail - rev / avail)));
+      rows.push(row('口径提示', '尾位占比与优惠段的重叠需按本店实际拆分', 'info'));
+      detail = '<div class="callout">五个业态共用同一口径：单位产出 = 该周期总收入 ÷ 可用产能单位（产能 × 统计天数）。差别只在产能单位名称与附加收入构成，不在公式。</div>';
+      note = '精细档加入早鸟/尾位分档定价与流失补位；不同业态的高阶参数含义不同，切换业态时整套字段与说明同步切换。';
+      rev = total;
+    }
+    return { rows: rows, detail: detail, note: note, kind: kind, share: { revpax: rev / avail } };
+  };
+
+  /* 11 每日决策速查（判定表） */
+  var A_MAT = [['维持', '↑5%', '↑10%', '↑15%', '↑20%'], ['维持', '↑3%', '↑5%', '↑10%', '↑15%'],
+    ['↓5%', '↓3%', '维持', '↑5%', '↑8%'], ['↓10%', '↓5%', '↓3%', '维持', '↑3%'],
+    ['↓15%', '↓10%', '↓5%', '维持', '维持'], ['↓20%', '↓15%', '↓10%', '↓5%', '维持']];
+  var A_RMIN = [95, 85, 70, 55, 40, -1];
+  var B_ROWS = [
+    [95, '2 晚（峰值日 3 晚）', '启用', '关闭尾房特惠/团购/批发商', '不超售'],
+    [90, '2 晚', '仅峰值日启用', '关闭尾房特惠', '≤ 2 间'],
+    [85, '1–2 晚', '否', '保留', '按超额预订模块'],
+    [70, '1 晚', '否', '全开', '按超额预订模块'],
+    [-1, '不设限', '否', '全开 + 上促销', '不超售']
+  ];
+  var H_ROWS = [
+    [95, '仅留 1 家产量最高', '关', '关', '关', '全开 + 会员专享价'],
+    [90, '开 2 家', '关', '开', '关', '全开'],
+    [85, '开 3 家', '开 1 家', '开', '关', '全开'],
+    [70, '全开', '全开', '开', '限价开', '全开 + 早鸟'],
+    [55, '全开 + 促销', '全开', '开', '开', '全开 + 闪购'],
+    [-1, '全开 + 深折', '全开', '开 + 套餐', '开 + 打包', '全开 + 长住/团购']
+  ];
+  CALC.m11 = function () {
+    var L = LVN('m11'), occ = V('m11', 'occ'), bias = V('m11', 'bias');
+    var ri = 0; for (var i = 0; i < A_RMIN.length; i++) { if (occ >= A_RMIN[i]) { ri = i; break; } }
+    var ci = bias < -10 ? 0 : (bias < -3 ? 1 : (bias <= 3 ? 2 : (bias <= 10 ? 3 : 4)));
+    var act = A_MAT[ri][ci];
+    var br = B_ROWS.filter(function (r) { return occ >= r[0]; })[0] || B_ROWS[B_ROWS.length - 1];
+    var rows = [
+      row('预测出租率', pct(occ / 100, 1)), row('Pace 偏差', (bias >= 0 ? '+' : '') + f2(bias) + '%'),
+      row('距 95% 峰值阈值', f2(95 - occ) + ' 个百分点'),
+      row('表 A · 价格动作', act, act === '维持' ? '' : (act[0] === '↑' ? 'good' : 'bad')),
+      row('表 B · MinLOS', br[1]), row('表 B · 不可入住', br[2]),
+      row('表 B · 低价渠道', br[3]), row('表 B · 超售态度', br[4])
+    ];
+    var detail = '', note = '判定表给的是动作起点，连续量（预测出租率、Pace 偏差、距阈值）用于判断离下一档还有多远。';
+    if (L >= 2) {
+      var q = V('m11', 'q') / 100, C = V('m11', 'C'), hard = V('m11', 'hard') / 100;
+      var closed = C * q / (1 - q), o = Math.min(Math.floor(closed), Math.floor(C * hard));
+      rows.push(row('表 E · 净流失率', pct(q, 2)));
+      rows.push(row('表 E · 建议超售', f0(o) + ' 间', 'gold'));
+      rows.push(row('表 E · 审批', o >= 10 || q > 0.30 ? '需 L3 审批' : '常规授权内'));
+      note = '超售闭式解与「超额预订」模块完全同源：C×q/(1−q)，再卡硬上限；不另设查表基准率。';
+    }
+    if (L >= 3) {
+      var ratio = V('m11', 'ratio') / 100, contrib = V('m11', 'contrib'), rooms = V('m11', 'rooms'), adr = V('m11', 'adr');
+      var need = rooms * adr * 0.85;
+      var accept = ratio >= 0.55 || contrib >= need;
+      var hr = H_ROWS.filter(function (r) { return occ >= r[0]; })[0] || H_ROWS[H_ROWS.length - 1];
+      rows.push(row('表 G · 团队报价 / 散客 ADR', pct(ratio, 1)));
+      rows.push(row('表 G · 综合贡献', yn(contrib)));
+      rows.push(row('表 G · 综合贡献门槛', yn(need)));
+      rows.push(row('表 G · 接拒结论', accept ? '可接受（低于比率线须 L3 审批并留档）' : '拒绝或还价', accept ? 'good' : 'bad'));
+      rows.push(row('表 H · OTA 国内 / 国际', hr[1] + ' / ' + hr[2]));
+      rows.push(row('表 H · GDS / 批发', hr[3] + ' / ' + hr[4]));
+      rows.push(row('表 H · 直销', hr[5]));
+      rows.push(row('执行优先级', '库存动作 > 价格动作 > 渠道动作', 'gold'));
+      detail = '<div class="callout">同一天的动作先保房量安全（表 B / E），再调价格（表 A），最后调渠道（表 H）；团队接拒走置换分析模块的净贡献口径。</div>';
+      note = '精细档把表 E / G / H 接入；表 G 的比率线只是快速筛查，最终仍以置换分析的净贡献判定为准。';
+    }
+    return { rows: rows, detail: detail, note: note, share: {} };
+  };
+
+  /* ================= 渲染 ================= */
+  function renderModule(mid) {
+    var fn = CALC[mid]; if (!fn) return;
+    var out;
+    try { out = fn(); } catch (e) { out = { rows: [row('计算提示', '请检查输入是否为有效数字', 'bad')], detail: '', note: '' }; }
+    var box = el(mid + '_results');
+    if (box) {
+      var h = '';
+      for (var i = 0; i < out.rows.length; i++) {
+        var r = out.rows[i];
+        h += '<div class="ri" data-tone="' + (r.cls || '') + '"><span class="k">' + r.k + '</span><span class="v">' + r.v + '</span></div>';
+      }
+      box.innerHTML = h;
+    }
+    var d = el(mid + '_detail'); if (d) d.innerHTML = out.detail || '';
+    var n = el(mid + '_note'); if (n) { n.textContent = out.note || ''; n.style.display = out.note ? '' : 'none'; }
+    var f = el(mid + '_formula'); if (f) {
+      var cfg = null;
+      for (var j = 0; j < MOD.length; j++) if (MOD[j].id === mid) cfg = MOD[j];
+      if (cfg) f.textContent = (cfg.formulas || {})[lvOf(mid)] || '';
+    }
+    var st = el(mid + '_state');
+    if (st) {
+      var cnt = document.querySelectorAll('.mod[data-mid="' + mid + '"] .fld:not([hidden])').length;
+      st.textContent = '当前档位 ' + lvOf(mid) + ' · ' + cnt + ' 项参数 · ' + (out.rows ? out.rows.length : 0) + ' 项结果';
+    }
+    return out;
+  }
+
+  function applyLevel(mid, lvl) {
+    var sec = document.querySelector('.mod[data-mid="' + mid + '"]'); if (!sec) return;
+    sec.dataset.level = lvl;
+    var n = LV[lvl] || 2;
+    var flds = sec.querySelectorAll('.fld');
+    for (var i = 0; i < flds.length; i++) {
+      var f = flds[i], need = parseInt(f.getAttribute('data-lv'), 10) || 1, inp = f.querySelector('input,select');
+      if (need <= n) {
+        f.removeAttribute('hidden');
+        if (inp) {
+          inp.disabled = false;
+          // 从低档切回高档：若仍是退化值，恢复为该档示例值
+          if (inp.dataset.deg !== undefined && String(inp.value) === String(inp.dataset.deg)
+              && inp.dataset.def !== undefined) inp.value = inp.dataset.def;
+        }
+      } else {
+        f.setAttribute('hidden', '');
+        if (inp) {
+          // 隐藏的高阶参数一律回到退化值，保证低档结果 = 高档在退化参数下的结果
+          if (inp.dataset.deg !== undefined) inp.value = inp.dataset.deg;
+          inp.disabled = true;
+        }
+      }
+    }
+    var btns = sec.querySelectorAll('.lvbtn');
+    for (var j = 0; j < btns.length; j++) btns[j].classList.toggle('on', btns[j].getAttribute('data-l') === lvl);
+    renderModule(mid);
+  }
+
+  function computeAll() {
+    var all = {};
+    for (var i = 0; i < MOD.length; i++) {
+      var mid = MOD[i].id, out = renderModule(mid);
+      if (out) all[mid] = out;
+    }
+    var badge = el('globalState');
+    if (badge) {
+      var lvls = {}, cnt = 0;
+      for (var j = 0; j < MOD.length; j++) { var l = lvOf(MOD[j].id); lvls[l] = (lvls[l] || 0) + 1; cnt++; }
+      var parts = []; for (var k in lvls) parts.push(k + ' 档 ' + lvls[k] + ' 个');
+      badge.textContent = '共 ' + cnt + ' 个功能模块 · ' + parts.join(' / ');
+    }
+    return all;
+  }
+
+  function switchModule(target) {
+    document.querySelectorAll('.modcard').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-target') === target); });
+    document.querySelectorAll('.mod').forEach(function (m) { m.style.display = (target === 'all' || m.getAttribute('data-mid') === target) ? '' : 'none'; });
+    var btn = document.querySelector('.modcard[data-target="' + target + '"]');
+    var label = target === 'all' ? '全部功能模块' : (btn ? btn.querySelector('.t').textContent : target);
+    var st = el('switchState');
+    if (st) st.textContent = '当前显示：' + label + '　·　点「全部」恢复完整视图；切换不影响测算结果';
+    var toc = document.querySelectorAll('#side a[data-mod]');
+    for (var i = 0; i < toc.length; i++) toc[i].classList.toggle('on', toc[i].getAttribute('data-mod') === target);
+    computeAll();
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.fld input, .fld select').forEach(function (e) {
+      if (e.dataset.def !== undefined) e.value = e.dataset.def;
+    });
+    var ks = el('m10_kind'); if (ks && ks.dataset.def !== undefined) ks.value = ks.dataset.def;
+    syncKindLabels();
+    computeAll();
+  }
+
+  function syncKindLabels() {
+    var sel = el('m10_kind'); if (!sel) return;
+    var K = KINDS[sel.value] || KINDS.RevPAC;
+    var map = { m10_cap: 'cap', m10_sold: 'sold', m10_price: 'price', m10_anc: 'extra', m10_c1: 'c1', m10_c2: 'c2', m10_c3: 'c3', m10_c4: 'c4' };
+    for (var id in map) {
+      var fld = el(id) ? el(id).closest('.fld') : null;
+      if (fld) { var lb = fld.querySelector('label'); if (lb) lb.textContent = K[map[id]]; }
+    }
+    var ub = el('m10_unitline'); if (ub) ub.textContent = '产能单位：' + K.unit + '（' + K.cap + ' × 统计天数）';
+    var hd = el('m10_kindname'); if (hd) hd.textContent = sel.value + ' · ' + K.nm;
+    renderModule('m10');
+  }
+
+  function exportCSV() {
+    var lines = ['功能模块,档位,项目,结果'];
+    for (var i = 0; i < MOD.length; i++) {
+      var mid = MOD[i].id, l = lvOf(mid), box = el(mid + '_results');
+      if (!box) continue;
+      var rs = box.querySelectorAll('.ri');
+      for (var j = 0; j < rs.length; j++) {
+        var k = rs[j].querySelector('.k').textContent, v = rs[j].querySelector('.v').textContent;
+        lines.push('"' + MOD[i].name + '","' + l + ' 档","' + k.replace(/"/g, '""') + '","' + v.replace(/"/g, '""') + '"');
+      }
+      var flds = document.querySelectorAll('.mod[data-mid="' + mid + '"] .fld:not([hidden])');
+      for (var z = 0; z < flds.length; z++) {
+        var lb = flds[z].querySelector('label'), ip = flds[z].querySelector('input');
+        if (lb && ip) lines.push('"' + MOD[i].name + '","输入","' + lb.textContent + '","' + ip.value + '"');
+      }
+    }
+    var blob = new Blob(['\ufeff' + lines.join('\n')], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = '收益管理测算结果.csv'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  }
+
+  function downloadPage() {
+    var html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = '收益管理计算分析中心.html'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  }
+
+  function bindAll() {
+    document.querySelectorAll('.modcard').forEach(function (b) {
+      b.addEventListener('click', function () { switchModule(b.getAttribute('data-target')); });
+    });
+    document.querySelectorAll('#side a[data-mod]').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); switchModule(a.getAttribute('data-mod')); });
+    });
+    document.querySelectorAll('.lvbtn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var sec = b.closest('.mod'); applyLevel(sec.getAttribute('data-mid'), b.getAttribute('data-l'));
+      });
+    });
+    document.querySelectorAll('.allbtn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var l = b.getAttribute('data-l');
+        for (var i = 0; i < MOD.length; i++) applyLevel(MOD[i].id, l);
+        document.querySelectorAll('.allbtn').forEach(function (x) { x.classList.toggle('on', x === b); });
+      });
+    });
+    document.querySelectorAll('input').forEach(function (e) {
+      e.addEventListener('input', function () { computeAll(); });
+      e.addEventListener('change', function () { computeAll(); });
+    });
+    var ks = el('m10_kind');
+    if (ks) ks.addEventListener('change', function () { syncKindLabels(); computeAll(); });
+    var rb = el('btnReset'); if (rb) rb.addEventListener('click', resetAll);
+    var eb = el('btnExport'); if (eb) eb.addEventListener('click', exportCSV);
+    var db = el('btnDownload'); if (db) db.addEventListener('click', downloadPage);
+    var pb = el('btnPrint'); if (pb) pb.addEventListener('click', function () { window.print(); });
+  }
+
+  window.CENTER = { computeAll: computeAll, applyLevel: applyLevel, switchModule: switchModule,
+    syncKindLabels: syncKindLabels, resetAll: resetAll, renderModule: renderModule,
+    CALC: CALC, KINDS: KINDS, lvOf: lvOf, LVN: LVN, V: V, binomCDF: binomCDF, expWalk: expWalk };
+  var _inited = false;
+  function init() {
+    if (_inited) return; _inited = true;
+    for (var i = 0; i < MOD.length; i++) applyLevel(MOD[i].id, 'B');
+    syncKindLabels(); computeAll(); bindAll();
+  }
+  // 脚本位于 body 末尾，DOM 已完整，同步初始化；再挂一次事件做兜底（init 幂等）
+  init();
+  document.addEventListener('DOMContentLoaded', init);
+  window.CENTER.init = init;
+})();
+</script>
+</body></html>

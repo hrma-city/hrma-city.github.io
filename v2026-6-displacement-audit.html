@@ -1,227 +1,26 @@
-<!doctype html>
-<html lang="zh">
-<head>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <script>window.HRMA_PREFIX="";</script>
 <script src="auth-config.js?v=gate20261013"></script>
 <script src="assets/js/access-gate.js?v=v12"></script>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
-<title>置换分析 · 错误疏漏审计与新计算方案（v2026-6）</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
- color:#1F2933;background:#FAFAF8;font-size:15px;line-height:1.7}
-.wrap{max-width:980px;margin:0 auto;padding:28px 22px 60px}
-h1{color:#1B3A5C;font-size:25px;margin:0 0 6px}
-h2{color:#1B3A5C;border-left:5px solid #B8894A;padding-left:12px;margin:38px 0 14px;font-size:20px}
-h3{color:#2C5282;margin:22px 0 8px;font-size:16.5px}
-.sub{color:#8895a7;font-size:13px;margin-bottom:18px}
-p{margin:10px 0}
-table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px}
-th,td{border:1px solid #E1E5EA;padding:8px 10px;vertical-align:top;text-align:left}
-thead th{background:#1B3A5C;color:#fff;font-weight:700}
-tbody tr:nth-child(even){background:#F2F0EB}
-.good{color:#2F7A3E;font-weight:600}
-.bad{color:#C0392B;font-weight:600}
-.k{color:#B8894A;font-weight:600}
-.formula{background:#F7F0E4;border-left:4px solid #B8894A;padding:10px 14px;margin:10px 0;
- font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:#1F2933}
-.call{border-left:4px solid;padding:10px 14px;margin:12px 0;border-radius:0 4px 4px 0}
-.call.k{background:#E8F1F9;border-color:#1B3A5C}
-.call.w{background:#FDF3E4;border-color:#B8894A}
-.call.d{background:#FBEAE8;border-color:#C0392B}
-.call.g{background:#E6F2F0;border-color:#2F7A3E}
-code{background:#F2F0EB;padding:1px 5px;border-radius:3px;font-size:12.5px}
-.pill{display:inline-block;background:#1B3A5C;color:#fff;border-radius:20px;padding:2px 12px;font-size:12px;margin-right:6px}
-.tag{display:inline-block;background:#F7F0E4;color:#B8894A;border:1px solid #B8894A;border-radius:4px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
-a{color:#1B3A5C}
-.foot{color:#8895a7;font-size:12px;margin-top:40px;border-top:1px solid #E1E5EA;padding-top:14px}
-</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC即RMCity（即Revenue Management Community收益管理社区）","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"v2026-6-displacement-audit","item":"https://hrma-city.github.io/v2026-6-displacement-audit.html"}]}</script>
-
-<style id="rm-toc-style">
-#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
-  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
-  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
-#rm-toc-drawer.open{transform:translateX(0)}
-#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
-  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
-#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
-#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
-#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
-#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
-  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
-#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
-#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
-#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
-  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
-  display:flex;align-items:center;justify-content:center}
-#rm-toc-toggle:hover{background:#1d4e7e}
-@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
-@media (min-width:1100px){body.toc-open{padding-left:312px}body.toc-open .site-nav,body.toc-open .topbar{left:312px}}
-body{transition:padding-left .25s ease}
-</style>
-</head>
-<body>
-<div class="wrap">
-
-<h1>置换分析 · 错误疏漏审计与新计算方案</h1>
-<div class="sub">RMC即RMCity（即Revenue Management Community收益管理社区） · 校正版 v2026-6 · 门内 noindex</div>
-
-<p>本页对全站「置换分析（displacement analysis）」相关物料做口径审计，列出当前计算方法的<b>错误与疏漏</b>，并给出对齐国际通用口径、且对接 <code>v2026.2 判定表 G</code> 的<b>新计算方案</b>。原文件一律<b>未覆盖、未改名</b>，新成果以带版本前缀的文件单独交付。</p>
-
-<div class="call k"><b>交付物</b>：新计算模板 <code>calc-displacement-v2026-6.xlsx</code>（含可复算算例，已生成在线预览）；本审计页为方案说明。全站应用待确认后执行（见第 5 节）。</div>
-
-<h2 id="toc-1">1. 现有置换分析物料盘点</h2>
-<table>
-<thead><tr><th>文件</th><th>采用方法</th><th>状态</th></tr></thead>
-<tbody>
-<tr><td><code>calc-displacement.xlsx</code>（根目录计算器）</td><td>净贡献法：<code>Displaced=MAX(0, D_trans−(R_total−D_grp))</code>，<code>C_t=(ADR_t−VC)+F&B_t</code>，净=<code>D_grp×C_g − Displaced×C_t</code></td><td><span class="k">较优</span>：已用净贡献，但缺 wash / 多收入流 / 置换因子 / 安全边际</td></tr>
-<tr><td><code>07-displacement.xlsx</code> 及 <code>series/tools/07-displacement.xlsx</code></td><td>纯房费收入 + <b>100% 置换假设</b>：团队收入=<code>B4×B5</code>，被挤占=<code>50</code>（硬编码=团队量），散客损失=<code>50×BAR</code></td><td><span class="bad">错误</span>：忽略变动成本与 F&B，且默认每间团房都挤掉一个散客</td></tr>
-<tr><td><code>books/v2026-2-decision-tables.html</code> 表 G</td><td>期望净贡献（含 wash / 肩部夜 / 非客房）≥ 综合置换成本 + 容量机会成本 → 接受</td><td><span class="good">正确（权威口径）</span>：Excel／工具页未对齐它</td></tr>
-<tr><td>教材 <code>textbook-merged.html</code> 第 15 章、口袋书 <code>No12-团队置换</code>、场景/游戏页</td><td>多沿用「纯房费 / 100% 置换」或简化净贡献表述</td><td><span class="bad">待对齐</span></td></tr>
-</tbody>
-</table>
-
-<h2 id="toc-2">2. 当前计算方法的错误与疏漏</h2>
-
-<h3 id="toc-3">错误一：用「房费收入」而非「净贡献」</h3>
-<p><code>07-displacement.xlsx</code> 直接比房费：团队收入 <code>50×380=19,000</code>，散客损失 <code>50×520=26,000</code>，净 <code>−7,000</code>。这忽略了<b>变动成本</b>（布草/水电/清洁）与<b>餐饮等非客房贡献</b>。团队房价低，但变动成本也低、且常带来餐饮/会议收入；散客房价高，但变动成本与餐饮贡献结构不同。比房费会系统性高估团队、误拒合理业务。</p>
-
-<h3 id="toc-4">错误二：100% 置换假设（忽略售罄概率）</h3>
-<p>旧工具把「被挤占散客房量」直接等于团队量（<code>B7=50</code> 硬编码），等于假设酒店每晚都满房、每间团房都挤掉一个付费散客。当酒店有空房（需求 &lt; 容量−团队量）时，接受团队<b>零置换</b>、应直接接受；旧算法仍判「损失散客」，导致<b>误拒</b>。AHLEI-CHRM 的关键修正即引入<b>置换因子 ρ = 预测出租率</b>：并非每个团队房都真挤掉一个散客。</p>
-
-<h3 id="toc-5">疏漏三：缺少 wash 率（团队未到/取消率）</h3>
-<p>团队报价常含 5%–15% 的未到/取消。直接用申请量算占用与置换，会<b>高估团队占用、高估置换</b>。正确做法：实际到店房晚 = <code>D_grp × (1 − wash)</code>。</p>
-
-<h3 id="toc-6">疏漏四：单收入流，忽略餐饮/会议等其他净利润贡献</h3>
-<p>旧模型只有房费（+可选 F&B）。会议、宴会、健身、停车等「其他净贡献」未计入边际贡献，使群体与散客的真实贡献被低估/错估。国际通行用<b>全口径净贡献</b>，且分子分母口径必须一致。</p>
-
-<h3 id="toc-7">疏漏五：缺安全边际与 bid price（容量机会成本）</h3>
-<p>预测有误差。国际通行给群体贡献预留 <b>≥10% 安全边际</b>：净贡献须 ≥ 散客损失×(1+s) 才接受，否则还价或拒绝。此外，若这些房留作更高价业务（bid price / 保留房机会成本），置换的散客房应按 <code>MAX(散客贡献, bid)</code> 计价，抬高接受门槛。旧模板两者皆缺。</p>
-
-<div class="call w"><b>小结</b>：最大问题不在「公式写错」，而在<b>口径不自洽</b>——表 G（v2026.2）已是正确权威版，但 <code>calc-displacement.xlsx</code> 只做到一半、<code>07-displacement</code> 仍用错误老法，导致全站置换分析结论不可信、且各页互相矛盾。</div>
-
-<h2 id="toc-8">3. 国际通用口径（对照）</h2>
-<table>
-<thead><tr><th>维度</th><th>Cloudbeds / happyhotel / Nexorev</th><th>AHLEI-CHRM</th><th>本方案 v2026-6</th></tr></thead>
-<tbody>
-<tr><td>比较对象</td><td>群体净贡献 vs 散客机会成本</td><td>群体净贡献 vs 被置换散客收入</td><td>群体净贡献 vs 散客损失（含 bid）</td></tr>
-<tr><td>成本口径</td><td>贡献边际（收入−变动成本）</td><td>贡献边际</td><td>净贡献 = (ADR−VC)+F&B+其他</td></tr>
-<tr><td>置换量</td><td>按预测占用/售罄概率</td><td>置换因子 ρ（售罄概率）</td><td>MIN(G_eff×ρ, 约束置换)</td></tr>
-<tr><td>风险缓冲</td><td>建议安全边际</td><td>建议安全边际</td><td>净贡献 ≥ 散客损失×(1+10%)</td></tr>
-<tr><td>其他收入</td><td>计入 ancillary 贡献</td><td>计入</td><td>Other_t / Other_g 单列</td></tr>
-</tbody>
-</table>
-
-<h2 id="toc-9">4. 新计算方案（v2026-6）</h2>
-
-<h3 id="toc-10">4.1 输入参数</h3>
-<p><span class="tag">R_total 总房数</span><span class="tag">D_trans 散客期望需求</span><span class="tag">D_grp 团队申请量</span><span class="tag">ADR_t 散客均价</span><span class="tag">ADR_g 团队报价</span><span class="tag">VC 变动成本</span><span class="tag">F&B_t/g 餐饮净贡献</span><span class="tag">Other_t/g 其他净贡献</span><span class="tag">wash 率</span><span class="tag">ρ 预测出租率</span><span class="tag">s 安全边际</span><span class="tag">bid 保留房机会成本</span><span class="tag">肩部夜调整</span></p>
-
-<h3 id="toc-11">4.2 公式体系</h3>
-<div class="formula">C_t = (ADR_t − VC) + F&B_t + Other_t        // 散客每间夜边际贡献
-C_g = (ADR_g − VC) + F&B_g + Other_g        // 团队每间夜边际贡献
-G_eff = D_grp × (1 − wash)                  // 团队实际到店房晚
-约束置换 = MAX(0, D_trans − (R_total − G_eff))   // 需求超出剩余房的部分
-ρ折上限 = G_eff × ρ                          // AHLEI 概率法上限
-Displaced = MIN(ρ折上限, 约束置换)           // 实际置换；酒店有空房→0
-团队贡献 = G_eff × C_g
-散客损失 = Displaced × MAX(C_t, bid) + 肩部夜调整
-净贡献 = 团队贡献 − 散客损失
-判定 = 散客损失=0 ? 直接接受 : (净贡献 ≥ s×散客损失 ? 接受 : 拒绝)
-ADR_g(min) = VC − F&B_g − Other_g + Displaced×MAX(C_t,bid) / G_eff   // 盈亏平衡团价
-还价底线 = ADR_g(min) × (1 + s)</div>
-
-<h3 id="toc-12">4.3 算例对比（同口径输入：300 房，散客 280@618，团队 60@480，VC 120，F&B 90/70，其他 40/30，wash 10%，ρ 92%，s 10%）</h3>
-<table>
-<thead><tr><th>方法</th><th>关键计算</th><th>结论</th></tr></thead>
-<tbody>
-<tr><td>旧·纯房费+100%置换</td><td>团收 28,800；损 60×618=37,080；净 −8,280</td><td><span class="bad">误拒 ✗</span></td></tr>
-<tr><td>旧·净贡献(无wash/ρ/安全)</td><td>C_t 588 / C_g 430；置换 40；净 2,280</td><td><span class="k">接受（无安全冗余）</span></td></tr>
-<tr><td><b>新·v2026-6</b></td><td>C_t 628 / C_g 460；G_eff 54；约束置换 34；ρ上限 49.68；置换 34；团贡 24,840；损 21,352；<b>净 3,488</b>；安全阈值 2,135</td><td><span class="good">接受 ✓（过 10% 安全）</span><br>盈亏平衡 ¥415 · 还价底线 ¥457</td></tr>
-</tbody>
-</table>
-
-<h3 id="toc-13">4.4 情景二：低出租率有空房（最易被旧法误拒）</h3>
-<p>参数同上，仅 <code>D_trans=200</code>、<code>ρ=0.60</code>。剩余散客房 = 300−54 = 246 &gt; 200 → <b>约束置换=0 → 置换=0</b>。</p>
-<table>
-<thead><tr><th>方法</th><th>结论</th></tr></thead>
-<tbody>
-<tr><td>旧·纯房费+100%置换</td><td><span class="bad">仍判 −8,280 → 误拒 ✗</span>（假设满房挤占，错）</td></tr>
-<tr><td><b>新·v2026-6</b></td><td><span class="good">有空房·直接接受 ✓</span>（净贡献 24,840，零置换）</td></tr>
-</tbody>
-</table>
-
-<h3 id="toc-14">4.5 情景三：高 wash 使团队更划算</h3>
-<p>默认参数，<code>wash=30%</code>。G_eff=42，约束置换=22，ρ上限=38.64 → 置换 22；净贡献=5,504（高于默认 3,488），盈亏平衡价降至 ¥349。说明 wash 率显著改变决策——旧法完全忽略。</p>
-
-<h2 id="toc-15">5. 全站应用待办清单（待确认后执行，不立即改）</h2>
-<table>
-<thead><tr><th>序号</th><th>对象</th><th>动作</th><th>风险</th></tr></thead>
-<tbody>
-<tr><td>1</td><td><code>07-displacement.xlsx</code> + <code>series/tools/07-displacement.xlsx</code></td><td>改用新净贡献+ρ+wash+安全边际口径（或替换为新模板链接）</td><td>高（当前最错）</td></tr>
-<tr><td>2</td><td><code>07-displacement.html</code> + <code>series/tools/07-displacement.html</code></td><td>工具页公式/算例同步为新口径</td><td>高</td></tr>
-<tr><td>3</td><td><code>calc-displacement.xlsx</code>（根目录）</td><td>保留原文件；在其「使用说明」加注「校正版见 v2026-6」并挂链接</td><td>低（不覆盖）</td></tr>
-<tr><td>4</td><td>教材 <code>textbook-merged.html</code> 第 12/15/16/31/32 章</td><td>置换算例改写为净贡献+ρ+wash 表述，第 15 章算例复核</td><td>中</td></tr>
-<tr><td>5</td><td>口袋书 <code>No12-团队置换.html</code></td><td>公式框更新为新口径</td><td>中</td></tr>
-<tr><td>6</td><td>场景/游戏页（<code>scene-displacement.html</code>、<code>games-pack/场景锻炼·团队置换</code>）</td><td>判定逻辑对齐新模板</td><td>中</td></tr>
-<tr><td>7</td><td><code>formulas.html</code> / <code>codex.html</code> / <code>jt-engine.html</code> / <code>wb.html</code></td><td>置换相关公式与判定表 G 口径巡检，不一致处建补丁</td><td>中</td></tr>
-<tr><td>8</td><td>判定表 G 引用页</td><td>确认均指向 v2026.2 表 G，并补充说明「Excel 工具见 v2026-6」</td><td>低</td></tr>
-</tbody>
-</table>
-
-<div class="call d"><b>执行纪律</b>：按「先备份 → 出新版本」铁律，应用前对涉及文件整包备份并生成 MANIFEST；旧文件保留原名原路径在线可查；每改一项用 jsdom/pycel 复算核对，避免引入新不自洽。</div>
-
-<h2 id="toc-16">6. 口径声明</h2>
-<p>本模板与方案为<b>教学脚手架</b>，阈值（安全边际 10%、wash 等起点值）须用本店真实数据回填校准，非行业标准。判定表 G 唯一真源为 <code>v2026-2-rules.json</code>。</p>
-
-<div class="foot">RMC即RMCity（即Revenue Management Community收益管理社区） · 置换分析校正版 v2026-6 · 门内 noindex · 原有资料未覆盖、未改名、未删除。</div>
-</div>
-
-<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
-<nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>置换分析 · 错误疏漏审计与新计算方案（v2026-6）</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">1. 现有置换分析物料盘点</a>
-<a href="#toc-2">2. 当前计算方法的错误与疏漏</a>
-<a href="#toc-3" class="lv3">1. 错误一：用「房费收入」而非「净贡献」</a>
-<a href="#toc-4" class="lv3">2. 错误二：100% 置换假设（忽略售罄概率）</a>
-<a href="#toc-5" class="lv3">3. 疏漏三：缺少 wash 率（团队未到/取消率）</a>
-<a href="#toc-6" class="lv3">4. 疏漏四：单收入流，忽略餐饮/会议等其他净利润贡献</a>
-<a href="#toc-7" class="lv3">5. 疏漏五：缺安全边际与 bid price（容量机会成本）</a>
-<a href="#toc-8">3. 国际通用口径（对照）</a>
-<a href="#toc-9">4. 新计算方案（v2026-6）</a>
-<a href="#toc-10" class="lv3">4.1 输入参数</a>
-<a href="#toc-11" class="lv3">4.2 公式体系</a>
-<a href="#toc-12" class="lv3">4.3 算例对比（同口径输入：300 房，散客 280@618，团队 60@480，VC 120，F&amp;B 90/70，其他 40/30，wash 10%，ρ 92%，s 10%）</a>
-<a href="#toc-13" class="lv3">4.4 情景二：低出租率有空房（最易被旧法误拒）</a>
-<a href="#toc-14" class="lv3">4.5 情景三：高 wash 使团队更划算</a>
-<a href="#toc-15">5. 全站应用待办清单（待确认后执行，不立即改）</a>
-<a href="#toc-16">6. 口径声明</a></div>
-</nav>
-<script id="rm-toc-script">
+<meta http-equiv="refresh" content="0; url=calc-center-v2.html#sec-m7">
+<link rel="canonical" href="calc-center-v2.html">
+<title>收益管理计算分析中心</title>
+</head><body>
+<p>本模块已汇入 <a href="calc-center-v2.html">收益管理计算分析中心</a>，<a href="calc-center-v2.html#sec-m7">前往查看</a>。</p>
+<script>
 (function(){
-  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
-  if(!d||!t)return;
-  var c=d.querySelector('.toc-close');
-  t.addEventListener('click',function(){d.classList.toggle('open');document.body.classList.toggle('toc-open',d.classList.contains('open'))});
-  if(c)c.addEventListener('click',function(){d.classList.remove('open');document.body.classList.remove('toc-open')});
-  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
-  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
-  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
-    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
-  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-  links.forEach(function(a){a.addEventListener('click',function(){
-    var el=document.getElementById(a.getAttribute('href').slice(1));
-    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
-    d.classList.remove('open');document.body.classList.remove('toc-open');
-  });});
+  var h=window.location.hash||'';
+  var map={
+    '#toc-1':'#sec-m1','#toc-5':'#sec-m1','#toc-6':'#sec-m1','#toc-7':'#sec-m2',
+    '#toc-8':'#sec-m2','#toc-9':'#sec-m2','#toc-10':'#sec-m7','#toc-11':'#sec-m6',
+    '#toc-12':'#sec-m4','#toc-13':'#sec-m3','#toc-14':'#sec-m10','#toc-15':'#sec-m10',
+    '#toc-16':'#sec-m10','#toc-17':'#sec-m10','#toc-18':'#sec-m10',
+    '#displacement':'#sec-m7','#overbooking':'#sec-m6','#pickup':'#sec-m4',
+    '#forecast':'#sec-m3','#m5':'#sec-m5','#m7':'#sec-m7','#m6':'#sec-m6'
+  };
+  var a=map[h]||"#sec-m7"||'';
+  location.replace('calc-center-v2.html'+a);
 })();
 </script>
-
-<div style="max-width:880px;margin:18px auto;padding:10px 14px;background:#F7F0E4;border-left:4px solid #B8894A;font-size:12.5px;line-height:1.8;color:#1F2933"><b>历史方案 / 组件版本</b>　本页是当时的方案与组件记录，文中「41 章」为当时的体系口径，保留原貌。现行全站按七篇连续 46 章运行，见 <a href="book-46-chapters-index.html" style="color:#1B3A5C;font-weight:700">46 章总索引</a> 与 <a href="book-46-course-outline.html" style="color:#1B3A5C;font-weight:700">46 讲课程总纲</a>。</div></body>
-</html>
+</body></html>
