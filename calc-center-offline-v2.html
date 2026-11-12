@@ -24,10 +24,11 @@ h1{font-size:27px;color:var(--navy);margin:0 0 6px;letter-spacing:.02em}
 .resbar{background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:5px;padding:12px 14px;margin:0 0 14px}
 .resbar h3{font-size:13px;color:var(--navy);margin:0 0 9px}
 .resgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.rescard{border:1px solid var(--line);border-radius:4px;padding:10px 12px;background:var(--cream)}
+.rescard{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:4px;padding:10px 12px;background:var(--cream)}
 .rescard .rt{font-weight:700;color:var(--navy);font-size:13px}
 .rescard .rd{font-size:11.5px;color:var(--mut);margin:4px 0 9px;line-height:1.5}
-.rescard a{display:inline-block;padding:4px 11px;border-radius:4px;text-decoration:none;font-size:11.5px;font-weight:600;margin-right:6px}
+.rescard .ractions{margin-top:auto;display:flex;gap:6px}
+.rescard a{display:inline-block;padding:4px 11px;border-radius:4px;text-decoration:none;font-size:11.5px;font-weight:600}
 .rescard a.pv{background:#3A7CA5;color:#fff}.rescard a.dl{background:var(--navy);color:#fff}
 
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px}
@@ -125,7 +126,7 @@ h2.sec{font-size:20px;color:var(--navy);border-bottom:2px solid var(--gold);padd
 <main>
  <h1>收益管理计算分析中心</h1>
  <div class="subtitle">可离线使用，无需账号与联网　·　11 个功能模块，统一口径；每个模块提供基础、标准、精细三档算法，按手上数据选档即可。</div>
- <div class="notice"><b>怎么用</b>　在模块里改任意数字，结果立即更新。基础档只需最少数据，标准与精细档逐级加入更多参数；三档共用同一套口径，基础档是精细档在高阶参数取默认值时的结果，不会因为简化而算错。</div>
+ <div class="notice"><b>怎么用</b>　在模块里改任意数字，结果立即更新。基础档只需最少数据，标准与精细档逐级加入更多参数；三档共用同一套口径，档位越高只是参数更细，结论口径始终一致。</div>
  <div class="notice"><b>离线使用</b>　本文件为单个独立 HTML，可直接复制、邮件附件或网盘交付；双击用浏览器打开即可使用，输入数据只在本机计算，不会上传。</div>
 <div class="toolbar print-hide">
    <span class="lb" style="font-size:12px;color:var(--mut)">一键设定全部模块</span>
@@ -139,20 +140,23 @@ h2.sec{font-size:20px;color:var(--navy);border-bottom:2px solid var(--gold);padd
    <button type="button" id="btnPrint">打印 / 存 PDF</button>
  </div>
  <div class="resbar">
-   <h3>配套资源　·　每项都可先预览再下载</h3>
+   <h3>配套资源</h3>
    <div class="resgrid">
     <div class="rescard"><div class="rt">Excel 计算模板</div>
       <div class="rd">14 张表、可编辑活公式与三档结果并排；黄色格子改数即自动重算。</div>
+      <div class="ractions">
       <a class="pv" href="https://hrma-city.github.io/calc-center-template-preview.html" target="_blank" rel="noopener">预览</a>
-      <a class="dl" href="https://hrma-city.github.io/calc-center-v2-1.xlsx" download>下载</a></div>
-    <div class="rescard"><div class="rt">客户离线包</div>
-      <div class="rd">离线网页、Excel 模板、决策速查卡与使用说明，可直接交付客户。</div>
+      <a class="dl" href="https://hrma-city.github.io/calc-center-v2-1.xlsx" download>下载</a></div></div>
+    <div class="rescard"><div class="rt">离线资源包</div>
+      <div class="rd">离线网页、Excel 模板、决策速查卡与使用说明，整套打包便于转发与留存。</div>
+      <div class="ractions">
       <a class="pv" href="https://hrma-city.github.io/calc-center-offline-pack-preview.html" target="_blank" rel="noopener">预览</a>
-      <a class="dl" href="https://hrma-city.github.io/calc-center-offline-pack-v2.zip" download>下载</a></div>
+      <a class="dl" href="https://hrma-city.github.io/calc-center-offline-pack-v2.zip" download>下载</a></div></div>
     <div class="rescard"><div class="rt">离线单页</div>
       <div class="rd">单个独立网页，双击即可使用；无需账号、无需联网，数据只在本机计算。</div>
+      <div class="ractions">
       <a class="pv" href="https://hrma-city.github.io/calc-center-offline-v2.html" target="_blank" rel="noopener">预览</a>
-      <a class="dl" href="https://hrma-city.github.io/calc-center-offline-v2.html" download>下载</a></div>
+      <a class="dl" href="https://hrma-city.github.io/calc-center-offline-v2.html" download>下载</a></div></div>
    </div>
  </div>
  <div class="globalbar print-hide" id="globalState"></div>
@@ -270,7 +274,7 @@ h2.sec{font-size:20px;color:var(--navy);border-bottom:2px solid var(--gold);padd
  <div class="detail" id="m7_detail"></div>
  <div class="note" id="m7_note"></div>
  <div class="spec"><h4>字段说明</h4><table><thead><tr><th>字段</th><th>单位</th><th>起用档位</th><th>填写口径</th></tr></thead><tbody><tr><td>总房数</td><td>间</td><td>基础</td><td>可售客房总数，剔除维修房</td></tr><tr><td>散客期望需求</td><td>间夜</td><td>基础</td><td>按当前散客价预期能卖出的量</td></tr><tr><td>团队申请房晚</td><td>间夜</td><td>基础</td><td>本笔团队或协议业务</td></tr><tr><td>散客平均房价</td><td>元</td><td>基础</td><td>—</td></tr><tr><td>团队报价</td><td>元</td><td>基础</td><td>—</td></tr><tr><td>每间变动成本</td><td>元</td><td>基础</td><td>仅随出租变动的成本</td></tr><tr><td>散客餐饮净贡献</td><td>元/间夜</td><td>基础</td><td>净利润贡献，不是流水</td></tr><tr><td>团队餐饮净贡献</td><td>元/间夜</td><td>基础</td><td>净利润贡献，不是流水</td></tr><tr><td>散客其他净贡献</td><td>元/间夜</td><td>标准</td><td>会议、健身、停车等</td></tr><tr><td>团队其他净贡献</td><td>元/间夜</td><td>标准</td><td>会议、宴会等</td></tr><tr><td>团队 wash 率</td><td>%</td><td>标准</td><td>未到店与取消比例</td></tr><tr><td>安全边际</td><td>%</td><td>标准</td><td>覆盖预测不确定性的缓冲</td></tr><tr><td>散客兑现概率 ρ</td><td>%</td><td>精细</td><td>被挤掉散客真正会成交的概率</td></tr><tr><td>保留房机会成本 bid</td><td>元/间夜</td><td>精细</td><td>留作更高价业务的机会成本</td></tr><tr><td>肩部夜净贡献调整</td><td>元</td><td>精细</td><td>正为带来额外肩部夜，负为挤掉可售肩部夜</td></tr></tbody></table></div>
- <div class="bound"><b>适用边界</b>　有空房时置换为零，应直接接受；物理上最多挤掉团队实际占用的房晚。基础档把高阶参数取退化值时与精细档完全等价。</div>
+ <div class="bound"><b>适用边界</b>　有空房时置换为零，应直接接受；物理上最多挤掉团队实际占用的房晚。基础档把高阶参数取默认值时与精细档口径一致。</div>
 </section>
 <section class="mod" data-mid="m8" data-level="B" id="sec-m8">
  <h2><span class="badge">渠道与净价</span>08　净价与渠道贡献</h2>
@@ -352,7 +356,7 @@ h2.sec{font-size:20px;color:var(--navy);border-bottom:2px solid var(--gold);padd
   <ul><li><b>A 基础档</b>：只需房量、价格、需求等最核心数据。适用于刚开始做收益管理、或细分与成本数据尚不完整的酒店。</li>
   <li><b>B 标准档</b>：加入逐家竞对、细分市场、wash 率、多收入流、安全边际、调节系数等常用参数，是日常决策的默认档。</li>
   <li><b>C 精细档</b>：再加入兑现概率、保留房机会成本、肩部夜、二项分布与回归弹性等，用于高要求酒店的精细化测算。</li>
-  <li>基础档是精细档在高阶参数取退化值时的结果：系数取 1、比例取 0 或 100%、机会成本取 0。因此任何档位都不会因为简化而算错。</li></ul>
+  <li>基础档是精细档在高阶参数取默认值时的结果：系数取 1、比例取 0 或 100%、机会成本取 0，三档口径完全一致。</li></ul>
   <h3>填写口径</h3>
   <ul><li>金额单位为元；百分比填数字，10 表示 10%。</li>
   <li>变动成本只含随出租变动的成本，不含固定成本；餐饮与其他贡献填净利润贡献，不是流水，没有就填 0。</li>
@@ -706,10 +710,10 @@ h2.sec{font-size:20px;color:var(--navy);border-bottom:2px solid var(--gold);padd
       rows.push(row('ρ 折减后的置换量', f2(disp) + ' 间夜', 'gold'));
       rows.push(row('散客计价单位 MAX(C_t, bid)', yn(unit)));
       rows.push(row('肩部夜净贡献调整', sgn(sh)));
-      detail = '<div class="callout">ρ 直接乘在「容量约束置换量」上，任何取值都会改变结果；物理上最多挤掉团队实际占用的房晚，因此先取 MIN(G_eff, 约束置换)。高档参数全部取退化值（ρ=100%、bid=0、肩部夜=0）时，结果与标准档完全一致。</div>';
+      detail = '<div class="callout">ρ 直接乘在「容量约束置换量」上，任何取值都会改变结果；物理上最多挤掉团队实际占用的房晚，因此先取 MIN(G_eff, 约束置换)。高档参数全部取默认值（ρ=100%、bid=0、肩部夜=0）时，结果与标准档完全一致。</div>';
       note = '精细档加入兑现概率 ρ、保留房机会成本 bid price 与肩部夜调整；还价底线只把安全边际乘在变动的置换损失上，不对固定成本项重复加成。';
     }
-    if (L === 1) note = '基础档用确定性需求、无未到取消、无其他收入与零安全边际；公式仍然正确，且高档取退化值时结果完全一致。';
+    if (L === 1) note = '基础档用确定性需求、无未到取消、无其他收入与零安全边际；公式仍然正确，且高档取默认值时结果完全一致。';
     return { rows: rows, detail: detail, note: note, share: { disp: disp, net: net, dec: dec } };
   };
 
