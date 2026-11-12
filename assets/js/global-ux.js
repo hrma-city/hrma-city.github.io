@@ -446,18 +446,22 @@
   function initTablePreview() {
     var MAP = window.GJP_PREVIEWS || {};
     document.addEventListener("click", function (e) {
-      var a = e.target.closest && e.target.closest('a[download]');
+      var a = e.target.closest && e.target.closest('a[href]');
       if (!a || e.target.closest(".tbl-modal")) return;
       var href = a.getAttribute("href") || "";
       var lower = href.toLowerCase();
+      if (a.hasAttribute('data-direct')) return;
       var isCSV = /\.csv($|\?)/.test(lower);
       var isXLSX = /\.xlsx($|\?)/.test(lower);
-      if (!isCSV && !isXLSX) return;
+      var isOther = /\.(xls|pdf|zip|pptx|docx|epub)($|\?)/.test(lower);
+      if (!isCSV && !isXLSX && !isOther) return;
       e.preventDefault();
       var url = a.href;
       var name = (href.split("/").pop().split("?")[0]) || "表格";
       // 优先用构建期生成的本地静态预览（离线、无 CDN、国内秒开）
-      var pv = MAP[href] || MAP[href.replace(/^\.\//, "")];
+      var key = href.replace(/^\.\//, "").replace(/^\.\.\//, "");
+      try { key = decodeURIComponent(key); } catch (err) {}
+      var pv = MAP[href] || MAP[key] || MAP[href.replace(/^\.\//, "")];
       if (pv) {
         openPreview(name + "（在线预览）", HREF(pv), url);
         return;

@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
-<script>window.HRMA_PREFIX="";</script>
-<script src="auth-config.js?v=gate20261013"></script>
-<script src="assets/js/access-gate.js?v=v12"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>收益管理计算分析中心 · 离线版</title>
 <meta name="description" content="市场指数、综合收益指标、需求预测、预订进度、价格弹性、超额预订、置换分析、净价与渠道、房型价差、跨行业单位产出与每日决策速查；每个功能模块提供基础、标准、精细三档算法。">
@@ -24,6 +21,15 @@ main{flex:1;min-width:0;padding:30px 40px 80px}
 h1{font-size:27px;color:var(--navy);margin:0 0 6px;letter-spacing:.02em}
 .subtitle{color:var(--mut);font-size:13px;margin-bottom:18px}
 .notice{background:var(--cream);border-left:4px solid var(--gold);padding:11px 16px;margin:0 0 12px;font-size:13px}
+.resbar{background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:5px;padding:12px 14px;margin:0 0 14px}
+.resbar h3{font-size:13px;color:var(--navy);margin:0 0 9px}
+.resgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.rescard{border:1px solid var(--line);border-radius:4px;padding:10px 12px;background:var(--cream)}
+.rescard .rt{font-weight:700;color:var(--navy);font-size:13px}
+.rescard .rd{font-size:11.5px;color:var(--mut);margin:4px 0 9px;line-height:1.5}
+.rescard a{display:inline-block;padding:4px 11px;border-radius:4px;text-decoration:none;font-size:11.5px;font-weight:600;margin-right:6px}
+.rescard a.pv{background:#3A7CA5;color:#fff}.rescard a.dl{background:var(--navy);color:#fff}
+
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px}
 button{font-family:inherit;cursor:pointer;border-radius:4px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:7px 13px;font-size:12.5px}
 button:hover{border-color:var(--gold)}
@@ -95,7 +101,7 @@ h2.sec{font-size:20px;color:var(--navy);border-bottom:2px solid var(--gold);padd
 @media(max-width:1300px){.modcards{grid-template-columns:repeat(4,1fr)}.params{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:900px){#side{display:none}main{padding:22px 16px 60px}.modcards{grid-template-columns:repeat(2,1fr)}.params,.results{grid-template-columns:1fr}}
 @media print{
- #side,.toolbar,.modcards,.switchbar,.globalbar,.lvbar,.print-hide{display:none!important}
+ #side,.toolbar,.modcards,.switchbar,.globalbar,.lvbar,.resbar,.print-hide{display:none!important}
  main{padding:0}body{background:#fff;font-size:11px}
  .mod{display:block!important;page-break-before:always;page-break-inside:avoid;border:none;padding:0;margin:0}
  .mod:first-of-type{page-break-before:auto}
@@ -107,34 +113,7 @@ h2.sec{font-size:20px;color:var(--navy);border-bottom:2px solid var(--gold);padd
  h2.sec{page-break-before:always}
  @page{margin:16mm 14mm}
 }
-</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"RMC收益管理社区","alternateName":["RMC即RMCity（即Revenue Management Community收益管理社区）","CRMC","中国酒店收益管理社区"],"url":"https://hrma-city.github.io/","description":"中国跨行业收益管理专业社区。覆盖住宿、餐饮、航空、景区、娱乐五大行业，提供知识体系教学、情境游戏、行业交流、三级资格认证与书籍出版。","email":"rm-community@qq.com","knowsAbout":["收益管理","Revenue Management","动态定价","需求预测","库存控制","渠道管理","超售管理","RevPAR","RevPASH","RASK","酒店收益管理","航空收益管理","餐饮收益管理","景区收益管理"],"areaServed":{"@type":"Country","name":"中国"},"inLanguage":"zh-CN"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RMC收益管理社区","url":"https://hrma-city.github.io/","description":"跨行业收益管理专业学习与认证社区","inLanguage":"zh-CN","potentialAction":{"@type":"SearchAction","target":"https://hrma-city.github.io/codex.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://hrma-city.github.io/"},{"@type":"ListItem","position":2,"name":"calc-center-offline-v2","item":"https://hrma-city.github.io/calc-center-offline-v2.html"}]}</script>
-
-<style id="rm-toc-style">
-#rm-toc-drawer{position:fixed;top:0;left:0;height:100%;width:312px;max-width:84vw;background:#fff;
-  box-shadow:6px 0 28px rgba(15,42,74,.20);transform:translateX(-100%);transition:transform .25s ease;
-  z-index:99990;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
-#rm-toc-drawer.open{transform:translateX(0)}
-#rm-toc-drawer .toc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
-  background:#0f2a4a;color:#fff;font-size:14px;flex:0 0 auto}
-#rm-toc-drawer .toc-h b{font-weight:700;letter-spacing:.5px;line-height:1.35;word-break:break-word}
-#rm-toc-drawer .toc-close{cursor:pointer;background:none;border:none;color:#fff;font-size:22px;line-height:1;padding:0 4px}
-#rm-toc-drawer .toc-body{overflow:auto;padding:8px 4px 28px;flex:1}
-#rm-toc-drawer .toc-body a{display:block;padding:7px 15px;color:#1f2a37;text-decoration:none;font-size:13px;
-  line-height:1.5;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#rm-toc-drawer .toc-body a:hover{background:#f4f7fb}
-#rm-toc-drawer .toc-body a.lv3{padding-left:30px;font-size:12.5px;color:#5b6a7d}
-#rm-toc-drawer .toc-body a.active{color:#0f2a4a;border-left-color:#e8b84b;background:#fff8e6;font-weight:600}
-#rm-toc-toggle{position:fixed;left:18px;bottom:18px;z-index:99991;width:50px;height:50px;border-radius:50%;
-  border:none;background:#0f2a4a;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,74,.38);
-  display:flex;align-items:center;justify-content:center}
-#rm-toc-toggle:hover{background:#1d4e7e}
-@media print{#rm-toc-drawer,#rm-toc-toggle{display:none!important}}
-@media (min-width:1100px){body.toc-open{padding-left:312px}body.toc-open .site-nav,body.toc-open .topbar{left:312px}}
-body{transition:padding-left .25s ease}
-</style>
-</head><body>
+</style></head><body>
 <div id="wrap">
 <nav id="side">
  <div class="brand">收益管理计算分析中心</div><div class="sub">RMC 收益管理社区</div>
@@ -159,13 +138,30 @@ body{transition:padding-left .25s ease}
    <button type="button" id="btnDownload">下载本页</button>
    <button type="button" id="btnPrint">打印 / 存 PDF</button>
  </div>
+ <div class="resbar">
+   <h3>配套资源　·　每项都可先预览再下载</h3>
+   <div class="resgrid">
+    <div class="rescard"><div class="rt">Excel 计算模板</div>
+      <div class="rd">14 张表、可编辑活公式与三档结果并排；黄色格子改数即自动重算。</div>
+      <a class="pv" href="https://hrma-city.github.io/calc-center-template-preview.html" target="_blank" rel="noopener">预览</a>
+      <a class="dl" href="https://hrma-city.github.io/calc-center-v2-1.xlsx" download>下载</a></div>
+    <div class="rescard"><div class="rt">客户离线包</div>
+      <div class="rd">离线网页、Excel 模板、决策速查卡与使用说明，可直接交付客户。</div>
+      <a class="pv" href="https://hrma-city.github.io/calc-center-offline-pack-preview.html" target="_blank" rel="noopener">预览</a>
+      <a class="dl" href="https://hrma-city.github.io/calc-center-offline-pack-v2.zip" download>下载</a></div>
+    <div class="rescard"><div class="rt">离线单页</div>
+      <div class="rd">单个独立网页，双击即可使用；无需账号、无需联网，数据只在本机计算。</div>
+      <a class="pv" href="https://hrma-city.github.io/calc-center-offline-v2.html" target="_blank" rel="noopener">预览</a>
+      <a class="dl" href="https://hrma-city.github.io/calc-center-offline-v2.html" download>下载</a></div>
+   </div>
+ </div>
  <div class="globalbar print-hide" id="globalState"></div>
  <div class="modcards print-hide" id="modcards"><button type="button" class="modcard on" data-target="all"><span class="n">全部</span><span class="t">全部功能模块</span><span class="d">11 个模块 · 完整视图</span></button><button type="button" class="modcard" data-target="m1"><span class="n">01 · 指标与对标</span><span class="t">市场指数与对标</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m2"><span class="n">02 · 指标与对标</span><span class="t">综合收益指标</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m3"><span class="n">03 · 预测与进度</span><span class="t">需求预测</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m4"><span class="n">04 · 预测与进度</span><span class="t">预订进度与 Pickup</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m5"><span class="n">05 · 定价与贡献</span><span class="t">价格弹性与最优定价</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m6"><span class="n">06 · 库存与超售</span><span class="t">超额预订</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m7"><span class="n">07 · 团队与置换</span><span class="t">置换分析</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m8"><span class="n">08 · 渠道与净价</span><span class="t">净价与渠道贡献</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m9"><span class="n">09 · 定价与贡献</span><span class="t">房型价差校验</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m10"><span class="n">10 · 跨行业</span><span class="t">跨行业单位产出</span><span class="d">A / B / C 三档</span></button><button type="button" class="modcard" data-target="m11"><span class="n">11 · 执行动作</span><span class="t">每日决策速查</span><span class="d">A / B / C 三档</span></button></div>
  <div class="switchbar print-hide" id="switchState">当前显示：全部功能模块　·　点击卡片可切换到单个模块，点「全部」恢复完整视图</div>
  <div class="print-toc"><h2>目录</h2><ol><li>01　市场指数与对标</li><li>02　综合收益指标</li><li>03　需求预测</li><li>04　预订进度与 Pickup</li><li>05　价格弹性与最优定价</li><li>06　超额预订</li><li>07　置换分析</li><li>08　净价与渠道贡献</li><li>09　房型价差校验</li><li>10　跨行业单位产出</li><li>11　每日决策速查</li><li>表格说明</li><li>三档算法说明</li><li>使用说明</li></ol></div>
 
 <section class="mod" data-mid="m1" data-level="B" id="sec-m1">
- <h2 id="toc-1"><span class="badge">指标与对标</span>01　市场指数与对标</h2>
+ <h2><span class="badge">指标与对标</span>01　市场指数与对标</h2>
  <div class="lead">用同一周期的出租率、平均房价与每可售房收入，判断本店在竞争组里的量、价与综合产出位置。</div>
  <div class="lvbar"><span class="lb">计算精度</span>
    <button type="button" class="lvbtn" data-l="A">A 基础</button>
@@ -181,7 +177,7 @@ body{transition:padding-left .25s ease}
  <div class="bound"><b>适用边界</b>　三家指数必须同周期、同竞争组；竞组不能取各家简单平均。RGI 是结果指标，须拆成 MPI 与 ARI 才能决定动作。</div>
 </section>
 <section class="mod" data-mid="m2" data-level="B" id="sec-m2">
- <h2 id="toc-2"><span class="badge">指标与对标</span>02　综合收益指标</h2>
+ <h2><span class="badge">指标与对标</span>02　综合收益指标</h2>
  <div class="lead">从客房收入一路看到总盘子、经营毛利与落袋净收入，避免只盯 RevPAR。</div>
  <div class="lvbar"><span class="lb">计算精度</span>
    <button type="button" class="lvbtn" data-l="A">A 基础</button>
@@ -197,7 +193,7 @@ body{transition:padding-left .25s ease}
  <div class="bound"><b>适用边界</b>　NRevPAR 只扣客房分销成本，分子只用客房收入；不要把餐饮等其他收入计入，也不要把直订获客成本混入。</div>
 </section>
 <section class="mod" data-mid="m3" data-level="B" id="sec-m3">
- <h2 id="toc-3"><span class="badge">预测与进度</span>03　需求预测</h2>
+ <h2><span class="badge">预测与进度</span>03　需求预测</h2>
  <div class="lead">按同提前期窗口的历史新增率，从在手预订推算最终需求，并给出出租率与房晚缺口。</div>
  <div class="lvbar"><span class="lb">计算精度</span>
    <button type="button" class="lvbtn" data-l="A">A 基础</button>
@@ -213,7 +209,7 @@ body{transition:padding-left .25s ease}
  <div class="bound"><b>适用边界</b>　新增率必须来自同一提前期窗口；跨旺季与平日套用会失真。区间反映不确定性，不等于承诺值。</div>
 </section>
 <section class="mod" data-mid="m4" data-level="B" id="sec-m4">
- <h2 id="toc-4"><span class="badge">预测与进度</span>04　预订进度与 Pickup</h2>
+ <h2><span class="badge">预测与进度</span>04　预订进度与 Pickup</h2>
  <div class="lead">用同窗口对比判断进度快慢，投影最终房晚，并在调价前用价格弹性检验收入是否真的增加。</div>
  <div class="lvbar"><span class="lb">计算精度</span>
    <button type="button" class="lvbtn" data-l="A">A 基础</button>
@@ -229,7 +225,7 @@ body{transition:padding-left .25s ease}
  <div class="bound"><b>适用边界</b>　Pace 必须同一提前期窗口对比；进度领先不等于一定该提价，须用弹性检验调价后收入。</div>
 </section>
 <section class="mod" data-mid="m5" data-level="B" id="sec-m5">
- <h2 id="toc-5"><span class="badge">定价与贡献</span>05　价格弹性与最优定价</h2>
+ <h2><span class="badge">定价与贡献</span>05　价格弹性与最优定价</h2>
  <div class="lead">用弧弹性衡量需求对价格的反应，再以边际贡献（而非流水）找最合适的价格。</div>
  <div class="lvbar"><span class="lb">计算精度</span>
    <button type="button" class="lvbtn" data-l="A">A 基础</button>
@@ -245,7 +241,7 @@ body{transition:padding-left .25s ease}
  <div class="bound"><b>适用边界</b>　点弹性在涨价与降价时结果不对称，统一用弧弹性；弹性随提前期、细分市场变化，不能跨期套用。决策看边际贡献，不看流水。</div>
 </section>
 <section class="mod" data-mid="m6" data-level="B" id="sec-m6">
- <h2 id="toc-6"><span class="badge">库存与超售</span>06　超额预订</h2>
+ <h2><span class="badge">库存与超售</span>06　超额预订</h2>
  <div class="lead">用净流失率推算可回填房量，逐层加入调节系数与安置成本，得到可执行的超售间数。</div>
  <div class="lvbar"><span class="lb">计算精度</span>
    <button type="button" class="lvbtn" data-l="A">A 基础</button>
@@ -261,7 +257,7 @@ body{transition:padding-left .25s ease}
  <div class="bound"><b>适用边界</b>　超售出去的房本身也会流失，所以闭式解要除以 (1−q)；q 的分母统一为确认预订总数。精细档假设未到店相互独立，发生安置时须走步行客人预案。</div>
 </section>
 <section class="mod" data-mid="m7" data-level="B" id="sec-m7">
- <h2 id="toc-7"><span class="badge">团队与置换</span>07　置换分析</h2>
+ <h2><span class="badge">团队与置换</span>07　置换分析</h2>
  <div class="lead">判断一笔低价团队业务会不会挤掉更高贡献的散客，比净贡献，不比单价。</div>
  <div class="lvbar"><span class="lb">计算精度</span>
    <button type="button" class="lvbtn" data-l="A">A 基础</button>
@@ -277,7 +273,7 @@ body{transition:padding-left .25s ease}
  <div class="bound"><b>适用边界</b>　有空房时置换为零，应直接接受；物理上最多挤掉团队实际占用的房晚。基础档把高阶参数取退化值时与精细档完全等价。</div>
 </section>
 <section class="mod" data-mid="m8" data-level="B" id="sec-m8">
- <h2 id="toc-8"><span class="badge">渠道与净价</span>08　净价与渠道贡献</h2>
+ <h2><span class="badge">渠道与净价</span>08　净价与渠道贡献</h2>
  <div class="lead">把佣金、支付手续费与返现扣掉，比较各渠道真实落袋的净房价与结构损失。</div>
  <div class="lvbar"><span class="lb">计算精度</span>
    <button type="button" class="lvbtn" data-l="A">A 基础</button>
@@ -293,7 +289,7 @@ body{transition:padding-left .25s ease}
  <div class="bound"><b>适用边界</b>　渠道比较必须比净价，不能比挂牌价；餐饮与其他收入若单独核算，可另计入附加贡献，分母口径保持一致。</div>
 </section>
 <section class="mod" data-mid="m9" data-level="B" id="sec-m9">
- <h2 id="toc-9"><span class="badge">定价与贡献</span>09　房型价差校验</h2>
+ <h2><span class="badge">定价与贡献</span>09　房型价差校验</h2>
  <div class="lead">逐对检查相邻房档的价差率，落在健康区间内才不会挤压升级或造成价格倒挂。</div>
  <div class="lvbar"><span class="lb">计算精度</span>
    <button type="button" class="lvbtn" data-l="A">A 基础</button>
@@ -309,7 +305,7 @@ body{transition:padding-left .25s ease}
  <div class="bound"><b>适用边界</b>　健康区间按本店房型结构校准；拉开价差的账面收益可能被免费升级成本吃掉，须净额判断。</div>
 </section>
 <section class="mod" data-mid="m10" data-level="B" id="sec-m10">
- <h2 id="toc-10"><span class="badge">跨行业</span>10　跨行业单位产出</h2>
+ <h2><span class="badge">跨行业</span>10　跨行业单位产出</h2>
  <div class="lead">邮轮、长租公寓、研学营地、租车与医疗号源共用同一口径：单位产出 = 周期总收入 ÷ 可用产能单位。</div>
  <div class="lvbar"><span class="lb">计算精度</span>
    <button type="button" class="lvbtn" data-l="A">A 基础</button>
@@ -325,7 +321,7 @@ body{transition:padding-left .25s ease}
  <div class="bound"><b>适用边界</b>　分母始终是可用产能单位（产能 × 统计天数），不用已售单位；不同业态的差别只在产能单位名称与附加收入构成。</div>
 </section>
 <section class="mod" data-mid="m11" data-level="B" id="sec-m11">
- <h2 id="toc-11"><span class="badge">执行动作</span>11　每日决策速查</h2>
+ <h2><span class="badge">执行动作</span>11　每日决策速查</h2>
  <div class="lead">把预测出租率与进度偏差转成当天的价格、库存、超售、团队接拒与渠道动作，并给出优先级。</div>
  <div class="lvbar"><span class="lb">计算精度</span>
    <button type="button" class="lvbtn" data-l="A">A 基础</button>
@@ -348,29 +344,29 @@ body{transition:padding-left .25s ease}
  <table class="tbl"><thead><tr><th style="width:16%">功能模块</th><th>A 基础档</th><th>B 标准档</th><th>C 精细档</th></tr></thead><tbody><tr><td><b>市场指数与对标</b></td><td>MPI = 本店 OCC ÷ 对标对象 OCC × 100　·　ARI = 本店 ADR ÷ 对标对象 ADR × 100　·　RGI = 本店 RevPAR ÷ 对标对象 RevPAR × 100</td><td>竞争组一律加权：OCC_c = Σ已售 ÷ Σ可售，ADR_c = Σ收入 ÷ Σ已售，RevPAR_c = Σ收入 ÷ Σ可售；恒等式 RGI = MPI × ARI ÷ 100</td><td>净 RevPAR = 客房收入 × (1 − 分销成本率) ÷ 可售房晚；净 RGI = 本店净 RevPAR ÷ 竞组净 RevPAR × 100</td></tr><tr><td><b>综合收益指标</b></td><td>OCC = 已售 ÷ 可售　·　ADR = 客房收入 ÷ 已售　·　RevPAR = 客房收入 ÷ 可售</td><td>TrevPAR = 总收入 ÷ 可售房晚　·　GOPPAR = (总收入 − 营业总成本) ÷ 可售房晚</td><td>NRevPAR = (客房收入 − 分销成本) ÷ 可售房晚　·　GOP 率 = (总收入 − 营业总成本) ÷ 总收入</td></tr><tr><td><b>需求预测</b></td><td>预测需求量 = 当前在手 × (1 + 历史同周期新增率)　·　预测出租率 = 预测需求 ÷ 可售房晚</td><td>分细分市场：预测需求_i = 在手_i × (1 + 新增率_i)，合计 = Σ 预测需求_i</td><td>净预测 = 合计 × (1 − 流失率)，再取 MIN(净预测, 可售房晚 × 容量上限)；区间 = 净预测 × (1 ± 波动带)</td></tr><tr><td><b>预订进度与 Pickup</b></td><td>Pace = 当前在手 ÷ 去年同窗口在手　·　预计剩余增量 = 去年剩余增量 × Pace　·　毛投影 = 在手 + 预计剩余增量</td><td>净投影 = 在手 + 预计剩余增量 × (1 − 流失率)　·　预测出租率 = 净投影 ÷ 可售房晚</td><td>调价后收入 ≈ 净投影 × (1 + E × 调幅) × ADR × (1 + 调幅)；E 取价格弹性模块的弧弹性</td></tr><tr><td><b>价格弹性与最优定价</b></td><td>弧弹性 E = [ΔQ ÷ 平均 Q] ÷ [ΔP ÷ 平均 P]（应为负）　·　边际贡献 = (价格 − 变动成本) × 销量</td><td>线性需求 Q = a − b·P → P* = (a + b·VC) ÷ (2b)，销量受可售房量约束</td><td>对数回归 lnQ = α + β·lnP，β 即恒定弹性；R² 检验拟合优度，并与两点弧弹性相互印证</td></tr><tr><td><b>超额预订</b></td><td>净流失率 q = (未到店 + 24h 取消) ÷ 确认预订总数　·　建议超售 = MIN( 可售房 × q/(1−q) × 风险偏好 , 可售房 × 硬上限 )</td><td>调节后超售 = MIN( 闭式解 × Π五类调节系数 , 硬上限 )；系数全为 1 时与基础档完全一致</td><td>X ~ 二项(N, 1−q)，期望安置人数 E[max(X−C,0)]；逐间枚举使 期望净贡献 = m·μ − (m + 单间安置成本)·E[walk] 最大，再与风控上限取小</td></tr><tr><td><b>置换分析</b></td><td>C = (房价 − 变动成本) + 餐饮净贡献　·　被挤掉散客 = MIN(团队量, MAX(0, 散客需求 − (总房数 − 团队量)))　·　净贡献 = 团队总贡献 − 散客损失</td><td>加入团队实际到店房晚 G_eff = 团队量 × (1 − wash)、其他净贡献与安全边际 s；判定等价于 团队贡献 ≥ (1 + s) × 散客损失</td><td>实际置换 = MIN(G_eff, 约束置换) × ρ　·　散客计价 = MAX(C_t, bid price)　·　还价底线 = 变动成本 − 团队附加贡献 + (1+s) × 置换损失 ÷ G_eff</td></tr><tr><td><b>净价与渠道贡献</b></td><td>净 ADR = 挂牌价 × (1 − 佣金率 − 支付费率) − 每间返现　·　净收入 = 净 ADR × 房晚</td><td>加权净 ADR = Σ各渠道净收入 ÷ Σ房晚　·　结构损失 = 最高净 ADR × 总房晚 − 实际净收入合计</td><td>结构损失率 = 结构损失 ÷ 实际净收入合计；超过容忍阈值则收紧低净价渠道，并把加权净 ADR 作为置换分析的散客净房价</td></tr><tr><td><b>房型价差校验</b></td><td>价差率 = (高价档 − 低价档) ÷ 低价档；低于下限为价差过小，高于上限为价差过大</td><td>健康档位占比 = 判定为健康的对数 ÷ 总对数；低于 80% 需重新梳理价格阶梯</td><td>建议调整量把价差拉回健康区间；扣除每次免费升级的边际成本后，净收益为正才建议执行</td></tr><tr><td><b>跨行业单位产出</b></td><td>可用产能单位 = 产能 × 统计天数　·　RevPA* = 总收入 ÷ 可用产能单位　·　利用率 = 已售 ÷ 可用产能单位</td><td>含附加收入的总营收 = 已售 × (单价 + 每单位附加收入)；有效单价 = 总营收 ÷ 已售</td><td>按优惠段拆分收入，并计入流失补位贡献；业态切换时字段名、单位与公式说明整体同步</td></tr><tr><td><b>每日决策速查</b></td><td>按预测出租率行 × Pace 偏差列查价格动作矩阵；同时给出 MinLOS、不可入住、低价渠道与超售态度</td><td>超售动作与超额预订模块同源：建议超售 = MIN( 可售房 × q/(1−q) , 硬上限 )，不另设查表基准率</td><td>团队接拒按置换分析的净贡献口径；综合贡献达到门槛可放宽比率线，但须留档与审批。执行优先级：库存 &gt; 价格 &gt; 渠道</td></tr></tbody></table>
  <h2 class="sec" id="sec-usage">使用说明</h2>
  <div class="usage">
-  <h3 id="toc-12">三步开始</h3>
+  <h3>三步开始</h3>
   <ol><li>先选计算精度：数据有限的酒店用基础档，能拿到细分与成本数据的用标准档，需要概率、机会成本与风险缓冲的用精细档。也可以对单个模块单独设定。</li>
   <li>在黄色输入框填本店实际数据，结果区立即更新；绿色代表可执行、红色代表需谨慎、金色代表最优或关键结论，结论同时用文字写明。</li>
   <li>用「导出测算结果」保存当前全部模块的输入与结果，或用「打印 / 存 PDF」逐模块分页输出；「下载本页」可保存完整单文件，离线打开照样能算。</li></ol>
-  <h3 id="toc-13">档位怎么选</h3>
+  <h3>档位怎么选</h3>
   <ul><li><b>A 基础档</b>：只需房量、价格、需求等最核心数据。适用于刚开始做收益管理、或细分与成本数据尚不完整的酒店。</li>
   <li><b>B 标准档</b>：加入逐家竞对、细分市场、wash 率、多收入流、安全边际、调节系数等常用参数，是日常决策的默认档。</li>
   <li><b>C 精细档</b>：再加入兑现概率、保留房机会成本、肩部夜、二项分布与回归弹性等，用于高要求酒店的精细化测算。</li>
   <li>基础档是精细档在高阶参数取退化值时的结果：系数取 1、比例取 0 或 100%、机会成本取 0。因此任何档位都不会因为简化而算错。</li></ul>
-  <h3 id="toc-14">填写口径</h3>
+  <h3>填写口径</h3>
   <ul><li>金额单位为元；百分比填数字，10 表示 10%。</li>
   <li>变动成本只含随出租变动的成本，不含固定成本；餐饮与其他贡献填净利润贡献，不是流水，没有就填 0。</li>
   <li>净流失率统一为 (未到店 + 24h 取消) ÷ 确认预订总数；竞组对标一律按总量加权，同周期比较。</li>
   <li>所有比较须放在同一提前期窗口、同一渠道层级、同一含税口径。</li></ul>
-  <h3 id="toc-15">模块之间的联动</h3>
+  <h3>模块之间的联动</h3>
   <ul><li>价格弹性给出的弧弹性，用于预订进度模块检验调价后收入是否真的增加。</li>
   <li>净价与渠道模块的加权净 ADR，可直接作为置换分析里的散客净房价，避免用含佣金的挂牌价高估散客价值。</li>
   <li>每日决策速查的超售动作与超额预订模块同源；团队接拒最终以置换分析的净贡献判定为准。</li></ul>
-  <h3 id="toc-16">打印与导出</h3>
+  <h3>打印与导出</h3>
   <ul><li>打印时自动展开全部模块，每个模块单独起页，并在首页附目录。</li>
   <li>导出结果为 CSV，包含每个模块的当前档位、全部输入值与全部结果项，可直接粘贴到 Excel 复核。</li>
   <li>切换模块卡片只改变显示范围，不会停止其他模块的计算；导出与打印始终覆盖全部模块。</li></ul>
-  <h3 id="toc-17">结果边界</h3>
+  <h3>结果边界</h3>
   <ul><li>弹性测算假设其他条件不变；超额预订精细档假设未到店相互独立；置换分析的高阶参数须用本店真实数据校准。</li>
   <li>阈值（安全边际、健康区间、进度窗口、硬上限）是通用起点，上岗后应按本店历史数据回填。</li>
   <li>结论为基于输入的期望值测算，超售、调价、接团等决定请结合实际复核后执行。</li></ul>
@@ -1107,50 +1103,6 @@ body{transition:padding-left .25s ease}
   init();
   document.addEventListener('DOMContentLoaded', init);
   window.CENTER.init = init;
-})();
-</script>
-
-<button id="rm-toc-toggle" aria-label="章节目录">&#9776;</button>
-<nav id="rm-toc-drawer" aria-label="章节目录">
-  <div class="toc-h"><b>收益管理计算分析中心 · 离线版</b><button class="toc-close" aria-label="关闭">&times;</button></div>
-  <div class="toc-body"><a href="#toc-1">1. 指标与对标01 市场指数与对标</a>
-<a href="#toc-2">2. 指标与对标02 综合收益指标</a>
-<a href="#toc-3">3. 预测与进度03 需求预测</a>
-<a href="#toc-4">4. 预测与进度04 预订进度与 Pickup</a>
-<a href="#toc-5">5. 定价与贡献05 价格弹性与最优定价</a>
-<a href="#toc-6">6. 库存与超售06 超额预订</a>
-<a href="#toc-7">7. 团队与置换07 置换分析</a>
-<a href="#toc-8">8. 渠道与净价08 净价与渠道贡献</a>
-<a href="#toc-9">9. 定价与贡献09 房型价差校验</a>
-<a href="#toc-10">10. 跨行业10 跨行业单位产出</a>
-<a href="#toc-11">11. 执行动作11 每日决策速查</a>
-<a href="#sec-tables">12. 表格说明 · 统一口径字典</a>
-<a href="#sec-levels">13. 三档算法说明</a>
-<a href="#sec-usage">14. 使用说明</a>
-<a href="#toc-12" class="lv3">14.1 三步开始</a>
-<a href="#toc-13" class="lv3">14.2 档位怎么选</a>
-<a href="#toc-14" class="lv3">14.3 填写口径</a>
-<a href="#toc-15" class="lv3">模块之间的联动</a>
-<a href="#toc-16" class="lv3">14.4 打印与导出</a>
-<a href="#toc-17" class="lv3">14.5 结果边界</a></div>
-</nav>
-<script id="rm-toc-script">
-(function(){
-  var d=document.getElementById('rm-toc-drawer'),t=document.getElementById('rm-toc-toggle');
-  if(!d||!t)return;
-  var c=d.querySelector('.toc-close');
-  t.addEventListener('click',function(){d.classList.toggle('open');document.body.classList.toggle('toc-open',d.classList.contains('open'))});
-  if(c)c.addEventListener('click',function(){d.classList.remove('open');document.body.classList.remove('toc-open')});
-  var links=[].slice.call(d.querySelectorAll('.toc-body a'));
-  var map=links.map(function(a){return {a:a,el:document.getElementById(a.getAttribute('href').slice(1))}}).filter(function(o){return o.el});
-  function onScroll(){var cur=null;map.forEach(function(o){if(o.el.getBoundingClientRect().top<=150)cur=o.a;});
-    links.forEach(function(a){a.classList.remove('active')});if(cur)cur.classList.add('active');}
-  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-  links.forEach(function(a){a.addEventListener('click',function(){
-    var el=document.getElementById(a.getAttribute('href').slice(1));
-    if(el&&el.closest){var dd=el.closest('details');while(dd){dd.open=true;dd=dd.parentElement?dd.parentElement.closest('details'):null;}}
-    d.classList.remove('open');document.body.classList.remove('toc-open');
-  });});
 })();
 </script>
 </body></html>
