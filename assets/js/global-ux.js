@@ -459,9 +459,17 @@
       var url = a.href;
       var name = (href.split("/").pop().split("?")[0]) || "表格";
       // 优先用构建期生成的本地静态预览（离线、无 CDN、国内秒开）
+      if (a.host && a.host !== window.location.host) return;
       var key = href.replace(/^\.\//, "").replace(/^\.\.\//, "");
       try { key = decodeURIComponent(key); } catch (err) {}
-      var pv = MAP[href] || MAP[key] || MAP[href.replace(/^\.\//, "")];
+      // 页面相对写法（../tools/x.xlsx、裸文件名）用浏览器解析后的路径定位预览
+      var absPath = "";
+      try {
+        var u = new URL(a.href, window.location.href);
+        if (u.host === window.location.host)
+          absPath = decodeURIComponent(u.pathname.replace(/^\//, ""));
+      } catch (err2) {}
+      var pv = MAP[absPath] || MAP[key] || MAP[href] || MAP[href.replace(/^\.\//, "")];
       if (pv) {
         openPreview(name + "（在线预览）", HREF(pv), url);
         return;
