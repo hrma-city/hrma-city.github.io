@@ -73,6 +73,13 @@
 (function(){var st=document.createElement('style');
 st.textContent='h1[id],h2[id],h3[id],h4[id],h5[id],[id^="toc-"],[id^="sec-"],[id^="p"]{scroll-margin-top:76px}';
 (document.head||document.documentElement).appendChild(st);})();
+/* 小屏阅读兜底：仅防图片/媒体溢出与长词撑破，不改动既有字号与表格布局 */
+(function(){var st=document.createElement('style');
+st.textContent='@media(max-width:820px){'
++'img,video,svg,iframe{max-width:100%;height:auto;}'
++'body{overflow-wrap:break-word;}'
++'}}';
+(document.head||document.documentElement).appendChild(st);})();
 
 var AOFF = a('color:#d4e2f2');
   var AON = a('background:#1d6fb8;color:#fff;font-weight:700');

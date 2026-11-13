@@ -466,7 +466,7 @@
     var css = document.createElement("link");
     css.rel = "stylesheet"; css.href = href("assets/css/global-ux.css?v=v2");
     document.head.appendChild(css);
-    var seq = [href("glossary-data.js"), href("gejijipo-data.js"), href("assets/previews-map.js"), href("assets/js/global-ux.js")];
+    var seq = [href("glossary-data.js"), href("gejijipo-data.js"), href("assets/previews/previews-map.js"), href("assets/js/global-ux.js")];
     var i = 0;
     (function next() {
       if (i >= seq.length) return;
