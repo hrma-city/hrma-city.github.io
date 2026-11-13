@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>收益管理系统（RMS）实务指南 · 从原理到上系统</title>
+<style>
+  :root{
+    --navy:#1B3A5C; --navy2:#27507d; --gold:#B8894A; --gold2:#cf9f63;
+    --sand:#f6f1e7; --ink:#1f2733; --line:#e3d9c6; --red:#a02c2c; --green:#2a7d4f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#fff;line-height:1.75}
+  a{color:var(--navy2);text-decoration:none}
+  .topbar{background:var(--navy);color:#fff;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .topbar .brand{font-weight:700;letter-spacing:.5px}
+  .topbar .acts a{color:#fff;border:1px solid rgba(255,255,255,.5);padding:6px 12px;border-radius:6px;margin-left:8px;font-size:13px}
+  .topbar .acts a:hover{background:rgba(255,255,255,.12)}
+  .wrap{display:flex;max-width:1180px;margin:0 auto}
+  nav.toc{width:248px;flex:0 0 248px;background:var(--sand);padding:22px 16px;position:sticky;top:0;align-self:flex-start;height:100vh;overflow:auto;font-size:14px;border-right:1px solid var(--line)}
+  nav.toc h4{margin:0 0 8px;color:var(--navy);font-size:13px;letter-spacing:.5px}
+  nav.toc a{display:block;padding:5px 8px;border-radius:5px;color:#3a4654}
+  nav.toc a:hover{background:#e9dfca}
+  main{flex:1;min-width:0;padding:30px 40px 80px}
+  header.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:12px;padding:28px 30px;margin-bottom:26px}
+  header.hero h1{margin:0 0 8px;font-size:26px}
+  header.hero p{margin:4px 0;opacity:.92}
+  header.hero .tag{display:inline-block;background:var(--gold);color:#231a0c;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;margin-top:8px}
+  h2{color:var(--navy);border-left:5px solid var(--gold);padding-left:12px;margin-top:36px;font-size:21px}
+  h3{color:var(--navy2);margin-top:22px;font-size:17px}
+  p{margin:10px 0}
+  ul,ol{margin:8px 0 8px 0;padding-left:22px}
+  li{margin:4px 0}
+  .lead{font-size:15.5px;background:var(--sand);padding:14px 18px;border-radius:8px;border:1px solid var(--line)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:9px 10px;vertical-align:top;text-align:left}
+  th{background:var(--navy);color:#fff;font-weight:600}
+  tbody tr:nth-child(even){background:#faf6ee}
+  .box{background:#fbf7ef;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:8px;padding:14px 18px;margin:16px 0}
+  .case{background:#f3f7fb;border:1px solid #cfe0ef;border-left:4px solid var(--navy2);border-radius:8px;padding:14px 18px;margin:16px 0}
+  .case b{color:var(--navy2)}
+  .judge{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:16px 0}
+  .judge .jh{background:var(--navy);color:#fff;padding:10px 14px;font-weight:700}
+  .judge table{margin:0}
+  .mnem{background:#fff8ec;border:1px dashed var(--gold);border-radius:8px;padding:14px 18px;margin:16px 0;font-weight:600;color:var(--navy)}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0;align-items:stretch}
+  .flow .step{flex:1 1 130px;background:var(--sand);border:1px solid var(--line);border-radius:8px;padding:12px;text-align:center;font-size:13.5px;position:relative}
+  .flow .step b{display:block;color:var(--navy);margin-bottom:4px}
+  .flow .step .no{display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:var(--gold);color:#231a0c;font-size:12px;font-weight:700;margin-bottom:6px}
+  .kvs{display:grid;grid-template-columns:160px 1fr;gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:14px 0;font-size:14px}
+  .kvs div{padding:9px 12px;border-bottom:1px solid var(--line)}
+  .kvs .k{background:var(--sand);font-weight:700;color:var(--navy)}
+  .kvs div:nth-last-child(1),.kvs div:nth-last-child(2){border-bottom:none}
+  .pill{display:inline-block;padding:2px 9px;border-radius:12px;font-size:12px;font-weight:700;margin:2px 0}
+  .pill.ok{background:#e6f4ec;color:var(--green)}
+  .pill.no{background:#fbeaea;color:var(--red)}
+  .note{font-size:13px;color:#6b6250}
+  footer{text-align:center;color:#8a8070;font-size:13px;padding:24px;border-top:1px solid var(--line);margin-top:40px}
+  @media (max-width:860px){nav.toc{display:none}main{padding:22px 18px}}
+  @media print{
+    nav.toc,.topbar{display:none}
+    .wrap{display:block}
+    main{padding:0}
+    h2{page-break-before:always}
+    table,pre,img,figure{page-break-inside:avoid}
+    a{color:#000;text-decoration:none}
+    body{font-size:12px}
+    header.hero{background:#fff;color:#000;border:2px solid var(--navy);-webkit-print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">RMS 实务指南 · 收益管理系统从原理到上系统</div>
+  <div class="acts">
+    <a href="#" onclick="window.print();return false;">打印 / 存 PDF</a>
+    <a href="rms-guide.html" download>下载单文件</a>
+  </div>
+</div>
+<div class="wrap">
+<nav class="toc">
+  <h4>目录</h4>
+  <a href="#p0">阅读导言</a>
+  <a href="#p1">一、RMS 是什么</a>
+  <a href="#p2">二、RMS 工作原理</a>
+  <a href="#p3">三、预测分析模型</a>
+  <a href="#p3a">· 时间序列法</a>
+  <a href="#p3b">· 因果回归法</a>
+  <a href="#p3c">· 预订进度法</a>
+  <a href="#p3d">· 机器学习法</a>
+  <a href="#p3e">· 集成与评估</a>
+  <a href="#p4">四、选型要点</a>
+  <a href="#p5">五、与判定表衔接</a>
+  <a href="#p6">六、国际视角</a>
+  <a href="#p7">七、案例与自测</a>
+</nav>
+<main>
+<header class="hero">
+  <h1>收益管理系统（RMS）实务指南</h1>
+  <p>从原理到上系统 —— 衔接教材「学原理」与岗位「用系统」的桥梁</p>
+  <p class="note" style="color:#cfe0ef">本指南与《酒店收益管理（全 46 章）》配套使用。教材教您「看数→查表→执行→记录」；本指南教您这套动作在真实 RMS 里是怎么被自动化的，以及系统在哪儿必须交还给人。</p>
+  <span class="tag">岗位实战 · 系统认知 · 选型避雷</span>
+</header>
+
+<section id="p0">
+  <h2>阅读导言：为什么学 RMS</h2>
+  <div class="lead">
+    教材里您学的是<b>收益管理的原理</b>：需求预测怎么算、价格歧视怎么定、库存与超售怎么控、渠道怎么开合。这些原理不依赖任何软件——用 Excel + 15 张判定表就能跑通。
+    但您将来上岗的酒店，大概率已经或即将部署 <b>RMS（Revenue Management System，收益管理系统）</b>。RMS 不是另一套原理，而是把您学过的原理<b>自动化、规模化、天天跑</b>的软件。
+  </div>
+  <p>所以您需要搞懂三件事：</p>
+  <ul>
+    <li><b>RMS 工作原理</b>：它到底怎么把「取数→预测→定价→回写」串成一条流水线；</li>
+    <li><b>预测分析模型</b>：它内部用什么数学方法做预测（这是教材没展开的部分）；</li>
+    <li><b>选型要点</b>：真要采购时，怎么判断一套 RMS 适不适合您的酒店、会不会变成「昂贵的报表工具」。</li>
+  </ul>
+  <p class="note">一句话定位：<b>RMS 是判定表的发动机，但方向盘还在人手里。</b>本指南帮您既会用系统，也看得懂系统在做什么、为什么。</p>
+</section>
+
+<section id="p1">
+  <h2>一、RMS 是什么：定位与三层技术栈</h2>
+  <p>RMS 是酒店技术栈里专管「<b>定什么价、放多少库存</b>」的系统。它和另外两层通常并列存在：</p>
+  <table>
+    <thead><tr><th>层级</th><th>职责</th><th>典型产品</th><th>与收益管理的关系</th></tr></thead>
+    <tbody>
+      <tr><td><b>PMS</b><br>酒店管理系统</td><td>房态、账务、入住/离店、客人档案</td><td>Opera、Cloudbeds、石基等</td><td>数据的「源头」与「执行终点」——RMS 的预测与建议最终回写 PMS 生效</td></tr>
+      <tr><td><b>RMS</b><br>收益管理系统</td><td>需求预测、价格建议、库存/限制建议</td><td>IDeaS、Duetto、Atomize 等</td><td>收益管理的「大脑」——把原理变成每日可执行的价与量</td></tr>
+      <tr><td><b>渠道管理</b><br>Channel Manager</td><td>把房价房态同步到各 OTA / 官网</td><td>各渠道连接器</td><td>建议价的「广播器」——RMS 的建议经 PMS 下发到渠道</td></tr>
+    </tbody>
+  </table>
+  <div class="box">
+    <b>与教材的关系：</b>您在教材里手工做的每一步，系统都在自动做一遍——
+    <ul style="margin:6px 0">
+      <li>教材「看数」→ RMS 自动取数（PMS + 渠道 + 历史）；</li>
+      <li>教材「查表」→ RMS 用预测模型给出基线需求；</li>
+      <li>教材「执行」→ RMS 生成价与限制建议，回写 PMS；</li>
+      <li>教材「记录」→ RMS 留痕每一次采纳/不采纳及原因。</li>
+    </ul>
+    区别在于：<b>RMS 快且稳，但判断权必须留在人手里</b>——尤其当它没见过的情况（突发公共事件、竞品突然开业）出现时。
+  </div>
+</section>
+
+<section id="p2">
+  <h2>二、RMS 工作原理（端到端）</h2>
+  <p>一套成熟的 RMS 大致是这样一条流水线。理解它，您就明白「为什么系统有时会出错」以及「人该在哪一环接手」。</p>
+  <div class="flow">
+    <div class="step"><span class="no">1</span><b>数据接入</b>从 PMS、渠道、历史订单抓取房态、房价、预订、取消</div>
+    <div class="step"><span class="no">2</span><b>清洗治理</b>统一口径（净价/含早）、剔除异常、补全缺失</div>
+    <div class="step"><span class="no">3</span><b>特征工程</b>标注节假日、展会、天气、本地事件、竞品价</div>
+    <div class="step"><span class="no">4</span><b>预测引擎</b>用模型算出未来各日期/房型的需求与价格弹性</div>
+    <div class="step"><span class="no">5</span><b>优化引擎</b>在库存与业务规则约束下求最优价与限制组合</div>
+    <div class="step"><span class="no">6</span><b>建议生成</b>输出价、关档、MinLOS、超售等可执行建议+依据</div>
+    <div class="step"><span class="no">7</span><b>回写执行</b>建议进入 PMS / 渠道（半自动需人确认）</div>
+    <div class="step"><span class="no">8</span><b>人复核留痕</b>收益经理对照判定表核建议，记录采纳/不采纳原因</div>
+  </div>
+  <div class="kvs">
+    <div class="k">第 1–2 步决定天花板</div><div>垃圾进、垃圾出。历史数据混着团队价与散客价、取消率不准，后面模型再强也失真。<b>数据治理先于一切。</b></div>
+    <div class="k">第 4 步是核心</div><div>预测引擎就是下一章讲的「预测分析模型」。它决定 RMS 聪不聪明。</div>
+    <div class="k">第 5 步体现商业逻辑</div><div>优化不是「预测高就涨价」，而是在库存、渠道成本、最低价档、品牌价等约束下求整体收益最大。</div>
+    <div class="k">第 8 步不可省</div><div>建议必须过判定表复核，且记录「为什么不采纳」。这是系统持续变好的信号来源，也是人的责任边界。</div>
+  </div>
+  <div class="mnem">口诀：<b>接入要干净，预测要可解释，优化要守约束，建议要人复核。</b></div>
+</section>
+
+<section id="p3">
+  <h2>三、预测分析模型（RMS 的心脏）</h2>
+  <p>这是教材没展开、但上岗后天天打交道的部分。RMS 的预测引擎通常不是单一模型，而是<b>多个模型的组合</b>。下面按家族讲清「它用什么数据、适合什么、有什么坑」。</p>
+  <table>
+    <thead><tr><th>模型家族</th><th>输入</th><th>最擅长</th><th>主要局限</th></tr></thead>
+    <tbody>
+      <tr><td>时间序列法</td><td>自身历史销量</td><td>平稳、强周期的需求（平日/周末/季节）</td><td>对突变、新店、异常事件迟钝</td></tr>
+      <tr><td>因果回归法</td><td>历史 + 外部因子</td><td>可解释「为什么涨」：展会/天气/竞品</td><td>因子要人工标注，遗漏就偏</td></tr>
+      <tr><td>预订进度法<br>(Pickup)</td><td>当前在手 + 预订曲线</td><td>临近日期的实时修正，捕捉加速/减速</td><td>提前期太长时不稳，依赖历史曲线形状</td></tr>
+      <tr><td>机器学习法</td><td>高维因子混合</td><td>捕捉非线性、交叉效应，自适应</td><td>黑箱、需大量数据、可解释性差</td></tr>
+      <tr><td>集成/组合</td><td>以上加权融合</td><td>综合稳健，降低单模型风险</td><td>调参与维护成本高</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="p3a">3.1 时间序列法：看「自己的历史」</h3>
+  <p>最朴素也最常用。核心假设：<b>未来会重复过去的规律</b>。</p>
+  <ul>
+    <li><b>历史同期法</b>：去年同一天、上周同日的需求直接做基线。简单、稳，但遇到去年有异常（疫情、修路）就失真。</li>
+    <li><b>移动平均 / 指数平滑</b>：用近 N 天的加权平均预测明天，近期权重更高。适合平滑日常噪声。</li>
+    <li><b>季节性分解（ARIMA 思路）</b>：把序列拆成「趋势 + 周期 + 残差」三部分分别建模再叠回。对强季节性（暑期、春节）效果好。ARIMA 类模型的本质就是「用过去若干期的差值规律外推」，RMS 底层常内置其变体。</li>
+  </ul>
+  <div class="box">岗位提示：系统说「这周六预测 85% 出租率」时，时间序列法往往就是拿「过去若干个周六 + 近期趋势」算出来的。<b>您要问的是：这个周六和那些周六比，有没有不一样的事件？</b></div>
+
+  <h3 id="p3b">3.2 因果回归法：把「为什么」量化</h3>
+  <p>在时间序列基础上，<b>叠加外部因子</b>。模型形如：需求 = 基线 × f(节假日, 展会热度, 天气, 竞品价差, 本地事件…)。</p>
+  <ul>
+    <li>优点：<b>可解释</b>。能告诉您「本周 +12% 主要来自城市展会」。</li>
+    <li>难点：因子要人工标注和维护，展会日历、天气接口、竞品价抓取都要接好；漏掉关键因子，预测就会系统性偏差。</li>
+  </ul>
+
+  <h3 id="p3c">3.3 预订进度法（Pickup / Booking Curve）：看「现在的加速度」</h3>
+  <p>教材第 11 章您学过「在手是里程表，pickup 是速度表」。RMS 把它工程化了：</p>
+  <ul>
+    <li>系统维护一条<b>累计预订曲线</b>（历史同期各提前期已订房数）；</li>
+    <li>用「当前在手 + 当前 pickup 速度」对比历史曲线，外推到入住日的总需求；</li>
+    <li>越临近入住日，pickup 法的权重越高，实时修正时间序列的偏差。</li>
+  </ul>
+  <div class="case"><b>案例：</b>系统预测某展会日需求 120 间。您看面板发现「当前在手已 110，但近 3 天 pickup 骤降到历史的一半」——这往往是竞品降价或展会缩水的信号。此时应<b>下调</b>而非盲信曲线。<b>速度表比里程表更该被盯着。</b></div>
+
+  <h3 id="p3d">3.4 机器学习法：让模型自己找规律</h3>
+  <p>近年 RMS 普遍引入 ML，典型是<b>梯度提升树（XGBoost / LightGBM）</b>和<b>神经网络</b>。</p>
+  <ul>
+    <li>它能同时吞入上百个因子（房型、渠道、价格档、竞品、天气、搜索指数……），自动捕捉<b>非线性与交叉效应</b>（例如「雨天 + 商务客多 + 周五」的组合影响）。</li>
+    <li>优点是自适应、精度高；<b>缺点是黑箱</b>——它很难清楚说出「为什么建议这个价」。</li>
+  </ul>
+  <div class="box"><b>可解释性纪律：</b>越是 ML 驱动，越要求系统提供「依据」（哪些因子影响最大、历史相似日参照）。若系统只给一个数字、说不清理由，<b>人不能据此直接执行</b>——这正是教材强调的「人能解释系统建议」。</div>
+
+  <h3 id="p3e">3.5 集成模型与准确度评估</h3>
+  <p>现实中的 RMS 几乎都是<b>集成</b>：时间序列打底、因果/ML 修正、pickup 临近校正，最后加权融合。单一模型很少单独上阵。</p>
+  <p><b>怎么知道预测准不准？</b>行业用 <b>MAPE（平均绝对百分比误差）</b>衡量：</p>
+  <ul>
+    <li>MAPE &lt; 10%：良好；10%–15%：可用；&gt; 20%：需排查数据与模型。</li>
+    <li>误差常来自三类：① 数据质量差（口径乱、取消率不准）；② 异常事件（系统按历史照旧）；③ 外推过度（用旧规律预测全新局面）。</li>
+  </ul>
+  <div class="judge">
+    <div class="jh">判定表 · 不同场景该用哪类模型权重</div>
+    <table>
+      <thead><tr><th>场景</th><th>主力模型</th><th>人该重点复核</th></tr></thead>
+      <tbody>
+        <tr><td>平稳平日 / 长提前期</td><td><span class="pill ok">时间序列</span></td><td>同期是否有异常要剔除</td></tr>
+        <tr><td>展会 / 节假日</td><td><span class="pill ok">因果回归</span></td><td>因子标注是否完整、竞品是否异动</td></tr>
+        <tr><td>入住前 14 天内</td><td><span class="pill ok">预订进度法</span></td><td>pickup 速度是否偏离历史</td></tr>
+        <tr><td>多因子复杂酒店</td><td><span class="pill ok">机器学习集成</span></td><td>建议是否有可解释依据</td></tr>
+        <tr><td>突发公共事件</td><td><span class="pill no">以上均弱</span></td><td><b>人直接接手</b>，暂停自动执行</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="p4">
+  <h2>四、选型要点（选择要点）</h2>
+  <p>采购 RMS 不是「买最贵的」，而是「买最合身的」。下面把教材第 31 章的要点落成一套可操作的选型框架。</p>
+
+  <h3>4.1 先决条件：先问「我配不配用系统」</h3>
+  <div class="judge">
+    <div class="jh">四条前提（不全中 → 先用 Excel + 判定表）</div>
+    <table>
+      <thead><tr><th>前提</th><th>门槛</th><th>不满足的后果</th></tr></thead>
+      <tbody>
+        <tr><td>房量</td><td>&gt; 80–100 间</td><td>手工更灵活，系统成摆设</td></tr>
+        <tr><td>历史数据</td><td>≥ 2 年且口径干净</td><td>garbage in, garbage out</td></tr>
+        <tr><td>专人负责</td><td>有专职或明确兼职</td><td>无人维护 → 必然闲置</td></tr>
+        <tr><td>手工流程</td><td>已用判定表跑通</td><td>会把混乱自动化</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>4.2 能力清单：系统该有什么本事</h3>
+  <ul>
+    <li><b>预测维度</b>：能否按「房型 × 日期 × 渠道 × 停留时长」独立预测与定价（开放定价粒度）。</li>
+    <li><b>优化逻辑</b>：是在约束下求整体收益最大，还是只会「预测高就涨价」。</li>
+    <li><b>可解释性</b>：每条建议能否给出依据与历史参照（这点比「多准」更影响您敢不敢用）。</li>
+    <li><b>异常暂停</b>：超出阈值或检测到异常时，能否自动停下问人（多数集团强制要求）。</li>
+    <li><b>不采纳留痕</b>：能否记录「为什么不采纳建议」——这是系统持续学习的关键。</li>
+    <li><b>集成能力</b>：能否对接您的 PMS 与渠道、导入历史数据、导出判定表格式。</li>
+  </ul>
+
+  <h3>4.3 数据与集成：别等上线才发现问题</h3>
+  <ul>
+    <li>能否<b>接入您的历史数据</b>（口径、净价、取消率）？导入是否要额外付费/外包？</li>
+    <li>与现有 <b>PMS / 渠道管理</b>是否有现成接口？还是要手工导出导入（那等于半手动）？</li>
+    <li>历史数据是否需要先治理？<b>治理成本常被销售低估</b>。</li>
+  </ul>
+
+  <h3>4.4 供应商评估：三问七项</h3>
+  <div class="box">
+    <b>采购前只问三个核心问题（销售答不上来的直接淘汰）：</b>
+    <ol>
+      <li>能否接入我们的历史数据？</li>
+      <li>能否导出我们现有的判定表格式？</li>
+      <li>能否记录「为什么不采纳建议」？</li>
+    </ol>
+  </div>
+  <div class="judge">
+    <div class="jh">采购前答这七项（最关键一项标★）</div>
+    <table>
+      <thead><tr><th>#</th><th>问题</th><th>过关标准</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>房量够吗？</td><td>≥ 80 间（否则慎重）</td></tr>
+        <tr><td>2</td><td>历史数据干净吗？</td><td>近 2 年完整、口径统一</td></tr>
+        <tr><td>3</td><td>有专人负责吗？</td><td>有专职/明确兼职时间</td></tr>
+        <tr><td>4</td><td>手工流程跑通了吗？</td><td>已用 Excel/判定表跑 ≥3 个月 ★</td></tr>
+        <tr><td>5</td><td>能接入历史数据吗？</td><td>可导入，无隐藏费用</td></tr>
+        <tr><td>6</td><td>建议能复核吗？</td><td>可导出建议与依据</td></tr>
+        <tr><td>7</td><td>能记录不采纳原因吗？</td><td>有备注/留痕字段</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>4.5 实施与验收：上线节奏</h3>
+  <ul>
+    <li><b>先用 Excel 跑满 3–6 个月</b>，把流程、口径、判定表固化——您会清楚「究竟要自动化什么」。</li>
+    <li>切换后<b>建议价必须过判定表复核</b>，不能直接执行；记录每次冲突（往往是参数要调的信号）。</li>
+    <li>验收看<b>省下的时间有没有人用、用在哪</b>，而不是单纯「RevPAR 涨没涨」。</li>
+  </ul>
+
+  <h3>4.6 常见坑</h3>
+  <ul>
+    <li>把系统当「交钥匙工程」——上线后仍需持续优化参数与复核。</li>
+    <li>直接采纳建议价——遇到预测偏差毫无察觉。</li>
+    <li>先买系统后建流程——只会把混乱自动化，且再也看不出哪里乱。</li>
+    <li>认为没系统就不能做收益管理——恰恰相反，手工流程才是地基。</li>
+  </ul>
+</section>
+
+<section id="p5">
+  <h2>五、与教材判定表衔接：把 15 张判定表当「系统复核器」</h2>
+  <div class="lead">
+    您学过的 15 张判定表，不是被系统取代，而是<b>升级成系统的校验层</b>。RMS 给建议，您用判定表问它三句话：
+  </div>
+  <ul>
+    <li><b>表 A（需求日历/预测）</b>：系统预测的需求，和历史同期、在手、pickup 对得上吗？</li>
+    <li><b>表 B（峰值日/库存限制）</b>：建议的关档、MinLOS，是否符合峰值日规则？</li>
+    <li><b>表 C / D（竞品应对）</b>：建议价相对竞品的 ARI/MPI 定位，触发跟价条件了吗？</li>
+    <li><b>表 E（超售）</b>：建议超售量在 No-show 概率与 5% 硬上限内吗？</li>
+    <li><b>表 G（置换分析）</b>：接团队房会不会挤掉更高净贡献的散客？</li>
+    <li><b>表 H（渠道开关）</b>：建议关的低效渠道，净价与成本算对了吗？</li>
+  </ul>
+  <p class="note">结论：<b>系统的价值在于「算得快」，判定表的价值在于「算得对」。</b>没有判据，系统只是更快地做错决定；没有系统，判据再对也跑不赢规模。</p>
+</section>
+
+<section id="p6">
+  <h2>六、国际视角：自动化程度与趋势</h2>
+  <p>国际上 RMS 的自动化分几个层次，多数集团选<b>半自动</b>并把「异常自动停下来问人」作为强制要求：</p>
+  <div class="flow">
+    <div class="step"><b>建议式</b>给价格建议，人工确认后执行</div>
+    <div class="step"><b>半自动</b>在设定阈值内自动执行，超出则问人</div>
+    <div class="step"><b>全自动</b>在规则范围内自行调整</div>
+  </div>
+  <p>近年两条技术趋势值得关注：</p>
+  <ul>
+    <li><b>开放定价</b>：定价颗粒度细化到「房型 × 日期 × 渠道 × 停留时长」，价格更贴近每一天每一间房的真实情况；</li>
+    <li><b>机器学习</b>：用于需求预测与价格建议，带来一个新岗位要求——<b>能解释系统为什么这么建议</b>，以及在系统没见过的情况下接手判断。</li>
+  </ul>
+  <div class="box">国际共识：<b>RMS 给的是建议，不是决定。</b>接受建议的人必须能解释它为什么这么建议；「系统算的」不能成为责任转移的说法。这点与本书对系统的定位完全一致，只是国际实践更强调「可解释性」与「人工覆盖留痕」两条纪律。</div>
+</section>
+
+<section id="p7">
+  <h2>七、案例与课后自测</h2>
+  <div class="case"><b>案例一 · Excel 打赢了系统：</b>A 店上 RMS 后按建议价执行，一年后 RevPAR 持平；B 店用 Excel + 判定表，每日 20 分钟人工复核。差别在于 B 店每次调价都对照判定表并记录「为什么」，A 店直接采纳建议，遇到偏差毫无察觉。<b>算得快 ≠ 算得对。</b></div>
+  <div class="case"><b>案例二 · 系统发现不了的事：</b>某店上 RMS 后一切照建议执行。某月竞品新开业，系统按历史仍建议提价，结果 pickup 骤降，当月 RevPAR 落后市场 9%。另一家用 Excel 的店每周手工看竞品价，提前应对。<b>系统看历史，人看变化。</b></div>
+  <div class="case"><b>案例三 · 一次选型对比：</b>120 间房酒店评估两套方案。方案 A（RMS）年费 6 万+实施 3 万+学习 80 小时；方案 B（Excel+判定表）零费用但每天 20 分钟人工。该店因「有专职岗、历史 3 年、手工已跑通」，判断选 A，但先再跑 3 个月固化流程再切换。<b>不是要不要上，而是现在上能不能把价值用满。</b></div>
+
+  <div class="mnem">总口诀：<b>原理是地基，Excel 是练习场，RMS 是放大器；先跑通手工，再让系统接管；建议必须复核，异常必须接手。</b></div>
+
+  <h3>课后自测</h3>
+  <ol>
+    <li>RMS 与 PMS、渠道管理三者各管什么？数据是怎么流动的？</li>
+    <li>RMS 工作原理的 8 个步骤中，哪一步决定预测的天花板？哪一步不可省？</li>
+    <li>时间序列法、因果回归法、预订进度法、机器学习法，各自最擅长什么、最怕什么？</li>
+    <li>MAPE &lt; 10% 代表什么？预测误差通常来自哪三类？</li>
+    <li>上 RMS 的四个前提是什么？采购前该问供应商哪三个核心问题？</li>
+    <li>为什么「系统给的是建议，不是决定」？举一个必须人接手的例子。</li>
+    <li>把教材 15 张判定表当成系统复核器时，您会先查哪几张？为什么？</li>
+  </ol>
+  <p class="note">建议学完本指南后，回到《酒店收益管理》第 31 章做一次对照阅读，再用 Excel + 判定表把您酒店的「晨间 15 分钟表」跑满 3 个月——那时您会非常清楚自己需要 RMS 的哪些功能，采购时不再被销售牵着走。</p>
+</section>
+
+<footer>
+  本指南为《酒店收益管理（全 46 章）》配套岗位实战资料 · 离线单文件，可打印、可下载、可转发。<br>
+  内容定位为原理到系统的桥梁，具体产品以各厂商官方文档为准。
+</footer>
+</main>
+</div>
+</body>
+</html>
