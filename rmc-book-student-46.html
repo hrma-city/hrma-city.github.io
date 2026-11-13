@@ -4800,6 +4800,37 @@ B 店：OCC 72% × ADR 450 = RevPAR 324
 <li><b>把系统当"交钥匙工程"</b>——上线后仍需持续优化参数与复核建议。</li>
 <li><b>系统建议与判定表冲突时听系统的</b>——应听判定表，并记录冲突原因（这往往是系统参数需要调整的 signal）。</li>
 </ul></div>
+<h4>深入一层 · RMS 的工作原理、预测模型与选型</h4>
+<p>前面讲的是"该不该上系统"。这里把系统本身拆开看：它内部怎么运转、靠什么模型做预测、选型时逐项核对什么。将来您走上岗位用 RMS 时，学的这套判定表就是您复核系统建议的尺子。</p>
+<div class="pts"><ul>
+<li><b>RMS 是一条流水线</b>：数据接入 → 数据清洗 → 需求预测 → 价格优化 → 建议生成 → 回写 PMS / 渠道 → 执行追踪 → 反馈学习。八步环环相扣，任何一步进了脏数据，建议价就不可信。</li>
+<li><b>人在回路</b>：系统给建议，人做决策。您复核建议价用的正是本课程的判定表——方法不对，系统只会放大错误。</li>
+</ul></div>
+<div class="judge"><div class="jt">预测分析模型：RMS 的"发动机"，五个家族各有分工</div>
+<table>
+<tr><td><b>时间序列</b>（移动平均 / 指数平滑 / ARIMA）</td><td>用自身历史找趋势与季节规律</td><td>需求平稳、规律性强</td><td>突发变化（竞品开业、大型活动）反应慢</td></tr>
+<tr><td><b>因果回归</b></td><td>把节假日、展会、价格等变量纳入方程</td><td>需求受明确外部因素驱动</td><td>要找齐并清洗外部数据</td></tr>
+<tr><td><b>预订进度（Pickup）</b></td><td>按"提前 X 天累积订了多少"推算全量</td><td>短期内滚动修正预测</td><td>依赖历史预订节奏稳定</td></tr>
+<tr><td><b>机器学习</b>（梯度提升 / 神经网络）</td><td>从大量变量里自动学规律</td><td>数据量大、因素复杂</td><td>黑盒程度高，须防过拟合</td></tr>
+<tr><td><b>集成模型</b></td><td>多模型加权、取长补短</td><td>成熟商用 RMS 的主流做法</td><td>更难向业务方解释</td></tr>
+</table></div>
+<div class="fml"><div class="fn">预测准不准，看 MAPE（平均绝对百分比误差）</div><div class="fe">MAPE = 平均（ |实际值 − 预测值| ÷ 实际值 ）× 100%
+周度需求预测：MAPE ≤ 10% 优秀；10%~20% 可用；&gt;30% 先查数据质量，别急着怪模型。</div>
+<div class="ex"><b>算例：</b>某周 7 天预测误差（取绝对值百分数）为 5、8、12、9、15、11、10 → MAPE = 10%。含义：多数日子的预测偏差在一成左右——用这个数判断该不该信系统给的基线。</div></div>
+<div class="judge"><div class="jt">选型能力清单：把"采购三问七项"展开成逐项核对</div>
+<table>
+<tr><td><b>① 预测引擎</b></td><td>用什么模型？是否分渠道、分房型？</td><td>能讲清模型家族，支持人工修正</td></tr>
+<tr><td><b>② 定价策略</b></td><td>只给建议价，还是含升降档、超售、连住约束？</td><td>覆盖您的主要决策场景</td></tr>
+<tr><td><b>③ 数据与集成</b></td><td>与 PMS / 渠道管理双向对接吗？延迟多久？</td><td>自动双向回写，小时级以内</td></tr>
+<tr><td><b>④ 易用性</b></td><td>收益经理每天要花多少时间操作？</td><td>晨间 15 分钟能看完关键建议</td></tr>
+<tr><td><b>⑤ 准确度承诺</b></td><td>敢不敢给出 MAPE 基准与试算？</td><td>愿意用贵店历史数据试算验证</td></tr>
+<tr><td><b>⑥ 服务与本地化</b></td><td>中文支持、本地节假日、国内渠道生态</td><td>有本地成功案例</td></tr>
+<tr><td><b>⑦ 总成本</b></td><td>年费 + 实施 + 培训 + 接口费</td><td>对照本章算例算回收期</td></tr>
+</table></div>
+<div class="pts"><ul>
+<li><b>最常见的选型坑</b>：演示数据很漂亮——坚持要求用<b>您自己的历史数据</b>试算；只看预测不管解释——业务团队看不懂的建议，不会被执行。</li>
+</ul></div>
+<div class="tip">学原理时：把判定表当"复核器"，过每一道系统建议。用系统时：先看数据质量，再看 MAPE，最后才轮到相信建议价。角色变了，判定表没变。</div>
 <h4>与前后章的联系</h4>
 <div class="pts"><ul>
 <li><b>往上（第 23 章）</b>：系统主要自动化的是预测与日历。</li>
@@ -6143,33 +6174,7 @@ RevPASH = 24,000 ÷ (100 × 8) = <b>30 元</b>。<br/>
 <a href="#toc-12">附录 B · 国际教学范式对照</a>
 <a class="lv3" href="#toc-13">7. 三种教学范式对照</a></div>
 </nav>
-</div></div></section></main></div><script>window.HRMA_href=function(p){return ""+p;};</script>
-<script src="assets/previews/previews-map.js"></script>
-<link rel="stylesheet" href="assets/css/global-ux.css?v=v2">
-<script id="rm-preview-mount" src="assets/js/global-ux.js"></script>
-
-<div class="task"><div class="tk">课堂任务卡 · 第 36 章</div><div class="tsc"><b>情境：</b>用法：每月最后一天花 15 分钟过这六项。任一项不合格，下月第一件事就是补它。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出您的动作与依据（第几行）。<b>写完再展开答案。</b></div><div class="sec"><div class="sec-t">答案与判据（写完再看）</div><table><tr><td>指标口径</td><td>是否用 RevPAR / RGI / 净价，而非出租率 / 平均房价</td></tr><tr><td>价格体系</td><td>BAR 是否唯一、各渠道是否同价、前台能否现场放价（第 26 章）</td></tr><tr><td>栅栏</td><td>每个低价档是否都有条件限制（第 7、10 章）</td></tr></table><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></div></div>
-<div class="sec"><div class="sec-t">⑤ 实验与数据表（可下载）</div>
-<p>用 <a href="https://hrma-city.github.io/teach-data.html">教学数据工坊</a> 的云璟 90 天数据做一遍本章动作；判定表与模板在
-<a href="https://hrma-city.github.io/campus-resources.html">院校专区 · 七件套</a> 领取。没有 RMS 的学校，用 Excel 模板即可跑通。</p>
-<ul><li>动作清单：按本章判定表逐格执行，写下依据</li><li>交付物：一页 <a href="https://hrma-city.github.io/onepager-logic.html">方法论一页纸</a> + 一份留痕台账</li><li>验收：依据正确性（不是"算对了没有"）</li></ul>
-</div>
-<h4>⑥ 本章小结</h4>
-<p>读完这章您能自查：这 30 个错误，您犯了几个。</p>
-<div class="pc"><b>数据看板</b><p>本章关键口径：<b>RevPAR、BAR、RGI、MPI、在手、OCC</b></p><p class="mini">看板位置：多业态看板 · 分业态并列区｜口径来源：云璟 90 天数据 ｜每学分 ≥100 题的题库由判定表映射组卷</p></div>
-<h4>⑦ 本章实训（课堂活动）</h4>
-<div><b>30 题误区抢答</b>（30 分钟）</div>
-<div class="tm" style="padding-left:12px"><b>材料：</b>30 张判断题卡</div>
-<div class="tm" style="padding-left:12px"><b>步骤：</b></div><ol>
-<li>发 30 张判断题卡（或投屏）</li>
-<li>小组抢答并说明理由</li>
-<li>统计错得最多的三条，逐一精讲</li>
-<li>每人写下自己最容易犯的一条</li>
-</ol>
-<div class="tm" style="padding-left:12px"><b>产出：</b>错题清单 + 每人一句「我最容易犯的是」</div>
-<h4>⑧ 配套资源二维码</h4>
-<div class="qrw"><div class="qr"><svg aria-label="题库二维码" role="img" viewbox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><use href="#qr-tk"></use></svg><span>题库二维码</span></div><div class="qr"><svg aria-label="知识灯二维码" role="img" viewbox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><use href="#qr-kd"></use></svg><span>知识灯二维码</span></div></div>
-<section class="chap" id="ch37"><h2><span class="no">第 37 章</span>中国渠道生态：平台、私域、买断与直播</h2><div class="cbody">
+</div></div></section><section class="chap" id="ch37"><h2><span class="no">第 37 章</span>中国渠道生态：平台、私域、买断与直播</h2><div class="cbody">
 <div class="grid2">
 <div class="pc"><b>学完这章你能</b><p>① 说清国内主流平台的角色差异与各自的成本结构；② 会算包房买断与代理切房的真实净价；③ 知道直播预售会带来哪三类价格冲突并会设隔离规则；④ 能为本店做一份渠道结构体检。</p></div>
 <div class="pc"><b>本章口诀</b><p class="key">中国渠道生态：平台、私域、买断与直播</p></div>
@@ -6646,6 +6651,32 @@ RevPASH = 24,000 ÷ (100 × 8) = <b>30 元</b>。<br/>
 <p class="mini">（本章暂无配套课堂活动。）</p>
 <h4>⑧ 配套资源二维码</h4>
 <div class="qrw"><div class="qr"><svg aria-label="题库二维码" role="img" viewbox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><use href="#qr-tk"></use></svg><span>题库二维码</span></div><div class="qr"><svg aria-label="知识灯二维码" role="img" viewbox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><use href="#qr-kd"></use></svg><span>知识灯二维码</span></div></div>
-</div></section><div class="endnote"><b>《酒店收益管理》标准版</b><br/>RMC 收益管理社区 编　·　书中算例基于统一教学基线（300 间客房、ADR 618、出租率 72%）。<br/>判定阈值须用本店真实数据校准；书中案例与数据为教学用途。<br/>配套课件、判定表、数据表与课堂素材可在站内的课件工作台按章节或按主题检索。</div>
+</div></section></main></div><script>window.HRMA_href=function(p){return ""+p;};</script>
+<script src="assets/previews/previews-map.js"></script>
+<link rel="stylesheet" href="assets/css/global-ux.css?v=v2">
+<script id="rm-preview-mount" src="assets/js/global-ux.js"></script>
+
+<div class="task"><div class="tk">课堂任务卡 · 第 36 章</div><div class="tsc"><b>情境：</b>用法：每月最后一天花 15 分钟过这六项。任一项不合格，下月第一件事就是补它。</div><div class="tdo"><b>任务：</b>只看上面这组数，查本章判定表，写出您的动作与依据（第几行）。<b>写完再展开答案。</b></div><div class="sec"><div class="sec-t">答案与判据（写完再看）</div><table><tr><td>指标口径</td><td>是否用 RevPAR / RGI / 净价，而非出租率 / 平均房价</td></tr><tr><td>价格体系</td><td>BAR 是否唯一、各渠道是否同价、前台能否现场放价（第 26 章）</td></tr><tr><td>栅栏</td><td>每个低价档是否都有条件限制（第 7、10 章）</td></tr></table><div class="twhy">判分点：动作对且能说出依据行，才算过。只写结论不写依据＝不算会。</div></div></div>
+<div class="sec"><div class="sec-t">⑤ 实验与数据表（可下载）</div>
+<p>用 <a href="https://hrma-city.github.io/teach-data.html">教学数据工坊</a> 的云璟 90 天数据做一遍本章动作；判定表与模板在
+<a href="https://hrma-city.github.io/campus-resources.html">院校专区 · 七件套</a> 领取。没有 RMS 的学校，用 Excel 模板即可跑通。</p>
+<ul><li>动作清单：按本章判定表逐格执行，写下依据</li><li>交付物：一页 <a href="https://hrma-city.github.io/onepager-logic.html">方法论一页纸</a> + 一份留痕台账</li><li>验收：依据正确性（不是"算对了没有"）</li></ul>
+</div>
+<h4>⑥ 本章小结</h4>
+<p>读完这章您能自查：这 30 个错误，您犯了几个。</p>
+<div class="pc"><b>数据看板</b><p>本章关键口径：<b>RevPAR、BAR、RGI、MPI、在手、OCC</b></p><p class="mini">看板位置：多业态看板 · 分业态并列区｜口径来源：云璟 90 天数据 ｜每学分 ≥100 题的题库由判定表映射组卷</p></div>
+<h4>⑦ 本章实训（课堂活动）</h4>
+<div><b>30 题误区抢答</b>（30 分钟）</div>
+<div class="tm" style="padding-left:12px"><b>材料：</b>30 张判断题卡</div>
+<div class="tm" style="padding-left:12px"><b>步骤：</b></div><ol>
+<li>发 30 张判断题卡（或投屏）</li>
+<li>小组抢答并说明理由</li>
+<li>统计错得最多的三条，逐一精讲</li>
+<li>每人写下自己最容易犯的一条</li>
+</ol>
+<div class="tm" style="padding-left:12px"><b>产出：</b>错题清单 + 每人一句「我最容易犯的是」</div>
+<h4>⑧ 配套资源二维码</h4>
+<div class="qrw"><div class="qr"><svg aria-label="题库二维码" role="img" viewbox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><use href="#qr-tk"></use></svg><span>题库二维码</span></div><div class="qr"><svg aria-label="知识灯二维码" role="img" viewbox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><use href="#qr-kd"></use></svg><span>知识灯二维码</span></div></div>
+<div class="endnote"><b>《酒店收益管理》标准版</b><br/>RMC 收益管理社区 编　·　书中算例基于统一教学基线（300 间客房、ADR 618、出租率 72%）。<br/>判定阈值须用本店真实数据校准；书中案例与数据为教学用途。<br/>配套课件、判定表、数据表与课堂素材可在站内的课件工作台按章节或按主题检索。</div>
 </body>
 </html>
