@@ -422,4 +422,55 @@ paint();
 })();
 </script>
 <script src="assets/js/site-nav.js?v=v24"></script>
+<style>
+/* rmc-projection-boost-v2 */
+.bd{overflow:visible!important}
+.sl,.slide{padding-bottom:36px!important}
+.sl::-webkit-scrollbar,.slide::-webkit-scrollbar{width:10px}
+.sl::-webkit-scrollbar-thumb,.slide::-webkit-scrollbar-thumb{background:#c3d3e5;border-radius:5px}
+</style>
+<script id="rmc-contrast-fix">
+(function(){
+  function parseC(c){var m=c&&c.match(/rgba?\(([^)]+)\)/);if(!m)return null;
+    var p=m[1].split(',').map(function(s){return parseFloat(s)});
+    return {r:p[0],g:p[1],b:p[2],a:p.length>3?p[3]:1}}
+  function bgOf(el){var n=el,stack=[];
+    while(n&&n.nodeType===1){var cs=getComputedStyle(n);
+      var c=parseC(cs.backgroundColor);
+      if((!c||c.a<0.95)&&cs.backgroundImage&&cs.backgroundImage!=='none'){
+        var g=parseC(cs.backgroundImage);if(g)c=g}
+      if(c&&c.a>=0.95){var base=[c.r,c.g,c.b];
+        for(var i=stack.length-1;i>=0;i--){var L=stack[i];
+          base=[L[3]*L[0]+(1-L[3])*base[0],L[3]*L[1]+(1-L[3])*base[1],L[3]*L[2]+(1-L[3])*base[2]]}
+        return 'rgb('+Math.round(base[0])+', '+Math.round(base[1])+', '+Math.round(base[2])+')'}
+      if(c)stack.push([c.r,c.g,c.b,c.a]);
+      n=n.parentElement}
+    return 'rgb(255, 255, 255)'}
+  function lum(c){var m=c.match(/\d+/g);if(!m||m.length<3)return null;
+    function f(v){v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4)}
+    return .2126*f(m[0])+.7152*f(m[1])+.0722*f(m[2])}
+  function cr(a,b){var x=lum(a),y=lum(b);if(x===null||y===null)return 99;
+    return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)}
+  var INK_D='rgb(232, 238, 246)',INK_L='rgb(36, 49, 65)';
+  function fixAll(){
+    document.querySelectorAll('.sl,.slide').forEach(function(sec){
+      sec.querySelectorAll('*').forEach(function(el){
+        var hasText=false;
+        for(var n=el.firstChild;n;n=n.nextSibling){if(n.nodeType===3&&n.textContent.trim()){hasText=true;break}}
+        if(!hasText)return;
+        var cs=getComputedStyle(el);
+        if(cs.display==='none'||cs.visibility==='hidden')return;
+        var bg=bgOf(el);
+        if(cr(cs.color,bg)>=3)return;
+        var ink=lum(bg)<.45?INK_D:INK_L;
+        el.style.setProperty('color',ink,'important');
+        if(el.namespaceURI&&el.namespaceURI.indexOf('svg')>=0){
+          el.setAttribute('fill',lum(bg)<.45?'#E8EEF6':'#243141')}
+      });
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',fixAll)}
+  else{fixAll()}
+})();
+</script>
 </body>
