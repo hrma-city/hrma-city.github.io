@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>登顶之路 · 46 章教材版 · RMC 收益管理社区</title>
+<meta name="description" content="把 46 章教材化作一条登山路：46 个营地对应 46 章，138 盏知识灯。读要点、排路线、看情境后果，全程不判分。点亮全部，再去做题。">
+<style>
+:root{--navy:#1B3A5C;--gold:#B8894A;--sand:#F5F1E8;--line:#DDE4EC;--mut:#5A6B7C;--bg:#F7F9FC;--ok:#2F7D5B}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#23364B;font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--navy);text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 60px}
+header{background:linear-gradient(135deg,#1B3A5C,#2B537A);color:#fff;padding:22px 0 18px;box-shadow:0 2px 12px rgba(15,42,74,.12)}
+.hd{max-width:1080px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.hd h1{font-size:21px;margin:0;letter-spacing:.5px;flex:1;min-width:240px}
+.hd h1 small{display:block;font-size:12.5px;font-weight:400;opacity:.8;letter-spacing:0;margin-top:3px}
+.hd .stat{font-size:13px;opacity:.95}
+.btn{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.btn:hover{border-color:var(--gold);color:var(--gold)}
+.btn.pri{background:var(--gold);border-color:var(--gold);color:#fff}
+.btn.pri:hover{background:#A6783C;color:#fff}
+.btn.gh{background:transparent;border-color:rgba(255,255,255,.45);color:#fff}
+.pbar{height:5px;background:rgba(255,255,255,.18);border-radius:3px;overflow:hidden;margin-top:14px}
+.pbar i{display:block;height:100%;background:var(--gold);width:0;transition:width .3s}
+.topline{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 6px;font-size:13px}
+.topline a{border:1px solid var(--line);background:#fff;padding:5px 12px;border-radius:20px}
+.topline a:hover{border-color:var(--gold);color:var(--gold)}
+.layout{display:flex;gap:22px;align-items:flex-start;margin-top:14px}
+.side{width:210px;flex:none;position:sticky;top:14px;max-height:86vh;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+.side h3{font-size:12.5px;color:var(--mut);margin:2px 0 8px;letter-spacing:1px}
+.side .pt{font-size:12px;color:var(--gold);font-weight:700;margin:12px 0 5px;border-top:1px dashed var(--line);padding-top:9px}
+.side .pt:first-of-type{border-top:0;margin-top:0;padding-top:0}
+.side a{display:block;font-size:12.5px;padding:3px 6px;border-radius:6px;color:#3B4E63;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.side a:hover,.side a.cur{background:var(--sand);color:var(--navy);font-weight:700}
+.side a.done::before{content:'● ';color:var(--ok);font-size:10px}
+main{flex:1;min-width:0}
+.sub{color:var(--mut);font-size:13.5px;margin:4px 0 16px}
+.partbar{border-left:4px solid var(--gold);background:#fff;border-radius:0 10px 10px 0;padding:9px 14px;margin:22px 0 12px;font-weight:700;color:var(--navy);font-size:15px}
+.partbar span{font-weight:400;color:var(--mut);font-size:12.5px;margin-left:8px}
+.path{position:relative;padding-left:26px}
+.path::before{content:'';position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,#CFE0D4,#D8C9AC,#E5D2B0)}
+.camp{position:relative;display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin:9px 0;cursor:pointer;transition:.15s}
+.camp:hover{transform:translateX(3px);box-shadow:0 4px 14px rgba(15,42,74,.09)}
+.camp::before{content:'';position:absolute;left:-21px;top:50%;width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid var(--gold);transform:translateY(-50%)}
+.camp.done{border-color:#BFE3CF;background:linear-gradient(180deg,#FBFFFC,#F2FAF5)}
+.camp.cur{border:2px solid var(--gold);box-shadow:0 3px 16px rgba(232,184,75,.25)}
+.badge{flex:none;width:44px;height:44px;border-radius:12px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+.camp.done .badge{background:var(--ok)}
+.cbody{flex:1;min-width:0}
+.cname{font-weight:700;font-size:14.5px;color:var(--navy);line-height:1.4}
+.cmeta{font-size:12px;color:var(--mut);margin-top:2px}
+.lamps{display:flex;gap:5px;margin-top:6px}
+.lamps i{width:12px;height:12px;border-radius:50%;background:#E2E9F1;border:1px solid #D3DDE8}
+.lamps i.on{background:radial-gradient(circle at 35% 30%,#FFF3C4,#E8B84B);border-color:#D9A83C;box-shadow:0 0 6px rgba(232,184,75,.5)}
+.cright{flex:none;font-size:12px;color:var(--mut);text-align:right}
+.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:12px}
+.panel h2{font-size:18px;color:var(--navy);margin:0 0 4px}
+.panel .tag{display:inline-block;background:var(--sand);color:var(--gold);font-size:12px;border-radius:20px;padding:2px 10px;margin-bottom:12px}
+.kplist{display:grid;gap:10px;margin:14px 0}
+.kpitem{border:1px solid var(--line);border-radius:10px;padding:11px 14px;cursor:pointer;display:flex;align-items:center;gap:10px;background:#FCFDFE}
+.kpitem:hover{border-color:var(--gold);background:#FFFBF3}
+.kpitem .dot{width:14px;height:14px;border-radius:50%;background:#E2E9F1;flex:none}
+.kpitem.lit .dot{background:radial-gradient(circle at 35% 30%,#FFF3C4,#E8B84B);border:1px solid #D9A83C}
+.kpitem b{font-size:14px;color:var(--navy)}
+.kpitem span{font-size:12px;color:var(--mut);margin-left:auto}
+.cardline{border-left:3px solid var(--gold);background:#FBFCFE;padding:12px 16px;border-radius:0 8px 8px 0;margin:10px 0;font-size:14.5px}
+.seqbtn{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px 14px;margin:8px 0;font-size:14px;cursor:pointer;font-family:inherit;color:#23364B}
+.seqbtn:hover{border-color:var(--gold)}
+.seqbtn.ok{background:#F1F8F4;border-color:#BFE3CF;color:var(--ok);cursor:default}
+.seqbtn .no{display:inline-block;width:22px;color:var(--gold);font-weight:700}
+.story{background:var(--sand);border-radius:10px;padding:14px 16px;font-size:14.5px;line-height:1.85}
+.remind{border-left:3px solid var(--ok);background:#F4FAF6;padding:12px 16px;margin-top:12px;border-radius:0 8px 8px 0;font-size:14px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.flash{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:9px 18px;border-radius:24px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:9}
+.flash.show{opacity:1}
+.donebox{text-align:center;padding:34px 20px}
+.donebox .flag{font-size:44px}
+.donebox h2{font-size:22px;color:var(--gold);margin:10px 0}
+.donebox p{color:var(--mut);max-width:560px;margin:0 auto 18px}
+.review{text-align:left;max-width:720px;margin:22px auto 0;columns:2;column-gap:22px}
+.review div{break-inside:avoid;font-size:12.8px;color:#3B4E63;padding:4px 0;border-bottom:1px dashed var(--line)}
+.review b{color:var(--navy)}
+.ft{margin-top:30px;padding-top:14px;border-top:1px solid var(--line);color:#8494A8;font-size:12.5px;text-align:center}
+@media(max-width:820px){.layout{display:block}.side{width:100%;position:static;max-height:none;margin-bottom:14px}.side a{display:inline-block;width:auto}.review{columns:1}.hd h1{font-size:18px}}
+@media print{.side,.topline,.row,.btn{display:none!important}.camp{break-inside:avoid}.panel{box-shadow:none}}
+</style></head><body>
+<header><div class="hd">
+  <h1>⛰️ 登顶之路 · 46 章教材版<small>46 个营地 = 46 章 · 138 盏知识灯 · 全程不判分</small></h1>
+  <div class="stat">已点亮 <b id="lit">0</b> / 138　<button class="btn gh" onclick="resetAll()">重新开始</button></div>
+  <div class="pbar" style="flex-basis:100%"><i id="pb"></i></div>
+</div></header>
+<div class="wrap">
+  <div class="topline">
+    <a href="../../rmc-book-reader-46.html">教材正典</a>
+    <a href="../../quiz-bank.html">46 章题库</a>
+    <a href="../../game-rm.html">云璟通关游戏</a>
+    <a href="../../index.html">首页</a>
+  </div>
+  <div class="layout">
+    <aside class="side" id="side"></aside>
+    <main id="stage"></main>
+  </div>
+  <div class="ft">登顶之路 · 46 章教材版 · 内容逐章取自《酒店收益管理》正典 · 点亮全部 138 盏灯即可登顶</div>
+</div>
+<div class="flash" id="flash"></div>
+<script>
+var CAMPS=[{"id": "C01", "n": 1, "part": "第一篇 · 认知篇", "title": "收益管理是什么：一句话与底层逻辑", "kp": [{"id": "C01-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能说清：为什么同样一间房，昨天卖 300、今天卖 800 都不是乱来——并记住那条贯穿全书的判据。", "收益管理的对象：有限的、易逝的、需求波动的、客群可分层的产能。", "第一篇 · 认知篇 · 第 1 章 收益管理是什么：一句话与底层逻辑"]}, {"id": "C01-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 两家同样 100 间房的酒店", "案例二 · 一次\"填满房\"的代价", "案例三 · 把\"感觉\"变成\"数字\""]}, {"id": "C01-3", "type": "scenario", "title": "情境与后果", "story": "周三上午，前台小王接到电话：\"明天还有房吗？多少钱？\"他看了一眼系统：还剩 20 间。心想反正空着也是空着，报了个 300。", "remind": "把收益管理等同于\"涨价\"。它同样包括\"该低的时候低得下去\"。只涨不降的叫定价，不叫收益管理。"}]}, {"id": "C02", "n": 2, "part": "第一篇 · 认知篇", "title": "三个核心指标：OCC、ADR、RevPAR", "kp": [{"id": "C02-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能算清：一家酒店经营得好不好，不靠感觉。", "三个指标：OCC（量）、ADR（价）、RevPAR（量×价）。", "第一篇 · 认知篇 · 第 2 章 三个核心指标：OCC、ADR、RevPAR"]}, {"id": "C02-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 降价换量是否划算", "案例二 · 两个团队，两种考核", "案例三 · 被指标误导的一次奖惩"]}, {"id": "C02-3", "type": "scenario", "title": "情境与后果", "story": "月底经营会。前厅经理先报：\"我们这个月住得很好，出租率 85%！\"销售经理接着报：\"我们房价守得也不错，平均 520！\"两人都在报喜。", "remind": "把 ADR 当成\"卖价\"。ADR 是所有已售房的平均，包含团队价、协议价，不等于挂牌价。"}]}, {"id": "C03", "n": 3, "part": "第一篇 · 认知篇", "title": "竞争三件套：MPI、ARI、RGI", "kp": [{"id": "C03-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能判断：您不是在为难自己，您是在跟市场比赛。", "三个指数：MPI（量）、ARI（价）、RGI（结果），都以竞争群为分母。", "第一篇 · 认知篇 · 第 3 章 竞争三件套：MPI、ARI、RGI"]}, {"id": "C03-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 淡季里的赢家", "案例二 · 竞争群选错的后果", "案例三 · 换群之后，决策全变了"]}, {"id": "C03-3", "type": "scenario", "title": "情境与后果", "story": "这个月 RevPAR 380，比上月跌了 20。老板在会上问为什么，您说：\"淡季，没办法。\"", "remind": "竞争群随手选。应与自己争夺同一批客人的酒店为群，通常 3–5 家，同档次、同区位。"}]}, {"id": "C04", "n": 4, "part": "第一篇 · 认知篇", "title": "价格弹性：降多少价能换多少量", "kp": [{"id": "C04-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能预判：降价之前，先算这一步划不划算。", "弹性 ＝需求量变动% ÷ 价格变动%；>1 敏感（降价有效），<1 迟钝（降价无效）。", "第一篇 · 认知篇 · 第 4 章 价格弹性：降多少价能换多少量"]}, {"id": "C04-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 一次失败的\"全员降价\"", "案例二 · 加价值替代降价格", "案例三 · 一条栅栏挽回的 ADR"]}, {"id": "C04-3", "type": "scenario", "title": "情境与后果", "story": "出租率只有 50%，销售总监急了：\"降到 299！全员降价！\"", "remind": "只看\"降了之后有没有人来\"，不看\"损失了多少原本的全价客\"。buy-down 是隐性的，但代价最大。"}]}, {"id": "C05", "n": 5, "part": "第二篇 · 决策篇", "title": "什么时候涨价", "kp": [{"id": "C05-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能说出：涨价不是拍脑袋，是看三个信号。", "三条信号：在手高于历史（阈值 10–15%）＋ pickup 快于历史 ＋ 剩余天数充足。", "第二篇 · 决策篇 · 第 5 章 什么时候涨价"]}, {"id": "C05-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 提前 3 周的展会", "案例二 · 涨错了的一次", "案例三 · 分三步涨 vs 一步涨到位"]}, {"id": "C05-3", "type": "scenario", "title": "情境与后果", "story": "周五早上，前台看到只剩 8 间房，兴奋地报 899。结果一个客人当场走了，最后只卖出 3 间。", "remind": "只看剩余房量。剩多少不重要，重要的是\"还剩几天\"和\"进来的速度\"。"}]}, {"id": "C06", "n": 6, "part": "第二篇 · 决策篇", "title": "竞品降价：跟还是不跟", "kp": [{"id": "C06-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能判断：对手降价时，您该跟、该守、还是该反向操作。", "先看对手为什么降：新开业爬坡（3–6 个月）→ 守；经营困难（长期）→ 应对；短期促销 → 不理。", "第二篇 · 决策篇 · 第 6 章 竞品降价：跟还是不跟"]}, {"id": "C06-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 守价反而赢了", "案例二 · 该跟的一次", "案例三 · 一次冷静的\"不跟\""]}, {"id": "C06-3", "type": "scenario", "title": "情境与后果", "story": "隔壁新开业的酒店把价格砍到 299，您的预订立刻掉了三成。", "remind": "当天就跟。对手可能是短期促销，您却永久降价了。"}]}, {"id": "C07", "n": 7, "part": "第二篇 · 决策篇", "title": "竞争博弈分析", "kp": [{"id": "C07-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能算清：跟不跟价这笔账，为什么单期算和两期算会给出相反的结论，以及什么时候该守住价格不跟。", "单期结论与两期结论可以相反，重复博弈必须看对方下一期的反应。", "第二篇 · 决策篇 · 第 7 章 竞争博弈分析"]}, {"id": "C07-2", "type": "seq", "title": "本章路线", "items": ["先判断「对方这次降价是真的吗」，再…", "单期用期望值，两期以上用触发策略", "口径必须贯穿四格：间夜 ×（ADR…"]}, {"id": "C07-3", "type": "scenario", "title": "情境与后果", "story": "竞品昨天把 ADR 从 680 降到 625.60，降幅 8%。按第 6 章查表，触发条件成立，值班主管准备跟价。经理问：「上个月他们也降过一次，三天后收回去了。这次是真降还是清库存？如果我们跟，下个月他们会不会再降？」查表给的是单期规则，问的是多期反应。", "remind": "四格收益一律用「间夜 × 单位净贡献」，收入与净贡献不能混用。"}]}, {"id": "C08", "n": 8, "part": "第二篇 · 决策篇", "title": "折扣与促销：什么时候该让", "kp": [{"id": "C08-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能判断：折扣是药还是毒——关键看有没有栅栏。", "无栅栏的折扣＝永久降价，这是折扣最大的风险。", "第二篇 · 决策篇 · 第 8 章 折扣与促销：什么时候该让"]}, {"id": "C08-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 同样的让利，两种做法", "案例二 · 一条栅栏救回的利润", "案例三 · 促销的\"剂量控制\""]}, {"id": "C08-3", "type": "scenario", "title": "情境与后果", "story": "淡季做\"全场八折\"。出租率上去了，老客户也开始按八折订，原本全价的客人全跑了。", "remind": "\"全场\"\"全员\"类促销。没有栅栏，必然 buy-down。"}]}, {"id": "C09", "n": 9, "part": "第二篇 · 决策篇", "title": "套餐与锚定：让客人觉得划算", "kp": [{"id": "C09-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能设计：不降房价，却让客人觉得更值的产品。", "锚定效应：客人靠对比判断贵贱——页面顺序影响选择。", "第二篇 · 决策篇 · 第 9 章 套餐与锚定：让客人觉得划算"]}, {"id": "C09-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 一个套餐救活淡季周末", "案例二 · 页面排序的威力", "案例三 · 拆开算就露馅的套餐"]}, {"id": "C09-3", "type": "scenario", "title": "情境与后果", "story": "客房卖 600，市场嫌贵，销售建议降到 500。", "remind": "套餐价低于纯房价。等于变相降价，会侵蚀 BAR。"}]}, {"id": "C10", "n": 10, "part": "第二篇 · 决策篇", "title": "房型价差：差价定多少才合理", "kp": [{"id": "C10-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能设计：不同房型之间该差多少钱——差错了等于白送。", "价差要体现价值差：面积、楼层、视野、含早、行政待遇——逐项折算。", "第二篇 · 决策篇 · 第 10 章 房型价差：差价定多少才合理"]}, {"id": "C10-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 把价差从 50 元改成 150", "案例二 · 淡季收窄价差", "案例三 · 升级池的价值"]}, {"id": "C10-3", "type": "scenario", "title": "情境与后果", "story": "高级大床房 500，行政房 550。客人一看：\"多 50 块就能升行政？\"于是高级房没人订，行政房早早订满，酒店少赚了。", "remind": "价差凭感觉定。应用\"售罄顺序\"这个客观信号来验证。"}]}, {"id": "C11", "n": 11, "part": "第二篇 · 决策篇", "title": "最短住期 MinLOS：用条件把客群分开", "kp": [{"id": "C11-1", "type": "card", "title": "本章要点", "lines": ["读完这章您会用：不加价也能提升收入的\"隐形武器\"。", "MinLOS 挡掉单晚客、 CTA 保护前日连住、 CTD 保护后日连住。", "第二篇 · 决策篇 · 第 11 章 最短住期 MinLOS：用条件把客群分开"]}, {"id": "C11-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 演唱会当晚", "案例二 · 设错了的一次", "案例三 · 限制条件的\"剂量\""]}, {"id": "C11-3", "type": "scenario", "title": "情境与后果", "story": "周六是旺季，只剩 6 间房。一个客人只订周六一晚，付 800 订走了。", "remind": "旺季淡季都设。只在紧俏日设，滥用会赶客。"}]}, {"id": "C12", "n": 12, "part": "第二篇 · 决策篇", "title": "超额预订：卖出去的比有的多", "kp": [{"id": "C12-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能算清：多卖几间是本事，多卖太多是事故。", "超售是对\"取消与 No-show\"的对冲，不是投机。", "第二篇 · 决策篇 · 第 12 章 超额预订：卖出去的比有的多"]}, {"id": "C12-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 一次 walk 的真实代价", "案例二 · 到店确认替代超售", "案例三 · 分房型超售救了一次"]}, {"id": "C12-3", "type": "scenario", "title": "情境与后果", "story": "100 间房，每天总有客人不来（No-show）。于是经理决定：卖 105 间。", "remind": "超售额度拍脑袋。必须按历史取消与 No-show 率算，并留缓冲。"}]}, {"id": "C13", "n": 13, "part": "第二篇 · 决策篇", "title": "库存分配与保护位：给谁留多少房", "kp": [{"id": "C13-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能算出：低价该放多少间，高价该保护多少间——这是全书最核心的一章。", "保护位 ＝给高价客源预留的房量； 低价上限 = 可用房 − 保护位。", "第二篇 · 决策篇 · 第 13 章 库存分配与保护位：给谁留多少房"]}, {"id": "C13-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 死守保护位的代价", "案例二 · 保护位带来的收益", "案例三 · 保护位与超售的配合"]}, {"id": "C13-3", "type": "scenario", "title": "情境与后果", "story": "旺季某日剩 30 间。销售问：\"低价档还能放吗？\"经理说：\"先卖掉再说。\"", "remind": "\"先卖掉再说\"。这是库存分配最常见的失败模式。"}]}, {"id": "C14", "n": 14, "part": "第二篇 · 决策篇", "title": "渠道净价：到手多少钱才算数", "kp": [{"id": "C14-1", "type": "card", "title": "本章要点", "lines": ["读完这章您会算：同样卖 500 元，不同渠道赚的钱差很多。", "净价才是真收入 ＝售价 ×(1−佣金率) − 返现/积分/促销等隐性成本。", "第二篇 · 决策篇 · 第 14 章 渠道净价：到手多少钱才算数"]}, {"id": "C14-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 一次\"渠道减肥\"", "案例二 · 被忽略的渠道成本", "案例三 · 配额救回了直销"]}, {"id": "C14-3", "type": "scenario", "title": "情境与后果", "story": "月底报表：OTA 卖了 800 间，直销只卖了 300 间，销售团队很得意。", "remind": "用售价当收入。必须用净价。"}]}, {"id": "C15", "n": 15, "part": "第二篇 · 决策篇", "title": "渠道组合战略", "kp": [{"id": "C15-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能按净价（而非牌价）给渠道排序、把佣金只扣一次，组合出一套不被单条渠道绑架的渠道结构。", "渠道决策比净价，不比牌价；佣金、返佣与获取成本只扣一次。", "第二篇 · 决策篇 · 第 15 章 渠道组合战略"]}, {"id": "C15-2", "type": "seq", "title": "本章路线", "items": ["渠道比的是净价，不是挂牌价", "组合是一个带约束的分配问题，不是逐…", "用 HHI 看集中度，别让一条渠道…"]}, {"id": "C15-3", "type": "scenario", "title": "情境与后果", "story": "渠道经理拿着一张表进会议室：「直销净价 593.28 最高，把 210 间全放直销。」收益经理指了指合同：「直销占比有下限，但单渠道也有 45% 上限；而且协议客户是全年 40 间夜的客户，OTA 是比价入口。」把房全给净价最高的渠道，第二个月直销没量、协议客户流失、OTA 断流。", "remind": "组合是带约束的分配问题，先写约束再按净贡献降序分配。"}]}, {"id": "C16", "n": 16, "part": "第二篇 · 决策篇", "title": "客源细分：把客人分成几堆来卖", "kp": [{"id": "C16-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能分出：哪些客人该给低价，哪些该守高价。", "细分依据是行为，不是标签：提前期、取消率、价格敏感度、停留时长。", "第二篇 · 决策篇 · 第 16 章 客源细分：把客人分成几堆来卖"]}, {"id": "C16-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 从\"看间夜\"到\"看贡献\"", "案例二 · 细分了却没隔离", "案例三 · 细分后不隔离的后果"]}, {"id": "C16-3", "type": "scenario", "title": "情境与后果", "story": "酒店对所有客人卖一个价。商务客觉得便宜（本来愿意多付），游客觉得贵（干脆不来了）。", "remind": "用间夜数评价客源。应看贡献（间夜 × 单位贡献）。"}]}, {"id": "C17", "n": 17, "part": "第二篇 · 决策篇", "title": "客户终身价值", "kp": [{"id": "C17-1", "type": "card", "title": "本章要点", "lines": ["读完这章您会把一晚的决策放进一段关系里算：客户终身价值怎么算、留存率怎么左右结论、和机会成本怎么一起用。", "CLV 把一晚的决策放进一段关系，单位一律用净贡献。", "第二篇 · 决策篇 · 第 17 章 客户终身价值"]}, {"id": "C17-2", "type": "seq", "title": "本章路线", "items": ["一晚的贡献不是全部，关系长度才是", "留存率的微小变化会改变结论档位", "CLV 必须和容量机会成本一起用"]}, {"id": "C17-3", "type": "scenario", "title": "情境与后果", "story": "一个协议客户报 500 间夜/年，但要求单价压到 520。收益主管按第 18 章算：单晚净贡献 460，低于散客 558，建议拒。销售总监只问了一句：「他去年也来了 40 间夜，前年也是，明年大概率还是；你拒的是一晚，还是三年？」", "remind": "期望年限 1/(1−r) 中的 r 是留存率，不是流失率。"}]}, {"id": "C18", "n": 18, "part": "第二篇 · 决策篇", "title": "团队置换：这个团该不该接", "kp": [{"id": "C18-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能算清：一个 50 间的大团，是机会还是陷阱。", "置换净收益 ＝团队收入 − 被挤散客的 期望 收益。", "第二篇 · 决策篇 · 第 18 章 团队置换：这个团该不该接"]}, {"id": "C18-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 只接一半反而更好", "案例二 · 淡季的团队是好生意", "案例三 · 淡季的团队好生意"]}, {"id": "C18-3", "type": "scenario", "title": "情境与后果", "story": "销售兴冲冲接了个 60 间的旅游团，单价 300。当月出租率很好看。", "remind": "用\"实际散客收入\"而非\"期望收益\"比较。散客需求不确定，用实际值会高估损失。"}]}, {"id": "C19", "n": 19, "part": "第二篇 · 决策篇", "title": "直销与会员：把客人变成自己的", "kp": [{"id": "C19-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能算清：为什么直销是收益管理里最重要的一件事。", "直销价值有二：净价最高（无佣金）＋ 掌握客人数据（可复购触达）。", "第二篇 · 决策篇 · 第 19 章 直销与会员：把客人变成自己的"]}, {"id": "C19-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 前台一句话的价值", "案例二 · 官网低价的反噬", "案例三 · 会员分层的效果"]}, {"id": "C19-3", "type": "scenario", "title": "情境与后果", "story": "酒店在 OTA 上卖得很好，于是越来越依赖 OTA。三年后佣金从 12% 涨到 18%，酒店发现自己被\"卡脖子\"。", "remind": "用裸价打直销。会引发 OTA 降权并拉低整体价格。"}]}, {"id": "C20", "n": 20, "part": "第三篇 · 运营篇", "title": "运营全景：从年到日的节奏", "kp": [{"id": "C20-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能说出：收益管理在一年、一季、一月、一周、一天分别做什么——先有总览，再看细节。", "五层节奏：年（定目标）→ 季（换挡）→ 月（校准）→ 周（布动作）→ 日（执行+记录）。", "第三篇 · 运营篇 · 第 20 章 运营全景：从年到日的节奏"]}, {"id": "C20-2", "type": "seq", "title": "本章路线", "items": ["案例 · 有节奏和没节奏", "案例二 · 只补一层带来的变化", "案例四 · 五层节奏如何配合（含对话）"]}, {"id": "C20-3", "type": "scenario", "title": "情境与后果", "story": "第二篇给了您 12 个决策工具，但工具不会自己运转。", "remind": "只做\"日\"，不做\"年月\"。这是最常见的失衡——每天很忙，但方向从未被校准。"}]}, {"id": "C21", "n": 21, "part": "第三篇 · 运营篇", "title": "每日实操流程：一天具体做什么", "kp": [{"id": "C21-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能跑完：一个完整的收益工作日，从早上到交班。", "四阶段：取数 → 判表 → 执行 → 收口。", "第三篇 · 运营篇 · 第 21 章 每日实操流程：一天具体做什么"]}, {"id": "C21-2", "type": "seq", "title": "本章路线", "items": ["案例 · 只盯今天的代价", "案例二 · 收口这一行字的价值", "案例四 · 一天的完整记录（日报范本）"]}, {"id": "C21-3", "type": "scenario", "title": "情境与后果", "story": "新人最常见的状态是\"很忙但没章法\"——打开一堆报表，看两小时，最后还是凭感觉调了个价。", "remind": "跳过\"滚动未来窗\"。只看当天＝永远在最后 48 小时救火。"}]}, {"id": "C22", "n": 22, "part": "第三篇 · 运营篇", "title": "执行标准与收益例会", "kp": [{"id": "C22-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能判断：做到什么程度算合格，以及怎么让团队持续做对。", "判定表：逐行勾选，满足必达项才执行；反馈指\"第几项不达标\"而非主观评价。", "第三篇 · 运营篇 · 第 22 章 执行标准与收益例会"]}, {"id": "C22-2", "type": "seq", "title": "本章路线", "items": ["案例 · 判定表如何止住争论", "案例二 · 一页反馈 vs 三页反馈", "案例四 · 例会如何止住\"降价惯性\""]}, {"id": "C22-3", "type": "scenario", "title": "情境与后果", "story": "两个人用同一套方法，结果可能差很远——因为 \"做了\"和\"做对了\"是两件事。", "remind": "把判定表当摆设。决策时不用表，出了事才翻。"}]}, {"id": "C23", "n": 23, "part": "第三篇 · 运营篇", "title": "预测与需求日历", "kp": [{"id": "C23-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能回答：凭什么现在就知道那天会不会满房。", "预测对象是需求曲线，不是最终出租率。", "第三篇 · 运营篇 · 第 23 章 预测与需求日历"]}, {"id": "C23-2", "type": "seq", "title": "本章路线", "items": ["案例 · 两次不同的\"感觉\"", "案例三 · 一张日历的复利", "案例四 · 预测如何救了一次布价"]}, {"id": "C23-3", "type": "scenario", "title": "情境与后果", "story": "距国庆还有 40 天，销售说\"放心，肯定爆满\"，于是价格一路往上抬。", "remind": "用单一年份做历史。偶然大单会把规律带歪，至少 2–3 年加权。"}]}, {"id": "C24", "n": 24, "part": "第三篇 · 运营篇", "title": "需求创造", "kp": [{"id": "C24-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能算清一场活动到底创造了多少净新增需求，而不是把活动期间的总销量误当成增量。", "需求创造算的是净新增，不是活动期间的总销量。", "第三篇 · 运营篇 · 第 24 章 需求创造"]}, {"id": "C24-2", "type": "seq", "title": "本章路线", "items": ["先把增量贡献和营销花费放在同一口径", "「卖得更多」不等于「需求被创造」", "肩部夜与置换要一起看"]}, {"id": "C24-3", "type": "scenario", "title": "情境与后果", "story": "周二收益例会。销售总监说：「下月平峰投三万做推广，能带 70 间夜，ADR 618，肯定赚。」收益经理问了三句：这 70 间里有多少是本来就会来的？当天还有多少余房？挤掉的老客人按什么价算？会议室安静了。三万花出去，账不是「70 × 房价」这么简单。", "remind": "保本增量 = 固定花费 ÷ 单位净贡献，本例 53.76 间夜。"}]}, {"id": "C25", "n": 25, "part": "第三篇 · 运营篇", "title": "年度预算：把一年拆到每天", "kp": [{"id": "C25-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能做：把一个年度目标，变成每天该卖多少钱、留多少房。", "月指数 ＝该月历史 RevPAR ÷ 全年月均；目标 × 月指数 = 月目标。", "第三篇 · 运营篇 · 第 25 章 年度预算：把一年拆到每天"]}, {"id": "C25-2", "type": "seq", "title": "本章路线", "items": ["案例 · 两个版本的预算", "案例三 · 预算里的市场假设救了一次复盘", "案例四 · 一次预算宣贯会（含对话）"]}, {"id": "C25-3", "type": "scenario", "title": "情境与后果", "story": "老板年初给了一个数：\"明年客房收入做到 3,000 万。\"会议室里人人点头，然后各干各的。", "remind": "平均分成十二份。这是最常见的错误，会让预算完全失去指导意义。"}]}, {"id": "C26", "n": 26, "part": "第三篇 · 运营篇", "title": "价格体系 BAR：所有价格的锚", "kp": [{"id": "C26-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能搭出：一套不乱、不塌、谁都能执行的价格结构。", "BAR ＝公开可订的最低无限制价；同一时刻 只能有一个。", "第三篇 · 运营篇 · 第 26 章 价格体系 BAR：所有价格的锚"]}, {"id": "C26-2", "type": "seq", "title": "本章路线", "items": ["案例 · 价格体系治理带来的收益", "案例三 · 收回前台改价权", "案例四 · 清理价档的完整过程"]}, {"id": "C26-3", "type": "scenario", "title": "情境与后果", "story": "一家酒店有 17 种价格：门市价、会员价、协议价、OTA 价、团购价、员工价……", "remind": "价格档位越加越多。每一档都是漏洞，应定期清理。"}]}, {"id": "C27", "n": 27, "part": "第三篇 · 运营篇", "title": "报表体系：每天该看哪几张表", "kp": [{"id": "C27-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能列出：收益岗每天、每周、每月必看的表。", "日报看动作、周报看趋势、月报看结构。", "第三篇 · 运营篇 · 第 27 章 报表体系：每天该看哪几张表"]}, {"id": "C27-2", "type": "seq", "title": "本章路线", "items": ["案例 · 从 60 张表到 9 张表", "案例三 · 两套数字的代价", "案例四 · 一张报表如何改变决策"]}, {"id": "C27-3", "type": "scenario", "title": "情境与后果", "story": "系统里有 60 张报表，收益经理每天打开一堆，看两小时，最后还是不知道今天该干什么。", "remind": "报表越多越好。恰恰相反，报表多会淹没关键信息。"}]}, {"id": "C28", "n": 28, "part": "第三篇 · 运营篇", "title": "OTA 与点评：评分就是价格", "kp": [{"id": "C28-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能算清：一条差评值多少钱，一个评分点值多少房价。", "评分就是价格：评分低＝永久性降价，是隐形税。", "第三篇 · 运营篇 · 第 28 章 OTA 与点评：评分就是价格"]}, {"id": "C28-2", "type": "seq", "title": "本章路线", "items": ["案例 · 先修评分再调价", "案例三 · 提价忘了同步，白丢收益", "案例四 · 评分回升后的提价（含时间线）"]}, {"id": "C28-3", "type": "scenario", "title": "情境与后果", "story": "收益经理天天调价，但出租率就是上不去。后来发现问题不在价格—— OTA 上评分只有 4.2，而竞品是 4.7。", "remind": "用降价掩盖口碑问题。成本最高且不可持续。"}]}, {"id": "C29", "n": 29, "part": "第四篇 · 组织篇", "title": "岗位与组织：谁来干这件事", "kp": [{"id": "C29-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能说清：收益管理在酒店里是谁的活、怎么协作、为什么多数酒店没落地。", "收益管理是跨部门职能：前厅、销售、市场、财务缺一不可。", "第四篇 · 组织篇 · 第 29 章 岗位与组织：谁来干这件事"]}, {"id": "C29-2", "type": "seq", "title": "本章路线", "items": ["案例 · 一次授权改变结果", "案例三 · 总经理参加例会的差别", "案例四 · 一次授权改革（含对话）"]}, {"id": "C29-3", "type": "scenario", "title": "情境与后果", "story": "酒店设了\"收益经理\"岗位，但定价权在销售总监手里，房态权在前厅经理手里，收益经理只能\"提建议\"。", "remind": "设岗不授权。收益经理沦为做表文员。"}]}, {"id": "C30", "n": 30, "part": "第四篇 · 组织篇", "title": "成本与利润：降价的底线在哪", "kp": [{"id": "C30-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能说出：这间房最低能卖多少钱——低于这个数就是亏。", "变动成本：洗涤、易耗、能耗、早餐、佣金、返现（要向财务要完整清单）。", "第四篇 · 组织篇 · 第 30 章 成本与利润：降价的底线在哪"]}, {"id": "C30-2", "type": "seq", "title": "本章路线", "items": ["案例 · \"填满房\"如何毁灭利润", "案例三 · 保本点救了一次决策", "案例四 · 一次\"砍掉亏损生意\""]}, {"id": "C30-3", "type": "scenario", "title": "情境与后果", "story": "淡季出租率 40%，销售说\"能卖一点是一点\"，把房价压到 180。", "remind": "不知道变动成本就降价。这是最危险的状态。"}]}, {"id": "C31", "n": 31, "part": "第四篇 · 组织篇", "title": "系统与数据：工具能替您做什么", "kp": [{"id": "C31-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能判断：什么时候该上系统，没系统时怎么办。", "系统是放大器：方法对，它放大对；方法错，它放大错。", "第四篇 · 组织篇 · 第 31 章 系统与数据：工具能替您做什么"]}, {"id": "C31-2", "type": "seq", "title": "本章路线", "items": ["案例 · Excel 打赢了系统", "案例三 · 系统发现不了的事", "案例四 · 一次系统选型的对比"]}, {"id": "C31-3", "type": "scenario", "title": "情境与后果", "story": "花几十万上了收益管理系统（RMS），半年后没人用——因为数据不准、流程没改、没人会看。", "remind": "先买系统后建流程。顺序反了，必然闲置。"}]}, {"id": "C32", "n": 32, "part": "第四篇 · 组织篇", "title": "淡旺季与事件日：一年里最容易赚的钱", "kp": [{"id": "C32-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能分清：旺季该\"守\"，淡季该\"放\"，以及事件日怎么提前布。", "旺季守价 + 加限制； 淡季放量 + 做价值； 平季练内功。", "第四篇 · 组织篇 · 第 32 章 淡旺季与事件日：一年里最容易赚的钱"]}, {"id": "C32-2", "type": "seq", "title": "本章路线", "items": ["案例 · 一次演出的两种结果", "案例三 · 淡季的一个反直觉发现", "案例四 · 淡旺季切换的完整清单"]}, {"id": "C32-3", "type": "scenario", "title": "情境与后果", "story": "淡季用旺季的打法（守高价、加限制），结果空房一堆；旺季用淡季的打法（放低价、做促销），结果早早卖光还卖便宜了。", "remind": "全年一套打法。旺淡策略必须相反。"}]}, {"id": "C33", "n": 33, "part": "第五篇 · 延伸篇", "title": "餐饮收益：RevPASH 与翻台", "kp": [{"id": "C33-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能把收益管理的思路用在餐厅上。", "产能＝座位 × 时间；比客房更易逝（一小时卖不掉即归零）。", "第五篇 · 延伸篇 · 第 33 章 餐饮收益：RevPASH 与翻台"]}, {"id": "C33-2", "type": "seq", "title": "本章路线", "items": ["案例 · 周一的问题", "案例三 · 菜单工程的发现", "案例四 · 一间餐厅的时段改造（含数据）"]}, {"id": "C33-3", "type": "scenario", "title": "情境与后果", "story": "餐厅周末排队、周一空一半。经理的办法是\"周末多安排人、周一少安排人\"—— 只调了成本，没调需求。", "remind": "用上座率当核心指标。上座率高但客单低仍可能亏损。"}]}, {"id": "C34", "n": 34, "part": "第五篇 · 延伸篇", "title": "会议宴会：不只算房，算总贡献", "kp": [{"id": "C34-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能评估：一个会议该不该接——看的是综合贡献，不是房价。", "综合贡献 ＝客房 + 餐饮 + 场地 − 被挤散客的期望收益。", "第五篇 · 延伸篇 · 第 34 章 会议宴会：不只算房，算总贡献"]}, {"id": "C34-2", "type": "seq", "title": "本章路线", "items": ["案例 · 旺季拒接，淡季接", "案例三 · 阶梯报价救了一单", "案例四 · 一次会议改期的谈判（含对话）"]}, {"id": "C34-3", "type": "scenario", "title": "情境与后果", "story": "销售接了个 200 人的会议，房价压到 300（低于散客），但很得意——\"还有宴会和场地收入呢\"。", "remind": "只看房价判断会议。必须用综合贡献。"}]}, {"id": "C35", "n": 35, "part": "第五篇 · 延伸篇", "title": "其他业态与跨行业参数", "kp": [{"id": "C35-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能迁移：把收益管理用到酒店之外。", "迁移六问：产能单位、是否易逝、是否波动、能否分层、天然栅栏、指标怎么换。", "第五篇 · 延伸篇 · 第 35 章 其他业态与跨行业参数"]}, {"id": "C35-2", "type": "seq", "title": "本章路线", "items": ["案例一 · 长短租配比（公寓）", "案例二 · 健身房的一次\"收益管理\"", "案例三 · 一次失败的迁移"]}, {"id": "C35-3", "type": "scenario", "title": "情境与后果", "story": "学完收益管理，以为只能在酒店用。", "remind": "认为收益管理只属于酒店。它属于所有易逝产能行业。"}]}, {"id": "C36", "n": 36, "part": "第五篇 · 延伸篇", "title": "常见误区：30 个坑，别再踩", "kp": [{"id": "C36-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能自查：这 30 个错误，您犯了几个。", "把出租率当目标 ——出租率是手段，RevPAR 是结果，GOP 才是目的。", "第五篇 · 延伸篇 · 第 36 章 常见误区：30 个坑，别再踩"]}, {"id": "C36-2", "type": "seq", "title": "本章路线", "items": ["一、指标类误区", "二、定价类误区", "三、库存类误区"]}, {"id": "C36-3", "type": "scenario", "title": "情境与后果", "story": "这一章不讲故事了——因为下面每一条，都是真实工作中反复出现的错误。", "remind": "用平均房价代替实际到手价 ——必须扣渠道佣金看净价。"}]}, {"id": "C37", "n": 37, "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "title": "中国渠道生态：平台、私域、买断与直播", "kp": [{"id": "C37-1", "type": "card", "title": "本章要点", "lines": ["① 说清国内主流平台的角色差异与各自的成本结构；② 会算包房买断与代理切房的真实净价；③ 知道直播预售会带来哪三类价格冲突并会设隔离规则；④ 能为本店做一份渠道结构体检。", "渠道决策的统一判据是净价与定价权：三类平台各有角色，买断与切房用净价比较，直播预售用四条隔离规则守住价格体系。", "第六篇 · 现实篇：连锁、AI、危机与职业 · 第 37 章 中国渠道生态：平台、私域、买断与直播"]}, {"id": "C37-2", "type": "seq", "title": "本章路线", "items": ["三类平台", "直连与私域", "包房买断"]}, {"id": "C37-3", "type": "scenario", "title": "情境与后果", "story": "国内酒店面对的不是\"一个 OTA\"，而是三类角色不同的平台：", "remind": "渠道决策的统一判据是净价与定价权：三类平台各有角色，买断与切房用净价比较，直播预售用四条隔离规则守住价格体系。"}]}, {"id": "C38", "n": 38, "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "title": "连锁与中央预订：总部定价，门店做什么", "kp": [{"id": "C38-1", "type": "card", "title": "本章要点", "lines": ["① 说清连锁集团里定价权怎么分布；② 知道门店收益岗位真正负责的三件事；③ 会用总部的视角看本店数据；④ 能为门店写一份\"争取总部支持\"的申请。", "连锁体系里价格总部定、门店管库存：门店收益岗的三件事，是把本地信息上报上去、把总部执行反馈回来、在有限服务下调整房型组合。", "第六篇 · 现实篇：连锁、AI、危机与职业 · 第 38 章 连锁与中央预订：总部定价，门店做什么"]}, {"id": "C38-2", "type": "seq", "title": "本章路线", "items": ["定价权三层", "门店三件事", "房型组合"]}, {"id": "C38-3", "type": "scenario", "title": "情境与后果", "story": "连锁体系里定价权通常分三层：", "remind": "连锁体系里价格总部定、门店管库存：门店收益岗的三件事，是把本地信息上报上去、把总部执行反馈回来、在有限服务下调整房型组合。"}]}, {"id": "C39", "n": 39, "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "title": "AI 工具做收益分析", "kp": [{"id": "C39-1", "type": "card", "title": "本章要点", "lines": ["① 记住并理解使用 AI 的三条铁律；② 能写出含口径约束的合格提示词；③ 会对 AI 输出做落到具体数字的抽核；④ 能把 AI 起草的汇报改成人能用的版本。", "AI 分析的三条铁律是口径写清、人做决策、抽核签字；合格的提示词与抽核记录，让 AI 输出变成可交付的依据。", "第六篇 · 现实篇：连锁、AI、危机与职业 · 第 39 章 AI 工具做收益分析"]}, {"id": "C39-2", "type": "seq", "title": "本章路线", "items": ["三条铁律", "提示词四要素", "三类任务"]}, {"id": "C39-3", "type": "scenario", "title": "情境与后果", "story": "① AI 输出未经核对，不进台账、不进汇报。 大模型的本质是\"生成最像答案的文本\"，不是\"计算最对的答案\"，它会编数字、混口径、抹异常——错误还常常\"看起来很像对的\"。 ② 口径必须对照本书与《SPEC》，AI 自带的口径一律不信。 它的训练数据里混着各行各业的\"ADR\"\"出租率\"定义，会默认挑一个最常见的（往往不是酒店的）。 ③ AI 只起草，人拍板。 责任无法转移——台账上签字的是你，不是模型。", "remind": "AI 分析的三条铁律是口径写清、人做决策、抽核签字；合格的提示词与抽核记录，让 AI 输出变成可交付的依据。"}]}, {"id": "C40", "n": 40, "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "title": "生成式 AI 与优化", "kp": [{"id": "C40-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能把 AI 的输出当成候选答案：会写带口径约束的提示词，会把容量分配写成可校验的优化式，并守住口径门禁。", "RGI = MPI × ARI ÷ 100；漏除 100 是生成物最典型的错误。", "第六篇 · 现实篇：连锁、AI、危机与职业 · 第 40 章 生成式 AI 与优化"]}, {"id": "C40-2", "type": "seq", "title": "本章路线", "items": ["AI 的输出是候选，不是决策", "把容量分配写成可校验的优化式", "生成物要过口径门禁才能采用"]}, {"id": "C40-3", "type": "scenario", "title": "情境与后果", "story": "一位新上任的收益专员让 AI 算 RGI。AI 答：「MPI 105.88 乘以 ARI 90.88，得 9,622.84，说明远超竞组。」数字看着很具体，结论却荒唐。漏了一个 ÷100，指数从 96.23 变成 9,622.84。主管没有直接给正确答案，只说了一句：「把公式写出来，再用 RevPAR 比算一遍。」", "remind": "容量分配要写成带约束的优化式，超售上限与调价频次都是约束。"}]}, {"id": "C41", "n": 41, "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "title": "危机与极端场景", "kp": [{"id": "C41-1", "type": "card", "title": "本章要点", "lines": ["① 识别四类极端场景及其对收益的冲击路径；② 会设计取消与改期政策的梯度；③ 知道危机中价格处置的两条原则；④ 能写一份危机处置记录。", "危机处置先止血、再恢复：自动动作全停下、政策比价格好用、退改梯度留余地，恢复期再按需求弹性回到判定表。", "第六篇 · 现实篇：连锁、AI、危机与职业 · 第 41 章 危机与极端场景"]}, {"id": "C41-2", "type": "seq", "title": "本章路线", "items": ["四类场景", "退改梯度", "不恐慌降价"]}, {"id": "C41-3", "type": "scenario", "title": "情境与后果", "story": "① 需求骤停 （疫情、自然灾害、重大事故）：在手预订集中取消，预测模型全部失效，历史同期失去参考。 ② 供给中断 （装修、消防整改、设备故障、临时征用）：可售房量突减，已售房要外转安置，超售策略必须立刻停。 ③ 舆情冲击 （差评潮、媒体曝光、食品安全事件）：需求不消失但转化崩塌，降价无效——因为问题不是价格。 ④ 系统故障 （PMS 宕机、渠道同步失败、RMS 中毒）：数据不可信，所有自动动作必须立刻转人工。", "remind": "危机处置先止血、再恢复：自动动作全停下、政策比价格好用、退改梯度留余地，恢复期再按需求弹性回到判定表。"}]}, {"id": "C42", "n": 42, "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "title": "收益岗位与职业发展", "kp": [{"id": "C42-1", "type": "card", "title": "本章要点", "lines": ["① 了解收益相关岗位的四类形态与差异；② 能画自己的能力雷达并找出短板；③ 知道晋升路径与每个阶段的门槛；④ 能回答面试中最常被问的三类问题。", "岗位名字再多，能力就是六项：数据、定价、库存、渠道、沟通、汇报；短板常在沟通，晋升看敢不敢独立签字。", "第六篇 · 现实篇：连锁、AI、危机与职业 · 第 42 章 收益岗位与职业发展"]}, {"id": "C42-2", "type": "seq", "title": "本章路线", "items": ["四类岗位", "能力雷达六维", "晋升路径"]}, {"id": "C42-3", "type": "scenario", "title": "情境与后果", "story": "① 单体全服务酒店的收益经理：权限最大（价格、库存、团队都管），责任最重，也最容易背锅。适合想把全套学透的人。 ② 连锁门店的收益专员：价格总部定，做库存与房型组合（见第 22 章）。入门门槛低，但成长天花板取决于能不能进区域/总部。 ③ 集团/区域收益中心：管多家店的参数与策略，看的是组合与对标，能力要求偏分析与沟通。 ④ 商业分析/数字营销融合岗：近三年出现的新形态，把收益、营销、数据放在一起管，是行业融合的方向。", "remind": "岗位名字再多，能力就是六项：数据、定价、库存、渠道、沟通、汇报；短板常在沟通，晋升看敢不敢独立签字。"}]}, {"id": "C43", "n": 43, "part": "第六篇 · 现实篇：连锁、AI、危机与职业", "title": "变革篇：收益管理正在发生的五件事", "kp": [{"id": "C43-1", "type": "card", "title": "本章要点", "lines": ["① 说清算法化时代收益经理的角色位移；② 理解全域收益的范围与判据；③ 知道汇报能力为什么是战略化岗位的生存技能；④ 会用净价思维判断渠道动作；⑤ 识别\"历史同期失灵\"的场景并会用事件三层法。", "五件事是一条链：算法化解放了时间，全域化扩大了半径，战略化要求把数据翻译成决策，渠道透明与需求重构改写着判据。", "第六篇 · 现实篇：连锁、AI、危机与职业 · 第 43 章 变革篇：收益管理正在发生的五件事"]}, {"id": "C43-2", "type": "seq", "title": "本章路线", "items": ["算法化·人管系统", "全域化·总贡献判据", "战略化·汇报翻译"]}, {"id": "C43-3", "type": "scenario", "title": "情境与后果", "story": "RMS 与 AI 接管了大部分手工活：预测、比价、生成建议价、执行常规调整。人的角色没有消失，而是位移到三个地方：", "remind": "五件事是一条链：算法化解放了时间，全域化扩大了半径，战略化要求把数据翻译成决策，渠道透明与需求重构改写着判据。"}]}, {"id": "C44", "n": 44, "part": "第七篇 · 视野篇：周期、人工智能与可持续", "title": "周期与不确定性下的收益管理", "kp": [{"id": "C44-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能判断：面对周期与突发冲击，该提前锁什么、该放开什么，底线放在哪里。", "周期与冲击是收益决策的前置条件：可预期周期提前进需求日历，不可预期冲击用情景规划与弹性库存对冲。", "第七篇 · 视野篇：周期、人工智能与可持续 · 第 44 章 周期与不确定性下的收益管理"]}, {"id": "C44-2", "type": "seq", "title": "本章路线", "items": ["需求不是一条直线", "三类可预期的周期", "不确定性下的五条纪律"]}, {"id": "C44-3", "type": "scenario", "title": "情境与后果", "story": "某会展城市的一家商务酒店，在展会周把散客价上调两倍仍满房；三个月后同城举办大型赛事，它照搬同一套高价，结果赛事因天气取消，预订大面积退订，当天出租率掉到四成。两次都是\"事件\"，结果天差地别——差别不在定价技巧，而在有没有把\"周期与不确定性\"当作决策的前置条件。", "remind": "下行期现金流优先于出租率；判定表的硬底线是\"打平量\"。"}]}, {"id": "C45", "n": 45, "part": "第七篇 · 视野篇：周期、人工智能与可持续", "title": "人工智能与收益管理（科普）", "kp": [{"id": "C45-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能分清：AI 在收益管理里已经能做什么、还不能做什么，以及哪些判断必须由人签字负责。", "AI 对 RevPAR 的边际贡献约 5%–8%，是放大器而非引擎；边界、异常处理与解释权必须由人掌握。", "第七篇 · 视野篇：周期、人工智能与可持续 · 第 45 章 人工智能与收益管理（科普）"]}, {"id": "C45-2", "type": "seq", "title": "本章路线", "items": ["AI 在收益管理里到底做什么", "算法能替代的与不能替代的", "先被追平的是\"会算数的\""]}, {"id": "C45-3", "type": "scenario", "title": "情境与后果", "story": "一家城市商务酒店把定价权交给了一套算法：系统每天凌晨根据历史预订、竞对价格与剩余库存自动调价，前三个月 RevPAR 提升了约 6%。但第四个月附近新开一家会议酒店，算法因缺少这类\"结构性突变\"的历史样本，连续两周把团队价压得过低，丢了三笔大单。技术没有错，错在没人盯着\"算法在什么时候会失灵\"。", "remind": "本书的判定表定义了人机边界：算法给建议，判定表做校验与兜底，不可逆动作必须人工批准。"}]}, {"id": "C46", "n": 46, "part": "第七篇 · 视野篇：周期、人工智能与可持续", "title": "绿色收益管理与可持续", "kp": [{"id": "C46-1", "type": "card", "title": "本章要点", "lines": ["读完这章您能算清绿色投入的账：哪些是成本、哪些能变成溢价与节省，可持续怎么进入收益决策。", "可持续给收益管理带来两个新变量：成本侧抬高打平量，需求侧提供差异化卖点；两者都接入已有判定表。", "第七篇 · 视野篇：周期、人工智能与可持续 · 第 46 章 绿色收益管理与可持续"]}, {"id": "C46-2", "type": "seq", "title": "本章路线", "items": ["可持续是收益管理的两个新变量", "把绿色写进判定表", "绿色收益的三条纪律"]}, {"id": "C46-3", "type": "scenario", "title": "情境与后果", "story": "一家海滨度假酒店发现，把\"连住两晚享延迟退房＋免一次布草更换\"打包后，不仅客单价没降，洗涤与能耗成本反而下降，复购率提升。绿色不是成本中心，而是可以被收益管理重新定价的资产。", "remind": "绿色收益先算成本再谈叙事，防漂绿、与定位一致；绿色权益包优于直接降价。"}]}];
+var KEY='hrma_quest46_v1';
+var TYPENAME={card:'读一读',seq:'排个序',scenario:'看后果'};
+var TYPEQ={card:'读完三段，点亮',seq:'按教材顺序点齐，点亮',scenario:'看完情境与提醒，点亮'};
+var P=load(),curC=0,curK=0,cardStep=0,seqStep=0,seqOrder=[];
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function load(){try{var v=JSON.parse(localStorage.getItem(KEY)||'null');return (v&&v.lit&&typeof v.lit==='object')?v:{lit:{}}}catch(e){return {lit:{}}}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(P))}catch(e){}}
+function litN(c){var n=0;for(var i=0;i<c.kp.length;i++)if(P.lit[c.kp[i].id])n++;return n}
+function campDone(c){return litN(c)===c.kp.length}
+function total(){var n=0;for(var i=0;i<CAMPS.length;i++)n+=litN(CAMPS[i]);return n}
+function allDone(){for(var i=0;i<CAMPS.length;i++)if(!campDone(CAMPS[i]))return false;return true}
+function flash(t){var f=$('flash');f.textContent=t;f.className='flash show';clearTimeout(f._t);f._t=setTimeout(function(){f.className='flash'},1500)}
+function progress(){var n=total();$('lit').textContent=n;$('pb').style.width=(n/138*100)+'%'}
+function lit(id){P.lit[id]=1;save();progress();flash('💡 点亮一盏灯')}
+
+/* ---------- 侧栏目录 ---------- */
+function side(){var h='<h3>七篇 · 46 章</h3>',last='';
+  for(var i=0;i<CAMPS.length;i++){var c=CAMPS[i];
+    if(c.part!==last){h+='<div class="pt">'+esc(c.part.split(' · ')[0])+'</div>';last=c.part}
+    h+='<a href="javascript:goCamp('+i+')" id="s'+i+'" class="'+(campDone(c)?'done':'')+(i===curC?' cur':'')+'">'+c.n+'　'+esc(c.title.slice(0,11))+'</a>';
+  }
+  $('side').innerHTML=h}
+
+/* ---------- 首页：登山路径 ---------- */
+function home(){var h='<div class="sub">每一章是一个营地，每章三盏灯。读要点、排路线、看情境后果——选错不扣分，点亮全部即可登顶。</div>',last='';
+  for(var i=0;i<CAMPS.length;i++){var c=CAMPS[i];
+    if(c.part!==last){
+      if(last)h+='</div>';
+      var cnt=CAMPS.filter(function(x){return x.part===c.part}).length;
+      h+='<div class="partbar">'+esc(c.part)+'<span>'+cnt+' 章 · '+cnt*3+' 盏灯</span></div><div class="path">';
+      last=c.part;
+    }
+    var d=campDone(c);
+    h+='<div class="camp '+(d?'done':'')+(i===curC?' cur':'')+'" onclick="goCamp('+i+')">'
+      +'<div class="badge">'+c.n+'</div><div class="cbody"><div class="cname">'+esc(c.title)+'</div>'
+      +'<div class="cmeta">'+esc(c.part.split(' · ')[0])+' · 第 '+c.n+' 章 · '+litN(c)+'/3 盏已亮</div>'
+      +'<div class="lamps">';
+    for(var j=0;j<c.kp.length;j++)h+='<i class="'+(P.lit[c.kp[j].id]?'on':'')+'"></i>';
+    h+='</div></div><div class="cright">'+(d?'✅ 已过':'→ 进营地')+'</div></div>';
+  }
+  h+='</div>';
+  $('stage').innerHTML=h;side();progress();
+  if(allDone())done();
+}
+
+/* ---------- 营地：三盏灯 ---------- */
+function goCamp(i){curC=i;var c=CAMPS[i];
+  var h='<div class="panel"><h2>第 '+c.n+' 章 · '+esc(c.title)+'</h2>'
+    +'<div class="tag">'+esc(c.part)+'</div>'
+    +'<p class="sub">按顺序点亮三盏灯。全程不判分，读完、点齐、看完就算过。</p><div class="kplist">';
+  for(var j=0;j<c.kp.length;j++){var k=c.kp[j];
+    h+='<div class="kpitem '+(P.lit[k.id]?'lit':'')+'" onclick="goKp('+j+')"><i class="dot"></i>'
+      +'<b>'+esc(k.title)+'</b><span>'+TYPENAME[k.type]+' · '+TYPEQ[k.type]+'</span></div>';
+  }
+  h+='</div><div class="row"><button class="btn" onclick="home()">← 回到山路</button>';
+  if(i>0)h+='<button class="btn" onclick="goCamp('+(i-1)+')">上一章</button>';
+  if(i<CAMPS.length-1)h+='<button class="btn" onclick="goCamp('+(i+1)+')">下一章 →</button>';
+  h+='</div></div>';
+  $('stage').innerHTML=h;side();progress();
+}
+
+/* ---------- 灯：三种互动 ---------- */
+function goKp(j){curK=j;var c=CAMPS[curC],k=c.kp[j];
+  cardStep=0;seqStep=0;seqOrder=[];
+  // 稳定伪洗牌（同一章每次顺序一致）——仅 seq 灯有 items
+  if(k.type==='seq'){
+    var arr=k.items.map(function(x,i){return i});
+    var seed=c.n*31+7;
+    for(var t=arr.length-1;t>0;t--){seed=(seed*1103515245+12345)&0x7fffffff;var r=seed%(t+1);var tmp=arr[t];arr[t]=arr[r];arr[r]=tmp}
+    if(arr.join(',')===k.items.map(function(x,i){return i}).join(','))arr.reverse();
+    seqOrder=arr;
+  }
+  var h='<div class="panel"><h2>'+esc(k.title)+'</h2><div class="tag">第 '+c.n+' 章 · '+esc(c.title)+' · '+TYPENAME[k.type]+'</div>'
+    +'<div id="kpbody"></div><div class="row"><button class="btn" onclick="goCamp('+curC+')">← 回本章</button>'
+    +'<button class="btn pri" id="nextbtn" onclick="kpNext()"></button></div></div>';
+  $('stage').innerHTML=h;kpRender();side();
+}
+function kpRender(){var c=CAMPS[curC],k=c.kp[curK],b=$('kpbody'),nb=$('nextbtn');
+  if(k.type==='card'){
+    var h='';
+    for(var i=0;i<Math.min(cardStep+1,k.lines.length);i++)h+='<div class="cardline">'+esc(k.lines[i])+'</div>';
+    b.innerHTML=h+'<p class="sub">第 '+Math.min(cardStep+1,k.lines.length)+' / '+k.lines.length+' 段</p>';
+    nb.textContent=(cardStep<k.lines.length-1)?'读下一段 →':'读完了，点亮 💡';
+  }else if(k.type==='seq'){
+    var h='<p class="sub">下面这些是本章思维导图里的路线，把它们按教材顺序依次点出来。</p>';
+    for(var t=0;t<seqOrder.length;t++){var idx=seqOrder[t];
+      var okk=t<seqStep;
+      h+='<button class="seqbtn '+(okk?'ok':'')+'" onclick="seqPick('+t+','+idx+')">'
+        +(okk?'<span class="no">✓ '+(t+1)+'</span>':'<span class="no">?</span>')+esc(k.items[idx])+'</button>';
+    }
+    b.innerHTML=h+'<p class="sub">已点 '+seqStep+' / '+seqOrder.length+'</p>';
+    nb.style.display='none';
+    return;
+  }else{
+    b.innerHTML='<div class="story"><b>情境</b><br>'+esc(k.story)+'</div>'
+      +'<div class="remind"><b>本章提醒</b><br>'+esc(k.remind)+'</div>';
+    nb.textContent='看完了，点亮 💡';
+  }
+  nb.style.display='';
+}
+function seqPick(t,idx){var k=CAMPS[curC].kp[curK];
+  if(t===seqStep){seqStep++;if(seqStep>=seqOrder.length){lit(k.id);flash('✅ 路线点齐，灯亮了');goCamp(curC);return}}
+  else{flash('再看一眼顺序，这一项还没轮到')}
+  kpRender();
+}
+function kpNext(){var c=CAMPS[curC],k=c.kp[curK];
+  if(k.type==='card'){
+    if(cardStep<k.lines.length-1){cardStep++;kpRender();return}
+  }
+  lit(k.id);goCamp(curC);
+}
+function resetAll(){if(!confirm('确定清空全部 138 盏灯的进度，重新登山？'))return;P={lit:{}};save();home();flash('已回到山脚')}
+
+/* ---------- 通关页 ---------- */
+function done(){var h='<div class="panel donebox"><div class="flag">🏔️</div><h2>登顶了</h2>'
+  +'<p>46 章、138 盏灯全部点亮。教材的骨架已经走完一遍——接下来去题库把判断练成手感。</p>'
+  +'<div class="row" style="justify-content:center"><a class="btn pri" href="../../quiz-bank.html">去做 46 章题库 →</a>'
+  +'<a class="btn" href="../../game-rm.html">云璟通关游戏</a><button class="btn" onclick="home()">回看山路</button></div>'
+  +'<div class="review">';
+  for(var i=0;i<CAMPS.length;i++){var c=CAMPS[i];
+    h+='<div><b>第 '+c.n+' 章 '+esc(c.title)+'</b><br>'+esc(c.kp[0].lines[1])+'</div>';
+  }
+  h+='</div></div>';
+  $('stage').innerHTML=h;progress();
+}
+home();
+</script>
+</body></html>
