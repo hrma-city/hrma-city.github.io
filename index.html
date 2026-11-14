@@ -15,58 +15,62 @@
 <link rel="stylesheet" href="assets/css/auth.css">
 <link rel="stylesheet" href="assets/css/notify.css">
 <style>
-/* 身份选择首页 */
-.ident-grid{max-width:1080px;margin:24px auto 8px;padding:0 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-.ident-card{display:block;text-decoration:none;background:linear-gradient(160deg,#13385f,#0c2542);border:1px solid #244a72;border-radius:16px;padding:24px 22px;color:#fff;transition:.18s;position:relative;overflow:hidden}
-.ident-card:hover{transform:translateY(-3px);border-color:#e8b84b;box-shadow:0 10px 30px rgba(0,0,0,.3)}
-.ident-card .ic{font-size:34px;margin-bottom:10px}
-.ident-card h2{font-size:21px;margin:0 0 6px;color:#fff}
-.ident-card .who{font-size:13.5px;color:#bcd4ee;margin:0 0 12px;line-height:1.6;background:transparent;border:0;padding:0;box-shadow:none;border-radius:0}
-.ident-card .do{font-size:14px;color:#fff;line-height:1.7;background:rgba(255,255,255,.06);border-radius:10px;padding:10px 12px;margin-bottom:12px}
-.ident-card .do strong{color:#ffd97a}
-.ident-card .go{display:inline-block;background:#e8b84b;color:#3a2a05;font-weight:800;font-size:14px;padding:8px 16px;border-radius:9px}
-.ident-card .tags{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
-.ident-card .tags span{font-size:12px;color:#bcd4ee;background:rgba(255,255,255,.08);border-radius:20px;padding:3px 10px}
-.pitch{max-width:1080px;margin:26px auto 6px;padding:22px 26px;background:linear-gradient(160deg,#13385f,#0c2542);border:1px solid #244a72;border-radius:16px}
-.pitch .pe{font-size:12.5px;letter-spacing:1.5px;color:#e8b84b;font-weight:700;text-align:center;margin-bottom:6px}
-.pitch h3{text-align:center;color:#fff;font-size:20px;margin:0 0 10px}
-.pitch p{color:#c7d6e8;font-size:14.5px;line-height:1.8;text-align:center;max-width:760px;margin:0 auto}
-.quick{max-width:1080px;margin:22px auto 30px;padding:0 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-.quick a{display:block;background:#0c2542;border:1px solid #244a72;border-radius:11px;padding:14px 12px;color:#cfe0f5;text-decoration:none;font-size:14px;transition:.15s}
-.quick a:hover{border-color:#e8b84b;color:#fff}
-.quick a b{display:block;color:#fff;font-size:14.5px;margin-bottom:3px}
-.quick a span{font-size:12.5px;color:#9fc3ea}
-
-.roles{max-width:1080px;margin:28px auto 34px;padding:0 18px}
-.roles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+/* ============ 首页：以人为本 ============ */
+/* —— 身份入口：首屏主角 —— */
+.roles{max-width:1080px;margin:30px auto 14px;padding:0 18px}
+.roles-h{font-size:14px;font-weight:700;letter-spacing:1px;color:#8a94a3;margin-bottom:14px}
+.roles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 @media(max-width:720px){.roles-grid{grid-template-columns:1fr}}
-.role-card{display:flex;flex-direction:column;background:#fff;border:1px solid #dbe4ee;border-radius:14px;padding:18px 20px 16px;text-decoration:none;color:#1a2330;transition:.15s}
-.role-card:hover{border-color:#9db8d2;box-shadow:0 4px 14px rgba(15,42,74,.10);transform:translateY(-2px)}
-.role-card .rh{display:flex;align-items:center;gap:10px}
-.role-card .ri{font-size:26px;line-height:1}
-.role-card .rh b{font-size:16px;letter-spacing:.5px}
-.role-card .rd{flex:1;margin:9px 0 12px;font-size:13px;color:#5a6675;line-height:1.65}
-.role-card .rg{font-size:13px;color:#1b4a7a;font-weight:600}
+.role-card{display:flex;flex-direction:column;border-radius:18px;padding:22px 22px 20px;text-decoration:none;color:#fff;transition:.18s;position:relative;overflow:hidden;min-height:196px}
+.role-card::after{content:"";position:absolute;right:-38px;top:-38px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.12)}
+.role-card::before{content:"";position:absolute;right:6px;bottom:-52px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.08)}
+.role-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(15,42,74,.22)}
+.role-card.r-hotelier{background:linear-gradient(150deg,#d99c3f,#a96f1f)}
+.role-card.r-teacher{background:linear-gradient(150deg,#2f9e8f,#1c6f64)}
+.role-card.r-student{background:linear-gradient(150deg,#3f6db5,#26497f)}
+.role-card .rh{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.role-card .ri{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:28px;flex:none}
+.role-card .rh b{font-size:22px;letter-spacing:1px}
+.role-card .rh small{display:block;font-size:12.5px;color:rgba(255,255,255,.85);font-weight:400;letter-spacing:.5px;margin-top:2px}
+.role-card .rd{flex:1;margin:12px 0 14px;font-size:14px;color:rgba(255,255,255,.94);line-height:1.7;position:relative;z-index:1}
+.role-card .rg{align-self:flex-start;background:#fff;color:#1f3a5c;font-weight:800;font-size:13.5px;padding:8px 18px;border-radius:999px;position:relative;z-index:1;transition:.15s}
+.role-card:hover .rg{transform:translateX(3px)}
+
+/* —— 六馆：轻量内容层 —— */
+.ident-grid{max-width:1080px;margin:14px auto 8px;padding:0 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.ident-card{display:block;text-decoration:none;background:#fff;border:1px solid #dbe4ee;border-radius:14px;padding:20px 20px 18px;color:#1a2330;transition:.18s;position:relative;overflow:hidden}
+.ident-card::before{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:linear-gradient(90deg,#13385f,#e8b84b);opacity:.55}
+.ident-card:hover{transform:translateY(-3px);border-color:#9db8d2;box-shadow:0 8px 22px rgba(15,42,74,.10)}
+.ident-card .ic{font-size:27px;margin-bottom:8px}
+.ident-card h2{font-size:18.5px;margin:0 0 5px;color:#0f2a4a}
+.ident-card .who{font-size:13px;color:#5a6675;margin:0 0 11px;line-height:1.6;background:transparent;border:0;padding:0;box-shadow:none;border-radius:0}
+.ident-card .do{font-size:13.5px;color:#33404f;line-height:1.7;background:#f3f6fa;border-radius:10px;padding:10px 12px;margin-bottom:12px}
+.ident-card .do strong{color:#1b4a7a}
+.ident-card .go{display:inline-block;background:#fff;color:#13385f;border:1.5px solid #13385f;font-weight:700;font-size:13.5px;padding:7px 15px;border-radius:9px;transition:.15s}
+.ident-card:hover .go{background:#13385f;color:#fff}
+.ident-card .tags{margin-top:13px;display:flex;flex-wrap:wrap;gap:6px}
+.ident-card .tags span{font-size:11.5px;color:#5a6675;background:#f0f3f7;border-radius:20px;padding:3px 10px}
 </style>
 </head>
 <body>
 
-<!-- ============ 身份入口（首屏） ============ -->
+<!-- ============ 身份入口（首屏主角） ============ -->
 <section class="roles">
+  <div class="roles-h">你是谁，就从哪进</div>
   <div class="roles-grid">
-    <a class="role-card" href="hotelier.html">
-      <div class="rh"><span class="ri">🏨</span><b>酒店人</b></div>
-      <p class="rd">在岗者：从看懂指标到顶用决策</p>
+    <a class="role-card r-hotelier" href="hotelier.html">
+      <div class="rh"><span class="ri">🏨</span><b>酒店人<small>在岗者</small></b></div>
+      <p class="rd">从看懂指标，到拿得出行之有效的决策。</p>
       <span class="rg">进酒店人路径 →</span>
     </a>
-    <a class="role-card" href="teacher.html">
-      <div class="rh"><span class="ri">👩‍🏫</span><b>教师</b></div>
-      <p class="rd">开课者：备课、取材、考核一站齐</p>
+    <a class="role-card r-teacher" href="teacher.html">
+      <div class="rh"><span class="ri">👩‍🏫</span><b>教师<small>开课者</small></b></div>
+      <p class="rd">备课、取材、考核，一站备齐。</p>
       <span class="rg">进教师路径 →</span>
     </a>
-    <a class="role-card" href="student.html">
-      <div class="rh"><span class="ri">🎓</span><b>学生</b></div>
-      <p class="rd">学习者：按教材顺序学到取证</p>
+    <a class="role-card r-student" href="student.html">
+      <div class="rh"><span class="ri">🎓</span><b>学生<small>学习者</small></b></div>
+      <p class="rd">按教材顺序，一路学到取证。</p>
       <span class="rg">进学生路径 →</span>
     </a>
   </div>
@@ -76,6 +80,8 @@
 
 
 
+<!-- ============ 六馆（轻量内容层） ============ -->
+<div class="roles-h" style="max-width:1080px;margin:26px auto 0;padding:0 18px">六馆 · 按你现在要做的事进</div>
 <section class="ident-grid">
   <a class="ident-card" href="knowledge.html">
     <div class="ic">📚</div>
