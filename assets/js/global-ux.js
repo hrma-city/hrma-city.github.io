@@ -503,6 +503,15 @@
 
   /* ============ 初始化 ============ */
   function init() {
+    /* 2026-11-14：老目录抽屉（buildDrawer）已于 2026-10-21 停用，但浏览器缓存的旧脚本
+       仍会注入浮动「目录」按钮与抽屉。此处做幂等清理，保证全站不再出现。 */
+    (function purgeLegacyDrawer(){
+      function kill(){
+        document.querySelectorAll(".ux-menu-btn,#uxDrawer,.ux-mask").forEach(function(el){ el.remove(); });
+      }
+      kill();
+      if (document.readyState !== "complete") window.addEventListener("load", kill, {once:true});
+    })();
     compileGloss();
     /* 2026-10-21 清理：老版“目录抽屉/侧栏”（含“随时跳转到任意板块”标语与
        首页/学院/资源/书籍/各个击破/游戏/认证/专家/会员/基准/社区/资讯/行业矩阵

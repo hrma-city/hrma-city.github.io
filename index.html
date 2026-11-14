@@ -15,44 +15,52 @@
 <link rel="stylesheet" href="assets/css/auth.css">
 <link rel="stylesheet" href="assets/css/notify.css">
 <style>
-/* ============ 首页：三行仪表式，一行 = 一个角色 + 两个馆 ============ */
-.home-wrap{max-width:1340px;margin:20px auto 28px;padding:0 20px;display:grid;grid-template-columns:400px 1fr 1fr;grid-auto-rows:1fr;gap:14px 16px;align-items:stretch}
+/* ============ 首页：三行仪表式 · 鲜活配色 ============ */
+body{background:#F7FAFD}
+.home-wrap{max-width:1340px;margin:26px auto 30px;padding:0 24px;display:grid;grid-template-columns:400px 1fr 1fr;grid-auto-rows:1fr;gap:18px;align-items:stretch}
 
-/* —— 角色卡：每行主角，占满整行高度 —— */
-.role-card{display:flex;flex-direction:column;border-radius:18px;padding:22px 24px 20px;text-decoration:none;color:#fff;transition:.18s;position:relative;overflow:hidden}
-.role-card::after{content:"";position:absolute;right:-44px;top:-44px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.09)}
-.role-card::before{content:"";position:absolute;right:14px;bottom:-62px;width:118px;height:118px;border-radius:50%;background:rgba(255,255,255,.06)}
-.role-card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(15,42,74,.20)}
-.role-card.r-hotelier{background:linear-gradient(150deg,#d99c3f,#a96f1f)}
-.role-card.r-teacher{background:linear-gradient(150deg,#3f6db5,#26497f)}
-.role-card.r-student{background:linear-gradient(150deg,#2f9e8f,#1c6f64)}
+/* —— 角色卡：左深右亮，白字清晰又不沉闷 —— */
+.role-card{display:flex;flex-direction:column;border-radius:20px;padding:24px 26px 22px;text-decoration:none;color:#fff;transition:.18s;position:relative;overflow:hidden;background:linear-gradient(115deg,var(--a),var(--b))}
+.role-card.r-hotelier{--a:#C96A0A;--b:#F9B93C;--deep:#8A4B00;--spark:#FFE7A8}
+.role-card.r-teacher{--a:#1559B8;--b:#4FA8F0;--deep:#0F4C9F;--spark:#FFA8C0}
+.role-card.r-student{--a:#0E8A62;--b:#4FD6A0;--deep:#0A6E4C;--spark:#B8FFD9}
+.role-card::after{content:"";position:absolute;right:-46px;top:-46px;width:158px;height:158px;border-radius:50%;background:rgba(255,255,255,.13)}
+.role-card::before{content:"";position:absolute;right:16px;bottom:-64px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.09)}
+.role-card .spark{position:absolute;right:30px;top:26px;width:13px;height:13px;border-radius:50%;background:var(--spark);box-shadow:0 0 0 6px rgba(255,255,255,.16);z-index:1}
+.role-card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(21,64,110,.20)}
 .role-card .rh{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
-.role-card .ri{width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:30px;flex:none}
+.role-card .ri{width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.24);display:flex;align-items:center;justify-content:center;font-size:30px;flex:none}
 .role-card .rh b{display:block;font-size:24px;letter-spacing:1.5px;line-height:1.2}
-.role-card .rh small{display:block;font-size:12.5px;color:rgba(255,255,255,.86);font-weight:400;letter-spacing:1px;margin-top:4px}
-.role-card .rd{flex:1;margin:16px 0 18px;font-size:14.5px;color:rgba(255,255,255,.95);line-height:1.7;position:relative;z-index:1}
-.role-card .rg{align-self:flex-start;background:#fff;color:#1f3a5c;font-weight:800;font-size:13.5px;padding:9px 20px;border-radius:999px;position:relative;z-index:1;transition:.15s}
+.role-card .rh small{display:inline-block;background:rgba(255,255,255,.22);border-radius:999px;padding:2px 10px;font-size:11.5px;color:#fff;font-weight:400;letter-spacing:1px;margin-top:6px}
+.role-card .rd{flex:1;margin:16px 0 18px;font-size:14.5px;color:rgba(255,255,255,.96);line-height:1.7;position:relative;z-index:1}
+.role-card .rg{align-self:flex-start;background:#fff;color:var(--deep);font-weight:800;font-size:13.5px;padding:9px 20px;border-radius:999px;position:relative;z-index:1;transition:.15s}
 .role-card:hover .rg{transform:translateX(3px)}
 
-/* —— 馆卡：轻量内容层，顶线与按钮沿用本行角色色 —— */
-.g-gold{--line:#c08a33}
-.g-navy{--line:#2f5a9e}
-.g-teal{--line:#218779}
-.ident-card{display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid #dbe4ee;border-radius:14px;padding:14px 16px 13px;color:#1a2330;transition:.18s;position:relative;overflow:hidden}
-.ident-card::before{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:var(--line);opacity:.72}
-.ident-card:hover{transform:translateY(-3px);border-color:#9db8d2;box-shadow:0 8px 22px rgba(15,42,74,.10)}
-.ident-card .ch{display:flex;align-items:center;gap:9px}
-.ident-card .ic{font-size:20px;line-height:1}
-.ident-card h2{font-size:16px;margin:0;color:#0f2a4a;letter-spacing:.5px}
-.ident-card .who{display:block;min-height:19px;font-size:12px;color:#5a6675;margin:7px 0 8px;line-height:1.55;background:transparent;border:0;padding:0;box-shadow:none;border-radius:0;overflow:hidden}
+/* —— 馆卡：白底轻量层，顶线/标签/按钮沿用本行角色色 —— */
+.g-gold{--line:#EF9B22;--soft:#FFF4DC;--deep:#A35C00}
+.g-blue{--line:#2C86E0;--soft:#E7F2FF;--deep:#1559B8}
+.g-green{--line:#1FB37C;--soft:#E4F9EE;--deep:#0E7A56}
+.ident-card{display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid #E5EDF5;border-radius:16px;padding:16px 18px 15px;color:#1F2933;transition:.18s;position:relative;overflow:hidden}
+.ident-card::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:linear-gradient(90deg,var(--line),rgba(255,255,255,0))}
+.ident-card:hover{transform:translateY(-3px);border-color:#C9DCEF;box-shadow:0 10px 24px rgba(21,64,110,.10)}
+.ident-card .ch{display:flex;align-items:center;gap:10px}
+.ident-card .ic{width:30px;height:30px;border-radius:9px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:17px;line-height:1}
+.ident-card h2{font-size:16px;margin:0;color:#16324F;letter-spacing:.5px}
+.ident-card .who{display:block;min-height:19px;font-size:12px;color:#5B6A7D;margin:8px 0 9px;line-height:1.55;background:transparent;border:0;padding:0;box-shadow:none;border-radius:0;overflow:hidden}
 .ident-card .who>span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.ident-card .do{display:block;flex:0 0 auto;height:56px;box-sizing:border-box;font-size:12.5px;color:#33404f;line-height:1.6;background:#f3f6fa;border-radius:9px;padding:8px 11px;margin-bottom:9px;overflow:hidden}
+.ident-card .do{display:block;flex:0 0 auto;height:56px;box-sizing:border-box;font-size:12.5px;color:#33404F;line-height:1.6;background:#F5F8FC;border-radius:10px;padding:8px 11px;margin-bottom:10px;overflow:hidden}
 .ident-card .do>span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.ident-card .do strong{color:#1b4a7a}
-.ident-card .tags{margin:0 0 10px;display:flex;flex-wrap:wrap;gap:6px;min-height:20px;max-height:20px;overflow:hidden;align-content:flex-start}
-.ident-card .tags span{font-size:11px;color:#5a6675;background:#f0f3f7;border-radius:20px;padding:3px 9px;white-space:nowrap}
-.ident-card .go{align-self:flex-start;display:inline-block;background:#fff;color:var(--line);border:1.5px solid var(--line);font-weight:700;font-size:12.5px;padding:6px 14px;border-radius:9px;transition:.15s;margin-top:auto}
-.ident-card:hover .go{background:var(--line);color:#fff}
+.ident-card .do strong{color:var(--deep)}
+.ident-card .tags{margin:0 0 11px;display:flex;flex-wrap:wrap;gap:6px;min-height:20px;max-height:20px;overflow:hidden;align-content:flex-start}
+.ident-card .tags span{font-size:11px;color:var(--deep);background:var(--soft);border-radius:20px;padding:3px 9px;white-space:nowrap}
+.ident-card .go{align-self:flex-start;display:inline-block;background:#fff;color:var(--deep);border:1.5px solid var(--line);font-weight:700;font-size:12.5px;padding:6px 14px;border-radius:9px;transition:.15s;margin-top:auto}
+.ident-card:hover .go{background:var(--line);border-color:var(--line);color:#fff}
+
+/* —— 页脚与残留老目录：去掉深蓝重块，页面才透得过气 —— */
+.site-footer{background:#EDF4FB!important;border-top:1px solid #DCE8F4!important}
+.site-footer .sf-bot,.site-footer .sf-bot span{color:#5B6A7D!important}
+.site-footer a{color:#1559B8!important}
+.ux-menu-btn,#uxDrawer,.ux-mask{display:none!important}
 
 @media(max-width:980px){
   .home-wrap{grid-template-columns:1fr 1fr;grid-auto-rows:auto}
@@ -71,6 +79,7 @@
 
   <!-- 第一行 · 酒店人 → 认证馆 / 教练馆 -->
   <a class="role-card r-hotelier" href="hotelier.html">
+    <span class="spark"></span>
     <div class="rh"><span class="ri">🏨</span><div><b>酒店人</b><small>在岗者</small></div></div>
     <p class="rd">从看懂指标，到拿得出行之有效的决策。</p>
     <span class="rg">进酒店人路径 →</span>
@@ -94,12 +103,13 @@
 
   <!-- 第二行 · 教师 → 教学馆 / 知识库 -->
   <a class="role-card r-teacher" href="teacher.html">
+    <span class="spark"></span>
     <div class="rh"><span class="ri">👩‍🏫</span><div><b>教师</b><small>开课者</small></div></div>
     <p class="rd">备课、取材、考核，一站备齐。</p>
     <span class="rg">进教师路径 →</span>
   </a>
 
-  <a class="ident-card g-navy" href="teach.html">
+  <a class="ident-card g-blue" href="teach.html">
     <div class="ch"><span class="ic">📐</span><h2>教学馆</h2></div>
     <p class="who"><span>要把收益管理开成一门课的教师。</span></p>
     <div class="do"><span>四步走完一门课：<strong>开课准备</strong> → <strong>备课取材</strong>（46 章成书按你的课时取材）→ <strong>上课交付</strong> → <strong>组织考核</strong>。</span></div>
@@ -107,7 +117,7 @@
     <span class="go">进教学馆 →</span>
   </a>
 
-  <a class="ident-card g-navy" href="knowledge.html">
+  <a class="ident-card g-blue" href="knowledge.html">
     <div class="ch"><span class="ic">📚</span><h2>知识库</h2></div>
     <p class="who"><span>这个词指什么、为什么会这样；别人是怎么处理的。</span></p>
     <div class="do"><span><strong>学理</strong>：概念查词、原理懂机制、流程按步骤做。<strong>看案例</strong>：按 <strong>业态档次</strong> + <strong>处境周期</strong> + <strong>你要用的手段</strong> 组合筛，挑出最像你处境的那几条。</span></div>
@@ -117,12 +127,13 @@
 
   <!-- 第三行 · 学生 → 游戏馆 / 上岗馆 -->
   <a class="role-card r-student" href="student.html">
+    <span class="spark"></span>
     <div class="rh"><span class="ri">🎓</span><div><b>学生</b><small>学习者</small></div></div>
     <p class="rd">按教材顺序，一路学到取证。</p>
     <span class="rg">进学生路径 →</span>
   </a>
 
-  <a class="ident-card g-teal" href="games-hub.html">
+  <a class="ident-card g-green" href="games-hub.html">
     <div class="ch"><span class="ic">🎮</span><h2>游戏馆</h2></div>
     <p class="who"><span>知道怎么想还不够，得在决策里练出手感。</span></p>
     <div class="do"><span>按你想练的<strong>那一项能力</strong>挑：动态定价、超额预订、置换分析、渠道、房型、竞争应对……选一个标签，底下就是练它的那几个。</span></div>
@@ -130,7 +141,7 @@
     <span class="go">进游戏馆 →</span>
   </a>
 
-  <a class="ident-card g-teal" href="growth-hub.html">
+  <a class="ident-card g-green" href="growth-hub.html">
     <div class="ch"><span class="ic">🚀</span><h2>上岗馆</h2></div>
     <p class="who"><span>学完了，正往岗位上走的人。</span></p>
     <div class="do"><span>三段各有工具：<strong>求职</strong>（结业作品集、面试助攻）→ <strong>入职</strong>（工具包、90 天速查卡）→ <strong>在岗</strong>（RM 学长、每日一问、决策冲刺、实践社区）。</span></div>
@@ -157,6 +168,15 @@
 <script>window.HRMA_href=function(p){return ""+p;};</script>
 <script src="assets/previews/previews-map.js"></script>
 <link rel="stylesheet" href="assets/css/global-ux.css?v=v2">
-<script id="rm-preview-mount" src="assets/js/global-ux.js"></script>
+<script id="rm-preview-mount" src="assets/js/global-ux.js?v=v3"></script>
+<script>
+/* 老目录抽屉早已停用；兼容浏览器缓存的旧脚本，兜底移除其注入物 */
+(function(){
+  function kill(){document.querySelectorAll('.ux-menu-btn,#uxDrawer,.ux-mask').forEach(function(e){e.remove()});}
+  kill();
+  window.addEventListener('load',kill,{once:true});
+  setTimeout(kill,400);
+})();
+</script>
 </body>
 </html>
