@@ -499,7 +499,7 @@
     /* 1) 注入移动样式 */
     if (!document.getElementById("mbCss")) {
       var mc = document.createElement("link");
-      mc.id = "mbCss"; mc.rel = "stylesheet"; mc.href = href("assets/css/mobile.css");
+      mc.id = "mbCss"; mc.rel = "stylesheet"; mc.href = href("assets/css/mobile.css?v=v4");
       document.head.appendChild(mc);
     }
 

@@ -1,10 +1,10 @@
 /* RMC 收益管理社区 · Service Worker（离线优先）
    策略：
    - 导航请求：网络优先，失败回退缓存首页（保证离线能开 App）
-   - 静态资源：缓存优先，命中即返回，未命中则网络并写入缓存
+   - 静态资源：网络优先（线上更新即时可见），失败回退缓存并后台写入
    - 跨域 / 非 GET：直接放行，不进缓存
 */
-const CACHE = "hrma-v1";
+const CACHE = "hrma-v2";
 const SHELL = [
   "./",
   "./index.html",
@@ -58,15 +58,14 @@ self.addEventListener("fetch", function (e) {
   }
 
   e.respondWith(
-    caches.match(req).then(function (hit) {
-      if (hit) return hit;
-      return fetch(req).then(function (resp) {
-        if (resp.ok && resp.type === "basic") {
-          var cp = resp.clone();
-          caches.open(CACHE).then(function (c) { c.put(req, cp); });
-        }
-        return resp;
-      }).catch(function () { return hit; });
+    fetch(req).then(function (resp) {
+      if (resp.ok && resp.type === "basic") {
+        var cp = resp.clone();
+        caches.open(CACHE).then(function (c) { c.put(req, cp); });
+      }
+      return resp;
+    }).catch(function () {
+      return caches.match(req).then(function (hit) { return hit || Response.error(); });
     })
   );
 });

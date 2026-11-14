@@ -507,7 +507,7 @@
        仍会注入浮动「目录」按钮与抽屉。此处做幂等清理，保证全站不再出现。 */
     (function purgeLegacyDrawer(){
       function kill(){
-        document.querySelectorAll(".ux-menu-btn,#uxDrawer,.ux-mask").forEach(function(el){ el.remove(); });
+        document.querySelectorAll(".ux-menu-btn,#uxDrawer,.ux-drawer,.ux-mask").forEach(function(el){ el.remove(); });
       }
       kill();
       if (document.readyState !== "complete") window.addEventListener("load", kill, {once:true});
