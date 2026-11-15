@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>小棠与阿表 · 24 集动画闯关 · RMC 收益管理社区</title>
+<meta name="description" content="24 段收益管理动画 + 逐集判定表小考：看 8 秒动画，查一张表，做一道题，累计通关。">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f6f9;color:#1c2430;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;font-size:15px;line-height:1.7}
+.wrap{max-width:1120px;margin:0 auto;padding:24px 18px 28px}
+.hero{background:linear-gradient(150deg,#16233b,#25476b);border-radius:16px;padding:26px 26px 22px;color:#fff;margin-bottom:16px}
+.hero .ey{font-size:12px;letter-spacing:3px;color:#f2c879;font-weight:700}
+.hero h1{margin:7px 0 8px;font-size:26px}
+.hero p{margin:0;font-size:13.5px;color:#d6e4f2;line-height:1.9}
+.hero b{color:#f2c879}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border:1px solid #d9e0ea;border-radius:12px;padding:12px 16px;margin-bottom:16px;flex-wrap:wrap}
+.bar .pg{font-size:13px;color:#5b6a7d}
+.bar .pg b{color:#1b3a5c;font-size:16px}
+.bar button{border:0;background:#1b3a5c;color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.prog{height:6px;background:#dce8f4;border-radius:6px;flex:1;min-width:150px;overflow:hidden}
+.prog i{display:block;height:100%;background:#2E8B7A;width:0;transition:width .3s}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.card{background:#fff;border:1px solid #d9e0ea;border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.card.done{border-color:#2E8B7A;box-shadow:0 0 0 1px #2E8B7A inset}
+.vd{position:relative;background:#111;aspect-ratio:16/9}
+.vd video{width:100%;height:100%;object-fit:contain;display:block;background:#111}
+.vd .badge{position:absolute;left:10px;top:10px;background:rgba(0,0,0,.72);color:#f2c879;font-size:11px;font-weight:800;letter-spacing:1px;padding:3px 9px;border-radius:12px}
+.vd .ok{position:absolute;right:10px;top:10px;background:#2E8B7A;color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:12px;display:none}
+.card.done .vd .ok{display:block}
+.mi{padding:13px 15px 15px}
+.mi h2{font-size:16px;margin:0 0 2px}
+.mi .tbl{font-size:12px;color:#8494a8;margin-bottom:9px}
+.q{font-size:13.5px;font-weight:600;margin:8px 0;color:#1b3a5c}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts button{text-align:left;border:1px solid #d9e0ea;background:#f9fbfd;border-radius:8px;padding:7px 10px;font-size:12.5px;cursor:pointer;font-family:inherit;color:#2a3a4a;line-height:1.5}
+.opts button:hover{border-color:#1b3a5c}
+.opts button.right{background:#e7f5f0;border-color:#2E8B7A;color:#1d6b5b;font-weight:700}
+.opts button.wrong{background:#fdecec;border-color:#c0392b;color:#a02c4a}
+.why{display:none;margin-top:8px;background:#fff8e6;border-left:3px solid #B8894A;border-radius:0 6px 6px 0;padding:7px 10px;font-size:12px;color:#6b5730}
+.why.show{display:block}
+.foot{margin-top:22px;padding-top:16px;border-top:1px solid #d9e0ea;font-size:12.5px;color:#8494a8;line-height:2}
+.foot a{color:#0369A1;text-decoration:none}
+@media(max-width:600px){.wrap{padding:14px 12px 24px}.hero{padding:20px 18px}.hero h1{font-size:21px}.grid{grid-template-columns:1fr}}
+</style>
+<style id="rmc-footer-unify">
+.site-footer{background:#EDF4FB!important;border-top:1px solid #DCE8F4!important;
+padding:9px 16px!important;text-align:center!important;color:#5B6A7D!important;font-size:12.5px!important}
+.site-footer .sf-bot{display:flex!important;flex-direction:column!important;
+align-items:center!important;justify-content:center!important;gap:2px!important;line-height:1.5!important}
+.site-footer .sf-bot span{color:#5B6A7D!important}
+.site-footer .sf-bot a,.site-footer a{color:#0369A1!important;font-size:12.5px!important;text-decoration:none!important}
+</style>
+</head><body><div class="wrap">
+<div class="hero">
+  <div class="ey">RMCITY · 收益管理动画闯关</div>
+  <h1>《小棠与阿表》· 24 集动画闯关</h1>
+  <p>每集 <b>8 秒竖屏动画</b> + 一道判定表小考：看画面 → 想决策 → 查表 → 作答。<br>
+  24 关按表 A–O 排布，答对即点亮该集；进度自动保存在本机。</p>
+</div>
+<div class="bar">
+  <div class="pg">已通关 <b id="done">0</b> / 24</div>
+  <div class="prog"><i id="bar"></i></div>
+  <button id="reset">重置进度</button>
+</div>
+<div class="grid" id="grid"></div>
+<div class="foot">
+  完整 36 集剧本（含对白与分镜）：<a href="books/drama-script.html">漫剧剧本</a> ·
+  15 张判定表：<a href="decision-tables.html">decision-tables</a> ·
+  <a href="drama-samples.html">分集样片墙</a> · <a href="drama-frames.html">真实画面核验</a><br>
+  24 段动画为 8 秒竖屏无声短片，点击播放即可；无外部依赖，加载快。
+</div>
+</div>
+<footer class="site-footer">
+  <div class="sf-bot">
+    <span>RMC 收益管理社区</span>
+    <a href="mailto:rm-community@qq.com">rm-community@qq.com</a>
+  </div>
+</footer>
+<script>
+var EP = [{"id": "EP01", "title": "今天该涨价吗", "tbl": "表 A 每日价格调整", "q": "今晚需求突增、竞对已满，该不该涨价？", "opts": ["按原价守住口碑", "小幅上调并观察预订速度", "直接翻一倍", "先降价抢量"], "ans": 1, "why": "表 A 每日价格调整：看需求速度与竞对状态，小幅试探、分步上调，不一次跳到位。"}, {"id": "EP02", "title": "限制条件大乱斗", "tbl": "表 B 最短住期与库存分配", "q": "设了 MinLOS 又叠加提前买优惠，最该先检查什么？", "opts": ["限制条件之间是否打架", "把房价降到最低", "关掉所有 OTA", "只看 OCC"], "ans": 0, "why": "表 B 最短住期与库存分配：多个限制条件叠加时会互相抵消，先查一致性再谈力度。"}, {"id": "EP03", "title": "我比别人贵还是便宜", "tbl": "表 C 价格指数 ARI", "q": "ARI 高于 1 说明什么？", "opts": ["本店比竞对便宜", "本店比竞对贵", "市场份额上升", "需求下降"], "ans": 1, "why": "表 C 价格指数 ARI：本店价格指数 >1 即高于竞对均价，需结合 MPI 判断是否被比下去。"}, {"id": "EP04", "title": "份额被谁抢了", "tbl": "表 D 市场渗透指数 MPI", "q": "MPI 持续走低同时 ARI 偏高，最可能的判断是？", "opts": ["价格有优势", "贵了且份额在被抢", "需求很低", "渠道全开"], "ans": 1, "why": "表 D 市场渗透指数 MPI：份额下滑 + 价格偏高 = 价格竞争力出问题，先查价格档位。"}, {"id": "EP05", "title": "升房加多少钱", "tbl": "表 F 房型价差", "q": "升房加价要按什么定？", "opts": ["拍脑袋的固定值", "房型之间的价值差", "当日 OCC", "竞对房价"], "ans": 1, "why": "表 F 房型价差：升房价差要反映房型真实价值差异，不是随手加个整数。"}, {"id": "EP06", "title": "折扣带条件才有效", "tbl": "表 A 折扣分支", "q": "折扣要带条件，主要为了防止什么？", "opts": ["客人太多", "折扣被滥用、伤害公开价", "系统算错", "员工加班"], "ans": 1, "why": "表 A 折扣分支：折扣必须绑条件（提前买/连住/会员），否则等于公开降价。"}, {"id": "EP07", "title": "弹性算反的那次", "tbl": "表 A 价格弹性", "q": "价格弹性算反了会导致？", "opts": ["越降价越赚钱", "涨价反而丢量、降价反而少收", "没有影响", "OCC 变高"], "ans": 1, "why": "表 A 价格弹性：弹性方向搞反，调价就会与收益目标背道而驰。"}, {"id": "EP08", "title": "周末该冲没冲", "tbl": "表 N 周度节奏", "q": "周末需求高峰，收入管理该？", "opts": ["提前收口、控制低价库存", "继续放低价冲 OCC", "什么都不做", "把所有房型关掉"], "ans": 0, "why": "表 N 周度节奏：峰值日提前收口、关低价渠道，把库存留给高价值客。"}, {"id": "EP09", "title": "月初月末的节奏", "tbl": "表 N 月度节奏", "q": "月初月末节奏不同，本质是？", "opts": ["房价一样", "需求结构与客源不同", "系统不同", "员工不同"], "ans": 1, "why": "表 N 月度节奏：月初商务、月末休闲/协议客结构不同，价与库存策略要跟着换。"}, {"id": "EP10", "title": "超售那晚", "tbl": "表 E 超额预订控制", "q": "超售的核心风险控制是？", "opts": ["超售越多越好", "设硬上限并备好安置方案", "只看历史 no-show", "只超售团队"], "ans": 1, "why": "表 E 超额预订控制：超售赚的是概率的钱，必须设硬上限并预置爆仓安置。"}, {"id": "EP11", "title": "满房安抚术", "tbl": "表 J 免费升级与置换", "q": "满房遇投诉，最优先的补救是？", "opts": ["直接退款", "免费升级或置换，保住口碑与净收入", "让客人自己找酒店", "不处理"], "ans": 1, "why": "表 J 免费升级与置换：满房无房可退时，用升级/置换把投诉转成保收入的机会。"}, {"id": "EP12", "title": "封控来了怎么办", "tbl": "表 L 危机与极端场景", "q": "极端事件（如封控）来临，第一步是？", "opts": ["立刻大涨", "启动危机场景流程、重估需求与取消政策", "关闭所有渠道", "不做任何调整"], "ans": 1, "why": "表 L 危机与极端场景：先按危机流程重估需求、改取消条款，再谈价格。"}, {"id": "EP13", "title": "三方吵架听谁的", "tbl": "表 O 优先级与冲突仲裁", "q": "三方意见冲突时，收益经理该？", "opts": ["听声音最大的", "按优先级与仲裁规则决定", "全部采纳", "抽签"], "ans": 1, "why": "表 O 优先级与冲突仲裁：冲突靠规则与优先级裁决，不靠嗓门。"}, {"id": "EP14", "title": "大团挤掉散客", "tbl": "表 G 团队/协议询价", "q": "大团挤掉散客，接不接看什么？", "opts": ["团队人数", "被挤走散客的净贡献与替代概率", "团队是否讲价", "当日天气"], "ans": 1, "why": "表 G 团队/协议询价：置换分析算的是被挤走散客的净贡献，不是只看团队人数。"}, {"id": "EP15", "title": "渠道净价倒挂", "tbl": "表 H 渠道净价与开关", "q": "渠道净价倒挂意味着？", "opts": ["渠道更赚钱", "实际到手价低于直销/目标价", "平台出错", "应该多放渠道"], "ans": 1, "why": "表 H 渠道净价与开关：倒挂要重算佣金后净价，必要时关渠道。"}, {"id": "EP16", "title": "会议单的隐藏利润", "tbl": "表 K 会议宴会总贡献", "q": "会议单的隐藏利润主要来自？", "opts": ["房价本身", "餐饮、会议室等综合贡献", "免费赠送", "会议天数"], "ans": 1, "why": "表 K 会议宴会总贡献：会议单看的是房+餐+会的整体贡献，不是单看房租。"}, {"id": "EP17", "title": "预订进度预警", "tbl": "表 I 预测与需求日历", "q": "预订进度落后于应到曲线，应？", "opts": ["马上涨价", "先查原因再定纠偏动作", "关掉渠道", "等它自己回来"], "ans": 1, "why": "表 I 预测与需求日历：Pickup 落后要先定位是价格、渠道还是需求问题，再纠偏。"}, {"id": "EP18", "title": "大团接不接", "tbl": "表 G 团队 / 协议询价", "q": "大团询价，收益经理第一步算？", "opts": ["团队人数够不够", "置换损失与净贡献", "房间够不够", "有没有免费房"], "ans": 1, "why": "表 G 团队/协议询价：先用置换测算判断接单是否划算。"}, {"id": "EP19", "title": "渠道开还是关", "tbl": "表 H 渠道净价与开关", "q": "某渠道净价长期为负或倒挂，该？", "opts": ["继续放量", "暂停/关闭该渠道", "提高挂牌价", "不管它"], "ans": 1, "why": "表 H 渠道净价与开关：净价不合理就关，不要为量亏钱。"}, {"id": "EP20", "title": "会议单的隐藏利润（联动）", "tbl": "表 K 会议宴会总贡献", "q": "会议单联动评估，关键是把什么一起算？", "opts": ["只算房费", "房、餐、会与后续复购", "只算餐饮", "只算会议室"], "ans": 1, "why": "表 K 会议宴会总贡献：联动评估要把房餐会与后续价值一起纳入。"}, {"id": "EP21", "title": "提前量预警", "tbl": "表 I 预测与需求日历", "q": "提前量预警提醒你？", "opts": ["需求已到达峰值", "预订窗口内的节奏偏离，需要提前动作", "房价太低", "渠道太多"], "ans": 1, "why": "表 I 预测与需求日历：提前量看的是预订节奏，提前发现偏离才有纠偏窗口。"}, {"id": "EP22", "title": "餐饮收益怎么算", "tbl": "表 K 餐饮 RevPASH", "q": "餐饮收益与客房最大的不同指标是？", "opts": ["RevPAR", "RevPASH（每可用座位小时收入）", "OCC", "ADR"], "ans": 1, "why": "表 K 餐饮 RevPASH：餐饮看时段与座位效率，不能照搬客房的 OCC/ADR。"}, {"id": "EP23", "title": "协议价陷阱", "tbl": "表 G 团队/协议询价", "q": "协议价陷阱主要指？", "opts": ["协议价太高", "低价协议长期占用高峰库存", "协议客户太多", "协议签约太慢"], "ans": 1, "why": "表 G 团队/协议询价：协议价要设适用日期与量，防止高峰期被低价长占。"}, {"id": "EP36", "title": "大结局：飞轮转起来", "tbl": "全表回顾 · 飞轮收束", "q": "收益管理飞轮收束，最先要串起来的是？", "opts": ["只看 RevPAR", "看数→查表→执行→记录的闭环", "每天改价", "关掉低价渠道"], "ans": 1, "why": "全表回顾：收益管理不是单次调价，而是「看数—查表—执行—记录」持续转动的飞轮。"}];
+var KEY='hrma_drama_quest_v1';
+var done={};try{done=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+function esc(s){return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function render(){
+  document.getElementById('grid').innerHTML = EP.map(function(e,i){
+    var dn=!!done[e.id];
+    var opts=e.opts.map(function(o,j){return '<button data-i="'+i+'" data-j="'+j+'">'+String.fromCharCode(65+j)+'. '+esc(o)+'</button>'}).join('');
+    return '<article class="card'+(dn?' done':'')+'" data-id="'+e.id+'">'
+      +'<div class="vd"><video controls preload="none" playsinline poster="assets/video/posters/'+e.id+'.jpg" src="assets/video/'+e.id+'.mp4"></video>'
+      +'<span class="badge">'+e.id+'</span><span class="ok">✓ 已通关</span></div>'
+      +'<div class="mi"><h2>'+esc(e.title)+'</h2><div class="tbl">'+esc(e.tbl)+'</div>'
+      +'<div class="q">'+esc(e.q)+'</div><div class="opts">'+opts+'</div>'
+      +'<div class="why">'+esc(e.why)+'</div></div></article>';
+  }).join('');
+  var n=Object.keys(done).filter(function(k){return done[k]}).length;
+  document.getElementById('done').textContent=n;
+  document.getElementById('bar').style.width=(n/EP.length*100)+'%';
+}
+document.getElementById('grid').addEventListener('click',function(ev){
+  var b=ev.target.closest('.opts button'); if(!b)return;
+  var i=+b.getAttribute('data-i'), j=+b.getAttribute('data-j'), e=EP[i];
+  var card=b.closest('.card'); if(card.classList.contains('done'))return;
+  var box=card.querySelectorAll('.opts button');
+  if(j===e.ans){
+    box[e.ans].classList.add('right'); done[e.id]=1; save();
+    card.classList.add('done');
+  }else{
+    b.classList.add('wrong'); box[e.ans].classList.add('right');
+  }
+  var why=card.querySelector('.why'); why.textContent=e.why; why.classList.add('show');
+  var n=Object.keys(done).filter(function(k){return done[k]}).length;
+  document.getElementById('done').textContent=n;
+  document.getElementById('bar').style.width=(n/EP.length*100)+'%';
+});
+document.getElementById('reset').addEventListener('click',function(){
+  if(!confirm('确定重置 24 集通关进度？'))return;
+  done={};save();render();
+});
+render();
+</script>
+</body></html>
