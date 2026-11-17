@@ -10,7 +10,7 @@
     var heads = [].slice.call(document.querySelectorAll("h2, h3"));
 
     var hasToc = document.querySelector(
-      "#rm-toc-drawer, #toc, .toc-body, .sidenav, .rm-toc, nav[aria-label='章节目录']"
+      "#rm-toc-drawer, #toc, .toc-body, .sidenav, .rm-toc, #side, #wrap > nav, nav[aria-label='章节目录']"
     );
     var hasPrint = false;
     [].slice.call(document.styleSheets).forEach(function (ss) {
