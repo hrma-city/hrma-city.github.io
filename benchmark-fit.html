@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>行业基准对比器 · 我在什么位置</title>
+<style>
+:root{--o:#0284C7;--od:#0369A1;--soft:#f0f9ff;--navy:#0f2a4a;--navy2:#1d4e7e;--ink:#1f2937;--mut:#5b6a7d;--line:#e3e9f1;--page:#f4f7fb;--g:#16a34a;--r:#dc2626}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--page);color:var(--ink)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:22px 0 20px}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+.top .kick{font-size:12px;color:#f5d78e;letter-spacing:1px;margin-bottom:6px}
+.top h1{font-size:26px;line-height:1.35;margin-bottom:6px}
+.top p{color:#c9d8ea;font-size:13.5px;max-width:640px}
+main{max-width:860px;margin:0 auto;padding:24px 20px 70px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:16px}
+h2{font-size:18px;color:var(--navy);margin-bottom:10px}
+h3{font-size:15px;color:var(--navy);margin:14px 0 8px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:14px}
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}
+select,input[type=text],textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
+textarea{min-height:88px;resize:vertical}
+.btn{display:inline-block;background:var(--o);color:#fff;border:0;border-radius:9px;padding:10px 20px;font-size:14px;cursor:pointer;font-weight:600;font-family:inherit;margin:6px 6px 0 0}
+.btn:hover{background:var(--od)}
+.btn.ghost{background:#fff;color:var(--o);border:1px solid var(--o)}
+.btn.sm{padding:6px 12px;font-size:12.5px}
+.hide{display:none}
+.tag{display:inline-block;background:var(--soft);color:var(--od);border:1px solid #fcd9b6;border-radius:20px;padding:3px 11px;font-size:12px;margin:2px 4px 2px 0}
+.note{background:#fffbe8;border:1px solid #f5d78e;border-radius:9px;padding:10px 13px;font-size:12.5px;color:#7a5b00;margin-top:12px}
+.out{background:var(--soft);border:1px dashed var(--o);border-radius:11px;padding:16px 18px;margin-top:14px;white-space:pre-wrap;line-height:1.85;font-size:14px}
+.back{display:inline-block;margin-top:8px;color:var(--mut);font-size:12.5px;text-decoration:none}
+.back:hover{color:var(--o)}
+@media(max-width:600px){.top h1{font-size:21px}.card{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<div class="kick">RMC 收益管理社区 · 免费工具</div>
+<h1>行业基准对比器 · 我在什么位置</h1>
+<p id="topdesc"></p>
+</div></div>
+<main><div class="card"><h2>填自家数据，看看站在行业的哪个位置</h2><p class="sub">你的数字只在本机计算，不上传。对比锚点全部来自可核实的公开数据，并严格区分口径——官方全量与第三方样本分开看，绝不混算。</p><label>对比基准（口径不同，不可混用）</label><select id="bench"><option value="official">全国星级饭店 · 官方全量口径（文旅部 2025）</option><option value="third">中国内地商业酒店 · STR 抽样样本（2025）</option><option value="shanghai">上海星级饭店 · 官方月度（2025年1 月）</option></select><div id="benchinfo" class="note"></div><label>你的平均出租率 OCC（%）</label><input type="text" id="occ" placeholder="例如 62.5"><label>你的平均房价 ADR（元）</label><input type="text" id="adr" placeholder="例如 430"><div style="margin-top:14px"><button class="btn" onclick="calc()">看我的位置 →</button></div></div><div class="card hide" id="out"></div><script>
+const B={"meta": {"updated": "2026-09-09", "period": "2025 全年（最新可得官方数据）", "disclaimer": "本页数据均来自公开渠道，仅供行业参考。官方统计为全量口径，第三方为抽样样本，两者不可直接混用。"}, "sources": {"mct2025": {"name": "文化和旅游部《2025年文化和旅游发展统计公报》", "org": "中华人民共和国文化和旅游部", "pub": "2026-06-02", "url": "https://new.qq.com/rain/a/20260602A06O4F00", "caliber": "全国星级饭店统计直报系统（全量）"}, "str2025": {"name": "STR / CoStar《2025 中国酒店业绩回顾》", "org": "STR（CoStar Group）", "pub": "2026-01-22", "url": "https://www.costar.com/products/str-benchmark", "caliber": "中国内地商业酒店抽样样本（含非星级与连锁）"}}, "official": {"period": "2025 全年", "caliber": "全国星级饭店（统计直报系统，全量）", "note": "与 STR 样本口径不同：星级饭店多为全服务老酒店，出租率与房价均低于含有限服务连锁的全样本。", "items": [{"k": "星级饭店总数", "v": "7,586 家", "yoy": "—", "src": "mct2025", "tier": "official"}, {"k": "营业收入", "v": "1,448.0 亿元", "yoy": "—", "src": "mct2025", "tier": "official"}, {"k": "平均房价 ADR", "v": "360.2 元/间·夜", "yoy": "—", "src": "mct2025", "tier": "official"}, {"k": "平均出租率 Occ", "v": "46.8%", "yoy": "—", "src": "mct2025", "tier": "official"}, {"k": "RevPAR", "v": "168.6 元/间·夜", "yoy": "—", "src": "mct2025", "tier": "derived", "note": "由 360.2 × 46.8% 推算，非官方直接公布"}]}, "third": {"period": "2025 全年（同比 2024）", "caliber": "中国内地商业酒店抽样样本（STR）", "note": "已交叉校验：422.50 × 63.2% = 267.02，与 STR 公布的 RevPAR 完全一致。", "items": [{"k": "平均出租率 Occ", "v": "63.2%", "yoy": "-0.8pp", "src": "str2025", "tier": "third"}, {"k": "平均房价 ADR", "v": "422.50 元", "yoy": "-1.4%", "src": "str2025", "tier": "third"}, {"k": "RevPAR", "v": "267.02 元", "yoy": "-2.6%", "src": "str2025", "tier": "third"}, {"k": "供给（客房量）", "v": "—", "yoy": "+3.2%", "src": "str2025", "tier": "third"}, {"k": "需求（间夜量）", "v": "—", "yoy": "+0.4%", "src": "str2025", "tier": "third"}, {"k": "客房收入", "v": "—", "yoy": "-0.1%", "src": "str2025", "tier": "third"}]}, "shanghai": [{"m": "1 月", "adr": 713, "adrYoy": "-0.1%", "occ": 51.1, "occYoy": null, "src": "shStats1"}, {"m": "2 月", "adr": 701, "adrYoy": "-6.7%", "occ": 50.5, "occYoy": null, "src": "shStats2"}, {"m": "3 月", "adr": 748, "adrYoy": "-1.4%", "occ": 66.7, "occYoy": null, "src": "shStats3"}, {"m": "4 月", "adr": 805, "adrYoy": "+0.9%", "occ": 69.6, "occYoy": null, "src": "shStats4"}, {"m": "5 月", "adr": 756, "adrYoy": "-1.0%", "occ": 68.4, "occYoy": null, "src": "shStats5"}, {"m": "6 月", "adr": 749, "adrYoy": "-1.0%", "occ": 65.5, "occYoy": null, "src": "shStats6"}, {"m": "7 月", "adr": 711, "adrYoy": "-1.9%", "occ": 71.3, "occYoy": null, "src": "shStats7"}, {"m": "8 月", "adr": 726, "adrYoy": "+0.2%", "occ": 71.9, "occYoy": null, "src": "shStats8"}, {"m": "9 月", "adr": 771, "adrYoy": "+3.8%", "occ": 67.6, "occYoy": "+6.0pp", "src": "shStats9"}, {"m": "10 月", "adr": 806, "adrYoy": "+5.8%", "occ": 70.8, "occYoy": null, "src": "shStats10"}, {"m": "11 月", "adr": 835, "adrYoy": "+3.1%", "occ": 72.9, "occYoy": null, "src": "shStats11"}, {"m": "12 月", "adr": 824, "adrYoy": "+8.8%", "occ": 63.3, "occYoy": null, "src": "shStats12"}], "shanghaiMeta": {"caliber": "上海市星级饭店（全量 · 上海市文化和旅游局口径）", "period": "2025 年"}};
+function fmtBench(){
+  const v=document.getElementById('bench').value;
+  let info='';
+  if(v==='official'){
+    const it=B.official.items;info='<b>口径：</b>'+B.official.caliber+'　·　'+B.official.period+'<br><b>公开锚点：</b>ADR '+val(it,'平均房价 ADR')+'　OCC '+val(it,'平均出租率 Occ')+'　RevPAR '+val(it,'RevPAR')+'（推算值）<br><b>来源：</b>'+B.sources.mct2025.name;
+  }else if(v==='third'){
+    const it=B.third.items;info='<b>口径：</b>'+B.third.caliber+'　·　'+B.third.period+'<br><b>公开锚点：</b>ADR '+val(it,'平均房价 ADR')+'　OCC '+val(it,'平均出租率 Occ')+'　RevPAR '+val(it,'RevPAR')+'<br><b>来源：</b>'+B.sources.str2025.name;
+  }else{
+    const m=(B.shanghai||[])[0]||{};info='<b>口径：</b>'+B.shanghaiMeta.caliber+'<br><b>锚点（'+m.m+'）：</b>ADR '+m.adr+' 元　OCC '+m.occ+'%<br><b>说明：</b>'+B.shanghaiMeta.period+'，逐月取自统计局原报告。';
+  }
+  document.getElementById('benchinfo').innerHTML=info;
+}
+function val(items,k){const x=items.find(i=>i.k===k);return x?x.v:'—';}
+function num(s){return parseFloat(String(s).replace(/[^0-9.]/g,''));}
+function calc(){
+  const occ=num(document.getElementById('occ').value),adr=num(document.getElementById('adr').value);
+  if(isNaN(occ)||isNaN(adr)||occ<=0||adr<=0){alert('请填入有效的 OCC 和 ADR 数字');return;}
+  const v=document.getElementById('bench').value;
+  let bocc,badr,label;
+  if(v==='official'){bocc=num(val(B.official.items,'平均出租率 Occ'));badr=num(val(B.official.items,'平均房价 ADR'));label='全国星级饭店（官方全量）';}
+  else if(v==='third'){bocc=num(val(B.third.items,'平均出租率 Occ'));badr=num(val(B.third.items,'平均房价 ADR'));label='商业酒店（STR 样本）';}
+  else{const m=(B.shanghai||[])[0]||{};bocc=m.occ;badr=m.adr;label='上海星级饭店（'+m.m+'）';}
+  const rev=adr*occ/100,brev=badr*bocc/100;
+  const dO=occ-bocc,dA=(adr-badr)/badr*100,dR=(rev-brev)/brev*100;
+  const revparLine='你的 RevPAR ≈ <b>'+rev.toFixed(1)+'</b> 元　·　基准 ≈ '+brev.toFixed(1)+' 元';
+  const pos=(name,d,unit,invert)=>{
+    const good=invert?d<0:d>0;const cls=Math.abs(d)<3?'':(good?'#16a34a':'#dc2626');
+    return `<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line)">
+      <span>${name}</span><span style="font-weight:600;color:${cls}">${d>=0?'+':''}${d.toFixed(1)}${unit} ${Math.abs(d)<3?'· 基本持平':(good?'· 领先':'· 落后')}</span></div>`;
+  };
+  document.getElementById('out').classList.remove('hide');
+  document.getElementById('out').innerHTML=`<h2>对比结果</h2>
+   <p class="sub">基准：${label}。以下为与公开锚点的差异，非官方排名或分位数。</p>
+   <div style="font-size:14px;margin-bottom:10px">${revparLine}</div>
+   ${pos('出租率 OCC',dO,'pp',false)}${pos('平均房价 ADR',dA,'%',false)}${pos('RevPAR',dR,'%',false)}
+   <div class="note"><b>重要说明：</b>公开渠道没有统一的「分位数」基准，城市级 ADR 存在口径冲突，本工具不发布排名或分位，只做与公开锚点的差异对照。要做精确的城市/月度对标，需数据订阅或自建样本池（样本数≥3 才显示，不暴露单店数据）。不同口径的数据不要混在同一行比较。</div>
+   <div style="margin-top:12px"><button class="btn ghost sm" onclick="window.print()">保存结果</button> <button class="btn ghost sm" onclick="location.href='benchmark.html'">查看完整基准中心</button></div>`;
+  document.getElementById('out').scrollIntoView({behavior:'smooth'});
+}
+fmtBench();document.getElementById('bench').addEventListener('change',fmtBench);
+</script>
+<div style="text-align:center;margin-top:26px">
+<a class="back" href="free-tools-hub.html">← 返回免费工具箱</a>
+</div>
+</main>
+</body>
+</html>

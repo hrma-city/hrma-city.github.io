@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>每周情报简报生成器 · 资讯一键成稿</title>
+<style>
+:root{--o:#0D9488;--od:#0F766E;--soft:#f0fdfa;--navy:#0f2a4a;--navy2:#1d4e7e;--ink:#1f2937;--mut:#5b6a7d;--line:#e3e9f1;--page:#f4f7fb;--g:#16a34a;--r:#dc2626}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--page);color:var(--ink)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:22px 0 20px}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+.top .kick{font-size:12px;color:#f5d78e;letter-spacing:1px;margin-bottom:6px}
+.top h1{font-size:26px;line-height:1.35;margin-bottom:6px}
+.top p{color:#c9d8ea;font-size:13.5px;max-width:640px}
+main{max-width:860px;margin:0 auto;padding:24px 20px 70px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:16px}
+h2{font-size:18px;color:var(--navy);margin-bottom:10px}
+h3{font-size:15px;color:var(--navy);margin:14px 0 8px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:14px}
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}
+select,input[type=text],textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
+textarea{min-height:88px;resize:vertical}
+.btn{display:inline-block;background:var(--o);color:#fff;border:0;border-radius:9px;padding:10px 20px;font-size:14px;cursor:pointer;font-weight:600;font-family:inherit;margin:6px 6px 0 0}
+.btn:hover{background:var(--od)}
+.btn.ghost{background:#fff;color:var(--o);border:1px solid var(--o)}
+.btn.sm{padding:6px 12px;font-size:12.5px}
+.hide{display:none}
+.tag{display:inline-block;background:var(--soft);color:var(--od);border:1px solid #fcd9b6;border-radius:20px;padding:3px 11px;font-size:12px;margin:2px 4px 2px 0}
+.note{background:#fffbe8;border:1px solid #f5d78e;border-radius:9px;padding:10px 13px;font-size:12.5px;color:#7a5b00;margin-top:12px}
+.out{background:var(--soft);border:1px dashed var(--o);border-radius:11px;padding:16px 18px;margin-top:14px;white-space:pre-wrap;line-height:1.85;font-size:14px}
+.back{display:inline-block;margin-top:8px;color:var(--mut);font-size:12.5px;text-decoration:none}
+.back:hover{color:var(--o)}
+@media(max-width:600px){.top h1{font-size:21px}.card{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<div class="kick">RMC 收益管理社区 · 免费工具</div>
+<h1>每周情报简报生成器 · 资讯一键成稿</h1>
+<p id="topdesc"></p>
+</div></div>
+<main><div class="card"><h2>把行业动态，排成一份可发的简报</h2><p class="sub">填入本周几条动态，一键生成带「社区解读」结构的简报，可直接发社群/公众号。解读框架来自资讯页的真实体例。</p><label>简报期数 / 日期</label><input type="text" id="issue" placeholder="例如 第 46 期 · 2026-11-19"><label>本周动态（每行一条，格式：行业｜动态标题｜关键数字）</label><textarea id="items" style="min-height:150px" placeholder="住宿业｜锦江Q3全服务RevPAR跌7.5%｜RevPAR 264.46元,-7.50%
+航空业｜航司客座率升至85.1%｜客座率85.1%
+餐饮业｜爆款单品成价格栅栏｜抖音GMV破亿"></textarea><div style="margin-top:12px"><label>解读视角</label><select id="view"><option>收益管理动作（该怎么定价/控货）</option><option>行业趋势（结构性变化）</option><option>教学案例（可进课堂）</option></select></div><div style="margin-top:14px"><button class="btn" onclick="gen()">生成简报 →</button></div></div><div class="card hide" id="out"></div><script>
+const INDS=["住宿业", "航空业", "餐饮业", "景区文旅", "娱乐休闲", "国际"];
+function gen(){
+  const issue=document.getElementById('issue').value.trim()||'本周情报简报';
+  const view=document.getElementById('view').value;
+  const raw=document.getElementById('items').value.trim();
+  if(!raw){alert('至少填一条动态');return;}
+  const lines=raw.split('\n').map(x=>x.trim()).filter(Boolean);
+  const groups={};
+  lines.forEach(l=>{const p=l.split('|').map(s=>s.trim());const ind=p[0]||'综合';(groups[ind]=groups[ind]||[]).push({title:p[1]||l,num:p[2]||''});});
+  let body='【RMC 收益管理周报】'+issue+'\n\n本期 '+lines.length+' 条动态，覆盖 '+Object.keys(groups).join('、')+'。\n';
+  for(const ind of Object.keys(groups)){
+    body+='\n■ '+ind+'\n';
+    groups[ind].forEach((it,i)=>{
+      body+='  '+(i+1)+'. '+it.title+(it.num?'（'+it.num+'）':'')+'\n';
+      const read = view.indexOf('教学')>=0 ? '→ 教学看点：可作为「'+ind+'」章节的引例，让学生讨论背后的定价与库存动作。'
+        : view.indexOf('趋势')>=0 ? '→ 趋势解读：关注这一变化是结构性还是周期性，对需求曲线的影响需要持续观察。'
+        : '→ 收益解读：数量信号背后是需求与供给的再平衡，回到自己的竞组与进度表看是否需要动作。';
+      body+='     '+read+'\n';
+    });
+  }
+  body+='\n—— 来源：公开行业动态整理 · RMC 收益管理社区 · 数据仅作行业参考';
+  document.getElementById('out').classList.remove('hide');
+  document.getElementById('out').innerHTML=`<h2>你的简报初稿</h2><div class="out" id="brieftxt">${body}</div>
+   <div style="margin-top:14px"><button class="btn" onclick="cp()">复制全文</button></div>
+   <div class="note">「社区解读」是先给信号、再说清对收益管理意味着什么——这是简报的价值所在。发出前请核对每条动态的原始来源与日期。</div>`;
+}
+function cp(){const t=document.getElementById('brieftxt').textContent;navigator.clipboard&&navigator.clipboard.writeText(t).then(()=>alert('已复制'));}
+</script>
+<div style="text-align:center;margin-top:26px">
+<a class="back" href="free-tools-hub.html">← 返回免费工具箱</a>
+</div>
+</main>
+</body>
+</html>
