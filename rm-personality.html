@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>你是哪类收益管理人 · 职业性格测评</title>
+<style>
+:root{--o:#7C3AED;--od:#6D28D9;--soft:#f5f3ff;--navy:#0f2a4a;--navy2:#1d4e7e;--ink:#1f2937;--mut:#5b6a7d;--line:#e3e9f1;--page:#f4f7fb;--g:#16a34a;--r:#dc2626}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--page);color:var(--ink)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:22px 0 20px}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+.top .kick{font-size:12px;color:#f5d78e;letter-spacing:1px;margin-bottom:6px}
+.top h1{font-size:26px;line-height:1.35;margin-bottom:6px}
+.top p{color:#c9d8ea;font-size:13.5px;max-width:640px}
+main{max-width:860px;margin:0 auto;padding:24px 20px 70px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:16px}
+h2{font-size:18px;color:var(--navy);margin-bottom:10px}
+h3{font-size:15px;color:var(--navy);margin:14px 0 8px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:14px}
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}
+select,input[type=text],textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
+textarea{min-height:88px;resize:vertical}
+.btn{display:inline-block;background:var(--o);color:#fff;border:0;border-radius:9px;padding:10px 20px;font-size:14px;cursor:pointer;font-weight:600;font-family:inherit;margin:6px 6px 0 0}
+.btn:hover{background:var(--od)}
+.btn.ghost{background:#fff;color:var(--o);border:1px solid var(--o)}
+.btn.sm{padding:6px 12px;font-size:12.5px}
+.hide{display:none}
+.tag{display:inline-block;background:var(--soft);color:var(--od);border:1px solid #fcd9b6;border-radius:20px;padding:3px 11px;font-size:12px;margin:2px 4px 2px 0}
+.note{background:#fffbe8;border:1px solid #f5d78e;border-radius:9px;padding:10px 13px;font-size:12.5px;color:#7a5b00;margin-top:12px}
+.out{background:var(--soft);border:1px dashed var(--o);border-radius:11px;padding:16px 18px;margin-top:14px;white-space:pre-wrap;line-height:1.85;font-size:14px}
+.back{display:inline-block;margin-top:8px;color:var(--mut);font-size:12.5px;text-decoration:none}
+.back:hover{color:var(--o)}
+@media(max-width:600px){.top h1{font-size:21px}.card{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<div class="kick">RMC 收益管理社区 · 免费工具</div>
+<h1>你是哪类收益管理人 · 职业性格测评</h1>
+<p id="topdesc"></p>
+</div></div>
+<main><script>
+document.getElementById('topdesc').textContent='12 道题，约 3 分钟。看看你的收益管理本能偏向哪一类——结果可保存、可分享。';
+const Q=[{"q": "周一早上打开报表，你第一眼找的是？", "o": ["ADR 和 RevPAR 的走向", "哪个渠道占比突然变了", "竞对有没有调价", "昨天的 No-show 和投诉"]}, {"q": "手头有一批临期库存，你倾向于？", "o": ["按价格弹性算个最优折扣点", "发到私域/会员做定向清仓", "打包成套餐抬高感知价值", "先限量挂出去看预订速度"]}, {"q": "团队讨论旺季提价幅度，你更可能说？", "o": ["先看历史弹性和需求日历", "竞组都涨了我们就得跟", "把 MinLOS 和连住条件一起上", "先小步试，看 pickup 再调"]}, {"q": "你最享受的工作瞬间是？", "o": ["一个定价决策直接拉高了 RevPAR", "把混乱的数据整理成清晰的表", "谈下一个优质协议客户", "化解了一次超售危机"]}, {"q": "面对一个新上线的 OTA 渠道，你会？", "o": ["先算净价和成本率", "看它带来的客源是不是新客群", "盯价格一致性别倒挂", "小预算试投两周看转化"]}, {"q": "你希望别人怎么评价你的工作？", "o": ["数据看得准，判断有依据", "办法多，落地快", "稳，不出事故", "会带团队，能协调"]}, {"q": "淡季来临，你的第一反应是？", "o": ["做需求预测和日历排布", "策划促销和套餐", "降低可变成本、控库存", "寻找新的细分客源"]}, {"q": "遇到竞对大幅降价，你会？", "o": ["算 ARI/MPI 再决定跟不跟", "先守住直销和会员", "用增值服务替代直接降价", "观察几天看是不是噱头"]}, {"q": "你更信任哪种信息？", "o": ["自家 PMS 的历史数据", "一线的客人反馈", "行业报告和竞对情报", "团队的经验判断"]}, {"q": "一个团要挤掉散客，你怎么定？", "o": ["算净贡献和置换门槛", "看这个团是不是长期客户", "比较渠道成本差异", "先问能不能错峰"]}, {"q": "你理想的工具是？", "o": ["一个能跑弹性和预测的模型", "一个自动比价的看板", "一个客户分层管理表", "一份清晰的每日检查清单"]}, {"q": "年度预算做完，你最关心？", "o": ["分解到每天的目标是否合理", "各渠道预算分配", "关键事件日的预留", "团队是否理解目标"]}];
+const MAP=[[0, 2, 0, 2], [0, 2, 0, 3], [0, 0, 2, 3], [0, 1, 2, 3], [1, 2, 1, 3], [0, 1, 2, 3], [1, 2, 0, 3], [0, 2, 0, 3], [1, 3, 2, 0], [0, 3, 2, 3], [1, 2, 3, 0], [0, 2, 1, 3]];
+const TYPES=[{"name": "定价策略型", "icon": "定", "color": "#7C3AED", "desc": "你相信价格是最锋利的杠杆。看到数字就想找最优解，追求用一次精准调价拉动整体收益。", "strong": "价格弹性、需求预测、体系化定价", "weak": "容易低估渠道与执行环节的摩擦", "jobs": "收益分析师、定价策略岗、收益经理", "chs": [4, 5, 6, 7, 10, 26]}, {"name": "数据洞察型", "icon": "数", "color": "#0284C7", "desc": "你是团队里让数据说话的人。喜欢把杂乱的信息整理成结构，用指标和报表支撑每一个判断。", "strong": "指标体系、报表体系、预测与预算", "weak": "有时过于依赖模型，忽略一线直觉", "jobs": "收益分析、数据分析、经营分析岗", "chs": [2, 3, 23, 25, 27, 31, 39]}, {"name": "渠道运营型", "icon": "渠", "color": "#0D9488", "desc": "你懂客人从哪里来，也懂每一分钱被谁拿走。擅长用渠道组合、会员与私域把生意做大做稳。", "strong": "渠道净价、客源细分、直销与会员", "weak": "需注意价格一致性与长期品牌", "jobs": "渠道经理、分销运营、电商/私域运营", "chs": [14, 15, 16, 19, 37, 38]}, {"name": "稳健风控型", "icon": "稳", "color": "#E11D48", "desc": "你是团队的压舱石。重视流程、标准和风险管理，总能把混乱的局面理出一条清晰的执行线。", "strong": "每日流程、库存风控、危机处理", "weak": "面对机会时可能偏保守", "jobs": "收益主管、运营经理、房务/前厅管理", "chs": [11, 12, 13, 20, 21, 22, 41]}];
+let ans=[];
+function render(){
+  const box=document.getElementById('qs');
+  box.innerHTML=Q.map((item,i)=>`<div class="card" style="margin-bottom:12px">
+    <h3 style="margin-top:0">${i+1}. ${item.q}</h3>
+    ${item.o.map((o,j)=>`<label style="display:flex;gap:9px;align-items:flex-start;padding:8px 10px;border:1px solid var(--line);border-radius:9px;margin:6px 0;cursor:pointer;font-size:13.5px;color:var(--ink)">
+      <input type="radio" name="q${i}" value="${j}" onchange="ans[${i}]=${j}" style="margin-top:4px"> <span>${o}</span></label>`).join('')}
+  </div>`).join('');
+}
+function result(){
+  if(ans.filter(x=>x!==undefined).length<Q.length){alert('还有题目没答完哦');return;}
+  const sc=[0,0,0,0];
+  ans.forEach((a,i)=>{sc[MAP[i][a]]++;});
+  const order=sc.map((v,i)=>({v,i})).sort((a,b)=>b.v-a.v);
+  const t=TYPES[order[0].i], s=TYPES[order[1].i];
+  document.getElementById('res').classList.remove('hide');
+  document.getElementById('res').innerHTML=`
+   <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+     <div style="width:64px;height:64px;border-radius:16px;background:${t.color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700">${t.icon}</div>
+     <div><div style="font-size:12px;color:var(--mut)">你的主导类型</div><div style="font-size:23px;font-weight:700;color:${t.color}">${t.name}</div></div>
+   </div>
+   <p style="margin-top:14px;font-size:14px">${t.desc}</p>
+   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px">
+     <div class="card" style="margin:0;background:var(--soft)"><b style="color:${t.color}">你的强项</b><p style="font-size:13px;margin-top:4px">${t.strong}</p></div>
+     <div class="card" style="margin:0"><b>可以补的短板</b><p style="font-size:13px;margin-top:4px">${t.weak}</p></div>
+   </div>
+   <p style="margin-top:12px;font-size:13.5px"><b>副类型：</b>${s.name}　·　<b>适合岗位：</b>${t.jobs}</p>
+   <h3>为你推荐的课程章节</h3>
+   <div>${t.chs.map(n=>{const c=CH.find(x=>x.n===n);return c?`<span class="tag">第${n}章 · ${c.title}</span>`:''}).join('')}</div>
+   <div class="note">结果保存在本机浏览器，不上传任何数据。分享时可截图这张结果卡。</div>
+   <div style="margin-top:14px"><button class="btn" onclick="copyRes()">复制我的结果</button><button class="btn ghost sm" onclick="window.print()">保存为图片/PDF</button></div>`;
+  document.getElementById('res').scrollIntoView({behavior:'smooth'});
+}
+const CH=[{"n": 1, "title": "收益管理是什么：一句话与底层逻辑"}, {"n": 2, "title": "三个核心指标：OCC、ADR、RevPAR"}, {"n": 3, "title": "竞争三件套：MPI、ARI、RGI"}, {"n": 4, "title": "价格弹性：降多少价能换多少量"}, {"n": 5, "title": "什么时候涨价"}, {"n": 6, "title": "竞品降价：跟还是不跟"}, {"n": 7, "title": "竞争博弈：从「跟不跟价」到「对方下一期会怎么反应」"}, {"n": 8, "title": "折扣与促销：什么时候该让"}, {"n": 9, "title": "套餐与锚定：让客人觉得划算"}, {"n": 10, "title": "房型价差：差价定多少才合理"}, {"n": 11, "title": "最短住期 MinLOS：用条件把客群分开"}, {"n": 12, "title": "超额预订：卖出去的比有的多"}, {"n": 13, "title": "库存分配与保护位：给谁留多少房"}, {"n": 14, "title": "渠道净价：到手多少钱才算数"}, {"n": 15, "title": "渠道组合战略：不是逐个算净价，是解一个带约束的配置问题"}, {"n": 16, "title": "客源细分：把客人分成几堆来卖"}, {"n": 17, "title": "客户终身价值：把一晚的决策放到一段关系里"}, {"n": 18, "title": "团队置换：这个团该不该接"}, {"n": 19, "title": "直销与会员：把客人变成自己的"}, {"n": 20, "title": "运营全景：从年到日的节奏"}, {"n": 21, "title": "每日实操流程：一天具体做什么"}, {"n": 22, "title": "执行标准与收益例会"}, {"n": 23, "title": "预测与需求日历"}, {"n": 24, "title": "需求创造：收益不是分蛋糕，是把蛋糕做大"}, {"n": 25, "title": "年度预算：把一年拆到每天"}, {"n": 26, "title": "价格体系 BAR：所有价格的锚"}, {"n": 27, "title": "报表体系：每天该看哪几张表"}, {"n": 28, "title": "OTA 与点评：评分就是价格"}, {"n": 29, "title": "岗位与组织：谁来干这件事"}, {"n": 30, "title": "成本与利润：降价的底线在哪"}, {"n": 31, "title": "系统与数据：工具能替您做什么"}, {"n": 32, "title": "淡旺季与事件日：一年里最容易赚的钱"}, {"n": 33, "title": "餐饮收益：RevPASH 与翻台"}, {"n": 34, "title": "会议宴会：不只算房，算总贡献"}, {"n": 35, "title": "其他业态与跨行业参数"}, {"n": 36, "title": "常见误区：30 个坑，别再踩"}, {"n": 37, "title": "中国渠道生态：平台、私域、买断与直播"}, {"n": 38, "title": "连锁与中央预订：总部定价，门店做什么"}, {"n": 39, "title": "AI 工具做收益分析"}, {"n": 40, "title": "生成式 AI 与优化：把 AI 放在校验链里，不放在决策位上"}, {"n": 41, "title": "危机与极端场景"}, {"n": 42, "title": "收益岗位与职业发展"}, {"n": 43, "title": "变革篇：收益管理正在发生的五件事"}, {"n": 44, "title": "周期与不确定性下的收益管理"}, {"n": 45, "title": "人工智能与收益管理（科普）"}, {"n": 46, "title": "绿色收益管理与可持续"}];
+function copyRes(){
+  const t=TYPES[ans.reduce((acc,a,i)=>{acc[MAP[i][a]]++;return acc},[0,0,0,0]).reduce((best,v,i,arr)=>v>arr[best]?i:best,0)];
+  const txt='我的收益管理人类型：'+t.name+'\n'+t.desc+'\n强项：'+t.strong+'\n适合岗位：'+t.jobs+'\n—— RMC 收益管理社区 · 免费测评';
+  navigator.clipboard&&navigator.clipboard.writeText(txt).then(()=>alert('已复制，可粘贴分享'));
+}
+</script><div id="qs"></div><script>render();</script><div class="card hide" id="res"></div><div style="text-align:center"><button class="btn" onclick="result()">看我的结果 →</button></div>
+<div style="text-align:center;margin-top:26px">
+<a class="back" href="free-tools-hub.html">← 返回免费工具箱</a>
+</div>
+</main>
+</body>
+</html>
