@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate-public.js?v=v1"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>竞品跟价 · 归因追问式决策陪练</title>
+<style>
+:root{--v:#7C3AED;--vd:#5B21B6;--o:#F97316;--navy:#0f2a4a;--navy2:#1d4e7e;--ink:#1f2937;--mut:#5b6a7d;--line:#e3e9f1;--page:#f4f7fb;--g:#16a34a;--r:#dc2626}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.8 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--page);color:var(--ink)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:24px 0 20px}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+.top .kick{font-size:12px;color:#ddd6fe;letter-spacing:1px;margin-bottom:6px}
+.top h1{font-size:24px;margin-bottom:6px}
+.top p{color:#c9d8ea;font-size:13.5px;max-width:660px}
+main{max-width:900px;margin:0 auto;padding:24px 20px 80px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:16px}
+h2{font-size:19px;color:var(--navy);margin-bottom:8px}h3{font-size:15.5px;color:var(--navy2);margin:16px 0 8px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:12px}
+.case{background:#fff8f0;border:1px solid #fed7aa;border-radius:11px;padding:14px 17px;font-size:13.5px;color:#7c2d12;margin-bottom:12px}
+.ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:14px 0}
+.ctrl label{display:block;font-size:13px;color:var(--mut);margin-bottom:3px}
+.ctrl input[type=range]{width:100%;accent-color:var(--v)}
+.ctrl .val{font-weight:700;color:var(--vd);float:right}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:14px 0}
+.opt{padding:13px 15px;border:1px solid var(--line);border-radius:10px;cursor:pointer;font-size:13.5px;background:#fff;transition:.15s}
+.opt:hover{border-color:var(--v);background:#faf5ff}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:14px 0}
+.res div{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+.res b{display:block;font-size:19px;color:var(--navy);line-height:1.2}.res span{font-size:12px;color:var(--mut)}
+.res .danger b{color:var(--r)}.res .safe b{color:var(--g)}
+.btn{display:inline-block;background:var(--v);color:#fff;border:0;border-radius:9px;padding:10px 20px;font-size:14px;cursor:pointer;font-weight:600;font-family:inherit;margin:6px 6px 0 0}
+.btn:hover{background:var(--vd)}.btn.ghost{background:#fff;color:var(--v);border:1px solid var(--v)}.btn.sm{padding:6px 12px;font-size:12.5px}
+.hide{display:none}
+.ask{background:#faf5ff;border:1px solid #ddd6fe;border-left:4px solid var(--v);border-radius:11px;padding:16px 18px;margin:14px 0}
+.ask .who{font-size:12px;color:var(--vd);font-weight:600;margin-bottom:6px}
+.ask .q{font-size:15px;color:#4c1d95;line-height:1.7}
+textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit;min-height:80px;resize:vertical;margin-top:10px}
+.fix{background:#ecfdf5;border:1px solid #a7f3d0;border-left:4px solid var(--g);border-radius:11px;padding:16px 18px;margin:14px 0}
+.fix h4{margin-top:0;color:#065f46;font-size:15px}
+.fix ul{padding-left:20px;margin:8px 0}.fix li{margin:6px 0;font-size:13.5px}
+.formula{background:#fff;border:1px dashed #cbd5e1;border-radius:9px;padding:11px 14px;font:12.5px/1.9 ui-monospace,Menlo,monospace;color:#475569;margin:10px 0;white-space:pre-line}
+.round{display:inline-block;background:#ede9fe;color:var(--vd);border-radius:20px;padding:3px 12px;font-size:12px;font-weight:600;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f8fafc;color:var(--navy)}
+.note{background:#fffbe8;border:1px solid #f5d78e;border-radius:9px;padding:10px 13px;font-size:12.5px;color:#7a5b00;margin-top:12px}
+.step{display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:13px;color:var(--mut)}
+.step b{display:inline-flex;width:24px;height:24px;border-radius:50%;background:#ede9fe;color:var(--vd);align-items:center;justify-content:center;font-size:12px;flex:0 0 auto}
+@media(max-width:600px){.top h1{font-size:20px}.card{padding:18px 16px}}
+@media print{.top{background:#fff;color:var(--navy)}body{background:#fff}.btn{display:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<div class="kick">RMC 收益管理社区 · 归因追问式决策陪练</div>
+<h1>竞品降价，跟还是不跟？</h1>
+<p>最有价值也最容易情绪化的一次决策。先判断对方意图，再看自己有没有到非跟不可。</p>
+</div></div>
+<main>
+
+<div class="card">
+<div class="step"><b>1</b>做出决策 → <b>2</b>说出你的依据 → <b>3</b>看归因纠偏 → <b>4</b>再决策一次</div>
+<div class="case">隔壁新开业把价格砍到 299，预订立刻掉了三成。销售喊"我们也降 299"。一个月后两家都卖 299、两家都没赚钱——唯一受益的是客人。</div>
+<div><label>你判断竞品降价的原因是</label><input type="hidden" id="reason" value="1"><div class="opts">
+<div class="opt" data-val="1" style="border-color:var(--v);background:#faf5ff">竞品新开业（3–6 个月会回）</div>
+<div class="opt" data-val="2">竞品经营困难（长期性）</div>
+<div class="opt" data-val="3">竞品短期促销</div>
+</div></div>
+<div class="ctrl">
+<div><label>你当前房价 <span class="val" id="vmyprice">450</span></label><input type="range" id="myprice" min="200" max="1500" step="10" value="450"></div>
+<div><label>竞品降价幅度 <span class="val" id="vcomp">20%</span></label><input type="range" id="comp" min="5" max="50" step="5" value="20"></div>
+<div><label>你的出租率变化 <span class="val" id="vtrend">20%</span></label><input type="range" id="trend" min="0" max="60" step="5" value="20"></div>
+<div><label>你的变动成本线 <span class="val" id="vcost">200</span></label><input type="range" id="cost" min="50" max="900" step="10" value="200"></div>
+</div>
+<div class="note">判定口径取自第 6 章教材：新开业守、长期困难重视、短期促销不理；出租率明显下滑才跟；跟降后不得低于变动成本（第 30 章）。</div>
+<div style="margin-top:12px"><button class="btn" id="btnSubmit" onclick="submit()">提交这一轮决策 →</button></div>
+</div>
+
+<div class="card hide" id="resultCard">
+<div class="round" id="roundLabel">第 1 轮决策</div>
+<h2>你的决策结果</h2>
+<div class="res" id="res"></div>
+<div id="rawVerdict" class="verdict"></div>
+</div>
+
+<div class="ask hide" id="askCard">
+<div class="who">归因追问 · 先别看结论，先回答这个</div>
+<div class="q" id="askText"></div>
+<textarea id="answer" placeholder="写下你当时看到的信号和判断依据（尽量具体，比如某个数字或某条信息）…"></textarea>
+<div style="margin-top:10px"><button class="btn" onclick="showFix()">提交回答，看纠偏 →</button></div>
+</div>
+
+<div class="fix hide" id="fixCard">
+<h4>认知纠偏卡</h4>
+<div id="answerJudge"></div>
+<div id="fixBody"></div>
+<div style="margin-top:14px"><button class="btn ghost" onclick="nextRound()">带着纠偏，再决策一次 →</button></div>
+</div>
+
+<div class="card hide" id="summaryCard">
+<h2>两轮决策对比</h2>
+<div id="cmp"></div>
+<div style="margin-top:12px"><button class="btn ghost sm" onclick="window.print()">保存 / 打印</button></div>
+</div>
+
+<div class="note" style="text-align:center;margin-top:26px">数据只在本机计算 · 不上传 · 不留存 · 可离线使用</div>
+</main>
+<script>
+
+var round=1,hist=[];
+function bind(ids){ids.forEach(function(id){var el=document.getElementById(id);if(!el)return;
+ el.addEventListener('input',function(){var v=document.getElementById('v'+id);if(v)v.textContent=id==='elast'?(el.value/10).toFixed(1):(el.value+(id==='rate'||id==='disc'?'%':''));});});}
+function submit(){
+ var d=calc(),t=classify(d);hist.push({round:round,data:d,type:t});
+ document.getElementById('roundLabel').textContent='第 '+round+' 轮决策';
+ document.getElementById('res').innerHTML=resHtml(d);
+ var v=document.getElementById('rawVerdict');
+ v.className='verdict '+(d.bad?'warn':'ok');v.innerHTML=verdictHtml(d);
+ document.getElementById('askText').textContent=ASKS[t].q;
+ document.getElementById('askCard').classList.remove('hide');
+ document.getElementById('resultCard').classList.remove('hide');
+ document.getElementById('fixCard').classList.add('hide');
+ document.getElementById('answer').value='';
+ document.getElementById('askCard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function showFix(){
+ var a=document.getElementById('answer').value.trim();
+ var t=hist[hist.length-1].type;
+ var concrete=/\d|%|间|点|次|历史|PMS|数据|周|淡季|旺季|净价|成本/.test(a);
+ document.getElementById('answerJudge').innerHTML='<div class="note" style="background:#fff;border-color:#a7f3d0;color:#065f46">你写的是：<b>'+(a?(a.length>60?a.slice(0,60)+'…':a):'（未填写）')+'</b><br>'+(!a||a.length<4?'还没写下具体依据——这正是最容易被忽略的一步。':(concrete?'很好，你提到了具体信号或数字——这就是"有依据"的样子。':'尽量补上具体数字或信号来源，判断力才可被检验。'))+'</div>';
+ var f=TYPES[t];
+ document.getElementById('fixBody').innerHTML='<h3>你的决策倾向：'+f.name+'</h3><p>'+f.fix+'</p><p><b>下次怎么做：</b>'+f.act+'</p><div class="formula">'+f.ch+'</div>';
+ document.getElementById('fixCard').classList.remove('hide');
+ document.getElementById('fixCard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function nextRound(){
+ if(round>=2){buildCompare();return;}
+ round++;
+ ['askCard','fixCard','resultCard'].forEach(function(id){document.getElementById(id).classList.add('hide');});
+ document.getElementById('btnSubmit').textContent='提交第 '+round+' 轮决策 →';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function buildCompare(){
+ var a=hist[0],b=hist[1],changed=a.type!==b.type;
+ var rows=cmpRows(a,b);
+ document.getElementById('cmp').innerHTML='<table><tr><th>对比项</th><th>第 1 轮</th><th>第 2 轮</th></tr>'+rows+'</table>'+
+  '<div class="'+(changed?'fix':'note')+'" style="'+(changed?'':'background:#fffbe8')+'">'+
+  (changed?'你的决策倾向发生了变化——这说明纠偏起作用了。':'两轮倾向没变。不是要你改成"标准答案"，而是问：第二次做决策时，你的依据和第一次有任何不同吗？')+'</div>';
+ document.getElementById('summaryCard').classList.remove('hide');
+ document.getElementById('summaryCard').scrollIntoView({behavior:'smooth'});
+}
+
+
+function calc(){
+ var reason=+document.getElementById('reason').value,myprice=+document.getElementById('myprice').value,
+     comp=+document.getElementById('comp').value,trend=+document.getElementById('trend').value,
+     cost=+document.getElementById('cost').value;
+ var newP=Math.round(myprice*(1-comp/100));
+ var aboveCost=newP>cost;
+ var bad=!aboveCost;
+ return {reason:reason,myprice:myprice,comp:comp,trend:trend,cost:cost,newP:newP,aboveCost:aboveCost,bad:bad};
+}
+function classify(d){
+ if(!d.aboveCost) return 'belowcost';
+ if(d.reason===3) return 'shortpromo';
+ if(d.reason===2) return 'longterm';
+ if(d.trend<30) return 'panic';
+ if(d.reason===1) return 'newopen';
+ return 'ok';
+}
+var REASON=['竞品新开业','竞品经营困难（长期）','竞品短期促销'];
+var ASKS={
+ belowcost:{q:'跟价后房价 ¥'+'"'+'会低于变动成本'+'"'+'。教材第 30 章的红线是：跟降后仍高于变动成本才可能跟，否则绝对不跟。你算过变动成本吗？'},
+ shortpromo:{q:'你判断对方是短期促销。既然是短期的，跟降会不会把你的价位带也一起钉死？等对方涨回来，你涨得回去吗？'},
+ longterm:{q:'你判断对方是长期困难。这个判断来自什么——一次降价，还是持续的价格追踪？如果只是一次动作就跟进，是不是过度反应？'},
+ panic:{q:'你的出租率"明显下滑"了吗？教材判定：明显下滑才说明真在丢量；稳定就不必跟，可能只是心理紧张。你看到的数据支持"明显"两个字吗？'},
+ newopen:{q:'新开业酒店 3–6 个月会回来。你打算守多久？如果守不住，会不会在对方回来之前就先把价位带丢了？'},
+ ok:{q:'你的判断有依据。再追问：跟降之后你怎么设"涨回来"的触发器？没有退出机制的动作，往往会变成永久降价。'}
+};
+var TYPES={
+ belowcost:{name:'跌破成本线',fix:'这是最硬的一条红线：跟降后若低于变动成本，绝对不跟。每多卖一间，亏得更多。第 30 章讲的就是降价的底线在哪。',act:'先算变动成本（清洁+布草+易耗+早餐），设为客户能接受的最低房价，任何调价不得跌破。',ch:'第 6 章 · 判定 6｜第 30 章 · 成本与利润'},
+ shortpromo:{name:'被短期促销带跑',fix:'对方短期促销，你跟着降，等于把自己的价位带一起让出去。平台价格记录会把你钉死，等你想涨回 450，客人已经不认了。',act:'短期促销→不理，用价值补偿（早餐/升级/积分）替代直接降价。',ch:'第 6 章 · 判定 2｜第 8 章 · 折扣与促销'},
+ longterm:{name:'过度反应',fix:'把一次降价当成"长期困难"并跟进，是典型的过度反应。教材要求先看清对方意图与自身出租率是否真的明显下滑。',act:'建立竞对价格追踪，看趋势而非单点；出租率稳定就不跟。',ch:'第 6 章 · 判定 2/3｜第 3 章 · 竞争三件套'},
+ panic:{name:'心理紧张型跟价',fix:'出租率稳定却慌着跟降，是最常见也最没必要的亏损。判断要基于"明显下滑"的数据，不是销售的一句"客人说贵"。',act:'设阈值：出租率环比下滑超过 X 个点、且持续 3 天，才进入跟价评估。',ch:'第 6 章 · 判定 3｜第 3 章 · MPI/ARI'},
+ newopen:{name:'新开业冲击',fix:'新开业酒店 3–6 个月通常会回归正常价位。盲目跟降，等于在对方周期性低价期把自己的价位带永久让渡。',act:'新开业→守；用口碑/位置优势做差异化，而非价格战；设 3–6 个月的观察期。',ch:'第 6 章 · 判定 2｜第 26 章 · 价格体系 BAR'},
+ ok:{name:'判断有据',fix:'判断有依据，但一个动作正确不等于建立了机制。竞品降价是高频事件，需要的是一套可重复的判定顺序。',act:'把判定写成顺序：对方意图→自身出租率→口碑位置→成本红线→退出触发器。',ch:'第 6 章 · 判定表｜第 22 章 · 收益例会'}
+};
+function resHtml(d){return '<div><b>¥'+d.newP+'</b><span>跟价后房价</span></div>'+
+ '<div><b>¥'+d.cost+'</b><span>变动成本线</span></div>'+
+ '<div class="'+(d.bad?'danger':'safe')+'"><b>'+(d.aboveCost?'高于':'低于')+'</b><span>成本红线</span></div>'+
+ '<div><b>'+d.trend+'%</b><span>出租率变化</span></div>';}
+function verdictHtml(d){return d.bad?'<strong>跌破变动成本线</strong>：跟下去每卖一间亏一间。但先别急着定——下面是更重要的部分。':'<strong>未跌破成本线</strong>：但"能跟"不等于"该跟"。';}
+function cmpRows(a,b){return '<tr><td>对方降价</td><td>'+a.data.comp+'%</td><td>'+b.data.comp+'%</td></tr>'+
+ '<tr><td>出租率变化</td><td>'+a.data.trend+'%</td><td>'+b.data.trend+'%</td></tr>'+
+ '<tr><td>跟价后房价</td><td>¥'+a.data.newP+'</td><td>¥'+b.data.newP+'</td></tr>'+
+ '<tr><td>决策倾向</td><td>'+TYPES[a.type].name+'</td><td>'+TYPES[b.type].name+'</td></tr>';}
+document.querySelectorAll('.opt').forEach(function(el){el.addEventListener('click',function(){document.querySelectorAll('.opt').forEach(function(x){x.style.borderColor='var(--line)';x.style.background='#fff';});el.style.borderColor='var(--v)';el.style.background='#faf5ff';document.getElementById('reason').value=el.getAttribute('data-val');});});
+
+</script>
+</body>
+</html>

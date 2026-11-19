@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate-public.js?v=v1"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>团队置换 · 归因追问式决策陪练</title>
+<style>
+:root{--v:#7C3AED;--vd:#5B21B6;--o:#F97316;--navy:#0f2a4a;--navy2:#1d4e7e;--ink:#1f2937;--mut:#5b6a7d;--line:#e3e9f1;--page:#f4f7fb;--g:#16a34a;--r:#dc2626}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.8 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--page);color:var(--ink)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:24px 0 20px}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+.top .kick{font-size:12px;color:#ddd6fe;letter-spacing:1px;margin-bottom:6px}
+.top h1{font-size:24px;margin-bottom:6px}
+.top p{color:#c9d8ea;font-size:13.5px;max-width:660px}
+main{max-width:900px;margin:0 auto;padding:24px 20px 80px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:16px}
+h2{font-size:19px;color:var(--navy);margin-bottom:8px}h3{font-size:15.5px;color:var(--navy2);margin:16px 0 8px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:12px}
+.case{background:#fff8f0;border:1px solid #fed7aa;border-radius:11px;padding:14px 17px;font-size:13.5px;color:#7c2d12;margin-bottom:12px}
+.ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:14px 0}
+.ctrl label{display:block;font-size:13px;color:var(--mut);margin-bottom:3px}
+.ctrl input[type=range]{width:100%;accent-color:var(--v)}
+.ctrl .val{font-weight:700;color:var(--vd);float:right}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:14px 0}
+.opt{padding:13px 15px;border:1px solid var(--line);border-radius:10px;cursor:pointer;font-size:13.5px;background:#fff;transition:.15s}
+.opt:hover{border-color:var(--v);background:#faf5ff}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:14px 0}
+.res div{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+.res b{display:block;font-size:19px;color:var(--navy);line-height:1.2}.res span{font-size:12px;color:var(--mut)}
+.res .danger b{color:var(--r)}.res .safe b{color:var(--g)}
+.btn{display:inline-block;background:var(--v);color:#fff;border:0;border-radius:9px;padding:10px 20px;font-size:14px;cursor:pointer;font-weight:600;font-family:inherit;margin:6px 6px 0 0}
+.btn:hover{background:var(--vd)}.btn.ghost{background:#fff;color:var(--v);border:1px solid var(--v)}.btn.sm{padding:6px 12px;font-size:12.5px}
+.hide{display:none}
+.ask{background:#faf5ff;border:1px solid #ddd6fe;border-left:4px solid var(--v);border-radius:11px;padding:16px 18px;margin:14px 0}
+.ask .who{font-size:12px;color:var(--vd);font-weight:600;margin-bottom:6px}
+.ask .q{font-size:15px;color:#4c1d95;line-height:1.7}
+textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit;min-height:80px;resize:vertical;margin-top:10px}
+.fix{background:#ecfdf5;border:1px solid #a7f3d0;border-left:4px solid var(--g);border-radius:11px;padding:16px 18px;margin:14px 0}
+.fix h4{margin-top:0;color:#065f46;font-size:15px}
+.fix ul{padding-left:20px;margin:8px 0}.fix li{margin:6px 0;font-size:13.5px}
+.formula{background:#fff;border:1px dashed #cbd5e1;border-radius:9px;padding:11px 14px;font:12.5px/1.9 ui-monospace,Menlo,monospace;color:#475569;margin:10px 0;white-space:pre-line}
+.round{display:inline-block;background:#ede9fe;color:var(--vd);border-radius:20px;padding:3px 12px;font-size:12px;font-weight:600;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f8fafc;color:var(--navy)}
+.note{background:#fffbe8;border:1px solid #f5d78e;border-radius:9px;padding:10px 13px;font-size:12.5px;color:#7a5b00;margin-top:12px}
+.step{display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:13px;color:var(--mut)}
+.step b{display:inline-flex;width:24px;height:24px;border-radius:50%;background:#ede9fe;color:var(--vd);align-items:center;justify-content:center;font-size:12px;flex:0 0 auto}
+@media(max-width:600px){.top h1{font-size:20px}.card{padding:18px 16px}}
+@media print{.top{background:#fff;color:var(--navy)}body{background:#fff}.btn{display:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<div class="kick">RMC 收益管理社区 · 归因追问式决策陪练</div>
+<h1>这个团，该不该接？</h1>
+<p>接单看起来永远是好事，不接需要勇气。但满房，也可能是在少赚。</p>
+</div></div>
+<main>
+
+<div class="card">
+<div class="step"><b>1</b>做出决策 → <b>2</b>说出你的依据 → <b>3</b>看归因纠偏 → <b>4</b>再决策一次</div>
+<div class="case">销售接了个 60 间的旅游团，单价 300，当月出租率很好看。月底才发现：它挤掉了原本愿意付 600 的散客——出租率上去了，收入下来了。</div>
+<div class="ctrl">
+<div><label>团队要房量（间） <span class="val" id="vrooms">60</span></label><input type="range" id="rooms" min="5" max="150" step="5" value="60"></div>
+<div><label>团队价（元） <span class="val" id="vtprice">300</span></label><input type="range" id="tprice" min="100" max="900" step="20" value="300"></div>
+<div><label>散客净价（元） <span class="val" id="vrprice">600</span></label><input type="range" id="rprice" min="200" max="1500" step="50" value="600"></div>
+<div><label>历史散客需求强度 <span class="val" id="vrdemand">70%</span></label><input type="range" id="rdemand" min="0" max="100" step="5" value="70"></div>
+<div><label>含餐/会议综合收入（元） <span class="val" id="vinclude">0</span></label><input type="range" id="include" min="0" max="30000" step="1000" value="0"></div>
+</div>
+<div class="note">判定口径取自第 18 章教材：团量≤剩余50%可接、团价≥散客净价70%可谈、含餐含会议计入综合贡献。数字为教学演示，实际用本店数据校准。</div>
+<div style="margin-top:12px"><button class="btn" id="btnSubmit" onclick="submit()">提交这一轮决策 →</button></div>
+</div>
+
+<div class="card hide" id="resultCard">
+<div class="round" id="roundLabel">第 1 轮决策</div>
+<h2>你的决策结果</h2>
+<div class="res" id="res"></div>
+<div id="rawVerdict" class="verdict"></div>
+</div>
+
+<div class="ask hide" id="askCard">
+<div class="who">归因追问 · 先别看结论，先回答这个</div>
+<div class="q" id="askText"></div>
+<textarea id="answer" placeholder="写下你当时看到的信号和判断依据（尽量具体，比如某个数字或某条信息）…"></textarea>
+<div style="margin-top:10px"><button class="btn" onclick="showFix()">提交回答，看纠偏 →</button></div>
+</div>
+
+<div class="fix hide" id="fixCard">
+<h4>认知纠偏卡</h4>
+<div id="answerJudge"></div>
+<div id="fixBody"></div>
+<div style="margin-top:14px"><button class="btn ghost" onclick="nextRound()">带着纠偏，再决策一次 →</button></div>
+</div>
+
+<div class="card hide" id="summaryCard">
+<h2>两轮决策对比</h2>
+<div id="cmp"></div>
+<div style="margin-top:12px"><button class="btn ghost sm" onclick="window.print()">保存 / 打印</button></div>
+</div>
+
+<div class="note" style="text-align:center;margin-top:26px">数据只在本机计算 · 不上传 · 不留存 · 可离线使用</div>
+</main>
+<script>
+
+var round=1,hist=[];
+function bind(ids){ids.forEach(function(id){var el=document.getElementById(id);if(!el)return;
+ el.addEventListener('input',function(){var v=document.getElementById('v'+id);if(v)v.textContent=id==='elast'?(el.value/10).toFixed(1):(el.value+(id==='rate'||id==='disc'?'%':''));});});}
+function submit(){
+ var d=calc(),t=classify(d);hist.push({round:round,data:d,type:t});
+ document.getElementById('roundLabel').textContent='第 '+round+' 轮决策';
+ document.getElementById('res').innerHTML=resHtml(d);
+ var v=document.getElementById('rawVerdict');
+ v.className='verdict '+(d.bad?'warn':'ok');v.innerHTML=verdictHtml(d);
+ document.getElementById('askText').textContent=ASKS[t].q;
+ document.getElementById('askCard').classList.remove('hide');
+ document.getElementById('resultCard').classList.remove('hide');
+ document.getElementById('fixCard').classList.add('hide');
+ document.getElementById('answer').value='';
+ document.getElementById('askCard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function showFix(){
+ var a=document.getElementById('answer').value.trim();
+ var t=hist[hist.length-1].type;
+ var concrete=/\d|%|间|点|次|历史|PMS|数据|周|淡季|旺季|净价|成本/.test(a);
+ document.getElementById('answerJudge').innerHTML='<div class="note" style="background:#fff;border-color:#a7f3d0;color:#065f46">你写的是：<b>'+(a?(a.length>60?a.slice(0,60)+'…':a):'（未填写）')+'</b><br>'+(!a||a.length<4?'还没写下具体依据——这正是最容易被忽略的一步。':(concrete?'很好，你提到了具体信号或数字——这就是"有依据"的样子。':'尽量补上具体数字或信号来源，判断力才可被检验。'))+'</div>';
+ var f=TYPES[t];
+ document.getElementById('fixBody').innerHTML='<h3>你的决策倾向：'+f.name+'</h3><p>'+f.fix+'</p><p><b>下次怎么做：</b>'+f.act+'</p><div class="formula">'+f.ch+'</div>';
+ document.getElementById('fixCard').classList.remove('hide');
+ document.getElementById('fixCard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function nextRound(){
+ if(round>=2){buildCompare();return;}
+ round++;
+ ['askCard','fixCard','resultCard'].forEach(function(id){document.getElementById(id).classList.add('hide');});
+ document.getElementById('btnSubmit').textContent='提交第 '+round+' 轮决策 →';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function buildCompare(){
+ var a=hist[0],b=hist[1],changed=a.type!==b.type;
+ var rows=cmpRows(a,b);
+ document.getElementById('cmp').innerHTML='<table><tr><th>对比项</th><th>第 1 轮</th><th>第 2 轮</th></tr>'+rows+'</table>'+
+  '<div class="'+(changed?'fix':'note')+'" style="'+(changed?'':'background:#fffbe8')+'">'+
+  (changed?'你的决策倾向发生了变化——这说明纠偏起作用了。':'两轮倾向没变。不是要你改成"标准答案"，而是问：第二次做决策时，你的依据和第一次有任何不同吗？')+'</div>';
+ document.getElementById('summaryCard').classList.remove('hide');
+ document.getElementById('summaryCard').scrollIntoView({behavior:'smooth'});
+}
+
+
+function calc(){
+ var rooms=+document.getElementById('rooms').value,tprice=+document.getElementById('tprice').value,
+     rprice=+document.getElementById('rprice').value,rdemand=+document.getElementById('rdemand').value,
+     include=+document.getElementById('include').value;
+ var displaced=Math.round(rooms*rdemand/100);
+ var teamRev=rooms*tprice+include;
+ var lostRetail=displaced*rprice;
+ var net=teamRev-lostRetail;
+ var ratio=Math.round(tprice/rprice*100);
+ var bad=net<0;
+ return {rooms:rooms,tprice:tprice,rprice:rprice,rdemand:rdemand,include:include,displaced:displaced,teamRev:teamRev,lostRetail:lostRetail,net:net,ratio:ratio,bad:bad};
+}
+function classify(d){
+ if(d.rooms>50) return 'toobig';
+ if(d.ratio<60) return 'toocheap';
+ if(d.rdemand>=70&&d.rooms>20) return 'crowd';
+ if(d.net<0) return 'loss';
+ return 'ok';
+}
+var ASKS={
+ toobig:{q:'这个团 '+'"'+'占了你大量房量'+'"'+'。教材给的判定是"团量 ≤ 剩余的 50% → 通常可接"。你有没有想过：它会不会把原本付高价的散客全挤掉？'},
+ toocheap:{q:'团队价只有散客净价的 '+'"'+'六成以下'+'"'+'。你是看"出租率上去了"就接，还是算过它挤掉散客后的净贡献？'},
+ crowd:{q:'历史散客需求很强，你却接了这个团。你依据的是"这个团确定能来"，还是"散客可能不会满"？一个是确定损失，一个是可能空房——你比较过期望值吗？'},
+ loss:{q:'算出来是亏的，但出租率会很好看。如果你是销售总监，会不会还是想接？你用什么指标向上汇报？'},
+ ok:{q:'净贡献为正。再追问：如果这个团的会议/餐饮收入不算进来，单看房费还成立吗？你有没有把综合贡献算进去？'}
+};
+var TYPES={
+ toobig:{name:'团量过大',fix:'接单看起来永远是好事，不接需要勇气。但团量占比过高时，它挤掉的散客是确定的高价值收入，而团本身只是"看起来热闹"。教材判定：团量≤剩余50%通常可接，占比过高要谨慎。',act:'先看团量占可售房比例，再看历史散客需求。旺季紧俏日慎接，淡季可放宽。',ch:'第 18 章 · 团队置换｜判定 1 · 判定 5'},
+ toocheap:{name:'价格过低',fix:'教材判定：团队价≥散客净价×70%可谈，低于60%基本不接。低价团不仅挤掉高价散客，还会把你的价位带钉死——想涨回去时客人已经不认了。',act:'用散客净价做锚，团队价低于 60% 直接拒；含餐含会议可计入综合贡献再谈。',ch:'第 18 章 · 判定 3/4｜第 26 章 · 价格体系 BAR'},
+ crowd:{name:'挤走高价值散客',fix:'这是收益管理最反直觉的概念：不接团的代价是"可能空房"，接团的代价是"确定的少赚"。两者要用期望值比，不能只看到"团确定能来"。',act:'算期望值：团贡献 vs（散客满房概率×高价 + 空房概率×0）。用近 90 天散客需求强度估概率。',ch:'第 18 章 · 案例解析｜第 23 章 · 需求预测'},
+ loss:{name:'只看出租率',fix:'出租率上去了、收入下来了——这是团队置换最典型的坑。用 RevPAR 和净贡献衡量，而不是用 OCC 向上交差。',act:'汇报口径改用净贡献与 RevPAR；向销售解释"为什么满房也可能亏"。',ch:'第 18 章 · 案例导入｜第 2 章 · 三个核心指标'},
+ ok:{name:'算过贡献',fix:'净贡献为正，方向对。但团队置换的真实价值往往在房费之外——会议、餐饮、综合贡献会改变结论。',act:'把含餐、含会议收入计入总贡献再评；紧俏日与淡季用不同门槛。',ch:'第 18 章 · 判定 4｜第 34 章 · 会议宴会'}
+};
+function resHtml(d){return '<div><b>'+d.displaced+'</b><span>挤掉散客（间）</span></div>'+
+ '<div><b>¥'+d.teamRev.toLocaleString()+'</b><span>团队收入</span></div>'+
+ '<div class="'+(d.net<0?'danger':'safe')+'"><b>'+(d.net>=0?'+':'−')+Math.abs(d.net).toLocaleString()+'</b><span>净贡献（元）</span></div>'+
+ '<div><b>'+d.ratio+'%</b><span>团价/散客净价</span></div>';}
+function verdictHtml(d){return d.bad?'<strong>这一单净贡献为负</strong>：满房但少赚。但先别急着拒——下面是更重要的部分。':'<strong>净贡献为正</strong>：但"算对了"不等于"想明白了"。';}
+function cmpRows(a,b){return '<tr><td>团量</td><td>'+a.data.rooms+' 间</td><td>'+b.data.rooms+' 间</td></tr>'+
+ '<tr><td>团队价</td><td>¥'+a.data.tprice+'</td><td>¥'+b.data.tprice+'</td></tr>'+
+ '<tr><td>团价/散客</td><td>'+a.data.ratio+'%</td><td>'+b.data.ratio+'%</td></tr>'+
+ '<tr><td>净贡献</td><td>'+a.data.net.toLocaleString()+' 元</td><td>'+b.data.net.toLocaleString()+' 元</td></tr>'+
+ '<tr><td>决策倾向</td><td>'+TYPES[a.type].name+'</td><td>'+TYPES[b.type].name+'</td></tr>';}
+bind(['rooms','tprice','rprice','rdemand','include']);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate-public.js?v=v1"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>动态定价 · 归因追问式决策陪练</title>
+<style>
+:root{--v:#7C3AED;--vd:#5B21B6;--o:#F97316;--navy:#0f2a4a;--navy2:#1d4e7e;--ink:#1f2937;--mut:#5b6a7d;--line:#e3e9f1;--page:#f4f7fb;--g:#16a34a;--r:#dc2626}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.8 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--page);color:var(--ink)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:24px 0 20px}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+.top .kick{font-size:12px;color:#ddd6fe;letter-spacing:1px;margin-bottom:6px}
+.top h1{font-size:24px;margin-bottom:6px}
+.top p{color:#c9d8ea;font-size:13.5px;max-width:660px}
+main{max-width:900px;margin:0 auto;padding:24px 20px 80px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:16px}
+h2{font-size:19px;color:var(--navy);margin-bottom:8px}h3{font-size:15.5px;color:var(--navy2);margin:16px 0 8px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:12px}
+.case{background:#fff8f0;border:1px solid #fed7aa;border-radius:11px;padding:14px 17px;font-size:13.5px;color:#7c2d12;margin-bottom:12px}
+.ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:14px 0}
+.ctrl label{display:block;font-size:13px;color:var(--mut);margin-bottom:3px}
+.ctrl input[type=range]{width:100%;accent-color:var(--v)}
+.ctrl .val{font-weight:700;color:var(--vd);float:right}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:14px 0}
+.opt{padding:13px 15px;border:1px solid var(--line);border-radius:10px;cursor:pointer;font-size:13.5px;background:#fff;transition:.15s}
+.opt:hover{border-color:var(--v);background:#faf5ff}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:14px 0}
+.res div{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+.res b{display:block;font-size:19px;color:var(--navy);line-height:1.2}.res span{font-size:12px;color:var(--mut)}
+.res .danger b{color:var(--r)}.res .safe b{color:var(--g)}
+.btn{display:inline-block;background:var(--v);color:#fff;border:0;border-radius:9px;padding:10px 20px;font-size:14px;cursor:pointer;font-weight:600;font-family:inherit;margin:6px 6px 0 0}
+.btn:hover{background:var(--vd)}.btn.ghost{background:#fff;color:var(--v);border:1px solid var(--v)}.btn.sm{padding:6px 12px;font-size:12.5px}
+.hide{display:none}
+.ask{background:#faf5ff;border:1px solid #ddd6fe;border-left:4px solid var(--v);border-radius:11px;padding:16px 18px;margin:14px 0}
+.ask .who{font-size:12px;color:var(--vd);font-weight:600;margin-bottom:6px}
+.ask .q{font-size:15px;color:#4c1d95;line-height:1.7}
+textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit;min-height:80px;resize:vertical;margin-top:10px}
+.fix{background:#ecfdf5;border:1px solid #a7f3d0;border-left:4px solid var(--g);border-radius:11px;padding:16px 18px;margin:14px 0}
+.fix h4{margin-top:0;color:#065f46;font-size:15px}
+.fix ul{padding-left:20px;margin:8px 0}.fix li{margin:6px 0;font-size:13.5px}
+.formula{background:#fff;border:1px dashed #cbd5e1;border-radius:9px;padding:11px 14px;font:12.5px/1.9 ui-monospace,Menlo,monospace;color:#475569;margin:10px 0;white-space:pre-line}
+.round{display:inline-block;background:#ede9fe;color:var(--vd);border-radius:20px;padding:3px 12px;font-size:12px;font-weight:600;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f8fafc;color:var(--navy)}
+.note{background:#fffbe8;border:1px solid #f5d78e;border-radius:9px;padding:10px 13px;font-size:12.5px;color:#7a5b00;margin-top:12px}
+.step{display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:13px;color:var(--mut)}
+.step b{display:inline-flex;width:24px;height:24px;border-radius:50%;background:#ede9fe;color:var(--vd);align-items:center;justify-content:center;font-size:12px;flex:0 0 auto}
+@media(max-width:600px){.top h1{font-size:20px}.card{padding:18px 16px}}
+@media print{.top{background:#fff;color:var(--navy)}body{background:#fff}.btn{display:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<div class="kick">RMC 收益管理社区 · 归因追问式决策陪练</div>
+<h1>降多少价，能换回多少量？</h1>
+<p>价格是最锋利的杠杆，也是最容易被滥用的一个。降之前先算：量要涨多少才不亏。</p>
+</div></div>
+<main>
+
+<div class="card">
+<div class="step"><b>1</b>做出决策 → <b>2</b>说出你的依据 → <b>3</b>看归因纠偏 → <b>4</b>再决策一次</div>
+<div class="case">出租率只有 50%，销售总监急了："降到 299！全员降价！" 降价后出租率升到 75%，大家在会上庆功——因为降了 40% 的价，只换来 50% 的量。</div>
+<div class="ctrl">
+<div><label>可售房数 <span class="val" id="vbase">100</span></label><input type="range" id="base" min="50" max="500" step="10" value="100"></div>
+<div><label>原价（元） <span class="val" id="vprice">600</span></label><input type="range" id="price" min="200" max="2000" step="50" value="600"></div>
+<div><label>降价幅度 <span class="val" id="vdisc">20%</span></label><input type="range" id="disc" min="0" max="50" step="5" value="20"></div>
+<div><label>价格弹性 E <span class="val" id="velast">1.0</span></label><input type="range" id="elast" min="0" max="30" step="1" value="10"></div>
+</div>
+<div class="note">参数与临界公式取自第 4 章教材算例：临界条件＝1/(1−降价幅度)−1。弹性为教学演示估计值，实际请用近 90 天真实成交数据校准。</div>
+<div style="margin-top:12px"><button class="btn" id="btnSubmit" onclick="submit()">提交这一轮决策 →</button></div>
+</div>
+
+<div class="card hide" id="resultCard">
+<div class="round" id="roundLabel">第 1 轮决策</div>
+<h2>你的决策结果</h2>
+<div class="res" id="res"></div>
+<div id="rawVerdict" class="verdict"></div>
+</div>
+
+<div class="ask hide" id="askCard">
+<div class="who">归因追问 · 先别看结论，先回答这个</div>
+<div class="q" id="askText"></div>
+<textarea id="answer" placeholder="写下你当时看到的信号和判断依据（尽量具体，比如某个数字或某条信息）…"></textarea>
+<div style="margin-top:10px"><button class="btn" onclick="showFix()">提交回答，看纠偏 →</button></div>
+</div>
+
+<div class="fix hide" id="fixCard">
+<h4>认知纠偏卡</h4>
+<div id="answerJudge"></div>
+<div id="fixBody"></div>
+<div style="margin-top:14px"><button class="btn ghost" onclick="nextRound()">带着纠偏，再决策一次 →</button></div>
+</div>
+
+<div class="card hide" id="summaryCard">
+<h2>两轮决策对比</h2>
+<div id="cmp"></div>
+<div style="margin-top:12px"><button class="btn ghost sm" onclick="window.print()">保存 / 打印</button></div>
+</div>
+
+<div class="note" style="text-align:center;margin-top:26px">数据只在本机计算 · 不上传 · 不留存 · 可离线使用</div>
+</main>
+<script>
+
+var round=1,hist=[];
+function bind(ids){ids.forEach(function(id){var el=document.getElementById(id);if(!el)return;
+ el.addEventListener('input',function(){var v=document.getElementById('v'+id);if(v)v.textContent=id==='elast'?(el.value/10).toFixed(1):(el.value+(id==='rate'||id==='disc'?'%':''));});});}
+function submit(){
+ var d=calc(),t=classify(d);hist.push({round:round,data:d,type:t});
+ document.getElementById('roundLabel').textContent='第 '+round+' 轮决策';
+ document.getElementById('res').innerHTML=resHtml(d);
+ var v=document.getElementById('rawVerdict');
+ v.className='verdict '+(d.bad?'warn':'ok');v.innerHTML=verdictHtml(d);
+ document.getElementById('askText').textContent=ASKS[t].q;
+ document.getElementById('askCard').classList.remove('hide');
+ document.getElementById('resultCard').classList.remove('hide');
+ document.getElementById('fixCard').classList.add('hide');
+ document.getElementById('answer').value='';
+ document.getElementById('askCard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function showFix(){
+ var a=document.getElementById('answer').value.trim();
+ var t=hist[hist.length-1].type;
+ var concrete=/\d|%|间|点|次|历史|PMS|数据|周|淡季|旺季|净价|成本/.test(a);
+ document.getElementById('answerJudge').innerHTML='<div class="note" style="background:#fff;border-color:#a7f3d0;color:#065f46">你写的是：<b>'+(a?(a.length>60?a.slice(0,60)+'…':a):'（未填写）')+'</b><br>'+(!a||a.length<4?'还没写下具体依据——这正是最容易被忽略的一步。':(concrete?'很好，你提到了具体信号或数字——这就是"有依据"的样子。':'尽量补上具体数字或信号来源，判断力才可被检验。'))+'</div>';
+ var f=TYPES[t];
+ document.getElementById('fixBody').innerHTML='<h3>你的决策倾向：'+f.name+'</h3><p>'+f.fix+'</p><p><b>下次怎么做：</b>'+f.act+'</p><div class="formula">'+f.ch+'</div>';
+ document.getElementById('fixCard').classList.remove('hide');
+ document.getElementById('fixCard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function nextRound(){
+ if(round>=2){buildCompare();return;}
+ round++;
+ ['askCard','fixCard','resultCard'].forEach(function(id){document.getElementById(id).classList.add('hide');});
+ document.getElementById('btnSubmit').textContent='提交第 '+round+' 轮决策 →';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function buildCompare(){
+ var a=hist[0],b=hist[1],changed=a.type!==b.type;
+ var rows=cmpRows(a,b);
+ document.getElementById('cmp').innerHTML='<table><tr><th>对比项</th><th>第 1 轮</th><th>第 2 轮</th></tr>'+rows+'</table>'+
+  '<div class="'+(changed?'fix':'note')+'" style="'+(changed?'':'background:#fffbe8')+'">'+
+  (changed?'你的决策倾向发生了变化——这说明纠偏起作用了。':'两轮倾向没变。不是要你改成"标准答案"，而是问：第二次做决策时，你的依据和第一次有任何不同吗？')+'</div>';
+ document.getElementById('summaryCard').classList.remove('hide');
+ document.getElementById('summaryCard').scrollIntoView({behavior:'smooth'});
+}
+
+
+function calc(){
+ var base=+document.getElementById('base').value,price=+document.getElementById('price').value,
+     disc=+document.getElementById('disc').value,elast=+document.getElementById('elast').value;
+ var E=elast/10;
+ var newPrice=Math.round(price*(1-disc/100));
+ var qtyUp=Math.round(base*E*disc/100);
+ var newQty=base+qtyUp;
+ var oldRev=base*price,newRev=newQty*newPrice,dRev=newRev-oldRev;
+ var need=Math.round(100*(1/(1-disc/100)-1));
+ var Eneed=disc>0?Math.round(need/disc*100)/100:0;
+ var bad=disc>0&&E<Eneed&&disc>=10;
+ return {base:base,price:price,disc:disc,elast:elast,E:E,newPrice:newPrice,newQty:newQty,oldRev:oldRev,newRev:newRev,dRev:dRev,need:need,Eneed:Eneed,bad:bad};
+}
+function classify(d){
+ if(d.disc>=30&&d.E<d.Eneed) return 'blind';
+ if(d.disc>0&&d.E<d.Eneed) return 'nogate';
+ if(d.disc===0) return 'hold';
+ if(d.disc>0&&d.E>=d.Eneed&&d.disc<40) return 'ok';
+ return 'over';
+}
+var ASKS={
+ blind:{q:'你一口气降了 '+'"'+'25% 以上'+'"'+'。以你现在假设的价格弹性，算出来的临界涨幅需求是多少？你有没有先算过"降这么多，量要涨多少才不亏"这笔账？'},
+ nogate:{q:'你降价了，但没有设置任何栅栏（提前订/不可退/会员）。老客户发现后会不会也开始按低价订？原本愿意付高价的收入，你去哪补回来？'},
+ hold:{q:'你选择完全不降价。但今天距入住还有几天、预订速度如何？如果临近日期需求仍不足，空掉的房晚价值归零——你的"不降"依据是什么信号？'},
+ ok:{q:'你的降价幅度在临界值之内，方向对。那么追问：如果竞品明天跟降，你这套还成立吗？你现在有没有"对方跟不跟"的应对规则？'},
+ over:{q:'你降得很多、弹性也假设得很高。这个弹性数字来自近 90 天真实成交数据，还是"应该能拉动"的估计？'}
+};
+var TYPES={
+ blind:{name:'盲目降价',fix:'材料里那个经典坑：降了 40% 的价，只换来 50% 的量，结果收入反而下降。临界条件是——量变动% 必须大于 1/(1−降价幅度) − 1。降价前没算过这笔账，就是盲降。',act:'降价前先算临界值：降 20% 需要量涨 25% 才保本。估算不出量涨多少，就先别降。',ch:'第 4 章 · 价格弹性｜判定 1 · 临界值'},
+ nogate:{name:'无栅栏降价',fix:'降价若没有栅栏（提前订/不可退/会员/资质），高价客也会拿到低价，原本的收入被自己削掉。教材给的判定是"有栅栏→可降；无栅栏→先加栅栏再降"。',act:'先加一道栅栏再给低价：提前 7 天、不可取消、或仅会员专享。用条件分开客群。',ch:'第 4 章 · 判定 2/3｜第 9 章 · 套餐与锚定'},
+ hold:{name:'死守高价',fix:'不降价不等于安全。库存易逝——今晚卖不掉的房，价值永久归零。临近日期需求仍不足时该降就降，问题不在"降不降"，在"有没有算过再降"。',act:'看两个信号：距入住天数、预订速度。还早→等高价客；临近且慢→果断降，但设栅栏。',ch:'第 4 章 · 判定 4｜第 1 章 · 库存易逝'},
+ ok:{name:'算过再降',fix:'方向对，但一个决策正确不等于建立了规则。真正的掌握是能说清"什么时候降、降多少、对方跟了怎么办"。',act:'把判断写成一句话规则，放进每日判定表；同时预设竞品跟降的应对。',ch:'第 6 章 · 竞品降价｜第 22 章 · 收益例会'},
+ over:{name:'高估弹性',fix:'价格弹性不是拍出来的。高估弹性会让你以为"降一点能拉很多量"，结果量没来、价也没了。弹性必须用本店历史成交数据校准。',act:'回 PMS 拉近 90 天同档次、同星期的价格—销量对应关系，用真实斜率替代估计值。',ch:'第 4 章 · 价格弹性｜第 30 章 · 成本与利润'}
+};
+function resHtml(d){return '<div><b>¥'+d.newPrice+'</b><span>降价后房价</span></div>'+
+ '<div><b>'+d.newQty+'</b><span>预计售出（间）</span></div>'+
+ '<div class="'+(d.dRev<0?'danger':'safe')+'"><b>'+(d.dRev>=0?'+':'−')+Math.abs(d.dRev).toLocaleString()+'</b><span>收入变化（元）</span></div>'+
+ '<div><b>'+d.Eneed.toFixed(2)+'</b><span>保本所需弹性</span></div>';}
+function verdictHtml(d){return d.bad?'<strong>这一降会亏</strong>：量涨没达到保本线。但先别急着改数字——下面是更重要的部分。':'<strong>数字上成立</strong>：但"算对了"不等于"想明白了"。';}
+function cmpRows(a,b){return '<tr><td>降价幅度</td><td>'+a.data.disc+'%</td><td>'+b.data.disc+'%</td></tr>'+
+ '<tr><td>假设弹性 E</td><td>'+a.data.E.toFixed(2)+'</td><td>'+b.data.E.toFixed(2)+'</td></tr>'+
+ '<tr><td>保本所需弹性</td><td>'+a.data.Eneed.toFixed(2)+'</td><td>'+b.data.Eneed.toFixed(2)+'</td></tr>'+
+ '<tr><td>收入变化</td><td>'+a.data.dRev.toLocaleString()+' 元</td><td>'+b.data.dRev.toLocaleString()+' 元</td></tr>'+
+ '<tr><td>决策倾向</td><td>'+TYPES[a.type].name+'</td><td>'+TYPES[b.type].name+'</td></tr>';}
+bind(['base','price','disc','elast']);
+
+</script>
+</body>
+</html>
