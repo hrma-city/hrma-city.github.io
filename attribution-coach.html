@@ -4,6 +4,7 @@
 <script>window.HRMA_PREFIX="";</script>
 <script src="auth-config.js?v=gate20261013"></script>
 <script src="assets/js/access-gate-public.js?v=v1"></script>
+<script src="assets/js/decision-log.js?v=v1"></script>
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -150,6 +151,7 @@ function bind(){
 function submit(){
  var d=calc(),t=classify(d);
  hist.push({round:round,data:d,type:t});
+ try{window.RMCLog&&RMCLog.add({game:'超售',title:'超额预订',type:t,round:round});}catch(e){}
  document.getElementById('roundLabel').textContent='第 '+round+' 轮决策';
  document.getElementById('res').innerHTML=
   '<div><b>'+d.theory+'</b><span>理论超售（间）</span></div>'+

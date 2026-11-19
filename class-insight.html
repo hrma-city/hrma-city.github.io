@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate-public.js?v=v1"></script>
+<script src="assets/js/decision-log.js?v=v1"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>学情透镜 · 决策陪练结果汇总</title>
+<style>
+:root{--v:#7C3AED;--vd:#5B21B6;--t:#0D9488;--navy:#0f2a4a;--navy2:#1d4e7e;--ink:#1f2937;--mut:#5b6a7d;--line:#e3e9f1;--page:#f4f7fb;--g:#16a34a;--r:#dc2626;--amber:#BA7517}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.8 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--page);color:var(--ink)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:24px 0 20px}
+.wrap{max-width:940px;margin:0 auto;padding:0 20px}
+.top .kick{font-size:12px;color:#ddd6fe;letter-spacing:1px;margin-bottom:6px}
+.top h1{font-size:24px;margin-bottom:6px}.top p{color:#c9d8ea;font-size:13.5px;max-width:660px}
+main{max-width:940px;margin:0 auto;padding:24px 20px 80px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:16px}
+h2{font-size:19px;color:var(--navy);margin-bottom:8px}h3{font-size:15.5px;color:var(--navy2);margin:18px 0 8px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:12px}
+.btn{display:inline-block;background:var(--v);color:#fff;border:0;border-radius:9px;padding:9px 18px;font-size:13.5px;cursor:pointer;font-family:inherit;font-weight:600;margin:6px 6px 0 0}
+.btn.ghost{background:#fff;color:var(--v);border:1px solid var(--v)}
+.btn.sm{padding:6px 12px;font-size:12.5px}
+.hide{display:none}
+.empty{text-align:center;padding:42px 20px;color:var(--mut)}
+.empty b{display:block;font-size:17px;color:var(--navy);margin-bottom:8px}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0}
+.stat div{background:var(--page);border-radius:11px;padding:14px 16px}
+.stat b{display:block;font-size:26px;color:var(--v);line-height:1.2}.stat span{font-size:12.5px;color:var(--mut)}
+.bar{height:22px;background:#f1f5f9;border-radius:6px;overflow:hidden;margin:5px 0}
+.bar i{display:block;height:100%;background:var(--v);color:#fff;font-size:11px;line-height:22px;padding-left:8px;font-style:normal;min-width:2px}
+.bar.i2 i{background:var(--t)}.bar.i3 i{background:var(--amber)}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f8fafc;color:var(--navy)}
+.tip{background:#f0fdfa;border:1px solid #99f6e4;border-radius:10px;padding:13px 16px;font-size:13.5px;color:#065f46;margin:10px 0}
+.note{background:#fffbe8;border:1px solid #f5d78e;border-radius:9px;padding:10px 13px;font-size:12.5px;color:#7a5b00;margin-top:12px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.chip{background:#f5f3ff;color:var(--vd);border-radius:16px;padding:5px 12px;font-size:12.5px}
+@media(max-width:600px){.top h1{font-size:20px}.card{padding:18px 16px}}
+@media print{.top{background:#fff;color:var(--navy)}body{background:#fff}.btn{display:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<div class="kick">RMC 收益管理社区 · 决策陪练</div>
+<h1>学情透镜</h1>
+<p>把本机做过的决策汇成一页：哪类判断最常出现、哪个场景最需要重讲。数据只在本机，不上传、不暴露个人信息。</p>
+</div></div>
+<main>
+
+<div class="card" id="empty" hidden>
+<div class="empty"><b>还没有决策记录</b><p>先去做一个决策游戏，回来就能看到汇总。</p><a class="btn" href="free-tools-hub.html">去工具箱 →</a></div>
+</div>
+
+<div id="dash" class="hide">
+<div class="card">
+<h2>整体情况</h2>
+<div class="stat" id="stats"></div>
+<div class="chips" id="games"></div>
+</div>
+
+<div class="card">
+<h2>决策倾向分布</h2>
+<p class="sub">看看本机最常出现哪一类判断——这往往就是最值得重讲的地方。</p>
+<div id="biasBars"></div>
+</div>
+
+<div class="card">
+<h2>按场景看</h2>
+<div id="byGame"></div>
+</div>
+
+<div class="card">
+<h2>讲评建议</h2>
+<div id="advice"></div>
+</div>
+
+<div class="card">
+<h2>数据管理</h2>
+<p class="sub">记录只存在这台设备的浏览器里。你可以导出保存，或清空重新开始。</p>
+<button class="btn ghost sm" onclick="exp()">导出记录</button>
+<button class="btn ghost sm" onclick="clr()">清空记录</button>
+<div class="note">本页汇总的是本机浏览器产生的决策记录。若用于课堂，请让学生各自查看自己的分布，教师据此判断共性问题；不要收集或上传个人数据。</div>
+</div>
+</div>
+
+</main>
+<script>
+var L=(window.RMCLog?RMCLog.all():[]);
+var NAMES={
+ blind:'盲目降价',nogate:'无栅栏降价',hold:'死守高价',over:'高估弹性',ok:'算过再降',
+ toobig:'团量过大',toocheap:'价格过低',crowd:'挤走高价值散客',loss:'只看出租率',
+ belowcost:'跌破成本线',shortpromo:'被短期促销带跑',longterm:'过度反应',panic:'心理紧张型跟价',newopen:'新开业冲击',
+ zero:'零缓冲赌命',conservative:'过度保守',bigbuf:'缓冲过大',highrate:'高估不确定性'
+};
+var TIPS={
+ blind:'降价前先算临界值：降 20% 需量涨 25% 才保本。',
+ nogate:'先加栅栏再给低价：提前订、不可退、会员专享。',
+ hold:'看距入住天数与预订速度；临近且慢就果断降，但设栅栏。',
+ toobig:'先看团量占可售房比例，再看历史散客需求。',
+ toocheap:'团价低于散客净价 60% 直接拒；含餐含会议计入综合贡献。',
+ crowd:'用期望值比：确定损失 vs 可能空房。',
+ belowcost:'先算变动成本线，任何调价不得跌破。',
+ panic:'设阈值：出租率连续下滑数日才进入跟价评估。',
+ zero:'缓冲至少覆盖历史 No-show 的波动区间，不是拍脑袋。',
+ bigbuf:'把百分比换算成绝对房数再核对——房量一大，缓冲会悄悄超教材建议。'
+};
+function boot(){
+ if(!L.length){document.getElementById('empty').hidden=false;return;}
+ document.getElementById('dash').classList.remove('hide');
+ var games={};L.forEach(function(x){games[x.title||x.game]=(games[x.title||x.game]||0)+1;});
+ document.getElementById('stats').innerHTML=
+  '<div><b>'+L.length+'</b><span>累计决策次数</span></div>'+
+  '<div><b>'+Object.keys(games).length+'</b><span>涉及的场景</span></div>'+
+  '<div><b>'+uniqBias().length+'</b><span>出现过的判断类型</span></div>';
+ document.getElementById('games').innerHTML=Object.keys(games).map(function(g){return '<span class="chip">'+g+' · '+games[g]+' 次</span>';}).join('');
+ // 偏误分布
+ var cnt={};L.forEach(function(x){cnt[x.type]=(cnt[x.type]||0)+1;});
+ var arr=Object.keys(cnt).map(function(k){return {k:k,n:cnt[k]};}).sort(function(a,b){return b.n-a.n;});
+ document.getElementById('biasBars').innerHTML=arr.map(function(x,i){
+   var pct=Math.round(x.n/L.length*100);
+   return '<div style="margin:9px 0"><div style="font-size:13px">'+(NAMES[x.k]||x.k)+' <span style="color:var(--mut)">'+x.n+' 次 · '+pct+'%</span></div>'+
+   '<div class="bar '+(i===0?'i2':'')+'"><i style="width:'+Math.max(pct,3)+'%">'+pct+'%</i></div></div>';
+ }).join('');
+ // 按场景
+ var byG={};L.forEach(function(x){var g=x.title||x.game;byG[g]=byG[g]||{};byG[g][x.type]=(byG[g][x.type]||0)+1;});
+ document.getElementById('byGame').innerHTML='<table><tr><th>场景</th><th>最常见判断</th><th>次数</th></tr>'+
+  Object.keys(byG).map(function(g){
+    var top=Object.keys(byG[g]).sort(function(a,b){return byG[g][b]-byG[g][a];})[0];
+    return '<tr><td>'+g+'</td><td>'+(NAMES[top]||top)+'</td><td>'+byG[g][top]+'</td></tr>';
+  }).join('')+'</table>';
+ // 建议
+ var topBias=arr[0]?arr[0].k:null;
+ document.getElementById('advice').innerHTML=topBias&&TIPS[topBias]
+  ? '<div class="tip"><b>最值得先讲：</b>'+(NAMES[topBias]||topBias)+'。'+TIPS[topBias]+'</div>'
+  : '<div class="tip">目前分布较均衡。继续积累记录，系统会指出最该重讲的点。</div>';
+}
+function uniqBias(){var s={};L.forEach(function(x){s[x.type]=1;});return Object.keys(s);}
+function exp(){var blob=new Blob(['\ufeff'+JSON.stringify(L,null,2)],{type:'application/json;charset=utf-8'});var u=URL.createObjectURL(blob);var a=document.createElement('a');a.href=u;a.download='决策记录.json';document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(u);},300);}
+function clr(){if(confirm('确定清空本机全部决策记录？')){RMCLog.clear();location.reload();}}
+boot();
+</script>
+</body>
+</html>

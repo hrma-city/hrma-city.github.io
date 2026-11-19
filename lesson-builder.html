@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate-public.js?v=v1"></script>
+<script src="assets/data/chapters-lite.js"></script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>一句话备课 · 课件生成器</title>
+<style>
+:root{--b:#0284C7;--bd:#0369A1;--navy:#0f2a4a;--navy2:#1d4e7e;--ink:#1f2937;--mut:#5b6a7d;--line:#e3e9f1;--page:#f4f7fb;--g:#16a34a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.8 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--page);color:var(--ink)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:24px 0 20px}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+.top .kick{font-size:12px;color:#bae6fd;letter-spacing:1px;margin-bottom:6px}
+.top h1{font-size:24px;margin-bottom:6px}.top p{color:#c9d8ea;font-size:13.5px;max-width:660px}
+main{max-width:900px;margin:0 auto;padding:24px 20px 80px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:16px}
+h2{font-size:19px;color:var(--navy);margin-bottom:8px}h3{font-size:15.5px;color:var(--navy2);margin:16px 0 8px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:12px}
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}
+select,input[type=text]{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
+.btn{display:inline-block;background:var(--b);color:#fff;border:0;border-radius:9px;padding:10px 20px;font-size:14px;cursor:pointer;font-weight:600;font-family:inherit;margin:6px 6px 0 0}
+.btn:hover{background:var(--bd)}.btn.ghost{background:#fff;color:var(--b);border:1px solid var(--b)}
+.btn.sm{padding:6px 12px;font-size:12.5px}
+.preview{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:16px 18px;margin:14px 0}
+.mod{border-left:3px solid var(--b);padding:8px 0 8px 14px;margin:12px 0}
+.mod b{color:var(--bd);font-size:13px}
+.mod ul{padding-left:20px;margin:6px 0;font-size:13.5px}
+.mod li{margin:4px 0}
+.note{background:#fffbe8;border:1px solid #f5d78e;border-radius:9px;padding:10px 13px;font-size:12.5px;color:#7a5b00;margin-top:12px}
+.ok{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:9px;padding:11px 14px;color:#065f46;font-size:13.5px;margin-top:12px}
+.hide{display:none}
+@media(max-width:600px){.top h1{font-size:20px}.card{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<div class="kick">RMC 收益管理社区 · 备课工具</div>
+<h1>一句话备课</h1>
+<p>选一章、说清学时与学生基础，自动拼出一节课需要的六样东西：讲稿要点、案例、决策沙盘、随堂测、判定表、追问卡。导出后可离线播放。</p>
+</div></div>
+<main>
+
+<div class="card">
+<h2>告诉我这节课怎么上</h2>
+<label>章节</label><select id="ch"></select>
+<label>学生基础</label><select id="level"><option value="voc">高职 / 入门</option><option value="under">本科 / 有一定基础</option><option value="pro">酒店人 / 从业者</option></select>
+<label>学时</label><select id="hours"><option value="1">1 学时（精讲一个决策点）</option><option value="2" selected>2 学时（完整决策闭环）</option><option value="4">4 学时（含实操与复盘）</option></select>
+<label>你最想让学生学会（可留空）</label><input type="text" id="goal" placeholder="例如：不要再凭感觉降价">
+<div style="margin-top:14px"><button class="btn" onclick="build()">生成这节课 →</button></div>
+</div>
+
+<div class="card hide" id="outCard">
+<h2>这节课的六件套</h2>
+<p class="sub" id="outMeta"></p>
+<div class="preview" id="preview"></div>
+<div id="okmsg" class="ok hide"></div>
+<button class="btn" onclick="downloadLesson()">下载单文件课件</button>
+<button class="btn ghost sm" onclick="window.print()">打印 / 存 PDF</button>
+<div class="note">生成的内容取自本站教材与题库。导出的是一个独立 HTML 文件，双击即可打开、可打印、无需联网。</div>
+</div>
+
+<div class="note" style="text-align:center;margin-top:26px">内容在本机拼装 · 不上传 · 不留存</div>
+</main>
+<script>
+var CH=window.RMC_CHAPTERS||[];
+var LAST=null;
+(function(){
+ var sel=document.getElementById('ch');
+ sel.innerHTML=CH.map(function(c){return '<option value="'+c.n+'">第 '+c.n+' 章 · '+c.title+'</option>';}).join('');
+})();
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function pickQs(c,n){return (c.quiz||[]).slice(0,n);}
+function build(){
+ var data=window.RMC_CHAPTERS||CH;
+ var c=data.find(function(x){return x.n===+document.getElementById('ch').value;});
+ if(!c){alert('章节数据未加载');return;}
+ var level={voc:'入门',under:'本科',pro:'从业者'}[document.getElementById('level').value];
+ var hours=document.getElementById('hours').value;
+ var goal=document.getElementById('goal').value.trim();
+ var qn=Math.min(+hours*2,Math.max(2,(c.quiz||[]).length));
+ var mods=[];
+ mods.push({t:'① 讲稿要点',body:(c.prompts||[]).map(function(p){return '<div style="margin:8px 0"><b>'+esc(p.title)+'</b>'+(p.bullets&&p.bullets.length?'<ul>'+p.bullets.map(function(b){return '<li>'+esc(b)+'</li>';}).join('')+'</ul>':'')+(p.speaker?'<p style="color:#5b6a7d;font-size:12.5px">口播：'+esc(p.speaker)+'</p>':'')+'</div>';}).join('')});
+ var cs=c.case||{};
+ mods.push({t:'② 案例',body:'<b>'+esc(cs.title||'本章案例')+'</b><ul>'+(cs.blocks||[]).map(function(b){return '<li>'+esc(b.text||'')+'</li>';}).join('')+'</ul>'});
+ var sb=c.sandbox||{};
+ mods.push({t:'③ 决策沙盘',body:'<b>'+esc(sb.title||'本章沙盘')+'</b>'+(sb.formula?'<div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:8px;padding:10px;margin-top:8px;font:12.5px/1.8 ui-monospace,monospace;white-space:pre-line">'+esc(sb.formula)+'</div>':'')+(sb.type?'<p style="color:#5b6a7d;font-size:12.5px;margin-top:6px">类型：'+(sb.type==='numeric'?'可测算沙盘':'判断型沙盘')+'</p>':'')});
+ var qs=pickQs(c,qn);
+ mods.push({t:'④ 随堂测（'+qs.length+' 题）',body:qs.map(function(q,i){return '<div style="margin:8px 0">'+(i+1)+'. '+esc(q.stem)+'<div style="color:#16a34a;font-size:12.5px">答：'+esc(String(q.ans).slice(0,90))+'</div></div>';}).join('')||'<p>本章题库暂无可选题，建议用随堂测验页补充。</p>'});
+ var tb=c.table||{};
+ mods.push({t:'⑤ 判定表速查',body:'<ul>'+(tb.rules||[]).map(function(r){return '<li><b>'+esc(r.q)+'</b>　'+esc(r.a)+'</li>';}).join('')+'</ul>'+(tb.redline?'<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:8px 10px;color:#991b1b;font-size:12.5px">红线：'+esc(tb.redline)+'</div>':'')});
+ mods.push({t:'⑥ 追问卡',body:'<p>用下面的问题把"做对"变成"想明白"：</p><ul><li>你做这个决定时，看到的是哪个信号？</li><li>换个数字或场景，你的结论会变吗？</li><li>如果对方下一步这样应对，你怎么调整？</li></ul>'});
+ LAST={c:c,level:level,hours:hours,goal:goal,mods:mods};
+ document.getElementById('outMeta').textContent='第 '+c.n+' 章 · '+c.title+'｜'+level+'｜'+hours+' 学时'+(goal?'｜目标：'+goal:'');
+ document.getElementById('preview').innerHTML=mods.map(function(m){return '<div class="mod"><b>'+m.t+'</b>'+m.body+'</div>';}).join('');
+ document.getElementById('outCard').classList.remove('hide');
+ document.getElementById('okmsg').classList.add('hide');
+ document.getElementById('outCard').scrollIntoView({behavior:'smooth'});
+}
+function lessonHTML(){
+ var L=LAST;
+ function css(){return 'body{font:15px/1.8 -apple-system,"PingFang SC",sans-serif;max-width:860px;margin:0 auto;padding:30px;color:#1f2937}h1{color:#0f2a4a;font-size:26px}h2{color:#0369A1;font-size:17px;border-left:4px solid #0284C7;padding-left:10px;margin:26px 0 10px}ul{padding-left:22px}li{margin:5px 0}.m{border-left:3px solid #0284C7;padding-left:14px;margin:16px 0}.f{background:#f8fafc;border:1px dashed #cbd5e1;border-radius:8px;padding:10px;font:12.5px/1.8 ui-monospace,monospace;white-space:pre-line}.n{color:#5b6a7d;font-size:12.5px}@media print{body{padding:0}}';}
+ return '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>'+esc('第'+L.c.n+'章 '+L.c.title+' · 课件')+'</title><style>'+css()+'</style></head><body>'+
+  '<h1>第 '+L.c.n+' 章 · '+esc(L.c.title)+'</h1><p class="n">'+esc(L.level)+' · '+L.hours+' 学时'+(L.goal?' · 目标：'+esc(L.goal):'')+' · RMC 收益管理社区</p>'+
+  L.mods.map(function(m){return '<div class="m"><h2>'+m.t+'</h2>'+m.body+'</div>';}).join('')+
+  '<p class="n" style="margin-top:30px;border-top:1px solid #e3e9f1;padding-top:12px">本课件由本站教材与题库自动拼装，供课堂使用。</p></body></html>';
+}
+function downloadLesson(){
+ if(!LAST){alert('请先生成课件');return;}
+ var name='课件_第'+LAST.c.n+'章_'+LAST.c.title.replace(/[：:·\s]/g,'')+'.html';
+ try{
+  var blob=new Blob(['\ufeff'+lessonHTML()],{type:'text/html;charset=utf-8'});
+  var u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(u);},300);
+  document.getElementById('okmsg').classList.remove('hide');
+  document.getElementById('okmsg').textContent='✓ 已导出：'+name+'（下载后双击打开，可打印）';
+ }catch(e){alert('导出失败，请改用打印 / 存 PDF');}
+}
+</script>
+</body>
+</html>
