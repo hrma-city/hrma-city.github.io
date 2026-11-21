@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>实战社区 · RMC</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--ink:#1f2a37;--mut:#5b6a7d;--ok:#2a9d5f;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--ink);line-height:1.8;font-size:15px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 80px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:30px 0 26px}
+.hero .wrap{padding-bottom:0}
+.hero .tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);color:#f5d78e;font-size:12px;border-radius:999px;padding:3px 12px;margin-bottom:10px}
+.hero h1{font-size:24px;line-height:1.45}
+.hero p{color:#b9d0e6;font-size:14px;margin-top:8px;max-width:800px}
+.note{background:#eaf6ef;border:1px solid #bfe3cd;color:#1d5a41;border-radius:9px;padding:9px 13px;font-size:12.5px;margin:14px 0}
+.note.demo{background:#fff8e6;border-color:#f0dca6;color:#7a5c12}
+.cols{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:760px){.cols{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(15,42,74,.05)}
+.topic{border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:14px}
+.topic:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.tt{font-size:15px;font-weight:800;color:var(--navy);line-height:1.5}
+.tmeta{font-size:11.5px;color:var(--mut);margin:5px 0}
+.tag{display:inline-block;background:#eaf0f8;color:var(--navy2);font-size:10.5px;border-radius:5px;padding:1px 7px;margin-right:6px}
+.body{font-size:13.5px;color:var(--ink);margin:8px 0}
+.rep{background:#f7f9fc;border-radius:8px;padding:8px 11px;font-size:12.5px;margin:6px 0;color:#41506a}
+.rep b{color:var(--navy2)}
+.compact{font-size:12.5px}
+.task{border-left:3px solid var(--gold);padding-left:11px;margin:11px 0}
+.task b{color:var(--navy2)}
+h3{font-size:14px;color:var(--navy);margin-bottom:9px}
+.new{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.new input,.new textarea{flex:1;min-width:180px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;font-family:inherit}
+.btn{background:var(--navy2);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer}
+@media print{.hero{background:#fff;color:#000}.hero p{color:#333}.new,.btn{display:none}}
+</style>
+</head>
+<body data-page="practice-hub" data-auth="protected">
+<header class="hero"><div class="wrap">
+  <span class="tag">异步实战社区 · 按自己的节奏</span>
+  <h1>实战社区</h1>
+  <p>不追求即时在线，也不做又一个群。把复盘、提问、周任务沉淀成可检索的帖子——你有空就来，按自己的节奏推进。</p>
+</div></header>
+<main class="wrap">
+  <div class="note">异步学习的意义：微信让你随时被消息打断；这里你可以按自己的时间进入、按自己的节奏完成。讨论区只做通知，不做主要讨论场。</div>
+  <div class="note demo">示例数据 · 下列帖子与回复均为虚构占位，用于展示结构与版式。</div>
+  <div class="cols">
+    <div>
+      <div class="card">
+        <h3>讨论 / 复盘</h3>
+        <div id="topics"></div>
+        <div class="new">
+          <input id="nt" placeholder="写一个新话题标题…">
+          <button class="btn" id="add">发布（仅本机）</button>
+        </div>
+      </div>
+    </div>
+    <aside>
+      <div class="card compact">
+        <h3>本周作战任务</h3>
+        <div class="task"><b>任务 1</b><br>用表 A 完整走一遍每日调价四步闭环，写进台账。</div>
+        <div class="task"><b>任务 2</b><br>在归因陪练里完成 2 个场景，写下你当时看到的信号。</div>
+        <div class="task"><b>任务 3</b><br>找一条本周真实调价，回填命中率到台账备注栏。</div>
+        <p style="font-size:11.5px;color:var(--mut);margin-top:10px">任务完成度只作自我记录，不排名、不公开。</p>
+      </div>
+      <div class="card compact">
+        <h3>使用约定</h3>
+        <p>· 发帖请写清"看到的信号 + 查的表 + 动作"，不要只写结论。</p>
+        <p>· 已解决的帖子标 [已解决]，方便后来者检索。</p>
+        <p>· 新话题仅存本机浏览器，换设备不同步——这是示例版。</p>
+      </div>
+    </aside>
+  </div>
+</main>
+<script src="rmc-seed.js"></script>
+<script src="auth.js?v=2"></script>
+<script>
+(function(){
+  var T=(window.RMC_SEED&&window.RMC_SEED.TOPICS)||[];
+  var box=document.getElementById('topics');
+  function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+  function draw(){
+    box.innerHTML=T.map(function(t){
+      return '<div class="topic"><div class="tt">'+esc(t.title)+'</div>'+
+        '<div class="tmeta"><span class="tag">'+esc(t.tag)+'</span>'+esc(t.author)+' · '+esc(t.time)+'</div>'+
+        '<div class="body">'+esc(t.body)+'</div>'+
+        t.replies.map(function(r){return '<div class="rep"><b>'+esc(r.who)+'</b>：'+esc(r.text)+'</div>'}).join('')+
+      '</div>';
+    }).join('');
+  }
+  document.getElementById('add').onclick=function(){
+    var v=document.getElementById('nt').value.trim();
+    if(!v){return}
+    T.unshift({demo:true,author:'本机 · 我',tag:'新话题',time:'刚刚',title:v,body:'（在这里补充你看到的信号、查的表、动作）',replies:[]});
+    document.getElementById('nt').value=''; draw();
+  };
+  draw();
+})();
+</script>
+</body>
+</html>

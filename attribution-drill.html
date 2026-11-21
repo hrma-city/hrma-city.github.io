@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>归因追问式决策陪练 · RMC</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--ink:#1f2a37;--mut:#5b6a7d;--ok:#2a9d5f;--red:#c0503f;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--ink);line-height:1.8;font-size:15px}
+.wrap{max-width:920px;margin:0 auto;padding:0 22px 80px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:30px 0 26px}
+.hero .wrap{padding-bottom:0}
+.hero .tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);color:#f5d78e;font-size:12px;border-radius:999px;padding:3px 12px;margin-bottom:10px}
+.hero h1{font-size:24px;line-height:1.45}
+.hero p{color:#b9d0e6;font-size:14px;margin-top:8px;max-width:760px}
+.note{background:#fff8e6;border:1px solid #f0dca6;color:#7a5c12;border-radius:9px;padding:9px 13px;font-size:12.5px;margin:14px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:16px 0;box-shadow:0 1px 3px rgba(15,42,74,.05)}
+.step{display:flex;gap:10px;align-items:center;font-size:12px;color:var(--mut);margin-bottom:14px;flex-wrap:wrap}
+.step b{color:var(--navy)}
+.step i{font-style:normal;width:22px;height:22px;border-radius:50%;background:#eaf0f8;color:var(--navy2);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:11px}
+.scene{background:#f0f5fb;border-left:4px solid var(--navy2);border-radius:0 9px 9px 0;padding:13px 16px;font-size:14px;margin-bottom:16px}
+.q{font-weight:700;color:var(--navy);font-size:15.5px;margin-bottom:12px}
+.opts{display:grid;gap:9px}
+.opt{border:1.5px solid var(--line);border-radius:10px;padding:11px 15px;cursor:pointer;background:#fff;transition:.15s;font-size:14px;text-align:left}
+.opt:hover{border-color:var(--navy2);background:#f7fafd}
+.opt.sel{border-color:var(--navy2);background:#eaf1f9;font-weight:700;color:var(--navy2)}
+.btn{background:var(--navy2);color:#fff;border:none;border-radius:9px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer;margin-top:14px}
+.btn:disabled{background:#aab6c4;cursor:not-allowed}
+.ask{background:#fff8e6;border:1px solid #f0dca6;border-radius:11px;padding:15px 17px;margin-top:16px}
+.ask .lbl{font-size:11px;font-weight:800;color:#a67c1a;letter-spacing:1px;margin-bottom:5px}
+.ask textarea{width:100%;min-height:64px;border:1px solid #e6d3a3;border-radius:8px;padding:9px 11px;font-size:14px;font-family:inherit;resize:vertical;margin-top:8px}
+.fix{background:#eaf6ef;border:1px solid #bfe3cd;border-radius:11px;padding:15px 17px;margin-top:14px;color:#1d5a41}
+.fix .lbl{font-size:11px;font-weight:800;color:#2a9d5f;letter-spacing:1px}
+.fix h4{font-size:14px;margin:6px 0}
+.fix .principle{margin-top:8px;font-style:italic;color:#356b52}
+.result{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:13px;color:var(--mut)}
+.result b{color:var(--navy2)}
+.stat{display:inline-flex;gap:6px;align-items:center;background:#f0f5fb;border-radius:8px;padding:5px 11px;font-size:12.5px;color:var(--navy2)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 4px}
+.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font-size:13px;cursor:pointer;color:var(--mut)}
+.tab.on{background:var(--navy2);border-color:var(--navy2);color:#fff;font-weight:700}
+.hidden{display:none}
+@media print{.hero{background:#fff;color:#000}.hero p,.hero .tag{color:#333}.btn,.tabs{display:none}}
+</style>
+</head>
+<body data-page="attribution-drill" data-auth="protected">
+<header class="hero"><div class="wrap">
+  <span class="tag">思维层补强 · 单文件可离线</span>
+  <h1>归因追问式决策陪练</h1>
+  <p>现有沙盘只判分、不追问。这里在"决策→出结果"之后加两步：<b>先问你"当时看到了什么信号"</b>，再给纠偏卡——让错误背后的判断依据浮出水面，才是真正学会。</p>
+</div></header>
+<main class="wrap">
+  <div class="note">演示数据 · 本页为内部功能样品，3 个场景样本均已标记「示例」。所有计算在本地完成，不联网、不上传。</div>
+
+  <div class="tabs" id="tabs"></div>
+
+  <section class="card" id="stage"></section>
+
+  <div class="card" style="background:#f7f9fc">
+    <h3 style="font-size:15px;color:var(--navy);margin-bottom:8px">教师用 · 班级学情透镜（轻量版）</h3>
+    <p style="font-size:13px;color:var(--mut)">本页记录你本机三个场景的偏误类型分布。群体汇总只用于课堂讲评，不暴露个人、不长期留存。</p>
+    <div id="lens" style="margin-top:10px;font-size:13px">先做完至少一题，这里会显示你的偏误分布。</div>
+  </div>
+</main>
+<script src="rmc-seed.js"></script>
+<script src="auth.js?v=2"></script>
+<script>
+(function(){
+  var D = (window.RMC_SEED && window.RMC_SEED.DRILLS) || [];
+  var tabs = document.getElementById('tabs');
+  var stage = document.getElementById('stage');
+  var lens  = document.getElementById('lens');
+  var log = []; // 本机会话内的偏误记录
+  var idx = 0;
+
+  function renderTabs(){
+    tabs.innerHTML = D.map(function(d,i){
+      return '<div class="tab'+(i===idx?' on':'')+'" data-i="'+i+'">'+d.chapter+' · '+d.title+'</div>';
+    }).join('');
+    [].forEach.call(tabs.children,function(t){
+      t.onclick=function(){ idx=+t.getAttribute('data-i'); reset(); };
+    });
+  }
+
+  function reset(){
+    var d = D[idx]; if(!d) return;
+    stage.innerHTML =
+      '<div class="step"><i>1</i><b>设定场景</b> → <i>2</i>你的决策 → <i>3</i>出结果 → <i>4</i>归因追问 → <i>5</i>纠偏卡</div>'+
+      '<div class="scene"><b>'+d.chapter+'</b> ｜ '+d.scene+'</div>'+
+      '<div class="q">'+d.title+' — 你会怎么决策？</div>'+
+      '<div class="opts">'+d.options.map(function(o,i){
+        return '<button class="opt" data-i="'+i+'">'+o+'</button>';
+      }).join('')+'</div>'+
+      '<button class="btn" id="go" disabled>提交决策，看结果</button>';
+    var chosen=null;
+    [].forEach.call(stage.querySelectorAll('.opt'),function(b){
+      b.onclick=function(){
+        chosen=+b.getAttribute('data-i');
+        [].forEach.call(stage.querySelectorAll('.opt'),function(x){x.classList.remove('sel')});
+        b.classList.add('sel');
+        document.getElementById('go').disabled=false;
+      };
+    });
+    document.getElementById('go').onclick=function(){ showResult(d,chosen); };
+    renderTabs();
+  }
+
+  function showResult(d,chosen){
+    var right = chosen===d.correct;
+    var out =
+      '<div class="step"><i style="background:'+(right?'#e6f6ec':'#fbe9e7')+';color:'+(right?'#2a9d5f':'#c0503f')+'">'+(right?'✓':'✕')+'</i>'+
+      '<b>'+(right?'决策正确':'决策错位')+'</b> · 偏误类型：'+d.bias+'</div>'+
+      '<div class="ask"><div class="lbl">归因追问 · 先别看答案</div>'+d.ask+
+        '<textarea id="ans" placeholder="写下你当时看到的信号（越具体越好）…"></textarea></div>'+
+      '<button class="btn" id="next">回答后，看纠偏卡</button>'+
+      '<div id="fixbox" class="hidden"></div>';
+    stage.innerHTML=out;
+    // 记录偏误
+    log.push({chapter:d.chapter, bias:d.bias, right:right});
+    document.getElementById('next').onclick=function(){
+      var txt=(document.getElementById('ans').value||'').trim();
+      var box=document.getElementById('fixbox');
+      box.className='fix';
+      box.innerHTML=
+        '<div class="lbl">认知纠偏卡 · 对应表 '+d.table+'</div>'+
+        '<h4>'+d.fixTitle+'</h4><p>'+d.fix+'</p>'+
+        '<p class="principle">一句话原理：'+d.principle+'</p>'+
+        (txt? '<p style="margin-top:8px;font-size:12.5px">你写的信号：「'+escapeHtml(txt)+'」——对照上面，看看是不是同一个指标。</p>'
+            : '<p style="margin-top:8px;font-size:12.5px">你没写下信号。这正是要练的：先说清依据，再看纠偏。</p>');
+      box.classList.remove('hidden');
+      renderLens();
+    };
+  }
+
+  function renderLens(){
+    if(!log.length){ return; }
+    var counts={}; log.forEach(function(x){counts[x.bias]=(counts[x.bias]||0)+1});
+    var rows=Object.keys(counts).map(function(k){
+      var n=counts[k],pct=Math.round(n/log.length*100);
+      return '<div style="margin:5px 0"><span style="display:inline-block;width:150px">'+k+'</span>'+
+             '<span style="display:inline-block;width:120px;background:#e6ecf4;border-radius:6px;height:9px;vertical-align:middle">'+
+             '<i style="display:block;width:'+pct+'%;background:#2a9d5f;height:9px;border-radius:6px"></i></span> '+n+' 次（'+pct+'%）</div>';
+    }).join('');
+    lens.innerHTML='本机会话已记录 <b>'+log.length+'</b> 次决策，偏误分布：<br>'+rows;
+  }
+
+  function escapeHtml(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+  if(!D.length){ stage.innerHTML='<div class="note">种子数据未加载，请确认 rmc-seed.js 存在。</div>'; return; }
+  reset();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>收益能力名片 · RMC</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--ink:#1f2a37;--mut:#5b6a7d;--ok:#2a9d5f;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--ink);line-height:1.8;font-size:15px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 80px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:30px 0 26px}
+.hero .wrap{padding-bottom:0}
+.hero .tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);color:#f5d78e;font-size:12px;border-radius:999px;padding:3px 12px;margin-bottom:10px}
+.hero h1{font-size:24px;line-height:1.45}
+.hero p{color:#b9d0e6;font-size:14px;margin-top:8px;max-width:800px}
+.note{background:#fff8e6;border:1px solid #f0dca6;color:#7a5c12;border-radius:9px;padding:9px 13px;font-size:12.5px;margin:14px 0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 4px}
+.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font-size:13px;cursor:pointer;color:var(--mut)}
+.tab.on{background:var(--navy2);border-color:var(--navy2);color:#fff;font-weight:700}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:16px 0;box-shadow:0 1px 3px rgba(15,42,74,.05)}
+.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.name{font-size:19px;font-weight:800;color:var(--navy)}
+.meta{font-size:12.5px;color:var(--mut)}
+.level{background:var(--navy2);color:#fff;font-size:12px;border-radius:8px;padding:5px 12px;white-space:nowrap}
+.bio{font-size:13.5px;color:var(--ink);margin:14px 0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin:14px 0}
+.stat{background:#f4f7fb;border-radius:10px;padding:11px;text-align:center}
+.stat b{display:block;font-size:20px;color:var(--navy2)}
+.stat span{font-size:11.5px;color:var(--mut)}
+h3{font-size:14px;color:var(--navy);margin:16px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#eaf0f8;color:var(--navy2);border-radius:999px;padding:4px 11px;font-size:12px}
+.chip.gold{background:#fff4d8;color:#8a6510}
+.certs div{font-size:13px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.certs b{color:var(--ok)}
+.tables{display:grid;grid-template-columns:repeat(15,1fr);gap:4px;margin-top:8px}
+.t{aspect-ratio:1;border-radius:6px;background:#eef1f5;color:#aab4c0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.t.on{background:var(--navy2);color:#fff}
+@media(max-width:640px){.tables{grid-template-columns:repeat(8,1fr)}}
+@media print{.hero{background:#fff;color:#000}.hero p{color:#333}.tabs{display:none}}
+</style>
+</head>
+<body data-page="capability-card" data-auth="protected">
+<header class="hero"><div class="wrap">
+  <span class="tag">收益能力名片 · 可分享的成长足迹</span>
+  <h1>收益能力名片</h1>
+  <p>把"学完了"变成"能做什么"：认证、点亮的表、徽章、实战统计集中在一张名片上。给用人单位看的，也是给自己看的成长轨迹。</p>
+</div></header>
+<main class="wrap">
+  <div class="note">示例数据 · 下列名片为虚构占位，用于展示结构与版式。真实数据接入后替换 rmc-seed.js 数据源即可。</div>
+  <div class="tabs" id="tabs"></div>
+  <div id="card"></div>
+</main>
+<script src="rmc-seed.js"></script>
+<script src="auth.js?v=2"></script>
+<script>
+(function(){
+  var C=(window.RMC_SEED&&window.RMC_SEED.CARDS)||[];
+  var tabs=document.getElementById('tabs'),box=document.getElementById('card'),idx=0;
+  var ALL=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O'];
+  function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+  function render(){
+    tabs.innerHTML=C.map(function(c,i){return '<div class="tab'+(i===idx?' on':'')+'" data-i="'+i+'">'+esc(c.who.replace('示例 · ',''))+'</div>'}).join('');
+    [].forEach.call(tabs.children,function(t){t.onclick=function(){idx=+t.getAttribute('data-i');render()}});
+    var c=C[idx]; if(!c){box.innerHTML='<div class="note">暂无名片数据。</div>';return}
+    box.innerHTML='<article class="card">'+
+      '<div class="hd"><div><div class="name">'+esc(c.who)+'</div><div class="meta">'+esc(c.org)+' · 自 '+esc(c.since)+' 起</div></div>'+
+        '<div><span class="level">'+esc(c.level)+'</span>'+(c.demo?'<div style="text-align:right"><span class="demo" style="background:#f0f0f0;color:#888;font-size:10px;border-radius:6px;padding:2px 7px">示例</span></div>':'')+'</div></div>'+
+      '<div class="bio">'+esc(c.bio)+'</div>'+
+      '<div class="stats">'+
+        '<div class="stat"><b>'+c.stats.drills+'</b><span>完成陪练</span></div>'+
+        '<div class="stat"><b>'+c.stats.accuracy+'%</b><span>平均正确率</span></div>'+
+        '<div class="stat"><b>'+c.stats.battles+'</b><span>实战战绩</span></div>'+
+        '<div class="stat"><b>'+c.stats.hours+'</b><span>累计学时</span></div>'+
+      '</div>'+
+      '<h3>资格认证</h3><div class="certs">'+c.certs.map(function(x){return '<div>'+esc(x.n)+' · <b>'+esc(x.s)+'</b> <span style="color:#8b97a7;font-size:11.5px">'+esc(x.d)+'</span></div>'}).join('')+'</div>'+
+      '<h3>已点亮能力徽章</h3><div class="chips">'+c.badges.map(function(b){return '<span class="chip gold">'+esc(b)+'</span>'}).join('')+'</div>'+
+      '<h3>判定表掌握（15 张 · 深色为已点亮）</h3><div class="tables">'+ALL.map(function(t){return '<div class="t'+(c.tables.indexOf(t)>=0?' on':'')+'">'+t+'</div>'}).join('')+'</div>'+
+    '</article>';
+  }
+  render();
+})();
+</script>
+</body>
+</html>
