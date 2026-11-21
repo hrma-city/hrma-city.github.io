@@ -95,7 +95,7 @@
       tags: ['AI 课', '可试听']
     },
     {
-      id: 'book-quiz', cat: 'book', name: '466 题题库',
+      id: 'book-quiz', cat: 'book', name: '教材题库',
       value: '按 46 章 16 知识域自测，逐题带答案与解析回讲。',
       price: '自测免费 · 认证另计', priceType: 'sample',
       link: 'quiz-bank.html', preview: 'quiz-bank.html', minutes: 10,

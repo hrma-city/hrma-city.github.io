@@ -1,0 +1,85 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<title>教学资料同步体系 · RMC 收益管理社区</title>
+<style>
+:root{--navy:#12345e;--gold:#9a7520;--mut:#6b7688;--line:#e4e8e1;--bg:#fafaf8;--card:#fff;--green:#247456;--red:#ad4530}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#1a2233;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.8}
+.wrap{max-width:1000px;margin:0 auto;padding:0 28px 80px}header{padding:40px 0 24px;border-bottom:2px solid var(--navy)}
+.kicker{font-size:11px;letter-spacing:2px;color:var(--navy);background:#e8eff8;padding:5px 12px;border-radius:20px;font-weight:700}
+h1{font-size:28px;margin:14px 0 8px}h2{font-size:19px;margin:32px 0 12px;padding-left:11px;border-left:4px solid var(--navy)}
+h3{font-size:15px;margin:18px 0 8px;color:var(--navy)}.lead{color:var(--mut)}
+table{border-collapse:collapse;width:100%;font-size:13px;background:var(--card);margin:12px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#f0f3f7;color:var(--navy);font-weight:700}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}
+.src{border-left:5px solid var(--green);background:#f2faf6}.must{border-left:5px solid var(--gold);background:#fdfaf2}
+.rule{background:#fbf6ec;border-left:4px solid var(--gold);padding:12px 16px;margin:14px 0;border-radius:0 8px 8px 0}
+.ok{color:var(--green);font-weight:700}.warn{color:var(--red)}code{background:#eef2f6;padding:1px 5px;border-radius:4px;font-size:12.5px}
+</style></head><body data-auth="protected">
+<div class="wrap">
+<header>
+<span class="kicker">内部机制 · 教材上下游同步</span>
+<h1>教学资料同步体系</h1>
+<p class="lead">教材是全站的内容内核。过去每次更新只改到一部分文件，出现"标题新、内容旧""最新的版本找不到、次新版在用"的浪费。本页定义<b>唯一权威源</b>、<b>必须同步的文件清单</b>与<b>更新流程</b>。</p>
+</header>
+
+<div class="rule">
+<b>一句话原则：</b>改教材，先改母本，再按本页清单逐项同步；<b>母本一处变化，清单上所有文件同一批改完</b>，不允许"下次再说"。
+</div>
+
+<h2>一、唯一权威源</h2>
+<div class="card src">
+<b class="ok">教材母本：<code>textbook.html</code></b><br>
+判定依据：46 章正文完整、每章带「本章配套」入口、46 张教材判定表齐全、附录 A 已按七篇 46 章重建、<b>零认证课程（M 模块 / 知识灯）污染</b>。<br>
+<span class="mini">其它所有教材页都是它的呈现封装。任何内容改动，一律先落到这里。</span>
+</div>
+
+<h2>二、必须同步的清单（教材一改，这些全改）</h2>
+<table>
+<thead><tr><th style="width:8%">层</th><th style="width:30%">文件</th><th style="width:22%">同步什么</th><th>为什么必须同步</th></tr></thead>
+<tbody>
+<tr><td rowspan="6"><b>教材族</b></td>
+<td><code>book-reader.html</code><br><code>rmc-book-reader-46.html</code></td><td>正文、判定表、附录</td><td>读者版（通读本）；两者为同内容副本</td></tr>
+<tr><td><code>rmc-book-student-46.html</code></td><td>正文、判定表、附录、配套链接</td><td>学生版；曾混入认证模块编号与错误二维码</td></tr>
+<tr><td><code>rmc-book-teacher-46.html</code><br><code>book-teach.html</code></td><td>正文、判定表、附录、教学装</td><td>教师版；后者为同内容副本</td></tr>
+<tr><td><code>book-reader-levels.html</code></td><td>正文、判定表、附录、层次标签</td><td>分层标注版（中职/高职/本科），别漏</td></tr>
+<tr><td><code>v2026-10-textbook-full.html</code><br><code>textbook-merged.html</code><br><code>textbook-print.html</code></td><td>正文、判定表、附录</td><td>全本/合并版/打印版，历史封装但仍在用</td></tr>
+<tr><td><code>book-46-editions.html</code></td><td>版本说明、口径说明、数量</td><td>三版总览是门面，数字不符会当场失信</td></tr>
+
+<tr><td rowspan="4"><b>章级配套</b></td>
+<td><code>chapter-map-data.js</code> / <code>chapter-map.html</code></td><td>章数、章名、资源映射</td><td>46 章资源地图，章号变化必须同步</td></tr>
+<tr><td><code>exp-data/</code> 46 张实验表 + 预览页</td><td>章号、表名</td><td>章内实验，与判定表一一对应</td></tr>
+<tr><td><code>textbook_quiz_46.js</code> / <code>quiz-bank.html</code></td><td>章号、题数</td><td>教材题库按章组织</td></tr>
+<tr><td><code>learn.html</code></td><td>每章精读块与随堂测</td><td>学习态页面，抽教材结构化内容</td></tr>
+
+<tr><td rowspan="3"><b>课程/教具</b></td>
+<td><code>slides.html</code>（投屏课件 46 章）</td><td>章号、章名、课件链接</td><td>与教材逐章对应，教师直接用</td></tr>
+<tr><td><code>trial-ch01/12/28.html</code>；46 门课全集（outputs）</td><td>章号、挂接关系</td><td>微课按章号挂，不能漂移</td></tr>
+<tr><td><code>pocket-no01..46.html</code>（口袋书）</td><td>章号、章名</td><td>46 册按章</td></tr>
+
+<tr><td><b>口径页</b></td>
+<td><code>naming-convention.html</code><br><code>book-companion.html</code><br><code>resources.html</code></td><td>标准名、数量、分类</td><td>命名/读者配套/资料库，是用户查口径的地方</td></tr>
+</tbody></table>
+
+<h2>三、更新流程（每次教材改动照做）</h2>
+<ol>
+<li><b>先改母本</b> <code>textbook.html</code>，改完在母本内自查：46 章齐、46 张判定表、附录 A 七篇、无 M 模块污染。</li>
+<li><b>跑同步检查</b>：<code>_tools/sync_check.py</code>（若无则按本页清单人工核对），确认各版本的判定表数、章数、附录、污染值与母本一致。</li>
+<li><b>按清单批量同步</b>第二节所有文件，同一批改完再推送，不允许分多次"下次补"。</li>
+<li><b>改口径页</b>：若涉及名称或数量，同步改 <code>naming-convention.html</code>、<code>book-46-editions.html</code>、<code>resources.html</code> 的分类计数。</li>
+<li><b>浏览器实测</b>至少三处：母本章节、学生版对应章节、资料库相关分类，确认真渲染不是空壳。</li>
+<li><b>一次性推送</b>全部改动文件，线上验证后在工作日志记一笔"本次同步了哪些"。</li>
+</ol>
+
+<h2>四、命名与文案边界（避免再误改）</h2>
+<div class="card must">
+<b>命名</b>：标准名不带数字——用<b>教材题库</b>不用"466 题库"；相似资源用前缀区分——<b>教材判定表／法典判定表／认证判定表</b>。详见 <a href="naming-convention.html">资源命名规范</a>。<br><br>
+<b>面客文案边界</b>：只有<b>我们产品自己的介绍描述</b>禁用内部营销术语；<b>引用外部新闻的原文标题</b>、<b>我们对新闻的解读分析</b>保留原样即可，不要误改。判断标准：这句话的"主语"是我们产品，还是外部事实？前者从严，后者从宽。
+</div>
+
+<p class="mini">RMC 收益管理社区 · 内部同步机制 · 建立于 2026-11-21</p>
+</div></body></html>
