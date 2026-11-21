@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>授权码激活 · RMC</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--ink:#1f2a37;--mut:#5b6a7d;--ok:#2a9d5f;--red:#c0503f;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--ink);line-height:1.8;font-size:15px}
+.wrap{max-width:860px;margin:0 auto;padding:0 22px 80px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:28px 0 24px}
+.hero .wrap{padding-bottom:0}
+.hero h1{font-size:23px}
+.hero p{color:#b9d0e6;font-size:13.5px;margin-top:7px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin:16px 0;box-shadow:0 1px 3px rgba(15,42,74,.05)}
+.card h3{font-size:15px;color:var(--navy);margin-bottom:10px}
+label{display:block;font-size:12.5px;color:var(--mut);margin:10px 0 4px}
+input[type=text]{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14px;font-family:inherit;letter-spacing:1px}
+.btn{background:var(--navy2);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer;margin-top:14px}
+.msg{margin-top:14px;padding:12px 15px;border-radius:8px;font-size:13.5px;display:none}
+.msg.ok{display:block;background:#eaf6ef;border:1px solid #bfe3cd;color:#1d5a41}
+.msg.bad{display:block;background:#fbece7;border:1px solid #eec8bd;color:#8a3826}
+.unlock{margin-top:16px;display:none}
+.unlock h4{font-size:14px;color:var(--navy2);margin-bottom:8px}
+.res{display:flex;gap:8px;flex-wrap:wrap}
+.res a{text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:7px;padding:7px 12px;color:var(--navy2);background:#f7fafc}
+.note{background:#fff8e6;border:1px solid #f0dca6;color:#7a5c12;border-radius:9px;padding:10px 14px;font-size:12.5px;margin:14px 0}
+code{background:#eef2f8;padding:2px 6px;border-radius:4px;font-size:12px}
+@media print{.btn{display:none}}
+</style>
+</head>
+<body data-page="license-activate" data-auth="protected">
+<header class="hero"><div class="wrap">
+  <h1>授权码激活</h1>
+  <p>购买院校授权后，用授权码在本页激活，即可解锁教师版资源。本页为可演示流程原型——正式上线时把校验接到 Supabase 授权表即可。</p>
+</div></header>
+<main class="wrap">
+  <div class="note">演示用码：<code>RMC-L1-DEMO</code>（单校）、<code>RMC-L2-DEMO</code>（集团）、<code>RMC-L3-DEMO</code>（区域）。真实段位随购买发放。</div>
+
+  <div class="card">
+    <h3>输入授权码</h3>
+    <label>授权码</label>
+    <input type="text" id="code" placeholder="例如 RMC-L1-DEMO" autocomplete="off">
+    <button class="btn" id="go">激活</button>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="card unlock" id="unlock">
+    <h3 id="utitle">已解锁资源</h3>
+    <p id="udesc" style="font-size:13px;color:var(--mut)"></p>
+    <div class="res" id="ures"></div>
+  </div>
+
+  <div class="card">
+    <h3>正式上线时需补的一步（工程说明）</h3>
+    <p style="font-size:13px;color:var(--ink2)">当前校验在浏览器本地完成，用于演示流程。正式发放授权前，把 <code>verify()</code> 换成查询 Supabase <code>licenses</code> 表：字段 <code>code / tier / school / seats / valid_until / status</code>，激活时校验码有效、未过期、未超额使用，并写入激活记录。数据与账号体系沿用现有 Supabase，不另起炉灶。</p>
+  </div>
+</main>
+<script src="auth.js?v=2"></script>
+<script>
+(function(){
+  var TIERS={
+    'RMC-L1-DEMO':{tier:'L1 单校授权',school:'演示学校',seats:3,desc:'全套教材＋判定表＋题库＋教师版资源，1 个校区、3 名持证教师。'},
+    'RMC-L2-DEMO':{tier:'L2 集团授权',school:'演示教育集团',seats:10,desc:'L1 全部＋师资培训 10 人＋校区间教研支持＋定制案例 2 个。'},
+    'RMC-L3-DEMO':{tier:'L3 区域授权',school:'演示区域',seats:30,desc:'L2 全部＋再分发权＋分成机制＋区域授权管理。'}
+  };
+  var RES=[
+    ['教师版教材','textbook-teacher.html'],['46章教学课件','courseware-studio.html'],
+    ['15张判定表','codex.html'],['题库组卷','quiz-bank.html'],
+    ['案例库','community-cases.html'],['授权合同模板','license-agreement.html']
+  ];
+  var msg=document.getElementById('msg'),unlock=document.getElementById('unlock');
+  document.getElementById('go').onclick=function(){
+    var code=(document.getElementById('code').value||'').trim().toUpperCase();
+    var t=TIERS[code];
+    if(!t){msg.className='msg bad';msg.textContent='授权码无效或已过期，请联系授权方核对。';unlock.style.display='none';return}
+    msg.className='msg ok';msg.textContent='激活成功：'+t.tier+'（'+t.school+'，'+t.seats+' 个教师席位）。';
+    document.getElementById('utitle').textContent='已解锁 · '+t.tier;
+    document.getElementById('udesc').textContent=t.desc;
+    document.getElementById('ures').innerHTML=RES.map(function(r){return '<a href="'+r[1]+'">'+r[0]+'</a>'}).join('');
+    unlock.style.display='block';
+  };
+})();
+</script>
+</body>
+</html>

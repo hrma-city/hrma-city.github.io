@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>读者配套区 · 书的活版本</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#123a66;--gold:#e8b84b;--ink:#1f2a37;--mut:#5b6a7d;--ok:#2a9d5f;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--ink);line-height:1.8;font-size:15px}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px 80px}
+.hero{background:linear-gradient(135deg,#0f2a4a,#1d4e7e);color:#fff;padding:28px 0 24px}
+.hero .wrap{padding-bottom:0}
+.hero .tag{display:inline-block;background:rgba(232,184,75,.18);border:1px solid rgba(232,184,75,.5);color:#f5d78e;font-size:12px;border-radius:999px;padding:3px 12px;margin-bottom:9px}
+.hero h1{font-size:23px}
+.hero p{color:#b9d0e6;font-size:13.5px;margin-top:7px;max-width:760px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 23px;margin:16px 0;box-shadow:0 1px 3px rgba(15,42,74,.05)}
+.card h3{font-size:15px;color:var(--navy);margin-bottom:10px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row input{flex:1;min-width:180px;border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:14px;font-family:inherit}
+.btn{background:var(--navy2);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13.5px;font-weight:700;cursor:pointer}
+.res{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.res a{text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:7px;padding:7px 12px;color:var(--navy2);background:#f7fafc}
+.err{border-left:3px solid var(--gold);background:#faf8f1;border-radius:0 8px 8px 0;padding:11px 15px;margin:9px 0;font-size:13px}
+.err b{color:var(--navy2)}
+.err .status{font-size:11px;color:var(--ok);font-weight:700}
+.note{background:#eaf6ef;border:1px solid #bfe3cd;color:#1d5a41;border-radius:9px;padding:10px 14px;font-size:12.5px;margin:14px 0}
+code{background:#eef2f8;padding:2px 6px;border-radius:4px;font-size:12px}
+.hidden{display:none}
+.msg{margin-top:10px;font-size:13px;color:var(--ok)}
+@media print{.btn,.row input{display:none}}
+</style>
+</head>
+<body data-page="book-companion" data-auth="protected">
+<header class="hero"><div class="wrap">
+  <span class="tag">读者配套区 · 纸书是静止的，这里是活版本</span>
+  <h1>书的配套资源，都在这里</h1>
+  <p>书末扫码进这里：按章找到工具、模板、题库；书印错了在这里勘误；内容更新了在这里先看。买书的人凭书末码解锁全部配套。</p>
+</div></header>
+<main class="wrap">
+  <div class="note">口径：现行 <b>46 章</b>。你手上的书若为早期 41 章版，请对照<a href="chapter-map.html" style="color:inherit;text-decoration:underline">章节映射表</a>查看对应关系；新书统一按 46 章。</div>
+
+  <div class="card">
+    <h3>输入书末码（演示）</h3>
+    <div class="row">
+      <input type="text" id="code" placeholder="例如 BOOK-46-DEMO">
+      <button class="btn" id="go">解锁配套</button>
+    </div>
+    <div class="msg hidden" id="msg"></div>
+  </div>
+
+  <div class="card">
+    <h3>按章取配套工具</h3>
+    <p style="font-size:13px;color:var(--mut)">输入章号，直接跳到该章的全部配套资源（教材／题／判定表／实验表／工具）。</p>
+    <div class="row" style="margin-top:10px">
+      <input type="text" id="ch" placeholder="输入章号 1–46，如 12">
+      <button class="btn" id="goch">查看该章配套</button>
+    </div>
+    <div class="res hidden" id="chres"></div>
+  </div>
+
+  <div class="card">
+    <h3>勘误与更新</h3>
+    <div class="err"><b>示例 · 第 8 章实验表</b>：早期版本把超售实验表的 No-show 基准写作 6%，现行教材按 6%＋取消 7%＝13% 合计计算。以本章实验表 CSV 为准。<span class="status">已更新</span></div>
+    <div class="err"><b>示例 · 章数口径</b>：纸书若标注 41 章，为历史版本；现行体系为 46 章，新增第 42–46 章（职业发展／变革／周期／AI 科普／绿色收益）。<span class="status">已更新</span></div>
+    <div class="err"><b>示例 · 口袋书编号</b>：部分口袋书页 title 的章号与文件名不符，以文件名与教材章号为准。<span class="status">核对中</span></div>
+    <p style="font-size:12px;color:var(--mut);margin-top:10px">以上为示例条目。纸书出版后，此处替换为真实勘误与更新记录，按章归档、标注日期与状态。</p>
+  </div>
+
+  <div class="card">
+    <h3>配套资源一览</h3>
+    <div class="res">
+      <a href="chapter-map.html">46章资源地图</a>
+      <a href="textbook.html">在线教材</a>
+      <a href="quiz-bank.html">466题题库</a>
+      <a href="codex.html">15张判定表</a>
+      <a href="free-tools-hub.html">免费工具箱</a>
+      <a href="store.html">产品超市</a>
+    </div>
+  </div>
+</main>
+<script src="chapter-map-data.js"></script>
+<script src="auth.js?v=2"></script>
+<script>
+(function(){
+  var msg=document.getElementById('msg');
+  document.getElementById('go').onclick=function(){
+    var c=(document.getElementById('code').value||'').trim().toUpperCase();
+    if(c==='BOOK-46-DEMO'||c.indexOf('BOOK')===0){
+      msg.classList.remove('hidden');msg.textContent='解锁成功：你可查看全部 46 章配套资源（示例码）。';
+    }else{msg.classList.remove('hidden');msg.textContent='书末码无效，请核对书末的码。';}
+  };
+  document.getElementById('goch').onclick=function(){
+    var n=parseInt((document.getElementById('ch').value||'').trim(),10);
+    var box=document.getElementById('chres');
+    var M=window.RMC_CHAPTER_MAP;
+    if(!M||isNaN(n)||n<1||n>46){box.classList.remove('hidden');box.innerHTML='<span style="color:var(--mut)">请输入 1–46 的有效章号。</span>';return}
+    var it=M.items[n-1];
+    var links='<a href="'+it.book+'">教材第'+n+'章</a><a href="'+it.quiz.url+'">速测 '+it.quiz.n+' 题</a><a href="'+it.tableUrl+'">判定表 '+it.tables+'</a>';
+    if(it.exp&&it.exp.preview)links+='<a href="'+it.exp.preview+'">实验表预览</a>';
+    it.tools.forEach(function(t){links+='<a href="'+t+'">工具</a>'});
+    if(it.ai)links+='<a href="'+it.ai+'">AI 试听课</a>';
+    box.classList.remove('hidden');
+    box.innerHTML='<span style="font-size:13px;color:var(--navy)">第 '+n+' 章 · '+it.title+'：</span>'+links;
+  };
+})();
+</script>
+</body>
+</html>

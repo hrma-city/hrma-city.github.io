@@ -101,6 +101,24 @@
       link: 'quiz-bank.html', preview: 'quiz-bank.html', minutes: 10,
       next: '自测完 → 对应章节补读教材',
       tags: ['466 题', '带解析']
+    },
+
+    /* ---------- 授权 · 2 件（教师包 / 院校授权） ---------- */
+    {
+      id: 'lic-teacher', cat: 'license', name: '教师备课授权包',
+      value: '46 章课件 + 14 教案 + 讲稿 + 题库 + 评分量规，用自己的老师就能开课。',
+      price: '¥1,999 / 年', priceType: 'paid',
+      link: 'courseware-studio.html', preview: 'teacher-manual-vol1.html', minutes: 20,
+      next: '拿到包 → 用质量手册核对授课规范与判分标准',
+      tags: ['教师版', '带质量手册']
+    },
+    {
+      id: 'lic-school', cat: 'license', name: '院校课程包授权',
+      value: '一套完整的基础设施：教材/判定表/题库/证书考点，学校自己开课、学生可获证书。',
+      price: '试点 ¥1.98 万/年 · 标准 ¥4.8 万/年', priceType: 'paid',
+      link: 'license-course.html', preview: 'school-license.html', minutes: 30,
+      next: '看授权设计 → 下载合同模板与质量手册 → 申请试点',
+      tags: ['三级授权', '含合同模板']
     }
   ];
 
@@ -108,7 +126,8 @@
     { id: 'all', name: '全部', desc: '10 件代表商品（首批上架）' },
     { id: 'tool', name: '工具', desc: '打开就能算、能练' },
     { id: 'template', name: '模板', desc: '填数出结果，全部带预览' },
-    { id: 'book', name: '课件教材', desc: '按章选购或整包' }
+    { id: 'book', name: '课件教材', desc: '按章选购或整包' },
+    { id: 'license', name: '授权', desc: '教师包 / 院校课程包授权' }
   ];
 
   w.RMC_STORE = { version: '2026-11-21', CATALOG: CATALOG, CATS: CATS };
