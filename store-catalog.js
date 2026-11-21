@@ -117,7 +117,7 @@
       value: '一套完整的基础设施：教材/判定表/题库/证书考点，学校自己开课、学生可获证书。',
       price: '试点 ¥1.98 万/年 · 标准 ¥4.8 万/年', priceType: 'paid',
       link: 'license-course.html', preview: 'school-license.html', minutes: 30,
-      next: '看授权设计 → 下载合同模板与质量手册 → 申请试点',
+      next: '看授权设计 → 下载合同模板与质量手册 → 已有授权码可到激活页解锁资源',
       tags: ['三级授权', '含合同模板']
     }
   ];

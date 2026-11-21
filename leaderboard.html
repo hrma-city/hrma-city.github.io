@@ -41,6 +41,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
 
 <script src="assets/js/ugc.js"></script>
+<script src="rmc-seed.js"></script>
 <script src="assets/js/app.js?v=v2"></script>
 <script>
 document.addEventListener("DOMContentLoaded", async function () {
@@ -49,11 +50,26 @@ document.addEventListener("DOMContentLoaded", async function () {
   function fmtScore(n) { return (n||0).toLocaleString("zh-CN"); }
   var rows = await U.getLeaderboard(50);
   if (!rows.length) {
-    board.innerHTML = '<div class="uc-empty">排行榜暂时为空。完成一次认证考试或在社区发帖，就能上榜。</div>';
+    /* 无真实数据时用本地示例展示榜单形态；明确标注"示例"，不冒充真实战绩 */
+    var SD = (window.RMC_SEED && window.RMC_SEED.CARDS) || [];
+    if (!SD.length) {
+      board.innerHTML = '<div class="uc-empty">完成一次认证考试或在社区发帖，就能上榜。</div>';
+      return;
+    }
+    var demo = SD.map(function(c){
+      return {full_name:c.who, exam_level:(c.level||'').split(' ')[0],
+              exam_score:(c.stats&&c.stats.accuracy)||0,
+              contributions:(c.stats&&c.stats.drills)||0, demo:true};
+    });
+    board.innerHTML = '<div class="uc-empty" style="text-align:left;padding:14px 18px">'
+      + '<div style="background:#fff8e6;border-left:3px solid #c9a227;padding:8px 12px;margin-bottom:12px;font-size:12.5px">'
+      + '<b>示例榜单</b>：以下为虚构占位数据，用于展示榜单形态。真实数据来自认证成绩与社区贡献。</div>'
+      + '</div>' + renderRows(demo);
     return;
   }
-  var max = Math.max.apply(null, rows.map(function(r){ return r.exam_score||0; }).concat([1]));
-  var body = rows.map(function (r, i) {
+  function renderRows(data){
+    var max = Math.max.apply(null, data.map(function(r){ return r.exam_score||0; }).concat([1]));
+  var body = data.map(function (r, i) {
     var rank = i + 1;
     var rankCls = rank <= 3 ? "lb-rank top" : "lb-rank";
     var pct = Math.round(((r.exam_score||0) / max) * 100);
@@ -66,10 +82,11 @@ document.addEventListener("DOMContentLoaded", async function () {
       '<td style="min-width:140px"><div class="lb-bar"><i style="width:'+pct+'%"></i></div></td>' +
       '</tr>';
   }).join("");
-  board.innerHTML =
-    '<table class="lb-table"><thead><tr>' +
+  return '<table class="lb-table"><thead><tr>' +
       '<th>排名</th><th>成员</th><th>认证成绩</th><th>社区贡献</th><th>成绩占比</th>' +
     '</tr></thead><tbody>'+body+'</tbody></table>';
+  }
+  if (rows.length) board.innerHTML = renderRows(rows);
   var t = document.getElementById("snToggle"), l = document.getElementById("snLinks");
   if (t && l) t.addEventListener("click", function () { l.classList.toggle("open"); });
 });
