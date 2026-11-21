@@ -40,14 +40,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei
 .res a.k4{color:#6b4a8c;border-color:#e0d4ef;background:#f8f5fc}
 .empty{background:#fff;border:1px solid var(--line);border-radius:12px;padding:30px;text-align:center;color:var(--mut)}
 .note{background:#eaf6ef;border:1px solid #bfe3cd;color:#1d5a41;border-radius:9px;padding:9px 13px;font-size:12.5px;margin:12px 0}
+.tocnav a{display:inline-block;margin:2px 10px 2px 0;color:var(--navy2);text-decoration:none;border-bottom:1px dotted #aabbd0}
+.tocnav a:hover{color:#c0503f}
+.tocnav .part{font-weight:700;color:var(--mut);margin-top:6px;display:block}
 @media print{.bar{position:static}.hero{background:#fff;color:#000}.hero p,.stats span{color:#333}.stats b{color:#1d4e7e}}
 </style>
 </head>
 <body data-page="chapter-map" data-auth="protected">
 <header class="hero"><div class="wrap">
-  <span class="tag">46章配套资源地图 · 全部链接已核验</span>
+  <span class="tag">46章配套资源地图</span>
   <h1>读哪一章，就用哪一章的工具</h1>
-  <p>每章的教材、题库、判定表、实验表、工具、AI 课集中在一处。点击即得，不必再全站找。所有链接均已核对文件真实存在。</p>
+  <p>每章的教材、随堂测、判定表、实验表和配套工具都在这一页。找到章节，点开就能用。</p>
   <div class="stats">
     <div><b>46</b><span>章</span></div>
     <div><b>466</b><span>道题</span></div>
@@ -57,7 +60,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei
   </div>
 </div></header>
 <main class="wrap">
-  <div class="note">版本口径：以现行 <b>46 章</b>教材为准。41 章内容仅作历史版本保留，不作为现行配套依据。</div>
+  <div class="note">与现行 <b>46 章</b>教材逐章对应。想看某章完整正文，点该章的「教材」即可。</div>
+  <details class="tocnav" style="background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 15px;margin:12px 0">
+    <summary style="cursor:pointer;font-weight:700;color:var(--navy);font-size:13.5px">章节目录 · 点章名直达（七篇 46 章）</summary>
+    <div id="tocList" style="margin-top:9px;font-size:12.5px;line-height:2"></div>
+  </details>
   <div class="bar"><div class="row">
     <input id="q" placeholder="搜章号或关键词，如「超售」「12」「预算」…">
     <span class="pill on" data-f="all">全部 46</span>
@@ -74,7 +81,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei
   var M=window.RMC_CHAPTER_MAP;
   var grid=document.getElementById('grid'),q=document.getElementById('q');
   var filter='all';
-  var TOOLNAME={'benchmark-fit.html':'基准对比器','diagnose.html':'收益健康自检','rm-audit.html':'成熟度自评','action-plan-90.html':'90天行动','pricing-decision.html':'定价陪练','competitor-pricing-decision.html':'跟价陪练','team-replacement-decision.html':'团队置换陪练','attribution-coach.html':'归因陪练','attribution-drill.html':'归因追问(3样本)','calc-center-v2.html':'计算中心','mock-interview.html':'模拟面试','rm-personality.html':'性格测评'};
+  var TOOLNAME={'benchmark-fit.html':'基准对比器','diagnose.html':'收益健康自检','rm-audit.html':'成熟度自评','action-plan-90.html':'90天行动','pricing-decision.html':'定价陪练','competitor-pricing-decision.html':'跟价陪练','team-replacement-decision.html':'团队置换陪练','attribution-coach.html':'归因陪练','attribution-drill.html':'归因追问(3样本)','calc-center-v2.html':'计算中心','mock-interview.html':'模拟面试','rm-personality.html':'性格测评','lesson-builder.html':'一句话备课','quiz-battle.html':'课堂对战答题','class-insight.html':'学情透镜'};
   function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
   function render(){
     if(!M){grid.innerHTML='<div class="empty">映射数据未加载（检查 chapter-map-data.js）。</div>';return}
@@ -113,6 +120,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei
       p.classList.add('on'); filter=p.getAttribute('data-f'); render();
     }
   });
+  /* 渲染章节目录 */
+  if(M){
+    var parts=[['第一篇 · 认知篇',1,4],['第二篇 · 决策篇',5,19],['第三篇 · 运营篇',20,28],
+      ['第四篇 · 组织篇',29,32],['第五篇 · 延伸篇',33,36],['第六篇 · 现实篇',37,43],['第七篇 · 视野篇',44,46]];
+    document.getElementById('tocList').innerHTML=parts.map(function(p){
+      var links=''; for(var i=p[1];i<=p[2];i++) links+='<a href="#ch'+i+'">'+i+' 章</a>';
+      return '<span class="part">'+p[0]+'</span>'+links;
+    }).join('');
+  }
   render();
 })();
 </script>

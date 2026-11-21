@@ -119,7 +119,7 @@ details>summary{cursor:pointer;font-size:13.5px;color:var(--navy);font-weight:60
   <div class="hd">
     <div>
       <h1>收益管理 · 在线学习与自测</h1>
-      <div class="sub">七篇四十六章 · 不用看书，在网站里学完并在线考核</div>
+      <div class="sub">七篇四十六章 · 边学边测，每章一个小闭环</div>
     </div>
     <div style="flex:1;min-width:260px;max-width:520px">
       <details style="background:#fff;border:1px solid var(--line,#e3e9f1);border-radius:10px;padding:8px 12px;font-size:13px">
@@ -147,11 +147,17 @@ details>summary{cursor:pointer;font-size:13.5px;color:var(--navy);font-weight:60
 
 <div class="wrap">
   <div style="grid-column:1 / -1;margin:0 0 16px;padding:13px 18px;background:#fff6e8;border-left:5px solid #d98324;border-radius:8px;font-size:14px;line-height:1.9"><b>🎮 边玩边学：46 章通关游戏</b><br>不想先啃教材？可以先玩 <a href="game-rm.html"><b>《云璟酒店 · 一年收益经营》</b></a>——212 道题（46 章逐章通关，每篇末各有一次综合小考，共 7 次），全程只点按钮，系统引导走完七篇 46 章主线，最后给通关评级。学完主线别停：<b>第六篇 · 现实篇（37–43 章）</b>与<b>第七篇 · 视野篇（44–46 章）</b>就在下面目录最后，讲中国渠道生态、连锁、AI、危机、职业发展与绿色收益。<br>换一种玩法：<a href="quest-46.html"><b>《登顶之路 · 46 章教材版》</b></a>——46 个营地对应 46 章、138 盏知识灯，读要点、排路线、看情境后果，全程不判分，点亮全部即登顶。</div>
+  <div style="grid-column:1 / -1;margin:0 0 16px;padding:13px 18px;background:#f3f0fa;border-left:5px solid #6b4a8c;border-radius:8px;font-size:14px;line-height:1.9">
+    <b>📘 在线学习 · 与题库怎么配合</b><br>
+    这里把每章正文拆成 <b>要点 → 公式 → 判定表 → 案例 → 速测</b> 五步，学完一章当堂测 5 题，适合按顺序系统学。
+    想按知识点专项练、看全部 <b>466 道题</b>与解析，去 <a href="quiz-bank.html"><b>题库总览（16 知识域筛选）</b></a>；
+    每章的速测题都从同一题库抽取，<b>这里的 5 题 = 题库里该章的样本</b>，题目与解析完全同源。
+  </div>
   <div style="grid-column:1 / -1;margin:0 0 16px;padding:13px 18px;background:#eef4fa;border-left:5px solid #1d6fb8;border-radius:8px;font-size:14px;line-height:1.9"><b>📊 配套数据与练习模板</b><br>学完每章，可用 <a href="teach-data.html">教学数据工坊</a> 的模拟数据库与练习模板动手算：指标对标、需求预测、定价栅栏、库存保护位、渠道净价、报表归因。无需下载也可 <a href="report-preview.html">在线预览</a>。</div>
   <aside id="nav"><h4>正在载入教材…</h4></aside>
   <main id="main"><div class="card"><h2 id="toc-1">正在载入</h2><p class="hint">正在从教材正文抽取章节内容，请稍候。</p></div></main>
 </div>
-<div class="foot">教材 PDF 只作翻阅备查；完整题库请见 <a href="quiz-bank.html">题库总览（16 知识域筛选）</a>。</div>
+<div class="foot">想看完整正文可点每章的「在教材里翻这一章」；想系统刷题请到 <a href="quiz-bank.html">题库总览</a>。</div>
 
 <script src="textbook_quiz_46.js?v=4"></script>
 <script>
@@ -220,8 +226,11 @@ function renderLearn(n){
   var c=CH[n], st=myState(), isRead=st.read.indexOf(n)>=0;
   var el=c.el;
   var h;
-  if(c.raw){
-    /* 现实篇与视野篇：自带完整排版，直接渲染原始正文 */
+  /* 活页式章（7/15/17/24）：源教材用「教学目标/导入案例」表格排版，
+     没有 promise/pts/case 结构块，结构化分支会抽出空壳——改走原生正文。 */
+  var structured = el.querySelector('.promise') || el.querySelector('.pts') || el.querySelector('.case');
+  if(c.raw || !structured){
+    /* 自带完整排版：直接渲染原始正文，不再显示空的结构块 */
     h='<div class="card"><h2 id="toc-2">第 '+n+' 章　'+esc(c.title)+'</h2>'+el.innerHTML
       +'<div class="act">'
       +'<a class="btn ghost" href="v2026-10-textbook-full.html#mch'+pad2(n)+'" target="_blank">在教材里翻这一章</a>'
@@ -230,9 +239,11 @@ function renderLearn(n){
       +'<span class="hint">学完标记会同步到学习路径页</span></div></div>';
   } else {
   h='<div class="card"><h2 id="toc-2">'+(n===0?'开篇':'第 '+n+' 章')+'　'+esc(c.title)+'</h2>';
+  h+='<div class="act" style="margin:4px 0 10px"><a class="btn ghost" href="v2026-10-textbook-full.html#mch'+pad2(n)+'" target="_blank">在教材里翻这一章</a>'
+    +'<span class="hint">本章为精读版：下面是要点、公式、判定表、案例与速测；想看完整正文点这里。</span></div>';
   var p=el.querySelector('.promise');
   if(p) h+='<div class="goal">学完这章您要能做到：'+esc(stripTags(p.textContent).replace(/^读完这章您能|^读完本章您能/,''))+'</div>';
-  h+=block('本章要点', el.querySelectorAll('.pts').length? ptsHtml(el):'');
+  h+=block('本章要点', el.querySelectorAll('.pts').length? ptsHtml(el)+'<div class="hint" style="margin-top:6px">要点的完整推导与案例，点上方「在教材里翻这一章」查看。</div>':'');
   var f=el.querySelectorAll('.fml'); if(f.length){
     var fh=''; [].forEach.call(f,function(x){ fh+='<div style="margin-bottom:8px"><b style="color:var(--navy)">'
       +esc(stripTags(x.querySelector('.fn')?x.querySelector('.fn').textContent:''))+'</b>'
@@ -263,7 +274,6 @@ function renderLearn(n){
       +'<div class="hint" style="margin-top:6px">答案在教材附录 B：<a href="textbook-merged.html#appB" target="_blank">打开附录 B</a></div></div>';
   }
   h+='<div class="act">'
-    +'<a class="btn ghost" href="v2026-10-textbook-full.html#mch'+pad2(n)+'" target="_blank">在教材里翻这一章</a>'
     +'<button class="btn'+(isRead?'':' gold')+'" id="markRead" data-n="'+n+'">'
     +(isRead?'✓ 本章已学完（点击撤销）':'我学完了，标记本章')+'</button>'
     +'<span class="hint">学完标记会同步到学习路径页</span></div></div>';
