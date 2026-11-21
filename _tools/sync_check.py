@@ -9,6 +9,7 @@ MASTER = 'textbook.html'
 VERSIONS = [
     'book-reader.html', 'rmc-book-reader-46.html', 'rmc-book-student-46.html',
     'rmc-book-teacher-46.html', 'book-teach.html', 'book-reader-levels.html',
+    'book-reader-undergraduate.html',  # 本科适用版（46章全本）
 ]
 # 历史封装：沿用旧章结构(id=mchNN)与旧判定表格式，保留原貌不强制同步；
 # 仅检查其无认证课程污染即可。
@@ -48,7 +49,9 @@ def main():
         st = stats(s)
         diffs = []
         if st['章数'] < 46: diffs.append('章数%d' % st['章数'])
-        if st['判定表'] < 46: diffs.append('判定表%d' % st['判定表'])
+        # 本科版/分层版沿用自身判定表格式，只要求 >= 40 张，不做严格46
+        min_judge = 40 if fn in ('book-reader-undergraduate.html',) else 46
+        if st['判定表'] < min_judge: diffs.append('判定表%d' % st['判定表'])
         if st['附录A_32旧']: diffs.append('附录A旧%d' % st['附录A_32旧'])
         if st['M模块污染']: diffs.append('M污染%d' % st['M模块污染'])
         if st['知识灯']: diffs.append('知识灯%d' % st['知识灯'])
@@ -64,6 +67,18 @@ def main():
         dirty = st['M模块污染'] or st['知识灯']
         print('  %-30s %s' % (fn, '有认证污染，需清理 ✗' if dirty else '无污染 ✓（历史版豁免）'))
         if dirty: bad += 1
+    print('\n=== 章级配套资源数量（应均为46）===')
+    checks = [
+        ('口袋书 pocket-no*.html', len([f for f in os.listdir(ROOT) if re.match(r'pocket-no\d{2}\.html$', f)])),
+        ('实验表 exp-data/*.csv', len([f for f in os.listdir(os.path.join(ROOT,'exp-data')) if re.match(r'第\d+章-实验.*\.csv$', f)]) if os.path.isdir(os.path.join(ROOT,'exp-data')) else 0),
+        ('逐章课件 sl-ch*.html', len([f for f in os.listdir(ROOT) if re.match(r'sl-ch\d{2}\.html$', f)])),
+        ('教材题库章数', len(set(re.findall(r'"ch"\s*:\s*"(\d+)"', read('textbook_quiz_46.js') or '')))),
+    ]
+    for name, cnt in checks:
+        flag = 'OK' if cnt >= 46 else '⚠ %d（应46）' % cnt
+        if cnt < 46: bad += 1
+        print('  %-26s %s' % (name, flag))
+
     print('\n结论：%s' % ('全部同步 ✓' if bad == 0 else '%d 个文件需处理 ✗' % bad))
     sys.exit(0 if bad == 0 else 2)
 

@@ -38,32 +38,74 @@ th{background:#f0f3f7;color:var(--navy);font-weight:700}
 <span class="mini">其它所有教材页都是它的呈现封装。任何内容改动，一律先落到这里。</span>
 </div>
 
-<h2>二、必须同步的清单（教材一改，这些全改）</h2>
+<h2>二、完整同步清单（15 类 · 教材一改照此逐类核对）</h2>
+<p class="lead">下表是全站教学资料的完整清单。标 <b class="ok">必须同步</b> 的是教材正文/章数/判定表变化时一定要改的；标 <b>章号相关才同步</b> 的是只在章号或章名变化时改；标 <b>不需同步</b> 的是独立体系。不要凭记忆只改几个文件——逐类核对。</p>
 <table>
-<thead><tr><th style="width:8%">层</th><th style="width:30%">文件</th><th style="width:22%">同步什么</th><th>为什么必须同步</th></tr></thead>
+<thead><tr><th style="width:12%">类别</th><th style="width:34%">真实文件 / 命名规律</th><th style="width:14%">同步级别</th><th>触发条件与说明</th></tr></thead>
 <tbody>
-<tr><td rowspan="6"><b>教材族</b></td>
-<td><code>book-reader.html</code><br><code>rmc-book-reader-46.html</code></td><td>正文、判定表、附录</td><td>读者版（通读本）；两者为同内容副本</td></tr>
-<tr><td><code>rmc-book-student-46.html</code></td><td>正文、判定表、附录、配套链接</td><td>学生版；曾混入认证模块编号与错误二维码</td></tr>
-<tr><td><code>rmc-book-teacher-46.html</code><br><code>book-teach.html</code></td><td>正文、判定表、附录、教学装</td><td>教师版；后者为同内容副本</td></tr>
-<tr><td><code>book-reader-levels.html</code></td><td>正文、判定表、附录、层次标签</td><td>分层标注版（中职/高职/本科），别漏</td></tr>
-<tr><td><code>v2026-10-textbook-full.html</code><br><code>textbook-merged.html</code><br><code>textbook-print.html</code></td><td>正文、判定表、附录</td><td>全本/合并版/打印版，历史封装但仍在用</td></tr>
-<tr><td><code>book-46-editions.html</code></td><td>版本说明、口径说明、数量</td><td>三版总览是门面，数字不符会当场失信</td></tr>
+<tr><td><b>① 教材全版本</b></td>
+<td>母本 <code>textbook.html</code>；<code>book-reader.html</code>／<code>rmc-book-reader-46.html</code>／<code>rmc-book-student-46.html</code>／<code>rmc-book-teacher-46.html</code>／<code>book-teach.html</code>／<code>book-reader-levels.html</code>（分层版）／<code>book-reader-undergraduate.html</code>（本科46章）</td>
+<td><b class="ok">必须同步</b></td><td>正文、判定表、附录、配套链接。三个层次分册：本科46章全本／高职 <code>book-reader-college.html</code> 32章精选／中职 <code>book-reader-vocational.html</code> 12章精选——分册按章号从母本抽取，章号变化需检查是否仍属精选范围。历史封装（v2026-10-full／merged／print）保留原貌仅查污染。</td></tr>
 
-<tr><td rowspan="4"><b>章级配套</b></td>
-<td><code>chapter-map-data.js</code> / <code>chapter-map.html</code></td><td>章数、章名、资源映射</td><td>46 章资源地图，章号变化必须同步</td></tr>
-<tr><td><code>exp-data/</code> 46 张实验表 + 预览页</td><td>章号、表名</td><td>章内实验，与判定表一一对应</td></tr>
-<tr><td><code>textbook_quiz_46.js</code> / <code>quiz-bank.html</code></td><td>章号、题数</td><td>教材题库按章组织</td></tr>
-<tr><td><code>learn.html</code></td><td>每章精读块与随堂测</td><td>学习态页面，抽教材结构化内容</td></tr>
+<tr><td><b>② 投屏课件</b></td>
+<td><code>slides.html</code>（46章）、<code>coll-slides.html</code>、<code>slides-outline.html</code>；逐章页 <code>sl-ch01…sl-ch46.html</code>（46个）；学时版 <code>slides-teach.html</code>、<code>sl-teach-16/32/48.html</code>；<code>ppt/</code></td>
+<td>章号相关才同步</td><td>章数/章名/判定表页变化必改逐章课件；正文小改不动。41章旧版 <code>coll-slides-41.html</code>／<code>slides-outline-41.html</code> 排除。</td></tr>
 
-<tr><td rowspan="3"><b>课程/教具</b></td>
-<td><code>slides.html</code>（投屏课件 46 章）</td><td>章号、章名、课件链接</td><td>与教材逐章对应，教师直接用</td></tr>
-<tr><td><code>trial-ch01/12/28.html</code>；46 门课全集（outputs）</td><td>章号、挂接关系</td><td>微课按章号挂，不能漂移</td></tr>
-<tr><td><code>pocket-no01..46.html</code>（口袋书）</td><td>章号、章名</td><td>46 册按章</td></tr>
+<tr><td><b>③ 教案</b></td>
+<td><code>book-teach.html</code>（46章教师用书）、<code>teach-kit.html</code>、<code>lesson-builder.html</code>、<code>courseware-studio.html</code>、<code>v2026-10-courseware-studio.html</code>、<code>teach-case.html</code></td>
+<td>章号相关才同步</td><td>线上46章教案随章号/判定表改动；<code>teach/plans/CH01…CH32.md</code> 是32章旧版，不列入现行同步。</td></tr>
 
-<tr><td><b>口径页</b></td>
-<td><code>naming-convention.html</code><br><code>book-companion.html</code><br><code>resources.html</code></td><td>标准名、数量、分类</td><td>命名/读者配套/资料库，是用户查口径的地方</td></tr>
+<tr><td><b>④ AI课/微课</b></td>
+<td><code>ai-course-hub.html</code>（46门）；试听 <code>trial-ch01/12/28.html</code>；<code>micro-course.html</code>、<code>micro-major.html</code>、<code>micro-course-scripts.html</code>（46节脚本）。46门全集在 outputs（会员权益），站点仅试听页</td>
+<td>章号相关才同步</td><td>试听课与课程脚本的章号/挂接关系变化必改；全集上线时按章号挂。</td></tr>
+
+<tr><td><b>⑤ 讲稿/逐字稿</b></td>
+<td><code>lecture-scripts.html</code>（下载中心）、<code>lecture-scripts-undergraduate.html</code>（46讲）、<code>lecture-scripts-college.html</code>（32讲）、<code>lecture-scripts-vocational.html</code>（12讲）、<code>hrma-lecture-scripts.html</code>、<code>meeting-scripts.html</code></td>
+<td>章号相关才同步</td><td>按讲/章组织，章名或章数变化必改本科46讲版，分册版按精选范围调整。</td></tr>
+
+<tr><td><b>⑥ 口袋书</b></td>
+<td><code>pocket-no01…pocket-no46.html</code>（46册，规律 <code>pocket-no%02d</code>）、<code>pocket-collection.html</code></td>
+<td><b class="ok">必须同步</b></td><td>一册=一章，章名/章号/判定表变化逐册同步；<code>pocket-41.html</code> 旧版排除。</td></tr>
+
+<tr><td><b>⑦ 判定表</b></td>
+<td>教材判定表（46张，内嵌各教材页与附录A）；法典判定表（15张A–O）<code>codex.html</code>、<code>codex-en.html</code>、<code>jt-spec.html</code>、<code>jt-engine.html</code>、<code>decision-cards.html</code>、<code>card-table-a/b/h.html</code>、<code>calc-center-v2.html</code></td>
+<td><b class="ok">必须同步</b></td><td>教材判定表改→所有内嵌版本+附录A；法典表改→codex族+题库判定项。认证课程考的是法典表，不另立第三套。</td></tr>
+
+<tr><td><b>⑧ 题库</b></td>
+<td><code>textbook_quiz_46.js</code>（466题/46章）、<code>quiz-bank.html</code>（教材题库）、<code>learn.html</code>、<code>quiz.html</code>、<code>wb.html</code>（认证题库）、<code>exam-book.html</code>、<code>quiz-battle.html</code>、<code>case-quiz.html</code>、<code>practice.html</code>（认证模拟卷）；旧版 <code>data/textbook_quiz.js</code></td>
+<td><b class="ok">必须同步</b></td><td>教材题库按 <code>ch:"01"…"46"</code> 组织，章号/判定表变化必改解析与出处；认证题库（M模块）独立不改。</td></tr>
+
+<tr><td><b>⑨ 游戏/沙盘</b></td>
+<td><code>games-hub.html</code>（26玩法）、<code>games/</code>（12页）、<code>game-rm.html</code>（46章）、<code>quest-46.html</code>、<code>roleplay.html</code>／<code>roleplay-cases.html</code>、<code>sandbox.html</code>、<code>revenue-sandbox.html</code>、<code>games-pack/</code></td>
+<td>章号相关才同步</td><td>挂章的游戏（game-rm/quest-46/角色扮演）随章号改；纯能力游戏不改。41章旧游戏 <code>game-rm-41.html</code> 排除。</td></tr>
+
+<tr><td><b>⑩ 实验表/模板/数据</b></td>
+<td><code>exp-data/第01…46章-实验*.csv</code>（46张）+预览页+<code>index.html</code>；<code>data/exp-*</code>；<code>templates/</code>（xlsx）、<code>reader-kit/</code>（62 xlsx）、<code>data/calc/</code></td>
+<td><b class="ok">必须同步</b></td><td>一章一实验表，与判定表一一对应；章号/章名变化必改表名、预览、映射。</td></tr>
+
+<tr><td><b>⑪ 案例/剧集</b></td>
+<td><code>cases-lib.html</code>（302例）、<code>cases-hub.html</code>、<code>cases-*</code>（7业态）、<code>sl-case-c00…c14.html</code>、<code>ai-drama*.html</code>、<code>ep01…06.html</code></td>
+<td>不需同步</td><td>按案例ID/业态组织，不按章；判定表变动涉及案例解读时局部调整即可。</td></tr>
+
+<tr><td><b>⑫ 工具</b></td>
+<td><code>free-tools-hub.html</code>（13工具）、<code>calc-center-v2.html</code>、<code>calc-suite-v1/offline</code>、<code>ai-verifier.html</code>、<code>teach-workbench.html</code>、<code>lesson-builder.html</code></td>
+<td>章号相关才同步</td><td>按章生成的工具（一句话备课/课堂对战）随章号改；纯计算工具不改。</td></tr>
+
+<tr><td><b>⑬ 认证考核</b></td>
+<td><code>cert-hub.html</code>、<code>certification.html</code>、<code>coll-modules.html</code>（M01–M14）、<code>exam/workbook.html</code>、<code>course-standard.html</code>、<code>jt-spec.html</code>、<code>books/v2026-2-exam-spec.html</code></td>
+<td>不需同步</td><td>独立 M 模块体系，与教材章号无关；法典判定表变动时只需核对考核默表清单。</td></tr>
+
+<tr><td><b>⑭ 教练/助教</b></td>
+<td><code>coach-hub.html</code>、<code>ai-coach*.html</code>、<code>ai-avatar-coach.html</code>、<code>teach-avatar.html</code>、<code>jt-coach.html</code>、<code>attribution-coach.html</code>、<code>rm-coach.html</code>、<code>help*.html</code></td>
+<td>章号相关才同步</td><td>教学教练引用教材出处，章号变化要改引用；通用教练不改。</td></tr>
+
+<tr><td><b>⑮ 口径/门面页</b></td>
+<td><code>naming-convention.html</code>、<code>book-46-editions.html</code>、<code>resources.html</code>（382条资料库）、<code>book-46-chapters-index.html</code>、<code>chapter-map.html</code>+<code>chapter-map-data.js</code>、<code>book-companion.html</code>、<code>teaching-sync.html</code>、<code>store.html</code>+<code>store-catalog.js</code></td>
+<td><b class="ok">必须同步</b></td><td>章数/名称/数量变化的门面，用户查口径的地方，不同步会当场失信；资料库分类计数也要同步。</td></tr>
 </tbody></table>
+
+<h3>不考虑同步的（已排除）</h3>
+<p class="mini">41章旧版9个（<code>book-teach-41</code>／<code>coll-slides-41</code>／<code>game-rm-41</code>／<code>learn-41</code>／<code>pocket-41</code>／<code>quiz-bank-41</code> 等）、32章早期（<code>teach/plans/CH01–CH32.md</code>、<code>sl-teach-32</code>、<code>course-manual/</code>）、已迁移跳板页、<code>deliverables-ledger.html</code>（仍写41章，勿作现行依据）。这些保留原貌并标注历史版本。</p>
 
 <h2>三、更新流程（每次教材改动照做）</h2>
 <ol>
@@ -77,7 +119,7 @@ th{background:#f0f3f7;color:var(--navy);font-weight:700}
 
 <h2>四、命名与文案边界（避免再误改）</h2>
 <div class="card must">
-<b>命名</b>：标准名不带数字——用<b>教材题库</b>不用"466 题库"；相似资源用前缀区分——<b>教材判定表／法典判定表／认证判定表</b>。详见 <a href="naming-convention.html">资源命名规范</a>。<br><br>
+<b>命名</b>：标准名不带数字——用<b>教材题库</b>不用"466 题库"；相似资源用前缀区分——<b>教材判定表／法典判定表</b>（认证课程考的是法典判定表，不另立第三套）。详见 <a href="naming-convention.html">资源命名规范</a>。<br><br>
 <b>面客文案边界</b>：只有<b>我们产品自己的介绍描述</b>禁用内部营销术语；<b>引用外部新闻的原文标题</b>、<b>我们对新闻的解读分析</b>保留原样即可，不要误改。判断标准：这句话的"主语"是我们产品，还是外部事实？前者从严，后者从宽。
 </div>
 
