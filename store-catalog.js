@@ -3,7 +3,7 @@
    --------------------------------------------------------------------------
    用途：store.html 的唯一商品数据源。集中管理名称/分类/价格/预览/上手时间/下一步。
    原则：① 每件商品的"链接/预览"都指向站点真实存在的文件（已核实）；
-        ② 价格全部沿用既有拍板体系，不新造；
+        ② 价格按 2026-11-22 公开标价，书与数字产品买断制；
         ③ 用户视角文案——只写"你能用它做什么"，不写"引流/转化/高客单"。
    维护：新增商品只改本文件，不动 store.html。
    ========================================================================== */
@@ -89,7 +89,7 @@
     {
       id: 'book-aicourse', cat: 'book', name: '46 门 AI 互动课',
       value: '每章 5 环节：讲稿 / 案例 / 沙盘 / 测验 / 判定表，单章可试听。',
-      price: '单章 ¥9.9 · 全集 ¥999–1999', priceType: 'paid',
+      price: '单章 ¥9.9 · 全集 ¥799', priceType: 'paid',
       link: 'ai-course-hub.html', preview: 'trial-ch12.html', minutes: 15,
       next: '试听一章 → 买全集配模板用',
       tags: ['AI 课', '可试听']
@@ -101,6 +101,49 @@
       link: 'quiz-bank.html', preview: 'quiz-bank.html', minutes: 10,
       next: '自测完 → 对应章节补读教材',
       tags: ['466 题', '带解析']
+    },
+
+    /* ---------- 书系 · 4 件 + 上岗工具包（2026-11-22 新增） ---------- */
+    {
+      id: 'book-full', cat: 'book', name: '《收益管理教材全本》· 数字版',
+      value: '46 章讲清「为什么」：七件套体例、章末练习、判定表与解析，一次买断。',
+      price: '¥79', priceType: 'paid',
+      link: 'book-46-editions.html', preview: 'v2026-10-textbook-full.html', minutes: 20,
+      next: '读完配《操作指南》把方法落到值班室',
+      tags: ['46 章', '数字版']
+    },
+    {
+      id: 'book-guide', cat: 'book', name: '《收益管理操作指南》',
+      value: '值班室直接翻的实操手册，15 张法典判定表印在书里，遇决策翻对应那张。',
+      price: '¥49', priceType: 'paid',
+      link: 'guide.html', preview: 'guide.html', minutes: 10,
+      next: '配《教材全本》看依据，配《调价台账》做记录',
+      tags: ['实操手册', '判定表']
+    },
+    {
+      id: 'book-pocket', cat: 'book', name: '口袋书 · 单本 / 全套',
+      value: '每册讲透一个模块，130×184mm 随身带；全套 24 册按模块查。',
+      price: '¥19.9 / 全套 ¥298', priceType: 'paid',
+      link: 'pocket-no21.html', preview: 'pocket-no21.html', minutes: 8,
+      next: '挑你最常遇到的决策那一册先读',
+      tags: ['口袋本', '24 册']
+    },
+    {
+      id: 'book-cases', cat: 'book', name: '《收益管理案例全解》',
+      value: '57 个情境，按业态档次 × 处境周期 × 手段组合检索，找最像你处境的那几条。',
+      price: '¥59', priceType: 'paid',
+      link: 'book-set.html', preview: 'book-set.html', minutes: 15,
+      next: '和《教材全本》对照着看，判断依据更清楚',
+      tags: ['57 例', '可检索']
+    },
+    {
+      id: 'bundle-kit', cat: 'template', name: '上岗工具包',
+      value: '日报 + 调价台账 + 超售测算 + 计算中心 + 判定表卡，一次配齐能上手的全套。',
+      price: '¥399', priceType: 'paid',
+      link: 'assets/previews/pv_71087bdb50_01_每日收益日报.html',
+      preview: 'assets/previews/pv_71087bdb50_01_每日收益日报.html', minutes: 20,
+      next: '配《操作指南》用，遇到决策先查表再记录',
+      tags: ['组合包', '有预览']
     },
 
     /* ---------- 授权 · 2 件（教师包 / 院校授权） ---------- */
@@ -115,7 +158,7 @@
     {
       id: 'lic-school', cat: 'license', name: '院校课程包授权',
       value: '一套完整的基础设施：教材/判定表/题库/证书考点，学校自己开课、学生可获证书。',
-      price: '试点 ¥1.98 万/年 · 标准 ¥4.8 万/年', priceType: 'paid',
+      price: '¥1.98 万 / 年', priceType: 'paid',
       link: 'license-course.html', preview: 'school-license.html', minutes: 30,
       next: '看授权设计 → 下载合同模板与质量手册 → 已有授权码可到激活页解锁资源',
       tags: ['三级授权', '含合同模板']
@@ -123,12 +166,12 @@
   ];
 
   var CATS = [
-    { id: 'all', name: '全部', desc: '10 件代表商品（首批上架）' },
+    { id: 'all', name: '全部', desc: '书、工具、模板、课程与院校授权' },
     { id: 'tool', name: '工具', desc: '打开就能算、能练' },
     { id: 'template', name: '模板', desc: '填数出结果，全部带预览' },
-    { id: 'book', name: '课件教材', desc: '按章选购或整包' },
-    { id: 'license', name: '授权', desc: '教师包 / 院校课程包授权' }
+    { id: 'book', name: '书与课程', desc: '买断即用，先看预览' },
+    { id: 'license', name: '院校', desc: '教师备课包 / 院校课程包授权' }
   ];
 
-  w.RMC_STORE = { version: '2026-11-21', CATALOG: CATALOG, CATS: CATS };
+  w.RMC_STORE = { version: '2026-11-22', CATALOG: CATALOG, CATS: CATS };
 })(window);

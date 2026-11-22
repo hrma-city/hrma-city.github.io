@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>四步找到你卡在哪 · RMC 免费工具</title>
+<meta name="description" content="12 道题，从决策胆量、数据认知、方法、工具环境四层定位你的收益管理卡点，给一件今天能做的小事。">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth-config.js?v=gate20261013"></script>
+<script src="assets/js/access-gate-public.js?v=v1"></script>
+<script src="assets/js/site-nav.js?v=v24"></script>
+<style>
+:root{--navy:#0f2a4a;--navy2:#1d4e7e;--ink:#1f2937;--mut:#5b6a7d;--line:#e3e9f1;--page:#f4f7fb;--brand:#0284C7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--page);color:var(--ink)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:34px 0 30px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px}
+.top h1{font-size:29px;margin:7px 0}
+.top p{color:#c9d8ea;font-size:14px;max-width:640px}
+main{max-width:880px;margin:0 auto;padding:28px 24px 80px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+h2{font-size:19px;color:var(--navy);margin:0 0 14px}
+.q{border-top:1px solid var(--line);padding:17px 0 4px}
+.q:first-of-type{border-top:none}
+.q .t{font-weight:600;color:var(--navy);margin-bottom:3px}
+.q .layer{display:inline-block;font-size:11px;background:#eff6ff;color:#1d6fb8;border-radius:10px;padding:1px 9px;margin-right:8px;vertical-align:2px}
+.opts{display:grid;gap:7px;margin-top:10px}
+.opts label{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:9px 12px;cursor:pointer;font-size:14px;line-height:1.6}
+.opts label:has(input:checked){border-color:var(--brand);background:#f0f9ff}
+.opts input{margin-top:5px;accent-color:var(--brand);flex:0 0 auto}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:18px}
+button{border:none;border-radius:9px;background:var(--brand);color:#fff;font-size:15px;font-weight:600;padding:11px 26px;cursor:pointer}
+button:hover{background:#0369a1}
+button.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}
+.hint{font-size:12.5px;color:var(--mut)}
+#result{display:none}
+#result.show{display:block}
+.rtop{border-left:4px solid var(--brand);background:#f0f9ff;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:16px}
+.rtop .big{font-size:22px;font-weight:700;color:var(--navy)}
+.rtop .s{font-size:13.5px;color:#33506b;margin-top:4px}
+.scorebar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 20px}
+.sc{border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:#fcfdfe}
+.sc .n{font-size:12px;color:var(--mut)}
+.sc .v{font-size:20px;font-weight:700;color:var(--navy)}
+.sc.hot{border-color:#f0b8a8;background:#fdf2ee}
+.sc.hot .v{color:#a8422f}
+.action{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0}
+.action h3{font-size:15px;color:var(--navy);margin-bottom:5px}
+.action a{color:#1d6fb8;font-weight:600;text-decoration:none}
+.note{background:#eef6f1;border:1px solid #c4e2d0;border-radius:9px;padding:11px 15px;font-size:13px;color:#2c6e48;margin-top:14px}
+@media print{.top{background:#fff;color:#000}.top p{color:#333}button,.bar{display:none}main{padding:0}body{background:#fff}}
+@media(max-width:600px){.top h1{font-size:23px}.scorebar{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<div style="font-size:12px;color:#bae6fd;letter-spacing:2px">RMC · 免费工具</div>
+<h1>四步找到你卡在哪</h1>
+<p>12 道题，从决策胆量、数据认知、方法、工具环境四层定位你在收益管理上卡在哪，给一件今天能做的小事。</p>
+</div></div>
+
+<main>
+<div class="card" id="quiz">
+<h2>先答 12 题（约 3 分钟）</h2>
+<div id="questions"></div>
+<div class="bar">
+<button id="submit">看我的结果</button>
+<button class="ghost" id="reset">重答</button>
+<span class="hint">答案只存在你本机，不上传。</span>
+</div>
+</div>
+
+<div class="card" id="result">
+<h2>你的定位结果</h2>
+<div class="rtop">
+<div class="big" id="mainTitle"></div>
+<div class="s" id="mainDesc"></div>
+</div>
+<div class="scorebar" id="scores"></div>
+<div id="actions"></div>
+<div class="note" id="note"></div>
+<div class="bar"><button onclick="window.print()">打印这份结果</button><a href="free-tools-hub.html" class="hint">← 返回免费工具箱</a></div>
+</div>
+</main>
+
+<script>
+const LAYERS={
+  mind:{name:'决策胆量层',color:'#a8422f',desc:'不是不会算，是不敢按数据动：怕投诉、怕竞对、怕说不清。',
+    act:'今天挑一个你犹豫过要不要调价的日子，写下当时看到的三个数字和不敢动的原因。先不用改价，把犹豫写清楚。',href:'attribution-coach.html',link:'打开「超额预订陪练」'},
+  know:{name:'数据认知层',color:'#96671a',desc:'看得见数字，看不清问题在哪一格：满房不等于赚钱。',
+    act:'今天用本店真实数字做一次自检，先看 OCC、ADR、竞对指数落在哪一格，再决定动哪个价。',href:'diagnose.html',link:'打开「收益健康自检」'},
+  method:{name:'方法层',color:'#1d6fb8',desc:'知道要看数，但没有可复现的动作：凭经验拍、事后不复盘。',
+    act:'今天只练一次：先做判断，再看追问，最后看纠偏。走完一遍比看十页方法有用。',href:'coach-hub.html',link:'打开「收益管理教练」'},
+  env:{name:'工具环境层',color:'#176247',desc:'缺数据台账、缺工具、缺流程，靠记性和口头交代硬撑。',
+    act:'今天回答四个问题，生成一份可打印的 90 天收益行动卡，贴到办公桌前。',href:'action-plan-90.html',link:'打开「90 天行动生成器」'}
+};
+const Q=[
+ {l:'mind',t:'看到未来几天出租率明显低于目标，你的第一反应是？',o:['先等等，怕降价伤品牌，也怕客人看到','看竞对降不降，别人不动我再决定','按规则算完，该放就放，并记下当时依据']},
+ {l:'mind',t:'遇到高需求日该提价时，你会？',o:['怕投诉、怕取消，宁愿少赚一点','只敢在临近入住当天临时动一下','按提前期和预测调，事先设好触发条件']},
+ {l:'mind',t:'经营数字不好看、被问到原因时，你通常？',o:['只报好看的数字，问题先藏着','报了数字，但说不清是哪一格出问题','报数字，同时说清原因和下一步动作']},
+ {l:'know',t:'「房卖满了，收益却没涨」——你能说清为什么吗？',o:['说不清，只看到房都卖出去了','大概知道是均价或渠道的问题，但说不准','能拆开 ADR、渠道结构、折扣和 No-show 逐项看']},
+ {l:'know',t:'打开一份经营日报，你最先看什么？',o:['只看当天营收总数','看 OCC 和 ADR，但不知道该跟谁比','对照预算和竞对看 MPI / ARI / RGI，先找异常格']},
+ {l:'know',t:'判断「今天该不该降价」，你主要靠？',o:['同行降我就降，或者感觉房不好卖','看当天预订进度，凭经验估','看未来几天的预订曲线、提前期和竞对，按规则判断']},
+ {l:'method',t:'面对一次超售或调价决策，你的做法是？',o:['凭经验拍，事后也不回头看','开会讨论，各家说各家','先查判定表、算清代价，再按规则定并留痕']},
+ {l:'method',t:'做过的收益决策有没有留痕可以复盘？',o:['没有，过去了就过去了','偶尔记个价格，不记当时的依据','有台账，能回头看到当时的数、依据和结果']},
+ {l:'method',t:'No-show 突然变多，或竞对猛降价时，你会？',o:['先放一放，看看会不会自己恢复','临时到处问人，按别人说的改','查得到对应处理规则就照做，查不到就标出来']},
+ {l:'env',t:'你手上有多少能随时取用的收益数据？',o:['基本没有，只能到前台系统里零星看','有一些，但散在不同地方，取一次很费劲','有固定台账，OCC、ADR、渠道、竞对随时能取']},
+ {l:'env',t:'有没有一套新人也能照着做的收益流程？',o:['全靠记性和口头交代','有零散文档，关键步骤没写清','有清单、判定表、台账，新人照着能走']},
+ {l:'env',t:'遇到没做过的判断（比如第一次做超售），你通常？',o:['卡住，先放一放','到处问人，说法还不一致','有可查的依据出处，查不到就标明待确认']}
+];
+const SCORE=[0,1,2];
+const box=document.getElementById('questions');
+Q.forEach((q,i)=>{
+  const d=document.createElement('div');d.className='q';
+  d.innerHTML='<div class="t"><span class="layer">'+LAYERS[q.l].name+'</span>'+(i+1)+'. '+q.t+'</div><div class="opts">'+
+    q.o.map((o,j)=>'<label><input type="radio" name="q'+i+'" value="'+j+'"><span>'+o+'</span></label>').join('')+'</div>';
+  box.appendChild(d);
+});
+function calc(){
+  const s={mind:0,know:0,method:0,env:0};let done=0;
+  Q.forEach((q,i)=>{
+    const v=document.querySelector('input[name="q'+i+'"]:checked');
+    if(v){done++;s[q.l]+=SCORE[Number(v.value)];}
+  });
+  if(done<Q.length){alert('还有 '+(Q.length-done)+' 题没答完');return null;}
+  return s;
+}
+document.getElementById('submit').onclick=function(){
+  const s=calc();if(!s)return;
+  const keys=Object.keys(s).sort((a,b)=>s[a]-s[b]);
+  const top=keys[0],L=LAYERS[top];
+  document.getElementById('mainTitle').textContent='主要卡点：'+L.name;
+  document.getElementById('mainDesc').textContent=L.desc;
+  document.getElementById('scores').innerHTML=Object.keys(s).map(k=>
+    '<div class="sc '+(k===top?'hot':'')+'"><div class="n">'+LAYERS[k].name+'</div><div class="v">'+s[k]+'<span style="font-size:12px;color:#8a94a3"> / 6</span></div></div>').join('');
+  document.getElementById('actions').innerHTML=
+    '<div class="action"><h3>今天做一件事</h3><p>'+L.act+'</p></div>'+
+    '<div class="action"><h3>用一个现成工具接着走</h3><p><a href="'+L.href+'">'+L.link+' →</a></p></div>';
+  document.getElementById('note').textContent='分数只表示这四层里哪一层最需要先补——它不代表能力强弱。四层分数接近时，先看工具环境层，因为数据和台账最容易补上。';
+  document.getElementById('result').classList.add('show');
+  try{localStorage.setItem('rmc_blocker_result',JSON.stringify({s,top,at:Date.now()}));}catch(e){}
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+};
+document.getElementById('reset').onclick=function(){
+  document.querySelectorAll('input[type=radio]').forEach(i=>i.checked=false);
+  document.getElementById('result').classList.remove('show');
+  try{localStorage.removeItem('rmc_blocker_result');}catch(e){}
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+try{
+  const old=JSON.parse(localStorage.getItem('rmc_blocker_result')||'null');
+  if(old&&old.top&&LAYERS[old.top]){
+    const L=LAYERS[old.top];
+    document.getElementById('mainTitle').textContent='上次结果：'+L.name+'（点「重答」可更新）';
+  }
+}catch(e){}
+</script>
+</body>
+</html>
