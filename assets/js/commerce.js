@@ -54,7 +54,8 @@ window.RMCCommerce = (function () {
 
   /* ---------------- 订单 ---------------- */
 
-  // 创建订单：kind = membership|course|consult|job_post
+  // 创建订单：kind = membership|course|book|bundle|template|tool|ebook|consult|job_post
+  // 非 membership 的 ref_id 填商品标识（与 store-catalog.js 的 id 对齐）；权益开通见 confirm_payment
   async function createOrder(d) {
     if (!await requireLogin()) return null;
     var c = client(); if (!c) return null;

@@ -65,7 +65,7 @@ begin
   create table if not exists public.orders (
     id         uuid primary key default gen_random_uuid(),
     user_id    uuid not null references auth.users(id) on delete cascade,
-    kind       text not null,     -- membership | course | consult | job_post
+    kind       text not null,     -- membership | course | book | bundle | template | tool | ebook | consult | job_post
     ref_id     text,              -- 会员档位 / 课程包 / 专家 id / 职位 id
     amount     numeric not null default 0,
     status     text not null default 'pending',  -- pending | paid | refunded | cancelled

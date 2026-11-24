@@ -76,6 +76,16 @@
       next: '算完 → 对照教材第 12 章的归因陪练',
       tags: ['Excel', '有预览']
     },
+    {
+      id: 'tpl-application', cat: 'template', name: '院校教改申报支撑包',
+      value: '把 46 章教材、两套判定表与三套题库，整理成课标对照、建设方案、考核设计、成效指标四套可填表格。',
+      price: '单品 ¥199', priceType: 'paid',
+      link: 'application-template-pack.html',
+      preview: 'application-template-pack.html',
+      download: 'application-template-pack.html', minutes: 20,
+      next: '填完 → 交教务处 / 教研室立项；所有数据填本校本班真实值',
+      tags: ['Excel', '申报', '有预览']
+    },
 
     /* ---------- 教材 · 3 件（按章 / 全集） ---------- */
     {
@@ -162,6 +172,14 @@
       link: 'license-course.html', preview: 'school-license.html', minutes: 30,
       next: '看授权设计 → 下载合同模板与质量手册 → 已有授权码可到激活页解锁资源',
       tags: ['三级授权', '含合同模板']
+    },
+    {
+      id: 'store-standard', cat: 'license', name: '单店收益标准包',
+      value: '按门店 + 房量档分三档：一页纸上岗路径、判定表应用卡与一次真实数据复核；与按人、按机构授权不是同一套。',
+      price: '¥3,000 / ¥6,000 / ¥12,000 每年', priceType: 'paid',
+      link: 'pricing.html#toc-store', preview: 'pricing.html#toc-store', minutes: 10,
+      next: '先确认本店房量档 → 看交付清单 → 邮件确认',
+      tags: ['按店计价', '房量三档', '不承诺提升幅度']
     }
   ];
 
@@ -173,5 +191,5 @@
     { id: 'license', name: '院校', desc: '教师备课包 / 院校课程包授权' }
   ];
 
-  w.RMC_STORE = { version: '2026-11-22', CATALOG: CATALOG, CATS: CATS };
+  w.RMC_STORE = { version: '2026-11-25', CATALOG: CATALOG, CATS: CATS };
 })(window);
