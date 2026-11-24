@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<script>window.HRMA_PREFIX="";</script>
+<script src="auth.js?v=2"></script>
+<script src="assets/js/access-gate.js?v=v12"></script>
+<title>三场景包 · 备课 / 盯价 / 带练 · RMC 收益管理社区</title>
+<style>
+:root{--bg:#f5f7fa;--paper:#fff;--ink:#1e2430;--mut:#5d6573;--line:#e2e7ee;--navy:#173e5b;--blue:#2d7ba8;--green:#1c7a5a;--amber:#96671a;--red:#a8422f;--soft:#eef3f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.72 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:1120px;margin:auto;padding:26px 20px 80px}
+header{background:linear-gradient(135deg,#173e5b,#2d7ba8);color:#fff;border-radius:15px;padding:26px 30px}
+header h1{font-size:23px;margin:8px 0 6px}
+header p{opacity:.92;font-size:13px;margin:0}
+.badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);border-radius:20px;font-size:11px;padding:3px 10px;margin-right:7px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0 0}
+.tab{background:#e8eef4;border:1px solid #d5e0e9;color:var(--navy);border-radius:9px 9px 0 0;padding:9px 16px;cursor:pointer;font-size:13px;font-weight:600}
+.tab.on{background:#fff;border-bottom-color:#fff;color:var(--blue)}
+.panel{display:none;background:#fff;border:1px solid var(--line);border-radius:0 12px 12px 12px;padding:24px 26px}
+.panel.on{display:block}
+h2{font-size:18px;color:var(--navy);margin:0 0 12px;padding-bottom:9px;border-bottom:2px solid #e8f1f8}
+h3{font-size:14px;color:var(--navy);margin:18px 0 7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#f0f5f9;color:var(--navy)}
+tr:nth-child(even) td{background:#fafbfd}
+code{font:11.5px ui-monospace,Menlo,monospace;background:#eef2f6;color:#33506b;border-radius:4px;padding:1px 5px}
+small{font-size:11.5px;color:var(--mut)}
+.good{background:#eaf6f0;border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0}
+.warn{background:#fdf0ec;border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0}
+.amber{background:#fdf6e6;border-left:4px solid var(--amber);border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:12px 0}
+.card{border:1px solid var(--line);border-radius:10px;padding:13px 15px;background:#fbfcfe}
+.card b{color:var(--navy)}
+.card .d{font-size:12px;color:var(--mut);margin-top:4px}
+.tag{display:inline-block;border-radius:5px;font-size:11px;font-weight:700;padding:2px 8px;margin-right:5px}
+.t-do{background:#eaf6f0;color:var(--green)}.t-no{background:#fdeae6;color:var(--red)}.t-wait{background:#fdf3e0;color:var(--amber)}
+button{background:var(--navy);color:#fff;border:0;border-radius:7px;padding:8px 15px;font-size:13px;cursor:pointer;font-weight:600}
+button:hover{background:var(--blue)}
+button.ghost{background:#eef3f8;color:var(--navy)}
+select,input,textarea{border:1px solid #cdd8e2;border-radius:7px;padding:7px 9px;font:13px inherit;background:#fff;color:var(--ink)}
+label{font-size:12px;color:var(--mut);display:block;margin:6px 0 3px}
+.out{background:#f5f9fc;border:1px solid #d9e6f0;border-radius:10px;padding:15px 17px;margin-top:13px;min-height:60px}
+.out h4{margin:0 0 8px;font-size:14px;color:var(--navy)}
+.src{font-size:11px;color:var(--green);background:#eaf6f0;border-radius:4px;padding:1px 6px;display:inline-block;margin-top:5px}
+.item{border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin:9px 0;background:#fff}
+.item .q{font-weight:600;color:var(--navy)}
+.opts label{display:block;background:#f8fafc;border:1px solid var(--line);border-radius:7px;padding:7px 10px;margin:5px 0;cursor:pointer;color:var(--ink);font-size:12.5px}
+.opts label:hover{border-color:var(--blue)}
+.res-ok{color:var(--green);font-weight:700}.res-no{color:var(--red);font-weight:700}
+.matrix td{text-align:center;font-weight:600}.matrix td.keep{background:#eef3f8;color:var(--mut)}
+.matrix td.up{background:#fdeae6;color:var(--red)}.matrix td.down{background:#e8f5ee;color:var(--green)}
+.chk{display:flex;gap:9px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--line)}
+.chk input{margin-top:4px}
+.progress{height:9px;background:#e8edf2;border-radius:5px;overflow:hidden;margin:10px 0}
+.progress i{display:block;height:100%;background:var(--green);width:0;transition:width .2s}
+.foot{text-align:center;color:var(--mut);font-size:11.5px;margin-top:26px}
+@media print{.tabs,.no-print{display:none!important}.panel{display:block!important;border:0}body{background:#fff}}
+</style></head><body><div class="wrap">
+
+<header>
+<span class="badge">会员工具 · 登录后使用</span><span class="badge">2026-11-25</span>
+<h1>三场景包 · 备课 / 盯价 / 带练</h1>
+<p>把 46 章教材、两套判定表与三套题库，按三个高频场景切片：查哪张表 → 输入什么数 → 出什么动作。所有输出带出处，可留档。</p>
+</header>
+
+<div class="tabs">
+
+
+<div class="tab on" data-p="p2">2 · 备课包原型</div>
+<div class="tab" data-p="p3">3 · 盯价包原型</div>
+<div class="tab" data-p="p4">4 · 带练包原型</div>
+
+
+</div>
+
+<!-- 0 -->
+<div class="panel on" id="p2">
+<h2>2 · 备课包原型（Lesson Prep Pack）</h2>
+<p><b>设计要点：</b>不做又一个 AI 聊天框。输入章节 → 输出"一页纸授课路径"：本章判定表 + 关联题目 + 带出处的讲稿骨架。教师拿到就能上，不用自己从零判断。</p>
+<label>选择章节（当前内置第 1 章真实数据，其余章节接口预留）</label>
+<select id="chSel"><option value="1">第 1 章 · 什么是收益管理</option><option value="2" disabled>第 2–46 章 · 数据待接入</option></select>
+<button id="prepBtn">生成一页纸授课路径</button>
+<div class="out" id="prepOut"><h4>等待生成</h4><small>输出将包含：判定表（真实 8 行）· 关联题目（真实题库）· 三段式讲稿骨架，全部带出处。</small></div>
+<h3>功能设计说明</h3>
+<table>
+<tr><th style="width:24%">模块</th><th>数据来源与接口</th></tr>
+<tr><td>判定表</td><td><code>textbook.html</code> 每章 <code>div.judge</code> 块，全站 46 张，本原型内嵌第 1 章真实 8 行</td></tr>
+<tr><td>关联题目</td><td><code>textbook_quiz_46.js</code> 的 <code>window.HRMA_QUIZ</code>，共 466 题，按 <code>ch</code> 字段取章</td></tr>
+<tr><td>讲稿骨架</td><td>按"概念 → 查哪张表 → 用哪道题"三段生成，每段带 <code>src</code> 出处角标</td></tr>
+<tr><td>留档</td><td>生成结果可复制为讲义文本，供教师归档；不写服务端</td></tr>
+</table>
+</div>
+
+<!-- 3 -->
+<div class="panel" id="p3">
+<h2>3 · 盯价包原型（Rate Watch Pack）</h2>
+<p><b>设计要点：</b>把法典判定表 A 从"要看懂表格"变成"输入两个数就出动作"。这是最高频场景——每天都要用。</p>
+<div class="grid">
+<div><label>目标日预测 OCC</label><select id="occSel"></select></div>
+<div><label>Pace 偏差</label><select id="paceSel"></select></div>
+</div>
+<button id="rateBtn">查表 A 并生成动作</button>
+<div class="out" id="rateOut"><h4>等待输入</h4><small>表格来自 <code>codex.html</code> 表 A 真实矩阵；动作生成后附执行约束与依据表编号。</small></div>
+
+<h3>表 A · 每日价格调整判定表（真实矩阵）</h3><table class="matrix" id="matrixA"><tr><td colspan="6">矩阵加载中…</td></tr></table>
+<h3>执行约束（原文）</h3>
+<p class="small">单日同方向累计调价不超过 20%；24 小时内同方向调价不超过 2 次；每次调价幅度不低于 3%；调价后 30 分钟内核查 OTA 挂牌价。</p>
+<div class="amber"><b>硬门槛：</b>按 rubric <code>R-A-01</code>，缺任一输入即不通过——原型在缺值时直接拒绝出动作，不给"看起来像答案"的猜测。</div>
+</div>
+
+<!-- 4 -->
+<div class="panel" id="p4">
+<h2>4 · 带练包原型（Drill Pack）</h2>
+<p><b>设计要点：</b>学员答完题，给的不是一个"对/错"，而是<b>三段式回执：决策 → 判定表 → 解释</b>。这正是全球采购方要的 audit trail，也是你区别于普通题库的地方。</p>
+<div id="drillArea"></div>
+<button id="drillBtn" class="ghost">提交本轮答案</button>
+<button id="drillNext" class="ghost">下一题</button>
+<div class="out" id="drillOut"><h4>等待作答</h4><small>题目来自教材题库真实记录，解析为教材原文出处。</small></div>
+<p class="small">操作轨迹存本机 <code>hrma_design_drill_v1</code>，不上传、不联网。</p>
+</div>
+
+<!-- 5 -->
+<p class="foot">RMC · 三场景包 · 依据来自 textbook.html / codex.html / textbook_quiz_46.js · 2026-11-25</p>
+</div>
+
+<script>
+/* ===== 真实数据（从站点文件提取，非编造） ===== */
+var DATA = {
+  judge1: {
+    title:"本章判定表 · 什么生意需要收益管理（逐项勾选，全中才适用）",
+    rows:[
+      ["产能是否易逝？","过期作废（房晚/机位/场次/车位）→ 需要；可储存 → 不需要"],
+      ["产能是否短期固定？","短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要"],
+      ["需求是否波动？","有明显淡旺/时段差异 → 需要；全年平稳 → 不需要"],
+      ["客群能否分层？","不同客群支付意愿不同 → 需要；所有人出价一样 → 不需要"],
+      ["能否提前预订？","可提前预订 → 可做预测与控制；只能现场买 → 只能现场定价"],
+      ["成本结构如何？","固定成本占比高、边际成本低 → 填满空房价值大"],
+      ["是否有历史数据？","有可分析的历史 → 可预测；无 → 只能凭经验"],
+      ["能否拒绝生意？","可以拒绝低价客（如设限制）→ 可做；必须来者不拒 → 难做"]
+    ]
+  },
+  matrixA:[
+    ["预测 OCC ＼ Pace 偏差","落后 >10%","落后 3–10%","持平 ±3%","领先 3–10%","领先 >10%"],
+    ["≥ 95%","维持","↑5%","↑10%","↑15%","↑20%"],
+    ["85 – 95%","维持","↑3%","↑5%","↑10%","↑15%"],
+    ["70 – 85%","↓5%","↓3%","维持","↑5%","↑8%"],
+    ["55 – 70%","↓10%","↓5%","↓3%","维持","↑3%"],
+    ["40 – 55%","↓15%","↓10%","↓5%","维持","维持"],
+    ["< 40%","↓20%","↓15%","↓10%","↓5%","维持"]
+  ],
+  quiz:[
+    {id:"q011",stem:"教材第 1 章中，「库存易逝」指的是：",opts:["但也意味着，把一间本可卖 680 的房以 300 卖掉，损失的是 360 的纯利。","酒店固定成本极高（房租、人工、折旧、能耗），而多卖一间的变动成本极低（洗涤、易耗品，几十元）。这意味着","房晚不可储存。今晚卖不掉，这间的价值永久归零——不像衣服能囤到明年卖，也不像产能可以补产。这是收益管理存在的","商务客临时出差、时间紧、公司买单，愿意付 680；游客提前一个月规划、自掏腰包，只愿付 300。"],ans:2,exp:"教材第 1 章原文：库存易逝＝房晚不可储存。今晚卖不掉，这间的价值永久归零。"},
+    {id:"q012",stem:"教材第 1 章中，「成本结构极端」指的是：",opts:["房晚不可储存。今晚卖不掉，这间的价值永久归零。","商务客临时出差、时间紧、公司买单，愿意付 680；游客提前一个月规划、自掏腰包，只愿付 300。","但也意味着，把一间本可卖 680 的房以 300 卖掉，损失的是 360 的纯利。","酒店固定成本极高（房租、人工、折旧、能耗），而多卖一间的变动成本极低（洗涤、易耗品，几十元）。这意味着"],ans:3,exp:"教材第 1 章原文：成本结构极端＝固定成本极高、变动成本极低，多卖一间的边际收益极高。"},
+    {id:"q013",stem:"教材第 1 章中，「客人出价不同」指的是：",opts:["酒店固定成本极高，而多卖一间的变动成本极低。","商务客临时出差、时间紧、公司买单，愿意付 680；游客提前一个月规划、自掏腰包，只愿付 300。","但也意味着，把一间本可卖 680 的房以 300 卖掉，损失的是 360 的纯利。","房晚不可储存，今晚卖不掉价值永久归零。"],ans:1,exp:"教材第 1 章原文：客人出价不同＝商务客与游客支付意愿不同。"},
+    {id:"q014",stem:"教材第 1 章中，「往下」指的是：",opts:["它是一套需要每天运转的体系，不是做一次方案就结束。","忽略了这间房本可以留给更高价的客人（第 12 章）。","知道了「该看收入」，下一步是学会怎么算收入——三个核心指标。","本章的「机会成本」判据，会在第 4、12、15、26 章反复出现。"],ans:2,exp:"教材第 1 章原文：往下＝知道了该看收入，下一步是学会怎么算收入——三个核心指标。"}
+  ],
+  rubric:[
+    {id:"R-A-01",check:"输入齐全",standard:"逐项列出输入数值与取数日期，缺一项即不通过。"},
+    {id:"R-A-02",check:"查表顺序",standard:"反馈中引用「表 A」及检查项编号；未引用表号即不通过。"},
+    {id:"R-A-03",check:"动作可追溯",standard:"13 字段齐全且⑧依据表编号不为空；缺⑧按评分表扣 3 分。"}
+  ],
+  gates:[
+    {n:"准确关",t:"用 50 道备课高频问题实测，回答带出处的比例 100%，出处正确的比例 ≥95%。"},
+    {n:"边界关",t:"问 20 个域外问题（如「帮我写入党申请书」），拒答比例 100%——答非所问比拒答更伤信任。"},
+    {n:"不知道关",t:"问 20 个语料里没有的备课问题，「明确说不知道＋指路（去哪查/问谁）」的比例 ≥90%。"},
+    {n:"教师关",t:"3 位真实教师试用一周，愿意在备课时打开它——这一关不过，前三个过也没用。"}
+  ]
+};
+
+/* ===== Tab ===== */
+document.querySelectorAll('.tab').forEach(function(t){
+  t.onclick=function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on')});
+    document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('on')});
+    t.classList.add('on'); document.getElementById(t.dataset.p).classList.add('on');
+  };
+});
+
+/* ===== 备课包 ===== */
+document.getElementById('prepBtn').onclick=function(){
+  var h='<h4>一页纸授课路径 · 第 1 章</h4>';
+  h+='<p><b>第一步 · 讲什么（概念）</b><br>库存易逝 / 成本结构极端 / 客人出价不同 —— 三个概念构成收益管理存在的理由。</p><span class="src">依据：教材第 1 章 · 题库 q011–q013</span>';
+  h+='<p style="margin-top:10px"><b>第二步 · 查哪张表</b><br>'+DATA.judge1.title+'</p>';
+  h+='<table><tr><th>检查项</th><th>判断规则</th></tr>';
+  DATA.judge1.rows.forEach(function(r){h+='<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>'});
+  h+='</table><span class="src">依据：textbook.html · 教材判定表第 1 张（8 行原文）</span>';
+  h+='<p style="margin-top:10px"><b>第三步 · 用哪道题带练</b></p>';
+  DATA.quiz.slice(0,3).forEach(function(q,i){
+    h+='<div class="item"><div class="q">'+ (i+1)+'. '+q.stem+'</div><div class="small">正确答案：'+q.opts[q.ans]+'</div><div class="small">解析：'+q.exp+'</div></div>';
+  });
+  h+='<span class="src">依据：textbook_quiz_46.js · q011/q012/q013（真实记录）</span>';
+  h+='<p style="margin-top:10px"><b>三段式回执模板</b><br>决策：本章判断"这个生意要不要做收益管理" → 判定表：教材判定表第 1 张，逐项勾选 → 解释：前四项全中才算适用，后四项决定能做多深。</p>';
+  document.getElementById('prepOut').innerHTML=h;
+};
+
+/* ===== 盯价包 ===== */
+(function(){
+  var occ=document.getElementById('occSel'),pace=document.getElementById('paceSel'),m=document.getElementById('matrixA');
+  if(occ&&pace&&m) m.innerHTML='';
+  DATA.matrixA.forEach(function(r,i){
+    if(!m) return;
+    var tr=document.createElement('tr');
+    r.forEach(function(c,j){
+      var td=document.createElement(i===0?'th':'td'); td.textContent=c;
+      if(i>0&&j>0){td.className=c.indexOf('↑')>=0?'up':(c.indexOf('↓')>=0?'down':'keep')}
+      tr.appendChild(td);
+    }); m.appendChild(tr);
+  });
+  DATA.matrixA[0].slice(1).forEach(function(c){
+    var o=document.createElement('option');o.value=c;o.textContent=c;pace.appendChild(o);
+  });
+  DATA.matrixA.slice(1).forEach(function(r){
+    var o=document.createElement('option');o.value=r[0];o.textContent=r[0];occ.appendChild(o);
+  });
+})();
+document.getElementById('rateBtn').onclick=function(){
+  var o=document.getElementById('occSel').value,p=document.getElementById('paceSel').value;
+  var out=document.getElementById('rateOut');
+  if(!o||!p){out.innerHTML='<div class="res-no">未通过 R-A-01「输入齐全」——请补齐预测 OCC 与 Pace 偏差再查表。</div>';return}
+  var row=-1,col=-1;
+  DATA.matrixA.forEach(function(r,i){if(r[0]===o)row=i});
+  DATA.matrixA[0].forEach(function(c,j){if(c===p)col=j});
+  var act=DATA.matrixA[row][col];
+  var h='<h4>查表结果 · 表 A</h4>';
+  h+='<p><b>输入：</b>预测 OCC = '+o+'；Pace 偏差 = '+p+'。<br><b>动作：</b><span style="font-size:17px;color:var(--red);font-weight:700">'+act+'</span></p>';
+  h+='<p><b>三段式回执</b><br>决策：'+act+' → 判定表：表 A · 每日价格调整判定表 → 解释：OCC '+o+' 与 Pace '+p+' 交叉单元格。</p>';
+  h+='<p><b>台账必填提醒：</b>写入《调价台账》时，⑧依据表编号填「表 A」；单日同方向累计不超过 20%，24 小时内同方向不超过 2 次。</p>';
+  h+='<span class="src">依据：codex.html 表 A 真实矩阵 · rubric R-A-01/02/03</span>';
+  out.innerHTML=h;
+};
+
+/* ===== 带练包 ===== */
+var qi=0,DRILL_KEY='hrma_design_drill_v1';
+function renderDrill(){
+  var q=DATA.quiz[qi],h='<div class="item"><div class="q">'+(qi+1)+'. '+q.stem+'</div><div class="opts">';
+  q.opts.forEach(function(o,i){h+='<label><input type="radio" name="drillOpt" value="'+i+'"> '+o+'</label>'});
+  h+='</div><div class="small">'+q.id+' · 出处：教材第 1 章</div></div>';
+  document.getElementById('drillArea').innerHTML=h;
+  document.getElementById('drillOut').innerHTML='<h4>等待作答</h4><small>题目来自教材题库真实记录 q0'+(qi+11)+'。</small>';
+}
+renderDrill();
+document.getElementById('drillBtn').onclick=function(){
+  var sel=document.querySelector('input[name="drillOpt"]:checked'),q=DATA.quiz[qi],out=document.getElementById('drillOut');
+  if(!sel){out.innerHTML='<div class="res-no">请先选择一项。</div>';return}
+  var v=parseInt(sel.value),ok=v===q.ans;
+  var h='<h4>'+(ok?'<span class="res-ok">判断正确</span>':'<span class="res-no">判断错误</span>')+'</h4>';
+  h+='<p><b>你的选择：</b>'+q.opts[v]+'<br><b>正确答案：</b>'+q.opts[q.ans]+'</p>';
+  h+='<p><b>三段式回执</b><br>决策：选择"'+q.opts[q.ans].slice(0,22)+'…" → 判定表：教材第 1 章判定表（四条件全中才适用）→ 解释：'+q.exp+'</p>';
+  h+='<span class="src">依据：textbook_quiz_46.js · '+q.id+' 真实解析</span>';
+  out.innerHTML=h;
+  try{var a=JSON.parse(localStorage.getItem(DRILL_KEY)||'[]');a.push({id:q.id,ok:ok,t:Date.now()});localStorage.setItem(DRILL_KEY,JSON.stringify(a.slice(-50)))}catch(e){}
+};
+document.getElementById('drillNext').onclick=function(){qi=(qi+1)%DATA.quiz.length;renderDrill()};
+
+
+</script>
+</body></html>
