@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<title>第 14 章 · 渠道净价：到手多少钱才算数｜AI 互动课</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#1d4e7e;--gold:#e8b84b;--o:#F97316;--g:#22C55E;--r:#dc2626;--ink:#1f2937;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.8 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:16px 0}
+.top .wrap{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.top .ttl{font-size:18px;font-weight:600}.top .ttl small{display:block;font-size:12px;color:#bcd0e6;font-weight:400}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:8px;padding:7px 13px;font-size:13px;cursor:pointer;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.btn.solid{background:var(--gold);color:#3b2c00;border-color:var(--gold);font-weight:600}
+.bar{height:4px;background:rgba(255,255,255,.18)}.bar i{display:block;height:100%;background:var(--gold);width:20%;transition:width .3s}
+.nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:9}
+.nav .wrap{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;gap:4px;overflow:auto}
+.nav a{flex:0 0 auto;padding:12px 14px;font-size:13px;color:var(--mut);text-decoration:none;border-bottom:3px solid transparent;white-space:nowrap;cursor:pointer}
+.nav a.on{color:var(--navy2);border-color:var(--o);font-weight:600}
+main{max-width:1000px;margin:0 auto;padding:26px 22px 80px}
+.sec{display:none}.sec.on{display:block}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin-bottom:16px}
+h2{font-size:22px;color:var(--navy);margin-bottom:6px}
+.kicker{font-size:12px;color:var(--o);font-weight:700;letter-spacing:1px;margin-bottom:6px}
+.lead{color:var(--mut);font-size:14px;margin:6px 0 14px}
+.slide{background:linear-gradient(135deg,#fff,#fffaf0);border:1px solid #f5e3b8;border-radius:12px;padding:22px 25px;margin:14px 0}
+.slide .no{font-size:12px;color:#a8842a;font-weight:700}
+.slide h3{font-size:20px;margin:6px 0 12px;color:var(--navy)}
+.slide ul{padding-left:22px;margin:8px 0}.slide li{margin:7px 0;font-size:14.5px}
+.speaker{background:#f0f6ff;border-left:4px solid #3d8bd4;border-radius:8px;padding:12px 16px;margin-top:14px;font-size:13.5px;color:#274e73}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+button.act{background:var(--o);color:#fff;border:0;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer;font-weight:600}
+button.ghost{background:#fff;color:var(--navy2);border:1px solid #c6d6e8;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer}
+.case{background:#fff8f0;border:1px solid #fed7aa;border-radius:12px;padding:20px 22px;margin:12px 0}
+.case .bad{color:var(--r);font-weight:600}.case .good{color:var(--g);font-weight:600}
+.sim{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.formula{background:#fff;border:1px dashed #cbd5e1;border-radius:9px;padding:12px 15px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:#475569;margin:10px 0;line-height:1.9;white-space:pre-line}
+.ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
+.ctrl label{display:block;font-size:13px;color:var(--mut);margin-bottom:4px}
+.ctrl input[type=range]{width:100%;accent-color:var(--o)}
+.ctrl .val{font-weight:700;color:var(--navy);float:right}
+.result{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:16px 0}
+.result div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px}
+.result b{display:block;font-size:22px;color:var(--navy);line-height:1.2}.result span{font-size:12px;color:var(--mut)}
+.result .danger b{color:var(--r)}.result .safe b{color:var(--g)}
+.verdict{border-radius:10px;padding:14px 17px;font-size:14px;margin-top:12px;background:#f8fafc;border:1px solid var(--line)}
+.verdict.warn{background:#FEF2F2;border:1px solid #fecaca;color:#991b1b}
+.verdict.ok{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
+.dcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:6px 0 16px}
+.dcard{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px;cursor:pointer;transition:.15s}
+.dcard:hover{border-color:var(--o);background:#fffaf0}
+.dcard b{display:block;color:var(--navy2);font-size:14px;margin-bottom:5px}
+.dcard span{display:block;font-size:12.5px;color:var(--mut);line-height:1.55}
+.note{background:#fffbe8;border:1px solid var(--gold);border-radius:9px;padding:11px 14px;font-size:12.5px;color:#7a5b00;margin-top:12px}
+.q{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0}
+.q .qt{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:10px}
+.q .qt em{font-style:normal;color:var(--o);font-size:12px;margin-right:6px}
+.opt{display:block;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0;font-size:13.5px;cursor:pointer}
+.opt.sel{background:#e7f2ff;border-color:var(--g)}
+.opt.right{background:#ecfdf5;border-color:var(--g);color:#065f46}
+.opt.wrong{background:#fef2f2;border-color:var(--r);color:#991b1b}
+.fb{margin-top:10px;padding:10px 13px;border-radius:8px;font-size:13px;display:none}
+.fb.show{display:block}.fb.r{background:#ecfdf5;color:#065f46}.fb.w{background:#fef2f2;color:#991b1b}
+.replay{font-size:12px;color:#1d6fb8;cursor:pointer;text-decoration:underline;margin-left:8px}
+.score{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:12px;padding:18px 22px;margin:14px 0;font-size:16px}
+.score b{font-size:26px;color:var(--gold)}
+.rule{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 16px;margin:9px 0;font-size:13.5px}
+.rule b{color:var(--navy2)}
+.redline{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:14px 17px;color:#991b1b;font-size:14px;margin-top:12px}
+.next{background:linear-gradient(135deg,#fffaf0,#fff);border:1px solid #f5e3b8;border-radius:12px;padding:20px 22px;text-align:center}
+.next b{color:var(--navy);font-size:17px}
+.foot{text-align:center;color:#94a3b8;font-size:12px;padding:18px}
+@media(max-width:700px){.card{padding:20px 18px}}
+@media print{.nav,.tools{display:none}.sec{display:block!important;page-break-before:always}}
+</style></head><body>
+<div class="top"><div class="wrap">
+<div class="ttl">第 14 章 · 渠道净价：到手多少钱才算数<small>AI 互动课 · 酒店收益管理 · 全46章</small></div>
+<div class="tools"><button class="btn" onclick="toggleVoice()">🔊 语音讲解</button><button class="btn solid" onclick="go('sim')">进入沙盘 →</button></div>
+</div><div class="bar"><i id="prog"></i></div></div>
+<div class="nav"><div class="wrap">
+<a class="on" onclick="go('intro')">① 导入</a><a onclick="go('case')">② 案例</a><a onclick="go('sim')">③ 沙盘</a><a onclick="go('quiz')">④ 随堂测</a><a onclick="go('table')">⑤ 判定表</a>
+</div></div>
+<main>
+<section id="intro" class="sec on"><div class="card">
+<div class="kicker">第一步 · 讲什么（提示词模板）</div><h2>渠道净价：到手多少钱才算数</h2>
+<div class="slide">
+<div class="no">讲稿 01 / 04</div><h3>这一章解决什么</h3><ul><li>读完这章您会算：同样卖 500 元，不同渠道赚的钱差很多。</li></ul>
+<div class="speaker">这一章讲渠道净价：到手多少钱才算数。净价 ＝ 客人实付 − 佣金 − 其他渠道成本</div></div>
+<div class="slide">
+<div class="no">讲稿 02 / 04</div><h3>三要点</h3><ul><li>净价 ＝ 客人实付 − 佣金 − 其他渠道成本</li>
+<li>。净价才是真收入，报价不是。</li>
+<li>渠道成本不只是佣金</li></ul>
+<div class="speaker">记住几个要点：净价 ＝ 客人实付 − 佣金 − 其他渠道成本；。净价才是真收入，报价不是。；渠道成本不只是佣金</div></div>
+<div class="slide">
+<div class="no">讲稿 03 / 04</div><h3>公式与口径</h3><ul><li>净价 = 售价 × (1 − 佣金率) − 其他渠道成本</li>
+<li>净 RevPAR = Σ(各渠道净价 × 该渠道售房数) ÷ 可售房数</li></ul>
+<div class="speaker">本章的确定性口径是：净价 = 售价 × (1 − 佣金率) − 其他渠道成本；净 RevPAR = Σ(各渠道净价 × 该渠道售房数) ÷ 可售房数</div></div>
+<div class="slide">
+<div class="no">讲稿 04 / 04</div><h3>红线与结论</h3><ul><li>先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。</li></ul>
+<div class="speaker">最后一条红线：先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。 月底报表：OTA 卖了 800 间，直销只卖了 300 间，销售团队很得意。 但总经理一算账傻眼了——</div></div>
+<div class="row"><button class="act" onclick="speakSlides()">▶ 连续朗读讲稿</button><button class="ghost" onclick="stopSpeak()">■ 停止</button><span class="lead" style="margin:0">语音浏览器本地合成，不联网、不消耗额度。</span></div>
+</div></section>
+<section id="case" class="sec"><div class="card"><div class="kicker">第二步 · 案例导入</div><h2>案例导入 · 您一定踩过的坑</h2><div class="case"><p class="">月底报表：OTA 卖了 800 间，直销只卖了 300 间，销售团队很得意。</p>
+<p class="">但总经理一算账傻眼了——</p>
+<p class="">OTA 那 800 间扣掉 15% 佣金后，实际到手还不如直销那 300 间赚得多。</p>
+<p class="">看渠道不能看&quot;卖了多少间&quot;，要看</p>
+<p class="">扣完佣金后到手多少</p>
+<p class="">。同一个房价，走不同渠道，酒店拿到手的钱能差 30% 以上。</p></div></div></section>
+<section id="sim" class="sec"><div class="card"><div class="kicker">第三步 · 交互模拟（沙盘参数表）</div><h2>渠道净价 · 决策沙盘</h2><p class="lead">拖动参数，按本章核心公式实时测算。数字为教学演示用，实际请用本店真实数据校准。</p><div class="sim"><div class="formula">净价 = 售价 × (1 − 佣金率) − 其他渠道成本
+净 RevPAR = Σ(各渠道净价 × 该渠道售房数) ÷ 可售房数</div><div class="ctrl"><div><label>基准值（房数/曝光/营收） <span class="val" id="vbase">100</span></label>
+<input type="range" id="base" min="50" max="2000" step="50" value="100"></div>
+<div><label>关键比率（%） <span class="val" id="vrate">12%</span></label>
+<input type="range" id="rate" min="0" max="40" step="1" value="12"></div>
+<div><label>单位价值（元） <span class="val" id="vunit">¥600</span></label>
+<input type="range" id="unit" min="100" max="2000" step="50" value="600"></div>
+<div><label>安全缓冲（%） <span class="val" id="vbuf">4%</span></label>
+<input type="range" id="buf" min="0" max="20" step="1" value="4"></div></div><div class="result"><div class=""><b id="rtheory">—</b><span>理论值</span></div>
+<div class=""><b id="ractual">—</b><span>调整后</span></div>
+<div class=""><b id="rgain">—</b><span>预计影响（元）</span></div>
+<div class="danger"><b id="rrisk">—</b><span>风险敞口（元）</span></div>
+<div class="safe"><b id="rnet">—</b><span>净影响（元）</span></div></div><div id="verdict" class="verdict"></div><div class="note">参数与公式为教学演示模型，锚点取自本章教材算例。实际经营请用本店真实数据校准。</div></div></div></section>
+<section id="quiz" class="sec"><div class="card"><div class="kicker">第四步 · 随堂测验（评分规则表）</div><h2>随堂测验</h2><p class="lead">题目与答案来自本章题库，选完立刻出结果；答错可点回讲要点看讲解。</p><div id="quizBox"></div><div id="scoreBox"></div><div class="row"><button class="act" onclick="gradeAll()">交卷，看总分</button><button class="ghost" onclick="resetQuiz()">重做</button></div></div></section>
+<section id="table" class="sec"><div class="card"><div class="kicker">第五步 · 判定表速查</div><h2>本章判定表 · 看数→查表→执行</h2><p class="lead">把决策拆成固定问题，不靠临场判断。</p><div class="rule"><b>判定 1</b> → 净价越高 → 配额越多；净价低 → 严格限量</div>
+<div class="rule"><b>判定 2</b> → 带来本来不会来的新客 → 值得给量；只是抢直销的客 → 收缩</div>
+<div class="rule"><b>判定 3</b> → 该渠道取消率高 → 少给量（虚假在手会误导决策）</div>
+<div class="rule"><b>判定 4</b> → 同房型同档，各渠道价格应一致（差异体现在权益，不是裸价）</div><div class="redline"><strong>红线：</strong>先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。</div></div>
+<div class="next"><b>下一章 · 第 15 章</b><p class="lead">渠道组合战略：不是逐个算净价，是解一个带约束的配置问题</p><p>继续下一章，把该方法应用到新的决策场景。</p></div></section>
+<div class="foot">RMC 收益管理社区 · AI 互动课 · 内容取自全站知识库 · 语音为浏览器本地合成</div>
+</main>
+<script>
+var QUESTIONS=[{"type": "def", "stem": "教材第 14 章中，「渠道成本不只是佣金」指的是：", "opts": ["净价是计算边际贡献与 GOPPAR 的基础。", "还有返现、积分兑换、信用卡手续费、参与平台促销的额外折扣——这些常被忽略。", "批发商/团购价低，必须设配额，否则会挤掉直销和高价渠道。", "渠道之间也存在\"保护位\"——给直销留多少量。"], "ans": "还有返现、积分兑换、信用卡手续费、参与平台促销的额外折扣——这些常被忽略。", "exp": "教材第 14 章原文：渠道成本不只是佣金＝还有返现、积分兑换、信用卡手续费、参与平台促销的额外折扣——这些常被忽略。"}, {"type": "def", "stem": "教材第 14 章中，「低价渠道必须限量」指的是：", "opts": ["净价是计算边际贡献与 GOPPAR 的基础。", "佣金率、返现、排名费用每年都在变，应年审。", "渠道之间也存在\"保护位\"——给直销留多少量。", "批发商/团购价低，必须设配额，否则会挤掉直销和高价渠道。"], "ans": "批发商/团购价低，必须设配额，否则会挤掉直销和高价渠道。", "exp": "教材第 14 章原文：低价渠道必须限量＝批发商/团购价低，必须设配额，否则会挤掉直销和高价渠道。"}, {"type": "judge", "stem": "第 14 章判定表：遇到「净价高低」，正确做法是？", "opts": ["净价越高 → 配额越多；净价低 → 严格限量", "每个渠道必须有每日配额上限，写进合同或后台设置", "合同要求保证库存，无法设上限 → 不能 ✗", "账期 90 天，对账复杂 → 管理成本高 ✗"], "ans": "净价越高 → 配额越多；净价低 → 严格限量", "exp": "教材第 14 章判定表：「净价高低」→ 净价越高 → 配额越多；净价低 → 严格限量"}, {"type": "judge", "stem": "第 14 章判定表：遇到「是否带来新客」，正确做法是？", "opts": ["再问财务要返现/积分/促销成本，真实常高 5–10 个点", "必须限——不限量会挤掉直销，也等于告诉客人\"不必找您\"", "同房型同档，各渠道价格应一致（差异体现在权益，不是裸价）", "带来本来不会来的新客 → 值得给量；只是抢直销的客 → 收缩"], "ans": "带来本来不会来的新客 → 值得给量；只是抢直销的客 → 收缩", "exp": "教材第 14 章判定表：「是否带来新客」→ 带来本来不会来的新客 → 值得给量；只是抢直销的客 → 收缩"}, {"type": "judge", "stem": "第 14 章判定表：遇到「取消率」，正确做法是？", "opts": ["每个渠道必须有每日配额上限，写进合同或后台设置", "平台客群与现有 OTA 高度重叠 → 不是新客 ✗", "净价越高 → 配额越多；净价低 → 严格限量", "该渠道取消率高 → 少给量（虚假在手会误导决策）"], "ans": "该渠道取消率高 → 少给量（虚假在手会误导决策）", "exp": "教材第 14 章判定表：「取消率」→ 该渠道取消率高 → 少给量（虚假在手会误导决策）"}, {"type": "fml", "stem": "第 14 章「核心公式」的正确写法是：", "opts": ["净价 = 售价 × (1 − 佣金率) − 其他渠道成本 净 RevPAR = Σ(各渠道净价 × 该渠道售房数) ÷ 可售房数", "渠道成本节约 = 转到直销的间夜数 × 售价 × OTA 佣金率 会员价值 = 复购次数 × 客单价 × (1 − 维护成本率)", "会议综合贡献 = 客房贡献 + 餐饮贡献 + 场地贡献 − 被挤掉的散客期望收益 判定：综合贡献 > 0 且高于替代方案 → 接", "房型价差率 = (高房型价 − 低房型价) ÷ 低房型价 经验区间：相邻房型价差 10%–25% 自检信号：看各房型的「售罄顺序」"], "ans": "净价 = 售价 × (1 − 佣金率) − 其他渠道成本 净 RevPAR = Σ(各渠道净价 × 该渠道售房数) ÷ 可售房数", "exp": "教材第 14 章公式：核心公式 = 净价 = 售价 × (1 − 佣金率) − 其他渠道成本 净 RevPAR = Σ(各渠道净价 × 该渠道售房数) ÷ 可售房数"}];
+var voiceOn=false,utter=null;
+function toggleVoice(){voiceOn=!voiceOn;if(!voiceOn)stopSpeak();}
+function speakText(t){if(!('speechSynthesis' in window))return;stopSpeak();utter=new SpeechSynthesisUtterance(t);utter.lang='zh-CN';utter.rate=0.95;window.speechSynthesis.speak(utter);}
+function stopSpeak(){if('speechSynthesis' in window)window.speechSynthesis.cancel();}
+function speakSlides(){speakText(Array.prototype.map.call(document.querySelectorAll('#intro .speaker'),function(x){return x.textContent;}).join(' '));}
+var SECS=['intro','case','sim','quiz','table'];
+function go(id){SECS.forEach(function(s){document.getElementById(s).classList.toggle('on',s===id);});var as=document.querySelectorAll('.nav a');for(var i=0;i<as.length;i++)as[i].classList.toggle('on',as[i].getAttribute('onclick')==="go('"+id+"')");document.getElementById('prog').style.width=((SECS.indexOf(id)+1)/SECS.length*100)+'%';stopSpeak();window.scrollTo({top:0,behavior:'smooth'});}
+function sandboxCalc(){
+  var base = +document.getElementById('base').value;
+  var rate = +document.getElementById('rate').value;
+  var unit = +document.getElementById('unit').value;
+  var buf = +document.getElementById('buf').value;
+  var theory = Math.round(base*rate/100);
+  var actual = Math.max(0,Math.round(base*(rate-buf)/100));
+  var gain = actual*unit;
+  var risk = Math.round(base*buf/100*unit*0.6);
+  var net = gain-risk;
+  document.getElementById("vbase").textContent=document.getElementById("base").value;
+  document.getElementById("vrate").textContent=document.getElementById("rate").value+'%';
+  document.getElementById("vunit").textContent='¥'+document.getElementById("unit").value;
+  document.getElementById("vbuf").textContent=document.getElementById("buf").value+'%';
+  document.getElementById('rtheory').textContent=theory;
+  document.getElementById('ractual').textContent=actual;
+  document.getElementById('rgain').textContent=(gain>=0?'+':'−')+Math.abs(gain).toLocaleString();
+  document.getElementById('rrisk').textContent=(risk>=0?'+':'−')+Math.abs(risk).toLocaleString();
+  document.getElementById('rnet').textContent=(net>=0?'+':'−')+Math.abs(net).toLocaleString();
+  var v=document.getElementById('verdict');
+  if(net<0){ v.className='verdict warn'; v.innerHTML="<strong>⚠️ 这一决策会亏</strong>：调整后负面影响超过收益。回到本章判定表，按真实数据重新设定参数。"; }
+  else{ v.className='verdict ok'; v.innerHTML="<strong>✓ 在合理区间</strong>：净影响为正。记住本章公式是起点，最终要用本店近 90 天真实数据校准。"; }
+}
+['base','rate','unit','buf'].forEach(function(id){document.getElementById(id).addEventListener('input',sandboxCalc);});sandboxCalc();
+var picked={};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function renderQuiz(){var box=document.getElementById('quizBox');box.innerHTML='';QUESTIONS.forEach(function(q,i){var d=document.createElement('div');d.className='q';var h='<div class="qt"><em>'+({def:'概念',judge:'判定表',fml:'公式'}[q.type]||'题')+' '+(i+1)+'</em>'+esc(q.stem)+'</div>';q.opts.forEach(function(o,j){h+='<label class="opt" id="q'+i+'_'+j+'" onclick="pick('+i+','+j+')">'+String.fromCharCode(65+j)+'. '+esc(o)+'</label>';});h+='<div class="fb" id="fb'+i+'"></div>';d.innerHTML=h;box.appendChild(d);});}
+function pick(i,j){picked[i]=j;QUESTIONS[i].opts.forEach(function(_,k){document.getElementById('q'+i+'_'+k).classList.toggle('sel',k===j);});}
+function gradeAll(){var right=0;QUESTIONS.forEach(function(q,i){var ok=(picked[i]!==undefined)&&(q.opts[picked[i]]===q.ans);if(ok)right++;q.opts.forEach(function(_,k){var el=document.getElementById('q'+i+'_'+k);el.classList.remove('sel','right','wrong');if(k===q.opts.indexOf(q.ans))el.classList.add('right');else if(k===picked[i])el.classList.add('wrong');});var fb=document.getElementById('fb'+i);fb.className='fb show '+(ok?'r':'w');fb.innerHTML=(ok?'✓ 正确':'✗ 正确答案：'+esc(q.ans))+'<br><span style="font-size:12.5px">解析：'+esc(q.exp)+'</span>';});document.getElementById('scoreBox').innerHTML='<div class="score">得分 <b>'+right+' / '+QUESTIONS.length+'</b></div>';}
+function resetQuiz(){picked={};renderQuiz();document.getElementById('scoreBox').innerHTML='';}
+renderQuiz();
+</script>
+</body></html>

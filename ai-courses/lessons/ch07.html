@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<title>第 7 章 · 竞争博弈：从「跟不跟价」到「对方下一期会怎么反应」｜AI 互动课</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#1d4e7e;--gold:#e8b84b;--o:#F97316;--g:#22C55E;--r:#dc2626;--ink:#1f2937;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.8 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:16px 0}
+.top .wrap{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.top .ttl{font-size:18px;font-weight:600}.top .ttl small{display:block;font-size:12px;color:#bcd0e6;font-weight:400}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:8px;padding:7px 13px;font-size:13px;cursor:pointer;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.btn.solid{background:var(--gold);color:#3b2c00;border-color:var(--gold);font-weight:600}
+.bar{height:4px;background:rgba(255,255,255,.18)}.bar i{display:block;height:100%;background:var(--gold);width:20%;transition:width .3s}
+.nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:9}
+.nav .wrap{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;gap:4px;overflow:auto}
+.nav a{flex:0 0 auto;padding:12px 14px;font-size:13px;color:var(--mut);text-decoration:none;border-bottom:3px solid transparent;white-space:nowrap;cursor:pointer}
+.nav a.on{color:var(--navy2);border-color:var(--o);font-weight:600}
+main{max-width:1000px;margin:0 auto;padding:26px 22px 80px}
+.sec{display:none}.sec.on{display:block}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin-bottom:16px}
+h2{font-size:22px;color:var(--navy);margin-bottom:6px}
+.kicker{font-size:12px;color:var(--o);font-weight:700;letter-spacing:1px;margin-bottom:6px}
+.lead{color:var(--mut);font-size:14px;margin:6px 0 14px}
+.slide{background:linear-gradient(135deg,#fff,#fffaf0);border:1px solid #f5e3b8;border-radius:12px;padding:22px 25px;margin:14px 0}
+.slide .no{font-size:12px;color:#a8842a;font-weight:700}
+.slide h3{font-size:20px;margin:6px 0 12px;color:var(--navy)}
+.slide ul{padding-left:22px;margin:8px 0}.slide li{margin:7px 0;font-size:14.5px}
+.speaker{background:#f0f6ff;border-left:4px solid #3d8bd4;border-radius:8px;padding:12px 16px;margin-top:14px;font-size:13.5px;color:#274e73}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+button.act{background:var(--o);color:#fff;border:0;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer;font-weight:600}
+button.ghost{background:#fff;color:var(--navy2);border:1px solid #c6d6e8;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer}
+.case{background:#fff8f0;border:1px solid #fed7aa;border-radius:12px;padding:20px 22px;margin:12px 0}
+.case .bad{color:var(--r);font-weight:600}.case .good{color:var(--g);font-weight:600}
+.sim{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.formula{background:#fff;border:1px dashed #cbd5e1;border-radius:9px;padding:12px 15px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:#475569;margin:10px 0;line-height:1.9;white-space:pre-line}
+.ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
+.ctrl label{display:block;font-size:13px;color:var(--mut);margin-bottom:4px}
+.ctrl input[type=range]{width:100%;accent-color:var(--o)}
+.ctrl .val{font-weight:700;color:var(--navy);float:right}
+.result{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:16px 0}
+.result div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px}
+.result b{display:block;font-size:22px;color:var(--navy);line-height:1.2}.result span{font-size:12px;color:var(--mut)}
+.result .danger b{color:var(--r)}.result .safe b{color:var(--g)}
+.verdict{border-radius:10px;padding:14px 17px;font-size:14px;margin-top:12px;background:#f8fafc;border:1px solid var(--line)}
+.verdict.warn{background:#FEF2F2;border:1px solid #fecaca;color:#991b1b}
+.verdict.ok{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
+.dcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:6px 0 16px}
+.dcard{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px;cursor:pointer;transition:.15s}
+.dcard:hover{border-color:var(--o);background:#fffaf0}
+.dcard b{display:block;color:var(--navy2);font-size:14px;margin-bottom:5px}
+.dcard span{display:block;font-size:12.5px;color:var(--mut);line-height:1.55}
+.note{background:#fffbe8;border:1px solid var(--gold);border-radius:9px;padding:11px 14px;font-size:12.5px;color:#7a5b00;margin-top:12px}
+.q{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0}
+.q .qt{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:10px}
+.q .qt em{font-style:normal;color:var(--o);font-size:12px;margin-right:6px}
+.opt{display:block;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0;font-size:13.5px;cursor:pointer}
+.opt.sel{background:#e7f2ff;border-color:var(--g)}
+.opt.right{background:#ecfdf5;border-color:var(--g);color:#065f46}
+.opt.wrong{background:#fef2f2;border-color:var(--r);color:#991b1b}
+.fb{margin-top:10px;padding:10px 13px;border-radius:8px;font-size:13px;display:none}
+.fb.show{display:block}.fb.r{background:#ecfdf5;color:#065f46}.fb.w{background:#fef2f2;color:#991b1b}
+.replay{font-size:12px;color:#1d6fb8;cursor:pointer;text-decoration:underline;margin-left:8px}
+.score{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:12px;padding:18px 22px;margin:14px 0;font-size:16px}
+.score b{font-size:26px;color:var(--gold)}
+.rule{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 16px;margin:9px 0;font-size:13.5px}
+.rule b{color:var(--navy2)}
+.redline{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:14px 17px;color:#991b1b;font-size:14px;margin-top:12px}
+.next{background:linear-gradient(135deg,#fffaf0,#fff);border:1px solid #f5e3b8;border-radius:12px;padding:20px 22px;text-align:center}
+.next b{color:var(--navy);font-size:17px}
+.foot{text-align:center;color:#94a3b8;font-size:12px;padding:18px}
+@media(max-width:700px){.card{padding:20px 18px}}
+@media print{.nav,.tools{display:none}.sec{display:block!important;page-break-before:always}}
+</style></head><body>
+<div class="top"><div class="wrap">
+<div class="ttl">第 7 章 · 竞争博弈：从「跟不跟价」到「对方下一期会怎么反应」<small>AI 互动课 · 酒店收益管理 · 全46章</small></div>
+<div class="tools"><button class="btn" onclick="toggleVoice()">🔊 语音讲解</button><button class="btn solid" onclick="go('sim')">进入沙盘 →</button></div>
+</div><div class="bar"><i id="prog"></i></div></div>
+<div class="nav"><div class="wrap">
+<a class="on" onclick="go('intro')">① 导入</a><a onclick="go('case')">② 案例</a><a onclick="go('sim')">③ 沙盘</a><a onclick="go('quiz')">④ 随堂测</a><a onclick="go('table')">⑤ 判定表</a>
+</div></div>
+<main>
+<section id="intro" class="sec on"><div class="card">
+<div class="kicker">第一步 · 讲什么（提示词模板）</div><h2>竞争博弈：从「跟不跟价」到「对方下一期会怎么反应」</h2>
+<div class="slide">
+<div class="no">讲稿 01 / 04</div><h3>这一章解决什么</h3><ul><li>读完这章您能算清：跟不跟价这笔账，为什么单期算和两期算会给出相反的结论，以及什么时候该守住价格不跟。</li></ul>
+<div class="speaker">这一章讲竞争博弈：从「跟不跟价」到「对方下一期会怎么反应」。（各配一例） 竞品昨天把 ADR 从 680 降到 625.60，降幅 8%。按第 6 章查表，触发条件成立，值班主管准备跟价。经理问：「上个月他们也降过一次，三天后收回去了。这次是真降还是清库存？如果我们跟，下个月他们会不会再降？」查表给的是单期规则，问的是多期反应。</div></div>
+<div class="slide">
+<div class="no">讲稿 02 / 04</div><h3>三要点</h3><ul><li>（各配一例）</li>
+<li>要点 1 · 先判断「对方这次降价是真的吗」，再决定跟不跟</li>
+<li>竞组挂牌 ADR 680，一次降到 625.60（−8%）。若这是清库存的短期动作，本店跟到 568.56 会把本可卖 618 的房晚全部压低；先查竞组 OCC 与渠道 fence，别把挂牌价当成成交价。</li></ul>
+<div class="speaker">记住几个要点：（各配一例）；要点 1 · 先判断「对方这次降价是真的吗」，再决定跟不跟；竞组挂牌 ADR 680，一次降到 625.60（−8%）。若这是清库存的短期动作，本店跟到 568.56 会把本可卖 618 的房晚全部压低；先查竞组 OCC 与渠道 fence，别把挂牌价当成成交价。</div></div>
+<div class="slide">
+<div class="no">讲稿 03 / 04</div><h3>公式与口径</h3><ul><li>收益矩阵单元格</li>
+<li>间夜 × (ADR − 单位变动成本 + 单位非客房净贡献)</li>
+<li>ADR 用实绩成交价；变动成本本例 120；非客房净贡献本例 60。四项缺一，格子之间就不可比。</li></ul>
+<div class="speaker">本章的确定性口径是：收益矩阵单元格；间夜 × (ADR − 单位变动成本 + 单位非客房净贡献)；ADR 用实绩成交价；变动成本本例 120；非客房净贡献本例 60。四项缺一，格子之间就不可比。</div></div>
+<div class="slide">
+<div class="no">讲稿 04 / 04</div><h3>红线与结论</h3><ul><li>先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。</li></ul>
+<div class="speaker">最后一条红线：先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。 竞品昨天把 ADR 从 680 降到 625.60，降幅 8%。按第 6 章查表，触发条件成立，值班主管准备跟价。经理问：「上个月他们也降过一次，三天后收回去了。这次是真降还是清库存？如果我们跟，下个月他们会不会再降？」查表给的是单期规则，问的是多期反应。</div></div>
+<div class="row"><button class="act" onclick="speakSlides()">▶ 连续朗读讲稿</button><button class="ghost" onclick="stopSpeak()">■ 停止</button><span class="lead" style="margin:0">语音浏览器本地合成，不联网、不消耗额度。</span></div>
+</div></section>
+<section id="case" class="sec"><div class="card"><div class="kicker">第二步 · 案例导入</div><h2>案例导入 · 您一定踩过的坑</h2><div class="case"><p class="">竞品昨天把 ADR 从 680 降到 625.60，降幅 8%。按第 6 章查表，触发条件成立，值班主管准备跟价。经理问：「上个月他们也降过一次，三天后收回去了。这次是真降还是清库存？如果我们跟，下个月他们会不会再降？」查表给的是单期规则，问的是多期反应。</p></div></div></section>
+<section id="sim" class="sec"><div class="card"><div class="kicker">第三步 · 交互模拟（沙盘参数表）</div><h2>竞争博弈 · 判定沙盘</h2><p class="lead">点选一个决策要点，查看教材给出的口径。这类章节的关键不是算数，而是判断顺序。</p><div class="sim"><div class="dcards"><div class="dcard" onclick="dcard(0)"><b>读完这章您能算清</b><span>跟不跟价这笔账，为什么单期算和两期算会给出相反的结论，以及什么时候该守住价格不跟。</span></div></div><div id="verdict" class="verdict">点选上方任一决策要点，查看教材口径。</div><div class="note">判定条目来自本章教材判定表/三要点，未改动原文口径。</div></div></div></section>
+<section id="quiz" class="sec"><div class="card"><div class="kicker">第四步 · 随堂测验（评分规则表）</div><h2>随堂测验</h2><p class="lead">题目与答案来自本章题库，选完立刻出结果；答错可点回讲要点看讲解。</p><div id="quizBox"></div><div id="scoreBox"></div><div class="row"><button class="act" onclick="gradeAll()">交卷，看总分</button><button class="ghost" onclick="resetQuiz()">重做</button></div></div></section>
+<section id="table" class="sec"><div class="card"><div class="kicker">第五步 · 判定表速查</div><h2>本章判定表 · 看数→查表→执行</h2><p class="lead">把决策拆成固定问题，不靠临场判断。</p><div class="rule"><b>判定 1</b> → 读完这章您能算清：跟不跟价这笔账，为什么单期算和两期算会给出相反的结论，以及什么时候该守住价格不跟。</div><div class="redline"><strong>红线：</strong>先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。</div></div>
+<div class="next"><b>下一章 · 第 8 章</b><p class="lead">折扣与促销：什么时候该让</p><p>继续下一章，把该方法应用到新的决策场景。</p></div></section>
+<div class="foot">RMC 收益管理社区 · AI 互动课 · 内容取自全站知识库 · 语音为浏览器本地合成</div>
+</main>
+<script>
+var QUESTIONS=[{"type": "def", "stem": "教材第 7 章《竞争博弈分析》中，关于「本章」的表述，正确的是：", "opts": ["本章 3 学时，归属第二篇 · 决策篇", "学完这章你能 读完这章您能预判：降价之前，先算这一步划不划算", "\" 降价后出租率升到 75%，大家在会上庆功", "月底一算账， 收入比不降价还低 ——因为降了 40% 的价，只换来 50% 的量"], "ans": "本章 3 学时，归属第二篇 · 决策篇", "exp": "教材第 7 章原文：本章 3 学时，归属第二篇 · 决策篇"}, {"type": "def", "stem": "教材第 7 章《竞争博弈分析》中，关于「按第」的表述，正确的是：", "opts": ["学完这章你能 读完这章您能说出：涨价不是拍脑袋，是看三个信号", "按第 6 章查表，触发条件成立，值班主管准备跟价", "结果一个客人当场走了，最后只卖出 3 间", "反过来，另一个周末同样剩 8 间房，没涨价，两小时就被订光——后面来的客人出 1200 也没房"], "ans": "按第 6 章查表，触发条件成立，值班主管准备跟价", "exp": "教材第 7 章原文：按第 6 章查表，触发条件成立，值班主管准备跟价"}, {"type": "def", "stem": "教材第 7 章《竞争博弈分析》中，关于「经理问」的表述，正确的是：", "opts": ["学完这章你能 读完这章您能判断：对手降价时，您该跟、该守、还是该反向操作", "本章口诀 3 个月后新对手价格回到 500 ① 思维导图 竞品降价：跟还是不跟 案例一 · 守价反而赢了 案例二 · 该跟的一次 案例三 · 一次冷静的\"不跟\" 案例四 · 用加价值应对价格战（含时间线） ② 案例导入 您一定踩过的坑 隔壁新开业的酒店把价格砍到 299，您的预订立刻掉了三成", "经理问：「上个月他们也降过一次，三天后收回去了", "一个月后，两家都卖 299，两家都没赚钱—— 唯一受益的是客人"], "ans": "经理问：「上个月他们也降过一次，三天后收回去了", "exp": "教材第 7 章原文：经理问：「上个月他们也降过一次，三天后收回去了"}, {"type": "def", "stem": "教材第 7 章《竞争博弈分析》中，关于「如果我们跟」的表述，正确的是：", "opts": ["学完这章你能 读完这章您能判断：折扣是药还是毒——关键看有没有栅栏", "本章口诀 方案一：所有客人都能拿到，包括原本全价客 → buy ① 思维导图 折扣与促销：什么时候该让 案例一 · 同样的让利，两种做法 案例二 · 一条栅栏救回的利润 案例三 · 促销的\"剂量控制\" 案例四 · 一次\"有期限促销\"的完整设计 ② 案例导入 您一定踩过的坑 淡季做\"全场八折\"", "出租率上去了，老客户也开始按八折订，原本全价的客人全跑了", "如果我们跟，下个月他们会不会再降"], "ans": "如果我们跟，下个月他们会不会再降", "exp": "教材第 7 章原文：如果我们跟，下个月他们会不会再降"}, {"type": "def", "stem": "教材第 7 章《竞争博弈分析》中，关于「查表给的是单期规」的表述，正确的是：", "opts": ["」查表给的是单期规则，问的是多期反应", "学完这章你能 读完这章您能设计：不降房价，却让客人觉得更值的产品", "但总经理换了个做法：加了个\"含双早 + 双人下午茶 + 16 点退房\"的套餐，标价 780", "因为客人不是嫌 600 贵，是觉得 600\"不值\""], "ans": "」查表给的是单期规则，问的是多期反应", "exp": "教材第 7 章原文：」查表给的是单期规则，问的是多期反应"}, {"type": "def", "stem": "教材第 7 章《竞争博弈分析》中，关于「核心概念与公式」的表述，正确的是：", "opts": ["学完这章你能 读完这章您能设计：不同房型之间该差多少钱——差错了等于白送", "3 · 核心概念与公式 反应函数 ：对方对我方动作的最优回应", "客人一看：\"多 50 块就能升行政", "\"于是高级房没人订，行政房早早订满，酒店少赚了"], "ans": "3 · 核心概念与公式 反应函数 ：对方对我方动作的最优回应", "exp": "教材第 7 章原文：3 · 核心概念与公式 反应函数 ：对方对我方动作的最优回应"}];
+var voiceOn=false,utter=null;
+function toggleVoice(){voiceOn=!voiceOn;if(!voiceOn)stopSpeak();}
+function speakText(t){if(!('speechSynthesis' in window))return;stopSpeak();utter=new SpeechSynthesisUtterance(t);utter.lang='zh-CN';utter.rate=0.95;window.speechSynthesis.speak(utter);}
+function stopSpeak(){if('speechSynthesis' in window)window.speechSynthesis.cancel();}
+function speakSlides(){speakText(Array.prototype.map.call(document.querySelectorAll('#intro .speaker'),function(x){return x.textContent;}).join(' '));}
+var SECS=['intro','case','sim','quiz','table'];
+function go(id){SECS.forEach(function(s){document.getElementById(s).classList.toggle('on',s===id);});var as=document.querySelectorAll('.nav a');for(var i=0;i<as.length;i++)as[i].classList.toggle('on',as[i].getAttribute('onclick')==="go('"+id+"')");document.getElementById('prog').style.width=((SECS.indexOf(id)+1)/SECS.length*100)+'%';stopSpeak();window.scrollTo({top:0,behavior:'smooth'});}
+var DCARDS=[{"q": "读完这章您能算清", "a": "跟不跟价这笔账，为什么单期算和两期算会给出相反的结论，以及什么时候该守住价格不跟。"}];
+function dcard(i){var v=document.getElementById('verdict');v.className='verdict ok';v.innerHTML='<strong>'+DCARDS[i].q+'</strong>：'+DCARDS[i].a;}
+
+var picked={};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function renderQuiz(){var box=document.getElementById('quizBox');box.innerHTML='';QUESTIONS.forEach(function(q,i){var d=document.createElement('div');d.className='q';var h='<div class="qt"><em>'+({def:'概念',judge:'判定表',fml:'公式'}[q.type]||'题')+' '+(i+1)+'</em>'+esc(q.stem)+'</div>';q.opts.forEach(function(o,j){h+='<label class="opt" id="q'+i+'_'+j+'" onclick="pick('+i+','+j+')">'+String.fromCharCode(65+j)+'. '+esc(o)+'</label>';});h+='<div class="fb" id="fb'+i+'"></div>';d.innerHTML=h;box.appendChild(d);});}
+function pick(i,j){picked[i]=j;QUESTIONS[i].opts.forEach(function(_,k){document.getElementById('q'+i+'_'+k).classList.toggle('sel',k===j);});}
+function gradeAll(){var right=0;QUESTIONS.forEach(function(q,i){var ok=(picked[i]!==undefined)&&(q.opts[picked[i]]===q.ans);if(ok)right++;q.opts.forEach(function(_,k){var el=document.getElementById('q'+i+'_'+k);el.classList.remove('sel','right','wrong');if(k===q.opts.indexOf(q.ans))el.classList.add('right');else if(k===picked[i])el.classList.add('wrong');});var fb=document.getElementById('fb'+i);fb.className='fb show '+(ok?'r':'w');fb.innerHTML=(ok?'✓ 正确':'✗ 正确答案：'+esc(q.ans))+'<br><span style="font-size:12.5px">解析：'+esc(q.exp)+'</span>';});document.getElementById('scoreBox').innerHTML='<div class="score">得分 <b>'+right+' / '+QUESTIONS.length+'</b></div>';}
+function resetQuiz(){picked={};renderQuiz();document.getElementById('scoreBox').innerHTML='';}
+renderQuiz();
+</script>
+</body></html>

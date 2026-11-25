@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<title>第 35 章 · 其他业态与跨行业参数｜AI 互动课</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#1d4e7e;--gold:#e8b84b;--o:#F97316;--g:#22C55E;--r:#dc2626;--ink:#1f2937;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.8 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:16px 0}
+.top .wrap{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.top .ttl{font-size:18px;font-weight:600}.top .ttl small{display:block;font-size:12px;color:#bcd0e6;font-weight:400}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:8px;padding:7px 13px;font-size:13px;cursor:pointer;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.btn.solid{background:var(--gold);color:#3b2c00;border-color:var(--gold);font-weight:600}
+.bar{height:4px;background:rgba(255,255,255,.18)}.bar i{display:block;height:100%;background:var(--gold);width:20%;transition:width .3s}
+.nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:9}
+.nav .wrap{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;gap:4px;overflow:auto}
+.nav a{flex:0 0 auto;padding:12px 14px;font-size:13px;color:var(--mut);text-decoration:none;border-bottom:3px solid transparent;white-space:nowrap;cursor:pointer}
+.nav a.on{color:var(--navy2);border-color:var(--o);font-weight:600}
+main{max-width:1000px;margin:0 auto;padding:26px 22px 80px}
+.sec{display:none}.sec.on{display:block}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin-bottom:16px}
+h2{font-size:22px;color:var(--navy);margin-bottom:6px}
+.kicker{font-size:12px;color:var(--o);font-weight:700;letter-spacing:1px;margin-bottom:6px}
+.lead{color:var(--mut);font-size:14px;margin:6px 0 14px}
+.slide{background:linear-gradient(135deg,#fff,#fffaf0);border:1px solid #f5e3b8;border-radius:12px;padding:22px 25px;margin:14px 0}
+.slide .no{font-size:12px;color:#a8842a;font-weight:700}
+.slide h3{font-size:20px;margin:6px 0 12px;color:var(--navy)}
+.slide ul{padding-left:22px;margin:8px 0}.slide li{margin:7px 0;font-size:14.5px}
+.speaker{background:#f0f6ff;border-left:4px solid #3d8bd4;border-radius:8px;padding:12px 16px;margin-top:14px;font-size:13.5px;color:#274e73}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+button.act{background:var(--o);color:#fff;border:0;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer;font-weight:600}
+button.ghost{background:#fff;color:var(--navy2);border:1px solid #c6d6e8;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer}
+.case{background:#fff8f0;border:1px solid #fed7aa;border-radius:12px;padding:20px 22px;margin:12px 0}
+.case .bad{color:var(--r);font-weight:600}.case .good{color:var(--g);font-weight:600}
+.sim{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.formula{background:#fff;border:1px dashed #cbd5e1;border-radius:9px;padding:12px 15px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:#475569;margin:10px 0;line-height:1.9;white-space:pre-line}
+.ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
+.ctrl label{display:block;font-size:13px;color:var(--mut);margin-bottom:4px}
+.ctrl input[type=range]{width:100%;accent-color:var(--o)}
+.ctrl .val{font-weight:700;color:var(--navy);float:right}
+.result{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:16px 0}
+.result div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px}
+.result b{display:block;font-size:22px;color:var(--navy);line-height:1.2}.result span{font-size:12px;color:var(--mut)}
+.result .danger b{color:var(--r)}.result .safe b{color:var(--g)}
+.verdict{border-radius:10px;padding:14px 17px;font-size:14px;margin-top:12px;background:#f8fafc;border:1px solid var(--line)}
+.verdict.warn{background:#FEF2F2;border:1px solid #fecaca;color:#991b1b}
+.verdict.ok{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
+.dcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:6px 0 16px}
+.dcard{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px;cursor:pointer;transition:.15s}
+.dcard:hover{border-color:var(--o);background:#fffaf0}
+.dcard b{display:block;color:var(--navy2);font-size:14px;margin-bottom:5px}
+.dcard span{display:block;font-size:12.5px;color:var(--mut);line-height:1.55}
+.note{background:#fffbe8;border:1px solid var(--gold);border-radius:9px;padding:11px 14px;font-size:12.5px;color:#7a5b00;margin-top:12px}
+.q{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0}
+.q .qt{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:10px}
+.q .qt em{font-style:normal;color:var(--o);font-size:12px;margin-right:6px}
+.opt{display:block;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0;font-size:13.5px;cursor:pointer}
+.opt.sel{background:#e7f2ff;border-color:var(--g)}
+.opt.right{background:#ecfdf5;border-color:var(--g);color:#065f46}
+.opt.wrong{background:#fef2f2;border-color:var(--r);color:#991b1b}
+.fb{margin-top:10px;padding:10px 13px;border-radius:8px;font-size:13px;display:none}
+.fb.show{display:block}.fb.r{background:#ecfdf5;color:#065f46}.fb.w{background:#fef2f2;color:#991b1b}
+.replay{font-size:12px;color:#1d6fb8;cursor:pointer;text-decoration:underline;margin-left:8px}
+.score{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:12px;padding:18px 22px;margin:14px 0;font-size:16px}
+.score b{font-size:26px;color:var(--gold)}
+.rule{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 16px;margin:9px 0;font-size:13.5px}
+.rule b{color:var(--navy2)}
+.redline{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:14px 17px;color:#991b1b;font-size:14px;margin-top:12px}
+.next{background:linear-gradient(135deg,#fffaf0,#fff);border:1px solid #f5e3b8;border-radius:12px;padding:20px 22px;text-align:center}
+.next b{color:var(--navy);font-size:17px}
+.foot{text-align:center;color:#94a3b8;font-size:12px;padding:18px}
+@media(max-width:700px){.card{padding:20px 18px}}
+@media print{.nav,.tools{display:none}.sec{display:block!important;page-break-before:always}}
+</style></head><body>
+<div class="top"><div class="wrap">
+<div class="ttl">第 35 章 · 其他业态与跨行业参数<small>AI 互动课 · 酒店收益管理 · 全46章</small></div>
+<div class="tools"><button class="btn" onclick="toggleVoice()">🔊 语音讲解</button><button class="btn solid" onclick="go('sim')">进入沙盘 →</button></div>
+</div><div class="bar"><i id="prog"></i></div></div>
+<div class="nav"><div class="wrap">
+<a class="on" onclick="go('intro')">① 导入</a><a onclick="go('case')">② 案例</a><a onclick="go('sim')">③ 沙盘</a><a onclick="go('quiz')">④ 随堂测</a><a onclick="go('table')">⑤ 判定表</a>
+</div></div>
+<main>
+<section id="intro" class="sec on"><div class="card">
+<div class="kicker">第一步 · 讲什么（提示词模板）</div><h2>其他业态与跨行业参数</h2>
+<div class="slide">
+<div class="no">讲稿 01 / 04</div><h3>这一章解决什么</h3><ul><li>读完这章您能迁移：把收益管理用到酒店之外。</li></ul>
+<div class="speaker">这一章讲其他业态与跨行业参数。套用第 1 章判定表 学完收益管理，以为只能在酒店用。 所有&quot;产能易逝 + 需求波动 + 客群分层&quot;的生意都适用</div></div>
+<div class="slide">
+<div class="no">讲稿 02 / 04</div><h3>三要点</h3><ul><li>套用第 1 章判定表</li>
+<li>：易逝、固定、波动、可分层——四条全中即可用。</li>
+<li>换的是参数，不是逻辑</li></ul>
+<div class="speaker">记住几个要点：套用第 1 章判定表；：易逝、固定、波动、可分层——四条全中即可用。；换的是参数，不是逻辑</div></div>
+<div class="slide">
+<div class="no">讲稿 03 / 04</div><h3>公式与口径</h3><ul><li>过期作废 → 可；可储存 → 不可</li>
+<li>无法快速扩产 → 可</li>
+<li>有明显时段/季节差 → 可</li></ul>
+<div class="speaker">本章的确定性口径是：过期作废 → 可；可储存 → 不可；无法快速扩产 → 可；有明显时段/季节差 → 可</div></div>
+<div class="slide">
+<div class="no">讲稿 04 / 04</div><h3>红线与结论</h3><ul><li>先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。</li></ul>
+<div class="speaker">最后一条红线：先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。 学完收益管理，以为只能在酒店用。 所有&quot;产能易逝 + 需求波动 + 客群分层&quot;的生意都适用</div></div>
+<div class="row"><button class="act" onclick="speakSlides()">▶ 连续朗读讲稿</button><button class="ghost" onclick="stopSpeak()">■ 停止</button><span class="lead" style="margin:0">语音浏览器本地合成，不联网、不消耗额度。</span></div>
+</div></section>
+<section id="case" class="sec"><div class="card"><div class="kicker">第二步 · 案例导入</div><h2>案例导入 · 您一定踩过的坑</h2><div class="case"><p class="">学完收益管理，以为只能在酒店用。</p>
+<p class="">所有&quot;产能易逝 + 需求波动 + 客群分层&quot;的生意都适用</p>
+<p class="">：航空、租车、影院、剧场、停车场、健身房、医美预约、生鲜零售、共享充电宝……</p>
+<p class="">您甚至能靠这个技能跨行业就业——因为</p>
+<p class="">换的是参数，不是逻辑。</p></div></div></section>
+<section id="sim" class="sec"><div class="card"><div class="kicker">第三步 · 交互模拟（沙盘参数表）</div><h2>其他业态与跨行业参数 · 判定沙盘</h2><p class="lead">点选一个决策要点，查看教材给出的口径。这类章节的关键不是算数，而是判断顺序。</p><div class="sim"><div class="dcards"><div class="dcard" onclick="dcard(0)"><b>要点 1</b><span>过期作废 → 可；可储存 → 不可</span></div><div class="dcard" onclick="dcard(1)"><b>要点 2</b><span>无法快速扩产 → 可</span></div><div class="dcard" onclick="dcard(2)"><b>要点 3</b><span>有明显时段/季节差 → 可</span></div><div class="dcard" onclick="dcard(3)"><b>要点 4</b><span>支付意愿不同 → 可</span></div><div class="dcard" onclick="dcard(4)"><b>要点 5</b><span>能 → 可做预测与保护位；不能 → 只能现场定价</span></div></div><div id="verdict" class="verdict">点选上方任一决策要点，查看教材口径。</div><div class="note">判定条目来自本章教材判定表/三要点，未改动原文口径。</div></div></div></section>
+<section id="quiz" class="sec"><div class="card"><div class="kicker">第四步 · 随堂测验（评分规则表）</div><h2>随堂测验</h2><p class="lead">题目与答案来自本章题库，选完立刻出结果；答错可点回讲要点看讲解。</p><div id="quizBox"></div><div id="scoreBox"></div><div class="row"><button class="act" onclick="gradeAll()">交卷，看总分</button><button class="ghost" onclick="resetQuiz()">重做</button></div></div></section>
+<section id="table" class="sec"><div class="card"><div class="kicker">第五步 · 判定表速查</div><h2>本章判定表 · 看数→查表→执行</h2><p class="lead">把决策拆成固定问题，不靠临场判断。</p><div class="rule"><b>判定 1</b> → 过期作废 → 可；可储存 → 不可</div>
+<div class="rule"><b>判定 2</b> → 无法快速扩产 → 可</div>
+<div class="rule"><b>判定 3</b> → 有明显时段/季节差 → 可</div>
+<div class="rule"><b>判定 4</b> → 支付意愿不同 → 可</div>
+<div class="rule"><b>判定 5</b> → 能 → 可做预测与保护位；不能 → 只能现场定价</div><div class="redline"><strong>红线：</strong>先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。</div></div>
+<div class="next"><b>下一章 · 第 36 章</b><p class="lead">常见误区：30 个坑，别再踩</p><p>继续下一章，把该方法应用到新的决策场景。</p></div></section>
+<div class="foot">RMC 收益管理社区 · AI 互动课 · 内容取自全站知识库 · 语音为浏览器本地合成</div>
+</main>
+<script>
+var QUESTIONS=[{"type": "def", "stem": "教材第 35 章中，「套用第 1 章判定表」指的是：", "opts": ["易逝、固定、波动、可分层——四条全中即可用。", "32 章的逻辑，在这一章被抽象成可复用的方法论。", "如医疗、教育行业的价格调整受更多限制。", "本章就是第 1 章判定表的迁移应用。"], "ans": "易逝、固定、波动、可分层——四条全中即可用。", "exp": "教材第 35 章原文：套用第 1 章判定表＝易逝、固定、波动、可分层——四条全中即可用。"}, {"type": "def", "stem": "教材第 35 章中，「换的是参数，不是逻辑」指的是：", "opts": ["32 章的逻辑，在这一章被抽象成可复用的方法论。", "酒店用\"提前订/不可退\"，影院用\"时段\"，健身房用\"年卡/次卡\"。", "应搬逻辑（六问），不是搬形式（房型、MinLOS 等）。", "把\"房晚\"换成\"座位/车位/机位/时段\"，逻辑完全一样。"], "ans": "把\"房晚\"换成\"座位/车位/机位/时段\"，逻辑完全一样。", "exp": "教材第 35 章原文：换的是参数，不是逻辑＝把\"房晚\"换成\"座位/车位/机位/时段\"，逻辑完全一样。"}, {"type": "judge", "stem": "第 35 章判定表：遇到「产能是否易逝」，正确做法是？", "opts": ["场次 + 时段（工作日场更便宜）✓", "有拼场客、包场客、会员 → 是 ✓", "过期作废 → 可；可储存 → 不可", "房间数与场次短期固定 → 是 ✓"], "ans": "过期作废 → 可；可储存 → 不可", "exp": "教材第 35 章判定表：「产能是否易逝」→ 过期作废 → 可；可储存 → 不可"}, {"type": "judge", "stem": "第 35 章判定表：遇到「产能是否短期固定」，正确做法是？", "opts": ["无法快速扩产 → 可", "有明显时段差 → 适用", "支付意愿不同 → 可", "可线上预约 → 是 ✓"], "ans": "无法快速扩产 → 可", "exp": "教材第 35 章判定表：「产能是否短期固定」→ 无法快速扩产 → 可"}, {"type": "judge", "stem": "第 35 章判定表：遇到「需求是否波动」，正确做法是？", "opts": ["可线上预约 → 是 ✓", "有明显时段差 → 适用", "一场卖不掉即归零 → 是 ✓", "有明显时段/季节差 → 可"], "ans": "有明显时段/季节差 → 可", "exp": "教材第 35 章判定表：「需求是否波动」→ 有明显时段/季节差 → 可"}, {"type": "fml", "stem": "第 35 章「迁移公式（通用）」的正确写法是：", "opts": ["理论超售 = 可售房 × (预计取消率 + No-show 率) 实际超售 = 理论超售 − 安全缓冲（建议 3–5 间） walk 成本 = 安置他店房费 + 交通补偿 + 次日房费 + 口碑损失", "产能单位：房晚 → 座位 / 车位 / 机位 / 时段 / 舱位 核心指标：RevPAR → RevPASH（餐饮）/ RASM（航空）/ 单位时段收入 控制阀门：价格 + 可得性（开关某价档 / 加…", "评分提升 0.1 ≈ 可支撑房价提升约 2%–5%（经验区间） 转化率差异带来的订单变化 = 曝光量 × (新转化率 − 旧转化率) 差评成本 ≈ 受影响订单数 × 平均净价 × 影响时长系数", "某日最终预订量预测 = 当前在手 + Σ(剩余各提前期的历史 pickup) pickup(提前期 d) = 历史上「距入住 d 天」那天新增的预订数 预测准确度：MAPE（平均绝对百分比误差）<10…"], "ans": "产能单位：房晚 → 座位 / 车位 / 机位 / 时段 / 舱位 核心指标：RevPAR → RevPASH（餐饮）/ RASM（航空）/ 单位时段收入 控制阀门：价格 + 可得性（开关某价档 / 加…", "exp": "教材第 35 章公式：迁移公式（通用） = 产能单位：房晚 → 座位 / 车位 / 机位 / 时段 / 舱位 核心指标：RevPAR → RevPASH（餐饮）/ RASM（航空）/ 单位时段收入 控制阀…"}];
+var voiceOn=false,utter=null;
+function toggleVoice(){voiceOn=!voiceOn;if(!voiceOn)stopSpeak();}
+function speakText(t){if(!('speechSynthesis' in window))return;stopSpeak();utter=new SpeechSynthesisUtterance(t);utter.lang='zh-CN';utter.rate=0.95;window.speechSynthesis.speak(utter);}
+function stopSpeak(){if('speechSynthesis' in window)window.speechSynthesis.cancel();}
+function speakSlides(){speakText(Array.prototype.map.call(document.querySelectorAll('#intro .speaker'),function(x){return x.textContent;}).join(' '));}
+var SECS=['intro','case','sim','quiz','table'];
+function go(id){SECS.forEach(function(s){document.getElementById(s).classList.toggle('on',s===id);});var as=document.querySelectorAll('.nav a');for(var i=0;i<as.length;i++)as[i].classList.toggle('on',as[i].getAttribute('onclick')==="go('"+id+"')");document.getElementById('prog').style.width=((SECS.indexOf(id)+1)/SECS.length*100)+'%';stopSpeak();window.scrollTo({top:0,behavior:'smooth'});}
+var DCARDS=[{"q": "要点 1", "a": "过期作废 → 可；可储存 → 不可"}, {"q": "要点 2", "a": "无法快速扩产 → 可"}, {"q": "要点 3", "a": "有明显时段/季节差 → 可"}, {"q": "要点 4", "a": "支付意愿不同 → 可"}, {"q": "要点 5", "a": "能 → 可做预测与保护位；不能 → 只能现场定价"}];
+function dcard(i){var v=document.getElementById('verdict');v.className='verdict ok';v.innerHTML='<strong>'+DCARDS[i].q+'</strong>：'+DCARDS[i].a;}
+
+var picked={};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function renderQuiz(){var box=document.getElementById('quizBox');box.innerHTML='';QUESTIONS.forEach(function(q,i){var d=document.createElement('div');d.className='q';var h='<div class="qt"><em>'+({def:'概念',judge:'判定表',fml:'公式'}[q.type]||'题')+' '+(i+1)+'</em>'+esc(q.stem)+'</div>';q.opts.forEach(function(o,j){h+='<label class="opt" id="q'+i+'_'+j+'" onclick="pick('+i+','+j+')">'+String.fromCharCode(65+j)+'. '+esc(o)+'</label>';});h+='<div class="fb" id="fb'+i+'"></div>';d.innerHTML=h;box.appendChild(d);});}
+function pick(i,j){picked[i]=j;QUESTIONS[i].opts.forEach(function(_,k){document.getElementById('q'+i+'_'+k).classList.toggle('sel',k===j);});}
+function gradeAll(){var right=0;QUESTIONS.forEach(function(q,i){var ok=(picked[i]!==undefined)&&(q.opts[picked[i]]===q.ans);if(ok)right++;q.opts.forEach(function(_,k){var el=document.getElementById('q'+i+'_'+k);el.classList.remove('sel','right','wrong');if(k===q.opts.indexOf(q.ans))el.classList.add('right');else if(k===picked[i])el.classList.add('wrong');});var fb=document.getElementById('fb'+i);fb.className='fb show '+(ok?'r':'w');fb.innerHTML=(ok?'✓ 正确':'✗ 正确答案：'+esc(q.ans))+'<br><span style="font-size:12.5px">解析：'+esc(q.exp)+'</span>';});document.getElementById('scoreBox').innerHTML='<div class="score">得分 <b>'+right+' / '+QUESTIONS.length+'</b></div>';}
+function resetQuiz(){picked={};renderQuiz();document.getElementById('scoreBox').innerHTML='';}
+renderQuiz();
+</script>
+</body></html>

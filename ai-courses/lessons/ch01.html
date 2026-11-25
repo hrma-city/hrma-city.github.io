@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<title>第 1 章 · 收益管理是什么：一句话与底层逻辑｜AI 互动课</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#1d4e7e;--gold:#e8b84b;--o:#F97316;--g:#22C55E;--r:#dc2626;--ink:#1f2937;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.8 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:16px 0}
+.top .wrap{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.top .ttl{font-size:18px;font-weight:600}.top .ttl small{display:block;font-size:12px;color:#bcd0e6;font-weight:400}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:8px;padding:7px 13px;font-size:13px;cursor:pointer;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.btn.solid{background:var(--gold);color:#3b2c00;border-color:var(--gold);font-weight:600}
+.bar{height:4px;background:rgba(255,255,255,.18)}.bar i{display:block;height:100%;background:var(--gold);width:20%;transition:width .3s}
+.nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:9}
+.nav .wrap{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;gap:4px;overflow:auto}
+.nav a{flex:0 0 auto;padding:12px 14px;font-size:13px;color:var(--mut);text-decoration:none;border-bottom:3px solid transparent;white-space:nowrap;cursor:pointer}
+.nav a.on{color:var(--navy2);border-color:var(--o);font-weight:600}
+main{max-width:1000px;margin:0 auto;padding:26px 22px 80px}
+.sec{display:none}.sec.on{display:block}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin-bottom:16px}
+h2{font-size:22px;color:var(--navy);margin-bottom:6px}
+.kicker{font-size:12px;color:var(--o);font-weight:700;letter-spacing:1px;margin-bottom:6px}
+.lead{color:var(--mut);font-size:14px;margin:6px 0 14px}
+.slide{background:linear-gradient(135deg,#fff,#fffaf0);border:1px solid #f5e3b8;border-radius:12px;padding:22px 25px;margin:14px 0}
+.slide .no{font-size:12px;color:#a8842a;font-weight:700}
+.slide h3{font-size:20px;margin:6px 0 12px;color:var(--navy)}
+.slide ul{padding-left:22px;margin:8px 0}.slide li{margin:7px 0;font-size:14.5px}
+.speaker{background:#f0f6ff;border-left:4px solid #3d8bd4;border-radius:8px;padding:12px 16px;margin-top:14px;font-size:13.5px;color:#274e73}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+button.act{background:var(--o);color:#fff;border:0;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer;font-weight:600}
+button.ghost{background:#fff;color:var(--navy2);border:1px solid #c6d6e8;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer}
+.case{background:#fff8f0;border:1px solid #fed7aa;border-radius:12px;padding:20px 22px;margin:12px 0}
+.case .bad{color:var(--r);font-weight:600}.case .good{color:var(--g);font-weight:600}
+.sim{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.formula{background:#fff;border:1px dashed #cbd5e1;border-radius:9px;padding:12px 15px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:#475569;margin:10px 0;line-height:1.9;white-space:pre-line}
+.ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
+.ctrl label{display:block;font-size:13px;color:var(--mut);margin-bottom:4px}
+.ctrl input[type=range]{width:100%;accent-color:var(--o)}
+.ctrl .val{font-weight:700;color:var(--navy);float:right}
+.result{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:16px 0}
+.result div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px}
+.result b{display:block;font-size:22px;color:var(--navy);line-height:1.2}.result span{font-size:12px;color:var(--mut)}
+.result .danger b{color:var(--r)}.result .safe b{color:var(--g)}
+.verdict{border-radius:10px;padding:14px 17px;font-size:14px;margin-top:12px;background:#f8fafc;border:1px solid var(--line)}
+.verdict.warn{background:#FEF2F2;border:1px solid #fecaca;color:#991b1b}
+.verdict.ok{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
+.dcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:6px 0 16px}
+.dcard{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px;cursor:pointer;transition:.15s}
+.dcard:hover{border-color:var(--o);background:#fffaf0}
+.dcard b{display:block;color:var(--navy2);font-size:14px;margin-bottom:5px}
+.dcard span{display:block;font-size:12.5px;color:var(--mut);line-height:1.55}
+.note{background:#fffbe8;border:1px solid var(--gold);border-radius:9px;padding:11px 14px;font-size:12.5px;color:#7a5b00;margin-top:12px}
+.q{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0}
+.q .qt{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:10px}
+.q .qt em{font-style:normal;color:var(--o);font-size:12px;margin-right:6px}
+.opt{display:block;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0;font-size:13.5px;cursor:pointer}
+.opt.sel{background:#e7f2ff;border-color:var(--g)}
+.opt.right{background:#ecfdf5;border-color:var(--g);color:#065f46}
+.opt.wrong{background:#fef2f2;border-color:var(--r);color:#991b1b}
+.fb{margin-top:10px;padding:10px 13px;border-radius:8px;font-size:13px;display:none}
+.fb.show{display:block}.fb.r{background:#ecfdf5;color:#065f46}.fb.w{background:#fef2f2;color:#991b1b}
+.replay{font-size:12px;color:#1d6fb8;cursor:pointer;text-decoration:underline;margin-left:8px}
+.score{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:12px;padding:18px 22px;margin:14px 0;font-size:16px}
+.score b{font-size:26px;color:var(--gold)}
+.rule{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 16px;margin:9px 0;font-size:13.5px}
+.rule b{color:var(--navy2)}
+.redline{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:14px 17px;color:#991b1b;font-size:14px;margin-top:12px}
+.next{background:linear-gradient(135deg,#fffaf0,#fff);border:1px solid #f5e3b8;border-radius:12px;padding:20px 22px;text-align:center}
+.next b{color:var(--navy);font-size:17px}
+.foot{text-align:center;color:#94a3b8;font-size:12px;padding:18px}
+@media(max-width:700px){.card{padding:20px 18px}}
+@media print{.nav,.tools{display:none}.sec{display:block!important;page-break-before:always}}
+</style></head><body>
+<div class="top"><div class="wrap">
+<div class="ttl">第 1 章 · 收益管理是什么：一句话与底层逻辑<small>AI 互动课 · 酒店收益管理 · 全46章</small></div>
+<div class="tools"><button class="btn" onclick="toggleVoice()">🔊 语音讲解</button><button class="btn solid" onclick="go('sim')">进入沙盘 →</button></div>
+</div><div class="bar"><i id="prog"></i></div></div>
+<div class="nav"><div class="wrap">
+<a class="on" onclick="go('intro')">① 导入</a><a onclick="go('case')">② 案例</a><a onclick="go('sim')">③ 沙盘</a><a onclick="go('quiz')">④ 随堂测</a><a onclick="go('table')">⑤ 判定表</a>
+</div></div>
+<main>
+<section id="intro" class="sec on"><div class="card">
+<div class="kicker">第一步 · 讲什么（提示词模板）</div><h2>收益管理是什么：一句话与底层逻辑</h2>
+<div class="slide">
+<div class="no">讲稿 01 / 04</div><h3>这一章解决什么</h3><ul><li>读完这章您能说清：为什么同样一间房，昨天卖 300、今天卖 800 都不是乱来——并记住那条贯穿全书的判据。</li></ul>
+<div class="speaker">这一章讲收益管理是什么：一句话与底层逻辑。：房晚不可储存。今晚卖不掉，这间的价值永久归零——不像衣服能囤到明年卖，也不像产能可以补产。这是收益管理存在的</div></div>
+<div class="slide">
+<div class="no">讲稿 02 / 04</div><h3>三要点</h3><ul><li>：房晚不可储存。今晚卖不掉，这间的价值永久归零——不像衣服能囤到明年卖，也不像产能可以补产。这是收益管理存在的</li>
+<li>成本结构极端</li>
+<li>：酒店固定成本极高（房租、人工、折旧、能耗），而多卖一间的变动成本极低（洗涤、易耗品，几十元）。这意味着</li></ul>
+<div class="speaker">记住几个要点：：房晚不可储存。今晚卖不掉，这间的价值永久归零——不像衣服能囤到明年卖，也不像产能可以补产。这是收益管理存在的；成本结构极端；：酒店固定成本极高（房租、人工、折旧、能耗），而多卖一间的变动成本极低（洗涤、易耗品，几十元）。这意味着</div></div>
+<div class="slide">
+<div class="no">讲稿 03 / 04</div><h3>公式与口径</h3><ul><li>收益管理 = 在正确的时间，以正确的价格，</li>
+<li>把有限的易逝库存，卖给愿意付最高价的客源</li></ul>
+<div class="speaker">本章的确定性口径是：收益管理 = 在正确的时间，以正确的价格，；把有限的易逝库存，卖给愿意付最高价的客源</div></div>
+<div class="slide">
+<div class="no">讲稿 04 / 04</div><h3>红线与结论</h3><ul><li>先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。</li></ul>
+<div class="speaker">最后一条红线：先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。 周三上午，前台小王接到电话：&quot;明天还有房吗？多少钱？&quot;他看了一眼系统：还剩 20 间。心想反正空着也是空着，报了个 300。 对方立刻订了 5 间。小王还挺高兴——上午就开了张。</div></div>
+<div class="row"><button class="act" onclick="speakSlides()">▶ 连续朗读讲稿</button><button class="ghost" onclick="stopSpeak()">■ 停止</button><span class="lead" style="margin:0">语音浏览器本地合成，不联网、不消耗额度。</span></div>
+</div></section>
+<section id="case" class="sec"><div class="card"><div class="kicker">第二步 · 案例导入</div><h2>案例导入 · 您一定踩过的坑</h2><div class="case"><p class="">周三上午，前台小王接到电话：&quot;明天还有房吗？多少钱？&quot;他看了一眼系统：还剩 20 间。心想反正空着也是空着，报了个 300。</p>
+<p class="">对方立刻订了 5 间。小王还挺高兴——上午就开了张。</p>
+<p class="">第二天下午，一个商务团打来电话要 10 间，出价 680，连住两晚。小王翻遍系统，只剩 3 间，只能说对不起。</p>
+<p class="">他不是不努力，他是不知道：这 20 间房&quot;留给谁更值&quot;。</p>
+<p class="">更关键的是——他做决定的时候，手上其实有答案：昨天同期还剩几间、去年这个日子卖了多少、附近展馆下周有没有活动。他只是没看。</p>
+<p class="good">这就是收益管理要解决的问题：</p></div></div></section>
+<section id="sim" class="sec"><div class="card"><div class="kicker">第三步 · 交互模拟（沙盘参数表）</div><h2>收益管理是什么 · 判定沙盘</h2><p class="lead">点选一个决策要点，查看教材给出的口径。这类章节的关键不是算数，而是判断顺序。</p><div class="sim"><div class="dcards"><div class="dcard" onclick="dcard(0)"><b>要点 1</b><span>过期作废（房晚/机位/场次/车位）→ 需要；可储存 → 不需要</span></div><div class="dcard" onclick="dcard(1)"><b>要点 2</b><span>短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要</span></div><div class="dcard" onclick="dcard(2)"><b>要点 3</b><span>有明显淡旺/时段差异 → 需要；全年平稳 → 不需要</span></div><div class="dcard" onclick="dcard(3)"><b>要点 4</b><span>不同客群支付意愿不同 → 需要；所有人出价一样 → 不需要</span></div><div class="dcard" onclick="dcard(4)"><b>要点 5</b><span>可提前预订 → 可做预测与控制；只能现场买 → 只能现场定价</span></div><div class="dcard" onclick="dcard(5)"><b>要点 6</b><span>固定成本占比高、边际成本低 → 填满空房价值大</span></div></div><div id="verdict" class="verdict">点选上方任一决策要点，查看教材口径。</div><div class="note">判定条目来自本章教材判定表/三要点，未改动原文口径。</div></div></div></section>
+<section id="quiz" class="sec"><div class="card"><div class="kicker">第四步 · 随堂测验（评分规则表）</div><h2>随堂测验</h2><p class="lead">题目与答案来自本章题库，选完立刻出结果；答错可点回讲要点看讲解。</p><div id="quizBox"></div><div id="scoreBox"></div><div class="row"><button class="act" onclick="gradeAll()">交卷，看总分</button><button class="ghost" onclick="resetQuiz()">重做</button></div></div></section>
+<section id="table" class="sec"><div class="card"><div class="kicker">第五步 · 判定表速查</div><h2>本章判定表 · 看数→查表→执行</h2><p class="lead">把决策拆成固定问题，不靠临场判断。</p><div class="rule"><b>判定 1</b> → 过期作废（房晚/机位/场次/车位）→ 需要；可储存 → 不需要</div>
+<div class="rule"><b>判定 2</b> → 短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要</div>
+<div class="rule"><b>判定 3</b> → 有明显淡旺/时段差异 → 需要；全年平稳 → 不需要</div>
+<div class="rule"><b>判定 4</b> → 不同客群支付意愿不同 → 需要；所有人出价一样 → 不需要</div>
+<div class="rule"><b>判定 5</b> → 可提前预订 → 可做预测与控制；只能现场买 → 只能现场定价</div>
+<div class="rule"><b>判定 6</b> → 固定成本占比高、边际成本低 → 填满空房价值大</div><div class="redline"><strong>红线：</strong>先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。</div></div>
+<div class="next"><b>下一章 · 第 2 章</b><p class="lead">三个核心指标：OCC、ADR、RevPAR</p><p>继续下一章，把该方法应用到新的决策场景。</p></div></section>
+<div class="foot">RMC 收益管理社区 · AI 互动课 · 内容取自全站知识库 · 语音为浏览器本地合成</div>
+</main>
+<script>
+var QUESTIONS=[{"type": "def", "stem": "教材第 1 章中，「库存易逝」指的是：", "opts": ["但也意味着，把一间本可卖 680 的房以 300 卖掉，损失的是 360 的纯利。", "酒店固定成本极高（房租、人工、折旧、能耗），而多卖一间的变动成本极低（洗涤、易耗品，几十元）。这意味着", "房晚不可储存。今晚卖不掉，这间的价值永久归零——不像衣服能囤到明年卖，也不像产能可以补产。这是收益管理存在的", "商务客临时出差、时间紧、公司买单，愿意付 680；游客提前一个月规划、自掏腰包，只愿付 300。"], "ans": "房晚不可储存。今晚卖不掉，这间的价值永久归零——不像衣服能囤到明年卖，也不像产能可以补产。这是收益管理存在的", "exp": "教材第 1 章原文：库存易逝＝房晚不可储存。今晚卖不掉，这间的价值永久归零——不像衣服能囤到明年卖，也不像产能可以补产。这是收益管理存在的"}, {"type": "def", "stem": "教材第 1 章中，「成本结构极端」指的是：", "opts": ["房晚不可储存。今晚卖不掉，这间的价值永久归零——不像衣服能囤到明年卖，也不像产能可以补产。这是收益管理存在的", "商务客临时出差、时间紧、公司买单，愿意付 680；游客提前一个月规划、自掏腰包，只愿付 300。", "但也意味着，把一间本可卖 680 的房以 300 卖掉，损失的是 360 的纯利。", "酒店固定成本极高（房租、人工、折旧、能耗），而多卖一间的变动成本极低（洗涤、易耗品，几十元）。这意味着"], "ans": "酒店固定成本极高（房租、人工、折旧、能耗），而多卖一间的变动成本极低（洗涤、易耗品，几十元）。这意味着", "exp": "教材第 1 章原文：成本结构极端＝酒店固定成本极高（房租、人工、折旧、能耗），而多卖一间的变动成本极低（洗涤、易耗品，几十元）。这意味着"}, {"type": "judge", "stem": "第 1 章判定表：遇到「产能是否易逝？」，正确做法是？", "opts": ["可提前预订 → 可做预测与控制；只能现场买 → 只能现场定价", "短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要", "先算置换：团收入 ≥ 被挤散客的期望收益才接（第 15 章）", "过期作废（房晚/机位/场次/车位）→ 需要；可储存 → 不需要"], "ans": "过期作废（房晚/机位/场次/车位）→ 需要；可储存 → 不需要", "exp": "教材第 1 章判定表：「产能是否易逝？」→ 过期作废（房晚/机位/场次/车位）→ 需要；可储存 → 不需要"}, {"type": "judge", "stem": "第 1 章判定表：遇到「产能是否短期固定？」，正确做法是？", "opts": ["可提前预订 → 可做预测与控制；只能现场买 → 只能现场定价", "短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要", "可以拒绝低价客（如设限制）→ 可做；必须来者不拒 → 难做", "不同客群支付意愿不同 → 需要；所有人出价一样 → 不需要"], "ans": "短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要", "exp": "教材第 1 章判定表：「产能是否短期固定？」→ 短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要"}, {"type": "judge", "stem": "第 1 章判定表：遇到「需求是否波动？」，正确做法是？", "opts": ["先关低价档（可得性），再考虑提价；不要一步涨到位", "做带栅栏的促销（提前订/不可退/会员），不裸降价", "有明显淡旺/时段差异 → 需要；全年平稳 → 不需要", "短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要"], "ans": "有明显淡旺/时段差异 → 需要；全年平稳 → 不需要", "exp": "教材第 1 章判定表：「需求是否波动？」→ 有明显淡旺/时段差异 → 需要；全年平稳 → 不需要"}, {"type": "fml", "stem": "第 1 章「核心定义」的正确写法是：", "opts": ["净价 = 售价 × (1 − 佣金率) − 其他渠道成本 净 RevPAR = Σ(各渠道净价 × 该渠道售房数) ÷ 可售房数", "RevPAR = OCC × ADR = 客房总收入 ÷ 可售房总数", "越外层越「定方向」，越内层越「做动作」 年(目标) → 季(换挡) → 月(校准) → 周(布动作) → 日(执行+记录)", "收益管理 = 在正确的时间，以正确的价格， 把有限的易逝库存，卖给愿意付最高价的客源"], "ans": "收益管理 = 在正确的时间，以正确的价格， 把有限的易逝库存，卖给愿意付最高价的客源", "exp": "教材第 1 章公式：核心定义 = 收益管理 = 在正确的时间，以正确的价格， 把有限的易逝库存，卖给愿意付最高价的客源"}];
+var voiceOn=false,utter=null;
+function toggleVoice(){voiceOn=!voiceOn;if(!voiceOn)stopSpeak();}
+function speakText(t){if(!('speechSynthesis' in window))return;stopSpeak();utter=new SpeechSynthesisUtterance(t);utter.lang='zh-CN';utter.rate=0.95;window.speechSynthesis.speak(utter);}
+function stopSpeak(){if('speechSynthesis' in window)window.speechSynthesis.cancel();}
+function speakSlides(){speakText(Array.prototype.map.call(document.querySelectorAll('#intro .speaker'),function(x){return x.textContent;}).join(' '));}
+var SECS=['intro','case','sim','quiz','table'];
+function go(id){SECS.forEach(function(s){document.getElementById(s).classList.toggle('on',s===id);});var as=document.querySelectorAll('.nav a');for(var i=0;i<as.length;i++)as[i].classList.toggle('on',as[i].getAttribute('onclick')==="go('"+id+"')");document.getElementById('prog').style.width=((SECS.indexOf(id)+1)/SECS.length*100)+'%';stopSpeak();window.scrollTo({top:0,behavior:'smooth'});}
+var DCARDS=[{"q": "要点 1", "a": "过期作废（房晚/机位/场次/车位）→ 需要；可储存 → 不需要"}, {"q": "要点 2", "a": "短期无法增加（房间数固定）→ 需要；可随时扩产 → 不需要"}, {"q": "要点 3", "a": "有明显淡旺/时段差异 → 需要；全年平稳 → 不需要"}, {"q": "要点 4", "a": "不同客群支付意愿不同 → 需要；所有人出价一样 → 不需要"}, {"q": "要点 5", "a": "可提前预订 → 可做预测与控制；只能现场买 → 只能现场定价"}, {"q": "要点 6", "a": "固定成本占比高、边际成本低 → 填满空房价值大"}];
+function dcard(i){var v=document.getElementById('verdict');v.className='verdict ok';v.innerHTML='<strong>'+DCARDS[i].q+'</strong>：'+DCARDS[i].a;}
+
+var picked={};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function renderQuiz(){var box=document.getElementById('quizBox');box.innerHTML='';QUESTIONS.forEach(function(q,i){var d=document.createElement('div');d.className='q';var h='<div class="qt"><em>'+({def:'概念',judge:'判定表',fml:'公式'}[q.type]||'题')+' '+(i+1)+'</em>'+esc(q.stem)+'</div>';q.opts.forEach(function(o,j){h+='<label class="opt" id="q'+i+'_'+j+'" onclick="pick('+i+','+j+')">'+String.fromCharCode(65+j)+'. '+esc(o)+'</label>';});h+='<div class="fb" id="fb'+i+'"></div>';d.innerHTML=h;box.appendChild(d);});}
+function pick(i,j){picked[i]=j;QUESTIONS[i].opts.forEach(function(_,k){document.getElementById('q'+i+'_'+k).classList.toggle('sel',k===j);});}
+function gradeAll(){var right=0;QUESTIONS.forEach(function(q,i){var ok=(picked[i]!==undefined)&&(q.opts[picked[i]]===q.ans);if(ok)right++;q.opts.forEach(function(_,k){var el=document.getElementById('q'+i+'_'+k);el.classList.remove('sel','right','wrong');if(k===q.opts.indexOf(q.ans))el.classList.add('right');else if(k===picked[i])el.classList.add('wrong');});var fb=document.getElementById('fb'+i);fb.className='fb show '+(ok?'r':'w');fb.innerHTML=(ok?'✓ 正确':'✗ 正确答案：'+esc(q.ans))+'<br><span style="font-size:12.5px">解析：'+esc(q.exp)+'</span>';});document.getElementById('scoreBox').innerHTML='<div class="score">得分 <b>'+right+' / '+QUESTIONS.length+'</b></div>';}
+function resetQuiz(){picked={};renderQuiz();document.getElementById('scoreBox').innerHTML='';}
+renderQuiz();
+</script>
+</body></html>

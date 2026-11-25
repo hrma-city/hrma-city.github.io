@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<script>window.HRMA_PREFIX="../";</script>
+<script src="../auth-config.js"></script>
+<script src="../assets/js/access-gate.js?v=v12"></script>
+<title>第 24 章 · 需求创造：收益不是分蛋糕，是把蛋糕做大｜AI 互动课</title>
+<style>
+:root{--navy:#0f2a4a;--navy2:#1d4e7e;--gold:#e8b84b;--o:#F97316;--g:#22C55E;--r:#dc2626;--ink:#1f2937;--mut:#5b6a7d;--line:#e3e9f1;--bg:#f4f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.8 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink)}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:16px 0}
+.top .wrap{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.top .ttl{font-size:18px;font-weight:600}.top .ttl small{display:block;font-size:12px;color:#bcd0e6;font-weight:400}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:8px;padding:7px 13px;font-size:13px;cursor:pointer;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.btn.solid{background:var(--gold);color:#3b2c00;border-color:var(--gold);font-weight:600}
+.bar{height:4px;background:rgba(255,255,255,.18)}.bar i{display:block;height:100%;background:var(--gold);width:20%;transition:width .3s}
+.nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:9}
+.nav .wrap{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;gap:4px;overflow:auto}
+.nav a{flex:0 0 auto;padding:12px 14px;font-size:13px;color:var(--mut);text-decoration:none;border-bottom:3px solid transparent;white-space:nowrap;cursor:pointer}
+.nav a.on{color:var(--navy2);border-color:var(--o);font-weight:600}
+main{max-width:1000px;margin:0 auto;padding:26px 22px 80px}
+.sec{display:none}.sec.on{display:block}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin-bottom:16px}
+h2{font-size:22px;color:var(--navy);margin-bottom:6px}
+.kicker{font-size:12px;color:var(--o);font-weight:700;letter-spacing:1px;margin-bottom:6px}
+.lead{color:var(--mut);font-size:14px;margin:6px 0 14px}
+.slide{background:linear-gradient(135deg,#fff,#fffaf0);border:1px solid #f5e3b8;border-radius:12px;padding:22px 25px;margin:14px 0}
+.slide .no{font-size:12px;color:#a8842a;font-weight:700}
+.slide h3{font-size:20px;margin:6px 0 12px;color:var(--navy)}
+.slide ul{padding-left:22px;margin:8px 0}.slide li{margin:7px 0;font-size:14.5px}
+.speaker{background:#f0f6ff;border-left:4px solid #3d8bd4;border-radius:8px;padding:12px 16px;margin-top:14px;font-size:13.5px;color:#274e73}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+button.act{background:var(--o);color:#fff;border:0;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer;font-weight:600}
+button.ghost{background:#fff;color:var(--navy2);border:1px solid #c6d6e8;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer}
+.case{background:#fff8f0;border:1px solid #fed7aa;border-radius:12px;padding:20px 22px;margin:12px 0}
+.case .bad{color:var(--r);font-weight:600}.case .good{color:var(--g);font-weight:600}
+.sim{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.formula{background:#fff;border:1px dashed #cbd5e1;border-radius:9px;padding:12px 15px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:#475569;margin:10px 0;line-height:1.9;white-space:pre-line}
+.ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
+.ctrl label{display:block;font-size:13px;color:var(--mut);margin-bottom:4px}
+.ctrl input[type=range]{width:100%;accent-color:var(--o)}
+.ctrl .val{font-weight:700;color:var(--navy);float:right}
+.result{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:16px 0}
+.result div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px}
+.result b{display:block;font-size:22px;color:var(--navy);line-height:1.2}.result span{font-size:12px;color:var(--mut)}
+.result .danger b{color:var(--r)}.result .safe b{color:var(--g)}
+.verdict{border-radius:10px;padding:14px 17px;font-size:14px;margin-top:12px;background:#f8fafc;border:1px solid var(--line)}
+.verdict.warn{background:#FEF2F2;border:1px solid #fecaca;color:#991b1b}
+.verdict.ok{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
+.dcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:6px 0 16px}
+.dcard{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px;cursor:pointer;transition:.15s}
+.dcard:hover{border-color:var(--o);background:#fffaf0}
+.dcard b{display:block;color:var(--navy2);font-size:14px;margin-bottom:5px}
+.dcard span{display:block;font-size:12.5px;color:var(--mut);line-height:1.55}
+.note{background:#fffbe8;border:1px solid var(--gold);border-radius:9px;padding:11px 14px;font-size:12.5px;color:#7a5b00;margin-top:12px}
+.q{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0}
+.q .qt{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:10px}
+.q .qt em{font-style:normal;color:var(--o);font-size:12px;margin-right:6px}
+.opt{display:block;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0;font-size:13.5px;cursor:pointer}
+.opt.sel{background:#e7f2ff;border-color:var(--g)}
+.opt.right{background:#ecfdf5;border-color:var(--g);color:#065f46}
+.opt.wrong{background:#fef2f2;border-color:var(--r);color:#991b1b}
+.fb{margin-top:10px;padding:10px 13px;border-radius:8px;font-size:13px;display:none}
+.fb.show{display:block}.fb.r{background:#ecfdf5;color:#065f46}.fb.w{background:#fef2f2;color:#991b1b}
+.replay{font-size:12px;color:#1d6fb8;cursor:pointer;text-decoration:underline;margin-left:8px}
+.score{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:12px;padding:18px 22px;margin:14px 0;font-size:16px}
+.score b{font-size:26px;color:var(--gold)}
+.rule{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 16px;margin:9px 0;font-size:13.5px}
+.rule b{color:var(--navy2)}
+.redline{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:14px 17px;color:#991b1b;font-size:14px;margin-top:12px}
+.next{background:linear-gradient(135deg,#fffaf0,#fff);border:1px solid #f5e3b8;border-radius:12px;padding:20px 22px;text-align:center}
+.next b{color:var(--navy);font-size:17px}
+.foot{text-align:center;color:#94a3b8;font-size:12px;padding:18px}
+@media(max-width:700px){.card{padding:20px 18px}}
+@media print{.nav,.tools{display:none}.sec{display:block!important;page-break-before:always}}
+</style></head><body>
+<div class="top"><div class="wrap">
+<div class="ttl">第 24 章 · 需求创造：收益不是分蛋糕，是把蛋糕做大<small>AI 互动课 · 酒店收益管理 · 全46章</small></div>
+<div class="tools"><button class="btn" onclick="toggleVoice()">🔊 语音讲解</button><button class="btn solid" onclick="go('sim')">进入沙盘 →</button></div>
+</div><div class="bar"><i id="prog"></i></div></div>
+<div class="nav"><div class="wrap">
+<a class="on" onclick="go('intro')">① 导入</a><a onclick="go('case')">② 案例</a><a onclick="go('sim')">③ 沙盘</a><a onclick="go('quiz')">④ 随堂测</a><a onclick="go('table')">⑤ 判定表</a>
+</div></div>
+<main>
+<section id="intro" class="sec on"><div class="card">
+<div class="kicker">第一步 · 讲什么（提示词模板）</div><h2>需求创造：收益不是分蛋糕，是把蛋糕做大</h2>
+<div class="slide">
+<div class="no">讲稿 01 / 04</div><h3>这一章解决什么</h3><ul><li>读完这章您能算清一场活动到底创造了多少净新增需求，而不是把活动期间的总销量误当成增量。</li></ul>
+<div class="speaker">这一章讲需求创造：收益不是分蛋糕，是把蛋糕做大。（各配一例） 周二收益例会。销售总监说：「下月平峰投三万做推广，能带 70 间夜，ADR 618，肯定赚。」收益经理问了三句：这 70 间里有多少是本来就会来的？当天还有多少余房？挤掉的老客人按什么价算？会议室安静了。三万花出去，账不是「70 × 房价」这么简单。 这门课过去只教「把已有的需求卖个好价」。第 24 章 补的就是这张表。</div></div>
+<div class="slide">
+<div class="no">讲稿 02 / 04</div><h3>三要点</h3><ul><li>（各配一例）</li>
+<li>要点 1 · 先把增量贡献和营销花费放在同一口径</li>
+<li>单位净贡献 558，一次活动固定花费 30,000。保本增量 = 30,000 ÷ 558 = 53.76 间夜，即至少 54 间真正的净新增房晚才不亏。</li></ul>
+<div class="speaker">记住几个要点：（各配一例）；要点 1 · 先把增量贡献和营销花费放在同一口径；单位净贡献 558，一次活动固定花费 30,000。保本增量 = 30,000 ÷ 558 = 53.76 间夜，即至少 54 间真正的净新增房晚才不亏。</div></div>
+<div class="slide">
+<div class="no">讲稿 03 / 04</div><h3>公式与口径</h3><ul><li>固定花费 ÷ 单位净贡献 = 30,000 ÷ 558 = 53.76 间夜</li>
+<li>小数向上取整为 54 间；低于 54 间的「净新增」不足以覆盖花费。</li>
+<li>净新增间夜 × 单位净贡献 − 固定花费</li></ul>
+<div class="speaker">本章的确定性口径是：固定花费 ÷ 单位净贡献 = 30,000 ÷ 558 = 53.76 间夜；小数向上取整为 54 间；低于 54 间的「净新增」不足以覆盖花费。；净新增间夜 × 单位净贡献 − 固定花费</div></div>
+<div class="slide">
+<div class="no">讲稿 04 / 04</div><h3>红线与结论</h3><ul><li>先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。</li></ul>
+<div class="speaker">最后一条红线：先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。 周二收益例会。销售总监说：「下月平峰投三万做推广，能带 70 间夜，ADR 618，肯定赚。」收益经理问了三句：这 70 间里有多少是本来就会来的？当天还有多少余房？挤掉的老客人按什么价算？会议室安静了。三万花出去，账不是「70 × 房价」这么简单。 这门课过去只教「把已有的需求卖个好价」。第 24 章 补的就是这张表。</div></div>
+<div class="row"><button class="act" onclick="speakSlides()">▶ 连续朗读讲稿</button><button class="ghost" onclick="stopSpeak()">■ 停止</button><span class="lead" style="margin:0">语音浏览器本地合成，不联网、不消耗额度。</span></div>
+</div></section>
+<section id="case" class="sec"><div class="card"><div class="kicker">第二步 · 案例导入</div><h2>案例导入 · 您一定踩过的坑</h2><div class="case"><p class="">周二收益例会。销售总监说：「下月平峰投三万做推广，能带 70 间夜，ADR 618，肯定赚。」收益经理问了三句：这 70 间里有多少是本来就会来的？当天还有多少余房？挤掉的老客人按什么价算？会议室安静了。三万花出去，账不是「70 × 房价」这么简单。</p>
+<p class="">这门课过去只教「把已有的需求卖个好价」。第 24 章 补的就是这张表。</p></div></div></section>
+<section id="sim" class="sec"><div class="card"><div class="kicker">第三步 · 交互模拟（沙盘参数表）</div><h2>需求创造 · 判定沙盘</h2><p class="lead">点选一个决策要点，查看教材给出的口径。这类章节的关键不是算数，而是判断顺序。</p><div class="sim"><div class="dcards"><div class="dcard" onclick="dcard(0)"><b>要点 1</b><span>读完这章您能算清一场活动到底创造了多少净新增需求，而不是把活动期间的总销量误当成增量。</span></div></div><div id="verdict" class="verdict">点选上方任一决策要点，查看教材口径。</div><div class="note">判定条目来自本章教材判定表/三要点，未改动原文口径。</div></div></div></section>
+<section id="quiz" class="sec"><div class="card"><div class="kicker">第四步 · 随堂测验（评分规则表）</div><h2>随堂测验</h2><p class="lead">题目与答案来自本章题库，选完立刻出结果；答错可点回讲要点看讲解。</p><div id="quizBox"></div><div id="scoreBox"></div><div class="row"><button class="act" onclick="gradeAll()">交卷，看总分</button><button class="ghost" onclick="resetQuiz()">重做</button></div></div></section>
+<section id="table" class="sec"><div class="card"><div class="kicker">第五步 · 判定表速查</div><h2>本章判定表 · 看数→查表→执行</h2><p class="lead">把决策拆成固定问题，不靠临场判断。</p><div class="rule"><b>判定 1</b> → 读完这章您能算清一场活动到底创造了多少净新增需求，而不是把活动期间的总销量误当成增量。</div><div class="redline"><strong>红线：</strong>先用近 90 天真实数据校准，不为追求数字一致而改动历史口径。</div></div>
+<div class="next"><b>下一章 · 第 25 章</b><p class="lead">年度预算：把一年拆到每天</p><p>继续下一章，把该方法应用到新的决策场景。</p></div></section>
+<div class="foot">RMC 收益管理社区 · AI 互动课 · 内容取自全站知识库 · 语音为浏览器本地合成</div>
+</main>
+<script>
+var QUESTIONS=[{"type": "def", "stem": "教材第 24 章《需求创造》中，关于「本章」的表述，正确的是：", "opts": ["本章 2 学时，归属第三篇 · 运营篇", "学完这章你能 读完这章您能跑完：一个完整的收益工作日，从早上到交班", "解决方法是把一天固定成几个动作 ，每个动作有明确的输入和输出，做完就收工", "这样做的三个好处：① 不会漏掉关键动作"], "ans": "本章 2 学时，归属第三篇 · 运营篇", "exp": "教材第 24 章原文：本章 2 学时，归属第三篇 · 运营篇"}, {"type": "def", "stem": "教材第 24 章《需求创造》中，关于「销售总监说」的表述，正确的是：", "opts": ["学完这章你能 读完这章您能判断：做到什么程度算合格，以及怎么让团队持续做对", "销售总监说：「下月平峰投三万做推广，能带 70 间夜，ADR 618，肯定赚", "更常见的问题是：没有标准的执行会慢慢变形", "判定表不用了、记录不写了、销售又开始现场放价"], "ans": "销售总监说：「下月平峰投三万做推广，能带 70 间夜，ADR 618，肯定赚", "exp": "教材第 24 章原文：销售总监说：「下月平峰投三万做推广，能带 70 间夜，ADR 618，肯定赚"}, {"type": "def", "stem": "教材第 24 章《需求创造》中，关于「收益经理问了三句」的表述，正确的是：", "opts": ["学完这章你能 读完这章您能回答：凭什么现在就知道那天会不会满房", "结果那年高速免费政策变了，客流没来，最后出租率不到 50%—— 高价把客人都吓跑了", "」收益经理问了三句：这 70 间里有多少是本来就会来的", "错不在涨价，在于 把\"感觉\"当成了\"预测\""], "ans": "」收益经理问了三句：这 70 间里有多少是本来就会来的", "exp": "教材第 24 章原文：」收益经理问了三句：这 70 间里有多少是本来就会来的"}, {"type": "def", "stem": "教材第 24 章《需求创造》中，关于「三万花出去」的表述，正确的是：", "opts": ["学完这章你能 读完这章您能做：把一个年度目标，变成每天该卖多少钱、留多少房", "本章口诀 结果：A 店淡季月月完不成、团队士气低落 ① 思维导图 年度预算：把一年拆到每天 案例 · 两个版本的预算 案例三 · 预算里的市场假设救了一次复盘 案例四 · 一次预算宣贯会（含对话） ② 案例导入 您一定踩过的坑 老板年初给了一个数：\"明年客房收入做到 3,000 万", "\"会议室里人人点头，然后各干各的", "三万花出去，账不是「70 × 房价」这么简单"], "ans": "三万花出去，账不是「70 × 房价」这么简单", "exp": "教材第 24 章原文：三万花出去，账不是「70 × 房价」这么简单"}, {"type": "def", "stem": "教材第 24 章《需求创造》中，关于「这门课过去只教」的表述，正确的是：", "opts": ["这门课过去只教「把已有的需求卖个好价」", "学完这章你能 读完这章您能搭出：一套不乱、不塌、谁都能执行的价格结构", "最后所有人都不知道这间房到底该卖多少钱", "价格体系一旦塌了，收益管理就无从谈起——因为所有决策都失去了参照系"], "ans": "这门课过去只教「把已有的需求卖个好价」", "exp": "教材第 24 章原文：这门课过去只教「把已有的需求卖个好价」"}, {"type": "def", "stem": "教材第 24 章《需求创造》中，关于「但院校教师被问到」的表述，正确的是：", "opts": ["学完这章你能 读完这章您能列出：收益岗每天、每周、每月必看的表", "但院校教师被问到「营销和收益怎么打通」时，手里没有一张能算的 table", "真正需要的，是几张能直接指向\"今天该做什么动作\"的表", "判断一张报表要不要存在的标准只有一个： 看完能不能说出一个动作"], "ans": "但院校教师被问到「营销和收益怎么打通」时，手里没有一张能算的 table", "exp": "教材第 24 章原文：但院校教师被问到「营销和收益怎么打通」时，手里没有一张能算的 table"}];
+var voiceOn=false,utter=null;
+function toggleVoice(){voiceOn=!voiceOn;if(!voiceOn)stopSpeak();}
+function speakText(t){if(!('speechSynthesis' in window))return;stopSpeak();utter=new SpeechSynthesisUtterance(t);utter.lang='zh-CN';utter.rate=0.95;window.speechSynthesis.speak(utter);}
+function stopSpeak(){if('speechSynthesis' in window)window.speechSynthesis.cancel();}
+function speakSlides(){speakText(Array.prototype.map.call(document.querySelectorAll('#intro .speaker'),function(x){return x.textContent;}).join(' '));}
+var SECS=['intro','case','sim','quiz','table'];
+function go(id){SECS.forEach(function(s){document.getElementById(s).classList.toggle('on',s===id);});var as=document.querySelectorAll('.nav a');for(var i=0;i<as.length;i++)as[i].classList.toggle('on',as[i].getAttribute('onclick')==="go('"+id+"')");document.getElementById('prog').style.width=((SECS.indexOf(id)+1)/SECS.length*100)+'%';stopSpeak();window.scrollTo({top:0,behavior:'smooth'});}
+var DCARDS=[{"q": "要点 1", "a": "读完这章您能算清一场活动到底创造了多少净新增需求，而不是把活动期间的总销量误当成增量。"}];
+function dcard(i){var v=document.getElementById('verdict');v.className='verdict ok';v.innerHTML='<strong>'+DCARDS[i].q+'</strong>：'+DCARDS[i].a;}
+
+var picked={};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function renderQuiz(){var box=document.getElementById('quizBox');box.innerHTML='';QUESTIONS.forEach(function(q,i){var d=document.createElement('div');d.className='q';var h='<div class="qt"><em>'+({def:'概念',judge:'判定表',fml:'公式'}[q.type]||'题')+' '+(i+1)+'</em>'+esc(q.stem)+'</div>';q.opts.forEach(function(o,j){h+='<label class="opt" id="q'+i+'_'+j+'" onclick="pick('+i+','+j+')">'+String.fromCharCode(65+j)+'. '+esc(o)+'</label>';});h+='<div class="fb" id="fb'+i+'"></div>';d.innerHTML=h;box.appendChild(d);});}
+function pick(i,j){picked[i]=j;QUESTIONS[i].opts.forEach(function(_,k){document.getElementById('q'+i+'_'+k).classList.toggle('sel',k===j);});}
+function gradeAll(){var right=0;QUESTIONS.forEach(function(q,i){var ok=(picked[i]!==undefined)&&(q.opts[picked[i]]===q.ans);if(ok)right++;q.opts.forEach(function(_,k){var el=document.getElementById('q'+i+'_'+k);el.classList.remove('sel','right','wrong');if(k===q.opts.indexOf(q.ans))el.classList.add('right');else if(k===picked[i])el.classList.add('wrong');});var fb=document.getElementById('fb'+i);fb.className='fb show '+(ok?'r':'w');fb.innerHTML=(ok?'✓ 正确':'✗ 正确答案：'+esc(q.ans))+'<br><span style="font-size:12.5px">解析：'+esc(q.exp)+'</span>';});document.getElementById('scoreBox').innerHTML='<div class="score">得分 <b>'+right+' / '+QUESTIONS.length+'</b></div>';}
+function resetQuiz(){picked={};renderQuiz();document.getElementById('scoreBox').innerHTML='';}
+renderQuiz();
+</script>
+</body></html>
