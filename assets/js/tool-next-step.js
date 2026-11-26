@@ -11,6 +11,7 @@
    ========================================================================== */
 (function () {
   'use strict';
+  var URL = 'https://ima.qq.com/wiki/?shareId=aa9c4ba72350ef493d13cb95e8ef311a3d4486e9762f4d644dac6100a7ac8093';
   var host = document.getElementById('toolNextStep');
   var cfg = window.RMC_TOOL_NEXT;
   if (!host || !cfg || !cfg.lines || !cfg.lines.length) return;
@@ -32,6 +33,9 @@
     '.rmc-next b{color:#1d4b38}' +
     '.rmc-next a{color:#1f6b4f;text-decoration:underline;text-underline-offset:2px}' +
     '.rmc-next .muted{color:#6f8176;font-size:12.5px}' +
+    '.rmc-next .kb{margin-top:14px;padding:12px 14px;background:#f3f7fb;border:1px solid #d9e4ef;border-radius:10px;font-size:13px;line-height:1.7;color:#274260}' +
+    '.rmc-next .kb b{color:#1d4b78}' +
+    '.rmc-next .kb a{color:#155b8f;font-weight:700}' +
     '@media(max-width:640px){.rmc-next{padding:14px 16px}.rmc-next li{font-size:13px}}';
   document.head.appendChild(css);
 
@@ -43,5 +47,7 @@
       }
       if (x.note) body += '<div class="muted">' + esc(x.note) + '</div>';
       return '<li>' + body + '</li>';
-    }).join('') + '</ol></section>';
+    }).join('') + '</ol>' +
+    '<div class="kb">想先拿一个真实问题试试？<b>打开免费问答样板库</b>，问完再决定要不要买。 <a href="' + esc(URL) + '" target="_blank" rel="noopener">去问一个问题 →</a></div>' +
+    '</section>';
 })();
