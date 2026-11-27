@@ -119,10 +119,46 @@
       +'项目：'+kind+(o.ref_id?(' / '+o.ref_id):'')+'\n'
       +'金额：¥'+amount+'\n'
       +'我的注册邮箱：'+(em||'（请填写您的注册邮箱）')+'\n\n'
+      +intentText(o)
       +'请告知付款方式，谢谢！';
     window.location.href='mailto:'+to
       +'?subject='+encodeURIComponent(subject)
       +'&body='+encodeURIComponent(body);
+  }
+
+  function intentKey(o){ return 'rmc_order_intent_' + o.id; }
+  function readIntent(o){ try{ return JSON.parse(localStorage.getItem(intentKey(o))||'{}')||{}; }catch(e){ return {}; } }
+  function writeIntent(o,d){ try{ localStorage.setItem(intentKey(o), JSON.stringify(d)); return true; }catch(e){ return false; } }
+  function intentText(o){
+    var d = readIntent(o), out = [];
+    if(d.role) out.push('我的身份：' + d.role);
+    if(d.decision) out.push('我当下要做的决策：' + d.decision);
+    if(d.payfor) out.push('我愿意为什么付钱：' + d.payfor);
+    return out.length ? ('\n登记信息（这三项会帮我们判断你买来要做什么）：\n' + out.join('\n') + '\n') : '';
+  }
+  function mountIntent(o){
+    var box = document.getElementById('intentBox'); if(!box) return;
+    var d = readIntent(o);
+    var html = '<div class="co-pay" id="intentBox"><div class="cm-eyebrow">登记你的用途（选填，三项都会写进邮件）</div>'
+      + '<p class="co-note">告诉我们你买来要做什么，交付会更对得上。</p>'
+      + '<label class="co-note">你的身份<br><select id="riRole" style="padding:7px;border:1px solid #cbd5e1;border-radius:6px;max-width:100%">'
+      + '<option value="">请选择</option><option value="院校教师">院校教师</option><option value="在岗收益经理">在岗收益经理</option>'
+      + '<option value="学生">学生</option><option value="酒店业主或管理者">酒店业主或管理者</option><option value="其他">其他</option></select></label>'
+      + '<label class="co-note" style="display:block;margin-top:8px">你当下要做的决策<br><input id="riDecision" maxlength="120" placeholder="例：下周要开一堂收益管理课" style="width:100%;max-width:520px;padding:7px;border:1px solid #cbd5e1;border-radius:6px"></label>'
+      + '<label class="co-note" style="display:block;margin-top:8px">你愿意为什么付钱<br><input id="riPayfor" maxlength="120" placeholder="例：能直接上课的教案与判定表" style="width:100%;max-width:520px;padding:7px;border:1px solid #cbd5e1;border-radius:6px"></label>'
+      + '<p><button class="btn-line" id="saveIntent" style="margin-top:10px">保存登记信息</button> <span id="intentMsg" class="co-note"></span></p></div>';
+    box.outerHTML = html;
+    document.getElementById('riRole').value = d.role || '';
+    document.getElementById('riDecision').value = d.decision || '';
+    document.getElementById('riPayfor').value = d.payfor || '';
+    document.getElementById('saveIntent').addEventListener('click', function(){
+      var v = { role: document.getElementById('riRole').value,
+                decision: document.getElementById('riDecision').value.trim(),
+                payfor: document.getElementById('riPayfor').value.trim(),
+                saved_at: new Date().toISOString() };
+      var ok = writeIntent(o, v);
+      document.getElementById('intentMsg').textContent = ok ? '已保存在本机，点「发邮件通知我们」时会一并带上。' : '本机保存失败，请直接写在邮件里。';
+    });
   }
 
   function showContactPay(o){
@@ -139,6 +175,7 @@
           +'<button class="btn-line" id="copyMail" style="padding:2px 10px;font-size:12px;margin-left:6px">复制邮箱</button></p>'
         +(P.bank?'<p class="co-note">转账账号：'+esc(P.bank)+'</p>':'')
         +(P.note?'<p class="co-note">'+esc(P.note)+'</p>':'')
+      +'<div id="intentBox"></div>'
       +'</div>'
       +'<div class="co-pay">'
         +'<button class="btn-gold" id="mailBtn">发邮件通知我们</button> '
@@ -152,6 +189,7 @@
     document.getElementById('mailBtn').addEventListener('click', function(){ openMail(o, this); });
     document.getElementById('payBtn').addEventListener('click', function(){ doConfirm(o, this); });
     document.getElementById('cancelBtn').addEventListener('click', function(){ doCancel(o); });
+    mountIntent(o);
   }
 
   function renderOrder(o){
