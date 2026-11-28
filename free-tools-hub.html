@@ -50,6 +50,46 @@ main{max-width:1080px;margin:0 auto;padding:30px 24px 80px}
 <a href="attribution-coach.html" style="display:block;border:1px solid var(--line);border-left:3px solid #0D9488;border-radius:8px;padding:11px 13px;text-decoration:none;color:var(--ink)"><div style="font-size:12px;color:#0D9488;font-weight:700">3 · 练 1 次</div><div style="font-weight:600;margin:3px 0">先决策，再被追问</div><div style="font-size:12px;color:var(--mut)">归因陪练 →</div></a>
 <a href="action-plan-90.html" style="display:block;border:1px solid var(--line);border-left:3px solid #16a34a;border-radius:8px;padding:11px 13px;text-decoration:none;color:var(--ink)"><div style="font-size:12px;color:#16a34a;font-weight:700">4 · 带走成果</div><div style="font-weight:600;margin:3px 0">一份可打印计划</div><div style="font-size:12px;color:var(--mut)">90 天行动生成器 →</div></a>
 </div></section>
+<section style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:30px" id="weeklyLoop">
+<div style="font-size:17px;color:var(--navy);font-weight:600;margin-bottom:4px">4 周作业循环 · 把一次判断留下证据</div>
+<div style="font-size:13px;color:var(--mut);margin-bottom:14px">每周四步，只填你自己的店。数据只存本机，不上传；导出后可交给教练或互评同伴。</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:12px 0">
+<div style="border-left:3px solid #0284C7;padding:9px 11px;background:#f6fafd"><b>周一 · 交数</b><div style="font-size:12.5px;color:var(--mut)">填本店 OCC / ADR / 竞品价</div><a href="diagnose.html">打开自检 →</a></div>
+<div style="border-left:3px solid #7C3AED;padding:9px 11px;background:#f8f6fd"><b>周三 · 出招</b><div style="font-size:12.5px;color:var(--mut)">写明判断与依据编号</div><a href="citation.html">看依据说明 →</a></div>
+<div style="border-left:3px solid #0D9488;padding:9px 11px;background:#f2faf8"><b>周五 · 互评</b><div style="font-size:12.5px;color:var(--mut)">两人互问一句「为什么」</div><a href="attribution-coach.html">打开陪练 →</a></div>
+<div style="border-left:3px solid #16a34a;padding:9px 11px;background:#f4faf5"><b>周末 · 复盘</b><div style="font-size:12.5px;color:var(--mut)">分清实力与运气</div><a href="weekly-action.html">看四周样题 →</a></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px">
+<label style="font-size:12.5px;color:var(--mut)">第 <select id="wlWeek"><option>1</option><option>2</option><option>3</option><option>4</option></select> 周</label>
+<label style="font-size:12.5px;color:var(--mut)">本店三个数 <input id="wlNums" maxlength="80" placeholder="例：OCC 72% / ADR 618 / 竞品 580" style="width:100%;padding:6px;border:1px solid #cbd5e1;border-radius:6px"></label>
+<label style="font-size:12.5px;color:var(--mut)">我的判断与依据 <input id="wlCall" maxlength="120" placeholder="例：不跟价，查法典表 A" style="width:100%;padding:6px;border:1px solid #cbd5e1;border-radius:6px"></label>
+<label style="font-size:12.5px;color:var(--mut)">运气 or 实力 <input id="wlLuck" maxlength="160" placeholder="若重来一次、日子不变，还会这么定吗？" style="width:100%;padding:6px;border:1px solid #cbd5e1;border-radius:6px"></label>
+</div>
+<p style="margin:12px 0 4px"><button id="wlSave" style="background:#173e5b;color:#fff;border:0;border-radius:7px;padding:8px 14px;cursor:pointer">保存本周</button>
+<button id="wlExport" style="border:1px solid #cbd5e1;background:#fff;border-radius:7px;padding:8px 14px;cursor:pointer;margin-left:6px">导出四周记录</button>
+<span id="wlMsg" style="font-size:12.5px;color:var(--mut);margin-left:8px"></span></p>
+<pre id="wlView" style="white-space:pre-wrap;font-size:12.5px;color:#334;background:#f7f9fc;border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0 0"></pre>
+</section>
+<script>
+(function(){
+  var KEY='rmc_weekly_loop_v1';
+  function load(){ try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}} }
+  function save(d){ try{localStorage.setItem(KEY,JSON.stringify(d));return true}catch(e){return false} }
+  function view(){ var d=load(),out=[]; for(var i=1;i<=4;i++){var x=d[i]; if(x) out.push('第 '+i+' 周\n  三个数：'+x.nums+'\n  判断与依据：'+x.call+'\n  运气 or 实力：'+x.luck);} document.getElementById('wlView').textContent=out.join('\n\n')||'还没有保存记录。'; }
+  document.getElementById('wlSave').addEventListener('click',function(){
+    var d=load(),w=document.getElementById('wlWeek').value;
+    d[w]={nums:document.getElementById('wlNums').value.trim(),call:document.getElementById('wlCall').value.trim(),luck:document.getElementById('wlLuck').value.trim(),at:new Date().toISOString()};
+    document.getElementById('wlMsg').textContent=save(d)?'已保存在本机。':'本机保存失败。'; view();
+  });
+  document.getElementById('wlExport').addEventListener('click',function(){
+    var d=load(),lines=['RMC 4 周作业循环记录','导出时间：'+new Date().toLocaleString()];
+    for(var i=1;i<=4;i++){var x=d[i]; if(x) lines.push('\n第 '+i+' 周\n三个数：'+x.nums+'\n判断与依据：'+x.call+'\n运气 or 实力：'+x.luck+'\n保存时间：'+x.at);}
+    var blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download='RMC_4周作业记录.txt'; a.click(); URL.revokeObjectURL(a.href);
+  });
+  view();
+})();
+</script>
 <section class="group">
         <div class="group-head"><span class="dot" style="background:#0284C7"></span>
         <h2>经营诊断</h2><span class="num">5 个</span></div>

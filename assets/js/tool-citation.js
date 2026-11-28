@@ -22,7 +22,8 @@
     '.rmc-cite .m{color:#6b8096;font-size:12.5px}';
   document.head.appendChild(css);
 
-  var list = (cfg.lines || []).map(function (x) { return '<li>' + x + '</li>'; }).join('');
+  var list = (cfg.lines || []).map(function (x) { return '<li>' + x + '</li>'; }).join('')
+    + '<li>事后问一句：若重来一次、日子不变，我还会这么定吗？会 → 实力；说不清 → 运气。</li>';
   host.innerHTML = '<section class="rmc-cite"><div class="t">这次判断的依据</div>' +
     '<ul>' + list + '</ul>' +
     '<div>想看完整的判定条件与例子：<a href="' + cfg.href + '">' + (cfg.linkText || '打开依据说明') + '</a></div>' +
